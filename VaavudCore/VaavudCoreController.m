@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
-#import "VaavudCoreController1.h"
+#import "VaavudCoreController.h"
 #import <CoreMotion/CoreMotion.h>
 
-@interface VaavudCoreController1 ()
+@interface VaavudCoreController ()
 
 @property (nonatomic, strong) NSMutableArray *magneticFieldReadings;
 @property (nonatomic) float windSpeed;
@@ -20,7 +20,7 @@
 
 @end
 
-@implementation VaavudCoreController1 {
+@implementation VaavudCoreController {
     CMMotionManager *motionManager;
     NSOperationQueue *operationQueue;
 }

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface VaavudCoreController1 : NSObject
+@interface VaavudCoreController : NSObject
 
 - (id) init;
 - (void) start;

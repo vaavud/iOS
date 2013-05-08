@@ -19,7 +19,7 @@
 		D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */; };
 		D7A4F1E7173A8DDB00D1ACEE /* vaavudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */; };
 		D7A4F1EE173A8E8300D1ACEE /* VaavudCompactTagline1000px.png in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1ED173A8E8300D1ACEE /* VaavudCompactTagline1000px.png */; };
-		D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController1.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController1.m */; };
+		D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */; };
 		D7A4F1F4173A9FC200D1ACEE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */; };
 /* End PBXBuildFile section */
 
@@ -41,8 +41,8 @@
 		D7A4F1E5173A8DDB00D1ACEE /* vaavudViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vaavudViewController.h; sourceTree = "<group>"; };
 		D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vaavudViewController.m; sourceTree = "<group>"; };
 		D7A4F1ED173A8E8300D1ACEE /* VaavudCompactTagline1000px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudCompactTagline1000px.png; sourceTree = "<group>"; };
-		D7A4F1F0173A8FAB00D1ACEE /* VaavudCoreController1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudCoreController1.h; sourceTree = "<group>"; };
-		D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudCoreController1.m; sourceTree = "<group>"; };
+		D7A4F1F0173A8FAB00D1ACEE /* VaavudCoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudCoreController.h; sourceTree = "<group>"; };
+		D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudCoreController.m; sourceTree = "<group>"; };
 		D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		D7A4F1F5173AA16700D1ACEE /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -122,8 +122,8 @@
 		D7A4F1EF173A8F4600D1ACEE /* VaavudCoreFiles */ = {
 			isa = PBXGroup;
 			children = (
-				D7A4F1F0173A8FAB00D1ACEE /* VaavudCoreController1.h */,
-				D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController1.m */,
+				D7A4F1F0173A8FAB00D1ACEE /* VaavudCoreController.h */,
+				D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */,
 				D7A4F1F5173AA16700D1ACEE /* Constants.h */,
 			);
 			name = VaavudCoreFiles;
@@ -200,7 +200,7 @@
 				D7A4F1D7173A8DDB00D1ACEE /* main.m in Sources */,
 				D7A4F1DB173A8DDB00D1ACEE /* vaavudAppDelegate.m in Sources */,
 				D7A4F1E7173A8DDB00D1ACEE /* vaavudViewController.m in Sources */,
-				D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController1.m in Sources */,
+				D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

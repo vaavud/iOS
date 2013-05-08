@@ -7,7 +7,7 @@
 //
 
 #import "vaavudViewController.h"
-#import "VaavudCoreController1.h"
+#import "VaavudCoreController.h"
 
 @interface vaavudViewController ()
 
@@ -15,7 +15,7 @@
 
 @implementation vaavudViewController {
     
-    VaavudCoreController1 *vaavudCoreController;
+    VaavudCoreController *vaavudCoreController;
 }
 
 - (void)viewDidLoad
@@ -23,7 +23,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    vaavudCoreController = [[VaavudCoreController1 alloc] init];
+    vaavudCoreController = [[VaavudCoreController alloc] init];
     
     [vaavudCoreController start];
     
