@@ -8,27 +8,33 @@
 
 #import "VaavudCoreController.h"
 #import <CoreMotion/CoreMotion.h>
+#import "VCMagneticFieldReading.h"
 
-@interface VaavudCoreController ()
+@interface VaavudCoreController () {
+    
+    @private
+    NSNumber *startTime;
+}
 
+// public properties
 @property (nonatomic, strong) NSMutableArray *magneticFieldReadings;
 @property (nonatomic) float windSpeed;
 @property (nonatomic) float windDirection;
 @property (nonatomic) float windSpeedMax;
 
+// private properties
+@property (nonatomic, strong) CMMotionManager *motionManager;
+@property (nonatomic, strong) NSOperationQueue *operationQueue;
+
+
 - (void) startMagneticFieldSensor;
+
 
 @end
 
 @implementation VaavudCoreController {
-    CMMotionManager *motionManager;
-    NSOperationQueue *operationQueue;
+   
 }
-
-@synthesize magneticFieldReadings;
-@synthesize windSpeed;
-@synthesize windDirection;
-@synthesize windSpeedMax;
 
 
 // Public methods
@@ -49,13 +55,20 @@
 
 - (void) start
 {
+
+    // create mutable array that will hold magnetic field data
+    self.magneticFieldReadings = [[NSMutableArray alloc] init];
+    startTime = [[NSNumber alloc] initWithDouble: CACurrentMediaTime()];
     [self startMagneticFieldSensor];
+    
+    
 }
 
 - (void) stop
 {
-    [motionManager stopMagnetometerUpdates];
-    motionManager = nil;
+    [self.motionManager stopMagnetometerUpdates];
+    self.motionManager = nil;
+    
 }
 
 
@@ -69,14 +82,23 @@
 - (void) startMagneticFieldSensor
 {
  
-    motionManager = [[CMMotionManager alloc] init];
+       
+    self.motionManager = [[CMMotionManager alloc] init];
     
-    if (motionManager.magnetometerAvailable) {
-        motionManager.magnetometerUpdateInterval = 1.0/preferedSampleFrequency;
-        operationQueue = [NSOperationQueue currentQueue];
-        [motionManager startMagnetometerUpdatesToQueue:operationQueue withHandler:^(CMMagnetometerData *magnetometerData, NSError *error) {
+    if (self.motionManager.magnetometerAvailable) {
+        self.motionManager.magnetometerUpdateInterval = 1.0/preferedSampleFrequency;
+        self.operationQueue = [NSOperationQueue currentQueue];
+        [self.motionManager startMagnetometerUpdatesToQueue:self.operationQueue withHandler:^(CMMagnetometerData *magnetometerData, NSError *error) {
             CMMagneticField magneticField = magnetometerData.magneticField;
             
+            double timeSinceStart = CACurrentMediaTime() - startTime.doubleValue;
+            
+            VCMagneticFieldReading *magneticFieldReading = [[VCMagneticFieldReading alloc] initWithTime: timeSinceStart timeAndX:magneticField.x andY:magneticField.y andZ:magneticField.z];
+                
+            [self.magneticFieldReadings addObject: magneticFieldReading];
+            
+            
+            // 
 //            [self updateDisplay:field];
 //            
 //            if (isLogging) {
@@ -87,7 +109,7 @@
 //                [self logSet:field andTime:time];
 //            }
             
-            NSLog( @"magnetic field reading x: %f", magneticField.x);
+            NSLog( @"magnetic field reading time: %f   x: %f", magneticFieldReading.time, magneticFieldReading.x);
             
         }];
         

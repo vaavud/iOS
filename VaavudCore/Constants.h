@@ -7,3 +7,5 @@
 //
 
 #define preferedSampleFrequency 60
+#define FFTCalFrequency 5
+

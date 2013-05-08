@@ -21,6 +21,9 @@
 		D7A4F1EE173A8E8300D1ACEE /* VaavudCompactTagline1000px.png in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1ED173A8E8300D1ACEE /* VaavudCompactTagline1000px.png */; };
 		D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */; };
 		D7A4F1F4173A9FC200D1ACEE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */; };
+		D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C860ED173AD08F005E9946 /* QuartzCore.framework */; };
+		D7C860F1173AE94B005E9946 /* VCMagneticFieldReading.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C860F0173AE94B005E9946 /* VCMagneticFieldReading.m */; };
+		D7C860F7173B0182005E9946 /* vaavudMagneticFieldDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C860F6173B0182005E9946 /* vaavudMagneticFieldDataController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +48,11 @@
 		D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudCoreController.m; sourceTree = "<group>"; };
 		D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		D7A4F1F5173AA16700D1ACEE /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		D7C860ED173AD08F005E9946 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D7C860EF173AE94B005E9946 /* VCMagneticFieldReading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCMagneticFieldReading.h; sourceTree = "<group>"; };
+		D7C860F0173AE94B005E9946 /* VCMagneticFieldReading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCMagneticFieldReading.m; sourceTree = "<group>"; };
+		D7C860F5173B0182005E9946 /* vaavudMagneticFieldDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudMagneticFieldDataController.h; sourceTree = "<group>"; };
+		D7C860F6173B0182005E9946 /* vaavudMagneticFieldDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudMagneticFieldDataController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */,
 				D7A4F1F4173A9FC200D1ACEE /* CoreMotion.framework in Frameworks */,
 				D7A4F1CB173A8DDB00D1ACEE /* UIKit.framework in Frameworks */,
 				D7A4F1CD173A8DDB00D1ACEE /* Foundation.framework in Frameworks */,
@@ -65,6 +74,7 @@
 		D7A4F1BE173A8DDB00D1ACEE = {
 			isa = PBXGroup;
 			children = (
+				D7C860ED173AD08F005E9946 /* QuartzCore.framework */,
 				D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */,
 				D7A4F1D0173A8DDB00D1ACEE /* VaavudCore */,
 				D7A4F1C9173A8DDB00D1ACEE /* Frameworks */,
@@ -125,6 +135,10 @@
 				D7A4F1F0173A8FAB00D1ACEE /* VaavudCoreController.h */,
 				D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */,
 				D7A4F1F5173AA16700D1ACEE /* Constants.h */,
+				D7C860EF173AE94B005E9946 /* VCMagneticFieldReading.h */,
+				D7C860F0173AE94B005E9946 /* VCMagneticFieldReading.m */,
+				D7C860F5173B0182005E9946 /* vaavudMagneticFieldDataController.h */,
+				D7C860F6173B0182005E9946 /* vaavudMagneticFieldDataController.m */,
 			);
 			name = VaavudCoreFiles;
 			sourceTree = "<group>";
@@ -201,6 +215,8 @@
 				D7A4F1DB173A8DDB00D1ACEE /* vaavudAppDelegate.m in Sources */,
 				D7A4F1E7173A8DDB00D1ACEE /* vaavudViewController.m in Sources */,
 				D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController.m in Sources */,
+				D7C860F1173AE94B005E9946 /* VCMagneticFieldReading.m in Sources */,
+				D7C860F7173B0182005E9946 /* vaavudMagneticFieldDataController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
