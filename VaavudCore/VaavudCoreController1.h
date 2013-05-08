@@ -8,11 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface vaavudCoreController : NSObject
+@interface VaavudCoreController1 : NSObject
 
 - (id) init;
 - (void) start;
 - (void) stop;
+- (void) remove;
 
 @property (readonly, nonatomic, strong) NSMutableArray *magneticFieldReadings;
 @property (readonly, nonatomic) float windSpeed;
