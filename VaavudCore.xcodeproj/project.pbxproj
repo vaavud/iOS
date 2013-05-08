@@ -18,6 +18,8 @@
 		D7A4F1E1173A8DDB00D1ACEE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1E0173A8DDB00D1ACEE /* Default-568h@2x.png */; };
 		D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */; };
 		D7A4F1E7173A8DDB00D1ACEE /* vaavudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */; };
+		D7A4F1EE173A8E8300D1ACEE /* VaavudCompactTagline1000px.png in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1ED173A8E8300D1ACEE /* VaavudCompactTagline1000px.png */; };
+		D7A4F1F2173A8FAB00D1ACEE /* vaavudCoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* vaavudCoreController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,9 @@
 		D7A4F1E3173A8DDB00D1ACEE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		D7A4F1E5173A8DDB00D1ACEE /* vaavudViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vaavudViewController.h; sourceTree = "<group>"; };
 		D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vaavudViewController.m; sourceTree = "<group>"; };
+		D7A4F1ED173A8E8300D1ACEE /* VaavudCompactTagline1000px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudCompactTagline1000px.png; sourceTree = "<group>"; };
+		D7A4F1F0173A8FAB00D1ACEE /* vaavudCoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudCoreController.h; sourceTree = "<group>"; };
+		D7A4F1F1173A8FAB00D1ACEE /* vaavudCoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudCoreController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +88,7 @@
 		D7A4F1D0173A8DDB00D1ACEE /* VaavudCore */ = {
 			isa = PBXGroup;
 			children = (
+				D7A4F1EF173A8F4600D1ACEE /* VaavudCoreFiles */,
 				D7A4F1D9173A8DDB00D1ACEE /* vaavudAppDelegate.h */,
 				D7A4F1DA173A8DDB00D1ACEE /* vaavudAppDelegate.m */,
 				D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */,
@@ -96,6 +102,7 @@
 		D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D7A4F1ED173A8E8300D1ACEE /* VaavudCompactTagline1000px.png */,
 				D7A4F1D2173A8DDB00D1ACEE /* VaavudCore-Info.plist */,
 				D7A4F1D3173A8DDB00D1ACEE /* InfoPlist.strings */,
 				D7A4F1D6173A8DDB00D1ACEE /* main.m */,
@@ -105,6 +112,15 @@
 				D7A4F1E0173A8DDB00D1ACEE /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D7A4F1EF173A8F4600D1ACEE /* VaavudCoreFiles */ = {
+			isa = PBXGroup;
+			children = (
+				D7A4F1F0173A8FAB00D1ACEE /* vaavudCoreController.h */,
+				D7A4F1F1173A8FAB00D1ACEE /* vaavudCoreController.m */,
+			);
+			name = VaavudCoreFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,6 +180,7 @@
 				D7A4F1DF173A8DDB00D1ACEE /* Default@2x.png in Resources */,
 				D7A4F1E1173A8DDB00D1ACEE /* Default-568h@2x.png in Resources */,
 				D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */,
+				D7A4F1EE173A8E8300D1ACEE /* VaavudCompactTagline1000px.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +194,7 @@
 				D7A4F1D7173A8DDB00D1ACEE /* main.m in Sources */,
 				D7A4F1DB173A8DDB00D1ACEE /* vaavudAppDelegate.m in Sources */,
 				D7A4F1E7173A8DDB00D1ACEE /* vaavudViewController.m in Sources */,
+				D7A4F1F2173A8FAB00D1ACEE /* vaavudCoreController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

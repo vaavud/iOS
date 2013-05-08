@@ -7,6 +7,7 @@
 //
 
 #import "vaavudViewController.h"
+#import "vaavudCoreController.h"
 
 @interface vaavudViewController ()
 
