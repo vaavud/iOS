@@ -30,6 +30,9 @@
 @synthesize windDirection;
 @synthesize windSpeedMax;
 
+
+// Public methods
+
 - (id) init
 {
     self = [super init];
@@ -51,7 +54,8 @@
 
 - (void) stop
 {
-    
+    [motionManager stopMagnetometerUpdates];
+    motionManager = nil;
 }
 
 
@@ -60,6 +64,8 @@
     
 }
 
+
+// Private methods
 - (void) startMagneticFieldSensor
 {
  
