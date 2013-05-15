@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@class VaavudMagneticFieldDataManager;             //define class, so protocol can see VaavudMagneticFieldDataManager
+@protocol VaavudMagneticFieldDataManagerDelegate   //define delegate protocol
+- (void) magneticFieldValuesUpdated;               //define delegate method to be implemented within another class
+@end //end protocol
+
+
 @interface VaavudMagneticFieldDataManager : NSObject
 
 + (VaavudMagneticFieldDataManager*) sharedMagneticFieldDataManager;
@@ -17,5 +23,6 @@
 
 @property (readonly, nonatomic, strong) NSMutableArray *magneticFieldReadings;
 
+@property (nonatomic, weak) id <VaavudMagneticFieldDataManagerDelegate> delegate; //define MyClassDelegate as delegate
 
 @end

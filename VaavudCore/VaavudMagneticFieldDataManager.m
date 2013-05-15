@@ -10,13 +10,9 @@
 #import <CoreMotion/CoreMotion.h>
 #import "VCMagneticFieldReading.h"
 
-@interface VaavudMagneticFieldDataManager () {
-    
-@private
-NSNumber *startTime;
-}
+@interface VaavudMagneticFieldDataManager () 
 
-// public properties
+// public properties - generate setter
 @property (nonatomic, strong) NSMutableArray *magneticFieldReadings;
 
 // private properties
@@ -26,13 +22,14 @@ NSNumber *startTime;
 
 - (void) startMagneticFieldSensor;
 
-
 @end
 
 
-
-@implementation VaavudMagneticFieldDataManager
-
+@implementation VaavudMagneticFieldDataManager {
+    
+    NSNumber *startTime;
+    
+}
 
 static VaavudMagneticFieldDataManager *sharedMagneticFieldDataManager = nil;
 
@@ -83,19 +80,10 @@ static VaavudMagneticFieldDataManager *sharedMagneticFieldDataManager = nil;
             
             [self.magneticFieldReadings addObject: magneticFieldReading];
             
+            [self.delegate magneticFieldValuesUpdated]; // SEND Notification to delegate that a new measurement has been recived
             
-            //
-            //            [self updateDisplay:field];
-            //
-            //            if (isLogging) {
-            //                double time = CACurrentMediaTime();
-            //
-            //                if (counter == 0)
-            //                    startTime = time;
-            //                [self logSet:field andTime:time];
-            //            }
             
-            NSLog( @"magnetic field reading time: %f   x: %f", magneticFieldReading.time, magneticFieldReading.x);
+//            NSLog( @"magnetic field reading time: %f   x: %f", magneticFieldReading.time, magneticFieldReading.x);
             
         }];
         

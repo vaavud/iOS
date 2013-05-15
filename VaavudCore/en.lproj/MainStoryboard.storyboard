@@ -17,11 +17,19 @@
                                     <constraint firstAttribute="height" constant="180" id="j7f-6I-hKM"/>
                                 </constraints>
                             </imageView>
+                            <progressView opaque="NO" contentMode="scaleToFill" progress="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="eB6-ZR-G0T">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="230" id="EYK-0e-VfS"/>
+                                </constraints>
+                                <color key="progressTintColor" red="0.062745101749897003" green="0.68627452850341797" blue="0.93725496530532837" alpha="1" colorSpace="deviceRGB"/>
+                            </progressView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.078431372549019607" green="0.078431372549019607" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="bXy-OG-iGQ" firstAttribute="centerY" secondItem="3" secondAttribute="centerY" type="default" id="Cax-xR-dqb"/>
                             <constraint firstAttribute="trailing" secondItem="bXy-OG-iGQ" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="CzG-6s-WJs"/>
+                            <constraint firstItem="eB6-ZR-G0T" firstAttribute="centerX" secondItem="bXy-OG-iGQ" secondAttribute="centerX" type="default" id="D6g-MX-9ON"/>
+                            <constraint firstAttribute="bottom" secondItem="eB6-ZR-G0T" secondAttribute="bottom" constant="68" id="fxF-Tm-VkV"/>
                             <constraint firstItem="bXy-OG-iGQ" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="iPC-wO-j2g"/>
                         </constraints>
                     </view>
