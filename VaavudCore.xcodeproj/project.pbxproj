@@ -22,7 +22,6 @@
 		D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */; };
 		D7A4F1F4173A9FC200D1ACEE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */; };
 		D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C860ED173AD08F005E9946 /* QuartzCore.framework */; };
-		D7C860F1173AE94B005E9946 /* VCMagneticFieldReading.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C860F0173AE94B005E9946 /* VCMagneticFieldReading.m */; };
 		D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */; };
 /* End PBXBuildFile section */
 
@@ -49,8 +48,6 @@
 		D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		D7A4F1F5173AA16700D1ACEE /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		D7C860ED173AD08F005E9946 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		D7C860EF173AE94B005E9946 /* VCMagneticFieldReading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VCMagneticFieldReading.h; sourceTree = "<group>"; };
-		D7C860F0173AE94B005E9946 /* VCMagneticFieldReading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VCMagneticFieldReading.m; sourceTree = "<group>"; };
 		D7C860F8173B061E005E9946 /* VaavudMagneticFieldDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudMagneticFieldDataManager.h; sourceTree = "<group>"; };
 		D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudMagneticFieldDataManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,8 +132,6 @@
 				D7A4F1F0173A8FAB00D1ACEE /* VaavudCoreController.h */,
 				D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */,
 				D7A4F1F5173AA16700D1ACEE /* Constants.h */,
-				D7C860EF173AE94B005E9946 /* VCMagneticFieldReading.h */,
-				D7C860F0173AE94B005E9946 /* VCMagneticFieldReading.m */,
 				D7C860F8173B061E005E9946 /* VaavudMagneticFieldDataManager.h */,
 				D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */,
 			);
@@ -215,7 +210,6 @@
 				D7A4F1DB173A8DDB00D1ACEE /* vaavudAppDelegate.m in Sources */,
 				D7A4F1E7173A8DDB00D1ACEE /* vaavudViewController.m in Sources */,
 				D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController.m in Sources */,
-				D7C860F1173AE94B005E9946 /* VCMagneticFieldReading.m in Sources */,
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

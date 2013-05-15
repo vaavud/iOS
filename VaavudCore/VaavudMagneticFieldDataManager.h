@@ -21,7 +21,10 @@
 - (void) start;
 - (void) stop;
 
-@property (readonly, nonatomic, strong) NSMutableArray *magneticFieldReadings;
+@property (readonly, nonatomic, strong) NSMutableArray *magneticFieldReadingsTime;
+@property (readonly, nonatomic, strong) NSMutableArray *magneticFieldReadingsx;
+@property (readonly, nonatomic, strong) NSMutableArray *magneticFieldReadingsy;
+@property (readonly, nonatomic, strong) NSMutableArray *magneticFieldReadingsz;
 
 @property (nonatomic, weak) id <VaavudMagneticFieldDataManagerDelegate> delegate; //define MyClassDelegate as delegate
 

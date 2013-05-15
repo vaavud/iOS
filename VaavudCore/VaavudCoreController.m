@@ -8,7 +8,6 @@
 
 #import "VaavudCoreController.h"
 #import <CoreMotion/CoreMotion.h>
-#import "VCMagneticFieldReading.h"
 #import "VaavudMagneticFieldDataManager.h"
 
 @interface VaavudCoreController () {
@@ -76,7 +75,8 @@
 
 - (void) magneticFieldValuesUpdated
 {
-    NSLog(@"Awesome Delegates work");
+    
+    NSLog(@"Awesome Delegates work - x: %f", [[self.sharedMagneticFieldDataManager.magneticFieldReadingsx lastObject] doubleValue]);
 }
 
 

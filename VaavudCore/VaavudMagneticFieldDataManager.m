@@ -13,7 +13,10 @@
 @interface VaavudMagneticFieldDataManager () 
 
 // public properties - generate setter
-@property (nonatomic, strong) NSMutableArray *magneticFieldReadings;
+@property (nonatomic, strong) NSMutableArray *magneticFieldReadingsTime;
+@property (nonatomic, strong) NSMutableArray *magneticFieldReadingsx;
+@property (nonatomic, strong) NSMutableArray *magneticFieldReadingsy;
+@property (nonatomic, strong) NSMutableArray *magneticFieldReadingsz;
 
 // private properties
 @property (nonatomic, strong) CMMotionManager *motionManager;
@@ -46,8 +49,14 @@ static VaavudMagneticFieldDataManager *sharedMagneticFieldDataManager = nil;
 {
     
     // create mutable array that will hold magnetic field data
-    self.magneticFieldReadings = [[NSMutableArray alloc] init];
+    self.magneticFieldReadingsTime = [[NSMutableArray alloc] init];
+    self.magneticFieldReadingsx = [[NSMutableArray alloc] init];
+    self.magneticFieldReadingsy = [[NSMutableArray alloc] init];
+    self.magneticFieldReadingsz = [[NSMutableArray alloc] init];
+
+    
     startTime = [[NSNumber alloc] initWithDouble: CACurrentMediaTime()];
+    
     [self startMagneticFieldSensor];
     
     
@@ -76,9 +85,14 @@ static VaavudMagneticFieldDataManager *sharedMagneticFieldDataManager = nil;
             
             double timeSinceStart = CACurrentMediaTime() - startTime.doubleValue;
             
-            VCMagneticFieldReading *magneticFieldReading = [[VCMagneticFieldReading alloc] initWithTime: timeSinceStart timeAndX:magneticField.x andY:magneticField.y andZ:magneticField.z];
+//            VCMagneticFieldReading *magneticFieldReading = [[VCMagneticFieldReading alloc] initWithTime: timeSinceStart timeAndX:magneticField.x andY:magneticField.y andZ:magneticField.z];
+            [self.magneticFieldReadingsTime addObject: [NSNumber numberWithDouble: timeSinceStart]];
+            [self.magneticFieldReadingsx addObject: [NSNumber numberWithDouble: magneticField.x]];
+            [self.magneticFieldReadingsy addObject: [NSNumber numberWithDouble: magneticField.y]];
+            [self.magneticFieldReadingsz addObject: [NSNumber numberWithDouble: magneticField.z]];
+
             
-            [self.magneticFieldReadings addObject: magneticFieldReading];
+//            [self.magneticFieldReadings addObject: magneticFieldReading];
             
             [self.delegate magneticFieldValuesUpdated]; // SEND Notification to delegate that a new measurement has been recived
             
