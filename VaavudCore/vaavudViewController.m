@@ -24,7 +24,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     vaavudCoreController = [[VaavudCoreController alloc] init];
-    
+    vaavudCoreController.delegate = self;
     [vaavudCoreController start];
     
 }
@@ -33,6 +33,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) newWindSpeed: (float) speed
+{
+    self.mainWindSpeedLabel.text = [NSString stringWithFormat: @"%.1f", speed];
 }
 
 @end

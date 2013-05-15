@@ -8,7 +8,6 @@
 
 #import "VaavudMagneticFieldDataManager.h"
 #import <CoreMotion/CoreMotion.h>
-#import "VCMagneticFieldReading.h"
 
 @interface VaavudMagneticFieldDataManager () 
 

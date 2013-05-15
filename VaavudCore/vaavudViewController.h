@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VaavudCoreController.h"
 
-@interface vaavudViewController : UIViewController
+@interface vaavudViewController : UIViewController <VaavudCoreControllerDelegate>
+
+@property (nonatomic, weak) IBOutlet UILabel *mainWindSpeedLabel;
 
 @end

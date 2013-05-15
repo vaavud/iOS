@@ -9,29 +9,30 @@
 #import "VaavudCoreController.h"
 #import <CoreMotion/CoreMotion.h>
 #import "VaavudMagneticFieldDataManager.h"
+#import "vaavudFFT.h"
 
 @interface VaavudCoreController () {
     
 }
 
-// public properties
-//@property (nonatomic, strong) NSMutableArray *magneticFieldReadings
+// public properties - create setters
 @property (nonatomic) float windSpeed;
 @property (nonatomic) float windDirection;
 @property (nonatomic) float windSpeedMax;
 
-// private properties
-//@property (nonatomic, strong) CMMotionManager *motionManager;
-//@property (nonatomic, strong) NSOperationQueue *operationQueue;
+ // private properties
 @property (nonatomic, strong) VaavudMagneticFieldDataManager *sharedMagneticFieldDataManager;
-
+@property (nonatomic, strong) NSArray *FFTresultx;
+@property (nonatomic, strong) NSArray *FFTresulty;
+@property (nonatomic, strong) NSArray *FFTresultz;
+//@property (nonatomic, strong) NSMutableArray *FFTresultAverage;
+@property (nonatomic, strong) vaavudFFT *FFTEngine;
+@property (nonatomic) int magneticFieldUpdatesCounter;
 
 @end
 
-@implementation VaavudCoreController {
-   
-}
 
+@implementation VaavudCoreController 
 
 // Public methods
 
@@ -42,7 +43,8 @@
     if (self)
     {
         // Do initializing
-        
+        self.FFTEngine = [[vaavudFFT alloc] initFFTLength:FFTLength];
+
     }
     
     return self;
@@ -55,16 +57,18 @@
     // create reference to MagneticField Data Manager
     self.sharedMagneticFieldDataManager = [VaavudMagneticFieldDataManager sharedMagneticFieldDataManager];
     self.sharedMagneticFieldDataManager.delegate = self;
+    self.magneticFieldUpdatesCounter = 0;
+    
+    
     [self.sharedMagneticFieldDataManager start];
-        
+    
+    
     
 }
 
 - (void) stop
 {
-    
     [self.sharedMagneticFieldDataManager stop];
-    
 }
 
 
@@ -73,10 +77,94 @@
     
 }
 
+
 - (void) magneticFieldValuesUpdated
 {
+    self.magneticFieldUpdatesCounter += 1;
     
-    NSLog(@"Awesome Delegates work - x: %f", [[self.sharedMagneticFieldDataManager.magneticFieldReadingsx lastObject] doubleValue]);
+    if (self.magneticFieldUpdatesCounter > FFTDataLength){
+        
+        if ( self.magneticFieldUpdatesCounter % 3 == 0 ) {
+            
+            int modulus = self.magneticFieldUpdatesCounter % 9 / 3;
+            
+            NSRange subArrayRange = NSMakeRange(self.magneticFieldUpdatesCounter - FFTDataLength, FFTDataLength);
+            
+            switch (modulus) {
+                case 0:
+                    self.FFTresultx = [self.FFTEngine doFFT: [self.sharedMagneticFieldDataManager.magneticFieldReadingsx subarrayWithRange:subArrayRange]];
+                    break;
+                case 1:
+                    self.FFTresulty = [self.FFTEngine doFFT: [self.sharedMagneticFieldDataManager.magneticFieldReadingsy subarrayWithRange:subArrayRange]];
+                    break;
+                case 2:
+                    self.FFTresultz
+                    = [self.FFTEngine doFFT: [self.sharedMagneticFieldDataManager.magneticFieldReadingsz subarrayWithRange:subArrayRange]];
+                    break;
+                    
+                default:
+                    NSLog(@"You should not be here!");
+                    break;
+            }
+            
+            // create average
+            int resultArrayLength = FFTLength/2;
+            
+            
+            NSMutableArray *FFTaverage = [NSMutableArray arrayWithCapacity: resultArrayLength];
+            
+            for (int i = 0; i < resultArrayLength; i++) {
+                
+                double mean = ( [[self.FFTresultx objectAtIndex:i ] doubleValue] + [[self.FFTresulty objectAtIndex:i ] doubleValue] + [[self.FFTresultz objectAtIndex:i ] doubleValue] ) / 3;
+                
+                [FFTaverage insertObject:[NSNumber numberWithDouble: mean] atIndex: i];
+            }
+            
+            
+            // use quadratic interpolation to find peak
+            
+            // Calculate max peak
+            double maxPeak = 0;
+            double alpha, beta, gamma, p, dominantFrequency, frequencyMagnitude;
+            
+            int maxBin = 0;
+            
+            for (int i=0; i<FFTLength/2; i++) {
+                
+                if ([[FFTaverage objectAtIndex:i] doubleValue] > maxPeak){
+                    maxBin = i;
+                    maxPeak = [[FFTaverage objectAtIndex:i] doubleValue];
+                }
+            }
+            
+            if ((maxBin > 0) && (maxBin < FFTLength/2 -1)) {
+                alpha = [[FFTaverage objectAtIndex: maxBin-1 ] doubleValue];
+                beta = [[FFTaverage objectAtIndex: maxBin ] doubleValue];
+                gamma = [[FFTaverage objectAtIndex: maxBin+1 ] doubleValue];
+                
+                p = (alpha - gamma) / (2*(alpha - 2*beta + gamma));
+                
+                dominantFrequency  = (maxBin+p)*preferedSampleFrequency/FFTLength;
+                frequencyMagnitude = beta - 1/4 * (alpha - gamma) * p;
+                
+            } else {
+                dominantFrequency = 0;
+                frequencyMagnitude = 0;
+            }
+            
+            // CUTOFF is 20
+            
+            if (frequencyMagnitude < 10)
+                dominantFrequency = 0;
+                
+                [self.delegate newWindSpeed: dominantFrequency];
+                
+//            NSLog(@"%f", frequencyMagnitude);
+            
+            
+            
+        } // run every X update
+    } // if counter > datalength
 }
 
 

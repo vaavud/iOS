@@ -9,6 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "VaavudMagneticFieldDataManager.h"
 
+@protocol VaavudCoreControllerDelegate <NSObject>
+
+- (void) newWindSpeed: (float) speed;
+
+@end
+
 @interface VaavudCoreController : NSObject <VaavudMagneticFieldDataManagerDelegate>
 
 - (id) init;
@@ -21,6 +27,7 @@
 @property (readonly, nonatomic) float windSpeed;
 @property (readonly, nonatomic) float windDirection;
 @property (readonly, nonatomic) float windSpeedMax;
+@property (nonatomic, weak) id <VaavudCoreControllerDelegate> delegate;
 
 
 @end

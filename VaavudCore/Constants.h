@@ -7,5 +7,7 @@
 //
 
 #define preferedSampleFrequency 60
-#define FFTCalFrequency 5
+#define FFTLength 64
+#define FFTDataLength 40
+#define FFTForEvery 3
 
