@@ -13,6 +13,7 @@
 
 @property (nonatomic, weak) IBOutlet UILabel *mainWindSpeedLabel;
 @property (nonatomic, strong) IBOutlet CPTGraphHostingView *hostView;
+@property (nonatomic, strong) IBOutlet UIButton *startStopButton;
 @property (nonatomic, strong) NSMutableArray *dataForPlot;
 @property (nonatomic, strong) CPTGraph *graph;
 @property (nonatomic, strong) VaavudCoreController *vaavudCoreController;
@@ -25,11 +26,19 @@
 @property (nonatomic) NSUInteger plotCounter;
 @property (nonatomic) BOOL wasValid;
 
+@property (nonatomic, strong) NSTimer *TimerLabel;
+@property (nonatomic, strong) NSTimer *TimerGraphUI;
+@property (nonatomic, strong) NSTimer *TimerGraphValues;
+
 - (void) updateLabels;
 - (void) updateGraphUI;
 - (void) updateGraphValues;
 - (void) setupCorePlotGraph;
 - (void) createNewPlot;
+- (void) start;
+- (void) stop;
+
+- (IBAction) buttonPushed: (id)sender;
 
 @end
 
@@ -45,32 +54,56 @@
     // TEMPORATY LOAD OF CONSTANTS
     
     self.graphTimeWidth = 15;
-    self.graphMinWindspeedWidth = 4;
+    self.graphMinWindspeedWidth = 5;
+
+    
+//    self.startStopButton = [[UIButton alloc] init];
+//    [self.startStopButton setTitle:(NSString *) forState:(UIControlState)]
+    
+
+
+    
+}
+
+- (void) start {
+    
     self.vaavudCoreController = [[VaavudCoreController alloc] init];
-    [self.vaavudCoreController start];
     
     self.plotCounter = -1;
     
     self.dataForPlot = [NSMutableArray arrayWithCapacity:20];
-
+    
     [self setupCorePlotGraph];
     
-    [NSTimer scheduledTimerWithTimeInterval: 0.05 target: self selector: @selector(updateGraphUI) userInfo: nil repeats: YES];
-    [NSTimer scheduledTimerWithTimeInterval: 0.1 target: self selector: @selector(updateGraphValues) userInfo: nil repeats: YES];
-    [NSTimer scheduledTimerWithTimeInterval: 0.2 target: self selector: @selector(updateLabels) userInfo: nil repeats: YES];
+    self.TimerGraphUI       = [NSTimer scheduledTimerWithTimeInterval: 0.05 target: self selector: @selector(updateGraphUI) userInfo: nil repeats: YES];
+    self.TimerGraphValues   = [NSTimer scheduledTimerWithTimeInterval: 0.1 target: self selector: @selector(updateGraphValues) userInfo: nil repeats: YES];
+    self.TimerLabel         = [NSTimer scheduledTimerWithTimeInterval: 0.2 target: self selector: @selector(updateLabels) userInfo: nil repeats: YES];
+    [self.vaavudCoreController start];
+}
 
+- (void) stop {
+    [self.TimerGraphUI invalidate];
+    [self.TimerGraphValues invalidate];
+    [self.TimerLabel invalidate];
+    [self.vaavudCoreController stop];
     
+    self.startTime = nil;
 }
 
 - (void) updateGraphUI
 {
     
-    float timeSinceStart = - [self.startTime  timeIntervalSinceNow];
-    
-    if (timeSinceStart > self.graphTimeWidth)
-            self.plotSpace.xRange  = [CPTPlotRange plotRangeWithLocation: CPTDecimalFromFloat(timeSinceStart - self.graphTimeWidth) length:CPTDecimalFromFloat(self.graphTimeWidth)];
+    if ([[self.vaavudCoreController.isValid lastObject] boolValue]) {
+        float timeSinceStart = - [self.startTime  timeIntervalSinceNow];
         
-    [self.graph reloadData];
+        if (timeSinceStart > self.graphTimeWidth) {
+            self.plotSpace.xRange  = [CPTPlotRange plotRangeWithLocation: CPTDecimalFromFloat(timeSinceStart - self.graphTimeWidth) length:CPTDecimalFromFloat(self.graphTimeWidth)];
+            self.plotSpace.globalXRange = [CPTPlotRange plotRangeWithLocation: CPTDecimalFromFloat(0) length: CPTDecimalFromFloat(timeSinceStart)];
+        }
+        
+        [self.graph reloadData];
+        
+    }
 }
 
 - (void) updateGraphValues
@@ -129,7 +162,10 @@
         if (graphYwidth < self.graphMinWindspeedWidth)
             graphYwidth = self.graphMinWindspeedWidth;
         
-        self.plotSpace.yRange  = [CPTPlotRange plotRangeWithLocation: CPTDecimalFromFloat(graphYLowerBound) length:CPTDecimalFromFloat(graphYwidth)];
+        CPTPlotRange *plotRange = [CPTPlotRange plotRangeWithLocation: CPTDecimalFromFloat(graphYLowerBound) length:CPTDecimalFromFloat(graphYwidth)];
+        
+        self.plotSpace.yRange  = plotRange;
+        self.plotSpace.globalYRange = plotRange;
         
     }
             
@@ -205,6 +241,11 @@
     self.plotSpace.allowsUserInteraction = YES;
     self.plotSpace.xRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(self.graphTimeWidth)];
     self.plotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(self.graphMinWindspeedWidth)];
+    self.plotSpace.GlobalXRange          = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(self.graphTimeWidth)];
+    self.plotSpace.GlobalYRange          = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(self.graphMinWindspeedWidth)];
+    self.plotSpace.delegate = self;
+    
+    
     
     // Axes
     CPTXYAxisSet *axisSet               = (CPTXYAxisSet *) self.graph.axisSet;
@@ -214,6 +255,10 @@
     CPTMutableTextStyle *textStyleGrey  = [CPTMutableTextStyle textStyle];
     textStyleGrey.color                 = [CPTColor grayColor];
     x.labelTextStyle                    = textStyleGrey;
+    
+    NSNumberFormatter *numberFormat     = [[NSNumberFormatter alloc] init];
+    [numberFormat setMaximumFractionDigits: 0];
+    x.labelFormatter                    = numberFormat;
 
     
     CPTXYAxis *y                        = axisSet.yAxis;
@@ -222,6 +267,7 @@
     textStyleWhite.color                = [CPTColor whiteColor];
     y.labelTextStyle                    = textStyleWhite;
     y.axisConstraints                   = [CPTConstraints constraintWithLowerOffset:0.0];
+    y.labelFormatter                    = numberFormat;
 
     
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
@@ -247,15 +293,37 @@
     return num;
 }
 
-#pragma mark -
-#pragma mark Axis Delegate Methods
+// only displace in X
+-(CGPoint)plotSpace:(CPTPlotSpace *)space willDisplaceBy:(CGPoint)displacement{
+    return CGPointMake(displacement.x,0);}
 
--(BOOL)axis:(CPTAxis *)axis shouldUpdateAxisLabelsAtLocations:(NSSet *)locations
+// do not zoom in Y
+-(CPTPlotRange *)plotSpace:(CPTPlotSpace *)space willChangePlotRangeTo:(CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate{
+    if (coordinate == CPTCoordinateY) {
+        newRange = ((CPTXYPlotSpace*)space).yRange;
+    }
+    return newRange;}
+
+
+
+
+- (IBAction) buttonPushed: (UIButton*) sender
 {
     
-    return NO;
-}
+    NSString *buttonText = [NSString stringWithString: sender.currentTitle];
+    
+    if ([buttonText caseInsensitiveCompare: @"start"] == NSOrderedSame){
+        [self.startStopButton setTitle: @"stop" forState:UIControlStateNormal];
+        [self start];
+    }
+    
+    if ([buttonText caseInsensitiveCompare: @"stop"] == NSOrderedSame){
+        [self.startStopButton setTitle: @"start" forState:UIControlStateNormal];
+        [self stop];
+    }
+        
 
+}
 
 
 
@@ -266,10 +334,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) newWindSpeed: (float) speed
-{
-    self.mainWindSpeedLabel.text = [NSString stringWithFormat: @"%.1f", speed];
-}
+//- (void) newWindSpeed: (float) speed
+//{
+//    self.mainWindSpeedLabel.text = [NSString stringWithFormat: @"%.1f", speed];
+//}
 
 -(NSUInteger)supportedInterfaceOrientations
 {

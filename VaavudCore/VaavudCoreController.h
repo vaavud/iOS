@@ -17,7 +17,6 @@
 - (void) start;
 - (void) stop;
 - (void) remove;
-- (void) magneticFieldValuesUpdated;
 
 //@property (readonly, nonatomic, strong) NSMutableArray *magneticFieldReadings;
 @property (readonly, nonatomic) float currentWindSpeed;

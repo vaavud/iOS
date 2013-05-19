@@ -10,6 +10,6 @@
 #import "VaavudCoreController.h"
 #import "CorePlot-CocoaTouch.h"
 
-@interface vaavudViewController : UIViewController <CPTPlotDataSource, CPTAxisDelegate>
+@interface vaavudViewController : UIViewController <CPTPlotDataSource, CPTPlotSpaceDelegate>
 
 @end

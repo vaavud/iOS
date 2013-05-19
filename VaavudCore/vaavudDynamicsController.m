@@ -18,7 +18,6 @@
     @property (nonatomic) BOOL accelerationIsValid;
     @property (nonatomic) BOOL orientationIsValid;
     @property (nonatomic) BOOL angularVeclocityIsValid;
-    @property (nonatomic) BOOL wasValid;
 
     - (void) updateValidity;
 
@@ -52,12 +51,7 @@
     else
         self.isValid = NO;
     
-    
-    if (!self.wasValid == self.isValid) {
-        [self.delegate DynamicsIsValid:self.isValid];
-    }
-    
-    self.wasValid = self.isValid;
+    [self.delegate DynamicsIsValid:self.isValid];
 }
 
 

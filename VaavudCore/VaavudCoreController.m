@@ -81,13 +81,12 @@
     self.vaavudDynamicsController.delegate = self;
     [self.vaavudDynamicsController start];
     
-    
-    
 }
 
 - (void) stop
 {
     [self.sharedMagneticFieldDataManager stop];
+    [self.vaavudDynamicsController stop];
 }
 
 
@@ -97,6 +96,11 @@
 }
 
 - (void) updateIsValid{
+    
+    if (!self.FFTisValid) {
+        self.isValidPercent =0;
+    }
+    
     
     if (self.FFTisValid && self.dynamicsIsValid) {
         self.isValidPercent += 4;
@@ -178,10 +182,8 @@
             double timeDifference = [[timeSeries lastObject] doubleValue] - [[timeSeries objectAtIndex:0] doubleValue];
             
             double actualSampleFrequency = (FFTDataLength-1)/timeDifference;
-            NSLog(@"ActualSampleFrequency %f", actualSampleFrequency);
             
             // use quadratic interpolation to find peak
-            
             // Calculate max peak
             double maxPeak = 0;
             double alpha, beta, gamma, p, dominantFrequency, frequencyMagnitude;
@@ -203,7 +205,7 @@
                 
                 p = (alpha - gamma) / (2*(alpha - 2*beta + gamma));
                 
-                dominantFrequency  = (maxBin+p)*actualSampleFrequency/FFTLength;   ///!!! SHOULD USE ACTUAL SAMPLE FREQUENCY
+                dominantFrequency  = (maxBin+p)*actualSampleFrequency/FFTLength;
                 frequencyMagnitude = beta - 1/4 * (alpha - gamma) * p;
                 
             } else {
