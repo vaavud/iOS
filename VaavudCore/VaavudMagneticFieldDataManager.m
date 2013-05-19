@@ -84,19 +84,12 @@ static VaavudMagneticFieldDataManager *sharedMagneticFieldDataManager = nil;
             
             double timeSinceStart = CACurrentMediaTime() - startTime.doubleValue;
             
-//            VCMagneticFieldReading *magneticFieldReading = [[VCMagneticFieldReading alloc] initWithTime: timeSinceStart timeAndX:magneticField.x andY:magneticField.y andZ:magneticField.z];
             [self.magneticFieldReadingsTime addObject: [NSNumber numberWithDouble: timeSinceStart]];
             [self.magneticFieldReadingsx addObject: [NSNumber numberWithDouble: magneticField.x]];
             [self.magneticFieldReadingsy addObject: [NSNumber numberWithDouble: magneticField.y]];
             [self.magneticFieldReadingsz addObject: [NSNumber numberWithDouble: magneticField.z]];
 
-            
-//            [self.magneticFieldReadings addObject: magneticFieldReading];
-            
             [self.delegate magneticFieldValuesUpdated]; // SEND Notification to delegate that a new measurement has been recived
-            
-            
-//            NSLog( @"magnetic field reading time: %f   x: %f", magneticFieldReading.time, magneticFieldReading.x);
             
         }];
         

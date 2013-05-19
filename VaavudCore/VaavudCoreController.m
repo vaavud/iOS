@@ -34,7 +34,8 @@
 @property (nonatomic) int magneticFieldUpdatesCounter;
 @property (nonatomic) BOOL dynamicsIsValid;
 @property (nonatomic) BOOL FFTisValid;
-@property (nonatomic) NSUInteger isValidCounter;
+@property (nonatomic) NSInteger isValidPercent;
+@property (nonatomic) BOOL isValidCurrentStatus;
 
 - (void) updateIsValid;
 
@@ -53,8 +54,9 @@
     {
         // Do initializing
         self.FFTEngine = [[vaavudFFT alloc] initFFTLength:FFTLength];
-        self.dynamicsIsValid = NO;
-        self.isValidCounter = 0;
+        self.dynamicsIsValid = YES;
+        self.isValidPercent = 2; // start at 2% valid
+        self.isValidCurrentStatus = YES;
 
     }
     
@@ -96,24 +98,26 @@
 
 - (void) updateIsValid{
     
-    self.isValidCounter++;
-    
-    BOOL validity = [[self.isValid lastObject] boolValue];
-    
-    if (self.isValidCounter > 20){
-        
-        if (self.FFTisValid && self.dynamicsIsValid) {
-            validity = YES;
-        } else {
-            validity = NO;
-        }
-        
-        if (validity != [[self.isValid lastObject] boolValue])
-            self.isValidCounter = 0;
-        
+    if (self.FFTisValid && self.dynamicsIsValid) {
+        self.isValidPercent += 4;
+    } else {
+        self.isValidPercent -= 4;
     }
+    
+    if (self.isValidPercent > 100) {
+        self.isValidPercent = 100;
+        self.isValidCurrentStatus = YES;
+    }
+    
+    if (self.isValidPercent < 0) {
+        self.isValidPercent = 0;
+        self.isValidCurrentStatus = NO;
+    }
+    
+    
+    [self.isValid addObject: [NSNumber numberWithBool: self.isValidCurrentStatus]];
 
-    [self.isValid addObject: [NSNumber numberWithBool: validity]];
+
 }
 
 // protocol method
@@ -167,6 +171,15 @@
             }
             
             
+            // calculate actual sample frequency
+            
+            NSArray *timeSeries = [self.sharedMagneticFieldDataManager.magneticFieldReadingsTime subarrayWithRange: subArrayRange];
+            
+            double timeDifference = [[timeSeries lastObject] doubleValue] - [[timeSeries objectAtIndex:0] doubleValue];
+            
+            double actualSampleFrequency = (FFTDataLength-1)/timeDifference;
+            NSLog(@"ActualSampleFrequency %f", actualSampleFrequency);
+            
             // use quadratic interpolation to find peak
             
             // Calculate max peak
@@ -190,7 +203,7 @@
                 
                 p = (alpha - gamma) / (2*(alpha - 2*beta + gamma));
                 
-                dominantFrequency  = (maxBin+p)*preferedSampleFrequency/FFTLength;   ///!!! SHOULD USE ACTUAL SAMPLE FREQUENCY
+                dominantFrequency  = (maxBin+p)*actualSampleFrequency/FFTLength;   ///!!! SHOULD USE ACTUAL SAMPLE FREQUENCY
                 frequencyMagnitude = beta - 1/4 * (alpha - gamma) * p;
                 
             } else {
@@ -204,10 +217,13 @@
             [self.time addObject: [self.sharedMagneticFieldDataManager.magneticFieldReadingsTime lastObject]];
             
             
-            if (frequencyMagnitude > FFTpeakMagnitudeMinForValid)
+            if (frequencyMagnitude > FFTpeakMagnitudeMinForValid) {
                 self.FFTisValid = YES;
-            else
+            }
+            else {
                 self.FFTisValid = NO;
+                NSLog(@"FFTpeakMagnetude too low - value: @%f", frequencyMagnitude);
+            }
             
             [self updateIsValid];
                         
