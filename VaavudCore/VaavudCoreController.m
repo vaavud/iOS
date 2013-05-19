@@ -16,9 +16,12 @@
 }
 
 // public properties - create setters
-@property (nonatomic) float windSpeed;
-@property (nonatomic) float windDirection;
-@property (nonatomic) float windSpeedMax;
+@property (nonatomic) float currentWindSpeed;
+@property (nonatomic) float currentWindDirection;
+@property (nonatomic) float currentWindSpeedMax;
+@property (nonatomic, strong) NSMutableArray *windSpeed;
+@property (nonatomic, strong) NSMutableArray *isValid;
+@property (nonatomic, strong) NSMutableArray *time;
 
  // private properties
 @property (nonatomic, strong) VaavudMagneticFieldDataManager *sharedMagneticFieldDataManager;
@@ -59,7 +62,9 @@
     self.sharedMagneticFieldDataManager.delegate = self;
     self.magneticFieldUpdatesCounter = 0;
     
-    
+    self.windSpeed = [NSMutableArray arrayWithCapacity:1000];
+    self.time = [NSMutableArray arrayWithCapacity:1000];
+    self.isValid = [NSMutableArray arrayWithCapacity:1000];
     [self.sharedMagneticFieldDataManager start];
     
     
@@ -144,7 +149,7 @@
                 
                 p = (alpha - gamma) / (2*(alpha - 2*beta + gamma));
                 
-                dominantFrequency  = (maxBin+p)*preferedSampleFrequency/FFTLength;
+                dominantFrequency  = (maxBin+p)*preferedSampleFrequency/FFTLength;   ///!!! SHOULD USE ACTUAL SAMPLE FREQUENCY
                 frequencyMagnitude = beta - 1/4 * (alpha - gamma) * p;
                 
             } else {
@@ -152,16 +157,20 @@
                 frequencyMagnitude = 0;
             }
             
-            // CUTOFF is 20
-            
-            if (frequencyMagnitude < 10)
-                dominantFrequency = 0;
-                
-                [self.delegate newWindSpeed: dominantFrequency];
-                
-//            NSLog(@"%f", frequencyMagnitude);
             
             
+            [self.windSpeed addObject: [NSNumber numberWithDouble: dominantFrequency]];
+            [self.time addObject: [self.sharedMagneticFieldDataManager.magneticFieldReadingsTime lastObject]];
+            
+            bool validity;
+            
+            if (frequencyMagnitude > 10)
+                validity = YES;
+            else
+                validity = NO;
+            
+            [self.isValid addObject: [NSNumber numberWithBool: validity]];
+                        
             
         } // run every X update
     } // if counter > datalength

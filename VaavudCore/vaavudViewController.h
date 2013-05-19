@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "VaavudCoreController.h"
+#import "CorePlot-CocoaTouch.h"
 
-@interface vaavudViewController : UIViewController <VaavudCoreControllerDelegate>
-
-@property (nonatomic, weak) IBOutlet UILabel *mainWindSpeedLabel;
+@interface vaavudViewController : UIViewController <CPTPlotDataSource, CPTAxisDelegate>
 
 @end
