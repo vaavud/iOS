@@ -53,10 +53,12 @@
     else
         self.isValid = NO;
     
-    if (!wasValid && self.isValid)
-        
-        
-        
+    
+    if (!self.wasValid == self.isValid) {
+        [self.delegate DynamicsIsValid:self.isValid];
+    }
+    
+    self.wasValid = self.isValid;
 }
 
 
@@ -70,47 +72,56 @@
         self.operationQueue = [NSOperationQueue currentQueue];
         
         [self.motionManager startAccelerometerUpdatesToQueue:self.operationQueue withHandler:^(CMAccelerometerData *accelerometerData, NSError *error) {
-            if (sqrt( pow(accelerometerData.acceleration.x, 2) + pow(accelerometerData.acceleration.y,2) + pow(accelerometerData.acceleration.z,2) ) > accelerationMaxForValid )
-                self.accelerationIsValid = NO;
-            else
-                self.accelerationIsValid = YES;
             
-        }]
-        
-        
-        
-    }
-    
-    
-    
-    
-    if (self.motionManager.magnetometerAvailable) {
-        self.motionManager.magnetometerUpdateInterval = 1.0/accAndGyroSampleFrequency;
-        self.operationQueue = [NSOperationQueue currentQueue];
-        [self.motionManager startMagnetometerUpdatesToQueue:self.operationQueue withHandler:^(CMMagnetometerData *magnetometerData, NSError *error) {
-            CMMagneticField magneticField = magnetometerData.magneticField;
+            double acceleration = fabs( sqrt( pow(accelerometerData.acceleration.x, 2) + pow(accelerometerData.acceleration.y,2) + pow(accelerometerData.acceleration.z,2) ) - 1.0 );
             
-            double timeSinceStart = CACurrentMediaTime() - startTime.doubleValue;
+                                       if (acceleration > accelerationMaxForValid ) {
+                                           self.accelerationIsValid = NO;
+                                           NSLog(@"Acceleration is too big with value %f", acceleration);
+                                       }
+                                       else {
+                                            self.accelerationIsValid = YES;
+                                       }
+           
             
-            //            VCMagneticFieldReading *magneticFieldReading = [[VCMagneticFieldReading alloc] initWithTime: timeSinceStart timeAndX:magneticField.x andY:magneticField.y andZ:magneticField.z];
-            [self.magneticFieldReadingsTime addObject: [NSNumber numberWithDouble: timeSinceStart]];
-            [self.magneticFieldReadingsx addObject: [NSNumber numberWithDouble: magneticField.x]];
-            [self.magneticFieldReadingsy addObject: [NSNumber numberWithDouble: magneticField.y]];
-            [self.magneticFieldReadingsz addObject: [NSNumber numberWithDouble: magneticField.z]];
-            
-            
-            //            [self.magneticFieldReadings addObject: magneticFieldReading];
-            
-            [self.delegate magneticFieldValuesUpdated]; // SEND Notification to delegate that a new measurement has been recived
-            
-            
-            //            NSLog( @"magnetic field reading time: %f   x: %f", magneticFieldReading.time, magneticFieldReading.x);
+            [self updateValidity];
             
         }];
         
-    }  else {
-        NSLog(@"No MagnetometerAvailable on device.");
+        
+        
     }
+    
+    
+    
+    
+//    if (self.motionManager.magnetometerAvailable) {
+//        self.motionManager.magnetometerUpdateInterval = 1.0/accAndGyroSampleFrequency;
+//        self.operationQueue = [NSOperationQueue currentQueue];
+//        [self.motionManager startMagnetometerUpdatesToQueue:self.operationQueue withHandler:^(CMMagnetometerData *magnetometerData, NSError *error) {
+//            CMMagneticField magneticField = magnetometerData.magneticField;
+//            
+//            double timeSinceStart = CACurrentMediaTime() - startTime.doubleValue;
+//            
+//            //            VCMagneticFieldReading *magneticFieldReading = [[VCMagneticFieldReading alloc] initWithTime: timeSinceStart timeAndX:magneticField.x andY:magneticField.y andZ:magneticField.z];
+//            [self.magneticFieldReadingsTime addObject: [NSNumber numberWithDouble: timeSinceStart]];
+//            [self.magneticFieldReadingsx addObject: [NSNumber numberWithDouble: magneticField.x]];
+//            [self.magneticFieldReadingsy addObject: [NSNumber numberWithDouble: magneticField.y]];
+//            [self.magneticFieldReadingsz addObject: [NSNumber numberWithDouble: magneticField.z]];
+//            
+//            
+//            //            [self.magneticFieldReadings addObject: magneticFieldReading];
+//            
+//            [self.delegate magneticFieldValuesUpdated]; // SEND Notification to delegate that a new measurement has been recived
+//            
+//            
+//            //            NSLog( @"magnetic field reading time: %f   x: %f", magneticFieldReading.time, magneticFieldReading.x);
+//            
+//        }];
+//        
+//    }  else {
+//        NSLog(@"No MagnetometerAvailable on device.");
+//    }
 
 
 }

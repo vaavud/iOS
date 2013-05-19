@@ -25,6 +25,7 @@
 
  // private properties
 @property (nonatomic, strong) VaavudMagneticFieldDataManager *sharedMagneticFieldDataManager;
+@property (nonatomic, strong) vaavudDynamicsController *vaavudDynamicsController;
 @property (nonatomic, strong) NSArray *FFTresultx;
 @property (nonatomic, strong) NSArray *FFTresulty;
 @property (nonatomic, strong) NSArray *FFTresultz;
@@ -73,6 +74,10 @@
     self.time = [NSMutableArray arrayWithCapacity:1000];
     self.isValid = [NSMutableArray arrayWithCapacity:1000];
     [self.sharedMagneticFieldDataManager start];
+    
+    self.vaavudDynamicsController = [[vaavudDynamicsController alloc] init];
+    self.vaavudDynamicsController.delegate = self;
+    [self.vaavudDynamicsController start];
     
     
     

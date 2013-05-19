@@ -13,7 +13,7 @@
 #define FFTForEvery 3
 
 // Thresholds for isValid
-#define accelerationMaxForValid 0.1 // m/s^2
+#define accelerationMaxForValid 0.1 // g acc/(9.82 m/s^2)
 #define angularVelocityMaxForValid 0.1 // rad/s
 #define orientationDeviationMaxForValid 15 // degrees
 #define FFTpeakMagnitudeMinForValid 8 // (abs(FFT(maxbin))
