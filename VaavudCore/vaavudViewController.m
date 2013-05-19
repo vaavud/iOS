@@ -22,12 +22,14 @@
 @property (nonatomic, strong) NSDate *startTime;
 @property (nonatomic) float graphYMinValue;
 @property (nonatomic) float graphYMaxValue;
-@property (nonatomic, strong) NSNumber *plotCounter;
+@property (nonatomic) NSUInteger plotCounter;
+@property (nonatomic) BOOL wasValid;
 
 - (void) updateLabels;
 - (void) updateGraphUI;
 - (void) updateGraphValues;
 - (void) setupCorePlotGraph;
+- (void) createNewPlot;
 
 @end
 
@@ -47,7 +49,9 @@
     self.vaavudCoreController = [[VaavudCoreController alloc] init];
     [self.vaavudCoreController start];
     
-    self.dataForPlot = [NSMutableArray arrayWithCapacity:1000];
+    self.plotCounter = -1;
+    
+    self.dataForPlot = [NSMutableArray arrayWithCapacity:20];
 
     [self setupCorePlotGraph];
     
@@ -93,37 +97,80 @@
             
     
     // add data points to the graph
-    [self.dataForPlot addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
+//    [self.dataForPlot addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
     
-    // update min and max values
-    if ([y floatValue] > self.graphYMaxValue)
-        self.graphYMaxValue = [y floatValue];
+    BOOL isValid = [[self.vaavudCoreController.isValid lastObject] boolValue];
     
-    if ([y floatValue] < self.graphYMinValue)
-        self.graphYMinValue = [y floatValue];
+    if (isValid && !self.wasValid)
+        [self createNewPlot];
     
+    self.wasValid = isValid;
     
-    // determine y window range
-    if (self.graphYMinValue < 2)
-        graphYLowerBound = 0;
-    else
-        graphYLowerBound = floor(self.graphYMinValue);
+    if (isValid) {
+        [[self.dataForPlot objectAtIndex: self.plotCounter] addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
         
-    graphYwidth = floor(self.graphYMaxValue) +1 - graphYLowerBound;
-    
-    if (graphYwidth < self.graphMinWindspeedWidth)
-        graphYwidth = self.graphMinWindspeedWidth;
-       
-    self.plotSpace.yRange  = [CPTPlotRange plotRangeWithLocation: CPTDecimalFromFloat(graphYLowerBound) length:CPTDecimalFromFloat(graphYwidth)];
-    
+        
+        // update min and max values
+        if ([y floatValue] > self.graphYMaxValue)
+            self.graphYMaxValue = [y floatValue];
+        
+        if ([y floatValue] < self.graphYMinValue)
+            self.graphYMinValue = [y floatValue];
+        
+        
+        // determine y window range
+        if (self.graphYMinValue < 2)
+            graphYLowerBound = 0;
+        else
+            graphYLowerBound = floor(self.graphYMinValue);
+        
+        graphYwidth = floor(self.graphYMaxValue) +1 - graphYLowerBound;
+        
+        if (graphYwidth < self.graphMinWindspeedWidth)
+            graphYwidth = self.graphMinWindspeedWidth;
+        
+        self.plotSpace.yRange  = [CPTPlotRange plotRangeWithLocation: CPTDecimalFromFloat(graphYLowerBound) length:CPTDecimalFromFloat(graphYwidth)];
+        
+    }
+            
 }
 
 
 - (void) updateLabels
 {
+    BOOL isValid = [[self.vaavudCoreController.isValid lastObject] boolValue];
+
+    if (isValid) {
+        NSNumber *latestWindSpeed = [self.vaavudCoreController.windSpeed lastObject];
+        self.mainWindSpeedLabel.text = [NSString stringWithFormat: @"%.1f", [latestWindSpeed doubleValue]];
+    } else {
+        self.mainWindSpeedLabel.text = @"-";
+    }
+
+}
+
+- (void) createNewPlot
+{
+    self.plotCounter++;
     
-    NSNumber *latestWindSpeed = [self.vaavudCoreController.windSpeed lastObject];
-    self.mainWindSpeedLabel.text = [NSString stringWithFormat: @"%.1f", [latestWindSpeed doubleValue]];
+    
+    // Create a blue plot area
+    CPTScatterPlot *boundLinePlot       = [[CPTScatterPlot alloc] init];
+    CPTMutableLineStyle *lineStyle      = [CPTMutableLineStyle lineStyle];
+    lineStyle.miterLimit                = 1.0f;
+    lineStyle.lineWidth                 = 3.0f;
+    //    boundLinePlot.interpolation         = CPTScatterPlotInterpolationCurved;
+    CPTColor *vaavudBlue = [[CPTColor alloc] initWithComponentRed: 0 green: (float) 174/255 blue: (float) 239/255 alpha: 1 ];
+    
+    
+    //    lineStyle.lineColor         = [CPTColor blueColor];
+    lineStyle.lineColor         = vaavudBlue;
+    boundLinePlot.dataLineStyle = lineStyle;
+    boundLinePlot.identifier    = [NSNumber numberWithInt: self.plotCounter];
+    //    boundLinePlot.identifier    = @"Blue Plot";
+    boundLinePlot.dataSource    = self;
+    [self.dataForPlot insertObject: [NSMutableArray arrayWithCapacity:1] atIndex: self.plotCounter];
+    [self.graph addPlot:boundLinePlot];
 }
 
 
@@ -182,40 +229,20 @@
     majorGridLineStyle.lineColor        = [CPTColor grayColor];
     y.majorGridLineStyle                = majorGridLineStyle;
     
-    
-    
-    // Create a blue plot area
-    CPTScatterPlot *boundLinePlot       = [[CPTScatterPlot alloc] init];
-    CPTMutableLineStyle *lineStyle      = [CPTMutableLineStyle lineStyle];
-    lineStyle.miterLimit                = 1.0f;
-    lineStyle.lineWidth                 = 3.0f;
-//    boundLinePlot.interpolation         = CPTScatterPlotInterpolationCurved;
-    CPTColor *vaavudBlue = [[CPTColor alloc] initWithComponentRed: 0 green: (float) 174/255 blue: (float) 239/255 alpha: 1 ];
-    
-    
-    //    lineStyle.lineColor         = [CPTColor blueColor];
-    lineStyle.lineColor         = vaavudBlue;
-    boundLinePlot.dataLineStyle = lineStyle;
-    boundLinePlot.identifier    = [NSNumber numberWithInt:1];
-//    boundLinePlot.identifier    = @"Blue Plot";
-    boundLinePlot.dataSource    = self;
-    [self.graph addPlot:boundLinePlot];
-    
-    
-
-    
-    
 }
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    return [self.dataForPlot count];
+    NSUInteger mainIndex = [(NSNumber *) plot.identifier integerValue];
+    NSUInteger count = [[self.dataForPlot objectAtIndex: mainIndex] count];
+    return count;
 }
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
     NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-    NSNumber *num = [[self.dataForPlot objectAtIndex:index] valueForKey:key];
+    NSUInteger mainIndex = [(NSNumber *) plot.identifier integerValue];
+    NSNumber *num = [[[self.dataForPlot objectAtIndex:mainIndex] objectAtIndex: index] valueForKey:key];
     
     return num;
 }

@@ -11,6 +11,7 @@
 		D70241851746D7F6008954FD /* VaavudIcon57.png in Resources */ = {isa = PBXBuildFile; fileRef = D70241841746D7F6008954FD /* VaavudIcon57.png */; };
 		D7024189174789CB008954FD /* Vaavud200px.png in Resources */ = {isa = PBXBuildFile; fileRef = D7024188174789CB008954FD /* Vaavud200px.png */; };
 		D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */; };
+		D7092E8A1748FE9C00993235 /* vaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* vaavudDynamicsController.m */; };
 		D71BE13717439AA000B38E34 /* vaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* vaavudFFT.m */; };
 		D7A4F1CB173A8DDB00D1ACEE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */; };
 		D7A4F1CD173A8DDB00D1ACEE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CC173A8DDB00D1ACEE /* Foundation.framework */; };
@@ -112,6 +113,8 @@
 		D70241D717478B7A008954FD /* NSDecimalNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDecimalNumberExtensions.h; sourceTree = "<group>"; };
 		D70241D817478B7A008954FD /* NSNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberExtensions.h; sourceTree = "<group>"; };
 		D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
+		D7092E881748FE9C00993235 /* vaavudDynamicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudDynamicsController.h; sourceTree = "<group>"; };
+		D7092E891748FE9C00993235 /* vaavudDynamicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudDynamicsController.m; sourceTree = "<group>"; };
 		D71BE13517439AA000B38E34 /* vaavudFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudFFT.h; sourceTree = "<group>"; };
 		D71BE13617439AA000B38E34 /* vaavudFFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudFFT.m; sourceTree = "<group>"; };
 		D7A4F1C7173A8DDB00D1ACEE /* VaavudCore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VaavudCore.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -323,6 +326,8 @@
 				D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */,
 				D71BE13517439AA000B38E34 /* vaavudFFT.h */,
 				D71BE13617439AA000B38E34 /* vaavudFFT.m */,
+				D7092E881748FE9C00993235 /* vaavudDynamicsController.h */,
+				D7092E891748FE9C00993235 /* vaavudDynamicsController.m */,
 			);
 			name = VaavudCoreFiles;
 			sourceTree = "<group>";
@@ -403,6 +408,7 @@
 				D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController.m in Sources */,
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
 				D71BE13717439AA000B38E34 /* vaavudFFT.m in Sources */,
+				D7092E8A1748FE9C00993235 /* vaavudDynamicsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

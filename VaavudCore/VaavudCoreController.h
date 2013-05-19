@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "VaavudMagneticFieldDataManager.h"
+#import "vaavudDynamicsController.h"
 
 
-@interface VaavudCoreController : NSObject <VaavudMagneticFieldDataManagerDelegate>
+@interface VaavudCoreController : NSObject <VaavudMagneticFieldDataManagerDelegate, vaavudDynamicsControllerDelegate>
 
 - (id) init;
 - (void) start;

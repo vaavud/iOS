@@ -31,6 +31,11 @@
 //@property (nonatomic, strong) NSMutableArray *FFTresultAverage;
 @property (nonatomic, strong) vaavudFFT *FFTEngine;
 @property (nonatomic) int magneticFieldUpdatesCounter;
+@property (nonatomic) BOOL dynamicsIsValid;
+@property (nonatomic) BOOL FFTisValid;
+@property (nonatomic) NSUInteger isValidCounter;
+
+- (void) updateIsValid;
 
 @end
 
@@ -47,6 +52,8 @@
     {
         // Do initializing
         self.FFTEngine = [[vaavudFFT alloc] initFFTLength:FFTLength];
+        self.dynamicsIsValid = NO;
+        self.isValidCounter = 0;
 
     }
     
@@ -82,7 +89,36 @@
     
 }
 
+- (void) updateIsValid{
+    
+    self.isValidCounter++;
+    
+    BOOL validity = [[self.isValid lastObject] boolValue];
+    
+    if (self.isValidCounter > 20){
+        
+        if (self.FFTisValid && self.dynamicsIsValid) {
+            validity = YES;
+        } else {
+            validity = NO;
+        }
+        
+        if (validity != [[self.isValid lastObject] boolValue])
+            self.isValidCounter = 0;
+        
+    }
 
+    [self.isValid addObject: [NSNumber numberWithBool: validity]];
+}
+
+// protocol method
+- (void) DynamicsIsValid: (BOOL) validity
+{
+    self.dynamicsIsValid = validity;
+}
+
+
+// protocol method
 - (void) magneticFieldValuesUpdated
 {
     self.magneticFieldUpdatesCounter += 1;
@@ -162,14 +198,13 @@
             [self.windSpeed addObject: [NSNumber numberWithDouble: dominantFrequency]];
             [self.time addObject: [self.sharedMagneticFieldDataManager.magneticFieldReadingsTime lastObject]];
             
-            bool validity;
             
-            if (frequencyMagnitude > 10)
-                validity = YES;
+            if (frequencyMagnitude > FFTpeakMagnitudeMinForValid)
+                self.FFTisValid = YES;
             else
-                validity = NO;
+                self.FFTisValid = NO;
             
-            [self.isValid addObject: [NSNumber numberWithBool: validity]];
+            [self updateIsValid];
                         
             
         } // run every X update
