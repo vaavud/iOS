@@ -11,20 +11,27 @@
 
 @interface vaavudViewController ()
 
-@property (nonatomic, weak) IBOutlet UILabel *mainWindSpeedLabel;
+@property (nonatomic, weak) IBOutlet UILabel *actualLabel;
+@property (nonatomic, weak) IBOutlet UILabel *averageLabel;
+@property (nonatomic, weak) IBOutlet UILabel *maxLabel;
+@property (nonatomic, weak) IBOutlet UILabel *informationTextLabel;
+@property (nonatomic, weak) IBOutlet UIProgressView *statusBar;
+
+
 @property (nonatomic, strong) IBOutlet CPTGraphHostingView *hostView;
 @property (nonatomic, strong) IBOutlet UIButton *startStopButton;
 @property (nonatomic, strong) NSMutableArray *dataForPlot;
 @property (nonatomic, strong) CPTGraph *graph;
 @property (nonatomic, strong) VaavudCoreController *vaavudCoreController;
 @property (nonatomic, strong) CPTXYPlotSpace *plotSpace;
-@property (nonatomic) float graphTimeWidth;
-@property (nonatomic) float graphMinWindspeedWidth;
-@property (nonatomic, strong) NSDate *startTime;
-@property (nonatomic) float graphYMinValue;
-@property (nonatomic) float graphYMaxValue;
+@property (nonatomic) float     graphTimeWidth;
+@property (nonatomic) float     graphMinWindspeedWidth;
+@property (nonatomic, strong)   NSDate *startTime;
+@property (nonatomic) float     graphYMinValue;
+@property (nonatomic) float     graphYMaxValue;
 @property (nonatomic) NSUInteger plotCounter;
-@property (nonatomic) BOOL wasValid;
+@property (nonatomic) BOOL      wasValid;
+@property (nonatomic) double    startTimeDifference;
 
 @property (nonatomic, strong) NSTimer *TimerLabel;
 @property (nonatomic, strong) NSTimer *TimerGraphUI;
@@ -52,17 +59,20 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     // TEMPORATY LOAD OF CONSTANTS
-    
-    self.graphTimeWidth = 15;
-    self.graphMinWindspeedWidth = 5;
+    [self setupCorePlotGraph];
+
+    self.graphTimeWidth = 16;
+    self.graphMinWindspeedWidth = 4;
+    [self setupCorePlotGraph];
 
     
 //    self.startStopButton = [[UIButton alloc] init];
 //    [self.startStopButton setTitle:(NSString *) forState:(UIControlState)]
     
+}
 
-
-    
+- (void) viewDidDisappear:(BOOL)animated {
+    [self.vaavudCoreController stop];
 }
 
 - (void) start {
@@ -79,6 +89,8 @@
     self.TimerGraphValues   = [NSTimer scheduledTimerWithTimeInterval: 0.1 target: self selector: @selector(updateGraphValues) userInfo: nil repeats: YES];
     self.TimerLabel         = [NSTimer scheduledTimerWithTimeInterval: 0.2 target: self selector: @selector(updateLabels) userInfo: nil repeats: YES];
     [self.vaavudCoreController start];
+    
+    [self.statusBar setProgress:0];
 }
 
 - (void) stop {
@@ -88,13 +100,15 @@
     [self.vaavudCoreController stop];
     
     self.startTime = nil;
+    self.graphYMaxValue = 0;
+    self.graphYMinValue = 0;
 }
 
 - (void) updateGraphUI
 {
     
     if ([[self.vaavudCoreController.isValid lastObject] boolValue]) {
-        float timeSinceStart = - [self.startTime  timeIntervalSinceNow];
+        float timeSinceStart = - [self.startTime  timeIntervalSinceNow] - self.startTimeDifference + 1;
         
         if (timeSinceStart > self.graphTimeWidth) {
             self.plotSpace.xRange  = [CPTPlotRange plotRangeWithLocation: CPTDecimalFromFloat(timeSinceStart - self.graphTimeWidth) length:CPTDecimalFromFloat(self.graphTimeWidth)];
@@ -123,9 +137,6 @@
         self.graphYMinValue = [y floatValue];
         if (!self.graphYMaxValue)
             self.graphYMaxValue = [y floatValue];
-        
-        if (!self.startTime)
-            self.startTime = [NSDate dateWithTimeIntervalSinceNow: - [x doubleValue]];
     }
             
     
@@ -140,7 +151,16 @@
     self.wasValid = isValid;
     
     if (isValid) {
-        [[self.dataForPlot objectAtIndex: self.plotCounter] addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
+        
+        if (!self.startTime) {
+            self.startTime = [NSDate dateWithTimeIntervalSinceNow: - [x doubleValue]];
+            self.startTimeDifference = [x doubleValue];
+        }
+        
+        NSNumber *xtime = [NSNumber numberWithDouble:([x doubleValue] - self.startTimeDifference) ];
+        
+        
+        [[self.dataForPlot objectAtIndex: self.plotCounter] addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:xtime, @"x", y, @"y", nil]];
         
         
         // update min and max values
@@ -178,9 +198,24 @@
 
     if (isValid) {
         NSNumber *latestWindSpeed = [self.vaavudCoreController.windSpeed lastObject];
-        self.mainWindSpeedLabel.text = [NSString stringWithFormat: @"%.1f", [latestWindSpeed doubleValue]];
+        self.actualLabel.text = [NSString stringWithFormat: @"%.1f", [latestWindSpeed doubleValue]];
+        self.averageLabel.text = [NSString stringWithFormat: @"%.1f", [[self.vaavudCoreController getAverage] floatValue]];
+        self.maxLabel.text = [NSString stringWithFormat: @"%.1f", [[self.vaavudCoreController getMax] floatValue]];
+        
+        self.informationTextLabel.text = @"";
+        
+        [self.statusBar setProgress: [[self.vaavudCoreController getProgress] floatValue]];
+        
     } else {
-        self.mainWindSpeedLabel.text = @"-";
+        self.actualLabel.text = @"-";
+//        self.averageLabel.text = @"-";
+//        self.maxLabel.text = @"-";
+        
+        if (self.vaavudCoreController.dynamicsIsValid)
+            self.informationTextLabel.text = @"No signal";
+        else
+            self.informationTextLabel.text = @"Keep vertical & steady";
+
     }
 
 }
@@ -233,6 +268,7 @@
     self.graph.paddingTop    = 0.0;
     self.graph.paddingRight  = 0.0;
     self.graph.paddingBottom = 0.0;
+    self.graph.plotAreaFrame.paddingTop     = 10.0;
     self.graph.plotAreaFrame.paddingLeft    = 30.0;
     self.graph.plotAreaFrame.paddingBottom  = 30.0;
     
@@ -245,16 +281,20 @@
     self.plotSpace.GlobalYRange          = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(self.graphMinWindspeedWidth)];
     self.plotSpace.delegate = self;
     
-    
-    
     // Axes
+    
+    CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
+    majorGridLineStyle.lineWidth        = 1.5;
+    majorGridLineStyle.lineColor        = [CPTColor grayColor];
+    
     CPTXYAxisSet *axisSet               = (CPTXYAxisSet *) self.graph.axisSet;
     CPTXYAxis *x                        = axisSet.xAxis;
-    x.majorIntervalLength               = CPTDecimalFromString(@"10");
+    x.majorIntervalLength               = CPTDecimalFromInt(5);
     x.axisConstraints                   = [CPTConstraints constraintWithLowerOffset:0.0];
     CPTMutableTextStyle *textStyleGrey  = [CPTMutableTextStyle textStyle];
     textStyleGrey.color                 = [CPTColor grayColor];
     x.labelTextStyle                    = textStyleGrey;
+    x.axisLineStyle                     = majorGridLineStyle;
     
     NSNumberFormatter *numberFormat     = [[NSNumberFormatter alloc] init];
     [numberFormat setMaximumFractionDigits: 0];
@@ -262,17 +302,13 @@
 
     
     CPTXYAxis *y                        = axisSet.yAxis;
-    y.majorIntervalLength               = CPTDecimalFromString(@"2");
+    y.majorIntervalLength               = CPTDecimalFromInt(2);
     CPTMutableTextStyle *textStyleWhite = [CPTMutableTextStyle textStyle];
     textStyleWhite.color                = [CPTColor whiteColor];
     y.labelTextStyle                    = textStyleWhite;
     y.axisConstraints                   = [CPTConstraints constraintWithLowerOffset:0.0];
     y.labelFormatter                    = numberFormat;
-
     
-    CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
-    majorGridLineStyle.lineWidth        = 1.5;
-    majorGridLineStyle.lineColor        = [CPTColor grayColor];
     y.majorGridLineStyle                = majorGridLineStyle;
     
 }

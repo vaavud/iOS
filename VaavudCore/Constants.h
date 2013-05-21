@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
-#define preferedSampleFrequency 100
+#define preferedSampleFrequency 100 // actual is arround 63 
 #define accAndGyroSampleFrequency 5
 #define FFTLength 64
 #define FFTDataLength 40
@@ -17,3 +17,7 @@
 #define angularVelocityMaxForValid 0.4 // rad/s (maybe deg/s or another unit)
 #define orientationDeviationMaxForValid 0.31 // rad  (18) degrees
 #define FFTpeakMagnitudeMinForValid 8 // (abs(FFT(maxbin))
+
+
+// Threshold for valid measurement
+#define minimumNumberOfSeconds 30

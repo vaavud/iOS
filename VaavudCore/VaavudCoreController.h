@@ -17,6 +17,10 @@
 - (void) start;
 - (void) stop;
 - (void) remove;
+- (NSNumber *) getAverage;
+- (NSNumber *) getMax;
+- (NSNumber *) getProgress;
+
 
 //@property (readonly, nonatomic, strong) NSMutableArray *magneticFieldReadings;
 @property (readonly, nonatomic) float currentWindSpeed;
@@ -25,6 +29,8 @@
 @property (readonly, nonatomic, strong) NSMutableArray *windSpeed;
 @property (readonly, nonatomic, strong) NSMutableArray *isValid;
 @property (readonly, nonatomic, strong) NSMutableArray *time;
+@property (nonatomic) BOOL dynamicsIsValid;
+@property (nonatomic) BOOL FFTisValid;
 
 
 

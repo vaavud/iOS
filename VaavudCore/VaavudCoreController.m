@@ -32,10 +32,13 @@
 //@property (nonatomic, strong) NSMutableArray *FFTresultAverage;
 @property (nonatomic, strong) vaavudFFT *FFTEngine;
 @property (nonatomic) int magneticFieldUpdatesCounter;
-@property (nonatomic) BOOL dynamicsIsValid;
-@property (nonatomic) BOOL FFTisValid;
 @property (nonatomic) NSInteger isValidPercent;
 @property (nonatomic) BOOL isValidCurrentStatus;
+
+@property (nonatomic) double    sumOfValidMeasurements;
+@property (nonatomic) int       numberOfValidMeasurements;
+@property (nonatomic) int       numberOfMeasurements;
+@property (nonatomic) double    maxWindspeed;
 
 - (void) updateIsValid;
 
@@ -80,6 +83,9 @@
     self.vaavudDynamicsController = [[vaavudDynamicsController alloc] init];
     self.vaavudDynamicsController.delegate = self;
     [self.vaavudDynamicsController start];
+    
+    self.numberOfValidMeasurements = 0;
+    self.sumOfValidMeasurements = 0;
     
 }
 
@@ -221,17 +227,47 @@
             
             if (frequencyMagnitude > FFTpeakMagnitudeMinForValid) {
                 self.FFTisValid = YES;
+                
+                self.sumOfValidMeasurements += dominantFrequency;
+                self.numberOfValidMeasurements ++;
+                if (dominantFrequency > self.maxWindspeed)
+                    self.maxWindspeed = dominantFrequency;
             }
             else {
                 self.FFTisValid = NO;
                 NSLog(@"FFTpeakMagnetude too low - value: @%f", frequencyMagnitude);
             }
             
+            self.numberOfMeasurements++;
             [self updateIsValid];
                         
             
         } // run every X update
     } // if counter > datalength
+}
+
+- (NSNumber *) getAverage
+{
+    return [NSNumber numberWithDouble: self.sumOfValidMeasurements/self.numberOfValidMeasurements];
+}
+- (NSNumber *) getMax
+{
+    return [NSNumber numberWithDouble: self.maxWindspeed];
+}
+
+- (NSNumber *) getProgress
+{
+    
+    float elapsedTime = [[self.time lastObject] floatValue];
+    float measurementFrequency = self.numberOfMeasurements/elapsedTime;
+    float validTime = self.numberOfValidMeasurements / measurementFrequency;
+
+    
+    double progress = validTime/minimumNumberOfSeconds;
+    if (progress > 1)
+        progress = 1;
+    
+    return [NSNumber numberWithDouble: progress];
 }
 
 
