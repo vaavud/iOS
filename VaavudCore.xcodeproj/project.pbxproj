@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		D70241831746D7F1008954FD /* VaavudIcon114.png in Resources */ = {isa = PBXBuildFile; fileRef = D70241821746D7F1008954FD /* VaavudIcon114.png */; };
 		D70241851746D7F6008954FD /* VaavudIcon57.png in Resources */ = {isa = PBXBuildFile; fileRef = D70241841746D7F6008954FD /* VaavudIcon57.png */; };
-		D7024189174789CB008954FD /* Vaavud200px.png in Resources */ = {isa = PBXBuildFile; fileRef = D7024188174789CB008954FD /* Vaavud200px.png */; };
 		D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */; };
 		D7092E8A1748FE9C00993235 /* vaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* vaavudDynamicsController.m */; };
 		D71BE13717439AA000B38E34 /* vaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* vaavudFFT.m */; };
@@ -26,6 +25,9 @@
 		D7A4F1E7173A8DDB00D1ACEE /* vaavudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */; };
 		D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */; };
 		D7A4F1F4173A9FC200D1ACEE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */; };
+		D7B5BD471755D60B0069F739 /* Arkitech Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7B5BD461755D2C20069F739 /* Arkitech Medium.ttf */; };
+		D7B5BD4B17574E8C0069F739 /* VaavudTransparent100px.png in Resources */ = {isa = PBXBuildFile; fileRef = D7B5BD4A17574E8C0069F739 /* VaavudTransparent100px.png */; };
+		D7B5BD4D17574E970069F739 /* VaavudTransparent100px@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7B5BD4C17574E970069F739 /* VaavudTransparent100px@2x.png */; };
 		D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C860ED173AD08F005E9946 /* QuartzCore.framework */; };
 		D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */; };
 		D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DA72401743C1CD00DFE962 /* Accelerate.framework */; };
@@ -34,7 +36,6 @@
 /* Begin PBXFileReference section */
 		D70241821746D7F1008954FD /* VaavudIcon114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon114.png; sourceTree = "<group>"; };
 		D70241841746D7F6008954FD /* VaavudIcon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon57.png; sourceTree = "<group>"; };
-		D7024188174789CB008954FD /* Vaavud200px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Vaavud200px.png; sourceTree = "<group>"; };
 		D702418C17478B79008954FD /* CorePlot-CocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorePlot-CocoaTouch.h"; sourceTree = "<group>"; };
 		D702418D17478B79008954FD /* CPTAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAnimation.h; sourceTree = "<group>"; };
 		D702418E17478B79008954FD /* CPTAnimationOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAnimationOperation.h; sourceTree = "<group>"; };
@@ -137,6 +138,9 @@
 		D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudCoreController.m; sourceTree = "<group>"; };
 		D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		D7A4F1F5173AA16700D1ACEE /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		D7B5BD461755D2C20069F739 /* Arkitech Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Arkitech Medium.ttf"; path = "../../../../Library/Fonts/Arkitech Medium.ttf"; sourceTree = "<group>"; };
+		D7B5BD4A17574E8C0069F739 /* VaavudTransparent100px.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudTransparent100px.png; sourceTree = "<group>"; };
+		D7B5BD4C17574E970069F739 /* VaavudTransparent100px@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VaavudTransparent100px@2x.png"; sourceTree = "<group>"; };
 		D7C860ED173AD08F005E9946 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D7C860F8173B061E005E9946 /* VaavudMagneticFieldDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudMagneticFieldDataManager.h; sourceTree = "<group>"; };
 		D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudMagneticFieldDataManager.m; sourceTree = "<group>"; };
@@ -266,6 +270,7 @@
 				D7A4F1D0173A8DDB00D1ACEE /* VaavudCore */,
 				D7A4F1C9173A8DDB00D1ACEE /* Frameworks */,
 				D7A4F1C8173A8DDB00D1ACEE /* Products */,
+				D7B5BD461755D2C20069F739 /* Arkitech Medium.ttf */,
 			);
 			sourceTree = "<group>";
 		};
@@ -304,7 +309,8 @@
 		D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D7024188174789CB008954FD /* Vaavud200px.png */,
+				D7B5BD4C17574E970069F739 /* VaavudTransparent100px@2x.png */,
+				D7B5BD4A17574E8C0069F739 /* VaavudTransparent100px.png */,
 				D7A4F1D2173A8DDB00D1ACEE /* VaavudCore-Info.plist */,
 				D7A4F1D3173A8DDB00D1ACEE /* InfoPlist.strings */,
 				D7A4F1D6173A8DDB00D1ACEE /* main.m */,
@@ -384,6 +390,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7B5BD471755D60B0069F739 /* Arkitech Medium.ttf in Resources */,
 				D7A4F1D5173A8DDB00D1ACEE /* InfoPlist.strings in Resources */,
 				D7A4F1DD173A8DDB00D1ACEE /* Default.png in Resources */,
 				D7A4F1DF173A8DDB00D1ACEE /* Default@2x.png in Resources */,
@@ -391,7 +398,8 @@
 				D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */,
 				D70241831746D7F1008954FD /* VaavudIcon114.png in Resources */,
 				D70241851746D7F6008954FD /* VaavudIcon57.png in Resources */,
-				D7024189174789CB008954FD /* Vaavud200px.png in Resources */,
+				D7B5BD4B17574E8C0069F739 /* VaavudTransparent100px.png in Resources */,
+				D7B5BD4D17574E970069F739 /* VaavudTransparent100px@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

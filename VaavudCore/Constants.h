@@ -15,8 +15,8 @@
 // Thresholds for isValid
 #define accelerationMaxForValid 0.1 // g acc/(9.82 m/s^2)
 #define angularVelocityMaxForValid 0.4 // rad/s (maybe deg/s or another unit)
-#define orientationDeviationMaxForValid 0.31 // rad  (18) degrees
-#define FFTpeakMagnitudeMinForValid 8 // (abs(FFT(maxbin))
+#define orientationDeviationMaxForValid 0.63 // rad  (36) degrees
+#define FFTpeakMagnitudeMinForValid 5 // (abs(FFT(maxbin))
 
 
 // Threshold for valid measurement

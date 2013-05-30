@@ -14,15 +14,15 @@
 @property (nonatomic, weak) IBOutlet UILabel *actualLabel;
 @property (nonatomic, weak) IBOutlet UILabel *averageLabel;
 @property (nonatomic, weak) IBOutlet UILabel *maxLabel;
+@property (nonatomic, weak) IBOutlet UILabel *unitLabel;
 @property (nonatomic, weak) IBOutlet UILabel *informationTextLabel;
 @property (nonatomic, weak) IBOutlet UIProgressView *statusBar;
 
+@property (nonatomic, strong) IBOutlet UIButton *startStopButton;
 
 @property (nonatomic, strong) IBOutlet CPTGraphHostingView *hostView;
-@property (nonatomic, strong) IBOutlet UIButton *startStopButton;
 @property (nonatomic, strong) NSMutableArray *dataForPlot;
 @property (nonatomic, strong) CPTGraph *graph;
-@property (nonatomic, strong) VaavudCoreController *vaavudCoreController;
 @property (nonatomic, strong) CPTXYPlotSpace *plotSpace;
 @property (nonatomic) float     graphTimeWidth;
 @property (nonatomic) float     graphMinWindspeedWidth;
@@ -30,8 +30,11 @@
 @property (nonatomic) float     graphYMinValue;
 @property (nonatomic) float     graphYMaxValue;
 @property (nonatomic) NSUInteger plotCounter;
-@property (nonatomic) BOOL      wasValid;
 @property (nonatomic) double    startTimeDifference;
+
+@property (nonatomic, strong) VaavudCoreController *vaavudCoreController;
+
+@property (nonatomic) BOOL      wasValid;
 
 @property (nonatomic, strong) NSTimer *TimerLabel;
 @property (nonatomic, strong) NSTimer *TimerGraphUI;
@@ -47,6 +50,12 @@
 
 - (IBAction) buttonPushed: (id)sender;
 
+
+enum plotName : NSUInteger {
+    averagePlot = 0
+};
+
+
 @end
 
 @implementation vaavudViewController {
@@ -58,40 +67,44 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    // TEMPORATY LOAD OF CONSTANTS
     [self setupCorePlotGraph];
 
+    // TEMPORATY LOAD OF CONSTANTS
     self.graphTimeWidth = 16;
     self.graphMinWindspeedWidth = 4;
     [self setupCorePlotGraph];
-
     
-//    self.startStopButton = [[UIButton alloc] init];
-//    [self.startStopButton setTitle:(NSString *) forState:(UIControlState)]
-    
+//    self.actualLabel.font = [UIFont fontWithName:@"Arkitech-Medium" size:40];
+    UIColor *vaavudBlueUIcolor = [UIColor colorWithRed:(0/255.0) green:(174/255.0) blue:(239/255.0) alpha:1];
+    self.actualLabel.textColor = vaavudBlueUIcolor;
+    self.maxLabel.textColor = vaavudBlueUIcolor;
+    self.unitLabel.textColor = vaavudBlueUIcolor;
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
     [self.vaavudCoreController stop];
 }
 
+
+
 - (void) start {
     
     self.vaavudCoreController = [[VaavudCoreController alloc] init];
     
-    self.plotCounter = -1;
+    self.plotCounter = 0;
     
     self.dataForPlot = [NSMutableArray arrayWithCapacity:20];
     
     [self setupCorePlotGraph];
     
     self.TimerGraphUI       = [NSTimer scheduledTimerWithTimeInterval: 0.05 target: self selector: @selector(updateGraphUI) userInfo: nil repeats: YES];
-    self.TimerGraphValues   = [NSTimer scheduledTimerWithTimeInterval: 0.1 target: self selector: @selector(updateGraphValues) userInfo: nil repeats: YES];
-    self.TimerLabel         = [NSTimer scheduledTimerWithTimeInterval: 0.2 target: self selector: @selector(updateLabels) userInfo: nil repeats: YES];
+    self.TimerGraphValues   = [NSTimer scheduledTimerWithTimeInterval: 0.05 target: self selector: @selector(updateGraphValues) userInfo: nil repeats: YES];
+    self.TimerLabel         = [NSTimer scheduledTimerWithTimeInterval: 0.5 target: self selector: @selector(updateLabels) userInfo: nil repeats: YES];
     [self.vaavudCoreController start];
     
     [self.statusBar setProgress:0];
 }
+
 
 - (void) stop {
     [self.TimerGraphUI invalidate];
@@ -103,6 +116,7 @@
     self.graphYMaxValue = 0;
     self.graphYMinValue = 0;
 }
+
 
 - (void) updateGraphUI
 {
@@ -119,6 +133,7 @@
         
     }
 }
+
 
 - (void) updateGraphValues
 {
@@ -139,9 +154,6 @@
             self.graphYMaxValue = [y floatValue];
     }
             
-    
-    // add data points to the graph
-//    [self.dataForPlot addObject:[NSMutableDictionary dictionaryWithObjectsAndKeys:x, @"x", y, @"y", nil]];
     
     BOOL isValid = [[self.vaavudCoreController.isValid lastObject] boolValue];
     
@@ -187,6 +199,15 @@
         self.plotSpace.yRange  = plotRange;
         self.plotSpace.globalYRange = plotRange;
         
+        
+        // add average      
+        
+        NSMutableArray *averageDataArray =  [NSMutableArray arrayWithCapacity:2];
+        [averageDataArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithFloat:0.f], @"x", [self.vaavudCoreController getAverage], @"y", nil]];
+        [averageDataArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys: xtime, @"x", [self.vaavudCoreController getAverage], @"y", nil]];
+        
+        
+        [self.dataForPlot replaceObjectAtIndex: averagePlot withObject: averageDataArray];
     }
             
 }
@@ -208,8 +229,6 @@
         
     } else {
         self.actualLabel.text = @"-";
-//        self.averageLabel.text = @"-";
-//        self.maxLabel.text = @"-";
         
         if (self.vaavudCoreController.dynamicsIsValid)
             self.informationTextLabel.text = @"No signal";
@@ -219,6 +238,8 @@
     }
 
 }
+
+
 
 - (void) createNewPlot
 {
@@ -230,7 +251,7 @@
     CPTMutableLineStyle *lineStyle      = [CPTMutableLineStyle lineStyle];
     lineStyle.miterLimit                = 1.0f;
     lineStyle.lineWidth                 = 3.0f;
-    //    boundLinePlot.interpolation         = CPTScatterPlotInterpolationCurved;
+//    boundLinePlot.interpolation         = CPTScatterPlotInterpolationCurved;
     CPTColor *vaavudBlue = [[CPTColor alloc] initWithComponentRed: 0 green: (float) 174/255 blue: (float) 239/255 alpha: 1 ];
     
     
@@ -245,24 +266,21 @@
 }
 
 
+
 - (void) setupCorePlotGraph
 {
     
     self.hostView.collapsesLayers = NO; // Setting to YES reduces GPU memory usage, but can slow drawing/scrolling
-    //    self.hostView.allowPinchScaling = NO;
     
     // Create graph from theme
     self.graph = [[CPTXYGraph alloc] initWithFrame:CGRectZero];
     self.hostView.hostedGraph     = self.graph;
     
-//    CPTTheme *theme = [CPTTheme themeNamed:kCPTPlainBlackTheme];
-//    [self.graph applyTheme:theme];
-    
     self.graph.fill = nil;
     self.graph.plotAreaFrame.fill = nil;
     self.graph.plotAreaFrame.borderLineStyle = nil;
     
-    [self.view addSubview:self.hostView];
+//    [self.view addSubview:self.hostView];
     
     self.graph.paddingLeft   = 0.0;
     self.graph.paddingTop    = 0.0;
@@ -285,31 +303,68 @@
     
     CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
     majorGridLineStyle.lineWidth        = 1.5;
-    majorGridLineStyle.lineColor        = [CPTColor grayColor];
+    majorGridLineStyle.lineColor        = [CPTColor lightGrayColor];
+    
+    CPTMutableLineStyle *GreyLineStyle = [CPTMutableLineStyle lineStyle];
+    GreyLineStyle.lineWidth        = 1.5;
+    GreyLineStyle.lineColor        = [CPTColor grayColor];
+    
+    
+    CPTMutableTextStyle *textStyleDarkGrey = [CPTMutableTextStyle textStyle];
+    textStyleDarkGrey.color                = [CPTColor darkGrayColor];
+    
+    CPTMutableTextStyle *textStyleGrey  = [CPTMutableTextStyle textStyle];
+    textStyleGrey.color                 = [CPTColor grayColor];
+    
+    NSNumberFormatter *numberFormat     = [[NSNumberFormatter alloc] init];
+    [numberFormat setMaximumFractionDigits: 0];
     
     CPTXYAxisSet *axisSet               = (CPTXYAxisSet *) self.graph.axisSet;
     CPTXYAxis *x                        = axisSet.xAxis;
     x.majorIntervalLength               = CPTDecimalFromInt(5);
+    x.minorTicksPerInterval             = 0;
     x.axisConstraints                   = [CPTConstraints constraintWithLowerOffset:0.0];
-    CPTMutableTextStyle *textStyleGrey  = [CPTMutableTextStyle textStyle];
-    textStyleGrey.color                 = [CPTColor grayColor];
     x.labelTextStyle                    = textStyleGrey;
-    x.axisLineStyle                     = majorGridLineStyle;
-    
-    NSNumberFormatter *numberFormat     = [[NSNumberFormatter alloc] init];
-    [numberFormat setMaximumFractionDigits: 0];
+    x.axisLineStyle                     = GreyLineStyle;
+    x.majorTickLineStyle                = GreyLineStyle;
+    x.minorTickLineStyle                = GreyLineStyle;
     x.labelFormatter                    = numberFormat;
+    x.majorTickLineStyle                = nil;
 
     
     CPTXYAxis *y                        = axisSet.yAxis;
     y.majorIntervalLength               = CPTDecimalFromInt(2);
-    CPTMutableTextStyle *textStyleWhite = [CPTMutableTextStyle textStyle];
-    textStyleWhite.color                = [CPTColor whiteColor];
-    y.labelTextStyle                    = textStyleWhite;
+    y.minorTicksPerInterval             = 0;
     y.axisConstraints                   = [CPTConstraints constraintWithLowerOffset:0.0];
     y.labelFormatter                    = numberFormat;
-    
     y.majorGridLineStyle                = majorGridLineStyle;
+    y.labelTextStyle                    = textStyleDarkGrey;
+    y.minorTickLineStyle                = nil;
+    y.majorTickLineStyle                = nil;
+    y.axisLineStyle                     = nil;
+    
+    
+
+    
+    
+    
+    
+    // create Red Average  // Create a blue plot area
+    CPTScatterPlot *averageLinePlot       = [[CPTScatterPlot alloc] init];
+    CPTMutableLineStyle *lineStyle      = [CPTMutableLineStyle lineStyle];
+    lineStyle.miterLimit                = 1.0f;
+    lineStyle.lineWidth                 = 3.0f;
+    CPTColor *vaavudRed = [[CPTColor alloc] initWithComponentRed: (float) 210/255 green: (float) 37/255 blue: (float) 45/255 alpha: 1 ];
+    
+    
+//   lineStyle.lineColor         = [CPTColor whiteColor];
+    lineStyle.lineColor         = vaavudRed;
+    averageLinePlot.dataLineStyle = lineStyle;
+    averageLinePlot.identifier    = [NSNumber numberWithInt: averagePlot];
+    averageLinePlot.dataSource    = self;
+    [self.dataForPlot insertObject: [NSMutableArray arrayWithCapacity:1] atIndex: averagePlot];
+    [self.graph addPlot:averageLinePlot];
+
     
 }
 
@@ -322,11 +377,14 @@
 
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
 {
+    
     NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
     NSUInteger mainIndex = [(NSNumber *) plot.identifier integerValue];
     NSNumber *num = [[[self.dataForPlot objectAtIndex:mainIndex] objectAtIndex: index] valueForKey:key];
     
     return num;
+    
+    
 }
 
 // only displace in X
@@ -360,9 +418,6 @@
         
 
 }
-
-
-
 
 - (void)didReceiveMemoryWarning
 {
