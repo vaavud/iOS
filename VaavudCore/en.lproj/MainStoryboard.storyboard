@@ -15,7 +15,7 @@
                             <progressView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eB6-ZR-G0T">
                                 <color key="progressTintColor" red="0.062745101749897003" green="0.68627452850341797" blue="0.93725496530532837" alpha="1" colorSpace="deviceRGB"/>
                             </progressView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jop-HL-F0a" customClass="CPTGraphHostingView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jop-HL-F0a" customClass="vaavudGraphHostingView">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bS1-jk-rNp">
@@ -175,7 +175,7 @@
                     <connections>
                         <outlet property="actualLabel" destination="Vbb-Ps-UGv" id="rcD-IZ-eUR"/>
                         <outlet property="averageLabel" destination="aIb-lj-gMl" id="ih5-qE-xOc"/>
-                        <outlet property="hostView" destination="jop-HL-F0a" id="FLZ-yN-M1O"/>
+                        <outlet property="graphHostView" destination="jop-HL-F0a" id="evt-jF-Ucf"/>
                         <outlet property="informationTextLabel" destination="0Ej-kg-OB6" id="q7u-cM-DZX"/>
                         <outlet property="maxLabel" destination="E6z-xo-cgt" id="3hP-pM-d5U"/>
                         <outlet property="startStopButton" destination="bS1-jk-rNp" id="DvW-Qm-2Zi"/>
@@ -197,13 +197,16 @@
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
         </class>
+        <class className="vaavudGraphHostingView" superclassName="CPTGraphHostingView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/vaavudGraphHostingView.h"/>
+        </class>
         <class className="vaavudViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/vaavudViewController.h"/>
             <relationships>
                 <relationship kind="action" name="buttonPushed:"/>
                 <relationship kind="outlet" name="actualLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="averageLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="hostView" candidateClass="CPTGraphHostingView"/>
+                <relationship kind="outlet" name="hostView" candidateClass="vaavudGraphHostingView"/>
                 <relationship kind="outlet" name="informationTextLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="maxLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="startStopButton" candidateClass="UIButton"/>

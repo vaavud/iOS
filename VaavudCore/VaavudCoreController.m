@@ -58,7 +58,7 @@
         // Do initializing
         self.FFTEngine = [[vaavudFFT alloc] initFFTLength:FFTLength];
         self.dynamicsIsValid = YES;
-        self.isValidPercent = 2; // start at 2% valid
+        self.isValidPercent = 50; // start at 2% valid
         self.isValidCurrentStatus = YES;
 
     }
@@ -109,9 +109,9 @@
     
     
     if (self.FFTisValid && self.dynamicsIsValid) {
-        self.isValidPercent += 4;
+        self.isValidPercent += 8;
     } else {
-        self.isValidPercent -= 4;
+        self.isValidPercent -= 8;
     }
     
     if (self.isValidPercent > 100) {
