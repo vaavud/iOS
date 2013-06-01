@@ -307,8 +307,6 @@
 				D7A4F1D9173A8DDB00D1ACEE /* vaavudAppDelegate.h */,
 				D7A4F1DA173A8DDB00D1ACEE /* vaavudAppDelegate.m */,
 				D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */,
-				D7A4F1E5173A8DDB00D1ACEE /* vaavudViewController.h */,
-				D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */,
 				D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */,
 			);
 			path = VaavudCore;
@@ -349,6 +347,8 @@
 		D7B5BD4E175775BA0069F739 /* VaavudViewFiles */ = {
 			isa = PBXGroup;
 			children = (
+				D7A4F1E5173A8DDB00D1ACEE /* vaavudViewController.h */,
+				D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */,
 				D7B5BD4F175775EB0069F739 /* vaavudGraphHostingView.h */,
 				D7B5BD50175775EB0069F739 /* vaavudGraphHostingView.m */,
 			);

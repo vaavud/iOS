@@ -29,7 +29,7 @@
 - (NSNumber *) getMax;
 - (NSNumber *) getProgress;
 
-
+@property (readonly, nonatomic, strong) NSNumber *setWindDirection;
 @property (readonly, nonatomic) float currentWindSpeed;
 @property (readonly, nonatomic) float currentWindDirection;
 @property (readonly, nonatomic) float currentWindSpeedMax;
@@ -42,6 +42,7 @@
 
 
 @property (nonatomic) BOOL dynamicsIsValid;
+@property (nonatomic) BOOL windDirectionIsConfirmed;
 @property (nonatomic) BOOL FFTisValid;
 
 @property (nonatomic, weak) id <VaavudCoreViewControllerDelegate> vaavudCoreControllerViewControllerDelegate;

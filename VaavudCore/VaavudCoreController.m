@@ -16,6 +16,7 @@
 }
 
 // public properties - create setters
+@property (nonatomic, strong) NSNumber *setWindDirection;
 @property (nonatomic) float currentWindSpeed;
 @property (nonatomic) float currentWindDirection;
 @property (nonatomic) float currentWindSpeedMax;
@@ -62,10 +63,6 @@
     {
         // Do initializing
         self.FFTEngine = [[vaavudFFT alloc] initFFTLength:FFTLength];
-        self.dynamicsIsValid = NO;
-        self.isValidPercent = 50; // start at 2% valid
-        self.isValidCurrentStatus = NO;
-
     }
     
     return self;
@@ -74,6 +71,20 @@
 
 - (void) start
 {
+    self.dynamicsIsValid = NO;
+    self.isValidPercent = 50; // start at 50% valid
+    self.isValidCurrentStatus = NO;
+    self.windDirectionIsConfirmed = NO;
+    
+    self.startTime          = [NSDate date];
+    self.windSpeed          = [NSMutableArray arrayWithCapacity:1000];
+    self.windSpeedTime      = [NSMutableArray arrayWithCapacity:1000];
+    self.isValid            = [NSMutableArray arrayWithCapacity:1000];
+    self.windDirection      = [NSMutableArray arrayWithCapacity:50];
+    self.windDirectionTime  = [NSMutableArray arrayWithCapacity:50];
+    self.magneticFieldUpdatesCounter = 0;
+    self.numberOfValidMeasurements = 0;
+    self.sumOfValidMeasurements = 0;
     
     
     // Set interface direction
@@ -85,25 +96,15 @@
     if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
         self.upsideDown = YES;
     
-
-    // create reference to MagneticField Data Manager
+    // create reference to MagneticField Data Manager and start
     self.sharedMagneticFieldDataManager = [VaavudMagneticFieldDataManager sharedMagneticFieldDataManager];
     self.sharedMagneticFieldDataManager.delegate = self;
-    self.magneticFieldUpdatesCounter = 0;
-    
-    self.startTime = [NSDate date];
-    self.windSpeed = [NSMutableArray arrayWithCapacity:1000];
-    self.windSpeedTime = [NSMutableArray arrayWithCapacity:1000];
-    self.isValid = [NSMutableArray arrayWithCapacity:1000];
-    self.windDirection = [NSMutableArray arrayWithCapacity:1000];
     [self.sharedMagneticFieldDataManager start];
     
+    // create dynamics controller and start
     self.vaavudDynamicsController = [[vaavudDynamicsController alloc] init];
     self.vaavudDynamicsController.vaavudCoreController = self;
     [self.vaavudDynamicsController start];
-    
-    self.numberOfValidMeasurements = 0;
-    self.sumOfValidMeasurements = 0;
     
 }
 
@@ -160,7 +161,6 @@
 - (void) newHeading: (NSNumber*) newHeading
 {
     
-    
     if (self.upsideDown){
         double heading;
         heading = [newHeading doubleValue];
@@ -176,6 +176,9 @@
     
     [self.windDirection addObject: newHeading];
     [self.windDirectionTime addObject: [NSNumber numberWithDouble: [self.startTime timeIntervalSinceDate: [NSDate date]]]];
+    
+    if (!self.windDirectionIsConfirmed)
+        self.setWindDirection = newHeading;
 }
 
 

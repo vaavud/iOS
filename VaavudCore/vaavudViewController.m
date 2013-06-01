@@ -17,9 +17,11 @@
 @property (nonatomic, weak) IBOutlet UILabel *unitLabel;
 @property (nonatomic, weak) IBOutlet UILabel *windDirectionLabel;
 @property (nonatomic, weak) IBOutlet UILabel *informationTextLabel;
+@property (nonatomic, weak) IBOutlet UILabel *windDirectionStatusLabel;
 @property (nonatomic, weak) IBOutlet UIProgressView *statusBar;
 
-@property (nonatomic, strong) IBOutlet UIButton *startStopButton;
+@property (nonatomic, weak) IBOutlet UIButton *startStopButton;
+@property (nonatomic, weak) IBOutlet UIButton *windDirectionStatusButton;
 @property (nonatomic, strong) IBOutlet vaavudGraphHostingView *graphHostView;
 
 
@@ -36,6 +38,7 @@
 - (void) stop;
 
 - (IBAction) buttonPushed: (id)sender;
+- (IBAction) windDirectionStatusToggle:(id)sender;
 
 
 @end
@@ -54,6 +57,12 @@
     
     self.compassTableShort = [NSArray arrayWithObjects:  @"N",@"NE",@"E",@"SE",@"S",@"SW",@"W",@"NW", nil];
     
+    self.windDirectionStatusLabel.lineBreakMode = NSLineBreakByCharWrapping;
+    self.windDirectionStatusLabel.numberOfLines = 0;
+    self.windDirectionStatusLabel.textAlignment = NSTextAlignmentCenter;
+    self.windDirectionStatusLabel.text          = @"CONFIRM\nDIRECTION";
+
+    
 //    self.actualLabel.font = [UIFont fontWithName:@"Arkitech-Medium" size:40];
     
     // Set correct font text colors
@@ -62,13 +71,7 @@
     self.maxLabel.textColor = vaavudBlueUIcolor;
     self.unitLabel.textColor = vaavudBlueUIcolor;
     self.windDirectionLabel.textColor = vaavudBlueUIcolor;
-    
-    
-    self.displayLinkGraphUI = [CADisplayLink displayLinkWithTarget:self.graphHostView selector:@selector(shiftGraphX)];
-    self.displayLinkGraphUI.frameInterval = 2;
-    
-    self.displayLinkGraphValues = [CADisplayLink displayLinkWithTarget:self.graphHostView selector:@selector(addDataPoint)];
-    self.displayLinkGraphValues.frameInterval = 5;
+
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
@@ -80,6 +83,7 @@
 - (void) start {
     
     // Setup graphView
+    [self.statusBar setProgress:0];
     
     self.vaavudCoreController = [[VaavudCoreController alloc] init];
     self.vaavudCoreController.vaavudCoreControllerViewControllerDelegate = self; // set the core controller's view controller delegate to self (reports when meassurements are valid)
@@ -87,20 +91,14 @@
     self.graphHostView.vaavudCoreController = self.vaavudCoreController;
     
     [self.graphHostView setupCorePlotGraph];
-    [self.graphHostView createNewPlot];
-    
-
-//    [self.displayLinkGraphUI addToRunLoop:[NSRunLoop currentRunLoop] forMode: [[NSRunLoop currentRunLoop] currentMode]];
-//    [self.displayLinkGraphValues addToRunLoop:[NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
     
     [self.vaavudCoreController start];
-    
-    [self.statusBar setProgress:0];
+    self.TimerLabel         = [NSTimer scheduledTimerWithTimeInterval: 0.5 target: self selector: @selector(updateLabels) userInfo: nil repeats: YES];
 }
 
 
 - (void) stop {
-//    [self.TimerGraphUI invalidate];
+
     [self.displayLinkGraphUI invalidate];
     [self.displayLinkGraphValues invalidate];
     [self.TimerLabel invalidate];
@@ -113,14 +111,20 @@
     self.isValid = valid;
     
     if (!valid) {
-        [self.displayLinkGraphUI        removeFromRunLoop:  [NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
-        [self.displayLinkGraphValues    removeFromRunLoop:  [NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
-        [self.TimerLabel invalidate];
+        [self.displayLinkGraphUI        invalidate];
+        [self.displayLinkGraphValues    invalidate];
+
     } else {
         [self.graphHostView createNewPlot];
+        
+        self.displayLinkGraphUI = [CADisplayLink displayLinkWithTarget:self.graphHostView selector:@selector(shiftGraphX)];
+        self.displayLinkGraphUI.frameInterval = 3; // SET VALUE HIGHER FOR IPHONE 4
+        
+        self.displayLinkGraphValues = [CADisplayLink displayLinkWithTarget:self.graphHostView selector:@selector(addDataPoint)];
+        self.displayLinkGraphValues.frameInterval = 5; // SET VALUE HIGHER FOR IPHONE 4
+        
         [self.displayLinkGraphUI        addToRunLoop:       [NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
         [self.displayLinkGraphValues    addToRunLoop:       [NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
-        self.TimerLabel         = [NSTimer scheduledTimerWithTimeInterval: 0.5 target: self selector: @selector(updateLabels) userInfo: nil repeats: YES];
 
     }
     
@@ -138,7 +142,8 @@
         
         self.informationTextLabel.text = @"";
         
-        NSNumber *latestWindDicretion = [self.vaavudCoreController.windDirection lastObject];
+        NSNumber *latestWindDicretion = self.vaavudCoreController.setWindDirection;
+        
         
         if (latestWindDicretion)
         {
@@ -193,6 +198,17 @@
     }
         
 
+}
+
+- (IBAction)windDirectionStatusToggle:(id)sender {
+    
+    if (self.vaavudCoreController.windDirectionIsConfirmed) {
+        self.vaavudCoreController.windDirectionIsConfirmed = NO;
+        self.windDirectionStatusLabel.text = @"CONFIRM\nDIRECTION";
+    } else {
+        self.vaavudCoreController.windDirectionIsConfirmed = YES;
+        self.windDirectionStatusLabel.text = @"CONFIRMED\nDIRECTION";
+    }
 }
 
 - (void)didReceiveMemoryWarning
