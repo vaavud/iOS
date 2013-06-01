@@ -29,6 +29,7 @@
 		D7B5BD4B17574E8C0069F739 /* VaavudTransparent100px.png in Resources */ = {isa = PBXBuildFile; fileRef = D7B5BD4A17574E8C0069F739 /* VaavudTransparent100px.png */; };
 		D7B5BD4D17574E970069F739 /* VaavudTransparent100px@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7B5BD4C17574E970069F739 /* VaavudTransparent100px@2x.png */; };
 		D7B5BD51175775EB0069F739 /* vaavudGraphHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7B5BD50175775EB0069F739 /* vaavudGraphHostingView.m */; };
+		D7B5BD531757A23C0069F739 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B5BD521757A23C0069F739 /* CoreLocation.framework */; };
 		D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C860ED173AD08F005E9946 /* QuartzCore.framework */; };
 		D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */; };
 		D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DA72401743C1CD00DFE962 /* Accelerate.framework */; };
@@ -144,6 +145,7 @@
 		D7B5BD4C17574E970069F739 /* VaavudTransparent100px@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VaavudTransparent100px@2x.png"; sourceTree = "<group>"; };
 		D7B5BD4F175775EB0069F739 /* vaavudGraphHostingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudGraphHostingView.h; sourceTree = "<group>"; };
 		D7B5BD50175775EB0069F739 /* vaavudGraphHostingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudGraphHostingView.m; sourceTree = "<group>"; };
+		D7B5BD521757A23C0069F739 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D7C860ED173AD08F005E9946 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D7C860F8173B061E005E9946 /* VaavudMagneticFieldDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudMagneticFieldDataManager.h; sourceTree = "<group>"; };
 		D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudMagneticFieldDataManager.m; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D7B5BD531757A23C0069F739 /* CoreLocation.framework in Frameworks */,
 				D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */,
 				D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */,
 				D7A4F1F4173A9FC200D1ACEE /* CoreMotion.framework in Frameworks */,
@@ -264,6 +267,7 @@
 		D7A4F1BE173A8DDB00D1ACEE = {
 			isa = PBXGroup;
 			children = (
+				D7B5BD521757A23C0069F739 /* CoreLocation.framework */,
 				D702418A17478B16008954FD /* CorePlot */,
 				D70241841746D7F6008954FD /* VaavudIcon57.png */,
 				D70241821746D7F1008954FD /* VaavudIcon114.png */,

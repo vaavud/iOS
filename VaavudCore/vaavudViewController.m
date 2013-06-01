@@ -7,7 +7,6 @@
 //
 
 #import "vaavudViewController.h"
-#import "VaavudCoreController.h"
 #import "vaavudGraphHostingView.h"
 
 @interface vaavudViewController ()
@@ -16,18 +15,21 @@
 @property (nonatomic, weak) IBOutlet UILabel *averageLabel;
 @property (nonatomic, weak) IBOutlet UILabel *maxLabel;
 @property (nonatomic, weak) IBOutlet UILabel *unitLabel;
+@property (nonatomic, weak) IBOutlet UILabel *windDirectionLabel;
 @property (nonatomic, weak) IBOutlet UILabel *informationTextLabel;
 @property (nonatomic, weak) IBOutlet UIProgressView *statusBar;
 
 @property (nonatomic, strong) IBOutlet UIButton *startStopButton;
+@property (nonatomic, strong) IBOutlet vaavudGraphHostingView *graphHostView;
 
-@property (nonatomic, strong)   IBOutlet vaavudGraphHostingView *graphHostView;
-
-@property (nonatomic, strong) VaavudCoreController *vaavudCoreController;
 
 @property (nonatomic, strong) NSTimer *TimerLabel;
-@property (nonatomic, strong) NSTimer *TimerGraphUI;
-@property (nonatomic, strong) NSTimer *TimerGraphValues;
+@property (nonatomic, strong) CADisplayLink *displayLinkGraphUI;
+@property (nonatomic, strong) CADisplayLink *displayLinkGraphValues;
+@property (nonatomic, strong) VaavudCoreController *vaavudCoreController;
+@property (nonatomic, strong) NSArray *compassTableShort;
+
+@property (nonatomic)           BOOL isValid;
 
 - (void) updateLabels;
 - (void) start;
@@ -36,28 +38,37 @@
 - (IBAction) buttonPushed: (id)sender;
 
 
-
-
-
 @end
 
 @implementation vaavudViewController {
     
 }
 
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
     
     [self.graphHostView setupCorePlotGraph];
-
+    
+    self.compassTableShort = [NSArray arrayWithObjects:  @"N",@"NE",@"E",@"SE",@"S",@"SW",@"W",@"NW", nil];
     
 //    self.actualLabel.font = [UIFont fontWithName:@"Arkitech-Medium" size:40];
+    
+    // Set correct font text colors
     UIColor *vaavudBlueUIcolor = [UIColor colorWithRed:(0/255.0) green:(174/255.0) blue:(239/255.0) alpha:1];
     self.actualLabel.textColor = vaavudBlueUIcolor;
     self.maxLabel.textColor = vaavudBlueUIcolor;
     self.unitLabel.textColor = vaavudBlueUIcolor;
+    self.windDirectionLabel.textColor = vaavudBlueUIcolor;
+    
+    
+    self.displayLinkGraphUI = [CADisplayLink displayLinkWithTarget:self.graphHostView selector:@selector(shiftGraphX)];
+    self.displayLinkGraphUI.frameInterval = 2;
+    
+    self.displayLinkGraphValues = [CADisplayLink displayLinkWithTarget:self.graphHostView selector:@selector(addDataPoint)];
+    self.displayLinkGraphValues.frameInterval = 5;
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
@@ -68,15 +79,20 @@
 
 - (void) start {
     
+    // Setup graphView
+    
     self.vaavudCoreController = [[VaavudCoreController alloc] init];
+    self.vaavudCoreController.vaavudCoreControllerViewControllerDelegate = self; // set the core controller's view controller delegate to self (reports when meassurements are valid)
     
     self.graphHostView.vaavudCoreController = self.vaavudCoreController;
     
     [self.graphHostView setupCorePlotGraph];
+    [self.graphHostView createNewPlot];
     
-    self.TimerGraphUI       = [NSTimer scheduledTimerWithTimeInterval: 0.05 target: self.graphHostView selector: @selector(updateGraphUI) userInfo: nil repeats: YES];
-    self.TimerGraphValues   = [NSTimer scheduledTimerWithTimeInterval: 0.05 target: self.graphHostView selector: @selector(updateGraphValues) userInfo: nil repeats: YES];
-    self.TimerLabel         = [NSTimer scheduledTimerWithTimeInterval: 0.5 target: self selector: @selector(updateLabels) userInfo: nil repeats: YES];
+
+//    [self.displayLinkGraphUI addToRunLoop:[NSRunLoop currentRunLoop] forMode: [[NSRunLoop currentRunLoop] currentMode]];
+//    [self.displayLinkGraphValues addToRunLoop:[NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
+    
     [self.vaavudCoreController start];
     
     [self.statusBar setProgress:0];
@@ -84,27 +100,55 @@
 
 
 - (void) stop {
-    [self.TimerGraphUI invalidate];
-    [self.TimerGraphValues invalidate];
+//    [self.TimerGraphUI invalidate];
+    [self.displayLinkGraphUI invalidate];
+    [self.displayLinkGraphValues invalidate];
     [self.TimerLabel invalidate];
     [self.vaavudCoreController stop];
 }
 
 
+- (void) windSpeedMeasurementsAreValid: (BOOL) valid
+{
+    self.isValid = valid;
+    
+    if (!valid) {
+        [self.displayLinkGraphUI        removeFromRunLoop:  [NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
+        [self.displayLinkGraphValues    removeFromRunLoop:  [NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
+        [self.TimerLabel invalidate];
+    } else {
+        [self.graphHostView createNewPlot];
+        [self.displayLinkGraphUI        addToRunLoop:       [NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
+        [self.displayLinkGraphValues    addToRunLoop:       [NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
+        self.TimerLabel         = [NSTimer scheduledTimerWithTimeInterval: 0.5 target: self selector: @selector(updateLabels) userInfo: nil repeats: YES];
 
+    }
+    
+}
 
 
 - (void) updateLabels
-{
-    BOOL isValid = [[self.vaavudCoreController.isValid lastObject] boolValue];
-
-    if (isValid) {
+{    
+    
+    if (self.isValid) {
         NSNumber *latestWindSpeed = [self.vaavudCoreController.windSpeed lastObject];
         self.actualLabel.text = [NSString stringWithFormat: @"%.1f", [latestWindSpeed doubleValue]];
         self.averageLabel.text = [NSString stringWithFormat: @"%.1f", [[self.vaavudCoreController getAverage] floatValue]];
         self.maxLabel.text = [NSString stringWithFormat: @"%.1f", [[self.vaavudCoreController getMax] floatValue]];
         
         self.informationTextLabel.text = @"";
+        
+        NSNumber *latestWindDicretion = [self.vaavudCoreController.windDirection lastObject];
+        
+        if (latestWindDicretion)
+        {
+            
+            NSString *compassText = self.compassTableShort[([latestWindDicretion integerValue]+360/8/2)%360/(360/8)];
+            self.windDirectionLabel.text = [NSString stringWithFormat: @"%.0f%@", [latestWindDicretion doubleValue], compassText];
+            self.windDirectionLabel.text = compassText;
+
+        }
+        
         
         [self.statusBar setProgress: [[self.vaavudCoreController getProgress] floatValue]];
         
@@ -118,6 +162,18 @@
 
     }
 
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    
+    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    
+    if (interfaceOrientation == UIInterfaceOrientationPortrait)
+        self.vaavudCoreController.upsideDown = NO;
+    
+    if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
+        self.vaavudCoreController.upsideDown = YES;
 }
 
 

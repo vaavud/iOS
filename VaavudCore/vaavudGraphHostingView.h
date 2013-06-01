@@ -14,8 +14,10 @@
 @interface vaavudGraphHostingView : CPTGraphHostingView <CPTPlotDataSource, CPTPlotSpaceDelegate>
 
 - (void) setupCorePlotGraph;
-- (void) updateGraphUI;
-- (void) updateGraphValues;
+- (void) createNewPlot;
+- (void) shiftGraphX;
+- (void) addDataPoint;
+
 
 @property (nonatomic, weak)     VaavudCoreController          *vaavudCoreController;
 

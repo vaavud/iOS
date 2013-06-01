@@ -21,7 +21,11 @@
 @property (nonatomic) float currentWindSpeedMax;
 @property (nonatomic, strong) NSMutableArray *windSpeed;
 @property (nonatomic, strong) NSMutableArray *isValid;
-@property (nonatomic, strong) NSMutableArray *time;
+@property (nonatomic, strong) NSMutableArray *windSpeedTime;
+@property (nonatomic, strong) NSMutableArray *windDirectionTime;
+@property (nonatomic, strong) NSMutableArray *windDirection;
+@property (nonatomic, strong) NSDate *startTime;
+
 
  // private properties
 @property (nonatomic, strong) VaavudMagneticFieldDataManager *sharedMagneticFieldDataManager;
@@ -29,11 +33,12 @@
 @property (nonatomic, strong) NSArray *FFTresultx;
 @property (nonatomic, strong) NSArray *FFTresulty;
 @property (nonatomic, strong) NSArray *FFTresultz;
-//@property (nonatomic, strong) NSMutableArray *FFTresultAverage;
+
 @property (nonatomic, strong) vaavudFFT *FFTEngine;
-@property (nonatomic) int magneticFieldUpdatesCounter;
+@property (nonatomic) int       magneticFieldUpdatesCounter;
 @property (nonatomic) NSInteger isValidPercent;
-@property (nonatomic) BOOL isValidCurrentStatus;
+@property (nonatomic) BOOL      isValidCurrentStatus;
+@property (nonatomic) BOOL      wasValidStatus;
 
 @property (nonatomic) double    sumOfValidMeasurements;
 @property (nonatomic) int       numberOfValidMeasurements;
@@ -57,9 +62,9 @@
     {
         // Do initializing
         self.FFTEngine = [[vaavudFFT alloc] initFFTLength:FFTLength];
-        self.dynamicsIsValid = YES;
+        self.dynamicsIsValid = NO;
         self.isValidPercent = 50; // start at 2% valid
-        self.isValidCurrentStatus = YES;
+        self.isValidCurrentStatus = NO;
 
     }
     
@@ -69,19 +74,32 @@
 
 - (void) start
 {
+    
+    
+    // Set interface direction
+    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    
+    if (interfaceOrientation == UIInterfaceOrientationPortrait)
+        self.upsideDown = NO;
+    
+    if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
+        self.upsideDown = YES;
+    
 
     // create reference to MagneticField Data Manager
     self.sharedMagneticFieldDataManager = [VaavudMagneticFieldDataManager sharedMagneticFieldDataManager];
     self.sharedMagneticFieldDataManager.delegate = self;
     self.magneticFieldUpdatesCounter = 0;
     
+    self.startTime = [NSDate date];
     self.windSpeed = [NSMutableArray arrayWithCapacity:1000];
-    self.time = [NSMutableArray arrayWithCapacity:1000];
+    self.windSpeedTime = [NSMutableArray arrayWithCapacity:1000];
     self.isValid = [NSMutableArray arrayWithCapacity:1000];
+    self.windDirection = [NSMutableArray arrayWithCapacity:1000];
     [self.sharedMagneticFieldDataManager start];
     
     self.vaavudDynamicsController = [[vaavudDynamicsController alloc] init];
-    self.vaavudDynamicsController.delegate = self;
+    self.vaavudDynamicsController.vaavudCoreController = self;
     [self.vaavudDynamicsController start];
     
     self.numberOfValidMeasurements = 0;
@@ -124,9 +142,12 @@
         self.isValidCurrentStatus = NO;
     }
     
+    if (self.wasValidStatus != self.isValidCurrentStatus){
+        [self.vaavudCoreControllerViewControllerDelegate windSpeedMeasurementsAreValid: self.isValidCurrentStatus];
+    }
     
     [self.isValid addObject: [NSNumber numberWithBool: self.isValidCurrentStatus]];
-
+    self.wasValidStatus = self.isValidCurrentStatus;
 
 }
 
@@ -134,6 +155,27 @@
 - (void) DynamicsIsValid: (BOOL) validity
 {
     self.dynamicsIsValid = validity;
+}
+
+- (void) newHeading: (NSNumber*) newHeading
+{
+    
+    
+    if (self.upsideDown){
+        double heading;
+        heading = [newHeading doubleValue];
+        
+        if (heading > 180)
+            heading -= 180;
+        else
+            heading += 180;
+        
+        newHeading = [NSNumber numberWithDouble: heading];
+        
+    }
+    
+    [self.windDirection addObject: newHeading];
+    [self.windDirectionTime addObject: [NSNumber numberWithDouble: [self.startTime timeIntervalSinceDate: [NSDate date]]]];
 }
 
 
@@ -147,7 +189,7 @@
         if ( self.magneticFieldUpdatesCounter % 3 == 0 ) {
             
             int modulus = self.magneticFieldUpdatesCounter % 9 / 3;
-            
+                        
             NSRange subArrayRange = NSMakeRange(self.magneticFieldUpdatesCounter - FFTDataLength, FFTDataLength);
             
             switch (modulus) {
@@ -158,8 +200,7 @@
                     self.FFTresulty = [self.FFTEngine doFFT: [self.sharedMagneticFieldDataManager.magneticFieldReadingsy subarrayWithRange:subArrayRange]];
                     break;
                 case 2:
-                    self.FFTresultz
-                    = [self.FFTEngine doFFT: [self.sharedMagneticFieldDataManager.magneticFieldReadingsz subarrayWithRange:subArrayRange]];
+                    self.FFTresultz = [self.FFTEngine doFFT: [self.sharedMagneticFieldDataManager.magneticFieldReadingsz subarrayWithRange:subArrayRange]];
                     break;
                     
                 default:
@@ -222,7 +263,7 @@
             
             
             [self.windSpeed addObject: [NSNumber numberWithDouble: dominantFrequency]];
-            [self.time addObject: [self.sharedMagneticFieldDataManager.magneticFieldReadingsTime lastObject]];
+            [self.windSpeedTime addObject: [self.sharedMagneticFieldDataManager.magneticFieldReadingsTime lastObject]];
             
             
             if (frequencyMagnitude > FFTpeakMagnitudeMinForValid) {
@@ -258,7 +299,7 @@
 - (NSNumber *) getProgress
 {
     
-    float elapsedTime = [[self.time lastObject] floatValue];
+    float elapsedTime = [[self.windSpeedTime lastObject] floatValue];
     float measurementFrequency = self.numberOfMeasurements/elapsedTime;
     float validTime = self.numberOfValidMeasurements / measurementFrequency;
 

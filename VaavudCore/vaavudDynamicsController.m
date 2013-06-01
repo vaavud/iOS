@@ -12,12 +12,16 @@
 #import <CoreMotion/CoreMotion.h>
 
 
+
 @interface vaavudDynamicsController ()
+
     @property (nonatomic, strong) CMMotionManager *motionManager;
     @property (nonatomic, strong) NSOperationQueue *operationQueue;
     @property (nonatomic) BOOL accelerationIsValid;
     @property (nonatomic) BOOL orientationIsValid;
     @property (nonatomic) BOOL angularVeclocityIsValid;
+
+    @property (nonatomic, strong) CLLocationManager *locationManager;
 
     - (void) updateValidity;
 
@@ -51,7 +55,7 @@
     else
         self.isValid = NO;
     
-    [self.delegate DynamicsIsValid:self.isValid];
+    [self.vaavudCoreController DynamicsIsValid:self.isValid];
 }
 
 
@@ -108,7 +112,18 @@
         }];
         
     }
-
+    
+    if ([CLLocationManager headingAvailable])
+    {
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        self.locationManager.headingFilter = 1;
+        [self.locationManager startUpdatingHeading];
+    } else
+    {
+        NSLog(@"No heading avaliable!!!");
+    }
+    
 }
 
 - (void) stop
@@ -116,6 +131,17 @@
     [self.motionManager stopDeviceMotionUpdates];
     self.motionManager = nil;
     self.operationQueue = nil;
+    [self.locationManager stopUpdatingHeading];
+}
+
+
+// Heading
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
+{
+    [self.vaavudCoreController newHeading: [NSNumber numberWithDouble: newHeading.trueHeading]];
+    
+//    NSLog(@"heading accuracy: %f", newHeading.headingAccuracy);
 }
 
 @end

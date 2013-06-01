@@ -6,10 +6,13 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "VaavudCoreController.h"
+#import <UIKit/UIKit.h>
 #import "CorePlot-CocoaTouch.h"
 
-@interface vaavudViewController : UIViewController
+
+
+
+@interface vaavudViewController : UIViewController <VaavudCoreViewControllerDelegate>
 
 @end

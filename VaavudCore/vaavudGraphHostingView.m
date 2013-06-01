@@ -8,13 +8,70 @@
 
 #import "vaavudGraphHostingView.h"
 
+// Support class plotIdentifier
+
+@interface VaavudPlotIdentifier : NSObject <NSCopying, NSCoding>
+
+@property (nonatomic) NSInteger plotType;
+@property (nonatomic) NSInteger windSpeedPlotIndex;
+
+- (id) initWithPlotType: (NSInteger) type andWindSpeedPlotIndex: (NSInteger) index;
+
+@end
+
+@implementation VaavudPlotIdentifier
+
+- (id) initWithPlotType: (NSInteger) type andWindSpeedPlotIndex: (NSInteger) index
+{
+    self = [super init];
+    if (self) {
+        self.plotType = type;
+        self.windSpeedPlotIndex = index;
+    }
+    
+    return self;
+}
+
+- (id) copyWithZone:(NSZone *)zone
+{
+    VaavudPlotIdentifier *copy = [[[self class] alloc] init];
+    
+    copy.plotType = self.plotType;
+    copy.windSpeedPlotIndex = self.windSpeedPlotIndex;
+    
+    return copy;
+}
+
+
+- (id) initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super init];
+    if (self) {
+        self.plotType = [aDecoder decodeIntegerForKey:@"plotType"];
+        self.windSpeedPlotIndex = [aDecoder decodeIntegerForKey:@"windSpeedPlotIndex"];
+    }
+    
+    return self;
+}
+
+- (void) encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeInteger: self.plotType forKey:@"plotType"];
+    [aCoder encodeInteger: self.plotType forKey:@"windSpeedPlotIndex"];
+}
+
+@end
+
+
+
+
 
 @interface vaavudGraphHostingView ()
 
-- (void) createNewPlot;
 
+@property (nonatomic, strong)   NSMutableArray *dataForPlotX;
+@property (nonatomic, strong)   NSMutableArray *dataForPlotY;
 
-@property (nonatomic, strong)   NSMutableArray *dataForPlot;
 @property (nonatomic, strong)   CPTGraph    *graph;
 @property (nonatomic, strong)   CPTXYPlotSpace *plotSpace;
 @property (nonatomic)           float       graphTimeWidth;
@@ -22,16 +79,17 @@
 @property (nonatomic, strong)   NSDate      *startTime;
 @property (nonatomic)           float       graphYMinValue;
 @property (nonatomic)           float       graphYMaxValue;
-@property (nonatomic)           NSUInteger  plotCounter;
+@property (nonatomic)           NSUInteger  windSpeedPlotCounter;
 @property (nonatomic)           double      startTimeDifference;
-
 
 @property (nonatomic) BOOL      wasValid;
 
 
 enum plotName : NSUInteger {
-    averagePlot = 0
+    averagePlot = 0,
+    windSpeedPlot = 1
 };
+
 
 @end
 
@@ -47,109 +105,104 @@ enum plotName : NSUInteger {
 }
 
 
-- (void) updateGraphUI
+- (void) shiftGraphX
 {
-    
     if ([[self.vaavudCoreController.isValid lastObject] boolValue]) {
-        float timeSinceStart = - [self.startTime  timeIntervalSinceNow] - self.startTimeDifference + 1;
+        float timeSinceStart = - [self.startTime  timeIntervalSinceNow] - self.startTimeDifference + 1; // graph - x range should always be 1 second ahead.
         
         if (timeSinceStart > self.graphTimeWidth) {
             self.plotSpace.xRange  = [CPTPlotRange plotRangeWithLocation: CPTDecimalFromFloat(timeSinceStart - self.graphTimeWidth) length:CPTDecimalFromFloat(self.graphTimeWidth)];
             self.plotSpace.globalXRange = [CPTPlotRange plotRangeWithLocation: CPTDecimalFromFloat(0) length: CPTDecimalFromFloat(timeSinceStart)];
         }
-        
-        [self.graph reloadData];
-        
     }
 }
 
 
-- (void) updateGraphValues
+- (void) addDataPoint
 {
     
+    BOOL updateYRange = NO; // by default do not update y-range
     
-    float graphYLowerBound;
-    float graphYwidth;
+    // Check if there is a new point to add
+    NSNumber *x = [self.vaavudCoreController.windSpeedTime lastObject];
+    NSNumber *lastX = [[self.dataForPlotX lastObject] lastObject];
     
-    NSNumber *x = [self.vaavudCoreController.time lastObject];
-    NSNumber *y = [self.vaavudCoreController.windSpeed lastObject];
-    
-    
-    // on start set Graph minimum values and startTime
-    
-    if (!self.graphYMinValue) {
-        self.graphYMinValue = [y floatValue];
-        if (!self.graphYMaxValue)
+    if (!lastX) { // first datapoint in plot
+        lastX = [NSNumber numberWithFloat:-1];
+        
+        if (!self.startTime) { // ONLY set once
+            self.startTime = [NSDate dateWithTimeIntervalSinceNow: - [x doubleValue]];
+            self.startTimeDifference = [x doubleValue];
+            
+             NSNumber *y = [self.vaavudCoreController.windSpeed lastObject];
+            self.graphYMinValue = [y floatValue];
             self.graphYMaxValue = [y floatValue];
+            
+            updateYRange = YES; // update Y range if first time;
+        }
     }
     
     
-    BOOL isValid = [[self.vaavudCoreController.isValid lastObject] boolValue];
-    
-    if (isValid && !self.wasValid)
-        [self createNewPlot];
-    
-    self.wasValid = isValid;
-    
-    if (isValid) {
+    if (![x isEqualToNumber: lastX])
+    {
+            
+        NSNumber *y = [self.vaavudCoreController.windSpeed lastObject];
+        NSNumber *xZeroShifted = [NSNumber numberWithDouble:([x doubleValue] - self.startTimeDifference) ];
         
-        if (!self.startTime) {
-            self.startTime = [NSDate dateWithTimeIntervalSinceNow: - [x doubleValue]];
-            self.startTimeDifference = [x doubleValue];
-        }
-        
-        NSNumber *xtime = [NSNumber numberWithDouble:([x doubleValue] - self.startTimeDifference) ];
-        
-        
-        [[self.dataForPlot objectAtIndex: self.plotCounter] addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys:xtime, @"x", y, @"y", nil]];
+        [[self.dataForPlotX objectAtIndex: self.windSpeedPlotCounter] addObject: xZeroShifted];
+        [[self.dataForPlotY objectAtIndex: self.windSpeedPlotCounter] addObject: y];
         
         
         // update min and max values
-        if ([y floatValue] > self.graphYMaxValue)
+        if ([y floatValue] > self.graphYMaxValue) {
             self.graphYMaxValue = [y floatValue];
+            updateYRange = YES;
+        }
+            
         
-        if ([y floatValue] < self.graphYMinValue)
+        if ([y floatValue] < self.graphYMinValue) {
             self.graphYMinValue = [y floatValue];
+            updateYRange = YES;
+        }
+            
         
+        if (updateYRange)
+        {
+            float graphYLowerBound;
+            float graphYwidth;
+            
+            // determine y window range
+            if (self.graphYMinValue < 2)
+                graphYLowerBound = 0;
+            else
+                graphYLowerBound = floor(self.graphYMinValue);
+            
+            graphYwidth = floor(self.graphYMaxValue) +1 - graphYLowerBound;
+            
+            if (graphYwidth < self.graphMinWindspeedWidth)
+                graphYwidth = self.graphMinWindspeedWidth;
+            
+            CPTPlotRange *plotRange = [CPTPlotRange plotRangeWithLocation: CPTDecimalFromFloat(graphYLowerBound) length:CPTDecimalFromFloat(graphYwidth)];
+            
+            self.plotSpace.yRange  = plotRange;
+            self.plotSpace.globalYRange = plotRange;
+        }
         
-        // determine y window range
-        if (self.graphYMinValue < 2)
-            graphYLowerBound = 0;
-        else
-            graphYLowerBound = floor(self.graphYMinValue);
-        
-        graphYwidth = floor(self.graphYMaxValue) +1 - graphYLowerBound;
-        
-        if (graphYwidth < self.graphMinWindspeedWidth)
-            graphYwidth = self.graphMinWindspeedWidth;
-        
-        CPTPlotRange *plotRange = [CPTPlotRange plotRangeWithLocation: CPTDecimalFromFloat(graphYLowerBound) length:CPTDecimalFromFloat(graphYwidth)];
-        
-        self.plotSpace.yRange  = plotRange;
-        self.plotSpace.globalYRange = plotRange;
-        
-        
-        // add average
-        
-        NSMutableArray *averageDataArray =  [NSMutableArray arrayWithCapacity:2];
-        [averageDataArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithFloat:0.f], @"x", [self.vaavudCoreController getAverage], @"y", nil]];
-        [averageDataArray addObject: [NSMutableDictionary dictionaryWithObjectsAndKeys: xtime, @"x", [self.vaavudCoreController getAverage], @"y", nil]];
-        
-        
-        [self.dataForPlot replaceObjectAtIndex: averagePlot withObject: averageDataArray];
+        [self.graph reloadData];
     }
-    
 }
 
 
 
 - (void) createNewPlot
 {
-    self.plotCounter++;
-    
-    
+
+    if ( ![self.dataForPlotX count] == 0 ) {
+        self.windSpeedPlotCounter++;
+    }
+        
     // Create a blue plot area
-    CPTScatterPlot *boundLinePlot       = [[CPTScatterPlot alloc] init];
+    CPTScatterPlot *windSpeedLinePlot       = [[CPTScatterPlot alloc] init];
     CPTMutableLineStyle *lineStyle      = [CPTMutableLineStyle lineStyle];
     lineStyle.miterLimit                = 1.0f;
     lineStyle.lineWidth                 = 3.0f;
@@ -157,13 +210,14 @@ enum plotName : NSUInteger {
     CPTColor *vaavudBlue = [[CPTColor alloc] initWithComponentRed: 0 green: (float) 174/255 blue: (float) 239/255 alpha: 1 ];
     
     
-    //    lineStyle.lineColor         = [CPTColor blueColor];
     lineStyle.lineColor         = vaavudBlue;
-    boundLinePlot.dataLineStyle = lineStyle;
-    boundLinePlot.identifier    = [NSNumber numberWithInt: self.plotCounter];
-    //    boundLinePlot.identifier    = @"Blue Plot";
-    boundLinePlot.dataSource    = self;
-    [self.dataForPlot insertObject: [NSMutableArray arrayWithCapacity:1] atIndex: self.plotCounter];
+    windSpeedLinePlot.dataLineStyle = lineStyle;
+//    boundLinePlot.identifier    = [NSNumber numberWithInt: self.windSpeedPlotCounter];
+    windSpeedLinePlot.identifier    = [[VaavudPlotIdentifier alloc] initWithPlotType: windSpeedPlot andWindSpeedPlotIndex: self.windSpeedPlotCounter];
+    windSpeedLinePlot.dataSource    = self;
+    [self.dataForPlotX insertObject: [NSMutableArray arrayWithCapacity:1] atIndex: self.windSpeedPlotCounter];
+    [self.dataForPlotY insertObject: [NSMutableArray arrayWithCapacity:1] atIndex: self.windSpeedPlotCounter];
+
     [self.graph addPlot:boundLinePlot];
 }
 
@@ -172,11 +226,14 @@ enum plotName : NSUInteger {
 - (void) setupCorePlotGraph
 {
     
-    self.plotCounter = 0;
+    self.windSpeedPlotCounter = 0;
     self.startTime = nil;
     self.graphYMaxValue = 0;
     self.graphYMinValue = 0;
-    self.dataForPlot = [NSMutableArray arrayWithCapacity:1];
+    self.dataForPlotX = [NSMutableArray arrayWithCapacity:1];
+    self.dataForPlotY = [NSMutableArray arrayWithCapacity:1];
+
+    self.wasValid = NO;
     
     
     // TEMPORATY LOAD OF CONSTANTS
@@ -273,9 +330,10 @@ enum plotName : NSUInteger {
     //   lineStyle.lineColor         = [CPTColor whiteColor];
     lineStyle.lineColor         = vaavudRed;
     averageLinePlot.dataLineStyle = lineStyle;
-    averageLinePlot.identifier    = [NSNumber numberWithInt: averagePlot];
+    averageLinePlot.identifier    = [[VaavudPlotIdentifier alloc] initWithPlotType: averagePlot andWindSpeedPlotIndex:0];
+//    [NSNumber numberWithInt: averagePlot];
     averageLinePlot.dataSource    = self;
-    [self.dataForPlot insertObject: [NSMutableArray arrayWithCapacity:1] atIndex: averagePlot];
+//    [self.dataForPlot insertObject: [NSMutableArray arrayWithCapacity:1] atIndex: averagePlot];
     [self.graph addPlot:averageLinePlot];
     
     
@@ -283,19 +341,89 @@ enum plotName : NSUInteger {
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {
-    NSUInteger mainIndex = [(NSNumber *) plot.identifier integerValue];
-    NSUInteger count = [[self.dataForPlot objectAtIndex: mainIndex] count];
-    return count;
+ 
+    VaavudPlotIdentifier *plotIdentity = plot.identifier;
+    
+    switch (plotIdentity.plotType) {
+        case averagePlot:
+            return (NSUInteger) 2;
+            break;
+            
+        case windSpeedPlot:
+            return [[self.dataForPlotX objectAtIndex: plotIdentity.windSpeedPlotIndex] count];
+            break;
+        default:
+            NSLog( @"We fucked up");
+            return 0;
+            break;
+    }
+    
+//    VaavudPlotIdentifier = plot.identifier;
+//    NSUInteger mainIndex = [(NSNumber *) plot.identifier integerValue];
+//    NSUInteger count = [[self.dataForPlot objectAtIndex: mainIndex] count];
+//    return count;
+    
 }
 
--(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+
+
+//-(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index
+//{
+//    
+//    NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
+//    NSUInteger mainIndex = [(NSNumber *) plot.identifier integerValue];
+//    NSNumber *num = [[[self.dataForPlot objectAtIndex:mainIndex] objectAtIndex: index] valueForKey:key];
+//    
+//    return num;
+//    
+//    
+//}
+
+
+- (NSArray *) numbersForPlot: (CPTPlot *)plot field:(NSUInteger) fieldEnum recordIndexRange: (NSRange)indexRange
 {
+    VaavudPlotIdentifier *plotIdentity = plot.identifier;
     
-    NSString *key = (fieldEnum == CPTScatterPlotFieldX ? @"x" : @"y");
-    NSUInteger mainIndex = [(NSNumber *) plot.identifier integerValue];
-    NSNumber *num = [[[self.dataForPlot objectAtIndex:mainIndex] objectAtIndex: index] valueForKey:key];
+    NSArray *numbers;
     
-    return num;
+    switch (plotIdentity.plotType) {
+        case averagePlot:
+            
+            if (fieldEnum == CPTScatterPlotFieldX) {
+                numbers = [NSArray arrayWithObjects: [NSNumber numberWithDouble:0], [[self.dataForPlotX lastObject] lastObject], nil];
+            } else {
+                NSNumber *windspeedAverage = [self.vaavudCoreController getAverage];
+                numbers = [NSArray arrayWithObjects: windspeedAverage, windspeedAverage, nil];
+            }
+            break;
+            
+        case windSpeedPlot:
+            
+            if (fieldEnum == CPTScatterPlotFieldX) {
+                numbers = [[self.dataForPlotX objectAtIndex:plotIdentity.windSpeedPlotIndex] subarrayWithRange: indexRange];
+            } else {
+                numbers = [[self.dataForPlotY objectAtIndex:plotIdentity.windSpeedPlotIndex] subarrayWithRange: indexRange];
+            }
+            break;
+        default:
+            NSLog( @"We fucked up");
+            break;
+    }
+    
+    return numbers;
+    
+//    if(plotIdentity.plotType )
+//    
+//    NSUInteger mainIndex = [(NSNumber *) plot.identifier integerValue];
+//    
+//    NSArray *numbers;
+//    
+//    if (fieldEnum == CPTScatterPlotFieldX) {
+//        numbers= [[self.dataForPlot objectAtIndex:mainIndex] subarrayWithRange: indexRange];
+//    } else
+//    
+//    
+//    return  numbers;
     
     
 }

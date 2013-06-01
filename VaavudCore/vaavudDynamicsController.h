@@ -7,20 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
+
 
 @protocol vaavudDynamicsControllerDelegate
 
 - (void) DynamicsIsValid: (BOOL) validity;
+- (void) newHeading: (NSNumber*) newHeading;
 
 @end
 
-@interface vaavudDynamicsController : NSObject
+@interface vaavudDynamicsController : NSObject <CLLocationManagerDelegate>
 
 - (void) start;
 - (void) stop;
 
 @property (nonatomic) BOOL isValid;
 
-@property (nonatomic, weak) id <vaavudDynamicsControllerDelegate> delegate;
+@property (nonatomic, weak) id <vaavudDynamicsControllerDelegate> vaavudCoreController;
 
 @end
