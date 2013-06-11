@@ -1,6 +1,5 @@
 //
 //  vaavudViewController.m
-//  VaavudCore
 //
 //  Created by Andreas Okholm on 5/8/13.
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
@@ -49,7 +48,7 @@
 
 
 
-- (void)viewDidLoad
+- (void)viewDidLoad  // FIRST METHOD CALLED (WHEN VIEW IS LOADED)
 {
     [super viewDidLoad];
     
@@ -62,9 +61,6 @@
     self.windDirectionStatusLabel.textAlignment = NSTextAlignmentCenter;
     self.windDirectionStatusLabel.text          = @"CONFIRM\nDIRECTION";
 
-    
-//    self.actualLabel.font = [UIFont fontWithName:@"Arkitech-Medium" size:40];
-    
     // Set correct font text colors
     UIColor *vaavudBlueUIcolor = [UIColor colorWithRed:(0/255.0) green:(174/255.0) blue:(239/255.0) alpha:1];
     self.actualLabel.textColor = vaavudBlueUIcolor;
@@ -118,10 +114,10 @@
         [self.graphHostView createNewPlot];
         
         self.displayLinkGraphUI = [CADisplayLink displayLinkWithTarget:self.graphHostView selector:@selector(shiftGraphX)];
-        self.displayLinkGraphUI.frameInterval = 3; // SET VALUE HIGHER FOR IPHONE 4
+        self.displayLinkGraphUI.frameInterval = 10; // SET VALUE HIGHER FOR IPHONE 4
         
         self.displayLinkGraphValues = [CADisplayLink displayLinkWithTarget:self.graphHostView selector:@selector(addDataPoint)];
-        self.displayLinkGraphValues.frameInterval = 5; // SET VALUE HIGHER FOR IPHONE 4
+        self.displayLinkGraphValues.frameInterval = 10; // SET VALUE HIGHER FOR IPHONE 4
         
         [self.displayLinkGraphUI        addToRunLoop:       [NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
         [self.displayLinkGraphValues    addToRunLoop:       [NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
