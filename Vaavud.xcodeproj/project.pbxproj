@@ -119,14 +119,14 @@
 		D7092E891748FE9C00993235 /* vaavudDynamicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudDynamicsController.m; sourceTree = "<group>"; };
 		D71BE13517439AA000B38E34 /* vaavudFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudFFT.h; sourceTree = "<group>"; };
 		D71BE13617439AA000B38E34 /* vaavudFFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudFFT.m; sourceTree = "<group>"; };
-		D7A4F1C7173A8DDB00D1ACEE /* VaavudCore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VaavudCore.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7A4F1C7173A8DDB00D1ACEE /* Vaavud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vaavud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D7A4F1CC173A8DDB00D1ACEE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D7A4F1CE173A8DDB00D1ACEE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		D7A4F1D2173A8DDB00D1ACEE /* VaavudCore-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "VaavudCore-Info.plist"; sourceTree = "<group>"; };
+		D7A4F1D2173A8DDB00D1ACEE /* Vaavud-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Vaavud-Info.plist"; sourceTree = "<group>"; };
 		D7A4F1D4173A8DDB00D1ACEE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D7A4F1D6173A8DDB00D1ACEE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D7A4F1D8173A8DDB00D1ACEE /* VaavudCore-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VaavudCore-Prefix.pch"; sourceTree = "<group>"; };
+		D7A4F1D8173A8DDB00D1ACEE /* Vaavud-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Prefix.pch"; sourceTree = "<group>"; };
 		D7A4F1D9173A8DDB00D1ACEE /* vaavudAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vaavudAppDelegate.h; sourceTree = "<group>"; };
 		D7A4F1DA173A8DDB00D1ACEE /* vaavudAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vaavudAppDelegate.m; sourceTree = "<group>"; };
 		D7A4F1DC173A8DDB00D1ACEE /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -176,6 +176,7 @@
 				D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */,
 			);
 			name = CorePlot;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		D702418B17478B79008954FD /* CorePlotHeaders */ = {
@@ -265,23 +266,18 @@
 		D7A4F1BE173A8DDB00D1ACEE = {
 			isa = PBXGroup;
 			children = (
-				D7B5BD521757A23C0069F739 /* CoreLocation.framework */,
-				D702418A17478B16008954FD /* CorePlot */,
-				D70241841746D7F6008954FD /* VaavudIcon57.png */,
-				D70241821746D7F1008954FD /* VaavudIcon114.png */,
-				D7DA72401743C1CD00DFE962 /* Accelerate.framework */,
-				D7C860ED173AD08F005E9946 /* QuartzCore.framework */,
-				D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */,
-				D7A4F1D0173A8DDB00D1ACEE /* VaavudCore */,
+				D7A4F1D0173A8DDB00D1ACEE /* Classes */,
 				D7A4F1C9173A8DDB00D1ACEE /* Frameworks */,
+				E98853C7176868BE00F78128 /* Images */,
 				D7A4F1C8173A8DDB00D1ACEE /* Products */,
+				D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */,
 			);
 			sourceTree = "<group>";
 		};
 		D7A4F1C8173A8DDB00D1ACEE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D7A4F1C7173A8DDB00D1ACEE /* VaavudCore.app */,
+				D7A4F1C7173A8DDB00D1ACEE /* Vaavud.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -289,23 +285,28 @@
 		D7A4F1C9173A8DDB00D1ACEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */,
-				D7A4F1CC173A8DDB00D1ACEE /* Foundation.framework */,
+				D7DA72401743C1CD00DFE962 /* Accelerate.framework */,
 				D7A4F1CE173A8DDB00D1ACEE /* CoreGraphics.framework */,
+				D7B5BD521757A23C0069F739 /* CoreLocation.framework */,
+				D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */,
+				D7A4F1CC173A8DDB00D1ACEE /* Foundation.framework */,
+				D7C860ED173AD08F005E9946 /* QuartzCore.framework */,
+				D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D7A4F1D0173A8DDB00D1ACEE /* VaavudCore */ = {
+		D7A4F1D0173A8DDB00D1ACEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				D7B5BD4E175775BA0069F739 /* VaavudViewFiles */,
+				D702418A17478B16008954FD /* CorePlot */,
 				D7A4F1EF173A8F4600D1ACEE /* VaavudCoreFiles */,
+				D7B5BD4E175775BA0069F739 /* VaavudViewFiles */,
 				D7A4F1D9173A8DDB00D1ACEE /* vaavudAppDelegate.h */,
 				D7A4F1DA173A8DDB00D1ACEE /* vaavudAppDelegate.m */,
 				D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */,
-				D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */,
 			);
+			name = Classes;
 			path = VaavudCore;
 			sourceTree = "<group>";
 		};
@@ -314,15 +315,16 @@
 			children = (
 				D7B5BD4C17574E970069F739 /* VaavudTransparent100px@2x.png */,
 				D7B5BD4A17574E8C0069F739 /* VaavudTransparent100px.png */,
-				D7A4F1D2173A8DDB00D1ACEE /* VaavudCore-Info.plist */,
+				D7A4F1D2173A8DDB00D1ACEE /* Vaavud-Info.plist */,
 				D7A4F1D3173A8DDB00D1ACEE /* InfoPlist.strings */,
 				D7A4F1D6173A8DDB00D1ACEE /* main.m */,
-				D7A4F1D8173A8DDB00D1ACEE /* VaavudCore-Prefix.pch */,
+				D7A4F1D8173A8DDB00D1ACEE /* Vaavud-Prefix.pch */,
 				D7A4F1DC173A8DDB00D1ACEE /* Default.png */,
 				D7A4F1DE173A8DDB00D1ACEE /* Default@2x.png */,
 				D7A4F1E0173A8DDB00D1ACEE /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			path = VaavudCore;
 			sourceTree = "<group>";
 		};
 		D7A4F1EF173A8F4600D1ACEE /* VaavudCoreFiles */ = {
@@ -352,12 +354,21 @@
 			name = VaavudViewFiles;
 			sourceTree = "<group>";
 		};
+		E98853C7176868BE00F78128 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				D70241841746D7F6008954FD /* VaavudIcon57.png */,
+				D70241821746D7F1008954FD /* VaavudIcon114.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D7A4F1C6173A8DDB00D1ACEE /* VaavudCore */ = {
+		D7A4F1C6173A8DDB00D1ACEE /* Vaavud */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D7A4F1EA173A8DDB00D1ACEE /* Build configuration list for PBXNativeTarget "VaavudCore" */;
+			buildConfigurationList = D7A4F1EA173A8DDB00D1ACEE /* Build configuration list for PBXNativeTarget "Vaavud" */;
 			buildPhases = (
 				D7A4F1C3173A8DDB00D1ACEE /* Sources */,
 				D7A4F1C4173A8DDB00D1ACEE /* Frameworks */,
@@ -367,9 +378,9 @@
 			);
 			dependencies = (
 			);
-			name = VaavudCore;
+			name = Vaavud;
 			productName = VaavudCore;
-			productReference = D7A4F1C7173A8DDB00D1ACEE /* VaavudCore.app */;
+			productReference = D7A4F1C7173A8DDB00D1ACEE /* Vaavud.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -382,7 +393,7 @@
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Andreas Okholm";
 			};
-			buildConfigurationList = D7A4F1C2173A8DDB00D1ACEE /* Build configuration list for PBXProject "VaavudCore" */;
+			buildConfigurationList = D7A4F1C2173A8DDB00D1ACEE /* Build configuration list for PBXProject "Vaavud" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -394,7 +405,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D7A4F1C6173A8DDB00D1ACEE /* VaavudCore */,
+				D7A4F1C6173A8DDB00D1ACEE /* Vaavud */,
 			);
 		};
 /* End PBXProject section */
@@ -515,17 +526,17 @@
 		D7A4F1EB173A8DDB00D1ACEE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Andreas Okholm (SZJVSX3VZ8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "VaavudCore/VaavudCore-Prefix.pch";
-				INFOPLIST_FILE = "VaavudCore/VaavudCore-Info.plist";
+				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
+				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "24E694E6-0161-45BD-BB16-4132F790DB7A";
+				PRODUCT_NAME = Vaavud;
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -533,17 +544,17 @@
 		D7A4F1EC173A8DDB00D1ACEE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Andreas Okholm (SZJVSX3VZ8)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "VaavudCore/VaavudCore-Prefix.pch";
-				INFOPLIST_FILE = "VaavudCore/VaavudCore-Info.plist";
+				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
+				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "24E694E6-0161-45BD-BB16-4132F790DB7A";
+				PRODUCT_NAME = Vaavud;
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -551,7 +562,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D7A4F1C2173A8DDB00D1ACEE /* Build configuration list for PBXProject "VaavudCore" */ = {
+		D7A4F1C2173A8DDB00D1ACEE /* Build configuration list for PBXProject "Vaavud" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D7A4F1E8173A8DDB00D1ACEE /* Debug */,
@@ -560,7 +571,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D7A4F1EA173A8DDB00D1ACEE /* Build configuration list for PBXNativeTarget "VaavudCore" */ = {
+		D7A4F1EA173A8DDB00D1ACEE /* Build configuration list for PBXNativeTarget "Vaavud" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D7A4F1EB173A8DDB00D1ACEE /* Debug */,
