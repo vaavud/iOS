@@ -299,7 +299,7 @@
 		D7A4F1D0173A8DDB00D1ACEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				D702418A17478B16008954FD /* CorePlot */,
+				E9DBD3BA17688E9C00CCDA57 /* ThirdParty */,
 				D7A4F1EF173A8F4600D1ACEE /* VaavudCoreFiles */,
 				D7B5BD4E175775BA0069F739 /* VaavudViewFiles */,
 				D7A4F1D9173A8DDB00D1ACEE /* vaavudAppDelegate.h */,
@@ -361,6 +361,14 @@
 				D70241821746D7F1008954FD /* VaavudIcon114.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		E9DBD3BA17688E9C00CCDA57 /* ThirdParty */ = {
+			isa = PBXGroup;
+			children = (
+				D702418A17478B16008954FD /* CorePlot */,
+			);
+			name = ThirdParty;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
