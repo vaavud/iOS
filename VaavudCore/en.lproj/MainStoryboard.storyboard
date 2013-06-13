@@ -14,11 +14,11 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bS1-jk-rNp">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="179" id="Upq-Je-tmu"/>
-                                    <constraint firstAttribute="height" constant="45" id="fbo-dQ-B3V"/>
+                                    <constraint firstAttribute="height" constant="29" id="253-Ly-ILY"/>
+                                    <constraint firstAttribute="width" constant="180" id="bsy-im-PPZ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
-                                <state key="normal" title="START">
+                                <state key="normal" title="START" image="startButton.png">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -117,17 +117,17 @@
                         </subviews>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="bS1-jk-rNp" firstAttribute="centerX" secondItem="eB6-ZR-G0T" secondAttribute="centerX" type="default" id="4qx-Fx-Hgg"/>
+                            <constraint firstAttribute="bottom" secondItem="eB6-ZR-G0T" secondAttribute="bottom" constant="64" id="3Br-7j-paa"/>
                             <constraint firstItem="E6z-xo-cgt" firstAttribute="bottom" secondItem="rBN-Ni-HWB" secondAttribute="bottom" type="default" id="4tz-VN-r6B"/>
                             <constraint firstItem="jkJ-OL-yzm" firstAttribute="centerX" secondItem="BoF-HW-bXq" secondAttribute="centerX" type="default" id="789-d3-cop"/>
                             <constraint firstAttribute="bottom" secondItem="jop-HL-F0a" secondAttribute="bottom" constant="124" id="7qS-sq-2BR"/>
-                            <constraint firstItem="bS1-jk-rNp" firstAttribute="top" secondItem="eB6-ZR-G0T" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="9CZ-tO-BaT"/>
+                            <constraint firstItem="bS1-jk-rNp" firstAttribute="centerX" secondItem="3" secondAttribute="centerX" type="default" id="A1b-7q-i0a"/>
                             <constraint firstItem="aIb-lj-gMl" firstAttribute="top" secondItem="Vbb-Ps-UGv" secondAttribute="top" type="default" id="BeF-8i-ZPW"/>
                             <constraint firstItem="jop-HL-F0a" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="10" id="IAT-O6-tIm"/>
+                            <constraint firstItem="bS1-jk-rNp" firstAttribute="centerX" secondItem="eB6-ZR-G0T" secondAttribute="centerX" type="default" id="Ojx-Dg-rSW"/>
                             <constraint firstItem="qBg-VY-wWc" firstAttribute="top" secondItem="3" secondAttribute="top" constant="126" id="QHk-pY-hUd"/>
                             <constraint firstItem="rBN-Ni-HWB" firstAttribute="top" secondItem="E6z-xo-cgt" secondAttribute="top" type="default" id="V4J-xs-gy1"/>
                             <constraint firstItem="jop-HL-F0a" firstAttribute="top" secondItem="3" secondAttribute="top" constant="204" id="Y2K-77-m01"/>
-                            <constraint firstItem="jkJ-OL-yzm" firstAttribute="centerX" secondItem="3" secondAttribute="centerX" type="default" id="a3f-vT-cVL"/>
                             <constraint firstAttribute="bottom" secondItem="0Ej-kg-OB6" secondAttribute="bottom" constant="89" id="b5p-9f-OHp"/>
                             <constraint firstItem="qBg-VY-wWc" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="bBD-Lm-d52"/>
                             <constraint firstAttribute="trailing" secondItem="ReF-g7-EF0" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="bHa-L8-J7i"/>
@@ -140,10 +140,10 @@
                             <constraint firstItem="jkJ-OL-yzm" firstAttribute="top" secondItem="3" secondAttribute="top" constant="15" id="kfJ-cb-Bwl"/>
                             <constraint firstItem="ReF-g7-EF0" firstAttribute="top" secondItem="3jS-Rr-IOD" secondAttribute="top" type="default" id="l9Z-DQ-mQf"/>
                             <constraint firstItem="qBg-VY-wWc" firstAttribute="top" secondItem="BoF-HW-bXq" secondAttribute="top" type="default" id="lrt-2t-uM4"/>
-                            <constraint firstAttribute="bottom" secondItem="bS1-jk-rNp" secondAttribute="bottom" constant="11" id="tbf-Vt-HJr"/>
                             <constraint firstItem="0Ej-kg-OB6" firstAttribute="centerX" secondItem="rBN-Ni-HWB" secondAttribute="centerX" type="default" id="ts8-oI-ZxJ"/>
                             <constraint firstItem="BoF-HW-bXq" firstAttribute="centerX" secondItem="jop-HL-F0a" secondAttribute="centerX" type="default" id="um4-aD-JsG"/>
                             <constraint firstItem="E6z-xo-cgt" firstAttribute="top" secondItem="3" secondAttribute="top" constant="150" id="vQN-bF-KoL"/>
+                            <constraint firstAttribute="bottom" secondItem="bS1-jk-rNp" secondAttribute="bottom" constant="19" id="w83-u1-9oa"/>
                             <constraint firstItem="0Ej-kg-OB6" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="66" id="wvZ-NA-8jj"/>
                             <constraint firstItem="ReF-g7-EF0" firstAttribute="baseline" secondItem="3jS-Rr-IOD" secondAttribute="baseline" type="default" id="xnj-FY-eXC"/>
                             <constraint firstItem="eB6-ZR-G0T" firstAttribute="centerX" secondItem="jop-HL-F0a" secondAttribute="centerX" type="default" id="zTc-5q-w3c"/>
@@ -166,6 +166,7 @@
     </scenes>
     <resources>
         <image name="VaavudTransparent100px.png" width="100" height="12"/>
+        <image name="startButton.png" width="180" height="30"/>
     </resources>
     <classes>
         <class className="CPTGraphHostingView" superclassName="UIView">

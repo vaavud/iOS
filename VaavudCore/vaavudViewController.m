@@ -14,13 +14,10 @@
 @property (nonatomic, weak) IBOutlet UILabel *averageLabel;
 @property (nonatomic, weak) IBOutlet UILabel *maxLabel;
 @property (nonatomic, weak) IBOutlet UILabel *unitLabel;
-@property (nonatomic, weak) IBOutlet UILabel *windDirectionLabel;
 @property (nonatomic, weak) IBOutlet UILabel *informationTextLabel;
-@property (nonatomic, weak) IBOutlet UILabel *windDirectionStatusLabel;
 @property (nonatomic, weak) IBOutlet UIProgressView *statusBar;
 
 @property (nonatomic, weak) IBOutlet UIButton *startStopButton;
-@property (nonatomic, weak) IBOutlet UIButton *windDirectionStatusButton;
 @property (nonatomic, strong) IBOutlet vaavudGraphHostingView *graphHostView;
 
 
@@ -37,8 +34,6 @@
 - (void) stop;
 
 - (IBAction) buttonPushed: (id)sender;
-- (IBAction) windDirectionStatusToggle:(id)sender;
-
 
 @end
 
@@ -56,17 +51,12 @@
     
     self.compassTableShort = [NSArray arrayWithObjects:  @"N",@"NE",@"E",@"SE",@"S",@"SW",@"W",@"NW", nil];
     
-    self.windDirectionStatusLabel.lineBreakMode = NSLineBreakByCharWrapping;
-    self.windDirectionStatusLabel.numberOfLines = 0;
-    self.windDirectionStatusLabel.textAlignment = NSTextAlignmentCenter;
-    self.windDirectionStatusLabel.text          = @"CONFIRM\nDIRECTION";
 
     // Set correct font text colors
     UIColor *vaavudBlueUIcolor = [UIColor colorWithRed:(0/255.0) green:(174/255.0) blue:(239/255.0) alpha:1];
     self.actualLabel.textColor = vaavudBlueUIcolor;
     self.maxLabel.textColor = vaavudBlueUIcolor;
     self.unitLabel.textColor = vaavudBlueUIcolor;
-    self.windDirectionLabel.textColor = vaavudBlueUIcolor;
 
 }
 
@@ -138,18 +128,6 @@
         
         self.informationTextLabel.text = @"";
         
-        NSNumber *latestWindDicretion = self.vaavudCoreController.setWindDirection;
-        
-        
-        if (latestWindDicretion)
-        {
-            
-            NSString *compassText = self.compassTableShort[([latestWindDicretion integerValue]+360/8/2)%360/(360/8)];
-            self.windDirectionLabel.text = [NSString stringWithFormat: @"%.0f%@", [latestWindDicretion doubleValue], compassText];
-            self.windDirectionLabel.text = compassText;
-
-        }
-        
         
         [self.statusBar setProgress: [[self.vaavudCoreController getProgress] floatValue]];
         
@@ -196,27 +174,12 @@
 
 }
 
-- (IBAction)windDirectionStatusToggle:(id)sender {
-    
-    if (self.vaavudCoreController.windDirectionIsConfirmed) {
-        self.vaavudCoreController.windDirectionIsConfirmed = NO;
-        self.windDirectionStatusLabel.text = @"CONFIRM\nDIRECTION";
-    } else {
-        self.vaavudCoreController.windDirectionIsConfirmed = YES;
-        self.windDirectionStatusLabel.text = @"CONFIRMED\nDIRECTION";
-    }
-}
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-//- (void) newWindSpeed: (float) speed
-//{
-//    self.mainWindSpeedLabel.text = [NSString stringWithFormat: @"%.1f", speed];
-//}
 
 -(NSUInteger)supportedInterfaceOrientations
 {
