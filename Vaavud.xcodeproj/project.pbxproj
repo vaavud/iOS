@@ -12,6 +12,10 @@
 		D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */; };
 		D7092E8A1748FE9C00993235 /* vaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* vaavudDynamicsController.m */; };
 		D71BE13717439AA000B38E34 /* vaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* vaavudFFT.m */; };
+		D7409DAA1769C1A900890CC9 /* startButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D7409DA61769C1A900890CC9 /* startButton.png */; };
+		D7409DAB1769C1A900890CC9 /* startButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7409DA71769C1A900890CC9 /* startButton@2x.png */; };
+		D7409DAC1769C1A900890CC9 /* stopButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D7409DA81769C1A900890CC9 /* stopButton.png */; };
+		D7409DAD1769C1A900890CC9 /* stopButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7409DA91769C1A900890CC9 /* stopButton@2x.png */; };
 		D7A4F1CB173A8DDB00D1ACEE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */; };
 		D7A4F1CD173A8DDB00D1ACEE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CC173A8DDB00D1ACEE /* Foundation.framework */; };
 		D7A4F1CF173A8DDB00D1ACEE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CE173A8DDB00D1ACEE /* CoreGraphics.framework */; };
@@ -119,6 +123,10 @@
 		D7092E891748FE9C00993235 /* vaavudDynamicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudDynamicsController.m; sourceTree = "<group>"; };
 		D71BE13517439AA000B38E34 /* vaavudFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudFFT.h; sourceTree = "<group>"; };
 		D71BE13617439AA000B38E34 /* vaavudFFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudFFT.m; sourceTree = "<group>"; };
+		D7409DA61769C1A900890CC9 /* startButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = startButton.png; sourceTree = "<group>"; };
+		D7409DA71769C1A900890CC9 /* startButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "startButton@2x.png"; sourceTree = "<group>"; };
+		D7409DA81769C1A900890CC9 /* stopButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stopButton.png; sourceTree = "<group>"; };
+		D7409DA91769C1A900890CC9 /* stopButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stopButton@2x.png"; sourceTree = "<group>"; };
 		D7A4F1C7173A8DDB00D1ACEE /* Vaavud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vaavud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D7A4F1CC173A8DDB00D1ACEE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -313,6 +321,10 @@
 		D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D7409DA61769C1A900890CC9 /* startButton.png */,
+				D7409DA71769C1A900890CC9 /* startButton@2x.png */,
+				D7409DA81769C1A900890CC9 /* stopButton.png */,
+				D7409DA91769C1A900890CC9 /* stopButton@2x.png */,
 				D7B5BD4C17574E970069F739 /* VaavudTransparent100px@2x.png */,
 				D7B5BD4A17574E8C0069F739 /* VaavudTransparent100px.png */,
 				D7A4F1D2173A8DDB00D1ACEE /* Vaavud-Info.plist */,
@@ -432,6 +444,10 @@
 				D70241851746D7F6008954FD /* VaavudIcon57.png in Resources */,
 				D7B5BD4B17574E8C0069F739 /* VaavudTransparent100px.png in Resources */,
 				D7B5BD4D17574E970069F739 /* VaavudTransparent100px@2x.png in Resources */,
+				D7409DAA1769C1A900890CC9 /* startButton.png in Resources */,
+				D7409DAB1769C1A900890CC9 /* startButton@2x.png in Resources */,
+				D7409DAC1769C1A900890CC9 /* stopButton.png in Resources */,
+				D7409DAD1769C1A900890CC9 /* stopButton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
