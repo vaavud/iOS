@@ -133,7 +133,7 @@
         self.averageLabel.text = [NSString stringWithFormat: @"%.1f", [[self.vaavudCoreController getAverage] floatValue]];
         self.maxLabel.text = [NSString stringWithFormat: @"%.1f", [[self.vaavudCoreController getMax] floatValue]];
         
-        self.informationTextLabel.text = @"";
+        self.informationTextLabel.text = @"Measurement in progress";
         
         
         [self.statusBar setProgress: [[self.vaavudCoreController getProgress] floatValue]];
