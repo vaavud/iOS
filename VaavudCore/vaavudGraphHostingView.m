@@ -278,9 +278,9 @@ enum plotName : NSUInteger {
     
     // Axes
     
-    CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
-    majorGridLineStyle.lineWidth        = 1.5;
-    majorGridLineStyle.lineColor        = [CPTColor lightGrayColor];
+//    CPTMutableLineStyle *majorGridLineStyle = [CPTMutableLineStyle lineStyle];
+//    majorGridLineStyle.lineWidth        = 1.5;
+//    majorGridLineStyle.lineColor        = [CPTColor lightGrayColor];
     
     CPTMutableLineStyle *GreyLineStyle = [CPTMutableLineStyle lineStyle];
     GreyLineStyle.lineWidth        = 1.5;
@@ -302,7 +302,7 @@ enum plotName : NSUInteger {
     x.minorTicksPerInterval             = 0;
     x.axisConstraints                   = [CPTConstraints constraintWithLowerOffset:0.0];
     x.labelTextStyle                    = textStyleGrey;
-    x.axisLineStyle                     = GreyLineStyle;
+    x.axisLineStyle                     = nil;
     x.majorTickLineStyle                = GreyLineStyle;
     x.minorTickLineStyle                = GreyLineStyle;
     x.labelFormatter                    = numberFormat;
@@ -314,7 +314,7 @@ enum plotName : NSUInteger {
     y.minorTicksPerInterval             = 0;
     y.axisConstraints                   = [CPTConstraints constraintWithLowerOffset:0.0];
     y.labelFormatter                    = numberFormat;
-    y.majorGridLineStyle                = majorGridLineStyle;
+    y.majorGridLineStyle                = nil;
     y.labelTextStyle                    = textStyleDarkGrey;
     y.minorTickLineStyle                = nil;
     y.majorTickLineStyle                = nil;
