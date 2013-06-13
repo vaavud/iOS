@@ -27,6 +27,9 @@
 @property (nonatomic, strong) VaavudCoreController *vaavudCoreController;
 @property (nonatomic, strong) NSArray *compassTableShort;
 
+@property (nonatomic, strong) UIImage *startButtonImage;
+@property (nonatomic, strong) UIImage *stopButtonImage;
+
 @property (nonatomic)           BOOL isValid;
 
 - (void) updateLabels;
@@ -57,6 +60,10 @@
     self.actualLabel.textColor = vaavudBlueUIcolor;
     self.maxLabel.textColor = vaavudBlueUIcolor;
     self.unitLabel.textColor = vaavudBlueUIcolor;
+    
+    
+    self.startButtonImage   = [UIImage imageNamed: @"startButton.png"];
+    self.stopButtonImage    = [UIImage imageNamed: @"stopButton.png"];
 
 }
 
@@ -163,11 +170,15 @@
     
     if ([buttonText caseInsensitiveCompare: @"start"] == NSOrderedSame){
         [self.startStopButton setTitle: @"stop" forState:UIControlStateNormal];
+        [self.startStopButton setImage: self.stopButtonImage forState:UIControlStateNormal];
+        
         [self start];
     }
     
     if ([buttonText caseInsensitiveCompare: @"stop"] == NSOrderedSame){
         [self.startStopButton setTitle: @"start" forState:UIControlStateNormal];
+        [self.startStopButton setImage: self.startButtonImage forState:UIControlStateNormal];
+
         [self stop];
     }
         
