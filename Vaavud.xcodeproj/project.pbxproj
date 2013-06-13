@@ -36,6 +36,11 @@
 		D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C860ED173AD08F005E9946 /* QuartzCore.framework */; };
 		D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */; };
 		D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DA72401743C1CD00DFE962 /* Accelerate.framework */; };
+		E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */; };
+		E9EE1FB11769F54200D1F006 /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EE1FB01769F54200D1F006 /* CoreDataManager.m */; };
+		E9EE1FB41769F9BA00D1F006 /* MeasurementPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EE1FB31769F9BA00D1F006 /* MeasurementPoint.m */; };
+		E9EE1FB71769F9CB00D1F006 /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EE1FB61769F9CB00D1F006 /* MeasurementSession.m */; };
+		E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9EE1FB8176A024B00D1F006 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -156,6 +161,15 @@
 		D7C860F8173B061E005E9946 /* VaavudMagneticFieldDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudMagneticFieldDataManager.h; sourceTree = "<group>"; };
 		D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudMagneticFieldDataManager.m; sourceTree = "<group>"; };
 		D7DA72401743C1CD00DFE962 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		E9EE1FA31769E54E00D1F006 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		E9EE1FAE1769F08400D1F006 /* SharedSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedSingleton.h; sourceTree = "<group>"; };
+		E9EE1FAF1769F54200D1F006 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
+		E9EE1FB01769F54200D1F006 /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
+		E9EE1FB21769F9BA00D1F006 /* MeasurementPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementPoint.h; sourceTree = "<group>"; };
+		E9EE1FB31769F9BA00D1F006 /* MeasurementPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementPoint.m; sourceTree = "<group>"; };
+		E9EE1FB51769F9CB00D1F006 /* MeasurementSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSession.h; sourceTree = "<group>"; };
+		E9EE1FB61769F9CB00D1F006 /* MeasurementSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSession.m; sourceTree = "<group>"; };
+		E9EE1FB8176A024B00D1F006 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +177,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */,
 				D7B5BD531757A23C0069F739 /* CoreLocation.framework in Frameworks */,
 				D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */,
 				D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */,
@@ -274,6 +289,8 @@
 		D7A4F1BE173A8DDB00D1ACEE = {
 			isa = PBXGroup;
 			children = (
+				E9EE1FB8176A024B00D1F006 /* CoreData.framework */,
+				E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */,
 				D7A4F1D0173A8DDB00D1ACEE /* Classes */,
 				D7A4F1C9173A8DDB00D1ACEE /* Frameworks */,
 				E98853C7176868BE00F78128 /* Images */,
@@ -307,12 +324,14 @@
 		D7A4F1D0173A8DDB00D1ACEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */,
+				E9EE1FA51769EC7F00D1F006 /* Model */,
 				E9DBD3BA17688E9C00CCDA57 /* ThirdParty */,
-				D7A4F1EF173A8F4600D1ACEE /* VaavudCoreFiles */,
-				D7B5BD4E175775BA0069F739 /* VaavudViewFiles */,
+				E9EE1FAD1769F01800D1F006 /* Util */,
 				D7A4F1D9173A8DDB00D1ACEE /* vaavudAppDelegate.h */,
 				D7A4F1DA173A8DDB00D1ACEE /* vaavudAppDelegate.m */,
-				D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */,
+				D7A4F1EF173A8F4600D1ACEE /* VaavudCoreFiles */,
+				D7B5BD4E175775BA0069F739 /* VaavudViewFiles */,
 			);
 			name = Classes;
 			path = VaavudCore;
@@ -342,15 +361,15 @@
 		D7A4F1EF173A8F4600D1ACEE /* VaavudCoreFiles */ = {
 			isa = PBXGroup;
 			children = (
+				D7A4F1F5173AA16700D1ACEE /* Constants.h */,
 				D7A4F1F0173A8FAB00D1ACEE /* VaavudCoreController.h */,
 				D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */,
-				D7A4F1F5173AA16700D1ACEE /* Constants.h */,
-				D7C860F8173B061E005E9946 /* VaavudMagneticFieldDataManager.h */,
-				D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */,
-				D71BE13517439AA000B38E34 /* vaavudFFT.h */,
-				D71BE13617439AA000B38E34 /* vaavudFFT.m */,
 				D7092E881748FE9C00993235 /* vaavudDynamicsController.h */,
 				D7092E891748FE9C00993235 /* vaavudDynamicsController.m */,
+				D71BE13517439AA000B38E34 /* vaavudFFT.h */,
+				D71BE13617439AA000B38E34 /* vaavudFFT.m */,
+				D7C860F8173B061E005E9946 /* VaavudMagneticFieldDataManager.h */,
+				D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */,
 			);
 			name = VaavudCoreFiles;
 			sourceTree = "<group>";
@@ -358,10 +377,10 @@
 		D7B5BD4E175775BA0069F739 /* VaavudViewFiles */ = {
 			isa = PBXGroup;
 			children = (
-				D7A4F1E5173A8DDB00D1ACEE /* vaavudViewController.h */,
-				D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */,
 				D7B5BD4F175775EB0069F739 /* vaavudGraphHostingView.h */,
 				D7B5BD50175775EB0069F739 /* vaavudGraphHostingView.m */,
+				D7A4F1E5173A8DDB00D1ACEE /* vaavudViewController.h */,
+				D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */,
 			);
 			name = VaavudViewFiles;
 			sourceTree = "<group>";
@@ -381,6 +400,35 @@
 				D702418A17478B16008954FD /* CorePlot */,
 			);
 			name = ThirdParty;
+			sourceTree = "<group>";
+		};
+		E9EE1FA51769EC7F00D1F006 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E9EE1FA61769EC9200D1F006 /* Data */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		E9EE1FA61769EC9200D1F006 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				E9EE1FAF1769F54200D1F006 /* CoreDataManager.h */,
+				E9EE1FB01769F54200D1F006 /* CoreDataManager.m */,
+				E9EE1FB21769F9BA00D1F006 /* MeasurementPoint.h */,
+				E9EE1FB31769F9BA00D1F006 /* MeasurementPoint.m */,
+				E9EE1FB51769F9CB00D1F006 /* MeasurementSession.h */,
+				E9EE1FB61769F9CB00D1F006 /* MeasurementSession.m */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
+		E9EE1FAD1769F01800D1F006 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				E9EE1FAE1769F08400D1F006 /* SharedSingleton.h */,
+			);
+			name = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -466,6 +514,10 @@
 				D71BE13717439AA000B38E34 /* vaavudFFT.m in Sources */,
 				D7092E8A1748FE9C00993235 /* vaavudDynamicsController.m in Sources */,
 				D7B5BD51175775EB0069F739 /* vaavudGraphHostingView.m in Sources */,
+				E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */,
+				E9EE1FB11769F54200D1F006 /* CoreDataManager.m in Sources */,
+				E9EE1FB41769F9BA00D1F006 /* MeasurementPoint.m in Sources */,
+				E9EE1FB71769F9CB00D1F006 /* MeasurementSession.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,6 +657,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E9EE1FA31769E54E00D1F006 /* Model.xcdatamodel */,
+			);
+			currentVersion = E9EE1FA31769E54E00D1F006 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = D7A4F1BF173A8DDB00D1ACEE /* Project object */;
 }

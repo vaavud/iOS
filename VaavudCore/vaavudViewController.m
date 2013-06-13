@@ -7,6 +7,7 @@
 
 #import "vaavudViewController.h"
 #import "vaavudGraphHostingView.h"
+//#import "CoreDataManager.h"
 
 @interface vaavudViewController ()
 
@@ -65,6 +66,7 @@
     self.startButtonImage   = [UIImage imageNamed: @"startButton.png"];
     self.stopButtonImage    = [UIImage imageNamed: @"stopButton.png"];
 
+    //[CoreDataManager sharedInstance]; // just force the database to be created as a test
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
