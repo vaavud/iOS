@@ -214,7 +214,7 @@ enum plotName : NSUInteger {
     CPTScatterPlot *windSpeedLinePlot   = [[CPTScatterPlot alloc] init];
     CPTMutableLineStyle *lineStyle      = [CPTMutableLineStyle lineStyle];
     lineStyle.miterLimit                = 1.0f;
-    lineStyle.lineWidth                 = 3.0f;
+    lineStyle.lineWidth                 = 4.0f;
     
     CPTColor *vaavudBlue                = [[CPTColor alloc] initWithComponentRed: 0 green: (float) 174/255 blue: (float) 239/255 alpha: 1 ];
     lineStyle.lineColor                 = vaavudBlue;
@@ -326,7 +326,7 @@ enum plotName : NSUInteger {
     self.averageWindSpeedPlot           = [[CPTScatterPlot alloc] init];
     CPTMutableLineStyle *lineStyle      = [CPTMutableLineStyle lineStyle];
     lineStyle.miterLimit                = 1.0f;
-    lineStyle.lineWidth                 = 3.0f;
+    lineStyle.lineWidth                 = 4.0f;
     CPTColor *vaavudRed = [[CPTColor alloc] initWithComponentRed: (float) 210/255 green: (float) 37/255 blue: (float) 45/255 alpha: 1 ];
     
     
