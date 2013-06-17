@@ -9,6 +9,12 @@
 #import "SharedSingleton.h"
 #import "CoreDataManager.h"
 
+@interface CoreDataManager ()
+
+@property (nonatomic) NSTimer *dbSyncTimer;
+
+@end
+
 @implementation CoreDataManager
 
 SHARED_INSTANCE
@@ -38,9 +44,24 @@ SHARED_INSTANCE
             _context = [[NSManagedObjectContext alloc] init];
             [_context setPersistentStoreCoordinator:persistentStoreCoordinator];
             [_context setMergePolicy:NSMergeByPropertyStoreTrumpMergePolicy];
+
+            self.dbSyncTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(pushDirtyEntities) userInfo:nil repeats:YES];
         }
     }
     return self;
+}
+
+- (void) pushDirtyEntities {
+    
+    if (!self.context) {
+        return;
+    }
+    
+    NSError *error;
+    if (![self.context save:&error]) {
+        NSLog(@"Error: %@", [error localizedFailureReason]);
+    }
+    
 }
 
 @end

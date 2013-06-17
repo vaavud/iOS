@@ -8,8 +8,12 @@
 
 #import "VaavudCoreController.h"
 #import <CoreMotion/CoreMotion.h>
+#import <CoreData/CoreData.h>
 #import "VaavudMagneticFieldDataManager.h"
 #import "vaavudFFT.h"
+#import "CoreDataManager.h"
+#import "MeasurementSession.h"
+#import "MeasurementPoint.h"
 
 @interface VaavudCoreController () {
     
@@ -46,6 +50,8 @@
 @property (nonatomic) int       numberOfMeasurements;
 @property (nonatomic) double    maxWindspeed;
 
+@property (nonatomic) NSManagedObjectContext *managedObjectContext;
+
 - (void) updateIsValid;
 
 @end
@@ -63,10 +69,10 @@
     {
         // Do initializing
         self.FFTEngine = [[vaavudFFT alloc] initFFTLength:FFTLength];
+        self.managedObjectContext = [[CoreDataManager sharedInstance] context];
     }
     
     return self;
-    
 }
 
 - (void) start
@@ -96,6 +102,10 @@
     if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
         self.upsideDown = YES;
     
+    // create new MeasurementSession and insert it in the database
+    MeasurementSession *measurementSession = (MeasurementSession *)[NSEntityDescription insertNewObjectForEntityForName:@"MeasurementSession" inManagedObjectContext:self.managedObjectContext];
+    measurementSession.startTime = [NSDate date];
+    
     // create reference to MagneticField Data Manager and start
     self.sharedMagneticFieldDataManager = [VaavudMagneticFieldDataManager sharedMagneticFieldDataManager];
     self.sharedMagneticFieldDataManager.delegate = self;
@@ -105,11 +115,12 @@
     self.vaavudDynamicsController = [[vaavudDynamicsController alloc] init];
     self.vaavudDynamicsController.vaavudCoreController = self;
     [self.vaavudDynamicsController start];
-    
 }
 
 - (void) stop
 {
+    // TODO: set endTime of MeasurementSession
+    
     [self.sharedMagneticFieldDataManager stop];
     [self.vaavudDynamicsController stop];
 }
@@ -149,7 +160,10 @@
     
     [self.isValid addObject: [NSNumber numberWithBool: self.isValidCurrentStatus]];
     self.wasValidStatus = self.isValidCurrentStatus;
-
+    
+    if (self.isValidCurrentStatus) {
+        // TODO: add MeasurementPoint to MeasurementSession
+    }
 }
 
 // protocol method
@@ -313,6 +327,5 @@
     
     return [NSNumber numberWithDouble: progress];
 }
-
 
 @end
