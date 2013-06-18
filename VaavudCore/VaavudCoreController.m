@@ -11,7 +11,6 @@
 #import <CoreData/CoreData.h>
 #import "VaavudMagneticFieldDataManager.h"
 #import "vaavudFFT.h"
-#import "CoreDataManager.h"
 #import "MeasurementSession.h"
 #import "MeasurementPoint.h"
 
@@ -21,9 +20,6 @@
 
 // public properties - create setters
 @property (nonatomic, strong) NSNumber *setWindDirection;
-@property (nonatomic) float currentWindSpeed;
-@property (nonatomic) float currentWindDirection;
-@property (nonatomic) float currentWindSpeedMax;
 @property (nonatomic, strong) NSMutableArray *windSpeed;
 @property (nonatomic, strong) NSMutableArray *isValid;
 @property (nonatomic, strong) NSMutableArray *windSpeedTime;
@@ -50,7 +46,7 @@
 @property (nonatomic) int       numberOfMeasurements;
 @property (nonatomic) double    maxWindspeed;
 
-@property (nonatomic) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic) MeasurementSession *measurementSession;
 
 - (void) updateIsValid;
 
@@ -69,7 +65,6 @@
     {
         // Do initializing
         self.FFTEngine = [[vaavudFFT alloc] initFFTLength:FFTLength];
-        self.managedObjectContext = [[CoreDataManager sharedInstance] context];
     }
     
     return self;
@@ -102,9 +97,10 @@
     if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
         self.upsideDown = YES;
     
-    // create new MeasurementSession and insert it in the database
-    MeasurementSession *measurementSession = (MeasurementSession *)[NSEntityDescription insertNewObjectForEntityForName:@"MeasurementSession" inManagedObjectContext:self.managedObjectContext];
-    measurementSession.startTime = [NSDate date];
+    // create new MeasurementSession and save it in the database
+    self.measurementSession = [MeasurementSession createEntity];
+    self.measurementSession.startTime = [NSDate date];
+    [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
     
     // create reference to MagneticField Data Manager and start
     self.sharedMagneticFieldDataManager = [VaavudMagneticFieldDataManager sharedMagneticFieldDataManager];
@@ -119,7 +115,12 @@
 
 - (void) stop
 {
-    // TODO: set endTime of MeasurementSession
+    // set endTime, windSpeedAvg, and windSpeedMax of MeasurementSession and save it
+    self.measurementSession.endTime = [NSDate date];
+    self.measurementSession.windSpeedAvg = [self getAverage];
+    self.measurementSession.windSpeedMax = [self getMax];
+    self.measurementSession.windDirection = self.setWindDirection;
+    [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
     
     [self.sharedMagneticFieldDataManager stop];
     [self.vaavudDynamicsController stop];
@@ -154,16 +155,35 @@
         self.isValidCurrentStatus = NO;
     }
     
+    [self.isValid addObject: [NSNumber numberWithBool: self.isValidCurrentStatus]];
+
     if (self.wasValidStatus != self.isValidCurrentStatus){
         [self.vaavudCoreControllerViewControllerDelegate windSpeedMeasurementsAreValid: self.isValidCurrentStatus];
     }
     
-    [self.isValid addObject: [NSNumber numberWithBool: self.isValidCurrentStatus]];
-    self.wasValidStatus = self.isValidCurrentStatus;
-    
     if (self.isValidCurrentStatus) {
-        // TODO: add MeasurementPoint to MeasurementSession
+        // add MeasurementPoint and save to database
+        MeasurementPoint *measurementPoint = [MeasurementPoint createEntity];
+        measurementPoint.session = self.measurementSession;
+        measurementPoint.time = [NSDate date];
+        measurementPoint.windSpeed = [self.windSpeed objectAtIndex:self.numberOfMeasurements - 1];
+        measurementPoint.windDirection = [self.windDirection lastObject];
+
+        [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
     }
+    else if (self.wasValidStatus) {
+        // current measurement is not valid, but the previous one was, so add a point indicating that there is a "hole" in the data
+
+        MeasurementPoint *measurementPoint = [MeasurementPoint createEntity];
+        measurementPoint.session = self.measurementSession;
+        measurementPoint.time = [NSDate date];
+        measurementPoint.windSpeed = [NSNumber numberWithFloat:-1];
+        measurementPoint.windDirection = [NSNumber numberWithFloat:-1];
+        
+        [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
+    }
+    
+    self.wasValidStatus = self.isValidCurrentStatus;
 }
 
 // protocol method

@@ -30,9 +30,6 @@
 - (NSNumber *) getProgress;
 
 @property (readonly, nonatomic, strong) NSNumber *setWindDirection;
-@property (readonly, nonatomic) float currentWindSpeed;
-@property (readonly, nonatomic) float currentWindDirection;
-@property (readonly, nonatomic) float currentWindSpeedMax;
 @property (readonly, nonatomic, strong) NSMutableArray *windSpeed;
 @property (readonly, nonatomic, strong) NSMutableArray *isValid;
 @property (readonly, nonatomic, strong) NSMutableArray *windSpeedTime;
