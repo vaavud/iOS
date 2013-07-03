@@ -100,23 +100,15 @@
     if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
         self.upsideDown = YES;
     
-    // TODO: find ALL old sessions that are still measuring
-    MeasurementSession *oldSession = [MeasurementSession findFirstByAttribute:@"measuring" withValue:[NSNumber numberWithBool:YES]];
-    if (oldSession) {
-        NSLog(@"[VaavudCoreController] Found MeasurementSession that is still measuring - setting it to not measuring since we're about to start a new session");
-        oldSession.measuring = [NSNumber numberWithBool:NO];
-    }
-
     // create new MeasurementSession and save it in the database
     self.measurementSession = [MeasurementSession createEntity];
     self.measurementSession.uuid = [UUIDUtil generateUUID];
     self.measurementSession.startTime = [NSDate date];
+    self.measurementSession.endTime = self.measurementSession.startTime;
     self.measurementSession.measuring = [NSNumber numberWithBool:YES];
     self.measurementSession.uploaded = [NSNumber numberWithBool:NO];
     self.measurementSession.uploadedIndex = [NSNumber numberWithInt:0];
-    CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
-    self.measurementSession.latitude = [NSNumber numberWithDouble:latestLocation.latitude];
-    self.measurementSession.longitude = [NSNumber numberWithDouble:latestLocation.longitude];
+    [self updateMeasurementSessionLocation];
     [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
     
     // create reference to MagneticField Data Manager and start
@@ -132,20 +124,15 @@
 
 - (void) stop
 {
-    // set endTime, windSpeedAvg, and windSpeedMax of MeasurementSession and save it
-    self.measurementSession.endTime = [NSDate date];
-    self.measurementSession.windSpeedAvg = [self getAverage];
-    self.measurementSession.windSpeedMax = [self getMax];
-    self.measurementSession.windDirection = self.setWindDirection;
+    [self.sharedMagneticFieldDataManager stop];
+    [self.vaavudDynamicsController stop];
+
     self.measurementSession.measuring = [NSNumber numberWithBool:NO];
     [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
         if (success) {
             [[ServerUploadManager sharedInstance] triggerUpload];
         }
     }];
-    
-    [self.sharedMagneticFieldDataManager stop];
-    [self.vaavudDynamicsController stop];    
 }
 
 
@@ -183,15 +170,19 @@
     }
     
     // note: we shouldn't end up here if there isn't an active MeasurementSession with measuring=YES, but safe-guard just in case
-    if (self.measurementSession.measuring) {
-        
-        // update location to the latest position (we might not have a fix when pressing start)
-        CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
-        self.measurementSession.latitude = [NSNumber numberWithDouble:latestLocation.latitude];
-        self.measurementSession.longitude = [NSNumber numberWithDouble:latestLocation.longitude];
+    if ((self.numberOfValidMeasurements % saveEveryNthPoint == 0) && [self.measurementSession.measuring boolValue] == YES) {
         
         if (self.isValidCurrentStatus) {
-                        
+        
+            // update location to the latest position (we might not have a fix when pressing start)
+            [self updateMeasurementSessionLocation];
+            
+            // always update measurement session's endtime and summary info
+            self.measurementSession.endTime = [NSDate date];
+            self.measurementSession.windSpeedAvg = [self getAverage];
+            self.measurementSession.windSpeedMax = [self getMax];
+            self.measurementSession.windDirection = self.setWindDirection;
+ 
             // add MeasurementPoint and save to database
             MeasurementPoint *measurementPoint = [MeasurementPoint createEntity];
             measurementPoint.session = self.measurementSession;
@@ -200,6 +191,7 @@
             measurementPoint.windDirection = [self.windDirection lastObject];
 
             [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
+
         }
         else if (self.wasValidStatus) {
             
@@ -209,13 +201,10 @@
             measurementPoint.session = self.measurementSession;
             measurementPoint.time = [NSDate date];
             measurementPoint.windSpeed = nil;
-            measurementPoint.windDirection = nil;
-        
+            measurementPoint.windDirection = nil;        
+            
             [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
         }
-    }
-    else {
-        NSLog(@"Unexpected MeasurementSession which is not measuring getting new measurement");
     }
     
     self.wasValidStatus = self.isValidCurrentStatus;
@@ -348,7 +337,8 @@
             }
             else {
                 self.FFTisValid = NO;
-                NSLog(@"FFTpeakMagnetude too low - value: @%f", frequencyMagnitude);
+                // TODO: reinsert
+                //NSLog(@"FFTpeakMagnetude too low - value: @%f", frequencyMagnitude);
             }
             
             self.numberOfMeasurements++;
@@ -381,6 +371,18 @@
         progress = 1;
     
     return [NSNumber numberWithDouble: progress];
+}
+
+- (void) updateMeasurementSessionLocation {
+    CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
+    if ([LocationManager isCoordinateValid:latestLocation]) {
+        self.measurementSession.latitude = [NSNumber numberWithDouble:latestLocation.latitude];
+        self.measurementSession.longitude = [NSNumber numberWithDouble:latestLocation.longitude];
+    }
+    else {
+        self.measurementSession.latitude = nil;
+        self.measurementSession.longitude = nil;
+    }
 }
 
 @end

@@ -79,37 +79,73 @@ SHARED_INSTANCE
         }
     }
     
-    MeasurementSession *measurementSession = [MeasurementSession findFirstByAttribute:@"uploaded" withValue:[NSNumber numberWithBool:NO]];
 
-    if (measurementSession) {
+    NSArray *unuploadedMeasurementSessions = [MeasurementSession findByAttribute:@"uploaded" withValue:[NSNumber numberWithBool:NO]];
 
-        if (![measurementSession.measuring boolValue]) {
+    if (unuploadedMeasurementSessions && [unuploadedMeasurementSessions count] > 0) {
+        
+        NSLog(@"[ServerUploadManager] Found %d un-uploaded MeasurementSessions", [unuploadedMeasurementSessions count]);
+        
+        for (MeasurementSession *measurementSession in unuploadedMeasurementSessions) {
 
-            NSLog(@"[ServerUploadManager] Found MeasurementSession that is not uploaded with startTime %@", measurementSession.startTime);
+            NSNumber *pointCount = [NSNumber numberWithUnsignedInteger:[measurementSession.points count]];
 
-            NSDictionary *parameters = [measurementSession toDictionary];
+            NSLog(@"[ServerUploadManager] Found non-uploaded MeasurementSession with uuid=%@, startTime=%@, endTime=%@, measuring=%@, uploadedIndex=%@, pointCount=%@", measurementSession.uuid, measurementSession.startTime, measurementSession.endTime, measurementSession.measuring, measurementSession.uploadedIndex, pointCount);
+
+            if ([measurementSession.measuring boolValue] == YES) {
+                
+                // if an unuploaded 
+                NSTimeInterval howRecent = [measurementSession.endTime timeIntervalSinceNow];
+                if (abs(howRecent) > 3600.0) {
+                    NSLog(@"[ServerUploadManager] Found old MeasurementSession that is still measuring - setting it to not measuring");
+                    measurementSession.measuring = [NSNumber numberWithBool:NO];
+                    [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
+                }
+            }
             
-            [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/measure" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                
-                NSLog(@"[ServerUploadManager] Got successful response: %@", responseObject);
-                
-                // clear consecutive errors since we got a successful reponse
-                self.consecutiveNetworkErrors = 0;
-                self.backoffWaitCount = 0;
+            if ([measurementSession.uploadedIndex intValue] == [pointCount intValue]) {
 
-                // note: only mark as uploaded when we got a successful response
-                NSLog(@"[ServerUploadManager] Setting MeasurementSession as uploaded");
-                measurementSession.uploaded = [NSNumber numberWithBool:YES];
-                [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
-
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"[ServerUploadManager] Got error: %@", error);
+                if ([measurementSession.measuring boolValue] == NO) {
+                    NSLog(@"[ServerUploadManager] Found MeasurementSession that is not measuring and has no new points, so setting it as uploaded");
+                    measurementSession.uploaded = [NSNumber numberWithBool:YES];
+                    [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
+                }
+                else {
+                    NSLog(@"[ServerUploadManager] Found MeasurementSession that is not uploaded, is still measuring, but has no new points, so skipping");
+                }
+            }
+            else {
                 
-                self.consecutiveNetworkErrors++;
-            }];
-        }
-        else {
-            NSLog(@"[ServerUploadManager] Found MeasurementSession that is not uploaded but it is still measuring");   
+                NSLog(@"[ServerUploadManager] Found MeasurementSession that is not uploaded");
+
+                NSDictionary *parameters = [measurementSession toDictionary];
+                
+                [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/measure" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                    
+                    NSLog(@"[ServerUploadManager] Got successful response: %@", responseObject);
+                    
+                    // clear consecutive errors since we got a successful reponse
+                    self.consecutiveNetworkErrors = 0;
+                    self.backoffWaitCount = 0;
+                    
+                    measurementSession.uploadedIndex = pointCount;
+
+                    if ([measurementSession.measuring boolValue] == NO) {
+                        // since we're not measuring and got a successful reponse, we're done, so set as not uploading
+                        NSLog(@"[ServerUploadManager] Setting MeasurementSession as uploaded");
+                        measurementSession.uploaded = [NSNumber numberWithBool:YES];
+                    }
+                    [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
+                    
+                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                    NSLog(@"[ServerUploadManager] Got error: %@", error);
+                    
+                    self.consecutiveNetworkErrors++;
+                }];
+                
+                // stop iterating since we did process a measurement session to ensure that we don't spam the server in case the user has a lot of unloaded measurement sessions
+                break;
+            }
         }
     }
     else {

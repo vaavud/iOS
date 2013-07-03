@@ -15,6 +15,8 @@
 
 + (LocationManager *) sharedInstance;
 
++ (BOOL) isCoordinateValid:(CLLocationCoordinate2D) coordinate;
+
 - (void) start;
 
 @end
