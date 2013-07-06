@@ -78,7 +78,9 @@
             
             if ( deviceDeviationFromVertical > orientationDeviationMaxForValid ) {
                 self.orientationIsValid = NO;
-                NSLog(@"Orientation deviation from vertical is too big with value %f", deviceDeviationFromVertical);
+                
+                // TODO: reinsert
+                //NSLog(@"Orientation deviation from vertical is too big with value %f", deviceDeviationFromVertical);
             } else {
                 self.orientationIsValid = YES;
             }
@@ -88,7 +90,8 @@
             
             if (angularVelocity > angularVelocityMaxForValid) {
                 self.angularVeclocityIsValid = NO;
-                NSLog(@"Angular velocity is too big with value %f ", angularVelocity);
+                // TODO: reinsert
+                //NSLog(@"Angular velocity is too big with value %f ", angularVelocity);
             } else
                 self.angularVeclocityIsValid = YES;
 
@@ -99,7 +102,8 @@
             
             if (acceleration > accelerationMaxForValid ) {
                 self.accelerationIsValid = NO;
-                NSLog(@"Acceleration is too big with value %f", acceleration);
+                // TODO: reinsert
+                //NSLog(@"Acceleration is too big with value %f", acceleration);
             }
             else {
                 self.accelerationIsValid = YES;
@@ -123,7 +127,6 @@
     {
         NSLog(@"No heading avaliable!!!");
     }
-    
 }
 
 - (void) stop
