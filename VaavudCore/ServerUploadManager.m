@@ -18,7 +18,8 @@
 }
 
 @property(nonatomic) NSTimer *syncTimer;
-@property(nonatomic) BOOL isActive;
+@property(nonatomic) BOOL hasReachability;
+@property(nonatomic) BOOL justDidBecomeActive;
 @property(nonatomic) int consecutiveNetworkErrors;
 @property(nonatomic) int backoffWaitCount;
 
@@ -32,6 +33,11 @@ SHARED_INSTANCE
     self = [super init];
     
     if (self) {
+        self.consecutiveNetworkErrors = 0;
+        self.backoffWaitCount = 0;
+        self.hasReachability = NO;
+        self.justDidBecomeActive = YES;
+
         // initialize HTTP client
         [[VaavudAPIHTTPClient sharedInstance] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status){
             /*
@@ -40,18 +46,19 @@ SHARED_INSTANCE
              AFNetworkReachabilityStatusReachableViaWWAN = 1,
              AFNetworkReachabilityStatusReachableViaWiFi = 2,
              */
-            NSLog(@"[ServerUploadManager] Reachability status changed to: %d", status);
+            NSLog(@"[ServerUploadManager, %@] Reachability status changed to: %d", [NSThread currentThread], status);
 
             if (status == 1 || status == 2) {
-                self.isActive = YES;
+                self.hasReachability = YES;
+                [self handleDidBecomeActiveTasks];
             }
             else {
-                self.isActive = NO;
+                self.hasReachability = NO;
             }
         }];
 
-        self.consecutiveNetworkErrors = 0;
-        self.backoffWaitCount = 0;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
     }
     
     return self;
@@ -61,20 +68,46 @@ SHARED_INSTANCE
     self.syncTimer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(checkForUnUploadedData) userInfo:nil repeats:YES];
 }
 
+// notification from the OS
+- (void) appDidBecomeActive:(NSNotification*) notification {
+    NSLog(@"[ServerUploadManager] appDidBecomeActive");
+    self.justDidBecomeActive = YES;
+    [self handleDidBecomeActiveTasks];
+}
+
+// notification from the OS
+-(void) appWillTerminate:(NSNotification*) notification {
+    NSLog(@"[ServerUploadManager] appWillTerminate");
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
+}
+
+// this is triggered by the OS informing us that the app did become active or AFNetworking telling us that reachability has changed to YES and we haven't yet executed these tasks after becoming active. Thus, if we don't have reachability when becoming active, these tasks are postponed until reachability changes to YES.
+- (void) handleDidBecomeActiveTasks {
+    if (self.justDidBecomeActive == NO || self.hasReachability == NO) {
+        return;
+    }
+    NSLog(@"[ServerUploadManager, %@] Handle did-become-active tasks", [NSThread currentThread]);
+    self.justDidBecomeActive = NO;
+    // TODO: place configure call here
+    [self triggerUpload];    
+}
+
 - (void) triggerUpload {
+    NSLog(@"[ServerUploadManager, %@] Trigger upload", [NSThread currentThread]);
     [self checkForUnUploadedData];
 }
 
 - (void) checkForUnUploadedData {
     
-    if (!self.isActive) {
+    if (!self.hasReachability) {
         return;
     }
     
     if (self.consecutiveNetworkErrors >= consecutiveNetworkErrorBackOffThreshold) {
         self.backoffWaitCount++;
         if (self.backoffWaitCount % networkErrorBackOff != 0) {
-            NSLog(@"[ServerUploadManager] Backing off due to %d consecutive network errors, wait count is %d", self.consecutiveNetworkErrors, self.backoffWaitCount);
+            NSLog(@"[ServerUploadManager, %@] Backing off due to %d consecutive network errors, wait count is %d", [NSThread currentThread], self.consecutiveNetworkErrors, self.backoffWaitCount);
             return;
         }
     }
@@ -84,20 +117,20 @@ SHARED_INSTANCE
 
     if (unuploadedMeasurementSessions && [unuploadedMeasurementSessions count] > 0) {
         
-        NSLog(@"[ServerUploadManager] Found %d un-uploaded MeasurementSessions", [unuploadedMeasurementSessions count]);
+        NSLog(@"[ServerUploadManager, %@] Found %d un-uploaded MeasurementSessions", [NSThread currentThread], [unuploadedMeasurementSessions count]);
         
         for (MeasurementSession *measurementSession in unuploadedMeasurementSessions) {
 
             NSNumber *pointCount = [NSNumber numberWithUnsignedInteger:[measurementSession.points count]];
 
-            NSLog(@"[ServerUploadManager] Found non-uploaded MeasurementSession with uuid=%@, startTime=%@, endTime=%@, measuring=%@, uploadedIndex=%@, pointCount=%@", measurementSession.uuid, measurementSession.startTime, measurementSession.endTime, measurementSession.measuring, measurementSession.uploadedIndex, pointCount);
+            NSLog(@"[ServerUploadManager, %@] Found non-uploaded MeasurementSession with uuid=%@, startTime=%@, endTime=%@, measuring=%@, uploadedIndex=%@, pointCount=%@", [NSThread currentThread], measurementSession.uuid, measurementSession.startTime, measurementSession.endTime, measurementSession.measuring, measurementSession.uploadedIndex, pointCount);
 
             if ([measurementSession.measuring boolValue] == YES) {
                 
                 // if an unuploaded 
                 NSTimeInterval howRecent = [measurementSession.endTime timeIntervalSinceNow];
                 if (abs(howRecent) > 3600.0) {
-                    NSLog(@"[ServerUploadManager] Found old MeasurementSession that is still measuring - setting it to not measuring");
+                    NSLog(@"[ServerUploadManager, %@] Found old MeasurementSession that is still measuring - setting it to not measuring", [NSThread currentThread]);
                     measurementSession.measuring = [NSNumber numberWithBool:NO];
                     [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
                 }
@@ -106,23 +139,23 @@ SHARED_INSTANCE
             if ([measurementSession.uploadedIndex intValue] == [pointCount intValue]) {
 
                 if ([measurementSession.measuring boolValue] == NO) {
-                    NSLog(@"[ServerUploadManager] Found MeasurementSession that is not measuring and has no new points, so setting it as uploaded");
+                    NSLog(@"[ServerUploadManager, %@] Found MeasurementSession that is not measuring and has no new points, so setting it as uploaded", [NSThread currentThread]);
                     measurementSession.uploaded = [NSNumber numberWithBool:YES];
                     [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
                 }
                 else {
-                    NSLog(@"[ServerUploadManager] Found MeasurementSession that is not uploaded, is still measuring, but has no new points, so skipping");
+                    NSLog(@"[ServerUploadManager, %@] Found MeasurementSession that is not uploaded, is still measuring, but has no new points, so skipping", [NSThread currentThread]);
                 }
             }
             else {
                 
-                NSLog(@"[ServerUploadManager] Found MeasurementSession that is not uploaded");
+                NSLog(@"[ServerUploadManager, %@] Found MeasurementSession that is not uploaded", [NSThread currentThread]);
 
                 NSDictionary *parameters = [measurementSession toDictionary];
                 
                 [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/measure" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     
-                    NSLog(@"[ServerUploadManager] Got successful response: %@", responseObject);
+                    NSLog(@"[ServerUploadManager, %@] Got successful response: %@", [NSThread currentThread], responseObject);
                     
                     // clear consecutive errors since we got a successful reponse
                     self.consecutiveNetworkErrors = 0;
@@ -132,13 +165,13 @@ SHARED_INSTANCE
 
                     if ([measurementSession.measuring boolValue] == NO) {
                         // since we're not measuring and got a successful reponse, we're done, so set as not uploading
-                        NSLog(@"[ServerUploadManager] Setting MeasurementSession as uploaded");
+                        NSLog(@"[ServerUploadManager, %@] Setting MeasurementSession as uploaded", [NSThread currentThread]);
                         measurementSession.uploaded = [NSNumber numberWithBool:YES];
                     }
                     [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
                     
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    NSLog(@"[ServerUploadManager] Got error: %@", error);
+                    NSLog(@"[ServerUploadManager, %@] Got error: %@", [NSThread currentThread], error);
                     
                     self.consecutiveNetworkErrors++;
                 }];
@@ -149,7 +182,7 @@ SHARED_INSTANCE
         }
     }
     else {
-        NSLog(@"[ServerUploadManager] Found no uploading MeasurementSession");
+        NSLog(@"[ServerUploadManager, %@] Found no uploading MeasurementSession", [NSThread currentThread]);
     }
 }
 
