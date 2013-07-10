@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MeasurementSession.h"
 
 @interface ServerUploadManager : NSObject
 

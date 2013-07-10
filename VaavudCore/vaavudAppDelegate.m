@@ -10,6 +10,7 @@
 #import "ModelManager.h"
 #import "ServerUploadManager.h"
 #import "LocationManager.h"
+#import "QueryStringUtil.h"
 
 @implementation vaavudAppDelegate
 
@@ -20,6 +21,7 @@
     [[ModelManager sharedInstance] initializeModel];
     [[ServerUploadManager sharedInstance] start];
     [[LocationManager sharedInstance] start];
+    self.xCallbackSuccess = nil;
     return YES;
 }
 							
@@ -50,4 +52,24 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    NSLog(@"url recieved: %@", url);
+    NSLog(@"query string: %@", [url query]);
+    NSLog(@"host: %@", [url host]);
+    NSLog(@"url path: %@", [url path]);
+    NSDictionary *dict = [QueryStringUtil parseQueryString:[url query]];
+    NSLog(@"query dict: %@", dict);
+    
+    self.xCallbackSuccess = nil;
+    
+    if ([@"x-callback-url" compare:[url host]] == NSOrderedSame && [@"/measure" compare:[url path]] == NSOrderedSame) {
+        NSString* xSuccess = [dict objectForKey:@"x-success"];
+        if (xSuccess && xSuccess != nil && xSuccess != (id)[NSNull null] && [xSuccess length] > 0) {
+            NSLog(@"[VaavudAppDelegate] opened with x-callback-url, setting x-success to %@", xSuccess);
+            self.xCallbackSuccess = xSuccess;
+        }
+    }
+    
+    return YES;
+}
 @end

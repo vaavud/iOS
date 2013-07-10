@@ -58,6 +58,7 @@
 		E9B627CB177092EF004678D5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B627CA177092EF004678D5 /* SystemConfiguration.framework */; };
 		E9B627CD1770930D004678D5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B627CC1770930D004678D5 /* MobileCoreServices.framework */; };
 		E9B627D1177096D6004678D5 /* VaavudAPIHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627D0177096D6004678D5 /* VaavudAPIHTTPClient.m */; };
+		E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */; };
 		E9CD223B177B2AEA0054ED3F /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2203177B2AEA0054ED3F /* MagicalImportFunctions.m */; };
 		E9CD223C177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2205177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m */; };
 		E9CD223D177B2AEA0054ED3F /* NSEntityDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2207177B2AEA0054ED3F /* NSEntityDescription+MagicalDataImport.m */; };
@@ -250,6 +251,8 @@
 		E9B627CC1770930D004678D5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		E9B627CF177096D6004678D5 /* VaavudAPIHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudAPIHTTPClient.h; sourceTree = "<group>"; };
 		E9B627D0177096D6004678D5 /* VaavudAPIHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudAPIHTTPClient.m; sourceTree = "<group>"; };
+		E9BB7A0B178DE2D9002E746F /* QueryStringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryStringUtil.h; sourceTree = "<group>"; };
+		E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryStringUtil.m; sourceTree = "<group>"; };
 		E9CD2202177B2AEA0054ED3F /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
 		E9CD2203177B2AEA0054ED3F /* MagicalImportFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicalImportFunctions.m; sourceTree = "<group>"; };
 		E9CD2204177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributeDescription+MagicalDataImport.h"; sourceTree = "<group>"; };
@@ -727,6 +730,8 @@
 				E9EE1FAE1769F08400D1F006 /* SharedSingleton.h */,
 				E94CBB5C177DB3050089D440 /* UUIDUtil.h */,
 				E94CBB5D177DB3050089D440 /* UUIDUtil.m */,
+				E9BB7A0B178DE2D9002E746F /* QueryStringUtil.h */,
+				E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -862,6 +867,7 @@
 				E93C86721781D727005E4212 /* MeasurementPoint+Util.m in Sources */,
 				E93338F7178C561B006E2314 /* ModelManager.m in Sources */,
 				E9F6E9E6178D7AC900E04EEA /* MeasurementSession.m in Sources */,
+				E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

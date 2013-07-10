@@ -258,6 +258,7 @@ SHARED_INSTANCE
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"[ServerUploadManager, %@] Got error registering device: %@", [NSThread currentThread], error);
         self.hasRegisteredDevice = NO;
+        self.consecutiveNetworkErrors++;
     }];
 
 }

@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
+#import "vaavudAppDelegate.h"
 #import "VaavudCoreController.h"
 #import <CoreMotion/CoreMotion.h>
 #import <CoreData/CoreData.h>
@@ -134,6 +135,23 @@
             [[ServerUploadManager sharedInstance] triggerUpload];
         }
     }];
+    
+    vaavudAppDelegate *appDelegate = (vaavudAppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (appDelegate.xCallbackSuccess && appDelegate.xCallbackSuccess != nil && appDelegate.xCallbackSuccess != (id)[NSNull null]) {
+        
+        NSLog(@"[VaavudCoreController] There is a pending x-success callback: %@", appDelegate.xCallbackSuccess);
+        
+        // TODO: this will return to the caller to quickly before we're fully uploaded to own servers
+        NSString* callbackURL = [NSString stringWithFormat:@"%@?windSpeedAvg=%@&windSpeedMax=%@", appDelegate.xCallbackSuccess, self.measurementSession.windSpeedAvg, self.measurementSession.windSpeedMax];
+        appDelegate.xCallbackSuccess = nil;
+        
+        NSLog(@"[VaavudCoreController] Trying to open callback URL: %@", callbackURL);
+        
+        BOOL success = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callbackURL]];
+        if (!success) {
+            NSLog(@"Failed to open callback URL");
+        }
+    }
 }
 
 
