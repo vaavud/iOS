@@ -2,7 +2,7 @@
 //  MeasurementSession.m
 //  Vaavud
 //
-//  Created by Thomas Stilling Ambus on 28/06/2013.
+//  Created by Thomas Stilling Ambus on 10/07/2013.
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
@@ -12,6 +12,7 @@
 
 @implementation MeasurementSession
 
+@dynamic device;
 @dynamic endTime;
 @dynamic latitude;
 @dynamic longitude;
@@ -19,10 +20,10 @@
 @dynamic startTime;
 @dynamic uploaded;
 @dynamic uploadedIndex;
+@dynamic uuid;
 @dynamic windDirection;
 @dynamic windSpeedAvg;
 @dynamic windSpeedMax;
-@dynamic uuid;
 @dynamic points;
 
 @end

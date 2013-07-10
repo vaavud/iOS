@@ -7,6 +7,7 @@
 //
 
 #import "vaavudAppDelegate.h"
+#import "ModelManager.h"
 #import "ServerUploadManager.h"
 #import "LocationManager.h"
 
@@ -16,6 +17,7 @@
 {
     // Override point for customization after application launch.
     [MagicalRecord setupAutoMigratingCoreDataStack];
+    [[ModelManager sharedInstance] initializeModel];
     [[ServerUploadManager sharedInstance] start];
     [[LocationManager sharedInstance] start];
     return YES;

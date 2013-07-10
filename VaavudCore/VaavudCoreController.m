@@ -16,6 +16,7 @@
 #import "UUIDUtil.h"
 #import "ServerUploadManager.h"
 #import "LocationManager.h"
+#import "Property+Util.h"
 
 @interface VaavudCoreController () {
     
@@ -90,7 +91,6 @@
     self.numberOfValidMeasurements = 0;
     self.sumOfValidMeasurements = 0;
     
-    
     // Set interface direction
     UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     
@@ -103,6 +103,7 @@
     // create new MeasurementSession and save it in the database
     self.measurementSession = [MeasurementSession createEntity];
     self.measurementSession.uuid = [UUIDUtil generateUUID];
+    self.measurementSession.device = [Property getAsString:KEY_DEVICE_UUID];
     self.measurementSession.startTime = [NSDate date];
     self.measurementSession.endTime = self.measurementSession.startTime;
     self.measurementSession.measuring = [NSNumber numberWithBool:YES];

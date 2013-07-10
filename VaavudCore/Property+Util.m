@@ -39,4 +39,23 @@
     [self setAsString:(value ? @"1" : @"0") forKey:name];
 }
 
++ (NSDictionary *) getDeviceDictionary {
+    
+    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
+                                [Property getAsString:KEY_DEVICE_UUID], @"uuid",
+                                @"Apple", @"vendor",
+                                [Property getAsString:KEY_MODEL], @"model",
+                                [Property getAsString:KEY_OS], @"os",
+                                [Property getAsString:KEY_OS_VERSION], @"osVersion",
+                                [Property getAsString:KEY_APP], @"app",
+                                [Property getAsString:KEY_APP_VERSION], @"appVersion",
+                                [Property getAsString:KEY_COUNTRY], @"country",
+                                [Property getAsString:KEY_LANGUAGE], @"language",
+                                [Property getAsString:KEY_MEASURE], @"measure",
+                                nil];
+    
+    return dictionary;
+}
+
+
 @end

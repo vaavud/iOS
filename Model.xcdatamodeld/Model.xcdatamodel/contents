@@ -7,6 +7,7 @@
         <relationship name="session" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MeasurementSession" inverseName="points" inverseEntity="MeasurementSession" syncable="YES"/>
     </entity>
     <entity name="MeasurementSession" representedClassName="MeasurementSession" syncable="YES">
+        <attribute name="device" attributeType="String" syncable="YES"/>
         <attribute name="endTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" syncable="YES"/>
@@ -26,7 +27,7 @@
     </entity>
     <elements>
         <element name="MeasurementPoint" positionX="358" positionY="387" width="128" height="105"/>
-        <element name="MeasurementSession" positionX="160" positionY="192" width="128" height="225"/>
+        <element name="MeasurementSession" positionX="160" positionY="192" width="128" height="240"/>
         <element name="Property" positionX="367" positionY="107" width="128" height="73"/>
     </elements>
 </model>
