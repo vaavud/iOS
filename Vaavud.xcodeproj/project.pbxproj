@@ -46,6 +46,7 @@
 		E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E94CBB5D177DB3050089D440 /* UUIDUtil.m */; };
 		E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */; };
 		E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */; };
+		E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E99F8F70178EC5AD0090402C /* UnitUtil.m */; };
 		E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627AF17708E63004678D5 /* AFHTTPClient.m */; };
 		E9B627C217708E63004678D5 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B117708E63004678D5 /* AFHTTPRequestOperation.m */; };
 		E9B627C317708E63004678D5 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B317708E63004678D5 /* AFImageRequestOperation.m */; };
@@ -228,6 +229,8 @@
 		E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionarySerializationUtil.m; sourceTree = "<group>"; };
 		E995F0B6177C7A2A0011BF07 /* MeasurementPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementPoint.h; sourceTree = "<group>"; };
 		E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementPoint.m; sourceTree = "<group>"; };
+		E99F8F6F178EC5AD0090402C /* UnitUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitUtil.h; sourceTree = "<group>"; };
+		E99F8F70178EC5AD0090402C /* UnitUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitUtil.m; sourceTree = "<group>"; };
 		E9B627AE17708E63004678D5 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		E9B627AF17708E63004678D5 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		E9B627B017708E63004678D5 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -727,11 +730,13 @@
 				E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */,
 				E93C86581781BE56005E4212 /* LocationManager.h */,
 				E93C86591781BE56005E4212 /* LocationManager.m */,
-				E9EE1FAE1769F08400D1F006 /* SharedSingleton.h */,
-				E94CBB5C177DB3050089D440 /* UUIDUtil.h */,
-				E94CBB5D177DB3050089D440 /* UUIDUtil.m */,
 				E9BB7A0B178DE2D9002E746F /* QueryStringUtil.h */,
 				E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */,
+				E9EE1FAE1769F08400D1F006 /* SharedSingleton.h */,
+				E99F8F6F178EC5AD0090402C /* UnitUtil.h */,
+				E99F8F70178EC5AD0090402C /* UnitUtil.m */,
+				E94CBB5C177DB3050089D440 /* UUIDUtil.h */,
+				E94CBB5D177DB3050089D440 /* UUIDUtil.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -868,6 +873,7 @@
 				E93338F7178C561B006E2314 /* ModelManager.m in Sources */,
 				E9F6E9E6178D7AC900E04EEA /* MeasurementSession.m in Sources */,
 				E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */,
+				E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

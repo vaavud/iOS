@@ -7,6 +7,8 @@
 
 #import "vaavudViewController.h"
 #import "vaavudGraphHostingView.h"
+#import "Property+Util.h"
+#import "UnitUtil.h"
 
 @interface vaavudViewController ()
 
@@ -31,6 +33,8 @@
 @property (nonatomic, strong) UIImage *stopButtonImage;
 
 @property (nonatomic)           BOOL isValid;
+
+@property (nonatomic) WindSpeedUnit windSpeedUnit;
 
 - (void) updateLabels;
 - (void) start;
@@ -60,6 +64,9 @@
     self.actualLabel.textColor = vaavudBlueUIcolor;
     self.maxLabel.textColor = vaavudBlueUIcolor;
     self.unitLabel.textColor = vaavudBlueUIcolor;
+    
+    self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
+    self.unitLabel.attributedText = [[NSAttributedString alloc] initWithString:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit]];
     
     
     self.startButtonImage   = [UIImage imageNamed: @"startButton.png"];
@@ -128,9 +135,9 @@
     
     if (self.isValid) {
         NSNumber *latestWindSpeed = [self.vaavudCoreController.windSpeed lastObject];
-        self.actualLabel.text = [NSString stringWithFormat: @"%.1f", [latestWindSpeed doubleValue]];
-        self.averageLabel.text = [NSString stringWithFormat: @"%.1f", [[self.vaavudCoreController getAverage] floatValue]];
-        self.maxLabel.text = [NSString stringWithFormat: @"%.1f", [[self.vaavudCoreController getMax] floatValue]];
+        self.actualLabel.text = [NSString stringWithFormat: @"%.1f", [UnitUtil toDisplayWindSpeed:[latestWindSpeed doubleValue] unit:self.windSpeedUnit]];
+        self.averageLabel.text = [NSString stringWithFormat: @"%.1f", [UnitUtil toDisplayWindSpeed:[[self.vaavudCoreController getAverage] doubleValue] unit:self.windSpeedUnit]];
+        self.maxLabel.text = [NSString stringWithFormat: @"%.1f", [UnitUtil toDisplayWindSpeed:[[self.vaavudCoreController getMax] doubleValue] unit:self.windSpeedUnit]];
         
         self.informationTextLabel.text = @"Measurement in progress";
         

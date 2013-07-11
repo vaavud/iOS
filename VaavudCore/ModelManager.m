@@ -10,6 +10,7 @@
 #import "SharedSingleton.h"
 #import "Property+Util.h"
 #import "UUIDUtil.h"
+#import "UnitUtil.h"
 
 @implementation ModelManager
 
@@ -42,7 +43,6 @@ SHARED_INSTANCE
     NSString *model = [[UIDevice currentDevice] model];
     NSString *country = [[NSLocale currentLocale] objectForKey: NSLocaleCountryCode];
 	NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
-	//NSString *measure = ;
 
     NSLog(@"[ModelManager] app:%@, appVersion:%@, appBuild:%@, os:%@, osVersion:%@, model:%@, deviceUuid:%@, countryCode:%@, language:%@", app, appVersion, appBuild, os, osVersion, model, deviceUuid, country, language);
     
@@ -72,6 +72,13 @@ SHARED_INSTANCE
     }
     if ([language compare:[Property getAsString:KEY_LANGUAGE]] != NSOrderedSame) {
         [Property setAsString:language forKey:KEY_LANGUAGE];
+    }
+
+    if ([Property getAsInteger:KEY_WIND_SPEED_UNIT] == nil) {
+        // this must be the first time, since there is no wind speed unit
+        NSNumber* windSpeedUnit = [NSNumber numberWithInt:[UnitUtil windSpeedUnitForCountry:country]];
+        NSLog(@"[ModelManager] No wind speed unit, guessing the preferred unit to be: %@", windSpeedUnit);
+        [Property setAsInteger:windSpeedUnit forKey:KEY_WIND_SPEED_UNIT];
     }
     
     // make sure nothing else get executed until changes are written to the database

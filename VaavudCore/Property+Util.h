@@ -18,7 +18,7 @@ static NSString * const KEY_OS_VERSION = @"osVersion";
 static NSString * const KEY_MODEL = @"model";
 static NSString * const KEY_COUNTRY = @"country";
 static NSString * const KEY_LANGUAGE = @"language";
-static NSString * const KEY_MEASURE = @"measure";
+static NSString * const KEY_WIND_SPEED_UNIT = @"windSpeedUnit";
 static NSString * const KEY_HAS_PROMPTED_FOR_LOCATION = @"hasPromptedForLocation";
 
 @interface Property (Util)
@@ -27,9 +27,13 @@ static NSString * const KEY_HAS_PROMPTED_FOR_LOCATION = @"hasPromptedForLocation
 
 + (BOOL) getAsBoolean:(NSString*) name;
 
++ (NSNumber*) getAsInteger:(NSString*) name;
+
 + (void) setAsString:(NSString*) value forKey:(NSString*) name;
 
 + (void) setAsBoolean:(BOOL) value forKey:(NSString*) name;
+
++ (void) setAsInteger:(NSNumber*) value forKey:(NSString*) name;
 
 + (NSDictionary *) getDeviceDictionary;
 
