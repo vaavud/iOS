@@ -52,6 +52,7 @@
 @property (nonatomic) MeasurementSession *measurementSession;
 
 - (void) updateIsValid;
+- (double) convertFrequencyToWindspeed: (double) frequency;
 
 @end
 
@@ -321,19 +322,21 @@
                 frequencyMagnitude = 0;
             }
             
+            // windspeed
             
+            double windspeed = [self  convertFrequencyToWindspeed: dominantFrequency];
             
-            [self.windSpeed addObject: [NSNumber numberWithDouble: dominantFrequency]];
+            [self.windSpeed addObject: [NSNumber numberWithDouble: windspeed]];
             [self.windSpeedTime addObject: [self.sharedMagneticFieldDataManager.magneticFieldReadingsTime lastObject]];
             
             
             if (frequencyMagnitude > FFTpeakMagnitudeMinForValid) {
                 self.FFTisValid = YES;
                 
-                self.sumOfValidMeasurements += dominantFrequency;
+                self.sumOfValidMeasurements += windspeed;
                 self.numberOfValidMeasurements ++;
-                if (dominantFrequency > self.maxWindspeed)
-                    self.maxWindspeed = dominantFrequency;
+                if (windspeed > self.maxWindspeed)
+                    self.maxWindspeed = windspeed;
             }
             else {
                 self.FFTisValid = NO;
@@ -372,6 +375,20 @@
     
     return [NSNumber numberWithDouble: progress];
 }
+
+
+- (double) convertFrequencyToWindspeed: (double) frequency {
+    
+    // Based on 09.07.2013 Windtunnel test. Parametes can be found in windTunnelAnalysis_9_07_2013.xlsx
+    double windspeed = 0.9929209 * frequency + 0.2382594;
+    
+    if (frequency > 17.65 && frequency < 28.87) {
+        windspeed = windspeed + -0.068387 * pow((frequency - 23.2667), 2) + 2.153493;
+    } 
+    
+    return windspeed;
+}
+
 
 - (void) updateMeasurementSessionLocation {
     CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
