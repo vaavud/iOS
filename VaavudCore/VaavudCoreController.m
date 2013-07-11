@@ -106,6 +106,7 @@
     self.measurementSession.uuid = [UUIDUtil generateUUID];
     self.measurementSession.device = [Property getAsString:KEY_DEVICE_UUID];
     self.measurementSession.startTime = [NSDate date];
+    self.measurementSession.timezoneOffset = [NSNumber numberWithInt:[[NSTimeZone localTimeZone] secondsFromGMTForDate:self.measurementSession.startTime]];
     self.measurementSession.endTime = self.measurementSession.startTime;
     self.measurementSession.measuring = [NSNumber numberWithBool:YES];
     self.measurementSession.uploaded = [NSNumber numberWithBool:NO];

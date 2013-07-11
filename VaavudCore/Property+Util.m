@@ -55,6 +55,8 @@
 
 + (NSDictionary *) getDeviceDictionary {
     
+    NSNumber* timezoneOffsetMillis = [NSNumber numberWithLong:([[NSTimeZone localTimeZone] secondsFromGMT] * 1000L)];
+    
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                 [Property getAsString:KEY_DEVICE_UUID], @"uuid",
                                 @"Apple", @"vendor",
@@ -65,6 +67,7 @@
                                 [Property getAsString:KEY_APP_VERSION], @"appVersion",
                                 [Property getAsString:KEY_COUNTRY], @"country",
                                 [Property getAsString:KEY_LANGUAGE], @"language",
+                                timezoneOffsetMillis, @"timezoneOffset",
                                 [UnitUtil jsonNameForWindSpeedUnit:[[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue]], @"windSpeedUnit",
                                 nil];
     

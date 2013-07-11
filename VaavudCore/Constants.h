@@ -26,6 +26,6 @@
 // Only save every Nth measurement point - set to 1 to save all
 #define saveEveryNthPoint 10
 
-static NSString * const vaavudAPIBaseURLString = @"http://192.168.0.105:8080/";
+//static NSString * const vaavudAPIBaseURLString = @"http://192.168.0.105:8080/";
 //static NSString * const vaavudAPIBaseURLString = @"http://10.117.1.32:8080/";
-//static NSString * const vaavudAPIBaseURLString = @"http://mobile.api.vaavud.com/";
+static NSString * const vaavudAPIBaseURLString = @"http://mobile.api.vaavud.com/";

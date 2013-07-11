@@ -47,6 +47,7 @@
 		E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */; };
 		E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */; };
 		E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E99F8F70178EC5AD0090402C /* UnitUtil.m */; };
+		E99F8F77178F085F0090402C /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E99F8F76178F085F0090402C /* MeasurementSession.m */; };
 		E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627AF17708E63004678D5 /* AFHTTPClient.m */; };
 		E9B627C217708E63004678D5 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B117708E63004678D5 /* AFHTTPRequestOperation.m */; };
 		E9B627C317708E63004678D5 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B317708E63004678D5 /* AFImageRequestOperation.m */; };
@@ -88,7 +89,6 @@
 		E9CD2254177B2AEA0054ED3F /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2238177B2AEA0054ED3F /* MagicalRecord.m */; };
 		E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */; };
 		E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9EE1FB8176A024B00D1F006 /* CoreData.framework */; };
-		E9F6E9E6178D7AC900E04EEA /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F6E9E5178D7AC900E04EEA /* MeasurementSession.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -231,6 +231,8 @@
 		E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementPoint.m; sourceTree = "<group>"; };
 		E99F8F6F178EC5AD0090402C /* UnitUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitUtil.h; sourceTree = "<group>"; };
 		E99F8F70178EC5AD0090402C /* UnitUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitUtil.m; sourceTree = "<group>"; };
+		E99F8F75178F085F0090402C /* MeasurementSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSession.h; sourceTree = "<group>"; };
+		E99F8F76178F085F0090402C /* MeasurementSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSession.m; sourceTree = "<group>"; };
 		E9B627AE17708E63004678D5 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		E9B627AF17708E63004678D5 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		E9B627B017708E63004678D5 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -313,8 +315,6 @@
 		E9EE1FA31769E54E00D1F006 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		E9EE1FAE1769F08400D1F006 /* SharedSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedSingleton.h; sourceTree = "<group>"; };
 		E9EE1FB8176A024B00D1F006 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
-		E9F6E9E4178D7AC900E04EEA /* MeasurementSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSession.h; sourceTree = "<group>"; };
-		E9F6E9E5178D7AC900E04EEA /* MeasurementSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSession.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -713,8 +713,8 @@
 				E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */,
 				E93C866D1781D69A005E4212 /* MeasurementSession+Util.h */,
 				E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */,
-				E9F6E9E4178D7AC900E04EEA /* MeasurementSession.h */,
-				E9F6E9E5178D7AC900E04EEA /* MeasurementSession.m */,
+				E99F8F75178F085F0090402C /* MeasurementSession.h */,
+				E99F8F76178F085F0090402C /* MeasurementSession.m */,
 				E93C86611781C764005E4212 /* Property+Util.h */,
 				E93C86621781C764005E4212 /* Property+Util.m */,
 				E93C86671781C88B005E4212 /* Property.h */,
@@ -871,9 +871,9 @@
 				E93C866F1781D69A005E4212 /* MeasurementSession+Util.m in Sources */,
 				E93C86721781D727005E4212 /* MeasurementPoint+Util.m in Sources */,
 				E93338F7178C561B006E2314 /* ModelManager.m in Sources */,
-				E9F6E9E6178D7AC900E04EEA /* MeasurementSession.m in Sources */,
 				E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */,
 				E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */,
+				E99F8F77178F085F0090402C /* MeasurementSession.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

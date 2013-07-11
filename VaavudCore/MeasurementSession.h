@@ -2,7 +2,7 @@
 //  MeasurementSession.h
 //  Vaavud
 //
-//  Created by Thomas Stilling Ambus on 10/07/2013.
+//  Created by Thomas Stilling Ambus on 11/07/2013.
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
@@ -25,6 +25,7 @@
 @property (nonatomic, retain) NSNumber * windDirection;
 @property (nonatomic, retain) NSNumber * windSpeedAvg;
 @property (nonatomic, retain) NSNumber * windSpeedMax;
+@property (nonatomic, retain) NSNumber * timezoneOffset;
 @property (nonatomic, retain) NSOrderedSet *points;
 @end
 
