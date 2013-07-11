@@ -66,6 +66,7 @@
     self.unitLabel.textColor = vaavudBlueUIcolor;
     
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
+    [self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
     self.unitLabel.attributedText = [[NSAttributedString alloc] initWithString:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit]];
     
     
@@ -135,9 +136,9 @@
     
     if (self.isValid) {
         NSNumber *latestWindSpeed = [self.vaavudCoreController.windSpeed lastObject];
-        self.actualLabel.text = [NSString stringWithFormat: @"%.1f", [UnitUtil toDisplayWindSpeed:[latestWindSpeed doubleValue] unit:self.windSpeedUnit]];
-        self.averageLabel.text = [NSString stringWithFormat: @"%.1f", [UnitUtil toDisplayWindSpeed:[[self.vaavudCoreController getAverage] doubleValue] unit:self.windSpeedUnit]];
-        self.maxLabel.text = [NSString stringWithFormat: @"%.1f", [UnitUtil toDisplayWindSpeed:[[self.vaavudCoreController getMax] doubleValue] unit:self.windSpeedUnit]];
+        self.actualLabel.text = [NSString stringWithFormat: @"%.1f", [UnitUtil displayWindSpeedFromDouble:[latestWindSpeed doubleValue] unit:self.windSpeedUnit]];
+        self.averageLabel.text = [NSString stringWithFormat: @"%.1f", [UnitUtil displayWindSpeedFromDouble:[[self.vaavudCoreController getAverage] doubleValue] unit:self.windSpeedUnit]];
+        self.maxLabel.text = [NSString stringWithFormat: @"%.1f", [UnitUtil displayWindSpeedFromDouble:[[self.vaavudCoreController getMax] doubleValue] unit:self.windSpeedUnit]];
         
         self.informationTextLabel.text = @"Measurement in progress";
         

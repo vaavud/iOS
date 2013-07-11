@@ -83,6 +83,7 @@
 @property (nonatomic)           float       graphYMaxValue;
 @property (nonatomic)           NSUInteger  windSpeedPlotCounter;
 @property (nonatomic)           double      startTimeDifference;
+@property (nonatomic)           WindSpeedUnit windSpeedUnit;
 
 enum plotName : NSUInteger {
     averagePlot = 0,
@@ -98,11 +99,17 @@ enum plotName : NSUInteger {
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        // default to km/h just to be sure nothing blows up while initializing - will be changed later be a call to changeWindSpeedUnit
+        self.windSpeedUnit = WindSpeedUnitKMH;
     }
     return self;
 }
 
+- (void) changeWindSpeedUnit:(WindSpeedUnit) unit {
+    self.windSpeedUnit = unit;
+    
+    // TODO: re-render plot
+}
 
 - (void) shiftGraphX
 {
@@ -133,7 +140,7 @@ enum plotName : NSUInteger {
             self.startTime = [NSDate dateWithTimeIntervalSinceNow: - [x doubleValue]];
             self.startTimeDifference = [x doubleValue];
             
-             NSNumber *y = [self.vaavudCoreController.windSpeed lastObject];
+            NSNumber *y = [UnitUtil displayWindSpeedFromNumber:[self.vaavudCoreController.windSpeed lastObject] unit:self.windSpeedUnit];
             self.graphYMinValue = [y floatValue];
             self.graphYMaxValue = [y floatValue];
             
@@ -145,7 +152,7 @@ enum plotName : NSUInteger {
     if (![x isEqualToNumber: lastX])
     {
             
-        NSNumber *y = [self.vaavudCoreController.windSpeed lastObject];
+        NSNumber *y = [UnitUtil displayWindSpeedFromNumber:[self.vaavudCoreController.windSpeed lastObject] unit:self.windSpeedUnit];
         NSNumber *xZeroShifted = [NSNumber numberWithDouble:([x doubleValue] - self.startTimeDifference) ];
         
         
@@ -376,7 +383,7 @@ enum plotName : NSUInteger {
             if (fieldEnum == CPTScatterPlotFieldX) {
                 numbers = [NSArray arrayWithObjects: [NSNumber numberWithDouble:0], [[self.dataForPlotX lastObject] lastObject], nil];
             } else {
-                NSNumber *windspeedAverage = [self.vaavudCoreController getAverage];
+                NSNumber *windspeedAverage = [UnitUtil displayWindSpeedFromNumber:[self.vaavudCoreController getAverage] unit:self.windSpeedUnit];
                 numbers = [NSArray arrayWithObjects: windspeedAverage, windspeedAverage, nil];
             }
             break;

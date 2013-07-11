@@ -61,7 +61,7 @@ static NSSet* countriesUsingMS;
     }
 }
 
-+ (double) toDisplayWindSpeed:(double) windSpeedMS unit:(WindSpeedUnit) unit {
++ (double) displayWindSpeedFromDouble:(double) windSpeedMS unit:(WindSpeedUnit) unit {
     if (unit == WindSpeedUnitMS) {
         return windSpeedMS;
     }
@@ -75,6 +75,10 @@ static NSSet* countriesUsingMS;
         // default to km/h
         return windSpeedMS * 3.6;
     }
+}
+
++ (NSNumber*) displayWindSpeedFromNumber:(NSNumber*) windSpeedMS unit:(WindSpeedUnit) unit {
+    return [NSNumber numberWithDouble:[UnitUtil displayWindSpeedFromDouble:[windSpeedMS doubleValue] unit:unit]];
 }
 
 @end
