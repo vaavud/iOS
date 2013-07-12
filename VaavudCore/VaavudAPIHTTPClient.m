@@ -33,4 +33,8 @@
     return self;
 }
 
+- (void) setAuthToken:(NSString *)authToken {
+    [self setDefaultHeader:@"authToken" value:authToken];
+}
+
 @end

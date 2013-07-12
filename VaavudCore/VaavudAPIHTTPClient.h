@@ -13,4 +13,6 @@
 
 + (VaavudAPIHTTPClient *) sharedInstance;
 
+- (void) setAuthToken:(NSString *)authToken;
+
 @end

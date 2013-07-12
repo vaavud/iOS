@@ -18,6 +18,11 @@
     
     dictionary = [DictionarySerializationUtil convertValuesToBasicTypes:dictionary];
     
+    if (self.timezoneOffset != nil && self.timezoneOffset != (id)[NSNull null]) {
+        // convert stored seconds timezone offset to milliseconds
+        [dictionary setObject:[NSNumber numberWithLong:([self.timezoneOffset longValue] * 1000L)] forKey:@"timezoneOffset"];
+    }
+    
     // convert inline latitude-longitude to a LatLng object to fit server-side representation
     if (self.latitude && self.longitude && !(self.latitude == 0 && self.longitude == 0)) {
         NSDictionary *latLng = [NSDictionary dictionaryWithObjectsAndKeys:self.latitude, @"latitude", self.longitude, @"longitude", nil];

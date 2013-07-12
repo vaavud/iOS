@@ -9,7 +9,7 @@
 #import "VaavudCoreController.h"
 #import "CPTGraphHostingView.h"
 #import "CorePlot-CocoaTouch.h"
-
+#import "UnitUtil.h"
 
 @interface vaavudGraphHostingView : CPTGraphHostingView <CPTPlotDataSource, CPTPlotSpaceDelegate>
 
@@ -17,9 +17,8 @@
 - (void) createNewPlot;
 - (void) shiftGraphX;
 - (void) addDataPoint;
-
+- (void) changeWindSpeedUnit:(WindSpeedUnit) unit;
 
 @property (nonatomic, weak)     VaavudCoreController          *vaavudCoreController;
-
 
 @end

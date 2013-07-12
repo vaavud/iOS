@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
+#import "vaavudAppDelegate.h"
 #import "VaavudCoreController.h"
 #import <CoreMotion/CoreMotion.h>
 #import <CoreData/CoreData.h>
@@ -16,6 +17,7 @@
 #import "UUIDUtil.h"
 #import "ServerUploadManager.h"
 #import "LocationManager.h"
+#import "Property+Util.h"
 
 @interface VaavudCoreController () {
     
@@ -91,7 +93,6 @@
     self.numberOfValidMeasurements = 0;
     self.sumOfValidMeasurements = 0;
     
-    
     // Set interface direction
     UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     
@@ -104,7 +105,9 @@
     // create new MeasurementSession and save it in the database
     self.measurementSession = [MeasurementSession createEntity];
     self.measurementSession.uuid = [UUIDUtil generateUUID];
+    self.measurementSession.device = [Property getAsString:KEY_DEVICE_UUID];
     self.measurementSession.startTime = [NSDate date];
+    self.measurementSession.timezoneOffset = [NSNumber numberWithInt:[[NSTimeZone localTimeZone] secondsFromGMTForDate:self.measurementSession.startTime]];
     self.measurementSession.endTime = self.measurementSession.startTime;
     self.measurementSession.measuring = [NSNumber numberWithBool:YES];
     self.measurementSession.uploaded = [NSNumber numberWithBool:NO];
@@ -134,6 +137,23 @@
             [[ServerUploadManager sharedInstance] triggerUpload];
         }
     }];
+    
+    vaavudAppDelegate *appDelegate = (vaavudAppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (appDelegate.xCallbackSuccess && appDelegate.xCallbackSuccess != nil && appDelegate.xCallbackSuccess != (id)[NSNull null]) {
+        
+        NSLog(@"[VaavudCoreController] There is a pending x-success callback: %@", appDelegate.xCallbackSuccess);
+        
+        // TODO: this will return to the caller to quickly before we're fully uploaded to own servers
+        NSString* callbackURL = [NSString stringWithFormat:@"%@?windSpeedAvg=%@&windSpeedMax=%@", appDelegate.xCallbackSuccess, self.measurementSession.windSpeedAvg, self.measurementSession.windSpeedMax];
+        appDelegate.xCallbackSuccess = nil;
+        
+        NSLog(@"[VaavudCoreController] Trying to open callback URL: %@", callbackURL);
+        
+        BOOL success = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callbackURL]];
+        if (!success) {
+            NSLog(@"Failed to open callback URL");
+        }
+    }
 }
 
 

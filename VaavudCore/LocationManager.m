@@ -64,9 +64,9 @@ SHARED_INSTANCE
 - (void) start {
     if (!self.isStarted) {
         BOOL shouldPromptForLocation = NO;
-        if (![Property getAsBoolean:@"hasPromptedForLocation"]) {
+        if (![Property getAsBoolean:KEY_HAS_PROMPTED_FOR_LOCATION]) {
             shouldPromptForLocation = YES;
-            [Property setAsBoolean:YES forKey:@"hasPromptedForLocation"];
+            [Property setAsBoolean:YES forKey:KEY_HAS_PROMPTED_FOR_LOCATION];
             NSLog(@"[LocationManager] Has not prompted for location");
         }
         
