@@ -12,20 +12,19 @@
 
 + (NSString*)getTermsOfService {
     
-    NSString* html = @"<h3>TERMS AND CONDITIONS OF USE OF THE SERVICES</h3>"
-    "<h3>HIGHLIGHTS OF THE TERMS</h3>"
-    "<ul>"
-    "<li>Vaavud offers services that help you measure wind speed; however:</li>"
-    "<li>When using our Services you are still responsible for any risks associated with your athletic or recreational activities</li>"
-    "<li>Vaavud makes no warranties and is not liable for your use of the Services</li>"
-    "<li>We take care of the personal information you upload and share per default on Vaavud. Please see our privacy policy</li>"
-    "<li>We may terminate your accounts if the terms are violated</li>"
-    "<li>The service is not intended for children under 13</li>"
-    "<li>Contact our support team for help or questions</li>"
-    "</ul>"
-    "<a href='http://vaavud.com/terms'>Terms of Service</a><br/>"
-    "<a href='http://vaavud.com/privacy'>Privacy Policy</a><br/>"
-    ;
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+
+    NSString* html = [NSString stringWithFormat:@"<center style='padding-top:20px;font-family:helvetica,arial'>"
+    "<p>Vaavud is a Danish technology start-up.</p>"
+    "<p>Our mission is to make the best wind meters on the planet in terms of usability, features, and third party integration.</p>"
+    "<p>To learn more and to purchase a<br/>Vaavud wind meter visit<br/>Vaavud.com</p>"
+    "<p>&copy; Vaavud ApS 2013, all rights reserved<br/>Version: %@ beta</p><br/>"
+    "<a href='http://vaavud.com/legal/terms'>Terms of Service</a>&nbsp; "
+    "<a href='http://vaavud.com/legal/privacy'>Privacy Policy</a>"
+    "</center>",
+    appVersion
+    ];
     
     return html;
 }
