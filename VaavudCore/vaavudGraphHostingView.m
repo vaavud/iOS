@@ -214,7 +214,7 @@ enum plotName : NSUInteger {
     
     CPTPlotRange *plotRange = [CPTPlotRange plotRangeWithLocation: CPTDecimalFromFloat(graphYLowerBound) length:CPTDecimalFromFloat(graphYwidth)];
     
-    NSLog(@"Changing yRange: graphYLowerBound=%f, graphYwidth=%f, graphYMinValue=%f, graphYMaxValue=%f, graphMinWindspeedWidth=%f", graphYLowerBound, graphYwidth, graphYMinValue, graphYMaxValue, graphMinWindspeedWidth);
+    //NSLog(@"Changing yRange: graphYLowerBound=%f, graphYwidth=%f, graphYMinValue=%f, graphYMaxValue=%f, graphMinWindspeedWidth=%f", graphYLowerBound, graphYwidth, graphYMinValue, graphYMaxValue, graphMinWindspeedWidth);
     
     self.plotSpace.yRange  = plotRange;
     self.plotSpace.globalYRange = plotRange;

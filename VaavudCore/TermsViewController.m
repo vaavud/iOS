@@ -32,8 +32,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-    NSLog(@"[TermsViewController] viewDidLoad");
     
     NSString *html = [Terms getTermsOfService];
     [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:@"http://vaavud.com"]];
@@ -46,7 +44,13 @@
 }
 
 - (IBAction) backButtonPushed {
-    [self performSegueWithIdentifier:@"showMeasureSegue" sender:self];
+    if ([self.webView.request.URL.path compare:@"/"] != NSOrderedSame) {
+        NSString *html = [Terms getTermsOfService];
+        [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:@"http://vaavud.com"]];
+    }
+    else {
+        [self performSegueWithIdentifier:@"showMeasureSegue" sender:self];
+    }
 }
 
 @end

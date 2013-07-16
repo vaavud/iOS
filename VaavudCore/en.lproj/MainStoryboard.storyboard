@@ -105,7 +105,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="0.03982201453404343" green="0.32653487941939208" blue="0.49356742527173914" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="unitButtonPushed" destination="2" eventType="touchUpInside" id="1h0-Jy-vdW"/>
@@ -139,7 +139,7 @@
                         <outlet property="startStopButton" destination="bS1-jk-rNp" id="DvW-Qm-2Zi"/>
                         <outlet property="statusBar" destination="eB6-ZR-G0T" id="ATj-t0-lgp"/>
                         <outlet property="unitButton" destination="f71-hp-4cl" id="4tl-wZ-MYD"/>
-                        <segue destination="0LI-1s-lFS" kind="modal" identifier="showTermsSegue" animates="NO" id="jmM-qh-IMt"/>
+                        <segue destination="0LI-1s-lFS" kind="modal" identifier="showTermsSegue" modalTransitionStyle="flipHorizontal" id="jmM-qh-IMt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -158,7 +158,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.0" green="0.68251026459999997" blue="0.93578923359999999" alpha="1" colorSpace="deviceRGB"/>
                                 <items>
-                                    <navigationItem title="Terms of Service" id="Giq-fX-9jd">
+                                    <navigationItem title="About" id="Giq-fX-9jd">
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="bLa-Vn-KE2">
                                             <color key="tintColor" red="0.0" green="0.68251026459999997" blue="0.93578923359999999" alpha="1" colorSpace="deviceRGB"/>
                                             <connections>
@@ -180,7 +180,7 @@
                     <connections>
                         <outlet property="backButton" destination="bLa-Vn-KE2" id="Y2R-jN-ixa"/>
                         <outlet property="webView" destination="6ZH-nH-cic" id="Hil-gW-fcg"/>
-                        <segue destination="2" kind="modal" identifier="showMeasureSegue" animates="NO" id="9gt-By-dUl"/>
+                        <segue destination="2" kind="modal" identifier="showMeasureSegue" modalTransitionStyle="flipHorizontal" id="9gt-By-dUl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nt3-0L-LC6" userLabel="First Responder" sceneMemberID="firstResponder"/>

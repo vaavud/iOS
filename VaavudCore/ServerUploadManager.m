@@ -53,7 +53,7 @@ SHARED_INSTANCE
              AFNetworkReachabilityStatusReachableViaWWAN = 1,
              AFNetworkReachabilityStatusReachableViaWiFi = 2,
              */
-            NSLog(@"[ServerUploadManager, %@] Reachability status changed to: %d", [NSThread currentThread], status);
+            NSLog(@"[ServerUploadManager] Reachability status changed to: %d", status);
 
             if (status == 1 || status == 2) {
                 self.hasReachability = YES;
@@ -77,7 +77,7 @@ SHARED_INSTANCE
 
 // notification from the OS
 - (void) appDidBecomeActive:(NSNotification*) notification {
-    NSLog(@"[ServerUploadManager] appDidBecomeActive");
+    //NSLog(@"[ServerUploadManager] appDidBecomeActive");
     self.justDidBecomeActive = YES;
     [self handleDidBecomeActiveTasks];
 }
@@ -95,7 +95,7 @@ SHARED_INSTANCE
     if (self.lastDidBecomeActive && self.lastDidBecomeActive != nil) {
         NSTimeInterval howRecent = [self.lastDidBecomeActive timeIntervalSinceNow];
         if (abs(howRecent) < graceTimeBetweenDidBecomeActiveTasks) {
-            NSLog(@"[ServerUploadManager, %@] ignoring did-become-active since it is a short time since last time", [NSThread currentThread]);
+            NSLog(@"[ServerUploadManager] ignoring did-become-active due to grace period");
 
             self.justDidBecomeActive = NO;
         }
@@ -105,7 +105,7 @@ SHARED_INSTANCE
         return;
     }
     
-    NSLog(@"[ServerUploadManager, %@] Handle did-become-active tasks", [NSThread currentThread]);
+    NSLog(@"[ServerUploadManager] Handle did-become-active tasks");
     self.justDidBecomeActive = NO;
     self.lastDidBecomeActive = [NSDate date];
 
@@ -120,7 +120,7 @@ SHARED_INSTANCE
 }
 
 - (void) triggerUpload {
-    NSLog(@"[ServerUploadManager, %@] Trigger upload", [NSThread currentThread]);
+    NSLog(@"[ServerUploadManager] Trigger upload");
     [self checkForUnUploadedData];
 }
 
@@ -133,7 +133,7 @@ SHARED_INSTANCE
     if (self.consecutiveNetworkErrors >= consecutiveNetworkErrorBackOffThreshold) {
         self.backoffWaitCount++;
         if (self.backoffWaitCount % networkErrorBackOff != 0) {
-            NSLog(@"[ServerUploadManager, %@] Backing off due to %d consecutive network errors, wait count is %d", [NSThread currentThread], self.consecutiveNetworkErrors, self.backoffWaitCount);
+            NSLog(@"[ServerUploadManager] Backing off due to %d consecutive network errors, wait count is %d", self.consecutiveNetworkErrors, self.backoffWaitCount);
             return;
         }
     }
@@ -148,20 +148,20 @@ SHARED_INSTANCE
 
     if (unuploadedMeasurementSessions && [unuploadedMeasurementSessions count] > 0) {
         
-        NSLog(@"[ServerUploadManager, %@] Found %d un-uploaded MeasurementSessions", [NSThread currentThread], [unuploadedMeasurementSessions count]);
+        //NSLog(@"[ServerUploadManager] Found %d un-uploaded MeasurementSessions", [unuploadedMeasurementSessions count]);
         
         for (MeasurementSession *measurementSession in unuploadedMeasurementSessions) {
 
             NSNumber *pointCount = [NSNumber numberWithUnsignedInteger:[measurementSession.points count]];
 
-            NSLog(@"[ServerUploadManager, %@] Found non-uploaded MeasurementSession with uuid=%@, startTime=%@, endTime=%@, measuring=%@, uploadedIndex=%@, pointCount=%@", [NSThread currentThread], measurementSession.uuid, measurementSession.startTime, measurementSession.endTime, measurementSession.measuring, measurementSession.uploadedIndex, pointCount);
+            //NSLog(@"[ServerUploadManager] Found non-uploaded MeasurementSession with uuid=%@, startTime=%@, endTime=%@, measuring=%@, uploadedIndex=%@, pointCount=%@", measurementSession.uuid, measurementSession.startTime, measurementSession.endTime, measurementSession.measuring, measurementSession.uploadedIndex, pointCount);
 
             if ([measurementSession.measuring boolValue] == YES) {
                 
                 // if an unuploaded 
                 NSTimeInterval howRecent = [measurementSession.endTime timeIntervalSinceNow];
                 if (abs(howRecent) > 3600.0) {
-                    NSLog(@"[ServerUploadManager, %@] Found old MeasurementSession that is still measuring - setting it to not measuring", [NSThread currentThread]);
+                    NSLog(@"[ServerUploadManager] Found old MeasurementSession (%@) that is still measuring - setting it to not measuring", measurementSession.uuid);
                     measurementSession.measuring = [NSNumber numberWithBool:NO];
                     [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
                 }
@@ -170,23 +170,23 @@ SHARED_INSTANCE
             if ([measurementSession.uploadedIndex intValue] == [pointCount intValue]) {
 
                 if ([measurementSession.measuring boolValue] == NO) {
-                    NSLog(@"[ServerUploadManager, %@] Found MeasurementSession that is not measuring and has no new points, so setting it as uploaded", [NSThread currentThread]);
+                    NSLog(@"[ServerUploadManager] Found MeasurementSession (%@) that is not measuring and has no new points, so setting it as uploaded", measurementSession.uuid);
                     measurementSession.uploaded = [NSNumber numberWithBool:YES];
                     [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
                 }
                 else {
-                    NSLog(@"[ServerUploadManager, %@] Found MeasurementSession that is not uploaded, is still measuring, but has no new points, so skipping", [NSThread currentThread]);
+                    //NSLog(@"[ServerUploadManager] Found MeasurementSession that is not uploaded, is still measuring, but has no new points, so skipping", [NSThread currentThread]);
                 }
             }
             else {
                 
-                NSLog(@"[ServerUploadManager, %@] Found MeasurementSession that is not uploaded", [NSThread currentThread]);
+                NSLog(@"[ServerUploadManager] Uploading MeasurementSession (%@)", measurementSession.uuid);
 
                 NSDictionary *parameters = [measurementSession toDictionary];
                 
                 [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/measure" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     
-                    NSLog(@"[ServerUploadManager, %@] Got successful response uploading: %@", [NSThread currentThread], responseObject);
+                    //NSLog(@"[ServerUploadManager] Got successful response uploading");
                     
                     // clear consecutive errors since we got a successful reponse
                     self.consecutiveNetworkErrors = 0;
@@ -196,14 +196,14 @@ SHARED_INSTANCE
 
                     if ([measurementSession.measuring boolValue] == NO) {
                         // since we're not measuring and got a successful reponse, we're done, so set as not uploading
-                        NSLog(@"[ServerUploadManager, %@] Setting MeasurementSession as uploaded", [NSThread currentThread]);
+                        NSLog(@"[ServerUploadManager] Setting MeasurementSession (%@) as uploaded", measurementSession.uuid);
                         measurementSession.uploaded = [NSNumber numberWithBool:YES];
                     }
                     [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
                     
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     long statusCode = (long)operation.response.statusCode;
-                    NSLog(@"[ServerUploadManager, %@] Got error status code %ld uploading: %@", [NSThread currentThread], statusCode, error);
+                    NSLog(@"[ServerUploadManager] Got error status code %ld uploading: %@", statusCode, error);
                     
                     self.consecutiveNetworkErrors++;
 
@@ -220,20 +220,20 @@ SHARED_INSTANCE
         }
     }
     else {
-        NSLog(@"[ServerUploadManager, %@] Found no uploading MeasurementSession", [NSThread currentThread]);
+        //NSLog(@"[ServerUploadManager] Found no uploading MeasurementSession", [NSThread currentThread]);
     }
 }
 
 - (void) registerDevice {
 
-    NSLog(@"[ServerUploadManager, %@] Register device", [NSThread currentThread]);
+    NSLog(@"[ServerUploadManager] Register device");
     self.hasRegisteredDevice = NO;
 
     NSDictionary *parameters = [Property getDeviceDictionary];
     
     [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/device/register" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSLog(@"[ServerUploadManager, %@] Got successful response registering device: %@", [NSThread currentThread], responseObject);
+        NSLog(@"[ServerUploadManager] Got successful response registering device");
         self.hasRegisteredDevice = YES;
         
         // clear consecutive errors since we got a successful reponse
@@ -243,10 +243,10 @@ SHARED_INSTANCE
         // remember the authToken we got from the server as response
         NSString *authToken = [responseObject objectForKey:@"authToken"];
         if (authToken && authToken != nil && authToken != (id)[NSNull null] && ([authToken length] > 0)) {
-            NSLog(@"[ServerUploadManager, %@] Got authToken", [NSThread currentThread]);
+            //NSLog(@"[ServerUploadManager] Got authToken");
         }
         else {
-            NSLog(@"[ServerUploadManager, %@] Got no authToken so clearing it", [NSThread currentThread]);
+            NSLog(@"[ServerUploadManager] Got no authToken so clearing it");
             authToken = nil;
         }
         [Property setAsString:authToken forKey:KEY_AUTH_TOKEN];
@@ -256,7 +256,7 @@ SHARED_INSTANCE
         [self triggerUpload];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"[ServerUploadManager, %@] Got error registering device: %@", [NSThread currentThread], error);
+        NSLog(@"[ServerUploadManager] Got error registering device: %@", error);
         self.hasRegisteredDevice = NO;
         self.consecutiveNetworkErrors++;
     }];

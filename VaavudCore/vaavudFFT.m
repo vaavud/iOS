@@ -41,7 +41,7 @@
         stride = 1;
         nOver2 = n / 2;
         
-        printf("1D real FFT of length log2 ( %d ) = %d\n\n", n, log2n);
+        //printf("1D real FFT of length log2 ( %d ) = %d\n\n", n, log2n);
         
         
         // Allocate memmory

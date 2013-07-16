@@ -45,12 +45,12 @@ SHARED_INSTANCE
 }
 
 - (void) appWillResignActive:(NSNotification*) notification {
-    NSLog(@"[LocationManager] appWillResignActive");
+    //NSLog(@"[LocationManager] appWillResignActive");
     [self stop];
 }
 
 - (void) appDidBecomeActive:(NSNotification*) notification {
-    NSLog(@"[LocationManager] appDidBecomeActive");
+    //NSLog(@"[LocationManager] appDidBecomeActive");
     [self start];
 }
 
