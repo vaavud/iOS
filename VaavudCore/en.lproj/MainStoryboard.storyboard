@@ -180,7 +180,6 @@
                     <connections>
                         <outlet property="backButton" destination="bLa-Vn-KE2" id="Y2R-jN-ixa"/>
                         <outlet property="webView" destination="6ZH-nH-cic" id="Hil-gW-fcg"/>
-                        <segue destination="2" kind="modal" identifier="showMeasureSegue" modalTransitionStyle="flipHorizontal" id="9gt-By-dUl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nt3-0L-LC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -192,6 +191,39 @@
         <image name="VaavudTransparent100px.png" width="100" height="12"/>
         <image name="startButton.png" width="180" height="30"/>
     </resources>
+    <classes>
+        <class className="CPTGraphHostingView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CPTGraphHostingView.h"/>
+        </class>
+        <class className="TermsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TermsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backButtonPushed"/>
+                <relationship kind="outlet" name="backButton" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="vaavudGraphHostingView" superclassName="CPTGraphHostingView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/vaavudGraphHostingView.h"/>
+        </class>
+        <class className="vaavudViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/vaavudViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="buttonPushed:"/>
+                <relationship kind="action" name="infoButtonPushed"/>
+                <relationship kind="action" name="unitButtonPushed"/>
+                <relationship kind="outlet" name="actualLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="averageLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="graphHostView" candidateClass="vaavudGraphHostingView"/>
+                <relationship kind="outlet" name="infoButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="informationTextLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="maxLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="startStopButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="statusBar" candidateClass="UIProgressView"/>
+                <relationship kind="outlet" name="unitButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

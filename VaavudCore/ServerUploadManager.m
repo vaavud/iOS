@@ -126,7 +126,7 @@ SHARED_INSTANCE
 
 - (void) checkForUnUploadedData {
     
-    NSLog(@"[ServerUploadManager, %@] checkForUnUploadedData", [NSThread currentThread]);
+    //NSLog(@"[ServerUploadManager, %@] checkForUnUploadedData", [NSThread currentThread]);
     
     if (!self.hasReachability) {
         return;
@@ -150,7 +150,7 @@ SHARED_INSTANCE
 
     if (unuploadedMeasurementSessions && [unuploadedMeasurementSessions count] > 0) {
         
-        NSLog(@"[ServerUploadManager] Found %d un-uploaded MeasurementSessions", [unuploadedMeasurementSessions count]);
+        //NSLog(@"[ServerUploadManager] Found %d un-uploaded MeasurementSessions", [unuploadedMeasurementSessions count]);
         
         for (MeasurementSession *measurementSession in unuploadedMeasurementSessions) {
 
@@ -222,7 +222,7 @@ SHARED_INSTANCE
         }
     }
     else {
-        NSLog(@"[ServerUploadManager] Found no uploading MeasurementSession");
+        //NSLog(@"[ServerUploadManager] Found no uploading MeasurementSession");
     }
 }
 

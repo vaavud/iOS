@@ -49,7 +49,7 @@
         [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:@"http://vaavud.com"]];
     }
     else {
-        [self performSegueWithIdentifier:@"showMeasureSegue" sender:self];
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 
