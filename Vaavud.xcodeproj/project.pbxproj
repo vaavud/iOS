@@ -22,9 +22,6 @@
 		D7A4F1D5173A8DDB00D1ACEE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1D3173A8DDB00D1ACEE /* InfoPlist.strings */; };
 		D7A4F1D7173A8DDB00D1ACEE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1D6173A8DDB00D1ACEE /* main.m */; };
 		D7A4F1DB173A8DDB00D1ACEE /* vaavudAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1DA173A8DDB00D1ACEE /* vaavudAppDelegate.m */; };
-		D7A4F1DD173A8DDB00D1ACEE /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1DC173A8DDB00D1ACEE /* Default.png */; };
-		D7A4F1DF173A8DDB00D1ACEE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1DE173A8DDB00D1ACEE /* Default@2x.png */; };
-		D7A4F1E1173A8DDB00D1ACEE /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1E0173A8DDB00D1ACEE /* Default-568h@2x.png */; };
 		D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */; };
 		D7A4F1E7173A8DDB00D1ACEE /* vaavudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */; };
 		D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */; };
@@ -50,6 +47,9 @@
 		E99F8F77178F085F0090402C /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E99F8F76178F085F0090402C /* MeasurementSession.m */; };
 		E9B47A031794217200E8A82E /* Terms.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A021794217200E8A82E /* Terms.m */; };
 		E9B47A0A1794315100E8A82E /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A091794315100E8A82E /* TermsViewController.m */; };
+		E9B47A0E179599E500E8A82E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9B47A0D179599E500E8A82E /* Default-568h@2x.png */; };
+		E9B47A1417959AFB00E8A82E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E9B47A1317959AFB00E8A82E /* Default.png */; };
+		E9B47A1517959F3600E8A82E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9B47A1117959AC900E8A82E /* Default@2x.png */; };
 		E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627AF17708E63004678D5 /* AFHTTPClient.m */; };
 		E9B627C217708E63004678D5 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B117708E63004678D5 /* AFHTTPRequestOperation.m */; };
 		E9B627C317708E63004678D5 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B317708E63004678D5 /* AFImageRequestOperation.m */; };
@@ -192,9 +192,6 @@
 		D7A4F1D8173A8DDB00D1ACEE /* Vaavud-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Prefix.pch"; sourceTree = "<group>"; };
 		D7A4F1D9173A8DDB00D1ACEE /* vaavudAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vaavudAppDelegate.h; sourceTree = "<group>"; };
 		D7A4F1DA173A8DDB00D1ACEE /* vaavudAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vaavudAppDelegate.m; sourceTree = "<group>"; };
-		D7A4F1DC173A8DDB00D1ACEE /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		D7A4F1DE173A8DDB00D1ACEE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		D7A4F1E0173A8DDB00D1ACEE /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		D7A4F1E3173A8DDB00D1ACEE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		D7A4F1E5173A8DDB00D1ACEE /* vaavudViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vaavudViewController.h; sourceTree = "<group>"; };
 		D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vaavudViewController.m; sourceTree = "<group>"; };
@@ -239,6 +236,9 @@
 		E9B47A021794217200E8A82E /* Terms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terms.m; sourceTree = "<group>"; };
 		E9B47A081794315100E8A82E /* TermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
 		E9B47A091794315100E8A82E /* TermsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsViewController.m; sourceTree = "<group>"; };
+		E9B47A0D179599E500E8A82E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
+		E9B47A1117959AC900E8A82E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
+		E9B47A1317959AFB00E8A82E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		E9B627AE17708E63004678D5 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		E9B627AF17708E63004678D5 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		E9B627B017708E63004678D5 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -496,6 +496,9 @@
 		D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E9B47A1317959AFB00E8A82E /* Default.png */,
+				E9B47A1117959AC900E8A82E /* Default@2x.png */,
+				E9B47A0D179599E500E8A82E /* Default-568h@2x.png */,
 				D7409DA61769C1A900890CC9 /* startButton.png */,
 				D7409DA71769C1A900890CC9 /* startButton@2x.png */,
 				D7409DA81769C1A900890CC9 /* stopButton.png */,
@@ -506,9 +509,6 @@
 				D7A4F1D3173A8DDB00D1ACEE /* InfoPlist.strings */,
 				D7A4F1D6173A8DDB00D1ACEE /* main.m */,
 				D7A4F1D8173A8DDB00D1ACEE /* Vaavud-Prefix.pch */,
-				D7A4F1DC173A8DDB00D1ACEE /* Default.png */,
-				D7A4F1DE173A8DDB00D1ACEE /* Default@2x.png */,
-				D7A4F1E0173A8DDB00D1ACEE /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
 			path = VaavudCore;
@@ -804,9 +804,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7A4F1D5173A8DDB00D1ACEE /* InfoPlist.strings in Resources */,
-				D7A4F1DD173A8DDB00D1ACEE /* Default.png in Resources */,
-				D7A4F1DF173A8DDB00D1ACEE /* Default@2x.png in Resources */,
-				D7A4F1E1173A8DDB00D1ACEE /* Default-568h@2x.png in Resources */,
 				D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */,
 				D70241831746D7F1008954FD /* VaavudIcon114.png in Resources */,
 				D70241851746D7F6008954FD /* VaavudIcon57.png in Resources */,
@@ -816,6 +813,9 @@
 				D7409DAB1769C1A900890CC9 /* startButton@2x.png in Resources */,
 				D7409DAC1769C1A900890CC9 /* stopButton.png in Resources */,
 				D7409DAD1769C1A900890CC9 /* stopButton@2x.png in Resources */,
+				E9B47A0E179599E500E8A82E /* Default-568h@2x.png in Resources */,
+				E9B47A1417959AFB00E8A82E /* Default.png in Resources */,
+				E9B47A1517959F3600E8A82E /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -974,7 +974,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -994,7 +994,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",

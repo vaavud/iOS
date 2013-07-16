@@ -126,6 +126,8 @@ SHARED_INSTANCE
 
 - (void) checkForUnUploadedData {
     
+    NSLog(@"[ServerUploadManager, %@] checkForUnUploadedData", [NSThread currentThread]);
+    
     if (!self.hasReachability) {
         return;
     }
@@ -148,7 +150,7 @@ SHARED_INSTANCE
 
     if (unuploadedMeasurementSessions && [unuploadedMeasurementSessions count] > 0) {
         
-        //NSLog(@"[ServerUploadManager] Found %d un-uploaded MeasurementSessions", [unuploadedMeasurementSessions count]);
+        NSLog(@"[ServerUploadManager] Found %d un-uploaded MeasurementSessions", [unuploadedMeasurementSessions count]);
         
         for (MeasurementSession *measurementSession in unuploadedMeasurementSessions) {
 
@@ -186,7 +188,7 @@ SHARED_INSTANCE
                 
                 [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/measure" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     
-                    //NSLog(@"[ServerUploadManager] Got successful response uploading");
+                    NSLog(@"[ServerUploadManager] Got successful response uploading");
                     
                     // clear consecutive errors since we got a successful reponse
                     self.consecutiveNetworkErrors = 0;
@@ -220,7 +222,7 @@ SHARED_INSTANCE
         }
     }
     else {
-        //NSLog(@"[ServerUploadManager] Found no uploading MeasurementSession", [NSThread currentThread]);
+        NSLog(@"[ServerUploadManager] Found no uploading MeasurementSession");
     }
 }
 
