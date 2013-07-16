@@ -107,8 +107,8 @@ enum plotName : NSUInteger {
 
 - (void) changeWindSpeedUnit:(WindSpeedUnit) unit {
     self.windSpeedUnit = unit;
-    
-    // TODO: re-render plot
+    [self updateYRange];
+    [self.graph reloadData];
 }
 
 - (void) shiftGraphX
@@ -140,7 +140,7 @@ enum plotName : NSUInteger {
             self.startTime = [NSDate dateWithTimeIntervalSinceNow: - [x doubleValue]];
             self.startTimeDifference = [x doubleValue];
             
-            NSNumber *y = [UnitUtil displayWindSpeedFromNumber:[self.vaavudCoreController.windSpeed lastObject] unit:self.windSpeedUnit];
+            NSNumber *y = [self.vaavudCoreController.windSpeed lastObject];
             self.graphYMinValue = [y floatValue];
             self.graphYMaxValue = [y floatValue];
             
@@ -152,7 +152,7 @@ enum plotName : NSUInteger {
     if (![x isEqualToNumber: lastX])
     {
             
-        NSNumber *y = [UnitUtil displayWindSpeedFromNumber:[self.vaavudCoreController.windSpeed lastObject] unit:self.windSpeedUnit];
+        NSNumber *y = [self.vaavudCoreController.windSpeed lastObject];
         NSNumber *xZeroShifted = [NSNumber numberWithDouble:([x doubleValue] - self.startTimeDifference) ];
         
         
@@ -181,24 +181,7 @@ enum plotName : NSUInteger {
         
         if (updateYRange)
         {
-            float graphYLowerBound;
-            float graphYwidth;
-            
-            // determine y window range
-            if (self.graphYMinValue < 2)
-                graphYLowerBound = 0.f;
-            else
-                graphYLowerBound = floor(self.graphYMinValue);
-            
-            graphYwidth = floor(self.graphYMaxValue) +1.f - graphYLowerBound;
-            
-            if (graphYwidth < self.graphMinWindspeedWidth)
-                graphYwidth = self.graphMinWindspeedWidth;
-            
-            CPTPlotRange *plotRange = [CPTPlotRange plotRangeWithLocation: CPTDecimalFromFloat(graphYLowerBound) length:CPTDecimalFromFloat(graphYwidth)];
-            
-            self.plotSpace.yRange  = plotRange;
-            self.plotSpace.globalYRange = plotRange;
+            [self updateYRange];
         }
 
                         
@@ -206,6 +189,36 @@ enum plotName : NSUInteger {
     
 }
 
+- (void) updateYRange {
+    
+    float graphYMinValue = [UnitUtil displayWindSpeedFromDouble:self.graphYMinValue unit:self.windSpeedUnit];
+    float graphYMaxValue = [UnitUtil displayWindSpeedFromDouble:self.graphYMaxValue unit:self.windSpeedUnit];
+    float graphMinWindspeedWidth = ceilf([UnitUtil displayWindSpeedFromDouble:self.graphMinWindspeedWidth unit:self.windSpeedUnit]);
+    
+    float graphYLowerBound;
+    float graphYwidth;
+        
+    // determine y window range
+    if (graphYMinValue < 2) {
+        graphYLowerBound = 0.f;
+    }
+    else {
+        graphYLowerBound = floor(graphYMinValue);
+    }
+        
+    graphYwidth = floorf(graphYMaxValue) + 1.0f - graphYLowerBound;
+    
+    if (graphYwidth < graphMinWindspeedWidth) {
+        graphYwidth = graphMinWindspeedWidth;
+    }
+    
+    CPTPlotRange *plotRange = [CPTPlotRange plotRangeWithLocation: CPTDecimalFromFloat(graphYLowerBound) length:CPTDecimalFromFloat(graphYwidth)];
+    
+    NSLog(@"Changing yRange: graphYLowerBound=%f, graphYwidth=%f, graphYMinValue=%f, graphYMaxValue=%f, graphMinWindspeedWidth=%f", graphYLowerBound, graphYwidth, graphYMinValue, graphYMaxValue, graphMinWindspeedWidth);
+    
+    self.plotSpace.yRange  = plotRange;
+    self.plotSpace.globalYRange = plotRange;
+}
 
 
 - (void) createNewPlot
@@ -393,7 +406,13 @@ enum plotName : NSUInteger {
             if (fieldEnum == CPTScatterPlotFieldX) {
                 numbers = [[self.dataForPlotX objectAtIndex:plotIdentity.windSpeedPlotIndex] subarrayWithRange: indexRange];
             } else {
-                numbers = [[self.dataForPlotY objectAtIndex:plotIdentity.windSpeedPlotIndex] subarrayWithRange: indexRange];
+                NSMutableArray* mutableNumbers = [NSMutableArray arrayWithArray:[[self.dataForPlotY objectAtIndex:plotIdentity.windSpeedPlotIndex] subarrayWithRange: indexRange]];
+                
+                for (int i = 0; i < [mutableNumbers count]; i++) {
+                    [mutableNumbers replaceObjectAtIndex:i withObject:[UnitUtil displayWindSpeedFromNumber:[mutableNumbers objectAtIndex:i] unit:self.windSpeedUnit]];
+                }
+                
+                numbers = mutableNumbers;
             }
             break;
         default:

@@ -20,6 +20,8 @@ typedef enum {
 
 @interface UnitUtil : NSObject
 
++ (WindSpeedUnit) nextWindSpeedUnit:(WindSpeedUnit) unit;
+
 + (WindSpeedUnit) windSpeedUnitForCountry:(NSString*) countryCode;
 
 + (NSString*) jsonNameForWindSpeedUnit:(WindSpeedUnit) unit;

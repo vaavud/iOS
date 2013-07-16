@@ -48,6 +48,8 @@
 		E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */; };
 		E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E99F8F70178EC5AD0090402C /* UnitUtil.m */; };
 		E99F8F77178F085F0090402C /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E99F8F76178F085F0090402C /* MeasurementSession.m */; };
+		E9B47A031794217200E8A82E /* Terms.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A021794217200E8A82E /* Terms.m */; };
+		E9B47A0A1794315100E8A82E /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A091794315100E8A82E /* TermsViewController.m */; };
 		E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627AF17708E63004678D5 /* AFHTTPClient.m */; };
 		E9B627C217708E63004678D5 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B117708E63004678D5 /* AFHTTPRequestOperation.m */; };
 		E9B627C317708E63004678D5 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B317708E63004678D5 /* AFImageRequestOperation.m */; };
@@ -233,6 +235,10 @@
 		E99F8F70178EC5AD0090402C /* UnitUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitUtil.m; sourceTree = "<group>"; };
 		E99F8F75178F085F0090402C /* MeasurementSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSession.h; sourceTree = "<group>"; };
 		E99F8F76178F085F0090402C /* MeasurementSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSession.m; sourceTree = "<group>"; };
+		E9B47A011794217200E8A82E /* Terms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terms.h; sourceTree = "<group>"; };
+		E9B47A021794217200E8A82E /* Terms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terms.m; sourceTree = "<group>"; };
+		E9B47A081794315100E8A82E /* TermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
+		E9B47A091794315100E8A82E /* TermsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsViewController.m; sourceTree = "<group>"; };
 		E9B627AE17708E63004678D5 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		E9B627AF17708E63004678D5 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		E9B627B017708E63004678D5 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -531,6 +537,10 @@
 				D7B5BD50175775EB0069F739 /* vaavudGraphHostingView.m */,
 				D7A4F1E5173A8DDB00D1ACEE /* vaavudViewController.h */,
 				D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */,
+				E9B47A011794217200E8A82E /* Terms.h */,
+				E9B47A021794217200E8A82E /* Terms.m */,
+				E9B47A081794315100E8A82E /* TermsViewController.h */,
+				E9B47A091794315100E8A82E /* TermsViewController.m */,
 			);
 			name = VaavudViewFiles;
 			sourceTree = "<group>";
@@ -874,6 +884,8 @@
 				E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */,
 				E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */,
 				E99F8F77178F085F0090402C /* MeasurementSession.m in Sources */,
+				E9B47A031794217200E8A82E /* Terms.m in Sources */,
+				E9B47A0A1794315100E8A82E /* TermsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

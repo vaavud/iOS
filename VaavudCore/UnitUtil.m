@@ -11,22 +11,25 @@
 @implementation UnitUtil
 
 static NSSet* countriesUsingMph;
-static NSSet* countriesUsingMS;
 
 + (void) initialize {
     countriesUsingMph = [NSSet setWithObjects:@"US", @"UM", @"GB", @"CA", @"VG", @"VI", nil];
-    countriesUsingMS = [NSSet setWithObjects:@"DK", nil];
+}
+
++ (WindSpeedUnit) nextWindSpeedUnit:(WindSpeedUnit) unit {
+    unit++;
+    if (unit > 3) {
+        unit = 0;
+    }
+    return unit;
 }
 
 + (WindSpeedUnit) windSpeedUnitForCountry:(NSString*) countryCode {
     if ([countriesUsingMph containsObject:countryCode]) {
         return WindSpeedUnitMPH;
     }
-    else if ([countriesUsingMS containsObject:countryCode]) {
-        return WindSpeedUnitMS;
-    }
     else {
-        return WindSpeedUnitKMH;
+        return WindSpeedUnitMS;
     }
 }
 
@@ -53,7 +56,7 @@ static NSSet* countriesUsingMS;
         return @"mph";
     }
     else if (unit == WindSpeedUnitKN) {
-        return @"kn";
+        return @"kt";
     }
     else {
         // default to km/h
