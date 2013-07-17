@@ -970,7 +970,7 @@
 		D7A4F1EB173A8DDB00D1ACEE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
@@ -990,7 +990,7 @@
 		D7A4F1EC173A8DDB00D1ACEE /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
