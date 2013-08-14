@@ -113,7 +113,7 @@ SHARED_INSTANCE
 
 - (CLLocationCoordinate2D) latestLocation {
     NSTimeInterval howRecent = [self.latestLocationTimestamp timeIntervalSinceNow];
-    if (abs(howRecent) < 300.0 /* seconds */) {
+    if (abs(howRecent) < 60.0 /* seconds */) {
         //NSLog(@"[LocationManager] returning latest location: latitude %+.6f, longitude %+.6f\n", _latestLocation.latitude, _latestLocation.longitude);
         return _latestLocation;
     }

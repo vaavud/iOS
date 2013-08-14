@@ -164,6 +164,7 @@ SHARED_INSTANCE
                 NSTimeInterval howRecent = [measurementSession.endTime timeIntervalSinceNow];
                 if (abs(howRecent) > 3600.0) {
                     NSLog(@"[ServerUploadManager] Found old MeasurementSession (%@) that is still measuring - setting it to not measuring", measurementSession.uuid);
+                    // TODO: we ought to force the controller to stop if it is still in started mode. Or should we remove this altogether?
                     measurementSession.measuring = [NSNumber numberWithBool:NO];
                     [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
                 }
@@ -246,13 +247,12 @@ SHARED_INSTANCE
         NSString *authToken = [responseObject objectForKey:@"authToken"];
         if (authToken && authToken != nil && authToken != (id)[NSNull null] && ([authToken length] > 0)) {
             //NSLog(@"[ServerUploadManager] Got authToken");
+            [Property setAsString:authToken forKey:KEY_AUTH_TOKEN];
+            [[VaavudAPIHTTPClient sharedInstance] setAuthToken:authToken];
         }
         else {
-            NSLog(@"[ServerUploadManager] Got no authToken so clearing it");
-            authToken = nil;
+            NSLog(@"[ServerUploadManager] Got no authToken");
         }
-        [Property setAsString:authToken forKey:KEY_AUTH_TOKEN];
-        [[VaavudAPIHTTPClient sharedInstance] setAuthToken:authToken];
         
         // only trigger upload once we get OK from server for registering device, otherwise the device could be unregistered when uploading
         [self triggerUpload];
