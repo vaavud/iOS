@@ -45,6 +45,7 @@
 @property (nonatomic) NSInteger isValidPercent;
 @property (nonatomic) BOOL      isValidCurrentStatus;
 @property (nonatomic) BOOL      wasValidStatus;
+@property (nonatomic) BOOL      iPhone4Algo;
 
 @property (nonatomic) double    sumOfValidMeasurements;
 @property (nonatomic) int       numberOfValidMeasurements;
@@ -78,9 +79,19 @@
         if ([[Property getAsString:KEY_OS_VERSION] isEqualToString: @"6.1.4"]) {
             self.fftLength = 64;
             self.fftDataLength = 50;
-        } else {
+        }
+        else {
             self.fftLength = 128;
             self.fftDataLength = 80;
+        }
+        
+        NSRange charRange = NSMakeRange(6, 1);
+        
+        if ([[[Property getAsString:KEY_MODEL] substringWithRange: charRange]  isEqualToString: @"4"]) {
+            self.iPhone4Algo = YES;
+        }
+        else {
+            self.iPhone4Algo = NO;
         }
         
         self.FFTEngine = [[vaavudFFT alloc] initFFTLength: self.fftLength andFftDataLength: self.fftDataLength];
@@ -281,41 +292,87 @@
     
     if (self.magneticFieldUpdatesCounter > self.fftDataLength){
         
-        if ( self.magneticFieldUpdatesCounter % 3 == 0 ) {
+        bool runAnalysis;
+        NSMutableArray *FFTaverage;
+        
+        if (self.iPhone4Algo) {
+            if (self.magneticFieldUpdatesCounter % 12 == 0) {
+                runAnalysis = YES;
+            }
+            else {
+                runAnalysis = NO;
+            }
+                
+        }
+        else {
+            if (self.magneticFieldUpdatesCounter % 3 == 0) {
+                runAnalysis = YES;
+            }
+            else {
+                runAnalysis = NO;
+            }
+        }
+        
+        if ( runAnalysis ) {
             
-            int modulus = self.magneticFieldUpdatesCounter % 9 / 3;
-                        
-            NSRange subArrayRange = NSMakeRange(self.magneticFieldUpdatesCounter - self.fftDataLength, self.fftDataLength);
-            
-            switch (modulus) {
-                case 0:
-                    self.FFTresultx = [self.FFTEngine doFFT: [self.sharedMagneticFieldDataManager.magneticFieldReadingsx subarrayWithRange:subArrayRange]];
-                    break;
-                case 1:
+            if (self.iPhone4Algo) {
+             
+                NSRange subArrayRange = NSMakeRange(self.magneticFieldUpdatesCounter - self.fftDataLength, self.fftDataLength);
+                
                     self.FFTresulty = [self.FFTEngine doFFT: [self.sharedMagneticFieldDataManager.magneticFieldReadingsy subarrayWithRange:subArrayRange]];
-                    break;
-                case 2:
                     self.FFTresultz = [self.FFTEngine doFFT: [self.sharedMagneticFieldDataManager.magneticFieldReadingsz subarrayWithRange:subArrayRange]];
-                    break;
+                
+                // create average
+                int resultArrayLength = self.fftLength/2;
+                
+                
+                FFTaverage = [NSMutableArray arrayWithCapacity: resultArrayLength];
+                
+                for (int i = 0; i < resultArrayLength; i++) {
                     
-                default:
-                    NSLog(@"You should not be here!");
-                    break;
-            }
-            
-            // create average
-            int resultArrayLength = self.fftLength/2;
-            
-            
-            NSMutableArray *FFTaverage = [NSMutableArray arrayWithCapacity: resultArrayLength];
-            
-            for (int i = 0; i < resultArrayLength; i++) {
+                    double mean = ( [[self.FFTresulty objectAtIndex:i ] doubleValue] + [[self.FFTresultz objectAtIndex:i ] doubleValue] ) / 2;
+                    
+                    [FFTaverage insertObject:[NSNumber numberWithDouble: mean] atIndex: i];
+                }
+
                 
-                double mean = ( [[self.FFTresultx objectAtIndex:i ] doubleValue] + [[self.FFTresulty objectAtIndex:i ] doubleValue] + [[self.FFTresultz objectAtIndex:i ] doubleValue] ) / 3;
                 
-                [FFTaverage insertObject:[NSNumber numberWithDouble: mean] atIndex: i];
             }
-            
+            else {
+                
+                int modulus = self.magneticFieldUpdatesCounter % 9 / 3;
+                
+                NSRange subArrayRange = NSMakeRange(self.magneticFieldUpdatesCounter - self.fftDataLength, self.fftDataLength);
+                
+                switch (modulus) {
+                    case 0:
+                        self.FFTresultx = [self.FFTEngine doFFT: [self.sharedMagneticFieldDataManager.magneticFieldReadingsx subarrayWithRange:subArrayRange]];
+                        break;
+                    case 1:
+                        self.FFTresulty = [self.FFTEngine doFFT: [self.sharedMagneticFieldDataManager.magneticFieldReadingsy subarrayWithRange:subArrayRange]];
+                        break;
+                    case 2:
+                        self.FFTresultz = [self.FFTEngine doFFT: [self.sharedMagneticFieldDataManager.magneticFieldReadingsz subarrayWithRange:subArrayRange]];
+                        break;
+                        
+                    default:
+                        NSLog(@"You should not be here!");
+                        break;
+                }
+                
+                // create average
+                int resultArrayLength = self.fftLength/2;
+                
+                
+                FFTaverage = [NSMutableArray arrayWithCapacity: resultArrayLength];
+                
+                for (int i = 0; i < resultArrayLength; i++) {
+                    
+                    double mean = ( [[self.FFTresultx objectAtIndex:i ] doubleValue] + [[self.FFTresulty objectAtIndex:i ] doubleValue] + [[self.FFTresultz objectAtIndex:i ] doubleValue] ) / 3;
+                    
+                    [FFTaverage insertObject:[NSNumber numberWithDouble: mean] atIndex: i];
+                }
+            }
             
             // calculate actual sample frequency
             
@@ -375,8 +432,6 @@
             
             self.numberOfMeasurements++;
             [self updateIsValid];
-                        
-            
         } // run every X update
     } // if counter > datalength
 }
