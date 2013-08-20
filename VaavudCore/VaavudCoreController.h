@@ -36,13 +36,16 @@
 @property (readonly, nonatomic, strong) NSMutableArray *windDirection;
 @property (readonly, nonatomic, strong) NSDate *startTime;
 @property (nonatomic) BOOL upsideDown;
-
+@property (readonly, nonatomic) int fftLength;
+@property (readonly, nonatomic) int fftDataLength;
 
 @property (nonatomic) BOOL dynamicsIsValid;
 @property (nonatomic) BOOL windDirectionIsConfirmed;
 @property (nonatomic) BOOL FFTisValid;
 
 @property (nonatomic, weak) id <VaavudCoreViewControllerDelegate> vaavudCoreControllerViewControllerDelegate;
+
+
 
 
 

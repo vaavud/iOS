@@ -10,12 +10,10 @@
 
 #define preferedSampleFrequency 100 // actual is arround 63 
 #define accAndGyroSampleFrequency 5
-#define FFTLength 64
-#define FFTDataLength 40
 #define FFTForEvery 3
 
 // Thresholds for isValid
-#define accelerationMaxForValid 0.1 // g acc/(9.82 m/s^2)
+#define accelerationMaxForValid 0.2 // g acc/(9.82 m/s^2)
 #define angularVelocityMaxForValid 0.4 // rad/s (maybe deg/s or another unit)
 #define orientationDeviationMaxForValid 0.63 // rad  (36) degrees
 #define FFTpeakMagnitudeMinForValid 5 // (abs(FFT(maxbin))

@@ -24,15 +24,19 @@
     int32_t         stride;
     float           *ioData;
     float           scale;
+    int             fftDataLength;
+    int             fftLength;
     
 }
 
-- (id) initFFTLength:(int) N
+- (id) initFFTLength:(int) N andFftDataLength: (int) fftDataLengthIn
 {
     self = [super init];
     
     if (self) {
+        fftDataLength = fftDataLengthIn;
         
+        fftLength = N;
         n = N;
         log2n = 0;
         
@@ -83,18 +87,18 @@
     
     double ioDataTotal = 0;
     
-    for (int i = 0; i < FFTDataLength; i++) {
+    for (int i = 0; i < fftDataLength; i++) {
         ioData[i] = [[FFTin objectAtIndex:i] doubleValue];
         ioDataTotal += ioData[i];
     }
     
-    float ioDataMean = ioDataTotal/FFTDataLength;
+    float ioDataMean = ioDataTotal/fftDataLength;
     
-    for (int i = 0; i < FFTDataLength; i++) {
+    for (int i = 0; i < fftDataLength; i++) {
         ioData[i] = (ioData[i] - ioDataMean) * [self pWelchWindow:i];
     }
     
-    for (int i = FFTDataLength; i < FFTLength; i++) {
+    for (int i = fftDataLength; i < fftLength; i++) {
         
         ioData[i] = 0;
     }
@@ -129,9 +133,9 @@
     vDSP_vsmul(ioData, 1, &scale, ioData, 1, nOver2);
     
 
-    NSMutableArray *FFTout = [NSMutableArray arrayWithCapacity:FFTLength/2];
+    NSMutableArray *FFTout = [NSMutableArray arrayWithCapacity:fftLength/2];
     
-    for (int i = 0; i < FFTLength/2; i++){
+    for (int i = 0; i < fftLength/2; i++){
         [FFTout insertObject:[NSNumber numberWithFloat:ioData[i]] atIndex:i];
     }
     
@@ -141,7 +145,7 @@
 
 - (float) pWelchWindow:(int)i
 {
-    float w = 1 - ( (i - (FFTDataLength - 1)/2) / ((FFTDataLength+1)/2)  ) ^2;
+    float w = 1 - ( (i - (fftDataLength - 1)/2) / ((fftDataLength+1)/2)  ) ^2;
     
     return w;
 }

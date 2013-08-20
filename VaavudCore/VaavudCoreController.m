@@ -40,7 +40,7 @@
 @property (nonatomic, strong) NSArray *FFTresulty;
 @property (nonatomic, strong) NSArray *FFTresultz;
 
-@property (nonatomic, strong) vaavudFFT *FFTEngine;
+@property (nonatomic, strong)   vaavudFFT *FFTEngine;
 @property (nonatomic) int       magneticFieldUpdatesCounter;
 @property (nonatomic) NSInteger isValidPercent;
 @property (nonatomic) BOOL      isValidCurrentStatus;
@@ -53,7 +53,12 @@
 
 @property (nonatomic) MeasurementSession *measurementSession;
 
+@property (nonatomic) int fftLength;
+@property (nonatomic) int fftDataLength;
+
+
 - (void) updateIsValid;
+- (NSNumber *) getSampleFrequency;
 - (double) convertFrequencyToWindspeed: (double) frequency;
 
 @end
@@ -70,7 +75,15 @@
     if (self)
     {
         // Do initializing
-        self.FFTEngine = [[vaavudFFT alloc] initFFTLength:FFTLength];
+        if ([[Property getAsString:KEY_OS_VERSION] isEqualToString: @"6.1.4"]) {
+            self.fftLength = 64;
+            self.fftDataLength = 50;
+        } else {
+            self.fftLength = 128;
+            self.fftDataLength = 80;
+        }
+        
+        self.FFTEngine = [[vaavudFFT alloc] initFFTLength: self.fftLength andFftDataLength: self.fftDataLength];
     }
     
     return self;
@@ -266,13 +279,13 @@
 {
     self.magneticFieldUpdatesCounter += 1;
     
-    if (self.magneticFieldUpdatesCounter > FFTDataLength){
+    if (self.magneticFieldUpdatesCounter > self.fftDataLength){
         
         if ( self.magneticFieldUpdatesCounter % 3 == 0 ) {
             
             int modulus = self.magneticFieldUpdatesCounter % 9 / 3;
                         
-            NSRange subArrayRange = NSMakeRange(self.magneticFieldUpdatesCounter - FFTDataLength, FFTDataLength);
+            NSRange subArrayRange = NSMakeRange(self.magneticFieldUpdatesCounter - self.fftDataLength, self.fftDataLength);
             
             switch (modulus) {
                 case 0:
@@ -291,7 +304,7 @@
             }
             
             // create average
-            int resultArrayLength = FFTLength/2;
+            int resultArrayLength = self.fftLength/2;
             
             
             NSMutableArray *FFTaverage = [NSMutableArray arrayWithCapacity: resultArrayLength];
@@ -306,11 +319,7 @@
             
             // calculate actual sample frequency
             
-            NSArray *timeSeries = [self.sharedMagneticFieldDataManager.magneticFieldReadingsTime subarrayWithRange: subArrayRange];
-            
-            double timeDifference = [[timeSeries lastObject] doubleValue] - [[timeSeries objectAtIndex:0] doubleValue];
-            
-            double actualSampleFrequency = (FFTDataLength-1)/timeDifference;
+            double actualSampleFrequency = [[self getSampleFrequency] doubleValue];
             
             // use quadratic interpolation to find peak
             // Calculate max peak
@@ -319,7 +328,7 @@
             
             int maxBin = 0;
             
-            for (int i=0; i<FFTLength/2; i++) {
+            for (int i=0; i<self.fftLength/2; i++) {
                 
                 if ([[FFTaverage objectAtIndex:i] doubleValue] > maxPeak){
                     maxBin = i;
@@ -327,14 +336,14 @@
                 }
             }
             
-            if ((maxBin > 0) && (maxBin < FFTLength/2 -1)) {
+            if ((maxBin > 0) && (maxBin < self.fftLength/2 -1)) {
                 alpha = [[FFTaverage objectAtIndex: maxBin-1 ] doubleValue];
                 beta = [[FFTaverage objectAtIndex: maxBin ] doubleValue];
                 gamma = [[FFTaverage objectAtIndex: maxBin+1 ] doubleValue];
                 
                 p = (alpha - gamma) / (2*(alpha - 2*beta + gamma));
                 
-                dominantFrequency  = (maxBin+p)*actualSampleFrequency/FFTLength;
+                dominantFrequency  = (maxBin+p)*actualSampleFrequency/self.fftLength;
                 frequencyMagnitude = beta - 1/4 * (alpha - gamma) * p;
                 
             } else {
@@ -371,6 +380,14 @@
         } // run every X update
     } // if counter > datalength
 }
+
+- (NSNumber *) getSampleFrequency {
+    
+    double timedifference = [[self.sharedMagneticFieldDataManager.magneticFieldReadingsTime lastObject] doubleValue] - [[self.sharedMagneticFieldDataManager.magneticFieldReadingsTime objectAtIndex:0] doubleValue];
+    
+    return [NSNumber numberWithDouble: (double) (self.magneticFieldUpdatesCounter-1) / timedifference];
+}
+
 
 - (NSNumber *) getAverage
 {
