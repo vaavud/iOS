@@ -15,7 +15,8 @@ typedef enum {
     WindSpeedUnitKMH     = 0,
     WindSpeedUnitMS      = 1,
     WindSpeedUnitMPH     = 2,
-    WindSpeedUnitKN      = 3
+    WindSpeedUnitKN      = 3,
+    WindSpeedUnitBFT     = 4
 } WindSpeedUnit;
 
 @interface UnitUtil : NSObject
