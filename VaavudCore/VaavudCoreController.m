@@ -472,7 +472,14 @@
 - (double) convertFrequencyToWindspeed: (double) frequency {
     
     // Based on 09.07.2013 Windtunnel test. Parametes can be found in windTunnelAnalysis_9_07_2013.xlsx
-    double windspeed = 0.9929209 * frequency + 0.2382594;
+    // Corrected base on data from Windtunnel test Experiment26Aug2013Data.xlsx
+    double windspeed;
+    
+    if (self.iPhone4Algo) {
+        windspeed = 1.16 * frequency + 0.238;
+    } else {
+        windspeed = 1.04 * frequency + 0.238;
+    }
     
     if (frequency > 17.65 && frequency < 28.87) {
         windspeed = windspeed + -0.068387 * pow((frequency - 23.2667), 2) + 2.153493;
