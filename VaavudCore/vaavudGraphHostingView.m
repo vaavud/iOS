@@ -191,22 +191,15 @@ enum plotName : NSUInteger {
 
 - (void) updateYRange {
     
-    float graphYMinValue = [UnitUtil displayWindSpeedFromDouble:self.graphYMinValue unit:self.windSpeedUnit];
     float graphYMaxValue = [UnitUtil displayWindSpeedFromDouble:self.graphYMaxValue unit:self.windSpeedUnit];
     float graphMinWindspeedWidth = ceilf([UnitUtil displayWindSpeedFromDouble:self.graphMinWindspeedWidth unit:self.windSpeedUnit]);
     
     float graphYLowerBound;
     float graphYwidth;
-        
-    // determine y window range
-    if (graphYMinValue < 2) {
-        graphYLowerBound = 0.f;
-    }
-    else {
-        graphYLowerBound = floor(graphYMinValue);
-    }
-        
-    graphYwidth = floorf(graphYMaxValue) + 1.0f - graphYLowerBound;
+    
+    graphYLowerBound = 0;
+    
+    graphYwidth = floorf(graphYMaxValue) + 1.0f;
     
     if (graphYwidth < graphMinWindspeedWidth) {
         graphYwidth = graphMinWindspeedWidth;
@@ -265,7 +258,7 @@ enum plotName : NSUInteger {
     
     // TEMPORATY LOAD OF CONSTANTS
     self.graphTimeWidth = 16;
-    self.graphMinWindspeedWidth = 4;
+    self.graphMinWindspeedWidth = 5;
     
     self.collapsesLayers = NO; // Setting to YES reduces GPU memory usage, but can slow drawing/scrolling
     
@@ -330,7 +323,8 @@ enum plotName : NSUInteger {
     
     
     CPTXYAxis *y                        = axisSet.yAxis;
-    y.majorIntervalLength               = CPTDecimalFromInt(2);
+    y.labelingPolicy                    = CPTAxisLabelingPolicyAutomatic;
+    y.preferredNumberOfMajorTicks       = 5;
     y.minorTicksPerInterval             = 0;
     y.axisConstraints                   = [CPTConstraints constraintWithLowerOffset:0.0];
     y.labelFormatter                    = numberFormat;
