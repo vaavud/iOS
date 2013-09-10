@@ -7,6 +7,7 @@
 //
 
 #import "vaavudAppDelegate.h"
+#import "TestFlight.h"
 #import "ModelManager.h"
 #import "ServerUploadManager.h"
 #import "LocationManager.h"
@@ -16,7 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    [TestFlight takeOff:@"1b4310d3-6215-4ff5-a881-dd67a6d7ab91"];
     [MagicalRecord setupAutoMigratingCoreDataStack];
     [[ModelManager sharedInstance] initializeModel];
     [[ServerUploadManager sharedInstance] start];
