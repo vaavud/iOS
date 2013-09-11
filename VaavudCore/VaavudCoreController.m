@@ -87,7 +87,9 @@
         
         NSRange charRange = NSMakeRange(6, 1);
         
-        if ([[[Property getAsString:KEY_MODEL] substringWithRange: charRange]  isEqualToString: @"4"]) {
+        NSString* model = [Property getAsString:KEY_MODEL];
+        
+        if ([model length] > 6 && [[model substringWithRange:charRange] isEqualToString: @"4"]) {
             self.iPhone4Algo = YES;
         }
         else {

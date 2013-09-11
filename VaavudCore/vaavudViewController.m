@@ -20,6 +20,7 @@
 @property (nonatomic, weak) IBOutlet UIProgressView *statusBar;
 
 @property (nonatomic, weak) IBOutlet UIButton *startStopButton;
+@property (nonatomic) BOOL buttonShowsStart;
 @property (nonatomic, strong) IBOutlet vaavudGraphHostingView *graphHostView;
 
 @property (nonatomic, weak) IBOutlet UIButton *unitButton;
@@ -74,8 +75,9 @@
     [self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
     [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
     
-    self.startButtonImage   = [UIImage imageNamed: @"startButton.png"];
-    self.stopButtonImage    = [UIImage imageNamed: @"stopButton.png"];
+    self.startButtonImage = [UIImage imageNamed: @"startButton.png"];
+    self.stopButtonImage = [UIImage imageNamed: @"stopButton.png"];
+    self.buttonShowsStart = YES;
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
@@ -197,20 +199,14 @@
 
 - (IBAction) buttonPushed: (UIButton*) sender
 {
-    
-    NSString *buttonText = [NSString stringWithString: sender.currentTitle];
-    
-    if ([buttonText caseInsensitiveCompare: @"start"] == NSOrderedSame){
-        [self.startStopButton setTitle: @"stop" forState:UIControlStateNormal];
-        [self.startStopButton setImage: self.stopButtonImage forState:UIControlStateNormal];
-        
+    if (self.buttonShowsStart) {
+        self.buttonShowsStart = NO;
+        [self.startStopButton setBackgroundImage: self.stopButtonImage forState:UIControlStateNormal];
         [self start];
     }
-    
-    if ([buttonText caseInsensitiveCompare: @"stop"] == NSOrderedSame){
-        [self.startStopButton setTitle: @"start" forState:UIControlStateNormal];
-        [self.startStopButton setImage: self.startButtonImage forState:UIControlStateNormal];
-
+    else {
+        self.buttonShowsStart = YES;
+        [self.startStopButton setBackgroundImage: self.startButtonImage forState:UIControlStateNormal];
         [self stop];
     }
 }
