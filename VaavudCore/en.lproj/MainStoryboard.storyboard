@@ -16,104 +16,8 @@
                     <view key="view" contentMode="scaleToFill" id="3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bS1-jk-rNp">
-                                <rect key="frame" x="70" y="518" width="180" height="30"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
-                                <state key="normal" backgroundImage="startButton.png">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="buttonPushed:" destination="2" eventType="touchUpInside" id="lYB-oU-ZjO"/>
-                                </connections>
-                            </button>
-                            <progressView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="eB6-ZR-G0T">
-                                <rect key="frame" x="70" y="500" width="180" height="3"/>
-                                <color key="progressTintColor" red="0.062745101749897003" green="0.68627452850341797" blue="0.93725496530532837" alpha="1" colorSpace="deviceRGB"/>
-                                <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            </progressView>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jop-HL-F0a" customClass="vaavudGraphHostingView">
-                                <rect key="frame" x="10" y="220" width="300" height="200"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                            </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="ACTUAL" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3jS-Rr-IOD">
-                                <rect key="frame" x="201" y="46" width="79" height="21"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="MAX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBg-VY-wWc">
-                                <rect key="frame" x="40" y="122" width="31" height="18"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="MEAN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReF-g7-EF0">
-                                <rect key="frame" x="40" y="46" width="77" height="21"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIb-lj-gMl" userLabel="averageLabel">
-                                <rect key="frame" x="40" y="56" width="120" height="74"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="54"/>
-                                <color key="textColor" red="0.82352941176470584" green="0.14509803921568626" blue="0.1764705882352941" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6z-xo-cgt" userLabel="maxLabel">
-                                <rect key="frame" x="40" y="138" width="74" height="41"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
-                                <color key="textColor" red="0.0" green="0.68404995437956206" blue="0.93725490196078431" alpha="1" colorSpace="deviceRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="UNIT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BoF-HW-bXq">
-                                <rect key="frame" x="140" y="122" width="40" height="21"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vbb-Ps-UGv" userLabel="actualLabel">
-                                <rect key="frame" x="160" y="56" width="120" height="74"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="54"/>
-                                <color key="textColor" red="0.0" green="0.68235294117647061" blue="0.93725490196078431" alpha="1" colorSpace="deviceRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="center" fixedFrame="YES" image="VaavudTransparent100px.png" translatesAutoresizingMaskIntoConstraints="NO" id="jkJ-OL-yzm">
-                                <rect key="frame" x="110" y="16" width="100" height="12"/>
-                            </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ej-kg-OB6" userLabel="InformationText">
-                                <rect key="frame" x="40" y="463" width="240" height="21"/>
-                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IyF-hd-U0x">
-                                <rect key="frame" x="0.0" y="42" width="320" height="1"/>
-                                <color key="backgroundColor" white="0.78000000000000003" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q8l-hq-NLG">
-                                <rect key="frame" x="30" y="201" width="260" height="1"/>
-                                <color key="backgroundColor" white="0.78000000000000003" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WHz-L1-QCZ">
-                                <rect key="frame" x="30" y="434" width="260" height="1"/>
-                                <color key="backgroundColor" white="0.78000000000000003" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f71-hp-4cl">
-                                <rect key="frame" x="124" y="138" width="73" height="41"/>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
-                                <state key="normal" title="m/s">
-                                    <color key="titleColor" red="0.0" green="0.68251026459999997" blue="0.93578923359999999" alpha="1" colorSpace="deviceRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" red="0.03982201453404343" green="0.32653487941939208" blue="0.49356742527173914" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="unitButtonPushed" destination="2" eventType="touchUpInside" id="1h0-Jy-vdW"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="94c-CZ-3Oa">
-                                <rect key="frame" x="288" y="11" width="22" height="22"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="94c-CZ-3Oa" userLabel="About Button">
+                                <rect key="frame" x="288" y="30" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
                                 <state key="normal">
@@ -127,8 +31,195 @@
                                     <action selector="infoButtonPushed" destination="2" eventType="touchUpInside" id="o79-bx-48P"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="center" image="VaavudTransparent100px.png" translatesAutoresizingMaskIntoConstraints="NO" id="jkJ-OL-yzm" userLabel="Vaavud Logo">
+                                <rect key="frame" x="110" y="35" width="100" height="12"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IyF-hd-U0x" userLabel="Top Separator View">
+                                <rect key="frame" x="0.0" y="62" width="320" height="1"/>
+                                <color key="backgroundColor" white="0.78000000000000003" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Hli-9a-7Ke"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="MEAN" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReF-g7-EF0">
+                                <rect key="frame" x="40" y="68" width="35" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="35" id="1VT-be-HdF"/>
+                                    <constraint firstAttribute="height" constant="21" id="phN-dV-tcq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIb-lj-gMl" userLabel="averageLabel">
+                                <rect key="frame" x="40" y="89" width="120" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="8Zi-vk-iI3"/>
+                                    <constraint firstAttribute="width" constant="120" id="EOT-uZ-mWP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="54"/>
+                                <color key="textColor" red="0.82352941176470584" green="0.14509803921568626" blue="0.1764705882352941" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="ACTUAL" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3jS-Rr-IOD">
+                                <rect key="frame" x="203" y="68" width="77" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="c7c-Ry-gnS"/>
+                                    <constraint firstAttribute="width" constant="77" id="x8V-XW-tCE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vbb-Ps-UGv" userLabel="actualLabel">
+                                <rect key="frame" x="160" y="89" width="120" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="WNo-ez-LXP"/>
+                                    <constraint firstAttribute="height" constant="42" id="ZIS-GE-5NH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="54"/>
+                                <color key="textColor" red="0.0" green="0.68235294117647061" blue="0.93725490196078431" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="MAX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBg-VY-wWc">
+                                <rect key="frame" x="40" y="136" width="31" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="31" id="qd5-hg-idM"/>
+                                    <constraint firstAttribute="height" constant="21" id="vvJ-pl-alf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6z-xo-cgt" userLabel="maxLabel">
+                                <rect key="frame" x="40" y="157" width="74" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="74" id="Dzi-DO-a1j"/>
+                                    <constraint firstAttribute="height" constant="41" id="p8C-yF-Q3M"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
+                                <color key="textColor" red="0.0" green="0.68404995437956206" blue="0.93725490196078431" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="UNIT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BoF-HW-bXq">
+                                <rect key="frame" x="140" y="136" width="40" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="FwA-Pr-RWU"/>
+                                    <constraint firstAttribute="height" constant="21" id="aPe-zZ-4QU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f71-hp-4cl">
+                                <rect key="frame" x="124" y="157" width="73" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="73" id="qBa-LO-kaD"/>
+                                    <constraint firstAttribute="height" constant="41" id="tq7-pO-CEE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
+                                <state key="normal" title="m/s">
+                                    <color key="titleColor" red="0.0" green="0.68251026459999997" blue="0.93578923359999999" alpha="1" colorSpace="deviceRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="0.03982201453404343" green="0.32653487941939208" blue="0.49356742527173914" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="unitButtonPushed" destination="2" eventType="touchUpInside" id="1h0-Jy-vdW"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q8l-hq-NLG" userLabel="Data Separator View">
+                                <rect key="frame" x="30" y="213" width="260" height="1"/>
+                                <color key="backgroundColor" white="0.78000000000000003" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="sqj-qH-pdq"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jop-HL-F0a" customClass="vaavudGraphHostingView">
+                                <rect key="frame" x="10" y="229" width="300" height="205"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bS1-jk-rNp" userLabel="Start/Stop Button">
+                                <rect key="frame" x="70" y="518" width="180" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="7sS-bL-Uzi"/>
+                                    <constraint firstAttribute="width" constant="180" id="LVm-RJ-2VH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="20"/>
+                                <state key="normal" backgroundImage="startButton.png">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="buttonPushed:" destination="2" eventType="touchUpInside" id="lYB-oU-ZjO"/>
+                                </connections>
+                            </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="eB6-ZR-G0T">
+                                <rect key="frame" x="70" y="501" width="180" height="3"/>
+                                <color key="progressTintColor" red="0.062745101749897003" green="0.68627452850341797" blue="0.93725496530532837" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </progressView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ej-kg-OB6" userLabel="InformationText">
+                                <rect key="frame" x="40" y="465" width="240" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="SgK-UX-8lM"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="kS6-jA-9G4"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WHz-L1-QCZ" userLabel="Graph Separator View">
+                                <rect key="frame" x="30" y="449" width="260" height="1"/>
+                                <color key="backgroundColor" white="0.78000000000000003" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="fD5-SW-hgl"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.90000000000000002" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eo3-LL-srp" firstAttribute="top" secondItem="bS1-jk-rNp" secondAttribute="bottom" constant="20" id="08g-fh-cXs"/>
+                            <constraint firstItem="Vbb-Ps-UGv" firstAttribute="trailing" secondItem="3jS-Rr-IOD" secondAttribute="trailing" id="1xu-B1-MNU"/>
+                            <constraint firstAttribute="centerX" secondItem="bS1-jk-rNp" secondAttribute="centerX" id="3j8-YO-OXk"/>
+                            <constraint firstItem="aIb-lj-gMl" firstAttribute="leading" secondItem="ReF-g7-EF0" secondAttribute="leading" id="7WM-Tp-wx8"/>
+                            <constraint firstItem="Q8l-hq-NLG" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="30" id="8gM-aW-eAs"/>
+                            <constraint firstItem="jop-HL-F0a" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="10" id="8sp-JT-2wh"/>
+                            <constraint firstItem="bS1-jk-rNp" firstAttribute="top" secondItem="eB6-ZR-G0T" secondAttribute="bottom" constant="15" id="G6I-YE-iKb"/>
+                            <constraint firstItem="jop-HL-F0a" firstAttribute="top" secondItem="Q8l-hq-NLG" secondAttribute="bottom" constant="15" id="H5t-Dr-c29"/>
+                            <constraint firstAttribute="trailing" secondItem="WHz-L1-QCZ" secondAttribute="trailing" constant="30" id="I6n-OZ-jur"/>
+                            <constraint firstItem="0Ej-kg-OB6" firstAttribute="top" secondItem="WHz-L1-QCZ" secondAttribute="bottom" constant="15" id="J3g-EW-7RW"/>
+                            <constraint firstItem="aIb-lj-gMl" firstAttribute="top" secondItem="ReF-g7-EF0" secondAttribute="bottom" id="JA6-iQ-no9"/>
+                            <constraint firstItem="qBg-VY-wWc" firstAttribute="top" secondItem="aIb-lj-gMl" secondAttribute="bottom" constant="5" id="LF6-Q2-77z"/>
+                            <constraint firstItem="94c-CZ-3Oa" firstAttribute="top" secondItem="r2L-o3-FqL" secondAttribute="bottom" constant="10" id="LFZ-VT-xaz"/>
+                            <constraint firstItem="WHz-L1-QCZ" firstAttribute="top" secondItem="jop-HL-F0a" secondAttribute="bottom" constant="15" id="OHp-IM-MMI"/>
+                            <constraint firstItem="Vbb-Ps-UGv" firstAttribute="top" secondItem="3jS-Rr-IOD" secondAttribute="bottom" id="QNs-rb-GTe"/>
+                            <constraint firstItem="BoF-HW-bXq" firstAttribute="top" secondItem="qBg-VY-wWc" secondAttribute="top" id="RKJ-cq-pMP"/>
+                            <constraint firstItem="ReF-g7-EF0" firstAttribute="leading" secondItem="qBg-VY-wWc" secondAttribute="leading" id="T5G-Rb-ew0"/>
+                            <constraint firstItem="WHz-L1-QCZ" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="30" id="TQx-Lf-dtB"/>
+                            <constraint firstAttribute="trailing" secondItem="IyF-hd-U0x" secondAttribute="trailing" id="U2W-kx-BS1"/>
+                            <constraint firstItem="E6z-xo-cgt" firstAttribute="leading" secondItem="qBg-VY-wWc" secondAttribute="leading" id="Wi5-BD-OeS"/>
+                            <constraint firstItem="E6z-xo-cgt" firstAttribute="top" secondItem="qBg-VY-wWc" secondAttribute="bottom" id="XAF-K9-YMb"/>
+                            <constraint firstItem="ReF-g7-EF0" firstAttribute="top" secondItem="IyF-hd-U0x" secondAttribute="bottom" constant="5" id="ZPu-bf-2Ly"/>
+                            <constraint firstItem="Q8l-hq-NLG" firstAttribute="top" secondItem="E6z-xo-cgt" secondAttribute="bottom" constant="15" id="bnb-Kp-vFg"/>
+                            <constraint firstAttribute="trailing" secondItem="Q8l-hq-NLG" secondAttribute="trailing" constant="30" id="cVJ-1s-BTB"/>
+                            <constraint firstItem="94c-CZ-3Oa" firstAttribute="centerY" secondItem="jkJ-OL-yzm" secondAttribute="centerY" id="cgJ-CV-zxd" userLabel="Vaavud Logo - Center Y Alignment to About Button"/>
+                            <constraint firstItem="eB6-ZR-G0T" firstAttribute="top" secondItem="0Ej-kg-OB6" secondAttribute="bottom" constant="15" id="e3q-8z-FAw"/>
+                            <constraint firstAttribute="centerX" secondItem="BoF-HW-bXq" secondAttribute="centerX" id="hPV-9I-LBv"/>
+                            <constraint firstItem="eB6-ZR-G0T" firstAttribute="width" secondItem="bS1-jk-rNp" secondAttribute="width" id="hTU-Yf-xIR"/>
+                            <constraint firstAttribute="trailing" secondItem="3jS-Rr-IOD" secondAttribute="trailing" constant="40" id="hXs-jK-8cz"/>
+                            <constraint firstItem="IyF-hd-U0x" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="hq6-bN-Wb4"/>
+                            <constraint firstItem="eB6-ZR-G0T" firstAttribute="centerX" secondItem="bS1-jk-rNp" secondAttribute="centerX" id="iS8-YU-ekh"/>
+                            <constraint firstAttribute="trailing" secondItem="94c-CZ-3Oa" secondAttribute="trailing" constant="10" id="jvs-b7-0Gk" userLabel="About Button - Horizontal Spacing to Right Edge"/>
+                            <constraint firstItem="ReF-g7-EF0" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="40" id="m9r-Lb-RGe"/>
+                            <constraint firstItem="3jS-Rr-IOD" firstAttribute="top" secondItem="ReF-g7-EF0" secondAttribute="top" id="pjp-p6-Kg3"/>
+                            <constraint firstItem="eB6-ZR-G0T" firstAttribute="centerX" secondItem="0Ej-kg-OB6" secondAttribute="centerX" id="qCF-49-1IW"/>
+                            <constraint firstItem="IyF-hd-U0x" firstAttribute="top" secondItem="94c-CZ-3Oa" secondAttribute="bottom" constant="10" id="rrT-DC-JvS"/>
+                            <constraint firstAttribute="trailing" secondItem="jop-HL-F0a" secondAttribute="trailing" constant="10" id="trF-Ht-dhS"/>
+                            <constraint firstItem="f71-hp-4cl" firstAttribute="top" secondItem="BoF-HW-bXq" secondAttribute="bottom" id="uyK-Fu-fl4"/>
+                            <constraint firstAttribute="centerX" secondItem="jkJ-OL-yzm" secondAttribute="centerX" id="wCo-Sj-CIH" userLabel="Vaavud Logo - Center Horizontally"/>
+                            <constraint firstItem="BoF-HW-bXq" firstAttribute="centerX" secondItem="f71-hp-4cl" secondAttribute="centerX" constant="-0.5" id="xFj-Vv-Rcc"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="actualLabel" destination="Vbb-Ps-UGv" id="rcD-IZ-eUR"/>
