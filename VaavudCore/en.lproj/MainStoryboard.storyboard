@@ -284,6 +284,7 @@
                     <navigationItem key="navigationItem" id="bV5-Bh-coT"/>
                     <connections>
                         <outlet property="backButton" destination="bLa-Vn-KE2" id="Y2R-jN-ixa"/>
+                        <outlet property="navigationBar" destination="SMI-DT-vAA" id="xR7-EX-gTt"/>
                         <outlet property="webView" destination="6ZH-nH-cic" id="Hil-gW-fcg"/>
                     </connections>
                 </viewController>

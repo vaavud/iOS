@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet UINavigationBar *navigationBar;
 
 - (IBAction) backButtonPushed;
 
@@ -33,7 +34,7 @@
 {
     [super viewDidLoad];
     
-    self.navigationController.navigationBar.delegate = self;
+    self.navigationBar.delegate = self;
     
     NSString *html = [Terms getTermsOfService];
     [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:@"http://vaavud.com"]];
