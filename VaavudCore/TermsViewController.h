@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TermsViewController : UIViewController
+@interface TermsViewController : UIViewController <UINavigationBarDelegate>
 
 @end

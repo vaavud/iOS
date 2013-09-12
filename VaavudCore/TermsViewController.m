@@ -33,6 +33,8 @@
 {
     [super viewDidLoad];
     
+    self.navigationController.navigationBar.delegate = self;
+    
     NSString *html = [Terms getTermsOfService];
     [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:@"http://vaavud.com"]];
 }
@@ -55,6 +57,10 @@
 
 -(NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
+}
+
+- (UIBarPosition) positionForBar:(id<UIBarPositioning>)bar {
+    return UIBarPositionTopAttached;
 }
 
 @end
