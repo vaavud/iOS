@@ -139,6 +139,19 @@
     self.measurementSession.uploaded = [NSNumber numberWithBool:NO];
     self.measurementSession.startIndex = [NSNumber numberWithInt:0];
     [self updateMeasurementSessionLocation];
+    vaavudAppDelegate *appDelegate = (vaavudAppDelegate *)[[UIApplication sharedApplication] delegate];
+    if (appDelegate.xCallbackSuccess && appDelegate.xCallbackSuccess != nil && appDelegate.xCallbackSuccess != (id)[NSNull null] && [appDelegate.xCallbackSuccess length] > 0) {
+        NSArray *components = [appDelegate.xCallbackSuccess componentsSeparatedByString:@":"];
+        if ([components count] > 0) {
+            self.measurementSession.source = [components objectAtIndex:0];
+        }
+        else {
+            self.measurementSession.source = appDelegate.xCallbackSuccess;
+        }
+    }
+    else {
+        self.measurementSession.source = @"vaavud";
+    }
     [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
     
     // create reference to MagneticField Data Manager and start
@@ -165,7 +178,7 @@
     }];
     
     vaavudAppDelegate *appDelegate = (vaavudAppDelegate *)[[UIApplication sharedApplication] delegate];
-    if (appDelegate.xCallbackSuccess && appDelegate.xCallbackSuccess != nil && appDelegate.xCallbackSuccess != (id)[NSNull null]) {
+    if (appDelegate.xCallbackSuccess && appDelegate.xCallbackSuccess != nil && appDelegate.xCallbackSuccess != (id)[NSNull null] && [appDelegate.xCallbackSuccess length] > 0) {
         
         NSLog(@"[VaavudCoreController] There is a pending x-success callback: %@", appDelegate.xCallbackSuccess);
         
