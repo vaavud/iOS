@@ -12,6 +12,8 @@
 #import "UUIDUtil.h"
 #import "UnitUtil.h"
 #import "sys/utsname.h"
+#import "MeasurementSession.h"
+#import "MeasurementPoint.h"
 
 @interface ModelManager() {
 
@@ -93,6 +95,9 @@ SHARED_INSTANCE
     
     // make sure nothing else get executed until changes are written to the database
     [[NSManagedObjectContext defaultContext] saveToPersistentStoreAndWait];
+    
+    NSLog(@"MeasurementSessions: %lu, MeasurementPoints: %lu", (unsigned long)[MeasurementSession countOfEntities], (unsigned long)[MeasurementPoint countOfEntities]);
+    
 }
 
 + (NSString*) getModel
