@@ -2,7 +2,7 @@
 //  MeasurementSession.h
 //  Vaavud
 //
-//  Created by Thomas Stilling Ambus on 11/07/2013.
+//  Created by Thomas Stilling Ambus on 13/09/2013.
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
@@ -19,13 +19,15 @@
 @property (nonatomic, retain) NSNumber * longitude;
 @property (nonatomic, retain) NSNumber * measuring;
 @property (nonatomic, retain) NSDate * startTime;
+@property (nonatomic, retain) NSNumber * timezoneOffset;
 @property (nonatomic, retain) NSNumber * uploaded;
-@property (nonatomic, retain) NSNumber * uploadedIndex;
+@property (nonatomic, retain) NSNumber * startIndex;
 @property (nonatomic, retain) NSString * uuid;
 @property (nonatomic, retain) NSNumber * windDirection;
 @property (nonatomic, retain) NSNumber * windSpeedAvg;
 @property (nonatomic, retain) NSNumber * windSpeedMax;
-@property (nonatomic, retain) NSNumber * timezoneOffset;
+@property (nonatomic, retain) NSNumber * endIndex;
+@property (nonatomic, retain) NSString * source;
 @property (nonatomic, retain) NSOrderedSet *points;
 @end
 

@@ -46,7 +46,6 @@
 		E99CFD8817DF5B0300DED985 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8417DF5B0300DED985 /* libTestFlight.a */; };
 		E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8917DF5BA600DED985 /* libz.dylib */; };
 		E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E99F8F70178EC5AD0090402C /* UnitUtil.m */; };
-		E99F8F77178F085F0090402C /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E99F8F76178F085F0090402C /* MeasurementSession.m */; };
 		E9B47A031794217200E8A82E /* Terms.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A021794217200E8A82E /* Terms.m */; };
 		E9B47A0A1794315100E8A82E /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A091794315100E8A82E /* TermsViewController.m */; };
 		E9B47A0E179599E500E8A82E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9B47A0D179599E500E8A82E /* Default-568h@2x.png */; };
@@ -91,6 +90,7 @@
 		E9CD2252177B2AEA0054ED3F /* MagicalRecord+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2234177B2AEA0054ED3F /* MagicalRecord+Setup.m */; };
 		E9CD2253177B2AEA0054ED3F /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2236177B2AEA0054ED3F /* MagicalRecord+ShorthandSupport.m */; };
 		E9CD2254177B2AEA0054ED3F /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2238177B2AEA0054ED3F /* MagicalRecord.m */; };
+		E9EBB99517E33DBB0086BE01 /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EBB99417E33DBB0086BE01 /* MeasurementSession.m */; };
 		E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */; };
 		E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9EE1FB8176A024B00D1F006 /* CoreData.framework */; };
 /* End PBXBuildFile section */
@@ -237,8 +237,6 @@
 		E99CFD8917DF5BA600DED985 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		E99F8F6F178EC5AD0090402C /* UnitUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitUtil.h; sourceTree = "<group>"; };
 		E99F8F70178EC5AD0090402C /* UnitUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitUtil.m; sourceTree = "<group>"; };
-		E99F8F75178F085F0090402C /* MeasurementSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSession.h; sourceTree = "<group>"; };
-		E99F8F76178F085F0090402C /* MeasurementSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSession.m; sourceTree = "<group>"; };
 		E9B47A011794217200E8A82E /* Terms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terms.h; sourceTree = "<group>"; };
 		E9B47A021794217200E8A82E /* Terms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terms.m; sourceTree = "<group>"; };
 		E9B47A081794315100E8A82E /* TermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
@@ -325,6 +323,9 @@
 		E9CD2238177B2AEA0054ED3F /* MagicalRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicalRecord.m; sourceTree = "<group>"; };
 		E9CD2239177B2AEA0054ED3F /* MagicalRecordShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalRecordShorthand.h; sourceTree = "<group>"; };
 		E9CD223A177B2AEA0054ED3F /* CoreData+MagicalRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MagicalRecord.h"; sourceTree = "<group>"; };
+		E9EBB98F17E33C660086BE01 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
+		E9EBB99317E33DBB0086BE01 /* MeasurementSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSession.h; sourceTree = "<group>"; };
+		E9EBB99417E33DBB0086BE01 /* MeasurementSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSession.m; sourceTree = "<group>"; };
 		E9EE1FA31769E54E00D1F006 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		E9EE1FAE1769F08400D1F006 /* SharedSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedSingleton.h; sourceTree = "<group>"; };
 		E9EE1FB8176A024B00D1F006 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -739,14 +740,14 @@
 		E9EE1FA61769EC9200D1F006 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				E9EBB99317E33DBB0086BE01 /* MeasurementSession.h */,
+				E9EBB99417E33DBB0086BE01 /* MeasurementSession.m */,
 				E93C86701781D727005E4212 /* MeasurementPoint+Util.h */,
 				E93C86711781D727005E4212 /* MeasurementPoint+Util.m */,
 				E995F0B6177C7A2A0011BF07 /* MeasurementPoint.h */,
 				E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */,
 				E93C866D1781D69A005E4212 /* MeasurementSession+Util.h */,
 				E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */,
-				E99F8F75178F085F0090402C /* MeasurementSession.h */,
-				E99F8F76178F085F0090402C /* MeasurementSession.m */,
 				E93C86611781C764005E4212 /* Property+Util.h */,
 				E93C86621781C764005E4212 /* Property+Util.m */,
 				E93C86671781C88B005E4212 /* Property.h */,
@@ -881,6 +882,7 @@
 				E9CD2245177B2AEA0054ED3F /* NSManagedObject+MagicalRecord.m in Sources */,
 				E9CD2246177B2AEA0054ED3F /* NSManagedObject+MagicalRequests.m in Sources */,
 				E9CD2247177B2AEA0054ED3F /* NSManagedObjectContext+MagicalObserving.m in Sources */,
+				E9EBB99517E33DBB0086BE01 /* MeasurementSession.m in Sources */,
 				E9CD2248177B2AEA0054ED3F /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				E9CD2249177B2AEA0054ED3F /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				E9CD224A177B2AEA0054ED3F /* NSManagedObjectContext+MagicalThreading.m in Sources */,
@@ -905,7 +907,6 @@
 				E93338F7178C561B006E2314 /* ModelManager.m in Sources */,
 				E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */,
 				E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */,
-				E99F8F77178F085F0090402C /* MeasurementSession.m in Sources */,
 				E9B47A031794217200E8A82E /* Terms.m in Sources */,
 				E9B47A0A1794315100E8A82E /* TermsViewController.m in Sources */,
 			);
@@ -1058,9 +1059,10 @@
 		E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				E9EBB98F17E33C660086BE01 /* Model 2.xcdatamodel */,
 				E9EE1FA31769E54E00D1F006 /* Model.xcdatamodel */,
 			);
-			currentVersion = E9EE1FA31769E54E00D1F006 /* Model.xcdatamodel */;
+			currentVersion = E9EBB98F17E33C660086BE01 /* Model 2.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

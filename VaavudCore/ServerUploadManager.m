@@ -170,7 +170,7 @@ SHARED_INSTANCE
                 }
             }
             
-            if ([measurementSession.uploadedIndex intValue] == [pointCount intValue]) {
+            if ([measurementSession.startIndex intValue] == [pointCount intValue]) {
 
                 if ([measurementSession.measuring boolValue] == NO) {
                     NSLog(@"[ServerUploadManager] Found MeasurementSession (%@) that is not measuring and has no new points, so setting it as uploaded", measurementSession.uuid);
@@ -195,7 +195,7 @@ SHARED_INSTANCE
                     self.consecutiveNetworkErrors = 0;
                     self.backoffWaitCount = 0;
                     
-                    measurementSession.uploadedIndex = pointCount;
+                    measurementSession.startIndex = pointCount;
 
                     if ([measurementSession.measuring boolValue] == NO) {
                         // since we're not measuring and got a successful reponse, we're done, so set as not uploading

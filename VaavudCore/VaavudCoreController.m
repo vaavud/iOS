@@ -137,7 +137,7 @@
     self.measurementSession.endTime = self.measurementSession.startTime;
     self.measurementSession.measuring = [NSNumber numberWithBool:YES];
     self.measurementSession.uploaded = [NSNumber numberWithBool:NO];
-    self.measurementSession.uploadedIndex = [NSNumber numberWithInt:0];
+    self.measurementSession.startIndex = [NSNumber numberWithInt:0];
     [self updateMeasurementSessionLocation];
     [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
     
