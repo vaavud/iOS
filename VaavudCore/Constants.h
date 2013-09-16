@@ -13,7 +13,7 @@
 #define FFTForEvery 3
 
 // Thresholds for isValid
-#define accelerationMaxForValid 0.2 // g acc/(9.82 m/s^2)
+#define accelerationMaxForValid 0.4 // g acc/(9.82 m/s^2)
 #define angularVelocityMaxForValid 0.4 // rad/s (maybe deg/s or another unit)
 #define orientationDeviationMaxForValid 0.63 // rad  (36) degrees
 #define FFTpeakMagnitudeMinForValid 5 // (abs(FFT(maxbin))
@@ -23,6 +23,23 @@
 
 // Only save every Nth measurement point - set to 1 to save all
 #define saveEveryNthPoint 10
+
+//
+static double const STANDARD_FREQUENCY_START = 0.238;
+static double const STANDARD_FREQUENCY_FACTOR = 1.07;
+
+static double const I4_FREQUENCY_START = 0.238;
+static double const I4_FREQUENCY_FACTOR = 1.16;
+
+static double const I5_FREQUENCY_START = 0.238;
+static double const I5_FREQYENCY_FACTOR = 1.04;
+
+static double const FQ40_FFT_LENGTH = 64;
+static double const FQ40_FFT_DATA_LENGTH = 50;
+
+static double const FQ60_FFT_LENGTH = 128;
+static double const FQ60_FFT_DATA_LENGTH = 80;
+
 
 //static NSString * const vaavudAPIBaseURLString = @"http://192.168.0.105:8080/";
 //static NSString * const vaavudAPIBaseURLString = @"http://10.117.1.63:8080/";

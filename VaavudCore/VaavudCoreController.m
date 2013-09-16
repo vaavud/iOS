@@ -56,7 +56,8 @@
 
 @property (nonatomic) int fftLength;
 @property (nonatomic) int fftDataLength;
-
+@property (nonatomic) double frequencyFactor;
+@property (nonatomic) double frequencyStart;
 
 - (void) updateIsValid;
 - (NSNumber *) getSampleFrequency;
@@ -75,25 +76,45 @@
     
     if (self)
     {
-        // Do initializing
-        if ([[Property getAsString:KEY_OS_VERSION] isEqualToString: @"6.1.4"]) {
-            self.fftLength = 64;
-            self.fftDataLength = 50;
-        }
-        else {
-            self.fftLength = 128;
-            self.fftDataLength = 80;
-        }
         
-        NSRange charRange = NSMakeRange(6, 1);
         
+        // Determine model
+        
+        NSRange charRange = NSMakeRange(0, 7);
         NSString* model = [Property getAsString:KEY_MODEL];
+        NSString* modelSubstring;
+        self.iPhone4Algo = NO;
         
-        if ([model length] > 6 && [[model substringWithRange:charRange] isEqualToString: @"4"]) {
+        if ([model length] >=7)
+            modelSubstring = [model substringWithRange:charRange];
+        
+        if ([modelSubstring isEqualToString: @"iPhone4"]) {
             self.iPhone4Algo = YES;
+            self.frequencyFactor = I4_FREQUENCY_FACTOR;
+            self.frequencyStart = I4_FREQUENCY_START;
+        }
+        else if ([modelSubstring isEqualToString: @"iPhone5"]) {
+            self.frequencyFactor = I5_FREQYENCY_FACTOR;
+            self.frequencyStart = I5_FREQUENCY_START;
         }
         else {
-            self.iPhone4Algo = NO;
+            self.frequencyFactor = STANDARD_FREQUENCY_FACTOR;
+            self.frequencyStart = STANDARD_FREQUENCY_START;
+        }
+        
+        // determine update frequency
+        //
+        NSComparisonResult res = [@"6.1.3" compare: [Property getAsString:KEY_OS_VERSION]];
+        
+        switch (res) {
+            case NSOrderedAscending: // iOS version above 6.1.3 has a lower update frequency
+                self.fftLength = FQ40_FFT_LENGTH;
+                self.fftDataLength = FQ40_FFT_DATA_LENGTH;
+                break;
+            default:
+                self.fftLength = FQ60_FFT_LENGTH;
+                self.fftDataLength = FQ60_FFT_DATA_LENGTH;
+                break;
         }
         
         self.FFTEngine = [[vaavudFFT alloc] initFFTLength: self.fftLength andFftDataLength: self.fftDataLength];
@@ -502,11 +523,7 @@
     // Corrected base on data from Windtunnel test Experiment26Aug2013Data.xlsx
     double windspeed;
     
-    if (self.iPhone4Algo) {
-        windspeed = 1.16 * frequency + 0.238;
-    } else {
-        windspeed = 1.04 * frequency + 0.238;
-    }
+    windspeed = self.frequencyFactor * frequency + self.frequencyStart;
     
     if (frequency > 17.65 && frequency < 28.87) {
         windspeed = windspeed + -0.068387 * pow((frequency - 23.2667), 2) + 2.153493;
