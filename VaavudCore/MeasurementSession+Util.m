@@ -15,7 +15,7 @@
 -(NSDictionary *) toDictionary {
     
     NSMutableDictionary *dictionary = [[self dictionaryWithValuesForKeys:[[[self entity] attributesByName] allKeys]] mutableCopy];
-    
+
     dictionary = [DictionarySerializationUtil convertValuesToBasicTypes:dictionary];
     
     if (self.timezoneOffset != nil && self.timezoneOffset != (id)[NSNull null]) {
@@ -32,14 +32,19 @@
     [dictionary removeObjectForKey:@"longitude"];
     
     // convert measurement points, if any
-    if (self.points && ([self.points count] > 0)) {
-        
-        NSMutableArray *pointsAsDictionaries = [NSMutableArray arrayWithCapacity:[self.points count]];
+    if (self.points && ([self.points count] > 0) && ([self.endIndex intValue] - [self.startIndex intValue]) > 0) {
+    
+        NSMutableArray *pointsAsDictionaries = [NSMutableArray arrayWithCapacity:([self.endIndex intValue] - [self.startIndex intValue])];
+        int index = 0;
         for (MeasurementPoint *point in self.points) {
             
-            // convert MeasurementPoint to NSDictionary
-            NSDictionary *pointDictionary = [point toDictionary];
-            [pointsAsDictionaries addObject:pointDictionary];
+            if (index >= [self.startIndex intValue] && index < [self.endIndex intValue]) {
+            
+                // convert MeasurementPoint to NSDictionary
+                NSDictionary *pointDictionary = [point toDictionary];
+                [pointsAsDictionaries addObject:pointDictionary];
+            }
+            index++;
         }
         
         [dictionary setObject:pointsAsDictionaries forKey:@"points"];
@@ -47,7 +52,7 @@
     else {
         [dictionary removeObjectForKey:@"points"];
     }
-    
+
     return dictionary;
 }
 

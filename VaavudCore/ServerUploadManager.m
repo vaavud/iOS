@@ -156,7 +156,7 @@ SHARED_INSTANCE
 
             NSNumber *pointCount = [NSNumber numberWithUnsignedInteger:[measurementSession.points count]];
 
-            //NSLog(@"[ServerUploadManager] Found non-uploaded MeasurementSession with uuid=%@, startTime=%@, endTime=%@, measuring=%@, uploadedIndex=%@, pointCount=%@", measurementSession.uuid, measurementSession.startTime, measurementSession.endTime, measurementSession.measuring, measurementSession.uploadedIndex, pointCount);
+            NSLog(@"[ServerUploadManager] Found non-uploaded MeasurementSession with uuid=%@, startTime=%@, startIndex=%@, endIndex=%@, pointCount=%@", measurementSession.uuid, measurementSession.startTime, measurementSession.startIndex, measurementSession.endIndex, pointCount);
 
             if ([measurementSession.measuring boolValue] == YES) {
                 
@@ -178,12 +178,16 @@ SHARED_INSTANCE
                     [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
                 }
                 else {
-                    //NSLog(@"[ServerUploadManager] Found MeasurementSession that is not uploaded, is still measuring, but has no new points, so skipping", [NSThread currentThread]);
+                    NSLog(@"[ServerUploadManager] Found MeasurementSession that is not uploaded, is still measuring, but has no new points, so skipping");
                 }
             }
             else {
                 
                 NSLog(@"[ServerUploadManager] Uploading MeasurementSession (%@)", measurementSession.uuid);
+                
+                NSNumber *newEndIndex = pointCount;
+                NSString *uuid = measurementSession.uuid;
+                measurementSession.endIndex = newEndIndex;
 
                 NSDictionary *parameters = [measurementSession toDictionary];
                 
@@ -195,13 +199,9 @@ SHARED_INSTANCE
                     self.consecutiveNetworkErrors = 0;
                     self.backoffWaitCount = 0;
                     
-                    measurementSession.startIndex = pointCount;
-
-                    if ([measurementSession.measuring boolValue] == NO) {
-                        // since we're not measuring and got a successful reponse, we're done, so set as not uploading
-                        NSLog(@"[ServerUploadManager] Setting MeasurementSession (%@) as uploaded", measurementSession.uuid);
-                        measurementSession.uploaded = [NSNumber numberWithBool:YES];
-                    }
+                    // lookup MeasurementSession again since it might have changed while uploading
+                    MeasurementSession *msession = [MeasurementSession findFirstByAttribute:@"uuid" withValue:uuid];
+                    msession.startIndex = newEndIndex;
                     [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
                     
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -217,7 +217,7 @@ SHARED_INSTANCE
                     }
                 }];
                 
-                // stop iterating since we did process a measurement session to ensure that we don't spam the server in case the user has a lot of unloaded measurement sessions
+                // stop iterating since we did process a measurement session to ensure that we don't spam the server in case the user has a lot of unuploaded measurement sessions
                 break;
             }
         }
