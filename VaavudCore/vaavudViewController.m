@@ -10,6 +10,7 @@
 #import "Property+Util.h"
 #import "UnitUtil.h"
 #import "TermsViewController.h"
+#import <math.h>
 
 @interface vaavudViewController ()
 
@@ -57,7 +58,7 @@
     
 }
 
-- (void)viewDidLoad  // FIRST METHOD CALLED (WHEN VIEW IS LOADED)
+- (void) viewDidLoad  // FIRST METHOD CALLED (WHEN VIEW IS LOADED)
 {
     [super viewDidLoad];
 
@@ -81,7 +82,6 @@
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
-    //[self.vaavudCoreController stop];
 }
 
 - (void) start {
@@ -102,15 +102,15 @@
     [self.graphHostView setupCorePlotGraph];
     
     [self.vaavudCoreController start];
-    self.TimerLabel         = [NSTimer scheduledTimerWithTimeInterval: 0.5 target: self selector: @selector(updateLabels) userInfo: nil repeats: YES];
+    self.TimerLabel = [NSTimer scheduledTimerWithTimeInterval: 0.5 target: self selector: @selector(updateLabels) userInfo: nil repeats: YES];
 }
 
 - (void) stop {
-
     [self.displayLinkGraphUI invalidate];
     [self.displayLinkGraphValues invalidate];
     [self.TimerLabel invalidate];
     [self.vaavudCoreController stop];
+    self.informationTextLabel.text = @"";
 }
 
 - (void) windSpeedMeasurementsAreValid: (BOOL) valid
@@ -121,7 +121,8 @@
         [self.displayLinkGraphUI        invalidate];
         [self.displayLinkGraphValues    invalidate];
 
-    } else {
+    }
+    else {
         [self.graphHostView createNewPlot];
         
         self.displayLinkGraphUI = [CADisplayLink displayLinkWithTarget:self.graphHostView selector:@selector(shiftGraphX)];
@@ -132,9 +133,7 @@
         
         [self.displayLinkGraphUI        addToRunLoop:       [NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
         [self.displayLinkGraphValues    addToRunLoop:       [NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
-
     }
-    
 }
 
 - (void) updateLabels {    
@@ -148,39 +147,50 @@
                 
         [self.statusBar setProgress: [[self.vaavudCoreController getProgress] floatValue]];
         
-    } else {
+    }
+    else {
         self.actualLabelCurrentValue = nil;
         
-        if (self.vaavudCoreController.dynamicsIsValid)
+        if (self.vaavudCoreController.dynamicsIsValid) {
             self.informationTextLabel.text = @"No signal";
-        else
+        }
+        else {
             self.informationTextLabel.text = @"Keep vertical & steady";
-
+        }
     }
 
     [self updateLabelsFromCurrentValues];
 }
 
 - (void) updateLabelsFromCurrentValues {
-    if (self.actualLabelCurrentValue != nil) {
-        self.actualLabel.text = [NSString stringWithFormat: @"%.1f", [UnitUtil displayWindSpeedFromDouble:[self.actualLabelCurrentValue doubleValue] unit:self.windSpeedUnit]];
+    if (self.actualLabelCurrentValue != nil && !isnan([self.actualLabelCurrentValue doubleValue])) {
+        self.actualLabel.text = [self formatValue:[UnitUtil displayWindSpeedFromDouble:[self.actualLabelCurrentValue doubleValue] unit:self.windSpeedUnit]];
     }
     else {
         self.actualLabel.text = @"-";
     }
     
-    if (self.averageLabelCurrentValue != nil) {
-        self.averageLabel.text = [NSString stringWithFormat: @"%.1f", [UnitUtil displayWindSpeedFromDouble:[self.averageLabelCurrentValue doubleValue] unit:self.windSpeedUnit]];
+    if (self.averageLabelCurrentValue != nil && !isnan([self.averageLabelCurrentValue doubleValue])) {
+        self.averageLabel.text = [self formatValue:[UnitUtil displayWindSpeedFromDouble:[self.averageLabelCurrentValue doubleValue] unit:self.windSpeedUnit]];
     }
     else {
         self.averageLabel.text = @"-";
     }
     
-    if (self.maxLabelCurrentValue != nil) {
-        self.maxLabel.text = [NSString stringWithFormat: @"%.1f", [UnitUtil displayWindSpeedFromDouble:[self.maxLabelCurrentValue doubleValue] unit:self.windSpeedUnit]];
+    if (self.maxLabelCurrentValue != nil && !isnan([self.maxLabelCurrentValue doubleValue])) {
+        self.maxLabel.text = [self formatValue:[UnitUtil displayWindSpeedFromDouble:[self.maxLabelCurrentValue doubleValue] unit:self.windSpeedUnit]];
     }
     else {
         self.maxLabel.text = @"-";
+    }
+}
+
+- (NSString*) formatValue:(double) value {
+    if (value > 100.0) {
+        return [NSString stringWithFormat: @"%.0f", value];
+    }
+    else {
+        return [NSString stringWithFormat: @"%.1f", value];
     }
 }
 
