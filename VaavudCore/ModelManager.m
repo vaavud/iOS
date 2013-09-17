@@ -14,6 +14,7 @@
 #import "sys/utsname.h"
 #import "MeasurementSession.h"
 #import "MeasurementPoint.h"
+#import "AlgorithmConstantsUtil.h"
 
 @interface ModelManager() {
 
@@ -57,7 +58,6 @@ SHARED_INSTANCE
 	NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
 
     NSLog(@"[ModelManager] app:%@, appVersion:%@, appBuild:%@, os:%@, osVersion:%@, model:%@, deviceUuid:%@, countryCode:%@, language:%@", app, appVersion, appBuild, os, osVersion, model, deviceUuid, country, language);
-    
 
     // detect changes and optionally save
     
@@ -91,6 +91,16 @@ SHARED_INSTANCE
         NSNumber* windSpeedUnit = [NSNumber numberWithInt:[UnitUtil windSpeedUnitForCountry:country]];
         NSLog(@"[ModelManager] No wind speed unit, guessing the preferred unit to be: %@", windSpeedUnit);
         [Property setAsInteger:windSpeedUnit forKey:KEY_WIND_SPEED_UNIT];
+    }
+    
+    if ([Property getAsDouble:KEY_FREQUENCY_START] == nil) {
+        // this must be the first time, since frequency start (and related properties) are not set
+        [Property setAsDouble:[AlgorithmConstantsUtil getFrequencyStart:model osVersion:osVersion] forKey:KEY_FREQUENCY_START];
+        [Property setAsDouble:[AlgorithmConstantsUtil getFrequencyFactor:model osVersion:osVersion] forKey:KEY_FREQUENCY_FACTOR];
+        [Property setAsInteger:[AlgorithmConstantsUtil getFFTLength:model osVersion:osVersion] forKey:KEY_FFT_LENGTH];
+        [Property setAsInteger:[AlgorithmConstantsUtil getFFTDataLength:model osVersion:osVersion] forKey:KEY_FFT_DATA_LENGTH];
+        [Property setAsInteger:[AlgorithmConstantsUtil getAlgorithm:model osVersion:osVersion] forKey:KEY_ALGORITHM];
+        NSLog(@"[ModelManager] Setting algorithm parameters from local detection: algorithm=%@, frequencyStart=%@, frequencyFactor=%@, fftLength=%@, fftDataLength=%@", [Property getAsInteger:KEY_ALGORITHM], [Property getAsDouble:KEY_FREQUENCY_START], [Property getAsDouble:KEY_FREQUENCY_FACTOR], [Property getAsInteger:KEY_FFT_LENGTH], [Property getAsInteger:KEY_FFT_DATA_LENGTH]);
     }
     
     // make sure nothing else get executed until changes are written to the database

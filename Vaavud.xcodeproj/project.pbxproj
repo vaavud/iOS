@@ -90,6 +90,7 @@
 		E9CD2252177B2AEA0054ED3F /* MagicalRecord+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2234177B2AEA0054ED3F /* MagicalRecord+Setup.m */; };
 		E9CD2253177B2AEA0054ED3F /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2236177B2AEA0054ED3F /* MagicalRecord+ShorthandSupport.m */; };
 		E9CD2254177B2AEA0054ED3F /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2238177B2AEA0054ED3F /* MagicalRecord.m */; };
+		E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */; };
 		E9EBB99517E33DBB0086BE01 /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EBB99417E33DBB0086BE01 /* MeasurementSession.m */; };
 		E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */; };
 		E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9EE1FB8176A024B00D1F006 /* CoreData.framework */; };
@@ -323,7 +324,9 @@
 		E9CD2238177B2AEA0054ED3F /* MagicalRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicalRecord.m; sourceTree = "<group>"; };
 		E9CD2239177B2AEA0054ED3F /* MagicalRecordShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalRecordShorthand.h; sourceTree = "<group>"; };
 		E9CD223A177B2AEA0054ED3F /* CoreData+MagicalRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MagicalRecord.h"; sourceTree = "<group>"; };
-		E9EBB98F17E33C660086BE01 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
+		E9EB5E8F17E84E4D00B02CE1 /* AlgorithmConstantsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlgorithmConstantsUtil.h; sourceTree = "<group>"; };
+		E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlgorithmConstantsUtil.m; sourceTree = "<group>"; };
+		E9EBB98F17E33C660086BE01 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 		E9EBB99317E33DBB0086BE01 /* MeasurementSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSession.h; sourceTree = "<group>"; };
 		E9EBB99417E33DBB0086BE01 /* MeasurementSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSession.m; sourceTree = "<group>"; };
 		E9EE1FA31769E54E00D1F006 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -770,6 +773,8 @@
 				E99F8F70178EC5AD0090402C /* UnitUtil.m */,
 				E94CBB5C177DB3050089D440 /* UUIDUtil.h */,
 				E94CBB5D177DB3050089D440 /* UUIDUtil.m */,
+				E9EB5E8F17E84E4D00B02CE1 /* AlgorithmConstantsUtil.h */,
+				E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -901,6 +906,7 @@
 				E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */,
 				E93C865A1781BE56005E4212 /* LocationManager.m in Sources */,
 				E93C86631781C764005E4212 /* Property+Util.m in Sources */,
+				E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */,
 				E93C86691781C88B005E4212 /* Property.m in Sources */,
 				E93C866F1781D69A005E4212 /* MeasurementSession+Util.m in Sources */,
 				E93C86721781D727005E4212 /* MeasurementPoint+Util.m in Sources */,

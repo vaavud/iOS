@@ -70,54 +70,19 @@
 
 // Public methods
 
-- (id) init
-{
+- (id) init {
     self = [super init];
     
-    if (self)
-    {
-        
-        
-        // Determine model
-        
-        NSRange charRange = NSMakeRange(0, 7);
-        NSString* model = [Property getAsString:KEY_MODEL];
-        NSString* modelSubstring;
-        self.iPhone4Algo = NO;
-        
-        if ([model length] >=7)
-            modelSubstring = [model substringWithRange:charRange];
-        
-        if ([modelSubstring isEqualToString: @"iPhone4"]) {
-            self.iPhone4Algo = YES;
-            self.frequencyFactor = I4_FREQUENCY_FACTOR;
-            self.frequencyStart = I4_FREQUENCY_START;
-        }
-        else if ([modelSubstring isEqualToString: @"iPhone5"]) {
-            self.frequencyFactor = I5_FREQYENCY_FACTOR;
-            self.frequencyStart = I5_FREQUENCY_START;
-        }
-        else {
-            self.frequencyFactor = STANDARD_FREQUENCY_FACTOR;
-            self.frequencyStart = STANDARD_FREQUENCY_START;
-        }
-        
-        // determine update frequency
-        //
-        NSComparisonResult res = [@"6.1.3" compare: [Property getAsString:KEY_OS_VERSION]];
-        
-        switch (res) {
-            case NSOrderedAscending: // iOS version above 6.1.3 has a lower update frequency
-                self.fftLength = FQ40_FFT_LENGTH;
-                self.fftDataLength = FQ40_FFT_DATA_LENGTH;
-                break;
-            default:
-                self.fftLength = FQ60_FFT_LENGTH;
-                self.fftDataLength = FQ60_FFT_DATA_LENGTH;
-                break;
-        }
-        
+    if (self) {
+        self.iPhone4Algo = ([[Property getAsInteger:KEY_ALGORITHM] intValue] == ALGORITHM_IPHONE4);
+        self.frequencyStart = [[Property getAsDouble:KEY_FREQUENCY_START] doubleValue];
+        self.frequencyFactor = [[Property getAsDouble:KEY_FREQUENCY_FACTOR] doubleValue];
+        self.fftLength = [[Property getAsInteger:KEY_FFT_LENGTH] intValue];
+        self.fftDataLength = [[Property getAsInteger:KEY_FFT_DATA_LENGTH] intValue];
         self.FFTEngine = [[vaavudFFT alloc] initFFTLength: self.fftLength andFftDataLength: self.fftDataLength];
+        
+        NSLog(@"[VaavudCoreController] Using algorithm parameters: iPhone4Algo=%hhd, frequencyStart=%f, frequencyFactor=%f, fftLength=%d, fftDataLength=%d", self.iPhone4Algo, self.frequencyStart, self.frequencyFactor, self.fftLength, self.fftDataLength);
+
     }
     
     return self;

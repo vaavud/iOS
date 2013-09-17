@@ -20,6 +20,11 @@ static NSString * const KEY_COUNTRY = @"country";
 static NSString * const KEY_LANGUAGE = @"language";
 static NSString * const KEY_WIND_SPEED_UNIT = @"windSpeedUnit";
 static NSString * const KEY_HAS_PROMPTED_FOR_LOCATION = @"hasPromptedForLocation";
+static NSString * const KEY_FREQUENCY_START = @"frequencyStart";
+static NSString * const KEY_FREQUENCY_FACTOR = @"frequencyFactor";
+static NSString * const KEY_FFT_LENGTH = @"fftLength";
+static NSString * const KEY_FFT_DATA_LENGTH = @"fftDataLength";
+static NSString * const KEY_ALGORITHM = @"algorithm";
 
 @interface Property (Util)
 
@@ -29,11 +34,15 @@ static NSString * const KEY_HAS_PROMPTED_FOR_LOCATION = @"hasPromptedForLocation
 
 + (NSNumber*) getAsInteger:(NSString*) name;
 
++ (NSNumber*) getAsDouble:(NSString*) name;
+
 + (void) setAsString:(NSString*) value forKey:(NSString*) name;
 
 + (void) setAsBoolean:(BOOL) value forKey:(NSString*) name;
 
 + (void) setAsInteger:(NSNumber*) value forKey:(NSString*) name;
+
++ (void) setAsDouble:(NSNumber*) value forKey:(NSString*) name;
 
 + (NSDictionary *) getDeviceDictionary;
 

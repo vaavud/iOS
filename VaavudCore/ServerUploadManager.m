@@ -17,6 +17,7 @@
 #import "VaavudAPIHTTPClient.h"
 #import "Property+Util.h"
 #import "AFHTTPRequestOperation.h"
+#import "AlgorithmConstantsUtil.h"
 
 @interface ServerUploadManager () {
 }
@@ -254,6 +255,43 @@ SHARED_INSTANCE
             NSLog(@"[ServerUploadManager] Got no authToken");
         }
         
+        // set algorithm parameters
+        BOOL hasSetParameters = NO;
+        
+        NSString *algorithm = [responseObject objectForKey:@"algorithm"];
+        if (algorithm && algorithm != nil && algorithm != (id)[NSNull null] && ([algorithm length] > 0)) {
+            [Property setAsInteger:[AlgorithmConstantsUtil getAlgorithmFromString:algorithm] forKey:KEY_ALGORITHM];
+            hasSetParameters = YES;
+        }
+        
+        NSNumber *frequencyStart = [self doubleValue:responseObject forKey:@"frequencyStart"];
+        if (frequencyStart != nil) {
+            [Property setAsDouble:frequencyStart forKey:KEY_FREQUENCY_START];
+            hasSetParameters = YES;
+        }
+
+        NSNumber *frequencyFactor = [self doubleValue:responseObject forKey:@"frequencyFactor"];
+        if (frequencyFactor != nil) {
+            [Property setAsDouble:frequencyFactor forKey:KEY_FREQUENCY_FACTOR];
+            hasSetParameters = YES;
+        }
+
+        NSNumber *fftLength = [self integerValue:responseObject forKey:@"fftLength"];
+        if (fftLength != nil) {
+            [Property setAsInteger:fftLength forKey:KEY_FFT_LENGTH];
+            hasSetParameters = YES;
+        }
+
+        NSNumber *fftDataLength = [self integerValue:responseObject forKey:@"fftDataLength"];
+        if (fftDataLength != nil) {
+            [Property setAsInteger:fftDataLength forKey:KEY_FFT_DATA_LENGTH];
+            hasSetParameters = YES;
+        }
+
+        if (hasSetParameters) {
+            NSLog(@"[ServerUploadManager] Setting algorithm parameters from server: algorithm=%@, frequencyStart=%@, frequencyFactor=%@, fftLength=%@, fftDataLength=%@", [Property getAsInteger:KEY_ALGORITHM], [Property getAsDouble:KEY_FREQUENCY_START], [Property getAsDouble:KEY_FREQUENCY_FACTOR], [Property getAsInteger:KEY_FFT_LENGTH], [Property getAsInteger:KEY_FFT_DATA_LENGTH]);
+        }
+        
         // only trigger upload once we get OK from server for registering device, otherwise the device could be unregistered when uploading
         [self triggerUpload];
 
@@ -262,7 +300,22 @@ SHARED_INSTANCE
         self.hasRegisteredDevice = NO;
         self.consecutiveNetworkErrors++;
     }];
+}
 
+-(NSNumber*) doubleValue:(id) responseObject forKey:(NSString*) key {
+    NSString *value = [responseObject objectForKey:key];
+    if (value && value != nil && value != (id)[NSNull null] && ([value length] > 0)) {
+        return [NSNumber numberWithDouble:[value doubleValue]];
+    }
+    return nil;
+}
+
+-(NSNumber*) integerValue:(id) responseObject forKey:(NSString*) key {
+    NSString *value = [responseObject objectForKey:key];
+    if (value && value != nil && value != (id)[NSNull null] && ([value length] > 0)) {
+        return [NSNumber numberWithInt:[value doubleValue]];
+    }
+    return nil;
 }
 
 @end

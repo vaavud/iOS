@@ -26,13 +26,20 @@
     return [value isEqualToString:@"1"];
 }
 
-
 + (NSNumber*) getAsInteger:(NSString*) name {
     NSString* value = [self getAsString:name];
     if (value == nil) {
         return nil;
     }
     return [NSNumber numberWithInt:[value integerValue]];
+}
+
++ (NSNumber*) getAsDouble:(NSString*) name {
+    NSString* value = [self getAsString:name];
+    if (value == nil) {
+        return nil;
+    }
+    return [NSNumber numberWithDouble:[value doubleValue]];
 }
 
 + (void) setAsString:(NSString *)value forKey:(NSString*)name {
@@ -50,6 +57,10 @@
 }
 
 + (void) setAsInteger:(NSNumber*) value forKey:(NSString*) name {
+    [self setAsString:[value stringValue] forKey:name];
+}
+
++ (void) setAsDouble:(NSNumber*) value forKey:(NSString*) name {
     [self setAsString:[value stringValue] forKey:name];
 }
 
