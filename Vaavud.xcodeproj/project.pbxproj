@@ -808,6 +808,11 @@
 				CLASSPREFIX = vaavud;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = "Andreas Okholm";
+				TargetAttributes = {
+					D7A4F1C6173A8DDB00D1ACEE = {
+						DevelopmentTeam = X5DMTGX3GW;
+					};
+				};
 			};
 			buildConfigurationList = D7A4F1C2173A8DDB00D1ACEE /* Build configuration list for PBXProject "Vaavud" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1000,6 +1005,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
@@ -1021,6 +1027,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";

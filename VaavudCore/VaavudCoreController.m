@@ -453,7 +453,9 @@
     
     double timedifference = [[self.sharedMagneticFieldDataManager.magneticFieldReadingsTime lastObject] doubleValue] - [[self.sharedMagneticFieldDataManager.magneticFieldReadingsTime objectAtIndex:0] doubleValue];
     
-    return [NSNumber numberWithDouble: (double) (self.magneticFieldUpdatesCounter-1) / timedifference];
+    NSNumber* n = [NSNumber numberWithDouble: (double) (self.magneticFieldUpdatesCounter-1) / timedifference];
+    //NSLog(@"freq=%@", n);
+    return n;
 }
 
 

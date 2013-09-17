@@ -44,5 +44,5 @@ static int const FQ60_FFT_DATA_LENGTH = 80;
 
 
 //static NSString * const vaavudAPIBaseURLString = @"http://192.168.0.105:8080/";
-static NSString * const vaavudAPIBaseURLString = @"http://10.117.1.63:8080/";
-//static NSString * const vaavudAPIBaseURLString = @"https://mobile-api.vaavud.com/";
+//static NSString * const vaavudAPIBaseURLString = @"http://10.117.1.63:8080/";
+static NSString * const vaavudAPIBaseURLString = @"https://mobile-api.vaavud.com/";
