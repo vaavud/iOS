@@ -14,6 +14,10 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
+				<string>VaavudIcon80</string>
+				<string>VaavudIcon58</string>
+				<string>VaavudIcon29</string>
+				<string>VaavudIcon120</string>
 				<string>VaavudIcon114.png</string>
 				<string>VaavudIcon57.png</string>
 			</array>
@@ -51,6 +55,31 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Arkitech Medium.ttf</string>
+	</array>
+	<key>UILaunchImageFile</key>
+	<string>Default</string>
+	<key>UILaunchImages</key>
+	<array>
+		<dict>
+			<key>UILaunchImageMinimumOSVersion</key>
+			<string>7.0</string>
+			<key>UILaunchImageName</key>
+			<string>VaavudLaunchImageRetinaIOS7</string>
+			<key>UILaunchImageOrientation</key>
+			<string>Portrait</string>
+			<key>UILaunchImageSize</key>
+			<string>{320, 480}</string>
+		</dict>
+		<dict>
+			<key>UILaunchImageMinimumOSVersion</key>
+			<string>7.0</string>
+			<key>UILaunchImageName</key>
+			<string>VaavudLaunchImageRetina4InchIOS7</string>
+			<key>UILaunchImageOrientation</key>
+			<string>Portrait</string>
+			<key>UILaunchImageSize</key>
+			<string>{320, 568}</string>
+		</dict>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>MainStoryboard</string>

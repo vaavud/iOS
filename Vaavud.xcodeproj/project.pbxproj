@@ -48,9 +48,6 @@
 		E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E99F8F70178EC5AD0090402C /* UnitUtil.m */; };
 		E9B47A031794217200E8A82E /* Terms.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A021794217200E8A82E /* Terms.m */; };
 		E9B47A0A1794315100E8A82E /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A091794315100E8A82E /* TermsViewController.m */; };
-		E9B47A0E179599E500E8A82E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9B47A0D179599E500E8A82E /* Default-568h@2x.png */; };
-		E9B47A1417959AFB00E8A82E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E9B47A1317959AFB00E8A82E /* Default.png */; };
-		E9B47A1517959F3600E8A82E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9B47A1117959AC900E8A82E /* Default@2x.png */; };
 		E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627AF17708E63004678D5 /* AFHTTPClient.m */; };
 		E9B627C217708E63004678D5 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B117708E63004678D5 /* AFHTTPRequestOperation.m */; };
 		E9B627C317708E63004678D5 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B317708E63004678D5 /* AFImageRequestOperation.m */; };
@@ -91,6 +88,15 @@
 		E9CD2253177B2AEA0054ED3F /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2236177B2AEA0054ED3F /* MagicalRecord+ShorthandSupport.m */; };
 		E9CD2254177B2AEA0054ED3F /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2238177B2AEA0054ED3F /* MagicalRecord.m */; };
 		E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */; };
+		E9EB5E9317E9A3A500B02CE1 /* VaavudIcon120.png in Resources */ = {isa = PBXBuildFile; fileRef = E9EB5E9217E9A3A500B02CE1 /* VaavudIcon120.png */; };
+		E9EB5E9717E9B22600B02CE1 /* VaavudIcon29.png in Resources */ = {isa = PBXBuildFile; fileRef = E9EB5E9417E9B22600B02CE1 /* VaavudIcon29.png */; };
+		E9EB5E9817E9B22600B02CE1 /* VaavudIcon58.png in Resources */ = {isa = PBXBuildFile; fileRef = E9EB5E9517E9B22600B02CE1 /* VaavudIcon58.png */; };
+		E9EB5E9917E9B22600B02CE1 /* VaavudIcon80.png in Resources */ = {isa = PBXBuildFile; fileRef = E9EB5E9617E9B22600B02CE1 /* VaavudIcon80.png */; };
+		E9EB5E9B17E9B64F00B02CE1 /* VaavudLaunchImageRetina4InchIOS7.png in Resources */ = {isa = PBXBuildFile; fileRef = E9EB5E9A17E9B64F00B02CE1 /* VaavudLaunchImageRetina4InchIOS7.png */; };
+		E9EB5E9D17E9B77900B02CE1 /* VaavudLaunchImageRetinaIOS7.png in Resources */ = {isa = PBXBuildFile; fileRef = E9EB5E9C17E9B77900B02CE1 /* VaavudLaunchImageRetinaIOS7.png */; };
+		E9EB5E9F17E9BDAE00B02CE1 /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = E9EB5E9E17E9BDAE00B02CE1 /* Default-568h@2x~iphone.png */; };
+		E9EB5EA117E9BE7800B02CE1 /* Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = E9EB5EA017E9BE7800B02CE1 /* Default@2x~iphone.png */; };
+		E9EB5EA317E9BF7900B02CE1 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E9EB5EA217E9BF7900B02CE1 /* Default.png */; };
 		E9EBB99517E33DBB0086BE01 /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EBB99417E33DBB0086BE01 /* MeasurementSession.m */; };
 		E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */; };
 		E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9EE1FB8176A024B00D1F006 /* CoreData.framework */; };
@@ -242,9 +248,6 @@
 		E9B47A021794217200E8A82E /* Terms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terms.m; sourceTree = "<group>"; };
 		E9B47A081794315100E8A82E /* TermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
 		E9B47A091794315100E8A82E /* TermsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsViewController.m; sourceTree = "<group>"; };
-		E9B47A0D179599E500E8A82E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
-		E9B47A1117959AC900E8A82E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
-		E9B47A1317959AFB00E8A82E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		E9B627AE17708E63004678D5 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		E9B627AF17708E63004678D5 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		E9B627B017708E63004678D5 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -326,6 +329,15 @@
 		E9CD223A177B2AEA0054ED3F /* CoreData+MagicalRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MagicalRecord.h"; sourceTree = "<group>"; };
 		E9EB5E8F17E84E4D00B02CE1 /* AlgorithmConstantsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlgorithmConstantsUtil.h; sourceTree = "<group>"; };
 		E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlgorithmConstantsUtil.m; sourceTree = "<group>"; };
+		E9EB5E9217E9A3A500B02CE1 /* VaavudIcon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon120.png; sourceTree = "<group>"; };
+		E9EB5E9417E9B22600B02CE1 /* VaavudIcon29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon29.png; sourceTree = "<group>"; };
+		E9EB5E9517E9B22600B02CE1 /* VaavudIcon58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon58.png; sourceTree = "<group>"; };
+		E9EB5E9617E9B22600B02CE1 /* VaavudIcon80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon80.png; sourceTree = "<group>"; };
+		E9EB5E9A17E9B64F00B02CE1 /* VaavudLaunchImageRetina4InchIOS7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudLaunchImageRetina4InchIOS7.png; sourceTree = "<group>"; };
+		E9EB5E9C17E9B77900B02CE1 /* VaavudLaunchImageRetinaIOS7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudLaunchImageRetinaIOS7.png; sourceTree = "<group>"; };
+		E9EB5E9E17E9BDAE00B02CE1 /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
+		E9EB5EA017E9BE7800B02CE1 /* Default@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~iphone.png"; sourceTree = "<group>"; };
+		E9EB5EA217E9BF7900B02CE1 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		E9EBB98F17E33C660086BE01 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 		E9EBB99317E33DBB0086BE01 /* MeasurementSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSession.h; sourceTree = "<group>"; };
 		E9EBB99417E33DBB0086BE01 /* MeasurementSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSession.m; sourceTree = "<group>"; };
@@ -510,9 +522,6 @@
 		D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E9B47A1317959AFB00E8A82E /* Default.png */,
-				E9B47A1117959AC900E8A82E /* Default@2x.png */,
-				E9B47A0D179599E500E8A82E /* Default-568h@2x.png */,
 				D7409DA61769C1A900890CC9 /* startButton.png */,
 				D7409DA71769C1A900890CC9 /* startButton@2x.png */,
 				D7409DA81769C1A900890CC9 /* stopButton.png */,
@@ -562,8 +571,17 @@
 		E98853C7176868BE00F78128 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				D70241841746D7F6008954FD /* VaavudIcon57.png */,
+				E9EB5EA217E9BF7900B02CE1 /* Default.png */,
+				E9EB5EA017E9BE7800B02CE1 /* Default@2x~iphone.png */,
+				E9EB5E9E17E9BDAE00B02CE1 /* Default-568h@2x~iphone.png */,
+				E9EB5E9C17E9B77900B02CE1 /* VaavudLaunchImageRetinaIOS7.png */,
+				E9EB5E9A17E9B64F00B02CE1 /* VaavudLaunchImageRetina4InchIOS7.png */,
+				E9EB5E9417E9B22600B02CE1 /* VaavudIcon29.png */,
+				E9EB5E9517E9B22600B02CE1 /* VaavudIcon58.png */,
+				E9EB5E9617E9B22600B02CE1 /* VaavudIcon80.png */,
 				D70241821746D7F1008954FD /* VaavudIcon114.png */,
+				E9EB5E9217E9A3A500B02CE1 /* VaavudIcon120.png */,
+				D70241841746D7F6008954FD /* VaavudIcon57.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -836,19 +854,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9EB5E9817E9B22600B02CE1 /* VaavudIcon58.png in Resources */,
 				D7A4F1D5173A8DDB00D1ACEE /* InfoPlist.strings in Resources */,
 				D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */,
+				E9EB5E9B17E9B64F00B02CE1 /* VaavudLaunchImageRetina4InchIOS7.png in Resources */,
 				D70241831746D7F1008954FD /* VaavudIcon114.png in Resources */,
 				D70241851746D7F6008954FD /* VaavudIcon57.png in Resources */,
 				D7B5BD4B17574E8C0069F739 /* VaavudTransparent100px.png in Resources */,
 				D7B5BD4D17574E970069F739 /* VaavudTransparent100px@2x.png in Resources */,
+				E9EB5E9917E9B22600B02CE1 /* VaavudIcon80.png in Resources */,
 				D7409DAA1769C1A900890CC9 /* startButton.png in Resources */,
+				E9EB5E9F17E9BDAE00B02CE1 /* Default-568h@2x~iphone.png in Resources */,
+				E9EB5E9317E9A3A500B02CE1 /* VaavudIcon120.png in Resources */,
 				D7409DAB1769C1A900890CC9 /* startButton@2x.png in Resources */,
 				D7409DAC1769C1A900890CC9 /* stopButton.png in Resources */,
 				D7409DAD1769C1A900890CC9 /* stopButton@2x.png in Resources */,
-				E9B47A0E179599E500E8A82E /* Default-568h@2x.png in Resources */,
-				E9B47A1417959AFB00E8A82E /* Default.png in Resources */,
-				E9B47A1517959F3600E8A82E /* Default@2x.png in Resources */,
+				E9EB5E9717E9B22600B02CE1 /* VaavudIcon29.png in Resources */,
+				E9EB5E9D17E9B77900B02CE1 /* VaavudLaunchImageRetinaIOS7.png in Resources */,
+				E9EB5EA317E9BF7900B02CE1 /* Default.png in Resources */,
+				E9EB5EA117E9BE7800B02CE1 /* Default@2x~iphone.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
