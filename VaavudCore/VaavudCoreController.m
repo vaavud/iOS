@@ -451,11 +451,11 @@
 
 - (NSNumber *) getSampleFrequency {
     
-    double timedifference = [[self.sharedMagneticFieldDataManager.magneticFieldReadingsTime lastObject] doubleValue] - [[self.sharedMagneticFieldDataManager.magneticFieldReadingsTime objectAtIndex:0] doubleValue];
+    double timedifference = [[self.sharedMagneticFieldDataManager.magneticFieldReadingsTime lastObject] doubleValue];
     
-    NSNumber* n = [NSNumber numberWithDouble: (double) (self.magneticFieldUpdatesCounter-1) / timedifference];
+    NSNumber* sampleFrequency = [NSNumber numberWithDouble: (double) (self.magneticFieldUpdatesCounter-1) / timedifference];
     //NSLog(@"freq=%@", n);
-    return n;
+    return sampleFrequency;
 }
 
 
