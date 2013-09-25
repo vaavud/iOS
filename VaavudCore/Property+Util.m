@@ -12,7 +12,7 @@
 @implementation Property (Util)
 
 + (NSString*) getAsString:(NSString *)name {
-    Property *property = [Property findFirstByAttribute:@"name" withValue:name];
+    Property *property = [Property MR_findFirstByAttribute:@"name" withValue:name];
     if (property && property.value != (id)[NSNull null]) {
         return property.value;
     }
@@ -43,13 +43,13 @@
 }
 
 + (void) setAsString:(NSString *)value forKey:(NSString*)name {
-    Property *property = [Property findFirstByAttribute:@"name" withValue:name];
+    Property *property = [Property MR_findFirstByAttribute:@"name" withValue:name];
     if (!property) {
-        property = [Property createEntity];
+        property = [Property MR_createEntity];
         property.name = name;
     }
     property.value = value;
-    [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
 }
 
 + (void) setAsBoolean:(BOOL)value forKey:(NSString *)name {

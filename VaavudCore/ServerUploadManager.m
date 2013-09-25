@@ -147,7 +147,7 @@ SHARED_INSTANCE
         return;
     }
     
-    NSArray *unuploadedMeasurementSessions = [MeasurementSession findByAttribute:@"uploaded" withValue:[NSNumber numberWithBool:NO]];
+    NSArray *unuploadedMeasurementSessions = [MeasurementSession MR_findByAttribute:@"uploaded" withValue:[NSNumber numberWithBool:NO]];
 
     if (unuploadedMeasurementSessions && [unuploadedMeasurementSessions count] > 0) {
         
@@ -167,7 +167,7 @@ SHARED_INSTANCE
                     //NSLog(@"[ServerUploadManager] Found old MeasurementSession (%@) that is still measuring - setting it to not measuring", measurementSession.uuid);
                     // TODO: we ought to force the controller to stop if it is still in started mode. Or should we remove this altogether?
                     measurementSession.measuring = [NSNumber numberWithBool:NO];
-                    [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
+                    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
                 }
             }
             
@@ -176,7 +176,7 @@ SHARED_INSTANCE
                 if ([measurementSession.measuring boolValue] == NO) {
                     //NSLog(@"[ServerUploadManager] Found MeasurementSession (%@) that is not measuring and has no new points, so setting it as uploaded", measurementSession.uuid);
                     measurementSession.uploaded = [NSNumber numberWithBool:YES];
-                    [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
+                    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
                 }
                 else {
                     //NSLog(@"[ServerUploadManager] Found MeasurementSession that is not uploaded, is still measuring, but has no new points, so skipping");
@@ -201,9 +201,9 @@ SHARED_INSTANCE
                     self.backoffWaitCount = 0;
                     
                     // lookup MeasurementSession again since it might have changed while uploading
-                    MeasurementSession *msession = [MeasurementSession findFirstByAttribute:@"uuid" withValue:uuid];
+                    MeasurementSession *msession = [MeasurementSession MR_findFirstByAttribute:@"uuid" withValue:uuid];
                     msession.startIndex = newEndIndex;
-                    [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
+                    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
                     
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     long statusCode = (long)operation.response.statusCode;

@@ -114,16 +114,16 @@
     if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
         self.upsideDown = YES;
 
-    NSArray *measuringMeasurementSessions = [MeasurementSession findByAttribute:@"measuring" withValue:[NSNumber numberWithBool:YES]];
+    NSArray *measuringMeasurementSessions = [MeasurementSession MR_findByAttribute:@"measuring" withValue:[NSNumber numberWithBool:YES]];
     if (measuringMeasurementSessions && [measuringMeasurementSessions count] > 0) {
         for (MeasurementSession *measurementSession in measuringMeasurementSessions) {
             measurementSession.measuring = [NSNumber numberWithBool:NO];
         }
-        [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
+        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
     }
     
     // create new MeasurementSession and save it in the database
-    MeasurementSession *measurementSession = [MeasurementSession createEntity];
+    MeasurementSession *measurementSession = [MeasurementSession MR_createEntity];
     measurementSession.uuid = [UUIDUtil generateUUID];
     measurementSession.device = [Property getAsString:KEY_DEVICE_UUID];
     measurementSession.startTime = [NSDate date];
@@ -147,7 +147,7 @@
         measurementSession.source = @"vaavud";
     }
     self.measurementSessionUUID = measurementSession.uuid;
-    [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
     
     // create reference to MagneticField Data Manager and start
     self.sharedMagneticFieldDataManager = [VaavudMagneticFieldDataManager sharedMagneticFieldDataManager];
@@ -167,7 +167,7 @@
 
     MeasurementSession *measurementSession = [self getActiveMeasurementSession];
     measurementSession.measuring = [NSNumber numberWithBool:NO];
-    [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
         if (success) {
             [[ServerUploadManager sharedInstance] triggerUpload];
         }
@@ -242,26 +242,26 @@
             measurementSession.windDirection = self.setWindDirection;
  
             // add MeasurementPoint and save to database
-            MeasurementPoint *measurementPoint = [MeasurementPoint createEntity];
+            MeasurementPoint *measurementPoint = [MeasurementPoint MR_createEntity];
             measurementPoint.session = measurementSession;
             measurementPoint.time = [NSDate date];
             measurementPoint.windSpeed = [self.windSpeed objectAtIndex:self.numberOfMeasurements - 1];
             measurementPoint.windDirection = [self.windDirection lastObject];
 
-            [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
+            [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
 
         }
         else if (self.wasValidStatus) {
             
             // current measurement is not valid, but the previous one was, so add a point indicating that there is a "hole" in the data
 
-            MeasurementPoint *measurementPoint = [MeasurementPoint createEntity];
+            MeasurementPoint *measurementPoint = [MeasurementPoint MR_createEntity];
             measurementPoint.session = measurementSession;
             measurementPoint.time = [NSDate date];
             measurementPoint.windSpeed = nil;
             measurementPoint.windDirection = nil;        
             
-            [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
+            [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
         }
     }
     
@@ -514,7 +514,7 @@
 
 - (MeasurementSession*) getActiveMeasurementSession {
     if (self.measurementSessionUUID && self.measurementSessionUUID != nil) {
-        return [MeasurementSession findFirstByAttribute:@"uuid" withValue:self.measurementSessionUUID];
+        return [MeasurementSession MR_findFirstByAttribute:@"uuid" withValue:self.measurementSessionUUID];
     }
     else {
         return nil;

@@ -104,7 +104,7 @@ SHARED_INSTANCE
     }
     
     // make sure nothing else get executed until changes are written to the database
-    [[NSManagedObjectContext defaultContext] saveToPersistentStoreAndWait];
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 
 + (NSString*) getModel
