@@ -106,7 +106,7 @@ SHARED_INSTANCE
         return;
     }
     
-    NSLog(@"[ServerUploadManager] Handle did-become-active tasks");
+    //NSLog(@"[ServerUploadManager] Handle did-become-active tasks");
     self.justDidBecomeActive = NO;
     self.lastDidBecomeActive = [NSDate date];
 
@@ -121,7 +121,7 @@ SHARED_INSTANCE
 }
 
 - (void) triggerUpload {
-    NSLog(@"[ServerUploadManager] Trigger upload");
+    //NSLog(@"[ServerUploadManager] Trigger upload");
     [self checkForUnUploadedData];
 }
 
@@ -157,14 +157,14 @@ SHARED_INSTANCE
 
             NSNumber *pointCount = [NSNumber numberWithUnsignedInteger:[measurementSession.points count]];
 
-            NSLog(@"[ServerUploadManager] Found non-uploaded MeasurementSession with uuid=%@, startTime=%@, startIndex=%@, endIndex=%@, pointCount=%@", measurementSession.uuid, measurementSession.startTime, measurementSession.startIndex, measurementSession.endIndex, pointCount);
+            //NSLog(@"[ServerUploadManager] Found non-uploaded MeasurementSession with uuid=%@, startTime=%@, startIndex=%@, endIndex=%@, pointCount=%@", measurementSession.uuid, measurementSession.startTime, measurementSession.startIndex, measurementSession.endIndex, pointCount);
 
             if ([measurementSession.measuring boolValue] == YES) {
                 
                 // if an unuploaded 
                 NSTimeInterval howRecent = [measurementSession.endTime timeIntervalSinceNow];
                 if (abs(howRecent) > 3600.0) {
-                    NSLog(@"[ServerUploadManager] Found old MeasurementSession (%@) that is still measuring - setting it to not measuring", measurementSession.uuid);
+                    //NSLog(@"[ServerUploadManager] Found old MeasurementSession (%@) that is still measuring - setting it to not measuring", measurementSession.uuid);
                     // TODO: we ought to force the controller to stop if it is still in started mode. Or should we remove this altogether?
                     measurementSession.measuring = [NSNumber numberWithBool:NO];
                     [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
@@ -174,17 +174,17 @@ SHARED_INSTANCE
             if ([measurementSession.startIndex intValue] == [pointCount intValue]) {
 
                 if ([measurementSession.measuring boolValue] == NO) {
-                    NSLog(@"[ServerUploadManager] Found MeasurementSession (%@) that is not measuring and has no new points, so setting it as uploaded", measurementSession.uuid);
+                    //NSLog(@"[ServerUploadManager] Found MeasurementSession (%@) that is not measuring and has no new points, so setting it as uploaded", measurementSession.uuid);
                     measurementSession.uploaded = [NSNumber numberWithBool:YES];
                     [[NSManagedObjectContext defaultContext] saveToPersistentStoreWithCompletion:nil];
                 }
                 else {
-                    NSLog(@"[ServerUploadManager] Found MeasurementSession that is not uploaded, is still measuring, but has no new points, so skipping");
+                    //NSLog(@"[ServerUploadManager] Found MeasurementSession that is not uploaded, is still measuring, but has no new points, so skipping");
                 }
             }
             else {
                 
-                NSLog(@"[ServerUploadManager] Uploading MeasurementSession (%@)", measurementSession.uuid);
+                //NSLog(@"[ServerUploadManager] Uploading MeasurementSession (%@)", measurementSession.uuid);
                 
                 NSNumber *newEndIndex = pointCount;
                 NSString *uuid = measurementSession.uuid;
@@ -237,7 +237,7 @@ SHARED_INSTANCE
     
     [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/device/register" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSLog(@"[ServerUploadManager] Got successful response registering device");
+        //NSLog(@"[ServerUploadManager] Got successful response registering device");
         self.hasRegisteredDevice = YES;
         
         // clear consecutive errors since we got a successful reponse
