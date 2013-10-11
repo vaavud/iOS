@@ -302,6 +302,46 @@ SHARED_INSTANCE
     }];
 }
 
+-(void) readMeasurements:(int)hours retry:(int)retryCount success:(void (^)(NSArray *measurements))success {
+    if (!self.hasReachability) {
+        return;
+    }
+    
+    if (retryCount <= 0) {
+        return;
+    }
+    
+    NSDate *startTime = [NSDate dateWithTimeIntervalSinceNow:-hours * 3600];
+    NSNumber *startTimeMillis = [NSNumber numberWithLongLong:[startTime timeIntervalSince1970] * 1000.0];
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:[startTimeMillis stringValue], @"startTime", nil];
+    
+    [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/measurements" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"[ServerUploadManager] Got successful response reading measurements");
+        
+        // clear consecutive errors since we got a successful reponse
+        self.consecutiveNetworkErrors = 0;
+        self.backoffWaitCount = 0;
+        
+        success(responseObject);
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        long statusCode = (long)operation.response.statusCode;
+        NSLog(@"[ServerUploadManager] Got error status code %ld reading measurements: %@", statusCode, error);
+        
+        self.consecutiveNetworkErrors++;
+        
+        // check for unauthorized
+        if (statusCode == 401) {
+            // try to re-register
+            self.hasRegisteredDevice = NO;
+        }
+        else {
+            [self readMeasurements:hours retry:retryCount-1 success:success];
+        }
+    }];
+}
+
 -(NSNumber*) doubleValue:(id) responseObject forKey:(NSString*) key {
     NSString *value = [responseObject objectForKey:key];
     if (value && value != nil && value != (id)[NSNull null] && ([value length] > 0)) {

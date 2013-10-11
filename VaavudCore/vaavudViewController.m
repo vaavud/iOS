@@ -25,7 +25,8 @@
 @property (nonatomic, strong) IBOutlet vaavudGraphHostingView *graphHostView;
 
 @property (nonatomic, weak) IBOutlet UIButton *unitButton;
-@property (weak, nonatomic) IBOutlet UIButton *infoButton;
+
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *bottomLayoutGuideConstraint;
 
 @property (nonatomic, strong) NSTimer *TimerLabel;
 @property (nonatomic, strong) CADisplayLink *displayLinkGraphUI;
@@ -50,7 +51,6 @@
 
 - (IBAction) buttonPushed: (id)sender;
 - (IBAction) unitButtonPushed;
-- (IBAction) infoButtonPushed;
 
 @end
 
@@ -62,6 +62,11 @@
 {
     [super viewDidLoad];
 
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        UIImage *selectedTabImage = [[UIImage imageNamed:@"measure_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        self.tabBarItem.selectedImage = selectedTabImage;
+    }
+    
     [self.graphHostView setupCorePlotGraph];
     
     self.compassTableShort = [NSArray arrayWithObjects:  @"N",@"NE",@"E",@"SE",@"S",@"SW",@"W",@"NW", nil];
@@ -72,13 +77,47 @@
     self.maxLabel.textColor = vaavudBlueUIcolor;
     [self.unitButton setTitleColor:vaavudBlueUIcolor forState:UIControlStateNormal];
     
-    self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
-    [self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
-    [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
+    //self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
+    //[self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
+    //[self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
     
     self.startButtonImage = [UIImage imageNamed: @"startButton.png"];
     self.stopButtonImage = [UIImage imageNamed: @"stopButton.png"];
     self.buttonShowsStart = YES;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    WindSpeedUnit newWindSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
+    if (newWindSpeedUnit != self.windSpeedUnit) {
+        self.windSpeedUnit = newWindSpeedUnit;
+        [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
+        [self updateLabelsFromCurrentValues];
+        
+        // note: for some reason the y-axis is not changed correctly the first time, so we call the following method twice
+        [self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
+        [self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
+    }
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    // note: hack for content view underlapping tab view when clicking on another tab and back
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") && (self.bottomLayoutGuideConstraint != nil)) {
+        //self.edgesForExtendedLayout = UIRectEdgeNone;
+        
+        NSLog(@"[VaavudViewController] bottomLayoutGuide=%f", self.bottomLayoutGuide.length);
+        
+        [self.view removeConstraint:self.bottomLayoutGuideConstraint];
+        self.bottomLayoutGuideConstraint = nil;
+        
+        NSLayoutConstraint *bottomSpaceConstraint = [NSLayoutConstraint constraintWithItem:self.view
+                                                                                 attribute:NSLayoutAttributeBottom
+                                                                                 relatedBy:NSLayoutRelationEqual
+                                                                                    toItem:self.startStopButton
+                                                                                 attribute:NSLayoutAttributeBottom
+                                                                                multiplier:1.0
+                                                                                  constant:self.bottomLayoutGuide.length + 15.0];
+        [self.view addConstraint:bottomSpaceConstraint];
+    }
 }
 
 - (void) viewDidDisappear:(BOOL)animated {
@@ -232,11 +271,6 @@
     // note: for some reason the y-axis is not changed correctly the first time, so we call the following method twice
     [self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
     [self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
-
-}
-
-- (IBAction) infoButtonPushed {
-    [self performSegueWithIdentifier:@"showTermsSegue" sender:self];
 }
 
 - (void)didReceiveMemoryWarning

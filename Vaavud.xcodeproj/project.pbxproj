@@ -33,8 +33,26 @@
 		D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C860ED173AD08F005E9946 /* QuartzCore.framework */; };
 		D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */; };
 		D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DA72401743C1CD00DFE962 /* Accelerate.framework */; };
+		E904AC9817F08F6E00171F7F /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9717F08F6E00171F7F /* MapViewController.m */; };
+		E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E904AC9917F0911000171F7F /* MapKit.framework */; };
+		E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */; };
 		E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F76CD1771EB2B00F51A4F /* ServerUploadManager.m */; };
+		E91535B51806C2D20070BFB4 /* about.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535A71806C2D20070BFB4 /* about.png */; };
+		E91535B61806C2D20070BFB4 /* about@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535A81806C2D20070BFB4 /* about@2x.png */; };
+		E91535B91806C2D20070BFB4 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535AB1806C2D20070BFB4 /* map.png */; };
+		E91535BA1806C2D20070BFB4 /* map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535AC1806C2D20070BFB4 /* map@2x.png */; };
+		E91535BD1806C2D20070BFB4 /* measure.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535AF1806C2D20070BFB4 /* measure.png */; };
+		E91535BE1806C2D20070BFB4 /* measure@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535B01806C2D20070BFB4 /* measure@2x.png */; };
+		E91535BF1806C2D20070BFB4 /* WindMarker.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535B11806C2D20070BFB4 /* WindMarker.png */; };
+		E91535C01806C2D20070BFB4 /* WindMarker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535B21806C2D20070BFB4 /* WindMarker@2x.png */; };
+		E91535C7180840D70070BFB4 /* about_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535C1180840D70070BFB4 /* about_selected.png */; };
+		E91535C8180840D70070BFB4 /* about_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535C2180840D70070BFB4 /* about_selected@2x.png */; };
+		E91535C9180840D70070BFB4 /* map_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535C3180840D70070BFB4 /* map_selected.png */; };
+		E91535CA180840D70070BFB4 /* map_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535C4180840D70070BFB4 /* map_selected@2x.png */; };
+		E91535CB180840D70070BFB4 /* measure_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535C5180840D70070BFB4 /* measure_selected.png */; };
+		E91535CC180840D70070BFB4 /* measure_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535C6180840D70070BFB4 /* measure_selected@2x.png */; };
 		E93338F7178C561B006E2314 /* ModelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E93338F6178C561B006E2314 /* ModelManager.m */; };
+		E93C5C3717EC826800E84D3C /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C5C3617EC826800E84D3C /* TabBarController.m */; };
 		E93C865A1781BE56005E4212 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86591781BE56005E4212 /* LocationManager.m */; };
 		E93C86631781C764005E4212 /* Property+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86621781C764005E4212 /* Property+Util.m */; };
 		E93C86691781C88B005E4212 /* Property.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86681781C88B005E4212 /* Property.m */; };
@@ -46,6 +64,10 @@
 		E99CFD8817DF5B0300DED985 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8417DF5B0300DED985 /* libTestFlight.a */; };
 		E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8917DF5BA600DED985 /* libz.dylib */; };
 		E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E99F8F70178EC5AD0090402C /* UnitUtil.m */; };
+		E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */; };
+		E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */; };
+		E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */; };
+		E9AF2B9117F5B96500BDF6D9 /* MeasurementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9AF2B9017F5B96500BDF6D9 /* MeasurementTableViewCell.xib */; };
 		E9B47A031794217200E8A82E /* Terms.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A021794217200E8A82E /* Terms.m */; };
 		E9B47A0A1794315100E8A82E /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A091794315100E8A82E /* TermsViewController.m */; };
 		E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627AF17708E63004678D5 /* AFHTTPClient.m */; };
@@ -87,6 +109,8 @@
 		E9CD2252177B2AEA0054ED3F /* MagicalRecord+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2234177B2AEA0054ED3F /* MagicalRecord+Setup.m */; };
 		E9CD2253177B2AEA0054ED3F /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2236177B2AEA0054ED3F /* MagicalRecord+ShorthandSupport.m */; };
 		E9CD2254177B2AEA0054ED3F /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2238177B2AEA0054ED3F /* MagicalRecord.m */; };
+		E9D0F4B217F9A25A00C220B3 /* MeasurementCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9D0F4B117F9A25A00C220B3 /* MeasurementCalloutView.xib */; };
+		E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */; };
 		E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */; };
 		E9EB5E9317E9A3A500B02CE1 /* VaavudIcon120.png in Resources */ = {isa = PBXBuildFile; fileRef = E9EB5E9217E9A3A500B02CE1 /* VaavudIcon120.png */; };
 		E9EB5E9717E9B22600B02CE1 /* VaavudIcon29.png in Resources */ = {isa = PBXBuildFile; fileRef = E9EB5E9417E9B22600B02CE1 /* VaavudIcon29.png */; };
@@ -100,6 +124,7 @@
 		E9EBB99517E33DBB0086BE01 /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EBB99417E33DBB0086BE01 /* MeasurementSession.m */; };
 		E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */; };
 		E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9EE1FB8176A024B00D1F006 /* CoreData.framework */; };
+		E9FD000B17FD6A06001A8491 /* FormatUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FD000A17FD6A06001A8491 /* FormatUtil.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -217,10 +242,31 @@
 		D7C860F8173B061E005E9946 /* VaavudMagneticFieldDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudMagneticFieldDataManager.h; sourceTree = "<group>"; };
 		D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudMagneticFieldDataManager.m; sourceTree = "<group>"; };
 		D7DA72401743C1CD00DFE962 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		E904AC9617F08F6E00171F7F /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		E904AC9717F08F6E00171F7F /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		E904AC9917F0911000171F7F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		E904AC9D17F193DF00171F7F /* MeasurementAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementAnnotation.h; sourceTree = "<group>"; };
+		E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementAnnotation.m; sourceTree = "<group>"; };
 		E90F76CC1771EB2A00F51A4F /* ServerUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerUploadManager.h; sourceTree = "<group>"; };
 		E90F76CD1771EB2B00F51A4F /* ServerUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerUploadManager.m; sourceTree = "<group>"; };
+		E91535A71806C2D20070BFB4 /* about.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = about.png; sourceTree = "<group>"; };
+		E91535A81806C2D20070BFB4 /* about@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "about@2x.png"; sourceTree = "<group>"; };
+		E91535AB1806C2D20070BFB4 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
+		E91535AC1806C2D20070BFB4 /* map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map@2x.png"; sourceTree = "<group>"; };
+		E91535AF1806C2D20070BFB4 /* measure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = measure.png; sourceTree = "<group>"; };
+		E91535B01806C2D20070BFB4 /* measure@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "measure@2x.png"; sourceTree = "<group>"; };
+		E91535B11806C2D20070BFB4 /* WindMarker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WindMarker.png; sourceTree = "<group>"; };
+		E91535B21806C2D20070BFB4 /* WindMarker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WindMarker@2x.png"; sourceTree = "<group>"; };
+		E91535C1180840D70070BFB4 /* about_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = about_selected.png; sourceTree = "<group>"; };
+		E91535C2180840D70070BFB4 /* about_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "about_selected@2x.png"; sourceTree = "<group>"; };
+		E91535C3180840D70070BFB4 /* map_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map_selected.png; sourceTree = "<group>"; };
+		E91535C4180840D70070BFB4 /* map_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map_selected@2x.png"; sourceTree = "<group>"; };
+		E91535C5180840D70070BFB4 /* measure_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = measure_selected.png; sourceTree = "<group>"; };
+		E91535C6180840D70070BFB4 /* measure_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "measure_selected@2x.png"; sourceTree = "<group>"; };
 		E93338F5178C561B006E2314 /* ModelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelManager.h; sourceTree = "<group>"; };
 		E93338F6178C561B006E2314 /* ModelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelManager.m; sourceTree = "<group>"; };
+		E93C5C3517EC826800E84D3C /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
+		E93C5C3617EC826800E84D3C /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		E93C86581781BE56005E4212 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		E93C86591781BE56005E4212 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		E93C86611781C764005E4212 /* Property+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Property+Util.h"; sourceTree = "<group>"; };
@@ -244,6 +290,13 @@
 		E99CFD8917DF5BA600DED985 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		E99F8F6F178EC5AD0090402C /* UnitUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitUtil.h; sourceTree = "<group>"; };
 		E99F8F70178EC5AD0090402C /* UnitUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitUtil.m; sourceTree = "<group>"; };
+		E9AF2B8017F32A9800BDF6D9 /* SMCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCalloutView.h; sourceTree = "<group>"; };
+		E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMCalloutView.m; sourceTree = "<group>"; };
+		E9AF2B8317F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSMCalloutDrawnBackgroundView.h; sourceTree = "<group>"; };
+		E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSMCalloutDrawnBackgroundView.m; sourceTree = "<group>"; };
+		E9AF2B8D17F5B93800BDF6D9 /* MeasurementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementTableViewCell.h; sourceTree = "<group>"; };
+		E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementTableViewCell.m; sourceTree = "<group>"; };
+		E9AF2B9017F5B96500BDF6D9 /* MeasurementTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeasurementTableViewCell.xib; sourceTree = "<group>"; };
 		E9B47A011794217200E8A82E /* Terms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terms.h; sourceTree = "<group>"; };
 		E9B47A021794217200E8A82E /* Terms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terms.m; sourceTree = "<group>"; };
 		E9B47A081794315100E8A82E /* TermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
@@ -327,6 +380,9 @@
 		E9CD2238177B2AEA0054ED3F /* MagicalRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicalRecord.m; sourceTree = "<group>"; };
 		E9CD2239177B2AEA0054ED3F /* MagicalRecordShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalRecordShorthand.h; sourceTree = "<group>"; };
 		E9CD223A177B2AEA0054ED3F /* CoreData+MagicalRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MagicalRecord.h"; sourceTree = "<group>"; };
+		E9D0F4B117F9A25A00C220B3 /* MeasurementCalloutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeasurementCalloutView.xib; sourceTree = "<group>"; };
+		E9D0F4B317F9A59000C220B3 /* MeasurementCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementCalloutView.h; sourceTree = "<group>"; };
+		E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementCalloutView.m; sourceTree = "<group>"; };
 		E9EB5E8F17E84E4D00B02CE1 /* AlgorithmConstantsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlgorithmConstantsUtil.h; sourceTree = "<group>"; };
 		E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlgorithmConstantsUtil.m; sourceTree = "<group>"; };
 		E9EB5E9217E9A3A500B02CE1 /* VaavudIcon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon120.png; sourceTree = "<group>"; };
@@ -344,6 +400,8 @@
 		E9EE1FA31769E54E00D1F006 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		E9EE1FAE1769F08400D1F006 /* SharedSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedSingleton.h; sourceTree = "<group>"; };
 		E9EE1FB8176A024B00D1F006 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		E9FD000917FD6A06001A8491 /* FormatUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormatUtil.h; sourceTree = "<group>"; };
+		E9FD000A17FD6A06001A8491 /* FormatUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormatUtil.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -351,6 +409,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */,
 				E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */,
 				E9B627CD1770930D004678D5 /* MobileCoreServices.framework in Frameworks */,
 				E9B627CB177092EF004678D5 /* SystemConfiguration.framework in Frameworks */,
@@ -487,6 +546,7 @@
 		D7A4F1C9173A8DDB00D1ACEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E904AC9917F0911000171F7F /* MapKit.framework */,
 				D7DA72401743C1CD00DFE962 /* Accelerate.framework */,
 				E9EE1FB8176A024B00D1F006 /* CoreData.framework */,
 				D7A4F1CE173A8DDB00D1ACEE /* CoreGraphics.framework */,
@@ -506,6 +566,7 @@
 			isa = PBXGroup;
 			children = (
 				D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */,
+				E904AC9C17F1939C00171F7F /* Map */,
 				E9EE1FA51769EC7F00D1F006 /* Model */,
 				E9B627CE177096A4004678D5 /* Network */,
 				E9DBD3BA17688E9C00CCDA57 /* ThirdParty */,
@@ -564,13 +625,48 @@
 				E9B47A021794217200E8A82E /* Terms.m */,
 				E9B47A081794315100E8A82E /* TermsViewController.h */,
 				E9B47A091794315100E8A82E /* TermsViewController.m */,
+				E93C5C3517EC826800E84D3C /* TabBarController.h */,
+				E93C5C3617EC826800E84D3C /* TabBarController.m */,
+				E904AC9617F08F6E00171F7F /* MapViewController.h */,
+				E904AC9717F08F6E00171F7F /* MapViewController.m */,
+				E9AF2B8317F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.h */,
+				E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */,
+				E9AF2B8D17F5B93800BDF6D9 /* MeasurementTableViewCell.h */,
+				E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */,
+				E9AF2B9017F5B96500BDF6D9 /* MeasurementTableViewCell.xib */,
+				E9D0F4B117F9A25A00C220B3 /* MeasurementCalloutView.xib */,
+				E9D0F4B317F9A59000C220B3 /* MeasurementCalloutView.h */,
+				E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */,
 			);
 			name = VaavudViewFiles;
+			sourceTree = "<group>";
+		};
+		E904AC9C17F1939C00171F7F /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				E904AC9D17F193DF00171F7F /* MeasurementAnnotation.h */,
+				E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */,
+			);
+			name = Map;
 			sourceTree = "<group>";
 		};
 		E98853C7176868BE00F78128 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E91535C1180840D70070BFB4 /* about_selected.png */,
+				E91535C2180840D70070BFB4 /* about_selected@2x.png */,
+				E91535C3180840D70070BFB4 /* map_selected.png */,
+				E91535C4180840D70070BFB4 /* map_selected@2x.png */,
+				E91535C5180840D70070BFB4 /* measure_selected.png */,
+				E91535C6180840D70070BFB4 /* measure_selected@2x.png */,
+				E91535A71806C2D20070BFB4 /* about.png */,
+				E91535A81806C2D20070BFB4 /* about@2x.png */,
+				E91535AB1806C2D20070BFB4 /* map.png */,
+				E91535AC1806C2D20070BFB4 /* map@2x.png */,
+				E91535AF1806C2D20070BFB4 /* measure.png */,
+				E91535B01806C2D20070BFB4 /* measure@2x.png */,
+				E91535B11806C2D20070BFB4 /* WindMarker.png */,
+				E91535B21806C2D20070BFB4 /* WindMarker@2x.png */,
 				E9EB5EA217E9BF7900B02CE1 /* Default.png */,
 				E9EB5EA017E9BE7800B02CE1 /* Default@2x~iphone.png */,
 				E9EB5E9E17E9BDAE00B02CE1 /* Default-568h@2x~iphone.png */,
@@ -595,6 +691,15 @@
 				E99CFD8717DF5B0300DED985 /* TestFlight+ManualSessions.h */,
 			);
 			name = TestFlight;
+			sourceTree = "<group>";
+		};
+		E9AF2B7F17F32A5900BDF6D9 /* NFarinaCalloutView */ = {
+			isa = PBXGroup;
+			children = (
+				E9AF2B8017F32A9800BDF6D9 /* SMCalloutView.h */,
+				E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */,
+			);
+			name = NFarinaCalloutView;
 			sourceTree = "<group>";
 		};
 		E9B627AD17708E63004678D5 /* AFNetworking */ = {
@@ -740,6 +845,7 @@
 		E9DBD3BA17688E9C00CCDA57 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				E9AF2B7F17F32A5900BDF6D9 /* NFarinaCalloutView */,
 				E9B627AD17708E63004678D5 /* AFNetworking */,
 				D702418A17478B16008954FD /* CorePlot */,
 				E9CD21FF177B2AEA0054ED3F /* MagicalRecord */,
@@ -793,6 +899,8 @@
 				E94CBB5D177DB3050089D440 /* UUIDUtil.m */,
 				E9EB5E8F17E84E4D00B02CE1 /* AlgorithmConstantsUtil.h */,
 				E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */,
+				E9FD000917FD6A06001A8491 /* FormatUtil.h */,
+				E9FD000A17FD6A06001A8491 /* FormatUtil.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -854,9 +962,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9D0F4B217F9A25A00C220B3 /* MeasurementCalloutView.xib in Resources */,
+				E91535C01806C2D20070BFB4 /* WindMarker@2x.png in Resources */,
+				E91535C8180840D70070BFB4 /* about_selected@2x.png in Resources */,
+				E91535CB180840D70070BFB4 /* measure_selected.png in Resources */,
 				E9EB5E9817E9B22600B02CE1 /* VaavudIcon58.png in Resources */,
 				D7A4F1D5173A8DDB00D1ACEE /* InfoPlist.strings in Resources */,
+				E91535C7180840D70070BFB4 /* about_selected.png in Resources */,
 				D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */,
+				E91535B91806C2D20070BFB4 /* map.png in Resources */,
+				E91535BA1806C2D20070BFB4 /* map@2x.png in Resources */,
+				E91535C9180840D70070BFB4 /* map_selected.png in Resources */,
 				E9EB5E9B17E9B64F00B02CE1 /* VaavudLaunchImageRetina4InchIOS7.png in Resources */,
 				D70241831746D7F1008954FD /* VaavudIcon114.png in Resources */,
 				D70241851746D7F6008954FD /* VaavudIcon57.png in Resources */,
@@ -865,14 +981,22 @@
 				E9EB5E9917E9B22600B02CE1 /* VaavudIcon80.png in Resources */,
 				D7409DAA1769C1A900890CC9 /* startButton.png in Resources */,
 				E9EB5E9F17E9BDAE00B02CE1 /* Default-568h@2x~iphone.png in Resources */,
+				E91535BD1806C2D20070BFB4 /* measure.png in Resources */,
 				E9EB5E9317E9A3A500B02CE1 /* VaavudIcon120.png in Resources */,
+				E91535CC180840D70070BFB4 /* measure_selected@2x.png in Resources */,
 				D7409DAB1769C1A900890CC9 /* startButton@2x.png in Resources */,
 				D7409DAC1769C1A900890CC9 /* stopButton.png in Resources */,
 				D7409DAD1769C1A900890CC9 /* stopButton@2x.png in Resources */,
 				E9EB5E9717E9B22600B02CE1 /* VaavudIcon29.png in Resources */,
 				E9EB5E9D17E9B77900B02CE1 /* VaavudLaunchImageRetinaIOS7.png in Resources */,
+				E91535BE1806C2D20070BFB4 /* measure@2x.png in Resources */,
+				E9AF2B9117F5B96500BDF6D9 /* MeasurementTableViewCell.xib in Resources */,
 				E9EB5EA317E9BF7900B02CE1 /* Default.png in Resources */,
 				E9EB5EA117E9BE7800B02CE1 /* Default@2x~iphone.png in Resources */,
+				E91535BF1806C2D20070BFB4 /* WindMarker.png in Resources */,
+				E91535B61806C2D20070BFB4 /* about@2x.png in Resources */,
+				E91535B51806C2D20070BFB4 /* about.png in Resources */,
+				E91535CA180840D70070BFB4 /* map_selected@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -888,6 +1012,7 @@
 				D7A4F1E7173A8DDB00D1ACEE /* vaavudViewController.m in Sources */,
 				D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController.m in Sources */,
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
+				E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */,
 				D71BE13717439AA000B38E34 /* vaavudFFT.m in Sources */,
 				D7092E8A1748FE9C00993235 /* vaavudDynamicsController.m in Sources */,
 				D7B5BD51175775EB0069F739 /* vaavudGraphHostingView.m in Sources */,
@@ -897,14 +1022,18 @@
 				E9B627C317708E63004678D5 /* AFImageRequestOperation.m in Sources */,
 				E9B627C417708E63004678D5 /* AFJSONRequestOperation.m in Sources */,
 				E9B627C517708E63004678D5 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */,
 				E9B627C617708E63004678D5 /* AFPropertyListRequestOperation.m in Sources */,
 				E9B627C717708E63004678D5 /* AFURLConnectionOperation.m in Sources */,
+				E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */,
 				E9B627C817708E63004678D5 /* AFXMLRequestOperation.m in Sources */,
 				E9B627C917708E63004678D5 /* UIImageView+AFNetworking.m in Sources */,
 				E9B627D1177096D6004678D5 /* VaavudAPIHTTPClient.m in Sources */,
+				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,
 				E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */,
 				E9CD223B177B2AEA0054ED3F /* MagicalImportFunctions.m in Sources */,
 				E9CD223C177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m in Sources */,
+				E9FD000B17FD6A06001A8491 /* FormatUtil.m in Sources */,
 				E9CD223D177B2AEA0054ED3F /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				E9CD223E177B2AEA0054ED3F /* NSNumber+MagicalDataImport.m in Sources */,
 				E9CD223F177B2AEA0054ED3F /* NSObject+MagicalDataImport.m in Sources */,
@@ -923,13 +1052,16 @@
 				E9CD224B177B2AEA0054ED3F /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				E9CD224C177B2AEA0054ED3F /* NSPersistentStore+MagicalRecord.m in Sources */,
 				E9CD224D177B2AEA0054ED3F /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
+				E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */,
 				E9CD224E177B2AEA0054ED3F /* MagicalRecord+Actions.m in Sources */,
 				E9CD224F177B2AEA0054ED3F /* MagicalRecord+ErrorHandling.m in Sources */,
 				E9CD2250177B2AEA0054ED3F /* MagicalRecord+iCloud.m in Sources */,
 				E9CD2251177B2AEA0054ED3F /* MagicalRecord+Options.m in Sources */,
+				E93C5C3717EC826800E84D3C /* TabBarController.m in Sources */,
 				E9CD2252177B2AEA0054ED3F /* MagicalRecord+Setup.m in Sources */,
 				E9CD2253177B2AEA0054ED3F /* MagicalRecord+ShorthandSupport.m in Sources */,
 				E9CD2254177B2AEA0054ED3F /* MagicalRecord.m in Sources */,
+				E904AC9817F08F6E00171F7F /* MapViewController.m in Sources */,
 				E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */,
 				E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */,
 				E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */,

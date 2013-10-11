@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment defaultVersion="1536" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MeasurementCell" rowHeight="40" id="maW-9K-Br3" customClass="MeasurementTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="maW-9K-Br3" id="wG8-fb-IqB">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="39"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="27.8" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wrx-nk-FPC">
+                        <rect key="frame" x="0.0" y="9" width="55" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="55" id="Ge6-PK-Pku"/>
+                            <constraint firstAttribute="height" constant="30" id="hhe-qh-HNh"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="25"/>
+                        <color key="textColor" red="0.82352941180000006" green="0.1450980392" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km/h" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wQj-YX-2eY">
+                        <rect key="frame" x="60" y="19" width="48" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="48" id="dWd-PR-Wn5"/>
+                            <constraint firstAttribute="height" constant="20" id="sBd-67-3iJ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="23 hours ago" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lVK-Sm-QIR">
+                        <rect key="frame" x="165" y="19" width="150" height="20"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="150" id="BWE-D5-OEo"/>
+                            <constraint firstAttribute="height" constant="20" id="ajP-3C-xDY"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="lVK-Sm-QIR" firstAttribute="baseline" secondItem="wQj-YX-2eY" secondAttribute="baseline" id="3P8-4G-0H5"/>
+                    <constraint firstAttribute="bottom" secondItem="Wrx-nk-FPC" secondAttribute="bottom" id="Dh1-51-78A"/>
+                    <constraint firstAttribute="trailing" secondItem="lVK-Sm-QIR" secondAttribute="trailing" constant="5" id="Qdx-g7-W86"/>
+                    <constraint firstItem="wQj-YX-2eY" firstAttribute="leading" secondItem="Wrx-nk-FPC" secondAttribute="trailing" constant="5" id="TON-8C-3bQ"/>
+                    <constraint firstItem="Wrx-nk-FPC" firstAttribute="baseline" secondItem="wQj-YX-2eY" secondAttribute="baseline" constant="-3" id="dSP-ON-QbJ"/>
+                    <constraint firstItem="Wrx-nk-FPC" firstAttribute="leading" secondItem="wG8-fb-IqB" secondAttribute="leading" id="xEi-AP-WYv"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="avgWindSpeedLabel" destination="Wrx-nk-FPC" id="uik-9K-iVA"/>
+                <outlet property="avgWindSpeedUnitLabel" destination="wQj-YX-2eY" id="i2a-PI-1Wj"/>
+                <outlet property="timeLabel" destination="lVK-Sm-QIR" id="cWl-Z2-XK6"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

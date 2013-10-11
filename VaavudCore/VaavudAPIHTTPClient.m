@@ -8,6 +8,7 @@
 
 #import "VaavudAPIHTTPClient.h"
 #import "AFJSONRequestOperation.h"
+#import "Property+Util.h"
 
 @implementation VaavudAPIHTTPClient
 
@@ -29,7 +30,12 @@
     [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
 	[self setDefaultHeader:@"Accept" value:@"application/json"];
     [self setParameterEncoding:AFJSONParameterEncoding];
-        
+    
+    NSString *authToken = [Property getAsString:KEY_AUTH_TOKEN];
+    if (authToken && authToken != nil) {
+        [self setAuthToken:authToken];
+    }
+    
     return self;
 }
 
