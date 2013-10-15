@@ -71,7 +71,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     WindSpeedUnit newWindSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
-    NSLog(@"[MapViewController] viewWillAppear: windSpeedUnit=%u", self.windSpeedUnit);
+    //NSLog(@"[MapViewController] viewWillAppear: windSpeedUnit=%u", self.windSpeedUnit);
     if (newWindSpeedUnit != self.windSpeedUnit) {
         self.windSpeedUnit = newWindSpeedUnit;
         [self windSpeedUnitChanged];
@@ -83,9 +83,6 @@
 - (void) viewDidAppear:(BOOL)animated {
     // note: hack for content view underlapping tab view when clicking on another tab and back
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") && (self.hoursBottomLayoutGuideConstraint != nil)) {
-
-        NSLog(@"[MapViewController] bottomLayoutGuide=%f", self.bottomLayoutGuide.length);
-
         [self.view removeConstraint:self.hoursBottomLayoutGuideConstraint];
         self.hoursBottomLayoutGuideConstraint = nil;
         NSLayoutConstraint *bottomSpaceConstraint = [NSLayoutConstraint constraintWithItem:self.view
@@ -122,7 +119,7 @@
     if (!ignoreGracePeriod && self.lastMeasurementsRead && self.lastMeasurementsRead != nil) {
         NSTimeInterval howRecent = [self.lastMeasurementsRead timeIntervalSinceNow];
         if (abs(howRecent) < graceTimeBetweenMeasurementsRead) {
-            NSLog(@"[MapViewController] ignoring loadMeasurements due to grace period");
+            //NSLog(@"[MapViewController] ignoring loadMeasurements due to grace period");
             return;
         }
     }
