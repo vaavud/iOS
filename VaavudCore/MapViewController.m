@@ -66,6 +66,20 @@
     else {
         // TODO: set default location if user's location is unknown
     }
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
+}
+
+- (void) appDidBecomeActive:(NSNotification*) notification {
+    //NSLog(@"[MapViewController] appDidBecomeActive");
+    [self loadMeasurements:NO];
+}
+
+-(void) appWillTerminate:(NSNotification*) notification {
+    //NSLog(@"[MapViewController] appWillTerminate");
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
