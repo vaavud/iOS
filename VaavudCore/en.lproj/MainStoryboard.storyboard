@@ -291,12 +291,20 @@
                                     <action selector="unitButtonPushed" destination="awR-2s-6gy" eventType="touchUpInside" id="rfS-8k-A9k"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="1nG-yb-qca">
+                                <rect key="frame" x="142" y="222" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="tbg-Zl-YRw" firstAttribute="top" secondItem="vqh-9G-hns" secondAttribute="top" id="2hP-p6-xWh"/>
                             <constraint firstAttribute="trailing" secondItem="QH2-zG-NA0" secondAttribute="trailing" constant="15" id="Hkv-Lr-onC"/>
                             <constraint firstItem="WL0-GO-6Vw" firstAttribute="top" secondItem="QH2-zG-NA0" secondAttribute="bottom" constant="5" id="LuP-vq-l8q"/>
+                            <constraint firstAttribute="centerX" secondItem="1nG-yb-qca" secondAttribute="centerX" id="NJU-7g-B0G"/>
+                            <constraint firstAttribute="centerY" secondItem="1nG-yb-qca" secondAttribute="centerY" id="UbF-x7-7ym"/>
                             <constraint firstItem="WL0-GO-6Vw" firstAttribute="top" secondItem="aHi-Yt-n6U" secondAttribute="bottom" constant="5" id="beD-EN-MJc"/>
                             <constraint firstAttribute="trailing" secondItem="tbg-Zl-YRw" secondAttribute="trailing" id="m84-zh-4zy"/>
                             <constraint firstAttribute="bottom" secondItem="tbg-Zl-YRw" secondAttribute="bottom" id="muC-sY-vH4"/>
@@ -306,6 +314,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="map.png" id="CJd-r9-Fhf"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="1nG-yb-qca" id="bu9-c8-J60"/>
                         <outlet property="hoursBottomLayoutGuideConstraint" destination="beD-EN-MJc" id="fjc-hI-qbN"/>
                         <outlet property="hoursButton" destination="aHi-Yt-n6U" id="V2u-B5-fhi"/>
                         <outlet property="mapView" destination="tbg-Zl-YRw" id="OhK-hv-ypw"/>

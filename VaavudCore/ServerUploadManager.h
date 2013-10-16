@@ -17,6 +17,6 @@
 
 - (void) triggerUpload;
 
--(void) readMeasurements:(int)hours retry:(int)retryCount success:(void (^)(NSArray *measurements))success;
+-(void) readMeasurements:(int)hours retry:(int)retryCount success:(void (^)(NSArray *measurements))success failure:(void (^)(NSError *error))failure;
 
 @end

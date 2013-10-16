@@ -77,10 +77,6 @@
     self.maxLabel.textColor = vaavudBlueUIcolor;
     [self.unitButton setTitleColor:vaavudBlueUIcolor forState:UIControlStateNormal];
     
-    //self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
-    //[self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
-    //[self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
-    
     self.startButtonImage = [UIImage imageNamed: @"startButton.png"];
     self.stopButtonImage = [UIImage imageNamed: @"stopButton.png"];
     self.buttonShowsStart = YES;

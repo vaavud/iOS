@@ -25,6 +25,7 @@
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
 @property (nonatomic) MeasurementCalloutView *measurementCalloutView;
 @property(nonatomic) NSDate *lastMeasurementsRead;
+@property (nonatomic) BOOL isLoading;
 @property (nonatomic) int hoursAgo;
 @end
 
@@ -42,6 +43,7 @@
 {
     [super viewDidLoad];
 
+    self.isLoading = NO;
     self.isSelectingFromTableView = NO;
     self.hoursAgo = 48;
 
@@ -58,6 +60,8 @@
     
     [self refreshHours];
     [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
+
+    self.activityIndicator.hidden = YES;
     
     CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
     if ([LocationManager isCoordinateValid:latestLocation]) {
@@ -73,7 +77,7 @@
 
 - (void) appDidBecomeActive:(NSNotification*) notification {
     //NSLog(@"[MapViewController] appDidBecomeActive");
-    [self loadMeasurements:NO];
+    [self loadMeasurements:NO showActivityIndicator:NO];
 }
 
 -(void) appWillTerminate:(NSNotification*) notification {
@@ -91,7 +95,7 @@
         [self windSpeedUnitChanged];
         [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
     }
-    [self loadMeasurements:NO];
+    [self loadMeasurements:NO showActivityIndicator:NO];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -128,7 +132,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)loadMeasurements:(BOOL)ignoreGracePeriod {
+- (void)loadMeasurements:(BOOL)ignoreGracePeriod showActivityIndicator:(BOOL)showActivityIndicator {
     
     if (!ignoreGracePeriod && self.lastMeasurementsRead && self.lastMeasurementsRead != nil) {
         NSTimeInterval howRecent = [self.lastMeasurementsRead timeIntervalSinceNow];
@@ -138,12 +142,23 @@
         }
     }
     
+    self.isLoading = YES;
+    
+    if (self.mapView.annotations.count == 0) {
+        showActivityIndicator = YES;
+    }
+    
+    if (showActivityIndicator) {
+        [self performSelector:@selector(showActivityIndicatorIfLoading) withObject:nil afterDelay:1.0];
+    }
+    
     [[ServerUploadManager sharedInstance] readMeasurements:self.hoursAgo retry:3 success:^(NSArray *measurements) {
         NSLog(@"[MapViewController] read measurements");
 
         self.lastMeasurementsRead = [NSDate date];
 
         [self refreshHours];
+        [self clearActivityIndicator];
 
         if (self.mapView.selectedAnnotations.count > 0) {
             [self.mapView deselectAnnotation:self.mapView.selectedAnnotations[0] animated:NO];
@@ -166,7 +181,22 @@
                 [self.mapView addAnnotation:measurementAnnotation];
             }
         }
+    } failure:^(NSError *error) {
+        [self clearActivityIndicator];
     }];
+}
+
+-(void)showActivityIndicatorIfLoading {
+    if (self.isLoading) {
+        self.activityIndicator.hidden = NO;
+    }
+}
+
+-(void)clearActivityIndicator {
+    self.isLoading = NO;
+    if (self.activityIndicator.hidden == NO) {
+        self.activityIndicator.hidden = YES;
+    }
 }
 
 -(void)windSpeedUnitChanged {
@@ -376,7 +406,7 @@
     }
     
     [self refreshHours];
-    [self loadMeasurements:YES];
+    [self loadMeasurements:YES showActivityIndicator:YES];
 }
 
 - (void) refreshHours {

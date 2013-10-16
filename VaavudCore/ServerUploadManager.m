@@ -302,7 +302,7 @@ SHARED_INSTANCE
     }];
 }
 
--(void) readMeasurements:(int)hours retry:(int)retryCount success:(void (^)(NSArray *measurements))success {
+-(void) readMeasurements:(int)hours retry:(int)retryCount success:(void (^)(NSArray *measurements))success failure:(void (^)(NSError *error))failure {
     if (!self.hasReachability) {
         return;
     }
@@ -335,9 +335,10 @@ SHARED_INSTANCE
         if (statusCode == 401) {
             // try to re-register
             self.hasRegisteredDevice = NO;
+            failure(error);
         }
         else {
-            [self readMeasurements:hours retry:retryCount-1 success:success];
+            [self readMeasurements:hours retry:retryCount-1 success:success failure:failure];
         }
     }];
 }
