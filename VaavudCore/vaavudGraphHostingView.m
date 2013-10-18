@@ -124,8 +124,7 @@ enum plotName : NSUInteger {
 }
 
 
-- (void) addDataPoint
-{
+- (void) addDataPoint {
     
     BOOL updateYRange = NO; // by default do not update y-range
     
@@ -148,45 +147,39 @@ enum plotName : NSUInteger {
         }
     }
     
-    
-    if (![x isEqualToNumber: lastX])
-    {
+    if (![x isEqualToNumber: lastX]) {
             
         NSNumber *y = [self.vaavudCoreController.windSpeed lastObject];
         NSNumber *xZeroShifted = [NSNumber numberWithDouble:([x doubleValue] - self.startTimeDifference) ];
         
-        
- 
-        
         [[self.dataForPlotX objectAtIndex: self.windSpeedPlotCounter] addObject: xZeroShifted];
         [[self.dataForPlotY objectAtIndex: self.windSpeedPlotCounter] addObject: y];
-        [self.latestWindSpeedPlot insertDataAtIndex: ([[self.dataForPlotX objectAtIndex: self.windSpeedPlotCounter] count]-1) numberOfRecords:1];
-        
-        [self.averageWindSpeedPlot reloadData];
-        
-        
-        // update min and max values
-        if ([y floatValue] > self.graphYMaxValue) {
-            self.graphYMaxValue = [y floatValue];
-            updateYRange = YES;
-        }
-        
-        
-        if ([y floatValue] < self.graphYMinValue) {
-            self.graphYMinValue = [y floatValue];
-            updateYRange = YES;
-        }
-        
-        updateYRange = YES; // "BUG FIX" DOES NOT UPDATE PROPERLY IF NO
-        
-        if (updateYRange)
-        {
-            [self updateYRange];
-        }
 
-                        
+        // note: we've seen one crash that might be due to the following constraint not holding, so this "if" is a safety check
+        if (([[self.dataForPlotX objectAtIndex: self.windSpeedPlotCounter] count]-1) < [self.latestWindSpeedPlot.dataSource numberOfRecordsForPlot:self.latestWindSpeedPlot]) {
+        
+            [self.latestWindSpeedPlot insertDataAtIndex: ([[self.dataForPlotX objectAtIndex: self.windSpeedPlotCounter] count]-1) numberOfRecords:1];
+            
+            [self.averageWindSpeedPlot reloadData];
+            
+            // update min and max values
+            if ([y floatValue] > self.graphYMaxValue) {
+                self.graphYMaxValue = [y floatValue];
+                updateYRange = YES;
+            }
+            
+            if ([y floatValue] < self.graphYMinValue) {
+                self.graphYMinValue = [y floatValue];
+                updateYRange = YES;
+            }
+            
+            updateYRange = YES; // "BUG FIX" DOES NOT UPDATE PROPERLY IF NO
+            
+            if (updateYRange) {
+                [self updateYRange];
+            }
+        }
     }
-    
 }
 
 - (void) updateYRange {
