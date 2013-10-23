@@ -18,6 +18,8 @@
 - (void) shiftGraphX;
 - (void) addDataPoint;
 - (void) changeWindSpeedUnit:(WindSpeedUnit) unit;
+- (void) pauseUpdates;
+- (void) resumeUpdates;
 
 @property (nonatomic, weak)     VaavudCoreController          *vaavudCoreController;
 

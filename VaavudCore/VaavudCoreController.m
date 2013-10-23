@@ -108,11 +108,13 @@
     // Set interface direction
     UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     
-    if (interfaceOrientation == UIInterfaceOrientationPortrait)
+    if (interfaceOrientation == UIInterfaceOrientationPortrait) {
         self.upsideDown = NO;
+    }
     
-    if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
+    if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
         self.upsideDown = YES;
+    }
 
     NSArray *measuringMeasurementSessions = [MeasurementSession MR_findByAttribute:@"measuring" withValue:[NSNumber numberWithBool:YES]];
     if (measuringMeasurementSessions && [measuringMeasurementSessions count] > 0) {

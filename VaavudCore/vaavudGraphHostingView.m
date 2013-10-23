@@ -84,25 +84,48 @@
 @property (nonatomic)           NSUInteger  windSpeedPlotCounter;
 @property (nonatomic)           double      startTimeDifference;
 @property (nonatomic)           WindSpeedUnit windSpeedUnit;
+@property (nonatomic)           BOOL isPaused;
 
 enum plotName : NSUInteger {
     averagePlot = 0,
     windSpeedPlot = 1
 };
 
-
 @end
 
 @implementation vaavudGraphHostingView
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initialize];
+    }
+    return self;
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        // default to km/h just to be sure nothing blows up while initializing - will be changed later be a call to changeWindSpeedUnit
-        self.windSpeedUnit = WindSpeedUnitKMH;
+        [self initialize];
     }
     return self;
+}
+
+- (void) initialize {
+    // default to km/h just to be sure nothing blows up while initializing - will be changed later be a call to changeWindSpeedUnit
+    self.windSpeedUnit = WindSpeedUnitKMH;
+    self.isPaused = NO;    
+}
+
+- (void) pauseUpdates {
+    self.isPaused = YES;
+}
+
+- (void) resumeUpdates {
+    self.isPaused = NO;
+    [self updateYRange];
+    [self.graph reloadData];
 }
 
 - (void) changeWindSpeedUnit:(WindSpeedUnit) unit {
@@ -111,8 +134,7 @@ enum plotName : NSUInteger {
     [self.graph reloadData];
 }
 
-- (void) shiftGraphX
-{
+- (void) shiftGraphX {
     if ([[self.vaavudCoreController.isValid lastObject] boolValue]) {
         float timeSinceStart = - [self.startTime  timeIntervalSinceNow] - self.startTimeDifference + 1; // graph - x range should always be 1 second ahead.
         
@@ -122,7 +144,6 @@ enum plotName : NSUInteger {
         }
     }
 }
-
 
 - (void) addDataPoint {
     
@@ -148,36 +169,33 @@ enum plotName : NSUInteger {
     }
     
     if (![x isEqualToNumber: lastX]) {
-            
+        
         NSNumber *y = [self.vaavudCoreController.windSpeed lastObject];
         NSNumber *xZeroShifted = [NSNumber numberWithDouble:([x doubleValue] - self.startTimeDifference) ];
         
         [[self.dataForPlotX objectAtIndex: self.windSpeedPlotCounter] addObject: xZeroShifted];
         [[self.dataForPlotY objectAtIndex: self.windSpeedPlotCounter] addObject: y];
-
-        // note: we've seen one crash that might be due to the following constraint not holding, so this "if" is a safety check
-        if (([[self.dataForPlotX objectAtIndex: self.windSpeedPlotCounter] count]-1) < [self.latestWindSpeedPlot.dataSource numberOfRecordsForPlot:self.latestWindSpeedPlot]) {
         
+        if (!self.isPaused) {
             [self.latestWindSpeedPlot insertDataAtIndex: ([[self.dataForPlotX objectAtIndex: self.windSpeedPlotCounter] count]-1) numberOfRecords:1];
-            
             [self.averageWindSpeedPlot reloadData];
+        }
             
-            // update min and max values
-            if ([y floatValue] > self.graphYMaxValue) {
-                self.graphYMaxValue = [y floatValue];
-                updateYRange = YES;
-            }
-            
-            if ([y floatValue] < self.graphYMinValue) {
-                self.graphYMinValue = [y floatValue];
-                updateYRange = YES;
-            }
-            
-            updateYRange = YES; // "BUG FIX" DOES NOT UPDATE PROPERLY IF NO
-            
-            if (updateYRange) {
-                [self updateYRange];
-            }
+        // update min and max values
+        if ([y floatValue] > self.graphYMaxValue) {
+            self.graphYMaxValue = [y floatValue];
+            updateYRange = YES;
+        }
+        
+        if ([y floatValue] < self.graphYMinValue) {
+            self.graphYMinValue = [y floatValue];
+            updateYRange = YES;
+        }
+        
+        updateYRange = YES; // "BUG FIX" DOES NOT UPDATE PROPERLY IF NO
+        
+        if (updateYRange && !self.isPaused) {
+            [self updateYRange];
         }
     }
 }
@@ -207,8 +225,7 @@ enum plotName : NSUInteger {
 }
 
 
-- (void) createNewPlot
-{
+- (void) createNewPlot {
 
     [self.graph reloadData];
     

@@ -93,6 +93,8 @@
         [self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
         [self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
     }
+    
+    [self.graphHostView resumeUpdates];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -116,7 +118,8 @@
     }
 }
 
-- (void) viewDidDisappear:(BOOL)animated {
+- (void) viewWillDisappear:(BOOL)animated {
+    [self.graphHostView pauseUpdates];
 }
 
 - (void) start {
