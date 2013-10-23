@@ -10,6 +10,8 @@
 #import "Property+Util.h"
 #import "UnitUtil.h"
 #import "TermsViewController.h"
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
 #import <math.h>
 
 @interface vaavudViewController ()
@@ -56,6 +58,26 @@
 
 @implementation vaavudViewController {
     
+}
+
+- (id) initWithCoder:(NSCoder*)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self initialize];
+    }
+    return self;
+}
+
+- (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        [self initialize];
+    }
+    return self;
+}
+
+- (void) initialize {
+    self.screenName = @"Measure Screen";
 }
 
 - (void) viewDidLoad  // FIRST METHOD CALLED (WHEN VIEW IS LOADED)
@@ -245,24 +267,28 @@
 }
 
 
-- (IBAction) buttonPushed: (UIButton*) sender
-{
+- (IBAction) buttonPushed: (UIButton*) sender {
     if (self.buttonShowsStart) {
         self.buttonShowsStart = NO;
         [self.startStopButton setBackgroundImage: self.stopButtonImage forState:UIControlStateNormal];
         [self start];
+        
+        [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"start button" label:nil value:nil] build]];
     }
     else {
         self.buttonShowsStart = YES;
         [self.startStopButton setBackgroundImage: self.startButtonImage forState:UIControlStateNormal];
         [self stop];
+
+        [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"stop button" label:nil value:nil] build]];
     }
 }
 
 - (IBAction) unitButtonPushed {
-    
     self.windSpeedUnit = [UnitUtil nextWindSpeedUnit:self.windSpeedUnit];
     [Property setAsInteger:[NSNumber numberWithInt:self.windSpeedUnit] forKey:KEY_WIND_SPEED_UNIT];
+
+    [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"unit button" label:[[NSNumber numberWithInt:self.windSpeedUnit] stringValue] value:nil] build]];
 
     [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
     [self updateLabelsFromCurrentValues];

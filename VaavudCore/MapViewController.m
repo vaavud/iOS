@@ -15,6 +15,9 @@
 #import "FormatUtil.h"
 #import "LocationManager.h"
 #import "ServerUploadManager.h"
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
+#include <math.h>
 
 #define MERCATOR_RADIUS 85445659.44705395
 #define MAX_GOOGLE_LEVELS 20
@@ -27,25 +30,38 @@
 @property(nonatomic) NSDate *lastMeasurementsRead;
 @property (nonatomic) BOOL isLoading;
 @property (nonatomic) int hoursAgo;
+@property (nonatomic) double analyticsGridDegree;
 @end
 
 @implementation MapViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+- (id) initWithCoder:(NSCoder*)aDecoder {
+    self = [super initWithCoder:aDecoder];
     if (self) {
+        [self initialize];
     }
     return self;
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+- (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        [self initialize];
+    }
+    return self;
+}
 
+- (void) initialize {
+    self.screenName = @"Map Screen";
     self.isLoading = NO;
     self.isSelectingFromTableView = NO;
     self.hoursAgo = 48;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    self.analyticsGridDegree = [[Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] doubleValue];
 
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         UIImage *selectedTabImage = [[UIImage imageNamed:@"map_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -88,6 +104,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    // note: grid degree might have been updated by a device register call
+    self.analyticsGridDegree = [[Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] doubleValue];
+
     WindSpeedUnit newWindSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
     //NSLog(@"[MapViewController] viewWillAppear: windSpeedUnit=%u", self.windSpeedUnit);
     if (newWindSpeedUnit != self.windSpeedUnit) {
@@ -307,6 +327,14 @@
                               constrainedToView:mapView
                        permittedArrowDirections:SMCalloutArrowDirectionDown
                                        animated:!self.isSelectingFromTableView];
+        
+        if (self.isSelectingFromTableView) {
+            [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"nearby measurement touch"];
+        }
+        else {
+            [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"measurement marker touch"];
+        }
+        
         self.isSelectingFromTableView = NO;
 	}
 }
@@ -405,6 +433,8 @@
             self.hoursAgo = 48;
     }
     
+    [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"hours button" label:[[NSNumber numberWithInt:self.hoursAgo] stringValue] value:nil] build]];
+
     [self refreshHours];
     [self loadMeasurements:YES showActivityIndicator:YES];
 }
@@ -418,8 +448,34 @@
     self.windSpeedUnit = [UnitUtil nextWindSpeedUnit:self.windSpeedUnit];
     [Property setAsInteger:[NSNumber numberWithInt:self.windSpeedUnit] forKey:KEY_WIND_SPEED_UNIT];
     
+    [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"unit button" label:[[NSNumber numberWithInt:self.windSpeedUnit] stringValue] value:nil] build]];
+
     [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
     [self windSpeedUnitChanged];
+}
+
+-(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation*)annotation withAction:(NSString*)action {
+    
+    NSString *label = nil;
+    
+    if (annotation) {
+        label = [self gridValueFromCoordinate:annotation];
+    }
+    
+    [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:action label:label value:nil] build]];
+}
+
+-(NSString*)gridValueFromCoordinate:(MeasurementAnnotation*)annotation {
+    double latitude = annotation.coordinate.latitude;
+    double longitude = annotation.coordinate.longitude;
+    
+    double latitudeInRadians = latitude * M_PI / 180.0;
+    
+    int latitudeGrid = floor(latitude/(cos(latitudeInRadians)*2*self.analyticsGridDegree));
+    int longitudeGrid = floor(longitude/self.analyticsGridDegree);
+    
+    NSString *grid = [NSString stringWithFormat:@"%@:%d,%d", [[NSNumber numberWithDouble:self.analyticsGridDegree] stringValue], latitudeGrid, longitudeGrid];
+    return grid;
 }
 
 @end

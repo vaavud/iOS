@@ -102,7 +102,14 @@ SHARED_INSTANCE
         [Property setAsInteger:[AlgorithmConstantsUtil getAlgorithm:model osVersion:osVersion] forKey:KEY_ALGORITHM];
         NSLog(@"[ModelManager] Setting algorithm parameters from local detection: algorithm=%@, frequencyStart=%@, frequencyFactor=%@, fftLength=%@, fftDataLength=%@", [Property getAsInteger:KEY_ALGORITHM], [Property getAsDouble:KEY_FREQUENCY_START], [Property getAsDouble:KEY_FREQUENCY_FACTOR], [Property getAsInteger:KEY_FFT_LENGTH], [Property getAsInteger:KEY_FFT_DATA_LENGTH]);
     }
-    
+
+    if ([Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] == nil) {
+        // this must be the first time, since there is no grid degree
+        NSNumber* analyticsGridDegree = [NSNumber numberWithDouble:0.125];
+        NSLog(@"[ModelManager] No grid degree, defaulting to: %@", analyticsGridDegree);
+        [Property setAsDouble:analyticsGridDegree forKey:KEY_ANALYTICS_GRID_DEGREE];
+    }
+
     // make sure nothing else get executed until changes are written to the database
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }

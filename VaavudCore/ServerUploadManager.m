@@ -288,8 +288,14 @@ SHARED_INSTANCE
             hasSetParameters = YES;
         }
 
+        NSNumber *analyticsGridDegree = [self doubleValue:responseObject forKey:@"analyticsGridDegree"];
+        if (analyticsGridDegree != nil) {
+            [Property setAsDouble:analyticsGridDegree forKey:KEY_ANALYTICS_GRID_DEGREE];
+            hasSetParameters = YES;
+        }
+
         if (hasSetParameters) {
-            NSLog(@"[ServerUploadManager] Setting algorithm parameters from server: algorithm=%@, frequencyStart=%@, frequencyFactor=%@, fftLength=%@, fftDataLength=%@", [Property getAsInteger:KEY_ALGORITHM], [Property getAsDouble:KEY_FREQUENCY_START], [Property getAsDouble:KEY_FREQUENCY_FACTOR], [Property getAsInteger:KEY_FFT_LENGTH], [Property getAsInteger:KEY_FFT_DATA_LENGTH]);
+            NSLog(@"[ServerUploadManager] Setting parameters from server: algorithm=%@, frequencyStart=%@, frequencyFactor=%@, fftLength=%@, fftDataLength=%@, analyticsGridDegree=%@", [Property getAsInteger:KEY_ALGORITHM], [Property getAsDouble:KEY_FREQUENCY_START], [Property getAsDouble:KEY_FREQUENCY_FACTOR], [Property getAsInteger:KEY_FFT_LENGTH], [Property getAsInteger:KEY_FFT_DATA_LENGTH], [Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE]);
         }
         
         // only trigger upload once we get OK from server for registering device, otherwise the device could be unregistered when uploading

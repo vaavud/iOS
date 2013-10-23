@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GAITrackedViewController.h"
 
-@interface TermsViewController : UIViewController <UINavigationBarDelegate,UIWebViewDelegate>
+@interface TermsViewController : GAITrackedViewController <UINavigationBarDelegate,UIWebViewDelegate>
 
 @end

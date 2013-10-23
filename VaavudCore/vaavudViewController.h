@@ -9,7 +9,8 @@
 #import "VaavudCoreController.h"
 #import <UIKit/UIKit.h>
 #import "CorePlot-CocoaTouch.h"
+#import "GAITrackedViewController.h"
 
-@interface vaavudViewController : UIViewController <VaavudCoreViewControllerDelegate>
+@interface vaavudViewController : GAITrackedViewController <VaavudCoreViewControllerDelegate>
 
 @end

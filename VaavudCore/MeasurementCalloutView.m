@@ -66,6 +66,7 @@
 
 - (IBAction) mapButtonTapped {
     [self.mapViewController zoomToAnnotation:self.measurementAnnotation];
+    [self.mapViewController googleAnalyticsAnnotationEvent:self.measurementAnnotation withAction:@"map thumbnail touch"];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

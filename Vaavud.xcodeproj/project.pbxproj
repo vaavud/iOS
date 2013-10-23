@@ -59,15 +59,17 @@
 		E93C866F1781D69A005E4212 /* MeasurementSession+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */; };
 		E93C86721781D727005E4212 /* MeasurementPoint+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86711781D727005E4212 /* MeasurementPoint+Util.m */; };
 		E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E94CBB5D177DB3050089D440 /* UUIDUtil.m */; };
+		E982DF2C1817ECE0004DAB3E /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E982DF2B1817ECE0004DAB3E /* libGoogleAnalyticsServices.a */; };
+		E982DF2E18181152004DAB3E /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E982DF2D18181152004DAB3E /* AdSupport.framework */; };
 		E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */; };
 		E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */; };
-		E99CFD8817DF5B0300DED985 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8417DF5B0300DED985 /* libTestFlight.a */; };
 		E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8917DF5BA600DED985 /* libz.dylib */; };
 		E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E99F8F70178EC5AD0090402C /* UnitUtil.m */; };
 		E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */; };
 		E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */; };
 		E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */; };
 		E9AF2B9117F5B96500BDF6D9 /* MeasurementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9AF2B9017F5B96500BDF6D9 /* MeasurementTableViewCell.xib */; };
+		E9AF597E181826E6009A8221 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9AF597A181826E6009A8221 /* libTestFlight.a */; };
 		E9B47A031794217200E8A82E /* Terms.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A021794217200E8A82E /* Terms.m */; };
 		E9B47A0A1794315100E8A82E /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A091794315100E8A82E /* TermsViewController.m */; };
 		E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627AF17708E63004678D5 /* AFHTTPClient.m */; };
@@ -279,14 +281,18 @@
 		E93C86711781D727005E4212 /* MeasurementPoint+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MeasurementPoint+Util.m"; sourceTree = "<group>"; };
 		E94CBB5C177DB3050089D440 /* UUIDUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUIDUtil.h; sourceTree = "<group>"; };
 		E94CBB5D177DB3050089D440 /* UUIDUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUIDUtil.m; sourceTree = "<group>"; };
+		E982DF251817ECCB004DAB3E /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
+		E982DF261817ECCB004DAB3E /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
+		E982DF271817ECCB004DAB3E /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
+		E982DF281817ECCB004DAB3E /* GAILogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAILogger.h; sourceTree = "<group>"; };
+		E982DF291817ECCB004DAB3E /* GAITrackedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITrackedViewController.h; sourceTree = "<group>"; };
+		E982DF2A1817ECCB004DAB3E /* GAITracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAITracker.h; sourceTree = "<group>"; };
+		E982DF2B1817ECE0004DAB3E /* libGoogleAnalyticsServices.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalyticsServices.a; sourceTree = "<group>"; };
+		E982DF2D18181152004DAB3E /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		E995F0B0177C55A80011BF07 /* DictionarySerializationUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionarySerializationUtil.h; sourceTree = "<group>"; };
 		E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionarySerializationUtil.m; sourceTree = "<group>"; };
 		E995F0B6177C7A2A0011BF07 /* MeasurementPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementPoint.h; sourceTree = "<group>"; };
 		E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementPoint.m; sourceTree = "<group>"; };
-		E99CFD8417DF5B0300DED985 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		E99CFD8517DF5B0300DED985 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
-		E99CFD8617DF5B0300DED985 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
-		E99CFD8717DF5B0300DED985 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
 		E99CFD8917DF5BA600DED985 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		E99F8F6F178EC5AD0090402C /* UnitUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitUtil.h; sourceTree = "<group>"; };
 		E99F8F70178EC5AD0090402C /* UnitUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitUtil.m; sourceTree = "<group>"; };
@@ -297,6 +303,10 @@
 		E9AF2B8D17F5B93800BDF6D9 /* MeasurementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementTableViewCell.h; sourceTree = "<group>"; };
 		E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementTableViewCell.m; sourceTree = "<group>"; };
 		E9AF2B9017F5B96500BDF6D9 /* MeasurementTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeasurementTableViewCell.xib; sourceTree = "<group>"; };
+		E9AF597A181826E6009A8221 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		E9AF597B181826E6009A8221 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		E9AF597C181826E6009A8221 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
+		E9AF597D181826E6009A8221 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
 		E9B47A011794217200E8A82E /* Terms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terms.h; sourceTree = "<group>"; };
 		E9B47A021794217200E8A82E /* Terms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terms.m; sourceTree = "<group>"; };
 		E9B47A081794315100E8A82E /* TermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
@@ -409,20 +419,22 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E982DF2E18181152004DAB3E /* AdSupport.framework in Frameworks */,
 				E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */,
 				E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */,
+				E9AF597E181826E6009A8221 /* libTestFlight.a in Frameworks */,
 				E9B627CD1770930D004678D5 /* MobileCoreServices.framework in Frameworks */,
 				E9B627CB177092EF004678D5 /* SystemConfiguration.framework in Frameworks */,
 				E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */,
 				D7B5BD531757A23C0069F739 /* CoreLocation.framework in Frameworks */,
 				D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */,
 				D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */,
+				E982DF2C1817ECE0004DAB3E /* libGoogleAnalyticsServices.a in Frameworks */,
 				D7A4F1F4173A9FC200D1ACEE /* CoreMotion.framework in Frameworks */,
 				D7A4F1CB173A8DDB00D1ACEE /* UIKit.framework in Frameworks */,
 				D7A4F1CD173A8DDB00D1ACEE /* Foundation.framework in Frameworks */,
 				D7A4F1CF173A8DDB00D1ACEE /* CoreGraphics.framework in Frameworks */,
 				D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */,
-				E99CFD8817DF5B0300DED985 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,6 +558,7 @@
 		D7A4F1C9173A8DDB00D1ACEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E982DF2D18181152004DAB3E /* AdSupport.framework */,
 				E904AC9917F0911000171F7F /* MapKit.framework */,
 				D7DA72401743C1CD00DFE962 /* Accelerate.framework */,
 				E9EE1FB8176A024B00D1F006 /* CoreData.framework */,
@@ -650,6 +663,20 @@
 			name = Map;
 			sourceTree = "<group>";
 		};
+		E982DF241817EC1A004DAB3E /* GoogleAnalytics */ = {
+			isa = PBXGroup;
+			children = (
+				E982DF2B1817ECE0004DAB3E /* libGoogleAnalyticsServices.a */,
+				E982DF251817ECCB004DAB3E /* GAI.h */,
+				E982DF261817ECCB004DAB3E /* GAIDictionaryBuilder.h */,
+				E982DF271817ECCB004DAB3E /* GAIFields.h */,
+				E982DF281817ECCB004DAB3E /* GAILogger.h */,
+				E982DF291817ECCB004DAB3E /* GAITrackedViewController.h */,
+				E982DF2A1817ECCB004DAB3E /* GAITracker.h */,
+			);
+			name = GoogleAnalytics;
+			sourceTree = "<group>";
+		};
 		E98853C7176868BE00F78128 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -682,17 +709,6 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
-		E99CFD8317DF5A9200DED985 /* TestFlight */ = {
-			isa = PBXGroup;
-			children = (
-				E99CFD8417DF5B0300DED985 /* libTestFlight.a */,
-				E99CFD8517DF5B0300DED985 /* TestFlight.h */,
-				E99CFD8617DF5B0300DED985 /* TestFlight+AsyncLogging.h */,
-				E99CFD8717DF5B0300DED985 /* TestFlight+ManualSessions.h */,
-			);
-			name = TestFlight;
-			sourceTree = "<group>";
-		};
 		E9AF2B7F17F32A5900BDF6D9 /* NFarinaCalloutView */ = {
 			isa = PBXGroup;
 			children = (
@@ -700,6 +716,17 @@
 				E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */,
 			);
 			name = NFarinaCalloutView;
+			sourceTree = "<group>";
+		};
+		E9AF5979181826CF009A8221 /* TestFlight */ = {
+			isa = PBXGroup;
+			children = (
+				E9AF597A181826E6009A8221 /* libTestFlight.a */,
+				E9AF597B181826E6009A8221 /* TestFlight.h */,
+				E9AF597C181826E6009A8221 /* TestFlight+AsyncLogging.h */,
+				E9AF597D181826E6009A8221 /* TestFlight+ManualSessions.h */,
+			);
+			name = TestFlight;
 			sourceTree = "<group>";
 		};
 		E9B627AD17708E63004678D5 /* AFNetworking */ = {
@@ -845,11 +872,12 @@
 		E9DBD3BA17688E9C00CCDA57 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				E9AF2B7F17F32A5900BDF6D9 /* NFarinaCalloutView */,
+				E9AF5979181826CF009A8221 /* TestFlight */,
 				E9B627AD17708E63004678D5 /* AFNetworking */,
 				D702418A17478B16008954FD /* CorePlot */,
+				E982DF241817EC1A004DAB3E /* GoogleAnalytics */,
 				E9CD21FF177B2AEA0054ED3F /* MagicalRecord */,
-				E99CFD8317DF5A9200DED985 /* TestFlight */,
+				E9AF2B7F17F32A5900BDF6D9 /* NFarinaCalloutView */,
 			);
 			name = ThirdParty;
 			sourceTree = "<group>";

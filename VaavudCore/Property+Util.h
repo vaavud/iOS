@@ -25,6 +25,7 @@ static NSString * const KEY_FREQUENCY_FACTOR = @"frequencyFactor";
 static NSString * const KEY_FFT_LENGTH = @"fftLength";
 static NSString * const KEY_FFT_DATA_LENGTH = @"fftDataLength";
 static NSString * const KEY_ALGORITHM = @"algorithm";
+static NSString * const KEY_ANALYTICS_GRID_DEGREE = @"analyticsGridDegree";
 
 @interface Property (Util)
 
