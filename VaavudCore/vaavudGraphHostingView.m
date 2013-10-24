@@ -103,8 +103,7 @@ enum plotName : NSUInteger {
     return self;
 }
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self initialize];
@@ -224,7 +223,6 @@ enum plotName : NSUInteger {
     self.plotSpace.globalYRange = plotRange;
 }
 
-
 - (void) createNewPlot {
 
     [self.graph reloadData];
@@ -254,10 +252,7 @@ enum plotName : NSUInteger {
     [self.graph addPlot:windSpeedLinePlot];
 }
 
-
-
-- (void) setupCorePlotGraph
-{
+- (void) setupCorePlotGraph {
     
     self.windSpeedPlotCounter = 0;
     self.startTime = nil;
@@ -344,8 +339,6 @@ enum plotName : NSUInteger {
     y.majorTickLineStyle                = nil;
     y.axisLineStyle                     = nil;
     
-    
-    
     // create Red Average 
     self.averageWindSpeedPlot           = [[CPTScatterPlot alloc] init];
     CPTMutableLineStyle *lineStyle      = [CPTMutableLineStyle lineStyle];
@@ -353,19 +346,15 @@ enum plotName : NSUInteger {
     lineStyle.lineWidth                 = 4.0f;
     CPTColor *vaavudRed = [[CPTColor alloc] initWithComponentRed: (float) 210/255 green: (float) 37/255 blue: (float) 45/255 alpha: 1 ];
     
-    
     //   lineStyle.lineColor         = [CPTColor whiteColor];
     lineStyle.lineColor         = vaavudRed;
     self.averageWindSpeedPlot.dataLineStyle = lineStyle;
     self.averageWindSpeedPlot.identifier    = [[VaavudPlotIdentifier alloc] initWithPlotType: averagePlot andWindSpeedPlotIndex:0];
     self.averageWindSpeedPlot.dataSource    = self;
     [self.graph addPlot:self.averageWindSpeedPlot];
-    
-    
 }
 
--(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
-{
+-(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
  
     VaavudPlotIdentifier *plotIdentity = plot.identifier;
     
@@ -382,14 +371,9 @@ enum plotName : NSUInteger {
             return 0;
             break;
     }
-    
-
-    
 }
 
-
-- (NSArray *) numbersForPlot: (CPTPlot *)plot field:(NSUInteger) fieldEnum recordIndexRange: (NSRange)indexRange
-{
+- (NSArray *) numbersForPlot: (CPTPlot *)plot field:(NSUInteger) fieldEnum recordIndexRange: (NSRange)indexRange {
     VaavudPlotIdentifier *plotIdentity = plot.identifier;
     
     NSArray *numbers;
@@ -428,26 +412,17 @@ enum plotName : NSUInteger {
     
 }
 
-
-
 // only displace in X
 -(CGPoint)plotSpace:(CPTPlotSpace *)space willDisplaceBy:(CGPoint)displacement{
-    return CGPointMake(displacement.x,0);}
+    return CGPointMake(displacement.x,0);
+}
 
 // do not zoom in Y
 -(CPTPlotRange *)plotSpace:(CPTPlotSpace *)space willChangePlotRangeTo:(CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate{
     if (coordinate == CPTCoordinateY) {
         newRange = ((CPTXYPlotSpace*)space).yRange;
     }
-    return newRange;}
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+    return newRange;
 }
-*/
 
 @end

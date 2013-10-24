@@ -39,7 +39,7 @@
 @property (nonatomic, strong) UIImage *startButtonImage;
 @property (nonatomic, strong) UIImage *stopButtonImage;
 
-@property (nonatomic)           BOOL isValid;
+@property (nonatomic) BOOL isValid;
 
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
 
@@ -60,29 +60,11 @@
     
 }
 
-- (id) initWithCoder:(NSCoder*)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self initialize];
-    }
-    return self;
-}
-
-- (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        [self initialize];
-    }
-    return self;
-}
-
-- (void) initialize {
-    self.screenName = @"Measure Screen";
-}
-
-- (void) viewDidLoad  // FIRST METHOD CALLED (WHEN VIEW IS LOADED)
-{
+- (void) viewDidLoad {
     [super viewDidLoad];
+
+    self.screenName = @"Measure Screen";
+    self.windSpeedUnit = -1; // make sure windSpeedUnit is updated in viewWillAppear by setting it to an invalid value
 
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         UIImage *selectedTabImage = [[UIImage imageNamed:@"measure_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
@@ -105,6 +87,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
     WindSpeedUnit newWindSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
     if (newWindSpeedUnit != self.windSpeedUnit) {
         self.windSpeedUnit = newWindSpeedUnit;
@@ -120,6 +104,8 @@
 }
 
 - (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
     // note: hack for content view underlapping tab view when clicking on another tab and back
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") && (self.bottomLayoutGuideConstraint != nil)) {
         //self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -141,6 +127,7 @@
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [self.graphHostView pauseUpdates];
 }
 
@@ -173,8 +160,7 @@
     self.informationTextLabel.text = @"";
 }
 
-- (void) windSpeedMeasurementsAreValid: (BOOL) valid
-{
+- (void) windSpeedMeasurementsAreValid: (BOOL) valid {
     self.isValid = valid;
     
     if (!valid) {
@@ -254,8 +240,7 @@
     }
 }
 
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     
     UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     
@@ -265,7 +250,6 @@
     if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
         self.vaavudCoreController.upsideDown = YES;
 }
-
 
 - (IBAction) buttonPushed: (UIButton*) sender {
     if (self.buttonShowsStart) {
@@ -298,15 +282,12 @@
     [self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-
--(NSUInteger)supportedInterfaceOrientations
-{
+-(NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 

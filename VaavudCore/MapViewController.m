@@ -35,31 +35,13 @@
 
 @implementation MapViewController
 
-- (id) initWithCoder:(NSCoder*)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self initialize];
-    }
-    return self;
-}
+- (void)viewDidLoad {
+    [super viewDidLoad];
 
-- (id) initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        [self initialize];
-    }
-    return self;
-}
-
-- (void) initialize {
     self.screenName = @"Map Screen";
     self.isLoading = NO;
     self.isSelectingFromTableView = NO;
     self.hoursAgo = 48;
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
 
     self.analyticsGridDegree = [[Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] doubleValue];
 
@@ -119,6 +101,8 @@
 }
 
 - (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
     // note: hack for content view underlapping tab view when clicking on another tab and back
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") && (self.hoursBottomLayoutGuideConstraint != nil)) {
         [self.view removeConstraint:self.hoursBottomLayoutGuideConstraint];
@@ -146,8 +130,7 @@
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -235,8 +218,8 @@
     return UIStatusBarStyleLightContent;
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
-{
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    
     // If it's the user location, just return nil.
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
         return nil;
@@ -270,8 +253,7 @@
             measureAnnotationView.frame = lbl.frame;
             
         }
-        else
-        {
+        else {
             measureAnnotationView.annotation = annotation;
         }
         
