@@ -41,7 +41,7 @@
     self.screenName = @"Map Screen";
     self.isLoading = NO;
     self.isSelectingFromTableView = NO;
-    self.hoursAgo = 48;
+    self.hoursAgo = 24;
 
     self.analyticsGridDegree = [[Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] doubleValue];
 
@@ -402,17 +402,20 @@
 
 - (IBAction) hoursButtonPushed {
     switch (self.hoursAgo) {
-        case 24:
-            self.hoursAgo = 48;
+        case 3:
+            self.hoursAgo = 6;
             break;
-        case 48:
-            self.hoursAgo = 72;
+        case 6:
+            self.hoursAgo = 12;
             break;
-        case 72:
+        case 12:
             self.hoursAgo = 24;
             break;
+        case 24:
+            self.hoursAgo = 3;
+            break;
         default:
-            self.hoursAgo = 48;
+            self.hoursAgo = 24;
     }
     
     [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"hours button" label:[[NSNumber numberWithInt:self.hoursAgo] stringValue] value:nil] build]];
