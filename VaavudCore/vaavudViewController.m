@@ -84,6 +84,9 @@
     self.startButtonImage = [UIImage imageNamed: @"startButton.png"];
     self.stopButtonImage = [UIImage imageNamed: @"stopButton.png"];
     self.buttonShowsStart = YES;
+    
+    self.view.autoresizesSubviews = YES;
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -105,12 +108,15 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+
+    //NSLog(@"[VaavudViewController] topLayoutGuide=%f", self.topLayoutGuide.length);
+    //NSLog(@"[VaavudViewController] bottomLayoutGuide=%f", self.bottomLayoutGuide.length);
+
     // note: hack for content view underlapping tab view when clicking on another tab and back
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") && (self.bottomLayoutGuideConstraint != nil)) {
         //self.edgesForExtendedLayout = UIRectEdgeNone;
         
-        NSLog(@"[VaavudViewController] bottomLayoutGuide=%f", self.bottomLayoutGuide.length);
+        //NSLog(@"[VaavudViewController] bottomLayoutGuide=%f", self.bottomLayoutGuide.length);
         
         [self.view removeConstraint:self.bottomLayoutGuideConstraint];
         self.bottomLayoutGuideConstraint = nil;
@@ -241,14 +247,17 @@
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
     
     UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     
-    if (interfaceOrientation == UIInterfaceOrientationPortrait)
+    if (interfaceOrientation == UIInterfaceOrientationPortrait) {
         self.vaavudCoreController.upsideDown = NO;
+    }
     
-    if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown)
+    if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
         self.vaavudCoreController.upsideDown = YES;
+    }
 }
 
 - (IBAction) buttonPushed: (UIButton*) sender {

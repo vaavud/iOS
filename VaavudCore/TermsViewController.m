@@ -37,6 +37,9 @@
     
     NSString *html = [Terms getTermsOfService];
     [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:@"http://vaavud.com"]];
+    
+    self.view.autoresizesSubviews = YES;
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
 - (void)didReceiveMemoryWarning {
