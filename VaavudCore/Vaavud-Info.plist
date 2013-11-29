@@ -52,6 +52,8 @@
 	<string>1.17</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSMainNibFile~ipad</key>
+	<string>MainStoryboard</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Arkitech Medium.ttf</string>
@@ -96,6 +98,8 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 </dict>
 </plist>

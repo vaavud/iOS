@@ -1202,7 +1202,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Vaavud;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1224,7 +1224,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Vaavud;
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
