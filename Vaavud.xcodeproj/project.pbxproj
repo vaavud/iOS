@@ -59,6 +59,21 @@
 		E93C866F1781D69A005E4212 /* MeasurementSession+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */; };
 		E93C86721781D727005E4212 /* MeasurementPoint+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86711781D727005E4212 /* MeasurementPoint+Util.m */; };
 		E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E94CBB5D177DB3050089D440 /* UUIDUtil.m */; };
+		E9658CCC184CCEB6009B4DFE /* VaavudIcon40.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CC5184CCEB6009B4DFE /* VaavudIcon40.png */; };
+		E9658CCD184CCEB6009B4DFE /* VaavudIcon50.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CC6184CCEB6009B4DFE /* VaavudIcon50.png */; };
+		E9658CCE184CCEB6009B4DFE /* VaavudIcon72.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CC7184CCEB6009B4DFE /* VaavudIcon72.png */; };
+		E9658CCF184CCEB6009B4DFE /* VaavudIcon76.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CC8184CCEB6009B4DFE /* VaavudIcon76.png */; };
+		E9658CD0184CCEB6009B4DFE /* VaavudIcon100.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CC9184CCEB6009B4DFE /* VaavudIcon100.png */; };
+		E9658CD1184CCEB6009B4DFE /* VaavudIcon144.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CCA184CCEB6009B4DFE /* VaavudIcon144.png */; };
+		E9658CD2184CCEB6009B4DFE /* VaavudIcon152.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CCB184CCEB6009B4DFE /* VaavudIcon152.png */; };
+		E9658CDF184CD6AA009B4DFE /* iPad-iOS7-Landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CD7184CD6AA009B4DFE /* iPad-iOS7-Landscape@2x.png */; };
+		E9658CE1184CD6AA009B4DFE /* iPad-iOS7-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CD9184CD6AA009B4DFE /* iPad-iOS7-Portrait@2x.png */; };
+		E9658CE2184CD6AA009B4DFE /* iPad-iOS7-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CDA184CD6AA009B4DFE /* iPad-iOS7-Portrait.png */; };
+		E9658CE4184CD7AF009B4DFE /* iPad-iOS7-Landscape.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CE3184CD7AF009B4DFE /* iPad-iOS7-Landscape.png */; };
+		E9658CE9184CD8F1009B4DFE /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CE5184CD8F1009B4DFE /* Default-Landscape@2x~ipad.png */; };
+		E9658CEA184CD8F1009B4DFE /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CE6184CD8F1009B4DFE /* Default-Landscape~ipad.png */; };
+		E9658CEB184CD8F1009B4DFE /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CE7184CD8F1009B4DFE /* Default-Portrait@2x~ipad.png */; };
+		E9658CEC184CD8F1009B4DFE /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CE8184CD8F1009B4DFE /* Default~ipad.png */; };
 		E982DF2C1817ECE0004DAB3E /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E982DF2B1817ECE0004DAB3E /* libGoogleAnalyticsServices.a */; };
 		E982DF2E18181152004DAB3E /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E982DF2D18181152004DAB3E /* AdSupport.framework */; };
 		E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */; };
@@ -281,6 +296,21 @@
 		E93C86711781D727005E4212 /* MeasurementPoint+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MeasurementPoint+Util.m"; sourceTree = "<group>"; };
 		E94CBB5C177DB3050089D440 /* UUIDUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUIDUtil.h; sourceTree = "<group>"; };
 		E94CBB5D177DB3050089D440 /* UUIDUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUIDUtil.m; sourceTree = "<group>"; };
+		E9658CC5184CCEB6009B4DFE /* VaavudIcon40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon40.png; sourceTree = "<group>"; };
+		E9658CC6184CCEB6009B4DFE /* VaavudIcon50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon50.png; sourceTree = "<group>"; };
+		E9658CC7184CCEB6009B4DFE /* VaavudIcon72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon72.png; sourceTree = "<group>"; };
+		E9658CC8184CCEB6009B4DFE /* VaavudIcon76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon76.png; sourceTree = "<group>"; };
+		E9658CC9184CCEB6009B4DFE /* VaavudIcon100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon100.png; sourceTree = "<group>"; };
+		E9658CCA184CCEB6009B4DFE /* VaavudIcon144.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon144.png; sourceTree = "<group>"; };
+		E9658CCB184CCEB6009B4DFE /* VaavudIcon152.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon152.png; sourceTree = "<group>"; };
+		E9658CD7184CD6AA009B4DFE /* iPad-iOS7-Landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad-iOS7-Landscape@2x.png"; sourceTree = "<group>"; };
+		E9658CD9184CD6AA009B4DFE /* iPad-iOS7-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad-iOS7-Portrait@2x.png"; sourceTree = "<group>"; };
+		E9658CDA184CD6AA009B4DFE /* iPad-iOS7-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad-iOS7-Portrait.png"; sourceTree = "<group>"; };
+		E9658CE3184CD7AF009B4DFE /* iPad-iOS7-Landscape.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iPad-iOS7-Landscape.png"; sourceTree = "<group>"; };
+		E9658CE5184CD8F1009B4DFE /* Default-Landscape@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape@2x~ipad.png"; sourceTree = "<group>"; };
+		E9658CE6184CD8F1009B4DFE /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
+		E9658CE7184CD8F1009B4DFE /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
+		E9658CE8184CD8F1009B4DFE /* Default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~ipad.png"; sourceTree = "<group>"; };
 		E982DF251817ECCB004DAB3E /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
 		E982DF261817ECCB004DAB3E /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
 		E982DF271817ECCB004DAB3E /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
@@ -680,31 +710,46 @@
 		E98853C7176868BE00F78128 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				E91535C1180840D70070BFB4 /* about_selected.png */,
-				E91535C2180840D70070BFB4 /* about_selected@2x.png */,
-				E91535C3180840D70070BFB4 /* map_selected.png */,
-				E91535C4180840D70070BFB4 /* map_selected@2x.png */,
-				E91535C5180840D70070BFB4 /* measure_selected.png */,
-				E91535C6180840D70070BFB4 /* measure_selected@2x.png */,
+				E9658CE5184CD8F1009B4DFE /* Default-Landscape@2x~ipad.png */,
+				E9658CE6184CD8F1009B4DFE /* Default-Landscape~ipad.png */,
+				E9658CE7184CD8F1009B4DFE /* Default-Portrait@2x~ipad.png */,
+				E9658CE8184CD8F1009B4DFE /* Default~ipad.png */,
+				E9658CD7184CD6AA009B4DFE /* iPad-iOS7-Landscape@2x.png */,
+				E9658CE3184CD7AF009B4DFE /* iPad-iOS7-Landscape.png */,
+				E9658CD9184CD6AA009B4DFE /* iPad-iOS7-Portrait@2x.png */,
+				E9658CDA184CD6AA009B4DFE /* iPad-iOS7-Portrait.png */,
 				E91535A71806C2D20070BFB4 /* about.png */,
 				E91535A81806C2D20070BFB4 /* about@2x.png */,
-				E91535AB1806C2D20070BFB4 /* map.png */,
-				E91535AC1806C2D20070BFB4 /* map@2x.png */,
-				E91535AF1806C2D20070BFB4 /* measure.png */,
-				E91535B01806C2D20070BFB4 /* measure@2x.png */,
-				E91535B11806C2D20070BFB4 /* WindMarker.png */,
-				E91535B21806C2D20070BFB4 /* WindMarker@2x.png */,
+				E91535C1180840D70070BFB4 /* about_selected.png */,
+				E91535C2180840D70070BFB4 /* about_selected@2x.png */,
+				E9EB5E9E17E9BDAE00B02CE1 /* Default-568h@2x~iphone.png */,
 				E9EB5EA217E9BF7900B02CE1 /* Default.png */,
 				E9EB5EA017E9BE7800B02CE1 /* Default@2x~iphone.png */,
-				E9EB5E9E17E9BDAE00B02CE1 /* Default-568h@2x~iphone.png */,
-				E9EB5E9C17E9B77900B02CE1 /* VaavudLaunchImageRetinaIOS7.png */,
-				E9EB5E9A17E9B64F00B02CE1 /* VaavudLaunchImageRetina4InchIOS7.png */,
-				E9EB5E9417E9B22600B02CE1 /* VaavudIcon29.png */,
-				E9EB5E9517E9B22600B02CE1 /* VaavudIcon58.png */,
-				E9EB5E9617E9B22600B02CE1 /* VaavudIcon80.png */,
+				E91535AB1806C2D20070BFB4 /* map.png */,
+				E91535AC1806C2D20070BFB4 /* map@2x.png */,
+				E91535C3180840D70070BFB4 /* map_selected.png */,
+				E91535C4180840D70070BFB4 /* map_selected@2x.png */,
+				E91535AF1806C2D20070BFB4 /* measure.png */,
+				E91535B01806C2D20070BFB4 /* measure@2x.png */,
+				E91535C5180840D70070BFB4 /* measure_selected.png */,
+				E91535C6180840D70070BFB4 /* measure_selected@2x.png */,
+				E9658CC9184CCEB6009B4DFE /* VaavudIcon100.png */,
 				D70241821746D7F1008954FD /* VaavudIcon114.png */,
 				E9EB5E9217E9A3A500B02CE1 /* VaavudIcon120.png */,
+				E9658CCA184CCEB6009B4DFE /* VaavudIcon144.png */,
+				E9658CCB184CCEB6009B4DFE /* VaavudIcon152.png */,
+				E9EB5E9417E9B22600B02CE1 /* VaavudIcon29.png */,
+				E9658CC5184CCEB6009B4DFE /* VaavudIcon40.png */,
+				E9658CC6184CCEB6009B4DFE /* VaavudIcon50.png */,
 				D70241841746D7F6008954FD /* VaavudIcon57.png */,
+				E9EB5E9517E9B22600B02CE1 /* VaavudIcon58.png */,
+				E9658CC7184CCEB6009B4DFE /* VaavudIcon72.png */,
+				E9658CC8184CCEB6009B4DFE /* VaavudIcon76.png */,
+				E9EB5E9617E9B22600B02CE1 /* VaavudIcon80.png */,
+				E9EB5E9A17E9B64F00B02CE1 /* VaavudLaunchImageRetina4InchIOS7.png */,
+				E9EB5E9C17E9B77900B02CE1 /* VaavudLaunchImageRetinaIOS7.png */,
+				E91535B11806C2D20070BFB4 /* WindMarker.png */,
+				E91535B21806C2D20070BFB4 /* WindMarker@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -991,6 +1036,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9D0F4B217F9A25A00C220B3 /* MeasurementCalloutView.xib in Resources */,
+				E9658CE4184CD7AF009B4DFE /* iPad-iOS7-Landscape.png in Resources */,
 				E91535C01806C2D20070BFB4 /* WindMarker@2x.png in Resources */,
 				E91535C8180840D70070BFB4 /* about_selected@2x.png in Resources */,
 				E91535CB180840D70070BFB4 /* measure_selected.png in Resources */,
@@ -1003,12 +1049,19 @@
 				E91535C9180840D70070BFB4 /* map_selected.png in Resources */,
 				E9EB5E9B17E9B64F00B02CE1 /* VaavudLaunchImageRetina4InchIOS7.png in Resources */,
 				D70241831746D7F1008954FD /* VaavudIcon114.png in Resources */,
+				E9658CD1184CCEB6009B4DFE /* VaavudIcon144.png in Resources */,
+				E9658CEB184CD8F1009B4DFE /* Default-Portrait@2x~ipad.png in Resources */,
 				D70241851746D7F6008954FD /* VaavudIcon57.png in Resources */,
 				D7B5BD4B17574E8C0069F739 /* VaavudTransparent100px.png in Resources */,
+				E9658CE2184CD6AA009B4DFE /* iPad-iOS7-Portrait.png in Resources */,
+				E9658CCC184CCEB6009B4DFE /* VaavudIcon40.png in Resources */,
 				D7B5BD4D17574E970069F739 /* VaavudTransparent100px@2x.png in Resources */,
 				E9EB5E9917E9B22600B02CE1 /* VaavudIcon80.png in Resources */,
+				E9658CCF184CCEB6009B4DFE /* VaavudIcon76.png in Resources */,
+				E9658CCD184CCEB6009B4DFE /* VaavudIcon50.png in Resources */,
 				D7409DAA1769C1A900890CC9 /* startButton.png in Resources */,
 				E9EB5E9F17E9BDAE00B02CE1 /* Default-568h@2x~iphone.png in Resources */,
+				E9658CE9184CD8F1009B4DFE /* Default-Landscape@2x~ipad.png in Resources */,
 				E91535BD1806C2D20070BFB4 /* measure.png in Resources */,
 				E9EB5E9317E9A3A500B02CE1 /* VaavudIcon120.png in Resources */,
 				E91535CC180840D70070BFB4 /* measure_selected@2x.png in Resources */,
@@ -1016,14 +1069,21 @@
 				D7409DAC1769C1A900890CC9 /* stopButton.png in Resources */,
 				D7409DAD1769C1A900890CC9 /* stopButton@2x.png in Resources */,
 				E9EB5E9717E9B22600B02CE1 /* VaavudIcon29.png in Resources */,
+				E9658CD0184CCEB6009B4DFE /* VaavudIcon100.png in Resources */,
 				E9EB5E9D17E9B77900B02CE1 /* VaavudLaunchImageRetinaIOS7.png in Resources */,
 				E91535BE1806C2D20070BFB4 /* measure@2x.png in Resources */,
+				E9658CEC184CD8F1009B4DFE /* Default~ipad.png in Resources */,
 				E9AF2B9117F5B96500BDF6D9 /* MeasurementTableViewCell.xib in Resources */,
 				E9EB5EA317E9BF7900B02CE1 /* Default.png in Resources */,
+				E9658CCE184CCEB6009B4DFE /* VaavudIcon72.png in Resources */,
 				E9EB5EA117E9BE7800B02CE1 /* Default@2x~iphone.png in Resources */,
 				E91535BF1806C2D20070BFB4 /* WindMarker.png in Resources */,
+				E9658CE1184CD6AA009B4DFE /* iPad-iOS7-Portrait@2x.png in Resources */,
+				E9658CDF184CD6AA009B4DFE /* iPad-iOS7-Landscape@2x.png in Resources */,
+				E9658CD2184CCEB6009B4DFE /* VaavudIcon152.png in Resources */,
 				E91535B61806C2D20070BFB4 /* about@2x.png in Resources */,
 				E91535B51806C2D20070BFB4 /* about.png in Resources */,
+				E9658CEA184CD8F1009B4DFE /* Default-Landscape~ipad.png in Resources */,
 				E91535CA180840D70070BFB4 /* map_selected@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
