@@ -27,16 +27,20 @@
 @interface MapViewController ()
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
 @property (nonatomic) MeasurementCalloutView *measurementCalloutView;
-@property(nonatomic) NSDate *lastMeasurementsRead;
+@property (nonatomic) NSDate *lastMeasurementsRead;
 @property (nonatomic) BOOL isLoading;
 @property (nonatomic) int hoursAgo;
 @property (nonatomic) double analyticsGridDegree;
+@property (nonatomic) NSDate *latestLocalStartTime;
+@property(nonatomic) NSTimer *refreshTimer;
 @end
 
 @implementation MapViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    //NSLog(@"[MapViewController] viewDidLoad");
 
     self.screenName = @"Map Screen";
     self.isLoading = NO;
@@ -46,7 +50,7 @@
     self.analyticsGridDegree = [[Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] doubleValue];
 
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        UIImage *selectedTabImage = [[UIImage imageNamed:@"map_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        UIImage *selectedTabImage = [[UIImage imageNamed:@"map_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];   
         self.tabBarItem.selectedImage = selectedTabImage;
     }
 
@@ -100,7 +104,19 @@
         [self windSpeedUnitChanged];
         [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
     }
-    [self loadMeasurements:NO showActivityIndicator:NO];
+
+    BOOL forceReload = NO;
+    MeasurementSession *measurementSession = [MeasurementSession MR_findFirstOrderedByAttribute:@"startTime" ascending:NO];
+    if (measurementSession && measurementSession != nil && [measurementSession.measuring boolValue] == NO) {
+        NSDate *newLatestLocalStartTime = measurementSession.startTime;
+        if (newLatestLocalStartTime != nil && (self.latestLocalStartTime == nil || [newLatestLocalStartTime compare:self.latestLocalStartTime] == NSOrderedDescending)) {
+            //NSLog(@"[MapViewController] force reload of map data");
+            self.latestLocalStartTime = newLatestLocalStartTime;
+            forceReload = YES;
+        }
+    }
+
+    [self loadMeasurements:forceReload showActivityIndicator:NO];
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -131,6 +147,15 @@
                                                                                   constant:49.0+5.0];
         [self.view addConstraint:bottomSpaceConstraint];
     }
+
+    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:graceTimeBetweenMeasurementsRead target:self selector: @selector(refreshMap) userInfo:nil repeats:YES];
+}
+
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    if (self.refreshTimer && self.refreshTimer != nil) {
+        [self.refreshTimer invalidate];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -138,11 +163,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)refreshMap {
+    [self loadMeasurements:YES showActivityIndicator:NO];
+}
+
 - (void)loadMeasurements:(BOOL)ignoreGracePeriod showActivityIndicator:(BOOL)showActivityIndicator {
     
     if (!ignoreGracePeriod && self.lastMeasurementsRead && self.lastMeasurementsRead != nil) {
         NSTimeInterval howRecent = [self.lastMeasurementsRead timeIntervalSinceNow];
-        if (abs(howRecent) < graceTimeBetweenMeasurementsRead) {
+        if (abs(howRecent) < (graceTimeBetweenMeasurementsRead - 2.0)) {
             //NSLog(@"[MapViewController] ignoring loadMeasurements due to grace period");
             return;
         }
