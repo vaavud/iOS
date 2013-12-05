@@ -297,9 +297,43 @@
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MKZ-Ce-DqL">
+                                <rect key="frame" x="40" y="190" width="240" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut." selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTv-5v-GxF">
+                                        <rect key="frame" x="15" y="36" width="210" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Network Error" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5HR-by-QWH">
+                                        <rect key="frame" x="0.0" y="15" width="240" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="5HR-by-QWH" secondAttribute="trailing" id="FgL-cR-tao"/>
+                                    <constraint firstItem="FTv-5v-GxF" firstAttribute="leading" secondItem="MKZ-Ce-DqL" secondAttribute="leading" constant="15" id="OwB-Ls-fAj"/>
+                                    <constraint firstItem="FTv-5v-GxF" firstAttribute="top" secondItem="5HR-by-QWH" secondAttribute="bottom" id="PiO-Tf-nAc"/>
+                                    <constraint firstAttribute="centerX" secondItem="5HR-by-QWH" secondAttribute="centerX" id="RBJ-Gu-htR"/>
+                                    <constraint firstItem="5HR-by-QWH" firstAttribute="leading" secondItem="MKZ-Ce-DqL" secondAttribute="leading" id="VBl-DI-pTZ"/>
+                                    <constraint firstAttribute="height" constant="100" id="aF7-f7-rP5"/>
+                                    <constraint firstItem="5HR-by-QWH" firstAttribute="top" secondItem="MKZ-Ce-DqL" secondAttribute="top" constant="15" id="dIl-08-6lR"/>
+                                    <constraint firstAttribute="width" constant="240" id="eij-6F-UAk"/>
+                                    <constraint firstAttribute="bottom" secondItem="FTv-5v-GxF" secondAttribute="bottom" id="m1X-HY-p4Z"/>
+                                    <constraint firstAttribute="trailing" secondItem="FTv-5v-GxF" secondAttribute="trailing" constant="15" id="o7I-x3-pp3"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerY" secondItem="MKZ-Ce-DqL" secondAttribute="centerY" id="015-5E-yiw"/>
                             <constraint firstItem="tbg-Zl-YRw" firstAttribute="top" secondItem="vqh-9G-hns" secondAttribute="top" id="2hP-p6-xWh"/>
                             <constraint firstAttribute="trailing" secondItem="QH2-zG-NA0" secondAttribute="trailing" constant="15" id="Hkv-Lr-onC"/>
                             <constraint firstItem="WL0-GO-6Vw" firstAttribute="top" secondItem="QH2-zG-NA0" secondAttribute="bottom" constant="5" id="LuP-vq-l8q"/>
@@ -309,12 +343,16 @@
                             <constraint firstAttribute="trailing" secondItem="tbg-Zl-YRw" secondAttribute="trailing" id="m84-zh-4zy"/>
                             <constraint firstAttribute="bottom" secondItem="tbg-Zl-YRw" secondAttribute="bottom" id="muC-sY-vH4"/>
                             <constraint firstItem="aHi-Yt-n6U" firstAttribute="leading" secondItem="vqh-9G-hns" secondAttribute="leading" constant="15" id="qWc-ta-avW"/>
+                            <constraint firstAttribute="centerX" secondItem="MKZ-Ce-DqL" secondAttribute="centerX" id="soG-xT-uyc"/>
                             <constraint firstItem="tbg-Zl-YRw" firstAttribute="leading" secondItem="vqh-9G-hns" secondAttribute="leading" id="wTd-9r-8bp"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="map.png" id="CJd-r9-Fhf"/>
                     <connections>
                         <outlet property="activityIndicator" destination="1nG-yb-qca" id="bu9-c8-J60"/>
+                        <outlet property="feedbackTextView" destination="FTv-5v-GxF" id="Dou-US-dcS"/>
+                        <outlet property="feedbackTitleLabel" destination="5HR-by-QWH" id="2qq-KM-pNa"/>
+                        <outlet property="feedbackView" destination="MKZ-Ce-DqL" id="kJj-su-72H"/>
                         <outlet property="hoursBottomLayoutGuideConstraint" destination="beD-EN-MJc" id="fjc-hI-qbN"/>
                         <outlet property="hoursButton" destination="aHi-Yt-n6U" id="V2u-B5-fhi"/>
                         <outlet property="mapView" destination="tbg-Zl-YRw" id="OhK-hv-ypw"/>

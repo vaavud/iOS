@@ -310,10 +310,12 @@ SHARED_INSTANCE
 
 -(void) readMeasurements:(int)hours retry:(int)retryCount success:(void (^)(NSArray *measurements))success failure:(void (^)(NSError *error))failure {
     if (!self.hasReachability) {
+        failure(nil);
         return;
     }
     
     if (retryCount <= 0) {
+        failure(nil);
         return;
     }
     

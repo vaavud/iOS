@@ -76,8 +76,6 @@
 	<string>1.19</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSMainNibFile~ipad</key>
-	<string>MainStoryboard</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Arkitech Medium.ttf</string>

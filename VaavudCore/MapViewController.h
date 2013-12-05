@@ -24,6 +24,9 @@
 @property (nonatomic, weak) IBOutlet UIButton *hoursButton;
 @property (nonatomic, weak) IBOutlet UIButton *unitButton;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
+@property (nonatomic, weak) IBOutlet UIView *feedbackView;
+@property (nonatomic, weak) IBOutlet UILabel *feedbackTitleLabel;
+@property (nonatomic, weak) IBOutlet UITextView *feedbackTextView;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *hoursBottomLayoutGuideConstraint;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *unitBottomLayoutGuideConstraint;
 @property (nonatomic) BOOL isSelectingFromTableView;

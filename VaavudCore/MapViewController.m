@@ -63,6 +63,18 @@
     [self refreshHours];
     [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
 
+    self.feedbackView.layer.cornerRadius = 5.0;
+    self.feedbackView.layer.borderWidth = 0.5;
+    self.feedbackView.layer.borderColor = [UIColor colorWithRed: 0.1 green: 0.1 blue: 0.1 alpha: 1].CGColor;
+    self.feedbackView.hidden = YES;
+
+    self.feedbackTextView.editable = YES;
+    self.feedbackTextView.font = [UIFont systemFontOfSize:14];
+    self.feedbackTextView.textColor = [UIColor darkGrayColor];
+    self.feedbackTextView.textAlignment = NSTextAlignmentCenter;
+    self.feedbackTextView.selectable = NO;
+    self.feedbackTextView.editable = NO;
+    
     self.activityIndicator.hidden = YES;
     
     CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
@@ -218,6 +230,7 @@
         }
     } failure:^(NSError *error) {
         [self clearActivityIndicator];
+        [self showNoDataFeedbackMessage];
     }];
 }
 
@@ -232,6 +245,24 @@
     if (self.activityIndicator.hidden == NO) {
         self.activityIndicator.hidden = YES;
     }
+}
+
+-(void)showFeedbackMessage:(NSString*)title message:(NSString*)message {
+    if (self.feedbackView.hidden == NO) {
+        return;
+    }
+    self.feedbackTitleLabel.text = title;
+    self.feedbackTextView.text = message;
+    self.feedbackView.hidden = NO;
+    [self performSelector:@selector(hideFeedbackMessage) withObject:nil afterDelay:5.0];
+}
+
+-(void)hideFeedbackMessage {
+    self.feedbackView.hidden = YES;
+}
+
+-(void)showNoDataFeedbackMessage {
+    [self showFeedbackMessage:@"Map Refresh Error" message:@"Make sure you have cellular data or Wi-Fi connectivity."];
 }
 
 -(void)windSpeedUnitChanged {
