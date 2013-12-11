@@ -25,6 +25,9 @@
 -(void)setMeasurementAnnotation:(MeasurementAnnotation*)measurementAnnotation {
     _measurementAnnotation = measurementAnnotation;
     
+    self.maxHeadingLabel.text = NSLocalizedString(@"HEADING_MAX", nil);
+    self.nearbyHeadingLabel.text = [NSLocalizedString(@"HEADING_NEARBY_MEASUREMENTS", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+    
     if (!isnan(self.measurementAnnotation.avgWindSpeed)) {
         self.avgLabel.text = [FormatUtil formatValueWithThreeDigits:[UnitUtil displayWindSpeedFromDouble:self.measurementAnnotation.avgWindSpeed unit:self.windSpeedUnit]];
     }

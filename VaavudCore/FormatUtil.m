@@ -13,32 +13,32 @@
 + (NSString*) formatRelativeDate:(NSDate*) date {
     double timeAgoSeconds = [date timeIntervalSinceNow];
     if (timeAgoSeconds > 0) {
-        return @"future";
+        return NSLocalizedString(@"REL_TIME_FUTURE", nil);
     }
     timeAgoSeconds = abs(timeAgoSeconds);
     int minsAgo = round(timeAgoSeconds / 60.0);
     int hoursAgo = round(timeAgoSeconds / 3600.0);
     int daysAgo = round(timeAgoSeconds / (3600.0*24.0));
     if (minsAgo < 1) {
-        return @"just now";
+        return NSLocalizedString(@"REL_TIME_NOW", nil);
     }
     else if (minsAgo == 1) {
-        return [NSString stringWithFormat:@"%d min ago", minsAgo];
+        return NSLocalizedString(@"REL_TIME_1_MIN_AGO", nil);
     }
     else if (minsAgo < 60) {
-        return [NSString stringWithFormat:@"%d mins ago", minsAgo];
+        return [NSString stringWithFormat:NSLocalizedString(@"REL_TIME_X_MINS_AGO", nil), minsAgo];
     }
     else if (hoursAgo == 1) {
-        return [NSString stringWithFormat:@"%d hour ago", hoursAgo];
+        return NSLocalizedString(@"REL_TIME_1_HOUR_AGO", nil);
     }
     else if (hoursAgo < 48) {
-        return [NSString stringWithFormat:@"%d hours ago", hoursAgo];
+        return [NSString stringWithFormat:NSLocalizedString(@"REL_TIME_X_HOURS_AGO", nil), hoursAgo];
     }
     else if (daysAgo == 1) {
-        return [NSString stringWithFormat:@"%d day ago", daysAgo];
+        return NSLocalizedString(@"REL_TIME_1_DAY_AGO", nil);
     }
     else {
-        return [NSString stringWithFormat:@"%d days ago", daysAgo];
+        return [NSString stringWithFormat:NSLocalizedString(@"REL_TIME_X_DAYS_AGO", nil), daysAgo];
     }
 }
 

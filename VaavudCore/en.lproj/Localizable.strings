@@ -1,0 +1,45 @@
+/* 
+  Localizable.strings
+  Vaavud
+*/
+"TAB_MEASURE" = "Measure";
+"TAB_MAP" = "Map";
+"TAB_ABOUT" = "About";
+
+"UNIT_KMH" = "km/h";
+"UNIT_MS" = "m/s";
+"UNIT_MPH" = "mph";
+"UNIT_KN" = "kt";
+"UNIT_BFT" = "bft";
+
+"REL_TIME_FUTURE" = "future";
+"REL_TIME_NOW" = "just now";
+"REL_TIME_1_MIN_AGO" = "1 min ago";
+"REL_TIME_X_MINS_AGO" = "%d mins ago";
+"REL_TIME_1_HOUR_AGO" = "1 hour ago";
+"REL_TIME_X_HOURS_AGO" = "%d hours ago";
+"REL_TIME_1_DAY_AGO" = "1 day ago";
+"REL_TIME_X_DAYS_AGO" = "%d days ago";
+
+"HEADING_AVERAGE" = "Average";
+"HEADING_CURRENT" = "Current";
+"HEADING_MAX" = "Max";
+"HEADING_UNIT" = "Unit";
+"HEADING_NEARBY_MEASUREMENTS" = "Nearby Measurements";
+
+"BUTTON_START" = "Start";
+"BUTTON_STOP" = "Stop";
+
+"INFO_MEASURING" = "Measurement in progress";
+"INFO_NO_SIGNAL" = "No signal";
+"INFO_KEEP_STEADY" = "Keep vertical & steady";
+
+"X_HOURS" = "%d hours";
+"MAP_REFRESH_ERROR_TITLE" = "Map Refresh Error";
+"MAP_REFRESH_ERROR_MESSAGE" = "Make sure you have cellular data or Wi-Fi connectivity.";
+
+"ABOUT_TITLE" = "About";
+"ABOUT_BACK" = "Back";
+"ABOUT_VAAVUD_TEXT" = "Vaavud is a Danish technology start-up.\n Our mission is to make the best wind meters on the planet in terms of usability, features, and third party integration.\n To learn more and to purchase a Vaavud wind meter visit Vaavud.com\n &copy; Vaavud ApS 2013, all rights reserved\n Version: %@";
+"LINK_TERMS_OF_SERVICE" = "Terms of Service";
+"LINK_PRIVACY_POLICY" = "Privacy Policy";

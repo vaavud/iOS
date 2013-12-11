@@ -56,6 +56,8 @@
 
 	self.mapView.delegate = self;
     
+    self.tabBarItem.title = NSLocalizedString(@"TAB_MAP", nil);
+
     self.mapView.calloutView = [SMCalloutView new];
     self.mapView.calloutView.delegate = self;
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
@@ -254,7 +256,7 @@
     self.feedbackTitleLabel.text = title;
     self.feedbackTextView.text = message;
     self.feedbackView.hidden = NO;
-    [self performSelector:@selector(hideFeedbackMessage) withObject:nil afterDelay:5.0];
+    [self performSelector:@selector(hideFeedbackMessage) withObject:nil afterDelay:8.0];
 }
 
 -(void)hideFeedbackMessage {
@@ -262,7 +264,7 @@
 }
 
 -(void)showNoDataFeedbackMessage {
-    [self showFeedbackMessage:@"Map Refresh Error" message:@"Make sure you have cellular data or Wi-Fi connectivity."];
+    [self showFeedbackMessage:NSLocalizedString(@"MAP_REFRESH_ERROR_TITLE", nil) message:NSLocalizedString(@"MAP_REFRESH_ERROR_MESSAGE", nil)];
 }
 
 -(void)windSpeedUnitChanged {
@@ -488,7 +490,7 @@
 }
 
 - (void) refreshHours {
-    NSString *hoursAgo = [NSString stringWithFormat:@"%d hours", self.hoursAgo];
+    NSString *hoursAgo = [NSString stringWithFormat:NSLocalizedString(@"X_HOURS", nil), self.hoursAgo];
     [self.hoursButton setTitle:hoursAgo forState:UIControlStateNormal];
 }
 

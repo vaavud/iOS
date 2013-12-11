@@ -59,6 +59,8 @@
 		E93C866F1781D69A005E4212 /* MeasurementSession+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */; };
 		E93C86721781D727005E4212 /* MeasurementPoint+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86711781D727005E4212 /* MeasurementPoint+Util.m */; };
 		E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E94CBB5D177DB3050089D440 /* UUIDUtil.m */; };
+		E960260818575452009396B1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E960260A18575452009396B1 /* Localizable.strings */; };
+		E960260E18575E41009396B1 /* MeasurementCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E960261018575E41009396B1 /* MeasurementCalloutView.xib */; };
 		E9658CCC184CCEB6009B4DFE /* VaavudIcon40.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CC5184CCEB6009B4DFE /* VaavudIcon40.png */; };
 		E9658CCD184CCEB6009B4DFE /* VaavudIcon50.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CC6184CCEB6009B4DFE /* VaavudIcon50.png */; };
 		E9658CCE184CCEB6009B4DFE /* VaavudIcon72.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CC7184CCEB6009B4DFE /* VaavudIcon72.png */; };
@@ -126,7 +128,6 @@
 		E9CD2252177B2AEA0054ED3F /* MagicalRecord+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2234177B2AEA0054ED3F /* MagicalRecord+Setup.m */; };
 		E9CD2253177B2AEA0054ED3F /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2236177B2AEA0054ED3F /* MagicalRecord+ShorthandSupport.m */; };
 		E9CD2254177B2AEA0054ED3F /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2238177B2AEA0054ED3F /* MagicalRecord.m */; };
-		E9D0F4B217F9A25A00C220B3 /* MeasurementCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9D0F4B117F9A25A00C220B3 /* MeasurementCalloutView.xib */; };
 		E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */; };
 		E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */; };
 		E9EB5E9317E9A3A500B02CE1 /* VaavudIcon120.png in Resources */ = {isa = PBXBuildFile; fileRef = E9EB5E9217E9A3A500B02CE1 /* VaavudIcon120.png */; };
@@ -243,7 +244,6 @@
 		D7A4F1D8173A8DDB00D1ACEE /* Vaavud-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Prefix.pch"; sourceTree = "<group>"; };
 		D7A4F1D9173A8DDB00D1ACEE /* vaavudAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vaavudAppDelegate.h; sourceTree = "<group>"; };
 		D7A4F1DA173A8DDB00D1ACEE /* vaavudAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vaavudAppDelegate.m; sourceTree = "<group>"; };
-		D7A4F1E3173A8DDB00D1ACEE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		D7A4F1E5173A8DDB00D1ACEE /* vaavudViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vaavudViewController.h; sourceTree = "<group>"; };
 		D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vaavudViewController.m; sourceTree = "<group>"; };
 		D7A4F1F0173A8FAB00D1ACEE /* VaavudCoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudCoreController.h; sourceTree = "<group>"; };
@@ -296,6 +296,9 @@
 		E93C86711781D727005E4212 /* MeasurementPoint+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MeasurementPoint+Util.m"; sourceTree = "<group>"; };
 		E94CBB5C177DB3050089D440 /* UUIDUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUIDUtil.h; sourceTree = "<group>"; };
 		E94CBB5D177DB3050089D440 /* UUIDUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUIDUtil.m; sourceTree = "<group>"; };
+		E96025FB18574DC0009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E960260B18575461009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E960260D18575473009396B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E9658CC5184CCEB6009B4DFE /* VaavudIcon40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon40.png; sourceTree = "<group>"; };
 		E9658CC6184CCEB6009B4DFE /* VaavudIcon50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon50.png; sourceTree = "<group>"; };
 		E9658CC7184CCEB6009B4DFE /* VaavudIcon72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon72.png; sourceTree = "<group>"; };
@@ -420,7 +423,6 @@
 		E9CD2238177B2AEA0054ED3F /* MagicalRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicalRecord.m; sourceTree = "<group>"; };
 		E9CD2239177B2AEA0054ED3F /* MagicalRecordShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalRecordShorthand.h; sourceTree = "<group>"; };
 		E9CD223A177B2AEA0054ED3F /* CoreData+MagicalRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MagicalRecord.h"; sourceTree = "<group>"; };
-		E9D0F4B117F9A25A00C220B3 /* MeasurementCalloutView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeasurementCalloutView.xib; sourceTree = "<group>"; };
 		E9D0F4B317F9A59000C220B3 /* MeasurementCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementCalloutView.h; sourceTree = "<group>"; };
 		E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementCalloutView.m; sourceTree = "<group>"; };
 		E9EB5E8F17E84E4D00B02CE1 /* AlgorithmConstantsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlgorithmConstantsUtil.h; sourceTree = "<group>"; };
@@ -440,6 +442,8 @@
 		E9EE1FA31769E54E00D1F006 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		E9EE1FAE1769F08400D1F006 /* SharedSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedSingleton.h; sourceTree = "<group>"; };
 		E9EE1FB8176A024B00D1F006 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		E9FB815F1858692D0084F19B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
+		E9FB816018586A6F0084F19B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MeasurementCalloutView.xib; sourceTree = "<group>"; };
 		E9FD000917FD6A06001A8491 /* FormatUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FormatUtil.h; sourceTree = "<group>"; };
 		E9FD000A17FD6A06001A8491 /* FormatUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FormatUtil.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -636,6 +640,7 @@
 				D7A4F1D3173A8DDB00D1ACEE /* InfoPlist.strings */,
 				D7A4F1D6173A8DDB00D1ACEE /* main.m */,
 				D7A4F1D8173A8DDB00D1ACEE /* Vaavud-Prefix.pch */,
+				E960260A18575452009396B1 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			path = VaavudCore;
@@ -677,7 +682,7 @@
 				E9AF2B8D17F5B93800BDF6D9 /* MeasurementTableViewCell.h */,
 				E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */,
 				E9AF2B9017F5B96500BDF6D9 /* MeasurementTableViewCell.xib */,
-				E9D0F4B117F9A25A00C220B3 /* MeasurementCalloutView.xib */,
+				E960261018575E41009396B1 /* MeasurementCalloutView.xib */,
 				E9D0F4B317F9A59000C220B3 /* MeasurementCalloutView.h */,
 				E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */,
 			);
@@ -1019,6 +1024,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
+				da,
 			);
 			mainGroup = D7A4F1BE173A8DDB00D1ACEE;
 			productRefGroup = D7A4F1C8173A8DDB00D1ACEE /* Products */;
@@ -1035,7 +1042,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9D0F4B217F9A25A00C220B3 /* MeasurementCalloutView.xib in Resources */,
+				E960260E18575E41009396B1 /* MeasurementCalloutView.xib in Resources */,
 				E9658CE4184CD7AF009B4DFE /* iPad-iOS7-Landscape.png in Resources */,
 				E91535C01806C2D20070BFB4 /* WindMarker@2x.png in Resources */,
 				E91535C8180840D70070BFB4 /* about_selected@2x.png in Resources */,
@@ -1069,6 +1076,7 @@
 				D7409DAC1769C1A900890CC9 /* stopButton.png in Resources */,
 				D7409DAD1769C1A900890CC9 /* stopButton@2x.png in Resources */,
 				E9EB5E9717E9B22600B02CE1 /* VaavudIcon29.png in Resources */,
+				E960260818575452009396B1 /* Localizable.strings in Resources */,
 				E9658CD0184CCEB6009B4DFE /* VaavudIcon100.png in Resources */,
 				E9EB5E9D17E9B77900B02CE1 /* VaavudLaunchImageRetinaIOS7.png in Resources */,
 				E91535BE1806C2D20070BFB4 /* measure@2x.png in Resources */,
@@ -1174,6 +1182,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				D7A4F1D4173A8DDB00D1ACEE /* en */,
+				E96025FB18574DC0009396B1 /* da */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1181,9 +1190,26 @@
 		D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				D7A4F1E3173A8DDB00D1ACEE /* en */,
+				E9FB815F1858692D0084F19B /* en */,
 			);
 			name = MainStoryboard.storyboard;
+			sourceTree = "<group>";
+		};
+		E960260A18575452009396B1 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E960260B18575461009396B1 /* da */,
+				E960260D18575473009396B1 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		E960261018575E41009396B1 /* MeasurementCalloutView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E9FB816018586A6F0084F19B /* en */,
+			);
+			name = MeasurementCalloutView.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

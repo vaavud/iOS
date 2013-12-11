@@ -53,20 +53,20 @@ static NSSet* countriesUsingMph;
 
 + (NSString*) displayNameForWindSpeedUnit:(WindSpeedUnit) unit {
     if (unit == WindSpeedUnitMS) {
-        return @"m/s";
+        return NSLocalizedString(@"UNIT_MS", nil);
     }
     else if (unit == WindSpeedUnitMPH) {
-        return @"mph";
+        return NSLocalizedString(@"UNIT_MPH", nil);
     }
     else if (unit == WindSpeedUnitKN) {
-        return @"kt";
+        return NSLocalizedString(@"UNIT_KN", nil);
     }
     else if (unit == WindSpeedUnitBFT) {
-        return @"bft";
+        return NSLocalizedString(@"UNIT_BFT", nil);
     }
     else {
         // default to km/h
-        return @"km/h";
+        return NSLocalizedString(@"UNIT_KMH", nil);
     }
 }
 

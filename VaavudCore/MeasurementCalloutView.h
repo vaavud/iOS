@@ -19,9 +19,11 @@
 @property (nonatomic, weak) IBOutlet UIButton *mapButton;
 @property (nonatomic, weak) IBOutlet UILabel *avgLabel;
 @property (nonatomic, weak) IBOutlet UILabel *avgUnitLabel;
+@property (nonatomic, weak) IBOutlet UILabel *maxHeadingLabel;
 @property (nonatomic, weak) IBOutlet UILabel *maxLabel;
 @property (nonatomic, weak) IBOutlet UILabel *maxUnitLabel;
 @property (nonatomic, weak) IBOutlet UILabel *timeLabel;
+@property (nonatomic, weak) IBOutlet UILabel *nearbyHeadingLabel;
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
 @property (nonatomic) MeasurementAnnotation *measurementAnnotation;
 @property (nonatomic) MapViewController *mapViewController;

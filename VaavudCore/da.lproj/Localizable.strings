@@ -1,0 +1,45 @@
+/* 
+  Localizable.strings
+  Vaavud
+*/
+"TAB_MEASURE" = "Mål";
+"TAB_MAP" = "Kort";
+"TAB_ABOUT" = "Om";
+
+"UNIT_KMH" = "km/t";
+"UNIT_MS" = "m/s";
+"UNIT_MPH" = "mph";
+"UNIT_KN" = "knob";
+"UNIT_BFT" = "bft";
+
+"REL_TIME_FUTURE" = "fremtid";
+"REL_TIME_NOW" = "lige nu";
+"REL_TIME_1_MIN_AGO" = "1 min siden";
+"REL_TIME_X_MINS_AGO" = "%d min siden";
+"REL_TIME_1_HOUR_AGO" = "1 time siden";
+"REL_TIME_X_HOURS_AGO" = "%d timer siden";
+"REL_TIME_1_DAY_AGO" = "1 dag siden";
+"REL_TIME_X_DAYS_AGO" = "%d dage siden";
+
+"HEADING_AVERAGE" = "Middel";
+"HEADING_CURRENT" = "Lige nu";
+"HEADING_MAX" = "Maks";
+"HEADING_UNIT" = "Enhed";
+"HEADING_NEARBY_MEASUREMENTS" = "Nærliggende Målinger";
+
+"BUTTON_START" = "Start";
+"BUTTON_STOP" = "Stop";
+
+"INFO_MEASURING" = "Måling i gang";
+"INFO_NO_SIGNAL" = "Intet signal";
+"INFO_KEEP_STEADY" = "Hold lodret og roligt";
+
+"X_HOURS" = "%d timer";
+"MAP_REFRESH_ERROR_TITLE" = "Kortopdateringsfejl";
+"MAP_REFRESH_ERROR_MESSAGE" = "Sørg for at du har mobildata eller Wi-Fi forbindelse.";
+
+"ABOUT_TITLE" = "Om Vaavud";
+"ABOUT_BACK" = "Tilbage";
+"ABOUT_VAAVUD_TEXT" = "Vaavud er en dansk teknologi start-up.\n Vores mål er at lave de bedste vindmålere i verden ifht brugervenlighed, funktioner og integration med andre produkter.\n For at læse mere og købe en Vaavud vindmåler, så besøg Vaavud.com\n &copy; Vaavud ApS 2013, all rights reserved\n Version: %@";
+"LINK_TERMS_OF_SERVICE" = "Betingelser";
+"LINK_PRIVACY_POLICY" = "Privatlivspolitik";

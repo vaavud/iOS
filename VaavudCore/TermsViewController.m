@@ -32,9 +32,11 @@
     }
 
     self.navigationBar.delegate = self;
-    
     self.webView.delegate = self;
-    
+
+    self.tabBarItem.title = NSLocalizedString(@"TAB_ABOUT", nil);
+    self.aboutItem.title = NSLocalizedString(@"ABOUT_TITLE", nil);
+
     NSString *html = [Terms getTermsOfService];
     [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:@"http://vaavud.com"]];
     
@@ -50,7 +52,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
 
     if ([self.webView.request.URL.path compare:@"/"] != NSOrderedSame) {
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleBordered target:self action:@selector(backButtonPushed)];
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"ABOUT_BACK", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backButtonPushed)];
         self.aboutItem.leftBarButtonItem = backButton;
     }
     else {

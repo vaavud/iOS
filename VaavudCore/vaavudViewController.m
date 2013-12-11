@@ -16,6 +16,11 @@
 
 @interface vaavudViewController ()
 
+@property (nonatomic, weak) IBOutlet UILabel *averageHeadingLabel;
+@property (nonatomic, weak) IBOutlet UILabel *currentHeadingLabel;
+@property (nonatomic, weak) IBOutlet UILabel *maxHeadingLabel;
+@property (nonatomic, weak) IBOutlet UILabel *unitHeadingLabel;
+
 @property (nonatomic, weak) IBOutlet UILabel *actualLabel;
 @property (nonatomic, weak) IBOutlet UILabel *averageLabel;
 @property (nonatomic, weak) IBOutlet UILabel *maxLabel;
@@ -71,6 +76,12 @@
         self.tabBarItem.selectedImage = selectedTabImage;
     }
     
+    self.tabBarItem.title = NSLocalizedString(@"TAB_MEASURE", nil);
+    self.averageHeadingLabel.text = [NSLocalizedString(@"HEADING_AVERAGE", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+    self.currentHeadingLabel.text = [NSLocalizedString(@"HEADING_CURRENT", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+    self.maxHeadingLabel.text = [NSLocalizedString(@"HEADING_MAX", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+    self.unitHeadingLabel.text = [NSLocalizedString(@"HEADING_UNIT", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+    
     [self.graphHostView setupCorePlotGraph];
     
     self.compassTableShort = [NSArray arrayWithObjects:  @"N",@"NE",@"E",@"SE",@"S",@"SW",@"W",@"NW", nil];
@@ -84,7 +95,8 @@
     self.startButtonImage = [UIImage imageNamed: @"startButton.png"];
     self.stopButtonImage = [UIImage imageNamed: @"stopButton.png"];
     self.buttonShowsStart = YES;
-    
+    [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
+
     self.view.autoresizesSubviews = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
@@ -195,7 +207,7 @@
         self.averageLabelCurrentValue = [self.vaavudCoreController getAverage];
         self.maxLabelCurrentValue = [self.vaavudCoreController getMax];
         
-        self.informationTextLabel.text = @"Measurement in progress";
+        self.informationTextLabel.text = NSLocalizedString(@"INFO_MEASURING", nil);
                 
         [self.statusBar setProgress: [[self.vaavudCoreController getProgress] floatValue]];
         
@@ -204,10 +216,10 @@
         self.actualLabelCurrentValue = nil;
         
         if (self.vaavudCoreController.dynamicsIsValid) {
-            self.informationTextLabel.text = @"No signal";
+            self.informationTextLabel.text = NSLocalizedString(@"INFO_NO_SIGNAL", nil);
         }
         else {
-            self.informationTextLabel.text = @"Keep vertical & steady";
+            self.informationTextLabel.text = NSLocalizedString(@"INFO_KEEP_STEADY", nil);
         }
     }
 
@@ -263,7 +275,8 @@
 - (IBAction) buttonPushed: (UIButton*) sender {
     if (self.buttonShowsStart) {
         self.buttonShowsStart = NO;
-        [self.startStopButton setBackgroundImage: self.stopButtonImage forState:UIControlStateNormal];
+        [self.startStopButton setBackgroundImage:self.stopButtonImage forState:UIControlStateNormal];
+        [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_STOP", nil) forState:UIControlStateNormal];
         [self start];
         
         [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"start button" label:nil value:nil] build]];
@@ -271,6 +284,7 @@
     else {
         self.buttonShowsStart = YES;
         [self.startStopButton setBackgroundImage: self.startButtonImage forState:UIControlStateNormal];
+        [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
         [self stop];
 
         [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"stop button" label:nil value:nil] build]];
