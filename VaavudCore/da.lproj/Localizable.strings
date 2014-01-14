@@ -2,7 +2,7 @@
   Localizable.strings
   Vaavud
 */
-"TAB_MEASURE" = "Mål";
+"TAB_MEASURE" = "Måling";
 "TAB_MAP" = "Kort";
 "TAB_ABOUT" = "Om";
 
@@ -22,7 +22,7 @@
 "REL_TIME_X_DAYS_AGO" = "%d dage siden";
 
 "HEADING_AVERAGE" = "Middel";
-"HEADING_CURRENT" = "Lige nu";
+"HEADING_CURRENT" = "Nuværende";
 "HEADING_MAX" = "Maks";
 "HEADING_UNIT" = "Enhed";
 "HEADING_NEARBY_MEASUREMENTS" = "Nærliggende Målinger";
