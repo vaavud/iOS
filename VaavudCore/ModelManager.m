@@ -110,6 +110,13 @@ SHARED_INSTANCE
         [Property setAsDouble:analyticsGridDegree forKey:KEY_ANALYTICS_GRID_DEGREE];
     }
 
+    NSArray *hourOptions = [Property getAsFloatArray:KEY_HOUR_OPTIONS];
+    if (hourOptions == nil || hourOptions.count == 0) {
+        hourOptions = [NSArray arrayWithObjects:[NSNumber numberWithFloat:3.0f], [NSNumber numberWithFloat:6.0f], [NSNumber numberWithFloat:12.0f], [NSNumber numberWithFloat:24.0f], nil];
+        NSLog(@"[ModelManager] No hour options, defaulting to: (%@)", [hourOptions componentsJoinedByString:@","]);
+        [Property setAsFloatArray:hourOptions forKey:KEY_HOUR_OPTIONS];
+    }
+    
     // make sure nothing else get executed until changes are written to the database
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }

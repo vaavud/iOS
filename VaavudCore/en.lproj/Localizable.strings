@@ -29,6 +29,7 @@
 
 "BUTTON_START" = "Start";
 "BUTTON_STOP" = "Stop";
+"BUTTON_OK" = "OK";
 
 "INFO_MEASURING" = "Measurement in progress";
 "INFO_NO_SIGNAL" = "No signal";

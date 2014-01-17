@@ -64,6 +64,29 @@
     [self setAsString:[value stringValue] forKey:name];
 }
 
++ (NSArray*) getAsFloatArray:(NSString*) name {
+    NSString *value = [self getAsString:name];
+    if (value == nil || value.length == 0) {
+        return nil;
+    }
+    NSArray *stringArray = [value componentsSeparatedByString:@","];
+    NSMutableArray *floatArray = [NSMutableArray arrayWithCapacity:stringArray.count];
+    for (int i = 0; i < stringArray.count; i++) {
+        NSString *stringValue = stringArray[i];
+        NSNumber *floatValue = [NSNumber numberWithFloat:[stringValue floatValue]];
+        [floatArray addObject:floatValue];
+    }
+    return floatArray;
+}
+
++ (void) setAsFloatArray:(NSArray*) value forKey:(NSString*) name {
+    NSString *storedValue = @"";
+    if (value != nil && value.count > 0) {
+        storedValue = [value componentsJoinedByString:@","];
+    }
+    [self setAsString:storedValue forKey:name];
+}
+
 + (NSDictionary *) getDeviceDictionary {
     
     NSNumber* timezoneOffsetMillis = [NSNumber numberWithLong:([[NSTimeZone localTimeZone] secondsFromGMT] * 1000L)];

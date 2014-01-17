@@ -298,6 +298,11 @@ SHARED_INSTANCE
             NSLog(@"[ServerUploadManager] Setting parameters from server: algorithm=%@, frequencyStart=%@, frequencyFactor=%@, fftLength=%@, fftDataLength=%@, analyticsGridDegree=%@", [Property getAsInteger:KEY_ALGORITHM], [Property getAsDouble:KEY_FREQUENCY_START], [Property getAsDouble:KEY_FREQUENCY_FACTOR], [Property getAsInteger:KEY_FFT_LENGTH], [Property getAsInteger:KEY_FFT_DATA_LENGTH], [Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE]);
         }
         
+        NSArray *hourOptions = [responseObject objectForKey:@"hourOptions"];
+        if (hourOptions != nil && hourOptions.count > 0) {
+            [Property setAsFloatArray:hourOptions forKey:KEY_HOUR_OPTIONS];
+        }
+        
         // only trigger upload once we get OK from server for registering device, otherwise the device could be unregistered when uploading
         [self triggerUpload];
 

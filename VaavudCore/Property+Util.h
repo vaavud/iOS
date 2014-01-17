@@ -26,24 +26,20 @@ static NSString * const KEY_FFT_LENGTH = @"fftLength";
 static NSString * const KEY_FFT_DATA_LENGTH = @"fftDataLength";
 static NSString * const KEY_ALGORITHM = @"algorithm";
 static NSString * const KEY_ANALYTICS_GRID_DEGREE = @"analyticsGridDegree";
+static NSString * const KEY_HOUR_OPTIONS = @"hourOptions";
 
 @interface Property (Util)
 
 + (NSString*) getAsString:(NSString*) name;
-
 + (BOOL) getAsBoolean:(NSString*) name;
-
 + (NSNumber*) getAsInteger:(NSString*) name;
-
 + (NSNumber*) getAsDouble:(NSString*) name;
-
++ (NSArray*) getAsFloatArray:(NSString*) name;
 + (void) setAsString:(NSString*) value forKey:(NSString*) name;
-
 + (void) setAsBoolean:(BOOL) value forKey:(NSString*) name;
-
 + (void) setAsInteger:(NSNumber*) value forKey:(NSString*) name;
-
 + (void) setAsDouble:(NSNumber*) value forKey:(NSString*) name;
++ (void) setAsFloatArray:(NSArray*) value forKey:(NSString*) name;
 
 + (NSDictionary *) getDeviceDictionary;
 

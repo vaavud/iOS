@@ -29,6 +29,7 @@
 
 "BUTTON_START" = "Start";
 "BUTTON_STOP" = "Stop";
+"BUTTON_OK" = "OK";
 
 "INFO_MEASURING" = "Måling i gang";
 "INFO_NO_SIGNAL" = "Intet signal";

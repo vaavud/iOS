@@ -45,10 +45,14 @@
     self.screenName = @"Map Screen";
     self.isLoading = NO;
     self.isSelectingFromTableView = NO;
-    self.hoursAgo = 24;
-
     self.analyticsGridDegree = [[Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] doubleValue];
 
+    self.hoursAgo = 3;
+    NSArray *hourOptions = [Property getAsFloatArray:KEY_HOUR_OPTIONS];
+    if (hourOptions != nil && hourOptions.count > 0) {
+        self.hoursAgo = round([hourOptions[hourOptions.count - 1] floatValue]);
+    }
+    
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         UIImage *selectedTabImage = [[UIImage imageNamed:@"map_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];   
         self.tabBarItem.selectedImage = selectedTabImage;
@@ -466,21 +470,20 @@
 }
 
 - (IBAction) hoursButtonPushed {
-    switch (self.hoursAgo) {
-        case 3:
-            self.hoursAgo = 6;
-            break;
-        case 6:
-            self.hoursAgo = 12;
-            break;
-        case 12:
-            self.hoursAgo = 24;
-            break;
-        case 24:
-            self.hoursAgo = 3;
-            break;
-        default:
-            self.hoursAgo = 24;
+    NSArray *hourOptions = [Property getAsFloatArray:KEY_HOUR_OPTIONS];
+    if (hourOptions != nil && hourOptions.count > 0) {
+        BOOL isOptionChanged = NO;
+        for (int i = 0; i < hourOptions.count; i++) {
+            int hourOptionInt = round([hourOptions[i] floatValue]);
+            if (hourOptionInt > self.hoursAgo) {
+                self.hoursAgo = hourOptionInt;
+                isOptionChanged = YES;
+                break;
+            }
+        }
+        if (!isOptionChanged) {
+            self.hoursAgo = round([hourOptions[0] floatValue]);
+        }
     }
     
     [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"hours button" label:[[NSNumber numberWithInt:self.hoursAgo] stringValue] value:nil] build]];
