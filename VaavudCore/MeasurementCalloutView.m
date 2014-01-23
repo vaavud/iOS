@@ -13,13 +13,27 @@
 #import "FormatUtil.h"
 #import "MeasurementTableViewCell.h"
 
+static NSString *cellIdentifier = @"MeasurementCell";
+
 @implementation MeasurementCalloutView
 
-- (id)initWithFrame:(CGRect)frame {
-    self = [super initWithFrame:frame];
+BOOL isTableInitialized = NO;
+
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
     if (self) {
+        isTableInitialized = NO;
     }
     return self;
+}
+
+-(void)layoutSubviews {
+    if (!isTableInitialized) {
+        UINib *cellNib = [UINib nibWithNibName:@"MeasurementTableViewCell" bundle:nil];
+        [self.tableView registerNib:cellNib forCellReuseIdentifier:cellIdentifier];
+        isTableInitialized = YES;
+    }
+    [super layoutSubviews];
 }
 
 -(void)setMeasurementAnnotation:(MeasurementAnnotation*)measurementAnnotation {
@@ -80,20 +94,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellIdentifier = @"MeasurementCell";
-    
-    MeasurementTableViewCell *cell = (MeasurementTableViewCell*) [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    if (cell == nil) {
-        NSArray* topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"MeasurementTableViewCell" owner:self options:nil];
-        cell = (MeasurementTableViewCell*) [topLevelObjects objectAtIndex:0];
-    }
-    
-    cell.backgroundColor = [UIColor clearColor];
-    
+    MeasurementTableViewCell *cell = (MeasurementTableViewCell*) [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     MeasurementAnnotation *measurementAnnotation = [self.nearbyAnnotations objectAtIndex:[indexPath item]];
     [cell setValues:measurementAnnotation.avgWindSpeed unit:self.windSpeedUnit time:measurementAnnotation.startTime];
-    
     return cell;
 }
 
