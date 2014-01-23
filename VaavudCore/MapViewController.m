@@ -23,6 +23,7 @@
 #define MAX_GOOGLE_LEVELS 20
 #define CALLOUT_ADDITIONAL_HEIGHT 42.0
 #define graceTimeBetweenMeasurementsRead 300.0
+#define MAX_NEARBY_MEASUREMENTS 50
 
 @interface MapViewController ()
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
@@ -460,6 +461,12 @@
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"startTime" ascending:NO];
     NSArray *sortedArray = [set sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    if (sortedArray.count > MAX_NEARBY_MEASUREMENTS) {
+        NSRange range;
+        range.location = 0;
+        range.length = MAX_NEARBY_MEASUREMENTS;
+        sortedArray = [sortedArray subarrayWithRange:range];
+    }
     NSMutableArray *mutableArray = [NSMutableArray arrayWithCapacity:sortedArray.count];
     [mutableArray addObjectsFromArray:sortedArray];
     [mutableArray removeObject:annotation];
