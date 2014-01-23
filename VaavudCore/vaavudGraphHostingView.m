@@ -84,7 +84,6 @@
 @property (nonatomic)           NSUInteger  windSpeedPlotCounter;
 @property (nonatomic)           double      startTimeDifference;
 @property (nonatomic)           WindSpeedUnit windSpeedUnit;
-@property (nonatomic)           BOOL isPaused;
 
 enum plotName : NSUInteger {
     averagePlot = 0,
@@ -114,15 +113,12 @@ enum plotName : NSUInteger {
 - (void) initialize {
     // default to km/h just to be sure nothing blows up while initializing - will be changed later be a call to changeWindSpeedUnit
     self.windSpeedUnit = WindSpeedUnitKMH;
-    self.isPaused = NO;    
 }
 
 - (void) pauseUpdates {
-    self.isPaused = YES;
 }
 
 - (void) resumeUpdates {
-    self.isPaused = NO;
     [self updateYRange];
     [self.graph reloadData];
 }
@@ -175,11 +171,9 @@ enum plotName : NSUInteger {
         [[self.dataForPlotX objectAtIndex: self.windSpeedPlotCounter] addObject: xZeroShifted];
         [[self.dataForPlotY objectAtIndex: self.windSpeedPlotCounter] addObject: y];
         
-        if (!self.isPaused) {
-            [self.latestWindSpeedPlot insertDataAtIndex: ([[self.dataForPlotX objectAtIndex: self.windSpeedPlotCounter] count]-1) numberOfRecords:1];
-            [self.averageWindSpeedPlot reloadData];
-        }
-            
+        [self.latestWindSpeedPlot insertDataAtIndex: ([[self.dataForPlotX objectAtIndex: self.windSpeedPlotCounter] count]-1) numberOfRecords:1];
+        [self.averageWindSpeedPlot reloadData];
+        
         // update min and max values
         if ([y floatValue] > self.graphYMaxValue) {
             self.graphYMaxValue = [y floatValue];
@@ -193,7 +187,7 @@ enum plotName : NSUInteger {
         
         updateYRange = YES; // "BUG FIX" DOES NOT UPDATE PROPERLY IF NO
         
-        if (updateYRange && !self.isPaused) {
+        if (updateYRange) {
             [self updateYRange];
         }
     }
