@@ -9,7 +9,7 @@
 #import "MeasurementCalloutView.h"
 #import "UnitUtil.h"
 #import "Property+Util.h"
-#import "UIImageView+AFNetworking.h"
+#import "UIImageView+TMCache.h"
 #import "FormatUtil.h"
 #import "MeasurementTableViewCell.h"
 
@@ -64,7 +64,7 @@ BOOL isTableInitialized = NO;
     NSString *markers = [NSString stringWithFormat:@"icon:%@|shadow:false|%f,%f", iconUrl, self.measurementAnnotation.coordinate.latitude, self.measurementAnnotation.coordinate.longitude];
     NSString *staticMapUrl = [NSString stringWithFormat:@"http://maps.google.com/maps/api/staticmap?markers=%@&zoom=15&size=224x224&sensor=true&key=%@", markers, GOOGLE_STATIC_MAPS_API_KEY];
     
-    [self.imageView setImageWithURL:[NSURL URLWithString:[staticMapUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
+    [self.imageView setCachedImageWithURL:[NSURL URLWithString:[staticMapUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] placeholderImage:self.placeholderImage];
     
     self.timeLabel.text = [FormatUtil formatRelativeDate:measurementAnnotation.startTime];
 

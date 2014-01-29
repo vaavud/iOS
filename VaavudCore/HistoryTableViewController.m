@@ -10,7 +10,7 @@
 #import "HistoryTableViewSectionHeaderView.h"
 #import "HistoryTableViewCell.h"
 #import "MeasurementSession+Util.h"
-#import "UIImageView+AFNetworking.h"
+#import "UIImageView+TMCache.h"
 #import "FormatUtil.h"
 #import "UnitUtil.h"
 #import "Property+Util.h"
@@ -102,6 +102,7 @@
         [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
         [request setCachePolicy:NSURLRequestReturnCacheDataElseLoad];
         
+        /*
         NSURLCache *cache = [NSURLCache sharedURLCache];
         NSCachedURLResponse *cachedResponse = [cache cachedResponseForRequest:request];
         BOOL cachedHit = (cachedResponse != nil);
@@ -109,8 +110,9 @@
         [dayFormatter setDateFormat:@"dd-MM HH:mm"];
         NSString *dtime = [dayFormatter stringFromDate:session.startTime];
         NSLog(@"%@ h=%d (%f,%f)", dtime, cachedHit, [session.latitude doubleValue], [session.longitude doubleValue]);
+        */
         
-        [cell.imageView setImageWithURLRequest:request placeholderImage:self.placeholderImage success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        [cell.imageView setCachedImageWithURLRequest:request placeholderImage:self.placeholderImage success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
             if (image) {
                 //NSLog(@"%@, Cache-Control:%@", dtime, [response.allHeaderFields valueForKey:@"Cache-Control"]);
                 cell.imageView.image = image;

@@ -14,6 +14,7 @@
 #import "LocationManager.h"
 #import "QueryStringUtil.h"
 #import "TabBarController.h"
+#import "TMCache.h"
 
 @implementation vaavudAppDelegate
 
@@ -23,6 +24,9 @@
     
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
+    
+    TMCache *cache = [TMCache sharedCache];
+    cache.diskCache.ageLimit = 24.0 * 3600.0;
     
     [MagicalRecord setupAutoMigratingCoreDataStack];
     [[ModelManager sharedInstance] initializeModel];

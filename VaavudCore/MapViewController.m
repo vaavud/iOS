@@ -33,7 +33,8 @@
 @property (nonatomic) int hoursAgo;
 @property (nonatomic) double analyticsGridDegree;
 @property (nonatomic) NSDate *latestLocalStartTime;
-@property(nonatomic) NSTimer *refreshTimer;
+@property (nonatomic) NSTimer *refreshTimer;
+@property (nonatomic) UIImage *placeholderImage;
 @end
 
 @implementation MapViewController
@@ -96,6 +97,8 @@
     else {
         // TODO: set default location if user's location is unknown
     }
+
+    self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
@@ -371,6 +374,7 @@
         self.measurementCalloutView = (MeasurementCalloutView*) [topLevelObjects objectAtIndex:0];
         self.measurementCalloutView.frame = CGRectMake(0, 0, 280, height);
         self.measurementCalloutView.mapViewController = self;
+        self.measurementCalloutView.placeholderImage = self.placeholderImage;
         self.measurementCalloutView.windSpeedUnit = self.windSpeedUnit;
         self.measurementCalloutView.nearbyAnnotations = nearbyAnnotations;
         self.measurementCalloutView.measurementAnnotation = view.annotation;

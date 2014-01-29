@@ -28,5 +28,6 @@
 @property (nonatomic) MeasurementAnnotation *measurementAnnotation;
 @property (nonatomic) MapViewController *mapViewController;
 @property (nonatomic) NSArray *nearbyAnnotations;
+@property (nonatomic) UIImage *placeholderImage;
 
 @end
