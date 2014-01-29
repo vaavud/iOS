@@ -48,6 +48,7 @@ static int const FQ40_FFT_DATA_LENGTH = 50;
 static int const FQ60_FFT_LENGTH = 128;
 static int const FQ60_FFT_DATA_LENGTH = 80;
 
+static NSString * const GOOGLE_STATIC_MAPS_API_KEY = @"AIzaSyDrrZsMKRBkCw214SbJA6q2lO-cXbu7m0Y";
 
 //static NSString * const vaavudAPIBaseURLString = @"http://192.168.0.105:8080/";
 //static NSString * const vaavudAPIBaseURLString = @"http://10.117.1.63:8080/";

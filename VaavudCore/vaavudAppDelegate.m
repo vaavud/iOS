@@ -19,14 +19,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [TestFlight takeOff:@"1b4310d3-6215-4ff5-a881-dd67a6d7ab91"];
-    
-    //[GAI sharedInstance].dispatchInterval = 20;
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-38878667-2"];
+    
+    NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];
+    [NSURLCache setSharedURLCache:URLCache];
     
     [MagicalRecord setupAutoMigratingCoreDataStack];
     [[ModelManager sharedInstance] initializeModel];
     [[ServerUploadManager sharedInstance] start];
     [[LocationManager sharedInstance] start];
+    
     self.xCallbackSuccess = nil;
     return YES;
 }

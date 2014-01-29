@@ -39,7 +39,7 @@ BOOL isTableInitialized = NO;
 -(void)setMeasurementAnnotation:(MeasurementAnnotation*)measurementAnnotation {
     _measurementAnnotation = measurementAnnotation;
     
-    self.maxHeadingLabel.text = NSLocalizedString(@"HEADING_MAX", nil);
+    self.maxHeadingLabel.text = [NSLocalizedString(@"HEADING_MAX", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     self.nearbyHeadingLabel.text = [NSLocalizedString(@"HEADING_NEARBY_MEASUREMENTS", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     
     if (!isnan(self.measurementAnnotation.avgWindSpeed)) {
@@ -62,8 +62,7 @@ BOOL isTableInitialized = NO;
     
     NSString *iconUrl = @"http://vaavud.com/appgfx/SmallWindMarker.png";
     NSString *markers = [NSString stringWithFormat:@"icon:%@|shadow:false|%f,%f", iconUrl, self.measurementAnnotation.coordinate.latitude, self.measurementAnnotation.coordinate.longitude];
-
-    NSString *staticMapUrl = [NSString stringWithFormat:@"http://maps.google.com/maps/api/staticmap?markers=%@&zoom=15&size=224x224&sensor=true", markers];
+    NSString *staticMapUrl = [NSString stringWithFormat:@"http://maps.google.com/maps/api/staticmap?markers=%@&zoom=15&size=224x224&sensor=true&key=%@", markers, GOOGLE_STATIC_MAPS_API_KEY];
     
     [self.imageView setImageWithURL:[NSURL URLWithString:[staticMapUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
     

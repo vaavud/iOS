@@ -4,6 +4,7 @@
 */
 "TAB_MEASURE" = "Måling";
 "TAB_MAP" = "Kort";
+"TAB_HISTORY" = "Historik";
 "TAB_ABOUT" = "Om";
 
 "UNIT_KMH" = "km/t";
@@ -38,6 +39,8 @@
 "X_HOURS" = "%d timer";
 "MAP_REFRESH_ERROR_TITLE" = "Kortopdateringsfejl";
 "MAP_REFRESH_ERROR_MESSAGE" = "Sørg for at du har mobildata eller Wi-Fi forbindelse.";
+
+"HISTORY_TITLE" = "Historik";
 
 "ABOUT_TITLE" = "Om Vaavud";
 "ABOUT_BACK" = "Tilbage";

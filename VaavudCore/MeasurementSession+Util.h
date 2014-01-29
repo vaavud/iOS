@@ -11,5 +11,6 @@
 @interface MeasurementSession (Util)
 
 -(NSDictionary *) toDictionary;
+-(NSString *)day;
 
 @end

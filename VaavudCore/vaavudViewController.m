@@ -65,6 +65,11 @@
     
 }
 
+- (void) awakeFromNib {
+    [super awakeFromNib];
+    self.tabBarItem.title = NSLocalizedString(@"TAB_MEASURE", nil);
+}
+
 - (void) viewDidLoad {
     [super viewDidLoad];
 
@@ -76,7 +81,6 @@
         self.tabBarItem.selectedImage = selectedTabImage;
     }
     
-    self.tabBarItem.title = NSLocalizedString(@"TAB_MEASURE", nil);
     self.averageHeadingLabel.text = [NSLocalizedString(@"HEADING_AVERAGE", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     self.currentHeadingLabel.text = [NSLocalizedString(@"HEADING_CURRENT", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     self.maxHeadingLabel.text = [NSLocalizedString(@"HEADING_MAX", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];

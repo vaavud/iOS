@@ -21,6 +21,11 @@
 
 @implementation TermsViewController
 
+- (void) awakeFromNib {
+    [super awakeFromNib];
+    self.tabBarItem.title = NSLocalizedString(@"TAB_ABOUT", nil);
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -31,11 +36,9 @@
         self.tabBarItem.selectedImage = selectedTabImage;
     }
 
+    self.aboutItem.title = NSLocalizedString(@"ABOUT_TITLE", nil);
     self.navigationBar.delegate = self;
     self.webView.delegate = self;
-
-    self.tabBarItem.title = NSLocalizedString(@"TAB_ABOUT", nil);
-    self.aboutItem.title = NSLocalizedString(@"ABOUT_TITLE", nil);
 
     NSString *html = [Terms getTermsOfService];
     [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:@"http://vaavud.com"]];

@@ -4,6 +4,7 @@
 */
 "TAB_MEASURE" = "Measure";
 "TAB_MAP" = "Map";
+"TAB_HISTORY" = "History";
 "TAB_ABOUT" = "About";
 
 "UNIT_KMH" = "km/h";
@@ -38,6 +39,8 @@
 "X_HOURS" = "%d hours";
 "MAP_REFRESH_ERROR_TITLE" = "Map Refresh Error";
 "MAP_REFRESH_ERROR_MESSAGE" = "Make sure you have cellular data or Wi-Fi connectivity.";
+
+"HISTORY_TITLE" = "History";
 
 "ABOUT_TITLE" = "About";
 "ABOUT_BACK" = "Back";

@@ -134,8 +134,10 @@
                 <outlet property="avgUnitLabel" destination="gVn-CO-cjs" id="iJL-k2-tWT"/>
                 <outlet property="imageView" destination="UEd-Ph-fhf" id="bEA-me-Mnv"/>
                 <outlet property="mapButton" destination="tg3-LX-Omu" id="NoO-Vw-pqx"/>
+                <outlet property="maxHeadingLabel" destination="QH1-zT-piT" id="Qyx-Hd-X9F"/>
                 <outlet property="maxLabel" destination="6Y1-u7-kgp" id="740-Kj-SmM"/>
                 <outlet property="maxUnitLabel" destination="U22-Cb-RkC" id="rge-eN-B3t"/>
+                <outlet property="nearbyHeadingLabel" destination="smm-7w-49A" id="VrE-dY-vla"/>
                 <outlet property="tableView" destination="C3r-OK-e6K" id="61d-tm-RfO"/>
                 <outlet property="timeLabel" destination="SDU-0I-clE" id="KxE-Ee-kMx"/>
             </connections>

@@ -38,6 +38,11 @@
 
 @implementation MapViewController
 
+- (void) awakeFromNib {
+    [super awakeFromNib];
+    self.tabBarItem.title = NSLocalizedString(@"TAB_MAP", nil);
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
@@ -61,8 +66,6 @@
 
 	self.mapView.delegate = self;
     
-    self.tabBarItem.title = NSLocalizedString(@"TAB_MAP", nil);
-
     self.mapView.calloutView = [SMCalloutView new];
     self.mapView.calloutView.delegate = self;
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
@@ -79,7 +82,9 @@
     self.feedbackTextView.font = [UIFont systemFontOfSize:14];
     self.feedbackTextView.textColor = [UIColor darkGrayColor];
     self.feedbackTextView.textAlignment = NSTextAlignmentCenter;
-    self.feedbackTextView.selectable = NO;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        self.feedbackTextView.selectable = NO;
+    }
     self.feedbackTextView.editable = NO;
     
     self.activityIndicator.hidden = YES;

@@ -56,4 +56,11 @@
     return dictionary;
 }
 
+- (NSString *)day {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"dd MM yyyy"];
+    NSString *result = [dateFormatter stringFromDate:self.startTime];
+    return result;
+}
+
 @end
