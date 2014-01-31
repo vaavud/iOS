@@ -39,9 +39,6 @@
     self.titleItem.title = NSLocalizedString(@"HISTORY_TITLE", nil);
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
-
-    self.view.autoresizesSubviews = YES;
-    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
 - (void)viewDidUnload {
