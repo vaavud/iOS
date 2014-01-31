@@ -21,6 +21,7 @@
 @property (nonatomic, strong) IBOutlet UINavigationItem *titleItem;
 @property (nonatomic, strong) UIImage *placeholderImage;
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
+@property (nonatomic) NSDate *latestLocalStartTime;
 
 @end
 
@@ -49,11 +50,37 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+
+    BOOL refetch = NO;
+    BOOL refresh = NO;
+
     WindSpeedUnit newWindSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
     //NSLog(@"[MapViewController] viewWillAppear: windSpeedUnit=%u", self.windSpeedUnit);
     if (newWindSpeedUnit != self.windSpeedUnit) {
         self.windSpeedUnit = newWindSpeedUnit;
+        refresh = YES;
+    }
+
+    MeasurementSession *measurementSession = [MeasurementSession MR_findFirstOrderedByAttribute:@"startTime" ascending:NO];
+    if (measurementSession && measurementSession != nil && [measurementSession.measuring boolValue] == NO) {
+        NSDate *newLatestLocalStartTime = measurementSession.startTime;
+        if (newLatestLocalStartTime != nil && (self.latestLocalStartTime == nil || [newLatestLocalStartTime compare:self.latestLocalStartTime] == NSOrderedDescending)) {
+            self.latestLocalStartTime = newLatestLocalStartTime;
+            refetch = YES;
+            refresh = YES;
+        }
+    }
+    
+    if (refetch) {
+        NSError *error;
+        if ([self.fetchedResultsController performFetch:&error]) {
+            [self.tableView reloadData];
+        }
+        else {
+            NSLog(@"[HistoryTableViewController] Error refetching data: %@", error);
+        }
+    }
+    else if (refresh) {
         [self.tableView reloadData];
     }
 }
