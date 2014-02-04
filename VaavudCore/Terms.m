@@ -19,7 +19,10 @@
     aboutVaavud = [aboutVaavud stringByReplacingOccurrencesOfString:@"\n" withString:@"<br/><br/>"];
     
     NSString* html = [NSString stringWithFormat:
-    @"<html><head><style type='text/css'>a {color:#00aeef;text-decoration:none}</style></head><body>"
+    @"<html><head><style type='text/css'>"
+    "a {color:#00aeef;text-decoration:none}\n"
+    "body {background-color:#ffffff;}"
+    "</style></head><body>"
     "<center style='padding-top:20px;font-family:helvetica,arial'>"
     "%@<br/><br/><br/>"
     "<a href='http://vaavud.com/legal/terms?source=app'>%@</a>&nbsp; &nbsp; <a href='http://vaavud.com/legal/privacy?source=app'>%@</a>"

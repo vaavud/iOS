@@ -171,7 +171,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.90000000000000002" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="eo3-LL-srp" firstAttribute="top" secondItem="bS1-jk-rNp" secondAttribute="bottom" constant="15" id="08g-fh-cXs"/>
                             <constraint firstItem="Vbb-Ps-UGv" firstAttribute="trailing" secondItem="3jS-Rr-IOD" secondAttribute="trailing" id="1xu-B1-MNU"/>
@@ -237,7 +237,6 @@
                     <tabBarItem key="tabBarItem" title="Measure" image="measure.png" id="bEh-Uj-qCq"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hW7-ue-zqA">
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" white="0.90000000000000002" alpha="1" colorSpace="calibratedWhite"/>
                     </navigationBar>
                     <connections>
                         <segue destination="2" kind="relationship" relationship="rootViewController" id="NvT-o3-dsf"/>
@@ -383,17 +382,17 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ZH-nH-cic">
-                                <rect key="frame" x="0.0" y="65" width="320" height="366"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="s33-Yz-j5i" firstAttribute="top" secondItem="6ZH-nH-cic" secondAttribute="bottom" id="0xh-sX-llx"/>
                             <constraint firstAttribute="trailing" secondItem="6ZH-nH-cic" secondAttribute="trailing" id="1gx-rP-KL7"/>
-                            <constraint firstItem="6ZH-nH-cic" firstAttribute="top" secondItem="uau-Pg-DZS" secondAttribute="bottom" constant="1" id="f2K-y4-Ch9"/>
+                            <constraint firstItem="6ZH-nH-cic" firstAttribute="top" secondItem="dqR-PF-P71" secondAttribute="top" id="P0I-8z-bAV"/>
                             <constraint firstItem="6ZH-nH-cic" firstAttribute="leading" secondItem="dqR-PF-P71" secondAttribute="leading" id="n99-ec-YY4"/>
+                            <constraint firstAttribute="bottom" secondItem="6ZH-nH-cic" secondAttribute="bottom" id="w2h-Mt-zqT"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="bV5-Bh-coT"/>
