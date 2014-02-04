@@ -7,6 +7,8 @@
 "TAB_HISTORY" = "History";
 "TAB_ABOUT" = "About";
 
+"NAVIGATION_BACK" = "Back";
+
 "UNIT_KMH" = "km/h";
 "UNIT_MS" = "m/s";
 "UNIT_MPH" = "mph";
@@ -43,7 +45,6 @@
 "HISTORY_TITLE" = "History";
 
 "ABOUT_TITLE" = "About";
-"ABOUT_BACK" = "Back";
 "ABOUT_VAAVUD_TEXT" = "Vaavud is a Danish technology start-up.\n Our mission is to make the best wind meters on the planet in terms of usability, features, and third party integration.\n To learn more and to purchase a Vaavud wind meter visit Vaavud.com\n &copy; Vaavud ApS 2014, all rights reserved\n Version: %@";
 "LINK_TERMS_OF_SERVICE" = "Terms of Service";
 "LINK_PRIVACY_POLICY" = "Privacy Policy";

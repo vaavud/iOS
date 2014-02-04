@@ -65,21 +65,11 @@
     
 }
 
-- (void) awakeFromNib {
-    [super awakeFromNib];
-    self.tabBarItem.title = NSLocalizedString(@"TAB_MEASURE", nil);
-}
-
 - (void) viewDidLoad {
     [super viewDidLoad];
 
     self.screenName = @"Measure Screen";
     self.windSpeedUnit = -1; // make sure windSpeedUnit is updated in viewWillAppear by setting it to an invalid value
-
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        UIImage *selectedTabImage = [[UIImage imageNamed:@"measure_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        self.tabBarItem.selectedImage = selectedTabImage;
-    }
     
     self.averageHeadingLabel.text = [NSLocalizedString(@"HEADING_AVERAGE", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     self.currentHeadingLabel.text = [NSLocalizedString(@"HEADING_CURRENT", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
@@ -101,6 +91,14 @@
     self.buttonShowsStart = YES;
     [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
 
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"VaavudTransparent100px.png"]];
+    UIImage *aboutImage = [UIImage imageNamed:@"about_action.png"];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+        aboutImage = [aboutImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    }
+    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:aboutImage style:UIBarButtonItemStylePlain target:self action:@selector(aboutButtonPushed)];
+    self.navigationItem.rightBarButtonItem = item;
+    
     self.view.autoresizesSubviews = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
@@ -307,6 +305,10 @@
     // note: for some reason the y-axis is not changed correctly the first time, so we call the following method twice
     [self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
     [self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
+}
+
+- (void) aboutButtonPushed {
+    [self performSegueWithIdentifier:@"aboutSegue" sender:self];
 }
 
 - (void)didReceiveMemoryWarning {

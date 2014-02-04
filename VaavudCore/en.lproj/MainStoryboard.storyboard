@@ -16,17 +16,16 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="2" kind="relationship" relationship="viewControllers" id="VTu-aC-HmD"/>
+                        <segue destination="fQa-n1-y1j" kind="relationship" relationship="viewControllers" id="cE2-i8-0r9"/>
                         <segue destination="awR-2s-6gy" kind="relationship" relationship="viewControllers" id="VnN-b8-sLX"/>
                         <segue destination="Aeq-dx-zyt" kind="relationship" relationship="viewControllers" id="bD4-nr-bB6"/>
-                        <segue destination="0LI-1s-lFS" kind="relationship" relationship="viewControllers" id="856-gc-uEP"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Grw-Gv-BfB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-833" y="-22"/>
+            <point key="canvasLocation" x="-833" y="-18"/>
         </scene>
-        <!--Vaavud View Controller - Measure-->
+        <!--Vaavud View Controller-->
         <scene sceneID="5">
             <objects>
                 <viewController id="2" customClass="vaavudViewController" sceneMemberID="viewController">
@@ -37,16 +36,6 @@
                     <view key="view" contentMode="scaleToFill" id="3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="center" image="VaavudTransparent100px.png" translatesAutoresizingMaskIntoConstraints="NO" id="jkJ-OL-yzm" userLabel="Vaavud Logo">
-                                <rect key="frame" x="110" y="35" width="100" height="12"/>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IyF-hd-U0x" userLabel="Top Separator View">
-                                <rect key="frame" x="0.0" y="62" width="320" height="1"/>
-                                <color key="backgroundColor" white="0.78000000000000003" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="1" id="Hli-9a-7Ke"/>
-                                </constraints>
-                            </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="AVERAGE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReF-g7-EF0">
                                 <rect key="frame" x="40" y="68" width="70" height="21"/>
                                 <constraints>
@@ -192,7 +181,6 @@
                             <constraint firstItem="jop-HL-F0a" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="10" id="8sp-JT-2wh"/>
                             <constraint firstItem="bS1-jk-rNp" firstAttribute="top" secondItem="eB6-ZR-G0T" secondAttribute="bottom" constant="8" id="G6I-YE-iKb"/>
                             <constraint firstItem="jop-HL-F0a" firstAttribute="top" secondItem="Q8l-hq-NLG" secondAttribute="bottom" constant="5" id="H5t-Dr-c29"/>
-                            <constraint firstItem="jkJ-OL-yzm" firstAttribute="top" secondItem="r2L-o3-FqL" secondAttribute="bottom" constant="15" id="Hfb-h8-pev"/>
                             <constraint firstAttribute="trailing" secondItem="WHz-L1-QCZ" secondAttribute="trailing" constant="30" id="I6n-OZ-jur"/>
                             <constraint firstItem="0Ej-kg-OB6" firstAttribute="top" secondItem="WHz-L1-QCZ" secondAttribute="bottom" constant="5" id="J3g-EW-7RW"/>
                             <constraint firstItem="aIb-lj-gMl" firstAttribute="top" secondItem="ReF-g7-EF0" secondAttribute="bottom" constant="-1" id="JA6-iQ-no9"/>
@@ -202,29 +190,25 @@
                             <constraint firstItem="BoF-HW-bXq" firstAttribute="top" secondItem="qBg-VY-wWc" secondAttribute="top" id="RKJ-cq-pMP"/>
                             <constraint firstItem="ReF-g7-EF0" firstAttribute="leading" secondItem="qBg-VY-wWc" secondAttribute="leading" id="T5G-Rb-ew0"/>
                             <constraint firstItem="WHz-L1-QCZ" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="30" id="TQx-Lf-dtB"/>
-                            <constraint firstAttribute="trailing" secondItem="IyF-hd-U0x" secondAttribute="trailing" id="U2W-kx-BS1"/>
                             <constraint firstItem="E6z-xo-cgt" firstAttribute="leading" secondItem="qBg-VY-wWc" secondAttribute="leading" id="Wi5-BD-OeS"/>
                             <constraint firstItem="E6z-xo-cgt" firstAttribute="top" secondItem="qBg-VY-wWc" secondAttribute="bottom" constant="-3" id="XAF-K9-YMb"/>
-                            <constraint firstItem="ReF-g7-EF0" firstAttribute="top" secondItem="IyF-hd-U0x" secondAttribute="bottom" constant="5" id="ZPu-bf-2Ly"/>
                             <constraint firstItem="Q8l-hq-NLG" firstAttribute="top" secondItem="E6z-xo-cgt" secondAttribute="bottom" constant="5" id="bnb-Kp-vFg"/>
                             <constraint firstAttribute="trailing" secondItem="Q8l-hq-NLG" secondAttribute="trailing" constant="30" id="cVJ-1s-BTB"/>
                             <constraint firstItem="eB6-ZR-G0T" firstAttribute="top" secondItem="0Ej-kg-OB6" secondAttribute="bottom" constant="5" id="e3q-8z-FAw"/>
                             <constraint firstAttribute="centerX" secondItem="BoF-HW-bXq" secondAttribute="centerX" id="hPV-9I-LBv"/>
                             <constraint firstItem="eB6-ZR-G0T" firstAttribute="width" secondItem="bS1-jk-rNp" secondAttribute="width" id="hTU-Yf-xIR"/>
                             <constraint firstAttribute="trailing" secondItem="3jS-Rr-IOD" secondAttribute="trailing" constant="40" id="hXs-jK-8cz"/>
-                            <constraint firstItem="IyF-hd-U0x" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="hq6-bN-Wb4"/>
                             <constraint firstItem="eB6-ZR-G0T" firstAttribute="centerX" secondItem="bS1-jk-rNp" secondAttribute="centerX" id="iS8-YU-ekh"/>
-                            <constraint firstItem="IyF-hd-U0x" firstAttribute="top" secondItem="jkJ-OL-yzm" secondAttribute="bottom" constant="15" id="iwb-fA-hSi"/>
                             <constraint firstItem="ReF-g7-EF0" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="40" id="m9r-Lb-RGe"/>
                             <constraint firstItem="3jS-Rr-IOD" firstAttribute="top" secondItem="ReF-g7-EF0" secondAttribute="top" id="pjp-p6-Kg3"/>
                             <constraint firstItem="eB6-ZR-G0T" firstAttribute="centerX" secondItem="0Ej-kg-OB6" secondAttribute="centerX" id="qCF-49-1IW"/>
                             <constraint firstAttribute="trailing" secondItem="jop-HL-F0a" secondAttribute="trailing" constant="10" id="trF-Ht-dhS"/>
                             <constraint firstItem="f71-hp-4cl" firstAttribute="top" secondItem="BoF-HW-bXq" secondAttribute="bottom" constant="-3" id="uyK-Fu-fl4"/>
-                            <constraint firstAttribute="centerX" secondItem="jkJ-OL-yzm" secondAttribute="centerX" id="wCo-Sj-CIH" userLabel="Vaavud Logo - Center Horizontally"/>
                             <constraint firstItem="BoF-HW-bXq" firstAttribute="centerX" secondItem="f71-hp-4cl" secondAttribute="centerX" id="xFj-Vv-Rcc"/>
+                            <constraint firstItem="ReF-g7-EF0" firstAttribute="top" secondItem="r2L-o3-FqL" secondAttribute="bottom" constant="4" id="xzJ-hk-tIe"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Measure" image="measure.png" id="QnZ-5c-Bha"/>
+                    <navigationItem key="navigationItem" id="bjd-2e-nY3"/>
                     <connections>
                         <outlet property="actualLabel" destination="Vbb-Ps-UGv" id="rcD-IZ-eUR"/>
                         <outlet property="averageHeadingLabel" destination="ReF-g7-EF0" id="WD2-ED-CpO"/>
@@ -239,11 +223,29 @@
                         <outlet property="statusBar" destination="eB6-ZR-G0T" id="ATj-t0-lgp"/>
                         <outlet property="unitButton" destination="f71-hp-4cl" id="4tl-wZ-MYD"/>
                         <outlet property="unitHeadingLabel" destination="BoF-HW-bXq" id="9hV-Ht-ZmL"/>
+                        <segue destination="0LI-1s-lFS" kind="push" identifier="aboutSegue" id="jVi-xt-PpR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="55" y="-479"/>
+            <point key="canvasLocation" x="63" y="-539"/>
+        </scene>
+        <!--Measure Navigation Controller - Measure-->
+        <scene sceneID="RnR-Kp-M0y">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="fQa-n1-y1j" customClass="MeasureNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Measure" image="measure.png" id="bEh-Uj-qCq"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hW7-ue-zqA">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="0.90000000000000002" alpha="1" colorSpace="calibratedWhite"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="2" kind="relationship" relationship="rootViewController" id="NvT-o3-dsf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wim-9u-nEV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-394" y="-539"/>
         </scene>
         <!--Map View Controller - Map-->
         <scene sceneID="1B3-6E-RY6">
@@ -366,7 +368,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X7E-Jf-KyM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-344" y="453"/>
+            <point key="canvasLocation" x="58" y="147"/>
         </scene>
         <!--Terms View Controller-->
         <scene sceneID="96f-Ql-xhN">
@@ -380,14 +382,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SMI-DT-vAA">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.0" green="0.68251026459999997" blue="0.93578923359999999" alpha="1" colorSpace="deviceRGB"/>
-                                <items>
-                                    <navigationItem title="About" id="Giq-fX-9jd"/>
-                                </items>
-                            </navigationBar>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ZH-nH-cic">
                                 <rect key="frame" x="0.0" y="65" width="320" height="366"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -396,26 +390,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="SMI-DT-vAA" firstAttribute="leading" secondItem="dqR-PF-P71" secondAttribute="leading" id="0ne-lo-Ifn"/>
                             <constraint firstItem="s33-Yz-j5i" firstAttribute="top" secondItem="6ZH-nH-cic" secondAttribute="bottom" id="0xh-sX-llx"/>
                             <constraint firstAttribute="trailing" secondItem="6ZH-nH-cic" secondAttribute="trailing" id="1gx-rP-KL7"/>
-                            <constraint firstItem="SMI-DT-vAA" firstAttribute="top" secondItem="uau-Pg-DZS" secondAttribute="bottom" id="GxV-xV-M8v"/>
-                            <constraint firstAttribute="trailing" secondItem="SMI-DT-vAA" secondAttribute="trailing" id="WFp-Sz-lu8"/>
+                            <constraint firstItem="6ZH-nH-cic" firstAttribute="top" secondItem="uau-Pg-DZS" secondAttribute="bottom" constant="1" id="f2K-y4-Ch9"/>
                             <constraint firstItem="6ZH-nH-cic" firstAttribute="leading" secondItem="dqR-PF-P71" secondAttribute="leading" id="n99-ec-YY4"/>
-                            <constraint firstItem="6ZH-nH-cic" firstAttribute="top" secondItem="SMI-DT-vAA" secondAttribute="bottom" constant="1" id="uox-xq-MDc"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="About" image="about.png" id="Tzf-6w-ZxT"/>
-                    <navigationItem key="navigationItem" id="bV5-Bh-coT"/>
+                    <navigationItem key="navigationItem" title="About" id="bV5-Bh-coT"/>
                     <connections>
-                        <outlet property="aboutItem" destination="Giq-fX-9jd" id="mUs-X3-hpC"/>
-                        <outlet property="navigationBar" destination="SMI-DT-vAA" id="xR7-EX-gTt"/>
                         <outlet property="webView" destination="6ZH-nH-cic" id="Hil-gW-fcg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nt3-0L-LC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="290" y="226"/>
+            <point key="canvasLocation" x="618" y="-539"/>
         </scene>
         <!--History Table View Controller - History-->
         <scene sceneID="ESh-LX-BZr">
@@ -538,8 +526,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="VaavudTransparent100px.png" width="100" height="12"/>
-        <image name="about.png" width="26" height="26"/>
         <image name="history.png" width="26" height="26"/>
         <image name="map.png" width="26" height="26"/>
         <image name="map_placeholder.png" width="74" height="74"/>
