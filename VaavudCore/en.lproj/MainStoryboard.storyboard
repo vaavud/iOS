@@ -171,7 +171,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="eo3-LL-srp" firstAttribute="top" secondItem="bS1-jk-rNp" secondAttribute="bottom" constant="15" id="08g-fh-cXs"/>
                             <constraint firstItem="Vbb-Ps-UGv" firstAttribute="trailing" secondItem="3jS-Rr-IOD" secondAttribute="trailing" id="1xu-B1-MNU"/>
@@ -486,6 +486,7 @@
                                         <constraint firstItem="XIp-DF-MU5" firstAttribute="top" secondItem="HKJ-EH-PE3" secondAttribute="top" constant="10" id="xbH-v9-Nnu"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="avgLabel" destination="Xe8-4M-cY2" id="Nd8-WB-C1o"/>
                                     <outlet property="imageView" destination="XIp-DF-MU5" id="v8D-Z6-Vvk"/>

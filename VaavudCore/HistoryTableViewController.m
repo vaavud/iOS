@@ -14,6 +14,9 @@
 #import "FormatUtil.h"
 #import "UnitUtil.h"
 #import "Property+Util.h"
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
+#import "GAIFields.h"
 
 @interface HistoryTableViewController ()
 
@@ -79,6 +82,16 @@
     }
     else if (refresh) {
         [self.tableView reloadData];
+    }
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    if (tracker) {
+        [tracker set:kGAIScreenName value:@"History Screen"];
+        [tracker send:[[GAIDictionaryBuilder createAppView] build]];
     }
 }
 

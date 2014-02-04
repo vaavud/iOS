@@ -22,11 +22,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //self.screenName = @"History Screen";
-    
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         UIImage *selectedTabImage = [[UIImage imageNamed:@"history_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         self.tabBarItem.selectedImage = selectedTabImage;
+    }
+    else {
+        self.navigationBar.tintColor = [UIColor blackColor];
+        self.navigationBar.barStyle = UIBarStyleBlack;
     }
 }
 
