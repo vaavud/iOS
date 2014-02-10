@@ -21,7 +21,6 @@
 @interface HistoryTableViewController ()
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, strong) IBOutlet UINavigationItem *titleItem;
 @property (nonatomic, strong) UIImage *placeholderImage;
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
 @property (nonatomic) NSDate *latestLocalStartTime;
@@ -39,7 +38,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.titleItem.title = NSLocalizedString(@"HISTORY_TITLE", nil);
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
 }

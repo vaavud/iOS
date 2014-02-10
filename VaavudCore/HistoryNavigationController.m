@@ -14,22 +14,15 @@
 
 @implementation HistoryNavigationController
 
-- (void) awakeFromNib {
-    [super awakeFromNib];
-    self.tabBarItem.title = NSLocalizedString(@"TAB_HISTORY", nil);
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        UIImage *selectedTabImage = [[UIImage imageNamed:@"history_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        self.tabBarItem.selectedImage = selectedTabImage;
-    }
-    else {
+
+    if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
         self.navigationBar.tintColor = [UIColor blackColor];
         self.navigationBar.barStyle = UIBarStyleBlack;
     }
+
+    self.navigationItem.title = NSLocalizedString(@"HISTORY_TITLE", nil);
 }
 
 - (void)didReceiveMemoryWarning

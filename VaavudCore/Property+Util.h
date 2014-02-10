@@ -28,6 +28,10 @@ static NSString * const KEY_ALGORITHM = @"algorithm";
 static NSString * const KEY_ANALYTICS_GRID_DEGREE = @"analyticsGridDegree";
 static NSString * const KEY_HOUR_OPTIONS = @"hourOptions";
 
+// User-related properties
+static NSString * const KEY_EMAIL = @"email";
+
+
 @interface Property (Util)
 
 + (NSString*) getAsString:(NSString*) name;

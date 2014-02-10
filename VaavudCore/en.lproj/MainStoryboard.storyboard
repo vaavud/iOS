@@ -18,7 +18,7 @@
                     <connections>
                         <segue destination="fQa-n1-y1j" kind="relationship" relationship="viewControllers" id="cE2-i8-0r9"/>
                         <segue destination="awR-2s-6gy" kind="relationship" relationship="viewControllers" id="VnN-b8-sLX"/>
-                        <segue destination="Aeq-dx-zyt" kind="relationship" relationship="viewControllers" id="bD4-nr-bB6"/>
+                        <segue destination="SaW-1V-e7G" kind="relationship" relationship="viewControllers" id="bn0-v7-nZL"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Grw-Gv-BfB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -402,12 +402,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nt3-0L-LC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="618" y="-539"/>
+            <point key="canvasLocation" x="628" y="-779"/>
         </scene>
         <!--History Table View Controller - History-->
         <scene sceneID="ESh-LX-BZr">
             <objects>
-                <tableViewController id="dW6-mM-6nb" customClass="HistoryTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="HistoryTableViewController" id="dW6-mM-6nb" customClass="HistoryTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="grouped" allowsSelection="NO" rowHeight="95" sectionHeaderHeight="10" sectionFooterHeight="10" id="6XY-Gm-7sX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -500,29 +500,35 @@
                         </prototypes>
                     </tableView>
                     <navigationItem key="navigationItem" title="History" id="0yT-ND-9nv"/>
-                    <connections>
-                        <outlet property="titleItem" destination="0yT-ND-9nv" id="OgU-eQ-Mo6"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Iy-mw-zb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="684" y="880"/>
+            <point key="canvasLocation" x="1156" y="880"/>
         </scene>
-        <!--History Navigation Controller - History-->
+        <!--History Navigation Controller-->
         <scene sceneID="V9R-ML-X2E">
             <objects>
                 <navigationController definesPresentationContext="YES" id="Aeq-dx-zyt" customClass="HistoryNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="History" image="history.png" id="1FJ-eI-1zt"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uJ9-Xb-xqC">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="dW6-mM-6nb" kind="relationship" relationship="rootViewController" id="uh8-5B-lQF"/>
+                        <segue destination="dW6-mM-6nb" kind="relationship" relationship="rootViewController" id="lVR-ae-4JJ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R6b-0s-ez5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="150" y="880"/>
+            <point key="canvasLocation" x="640" y="880"/>
+        </scene>
+        <!--History Root View Controller - History-->
+        <scene sceneID="hlX-79-REy">
+            <objects>
+                <viewController id="SaW-1V-e7G" customClass="HistoryRootViewController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="History" image="history.png" id="QHu-pe-8z2"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7oe-hs-cl5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52" y="880"/>
         </scene>
     </scenes>
     <resources>

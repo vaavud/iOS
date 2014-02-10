@@ -85,6 +85,11 @@
 		E9A40980189BD29F004F1C12 /* MeasureNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097F189BD29F004F1C12 /* MeasureNavigationController.m */; };
 		E9A4098318A0EE1B004F1C12 /* about_action.png in Resources */ = {isa = PBXBuildFile; fileRef = E9A4098118A0EE1B004F1C12 /* about_action.png */; };
 		E9A4098418A0EE1B004F1C12 /* about_action@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9A4098218A0EE1B004F1C12 /* about_action@2x.png */; };
+		E9A4098718A26FEB004F1C12 /* GuidedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098618A26FEB004F1C12 /* GuidedTextField.m */; };
+		E9A4098A18A4DAE1004F1C12 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9A4098918A4DAE1004F1C12 /* Login.storyboard */; };
+		E9A4098D18A50D11004F1C12 /* HistoryRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098C18A50D11004F1C12 /* HistoryRootViewController.m */; };
+		E9A4099018A52151004F1C12 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098F18A52151004F1C12 /* SignUpViewController.m */; };
+		E9A4099318A52E40004F1C12 /* LoginRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099218A52E40004F1C12 /* LoginRootViewController.m */; };
 		E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */; };
 		E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */; };
 		E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */; };
@@ -351,6 +356,15 @@
 		E9A4097F189BD29F004F1C12 /* MeasureNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasureNavigationController.m; sourceTree = "<group>"; };
 		E9A4098118A0EE1B004F1C12 /* about_action.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = about_action.png; sourceTree = "<group>"; };
 		E9A4098218A0EE1B004F1C12 /* about_action@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "about_action@2x.png"; sourceTree = "<group>"; };
+		E9A4098518A26FEB004F1C12 /* GuidedTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuidedTextField.h; sourceTree = "<group>"; };
+		E9A4098618A26FEB004F1C12 /* GuidedTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuidedTextField.m; sourceTree = "<group>"; };
+		E9A4098918A4DAE1004F1C12 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		E9A4098B18A50D11004F1C12 /* HistoryRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryRootViewController.h; sourceTree = "<group>"; };
+		E9A4098C18A50D11004F1C12 /* HistoryRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryRootViewController.m; sourceTree = "<group>"; };
+		E9A4098E18A52151004F1C12 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
+		E9A4098F18A52151004F1C12 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
+		E9A4099118A52E40004F1C12 /* LoginRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginRootViewController.h; sourceTree = "<group>"; };
+		E9A4099218A52E40004F1C12 /* LoginRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginRootViewController.m; sourceTree = "<group>"; };
 		E9AF2B8017F32A9800BDF6D9 /* SMCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCalloutView.h; sourceTree = "<group>"; };
 		E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMCalloutView.m; sourceTree = "<group>"; };
 		E9AF2B8317F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSMCalloutDrawnBackgroundView.h; sourceTree = "<group>"; };
@@ -706,6 +720,8 @@
 				E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */,
 				E9FABFD918929158009C4C46 /* HistoryNavigationController.h */,
 				E9FABFDA18929158009C4C46 /* HistoryNavigationController.m */,
+				E9A4098B18A50D11004F1C12 /* HistoryRootViewController.h */,
+				E9A4098C18A50D11004F1C12 /* HistoryRootViewController.m */,
 				E9FABFDF189294BD009C4C46 /* HistoryTableViewCell.h */,
 				E9FABFE0189294BD009C4C46 /* HistoryTableViewCell.m */,
 				E9FABFDC18929473009C4C46 /* HistoryTableViewController.h */,
@@ -713,6 +729,7 @@
 				E9FABFE81896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.h */,
 				E9FABFE91896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m */,
 				E9FABFE61896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib */,
+				E9A4098818A4DA9E004F1C12 /* Login */,
 				E904AC9617F08F6E00171F7F /* MapViewController.h */,
 				E904AC9717F08F6E00171F7F /* MapViewController.m */,
 				E9D0F4B317F9A59000C220B3 /* MeasurementCalloutView.h */,
@@ -822,6 +839,20 @@
 				E9A4097718994000004F1C12 /* TMMemoryCache.m */,
 			);
 			path = TMCache;
+			sourceTree = "<group>";
+		};
+		E9A4098818A4DA9E004F1C12 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				E9A4098518A26FEB004F1C12 /* GuidedTextField.h */,
+				E9A4098618A26FEB004F1C12 /* GuidedTextField.m */,
+				E9A4098918A4DAE1004F1C12 /* Login.storyboard */,
+				E9A4099118A52E40004F1C12 /* LoginRootViewController.h */,
+				E9A4099218A52E40004F1C12 /* LoginRootViewController.m */,
+				E9A4098E18A52151004F1C12 /* SignUpViewController.h */,
+				E9A4098F18A52151004F1C12 /* SignUpViewController.m */,
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 		E9AF2B7F17F32A5900BDF6D9 /* NFarinaCalloutView */ = {
@@ -1130,6 +1161,7 @@
 				E9FABFD718929050009C4C46 /* history.png in Resources */,
 				D7B5BD4B17574E8C0069F739 /* VaavudTransparent100px.png in Resources */,
 				E9FABFD618929050009C4C46 /* history_selected@2x.png in Resources */,
+				E9A4098A18A4DAE1004F1C12 /* Login.storyboard in Resources */,
 				E9658CE2184CD6AA009B4DFE /* iPad-iOS7-Portrait.png in Resources */,
 				E9658CCC184CCEB6009B4DFE /* VaavudIcon40.png in Resources */,
 				D7B5BD4D17574E970069F739 /* VaavudTransparent100px@2x.png in Resources */,
@@ -1218,9 +1250,11 @@
 				E9CD2243177B2AEA0054ED3F /* NSManagedObject+MagicalDataImport.m in Sources */,
 				E9CD2244177B2AEA0054ED3F /* NSManagedObject+MagicalFinders.m in Sources */,
 				E9CD2245177B2AEA0054ED3F /* NSManagedObject+MagicalRecord.m in Sources */,
+				E9A4098718A26FEB004F1C12 /* GuidedTextField.m in Sources */,
 				E9FABFE1189294BD009C4C46 /* HistoryTableViewCell.m in Sources */,
 				E9CD2246177B2AEA0054ED3F /* NSManagedObject+MagicalRequests.m in Sources */,
 				E9CD2247177B2AEA0054ED3F /* NSManagedObjectContext+MagicalObserving.m in Sources */,
+				E9A4099318A52E40004F1C12 /* LoginRootViewController.m in Sources */,
 				E9EBB99517E33DBB0086BE01 /* MeasurementSession.m in Sources */,
 				E9CD2248177B2AEA0054ED3F /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				E9CD2249177B2AEA0054ED3F /* NSManagedObjectContext+MagicalSaves.m in Sources */,
@@ -1250,10 +1284,12 @@
 				E93C86721781D727005E4212 /* MeasurementPoint+Util.m in Sources */,
 				E93338F7178C561B006E2314 /* ModelManager.m in Sources */,
 				E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */,
+				E9A4098D18A50D11004F1C12 /* HistoryRootViewController.m in Sources */,
 				E9A4097A18994000004F1C12 /* TMMemoryCache.m in Sources */,
 				E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */,
 				E9B47A031794217200E8A82E /* Terms.m in Sources */,
 				E9B47A0A1794315100E8A82E /* TermsViewController.m in Sources */,
+				E9A4099018A52151004F1C12 /* SignUpViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -48,3 +48,10 @@
 "ABOUT_VAAVUD_TEXT" = "Vaavud is a Danish technology start-up.\n Our mission is to make the best wind meters on the planet in terms of usability, features, and third party integration.\n To learn more and to purchase a Vaavud wind meter visit Vaavud.com\n &copy; Vaavud ApS 2014, all rights reserved\n Version: %@";
 "LINK_TERMS_OF_SERVICE" = "Terms of Service";
 "LINK_PRIVACY_POLICY" = "Privacy Policy";
+
+"REGISTER_SIGNUP_WITH_FACEBOOK" = "Sign up with Facebook";
+"REGISTER_FIRST_NAME" = "First name";
+"REGISTER_LAST_NAME" = "Last name";
+"REGISTER_EMAIL" = "Email";
+"REGISTER_PASSWORD" = "Password";
+"REGISTER_CREATE" = "Create";
