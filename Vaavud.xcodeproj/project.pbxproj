@@ -86,10 +86,12 @@
 		E9A4098318A0EE1B004F1C12 /* about_action.png in Resources */ = {isa = PBXBuildFile; fileRef = E9A4098118A0EE1B004F1C12 /* about_action.png */; };
 		E9A4098418A0EE1B004F1C12 /* about_action@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9A4098218A0EE1B004F1C12 /* about_action@2x.png */; };
 		E9A4098718A26FEB004F1C12 /* GuidedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098618A26FEB004F1C12 /* GuidedTextField.m */; };
-		E9A4098A18A4DAE1004F1C12 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9A4098918A4DAE1004F1C12 /* Login.storyboard */; };
+		E9A4098A18A4DAE1004F1C12 /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9A4098918A4DAE1004F1C12 /* Register.storyboard */; };
 		E9A4098D18A50D11004F1C12 /* HistoryRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098C18A50D11004F1C12 /* HistoryRootViewController.m */; };
 		E9A4099018A52151004F1C12 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098F18A52151004F1C12 /* SignUpViewController.m */; };
-		E9A4099318A52E40004F1C12 /* LoginRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099218A52E40004F1C12 /* LoginRootViewController.m */; };
+		E9A4099318A52E40004F1C12 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099218A52E40004F1C12 /* RegisterViewController.m */; };
+		E9A4099C18AA501D004F1C12 /* PasswordUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099B18AA501D004F1C12 /* PasswordUtil.m */; };
+		E9A4099F18AA75C6004F1C12 /* RegisterNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */; };
 		E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */; };
 		E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */; };
 		E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */; };
@@ -358,13 +360,17 @@
 		E9A4098218A0EE1B004F1C12 /* about_action@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "about_action@2x.png"; sourceTree = "<group>"; };
 		E9A4098518A26FEB004F1C12 /* GuidedTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuidedTextField.h; sourceTree = "<group>"; };
 		E9A4098618A26FEB004F1C12 /* GuidedTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuidedTextField.m; sourceTree = "<group>"; };
-		E9A4098918A4DAE1004F1C12 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		E9A4098918A4DAE1004F1C12 /* Register.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Register.storyboard; sourceTree = "<group>"; };
 		E9A4098B18A50D11004F1C12 /* HistoryRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryRootViewController.h; sourceTree = "<group>"; };
 		E9A4098C18A50D11004F1C12 /* HistoryRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryRootViewController.m; sourceTree = "<group>"; };
 		E9A4098E18A52151004F1C12 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		E9A4098F18A52151004F1C12 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
-		E9A4099118A52E40004F1C12 /* LoginRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginRootViewController.h; sourceTree = "<group>"; };
-		E9A4099218A52E40004F1C12 /* LoginRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginRootViewController.m; sourceTree = "<group>"; };
+		E9A4099118A52E40004F1C12 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		E9A4099218A52E40004F1C12 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		E9A4099A18AA501D004F1C12 /* PasswordUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordUtil.h; sourceTree = "<group>"; };
+		E9A4099B18AA501D004F1C12 /* PasswordUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordUtil.m; sourceTree = "<group>"; };
+		E9A4099D18AA75C6004F1C12 /* RegisterNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterNavigationController.h; sourceTree = "<group>"; };
+		E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterNavigationController.m; sourceTree = "<group>"; };
 		E9AF2B8017F32A9800BDF6D9 /* SMCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCalloutView.h; sourceTree = "<group>"; };
 		E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMCalloutView.m; sourceTree = "<group>"; };
 		E9AF2B8317F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSMCalloutDrawnBackgroundView.h; sourceTree = "<group>"; };
@@ -846,9 +852,11 @@
 			children = (
 				E9A4098518A26FEB004F1C12 /* GuidedTextField.h */,
 				E9A4098618A26FEB004F1C12 /* GuidedTextField.m */,
-				E9A4098918A4DAE1004F1C12 /* Login.storyboard */,
-				E9A4099118A52E40004F1C12 /* LoginRootViewController.h */,
-				E9A4099218A52E40004F1C12 /* LoginRootViewController.m */,
+				E9A4098918A4DAE1004F1C12 /* Register.storyboard */,
+				E9A4099D18AA75C6004F1C12 /* RegisterNavigationController.h */,
+				E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */,
+				E9A4099118A52E40004F1C12 /* RegisterViewController.h */,
+				E9A4099218A52E40004F1C12 /* RegisterViewController.m */,
 				E9A4098E18A52151004F1C12 /* SignUpViewController.h */,
 				E9A4098F18A52151004F1C12 /* SignUpViewController.m */,
 			);
@@ -1069,6 +1077,8 @@
 				E9FD000A17FD6A06001A8491 /* FormatUtil.m */,
 				E93C86581781BE56005E4212 /* LocationManager.h */,
 				E93C86591781BE56005E4212 /* LocationManager.m */,
+				E9A4099A18AA501D004F1C12 /* PasswordUtil.h */,
+				E9A4099B18AA501D004F1C12 /* PasswordUtil.m */,
 				E9BB7A0B178DE2D9002E746F /* QueryStringUtil.h */,
 				E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */,
 				E9EE1FAE1769F08400D1F006 /* SharedSingleton.h */,
@@ -1161,7 +1171,7 @@
 				E9FABFD718929050009C4C46 /* history.png in Resources */,
 				D7B5BD4B17574E8C0069F739 /* VaavudTransparent100px.png in Resources */,
 				E9FABFD618929050009C4C46 /* history_selected@2x.png in Resources */,
-				E9A4098A18A4DAE1004F1C12 /* Login.storyboard in Resources */,
+				E9A4098A18A4DAE1004F1C12 /* Register.storyboard in Resources */,
 				E9658CE2184CD6AA009B4DFE /* iPad-iOS7-Portrait.png in Resources */,
 				E9658CCC184CCEB6009B4DFE /* VaavudIcon40.png in Resources */,
 				D7B5BD4D17574E970069F739 /* VaavudTransparent100px@2x.png in Resources */,
@@ -1217,9 +1227,11 @@
 				D71BE13717439AA000B38E34 /* vaavudFFT.m in Sources */,
 				D7092E8A1748FE9C00993235 /* vaavudDynamicsController.m in Sources */,
 				D7B5BD51175775EB0069F739 /* vaavudGraphHostingView.m in Sources */,
+				E9A4099F18AA75C6004F1C12 /* RegisterNavigationController.m in Sources */,
 				E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */,
 				E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */,
 				E9A4097818994000004F1C12 /* TMCache.m in Sources */,
+				E9A4099C18AA501D004F1C12 /* PasswordUtil.m in Sources */,
 				E9B627C217708E63004678D5 /* AFHTTPRequestOperation.m in Sources */,
 				E9B627C317708E63004678D5 /* AFImageRequestOperation.m in Sources */,
 				E9B627C417708E63004678D5 /* AFJSONRequestOperation.m in Sources */,
@@ -1254,7 +1266,7 @@
 				E9FABFE1189294BD009C4C46 /* HistoryTableViewCell.m in Sources */,
 				E9CD2246177B2AEA0054ED3F /* NSManagedObject+MagicalRequests.m in Sources */,
 				E9CD2247177B2AEA0054ED3F /* NSManagedObjectContext+MagicalObserving.m in Sources */,
-				E9A4099318A52E40004F1C12 /* LoginRootViewController.m in Sources */,
+				E9A4099318A52E40004F1C12 /* RegisterViewController.m in Sources */,
 				E9EBB99517E33DBB0086BE01 /* MeasurementSession.m in Sources */,
 				E9CD2248177B2AEA0054ED3F /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				E9CD2249177B2AEA0054ED3F /* NSManagedObjectContext+MagicalSaves.m in Sources */,

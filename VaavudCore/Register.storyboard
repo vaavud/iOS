@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Register Navigation Controller-->
         <scene sceneID="lrJ-Bf-8NR">
             <objects>
-                <navigationController definesPresentationContext="YES" id="e8F-BY-YBJ" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="e8F-BY-YBJ" customClass="RegisterNavigationController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="v7k-gD-aAw">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -20,10 +20,10 @@
             </objects>
             <point key="canvasLocation" x="-227" y="12"/>
         </scene>
-        <!--Login Root View Controller - Register-->
+        <!--Register View Controller - Register-->
         <scene sceneID="OFR-ua-TdD">
             <objects>
-                <viewController id="Ejx-Uu-BTy" customClass="LoginRootViewController" sceneMemberID="viewController">
+                <viewController id="Ejx-Uu-BTy" customClass="RegisterViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KU6-zm-tDN"/>
                         <viewControllerLayoutGuide type="bottom" id="CJK-iT-PTY"/>

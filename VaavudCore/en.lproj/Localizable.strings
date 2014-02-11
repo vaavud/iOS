@@ -55,3 +55,14 @@
 "REGISTER_EMAIL" = "Email";
 "REGISTER_PASSWORD" = "Password";
 "REGISTER_CREATE" = "Create";
+
+"REGISTER_FORM_FIRST_NAME_EMPTY_TITLE" = "Enter your name";
+"REGISTER_FORM_FIRST_NAME_EMPTY_MESSAGE" = "Just your first name will do.";
+"REGISTER_FORM_EMAIL_EMPTY_TITLE" = "Enter your email";
+"REGISTER_FORM_EMAIL_EMPTY_MESSAGE" = "We won't give your email to 3rd parties!";
+"REGISTER_FORM_PASSWORD_SHORT_TITLE" = "Password too short";
+"REGISTER_FORM_PASSWORD_SHORT_MESSAGE" = "4 characters or more.";
+"REGISTER_INVALID_CREDENTIALS_TITLE" = "Couldn't login";
+"REGISTER_INVALID_CREDENTIALS_MESSAGE" = "Email or password is not correct.";
+"REGISTER_ERROR_TITLE" = "Error";
+"REGISTER_ERROR_MESSAGE" = "Please try again later.";

@@ -7,8 +7,11 @@
 //
 
 #import "HistoryRootViewController.h"
+#import "Property+Util.h"
 
 @interface HistoryRootViewController ()
+
+@property (nonatomic, weak) UIViewController *childViewController;
 
 @end
 
@@ -36,16 +39,32 @@
         self.tabBarItem.selectedImage = selectedTabImage;
     }
 
-    UIViewController *childViewController;
-    if (YES) {
-        UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
-        childViewController = [loginStoryBoard instantiateInitialViewController];
+    [self chooseContentController];
+}
+
+- (void) userAuthenticated {
+    [self chooseContentController];
+}
+
+- (void) chooseContentController {
+    
+    if (self.childViewController) {
+        [self hideContentController:self.childViewController];
+    }
+    
+    if (![Property getAsBoolean:KEY_LOGGED_IN]) {
+        UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
+        self.childViewController = [loginStoryBoard instantiateInitialViewController];
+        
+        if ([self.childViewController isKindOfClass:[RegisterNavigationController class]]) {
+            ((RegisterNavigationController*) self.childViewController).registerDelegate = self;
+        }
     }
     else {
-        childViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryTableViewController"];
+        self.childViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryNavigationController"];
     }
-
-    [self showContentController:childViewController];
+    
+    [self showContentController:self.childViewController];
 }
 
 - (void)showContentController:(UIViewController*)viewController {

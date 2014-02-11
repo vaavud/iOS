@@ -54,3 +54,14 @@
 "REGISTER_EMAIL" = "Email";
 "REGISTER_PASSWORD" = "Kodeord";
 "REGISTER_CREATE" = "Opret";
+
+"REGISTER_FORM_FIRST_NAME_EMPTY_TITLE" = "Indtast dit name";
+"REGISTER_FORM_FIRST_NAME_EMPTY_MESSAGE" = "Blot dit fornavn er nok.";
+"REGISTER_FORM_EMAIL_EMPTY_TITLE" = "Indtast din email";
+"REGISTER_FORM_EMAIL_EMPTY_MESSAGE" = "Vi giver ikke din email væk til andre!";
+"REGISTER_FORM_PASSWORD_SHORT_TITLE" = "Kodeord for kort";
+"REGISTER_FORM_PASSWORD_SHORT_MESSAGE" = "4 tegn eller mere.";
+"REGISTER_INVALID_CREDENTIALS_TITLE" = "Kunne ikke logge ind";
+"REGISTER_INVALID_CREDENTIALS_MESSAGE" = "Email eller kodeord er forkert.";
+"REGISTER_ERROR_TITLE" = "Fejl";
+"REGISTER_ERROR_MESSAGE" = "Prøv venligst senere.";

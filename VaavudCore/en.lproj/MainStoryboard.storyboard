@@ -407,7 +407,7 @@
         <!--History Table View Controller - History-->
         <scene sceneID="ESh-LX-BZr">
             <objects>
-                <tableViewController storyboardIdentifier="HistoryTableViewController" id="dW6-mM-6nb" customClass="HistoryTableViewController" sceneMemberID="viewController">
+                <tableViewController id="dW6-mM-6nb" customClass="HistoryTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="grouped" allowsSelection="NO" rowHeight="95" sectionHeaderHeight="10" sectionFooterHeight="10" id="6XY-Gm-7sX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -508,7 +508,7 @@
         <!--History Navigation Controller-->
         <scene sceneID="V9R-ML-X2E">
             <objects>
-                <navigationController definesPresentationContext="YES" id="Aeq-dx-zyt" customClass="HistoryNavigationController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="HistoryNavigationController" definesPresentationContext="YES" id="Aeq-dx-zyt" customClass="HistoryNavigationController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uJ9-Xb-xqC">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

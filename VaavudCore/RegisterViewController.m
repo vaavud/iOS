@@ -6,16 +6,16 @@
 //  Copyright (c) 2014 Andreas Okholm. All rights reserved.
 //
 
-#import "LoginRootViewController.h"
+#import "RegisterViewController.h"
 
-@interface LoginRootViewController ()
+@interface RegisterViewController ()
 
 @property (nonatomic, weak) IBOutlet UIButton *signUpButton;
 @property (nonatomic, weak) IBOutlet UIButton *logInButton;
 
 @end
 
-@implementation LoginRootViewController
+@implementation RegisterViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

@@ -34,6 +34,14 @@
     return [NSNumber numberWithInt:[value integerValue]];
 }
 
++ (NSNumber*) getAsLongLong:(NSString*) name {
+    NSString* value = [self getAsString:name];
+    if (value == nil) {
+        return nil;
+    }
+    return [NSNumber numberWithLongLong:[value longLongValue]];
+}
+
 + (NSNumber*) getAsDouble:(NSString*) name {
     NSString* value = [self getAsString:name];
     if (value == nil) {
@@ -57,6 +65,10 @@
 }
 
 + (void) setAsInteger:(NSNumber*) value forKey:(NSString*) name {
+    [self setAsString:[value stringValue] forKey:name];
+}
+
++ (void) setAsLongLong:(NSNumber*) value forKey:(NSString*) name {
     [self setAsString:[value stringValue] forKey:name];
 }
 

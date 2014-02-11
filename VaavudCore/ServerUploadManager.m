@@ -18,6 +18,7 @@
 #import "Property+Util.h"
 #import "AFHTTPRequestOperation.h"
 #import "AlgorithmConstantsUtil.h"
+#import "UUIDUtil.h"
 
 @interface ServerUploadManager () {
 }
@@ -74,6 +75,9 @@ SHARED_INSTANCE
 
 - (void) start {
     self.syncTimer = [NSTimer scheduledTimerWithTimeInterval:uploadInterval target:self selector:@selector(checkForUnUploadedData) userInfo:nil repeats:YES];
+    
+    // TODO: REMOVE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    [Property setAsBoolean:NO forKey:KEY_LOGGED_IN];
 }
 
 // notification from the OS
@@ -136,7 +140,7 @@ SHARED_INSTANCE
     if (self.consecutiveNetworkErrors >= consecutiveNetworkErrorBackOffThreshold) {
         self.backoffWaitCount++;
         if (self.backoffWaitCount % networkErrorBackOff != 0) {
-            NSLog(@"[ServerUploadManager] Backing off due to %d consecutive network errors, wait count is %d", self.consecutiveNetworkErrors, self.backoffWaitCount);
+            //NSLog(@"[ServerUploadManager] Backing off due to %d consecutive network errors, wait count is %d", self.consecutiveNetworkErrors, self.backoffWaitCount);
             return;
         }
     }
@@ -307,10 +311,115 @@ SHARED_INSTANCE
         [self triggerUpload];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"[ServerUploadManager] Got error registering device: %@", error);
+        long statusCode = (long)operation.response.statusCode;
+        NSLog(@"[ServerUploadManager] Got error status code %ld registering device: %@", statusCode, error);
+        
+        // check for unauthorized
+        if (statusCode == 401) {
+            [self invalidateAuthentication];
+        }
+
         self.hasRegisteredDevice = NO;
         self.consecutiveNetworkErrors++;
     }];
+}
+
+-(void) registerUser:(NSString*)email passwordHash:(NSString*)passwordHash facebookId:(NSString*)facebookId facebookAccessToken:(NSString*)facebookAccessToken firstName:(NSString*)firstName lastName:(NSString*)lastName retry:(int)retryCount success:(void (^)(NSString *status))success failure:(void (^)(NSError *error))failure {
+    
+    if (!self.hasReachability) {
+        failure(nil);
+        return;
+    }
+    
+    if (retryCount <= 0) {
+        failure(nil);
+        return;
+    }
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:10];
+    if (email) {
+        [parameters setObject:email forKey:@"email"];
+    }
+    if (passwordHash) {
+        [parameters setObject:passwordHash forKey:@"clientPasswordHash"];
+    }
+    if (facebookId) {
+        [parameters setObject:facebookId forKey:@"facebookId"];
+    }
+    if (facebookAccessToken) {
+        [parameters setObject:facebookAccessToken forKey:@"facebookAccessToken"];
+    }
+    if (firstName) {
+        [parameters setObject:firstName forKey:@"firstName"];
+    }
+    if (lastName) {
+        [parameters setObject:lastName forKey:@"lastName"];
+    }
+
+    [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/user/register" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        // clear consecutive errors since we got a successful reponse
+        self.consecutiveNetworkErrors = 0;
+        self.backoffWaitCount = 0;
+        
+        NSString *status = [responseObject objectForKey:@"status"];
+        if (status && status != nil && status != (id)[NSNull null] && ([status length] > 0)) {
+            
+            // remember the authToken we got from the server as response
+            NSString *authToken = [responseObject objectForKey:@"authToken"];
+            if (authToken && authToken != nil && authToken != (id)[NSNull null] && ([authToken length] > 0)) {
+                [Property setAsString:authToken forKey:KEY_AUTH_TOKEN];
+                [[VaavudAPIHTTPClient sharedInstance] setAuthToken:authToken];
+            }
+            
+            NSNumber *userId = [responseObject objectForKey:@"userId"];
+            if (userId && !isnan([userId longLongValue]) && ([userId longLongValue] > 0)) {
+                [Property setAsLongLong:userId forKey:KEY_USER_ID];
+            }
+
+            NSLog(@"[ServerUploadManager] Got status %@ registering user with id %@", status, userId);
+
+            success(status);
+        }
+        else {
+            NSLog(@"[ServerUploadManager] Didn't get any status from server");
+            failure(nil);
+        }
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        long statusCode = (long)operation.response.statusCode;
+        NSLog(@"[ServerUploadManager] Got error status code %ld registering user: %@", statusCode, error);
+        
+        self.consecutiveNetworkErrors++;
+        
+        // check for unauthorized
+        if (statusCode == 401) {
+            // try to re-register
+            [self invalidateAuthentication];
+            failure(error);
+        }
+        else {
+            [self registerUser:email
+                  passwordHash:passwordHash
+                    facebookId:facebookId
+           facebookAccessToken:facebookAccessToken
+                     firstName:firstName
+                      lastName:lastName
+                         retry:retryCount-1
+                       success:success
+                       failure:failure];
+        }
+    }];
+}
+
+-(void) invalidateAuthentication {
+    // Unauthorized most likely means that a user is associated with this device and the authToken has been changed or invalidated
+    // server-side. Thus, we need to remove the local authToken, create a new deviceUuid, and re-register the user
+    [Property setAsString:nil forKey:KEY_AUTH_TOKEN];
+    [Property setAsString:[UUIDUtil generateUUID] forKey:KEY_DEVICE_UUID];
+    [Property setAsBoolean:NO forKey:KEY_LOGGED_IN];
+    [[VaavudAPIHTTPClient sharedInstance] setAuthToken:nil];
+    self.hasRegisteredDevice = NO;
 }
 
 -(void) readMeasurements:(int)hours retry:(int)retryCount success:(void (^)(NSArray *measurements))success failure:(void (^)(NSError *error))failure {

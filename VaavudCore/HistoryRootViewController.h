@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RegisterNavigationController.h"
 
-@interface HistoryRootViewController : UIViewController
+@interface HistoryRootViewController : UIViewController <RegisterNavigationControllerDelegate>
 
 @end

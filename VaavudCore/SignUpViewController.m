@@ -8,6 +8,10 @@
 
 #import "SignUpViewController.h"
 #import "GuidedTextField.h"
+#import "PasswordUtil.h"
+#import "ServerUploadManager.h"
+#import "Property+Util.h"
+#import "RegisterNavigationController.h"
 
 @interface SignUpViewController ()
 
@@ -40,7 +44,58 @@
 }
 
 - (void)doneButtonPushed {
+
+    if (!self.emailTextField.text || self.emailTextField.text.length == 0) {
+        [self showMessage:NSLocalizedString(@"REGISTER_FORM_EMAIL_EMPTY_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FORM_EMAIL_EMPTY_TITLE", nil)];
+        return;
+    }
+
+    // TODO: validate email format
     
+    if (!self.passwordTextField.text || self.passwordTextField.text.length < 4) {
+        [self showMessage:NSLocalizedString(@"REGISTER_FORM_PASSWORD_SHORT_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FORM_PASSWORD_SHORT_TITLE", nil)];
+        return;
+    }
+
+    if (!self.firstNameTextField.text || self.firstNameTextField.text.length == 0) {
+        [self showMessage:NSLocalizedString(@"REGISTER_FORM_FIRST_NAME_EMPTY_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FORM_FIRST_NAME_EMPTY_TITLE", nil)];
+        return;
+    }
+
+    NSString *passwordHash = [PasswordUtil createHash:self.passwordTextField.text salt:self.emailTextField.text];
+    NSLog(@"passwordHash=%@", passwordHash);
+    
+    [[ServerUploadManager sharedInstance] registerUser:self.emailTextField.text passwordHash:passwordHash facebookId:nil facebookAccessToken:nil firstName:self.firstNameTextField.text lastName:self.lastNameTextField.text retry:3 success:^(NSString *status) {
+
+        if ([@"PAIRED" isEqualToString:status] || [@"CREATED" isEqualToString:status]) {
+            
+            [Property setAsString:self.emailTextField.text forKey:KEY_EMAIL];
+            [Property setAsBoolean:YES forKey:KEY_LOGGED_IN];
+
+            if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
+                RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
+                if (registerNavigationController.registerDelegate) {
+                    [registerNavigationController.registerDelegate userAuthenticated];
+                }
+            }
+        }
+        else {
+            [self showMessage:NSLocalizedString(@"REGISTER_INVALID_CREDENTIALS_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_INVALID_CREDENTIALS_TITLE", nil)];
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"[SignUpViewController] error registering user");
+        [self showMessage:NSLocalizedString(@"REGISTER_ERROR_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_ERROR_TITLE", nil)];
+    }];
 }
+
+- (void)showMessage:(NSString *)text withTitle:(NSString *)title
+{
+    [[[UIAlertView alloc] initWithTitle:title
+                                message:text
+                               delegate:self
+                      cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                      otherButtonTitles:nil] show];
+}
+
 
 @end

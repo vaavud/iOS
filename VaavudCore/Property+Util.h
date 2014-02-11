@@ -30,18 +30,21 @@ static NSString * const KEY_HOUR_OPTIONS = @"hourOptions";
 
 // User-related properties
 static NSString * const KEY_EMAIL = @"email";
-
+static NSString * const KEY_USER_ID = @"userId";
+static NSString * const KEY_LOGGED_IN = @"loggedIn";
 
 @interface Property (Util)
 
 + (NSString*) getAsString:(NSString*) name;
 + (BOOL) getAsBoolean:(NSString*) name;
 + (NSNumber*) getAsInteger:(NSString*) name;
++ (NSNumber*) getAsLongLong:(NSString*) name;
 + (NSNumber*) getAsDouble:(NSString*) name;
 + (NSArray*) getAsFloatArray:(NSString*) name;
 + (void) setAsString:(NSString*) value forKey:(NSString*) name;
 + (void) setAsBoolean:(BOOL) value forKey:(NSString*) name;
 + (void) setAsInteger:(NSNumber*) value forKey:(NSString*) name;
++ (void) setAsLongLong:(NSNumber*) value forKey:(NSString*) name;
 + (void) setAsDouble:(NSNumber*) value forKey:(NSString*) name;
 + (void) setAsFloatArray:(NSArray*) value forKey:(NSString*) name;
 
