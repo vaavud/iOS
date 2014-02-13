@@ -21,10 +21,10 @@
     [super viewDidLoad];
     self.navigationItem.title = NSLocalizedString(@"HISTORY_TITLE", nil);
     
-    self.signUpButton.layer.cornerRadius = CORNER_RADIUS;
+    self.signUpButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.signUpButton.layer.masksToBounds = YES;
 
-    self.logInButton.layer.cornerRadius = CORNER_RADIUS;
+    self.logInButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.logInButton.layer.masksToBounds = YES;
 }
 

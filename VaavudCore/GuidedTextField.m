@@ -16,6 +16,8 @@
 
 @implementation GuidedTextField
 
+BOOL isFirstEdit = YES;
+
 - (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
@@ -45,14 +47,41 @@
     self.label.textColor = [UIColor lightGrayColor];
 }
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    self.label.hidden = YES;
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    NSRange textFieldRange = NSMakeRange(0, [textField.text length]);
+    if ((NSEqualRanges(range, textFieldRange) && [string length] == 0) || (textField.secureTextEntry && isFirstEdit && range.location > 0 && range.length == 1 && string.length == 0)) {
+        if (self.label.hidden) {
+            self.label.hidden = NO;
+            if (self.guidedDelegate && [self.guidedDelegate respondsToSelector:@selector(changedEmptiness:isEmpty:)]) {
+                [self.guidedDelegate changedEmptiness:textField isEmpty:YES];
+            }
+        }
+    }
+    else {
+        if (!self.label.hidden) {
+            self.label.hidden = YES;
+            if (self.guidedDelegate && [self.guidedDelegate respondsToSelector:@selector(changedEmptiness:isEmpty:)]) {
+                [self.guidedDelegate changedEmptiness:textField isEmpty:NO];
+            }
+        }
+    }
+    
+    isFirstEdit = NO;
+    
+    return YES;
 }
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-    if (self.text.length == 0) {
-        self.label.hidden = NO;
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (self.guidedDelegate && [self.guidedDelegate respondsToSelector:@selector(textFieldShouldReturn:)]) {
+        return [self.guidedDelegate textFieldShouldReturn:textField];
     }
+    return YES;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    isFirstEdit = YES;
+    return YES;
 }
 
 - (void)setGuideText:(NSString *)guideText {

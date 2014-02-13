@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GuidedTextField.h"
 
-@interface SignUpViewController : UIViewController
+@interface SignUpViewController : UIViewController <GuidedTextFieldDelegate>
 
 @end

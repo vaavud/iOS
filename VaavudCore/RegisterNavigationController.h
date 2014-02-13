@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol RegisterNavigationControllerDelegate
+@protocol RegisterNavigationControllerDelegate <NSObject>
 - (void) userAuthenticated;
 @end
 

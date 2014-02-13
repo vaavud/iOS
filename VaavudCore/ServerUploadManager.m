@@ -324,7 +324,7 @@ SHARED_INSTANCE
     }];
 }
 
--(void) registerUser:(NSString*)email passwordHash:(NSString*)passwordHash facebookId:(NSString*)facebookId facebookAccessToken:(NSString*)facebookAccessToken firstName:(NSString*)firstName lastName:(NSString*)lastName retry:(int)retryCount success:(void (^)(NSString *status))success failure:(void (^)(NSError *error))failure {
+-(void) registerUser:(NSString*)action email:(NSString*)email passwordHash:(NSString*)passwordHash facebookId:(NSString*)facebookId facebookAccessToken:(NSString*)facebookAccessToken firstName:(NSString*)firstName lastName:(NSString*)lastName retry:(int)retryCount success:(void (^)(NSString *status))success failure:(void (^)(NSError *error))failure {
     
     if (!self.hasReachability) {
         failure(nil);
@@ -337,6 +337,9 @@ SHARED_INSTANCE
     }
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:10];
+    if (action) {
+        [parameters setObject:action forKey:@"action"];
+    }
     if (email) {
         [parameters setObject:email forKey:@"email"];
     }
@@ -399,7 +402,8 @@ SHARED_INSTANCE
             failure(error);
         }
         else {
-            [self registerUser:email
+            [self registerUser:action
+                         email:email
                   passwordHash:passwordHash
                     facebookId:facebookId
            facebookAccessToken:facebookAccessToken
