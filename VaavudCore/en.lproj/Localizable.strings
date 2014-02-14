@@ -70,3 +70,6 @@
 "REGISTER_FEEDBACK_MALFORMED_EMAIL_MESSAGE" = "Doesn't appear to be a valid email.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Error";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Please try again later.";
+
+"FACEBOOK_ERROR_TITLE" = "Error";
+"FACEBOOK_GENERIC_ERROR_MESSAGE" = "Please try again later.";

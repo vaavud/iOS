@@ -110,7 +110,15 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="facebookButtonPushed:" destination="cRc-ui-CIx" eventType="touchUpInside" id="XKw-P3-QZJ"/>
+                                </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bnI-we-bEV">
+                                <rect key="frame" x="150" y="94" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wTy-Fe-QW0">
                                 <rect key="frame" x="153" y="134" width="14" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -224,6 +232,7 @@
                             <constraint firstItem="c0a-dV-TJ9" firstAttribute="top" secondItem="XwP-b4-Cpl" secondAttribute="bottom" constant="20" id="3Fp-Et-aCe"/>
                             <constraint firstAttribute="centerX" secondItem="wTy-Fe-QW0" secondAttribute="centerX" id="492-cM-k0F"/>
                             <constraint firstItem="wTy-Fe-QW0" firstAttribute="top" secondItem="c0a-dV-TJ9" secondAttribute="bottom" constant="10" id="5AU-bs-wei"/>
+                            <constraint firstItem="c0a-dV-TJ9" firstAttribute="centerY" secondItem="bnI-we-bEV" secondAttribute="centerY" id="9Ut-mR-AmD"/>
                             <constraint firstItem="c0a-dV-TJ9" firstAttribute="trailing" secondItem="a8a-8P-Mqu" secondAttribute="trailing" id="Hso-Hr-dvX"/>
                             <constraint firstAttribute="centerX" secondItem="c0a-dV-TJ9" secondAttribute="centerX" id="KrD-D9-Zoa"/>
                             <constraint firstItem="a8a-8P-Mqu" firstAttribute="top" secondItem="wTy-Fe-QW0" secondAttribute="bottom" constant="8" id="OJD-4L-R5Q"/>
@@ -232,11 +241,13 @@
                             <constraint firstItem="c0a-dV-TJ9" firstAttribute="leading" secondItem="R3X-37-nv8" secondAttribute="leading" id="SXN-Sy-hZX"/>
                             <constraint firstItem="R3X-37-nv8" firstAttribute="centerY" secondItem="wTy-Fe-QW0" secondAttribute="centerY" id="WUW-WO-Z7n"/>
                             <constraint firstItem="c0a-dV-TJ9" firstAttribute="trailing" secondItem="fR0-9C-zrI" secondAttribute="trailing" id="eUS-nL-qu9"/>
+                            <constraint firstItem="c0a-dV-TJ9" firstAttribute="centerX" secondItem="bnI-we-bEV" secondAttribute="centerX" id="eno-0m-S4V"/>
                             <constraint firstItem="wTy-Fe-QW0" firstAttribute="leading" secondItem="R3X-37-nv8" secondAttribute="trailing" constant="8" id="lIl-62-9Q7"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Sign Up" id="Dvr-n0-rNN"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="bnI-we-bEV" id="fhe-5A-w5P"/>
                         <outlet property="basicInputView" destination="a8a-8P-Mqu" id="J64-gh-Gxg"/>
                         <outlet property="emailTextField" destination="vI4-Pe-t6q" id="Sec-4S-puu"/>
                         <outlet property="facebookButton" destination="c0a-dV-TJ9" id="d9e-4T-ViO"/>
@@ -274,7 +285,15 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="facebookButtonPushed:" destination="b64-Qq-ZiB" eventType="touchUpInside" id="Q20-de-guc"/>
+                                </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="weH-4W-b5r">
+                                <rect key="frame" x="150" y="94" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHr-rp-yDL">
                                 <rect key="frame" x="153" y="134" width="14" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -343,6 +362,7 @@
                         <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="U0Z-De-U5K" firstAttribute="top" secondItem="VHr-rp-yDL" secondAttribute="bottom" constant="8" id="1PG-8q-CMk"/>
+                            <constraint firstItem="8zw-Fe-e1h" firstAttribute="centerX" secondItem="weH-4W-b5r" secondAttribute="centerX" id="3ux-zB-vdX"/>
                             <constraint firstItem="8zw-Fe-e1h" firstAttribute="trailing" secondItem="Qi9-1v-3c8" secondAttribute="trailing" id="AQN-0a-GcI"/>
                             <constraint firstItem="8zw-Fe-e1h" firstAttribute="top" secondItem="z9D-80-TLo" secondAttribute="bottom" constant="20" id="WSy-Ge-xTq"/>
                             <constraint firstItem="Qi9-1v-3c8" firstAttribute="centerY" secondItem="VHr-rp-yDL" secondAttribute="centerY" id="ZBB-hg-nHF"/>
@@ -353,12 +373,14 @@
                             <constraint firstAttribute="centerX" secondItem="VHr-rp-yDL" secondAttribute="centerX" id="omK-jz-N0N"/>
                             <constraint firstItem="8zw-Fe-e1h" firstAttribute="leading" secondItem="POx-xu-JUJ" secondAttribute="leading" id="pHH-K3-TlH"/>
                             <constraint firstAttribute="centerX" secondItem="8zw-Fe-e1h" secondAttribute="centerX" id="r5t-mk-kCM"/>
+                            <constraint firstItem="8zw-Fe-e1h" firstAttribute="centerY" secondItem="weH-4W-b5r" secondAttribute="centerY" id="rHg-j3-U7z"/>
                             <constraint firstItem="VHr-rp-yDL" firstAttribute="leading" secondItem="POx-xu-JUJ" secondAttribute="trailing" constant="8" id="sFW-zr-B4W"/>
                             <constraint firstItem="8zw-Fe-e1h" firstAttribute="leading" secondItem="U0Z-De-U5K" secondAttribute="leading" id="w1H-VH-0oC"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Log In" id="aEk-6K-pKn"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="weH-4W-b5r" id="LTc-oe-0JF"/>
                         <outlet property="basicInputView" destination="U0Z-De-U5K" id="DU5-oS-qwA"/>
                         <outlet property="emailTextField" destination="R4J-yx-SGq" id="jJw-CE-kw7"/>
                         <outlet property="facebookButton" destination="8zw-Fe-e1h" id="qnh-HG-6nm"/>

@@ -93,6 +93,7 @@
 		E9A4099C18AA501D004F1C12 /* PasswordUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099B18AA501D004F1C12 /* PasswordUtil.m */; };
 		E9A4099F18AA75C6004F1C12 /* RegisterNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */; };
 		E9A409A818AB9B80004F1C12 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A409A718AB9B80004F1C12 /* LogInViewController.m */; };
+		E9A40A1A18AD18CB004F1C12 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9A40A1918AD18CB004F1C12 /* FacebookSDK.framework */; };
 		E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */; };
 		E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */; };
 		E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */; };
@@ -374,6 +375,7 @@
 		E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterNavigationController.m; sourceTree = "<group>"; };
 		E9A409A618AB9B80004F1C12 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
 		E9A409A718AB9B80004F1C12 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
+		E9A40A1918AD18CB004F1C12 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		E9AF2B8017F32A9800BDF6D9 /* SMCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCalloutView.h; sourceTree = "<group>"; };
 		E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMCalloutView.m; sourceTree = "<group>"; };
 		E9AF2B8317F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSMCalloutDrawnBackgroundView.h; sourceTree = "<group>"; };
@@ -521,6 +523,7 @@
 				E9B627CB177092EF004678D5 /* SystemConfiguration.framework in Frameworks */,
 				E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */,
 				D7B5BD531757A23C0069F739 /* CoreLocation.framework in Frameworks */,
+				E9A40A1A18AD18CB004F1C12 /* FacebookSDK.framework in Frameworks */,
 				D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */,
 				D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */,
 				E982DF2C1817ECE0004DAB3E /* libGoogleAnalyticsServices.a in Frameworks */,
@@ -652,6 +655,7 @@
 		D7A4F1C9173A8DDB00D1ACEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E9A40A1918AD18CB004F1C12 /* FacebookSDK.framework */,
 				E982DF2D18181152004DAB3E /* AdSupport.framework */,
 				E904AC9917F0911000171F7F /* MapKit.framework */,
 				D7DA72401743C1CD00DFE962 /* Accelerate.framework */,
@@ -1412,6 +1416,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/thomas/Documents/xcode/Vaavud,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
@@ -1434,6 +1442,10 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/thomas/Documents/xcode/Vaavud,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";

@@ -15,6 +15,7 @@
 #import "QueryStringUtil.h"
 #import "TabBarController.h"
 #import "TMCache.h"
+#import "Property+Util.h"
 
 @implementation vaavudAppDelegate
 
@@ -34,6 +35,22 @@
     [[LocationManager sharedInstance] start];
     
     self.xCallbackSuccess = nil;
+        
+    // TODO: REMOVE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    [Property setAsBoolean:NO forKey:KEY_LOGGED_IN];
+
+    // Whenever a person opens the app, check for a cached session
+    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
+        NSLog(@"[VaavudAppDelegate] Found a cached Facebook session");
+
+        // If there's one, just open the session silently, without showing the user the login UI
+        [FBSession openActiveSessionWithReadPermissions:[self facebookSignupPermissions]
+                                           allowLoginUI:NO
+                                      completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+                                          [self facebookSessionStateChanged:session state:state error:error action:@"LOGIN" success:nil failure:nil];
+                                      }];
+    }
+
     return YES;
 }
 							
@@ -57,6 +74,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [FBAppCall handleDidBecomeActive];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -64,29 +82,160 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-    NSLog(@"url recieved: %@", url);
-    NSLog(@"query string: %@", [url query]);
-    NSLog(@"host: %@", [url host]);
-    NSLog(@"url path: %@", [url path]);
-    NSDictionary *dict = [QueryStringUtil parseQueryString:[url query]];
-    NSLog(@"query dict: %@", dict);
-    
-    self.xCallbackSuccess = nil;
-    
-    if ([@"x-callback-url" compare:[url host]] == NSOrderedSame && [@"/measure" compare:[url path]] == NSOrderedSame) {
-        NSString* xSuccess = [dict objectForKey:@"x-success"];
-        if (xSuccess && xSuccess != nil && xSuccess != (id)[NSNull null] && [xSuccess length] > 0) {
-            NSLog(@"[VaavudAppDelegate] opened with x-callback-url, setting x-success to %@", xSuccess);
-            self.xCallbackSuccess = xSuccess;
-            
-            TabBarController *tabBarController = (TabBarController*) self.window.rootViewController;
-            if (tabBarController && tabBarController != nil && tabBarController.isViewLoaded) {
-                tabBarController.selectedIndex = 0;
+- (BOOL)application:(UIApplication *)application openURL:(NSURL*)url sourceApplication:(NSString*)sourceApplication annotation:(id)annotation {
+    if ([url.scheme isEqualToString:@"vaavud"]) {
+        NSLog(@"url recieved: %@", url);
+        NSLog(@"query string: %@", [url query]);
+        NSLog(@"host: %@", [url host]);
+        NSLog(@"url path: %@", [url path]);
+        NSDictionary *dict = [QueryStringUtil parseQueryString:[url query]];
+        NSLog(@"query dict: %@", dict);
+        
+        self.xCallbackSuccess = nil;
+        
+        if ([@"x-callback-url" compare:[url host]] == NSOrderedSame && [@"/measure" compare:[url path]] == NSOrderedSame) {
+            NSString* xSuccess = [dict objectForKey:@"x-success"];
+            if (xSuccess && xSuccess != nil && xSuccess != (id)[NSNull null] && [xSuccess length] > 0) {
+                NSLog(@"[VaavudAppDelegate] opened with x-callback-url, setting x-success to %@", xSuccess);
+                self.xCallbackSuccess = xSuccess;
+                
+                TabBarController *tabBarController = (TabBarController*) self.window.rootViewController;
+                if (tabBarController && tabBarController != nil && tabBarController.isViewLoaded) {
+                    tabBarController.selectedIndex = 0;
+                }
             }
         }
+    }
+    else {
+        return [FBSession.activeSession handleOpenURL:url];
     }
     
     return YES;
 }
+
+- (void)facebookSessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error action:(NSString*)action success:(void(^)(NSString *status))success failure:(void(^)(NSString *status, NSString *message, BOOL displayFeedback))failure {
+
+    // If the session was opened successfully
+    if (!error && state == FBSessionStateOpen) {
+        NSLog(@"[VaavudAppDelegate] Facebook session opened");
+        [self facebookUserLoggedIn:action success:success failure:failure];
+        return;
+    }
+    
+    // Handle errors
+    if (error) {
+        
+        // If the error requires people using an app to make an action outside of the app in order to recover
+        if ([FBErrorUtility shouldNotifyUserForError:error] == YES) {
+            if (failure) {
+                failure(nil, [FBErrorUtility userMessageForError:error], YES);
+                failure = nil;
+            }
+        }
+        else {
+            FBErrorCategory errorCategory = [FBErrorUtility errorCategoryForError:error];
+            
+            // If the user cancelled login, do nothing
+            if (errorCategory == FBErrorCategoryUserCancelled) {
+                NSLog(@"[VaavudAppDelegate] Facebook user cancelled login");
+                if (failure) {
+                    failure(nil, nil, NO);
+                    failure = nil;
+                }
+            }
+            else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryAuthenticationReopenSession) {
+                NSLog(@"[VaavudAppDelegate] Facebook authentication reopen session");
+                // TODO: we should probably show the login screen here?
+            }
+            else {
+                NSLog(@"[VaavudAppDelegate] Facebook error %d", errorCategory);
+                if (failure) {
+                    failure(nil, nil, YES);
+                    failure = nil;
+                }
+            }
+        }
+
+        // Clear this token
+        [FBSession.activeSession closeAndClearTokenInformation];
+        [self facebookUserLoggedOut:failure];
+    }
+    else {
+        if (state == FBSessionStateClosed || state == FBSessionStateClosedLoginFailed) {
+            NSLog(@"[VaavudAppDelegate] Facebook session closed");
+            [self facebookUserLoggedOut:failure];
+        }
+        else {
+            if (failure) {
+                failure(nil, nil, YES);
+            }
+        }
+    }
+}
+
+- (void)facebookUserLoggedOut:(void(^)(NSString *status, NSString *message, BOOL displayFeedback))failure {
+    NSLog(@"[VaavudAppDelegate] facebookUserLoggedOut");
+    [Property setAsString:nil forKey:KEY_FACEBOOK_ACCESS_TOKEN];
+    [Property setAsBoolean:NO forKey:KEY_LOGGED_IN];
+    
+    if (failure) {
+        failure(nil, nil, YES);
+    }
+}
+
+- (void)facebookUserLoggedIn:(NSString*)action success:(void(^)(NSString *status))success failure:(void(^)(NSString *status, NSString *message, BOOL displayFeedback))failure {
+    NSLog(@"[VaavudAppDelegate] facebookUserLoggedIn");
+    
+    [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        if (!error) {
+            
+            FBAccessTokenData *accessTokenData = FBSession.activeSession.accessTokenData;
+            [Property setAsString:accessTokenData.accessToken forKey:KEY_FACEBOOK_ACCESS_TOKEN];
+            [Property setAsString:[result objectForKey:@"id"] forKey:KEY_FACEBOOK_USER_ID];
+        
+            NSString *facebookUserId = [Property getAsString:KEY_FACEBOOK_USER_ID];
+            NSString *facebookAccessToken = [Property getAsString:KEY_FACEBOOK_ACCESS_TOKEN];
+            NSString *email = [result objectForKey:@"email"];
+            NSString *firstName = [result objectForKey:@"first_name"];
+            NSString *lastName = [result objectForKey:@"last_name"];
+            NSString *genderString = [result objectForKey:@"gender"];
+            NSNumber *gender = [NSNumber numberWithInt:0];
+            if (genderString) {
+                gender = ([@"male" isEqualToString:genderString]) ? [NSNumber numberWithInt:1] : [NSNumber numberWithInt:2];
+            }
+            NSNumber *verified = [result objectForKey:@"verified"];
+            
+            NSLog(@"Facebook logged in - facebookUserId=%@, accessToken=%@, email=%@, firstName=%@, lastName=%@, gender=%@, verified=%@", facebookUserId, facebookAccessToken, email, firstName, lastName, gender, verified);
+            
+            [[ServerUploadManager sharedInstance] registerUser:action email:email passwordHash:nil facebookId:facebookUserId facebookAccessToken:facebookAccessToken firstName:firstName lastName:lastName gender:gender verified:verified retry:3 success:^(NSString *status) {
+                
+                if ([@"PAIRED" isEqualToString:status] || [@"CREATED" isEqualToString:status]) {
+                    [Property setAsBoolean:YES forKey:KEY_LOGGED_IN];
+                    if (success) {
+                        success(status);
+                    }
+                }
+                else {
+                    if (failure) {
+                        failure(status, nil, YES);
+                    }
+                }
+            } failure:^(NSError *error) {
+                if (failure) {
+                    failure(nil, nil, YES);
+                }
+            }];
+        }
+        else {
+            if (failure) {
+                failure(nil, nil, YES);
+            }
+        }
+    }];
+}
+
+- (NSArray*) facebookSignupPermissions {
+    return @[@"basic_info", @"email"];
+}
+
 @end

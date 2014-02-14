@@ -69,3 +69,7 @@
 "REGISTER_FEEDBACK_MALFORMED_EMAIL_MESSAGE" = "Det ser ikke ud til at være en valid email.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Fejl";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Prøv venligst senere.";
+
+"FACEBOOK_ERROR_TITLE" = "Fejl";
+"FACEBOOK_GENERIC_ERROR_MESSAGE" = "Prøv venligst senere.";
+

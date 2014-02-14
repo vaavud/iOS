@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>FacebookDisplayName</key>
+	<string>Vaavud</string>
+	<key>FacebookAppID</key>
+	<string>624217360948538</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -68,6 +72,7 @@
 			<string>com.vaavud</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>fb624217360948538</string>
 				<string>vaavud</string>
 			</array>
 		</dict>

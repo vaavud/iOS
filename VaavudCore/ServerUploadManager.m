@@ -75,9 +75,6 @@ SHARED_INSTANCE
 
 - (void) start {
     self.syncTimer = [NSTimer scheduledTimerWithTimeInterval:uploadInterval target:self selector:@selector(checkForUnUploadedData) userInfo:nil repeats:YES];
-    
-    // TODO: REMOVE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    [Property setAsBoolean:NO forKey:KEY_LOGGED_IN];
 }
 
 // notification from the OS
@@ -324,7 +321,7 @@ SHARED_INSTANCE
     }];
 }
 
--(void) registerUser:(NSString*)action email:(NSString*)email passwordHash:(NSString*)passwordHash facebookId:(NSString*)facebookId facebookAccessToken:(NSString*)facebookAccessToken firstName:(NSString*)firstName lastName:(NSString*)lastName retry:(int)retryCount success:(void (^)(NSString *status))success failure:(void (^)(NSError *error))failure {
+-(void) registerUser:(NSString*)action email:(NSString*)email passwordHash:(NSString*)passwordHash facebookId:(NSString*)facebookId facebookAccessToken:(NSString*)facebookAccessToken firstName:(NSString*)firstName lastName:(NSString*)lastName gender:(NSNumber*)gender verified:(NSNumber*)verified retry:(int)retryCount success:(void (^)(NSString *status))success failure:(void (^)(NSError *error))failure {
     
     if (!self.hasReachability) {
         failure(nil);
@@ -358,6 +355,12 @@ SHARED_INSTANCE
     if (lastName) {
         [parameters setObject:lastName forKey:@"lastName"];
     }
+    if (gender) {
+        [parameters setObject:gender forKey:@"gender"];
+    }
+    if (verified) {
+        [parameters setObject:verified forKey:@"verified"];
+    }
 
     [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/user/register" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -378,6 +381,21 @@ SHARED_INSTANCE
             NSNumber *userId = [responseObject objectForKey:@"userId"];
             if (userId && !isnan([userId longLongValue]) && ([userId longLongValue] > 0)) {
                 [Property setAsLongLong:userId forKey:KEY_USER_ID];
+            }
+
+            NSString *email = [responseObject objectForKey:@"email"];
+            if (email && email.length > 0) {
+                [Property setAsString:email forKey:KEY_EMAIL];
+            }
+
+            NSString *firstName = [responseObject objectForKey:@"firstName"];
+            if (firstName && firstName.length > 0) {
+                [Property setAsString:firstName forKey:KEY_FIRST_NAME];
+            }
+
+            NSString *lastName = [responseObject objectForKey:@"lastName"];
+            if (lastName && lastName.length > 0) {
+                [Property setAsString:lastName forKey:KEY_LAST_NAME];
             }
 
             NSLog(@"[ServerUploadManager] Got status %@ registering user with id %@", status, userId);
@@ -409,6 +427,8 @@ SHARED_INSTANCE
            facebookAccessToken:facebookAccessToken
                      firstName:firstName
                       lastName:lastName
+                        gender:gender
+                      verified:verified
                          retry:retryCount-1
                        success:success
                        failure:failure];

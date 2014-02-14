@@ -30,7 +30,11 @@ static NSString * const KEY_HOUR_OPTIONS = @"hourOptions";
 
 // User-related properties
 static NSString * const KEY_EMAIL = @"email";
+static NSString * const KEY_FACEBOOK_USER_ID = @"facebookUserId";
+static NSString * const KEY_FACEBOOK_ACCESS_TOKEN = @"facebookAccessToken";
 static NSString * const KEY_USER_ID = @"userId";
+static NSString * const KEY_FIRST_NAME = @"firstName";
+static NSString * const KEY_LAST_NAME = @"lastName";
 static NSString * const KEY_LOGGED_IN = @"loggedIn";
 
 @interface Property (Util)
