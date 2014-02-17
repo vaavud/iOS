@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "vaavudAppDelegate.h"
 #import "GuidedTextField.h"
 
-@interface LogInViewController : UIViewController <GuidedTextFieldDelegate>
+@interface LogInViewController : UIViewController <GuidedTextFieldDelegate, FacebookAuthenticationDelegate>
 
 @end

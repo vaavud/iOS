@@ -9,12 +9,17 @@
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
 
+@protocol FacebookAuthenticationDelegate <NSObject>
+- (void) facebookAuthenticationSuccess:(NSString*)status;
+- (void) facebookAuthenticationFailure:(NSString*)status message:(NSString*)message displayFeedback:(BOOL)displayFeedback;
+@end
+
 @interface vaavudAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic) NSString* xCallbackSuccess;
+@property (nonatomic, weak) id<FacebookAuthenticationDelegate> facebookAuthenticationDelegate;
 
-- (NSArray*)facebookSignupPermissions;
-- (void)facebookSessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error action:(NSString*)action success:(void(^)(NSString *status))success failure:(void(^)(NSString *status, NSString *message, BOOL displayFeedback))failure;
+- (void) openFacebookSession:(NSString*)action;
 
 @end

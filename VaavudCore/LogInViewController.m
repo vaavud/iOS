@@ -26,6 +26,8 @@
 
 @implementation LogInViewController
 
+BOOL didShowFeedback;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
@@ -42,6 +44,12 @@
     
     self.facebookButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.facebookButton.layer.masksToBounds = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    vaavudAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    appDelegate.facebookAuthenticationDelegate = nil;
 }
 
 - (void)doneButtonPushed {
@@ -83,37 +91,39 @@
     [self.activityIndicator startAnimating];
     [self.facebookButton setTitle:@"" forState:UIControlStateNormal];
 
-    [FBSession openActiveSessionWithReadPermissions:[(vaavudAppDelegate*)[UIApplication sharedApplication].delegate facebookSignupPermissions]
-                                       allowLoginUI:YES
-                                  completionHandler:
-     ^(FBSession *session, FBSessionState state, NSError *error) {
-         
-         vaavudAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-         [appDelegate facebookSessionStateChanged:session state:state error:error action:@"LOGIN" success:^(NSString *status) {
-             
-             [self.activityIndicator stopAnimating];
-             [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
+    didShowFeedback = NO;
+    vaavudAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    appDelegate.facebookAuthenticationDelegate = self;
+    [appDelegate openFacebookSession:@"LOGIN"];
+}
 
-             if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
-                 RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
-                 if (registerNavigationController.registerDelegate) {
-                     [registerNavigationController.registerDelegate userAuthenticated];
-                 }
-             }
-         } failure:^(NSString *status, NSString *message, BOOL displayFeedback) {
-             NSLog(@"[LogInViewController] error registering user");
-             
-             [self.activityIndicator stopAnimating];
-             [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
+- (void) facebookAuthenticationSuccess:(NSString*)status {
 
-             if (displayFeedback) {
-                 if (!message) {
-                     message = NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_MESSAGE", nil);
-                 }
-                 [self showMessage:message withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_TITLE", nil)];
-             }
-         }];
-     }];
+    [self.activityIndicator stopAnimating];
+    [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
+    
+    if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
+        RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
+        if (registerNavigationController.registerDelegate) {
+            [registerNavigationController.registerDelegate userAuthenticated];
+        }
+    }
+}
+
+- (void) facebookAuthenticationFailure:(NSString*)status message:(NSString*)message displayFeedback:(BOOL)displayFeedback {
+
+    NSLog(@"[LogInViewController] error registering user");
+    
+    [self.activityIndicator stopAnimating];
+    [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
+    
+    if (displayFeedback && !didShowFeedback) {
+        didShowFeedback = YES;
+        if (!message) {
+            message = NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_MESSAGE", nil);
+        }
+        [self showMessage:message withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_TITLE", nil)];
+    }
 }
 
 - (void)changedEmptiness:(UITextField*)textField isEmpty:(BOOL)isEmpty {

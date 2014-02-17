@@ -47,7 +47,7 @@
         [FBSession openActiveSessionWithReadPermissions:[self facebookSignupPermissions]
                                            allowLoginUI:NO
                                       completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-                                          [self facebookSessionStateChanged:session state:state error:error action:@"LOGIN" success:nil failure:nil];
+                                          [self facebookSessionStateChanged:session state:state error:error action:@"LOGIN"];
                                       }];
     }
 
@@ -113,23 +113,35 @@
     return YES;
 }
 
-- (void)facebookSessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error action:(NSString*)action success:(void(^)(NSString *status))success failure:(void(^)(NSString *status, NSString *message, BOOL displayFeedback))failure {
+- (void)openFacebookSession:(NSString*)action {
+    
+    [FBSession openActiveSessionWithReadPermissions:[self facebookSignupPermissions]
+                                       allowLoginUI:YES
+                                  completionHandler:
+     ^(FBSession *session, FBSessionState state, NSError *error) {
+         [self facebookSessionStateChanged:session state:state error:error action:action];
+     }];
+}
+
+- (void)facebookSessionStateChanged:(FBSession *)session state:(FBSessionState) state error:(NSError *)error action:(NSString*)action {
 
     // If the session was opened successfully
     if (!error && state == FBSessionStateOpen) {
         NSLog(@"[VaavudAppDelegate] Facebook session opened");
-        [self facebookUserLoggedIn:action success:success failure:failure];
+        [self facebookUserLoggedIn:action];
         return;
     }
     
     // Handle errors
     if (error) {
         
+        BOOL hasCalledDelegate = NO;
+        
         // If the error requires people using an app to make an action outside of the app in order to recover
         if ([FBErrorUtility shouldNotifyUserForError:error] == YES) {
-            if (failure) {
-                failure(nil, [FBErrorUtility userMessageForError:error], YES);
-                failure = nil;
+            if (self.facebookAuthenticationDelegate) {
+                [self.facebookAuthenticationDelegate facebookAuthenticationFailure:nil message:[FBErrorUtility userMessageForError:error] displayFeedback:YES];
+                hasCalledDelegate = YES;
             }
         }
         else {
@@ -138,9 +150,9 @@
             // If the user cancelled login, do nothing
             if (errorCategory == FBErrorCategoryUserCancelled) {
                 NSLog(@"[VaavudAppDelegate] Facebook user cancelled login");
-                if (failure) {
-                    failure(nil, nil, NO);
-                    failure = nil;
+                if (self.facebookAuthenticationDelegate) {
+                    [self.facebookAuthenticationDelegate facebookAuthenticationFailure:nil message:nil displayFeedback:NO];
+                    hasCalledDelegate = YES;
                 }
             }
             else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryAuthenticationReopenSession) {
@@ -149,41 +161,38 @@
             }
             else {
                 NSLog(@"[VaavudAppDelegate] Facebook error %d", errorCategory);
-                if (failure) {
-                    failure(nil, nil, YES);
-                    failure = nil;
+                if (self.facebookAuthenticationDelegate) {
+                    [self.facebookAuthenticationDelegate facebookAuthenticationFailure:nil message:nil displayFeedback:YES];
+                    hasCalledDelegate = YES;
                 }
             }
         }
 
         // Clear this token
         [FBSession.activeSession closeAndClearTokenInformation];
-        [self facebookUserLoggedOut:failure];
+        [self facebookUserLoggedOut];
+        if (!hasCalledDelegate && self.facebookAuthenticationDelegate) {
+            [self.facebookAuthenticationDelegate facebookAuthenticationFailure:nil message:nil displayFeedback:YES];
+        }
     }
     else {
         if (state == FBSessionStateClosed || state == FBSessionStateClosedLoginFailed) {
             NSLog(@"[VaavudAppDelegate] Facebook session closed");
-            [self facebookUserLoggedOut:failure];
+            [self facebookUserLoggedOut];
         }
-        else {
-            if (failure) {
-                failure(nil, nil, YES);
-            }
+        if (self.facebookAuthenticationDelegate) {
+            [self.facebookAuthenticationDelegate facebookAuthenticationFailure:nil message:nil displayFeedback:YES];
         }
     }
 }
 
-- (void)facebookUserLoggedOut:(void(^)(NSString *status, NSString *message, BOOL displayFeedback))failure {
+- (void)facebookUserLoggedOut {
     NSLog(@"[VaavudAppDelegate] facebookUserLoggedOut");
     [Property setAsString:nil forKey:KEY_FACEBOOK_ACCESS_TOKEN];
     [Property setAsBoolean:NO forKey:KEY_LOGGED_IN];
-    
-    if (failure) {
-        failure(nil, nil, YES);
-    }
 }
 
-- (void)facebookUserLoggedIn:(NSString*)action success:(void(^)(NSString *status))success failure:(void(^)(NSString *status, NSString *message, BOOL displayFeedback))failure {
+- (void)facebookUserLoggedIn:(NSString*)action {
     NSLog(@"[VaavudAppDelegate] facebookUserLoggedIn");
     
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -211,24 +220,24 @@
                 
                 if ([@"PAIRED" isEqualToString:status] || [@"CREATED" isEqualToString:status]) {
                     [Property setAsBoolean:YES forKey:KEY_LOGGED_IN];
-                    if (success) {
-                        success(status);
+                    if (self.facebookAuthenticationDelegate) {
+                        [self.facebookAuthenticationDelegate facebookAuthenticationSuccess:status];
                     }
                 }
                 else {
-                    if (failure) {
-                        failure(status, nil, YES);
+                    if (self.facebookAuthenticationDelegate) {
+                        [self.facebookAuthenticationDelegate facebookAuthenticationFailure:status message:nil displayFeedback:YES];
                     }
                 }
             } failure:^(NSError *error) {
-                if (failure) {
-                    failure(nil, nil, YES);
+                if (self.facebookAuthenticationDelegate) {
+                    [self.facebookAuthenticationDelegate facebookAuthenticationFailure:nil message:nil displayFeedback:YES];
                 }
             }];
         }
         else {
-            if (failure) {
-                failure(nil, nil, YES);
+            if (self.facebookAuthenticationDelegate) {
+                [self.facebookAuthenticationDelegate facebookAuthenticationFailure:nil message:nil displayFeedback:YES];
             }
         }
     }];

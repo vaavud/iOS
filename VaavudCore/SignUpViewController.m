@@ -13,6 +13,7 @@
 #import "Property+Util.h"
 #import "RegisterNavigationController.h"
 #import "vaavudAppDelegate.h"
+#import "UUIDUtil.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 @interface SignUpViewController ()
@@ -28,6 +29,8 @@
 @end
 
 @implementation SignUpViewController
+
+BOOL didShowFeedback;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -47,7 +50,13 @@
     self.basicInputView.layer.masksToBounds = YES;
 
     self.facebookButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
-    self.facebookButton.layer.masksToBounds = YES;    
+    self.facebookButton.layer.masksToBounds = YES;
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    vaavudAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    appDelegate.facebookAuthenticationDelegate = nil;
 }
 
 - (void)doneButtonPushed {
@@ -106,37 +115,39 @@
     [self.activityIndicator startAnimating];
     [self.facebookButton setTitle:@"" forState:UIControlStateNormal];
 
-    [FBSession openActiveSessionWithReadPermissions:[(vaavudAppDelegate*)[UIApplication sharedApplication].delegate facebookSignupPermissions]
-                                       allowLoginUI:YES
-                                  completionHandler:
-     ^(FBSession *session, FBSessionState state, NSError *error) {         
+    didShowFeedback = NO;
+    vaavudAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    appDelegate.facebookAuthenticationDelegate = self;
+    [appDelegate openFacebookSession:@"SIGNUP"];
+}
 
-         vaavudAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
-         [appDelegate facebookSessionStateChanged:session state:state error:error action:@"SIGNUP" success:^(NSString *status) {
+- (void) facebookAuthenticationSuccess:(NSString*)status {
 
-             [self.activityIndicator stopAnimating];
-             [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
+    [self.activityIndicator stopAnimating];
+    [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
+    
+    if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
+        RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
+        if (registerNavigationController.registerDelegate) {
+            [registerNavigationController.registerDelegate userAuthenticated];
+        }
+    }
+}
 
-             if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
-                 RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
-                 if (registerNavigationController.registerDelegate) {
-                     [registerNavigationController.registerDelegate userAuthenticated];
-                 }
-             }
-         } failure:^(NSString *status, NSString *message, BOOL displayFeedback) {
-             NSLog(@"[SignUpViewController] error registering user");
-             
-             [self.activityIndicator stopAnimating];
-             [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
-             
-             if (displayFeedback) {
-                 if (!message || message.length == 0) {
-                     message = NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_MESSAGE", nil);
-                 }
-                 [self showMessage:message withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_TITLE", nil)];
-             }
-         }];
-     }];
+- (void) facebookAuthenticationFailure:(NSString*)status message:(NSString*)message displayFeedback:(BOOL)displayFeedback {
+
+    NSLog(@"[SignUpViewController] error registering user");
+    
+    [self.activityIndicator stopAnimating];
+    [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
+    
+    if (displayFeedback && !didShowFeedback) {
+        didShowFeedback = YES;
+        if (!message || message.length == 0) {
+            message = NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_MESSAGE", nil);
+        }
+        [self showMessage:message withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_TITLE", nil)];
+    }
 }
 
 - (void)showMessage:(NSString *)text withTitle:(NSString *)title {

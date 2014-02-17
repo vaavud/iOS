@@ -415,8 +415,10 @@ SHARED_INSTANCE
         
         // check for unauthorized
         if (statusCode == 401) {
-            // try to re-register
             [self invalidateAuthentication];
+            failure(error);
+        }
+        else if (statusCode == 404) {
             failure(error);
         }
         else {
