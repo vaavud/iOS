@@ -7,9 +7,11 @@
 //
 
 #import "RegisterViewController.h"
+#import "RegisterNavigationController.h"
 
 @interface RegisterViewController ()
 
+@property (nonatomic, weak) IBOutlet UILabel *teaserLabel;
 @property (nonatomic, weak) IBOutlet UIButton *signUpButton;
 @property (nonatomic, weak) IBOutlet UIButton *logInButton;
 
@@ -19,7 +21,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = NSLocalizedString(@"HISTORY_TITLE", nil);
+    
+    if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
+        RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
+        if (registerNavigationController.registerDelegate) {
+            self.navigationItem.title = [registerNavigationController.registerDelegate registerScreenTitle];
+            self.teaserLabel.text = [registerNavigationController.registerDelegate registerTeaserText];
+        }
+    }
     
     self.signUpButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.signUpButton.layer.masksToBounds = YES;

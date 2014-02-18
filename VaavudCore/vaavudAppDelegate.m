@@ -36,9 +36,6 @@
     
     self.xCallbackSuccess = nil;
         
-    // TODO: REMOVE THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    [Property setAsBoolean:NO forKey:KEY_LOGGED_IN];
-
     // Whenever a person opens the app, check for a cached session
     if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
         NSLog(@"[VaavudAppDelegate] Found a cached Facebook session");
@@ -157,7 +154,6 @@
             }
             else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryAuthenticationReopenSession) {
                 NSLog(@"[VaavudAppDelegate] Facebook authentication reopen session");
-                // TODO: we should probably show the login screen here?
             }
             else {
                 NSLog(@"[VaavudAppDelegate] Facebook error %d", errorCategory);
@@ -189,7 +185,9 @@
 - (void)facebookUserLoggedOut {
     NSLog(@"[VaavudAppDelegate] facebookUserLoggedOut");
     [Property setAsString:nil forKey:KEY_FACEBOOK_ACCESS_TOKEN];
-    [Property setAsBoolean:NO forKey:KEY_LOGGED_IN];
+    if ([Property getAuthenticationStatus] != AuthenticationStatusNeverLoggedIn) {
+        [Property setAuthenticationStatus:AuthenticationStatusWasLoggedIn];
+    }
 }
 
 - (void)facebookUserLoggedIn:(NSString*)action {
@@ -219,7 +217,7 @@
             [[ServerUploadManager sharedInstance] registerUser:action email:email passwordHash:nil facebookId:facebookUserId facebookAccessToken:facebookAccessToken firstName:firstName lastName:lastName gender:gender verified:verified retry:3 success:^(NSString *status) {
                 
                 if ([@"PAIRED" isEqualToString:status] || [@"CREATED" isEqualToString:status]) {
-                    [Property setAsBoolean:YES forKey:KEY_LOGGED_IN];
+                    [Property setAuthenticationStatus:AuthenticationStatusLoggedIn];
                     if (self.facebookAuthenticationDelegate) {
                         [self.facebookAuthenticationDelegate facebookAuthenticationSuccess:status];
                     }

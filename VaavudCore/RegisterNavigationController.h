@@ -10,6 +10,8 @@
 
 @protocol RegisterNavigationControllerDelegate <NSObject>
 - (void) userAuthenticated;
+- (NSString*) registerScreenTitle;
+- (NSString*) registerTeaserText;
 @end
 
 @interface RegisterNavigationController : UINavigationController

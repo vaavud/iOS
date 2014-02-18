@@ -99,6 +99,24 @@
     [self setAsString:storedValue forKey:name];
 }
 
++ (BOOL) isLoggedIn {
+    return [self getAuthenticationStatus] == AuthenticationStatusLoggedIn;
+}
+
++ (void) setAuthenticationStatus:(NSUInteger)status {
+    [self setAsInteger:[NSNumber numberWithInt:status] forKey:KEY_AUTHENTICATION_STATUS];
+}
+
++ (NSUInteger) getAuthenticationStatus {
+    NSNumber *authStatus = [self getAsInteger:KEY_AUTHENTICATION_STATUS];
+    if (!authStatus) {
+        return AuthenticationStatusNeverLoggedIn;
+    }
+    else {
+        return [authStatus integerValue];
+    }
+}
+
 + (NSDictionary *) getDeviceDictionary {
     
     NSNumber* timezoneOffsetMillis = [NSNumber numberWithLong:([[NSTimeZone localTimeZone] secondsFromGMT] * 1000L)];

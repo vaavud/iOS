@@ -55,7 +55,7 @@ BOOL didShowFeedback;
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    vaavudAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    vaavudAppDelegate *appDelegate = (vaavudAppDelegate*) [UIApplication sharedApplication].delegate;
     appDelegate.facebookAuthenticationDelegate = nil;
 }
 
@@ -86,7 +86,7 @@ BOOL didShowFeedback;
 
         if ([@"PAIRED" isEqualToString:status] || [@"CREATED" isEqualToString:status]) {
             
-            [Property setAsBoolean:YES forKey:KEY_LOGGED_IN];
+            [Property setAuthenticationStatus:AuthenticationStatusLoggedIn];
 
             if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
                 RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
@@ -116,7 +116,7 @@ BOOL didShowFeedback;
     [self.facebookButton setTitle:@"" forState:UIControlStateNormal];
 
     didShowFeedback = NO;
-    vaavudAppDelegate* appDelegate = [UIApplication sharedApplication].delegate;
+    vaavudAppDelegate *appDelegate = (vaavudAppDelegate*) [UIApplication sharedApplication].delegate;
     appDelegate.facebookAuthenticationDelegate = self;
     [appDelegate openFacebookSession:@"SIGNUP"];
 }
@@ -153,7 +153,7 @@ BOOL didShowFeedback;
 - (void)showMessage:(NSString *)text withTitle:(NSString *)title {
     [[[UIAlertView alloc] initWithTitle:title
                                 message:text
-                               delegate:self
+                               delegate:nil
                       cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
                       otherButtonTitles:nil] show];
 }

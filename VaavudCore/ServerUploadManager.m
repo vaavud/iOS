@@ -443,7 +443,9 @@ SHARED_INSTANCE
     // server-side. Thus, we need to remove the local authToken, create a new deviceUuid, and re-register the user
     [Property setAsString:nil forKey:KEY_AUTH_TOKEN];
     [Property setAsString:[UUIDUtil generateUUID] forKey:KEY_DEVICE_UUID];
-    [Property setAsBoolean:NO forKey:KEY_LOGGED_IN];
+    if ([Property getAuthenticationStatus] != AuthenticationStatusNeverLoggedIn) {
+        [Property setAuthenticationStatus:AuthenticationStatusWasLoggedIn];
+    }
     [[VaavudAPIHTTPClient sharedInstance] setAuthToken:nil];
     self.hasRegisteredDevice = NO;
 }

@@ -46,22 +46,30 @@
     [self chooseContentController];
 }
 
+- (NSString*) registerScreenTitle {
+    return NSLocalizedString(@"HISTORY_TITLE", nil);
+}
+
+- (NSString*) registerTeaserText {
+    return NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil);
+}
+
 - (void) chooseContentController {
     
     if (self.childViewController) {
         [self hideContentController:self.childViewController];
     }
     
-    if (![Property getAsBoolean:KEY_LOGGED_IN]) {
+    if ([Property isLoggedIn]) {
+        self.childViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryNavigationController"];
+    }
+    else {
         UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
         self.childViewController = [loginStoryBoard instantiateInitialViewController];
         
         if ([self.childViewController isKindOfClass:[RegisterNavigationController class]]) {
             ((RegisterNavigationController*) self.childViewController).registerDelegate = self;
         }
-    }
-    else {
-        self.childViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryNavigationController"];
     }
     
     [self showContentController:self.childViewController];

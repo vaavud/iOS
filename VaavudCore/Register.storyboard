@@ -64,11 +64,24 @@
                                     <segue destination="b64-Qq-ZiB" kind="push" id="1lE-DU-NCW"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="KAW-1F-BHd">
+                                <rect key="frame" x="20" y="104" width="280" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Ta9-Xw-HJS"/>
+                                    <constraint firstAttribute="width" constant="280" id="VLh-EZ-DQL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="RfU-7Y-inK" secondAttribute="centerX" id="8BQ-3g-dZW"/>
                             <constraint firstAttribute="centerY" secondItem="kQi-uV-EHg" secondAttribute="centerY" constant="25" id="HZf-A1-EXq"/>
+                            <constraint firstAttribute="centerX" secondItem="KAW-1F-BHd" secondAttribute="centerX" id="MQ5-S4-2c3"/>
+                            <constraint firstItem="kQi-uV-EHg" firstAttribute="top" secondItem="KAW-1F-BHd" secondAttribute="bottom" constant="35" id="ZJX-HA-M1E"/>
                             <constraint firstAttribute="centerY" secondItem="RfU-7Y-inK" secondAttribute="centerY" constant="-25" id="aBm-ez-Chy"/>
                             <constraint firstAttribute="centerX" secondItem="kQi-uV-EHg" secondAttribute="centerX" id="ur0-Tp-V93"/>
                         </constraints>
@@ -79,6 +92,7 @@
                     <connections>
                         <outlet property="logInButton" destination="RfU-7Y-inK" id="esF-55-wcp"/>
                         <outlet property="signUpButton" destination="kQi-uV-EHg" id="Brv-N3-e9C"/>
+                        <outlet property="teaserLabel" destination="KAW-1F-BHd" id="ARD-cL-NNY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U2C-KF-MnC" userLabel="First Responder" sceneMemberID="firstResponder"/>

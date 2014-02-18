@@ -41,6 +41,7 @@
 "MAP_REFRESH_ERROR_MESSAGE" = "Sørg for at du har mobildata eller Wi-Fi forbindelse.";
 
 "HISTORY_TITLE" = "Historik";
+"HISTORY_REGISTER_TEASER" = "Registrer dig for at se hele din målehistorik";
 
 "ABOUT_TITLE" = "Om Vaavud";
 "ABOUT_BACK" = "Tilbage";

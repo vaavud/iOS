@@ -43,6 +43,7 @@
 "MAP_REFRESH_ERROR_MESSAGE" = "Make sure you have cellular data or Wi-Fi connectivity.";
 
 "HISTORY_TITLE" = "History";
+"HISTORY_REGISTER_TEASER" = "Sign up to see your full measurement history";
 
 "ABOUT_TITLE" = "About";
 "ABOUT_VAAVUD_TEXT" = "Vaavud is a Danish technology start-up.\n Our mission is to make the best wind meters on the planet in terms of usability, features, and third party integration.\n To learn more and to purchase a Vaavud wind meter visit Vaavud.com\n &copy; Vaavud ApS 2014, all rights reserved\n Version: %@";
