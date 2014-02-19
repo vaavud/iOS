@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import "AccountUtil.h"
 
 @protocol FacebookAuthenticationDelegate <NSObject>
-- (void) facebookAuthenticationSuccess:(NSString*)status;
-- (void) facebookAuthenticationFailure:(NSString*)status message:(NSString*)message displayFeedback:(BOOL)displayFeedback;
+- (void) facebookAuthenticationSuccess:(enum AuthenticationResponseType)response;
+- (void) facebookAuthenticationFailure:(enum AuthenticationResponseType)response message:(NSString*)message displayFeedback:(BOOL)displayFeedback;
 @end
 
 @interface vaavudAppDelegate : UIResponder <UIApplicationDelegate>
@@ -20,6 +21,6 @@
 @property (nonatomic) NSString* xCallbackSuccess;
 @property (nonatomic, weak) id<FacebookAuthenticationDelegate> facebookAuthenticationDelegate;
 
-- (void) openFacebookSession:(NSString*)action;
+- (void) openFacebookSession:(enum AuthenticationActionType)action;
 
 @end

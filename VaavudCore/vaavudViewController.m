@@ -12,6 +12,7 @@
 #import "TermsViewController.h"
 #import "GAI.h"
 #import "GAIDictionaryBuilder.h"
+#import "UIColor+VaavudColors.h"
 #import <math.h>
 
 @interface vaavudViewController ()
@@ -40,9 +41,6 @@
 @property (nonatomic, strong) CADisplayLink *displayLinkGraphValues;
 @property (nonatomic, strong) VaavudCoreController *vaavudCoreController;
 @property (nonatomic, strong) NSArray *compassTableShort;
-
-@property (nonatomic, strong) UIImage *startButtonImage;
-@property (nonatomic, strong) UIImage *stopButtonImage;
 
 @property (nonatomic) BOOL isValid;
 
@@ -81,15 +79,16 @@
     self.compassTableShort = [NSArray arrayWithObjects:  @"N",@"NE",@"E",@"SE",@"S",@"SW",@"W",@"NW", nil];
 
     // Set correct font text colors
-    UIColor *vaavudBlueUIcolor = [UIColor colorWithRed:(0/255.0) green:(174/255.0) blue:(239/255.0) alpha:1];
+    UIColor *vaavudBlueUIcolor = [UIColor vaavudBlueColor];
     self.actualLabel.textColor = vaavudBlueUIcolor;
     self.maxLabel.textColor = vaavudBlueUIcolor;
     [self.unitButton setTitleColor:vaavudBlueUIcolor forState:UIControlStateNormal];
     
-    self.startButtonImage = [UIImage imageNamed: @"startButton.png"];
-    self.stopButtonImage = [UIImage imageNamed: @"stopButton.png"];
     self.buttonShowsStart = YES;
     [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
+    self.startStopButton.backgroundColor = vaavudBlueUIcolor;
+    self.startStopButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
+    self.startStopButton.layer.masksToBounds = YES;
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"VaavudTransparent100px.png"]];
     
@@ -278,7 +277,7 @@
 - (IBAction) buttonPushed: (UIButton*) sender {
     if (self.buttonShowsStart) {
         self.buttonShowsStart = NO;
-        [self.startStopButton setBackgroundImage:self.stopButtonImage forState:UIControlStateNormal];
+        self.startStopButton.backgroundColor = [UIColor vaavudRedColor];
         [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_STOP", nil) forState:UIControlStateNormal];
         [self start];
         
@@ -286,7 +285,7 @@
     }
     else {
         self.buttonShowsStart = YES;
-        [self.startStopButton setBackgroundImage: self.startButtonImage forState:UIControlStateNormal];
+        self.startStopButton.backgroundColor = [UIColor vaavudBlueColor];
         [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
         [self stop];
 

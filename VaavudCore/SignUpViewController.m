@@ -14,6 +14,7 @@
 #import "RegisterNavigationController.h"
 #import "vaavudAppDelegate.h"
 #import "UUIDUtil.h"
+#import "AccountUtil.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 @interface SignUpViewController ()
@@ -79,15 +80,9 @@ BOOL didShowFeedback;
         return;
     }
 
-    NSString *passwordHash = [PasswordUtil createHash:self.passwordTextField.text salt:self.emailTextField.text];
-    NSLog(@"passwordHash=%@", passwordHash);
-    
-    [[ServerUploadManager sharedInstance] registerUser:@"SIGNUP" email:self.emailTextField.text passwordHash:passwordHash facebookId:nil facebookAccessToken:nil firstName:self.firstNameTextField.text lastName:self.lastNameTextField.text gender:nil verified:[NSNumber numberWithInt:0] retry:3 success:^(NSString *status) {
-
-        if ([@"PAIRED" isEqualToString:status] || [@"CREATED" isEqualToString:status]) {
-            
-            [Property setAuthenticationStatus:AuthenticationStatusLoggedIn];
-
+    [AccountUtil registerWithPassword:self.passwordTextField.text email:self.emailTextField.text firstName:self.firstNameTextField.text lastName:self.lastNameTextField.text action:AuthenticationActionSignup success:^(enum AuthenticationResponseType response) {
+        
+        if (response == AuthenticationResponsePaired || response == AuthenticationResponseCreated) {
             if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
                 RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
                 if (registerNavigationController.registerDelegate) {
@@ -95,17 +90,16 @@ BOOL didShowFeedback;
                 }
             }
         }
-        else if ([@"INVALID_CREDENTIALS" isEqualToString:status]) {
+        else if (response == AuthenticationResponseInvalidCredentials) {
             [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE", nil)];
         }
-        else if ([@"MALFORMED_EMAIL" isEqualToString:status]) {
+        else if (response == AuthenticationResponseMalformedEmail) {
             [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_MALFORMED_EMAIL_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_MALFORMED_EMAIL_TITLE", nil)];
         }
         else {
             [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_TITLE", nil)];
         }
-    } failure:^(NSError *error) {
-        NSLog(@"[SignUpViewController] error registering user");
+    } failure:^(enum AuthenticationResponseType response) {
         [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_TITLE", nil)];
     }];
 }
@@ -118,10 +112,10 @@ BOOL didShowFeedback;
     didShowFeedback = NO;
     vaavudAppDelegate *appDelegate = (vaavudAppDelegate*) [UIApplication sharedApplication].delegate;
     appDelegate.facebookAuthenticationDelegate = self;
-    [appDelegate openFacebookSession:@"SIGNUP"];
+    [appDelegate openFacebookSession:AuthenticationActionSignup];
 }
 
-- (void) facebookAuthenticationSuccess:(NSString*)status {
+- (void) facebookAuthenticationSuccess:(enum AuthenticationResponseType)response {
 
     [self.activityIndicator stopAnimating];
     [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
@@ -134,7 +128,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (void) facebookAuthenticationFailure:(NSString*)status message:(NSString*)message displayFeedback:(BOOL)displayFeedback {
+- (void) facebookAuthenticationFailure:(enum AuthenticationResponseType)response message:(NSString*)message displayFeedback:(BOOL)displayFeedback {
 
     NSLog(@"[SignUpViewController] error registering user");
     

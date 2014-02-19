@@ -8,6 +8,8 @@
 
 #import "TermsViewController.h"
 #import "Terms.h"
+#import "AccountUtil.h"
+#import "TabBarController.h"
 
 @interface TermsViewController ()
 
@@ -25,11 +27,6 @@
     self.navigationItem.title = NSLocalizedString(@"ABOUT_TITLE", nil);
     self.navigationItem.backBarButtonItem.title = NSLocalizedString(@"NAVIGATION_BACK", nil);
     
-    //self.navigationItem.backBarButtonItem.target = self;
-    //self.navigationItem.backBarButtonItem.action = @selector(backButtonPushed);
-
-    //self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"NAVIGATION_BACK", nil) style:UIBarButtonItemStylePlain target:self action:@selector(backButtonPushed)];
-    
     self.webView.delegate = self;
 
     NSString *html = [Terms getTermsOfService];
@@ -37,6 +34,11 @@
     
     self.view.autoresizesSubviews = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self refreshLogoutButton];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,11 +59,25 @@
 }
 
 - (IBAction) backButtonPushed {
-    NSLog(@"backButtonPushed");
     if ([self.webView.request.URL.path compare:@"/"] != NSOrderedSame) {
         NSString *html = [Terms getTermsOfService];
         [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:@"http://vaavud.com"]];
     }
+}
+
+- (void) refreshLogoutButton {
+    if (LOGOUT_ENABLED && [AccountUtil isLoggedIn] && !self.navigationItem.rightBarButtonItem) {
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGOUT", nil) style:UIBarButtonItemStylePlain target:self action:@selector(logoutButtonPushed)];
+        self.navigationItem.rightBarButtonItem = item;
+    }
+    else {
+        self.navigationItem.rightBarButtonItem = nil;
+    }
+}
+
+- (void) logoutButtonPushed {
+    [AccountUtil logout];
+    [self refreshLogoutButton];
 }
 
 -(NSUInteger)supportedInterfaceOrientations {

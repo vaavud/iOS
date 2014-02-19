@@ -35,13 +35,7 @@ static NSString * const KEY_FACEBOOK_ACCESS_TOKEN = @"facebookAccessToken";
 static NSString * const KEY_USER_ID = @"userId";
 static NSString * const KEY_FIRST_NAME = @"firstName";
 static NSString * const KEY_LAST_NAME = @"lastName";
-static NSString * const KEY_AUTHENTICATION_STATUS = @"authenticationStatus";
-
-enum AuthenticationStatusType : NSUInteger {
-    AuthenticationStatusNeverLoggedIn = 1,
-    AuthenticationStatusLoggedIn = 2,
-    AuthenticationStatusWasLoggedIn = 3
-};
+static NSString * const KEY_AUTHENTICATION_STATE = @"authenticationState";
 
 @interface Property (Util)
 
@@ -57,10 +51,6 @@ enum AuthenticationStatusType : NSUInteger {
 + (void) setAsLongLong:(NSNumber*) value forKey:(NSString*) name;
 + (void) setAsDouble:(NSNumber*) value forKey:(NSString*) name;
 + (void) setAsFloatArray:(NSArray*) value forKey:(NSString*) name;
-
-+ (BOOL) isLoggedIn;
-+ (void) setAuthenticationStatus:(NSUInteger)status;
-+ (NSUInteger) getAuthenticationStatus;
 
 + (NSDictionary *) getDeviceDictionary;
 

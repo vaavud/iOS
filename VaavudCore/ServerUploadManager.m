@@ -19,6 +19,7 @@
 #import "AFHTTPRequestOperation.h"
 #import "AlgorithmConstantsUtil.h"
 #import "UUIDUtil.h"
+#import "AccountUtil.h"
 
 @interface ServerUploadManager () {
 }
@@ -310,12 +311,6 @@ SHARED_INSTANCE
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         long statusCode = (long)operation.response.statusCode;
         NSLog(@"[ServerUploadManager] Got error status code %ld registering device: %@", statusCode, error);
-        
-        // check for unauthorized
-        if (statusCode == 401) {
-            [self invalidateAuthentication];
-        }
-
         self.hasRegisteredDevice = NO;
         self.consecutiveNetworkErrors++;
     }];
@@ -415,7 +410,9 @@ SHARED_INSTANCE
         
         // check for unauthorized
         if (statusCode == 401) {
-            [self invalidateAuthentication];
+            // Unauthorized most likely means that a user is associated with this device and the authToken has been changed or invalidated
+            // server-side. Thus, we need to remove the local authToken, create a new deviceUuid, and re-register the user
+            [AccountUtil logout];
             failure(error);
         }
         else if (statusCode == 404) {
@@ -436,18 +433,6 @@ SHARED_INSTANCE
                        failure:failure];
         }
     }];
-}
-
--(void) invalidateAuthentication {
-    // Unauthorized most likely means that a user is associated with this device and the authToken has been changed or invalidated
-    // server-side. Thus, we need to remove the local authToken, create a new deviceUuid, and re-register the user
-    [Property setAsString:nil forKey:KEY_AUTH_TOKEN];
-    [Property setAsString:[UUIDUtil generateUUID] forKey:KEY_DEVICE_UUID];
-    if ([Property getAuthenticationStatus] != AuthenticationStatusNeverLoggedIn) {
-        [Property setAuthenticationStatus:AuthenticationStatusWasLoggedIn];
-    }
-    [[VaavudAPIHTTPClient sharedInstance] setAuthToken:nil];
-    self.hasRegisteredDevice = NO;
 }
 
 -(void) readMeasurements:(int)hours retry:(int)retryCount success:(void (^)(NSArray *measurements))success failure:(void (^)(NSError *error))failure {

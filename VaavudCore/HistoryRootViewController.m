@@ -8,6 +8,9 @@
 
 #import "HistoryRootViewController.h"
 #import "Property+Util.h"
+#import "AccountUtil.h"
+#import "HistoryNavigationController.h"
+#import "RegisterNavigationController.h"
 
 @interface HistoryRootViewController ()
 
@@ -16,15 +19,6 @@
 @end
 
 @implementation HistoryRootViewController
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void) awakeFromNib {
     [super awakeFromNib];
@@ -38,7 +32,10 @@
         UIImage *selectedTabImage = [[UIImage imageNamed:@"history_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         self.tabBarItem.selectedImage = selectedTabImage;
     }
+}
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     [self chooseContentController];
 }
 
@@ -56,23 +53,28 @@
 
 - (void) chooseContentController {
     
-    if (self.childViewController) {
-        [self hideContentController:self.childViewController];
-    }
+    UIViewController *newController = nil;
     
-    if ([Property isLoggedIn]) {
-        self.childViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryNavigationController"];
+    if ([AccountUtil isLoggedIn]) {
+        if (![self.childViewController isKindOfClass:[HistoryNavigationController class]]) {
+            newController = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryNavigationController"];
+        }
     }
-    else {
+    else if (![self.childViewController isKindOfClass:[RegisterNavigationController class]]) {
         UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
-        self.childViewController = [loginStoryBoard instantiateInitialViewController];
-        
-        if ([self.childViewController isKindOfClass:[RegisterNavigationController class]]) {
-            ((RegisterNavigationController*) self.childViewController).registerDelegate = self;
+        newController = [loginStoryBoard instantiateInitialViewController];
+        if ([newController isKindOfClass:[RegisterNavigationController class]]) {
+            ((RegisterNavigationController*) newController).registerDelegate = self;
         }
     }
     
-    [self showContentController:self.childViewController];
+    if (newController) {
+        if (self.childViewController) {
+            [self hideContentController:self.childViewController];
+        }
+        [self showContentController:newController];
+        self.childViewController = newController;
+    }
 }
 
 - (void)showContentController:(UIViewController*)viewController {

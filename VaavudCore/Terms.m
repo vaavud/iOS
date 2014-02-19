@@ -21,7 +21,7 @@
     NSString* html = [NSString stringWithFormat:
     @"<html><head><style type='text/css'>"
     "a {color:#00aeef;text-decoration:none}\n"
-    "body {background-color:#ffffff;}"
+    "body {background-color:#f8f8f8;}"
     "</style></head><body>"
     "<center style='padding-top:20px;font-family:helvetica,arial'>"
     "%@<br/><br/><br/>"
