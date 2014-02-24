@@ -15,7 +15,7 @@
 #import "QueryStringUtil.h"
 #import "TabBarController.h"
 #import "TMCache.h"
-#import "Property+Util.h"
+#import "AccountManager.h"
 
 @implementation vaavudAppDelegate
 
@@ -36,17 +36,8 @@
     
     self.xCallbackSuccess = nil;
         
-    // Whenever a person opens the app, check for a cached session
-    if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
-        NSLog(@"[VaavudAppDelegate] Found a cached Facebook session");
-
-        // If there's one, just open the session silently, without showing the user the login UI
-        [FBSession openActiveSessionWithReadPermissions:[AccountUtil facebookSignupPermissions]
-                                           allowLoginUI:NO
-                                      completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-                                          [AccountUtil facebookSessionStateChanged:session state:state error:error action:AuthenticationActionLogin success:nil failure:nil];
-                                      }];
-    }
+    // Whenever a person opens the app, check for a cached session and refresh token
+    [[AccountManager sharedInstance] registerWithFacebook:nil action:AuthenticationActionRefresh];
 
     return YES;
 }
@@ -108,28 +99,6 @@
     }
     
     return YES;
-}
-
-// note: the reason this method is here on the delegate is that the Facebook SDK keeps a
-// reference to the completion handler provided in openActiveSessionXXX and to make sure
-// that this handler doesn't contain any pointers to stuff that might have been deallocated
-// we use a facebookDelegate set on the app delegate as indirection
-- (void)openFacebookSession:(enum AuthenticationActionType)action {
-    
-    [FBSession openActiveSessionWithReadPermissions:[AccountUtil facebookSignupPermissions]
-                                       allowLoginUI:YES
-                                  completionHandler:
-     ^(FBSession *session, FBSessionState state, NSError *error) {
-         [AccountUtil facebookSessionStateChanged:session state:state error:error action:action success:^(enum AuthenticationResponseType response) {
-             if (self.facebookAuthenticationDelegate) {
-                 [self.facebookAuthenticationDelegate facebookAuthenticationSuccess:response];
-             }
-         } failure:^(enum AuthenticationResponseType response, NSString *message, BOOL displayFeedback) {
-             if (self.facebookAuthenticationDelegate) {
-                 [self.facebookAuthenticationDelegate facebookAuthenticationFailure:response message:message displayFeedback:displayFeedback];
-             }
-         }];
-     }];
 }
 
 @end

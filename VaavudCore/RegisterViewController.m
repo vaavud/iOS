@@ -30,11 +30,15 @@
         }
     }
     
+    self.navigationItem.backBarButtonItem.title = NSLocalizedString(@"BUTTON_CANCEL", nil);
+    
     self.signUpButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.signUpButton.layer.masksToBounds = YES;
+    [self.signUpButton setTitle:NSLocalizedString(@"REGISTER_TITLE_SIGNUP", nil) forState:UIControlStateNormal];
 
     self.logInButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.logInButton.layer.masksToBounds = YES;
+    [self.logInButton setTitle:NSLocalizedString(@"REGISTER_TITLE_LOGIN", nil) forState:UIControlStateNormal];
 }
 
 @end

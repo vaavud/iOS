@@ -8,9 +8,9 @@
 
 #import "HistoryRootViewController.h"
 #import "Property+Util.h"
-#import "AccountUtil.h"
 #import "HistoryNavigationController.h"
 #import "RegisterNavigationController.h"
+#import "AccountManager.h"
 
 @interface HistoryRootViewController ()
 
@@ -55,7 +55,7 @@
     
     UIViewController *newController = nil;
     
-    if ([AccountUtil isLoggedIn]) {
+    if ([[AccountManager sharedInstance] isLoggedIn]) {
         if (![self.childViewController isKindOfClass:[HistoryNavigationController class]]) {
             newController = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryNavigationController"];
         }

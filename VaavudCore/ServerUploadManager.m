@@ -19,7 +19,7 @@
 #import "AFHTTPRequestOperation.h"
 #import "AlgorithmConstantsUtil.h"
 #import "UUIDUtil.h"
-#import "AccountUtil.h"
+#import "AccountManager.h"
 
 @interface ServerUploadManager () {
 }
@@ -316,7 +316,7 @@ SHARED_INSTANCE
     }];
 }
 
--(void) registerUser:(NSString*)action email:(NSString*)email passwordHash:(NSString*)passwordHash facebookId:(NSString*)facebookId facebookAccessToken:(NSString*)facebookAccessToken firstName:(NSString*)firstName lastName:(NSString*)lastName gender:(NSNumber*)gender verified:(NSNumber*)verified retry:(int)retryCount success:(void (^)(NSString *status))success failure:(void (^)(NSError *error))failure {
+-(void) registerUser:(NSString*)action email:(NSString*)email passwordHash:(NSString*)passwordHash facebookId:(NSString*)facebookId facebookAccessToken:(NSString*)facebookAccessToken firstName:(NSString*)firstName lastName:(NSString*)lastName gender:(NSNumber*)gender verified:(NSNumber*)verified retry:(int)retryCount success:(void (^)(NSString *status, id responseObject))success failure:(void (^)(NSError *error))failure {
     
     if (!self.hasReachability) {
         failure(nil);
@@ -373,29 +373,9 @@ SHARED_INSTANCE
                 [[VaavudAPIHTTPClient sharedInstance] setAuthToken:authToken];
             }
             
-            NSNumber *userId = [responseObject objectForKey:@"userId"];
-            if (userId && !isnan([userId longLongValue]) && ([userId longLongValue] > 0)) {
-                [Property setAsLongLong:userId forKey:KEY_USER_ID];
-            }
+            NSLog(@"[ServerUploadManager] Got status %@ registering user", status);
 
-            NSString *email = [responseObject objectForKey:@"email"];
-            if (email && email.length > 0) {
-                [Property setAsString:email forKey:KEY_EMAIL];
-            }
-
-            NSString *firstName = [responseObject objectForKey:@"firstName"];
-            if (firstName && firstName.length > 0) {
-                [Property setAsString:firstName forKey:KEY_FIRST_NAME];
-            }
-
-            NSString *lastName = [responseObject objectForKey:@"lastName"];
-            if (lastName && lastName.length > 0) {
-                [Property setAsString:lastName forKey:KEY_LAST_NAME];
-            }
-
-            NSLog(@"[ServerUploadManager] Got status %@ registering user with id %@", status, userId);
-
-            success(status);
+            success(status, responseObject);
         }
         else {
             NSLog(@"[ServerUploadManager] Didn't get any status from server");
@@ -412,7 +392,7 @@ SHARED_INSTANCE
         if (statusCode == 401) {
             // Unauthorized most likely means that a user is associated with this device and the authToken has been changed or invalidated
             // server-side. Thus, we need to remove the local authToken, create a new deviceUuid, and re-register the user
-            [AccountUtil logout];
+            [[AccountManager sharedInstance] logout];
             failure(error);
         }
         else if (statusCode == 404) {

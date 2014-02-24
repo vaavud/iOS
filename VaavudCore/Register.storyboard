@@ -267,6 +267,7 @@
                         <outlet property="facebookButton" destination="c0a-dV-TJ9" id="d9e-4T-ViO"/>
                         <outlet property="firstNameTextField" destination="M5o-jb-ETD" id="ZKO-fg-WVb"/>
                         <outlet property="lastNameTextField" destination="kSl-nf-EpK" id="Ptd-1D-834"/>
+                        <outlet property="orLabel" destination="wTy-Fe-QW0" id="RnI-cV-xbq"/>
                         <outlet property="passwordTextField" destination="NWS-qL-ff1" id="NgA-UN-8c3"/>
                     </connections>
                 </viewController>
@@ -398,6 +399,7 @@
                         <outlet property="basicInputView" destination="U0Z-De-U5K" id="DU5-oS-qwA"/>
                         <outlet property="emailTextField" destination="R4J-yx-SGq" id="jJw-CE-kw7"/>
                         <outlet property="facebookButton" destination="8zw-Fe-e1h" id="qnh-HG-6nm"/>
+                        <outlet property="orLabel" destination="VHr-rp-yDL" id="RoK-vP-Mzh"/>
                         <outlet property="passwordTextField" destination="SEa-1y-xCl" id="xS5-34-K5L"/>
                     </connections>
                 </viewController>

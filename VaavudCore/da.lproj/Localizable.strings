@@ -31,6 +31,7 @@
 "BUTTON_START" = "Start";
 "BUTTON_STOP" = "Stop";
 "BUTTON_OK" = "OK";
+"BUTTON_CANCEL" = "Annuller";
 
 "INFO_MEASURING" = "Måling i gang";
 "INFO_NO_SIGNAL" = "Intet signal";
@@ -49,15 +50,18 @@
 "LINK_TERMS_OF_SERVICE" = "Betingelser";
 "LINK_PRIVACY_POLICY" = "Privatlivspolitik";
 
+"REGISTER_TITLE_SIGNUP" = "Opret profil";
+"REGISTER_TITLE_LOGIN" = "Log ind";
+"REGISTER_OR" = "Eller";
 "REGISTER_BUTTON_LOGIN_WITH_FACEBOOK" = "Log ind med Facebook";
 "REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK" = "Registrer med Facebook";
+"REGISTER_BUTTON_CREATE" = "Opret";
+"REGISTER_BUTTON_LOGIN" = "Log ind";
+"REGISTER_BUTTON_LOGOUT" = "Log ud";
 "REGISTER_FIELD_FIRST_NAME" = "Fornavn";
 "REGISTER_FIELD_LAST_NAME" = "Efternavn";
 "REGISTER_FIELD_EMAIL" = "Email";
 "REGISTER_FIELD_PASSWORD" = "Kodeord";
-"REGISTER_BUTTON_CREATE" = "Opret";
-"REGISTER_BUTTON_LOGIN" = "Log ind";
-"REGISTER_BUTTON_LOGOUT" = "Log ud";
 
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "Indtast dit name";
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "Blot dit fornavn er nok.";
@@ -67,11 +71,11 @@
 "REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4 tegn eller mere.";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "Kunne ikke logge ind";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "Email eller kodeord er forkert.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "Profilen findes allerede";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_MESSAGE" = "Email eller kodeord er forkert.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_LOGIN_WITH_FACEBOOK" = "Log ind med Facebook.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD" = "Angiv kodeordet for Vaavud-profilen for at tillade log ind med Facebook:";
 "REGISTER_FEEDBACK_MALFORMED_EMAIL_TITLE" = "Forkert email";
 "REGISTER_FEEDBACK_MALFORMED_EMAIL_MESSAGE" = "Det ser ikke ud til at være en valid email.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Fejl";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Prøv venligst senere.";
-
-"FACEBOOK_ERROR_TITLE" = "Fejl";
-"FACEBOOK_GENERIC_ERROR_MESSAGE" = "Prøv venligst senere.";
-

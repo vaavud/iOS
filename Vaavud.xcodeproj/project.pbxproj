@@ -151,7 +151,7 @@
 		E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */; };
 		E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9EE1FB8176A024B00D1F006 /* CoreData.framework */; };
 		E9F33CCB18B4AFBF0033EDC7 /* UIColor+VaavudColors.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F33CCA18B4AFBF0033EDC7 /* UIColor+VaavudColors.m */; };
-		E9F33CCE18B4B3CB0033EDC7 /* AccountUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F33CCD18B4B3CB0033EDC7 /* AccountUtil.m */; };
+		E9F33CCE18B4B3CB0033EDC7 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F33CCD18B4B3CB0033EDC7 /* AccountManager.m */; };
 		E9FABFD518929050009C4C46 /* history_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = E9FABFD118929050009C4C46 /* history_selected.png */; };
 		E9FABFD618929050009C4C46 /* history_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9FABFD218929050009C4C46 /* history_selected@2x.png */; };
 		E9FABFD718929050009C4C46 /* history.png in Resources */ = {isa = PBXBuildFile; fileRef = E9FABFD318929050009C4C46 /* history.png */; };
@@ -485,8 +485,8 @@
 		E9EE1FB8176A024B00D1F006 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		E9F33CC918B4AFBF0033EDC7 /* UIColor+VaavudColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+VaavudColors.h"; sourceTree = "<group>"; };
 		E9F33CCA18B4AFBF0033EDC7 /* UIColor+VaavudColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+VaavudColors.m"; sourceTree = "<group>"; };
-		E9F33CCC18B4B3CB0033EDC7 /* AccountUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountUtil.h; sourceTree = "<group>"; };
-		E9F33CCD18B4B3CB0033EDC7 /* AccountUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountUtil.m; sourceTree = "<group>"; };
+		E9F33CCC18B4B3CB0033EDC7 /* AccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountManager.h; sourceTree = "<group>"; };
+		E9F33CCD18B4B3CB0033EDC7 /* AccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountManager.m; sourceTree = "<group>"; };
 		E9FABFD118929050009C4C46 /* history_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = history_selected.png; sourceTree = "<group>"; };
 		E9FABFD218929050009C4C46 /* history_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "history_selected@2x.png"; sourceTree = "<group>"; };
 		E9FABFD318929050009C4C46 /* history.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = history.png; sourceTree = "<group>"; };
@@ -1072,8 +1072,8 @@
 		E9EE1FAD1769F01800D1F006 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				E9F33CCC18B4B3CB0033EDC7 /* AccountUtil.h */,
-				E9F33CCD18B4B3CB0033EDC7 /* AccountUtil.m */,
+				E9F33CCC18B4B3CB0033EDC7 /* AccountManager.h */,
+				E9F33CCD18B4B3CB0033EDC7 /* AccountManager.m */,
 				E9EB5E8F17E84E4D00B02CE1 /* AlgorithmConstantsUtil.h */,
 				E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */,
 				E995F0B0177C55A80011BF07 /* DictionarySerializationUtil.h */,
@@ -1271,7 +1271,7 @@
 				E9FABFE1189294BD009C4C46 /* HistoryTableViewCell.m in Sources */,
 				E9CD2246177B2AEA0054ED3F /* NSManagedObject+MagicalRequests.m in Sources */,
 				E9CD2247177B2AEA0054ED3F /* NSManagedObjectContext+MagicalObserving.m in Sources */,
-				E9F33CCE18B4B3CB0033EDC7 /* AccountUtil.m in Sources */,
+				E9F33CCE18B4B3CB0033EDC7 /* AccountManager.m in Sources */,
 				E9A4099318A52E40004F1C12 /* RegisterViewController.m in Sources */,
 				E9EBB99517E33DBB0086BE01 /* MeasurementSession.m in Sources */,
 				E9CD2248177B2AEA0054ED3F /* NSManagedObjectContext+MagicalRecord.m in Sources */,

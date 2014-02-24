@@ -8,7 +8,7 @@
 
 #import "TermsViewController.h"
 #import "Terms.h"
-#import "AccountUtil.h"
+#import "AccountManager.h"
 #import "TabBarController.h"
 
 @interface TermsViewController ()
@@ -66,9 +66,11 @@
 }
 
 - (void) refreshLogoutButton {
-    if (LOGOUT_ENABLED && [AccountUtil isLoggedIn] && !self.navigationItem.rightBarButtonItem) {
-        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGOUT", nil) style:UIBarButtonItemStylePlain target:self action:@selector(logoutButtonPushed)];
-        self.navigationItem.rightBarButtonItem = item;
+    if (LOGOUT_ENABLED && [[AccountManager sharedInstance] isLoggedIn]) {
+        if (!self.navigationItem.rightBarButtonItem) {
+            UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGOUT", nil) style:UIBarButtonItemStylePlain target:self action:@selector(logoutButtonPushed)];
+            self.navigationItem.rightBarButtonItem = item;
+        }
     }
     else {
         self.navigationItem.rightBarButtonItem = nil;
@@ -76,7 +78,7 @@
 }
 
 - (void) logoutButtonPushed {
-    [AccountUtil logout];
+    [[AccountManager sharedInstance] logout];
     [self refreshLogoutButton];
 }
 
