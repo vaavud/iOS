@@ -34,6 +34,7 @@
 "BUTTON_STOP" = "Stop";
 "BUTTON_OK" = "OK";
 "BUTTON_CANCEL" = "Cancel";
+"BUTTON_DONE" = "Done";
 
 "INFO_MEASURING" = "Measurement in progress";
 "INFO_NO_SIGNAL" = "No signal";
@@ -54,6 +55,7 @@
 "REGISTER_TITLE_SIGNUP" = "Sign Up";
 "REGISTER_TITLE_LOGIN" = "Log In";
 "REGISTER_OR" = "Or";
+"REGISTER_TERMS_AND" = "and";
 "REGISTER_BUTTON_LOGIN_WITH_FACEBOOK" = "Log in with Facebook";
 "REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK" = "Sign up with Facebook";
 "REGISTER_BUTTON_CREATE" = "Create";
@@ -78,5 +80,7 @@
 "REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD" = "Provide the password for the Vaavud account to allow log in with Facebook:";
 "REGISTER_FEEDBACK_MALFORMED_EMAIL_TITLE" = "Incorrect email";
 "REGISTER_FEEDBACK_MALFORMED_EMAIL_MESSAGE" = "Doesn't appear to be a valid email.";
+"REGISTER_FEEDBACK_NO_REACHABILITY_TITLE" = "Connectivity problem";
+"REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Make sure you have cellular data or Wi-Fi connectivity.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Error";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Please try again later.";

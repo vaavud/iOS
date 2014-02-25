@@ -32,7 +32,8 @@ enum AuthenticationResponseType : NSUInteger {
     AuthenticationResponseFacebookInvalidAccessToken = 8,
     AuthenticationResponseFacebookUserMessage = 9,
     AuthenticationResponseFacebookUserCancelled = 10,
-    AuthenticationResponseFacebookReopenSession = 11
+    AuthenticationResponseFacebookReopenSession = 11,
+    AuthenticationResponseNoReachability = 12
 };
 
 // note: the reason we use a delegate and not a closure is that the Facebook SDK keeps a

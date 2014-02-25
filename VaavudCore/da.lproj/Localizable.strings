@@ -32,6 +32,7 @@
 "BUTTON_STOP" = "Stop";
 "BUTTON_OK" = "OK";
 "BUTTON_CANCEL" = "Annuller";
+"BUTTON_DONE" = "Færdig";
 
 "INFO_MEASURING" = "Måling i gang";
 "INFO_NO_SIGNAL" = "Intet signal";
@@ -53,6 +54,7 @@
 "REGISTER_TITLE_SIGNUP" = "Opret profil";
 "REGISTER_TITLE_LOGIN" = "Log ind";
 "REGISTER_OR" = "Eller";
+"REGISTER_TERMS_AND" = "og";
 "REGISTER_BUTTON_LOGIN_WITH_FACEBOOK" = "Log ind med Facebook";
 "REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK" = "Registrer med Facebook";
 "REGISTER_BUTTON_CREATE" = "Opret";
@@ -77,5 +79,7 @@
 "REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD" = "Angiv kodeordet for Vaavud-profilen for at tillade log ind med Facebook:";
 "REGISTER_FEEDBACK_MALFORMED_EMAIL_TITLE" = "Forkert email";
 "REGISTER_FEEDBACK_MALFORMED_EMAIL_MESSAGE" = "Det ser ikke ud til at være en valid email.";
+"REGISTER_FEEDBACK_NO_REACHABILITY_TITLE" = "Forbindelsesproblem";
+"REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Sørg for at du har mobildata eller Wi-Fi forbindelse.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Fejl";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Prøv venligst senere.";

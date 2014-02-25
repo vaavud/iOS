@@ -42,8 +42,7 @@ BOOL didShowFeedback;
     self.passwordTextField.guidedDelegate = self;
     
     self.navigationItem.title = NSLocalizedString(@"REGISTER_TITLE_LOGIN", nil);
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPushed)];
-    self.navigationItem.rightBarButtonItem.enabled = NO;
+    [self createRegisterButton];
     
     self.basicInputView.layer.cornerRadius = FORM_CORNER_RADIUS;
     self.basicInputView.layer.masksToBounds = YES;
@@ -58,7 +57,18 @@ BOOL didShowFeedback;
     [AccountManager sharedInstance].delegate = nil;
 }
 
+- (void)createRegisterButton {
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPushed)];
+    self.navigationItem.rightBarButtonItem.enabled = (self.emailTextField.text.length > 0 && self.passwordTextField.text.length > 0);
+}
+
 - (void)doneButtonPushed {
+    
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+    [activityIndicator startAnimating];
+
     [[AccountManager sharedInstance] registerWithPassword:self.passwordTextField.text email:self.emailTextField.text firstName:nil lastName:nil action:AuthenticationActionLogin success:^(enum AuthenticationResponseType response) {
 
         if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
@@ -69,6 +79,8 @@ BOOL didShowFeedback;
         }
     } failure:^(enum AuthenticationResponseType response) {
 
+        [self createRegisterButton];
+
         if (response == AuthenticationResponseInvalidCredentials) {
             [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE", nil)];
         }
@@ -77,6 +89,9 @@ BOOL didShowFeedback;
         }
         else if (response == AuthenticationResponseLoginWithFacebook) {
             [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_LOGIN_WITH_FACEBOOK", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE", nil)];
+        }
+        else if (response == AuthenticationResponseNoReachability) {
+            [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_NO_REACHABILITY_TITLE", nil)];
         }
         else {
             [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_TITLE", nil)];
@@ -124,6 +139,10 @@ BOOL didShowFeedback;
         if (!message || message.length == 0) {
             if (response == AuthenticationResponseEmailUsedProvidePassword) {
                 [self promptForPassword];
+                return;
+            }
+            else if (response == AuthenticationResponseNoReachability) {
+                [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_NO_REACHABILITY_TITLE", nil)];
                 return;
             }
             else {

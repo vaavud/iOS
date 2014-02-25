@@ -313,6 +313,13 @@ SHARED_INSTANCE
         NSLog(@"[ServerUploadManager] Got error status code %ld registering device: %@", statusCode, error);
         self.hasRegisteredDevice = NO;
         self.consecutiveNetworkErrors++;
+        
+        // check for unauthorized
+        if (statusCode == 401) {
+            // Unauthorized most likely means that a user is associated with this device and the authToken has been changed or invalidated
+            // server-side.
+            [[AccountManager sharedInstance] logout];
+        }
     }];
 }
 

@@ -25,6 +25,11 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
 
 -(void) registerWithPassword:(NSString*)password email:(NSString*)email firstName:(NSString*)firstName lastName:(NSString*)lastName action:(enum AuthenticationActionType)action success:(void(^)(enum AuthenticationResponseType response))success failure:(void(^)(enum AuthenticationResponseType response))failure {
 
+    if (![ServerUploadManager sharedInstance].hasReachability) {
+        failure(AuthenticationResponseNoReachability);
+        return;
+    }
+    
     NSString *passwordHash = [PasswordUtil createHash:password salt:email];
     
     [self registerUser:action email:email passwordHash:passwordHash facebookId:nil facebookAccessToken:nil firstName:firstName lastName:lastName gender:nil verified:[NSNumber numberWithInt:0] success:success failure:failure];
@@ -35,7 +40,14 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
 }
 
 -(void) registerWithFacebook:(NSString*)password action:(enum AuthenticationActionType)action isRecursive:(BOOL)isRecursive {
-    
+
+    if (![ServerUploadManager sharedInstance].hasReachability) {
+        if (self.delegate) {
+            [self.delegate facebookAuthenticationFailure:AuthenticationResponseNoReachability message:nil displayFeedback:YES];
+        }
+        return;
+    }
+
     int fbRegId = facebookRegisterIdentifier++;
     hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
     

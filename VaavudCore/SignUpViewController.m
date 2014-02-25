@@ -14,6 +14,7 @@
 #import "RegisterNavigationController.h"
 #import "vaavudAppDelegate.h"
 #import "UUIDUtil.h"
+#import "TermsPrivacyViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 @interface SignUpViewController ()
@@ -26,6 +27,11 @@
 @property (nonatomic, weak) IBOutlet GuidedTextField *lastNameTextField;
 @property (nonatomic, weak) IBOutlet GuidedTextField *emailTextField;
 @property (nonatomic, weak) IBOutlet GuidedTextField *passwordTextField;
+@property (nonatomic, weak) IBOutlet UIView *termsPrivacyView;
+@property (nonatomic, weak) IBOutlet UIButton *termsButton;
+@property (nonatomic, weak) IBOutlet UIButton *privacyButton;
+@property (nonatomic, weak) IBOutlet UILabel *andLabel;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *termsPrivacyViewWidthConstraint;
 @property (nonatomic) UIAlertView *alertView;
 
 @end
@@ -47,21 +53,33 @@ BOOL didShowFeedback;
     self.emailTextField.guidedDelegate = self;
     self.passwordTextField.guideText = NSLocalizedString(@"REGISTER_FIELD_PASSWORD", nil);
     self.passwordTextField.guidedDelegate = self;
+    [self.termsButton setTitle:NSLocalizedString(@"LINK_TERMS_OF_SERVICE", nil) forState:UIControlStateNormal];
+    [self.privacyButton setTitle:NSLocalizedString(@"LINK_PRIVACY_POLICY", nil) forState:UIControlStateNormal];
+    self.andLabel.text = NSLocalizedString(@"REGISTER_TERMS_AND", nil);
     
     self.navigationItem.title = NSLocalizedString(@"REGISTER_TITLE_SIGNUP", nil);
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_CREATE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPushed)];
+    [self createRegisterButton];
 
     self.basicInputView.layer.cornerRadius = FORM_CORNER_RADIUS;
     self.basicInputView.layer.masksToBounds = YES;
 
     self.facebookButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.facebookButton.layer.masksToBounds = YES;
+    
+    CGSize termsTextSize = [self.termsButton sizeThatFits:CGSizeMake(FLT_MAX, 20.0)];
+    CGSize andTextSize = [self.andLabel sizeThatFits:CGSizeMake(FLT_MAX, 20.0)];
+    CGSize privacyTextSize = [self.privacyButton sizeThatFits:CGSizeMake(FLT_MAX, 20.0)];
+    self.termsPrivacyViewWidthConstraint.constant = termsTextSize.width + 4.0 + andTextSize.width + 4.0 + privacyTextSize.width;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.alertView.delegate = nil;
     [AccountManager sharedInstance].delegate = nil;
+}
+
+- (void)createRegisterButton {
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_CREATE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPushed)];
 }
 
 - (void)doneButtonPushed {
@@ -84,6 +102,11 @@ BOOL didShowFeedback;
         return;
     }
 
+    UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+    activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
+    [activityIndicator startAnimating];
+
     [[AccountManager sharedInstance] registerWithPassword:self.passwordTextField.text email:self.emailTextField.text firstName:self.firstNameTextField.text lastName:self.lastNameTextField.text action:AuthenticationActionSignup success:^(enum AuthenticationResponseType response) {
         
         if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
@@ -93,6 +116,8 @@ BOOL didShowFeedback;
             }
         }
     } failure:^(enum AuthenticationResponseType response) {
+        
+        [self createRegisterButton];
 
         if (response == AuthenticationResponseInvalidCredentials) {
             [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE", nil)];
@@ -104,6 +129,9 @@ BOOL didShowFeedback;
         }
         else if (response == AuthenticationResponseLoginWithFacebook) {
             [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_LOGIN_WITH_FACEBOOK", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE", nil)];
+        }
+        else if (response == AuthenticationResponseNoReachability) {
+            [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_NO_REACHABILITY_TITLE", nil)];
         }
         else {
             [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_TITLE", nil)];
@@ -150,6 +178,10 @@ BOOL didShowFeedback;
         if (!message || message.length == 0) {
             if (response == AuthenticationResponseEmailUsedProvidePassword) {
                 [self promptForPassword];
+                return;
+            }
+            else if (response == AuthenticationResponseNoReachability) {
+                [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_NO_REACHABILITY_TITLE", nil)];
                 return;
             }
             else {
@@ -219,6 +251,22 @@ BOOL didShowFeedback;
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     self.alertView = nil;
+}
+
+- (IBAction) termsButtonPushed:(id)sender {
+    UINavigationController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TermsPrivacyNavigationController"];
+    TermsPrivacyViewController *termsPrivacyController = (TermsPrivacyViewController*) controller.topViewController;
+    termsPrivacyController.termsPrivacyTitle = NSLocalizedString(@"LINK_TERMS_OF_SERVICE", nil);
+    termsPrivacyController.termsPrivacyURL = @"http://vaavud.com/legal/terms?source=app";
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (IBAction) privacyButtonPushed:(id)sender {
+    UINavigationController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TermsPrivacyNavigationController"];
+    TermsPrivacyViewController *termsPrivacyController = (TermsPrivacyViewController*) controller.topViewController;
+    termsPrivacyController.termsPrivacyTitle = NSLocalizedString(@"LINK_PRIVACY_POLICY", nil);
+    termsPrivacyController.termsPrivacyURL = @"http://vaavud.com/legal/privacy?source=app";
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 @end

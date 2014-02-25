@@ -68,6 +68,8 @@
 		E9658CEA184CD8F1009B4DFE /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CE6184CD8F1009B4DFE /* Default-Landscape~ipad.png */; };
 		E9658CEB184CD8F1009B4DFE /* Default-Portrait@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CE7184CD8F1009B4DFE /* Default-Portrait@2x~ipad.png */; };
 		E9658CEC184CD8F1009B4DFE /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E9658CE8184CD8F1009B4DFE /* Default~ipad.png */; };
+		E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */; };
+		E97AC6D018BCDE19004DEC65 /* TermsPrivacyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */; };
 		E982DF2C1817ECE0004DAB3E /* libGoogleAnalyticsServices.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E982DF2B1817ECE0004DAB3E /* libGoogleAnalyticsServices.a */; };
 		E982DF2E18181152004DAB3E /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E982DF2D18181152004DAB3E /* AdSupport.framework */; };
 		E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */; };
@@ -327,6 +329,10 @@
 		E9658CE6184CD8F1009B4DFE /* Default-Landscape~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Landscape~ipad.png"; sourceTree = "<group>"; };
 		E9658CE7184CD8F1009B4DFE /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
 		E9658CE8184CD8F1009B4DFE /* Default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~ipad.png"; sourceTree = "<group>"; };
+		E97AC6C818BCC66A004DEC65 /* TermsPrivacyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsPrivacyViewController.h; sourceTree = "<group>"; };
+		E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsPrivacyViewController.m; sourceTree = "<group>"; };
+		E97AC6CE18BCDE19004DEC65 /* TermsPrivacyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsPrivacyNavigationController.h; sourceTree = "<group>"; };
+		E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsPrivacyNavigationController.m; sourceTree = "<group>"; };
 		E982DF251817ECCB004DAB3E /* GAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAI.h; sourceTree = "<group>"; };
 		E982DF261817ECCB004DAB3E /* GAIDictionaryBuilder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIDictionaryBuilder.h; sourceTree = "<group>"; };
 		E982DF271817ECCB004DAB3E /* GAIFields.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAIFields.h; sourceTree = "<group>"; };
@@ -862,6 +868,10 @@
 				E9A4099218A52E40004F1C12 /* RegisterViewController.m */,
 				E9A4098E18A52151004F1C12 /* SignUpViewController.h */,
 				E9A4098F18A52151004F1C12 /* SignUpViewController.m */,
+				E97AC6C818BCC66A004DEC65 /* TermsPrivacyViewController.h */,
+				E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */,
+				E97AC6CE18BCDE19004DEC65 /* TermsPrivacyNavigationController.h */,
+				E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -1244,6 +1254,7 @@
 				E9FABFDB18929158009C4C46 /* HistoryNavigationController.m in Sources */,
 				E9B627C617708E63004678D5 /* AFPropertyListRequestOperation.m in Sources */,
 				E9B627C717708E63004678D5 /* AFURLConnectionOperation.m in Sources */,
+				E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */,
 				E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */,
 				E9A40980189BD29F004F1C12 /* MeasureNavigationController.m in Sources */,
 				E9B627C817708E63004678D5 /* AFXMLRequestOperation.m in Sources */,
@@ -1263,6 +1274,7 @@
 				E9FABFDE18929473009C4C46 /* HistoryTableViewController.m in Sources */,
 				E9CD2241177B2AEA0054ED3F /* NSString+MagicalDataImport.m in Sources */,
 				E9CD2242177B2AEA0054ED3F /* NSManagedObject+MagicalAggregation.m in Sources */,
+				E97AC6D018BCDE19004DEC65 /* TermsPrivacyNavigationController.m in Sources */,
 				E9CD2243177B2AEA0054ED3F /* NSManagedObject+MagicalDataImport.m in Sources */,
 				E9A409A818AB9B80004F1C12 /* LogInViewController.m in Sources */,
 				E9CD2244177B2AEA0054ED3F /* NSManagedObject+MagicalFinders.m in Sources */,

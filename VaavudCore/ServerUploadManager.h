@@ -11,11 +11,13 @@
 
 @interface ServerUploadManager : NSObject
 
-+ (ServerUploadManager *) sharedInstance;
+@property(nonatomic, readonly) BOOL hasReachability;
 
-- (void) start;
++(ServerUploadManager *) sharedInstance;
 
-- (void) triggerUpload;
+-(void) start;
+
+-(void) triggerUpload;
 
 -(void) readMeasurements:(int)hours retry:(int)retryCount success:(void (^)(NSArray *measurements))success failure:(void (^)(NSError *error))failure;
 

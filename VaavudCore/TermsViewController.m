@@ -41,21 +41,7 @@
     [self refreshLogoutButton];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    /*
-    if ([self.webView.request.URL.path compare:@"/"] != NSOrderedSame) {
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"NAVIGATION_BACK", nil) style:UIBarButtonItemStyleBordered target:self action:@selector(backButtonPushed)];
-        self.navigationItem.leftBarButtonItem = backButton;
-    }
-    else {
-        self.navigationItem.leftBarButtonItem = nil;
-    }
-    */
 }
 
 - (IBAction) backButtonPushed {
@@ -85,11 +71,5 @@
 -(NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
-
-/*
-- (UIBarPosition) positionForBar:(id<UIBarPositioning>)bar {
-    return UIBarPositionTopAttached;
-}
- */
 
 @end
