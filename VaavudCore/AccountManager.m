@@ -223,22 +223,22 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
             [self setAuthenticationState:AuthenticationStateLoggedIn];
             
             NSNumber *userId = [responseObject objectForKey:@"userId"];
-            if (userId && !isnan([userId longLongValue]) && ([userId longLongValue] > 0)) {
+            if (userId && ![lastName isEqual:[NSNull null]] && !isnan([userId longLongValue]) && ([userId longLongValue] > 0)) {
                 [Property setAsLongLong:userId forKey:KEY_USER_ID];
             }
             
             NSString *email = [responseObject objectForKey:@"email"];
-            if (email && email.length > 0) {
+            if (email && ![lastName isEqual:[NSNull null]] && email.length > 0) {
                 [Property setAsString:email forKey:KEY_EMAIL];
             }
             
             NSString *firstName = [responseObject objectForKey:@"firstName"];
-            if (firstName && firstName.length > 0) {
+            if (firstName && ![lastName isEqual:[NSNull null]] && firstName.length > 0) {
                 [Property setAsString:firstName forKey:KEY_FIRST_NAME];
             }
             
             NSString *lastName = [responseObject objectForKey:@"lastName"];
-            if (lastName && lastName.length > 0) {
+            if (lastName && ![lastName isEqual:[NSNull null]] && lastName.length > 0) {
                 [Property setAsString:lastName forKey:KEY_LAST_NAME];
             }
             
@@ -261,10 +261,6 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
 
 -(void) logout {
     
-    if (![self isLoggedIn]) {
-        return;
-    }
-
     NSLog(@"[AccountManager] logout");
 
     [Property setAsString:nil forKey:KEY_FACEBOOK_ACCESS_TOKEN];

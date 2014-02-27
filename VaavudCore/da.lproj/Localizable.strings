@@ -44,6 +44,8 @@
 
 "HISTORY_TITLE" = "Historik";
 "HISTORY_REGISTER_TEASER" = "Registrer dig for at se hele din målehistorik";
+"HISTORY_NO_MEASUREMENTS" = "Ingen målinger endnu";
+"HISTORY_GO_TO_MEASURE" = "Gå til Mål og tryk Start for at komme i gang!";
 
 "ABOUT_TITLE" = "Om Vaavud";
 "ABOUT_BACK" = "Tilbage";

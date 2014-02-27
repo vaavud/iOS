@@ -11,6 +11,7 @@
 #import "HistoryNavigationController.h"
 #import "RegisterNavigationController.h"
 #import "AccountManager.h"
+#import "MeasurementSession+Util.h"
 
 @interface HistoryRootViewController ()
 
@@ -55,7 +56,11 @@
     
     UIViewController *newController = nil;
     
-    if ([[AccountManager sharedInstance] isLoggedIn]) {
+    MeasurementSession *measurementSession = [MeasurementSession MR_findFirst];
+    if (!measurementSession) {
+        newController = [self.storyboard instantiateViewControllerWithIdentifier:@"NoHistoryNavigationController"];
+    }
+    else if ([[AccountManager sharedInstance] isLoggedIn]) {
         if (![self.childViewController isKindOfClass:[HistoryNavigationController class]]) {
             newController = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryNavigationController"];
         }
@@ -78,6 +83,9 @@
 }
 
 - (void)showContentController:(UIViewController*)viewController {
+    
+    viewController.view.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+    
     [self addChildViewController:viewController];
     [self.view addSubview:viewController.view];
     [viewController didMoveToParentViewController:self];

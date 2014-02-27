@@ -134,7 +134,7 @@
                                 <rect key="frame" x="10" y="207" width="300" height="136"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bS1-jk-rNp" userLabel="Start/Stop Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bS1-jk-rNp" userLabel="Start/Stop Button">
                                 <rect key="frame" x="70" y="386" width="180" height="30"/>
                                 <color key="backgroundColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -144,6 +144,9 @@
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="23"/>
                                 <state key="normal">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="buttonPushed:" destination="2" eventType="touchUpInside" id="lYB-oU-ZjO"/>
@@ -505,6 +508,78 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Iy-mw-zb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1156" y="880"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="yHE-uN-piD">
+            <objects>
+                <navigationController storyboardIdentifier="NoHistoryNavigationController" definesPresentationContext="YES" id="nnY-Va-hoB" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3qX-0Q-rxW">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="GaG-jr-7RN" kind="relationship" relationship="rootViewController" id="Syd-vI-8jW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HCq-gC-oBu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="640" y="1499"/>
+        </scene>
+        <!--No History View Controller-->
+        <scene sceneID="kOv-8B-dmy">
+            <objects>
+                <viewController id="GaG-jr-7RN" customClass="NoHistoryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QIx-g1-WSC"/>
+                        <viewControllerLayoutGuide type="bottom" id="J1H-wH-Uib"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8Ih-1X-lZE">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lbk-D4-Kdy" customClass="NoHistoryArrowView">
+                                <rect key="frame" x="20" y="157" width="280" height="323"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="njN-SF-eej"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Go to Measure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jd4-9A-Zve">
+                                <rect key="frame" x="110" y="131" width="100" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No measurements yet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NLq-rp-g7I">
+                                <rect key="frame" x="62" y="100" width="196" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="20"/>
+                                <color key="textColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="Jd4-9A-Zve" secondAttribute="centerY" constant="100" id="A4g-ph-kPQ"/>
+                            <constraint firstAttribute="centerX" secondItem="NLq-rp-g7I" secondAttribute="centerX" id="Gvp-8c-WMT"/>
+                            <constraint firstItem="lbk-D4-Kdy" firstAttribute="top" secondItem="Jd4-9A-Zve" secondAttribute="bottom" constant="8" id="HEr-Lg-2kS"/>
+                            <constraint firstItem="Jd4-9A-Zve" firstAttribute="top" secondItem="NLq-rp-g7I" secondAttribute="bottom" constant="8" id="RLd-Vt-Ppi"/>
+                            <constraint firstAttribute="centerX" secondItem="lbk-D4-Kdy" secondAttribute="centerX" id="ed9-Lo-GbL"/>
+                            <constraint firstAttribute="centerX" secondItem="Jd4-9A-Zve" secondAttribute="centerX" id="sNH-fs-CSI"/>
+                            <constraint firstItem="J1H-wH-Uib" firstAttribute="top" secondItem="lbk-D4-Kdy" secondAttribute="bottom" id="zV8-fu-JoV"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="qNU-Ns-FpA"/>
+                    <connections>
+                        <outlet property="arrowView" destination="lbk-D4-Kdy" id="6iw-Tb-8c1"/>
+                        <outlet property="gotoMeasureLabel" destination="Jd4-9A-Zve" id="CJP-OW-G5W"/>
+                        <outlet property="noMeasurementsLabel" destination="NLq-rp-g7I" id="3on-Eo-BFm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XW0-sy-aO5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1156" y="1499"/>
         </scene>
         <!--History Navigation Controller-->
         <scene sceneID="V9R-ML-X2E">

@@ -57,5 +57,5 @@ static BOOL const LOGOUT_ENABLED = YES;
 static NSString * const GOOGLE_STATIC_MAPS_API_KEY = @"AIzaSyDrrZsMKRBkCw214SbJA6q2lO-cXbu7m0Y";
 
 //static NSString * const vaavudAPIBaseURLString = @"http://192.168.0.105:8080/";
-static NSString * const vaavudAPIBaseURLString = @"http://10.117.1.42:8080/";
-//static NSString * const vaavudAPIBaseURLString = @"https://mobile-api.vaavud.com/";
+//static NSString * const vaavudAPIBaseURLString = @"http://10.117.1.42:8080/";
+static NSString * const vaavudAPIBaseURLString = @"https://mobile-api.vaavud.com/";
