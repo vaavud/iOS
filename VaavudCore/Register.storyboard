@@ -326,7 +326,6 @@
                                             <constraint firstItem="1jU-cz-BKy" firstAttribute="leading" secondItem="va4-sq-nkv" secondAttribute="trailing" constant="8" id="QKf-SY-ffY"/>
                                             <constraint firstAttribute="height" constant="266" id="XFd-ur-83M"/>
                                             <constraint firstItem="gtn-PX-ilr" firstAttribute="top" secondItem="7fG-6X-2BP" secondAttribute="top" constant="20" id="bow-kb-zyr"/>
-                                            <constraint firstAttribute="width" constant="320" id="fWc-28-ltp"/>
                                             <constraint firstItem="va4-sq-nkv" firstAttribute="top" secondItem="gtn-PX-ilr" secondAttribute="bottom" constant="10" id="iIT-hU-lI5"/>
                                             <constraint firstItem="gtn-PX-ilr" firstAttribute="leading" secondItem="5yg-2Z-ESq" secondAttribute="leading" id="ldp-Ly-SR4"/>
                                             <constraint firstItem="gtn-PX-ilr" firstAttribute="trailing" secondItem="5yg-2Z-ESq" secondAttribute="trailing" id="rHt-Kd-aBU"/>
@@ -359,6 +358,7 @@
                         <outlet property="activityIndicator" destination="0nZ-Ct-GoP" id="fsc-tM-OEd"/>
                         <outlet property="andLabel" destination="RQC-sd-HT2" id="wcq-Fe-wff"/>
                         <outlet property="basicInputView" destination="5yg-2Z-ESq" id="0lZ-us-RTv"/>
+                        <outlet property="containerView" destination="7fG-6X-2BP" id="xru-Ym-X11"/>
                         <outlet property="emailTextField" destination="Tle-83-Bk5" id="IQ9-FH-N60"/>
                         <outlet property="facebookButton" destination="gtn-PX-ilr" id="7Jp-N1-4A4"/>
                         <outlet property="firstNameTextField" destination="Ied-Dp-nK2" id="Jxc-GF-cby"/>

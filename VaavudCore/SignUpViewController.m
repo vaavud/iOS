@@ -22,6 +22,7 @@
 @interface SignUpViewController ()
 
 @property (nonatomic, weak) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, weak) IBOutlet UIView *containerView;
 @property (nonatomic, weak) IBOutlet UIView *basicInputView;
 @property (nonatomic, weak) IBOutlet UIButton *facebookButton;
 @property (nonatomic, weak) IBOutlet UILabel *orLabel;
@@ -72,7 +73,7 @@ BOOL didShowFeedback;
     CGSize termsTextSize = [self.termsButton sizeThatFits:CGSizeMake(FLT_MAX, 20.0)];
     CGSize andTextSize = [self.andLabel sizeThatFits:CGSizeMake(FLT_MAX, 20.0)];
     CGSize privacyTextSize = [self.privacyButton sizeThatFits:CGSizeMake(FLT_MAX, 20.0)];
-    self.termsPrivacyViewWidthConstraint.constant = termsTextSize.width + 4.0 + andTextSize.width + 4.0 + privacyTextSize.width;
+    self.termsPrivacyViewWidthConstraint.constant = termsTextSize.width + 4.0 + andTextSize.width + 4.0 + privacyTextSize.width;    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -295,23 +296,27 @@ BOOL didShowFeedback;
     [self presentViewController:controller animated:YES completion:nil];
 }
 
--(void)keyboardWillShow:(NSNotification*)aNotification {
+-(void) keyboardWillShow:(NSNotification*)aNotification {
     
-    NSDictionary* info = [aNotification userInfo];
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
-    self.scrollView.contentInset = UIEdgeInsetsMake(self.scrollView.contentInset.top, 0.0, kbSize.height - TAB_BAR_HEIGHT, 0.0);
-    self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(self.scrollView.scrollIndicatorInsets.top, 0.0, kbSize.height - TAB_BAR_HEIGHT, 0.0);
-    
-    [self.scrollView scrollRectToVisible:self.termsPrivacyView.frame animated:YES];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        NSDictionary* info = [aNotification userInfo];
+        CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+        
+        self.scrollView.contentInset = UIEdgeInsetsMake(self.scrollView.contentInset.top, 0.0, kbSize.height - TAB_BAR_HEIGHT, 0.0);
+        self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(self.scrollView.scrollIndicatorInsets.top, 0.0, kbSize.height - TAB_BAR_HEIGHT, 0.0);
+        
+        [self.scrollView scrollRectToVisible:self.termsPrivacyView.frame animated:YES];
+    }
 }
 
--(void)keyboardWillHide:(NSNotification*)aNotification {
+-(void) keyboardWillHide:(NSNotification*)aNotification {
     
-    CGFloat bottomInset = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? self.bottomLayoutGuide.length : 0.0;
-    
-    self.scrollView.contentInset = UIEdgeInsetsMake(self.scrollView.contentInset.top, 0.0, bottomInset, 0.0);
-    self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(self.scrollView.scrollIndicatorInsets.top, 0.0, bottomInset, 0.0);
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        CGFloat bottomInset = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? self.bottomLayoutGuide.length : 0.0;
+        
+        self.scrollView.contentInset = UIEdgeInsetsMake(self.scrollView.contentInset.top, 0.0, bottomInset, 0.0);
+        self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(self.scrollView.scrollIndicatorInsets.top, 0.0, bottomInset, 0.0);
+    }
 }
 
 @end
