@@ -125,21 +125,21 @@
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q8l-hq-NLG" userLabel="Data Separator View">
                                 <rect key="frame" x="30" y="201" width="260" height="1"/>
-                                <color key="backgroundColor" white="0.78000000000000003" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="sqj-qH-pdq"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jop-HL-F0a" customClass="vaavudGraphHostingView">
-                                <rect key="frame" x="10" y="207" width="300" height="136"/>
+                                <rect key="frame" x="10" y="207" width="284" height="131"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bS1-jk-rNp" userLabel="Start/Stop Button">
-                                <rect key="frame" x="70" y="386" width="180" height="30"/>
+                                <rect key="frame" x="40" y="381" width="240" height="35"/>
                                 <color key="backgroundColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="7sS-bL-Uzi"/>
-                                    <constraint firstAttribute="width" constant="180" id="LVm-RJ-2VH"/>
+                                    <constraint firstAttribute="height" constant="35" id="7sS-bL-Uzi"/>
+                                    <constraint firstAttribute="width" constant="240" id="LVm-RJ-2VH"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="23"/>
                                 <state key="normal">
@@ -153,12 +153,12 @@
                                 </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="eB6-ZR-G0T">
-                                <rect key="frame" x="70" y="376" width="180" height="3"/>
+                                <rect key="frame" x="40" y="371" width="240" height="3"/>
                                 <color key="progressTintColor" red="0.062745101749897003" green="0.68627452850341797" blue="0.93725496530532837" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </progressView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ej-kg-OB6" userLabel="InformationText">
-                                <rect key="frame" x="40" y="350" width="240" height="21"/>
+                                <rect key="frame" x="40" y="345" width="240" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="SgK-UX-8lM"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="kS6-jA-9G4"/>
@@ -168,8 +168,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WHz-L1-QCZ" userLabel="Graph Separator View">
-                                <rect key="frame" x="30" y="344" width="260" height="1"/>
-                                <color key="backgroundColor" white="0.78000000000000003" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="30" y="339" width="260" height="1"/>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="fD5-SW-hgl"/>
                                 </constraints>
@@ -206,7 +206,7 @@
                             <constraint firstItem="ReF-g7-EF0" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="40" id="m9r-Lb-RGe"/>
                             <constraint firstItem="3jS-Rr-IOD" firstAttribute="top" secondItem="ReF-g7-EF0" secondAttribute="top" id="pjp-p6-Kg3"/>
                             <constraint firstItem="eB6-ZR-G0T" firstAttribute="centerX" secondItem="0Ej-kg-OB6" secondAttribute="centerX" id="qCF-49-1IW"/>
-                            <constraint firstAttribute="trailing" secondItem="jop-HL-F0a" secondAttribute="trailing" constant="10" id="trF-Ht-dhS"/>
+                            <constraint firstAttribute="trailing" secondItem="jop-HL-F0a" secondAttribute="trailing" constant="26" id="trF-Ht-dhS"/>
                             <constraint firstItem="f71-hp-4cl" firstAttribute="top" secondItem="BoF-HW-bXq" secondAttribute="bottom" constant="-3" id="uyK-Fu-fl4"/>
                             <constraint firstItem="BoF-HW-bXq" firstAttribute="centerX" secondItem="f71-hp-4cl" secondAttribute="centerX" id="xFj-Vv-Rcc"/>
                             <constraint firstItem="ReF-g7-EF0" firstAttribute="top" secondItem="r2L-o3-FqL" secondAttribute="bottom" constant="4" id="xzJ-hk-tIe"/>

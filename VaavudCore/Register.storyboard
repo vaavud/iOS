@@ -33,14 +33,14 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kQi-uV-EHg">
-                                <rect key="frame" x="20" y="239" width="280" height="40"/>
+                                <rect key="frame" x="20" y="235" width="280" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="8GW-Uv-67d"/>
+                                    <constraint firstAttribute="height" constant="43" id="8GW-Uv-67d"/>
                                     <constraint firstAttribute="width" constant="280" id="TP4-PY-qa5"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Sign Up">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -52,14 +52,14 @@
                                 </connections>
                             </button>
                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RfU-7Y-inK">
-                                <rect key="frame" x="20" y="289" width="280" height="40"/>
+                                <rect key="frame" x="20" y="291" width="280" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="Dka-7N-2UC"/>
+                                    <constraint firstAttribute="height" constant="43" id="Dka-7N-2UC"/>
                                     <constraint firstAttribute="width" constant="280" id="oVg-9X-pJT"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Log In">
                                     <color key="titleColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -72,10 +72,9 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="KAW-1F-BHd">
-                                <rect key="frame" x="20" y="104" width="280" height="100"/>
+                                <rect key="frame" x="20" y="64" width="280" height="171"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="Ta9-Xw-HJS"/>
                                     <constraint firstAttribute="width" constant="280" id="VLh-EZ-DQL"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -86,10 +85,11 @@
                         <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="RfU-7Y-inK" secondAttribute="centerX" id="8BQ-3g-dZW"/>
-                            <constraint firstAttribute="centerY" secondItem="kQi-uV-EHg" secondAttribute="centerY" constant="25" id="HZf-A1-EXq"/>
+                            <constraint firstAttribute="centerY" secondItem="kQi-uV-EHg" secondAttribute="centerY" constant="28" id="HZf-A1-EXq"/>
                             <constraint firstAttribute="centerX" secondItem="KAW-1F-BHd" secondAttribute="centerX" id="MQ5-S4-2c3"/>
-                            <constraint firstItem="kQi-uV-EHg" firstAttribute="top" secondItem="KAW-1F-BHd" secondAttribute="bottom" constant="35" id="ZJX-HA-M1E"/>
-                            <constraint firstAttribute="centerY" secondItem="RfU-7Y-inK" secondAttribute="centerY" constant="-25" id="aBm-ez-Chy"/>
+                            <constraint firstItem="kQi-uV-EHg" firstAttribute="top" secondItem="KAW-1F-BHd" secondAttribute="bottom" id="ZJX-HA-M1E"/>
+                            <constraint firstAttribute="centerY" secondItem="RfU-7Y-inK" secondAttribute="centerY" constant="-28" id="aBm-ez-Chy"/>
+                            <constraint firstItem="KAW-1F-BHd" firstAttribute="top" secondItem="KU6-zm-tDN" secondAttribute="bottom" id="cfu-Wk-X20"/>
                             <constraint firstAttribute="centerX" secondItem="kQi-uV-EHg" secondAttribute="centerX" id="ur0-Tp-V93"/>
                         </constraints>
                     </view>
@@ -119,14 +119,14 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c0a-dV-TJ9">
-                                <rect key="frame" x="20" y="84" width="280" height="40"/>
+                                <rect key="frame" x="20" y="84" width="280" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.23137254900000001" green="0.34901960780000002" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="a3l-35-uY4"/>
+                                    <constraint firstAttribute="height" constant="43" id="a3l-35-uY4"/>
                                     <constraint firstAttribute="width" constant="280" id="rqX-U5-0t4"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Sign up with Facebook">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -139,19 +139,19 @@
                                 </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="bnI-we-bEV">
-                                <rect key="frame" x="150" y="94" width="20" height="20"/>
+                                <rect key="frame" x="150" y="96" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wTy-Fe-QW0">
-                                <rect key="frame" x="153" y="134" width="14" height="15"/>
+                                <rect key="frame" x="153" y="137" width="14" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R3X-37-nv8">
-                                <rect key="frame" x="20" y="141" width="125" height="1"/>
+                                <rect key="frame" x="20" y="144" width="125" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -159,7 +159,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fR0-9C-zrI">
-                                <rect key="frame" x="175" y="141" width="125" height="1"/>
+                                <rect key="frame" x="175" y="144" width="125" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -167,7 +167,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a8a-8P-Mqu" userLabel="Basic Input Container">
-                                <rect key="frame" x="20" y="157" width="280" height="120"/>
+                                <rect key="frame" x="20" y="160" width="280" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="M5o-jb-ETD" userLabel="First Name Text Field" customClass="GuidedTextField">
@@ -250,7 +250,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jhS-Rv-G5x">
-                                <rect key="frame" x="20" y="287" width="280" height="20"/>
+                                <rect key="frame" x="20" y="290" width="280" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="and" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oQr-Lh-yHa">
@@ -409,14 +409,14 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8zw-Fe-e1h">
-                                <rect key="frame" x="20" y="84" width="280" height="40"/>
+                                <rect key="frame" x="20" y="84" width="280" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.23137254900000001" green="0.34901960780000002" blue="0.59607843140000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="H8K-bw-fWR"/>
-                                    <constraint firstAttribute="height" constant="40" id="vp9-9h-EN2"/>
+                                    <constraint firstAttribute="height" constant="43" id="vp9-9h-EN2"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Log in with Facebook">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -429,19 +429,19 @@
                                 </connections>
                             </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="weH-4W-b5r">
-                                <rect key="frame" x="150" y="94" width="20" height="20"/>
+                                <rect key="frame" x="150" y="96" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VHr-rp-yDL">
-                                <rect key="frame" x="153" y="134" width="14" height="15"/>
+                                <rect key="frame" x="153" y="137" width="14" height="15"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="POx-xu-JUJ">
-                                <rect key="frame" x="20" y="141" width="125" height="1"/>
+                                <rect key="frame" x="20" y="144" width="125" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -449,7 +449,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qi9-1v-3c8">
-                                <rect key="frame" x="175" y="141" width="125" height="1"/>
+                                <rect key="frame" x="175" y="144" width="125" height="1"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -457,7 +457,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U0Z-De-U5K" userLabel="Basic Input Container">
-                                <rect key="frame" x="20" y="157" width="280" height="80"/>
+                                <rect key="frame" x="20" y="160" width="280" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kg4-g3-l1f" userLabel="Second Horizontal Separator">
