@@ -17,8 +17,11 @@
 #import "TermsPrivacyViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 
+#define TAB_BAR_HEIGHT 49
+
 @interface SignUpViewController ()
 
+@property (nonatomic, weak) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, weak) IBOutlet UIView *basicInputView;
 @property (nonatomic, weak) IBOutlet UIButton *facebookButton;
 @property (nonatomic, weak) IBOutlet UILabel *orLabel;
@@ -72,8 +75,31 @@ BOOL didShowFeedback;
     self.termsPrivacyViewWidthConstraint.constant = termsTextSize.width + 4.0 + andTextSize.width + 4.0 + privacyTextSize.width;
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    // register for keyboard notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+
+    // unregister for keyboard notifications while not visible.
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillShowNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+
     self.alertView.delegate = nil;
     [AccountManager sharedInstance].delegate = nil;
 }
@@ -267,6 +293,25 @@ BOOL didShowFeedback;
     termsPrivacyController.termsPrivacyTitle = NSLocalizedString(@"LINK_PRIVACY_POLICY", nil);
     termsPrivacyController.termsPrivacyURL = @"http://vaavud.com/legal/privacy?source=app";
     [self presentViewController:controller animated:YES completion:nil];
+}
+
+-(void)keyboardWillShow:(NSNotification*)aNotification {
+    
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    self.scrollView.contentInset = UIEdgeInsetsMake(self.scrollView.contentInset.top, 0.0, kbSize.height - TAB_BAR_HEIGHT, 0.0);
+    self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(self.scrollView.scrollIndicatorInsets.top, 0.0, kbSize.height - TAB_BAR_HEIGHT, 0.0);
+    
+    [self.scrollView scrollRectToVisible:self.termsPrivacyView.frame animated:YES];
+}
+
+-(void)keyboardWillHide:(NSNotification*)aNotification {
+    
+    CGFloat bottomInset = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? self.bottomLayoutGuide.length : 0.0;
+    
+    self.scrollView.contentInset = UIEdgeInsetsMake(self.scrollView.contentInset.top, 0.0, bottomInset, 0.0);
+    self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(self.scrollView.scrollIndicatorInsets.top, 0.0, bottomInset, 0.0);
 }
 
 @end
