@@ -24,8 +24,8 @@
 // Only save every Nth measurement point - set to 1 to save all
 #define saveEveryNthPoint 10
 
-#define BUTTON_CORNER_RADIUS 5
-#define FORM_CORNER_RADIUS 5
+#define BUTTON_CORNER_RADIUS 4
+#define FORM_CORNER_RADIUS 4
 
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
