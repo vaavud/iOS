@@ -83,7 +83,7 @@
     }
 }
 
-- (void)viewDidAppear:(BOOL)animated {
+- (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     id tracker = [[GAI sharedInstance] defaultTracker];

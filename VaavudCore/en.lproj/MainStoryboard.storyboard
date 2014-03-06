@@ -131,7 +131,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jop-HL-F0a" customClass="vaavudGraphHostingView">
-                                <rect key="frame" x="10" y="207" width="284" height="131"/>
+                                <rect key="frame" x="10" y="207" width="284" height="140"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bS1-jk-rNp" userLabel="Start/Stop Button">
@@ -158,9 +158,9 @@
                                 <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </progressView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ej-kg-OB6" userLabel="InformationText">
-                                <rect key="frame" x="40" y="345" width="240" height="21"/>
+                                <rect key="frame" x="40" y="347" width="240" height="19"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="SgK-UX-8lM"/>
+                                    <constraint firstAttribute="height" constant="19" id="SgK-UX-8lM"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="kS6-jA-9G4"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
@@ -168,7 +168,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WHz-L1-QCZ" userLabel="Graph Separator View">
-                                <rect key="frame" x="30" y="339" width="260" height="1"/>
+                                <rect key="frame" x="30" y="348" width="260" height="1"/>
                                 <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="fD5-SW-hgl"/>
@@ -186,7 +186,6 @@
                             <constraint firstItem="bS1-jk-rNp" firstAttribute="top" secondItem="eB6-ZR-G0T" secondAttribute="bottom" constant="8" id="G6I-YE-iKb"/>
                             <constraint firstItem="jop-HL-F0a" firstAttribute="top" secondItem="Q8l-hq-NLG" secondAttribute="bottom" constant="5" id="H5t-Dr-c29"/>
                             <constraint firstAttribute="trailing" secondItem="WHz-L1-QCZ" secondAttribute="trailing" constant="30" id="I6n-OZ-jur"/>
-                            <constraint firstItem="0Ej-kg-OB6" firstAttribute="top" secondItem="WHz-L1-QCZ" secondAttribute="bottom" constant="5" id="J3g-EW-7RW"/>
                             <constraint firstItem="aIb-lj-gMl" firstAttribute="top" secondItem="ReF-g7-EF0" secondAttribute="bottom" constant="-1" id="JA6-iQ-no9"/>
                             <constraint firstItem="qBg-VY-wWc" firstAttribute="top" secondItem="aIb-lj-gMl" secondAttribute="bottom" constant="10" id="LF6-Q2-77z"/>
                             <constraint firstItem="WHz-L1-QCZ" firstAttribute="top" secondItem="jop-HL-F0a" secondAttribute="bottom" constant="1" id="OHp-IM-MMI"/>
@@ -199,6 +198,7 @@
                             <constraint firstItem="Q8l-hq-NLG" firstAttribute="top" secondItem="E6z-xo-cgt" secondAttribute="bottom" constant="5" id="bnb-Kp-vFg"/>
                             <constraint firstAttribute="trailing" secondItem="Q8l-hq-NLG" secondAttribute="trailing" constant="30" id="cVJ-1s-BTB"/>
                             <constraint firstItem="eB6-ZR-G0T" firstAttribute="top" secondItem="0Ej-kg-OB6" secondAttribute="bottom" constant="5" id="e3q-8z-FAw"/>
+                            <constraint firstItem="0Ej-kg-OB6" firstAttribute="top" secondItem="jop-HL-F0a" secondAttribute="bottom" id="gJV-gZ-ozA"/>
                             <constraint firstAttribute="centerX" secondItem="BoF-HW-bXq" secondAttribute="centerX" id="hPV-9I-LBv"/>
                             <constraint firstItem="eB6-ZR-G0T" firstAttribute="width" secondItem="bS1-jk-rNp" secondAttribute="width" id="hTU-Yf-xIR"/>
                             <constraint firstAttribute="trailing" secondItem="3jS-Rr-IOD" secondAttribute="trailing" constant="40" id="hXs-jK-8cz"/>

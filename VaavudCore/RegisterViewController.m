@@ -8,6 +8,9 @@
 
 #import "RegisterViewController.h"
 #import "RegisterNavigationController.h"
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
+#import "GAIFields.h"
 
 @interface RegisterViewController ()
 
@@ -19,7 +22,7 @@
 
 @implementation RegisterViewController
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
     
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
@@ -39,6 +42,16 @@
     self.logInButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.logInButton.layer.masksToBounds = YES;
     [self.logInButton setTitle:NSLocalizedString(@"REGISTER_TITLE_LOGIN", nil) forState:UIControlStateNormal];
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    if (tracker) {
+        [tracker set:kGAIScreenName value:@"Register Screen"];
+        [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    }
 }
 
 @end

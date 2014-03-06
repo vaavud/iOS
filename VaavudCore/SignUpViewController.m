@@ -15,6 +15,9 @@
 #import "vaavudAppDelegate.h"
 #import "UUIDUtil.h"
 #import "TermsPrivacyViewController.h"
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
+#import "GAIFields.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 #define TAB_BAR_HEIGHT 49
@@ -87,6 +90,16 @@ BOOL didShowFeedback;
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    if (tracker) {
+        [tracker set:kGAIScreenName value:@"Signup Screen"];
+        [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -283,6 +296,7 @@ BOOL didShowFeedback;
 - (IBAction) termsButtonPushed:(id)sender {
     UINavigationController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TermsPrivacyNavigationController"];
     TermsPrivacyViewController *termsPrivacyController = (TermsPrivacyViewController*) controller.topViewController;
+    termsPrivacyController.screenName = @"Signup Terms Screen";
     termsPrivacyController.termsPrivacyTitle = NSLocalizedString(@"LINK_TERMS_OF_SERVICE", nil);
     termsPrivacyController.termsPrivacyURL = @"http://vaavud.com/legal/terms?source=app";
     [self presentViewController:controller animated:YES completion:nil];
@@ -291,6 +305,7 @@ BOOL didShowFeedback;
 - (IBAction) privacyButtonPushed:(id)sender {
     UINavigationController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TermsPrivacyNavigationController"];
     TermsPrivacyViewController *termsPrivacyController = (TermsPrivacyViewController*) controller.topViewController;
+    termsPrivacyController.screenName = @"Signup Privacy Screen";
     termsPrivacyController.termsPrivacyTitle = NSLocalizedString(@"LINK_PRIVACY_POLICY", nil);
     termsPrivacyController.termsPrivacyURL = @"http://vaavud.com/legal/privacy?source=app";
     [self presentViewController:controller animated:YES completion:nil];

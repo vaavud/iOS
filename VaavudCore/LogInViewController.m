@@ -13,6 +13,9 @@
 #import "RegisterNavigationController.h"
 #import "vaavudAppDelegate.h"
 #import "AccountManager.h"
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
+#import "GAIFields.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 @interface LogInViewController ()
@@ -49,6 +52,16 @@ BOOL didShowFeedback;
     
     self.facebookButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.facebookButton.layer.masksToBounds = YES;
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    if (tracker) {
+        [tracker set:kGAIScreenName value:@"Login Screen"];
+        [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

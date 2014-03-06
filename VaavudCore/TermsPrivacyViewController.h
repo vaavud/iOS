@@ -10,6 +10,7 @@
 
 @interface TermsPrivacyViewController : UIViewController
 
+@property (nonatomic) NSString *screenName;
 @property (nonatomic) NSString *termsPrivacyTitle;
 @property (nonatomic) NSString *termsPrivacyURL;
 

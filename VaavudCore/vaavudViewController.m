@@ -118,6 +118,10 @@
     }
     
     [self.graphHostView resumeUpdates];
+    
+    if (!self.buttonShowsStart) {
+        [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    }
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -149,6 +153,7 @@
 - (void) viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.graphHostView pauseUpdates];
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 - (void) start {
@@ -170,6 +175,8 @@
     
     [self.vaavudCoreController start];
     self.TimerLabel = [NSTimer scheduledTimerWithTimeInterval: 0.5 target: self selector: @selector(updateLabels) userInfo: nil repeats: YES];
+    
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 - (void) stop {
@@ -178,6 +185,8 @@
     [self.TimerLabel invalidate];
     [self.vaavudCoreController stop];
     self.informationTextLabel.text = @"";
+    
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
 - (void) windSpeedMeasurementsAreValid: (BOOL) valid {

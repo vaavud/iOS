@@ -10,4 +10,14 @@
 
 @implementation RegisterNavigationController
 
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
+        self.navigationBar.barStyle = UIBarStyleBlack;
+        self.navigationBar.tintColor = [UIColor blackColor];
+    }
+}
+
 @end

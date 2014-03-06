@@ -7,6 +7,9 @@
 //
 
 #import "NoHistoryViewController.h"
+#import "GAI.h"
+#import "GAIDictionaryBuilder.h"
+#import "GAIFields.h"
 
 @interface NoHistoryViewController ()
 
@@ -29,6 +32,16 @@
     self.noMeasurementsLabel.numberOfLines = 0;
     self.gotoMeasureLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.gotoMeasureLabel.numberOfLines = 0;
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    id tracker = [[GAI sharedInstance] defaultTracker];
+    if (tracker) {
+        [tracker set:kGAIScreenName value:@"No History Screen"];
+        [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    }
 }
 
 @end
