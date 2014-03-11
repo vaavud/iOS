@@ -119,7 +119,7 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
     
     if (!error && state == FBSessionStateOpen) {
         // If the session was opened successfully
-        NSLog(@"[AccountManager] Facebook session opened");
+        //NSLog(@"[AccountManager] Facebook session opened");
         [self facebookUserLoggedIn:action password:password success:success failure:failure];
         return;
     }
@@ -169,7 +169,7 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
 }
 
 -(void) facebookUserLoggedIn:(enum AuthenticationActionType)action password:(NSString*)password success:(void(^)(enum AuthenticationResponseType response))success failure:(void(^)(enum AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {
-    NSLog(@"[AccountManager] facebookUserLoggedIn");
+    //NSLog(@"[AccountManager] facebookUserLoggedIn");
     
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
@@ -195,7 +195,7 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
                 passwordHash = [PasswordUtil createHash:password salt:email];
             }
 
-            NSLog(@"[AccountManager] Facebook logged in - facebookUserId=%@, accessToken=%@, email=%@, firstName=%@, lastName=%@, gender=%@, verified=%@", facebookUserId, facebookAccessToken, email, firstName, lastName, gender, verified);
+            NSLog(@"[AccountManager] Facebook logged in: facebookUserId=%@, email=%@", facebookUserId, email);
             
             [self registerUser:action email:email passwordHash:passwordHash facebookId:facebookUserId facebookAccessToken:facebookAccessToken firstName:firstName lastName:lastName gender:gender verified:verified success:success failure:^(enum AuthenticationResponseType response) {
                 if (failure) {
@@ -261,13 +261,9 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
 
 -(void) logout {
     
-    NSLog(@"[AccountManager] logout");
+    //NSLog(@"[AccountManager] logout");
 
     [Property setAsString:nil forKey:KEY_FACEBOOK_ACCESS_TOKEN];
-    if ([self getAuthenticationState] != AuthenticationStateNeverLoggedIn) {
-        [self setAuthenticationState:AuthenticationStateWasLoggedIn];
-    }
-    
     [Property setAsString:nil forKey:KEY_AUTH_TOKEN];
     [Property setAsString:[UUIDUtil generateUUID] forKey:KEY_DEVICE_UUID];
     if ([self getAuthenticationState] != AuthenticationStateNeverLoggedIn) {
@@ -279,7 +275,7 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
         // note: this will cause the completion handler previously used in opening the Facebook session
         // to call this method recursively but since we've already changed AuthenticationState to
         // not logged-in, the first 'if' in this method will cause a return immediately
-        NSLog(@"[AccountManager] logout - closeAndClearTokenInformation");
+        //NSLog(@"[AccountManager] logout - closeAndClearTokenInformation");
         [FBSession.activeSession closeAndClearTokenInformation];
     }
     

@@ -147,10 +147,10 @@
         NSLog(@"%@ h=%d (%f,%f)", dtime, cachedHit, [session.latitude doubleValue], [session.longitude doubleValue]);
         */
         
-        [cell.imageView setCachedImageWithURLRequest:request placeholderImage:self.placeholderImage success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        [cell.mapImageView setCachedImageWithURLRequest:request placeholderImage:self.placeholderImage success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
             if (image) {
                 //NSLog(@"%@, Cache-Control:%@", dtime, [response.allHeaderFields valueForKey:@"Cache-Control"]);
-                cell.imageView.image = image;
+                cell.mapImageView.image = image;
             }
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
             NSLog(@"Failure loading map thumbnail");
@@ -158,7 +158,7 @@
     }
     else {
         // TODO: exchange with "no map" image
-        cell.imageView.image = self.placeholderImage;
+        cell.mapImageView.image = self.placeholderImage;
     }
     
     cell.maxHeadingLabel.text = [NSLocalizedString(@"HEADING_MAX", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];

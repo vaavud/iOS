@@ -57,7 +57,7 @@ SHARED_INSTANCE
     NSString *country = [[NSLocale currentLocale] objectForKey: NSLocaleCountryCode];
 	NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
 
-    NSLog(@"[ModelManager] app:%@, appVersion:%@, appBuild:%@, os:%@, osVersion:%@, model:%@, deviceUuid:%@, countryCode:%@, language:%@", app, appVersion, appBuild, os, osVersion, model, deviceUuid, country, language);
+    //NSLog(@"[ModelManager] app:%@, appVersion:%@, appBuild:%@, os:%@, osVersion:%@, model:%@, deviceUuid:%@, countryCode:%@, language:%@", app, appVersion, appBuild, os, osVersion, model, deviceUuid, country, language);
 
     // detect changes and optionally save
     

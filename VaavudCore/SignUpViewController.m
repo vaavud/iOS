@@ -47,7 +47,7 @@
 
 BOOL didShowFeedback;
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
     
     [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
@@ -79,7 +79,7 @@ BOOL didShowFeedback;
     self.termsPrivacyViewWidthConstraint.constant = termsTextSize.width + 4.0 + andTextSize.width + 4.0 + privacyTextSize.width;    
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void) viewWillAppear:(BOOL)animated {
     // register for keyboard notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
@@ -102,7 +102,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
+- (void) viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 
     // unregister for keyboard notifications while not visible.
@@ -118,11 +118,11 @@ BOOL didShowFeedback;
     [AccountManager sharedInstance].delegate = nil;
 }
 
-- (void)createRegisterButton {
+- (void) createRegisterButton {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_CREATE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPushed)];
 }
 
-- (void)doneButtonPushed {
+- (void) doneButtonPushed {
 
     if (!self.firstNameTextField.text || self.firstNameTextField.text.length == 0) {
         [self.firstNameTextField becomeFirstResponder];
@@ -179,11 +179,11 @@ BOOL didShowFeedback;
     }];
 }
 
-- (IBAction)facebookButtonPushed:(id)sender {
+- (IBAction) facebookButtonPushed:(id)sender {
     [self facebookButtonPushed:sender password:nil];
 }
 
-- (void)facebookButtonPushed:(id)sender password:(NSString*)password {
+- (void) facebookButtonPushed:(id)sender password:(NSString*)password {
     [self.activityIndicator startAnimating];
     [self.facebookButton setTitle:@"" forState:UIControlStateNormal];
 
@@ -232,7 +232,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (void)showMessage:(NSString *)text withTitle:(NSString *)title {
+- (void) showMessage:(NSString *)text withTitle:(NSString *)title {
     [[[UIAlertView alloc] initWithTitle:title
                                 message:text
                                delegate:nil
@@ -240,7 +240,7 @@ BOOL didShowFeedback;
                       otherButtonTitles:nil] show];
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
     
     if (self.firstNameTextField.text.length > 0 && self.emailTextField.text.length > 0 && self.passwordTextField.text.length > 0) {
         [self doneButtonPushed];
@@ -261,7 +261,7 @@ BOOL didShowFeedback;
 }
 
 
-- (void)promptForPassword {
+- (void) promptForPassword {
     self.alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE", nil)
                                                 message:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD", nil)
                                                delegate:self
@@ -272,7 +272,7 @@ BOOL didShowFeedback;
     [self.alertView show];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex != alertView.cancelButtonIndex) {
         UITextField *passwordTextField = [alertView textFieldAtIndex:0];
         if (passwordTextField && passwordTextField.text.length > 0) {
@@ -281,7 +281,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView {
+- (BOOL) alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView {
     UITextField *passwordTextField = [alertView textFieldAtIndex:0];
     if (passwordTextField && passwordTextField.text.length > 0) {
         return YES;
@@ -289,7 +289,7 @@ BOOL didShowFeedback;
     return NO;
 }
 
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     self.alertView = nil;
 }
 

@@ -258,46 +258,35 @@ SHARED_INSTANCE
         }
         
         // set algorithm parameters
-        BOOL hasSetParameters = NO;
         
         NSString *algorithm = [responseObject objectForKey:@"algorithm"];
         if (algorithm && algorithm != nil && algorithm != (id)[NSNull null] && ([algorithm length] > 0)) {
             [Property setAsInteger:[AlgorithmConstantsUtil getAlgorithmFromString:algorithm] forKey:KEY_ALGORITHM];
-            hasSetParameters = YES;
         }
         
         NSNumber *frequencyStart = [self doubleValue:responseObject forKey:@"frequencyStart"];
         if (frequencyStart != nil) {
             [Property setAsDouble:frequencyStart forKey:KEY_FREQUENCY_START];
-            hasSetParameters = YES;
         }
 
         NSNumber *frequencyFactor = [self doubleValue:responseObject forKey:@"frequencyFactor"];
         if (frequencyFactor != nil) {
             [Property setAsDouble:frequencyFactor forKey:KEY_FREQUENCY_FACTOR];
-            hasSetParameters = YES;
         }
 
         NSNumber *fftLength = [self integerValue:responseObject forKey:@"fftLength"];
         if (fftLength != nil) {
             [Property setAsInteger:fftLength forKey:KEY_FFT_LENGTH];
-            hasSetParameters = YES;
         }
 
         NSNumber *fftDataLength = [self integerValue:responseObject forKey:@"fftDataLength"];
         if (fftDataLength != nil) {
             [Property setAsInteger:fftDataLength forKey:KEY_FFT_DATA_LENGTH];
-            hasSetParameters = YES;
         }
 
         NSNumber *analyticsGridDegree = [self doubleValue:responseObject forKey:@"analyticsGridDegree"];
         if (analyticsGridDegree != nil) {
             [Property setAsDouble:analyticsGridDegree forKey:KEY_ANALYTICS_GRID_DEGREE];
-            hasSetParameters = YES;
-        }
-
-        if (hasSetParameters) {
-            NSLog(@"[ServerUploadManager] Setting parameters from server: algorithm=%@, frequencyStart=%@, frequencyFactor=%@, fftLength=%@, fftDataLength=%@, analyticsGridDegree=%@", [Property getAsInteger:KEY_ALGORITHM], [Property getAsDouble:KEY_FREQUENCY_START], [Property getAsDouble:KEY_FREQUENCY_FACTOR], [Property getAsInteger:KEY_FFT_LENGTH], [Property getAsInteger:KEY_FFT_DATA_LENGTH], [Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE]);
         }
         
         NSArray *hourOptions = [responseObject objectForKey:@"hourOptions"];
@@ -439,7 +428,7 @@ SHARED_INSTANCE
     
     [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/measurements" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSLog(@"[ServerUploadManager] Got successful response reading measurements");
+        //NSLog(@"[ServerUploadManager] Got successful response reading measurements");
         
         // clear consecutive errors since we got a successful reponse
         self.consecutiveNetworkErrors = 0;

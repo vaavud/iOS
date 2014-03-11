@@ -215,7 +215,7 @@
     }
     
     [[ServerUploadManager sharedInstance] readMeasurements:self.hoursAgo retry:3 success:^(NSArray *measurements) {
-        NSLog(@"[MapViewController] read measurements");
+        //NSLog(@"[MapViewController] read measurements");
 
         self.lastMeasurementsRead = [NSDate date];
 

@@ -18,7 +18,7 @@
 
 BOOL isFirstEdit = YES;
 
-- (id)initWithFrame:(CGRect)frame {
+- (id) initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self initSelf];
@@ -26,7 +26,7 @@ BOOL isFirstEdit = YES;
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
+- (id) initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self initSelf];
@@ -39,7 +39,7 @@ BOOL isFirstEdit = YES;
     [self initGuide];
 }
 
-- (void)initGuide {
+- (void) initGuide {
     self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
     self.label.text = self.guideText;
     [self addSubview:self.label];
@@ -47,7 +47,7 @@ BOOL isFirstEdit = YES;
     self.label.textColor = [UIColor lightGrayColor];
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+- (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
     NSRange textFieldRange = NSMakeRange(0, [textField.text length]);
     if ((NSEqualRanges(range, textFieldRange) && [string length] == 0) || (textField.secureTextEntry && isFirstEdit && range.location > 0 && range.length == 1 && string.length == 0)) {
@@ -72,19 +72,19 @@ BOOL isFirstEdit = YES;
     return YES;
 }
 
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+- (BOOL) textFieldShouldReturn:(UITextField *)textField {
     if (self.guidedDelegate && [self.guidedDelegate respondsToSelector:@selector(textFieldShouldReturn:)]) {
         return [self.guidedDelegate textFieldShouldReturn:textField];
     }
     return YES;
 }
 
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+- (BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
     isFirstEdit = YES;
     return YES;
 }
 
-- (void)setGuideText:(NSString *)guideText {
+- (void) setGuideText:(NSString *)guideText {
     _guideText = guideText;
     self.label.text = guideText;
 }
