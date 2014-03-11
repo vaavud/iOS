@@ -22,8 +22,9 @@ SHARED_INSTANCE
 
 int facebookRegisterIdentifier = 0;
 BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
+BOOL isDoingLogout = NO;
 
--(void) registerWithPassword:(NSString*)password email:(NSString*)email firstName:(NSString*)firstName lastName:(NSString*)lastName action:(enum AuthenticationActionType)action success:(void(^)(enum AuthenticationResponseType response))success failure:(void(^)(enum AuthenticationResponseType response))failure {
+- (void) registerWithPassword:(NSString*)password email:(NSString*)email firstName:(NSString*)firstName lastName:(NSString*)lastName action:(enum AuthenticationActionType)action success:(void(^)(enum AuthenticationResponseType response))success failure:(void(^)(enum AuthenticationResponseType response))failure {
 
     if (![ServerUploadManager sharedInstance].hasReachability) {
         failure(AuthenticationResponseNoReachability);
@@ -35,21 +36,23 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
     [self registerUser:action email:email passwordHash:passwordHash facebookId:nil facebookAccessToken:nil firstName:firstName lastName:lastName gender:nil verified:[NSNumber numberWithInt:0] success:success failure:failure];
 }
 
--(void) registerWithFacebook:(NSString*)password action:(enum AuthenticationActionType)action {
+- (void) logout {
+    isDoingLogout = NO;
+    // make sure delegate is not called
+    facebookRegisterIdentifier++;
+    hasCalledDelegateForCurrentFacebookRegisterIdentifier = YES;
+    [self doLogout];
+}
+
+- (void) registerWithFacebook:(NSString*)password action:(enum AuthenticationActionType)action {
     [self registerWithFacebook:password action:action isRecursive:NO];
 }
 
--(void) registerWithFacebook:(NSString*)password action:(enum AuthenticationActionType)action isRecursive:(BOOL)isRecursive {
-
-    if (![ServerUploadManager sharedInstance].hasReachability) {
-        if (self.delegate) {
-            [self.delegate facebookAuthenticationFailure:AuthenticationResponseNoReachability message:nil displayFeedback:YES];
-        }
-        return;
-    }
+- (void) registerWithFacebook:(NSString*)password action:(enum AuthenticationActionType)action isRecursive:(BOOL)isRecursive {
 
     int fbRegId = facebookRegisterIdentifier++;
     hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
+    isDoingLogout = NO;
     
     if (action == AuthenticationActionRefresh) {
         if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
@@ -64,6 +67,13 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
         }
     }
     else {
+        if (![ServerUploadManager sharedInstance].hasReachability) {
+            if (self.delegate) {
+                [self.delegate facebookAuthenticationFailure:AuthenticationResponseNoReachability message:nil displayFeedback:YES];
+            }
+            return;
+        }
+
         [FBSession openActiveSessionWithReadPermissions:[self facebookSignupPermissions]
                                            allowLoginUI:YES
                                       completionHandler:
@@ -111,11 +121,11 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
     }
 }
 
--(NSArray*) facebookSignupPermissions {
+- (NSArray*) facebookSignupPermissions {
     return @[@"basic_info", @"email"];
 }
 
--(void) facebookSessionStateChanged:(FBSession*)session state:(FBSessionState)state error:(NSError*)error password:(NSString*)password action:(enum AuthenticationActionType)action success:(void(^)(enum AuthenticationResponseType response))success failure:(void(^)(enum AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {
+- (void) facebookSessionStateChanged:(FBSession*)session state:(FBSessionState)state error:(NSError*)error password:(NSString*)password action:(enum AuthenticationActionType)action success:(void(^)(enum AuthenticationResponseType response))success failure:(void(^)(enum AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {
     
     if (!error && state == FBSessionStateOpen) {
         // If the session was opened successfully
@@ -155,12 +165,12 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
             }
         }
         
-        [self logout];
+        [self doLogout];
     }
     else {
         if (state == FBSessionStateClosed || state == FBSessionStateClosedLoginFailed) {
             NSLog(@"[AccountManager] Facebook session closed");
-            [self logout];
+            [self doLogout];
         }
         if (failure) {
             failure(AuthenticationResponseGenericError, nil, YES);
@@ -168,7 +178,7 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
     }
 }
 
--(void) facebookUserLoggedIn:(enum AuthenticationActionType)action password:(NSString*)password success:(void(^)(enum AuthenticationResponseType response))success failure:(void(^)(enum AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {
+- (void) facebookUserLoggedIn:(enum AuthenticationActionType)action password:(NSString*)password success:(void(^)(enum AuthenticationResponseType response))success failure:(void(^)(enum AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {
     //NSLog(@"[AccountManager] facebookUserLoggedIn");
     
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -212,7 +222,7 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
     }];
 }
 
--(void) registerUser:(enum AuthenticationActionType)action email:(NSString*)email passwordHash:(NSString*)passwordHash facebookId:(NSString*)facebookId facebookAccessToken:(NSString*)facebookAccessToken firstName:(NSString*)firstName lastName:(NSString*)lastName gender:(NSNumber*)gender verified:(NSNumber*)verified success:(void(^)(enum AuthenticationResponseType response))success failure:(void(^)(enum AuthenticationResponseType response))failure {
+- (void) registerUser:(enum AuthenticationActionType)action email:(NSString*)email passwordHash:(NSString*)passwordHash facebookId:(NSString*)facebookId facebookAccessToken:(NSString*)facebookAccessToken firstName:(NSString*)firstName lastName:(NSString*)lastName gender:(NSNumber*)gender verified:(NSNumber*)verified success:(void(^)(enum AuthenticationResponseType response))success failure:(void(^)(enum AuthenticationResponseType response))failure {
     
     [[ServerUploadManager sharedInstance] registerUser:[self actionToString:action] email:email passwordHash:passwordHash facebookId:facebookId facebookAccessToken:facebookAccessToken firstName:firstName lastName:lastName gender:gender verified:verified retry:3 success:^(NSString *status, id responseObject) {
         
@@ -259,9 +269,13 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
     }];
 }
 
--(void) logout {
+- (void) doLogout {
     
-    //NSLog(@"[AccountManager] logout");
+    //NSLog(@"[AccountManager] doLogout");
+    if (isDoingLogout) {
+        return;
+    }
+    isDoingLogout = YES;
 
     [Property setAsString:nil forKey:KEY_FACEBOOK_ACCESS_TOKEN];
     [Property setAsString:nil forKey:KEY_AUTH_TOKEN];
@@ -282,15 +296,15 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
     [[ServerUploadManager sharedInstance] registerDevice];
 }
 
--(BOOL) isLoggedIn {
+- (BOOL) isLoggedIn {
     return [self getAuthenticationState] == AuthenticationStateLoggedIn;
 }
 
--(void) setAuthenticationState:(enum AuthenticationStateType)state {
+- (void) setAuthenticationState:(enum AuthenticationStateType)state {
     [Property setAsInteger:[NSNumber numberWithInt:state] forKey:KEY_AUTHENTICATION_STATE];
 }
 
--(enum AuthenticationStateType) getAuthenticationState {
+- (enum AuthenticationStateType) getAuthenticationState {
     NSNumber *authState = [Property getAsInteger:KEY_AUTHENTICATION_STATE];
     if (!authState) {
         return AuthenticationStateNeverLoggedIn;
@@ -300,7 +314,7 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
     }
 }
 
--(NSString*) actionToString:(enum AuthenticationActionType)action {
+- (NSString*) actionToString:(enum AuthenticationActionType)action {
     switch (action) {
         case AuthenticationActionLogin:
             return @"LOGIN";
@@ -311,7 +325,7 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
     }
 }
 
--(enum AuthenticationResponseType) stringToAuthenticationResponse:(NSString*)response {
+- (enum AuthenticationResponseType) stringToAuthenticationResponse:(NSString*)response {
     if ([@"CREATED" isEqualToString:response]) {
         return AuthenticationResponseCreated;
     }
