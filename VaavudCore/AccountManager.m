@@ -26,6 +26,8 @@ BOOL isDoingLogout = NO;
 
 - (void) registerWithPassword:(NSString*)password email:(NSString*)email firstName:(NSString*)firstName lastName:(NSString*)lastName action:(enum AuthenticationActionType)action success:(void(^)(enum AuthenticationResponseType response))success failure:(void(^)(enum AuthenticationResponseType response))failure {
 
+    isDoingLogout = NO;
+    
     if (![ServerUploadManager sharedInstance].hasReachability) {
         failure(AuthenticationResponseNoReachability);
         return;
@@ -54,6 +56,8 @@ BOOL isDoingLogout = NO;
     hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
     isDoingLogout = NO;
     
+    //NSLog(@"[AccountManager] registerWithFacebook, fbRegId=%u", fbRegId);
+    
     if (action == AuthenticationActionRefresh) {
         if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
             NSLog(@"[AccountManager] Found a cached Facebook session");
@@ -62,7 +66,11 @@ BOOL isDoingLogout = NO;
             [FBSession openActiveSessionWithReadPermissions:[self facebookSignupPermissions]
                                                allowLoginUI:NO
                                           completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-                                              [self facebookSessionStateChanged:session state:state error:error password:password action:AuthenticationActionLogin success:nil failure:nil];
+                                              [self facebookSessionStateChanged:session state:state error:error password:password action:AuthenticationActionLogin success:nil failure:^(enum AuthenticationResponseType response, NSString *message, BOOL displayFeedback) {
+                                                  if (facebookRegisterIdentifier == (fbRegId + 1) && (response == AuthenticationResponseFacebookReopenSession)) {
+                                                      [self logout];
+                                                  }
+                                              }];
                                           }];
         }
     }
@@ -73,51 +81,61 @@ BOOL isDoingLogout = NO;
             }
             return;
         }
-
-        [FBSession openActiveSessionWithReadPermissions:[self facebookSignupPermissions]
-                                           allowLoginUI:YES
-                                      completionHandler:
-         ^(FBSession *session, FBSessionState state, NSError *error) {
-             [self facebookSessionStateChanged:session state:state error:error password:password action:action success:^(enum AuthenticationResponseType response) {
-
-                 hasCalledDelegateForCurrentFacebookRegisterIdentifier = YES;
-                 if (self.delegate) {
-                     [self.delegate facebookAuthenticationSuccess:response];
-                 }
-                 
-             } failure:^(enum AuthenticationResponseType response, NSString *message, BOOL displayFeedback) {
-
-                 // We only want to notify about failures if it is related to the newest Facebook register call.
-                 // If it is related to an older call, we assume that the newer call will either succeed or fail
-                 // with a more current error notification.
-
-                 if (facebookRegisterIdentifier == (fbRegId + 1)) {
-                     if (hasCalledDelegateForCurrentFacebookRegisterIdentifier) {
-                         NSLog(@"[AccountManager] Skipping delegate failure call because delegate has already been called");
-                         return;
-                     }
-                     else {
-                         hasCalledDelegateForCurrentFacebookRegisterIdentifier = YES;
-                         
-                         // If we get a reopen-session response, automatically try to register again unless
-                         // we already did that recursively.
-                         // This situation is probably due to a valid cached access token resulting in a
-                         // user-logged-in response but failing when trying to call the Graph API to get
-                         // user information (this triggers the reopen-session response).
-                         
-                         if (response == AuthenticationResponseFacebookReopenSession && !isRecursive) {
-                             [self registerWithFacebook:password action:action isRecursive:YES];
-                         }
-                         else if (self.delegate) {
-                             [self.delegate facebookAuthenticationFailure:response message:message displayFeedback:displayFeedback];
-                         }
-                     }
-                 }
-                 else {
-                     NSLog(@"[AccountManager] Skipping delegate failure call because a newer Facebook register call is in progress");
-                 }
+        
+        void(^success)(enum AuthenticationResponseType response) = ^(enum AuthenticationResponseType response) {
+            //NSLog(@"[AccountManager] Delegate success, fbRegId=%u", fbRegId);
+            hasCalledDelegateForCurrentFacebookRegisterIdentifier = YES;
+            if (self.delegate) {
+                [self.delegate facebookAuthenticationSuccess:response];
+            }
+        };
+        
+        void(^failure)(enum AuthenticationResponseType response, NSString* message, BOOL displayFeedback) = ^(enum AuthenticationResponseType response, NSString *message, BOOL displayFeedback) {
+            
+            // We only want to notify about failures if it is related to the newest Facebook register call.
+            // If it is related to an older call, we assume that the newer call will either succeed or fail
+            // with a more current error notification.
+            
+            if (facebookRegisterIdentifier == (fbRegId + 1)) {
+                if (hasCalledDelegateForCurrentFacebookRegisterIdentifier) {
+                    NSLog(@"[AccountManager] Skipping delegate failure call because delegate has already been called, fbRegId=%u", fbRegId);
+                    return;
+                }
+                else {
+                    hasCalledDelegateForCurrentFacebookRegisterIdentifier = YES;
+                    
+                    // If we get a reopen-session response, automatically try to register again unless
+                    // we already did that recursively.
+                    // This situation is probably due to a valid cached access token resulting in a
+                    // user-logged-in response but failing when trying to call the Graph API to get
+                    // user information (this triggers the reopen-session response).
+                    
+                    if (response == AuthenticationResponseFacebookReopenSession && !isRecursive) {
+                        [self registerWithFacebook:password action:action isRecursive:YES];
+                    }
+                    else if (self.delegate) {
+                        [self.delegate facebookAuthenticationFailure:response message:message displayFeedback:displayFeedback];
+                    }
+                }
+            }
+            else {
+                NSLog(@"[AccountManager] Skipping delegate failure call because a newer Facebook register call is in progress, fbRegId=%u", fbRegId);
+            }
+        };
+        
+        // Check if Facebook session is already open (might happen if the Facebook login part went ok, but registering on our server failed)
+        if (FBSession.activeSession.state == FBSessionStateOpen || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
+            NSLog(@"[AccountManager] Facebook session already open");
+            [self facebookUserLoggedIn:action password:password success:success failure:failure];
+        }
+        else {
+            [FBSession openActiveSessionWithReadPermissions:[self facebookSignupPermissions]
+                                               allowLoginUI:YES
+                                          completionHandler:
+             ^(FBSession *session, FBSessionState state, NSError *error) {
+                 [self facebookSessionStateChanged:session state:state error:error password:password action:action success:success failure:failure];
              }];
-         }];
+        }
     }
 }
 
@@ -148,8 +166,9 @@ BOOL isDoingLogout = NO;
                 // If the user cancelled login
                 NSLog(@"[AccountManager] Facebook user cancelled login");
                 if (failure) {
-                    failure(AuthenticationResponseFacebookUserCancelled, nil, NO);
+                    failure(AuthenticationResponseFacebookUserCancelled, nil, YES);
                 }
+                [self doLogout];
             }
             else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryAuthenticationReopenSession) {
                 NSLog(@"[AccountManager] Facebook authentication reopen session");
@@ -162,10 +181,9 @@ BOOL isDoingLogout = NO;
                 if (failure) {
                     failure(AuthenticationResponseGenericError, nil, YES);
                 }
+                [self doLogout];
             }
         }
-        
-        [self doLogout];
     }
     else {
         if (state == FBSessionStateClosed || state == FBSessionStateClosedLoginFailed) {
@@ -284,7 +302,7 @@ BOOL isDoingLogout = NO;
         [self setAuthenticationState:AuthenticationStateWasLoggedIn];
     }
     [[VaavudAPIHTTPClient sharedInstance] setAuthToken:nil];
-
+    
     if (FBSession.activeSession && FBSession.activeSession.state != FBSessionStateClosed) {
         // note: this will cause the completion handler previously used in opening the Facebook session
         // to call this method recursively but since we've already changed AuthenticationState to
@@ -292,7 +310,7 @@ BOOL isDoingLogout = NO;
         //NSLog(@"[AccountManager] logout - closeAndClearTokenInformation");
         [FBSession.activeSession closeAndClearTokenInformation];
     }
-    
+
     [[ServerUploadManager sharedInstance] registerDevice];
 }
 

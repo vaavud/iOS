@@ -51,8 +51,7 @@ static int const FQ40_FFT_DATA_LENGTH = 50;
 static int const FQ60_FFT_LENGTH = 128;
 static int const FQ60_FFT_DATA_LENGTH = 80;
 
-// TODO: DISABLE FOR PRODUCTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-static BOOL const LOGOUT_ENABLED = YES;
+static BOOL const LOGOUT_ENABLED = NO;
 
 static NSString * const GOOGLE_STATIC_MAPS_API_KEY = @"AIzaSyDrrZsMKRBkCw214SbJA6q2lO-cXbu7m0Y";
 
