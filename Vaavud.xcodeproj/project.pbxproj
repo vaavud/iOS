@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A086025EA7704C458175CADF /* libPods.a */; };
 		D70241831746D7F1008954FD /* VaavudIcon114.png in Resources */ = {isa = PBXBuildFile; fileRef = D70241821746D7F1008954FD /* VaavudIcon114.png */; };
 		D70241851746D7F6008954FD /* VaavudIcon57.png in Resources */ = {isa = PBXBuildFile; fileRef = D70241841746D7F6008954FD /* VaavudIcon57.png */; };
 		D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */; };
@@ -171,6 +172,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E0A1A9D801049A6BFBEF37D /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		A086025EA7704C458175CADF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D70241821746D7F1008954FD /* VaavudIcon114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon114.png; sourceTree = "<group>"; };
 		D70241841746D7F6008954FD /* VaavudIcon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon57.png; sourceTree = "<group>"; };
 		D702418C17478B79008954FD /* CorePlot-CocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorePlot-CocoaTouch.h"; sourceTree = "<group>"; };
@@ -542,6 +545,7 @@
 				D7A4F1CD173A8DDB00D1ACEE /* Foundation.framework in Frameworks */,
 				D7A4F1CF173A8DDB00D1ACEE /* CoreGraphics.framework in Frameworks */,
 				D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */,
+				A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,6 +655,7 @@
 				E98853C7176868BE00F78128 /* Images */,
 				D7A4F1C8173A8DDB00D1ACEE /* Products */,
 				D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */,
+				1E0A1A9D801049A6BFBEF37D /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -679,6 +684,7 @@
 				D7C860ED173AD08F005E9946 /* QuartzCore.framework */,
 				E9B627CA177092EF004678D5 /* SystemConfiguration.framework */,
 				D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */,
+				A086025EA7704C458175CADF /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1126,9 +1132,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D7A4F1EA173A8DDB00D1ACEE /* Build configuration list for PBXNativeTarget "Vaavud" */;
 			buildPhases = (
+				261A82FADCA44D85B16D87F8 /* Check Pods Manifest.lock */,
 				D7A4F1C3173A8DDB00D1ACEE /* Sources */,
 				D7A4F1C4173A8DDB00D1ACEE /* Frameworks */,
 				D7A4F1C5173A8DDB00D1ACEE /* Resources */,
+				B53D863A9E054A47A41840FD /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1235,6 +1243,39 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		261A82FADCA44D85B16D87F8 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B53D863A9E054A47A41840FD /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D7A4F1C3173A8DDB00D1ACEE /* Sources */ = {
@@ -1443,6 +1484,7 @@
 		};
 		D7A4F1EB173A8DDB00D1ACEE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E0A1A9D801049A6BFBEF37D /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1469,6 +1511,7 @@
 		};
 		D7A4F1EC173A8DDB00D1ACEE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E0A1A9D801049A6BFBEF37D /* Pods.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
