@@ -23,7 +23,7 @@
 
 - (id) init;
 - (void) start;
-- (void) stop;
+- (NSTimeInterval) stop;
 - (void) remove;
 - (NSNumber *) getAverage;
 - (NSNumber *) getMax;

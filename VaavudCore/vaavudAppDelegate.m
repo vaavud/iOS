@@ -16,13 +16,17 @@
 #import "TabBarController.h"
 #import "TMCache.h"
 #import "AccountManager.h"
+#import "Mixpanel.h"
+#import "Property+Util.h"
 
 @implementation vaavudAppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
+
     [TestFlight takeOff:@"1b4310d3-6215-4ff5-a881-dd67a6d7ab91"];
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-38878667-2"];
-    
+    [Mixpanel sharedInstanceWithToken:@"757f6311d315f94cdfc8d16fb4d973c0"];
+
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
     
@@ -35,6 +39,10 @@
     [[LocationManager sharedInstance] start];
     
     self.xCallbackSuccess = nil;
+    
+    if ([[AccountManager sharedInstance] isLoggedIn] && [Property getAsString:KEY_USER_ID]) {
+        [[Mixpanel sharedInstance] identify:[Property getAsString:KEY_USER_ID]];
+    }
         
     // Whenever a person opens the app, check for a cached session and refresh token
     [[AccountManager sharedInstance] registerWithFacebook:nil action:AuthenticationActionRefresh];

@@ -162,13 +162,17 @@
     [self.vaavudDynamicsController start];
 }
 
-- (void) stop
-{
+- (NSTimeInterval) stop {
     [self.sharedMagneticFieldDataManager stop];
     [self.vaavudDynamicsController stop];
 
     MeasurementSession *measurementSession = [self getActiveMeasurementSession];
     measurementSession.measuring = [NSNumber numberWithBool:NO];
+    NSTimeInterval durationSeconds = 0.0;
+    if (measurementSession.startTime && measurementSession.endTime) {
+        durationSeconds = [measurementSession.endTime timeIntervalSinceDate:measurementSession.startTime];
+    }
+
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
         if (success) {
             [[ServerUploadManager sharedInstance] triggerUpload];
@@ -191,6 +195,8 @@
             NSLog(@"Failed to open callback URL");
         }
     }
+    
+    return durationSeconds;
 }
 
 

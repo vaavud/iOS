@@ -12,6 +12,7 @@
 #import "RegisterNavigationController.h"
 #import "AccountManager.h"
 #import "MeasurementSession+Util.h"
+#import "Mixpanel.h"
 
 @interface HistoryRootViewController ()
 
@@ -26,7 +27,7 @@
     self.tabBarItem.title = NSLocalizedString(@"TAB_HISTORY", nil);
 }
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
@@ -35,12 +36,12 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self chooseContentController];
 }
 
-- (void) userAuthenticated {
+- (void) userAuthenticated:(BOOL)isSignup {
     [self chooseContentController];
 }
 

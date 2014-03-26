@@ -14,6 +14,7 @@
 #import "UUIDUtil.h"
 #import "PasswordUtil.h"
 #import "vaavudAppDelegate.h"
+#import "Mixpanel.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 @implementation AccountManager
@@ -270,6 +271,12 @@ BOOL isDoingLogout = NO;
                 [Property setAsString:lastName forKey:KEY_LAST_NAME];
             }
             
+            Mixpanel *mixpanel = [Mixpanel sharedInstance];
+            if (authResponse == AuthenticationResponseCreated) {
+                [mixpanel createAlias:[userId stringValue] forDistinctID:mixpanel.distinctId];
+            }
+            [mixpanel identify:[userId stringValue]];
+
             if (success) {
                 success(authResponse);
             }
@@ -311,6 +318,8 @@ BOOL isDoingLogout = NO;
         [FBSession.activeSession closeAndClearTokenInformation];
     }
 
+    [[Mixpanel sharedInstance] reset];
+    
     [[ServerUploadManager sharedInstance] registerDevice];
 }
 

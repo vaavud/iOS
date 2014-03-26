@@ -31,5 +31,5 @@
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *unitBottomLayoutGuideConstraint;
 @property (nonatomic) BOOL isSelectingFromTableView;
 -(void)zoomToAnnotation:(MeasurementAnnotation*)annotation;
--(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation*)annotation withAction:(NSString*)action;
+-(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation*)annotation withAction:(NSString*)action mixpanelTrack:(NSString*)track;
 @end

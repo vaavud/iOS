@@ -13,6 +13,7 @@
 #import "GAI.h"
 #import "GAIDictionaryBuilder.h"
 #import "UIColor+VaavudColors.h"
+#import "Mixpanel.h"
 #import <math.h>
 
 @interface vaavudViewController ()
@@ -49,13 +50,6 @@
 @property (nonatomic) NSNumber *actualLabelCurrentValue;
 @property (nonatomic) NSNumber *averageLabelCurrentValue;
 @property (nonatomic) NSNumber *maxLabelCurrentValue;
-
-- (void) updateLabels;
-- (void) start;
-- (void) stop;
-
-- (IBAction) buttonPushed: (id)sender;
-- (IBAction) unitButtonPushed;
 
 @end
 
@@ -179,23 +173,23 @@
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
-- (void) stop {
+- (NSTimeInterval) stop {
     [self.displayLinkGraphUI invalidate];
     [self.displayLinkGraphValues invalidate];
     [self.TimerLabel invalidate];
-    [self.vaavudCoreController stop];
+    NSTimeInterval durationSeconds = [self.vaavudCoreController stop];
     self.informationTextLabel.text = @"";
     
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+    return durationSeconds;
 }
 
-- (void) windSpeedMeasurementsAreValid: (BOOL) valid {
+- (void) windSpeedMeasurementsAreValid:(BOOL)valid {
     self.isValid = valid;
     
     if (!valid) {
         [self.displayLinkGraphUI        invalidate];
         [self.displayLinkGraphValues    invalidate];
-
     }
     else {
         [self.graphHostView createNewPlot];
@@ -290,14 +284,16 @@
         [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_STOP", nil) forState:UIControlStateNormal];
         [self start];
         
+        [[Mixpanel sharedInstance] track:@"Start Measurement"];
         [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"start button" label:nil value:nil] build]];
     }
     else {
         self.buttonShowsStart = YES;
         self.startStopButton.backgroundColor = [UIColor vaavudBlueColor];
         [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
-        [self stop];
+        NSTimeInterval durationSecounds = [self stop];
 
+        [[Mixpanel sharedInstance] track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)]}];
         [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"stop button" label:nil value:nil] build]];
     }
 }
@@ -306,6 +302,7 @@
     self.windSpeedUnit = [UnitUtil nextWindSpeedUnit:self.windSpeedUnit];
     [Property setAsInteger:[NSNumber numberWithInt:self.windSpeedUnit] forKey:KEY_WIND_SPEED_UNIT];
 
+    //[[Mixpanel sharedInstance] track:@"Measure Units Changed" properties:@{@"Unit": [UnitUtil jsonNameForWindSpeedUnit:self.windSpeedUnit]}];
     [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"unit button" label:[[NSNumber numberWithInt:self.windSpeedUnit] stringValue] value:nil] build]];
 
     [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
