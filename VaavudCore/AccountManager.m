@@ -67,7 +67,7 @@ BOOL isDoingLogout = NO;
             [FBSession openActiveSessionWithReadPermissions:[self facebookSignupPermissions]
                                                allowLoginUI:NO
                                           completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
-                                              [self facebookSessionStateChanged:session state:state error:error password:password action:AuthenticationActionLogin success:nil failure:^(enum AuthenticationResponseType response, NSString *message, BOOL displayFeedback) {
+                                              [self facebookSessionStateChanged:session state:state error:error password:password action:action success:nil failure:^(enum AuthenticationResponseType response, NSString *message, BOOL displayFeedback) {
                                                   if (facebookRegisterIdentifier == (fbRegId + 1) && (response == AuthenticationResponseFacebookReopenSession)) {
                                                       [self logout];
                                                   }
@@ -243,7 +243,9 @@ BOOL isDoingLogout = NO;
 
 - (void) registerUser:(enum AuthenticationActionType)action email:(NSString*)email passwordHash:(NSString*)passwordHash facebookId:(NSString*)facebookId facebookAccessToken:(NSString*)facebookAccessToken firstName:(NSString*)firstName lastName:(NSString*)lastName gender:(NSNumber*)gender verified:(NSNumber*)verified success:(void(^)(enum AuthenticationResponseType response))success failure:(void(^)(enum AuthenticationResponseType response))failure {
     
-    [[ServerUploadManager sharedInstance] registerUser:[self actionToString:action] email:email passwordHash:passwordHash facebookId:facebookId facebookAccessToken:facebookAccessToken firstName:firstName lastName:lastName gender:gender verified:verified retry:3 success:^(NSString *status, id responseObject) {
+    NSString *serverAction = [self actionToString:(action == AuthenticationActionRefresh) ? AuthenticationActionLogin : action];
+    
+    [[ServerUploadManager sharedInstance] registerUser:serverAction email:email passwordHash:passwordHash facebookId:facebookId facebookAccessToken:facebookAccessToken firstName:firstName lastName:lastName gender:gender verified:verified retry:3 success:^(NSString *status, id responseObject) {
         
         enum AuthenticationResponseType authResponse = [self stringToAuthenticationResponse:status];
         
@@ -271,12 +273,23 @@ BOOL isDoingLogout = NO;
                 [Property setAsString:lastName forKey:KEY_LAST_NAME];
             }
             
-            Mixpanel *mixpanel = [Mixpanel sharedInstance];
-            if (authResponse == AuthenticationResponseCreated) {
-                [mixpanel createAlias:[userId stringValue] forDistinctID:mixpanel.distinctId];
+            // indentify in Mixpanel and possibly create alias
+            if ([Property isMixpanelEnabled]) {
+                Mixpanel *mixpanel = [Mixpanel sharedInstance];
+                if (authResponse == AuthenticationResponseCreated) {
+                    [mixpanel createAlias:[userId stringValue] forDistinctID:mixpanel.distinctId];
+                }
+                [mixpanel identify:[userId stringValue]];
+                
+                // track Mixpanel event
+                if (authResponse == AuthenticationResponseCreated) {
+                    [mixpanel track:@"Signup" properties:@{@"Method": (facebookId ? @"Facebook" : @"Password")}];
+                }
+                else if (action != AuthenticationActionRefresh) {
+                    [mixpanel track:@"Login" properties:@{@"Method": (facebookId ? @"Facebook" : @"Password")}];
+                }
             }
-            [mixpanel identify:[userId stringValue]];
-
+            
             if (success) {
                 success(authResponse);
             }
@@ -305,6 +318,7 @@ BOOL isDoingLogout = NO;
     [Property setAsString:nil forKey:KEY_FACEBOOK_ACCESS_TOKEN];
     [Property setAsString:nil forKey:KEY_AUTH_TOKEN];
     [Property setAsString:[UUIDUtil generateUUID] forKey:KEY_DEVICE_UUID];
+    [Property setAsDate:[NSDate date] forKey:KEY_CREATION_TIME];
     if ([self getAuthenticationState] != AuthenticationStateNeverLoggedIn) {
         [self setAuthenticationState:AuthenticationStateWasLoggedIn];
     }
@@ -318,7 +332,9 @@ BOOL isDoingLogout = NO;
         [FBSession.activeSession closeAndClearTokenInformation];
     }
 
-    [[Mixpanel sharedInstance] reset];
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] reset];
+    }
     
     [[ServerUploadManager sharedInstance] registerDevice];
 }

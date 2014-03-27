@@ -12,7 +12,6 @@
 #import "RegisterNavigationController.h"
 #import "AccountManager.h"
 #import "MeasurementSession+Util.h"
-#import "Mixpanel.h"
 
 @interface HistoryRootViewController ()
 

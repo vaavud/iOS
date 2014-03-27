@@ -19,13 +19,18 @@
 #import "Mixpanel.h"
 #import "Property+Util.h"
 
+@interface vaavudAppDelegate()
+
+@property (nonatomic, strong) NSDate *lastAppActive;
+
+@end
+
 @implementation vaavudAppDelegate
 
 - (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
 
     [TestFlight takeOff:@"1b4310d3-6215-4ff5-a881-dd67a6d7ab91"];
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-38878667-2"];
-    [Mixpanel sharedInstanceWithToken:@"757f6311d315f94cdfc8d16fb4d973c0"];
 
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
@@ -39,11 +44,22 @@
     [[LocationManager sharedInstance] start];
     
     self.xCallbackSuccess = nil;
+
+    if ([Property isMixpanelEnabled]) {
+        [Mixpanel sharedInstanceWithToken:@"757f6311d315f94cdfc8d16fb4d973c0"];
+
+        // if logged in, make sure Mixpanel knows the Vaavud user ID
+        if ([[AccountManager sharedInstance] isLoggedIn] && [Property getAsString:KEY_USER_ID]) {
+            [[Mixpanel sharedInstance] identify:[Property getAsString:KEY_USER_ID]];
+        }
     
-    if ([[AccountManager sharedInstance] isLoggedIn] && [Property getAsString:KEY_USER_ID]) {
-        [[Mixpanel sharedInstance] identify:[Property getAsString:KEY_USER_ID]];
+        // Mixpanel super properties
+        NSDate *creationTime = [Property getAsDate:KEY_CREATION_TIME];
+        if (creationTime) {
+            [[Mixpanel sharedInstance] registerSuperPropertiesOnce:@{@"Creation Time": [Property getAsDate:KEY_CREATION_TIME]}];
+        }
     }
-        
+
     // Whenever a person opens the app, check for a cached session and refresh token
     [[AccountManager sharedInstance] registerWithFacebook:nil action:AuthenticationActionRefresh];
 
@@ -67,10 +83,15 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+- (void) applicationDidBecomeActive:(UIApplication*)application {
     [FBAppCall handleDidBecomeActive];
+    
+    if (self.lastAppActive == nil || fabs([self.lastAppActive timeIntervalSinceNow]) > 30.0 * 60.0 /* 30 mins */) {
+        if ([Property isMixpanelEnabled]) {
+            [[Mixpanel sharedInstance] track:@"Open App"];
+        }
+        self.lastAppActive = [NSDate date];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

@@ -8,6 +8,7 @@
 
 #import "Property.h"
 
+static NSString * const KEY_CREATION_TIME = @"creationTime";
 static NSString * const KEY_DEVICE_UUID = @"deviceUuid";
 static NSString * const KEY_AUTH_TOKEN = @"authToken";
 static NSString * const KEY_APP = @"app";
@@ -27,6 +28,7 @@ static NSString * const KEY_FFT_DATA_LENGTH = @"fftDataLength";
 static NSString * const KEY_ALGORITHM = @"algorithm";
 static NSString * const KEY_ANALYTICS_GRID_DEGREE = @"analyticsGridDegree";
 static NSString * const KEY_HOUR_OPTIONS = @"hourOptions";
+static NSString * const KEY_ENABLE_MIXPANEL = @"enableMixPanel";
 
 // User-related properties
 static NSString * const KEY_EMAIL = @"email";
@@ -41,16 +43,21 @@ static NSString * const KEY_AUTHENTICATION_STATE = @"authenticationState";
 
 + (NSString*) getAsString:(NSString*) name;
 + (BOOL) getAsBoolean:(NSString*) name;
++ (BOOL) getAsBoolean:(NSString*)name defaultValue:(BOOL)defaultValue;
 + (NSNumber*) getAsInteger:(NSString*) name;
 + (NSNumber*) getAsLongLong:(NSString*) name;
 + (NSNumber*) getAsDouble:(NSString*) name;
++ (NSDate*) getAsDate:(NSString*)name;
 + (NSArray*) getAsFloatArray:(NSString*) name;
 + (void) setAsString:(NSString*) value forKey:(NSString*) name;
 + (void) setAsBoolean:(BOOL) value forKey:(NSString*) name;
 + (void) setAsInteger:(NSNumber*) value forKey:(NSString*) name;
 + (void) setAsLongLong:(NSNumber*) value forKey:(NSString*) name;
 + (void) setAsDouble:(NSNumber*) value forKey:(NSString*) name;
++ (void) setAsDate:(NSDate*)value forKey:(NSString*)name;
 + (void) setAsFloatArray:(NSArray*) value forKey:(NSString*) name;
+
++ (BOOL) isMixpanelEnabled;
 
 + (NSDictionary *) getDeviceDictionary;
 

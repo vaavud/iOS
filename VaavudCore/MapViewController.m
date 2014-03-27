@@ -36,6 +36,7 @@
 @property (nonatomic) NSDate *latestLocalStartTime;
 @property (nonatomic) NSTimer *refreshTimer;
 @property (nonatomic) UIImage *placeholderImage;
+@property (nonatomic) NSDate *viewAppearedTime;
 @end
 
 @implementation MapViewController
@@ -177,6 +178,12 @@
     }
 
     self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:graceTimeBetweenMeasurementsRead target:self selector: @selector(refreshMap) userInfo:nil repeats:YES];
+
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:@"Map Screen"];
+    }
+    
+    self.viewAppearedTime = [NSDate date];
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
@@ -503,7 +510,6 @@
         }
     }
     
-    //[[Mixpanel sharedInstance] track:@"Map Hours Changed" properties:@{@"Hours": [NSNumber numberWithInt:self.hoursAgo]}];
     [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"hours button" label:[[NSNumber numberWithInt:self.hoursAgo] stringValue] value:nil] build]];
 
     [self refreshHours];
@@ -519,7 +525,6 @@
     self.windSpeedUnit = [UnitUtil nextWindSpeedUnit:self.windSpeedUnit];
     [Property setAsInteger:[NSNumber numberWithInt:self.windSpeedUnit] forKey:KEY_WIND_SPEED_UNIT];
     
-    //[[Mixpanel sharedInstance] track:@"Map Units Changed" properties:@{@"Unit": [UnitUtil jsonNameForWindSpeedUnit:self.windSpeedUnit]}];
     [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"unit button" label:[[NSNumber numberWithInt:self.windSpeedUnit] stringValue] value:nil] build]];
 
     [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
@@ -534,7 +539,9 @@
         label = [self gridValueFromCoordinate:annotation];
     }
     
-    [[Mixpanel sharedInstance] track:track properties:@{@"Grid": label}];
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:track properties:@{@"Grid": label}];
+    }
     [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:action label:label value:nil] build]];
 }
 

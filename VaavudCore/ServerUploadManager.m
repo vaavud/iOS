@@ -20,6 +20,7 @@
 #import "AlgorithmConstantsUtil.h"
 #import "UUIDUtil.h"
 #import "AccountManager.h"
+#import "Mixpanel.h"
 
 @interface ServerUploadManager () {
 }
@@ -292,6 +293,20 @@ SHARED_INSTANCE
         NSArray *hourOptions = [responseObject objectForKey:@"hourOptions"];
         if (hourOptions != nil && hourOptions.count > 0) {
             [Property setAsFloatArray:hourOptions forKey:KEY_HOUR_OPTIONS];
+        }
+        
+        NSString *enableMixpanel = [responseObject objectForKey:@"enableMixpanel"];
+        if (enableMixpanel && enableMixpanel != nil && enableMixpanel != (id)[NSNull null] && ([enableMixpanel length] > 0)) {
+            [Property setAsBoolean:[@"true" isEqualToString:enableMixpanel] forKey:KEY_ENABLE_MIXPANEL];
+        }
+
+        NSNumber *creationTimeMillis = [responseObject objectForKey:@"creationTime"];
+        if (creationTimeMillis && [Property getAsDate:KEY_CREATION_TIME] == nil) {
+            NSDate *creationTime = [NSDate dateWithTimeIntervalSince1970:([creationTimeMillis doubleValue] / 1000.0)];
+            [Property setAsDate:creationTime forKey:KEY_CREATION_TIME];
+            if ([Property isMixpanelEnabled]) {
+                [[Mixpanel sharedInstance] registerSuperPropertiesOnce:@{@"Creation Time": creationTime}];
+            }
         }
         
         // only trigger upload once we get OK from server for registering device, otherwise the device could be unregistered when uploading

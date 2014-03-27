@@ -26,6 +26,16 @@
     return [value isEqualToString:@"1"];
 }
 
++ (BOOL) getAsBoolean:(NSString*)name defaultValue:(BOOL)defaultValue {
+    NSString* value = [self getAsString:name];
+    if (value) {
+        return [value isEqualToString:@"1"];
+    }
+    else {
+        return defaultValue;
+    }
+}
+
 + (NSNumber*) getAsInteger:(NSString*) name {
     NSString* value = [self getAsString:name];
     if (value == nil) {
@@ -48,6 +58,14 @@
         return nil;
     }
     return [NSNumber numberWithDouble:[value doubleValue]];
+}
+
++ (NSDate*) getAsDate:(NSString*)name {
+    NSString* value = [self getAsString:name];
+    if (value == nil) {
+        return nil;
+    }
+    return [NSDate dateWithTimeIntervalSince1970:[value doubleValue]];
 }
 
 + (void) setAsString:(NSString *)value forKey:(NSString*)name {
@@ -76,6 +94,10 @@
     [self setAsString:[value stringValue] forKey:name];
 }
 
++ (void) setAsDate:(NSDate*)value forKey:(NSString*)name {
+    [self setAsString:[[NSNumber numberWithDouble:[value timeIntervalSince1970]] stringValue] forKey:name];
+}
+
 + (NSArray*) getAsFloatArray:(NSString*) name {
     NSString *value = [self getAsString:name];
     if (value == nil || value.length == 0) {
@@ -97,6 +119,10 @@
         storedValue = [value componentsJoinedByString:@","];
     }
     [self setAsString:storedValue forKey:name];
+}
+
++ (BOOL) isMixpanelEnabled {
+    return [Property getAsBoolean:KEY_ENABLE_MIXPANEL defaultValue:YES];
 }
 
 + (NSDictionary *) getDeviceDictionary {

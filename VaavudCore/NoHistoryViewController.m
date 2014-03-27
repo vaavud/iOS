@@ -10,6 +10,8 @@
 #import "GAI.h"
 #import "GAIDictionaryBuilder.h"
 #import "GAIFields.h"
+#import "Mixpanel.h"
+#import "Property+Util.h"
 
 @interface NoHistoryViewController ()
 
@@ -41,6 +43,10 @@
     if (tracker) {
         [tracker set:kGAIScreenName value:@"No History Screen"];
         [tracker send:[[GAIDictionaryBuilder createAppView] build]];
+    }
+    
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:@"Empty History Screen"];
     }
 }
 

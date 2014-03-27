@@ -18,6 +18,7 @@
 #import "GAI.h"
 #import "GAIDictionaryBuilder.h"
 #import "GAIFields.h"
+#import "Mixpanel.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 #define TAB_BAR_HEIGHT 49
@@ -100,6 +101,10 @@ BOOL didShowFeedback;
         [tracker set:kGAIScreenName value:@"Signup Screen"];
         [tracker send:[[GAIDictionaryBuilder createAppView] build]];
     }
+
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:@"Signup Screen"];
+    }
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
@@ -157,6 +162,10 @@ BOOL didShowFeedback;
         }
     } failure:^(enum AuthenticationResponseType response) {
         
+        if ([Property isMixpanelEnabled]) {
+            [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": [NSNumber numberWithInt:response]}];
+        }
+        
         [self createRegisterButton];
 
         if (response == AuthenticationResponseInvalidCredentials) {
@@ -184,6 +193,7 @@ BOOL didShowFeedback;
 }
 
 - (void) facebookButtonPushed:(id)sender password:(NSString*)password {
+    
     [self.activityIndicator startAnimating];
     [self.facebookButton setTitle:@"" forState:UIControlStateNormal];
 
@@ -212,6 +222,10 @@ BOOL didShowFeedback;
     
     [self.activityIndicator stopAnimating];
     [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
+    
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": [NSNumber numberWithInt:response]}];
+    }
     
     if (displayFeedback && !didShowFeedback) {
         didShowFeedback = YES;

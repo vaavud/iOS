@@ -45,6 +45,7 @@ SHARED_INSTANCE
         
         deviceUuid = [UUIDUtil generateUUID];
         [Property setAsString:deviceUuid forKey:KEY_DEVICE_UUID];
+        [Property setAsDate:[NSDate date] forKey:KEY_CREATION_TIME];
     }
 
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];

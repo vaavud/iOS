@@ -142,6 +142,10 @@
                                                                                   constant:self.bottomLayoutGuide.length + 15.0];
         [self.view addConstraint:bottomSpaceConstraint];
     }
+
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:@"Measure Screen"];
+    }
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
@@ -284,7 +288,9 @@
         [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_STOP", nil) forState:UIControlStateNormal];
         [self start];
         
-        [[Mixpanel sharedInstance] track:@"Start Measurement"];
+        if ([Property isMixpanelEnabled]) {
+            [[Mixpanel sharedInstance] track:@"Start Measurement"];
+        }
         [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"start button" label:nil value:nil] build]];
     }
     else {
@@ -293,7 +299,9 @@
         [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
         NSTimeInterval durationSecounds = [self stop];
 
-        [[Mixpanel sharedInstance] track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)]}];
+        if ([Property isMixpanelEnabled]) {
+            [[Mixpanel sharedInstance] track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)]}];
+        }
         [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"stop button" label:nil value:nil] build]];
     }
 }
@@ -302,7 +310,6 @@
     self.windSpeedUnit = [UnitUtil nextWindSpeedUnit:self.windSpeedUnit];
     [Property setAsInteger:[NSNumber numberWithInt:self.windSpeedUnit] forKey:KEY_WIND_SPEED_UNIT];
 
-    //[[Mixpanel sharedInstance] track:@"Measure Units Changed" properties:@{@"Unit": [UnitUtil jsonNameForWindSpeedUnit:self.windSpeedUnit]}];
     [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"unit button" label:[[NSNumber numberWithInt:self.windSpeedUnit] stringValue] value:nil] build]];
 
     [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
