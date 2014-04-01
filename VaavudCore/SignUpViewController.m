@@ -103,7 +103,7 @@ BOOL didShowFeedback;
     }
 
     if ([Property isMixpanelEnabled]) {
-        [[Mixpanel sharedInstance] track:@"Signup Screen"];
+        [[Mixpanel sharedInstance] track:@"Signup/Login Screen" properties:@{@"Screen": @"Signup"}];
     }
 }
 
@@ -163,7 +163,7 @@ BOOL didShowFeedback;
     } failure:^(enum AuthenticationResponseType response) {
         
         if ([Property isMixpanelEnabled]) {
-            [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": [NSNumber numberWithInt:response]}];
+            [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": [NSNumber numberWithInt:response], @"Screen": @"Signup", @"Method": @"Password"}];
         }
         
         [self createRegisterButton];
@@ -224,7 +224,7 @@ BOOL didShowFeedback;
     [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
     
     if ([Property isMixpanelEnabled]) {
-        [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": [NSNumber numberWithInt:response]}];
+        [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": [NSNumber numberWithInt:response], @"Screen": @"Signup", @"Method": @"Facebook"}];
     }
     
     if (displayFeedback && !didShowFeedback) {

@@ -398,10 +398,10 @@
                                        animated:!self.isSelectingFromTableView];
         
         if (self.isSelectingFromTableView) {
-            [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"nearby measurement touch" mixpanelTrack:@"Map Nearby Marker Selected"];
+            [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"nearby measurement touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Nearby Measurements"];
         }
         else {
-            [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"measurement marker touch" mixpanelTrack:@"Map Marker Selected"];
+            [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"measurement marker touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Map"];
         }
         
         self.isSelectingFromTableView = NO;
@@ -531,7 +531,7 @@
     [self windSpeedUnitChanged];
 }
 
--(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation*)annotation withAction:(NSString*)action mixpanelTrack:(NSString*)track {
+-(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation*)annotation withAction:(NSString*)action mixpanelTrack:(NSString*)track mixpanelSource:(NSString*)source {
     
     NSString *label = nil;
     
@@ -540,7 +540,12 @@
     }
     
     if ([Property isMixpanelEnabled]) {
-        [[Mixpanel sharedInstance] track:track properties:@{@"Grid": label}];
+        if (source) {
+            [[Mixpanel sharedInstance] track:track properties:@{@"Grid": label, @"Source": source}];
+        }
+        else {
+            [[Mixpanel sharedInstance] track:track properties:@{@"Grid": label}];
+        }
     }
     [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:action label:label value:nil] build]];
 }

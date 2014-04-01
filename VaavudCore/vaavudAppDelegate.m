@@ -18,6 +18,7 @@
 #import "AccountManager.h"
 #import "Mixpanel.h"
 #import "Property+Util.h"
+#import "UnitUtil.h"
 
 @interface vaavudAppDelegate()
 
@@ -52,12 +53,6 @@
         if ([[AccountManager sharedInstance] isLoggedIn] && [Property getAsString:KEY_USER_ID]) {
             [[Mixpanel sharedInstance] identify:[Property getAsString:KEY_USER_ID]];
         }
-    
-        // Mixpanel super properties
-        NSDate *creationTime = [Property getAsDate:KEY_CREATION_TIME];
-        if (creationTime) {
-            [[Mixpanel sharedInstance] registerSuperPropertiesOnce:@{@"Creation Time": [Property getAsDate:KEY_CREATION_TIME]}];
-        }
     }
 
     // Whenever a person opens the app, check for a cached session and refresh token
@@ -85,6 +80,44 @@
 
 - (void) applicationDidBecomeActive:(UIApplication*)application {
     [FBAppCall handleDidBecomeActive];
+    
+    if ([Property isMixpanelEnabled]) {
+        
+        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+        
+        // Mixpanel super properties
+        NSDate *creationTime = [Property getAsDate:KEY_CREATION_TIME];
+        if (creationTime) {
+            [mixpanel registerSuperPropertiesOnce:@{@"Creation Time": creationTime}];
+        }
+        
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithCapacity:10];
+        
+        NSString *userId = [Property getAsString:KEY_USER_ID];
+        if (userId) {
+            [dictionary setObject:@"true" forKey:@"User"];
+        }
+
+        NSString *facebookUserId = [Property getAsString:KEY_FACEBOOK_USER_ID];
+        if (facebookUserId) {
+            [dictionary setObject:@"true" forKey:@"Facebook"];
+        }
+
+        NSString *language = [Property getAsString:KEY_LANGUAGE];
+        if (language) {
+            [dictionary setObject:language forKey:@"Language"];
+        }
+        
+        NSNumber *windSpeedUnit = [Property getAsInteger:KEY_WIND_SPEED_UNIT];
+        if (windSpeedUnit) {
+            NSString *unit = [UnitUtil jsonNameForWindSpeedUnit:[windSpeedUnit intValue]];
+            [dictionary setObject:unit forKey:@"Speed Unit"];
+        }
+                
+        if (dictionary.count > 0) {
+            [mixpanel registerSuperProperties:dictionary];
+        }
+    }
     
     if (self.lastAppActive == nil || fabs([self.lastAppActive timeIntervalSinceNow]) > 30.0 * 60.0 /* 30 mins */) {
         if ([Property isMixpanelEnabled]) {

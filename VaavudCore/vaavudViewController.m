@@ -14,6 +14,7 @@
 #import "GAIDictionaryBuilder.h"
 #import "UIColor+VaavudColors.h"
 #import "Mixpanel.h"
+#import "MeasurementSession+Util.h"
 #import <math.h>
 
 @interface vaavudViewController ()
@@ -289,7 +290,12 @@
         [self start];
         
         if ([Property isMixpanelEnabled]) {
+            NSNumber *measurementCount = [MeasurementSession MR_numberOfEntities];
+            if (measurementCount) {
+                [[Mixpanel sharedInstance] registerSuperProperties:@{@"Measurements": [measurementCount stringValue]}];
+            }
             [[Mixpanel sharedInstance] track:@"Start Measurement"];
+
         }
         [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"start button" label:nil value:nil] build]];
     }

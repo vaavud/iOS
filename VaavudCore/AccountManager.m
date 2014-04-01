@@ -276,17 +276,25 @@ BOOL isDoingLogout = NO;
             // indentify in Mixpanel and possibly create alias
             if ([Property isMixpanelEnabled]) {
                 Mixpanel *mixpanel = [Mixpanel sharedInstance];
-                if (authResponse == AuthenticationResponseCreated) {
-                    [mixpanel createAlias:[userId stringValue] forDistinctID:mixpanel.distinctId];
-                }
-                [mixpanel identify:[userId stringValue]];
-                
+
                 // track Mixpanel event
                 if (authResponse == AuthenticationResponseCreated) {
                     [mixpanel track:@"Signup" properties:@{@"Method": (facebookId ? @"Facebook" : @"Password")}];
                 }
                 else if (action != AuthenticationActionRefresh) {
                     [mixpanel track:@"Login" properties:@{@"Method": (facebookId ? @"Facebook" : @"Password")}];
+                }
+
+                // set Mixpanel identity
+                if (authResponse == AuthenticationResponseCreated) {
+                    [mixpanel createAlias:[userId stringValue] forDistinctID:mixpanel.distinctId];
+                }
+                [mixpanel identify:[userId stringValue]];
+
+                // register Mixpanel super properties
+                [mixpanel registerSuperProperties:@{@"User": @"true"}];
+                if (facebookId) {
+                    [mixpanel registerSuperProperties:@{@"Facebook": @"true"}];
                 }
             }
             

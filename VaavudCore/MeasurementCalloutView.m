@@ -81,7 +81,7 @@ BOOL isTableInitialized = NO;
 
 - (IBAction) mapButtonTapped {
     [self.mapViewController zoomToAnnotation:self.measurementAnnotation];
-    [self.mapViewController googleAnalyticsAnnotationEvent:self.measurementAnnotation withAction:@"map thumbnail touch" mixpanelTrack:@"Map Marker Thumbnail Zoom"];
+    [self.mapViewController googleAnalyticsAnnotationEvent:self.measurementAnnotation withAction:@"map thumbnail touch" mixpanelTrack:@"Map Marker Thumbnail Zoom" mixpanelSource:nil];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
