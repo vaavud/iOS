@@ -300,6 +300,11 @@ SHARED_INSTANCE
             [Property setAsBoolean:[@"true" isEqualToString:enableMixpanel] forKey:KEY_ENABLE_MIXPANEL];
         }
 
+        NSString *enableFacebookDisclaimer = [responseObject objectForKey:@"enableFacebookDisclaimer"];
+        if (enableFacebookDisclaimer && enableFacebookDisclaimer != nil && enableFacebookDisclaimer != (id)[NSNull null] && ([enableFacebookDisclaimer length] > 0)) {
+            [Property setAsBoolean:[@"true" isEqualToString:enableFacebookDisclaimer] forKey:KEY_ENABLE_FACEBOOK_DISCLAIMER];
+        }
+
         NSNumber *creationTimeMillis = [responseObject objectForKey:@"creationTime"];
         if (creationTimeMillis && [Property getAsDate:KEY_CREATION_TIME] == nil) {
             NSDate *creationTime = [NSDate dateWithTimeIntervalSince1970:([creationTimeMillis doubleValue] / 1000.0)];

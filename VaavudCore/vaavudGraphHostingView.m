@@ -313,7 +313,7 @@ enum plotName : NSUInteger {
     x.majorIntervalLength               = CPTDecimalFromInt(5);
     x.minorTicksPerInterval             = 0;
     x.axisConstraints                   = [CPTConstraints constraintWithLowerOffset:0.0];
-    x.labelTextStyle                    = textStyleGrey;
+    x.labelTextStyle                    = textStyleDarkGrey;
     x.axisLineStyle                     = nil;
     x.majorTickLineStyle                = GreyLineStyle;
     x.minorTickLineStyle                = GreyLineStyle;

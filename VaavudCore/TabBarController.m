@@ -7,6 +7,7 @@
 //
 
 #import "TabBarController.h"
+#import "UIColor+VaavudColors.h"
 
 @interface TabBarController ()
 @end
@@ -25,6 +26,9 @@
     [super viewDidLoad];
 	if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
         self.tabBar.tintColor = [UIColor clearColor];
+    }
+    else {
+        self.tabBar.tintColor = [UIColor vaavudBlueColor];
     }
 }
 

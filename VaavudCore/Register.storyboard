@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="e8F-BY-YBJ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="e8F-BY-YBJ">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Register Navigation Controller-->
@@ -155,6 +155,13 @@
                                                 <rect key="frame" x="153" y="73" width="14" height="15"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ec3-BG-2T3" userLabel="Label - Disclaimer">
+                                                <rect key="frame" x="160" y="73" width="0.0" height="0.0"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -314,8 +321,10 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstItem="ec3-BG-2T3" firstAttribute="top" secondItem="gtn-PX-ilr" secondAttribute="bottom" constant="10" id="5Zr-Mc-k1b"/>
                                             <constraint firstItem="Ljh-Hh-56v" firstAttribute="centerY" secondItem="va4-sq-nkv" secondAttribute="centerY" id="BRo-UC-1Es"/>
                                             <constraint firstItem="5yg-2Z-ESq" firstAttribute="top" secondItem="va4-sq-nkv" secondAttribute="bottom" constant="8" id="Bvh-0k-nPN"/>
+                                            <constraint firstAttribute="centerX" secondItem="ec3-BG-2T3" secondAttribute="centerX" id="Bwn-5p-jIN"/>
                                             <constraint firstItem="1jU-cz-BKy" firstAttribute="centerY" secondItem="va4-sq-nkv" secondAttribute="centerY" id="CAk-fi-w8r"/>
                                             <constraint firstItem="gtn-PX-ilr" firstAttribute="trailing" secondItem="1jU-cz-BKy" secondAttribute="trailing" id="HpT-Tn-IVC"/>
                                             <constraint firstItem="gtn-PX-ilr" firstAttribute="centerX" secondItem="0nZ-Ct-GoP" secondAttribute="centerX" id="IXN-oK-CNc"/>
@@ -359,11 +368,14 @@
                         <outlet property="andLabel" destination="RQC-sd-HT2" id="wcq-Fe-wff"/>
                         <outlet property="basicInputView" destination="5yg-2Z-ESq" id="0lZ-us-RTv"/>
                         <outlet property="containerView" destination="7fG-6X-2BP" id="xru-Ym-X11"/>
+                        <outlet property="disclaimerLabel" destination="ec3-BG-2T3" id="9p3-id-Hw6"/>
+                        <outlet property="disclaimerLabelTopConstraint" destination="5Zr-Mc-k1b" id="5yL-AE-Yi2"/>
                         <outlet property="emailTextField" destination="Tle-83-Bk5" id="IQ9-FH-N60"/>
                         <outlet property="facebookButton" destination="gtn-PX-ilr" id="7Jp-N1-4A4"/>
                         <outlet property="firstNameTextField" destination="Ied-Dp-nK2" id="Jxc-GF-cby"/>
                         <outlet property="lastNameTextField" destination="peq-n5-3WK" id="NDa-Nj-AV1"/>
                         <outlet property="orLabel" destination="va4-sq-nkv" id="pfi-Gk-w3I"/>
+                        <outlet property="orLabelTopConstraint" destination="iIT-hU-lI5" id="E4i-bT-dgH"/>
                         <outlet property="passwordTextField" destination="EoC-9q-XHl" id="RbC-cN-CnG"/>
                         <outlet property="privacyButton" destination="kyW-K8-yJ0" id="gfk-o0-PLL"/>
                         <outlet property="scrollView" destination="LT6-d3-5NW" id="pOg-RI-iwv"/>

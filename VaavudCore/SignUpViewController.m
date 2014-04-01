@@ -29,6 +29,7 @@
 @property (nonatomic, weak) IBOutlet UIView *containerView;
 @property (nonatomic, weak) IBOutlet UIView *basicInputView;
 @property (nonatomic, weak) IBOutlet UIButton *facebookButton;
+@property (nonatomic, weak) IBOutlet UILabel *disclaimerLabel;
 @property (nonatomic, weak) IBOutlet UILabel *orLabel;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, weak) IBOutlet GuidedTextField *firstNameTextField;
@@ -40,6 +41,8 @@
 @property (nonatomic, weak) IBOutlet UIButton *privacyButton;
 @property (nonatomic, weak) IBOutlet UILabel *andLabel;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *termsPrivacyViewWidthConstraint;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *disclaimerLabelTopConstraint;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint *orLabelTopConstraint;
 @property (nonatomic) UIAlertView *alertView;
 
 @end
@@ -77,7 +80,12 @@ BOOL didShowFeedback;
     CGSize termsTextSize = [self.termsButton sizeThatFits:CGSizeMake(FLT_MAX, 20.0)];
     CGSize andTextSize = [self.andLabel sizeThatFits:CGSizeMake(FLT_MAX, 20.0)];
     CGSize privacyTextSize = [self.privacyButton sizeThatFits:CGSizeMake(FLT_MAX, 20.0)];
-    self.termsPrivacyViewWidthConstraint.constant = termsTextSize.width + 4.0 + andTextSize.width + 4.0 + privacyTextSize.width;    
+    self.termsPrivacyViewWidthConstraint.constant = termsTextSize.width + 4.0 + andTextSize.width + 4.0 + privacyTextSize.width;
+    
+    if ([Property getAsBoolean:KEY_ENABLE_FACEBOOK_DISCLAIMER]) {
+        self.orLabelTopConstraint.constant = 35.0;
+        self.disclaimerLabel.text = NSLocalizedString(@"REGISTER_FACEBOOK_DISCLAIMER", nil);
+    }
 }
 
 - (void) viewWillAppear:(BOOL)animated {

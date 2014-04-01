@@ -118,6 +118,12 @@ SHARED_INSTANCE
         [Property setAsFloatArray:hourOptions forKey:KEY_HOUR_OPTIONS];
     }
     
+    if ([Property getAsString:KEY_ENABLE_FACEBOOK_DISCLAIMER] == nil) {
+        BOOL enableFacebookDisclaimer = (arc4random_uniform(2) == 1);
+        NSLog(@"[ModelManager] No Facebook disclaimer flag, randomly choosing: %@", enableFacebookDisclaimer ? @"YES" : @"NO");
+        [Property setAsBoolean:enableFacebookDisclaimer forKey:KEY_ENABLE_FACEBOOK_DISCLAIMER];
+    }
+    
     // make sure nothing else get executed until changes are written to the database
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
