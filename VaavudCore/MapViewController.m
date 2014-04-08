@@ -193,11 +193,6 @@
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (void)refreshMap {
     [self loadMeasurements:YES showActivityIndicator:NO];
 }
