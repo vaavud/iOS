@@ -23,13 +23,13 @@
 
 + (BOOL) getAsBoolean:(NSString *)name {
     NSString* value = [self getAsString:name];
-    return [value isEqualToString:@"1"];
+    return [@"1" isEqualToString:value];
 }
 
 + (BOOL) getAsBoolean:(NSString*)name defaultValue:(BOOL)defaultValue {
     NSString* value = [self getAsString:name];
     if (value) {
-        return [value isEqualToString:@"1"];
+        return [@"1" isEqualToString:value];
     }
     else {
         return defaultValue;

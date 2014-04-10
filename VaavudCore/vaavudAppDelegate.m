@@ -105,7 +105,7 @@
             NSString *unit = [UnitUtil jsonNameForWindSpeedUnit:[windSpeedUnit intValue]];
             [dictionary setObject:unit forKey:@"Speed Unit"];
         }
-                
+
         if (dictionary.count > 0) {
             [mixpanel registerSuperProperties:dictionary];
         }

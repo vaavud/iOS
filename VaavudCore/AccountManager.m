@@ -279,7 +279,8 @@ BOOL isDoingLogout = NO;
 
                 // track Mixpanel event
                 if (authResponse == AuthenticationResponseCreated) {
-                    [mixpanel track:@"Signup" properties:@{@"Method": (facebookId ? @"Facebook" : @"Password")}];
+                    NSString *enableFacebookDisclaimerString = [Property getAsBoolean:KEY_ENABLE_FACEBOOK_DISCLAIMER] ? @"true" : @"false";
+                    [mixpanel track:@"Signup" properties:@{@"Method": (facebookId ? @"Facebook" : @"Password"), @"Enable Facebook Disclaimer" : enableFacebookDisclaimerString}];
                 }
                 else if (action != AuthenticationActionRefresh) {
                     [mixpanel track:@"Login" properties:@{@"Method": (facebookId ? @"Facebook" : @"Password")}];
