@@ -1,0 +1,89 @@
+/*
+ Localizable.strings
+ Vaavud
+ */
+"TAB_MEASURE" = "Medir";
+"TAB_MAP" = "Mapa";
+"TAB_HISTORY" = "Historial";
+"TAB_ABOUT" = "Acerca";
+
+"NAVIGATION_BACK" = "Volver";
+
+"UNIT_KMH" = "km/h";
+"UNIT_MS" = "m/s";
+"UNIT_MPH" = "mph";
+"UNIT_KN" = "kt";
+"UNIT_BFT" = "bft";
+
+"REL_TIME_FUTURE" = "futuro";
+"REL_TIME_NOW" = "Ahora";
+"REL_TIME_1_MIN_AGO" = "hace 1 min";
+"REL_TIME_X_MINS_AGO" = "hace %d mins";
+"REL_TIME_1_HOUR_AGO" = "hace 1 h hora";
+"REL_TIME_X_HOURS_AGO" = "hace %d horas";
+"REL_TIME_1_DAY_AGO" = "hace 1 día";
+"REL_TIME_X_DAYS_AGO" = "hace %d dias";
+
+"HEADING_AVERAGE" = "Media";
+"HEADING_CURRENT" = "Actual";
+"HEADING_MAX" = "Max";
+"HEADING_UNIT" = "Unidad";
+"HEADING_NEARBY_MEASUREMENTS" = "Mediciones cercanas";
+
+"BUTTON_START" = "Empezar";
+"BUTTON_STOP" = "Parar";
+"BUTTON_OK" = "OK";
+"BUTTON_CANCEL" = "Cancelar";
+"BUTTON_DONE" = "Hecho";
+
+"INFO_MEASURING" = "Medición en progreso";
+"INFO_NO_SIGNAL" = "Sin señal";
+"INFO_KEEP_STEADY" = "Mantenlo vertical y estable";
+
+"X_HOURS" = "%d hours";
+"MAP_REFRESH_ERROR_TITLE" = "Error de actualización del mapa";
+"MAP_REFRESH_ERROR_MESSAGE" = "Asegurate de que tienes conectividad de datos o WiFi.";
+
+"HISTORY_TITLE" = "Historial";
+"HISTORY_REGISTER_TEASER" = "Registrate para ver tu historial completo de mediciones";
+"HISTORY_NO_MEASUREMENTS" = "Sin mediciones";
+"HISTORY_GO_TO_MEASURE" = "Ves a Medir y presiona Empezar para iniciar!";
+
+"ABOUT_TITLE" = "Acerca";
+"ABOUT_VAAVUD_TEXT" = "Vaavud es una start-up tecnológica danesa.\n Nuestra misión es crear los mejores medidores de viento del planeta en términos de usabilidad, características, e integración con terceros.\n Para saber más y comprar un medidor de viento Vaavud, visita Vaavud.com\n &copy; Vaavud ApS 2014, Todos los derechos reservados\n Versión: %@";
+"LINK_TERMS_OF_SERVICE" = "Terminos de Servicio";
+"LINK_PRIVACY_POLICY" = "Política de privacidad";
+
+"REGISTER_TITLE_SIGNUP" = "Registrarse";
+"REGISTER_TITLE_LOGIN" = "Iniciar sesión";
+"REGISTER_OR" = "O";
+"REGISTER_TERMS_AND" = "y";
+"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK" = "Iniciar sesión con Facebook";
+"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK" = "Registrarse con Facebook";
+"REGISTER_FACEBOOK_DISCLAIMER" = "Nunca publicaremos en Facebook sin tu permiso";
+"REGISTER_BUTTON_CREATE" = "Crear";
+"REGISTER_BUTTON_LOGIN" = "Iniciar sesión";
+"REGISTER_BUTTON_LOGOUT" = "Cerrar sesión";
+"REGISTER_FIELD_FIRST_NAME" = "Nombre";
+"REGISTER_FIELD_LAST_NAME" = "Apellidos";
+"REGISTER_FIELD_EMAIL" = "Email";
+"REGISTER_FIELD_PASSWORD" = "Contraseña";
+
+"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "Introduce tu nombre";
+"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "Con tu nombre bastará.";
+"REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Introduce tu email";
+"REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "No vamos a ceder tu email a terceras personas!";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "Password demasiado corto";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4 caracteres o más.";
+"REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "No puede iniciar sesión";
+"REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "Email o password incorrecto.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "Esta cuenta ya existe";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_MESSAGE" = "Email o password incorrecto.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_LOGIN_WITH_FACEBOOK" = "Iniciando sesión con Facebook.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD" = "Proporciona el password para la cuenta de Vaavud para permitir iniciar sesión con Facebook:";
+"REGISTER_FEEDBACK_MALFORMED_EMAIL_TITLE" = "Email incorrecto";
+"REGISTER_FEEDBACK_MALFORMED_EMAIL_MESSAGE" = "No parece ser un email válido.";
+"REGISTER_FEEDBACK_NO_REACHABILITY_TITLE" = "Problema de conectividad";
+"REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Asegurate de que tienes conectividad de datos o WiFi.";
+"REGISTER_FEEDBACK_ERROR_TITLE" = "Error";
+"REGISTER_FEEDBACK_ERROR_MESSAGE" = "Por favor, intentalo más tarde.";
