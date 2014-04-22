@@ -41,6 +41,8 @@
     [super viewDidLoad];
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
+    self.navigationItem.title = NSLocalizedString(@"HISTORY_TITLE", nil);
+    
 }
 
 - (void)viewDidUnload {
