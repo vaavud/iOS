@@ -1,0 +1,89 @@
+/*
+ Localizable.strings
+ Vaavud
+ */
+"TAB_MEASURE" = "測定";
+"TAB_MAP" = "マップ";
+"TAB_HISTORY" = "履歴";
+"TAB_ABOUT" = "情報";
+
+"NAVIGATION_BACK" = "戻る";
+
+"UNIT_KMH" = "km/h";
+"UNIT_MS" = "m/s";
+"UNIT_MPH" = "mph";
+"UNIT_KN" = "kt";
+"UNIT_BFT" = "bft";
+
+"REL_TIME_FUTURE" = "未来";
+"REL_TIME_NOW" = "現在";
+"REL_TIME_1_MIN_AGO" = "1分前";
+"REL_TIME_X_MINS_AGO" = "%d分前";
+"REL_TIME_1_HOUR_AGO" = "1時間前";
+"REL_TIME_X_HOURS_AGO" = "%d時間前";
+"REL_TIME_1_DAY_AGO" = "1日前";
+"REL_TIME_X_DAYS_AGO" = "%d日前";
+
+"HEADING_AVERAGE" = "平均";
+"HEADING_CURRENT" = "現在";
+"HEADING_MAX" = "最大";
+"HEADING_UNIT" = "単位";
+"HEADING_NEARBY_MEASUREMENTS" = "付近の測定結果";
+
+"BUTTON_START" = "開始";
+"BUTTON_STOP" = "停止";
+"BUTTON_OK" = "OK";
+"BUTTON_CANCEL" = "キャンセル";
+"BUTTON_DONE" = "終了";
+
+"INFO_MEASURING" = "計測中です";
+"INFO_NO_SIGNAL" = "信号がありません";
+"INFO_KEEP_STEADY" = "縦方向に保ち安定させてください";
+
+"X_HOURS" = "%d時間";
+"MAP_REFRESH_ERROR_TITLE" = "マップ更新エラー";
+"MAP_REFRESH_ERROR_MESSAGE" = "携帯データ通信またはWi-Fiに接続されていることを確認してください。";
+
+"HISTORY_TITLE" = "履歴";
+"HISTORY_REGISTER_TEASER" = "完全な測定履歴を表示するにはサインアップしてください";
+"HISTORY_NO_MEASUREMENTS" = "まだ測定結果がありません";
+"HISTORY_GO_TO_MEASURE" = "測定画面に移動し開始を押して利用を開始してください！";
+
+"ABOUT_TITLE" = "情報";
+"ABOUT_VAAVUD_TEXT" = "Vaavudはデンマークの新規参入企業です。\n当社のミッションは、有用性、機能、およびサードパーティー統合の面において世界一の風力計を製作することです。\n詳細情報やVaavudウィンドメーターのご購入はVaavud.comをご覧ください。\n &copy; Vaavud ApS 2014, all rights reserved\n Version: %@";
+"LINK_TERMS_OF_SERVICE" = "サービス規約";
+"LINK_PRIVACY_POLICY" = "プライバシーポリシー";
+
+"REGISTER_TITLE_SIGNUP" = "サインアップ";
+"REGISTER_TITLE_LOGIN" = "ログイン";
+"REGISTER_OR" = "または";
+"REGISTER_TERMS_AND" = "と";
+"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK" = "Facebookでログイン";
+"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK" = "Facebookでサインアップ";
+"REGISTER_FACEBOOK_DISCLAIMER" = "当社がお客様の許可なしにFacebookに書き込むことはありません";
+"REGISTER_BUTTON_CREATE" = "作成";
+"REGISTER_BUTTON_LOGIN" = "ログイン";
+"REGISTER_BUTTON_LOGOUT" = "ログアウト";
+"REGISTER_FIELD_FIRST_NAME" = "名";
+"REGISTER_FIELD_LAST_NAME" = "姓";
+"REGISTER_FIELD_EMAIL" = "メールアドレス";
+"REGISTER_FIELD_PASSWORD" = "パスワード";
+
+"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "名前を入力してください";
+"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "上のお名前だけで結構です。";
+"REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "メールアドレスを入力してください";
+"REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "メールアドレスを第三者に提供することはありません！";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "パスワードが短すぎます";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4文字以上。";
+"REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "ログインできませんでした";
+"REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "メールアドレスまたはパスワードが正しくありません。";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "このアカウントは既に存在します";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_MESSAGE" = "メールアドレスまたはパスワードが正しくありません。";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_LOGIN_WITH_FACEBOOK" = "Facebookでログインしてください。";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD" = "Facebookでのログインを許可するにはVaavudアカウントのパスワードを入力してください：";
+"REGISTER_FEEDBACK_MALFORMED_EMAIL_TITLE" = "メールアドレスが正しくありません";
+"REGISTER_FEEDBACK_MALFORMED_EMAIL_MESSAGE" = "有効なメールアドレスではない可能性があります。";
+"REGISTER_FEEDBACK_NO_REACHABILITY_TITLE" = "接続に関する問題";
+"REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "携帯データ通信またはWi-Fiに接続されていることを確認してください。";
+"REGISTER_FEEDBACK_ERROR_TITLE" = "エラー";
+"REGISTER_FEEDBACK_ERROR_MESSAGE" = "後程再試行してください。";

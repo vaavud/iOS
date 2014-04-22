@@ -1,0 +1,89 @@
+/*
+ Localizable.strings
+ Vaavud
+ */
+"TAB_MEASURE" = "Rileva";
+"TAB_MAP" = "Mappa";
+"TAB_HISTORY" = "Cronologia";
+"TAB_ABOUT" = "Informazioni";
+
+"NAVIGATION_BACK" = "Indietro";
+
+"UNIT_KMH" = "km/h";
+"UNIT_MS" = "m/s";
+"UNIT_MPH" = "mph";
+"UNIT_KN" = "kt";
+"UNIT_BFT" = "bft";
+
+"REL_TIME_FUTURE" = "futuro";
+"REL_TIME_NOW" = "adesso";
+"REL_TIME_1_MIN_AGO" = "1 min fa";
+"REL_TIME_X_MINS_AGO" = "%d min fa";
+"REL_TIME_1_HOUR_AGO" = "1 ora fa";
+"REL_TIME_X_HOURS_AGO" = "%d ore fa";
+"REL_TIME_1_DAY_AGO" = "1 giorno fa";
+"REL_TIME_X_DAYS_AGO" = "%d giorni fa";
+
+"HEADING_AVERAGE" = "Media";
+"HEADING_CURRENT" = "Attuale";
+"HEADING_MAX" = "Max";
+"HEADING_UNIT" = "Unità";
+"HEADING_NEARBY_MEASUREMENTS" = "Rilevazioni nelle vicinanze";
+
+"BUTTON_START" = "Inizia";
+"BUTTON_STOP" = "Termina";
+"BUTTON_OK" = "OK";
+"BUTTON_CANCEL" = "Annulla";
+"BUTTON_DONE" = "Fatto";
+
+"INFO_MEASURING" = "Rilevazione in corso";
+"INFO_NO_SIGNAL" = "Nessun segnale";
+"INFO_KEEP_STEADY" = "Mantieni in verticale e fermo";
+
+"X_HOURS" = "%d ore";
+"MAP_REFRESH_ERROR_TITLE" = "Errore aggiornamento mappa";
+"MAP_REFRESH_ERROR_MESSAGE" = "Assicurati di avere la connessione dati o il Wi-Fi.";
+
+"HISTORY_TITLE" = "Cronologia";
+"HISTORY_REGISTER_TEASER" = "Registrati per vedere la tua cronologia completa delle osservazioni";
+"HISTORY_NO_MEASUREMENTS" = "Ancora nessuna rilevazione";
+"HISTORY_GO_TO_MEASURE" = "Vai su Rileva e premi Inizia per cominciare!";
+
+"ABOUT_TITLE" = "Informazioni";
+"ABOUT_VAAVUD_TEXT" = "Vaavud è una start-up tecnologica danese.\n La nostra mission è realizzare i migliori anemometri del mondo in termini di usabilità, funzioni, e integrazione con applicazioni di parti terze.\n Per scoprire di più e acquistare un anemometro Vaavud, visita Vaavud.com\n &copy; Vaavud ApS 2014, tutti i diritti riservati\n Versione: %@";
+"LINK_TERMS_OF_SERVICE" = "Termini del Servizio";
+"LINK_PRIVACY_POLICY" = "Condizioni sulla Privacy";
+
+"REGISTER_TITLE_SIGNUP" = "Registrati";
+"REGISTER_TITLE_LOGIN" = "Accedi";
+"REGISTER_OR" = "O";
+"REGISTER_TERMS_AND" = "e";
+"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK" = "Accedi con Facebook";
+"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK" = "Registrati con Facebook";
+"REGISTER_FACEBOOK_DISCLAIMER" = "Non pubblicheremo mai nulla su Facebook senza il tuo consenso";
+"REGISTER_BUTTON_CREATE" = "Crea";
+"REGISTER_BUTTON_LOGIN" = "Accedi";
+"REGISTER_BUTTON_LOGOUT" = "Esci";
+"REGISTER_FIELD_FIRST_NAME" = "Nome";
+"REGISTER_FIELD_LAST_NAME" = "Cognome";
+"REGISTER_FIELD_EMAIL" = "Email";
+"REGISTER_FIELD_PASSWORD" = "Password";
+
+"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "Inserisci il tuo nome";
+"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "Il tuo nome sarà sufficiente.";
+"REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Inserisci la tua email";
+"REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "Non daremo la tua email a parti terze!";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "La password è troppo corta";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4 caratteri o più.";
+"REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "Impossibile accedere";
+"REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "Email o password non corrette.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "L'account esiste già";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_MESSAGE" = "Email o password non corrette.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_LOGIN_WITH_FACEBOOK" = "Accedi con Facebook.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD" = "Fornisci la password per l'account Vaavud per permettere l'accesso con Facebook:";
+"REGISTER_FEEDBACK_MALFORMED_EMAIL_TITLE" = "Email non corretta";
+"REGISTER_FEEDBACK_MALFORMED_EMAIL_MESSAGE" = "Non sembra essere un'email valida.";
+"REGISTER_FEEDBACK_NO_REACHABILITY_TITLE" = "Problema di connessione";
+"REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Assicurati di avere la connessione dati o il Wi-Fi.";
+"REGISTER_FEEDBACK_ERROR_TITLE" = "Errore";
+"REGISTER_FEEDBACK_ERROR_MESSAGE" = "Riprova più tardi.";

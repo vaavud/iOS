@@ -1,0 +1,89 @@
+/*
+ Localizable.strings
+ Vaavud
+ */
+"TAB_MEASURE" = "Mesure";
+"TAB_MAP" = "Carte";
+"TAB_HISTORY" = "Historique";
+"TAB_ABOUT" = "À propos";
+
+"NAVIGATION_BACK" = "Retour";
+
+"UNIT_KMH" = "km/h";
+"UNIT_MS" = "m/s";
+"UNIT_MPH" = "mph";
+"UNIT_KN" = "kt";
+"UNIT_BFT" = "bft";
+
+"REL_TIME_FUTURE" = "futur";
+"REL_TIME_NOW" = "à l'instant";
+"REL_TIME_1_MIN_AGO" = "il y a 1 min";
+"REL_TIME_X_MINS_AGO" = "il y a %d min";
+"REL_TIME_1_HOUR_AGO" = "il y a 1 heure";
+"REL_TIME_X_HOURS_AGO" = "il y a %d heures";
+"REL_TIME_1_DAY_AGO" = "il y a 1 jour";
+"REL_TIME_X_DAYS_AGO" = "il y a %d jours";
+
+"HEADING_AVERAGE" = "Moyenne";
+"HEADING_CURRENT" = "Actuelle";
+"HEADING_MAX" = "Max";
+"HEADING_UNIT" = "Unité";
+"HEADING_NEARBY_MEASUREMENTS" = "Mesures de proximité";
+
+"BUTTON_START" = "Démarrer";
+"BUTTON_STOP" = "Stop";
+"BUTTON_OK" = "OK";
+"BUTTON_CANCEL" = "Annuler";
+"BUTTON_DONE" = "Terminé";
+
+"INFO_MEASURING" = "Mesure en cours";
+"INFO_NO_SIGNAL" = "Pas de signal";
+"INFO_KEEP_STEADY" = "Bien tenir en position verticale";
+
+"X_HOURS" = "%d heures";
+"MAP_REFRESH_ERROR_TITLE" = "Erreur d'actualisation de la carte";
+"MAP_REFRESH_ERROR_MESSAGE" = "Assurez-vous que vous avez une connexion mobile ou Wi-Fi.";
+
+"HISTORY_TITLE" = "Historique";
+"HISTORY_REGISTER_TEASER" = "Connectez-vous pour voir votre historique complet des mesures";
+"HISTORY_NO_MEASUREMENTS" = "Pas encore de mesures";
+"HISTORY_GO_TO_MEASURE" = "Assez sur Mesure et appuyez Démarrer pour commencer !";
+
+"ABOUT_TITLE" = "À propos";
+"ABOUT_VAAVUD_TEXT" = "Vaavud est une start-up technologique danoise.\n Notre mission consiste à produire les meilleurs anémomètres du monde en termes de facilité d'utilisation, de fonctionnalités et d'intégration de tierces parties.\n Pour en savoir plus et pour acheter un anémomètre Vaavud, visitez Vaavud.com\n &copy; Vaavud ApS 2014, tous droits réservés\n Version: %@";
+"LINK_TERMS_OF_SERVICE" = "Conditions d'utilisation";
+"LINK_PRIVACY_POLICY" = "Politique de confidentialité";
+
+"REGISTER_TITLE_SIGNUP" = "Inscrivez-vous";
+"REGISTER_TITLE_LOGIN" = "Connexion";
+"REGISTER_OR" = "Ou";
+"REGISTER_TERMS_AND" = "et";
+"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK" = "Ouvrez une session sur Facebook";
+"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK" = "Inscrivez-vous sur Facebook";
+"REGISTER_FACEBOOK_DISCLAIMER" = "Nous ne posterons jamais sur Facebook sans votre permission";
+"REGISTER_BUTTON_CREATE" = "Créer";
+"REGISTER_BUTTON_LOGIN" = "Connexion";
+"REGISTER_BUTTON_LOGOUT" = "Déconnexion";
+"REGISTER_FIELD_FIRST_NAME" = "Prénom";
+"REGISTER_FIELD_LAST_NAME" = "Nom";
+"REGISTER_FIELD_EMAIL" = "E-mail";
+"REGISTER_FIELD_PASSWORD" = "Mot de passe";
+
+"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "Saisissez votre nom";
+"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "Votre prénom est suffisant.";
+"REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Saisissez votre e-mail";
+"REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "Nous ne communiquerons pas votre e-mail à des parties tierces !";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "Mot de passe trop court";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4 caractères ou plus.";
+"REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "Connexion impossible";
+"REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "E-mail ou mot de passe non valide.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "Ce compte existe déjà";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_MESSAGE" = "E-mail ou mot de passe non valide.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_LOGIN_WITH_FACEBOOK" = "Ouvrez une session sur Facebook";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD" = "Veuillez fournir le mot de passe du compte Vaavud pour vous autoriser à ouvrir une session sur Facebook :";
+"REGISTER_FEEDBACK_MALFORMED_EMAIL_TITLE" = "E-mail invalide";
+"REGISTER_FEEDBACK_MALFORMED_EMAIL_MESSAGE" = "Ne semble pas être un e-mail valide.";
+"REGISTER_FEEDBACK_NO_REACHABILITY_TITLE" = "Problème de connectivité";
+"REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Assurez-vous que vous avez une connexion mobile ou Wi-Fi.";
+"REGISTER_FEEDBACK_ERROR_TITLE" = "Erreur";
+"REGISTER_FEEDBACK_ERROR_MESSAGE" = "Veuillez réessayer ultérieurement.";

@@ -1,0 +1,89 @@
+/*
+ Localizable.strings
+ Vaavud
+ */
+"TAB_MEASURE" = "Messung";
+"TAB_MAP" = "Karte";
+"TAB_HISTORY" = "Verlauf";
+"TAB_ABOUT" = "Über";
+
+"NAVIGATION_BACK" = "Zurück";
+
+"UNIT_KMH" = "km/h";
+"UNIT_MS" = "m/s";
+"UNIT_MPH" = "mph";
+"UNIT_KN" = "kt";
+"UNIT_BFT" = "bft";
+
+"REL_TIME_FUTURE" = "zukünftig";
+"REL_TIME_NOW" = "nur jetzt";
+"REL_TIME_1_MIN_AGO" = "vor 1 Min.";
+"REL_TIME_X_MINS_AGO" = "vor %d Min.";
+"REL_TIME_1_HOUR_AGO" = "vor 1 Stunde";
+"REL_TIME_X_HOURS_AGO" = "vor %d Stunden";
+"REL_TIME_1_DAY_AGO" = "vor 1 Tag";
+"REL_TIME_X_DAYS_AGO" = "vor %d Tagen";
+
+"HEADING_AVERAGE" = "Durchschnitt";
+"HEADING_CURRENT" = "Aktuell";
+"HEADING_MAX" = "Max.";
+"HEADING_UNIT" = "Einheit";
+"HEADING_NEARBY_MEASUREMENTS" = "Messungen in der Nähe";
+
+"BUTTON_START" = "Starten";
+"BUTTON_STOP" = "Stoppen";
+"BUTTON_OK" = "OK";
+"BUTTON_CANCEL" = "Abbrechen";
+"BUTTON_DONE" = "Erledigt";
+
+"INFO_MEASURING" = "Laufende Messungen";
+"INFO_NO_SIGNAL" = "Kein Signal";
+"INFO_KEEP_STEADY" = "Vertikal & ruhig halten";
+
+"X_HOURS" = "%d Stunden";
+"MAP_REFRESH_ERROR_TITLE" = "Kartenaktualisierungs-Fehler";
+"MAP_REFRESH_ERROR_MESSAGE" = "Stellen Sie sicher, dass Sie eine Handy-Daten- oder WiFi-Verbindung haben.";
+
+"HISTORY_TITLE" = "Verlauf";
+"HISTORY_REGISTER_TEASER" = "Melden Sie sich an, um den vollständigen Messungsverlauf einzusehen";
+"HISTORY_NO_MEASUREMENTS" = "Noch keine Messungen";
+"HISTORY_GO_TO_MEASURE" = "Gehen Sie in 'Messung' und drücken Sie auf 'Start', um zu beginnen!";
+
+"ABOUT_TITLE" = "Über";
+"ABOUT_VAAVUD_TEXT" = "Vaavud ist eine dänisches Technologie-Startup.\n Unsere Mission besteht darin, die besten Windmesser der Welt in Bezug auf Nutzbarkeit, Funktionen und Dritt-Integration anzubieten.\n Um mehr zu erfahren und einen Vaavud-Windmesser zu kaufen, besuchen Sie bitte Vaavud.com\n &copy; Vaavud ApS 2014, alle Recht vorbehalten\n Version: %@";
+"LINK_TERMS_OF_SERVICE" = "Servicebedingungen";
+"LINK_PRIVACY_POLICY" = "Datenschutzerklärung";
+
+"REGISTER_TITLE_SIGNUP" = "Anmeldung";
+"REGISTER_TITLE_LOGIN" = "Log-In";
+"REGISTER_OR" = "Oder";
+"REGISTER_TERMS_AND" = "und";
+"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK" = "Mit Facebook einloggen";
+"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK" = "Mit Facebook anmelden";
+"REGISTER_FACEBOOK_DISCLAIMER" = "Wir posten ohne Ihre Erlaubnis nichts auf Facebook";
+"REGISTER_BUTTON_CREATE" = "Erstellen";
+"REGISTER_BUTTON_LOGIN" = "Log-In";
+"REGISTER_BUTTON_LOGOUT" = "Log-Out";
+"REGISTER_FIELD_FIRST_NAME" = "Vorname";
+"REGISTER_FIELD_LAST_NAME" = "Nachname";
+"REGISTER_FIELD_EMAIL" = "E-Mail";
+"REGISTER_FIELD_PASSWORD" = "Passwort";
+
+"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "Geben Sie Ihren Namen ein";
+"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "Ihr Vorname ist ausreichend.";
+"REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Geben Sie Ihre E-Mail-Adresse ein";
+"REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "Wir geben Ihre E-Mail-Adresse nicht an Dritte weiter!";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "Passwort zu kurz";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4 Zeichen oder mehr.";
+"REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "Login nicht möglich";
+"REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "E-Mail- Adresse oder Passwort nicht korrekt.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "Konto besteht bereits";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_MESSAGE" = "E-Mail-Adresse oder Passwort ist nicht korrekt.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_LOGIN_WITH_FACEBOOK" = "Mit Facebook einloggen.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD" = "Geben Sie das Passwort für das Vaavud-Konto an, um sich mit Facebook einzuloggen.";
+"REGISTER_FEEDBACK_MALFORMED_EMAIL_TITLE" = "Inkorrekte E-Mail-Adresse";
+"REGISTER_FEEDBACK_MALFORMED_EMAIL_MESSAGE" = "Scheinbar keine gültige E-Mail-Adresse.";
+"REGISTER_FEEDBACK_NO_REACHABILITY_TITLE" = "Verbindungsprobleme";
+"REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Stellen Sie sicher, dass Sie eine Handy-Daten- oder WiFi-Verbindung haben.";
+"REGISTER_FEEDBACK_ERROR_TITLE" = "Fehler";
+"REGISTER_FEEDBACK_ERROR_MESSAGE" = "Bitte versuchen Sie es später erneut.";

@@ -1,0 +1,89 @@
+/*
+ Localizable.strings
+ Vaavud
+ */
+"TAB_MEASURE" = "측정";
+"TAB_MAP" = "지도";
+"TAB_HISTORY" = "내역";
+"TAB_ABOUT" = "회사 소개";
+
+"NAVIGATION_BACK" = "뒤로";
+
+"UNIT_KMH" = "km/h";
+"UNIT_MS" = "m/s";
+"UNIT_MPH" = "mph";
+"UNIT_KN" = "kt";
+"UNIT_BFT" = "bft";
+
+"REL_TIME_FUTURE" = "미래";
+"REL_TIME_NOW" = "지금 ";
+"REL_TIME_1_MIN_AGO" = "1분 전";
+"REL_TIME_X_MINS_AGO" = "%d분 전";
+"REL_TIME_1_HOUR_AGO" = "1시간 전";
+"REL_TIME_X_HOURS_AGO" = "%d시간 전";
+"REL_TIME_1_DAY_AGO" = "1일 전";
+"REL_TIME_X_DAYS_AGO" = "%d일 전";
+
+"HEADING_AVERAGE" = "평균";
+"HEADING_CURRENT" = "현재";
+"HEADING_MAX" = "최고";
+"HEADING_UNIT" = "단위";
+"HEADING_NEARBY_MEASUREMENTS" = "최근의 측정";
+
+"BUTTON_START" = "시작";
+"BUTTON_STOP" = "중지";
+"BUTTON_OK" = "확인";
+"BUTTON_CANCEL" = "취소";
+"BUTTON_DONE" = "완료";
+
+"INFO_MEASURING" = "측정 진행 중";
+"INFO_NO_SIGNAL" = "신호 없음";
+"INFO_KEEP_STEADY" = "세로로 고정 상태를 유지하세요";
+
+"X_HOURS" = "%d 시간";
+"MAP_REFRESH_ERROR_TITLE" = "지도 새로고침 오류";
+"MAP_REFRESH_ERROR_MESSAGE" = "셀룰러 데이터가 켜져있는지, 또는 Wi-Fi가 연결되어 있는지 확인하세요 .";
+
+"HISTORY_TITLE" = "내역";
+"HISTORY_REGISTER_TEASER" = "측정 내역을 모두 보려면 등록하세요";
+"HISTORY_NO_MEASUREMENTS" = "아직 측정한 것이 없습니다";
+"HISTORY_GO_TO_MEASURE" = "측정으로 가서 시작을 누르고 계속하세요!";
+
+"ABOUT_TITLE" = "회사 소개";
+"ABOUT_VAAVUD_TEXT" = "Vaavud는 덴마크의 신생 테크놀로지 회사입니다.\n 당사의 사명은 유용성, 기능 및 제3자와의 통합 면에서 지구상 최고의 풍속계를 만드는 것입니다. \n  Vaavud 풍속계에 대한 상세 정보 및 구입 방법에 대해 아시고 싶으면 Vaavud.com을 찾아 주십시오. \n &copy; Vaavud ApS 2014, 무단 전재 금지\n 버전: %@";
+"LINK_TERMS_OF_SERVICE" = "서비스 약관";
+"LINK_PRIVACY_POLICY" = "개인정보 취급방침";
+
+"REGISTER_TITLE_SIGNUP" = "등록";
+"REGISTER_TITLE_LOGIN" = "로그인";
+"REGISTER_OR" = "또는";
+"REGISTER_TERMS_AND" = "및";
+"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK" = "Facebook 계정으로 로그인";
+"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK" = "Facebook 계정으로 등록";
+"REGISTER_FACEBOOK_DISCLAIMER" = "귀하의 허가 없이는 절대 Facebook에 게시하지 않겠습니다";
+"REGISTER_BUTTON_CREATE" = "새로 만들기";
+"REGISTER_BUTTON_LOGIN" = "로그인";
+"REGISTER_BUTTON_LOGOUT" = "로그아웃";
+"REGISTER_FIELD_FIRST_NAME" = "이름";
+"REGISTER_FIELD_LAST_NAME" = "성";
+"REGISTER_FIELD_EMAIL" = "이메일";
+"REGISTER_FIELD_PASSWORD" = "암호";
+
+"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "이름을 입력하세요";
+"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "이름만 입력하면 됩니다.";
+"REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "이메일을 입력하세요";
+"REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "귀하의 이메일을 제3자에게 제공하지 않겠습니다!";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "암호가 너무 짧습니다";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4 자 이상이어야 합니다.";
+"REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "로그인할 수 없습니다";
+"REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "이메일이나 암호가 틀립니다.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "이미 존재하는 계정입니다";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_MESSAGE" = "이메일이나 암호가 틀립니다.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_LOGIN_WITH_FACEBOOK" = "Facebook 계정으로 로그인 하세요.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD" = "Facebook 계정으로 로그인 하기를 허용하려면 Vaavud 계정 암호를 제시해 주세요:";
+"REGISTER_FEEDBACK_MALFORMED_EMAIL_TITLE" = "이메일이 틀립니다";
+"REGISTER_FEEDBACK_MALFORMED_EMAIL_MESSAGE" = "유효한 이메일이 아닌 것 같습니다.";
+"REGISTER_FEEDBACK_NO_REACHABILITY_TITLE" = "연결에 문제";
+"REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "셀룰러 데이터가 켜져있는지, 또는 Wi-Fi가 연결되어 있는지 확인하세요.";
+"REGISTER_FEEDBACK_ERROR_TITLE" = "오류";
+"REGISTER_FEEDBACK_ERROR_MESSAGE" = "나중에 다시 해보세요.";
