@@ -1,0 +1,89 @@
+/*
+ Localizable.strings
+ Vaavud
+ */
+"TAB_MEASURE" = "Mesurar";
+"TAB_MAP" = "Mapa";
+"TAB_HISTORY" = "Historial";
+"TAB_ABOUT" = "Sobre";
+
+"NAVIGATION_BACK" = "Tornar";
+
+"UNIT_KMH" = "km/h";
+"UNIT_MS" = "m/s";
+"UNIT_MPH" = "mph";
+"UNIT_KN" = "kt";
+"UNIT_BFT" = "bft";
+
+"REL_TIME_FUTURE" = "futur";
+"REL_TIME_NOW" = "Ara";
+"REL_TIME_1_MIN_AGO" = "fa 1 min";
+"REL_TIME_X_MINS_AGO" = "fa %d mins";
+"REL_TIME_1_HOUR_AGO" = "fa 1 h hora";
+"REL_TIME_X_HOURS_AGO" = "fa %d horas";
+"REL_TIME_1_DAY_AGO" = "fa 1 dia";
+"REL_TIME_X_DAYS_AGO" = "fa %d dias";
+
+"HEADING_AVERAGE" = "Mitjana";
+"HEADING_CURRENT" = "Actual";
+"HEADING_MAX" = "Max";
+"HEADING_UNIT" = "Unitat";
+"HEADING_NEARBY_MEASUREMENTS" = "Mesuraments propers";
+
+"BUTTON_START" = "Començar";
+"BUTTON_STOP" = "Aturar";
+"BUTTON_OK" = "Ok";
+"BUTTON_CANCEL" = "Cancel·lar";
+"BUTTON_DONE" = "Fet";
+
+"INFO_MEASURING" = "Mesurament en progrés";
+"INFO_NO_SIGNAL" = "Sense senyal";
+"INFO_KEEP_STEADY" = "Manteniu-lo vertical i estable";
+
+"X_HOURS" = "%d hours";
+"MAP_REFRESH_ERROR_TITLE" = "Error d'actualizació del mapa";
+"MAP_REFRESH_ERROR_MESSAGE" = "Assegura't que tens conectivitat de dades o WiFi.";
+
+"HISTORY_TITLE" = "Historial";
+"HISTORY_REGISTER_TEASER" = "Registra't per veure el teu historial complet de mesuraments";
+"HISTORY_NO_MEASUREMENTS" = "Sense mesuraments";
+"HISTORY_GO_TO_MEASURE" = "Vés a Mesurar i pressiona Començar per iniciar!";
+
+"ABOUT_TITLE" = "Sobre";
+"ABOUT_VAAVUD_TEXT" = "Vaavud és una start-up tecnològica danesa.\n La nostra missió és crear els millors mesuradors de vent del planeta en termes d'usabilitat, característiques, e integració amb tercers.\n Per saber-ne més i comprar un mesurador de vent Vaavud, visita Vaavud.com\n &copy; Vaavud ApS 2014, Tots els drets reservats\n Versió: %@";
+"LINK_TERMS_OF_SERVICE" = "Termes de Servei";
+"LINK_PRIVACY_POLICY" = "Política de privacitat";
+
+"REGISTER_TITLE_SIGNUP" = "Registrar-se";
+"REGISTER_TITLE_LOGIN" = "Iniciar sessió";
+"REGISTER_OR" = "O";
+"REGISTER_TERMS_AND" = "i";
+"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK" = "Iniciar la sessió amb Facebook";
+"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK" = "Registrar-se amb Facebook";
+"REGISTER_FACEBOOK_DISCLAIMER" = "Mai publicarem a Facebook sense el teu consentiment";
+"REGISTER_BUTTON_CREATE" = "Crear";
+"REGISTER_BUTTON_LOGIN" = "Iniciar sessió";
+"REGISTER_BUTTON_LOGOUT" = "Tancar sessió";
+"REGISTER_FIELD_FIRST_NAME" = "Nom";
+"REGISTER_FIELD_LAST_NAME" = "Cognoms";
+"REGISTER_FIELD_EMAIL" = "Email";
+"REGISTER_FIELD_PASSWORD" = "Paraula de pas";
+
+"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "Introdueix el teu nom";
+"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "Amb el teu nom serà suficient.";
+"REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Introdueix el teu email";
+"REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "No cedirem el teu email a terceres persones!";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "Paraula de pas massa curta";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4 caràcters o més.";
+"REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "No es pot iniciar sessió";
+"REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "Email o paraula de pas incorrecte.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "Aquesta conta ja existeix";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_MESSAGE" = "Email o paraula de pas incorrecte.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_LOGIN_WITH_FACEBOOK" = "Iniciant sessió amb Facebook.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD" = "Proporciona la paraula de pas de la conta de Vaavud per permetre iniciar sessió amb Facebook:";
+"REGISTER_FEEDBACK_MALFORMED_EMAIL_TITLE" = "Email incorrecte";
+"REGISTER_FEEDBACK_MALFORMED_EMAIL_MESSAGE" = "No sembla ser un email vàlid.";
+"REGISTER_FEEDBACK_NO_REACHABILITY_TITLE" = "Problema de conectivitat";
+"REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Assegura't que tens connectivitat de dades o WiFi.";
+"REGISTER_FEEDBACK_ERROR_TITLE" = "Error";
+"REGISTER_FEEDBACK_ERROR_MESSAGE" = "Si us plau, intenta-ho més tard";

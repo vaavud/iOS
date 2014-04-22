@@ -47,7 +47,7 @@
 "HISTORY_TITLE" = "Historial";
 "HISTORY_REGISTER_TEASER" = "Registrate para ver tu historial completo de mediciones";
 "HISTORY_NO_MEASUREMENTS" = "Sin mediciones";
-"HISTORY_GO_TO_MEASURE" = "Ves a Medir y presiona Empezar para iniciar!";
+"HISTORY_GO_TO_MEASURE" = "Ve a Medir y presiona Empezar para iniciar!";
 
 "ABOUT_TITLE" = "Acerca";
 "ABOUT_VAAVUD_TEXT" = "Vaavud es una start-up tecnológica danesa.\n Nuestra misión es crear los mejores medidores de viento del planeta en términos de usabilidad, características, e integración con terceros.\n Para saber más y comprar un medidor de viento Vaavud, visita Vaavud.com\n &copy; Vaavud ApS 2014, Todos los derechos reservados\n Versión: %@";
@@ -75,7 +75,7 @@
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "No vamos a ceder tu email a terceras personas!";
 "REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "Password demasiado corto";
 "REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4 caracteres o más.";
-"REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "No puede iniciar sesión";
+"REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "No se puede iniciar sesión";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "Email o password incorrecto.";
 "REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "Esta cuenta ya existe";
 "REGISTER_FEEDBACK_ACCOUNT_EXISTS_MESSAGE" = "Email o password incorrecto.";

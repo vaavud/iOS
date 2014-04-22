@@ -260,6 +260,7 @@
 		D71BE13617439AA000B38E34 /* vaavudFFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudFFT.m; sourceTree = "<group>"; };
 		D72D7A16190685BD00DCEC72 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D72D7A17190685BD00DCEC72 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D72D7A191906A04800DCEC72 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D7A4F1C7173A8DDB00D1ACEE /* Vaavud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vaavud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D7A4F1CC173A8DDB00D1ACEE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1173,6 +1174,7 @@
 				Base,
 				da,
 				es,
+				ca,
 			);
 			mainGroup = D7A4F1BE173A8DDB00D1ACEE;
 			productRefGroup = D7A4F1C8173A8DDB00D1ACEE /* Products */;
@@ -1406,6 +1408,7 @@
 				E960260B18575461009396B1 /* da */,
 				E960260D18575473009396B1 /* en */,
 				D72D7A17190685BD00DCEC72 /* es */,
+				D72D7A191906A04800DCEC72 /* ca */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
