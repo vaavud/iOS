@@ -21,6 +21,7 @@
 #import "UUIDUtil.h"
 #import "AccountManager.h"
 #import "Mixpanel.h"
+#import "DictionarySerializationUtil.h"
 
 @interface ServerUploadManager () {
 }
@@ -174,7 +175,7 @@ SHARED_INSTANCE
                 }
             }
             
-            if ([measurementSession.startIndex intValue] == [pointCount intValue]) {
+            if ([measurementSession.startIndex intValue] == [pointCount intValue] && ([pointCount intValue] > 0 || [measurementSession.measuring boolValue] == NO)) {
 
                 if ([measurementSession.measuring boolValue] == NO) {
                     //NSLog(@"[ServerUploadManager] Found MeasurementSession (%@) that is not measuring and has no new points, so setting it as uploaded", measurementSession.uuid);
@@ -316,6 +317,8 @@ SHARED_INSTANCE
         
         // only trigger upload once we get OK from server for registering device, otherwise the device could be unregistered when uploading
         [self triggerUpload];
+        
+        [self syncHistory:1 success:nil failure:nil];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         long statusCode = (long)operation.response.statusCode;
@@ -474,6 +477,155 @@ SHARED_INSTANCE
     }];
 }
 
+-(void) syncHistory:(int)retryCount success:(void (^)())success failure:(void (^)(NSError *error))failure {
+    if (!self.hasReachability) {
+        if (failure) {
+            failure(nil);
+        }
+        return;
+    }
+    
+    if (![[AccountManager sharedInstance] isLoggedIn]) {
+        if (failure) {
+            failure(nil);
+        }
+        return;
+    }
+    
+    if (retryCount <= 0) {
+        if (failure) {
+            failure(nil);
+        }
+        return;
+    }
+
+    NSDate *beginSyncDate = [NSDate date];
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    NSString *formatString = @"yyyy-MM-dd HH:mm:ss.SSS";
+    [formatter setDateFormat:formatString];
+    
+    NSDate *latestStartTime = nil;
+    NSArray *measurementSessions = [MeasurementSession MR_findAllSortedBy:@"startTime" ascending:TRUE];
+    NSMutableString *concatenatedUUIDs = [NSMutableString stringWithCapacity:measurementSessions.count * 36];
+    for (int i = 0; i < measurementSessions.count; i++) {
+        MeasurementSession *measurementSession = measurementSessions[i];
+        if (measurementSession.uuid && measurementSession.uuid.length > 0) {
+            [concatenatedUUIDs appendString:measurementSession.uuid];
+        }
+        if (measurementSession.startTime) {
+            latestStartTime = measurementSession.startTime;
+        }
+    }
+    
+    NSDictionary *parameters = [NSDictionary new];
+    if (latestStartTime && concatenatedUUIDs.length > 0) {
+        
+        // round up to nearest whole second to avoid precision issues
+        latestStartTime = [NSDate dateWithTimeIntervalSince1970:ceil([latestStartTime timeIntervalSince1970])];
+        
+        NSString *hashedUUIDs = [UUIDUtil md5Hash:[concatenatedUUIDs uppercaseString]];
+        //NSLog(@"[ServerUploadManager] Sync history with hash:%@, time:%@", hashedUUIDs, [formatter stringFromDate:latestStartTime]);
+        parameters = [NSDictionary dictionaryWithObjectsAndKeys:hashedUUIDs, @"hashedUUIDs", latestStartTime, @"latestStartTime", nil];
+        parameters = [DictionarySerializationUtil convertValuesToBasicTypes:parameters];
+    }
+
+    NSLog(@"[ServerUploadManager] History sync (took %f s to compute hash)", -[beginSyncDate timeIntervalSinceNow]);
+    
+    [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/history" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        // clear consecutive errors since we got a successful reponse
+        self.consecutiveNetworkErrors = 0;
+        self.backoffWaitCount = 0;
+        
+        //NSLog(@"[ServerUploadManager] Response: %@", responseObject);
+
+        NSDictionary *responseDictionary = (NSDictionary*) responseObject;
+
+        NSDate *fromStartTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[responseDictionary objectForKey:@"fromStartTime"]) doubleValue] / 1000.0)];
+        NSLog(@"[ServerUploadManager] Got successful history sync with fromStartTime: %@", [formatter stringFromDate:fromStartTime]);
+
+        NSArray *measurementArray = (NSArray*) [responseDictionary objectForKey:@"measurements"];
+        NSMutableDictionary *uuidToDictionary = [NSMutableDictionary dictionaryWithCapacity:measurementArray.count];
+        for (int i = 0; i < measurementArray.count; i++) {
+            NSDictionary *measurementDictionary = measurementArray[i];
+            NSString *uuid = [measurementDictionary objectForKey:@"uuid"];
+            if (uuid) {
+                [uuidToDictionary setObject:measurementDictionary forKey:uuid];
+            }
+        }
+        
+        NSArray *measurementSessions = [MeasurementSession MR_findAllSortedBy:@"startTime" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"startTime > %@", fromStartTime]];
+        for (int i = 0; i < measurementSessions.count; i++) {
+            MeasurementSession *measurementSession = measurementSessions[i];
+            if (measurementSession.uuid && measurementSession.uuid.length > 0) {
+                if ([uuidToDictionary objectForKey:measurementSession.uuid]) {
+                    NSLog(@"[ServerUploadManager] Measurement known: %@, time: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.startTime]);
+                    [uuidToDictionary removeObjectForKey:measurementSession.uuid];
+                }
+                else {
+                    NSLog(@"[ServerUploadManager] Measurement deleted: %@, time: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.startTime]);
+                    [measurementSession MR_deleteEntity];
+                }
+            }
+        }
+        
+        NSArray *newMeasurementSessions = [uuidToDictionary allValues];
+        for (int i = 0; i < newMeasurementSessions.count; i++) {
+            NSDictionary *measurementDictionary = (NSDictionary*) newMeasurementSessions[i];
+            
+            NSString *uuid = [self stringValueFrom:measurementDictionary forKey:@"uuid"];
+            NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[measurementDictionary objectForKey:@"startTime"]) doubleValue] / 1000.0)];
+            NSNumber *latitude = [self numberValueFrom:measurementDictionary forKey:@"latitude"];
+            NSNumber *longitude = [self numberValueFrom:measurementDictionary forKey:@"longitude"];
+            NSNumber *windSpeedAvg = [self numberValueFrom:measurementDictionary forKey:@"windSpeedAvg"];
+            NSNumber *windSpeedMax = [self numberValueFrom:measurementDictionary forKey:@"windSpeedMax"];
+
+            NSLog(@"[ServerUploadManager] Measurement created: %@, time=%@", uuid, startTime);
+            
+            MeasurementSession *measurementSession = [MeasurementSession MR_createEntity];
+            measurementSession.uuid = uuid;
+            measurementSession.device = [Property getAsString:KEY_DEVICE_UUID];
+            measurementSession.startTime = startTime;
+            measurementSession.timezoneOffset = [NSNumber numberWithInt:[[NSTimeZone localTimeZone] secondsFromGMTForDate:measurementSession.startTime]];
+            measurementSession.endTime = measurementSession.startTime;
+            measurementSession.measuring = [NSNumber numberWithBool:NO];
+            measurementSession.uploaded = [NSNumber numberWithBool:YES];
+            measurementSession.startIndex = [NSNumber numberWithInt:0];
+            measurementSession.source = @"server";
+            measurementSession.latitude = latitude;
+            measurementSession.longitude = longitude;
+            measurementSession.windSpeedAvg = windSpeedAvg;
+            measurementSession.windSpeedMax = windSpeedMax;
+        }
+        
+        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
+        
+        if (success) {
+            success();
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        long statusCode = (long)operation.response.statusCode;
+        NSLog(@"[ServerUploadManager] Got error status code %ld syncing history: %@", statusCode, error);
+        
+        self.consecutiveNetworkErrors++;
+        
+        // check for unauthorized
+        if (statusCode == 401) {
+            // 401 is most likely due to the user not being logged in, so don't try to re-register the device as it could cause endless
+            // calls of "register" and "history" (since register will call sync history afterwards)
+            // try to re-register
+            if (failure) {
+                failure(error);
+            }
+        }
+        else {
+            [self syncHistory:retryCount-1 success:success failure:failure];
+        }
+    }];
+}
+
 -(NSNumber*) doubleValue:(id) responseObject forKey:(NSString*) key {
     NSString *value = [responseObject objectForKey:key];
     if (value && value != nil && value != (id)[NSNull null] && ([value length] > 0)) {
@@ -486,6 +638,22 @@ SHARED_INSTANCE
     NSString *value = [responseObject objectForKey:key];
     if (value && value != nil && value != (id)[NSNull null] && ([value length] > 0)) {
         return [NSNumber numberWithInt:[value doubleValue]];
+    }
+    return nil;
+}
+
+-(NSString*) stringValueFrom:(NSDictionary*)dictionary forKey:(NSString*)key {
+    NSString *value = (NSString*) [dictionary objectForKey:key];
+    if (value && value != nil && ![value isEqual:[NSNull null]] && ![@"<null>" isEqualToString:value] && [value length] > 0) {
+        return (NSString*) value;
+    }
+    return nil;
+}
+
+-(NSNumber*) numberValueFrom:(NSDictionary*)dictionary forKey:(NSString*)key {
+    NSObject *v = [dictionary objectForKey:key];
+    if ([v isKindOfClass:[NSNumber class]]) {
+        return (NSNumber*) v;
     }
     return nil;
 }

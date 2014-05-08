@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "RegisterNavigationController.h"
 
+@protocol HistoryLoadedListener <NSObject>
+- (void) historyLoaded;
+@end
+
 @interface HistoryRootViewController : UIViewController <RegisterNavigationControllerDelegate>
 
 @end

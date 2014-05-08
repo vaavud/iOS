@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HistoryRootViewController.h"
 
-@interface HistoryTableViewController : UITableViewController
+@interface HistoryTableViewController : UITableViewController<HistoryLoadedListener>
 
 @end

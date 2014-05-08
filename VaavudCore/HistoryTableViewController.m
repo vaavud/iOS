@@ -73,16 +73,25 @@
     }
     
     if (refetch) {
-        NSError *error;
-        if ([self.fetchedResultsController performFetch:&error]) {
-            [self.tableView reloadData];
-        }
-        else {
-            NSLog(@"[HistoryTableViewController] Error refetching data: %@", error);
-        }
+        [self refetchData];
     }
     else if (refresh) {
         [self.tableView reloadData];
+    }
+}
+
+- (void) historyLoaded {
+    NSLog(@"[HistoryTableViewController] History loaded refetch data");
+    [self refetchData];
+}
+
+- (void) refetchData {
+    NSError *error;
+    if ([self.fetchedResultsController performFetch:&error]) {
+        [self.tableView reloadData];
+    }
+    else {
+        NSLog(@"[HistoryTableViewController] Error refetching data: %@", error);
     }
 }
 

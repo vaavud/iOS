@@ -149,7 +149,11 @@
         measurementSession.source = @"vaavud";
     }
     self.measurementSessionUUID = measurementSession.uuid;
-    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
+        if (success) {
+            [[ServerUploadManager sharedInstance] triggerUpload];
+        }
+    }];
     
     // create reference to MagneticField Data Manager and start
     self.sharedMagneticFieldDataManager = [VaavudMagneticFieldDataManager sharedMagneticFieldDataManager];

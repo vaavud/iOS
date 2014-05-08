@@ -14,7 +14,7 @@
 
 @implementation HistoryNavigationController
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
 
     if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
@@ -23,6 +23,13 @@
     }
 
     self.navigationItem.title = NSLocalizedString(@"HISTORY_TITLE", nil);
+}
+
+- (void) historyLoaded {
+    if (self.topViewController && [self.topViewController conformsToProtocol:@protocol(HistoryLoadedListener)]) {
+        UIViewController<HistoryLoadedListener> *listener = (UIViewController<HistoryLoadedListener>*) self.topViewController;
+        [listener historyLoaded];
+    }
 }
 
 @end

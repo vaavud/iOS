@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HistoryRootViewController.h"
 
-@interface HistoryNavigationController : UINavigationController
+@interface HistoryNavigationController : UINavigationController<HistoryLoadedListener>
 
 @end

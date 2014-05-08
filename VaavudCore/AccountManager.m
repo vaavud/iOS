@@ -344,7 +344,11 @@ BOOL isDoingLogout = NO;
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] reset];
     }
-    
+
+    // delete all measurement sessions
+    [MeasurementSession MR_deleteAllMatchingPredicate:[NSPredicate predicateWithValue:YES]];
+    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
+
     [[ServerUploadManager sharedInstance] registerDevice];
 }
 
