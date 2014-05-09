@@ -505,28 +505,29 @@ SHARED_INSTANCE
     NSString *formatString = @"yyyy-MM-dd HH:mm:ss.SSS";
     [formatter setDateFormat:formatString];
     
-    NSDate *latestStartTime = nil;
-    NSArray *measurementSessions = [MeasurementSession MR_findAllSortedBy:@"startTime" ascending:TRUE];
-    NSMutableString *concatenatedUUIDs = [NSMutableString stringWithCapacity:measurementSessions.count * 36];
+    NSDate *latestEndTime = nil;
+    NSArray *measurementSessions = [MeasurementSession MR_findAllSortedBy:@"endTime" ascending:TRUE];
+    NSMutableString *concatenatedUUIDs = [NSMutableString stringWithCapacity:measurementSessions.count * (36 + 10)];
     for (int i = 0; i < measurementSessions.count; i++) {
         MeasurementSession *measurementSession = measurementSessions[i];
-        if (measurementSession.uuid && measurementSession.uuid.length > 0) {
+        if (measurementSession.endTime && measurementSession.uuid && measurementSession.uuid.length > 0) {
+            NSString *endTimeSecondsString = [[NSNumber numberWithLongLong:(long) ceil([measurementSession.endTime timeIntervalSince1970])] stringValue];
+            //NSLog(@"uuid=%@, time=%@", measurementSession.uuid, endTimeSecondsString);
             [concatenatedUUIDs appendString:measurementSession.uuid];
-        }
-        if (measurementSession.startTime) {
-            latestStartTime = measurementSession.startTime;
+            [concatenatedUUIDs appendString:endTimeSecondsString];
+            latestEndTime = measurementSession.endTime;
         }
     }
     
     NSDictionary *parameters = [NSDictionary new];
-    if (latestStartTime && concatenatedUUIDs.length > 0) {
+    if (latestEndTime && concatenatedUUIDs.length > 0) {
         
         // round up to nearest whole second to avoid precision issues
-        latestStartTime = [NSDate dateWithTimeIntervalSince1970:ceil([latestStartTime timeIntervalSince1970])];
+        latestEndTime = [NSDate dateWithTimeIntervalSince1970:ceil([latestEndTime timeIntervalSince1970])];
         
         NSString *hashedUUIDs = [UUIDUtil md5Hash:[concatenatedUUIDs uppercaseString]];
-        //NSLog(@"[ServerUploadManager] Sync history with hash:%@, time:%@", hashedUUIDs, [formatter stringFromDate:latestStartTime]);
-        parameters = [NSDictionary dictionaryWithObjectsAndKeys:hashedUUIDs, @"hashedUUIDs", latestStartTime, @"latestStartTime", nil];
+        //NSLog(@"[ServerUploadManager] Sync history with hash:%@, time:%@", hashedUUIDs, [formatter stringFromDate:latestEndTime]);
+        parameters = [NSDictionary dictionaryWithObjectsAndKeys:hashedUUIDs, @"hash", latestEndTime, @"latestEndTime", nil];
         parameters = [DictionarySerializationUtil convertValuesToBasicTypes:parameters];
     }
 
@@ -542,8 +543,8 @@ SHARED_INSTANCE
 
         NSDictionary *responseDictionary = (NSDictionary*) responseObject;
 
-        NSDate *fromStartTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[responseDictionary objectForKey:@"fromStartTime"]) doubleValue] / 1000.0)];
-        NSLog(@"[ServerUploadManager] Got successful history sync with fromStartTime: %@", [formatter stringFromDate:fromStartTime]);
+        NSDate *fromEndTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[responseDictionary objectForKey:@"fromEndTime"]) doubleValue] / 1000.0)];
+        NSLog(@"[ServerUploadManager] Got successful history sync with fromEndTime: %@", [formatter stringFromDate:fromEndTime]);
 
         NSArray *measurementArray = (NSArray*) [responseDictionary objectForKey:@"measurements"];
         NSMutableDictionary *uuidToDictionary = [NSMutableDictionary dictionaryWithCapacity:measurementArray.count];
@@ -555,16 +556,37 @@ SHARED_INSTANCE
             }
         }
         
-        NSArray *measurementSessions = [MeasurementSession MR_findAllSortedBy:@"startTime" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"startTime > %@", fromStartTime]];
+        NSArray *measurementSessions = [MeasurementSession MR_findAllSortedBy:@"endTime" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"endTime > %@", fromEndTime]];
         for (int i = 0; i < measurementSessions.count; i++) {
             MeasurementSession *measurementSession = measurementSessions[i];
             if (measurementSession.uuid && measurementSession.uuid.length > 0) {
-                if ([uuidToDictionary objectForKey:measurementSession.uuid]) {
-                    NSLog(@"[ServerUploadManager] Measurement known: %@, time: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.startTime]);
+                NSDictionary *measurementDictionary = (NSDictionary*) [uuidToDictionary objectForKey:measurementSession.uuid];
+                if (measurementDictionary) {
+                    NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[measurementDictionary objectForKey:@"endTime"]) doubleValue] / 1000.0)];
+                    if ([measurementSession.endTime isEqualToDate:endTime]) {
+                        NSLog(@"[ServerUploadManager] Measurement known: %@, startTime: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.startTime]);
+                    }
+                    else {
+                        NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[measurementDictionary objectForKey:@"startTime"]) doubleValue] / 1000.0)];
+                        NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[measurementDictionary objectForKey:@"endTime"]) doubleValue] / 1000.0)];
+                        NSNumber *latitude = [self numberValueFrom:measurementDictionary forKey:@"latitude"];
+                        NSNumber *longitude = [self numberValueFrom:measurementDictionary forKey:@"longitude"];
+                        NSNumber *windSpeedAvg = [self numberValueFrom:measurementDictionary forKey:@"windSpeedAvg"];
+                        NSNumber *windSpeedMax = [self numberValueFrom:measurementDictionary forKey:@"windSpeedMax"];
+                        
+                        NSLog(@"[ServerUploadManager] Measurement modified: %@, startTime=%@, endTime=%@", measurementSession.uuid, startTime, endTime);
+                        
+                        measurementSession.startTime = startTime;
+                        measurementSession.endTime = endTime;
+                        measurementSession.latitude = latitude;
+                        measurementSession.longitude = longitude;
+                        measurementSession.windSpeedAvg = windSpeedAvg;
+                        measurementSession.windSpeedMax = windSpeedMax;
+                    }
                     [uuidToDictionary removeObjectForKey:measurementSession.uuid];
                 }
                 else {
-                    NSLog(@"[ServerUploadManager] Measurement deleted: %@, time: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.startTime]);
+                    NSLog(@"[ServerUploadManager] Measurement deleted: %@, startTime: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.startTime]);
                     [measurementSession MR_deleteEntity];
                 }
             }
@@ -576,19 +598,20 @@ SHARED_INSTANCE
             
             NSString *uuid = [self stringValueFrom:measurementDictionary forKey:@"uuid"];
             NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[measurementDictionary objectForKey:@"startTime"]) doubleValue] / 1000.0)];
+            NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[measurementDictionary objectForKey:@"endTime"]) doubleValue] / 1000.0)];
             NSNumber *latitude = [self numberValueFrom:measurementDictionary forKey:@"latitude"];
             NSNumber *longitude = [self numberValueFrom:measurementDictionary forKey:@"longitude"];
             NSNumber *windSpeedAvg = [self numberValueFrom:measurementDictionary forKey:@"windSpeedAvg"];
             NSNumber *windSpeedMax = [self numberValueFrom:measurementDictionary forKey:@"windSpeedMax"];
 
-            NSLog(@"[ServerUploadManager] Measurement created: %@, time=%@", uuid, startTime);
+            NSLog(@"[ServerUploadManager] Measurement created: %@, startTime=%@, endTime=%@", uuid, startTime, endTime);
             
             MeasurementSession *measurementSession = [MeasurementSession MR_createEntity];
             measurementSession.uuid = uuid;
             measurementSession.device = [Property getAsString:KEY_DEVICE_UUID];
             measurementSession.startTime = startTime;
             measurementSession.timezoneOffset = [NSNumber numberWithInt:[[NSTimeZone localTimeZone] secondsFromGMTForDate:measurementSession.startTime]];
-            measurementSession.endTime = measurementSession.startTime;
+            measurementSession.endTime = endTime;
             measurementSession.measuring = [NSNumber numberWithBool:NO];
             measurementSession.uploaded = [NSNumber numberWithBool:YES];
             measurementSession.startIndex = [NSNumber numberWithInt:0];
