@@ -14,9 +14,6 @@
 #import "FormatUtil.h"
 #import "UnitUtil.h"
 #import "Property+Util.h"
-#import "GAI.h"
-#import "GAIDictionaryBuilder.h"
-#import "GAIFields.h"
 #import "Mixpanel.h"
 
 @interface HistoryTableViewController ()
@@ -97,12 +94,6 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    if (tracker) {
-        [tracker set:kGAIScreenName value:@"History Screen"];
-        [tracker send:[[GAIDictionaryBuilder createAppView] build]];
-    }
     
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"History Screen"];

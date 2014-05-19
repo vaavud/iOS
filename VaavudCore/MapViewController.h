@@ -11,7 +11,6 @@
 #import "SMCalloutView.h"
 #import "MeasurementSession+Util.h"
 #import "MeasurementAnnotation.h"
-#import "GAITrackedViewController.h"
 
 @interface CustomMapView : MKMapView
 @property (nonatomic) SMCalloutView *calloutView;
@@ -19,7 +18,7 @@
 - (double)getZoomLevel;
 @end
 
-@interface MapViewController : GAITrackedViewController <MKMapViewDelegate, SMCalloutViewDelegate>
+@interface MapViewController : UIViewController <MKMapViewDelegate, SMCalloutViewDelegate>
 @property (nonatomic, weak) IBOutlet CustomMapView *mapView;
 @property (nonatomic, weak) IBOutlet UIButton *hoursButton;
 @property (nonatomic, weak) IBOutlet UIButton *unitButton;
