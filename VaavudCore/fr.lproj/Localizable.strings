@@ -30,8 +30,8 @@
 "HEADING_UNIT" = "Unité";
 "HEADING_NEARBY_MEASUREMENTS" = "Mesures de proximité";
 
-"BUTTON_START" = "Démarrer";
-"BUTTON_STOP" = "Stop";
+"BUTTON_START" = "Marche";
+"BUTTON_STOP" = "Arrêt";
 "BUTTON_OK" = "OK";
 "BUTTON_CANCEL" = "Annuler";
 "BUTTON_DONE" = "Terminé";
