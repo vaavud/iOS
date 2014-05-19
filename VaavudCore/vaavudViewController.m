@@ -10,8 +10,6 @@
 #import "Property+Util.h"
 #import "UnitUtil.h"
 #import "TermsViewController.h"
-#import "GAI.h"
-#import "GAIDictionaryBuilder.h"
 #import "UIColor+VaavudColors.h"
 #import "Mixpanel.h"
 #import "MeasurementSession+Util.h"
@@ -61,7 +59,6 @@
 - (void) viewDidLoad {
     [super viewDidLoad];
 
-    self.screenName = @"Measure Screen";
     self.windSpeedUnit = -1; // make sure windSpeedUnit is updated in viewWillAppear by setting it to an invalid value
     
     self.averageHeadingLabel.text = [NSLocalizedString(@"HEADING_AVERAGE", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
@@ -297,7 +294,6 @@
             [[Mixpanel sharedInstance] track:@"Start Measurement"];
 
         }
-        [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"start button" label:nil value:nil] build]];
     }
     else {
         self.buttonShowsStart = YES;
@@ -308,15 +304,12 @@
         if ([Property isMixpanelEnabled]) {
             [[Mixpanel sharedInstance] track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)]}];
         }
-        [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"stop button" label:nil value:nil] build]];
     }
 }
 
 - (IBAction) unitButtonPushed {
     self.windSpeedUnit = [UnitUtil nextWindSpeedUnit:self.windSpeedUnit];
     [Property setAsInteger:[NSNumber numberWithInt:self.windSpeedUnit] forKey:KEY_WIND_SPEED_UNIT];
-
-    [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"unit button" label:[[NSNumber numberWithInt:self.windSpeedUnit] stringValue] value:nil] build]];
 
     [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
     [self updateLabelsFromCurrentValues];

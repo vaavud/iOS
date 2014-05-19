@@ -7,9 +7,6 @@
 //
 
 #import "TermsPrivacyViewController.h"
-#import "GAI.h"
-#import "GAIDictionaryBuilder.h"
-#import "GAIFields.h"
 
 @interface TermsPrivacyViewController ()
 
@@ -31,13 +28,7 @@
 }
 
 - (void) viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    if (tracker) {
-        [tracker set:kGAIScreenName value:self.screenName];
-        [tracker send:[[GAIDictionaryBuilder createAppView] build]];
-    }
+    [super viewDidAppear:animated];    
 }
 
 - (void)doneButtonPushed {

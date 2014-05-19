@@ -22,8 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.screenName = @"About Screen";
-
     self.navigationItem.title = NSLocalizedString(@"ABOUT_TITLE", nil);
     self.navigationItem.backBarButtonItem.title = NSLocalizedString(@"NAVIGATION_BACK", nil);
     

@@ -15,8 +15,6 @@
 #import "FormatUtil.h"
 #import "LocationManager.h"
 #import "ServerUploadManager.h"
-#import "GAI.h"
-#import "GAIDictionaryBuilder.h"
 #import "Mixpanel.h"
 #include <math.h>
 
@@ -51,7 +49,6 @@
 
     //NSLog(@"[MapViewController] viewDidLoad");
 
-    self.screenName = @"Map Screen";
     self.isLoading = NO;
     self.isSelectingFromTableView = NO;
     self.analyticsGridDegree = [[Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] doubleValue];
@@ -505,8 +502,6 @@
         }
     }
     
-    [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"hours button" label:[[NSNumber numberWithInt:self.hoursAgo] stringValue] value:nil] build]];
-
     [self refreshHours];
     [self loadMeasurements:YES showActivityIndicator:YES];
 }
@@ -520,8 +515,6 @@
     self.windSpeedUnit = [UnitUtil nextWindSpeedUnit:self.windSpeedUnit];
     [Property setAsInteger:[NSNumber numberWithInt:self.windSpeedUnit] forKey:KEY_WIND_SPEED_UNIT];
     
-    [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:@"unit button" label:[[NSNumber numberWithInt:self.windSpeedUnit] stringValue] value:nil] build]];
-
     [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
     [self windSpeedUnitChanged];
 }
@@ -542,7 +535,6 @@
             [[Mixpanel sharedInstance] track:track properties:@{@"Grid": label}];
         }
     }
-    [[[GAI sharedInstance] defaultTracker] send:[[GAIDictionaryBuilder createEventWithCategory:@"ui_action" action:action label:label value:nil] build]];
 }
 
 -(NSString*)gridValueFromCoordinate:(MeasurementAnnotation*)annotation {

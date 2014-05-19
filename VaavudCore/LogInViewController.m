@@ -13,9 +13,6 @@
 #import "RegisterNavigationController.h"
 #import "vaavudAppDelegate.h"
 #import "AccountManager.h"
-#import "GAI.h"
-#import "GAIDictionaryBuilder.h"
-#import "GAIFields.h"
 #import "Mixpanel.h"
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -58,12 +55,6 @@ BOOL didShowFeedback;
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    id tracker = [[GAI sharedInstance] defaultTracker];
-    if (tracker) {
-        [tracker set:kGAIScreenName value:@"Login Screen"];
-        [tracker send:[[GAIDictionaryBuilder createAppView] build]];
-    }
-
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"Signup/Login Screen" properties:@{@"Screen": @"Login"}];
     }
