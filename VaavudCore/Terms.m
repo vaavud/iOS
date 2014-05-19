@@ -25,7 +25,7 @@
     "</style></head><body>"
     "<center style='padding-top:20px;font-family:helvetica,arial'>"
     "%@<br/><br/><br/>"
-    "<a href='http://vaavud.com/legal/terms?source=app'>%@</a>&nbsp; &nbsp; <a href='http://vaavud.com/legal/privacy?source=app'>%@</a>"
+    "<a href='http://vaavud.com/legal/terms.php?source=app'>%@</a>&nbsp; &nbsp; <a href='http://vaavud.com/legal/privacy.php?source=app'>%@</a>"
     "</center></body></html>",
     aboutVaavud, NSLocalizedString(@"LINK_TERMS_OF_SERVICE", nil), NSLocalizedString(@"LINK_PRIVACY_POLICY", nil)];
     

@@ -320,7 +320,7 @@ BOOL didShowFeedback;
     TermsPrivacyViewController *termsPrivacyController = (TermsPrivacyViewController*) controller.topViewController;
     termsPrivacyController.screenName = @"Signup Terms Screen";
     termsPrivacyController.termsPrivacyTitle = NSLocalizedString(@"LINK_TERMS_OF_SERVICE", nil);
-    termsPrivacyController.termsPrivacyURL = @"http://vaavud.com/legal/terms?source=app";
+    termsPrivacyController.termsPrivacyURL = @"http://vaavud.com/legal/terms.php?source=app";
     [self presentViewController:controller animated:YES completion:nil];
 }
 
@@ -329,7 +329,7 @@ BOOL didShowFeedback;
     TermsPrivacyViewController *termsPrivacyController = (TermsPrivacyViewController*) controller.topViewController;
     termsPrivacyController.screenName = @"Signup Privacy Screen";
     termsPrivacyController.termsPrivacyTitle = NSLocalizedString(@"LINK_PRIVACY_POLICY", nil);
-    termsPrivacyController.termsPrivacyURL = @"http://vaavud.com/legal/privacy?source=app";
+    termsPrivacyController.termsPrivacyURL = @"http://vaavud.com/legal/privacy.php?source=app";
     [self presentViewController:controller animated:YES completion:nil];
 }
 
