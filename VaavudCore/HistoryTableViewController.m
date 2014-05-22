@@ -21,7 +21,7 @@
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) UIImage *placeholderImage;
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
-@property (nonatomic) NSDate *latestLocalStartTime;
+@property (nonatomic) NSDate *latestLocalEndTime;
 
 @end
 
@@ -60,10 +60,10 @@
     }
 
     MeasurementSession *measurementSession = [MeasurementSession MR_findFirstOrderedByAttribute:@"startTime" ascending:NO];
-    if (measurementSession && measurementSession != nil && [measurementSession.measuring boolValue] == NO) {
-        NSDate *newLatestLocalStartTime = measurementSession.startTime;
-        if (newLatestLocalStartTime != nil && (self.latestLocalStartTime == nil || [newLatestLocalStartTime compare:self.latestLocalStartTime] == NSOrderedDescending)) {
-            self.latestLocalStartTime = newLatestLocalStartTime;
+    if (measurementSession && measurementSession != nil) {
+        NSDate *newLatestLocalEndTime = measurementSession.endTime;
+        if (newLatestLocalEndTime != nil && (self.latestLocalEndTime == nil || [newLatestLocalEndTime compare:self.latestLocalEndTime] == NSOrderedDescending)) {
+            self.latestLocalEndTime = newLatestLocalEndTime;
             refetch = YES;
             refresh = YES;
         }
