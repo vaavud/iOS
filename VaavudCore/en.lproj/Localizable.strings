@@ -87,3 +87,7 @@
 "REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Make sure you have cellular data or Wi-Fi connectivity.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Error";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Please try again later.";
+
+"SETTINGS_TITLE" = "Settings";
+"SETTINGS_SHOP_LINK" = "Buy wind meter";
+

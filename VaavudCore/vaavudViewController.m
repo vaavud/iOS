@@ -320,7 +320,7 @@
 }
 
 - (void) aboutButtonPushed {
-    [self performSegueWithIdentifier:@"aboutSegue" sender:self];
+    [self performSegueWithIdentifier:@"settingsSegue" sender:self];
 }
 
 - (void)didReceiveMemoryWarning {
