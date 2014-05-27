@@ -6,18 +6,17 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
-@protocol VaavudCoreViewControllerDelegate   //define delegate protocol
+@protocol VaavudCoreViewControllerDelegate
 
-- (void) windSpeedMeasurementsAreValid: (BOOL) valid;               //define delegate method to be implemented within another class
+- (void) windSpeedMeasurementsAreValid:(BOOL)valid;
+- (void) measuringStoppedByModel;
 
-@end //end protocol
+@end
 
 #import <Foundation/Foundation.h>
 #import "VaavudMagneticFieldDataManager.h"
 #import "vaavudDynamicsController.h"
 #import "vaavudViewController.h"
-
-
 
 @interface VaavudCoreController : NSObject <VaavudMagneticFieldDataManagerDelegate, vaavudDynamicsControllerDelegate>
 
@@ -44,9 +43,5 @@
 @property (nonatomic) BOOL FFTisValid;
 
 @property (nonatomic, weak) id <VaavudCoreViewControllerDelegate> vaavudCoreControllerViewControllerDelegate;
-
-
-
-
 
 @end

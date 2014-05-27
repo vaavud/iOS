@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "HistoryRootViewController.h"
 
-@interface HistoryTableViewController : UITableViewController<HistoryLoadedListener>
+@interface HistoryTableViewController : UITableViewController<HistoryLoadedListener, NSFetchedResultsControllerDelegate>
 
 @end

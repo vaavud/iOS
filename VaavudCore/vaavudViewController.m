@@ -154,6 +154,10 @@
 
 - (void) start {
     
+    self.buttonShowsStart = NO;
+    self.startStopButton.backgroundColor = [UIColor vaavudRedColor];
+    [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_STOP", nil) forState:UIControlStateNormal];
+
     // Setup graphView
     [self.statusBar setProgress:0];
     
@@ -175,15 +179,32 @@
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
-- (NSTimeInterval) stop {
+- (NSTimeInterval) stop:(BOOL)onlyUI {
+    self.buttonShowsStart = YES;
+    self.startStopButton.backgroundColor = [UIColor vaavudBlueColor];
+    [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
+
     [self.displayLinkGraphUI invalidate];
     [self.displayLinkGraphValues invalidate];
     [self.TimerLabel invalidate];
-    NSTimeInterval durationSeconds = [self.vaavudCoreController stop];
+    NSTimeInterval durationSeconds = 0.0;
+    if (!onlyUI) {
+        durationSeconds = [self.vaavudCoreController stop];
+    }
     self.informationTextLabel.text = @"";
     
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
     return durationSeconds;
+}
+
+/*
+ * Called from VaavudCoreController if:
+ * (1) the measurement session is deleted while measuring
+ * (2) the measurement session's "measuring" flag turns to NO while measuring
+ *     - which will be the case if ServerUploadManager sees a long period of inactivity
+ */
+- (void) measuringStoppedByModel {
+    [self stop:YES];
 }
 
 - (void) windSpeedMeasurementsAreValid:(BOOL)valid {
@@ -281,9 +302,6 @@
 
 - (IBAction) buttonPushed: (UIButton*) sender {
     if (self.buttonShowsStart) {
-        self.buttonShowsStart = NO;
-        self.startStopButton.backgroundColor = [UIColor vaavudRedColor];
-        [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_STOP", nil) forState:UIControlStateNormal];
         [self start];
         
         if ([Property isMixpanelEnabled]) {
@@ -296,10 +314,7 @@
         }
     }
     else {
-        self.buttonShowsStart = YES;
-        self.startStopButton.backgroundColor = [UIColor vaavudBlueColor];
-        [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
-        NSTimeInterval durationSecounds = [self stop];
+        NSTimeInterval durationSecounds = [self stop:NO];
 
         if ([Property isMixpanelEnabled]) {
             [[Mixpanel sharedInstance] track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)]}];
@@ -320,7 +335,7 @@
 }
 
 - (void) aboutButtonPushed {
-    [self performSegueWithIdentifier:@"settingsSegue" sender:self];
+    [self performSegueWithIdentifier:@"aboutSegue" sender:self];
 }
 
 - (void)didReceiveMemoryWarning {

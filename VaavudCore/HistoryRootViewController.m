@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Andreas Okholm. All rights reserved.
 //
 
-#define GRACE_TIME_BETWEEN_HISTORY_SYNC 1.0
+#define GRACE_TIME_BETWEEN_HISTORY_SYNC 10.0
 
 #import "HistoryRootViewController.h"
 #import "Property+Util.h"

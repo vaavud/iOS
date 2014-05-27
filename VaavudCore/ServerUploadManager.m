@@ -167,7 +167,7 @@ SHARED_INSTANCE
                 
                 // if an unuploaded 
                 NSTimeInterval howRecent = [measurementSession.endTime timeIntervalSinceNow];
-                if (abs(howRecent) > 3600.0) {
+                if (abs(howRecent) > 60.0 * 10.0) {
                     //NSLog(@"[ServerUploadManager] Found old MeasurementSession (%@) that is still measuring - setting it to not measuring", measurementSession.uuid);
                     // TODO: we ought to force the controller to stop if it is still in started mode. Or should we remove this altogether?
                     measurementSession.measuring = [NSNumber numberWithBool:NO];
@@ -436,12 +436,16 @@ SHARED_INSTANCE
 
 -(void) readMeasurements:(int)hours retry:(int)retryCount success:(void (^)(NSArray *measurements))success failure:(void (^)(NSError *error))failure {
     if (!self.hasReachability) {
-        failure(nil);
+        if (failure) {
+            failure(nil);
+        }
         return;
     }
     
     if (retryCount <= 0) {
-        failure(nil);
+        if (failure) {
+            failure(nil);
+        }
         return;
     }
     
@@ -457,7 +461,9 @@ SHARED_INSTANCE
         self.consecutiveNetworkErrors = 0;
         self.backoffWaitCount = 0;
         
-        success(responseObject);
+        if (success) {
+            success(responseObject);
+        }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         long statusCode = (long)operation.response.statusCode;
@@ -469,7 +475,9 @@ SHARED_INSTANCE
         if (statusCode == 401) {
             // try to re-register
             self.hasRegisteredDevice = NO;
-            failure(error);
+            if (failure) {
+                failure(error);
+            }
         }
         else {
             [self readMeasurements:hours retry:retryCount-1 success:success failure:failure];
@@ -700,6 +708,61 @@ SHARED_INSTANCE
         }
         else {
             [self syncHistory:retryCount-1 success:success failure:failure];
+        }
+    }];
+}
+
+- (void) deleteMeasurementSession:(NSString*)measurementSessionUuid retry:(int)retryCount success:(void(^)())success failure:(void(^)(NSError *error))failure {
+
+    if (!measurementSessionUuid || measurementSessionUuid.length == 0) {
+        NSLog(@"[ServerUploadManager] ERROR: No measurement session uuid calling delete measurement session");
+        return;
+    }
+    
+    if (!self.hasReachability) {
+        if (failure) {
+            failure(nil);
+        }
+        return;
+    }
+    
+    if (retryCount <= 0) {
+        if (failure) {
+            failure(nil);
+        }
+        return;
+    }
+    
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:measurementSessionUuid, @"uuid", nil];
+    
+    [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/measurement/delete" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"[ServerUploadManager] Got successful response deleting measurement");
+        
+        // clear consecutive errors since we got a successful reponse
+        self.consecutiveNetworkErrors = 0;
+        self.backoffWaitCount = 0;
+        
+        if (success) {
+            success();
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        long statusCode = (long)operation.response.statusCode;
+        NSLog(@"[ServerUploadManager] Got error status code %ld deleting measurement: %@", statusCode, error);
+        
+        self.consecutiveNetworkErrors++;
+        
+        // check for unauthorized
+        if (statusCode == 401) {
+            // try to re-register
+            self.hasRegisteredDevice = NO;
+            if (failure) {
+                failure(error);
+            }
+        }
+        else {
+            [self deleteMeasurementSession:measurementSessionUuid retry:retryCount-1 success:success failure:failure];
         }
     }];
 }

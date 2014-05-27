@@ -32,6 +32,7 @@
 @property (nonatomic) int hoursAgo;
 @property (nonatomic) double analyticsGridDegree;
 @property (nonatomic) NSDate *latestLocalStartTime;
+@property (nonatomic) NSInteger latestLocalNumberOfMeasurements;
 @property (nonatomic) NSTimer *refreshTimer;
 @property (nonatomic) UIImage *placeholderImage;
 @property (nonatomic) NSDate *viewAppearedTime;
@@ -44,7 +45,7 @@
     self.tabBarItem.title = NSLocalizedString(@"TAB_MAP", nil);
 }
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
 
     //NSLog(@"[MapViewController] viewDidLoad");
@@ -52,6 +53,7 @@
     self.isLoading = NO;
     self.isSelectingFromTableView = NO;
     self.analyticsGridDegree = [[Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] doubleValue];
+    self.latestLocalNumberOfMeasurements = 0;
 
     self.hoursAgo = 3;
     NSArray *hourOptions = [Property getAsFloatArray:KEY_HOUR_OPTIONS];
@@ -140,6 +142,12 @@
             self.latestLocalStartTime = newLatestLocalStartTime;
             forceReload = YES;
         }
+    }
+    
+    NSInteger currentLocalNumberOfMeasurements = [MeasurementSession MR_countOfEntities];
+    if (currentLocalNumberOfMeasurements != self.latestLocalNumberOfMeasurements) {
+        self.latestLocalNumberOfMeasurements = currentLocalNumberOfMeasurements;
+        forceReload = YES;
     }
 
     [self loadMeasurements:forceReload showActivityIndicator:NO];

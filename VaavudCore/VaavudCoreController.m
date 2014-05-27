@@ -171,17 +171,21 @@
     [self.vaavudDynamicsController stop];
 
     MeasurementSession *measurementSession = [self getActiveMeasurementSession];
-    measurementSession.measuring = [NSNumber numberWithBool:NO];
     NSTimeInterval durationSeconds = 0.0;
-    if (measurementSession.startTime && measurementSession.endTime) {
-        durationSeconds = [measurementSession.endTime timeIntervalSinceDate:measurementSession.startTime];
-    }
 
-    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
-        if (success) {
-            [[ServerUploadManager sharedInstance] triggerUpload];
+    // note: active measurement session may become nil if it is deleted from history while measuring
+    if (measurementSession) {
+        measurementSession.measuring = [NSNumber numberWithBool:NO];
+        if (measurementSession.startTime && measurementSession.endTime) {
+            durationSeconds = [measurementSession.endTime timeIntervalSinceDate:measurementSession.startTime];
         }
-    }];
+        
+        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
+            if (success) {
+                [[ServerUploadManager sharedInstance] triggerUpload];
+            }
+        }];
+    }
     
     vaavudAppDelegate *appDelegate = (vaavudAppDelegate *)[[UIApplication sharedApplication] delegate];
     if (appDelegate.xCallbackSuccess && appDelegate.xCallbackSuccess != nil && appDelegate.xCallbackSuccess != (id)[NSNull null] && [appDelegate.xCallbackSuccess length] > 0) {
@@ -211,6 +215,18 @@
 
 - (void) updateIsValid {
     
+    MeasurementSession *measurementSession = [self getActiveMeasurementSession];
+    if (measurementSession == nil || [measurementSession.measuring boolValue] == NO) {
+        // Measurement session became nil or "measuring" became NO during measuring which is most likely due to it being
+        // deleted from the history or ServerUploadManager toggled the measuring flag to NO after a long period of
+        // inactivity.
+        [self stop];
+        if (self.vaavudCoreControllerViewControllerDelegate) {
+            [self.vaavudCoreControllerViewControllerDelegate measuringStoppedByModel];
+        }
+        return;
+    }
+    
     if (!self.FFTisValid) {
         self.isValidPercent =0;
     }
@@ -237,10 +253,8 @@
         [self.vaavudCoreControllerViewControllerDelegate windSpeedMeasurementsAreValid: self.isValidCurrentStatus];
     }
     
-    MeasurementSession *measurementSession = [self getActiveMeasurementSession];
-
     // note: we shouldn't end up here if there isn't an active MeasurementSession with measuring=YES, but safe-guard just in case
-    if ((self.numberOfValidMeasurements % saveEveryNthPoint == 0) && measurementSession && (measurementSession != nil) && [measurementSession.measuring boolValue] == YES) {
+    if (self.numberOfValidMeasurements % saveEveryNthPoint == 0) {
         
         if (self.isValidCurrentStatus) {
             
