@@ -36,7 +36,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self refreshLogoutButton];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
@@ -47,23 +46,6 @@
         NSString *html = [Terms getTermsOfService];
         [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:@"http://vaavud.com"]];
     }
-}
-
-- (void) refreshLogoutButton {
-    if (LOGOUT_ENABLED && [[AccountManager sharedInstance] isLoggedIn]) {
-        if (!self.navigationItem.rightBarButtonItem) {
-            UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGOUT", nil) style:UIBarButtonItemStylePlain target:self action:@selector(logoutButtonPushed)];
-            self.navigationItem.rightBarButtonItem = item;
-        }
-    }
-    else {
-        self.navigationItem.rightBarButtonItem = nil;
-    }
-}
-
-- (void) logoutButtonPushed {
-    [[AccountManager sharedInstance] logout];
-    [self refreshLogoutButton];
 }
 
 -(NSUInteger)supportedInterfaceOrientations {

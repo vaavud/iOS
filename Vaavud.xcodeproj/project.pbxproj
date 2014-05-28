@@ -141,6 +141,7 @@
 		E9CD2254177B2AEA0054ED3F /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2238177B2AEA0054ED3F /* MagicalRecord.m */; };
 		E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */; };
 		E9DE09BA192E4C84003877D9 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DE09B9192E4C84003877D9 /* SettingsViewController.m */; };
+		E9DE09D21935E4D5003877D9 /* SettingsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DE09D11935E4D5003877D9 /* SettingsIcon@2x.png */; };
 		E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */; };
 		E9EB5E9317E9A3A500B02CE1 /* VaavudIcon120.png in Resources */ = {isa = PBXBuildFile; fileRef = E9EB5E9217E9A3A500B02CE1 /* VaavudIcon120.png */; };
 		E9EB5E9717E9B22600B02CE1 /* VaavudIcon29.png in Resources */ = {isa = PBXBuildFile; fileRef = E9EB5E9417E9B22600B02CE1 /* VaavudIcon29.png */; };
@@ -486,6 +487,7 @@
 		E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementCalloutView.m; sourceTree = "<group>"; };
 		E9DE09B8192E4C84003877D9 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		E9DE09B9192E4C84003877D9 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
+		E9DE09D11935E4D5003877D9 /* SettingsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsIcon@2x.png"; sourceTree = "<group>"; };
 		E9EB5E8F17E84E4D00B02CE1 /* AlgorithmConstantsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlgorithmConstantsUtil.h; sourceTree = "<group>"; };
 		E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlgorithmConstantsUtil.m; sourceTree = "<group>"; };
 		E9EB5E9217E9A3A500B02CE1 /* VaavudIcon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VaavudIcon120.png; sourceTree = "<group>"; };
@@ -799,6 +801,7 @@
 		E98853C7176868BE00F78128 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E9DE09D11935E4D5003877D9 /* SettingsIcon@2x.png */,
 				E9A4098118A0EE1B004F1C12 /* about_action.png */,
 				E9A4098218A0EE1B004F1C12 /* about_action@2x.png */,
 				E9EB5E9E17E9BDAE00B02CE1 /* Default-568h@2x~iphone.png */,
@@ -1200,6 +1203,7 @@
 				E91535CB180840D70070BFB4 /* measure_selected.png in Resources */,
 				E9EB5E9817E9B22600B02CE1 /* VaavudIcon58.png in Resources */,
 				E9FABFD818929050009C4C46 /* history@2x.png in Resources */,
+				E9DE09D21935E4D5003877D9 /* SettingsIcon@2x.png in Resources */,
 				D7A4F1D5173A8DDB00D1ACEE /* InfoPlist.strings in Resources */,
 				D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */,
 				E91535B91806C2D20070BFB4 /* map.png in Resources */,

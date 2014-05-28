@@ -84,7 +84,7 @@
 
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"VaavudTransparent100px.png"]];
     
-    UIImage *aboutImage = [UIImage imageNamed:@"about_action.png"];
+    UIImage *aboutImage = [UIImage imageNamed:@"SettingsIcon.png"];
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
         aboutImage = [aboutImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     }
@@ -335,7 +335,7 @@
 }
 
 - (void) aboutButtonPushed {
-    [self performSegueWithIdentifier:@"aboutSegue" sender:self];
+    [self performSegueWithIdentifier:@"settingsSegue" sender:self];
 }
 
 - (void)didReceiveMemoryWarning {
