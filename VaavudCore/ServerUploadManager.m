@@ -10,6 +10,7 @@
 #define networkErrorBackOff 10
 #define graceTimeBetweenDidBecomeActiveTasks 3600.0
 #define uploadInterval 10
+#define GRACE_TIME_BETWEEN_HISTORY_SYNC 60.0
 
 #import "ServerUploadManager.h"
 #import "SharedSingleton.h"
@@ -33,6 +34,8 @@
 @property(nonatomic) BOOL hasRegisteredDevice;
 @property(nonatomic) int consecutiveNetworkErrors;
 @property(nonatomic) int backoffWaitCount;
+@property (nonatomic) NSDate *lastHistorySync;
+@property(nonatomic) BOOL isHistorySyncInProgress;
 
 @end
 
@@ -318,7 +321,7 @@ SHARED_INSTANCE
         // only trigger upload once we get OK from server for registering device, otherwise the device could be unregistered when uploading
         [self triggerUpload];
         
-        [self syncHistory:1 success:nil failure:nil];
+        [self syncHistory:1 ignoreGracePeriod:YES success:nil failure:nil];
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         long statusCode = (long)operation.response.statusCode;
@@ -485,7 +488,7 @@ SHARED_INSTANCE
     }];
 }
 
--(void) syncHistory:(int)retryCount success:(void (^)())success failure:(void (^)(NSError *error))failure {
+-(void) syncHistory:(int)retryCount ignoreGracePeriod:(BOOL)ignoreGracePeriod success:(void (^)())success failure:(void (^)(NSError *error))failure {
     if (!self.hasReachability) {
         if (failure) {
             failure(nil);
@@ -507,6 +510,13 @@ SHARED_INSTANCE
         return;
     }
 
+    if (!ignoreGracePeriod && self.lastHistorySync && self.lastHistorySync != nil) {
+        NSTimeInterval howRecent = [self.lastHistorySync timeIntervalSinceNow];
+        if (abs(howRecent) < GRACE_TIME_BETWEEN_HISTORY_SYNC) {
+            return;
+        }
+    }
+    
     NSDate *beginSyncDate = [NSDate date];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -541,12 +551,17 @@ SHARED_INSTANCE
 
     NSLog(@"[ServerUploadManager] History sync (took %f s to compute hash)", -[beginSyncDate timeIntervalSinceNow]);
     
+    // only let it look like history sync is in progress if it was forced
+    self.isHistorySyncInProgress = ignoreGracePeriod;
+    
     [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/history" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         // clear consecutive errors since we got a successful reponse
         self.consecutiveNetworkErrors = 0;
         self.backoffWaitCount = 0;
-        
+        self.lastHistorySync = [NSDate date];
+        self.isHistorySyncInProgress = NO;
+
         //NSLog(@"[ServerUploadManager] Response: %@", responseObject);
 
         NSDictionary *responseDictionary = (NSDictionary*) responseObject;
@@ -621,8 +636,6 @@ SHARED_INSTANCE
             }
         }
         
-        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
-
         // create new measurement sessions that did not already exist in the local database
         
         NSArray *newMeasurementSessions = [uuidToDictionary allValues];
@@ -630,6 +643,7 @@ SHARED_INSTANCE
             NSDictionary *measurementDictionary = (NSDictionary*) newMeasurementSessions[i];
             
             NSString *uuid = [self stringValueFrom:measurementDictionary forKey:@"uuid"];
+            NSString *deviceUuid = [self stringValueFrom:measurementDictionary forKey:@"deviceUuid"];
             NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[measurementDictionary objectForKey:@"startTime"]) doubleValue] / 1000.0)];
             NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[measurementDictionary objectForKey:@"endTime"]) doubleValue] / 1000.0)];
             NSNumber *latitude = [self numberValueFrom:measurementDictionary forKey:@"latitude"];
@@ -667,7 +681,7 @@ SHARED_INSTANCE
                 
                 MeasurementSession *measurementSession = [MeasurementSession MR_createEntity];
                 measurementSession.uuid = uuid;
-                measurementSession.device = [Property getAsString:KEY_DEVICE_UUID];
+                measurementSession.device = deviceUuid;
                 measurementSession.startTime = startTime;
                 measurementSession.timezoneOffset = [NSNumber numberWithInt:[[NSTimeZone localTimeZone] secondsFromGMTForDate:measurementSession.startTime]];
                 measurementSession.endTime = endTime;
@@ -696,6 +710,7 @@ SHARED_INSTANCE
         NSLog(@"[ServerUploadManager] Got error status code %ld syncing history: %@", statusCode, error);
         
         self.consecutiveNetworkErrors++;
+        self.isHistorySyncInProgress = NO;
         
         // check for unauthorized
         if (statusCode == 401) {
@@ -707,7 +722,7 @@ SHARED_INSTANCE
             }
         }
         else {
-            [self syncHistory:retryCount-1 success:success failure:failure];
+            [self syncHistory:retryCount-1 ignoreGracePeriod:ignoreGracePeriod success:success failure:failure];
         }
     }];
 }

@@ -55,6 +55,29 @@
 
     // Whenever a person opens the app, check for a cached session and refresh token
     [[AccountManager sharedInstance] registerWithFacebook:nil action:AuthenticationActionRefresh];
+    
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    UIViewController *viewController = nil;
+    if ([[AccountManager sharedInstance] getAuthenticationState] == AuthenticationStateWasLoggedIn) {
+        
+        // if user was once logged in, force user to log in or sign up again...
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
+        viewController = [storyboard instantiateInitialViewController];
+        if ([viewController isKindOfClass:[RegisterNavigationController class]]) {
+            ((RegisterNavigationController*) viewController).registerDelegate = self;
+        }
+    }
+    else {
+        
+        // normal case...
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        viewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+    }
+    
+    self.window.rootViewController = viewController;
+    [self.window makeKeyAndVisible];
 
     return YES;
 }
@@ -149,6 +172,24 @@
     }
     
     return YES;
+}
+
+- (void) userAuthenticated:(BOOL)isSignup viewController:(UIViewController*)viewController {
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    UIViewController *nextViewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+    nextViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [viewController presentViewController:nextViewController animated:YES completion:nil];
+    
+    [[ServerUploadManager sharedInstance] syncHistory:1 ignoreGracePeriod:YES success:nil failure:nil];
+}
+
+- (NSString*) registerScreenTitle {
+    return nil;
+}
+
+- (NSString*) registerTeaserText {
+    return nil;
 }
 
 @end

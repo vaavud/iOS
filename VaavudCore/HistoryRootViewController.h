@@ -15,4 +15,6 @@
 
 @interface HistoryRootViewController : UIViewController <RegisterNavigationControllerDelegate>
 
+- (void) chooseContentControllerWithNoHistorySync;
+
 @end

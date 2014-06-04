@@ -55,6 +55,8 @@ enum AuthenticationResponseType : NSUInteger {
 
 -(void) registerWithFacebook:(NSString*)password action:(enum AuthenticationActionType)action;
 
+- (enum AuthenticationStateType) getAuthenticationState;
+
 -(void) logout;
 
 -(BOOL) isLoggedIn;

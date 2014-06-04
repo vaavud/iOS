@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RegisterNavigationController.h"
 
-@interface MeasureNavigationController : UINavigationController
+@interface MeasureNavigationController : RegisterNavigationController
 
 @end

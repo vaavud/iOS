@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol RegisterNavigationControllerDelegate <NSObject>
-- (void) userAuthenticated:(BOOL)isSignup;
+- (void) userAuthenticated:(BOOL)isSignup viewController:(UIViewController*)viewController;
 - (NSString*) registerScreenTitle;
 - (NSString*) registerTeaserText;
 @end

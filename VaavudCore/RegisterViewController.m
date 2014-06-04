@@ -27,7 +27,20 @@
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
         RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
         if (registerNavigationController.registerDelegate) {
-            self.navigationItem.title = [registerNavigationController.registerDelegate registerScreenTitle];
+            
+            NSString *title = [registerNavigationController.registerDelegate registerScreenTitle];
+            
+            if (!title || title.length == 0) {
+
+                UIImage *logoImage = [UIImage imageNamed:@"VaavudTransparent100px.png"];
+                UIImageView *logoImageView = [[UIImageView alloc] initWithImage:logoImage];
+                self.navigationItem.titleView = logoImageView;
+                
+                //NSLog(@"Navigation title view rect: (%f, %f, %f, %f)", self.navigationItem.titleView.frame.origin.x, self.navigationItem.titleView.frame.origin.y, self.navigationItem.titleView.frame.size.width, self.navigationItem.titleView.frame.size.height);
+            }
+            else {
+                self.navigationItem.title = [registerNavigationController.registerDelegate registerScreenTitle];
+            }
             self.teaserLabel.text = [registerNavigationController.registerDelegate registerTeaserText];
         }
     }

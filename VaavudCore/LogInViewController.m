@@ -83,7 +83,7 @@ BOOL didShowFeedback;
         if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
             RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
             if (registerNavigationController.registerDelegate) {
-                [registerNavigationController.registerDelegate userAuthenticated:(response == AuthenticationResponseCreated)];
+                [registerNavigationController.registerDelegate userAuthenticated:(response == AuthenticationResponseCreated) viewController:self];
             }
         }
     } failure:^(enum AuthenticationResponseType response) {
@@ -135,7 +135,7 @@ BOOL didShowFeedback;
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
         RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
         if (registerNavigationController.registerDelegate) {
-            [registerNavigationController.registerDelegate userAuthenticated:(response == AuthenticationResponseCreated)];
+            [registerNavigationController.registerDelegate userAuthenticated:(response == AuthenticationResponseCreated) viewController:self];
         }
     }
 }

@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Andreas Okholm. All rights reserved.
 //
 
-#define GRACE_TIME_BETWEEN_HISTORY_SYNC 10.0
-
 #import "HistoryRootViewController.h"
 #import "Property+Util.h"
 #import "HistoryNavigationController.h"
@@ -15,11 +13,11 @@
 #import "AccountManager.h"
 #import "MeasurementSession+Util.h"
 #import "ServerUploadManager.h"
+#import "LoadingHistoryViewController.h"
 
 @interface HistoryRootViewController ()
 
 @property (nonatomic, weak) UIViewController *childViewController;
-@property (nonatomic) NSDate *lastHistorySync;
 
 @end
 
@@ -44,7 +42,7 @@
     [self chooseContentController:NO];
 }
 
-- (void) userAuthenticated:(BOOL)isSignup {
+- (void) userAuthenticated:(BOOL)isSignup viewController:(UIViewController*)viewController {
     [self chooseContentController:YES];
 }
 
@@ -57,20 +55,31 @@
 }
 
 - (void) chooseContentController:(BOOL)ignoreGracePeriod {
-    [self syncHistory:ignoreGracePeriod];
+    if (ignoreGracePeriod) {
+        [self syncHistory:YES];
+    }
     [self chooseContentControllerWithNoHistorySync];
+    if (!ignoreGracePeriod) {
+        [self syncHistory:NO];
+    }
 }
 
 - (void) chooseContentControllerWithNoHistorySync {
     UIViewController *newController = nil;
     
     if ([[AccountManager sharedInstance] isLoggedIn]) {
-        MeasurementSession *measurementSession = [MeasurementSession MR_findFirst];
-        if (!measurementSession) {
-            newController = [self.storyboard instantiateViewControllerWithIdentifier:@"NoHistoryNavigationController"];
+        
+        if ([ServerUploadManager sharedInstance].isHistorySyncInProgress) {
+            newController = [self.storyboard instantiateViewControllerWithIdentifier:@"LoadingHistoryNavigationController"];
         }
-        else if (![self.childViewController isKindOfClass:[HistoryNavigationController class]]) {
-            newController = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryNavigationController"];
+        else {
+            MeasurementSession *measurementSession = [MeasurementSession MR_findFirst];
+            if (!measurementSession) {
+                newController = [self.storyboard instantiateViewControllerWithIdentifier:@"NoHistoryNavigationController"];
+            }
+            else if (![self.childViewController isKindOfClass:[HistoryNavigationController class]]) {
+                newController = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryNavigationController"];
+            }
         }
     }
     else if (![self.childViewController isKindOfClass:[RegisterNavigationController class]]) {
@@ -107,19 +116,10 @@
 
 - (void) syncHistory:(BOOL)ignoreGracePeriod {
     
-    if (!ignoreGracePeriod && self.lastHistorySync && self.lastHistorySync != nil) {
-        NSTimeInterval howRecent = [self.lastHistorySync timeIntervalSinceNow];
-        if (abs(howRecent) < GRACE_TIME_BETWEEN_HISTORY_SYNC) {
-            return;
-        }
-    }
-
     if ([[AccountManager sharedInstance] isLoggedIn]) {
-        [[ServerUploadManager sharedInstance] syncHistory:1 success:^{
+        [[ServerUploadManager sharedInstance] syncHistory:1 ignoreGracePeriod:ignoreGracePeriod success:^{
             //NSLog(@"[HistoryRootViewController] Got successful callback from history sync");
             
-            self.lastHistorySync = [NSDate date];
-
             if (self.childViewController && [self.childViewController conformsToProtocol:@protocol(HistoryLoadedListener)]) {
                 UIViewController<HistoryLoadedListener> *listener = (UIViewController<HistoryLoadedListener>*) self.childViewController;
                 [listener historyLoaded];
@@ -129,6 +129,9 @@
             }
         } failure:^(NSError *error) {
             //NSLog(@"[HistoryRootViewController] Got failure callback from history sync");
+            if ([self.childViewController isKindOfClass:[LoadingHistoryViewController class]]) {
+                [self chooseContentControllerWithNoHistorySync];
+            }
         }];
     }
 }
