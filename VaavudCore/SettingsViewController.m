@@ -106,8 +106,9 @@
         if ([nextViewController isKindOfClass:[RegisterNavigationController class]]) {
             ((RegisterNavigationController*) nextViewController).registerDelegate = (vaavudAppDelegate*) [UIApplication sharedApplication].delegate;
         }
-        nextViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [self presentViewController:nextViewController animated:YES completion:nil];
+        [UIApplication sharedApplication].delegate.window.rootViewController = nextViewController;
+        //nextViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        //[self presentViewController:nextViewController animated:YES completion:nil];
     }
 }
 

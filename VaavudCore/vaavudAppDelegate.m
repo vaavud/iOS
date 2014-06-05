@@ -178,8 +178,9 @@
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     UIViewController *nextViewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
-    nextViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    [viewController presentViewController:nextViewController animated:YES completion:nil];
+    //nextViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    //[viewController presentViewController:nextViewController animated:YES completion:nil];
+    self.window.rootViewController = nextViewController;
     
     [[ServerUploadManager sharedInstance] syncHistory:1 ignoreGracePeriod:YES success:nil failure:nil];
 }
