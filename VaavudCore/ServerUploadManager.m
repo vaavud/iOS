@@ -569,7 +569,6 @@ SHARED_INSTANCE
         self.backoffWaitCount = 0;
         
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-            NSLog(@"Begin saveWithBlock");
             
             NSDictionary *responseDictionary = (NSDictionary*) responseObject;
             

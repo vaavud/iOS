@@ -17,7 +17,7 @@
 
 - (void) loadView {
     self.wantsFullScreenLayout = YES;
-    UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
+    UIView *view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     self.view = view;
     
@@ -26,6 +26,10 @@
     [self.view addSubview:_containerView];
     
     [_containerView addSubview:self.viewController.view];
+}
+
+- (NSUInteger) supportedInterfaceOrientations {
+    return [self.viewController supportedInterfaceOrientations];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {

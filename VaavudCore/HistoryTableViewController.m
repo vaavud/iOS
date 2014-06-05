@@ -251,7 +251,6 @@
     if (!view) {
         view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:FooterIdentifier];
         view.frame = CGRectZero;
-        //view.contentView.backgroundColor = [UIColor redColor];
     }
     
     return view;
@@ -280,7 +279,7 @@
         return;
     }
     
-    NSLog(@"[HistoryTableViewController] Controller will change content");
+    //NSLog(@"[HistoryTableViewController] Controller will change content");
     [self.tableView beginUpdates];
     self.isTableUpdating = YES;
 }
@@ -308,7 +307,7 @@
         return;
     }
 
-    NSLog(@"[HistoryTableViewController] Controller changed object");
+    //NSLog(@"[HistoryTableViewController] Controller changed object");
 
     UITableView *tableView = self.tableView;
     
@@ -339,7 +338,7 @@
         return;
     }
 
-    NSLog(@"[HistoryTableViewController] Controller changed content");
+    //NSLog(@"[HistoryTableViewController] Controller changed content");
     if (self.isTableUpdating) {
         [self.tableView endUpdates];
         self.isTableUpdating = NO;

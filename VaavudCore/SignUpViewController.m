@@ -347,4 +347,8 @@ BOOL didShowFeedback;
     }
 }
 
+-(NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
 @end

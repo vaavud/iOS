@@ -233,4 +233,8 @@ BOOL didShowFeedback;
     self.alertView = nil;
 }
 
+-(NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
 @end
