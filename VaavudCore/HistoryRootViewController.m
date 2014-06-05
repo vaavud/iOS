@@ -69,7 +69,7 @@
     
     if ([[AccountManager sharedInstance] isLoggedIn]) {
         
-        if ([ServerUploadManager sharedInstance].isHistorySyncInProgress) {
+        if ([ServerUploadManager sharedInstance].isHistorySyncBusy) {
             newController = [self.storyboard instantiateViewControllerWithIdentifier:@"LoadingHistoryNavigationController"];
         }
         else {

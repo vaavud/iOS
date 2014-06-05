@@ -23,6 +23,9 @@
 @property (nonatomic, strong) UIImage *placeholderImage;
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
 @property (nonatomic) NSDate *latestLocalEndTime;
+@property (nonatomic) BOOL isObservingModelChanges;
+@property (nonatomic) BOOL isAppeared;
+@property (nonatomic) BOOL isTableUpdating;
 
 @end
 
@@ -33,6 +36,9 @@
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
     self.navigationItem.title = NSLocalizedString(@"HISTORY_TITLE", nil);
+    self.isObservingModelChanges = NO;
+    self.isTableUpdating = NO;
+    self.isAppeared = NO;
 }
 
 - (void) viewDidUnload {
@@ -48,17 +54,46 @@
         self.windSpeedUnit = newWindSpeedUnit;
         [self.tableView reloadData];
     }
-}
-
-- (void) historyLoaded {
-    NSLog(@"[HistoryTableViewController] History loaded");
+    
+    // if we're not observing model changes, refresh the whole table...
+    
+    if (!self.isObservingModelChanges) {
+        [self.tableView reloadData];
+        
+        // if there is no history sync going on, turn on model observing...
+        
+        if (![ServerUploadManager sharedInstance].isHistorySyncBusy) {
+            self.isObservingModelChanges = YES;
+        }
+    }
 }
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    self.isAppeared = YES;
+    
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"History Screen"];
+    }
+}
+
+- (void) viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    // don't update table while we're not being displayed
+    self.isObservingModelChanges = NO;
+    self.isAppeared = NO;
+}
+
+- (void) historyLoaded {
+    NSLog(@"[HistoryTableViewController] History loaded");
+    
+    if (self.isAppeared) {
+        if (!self.isObservingModelChanges) {
+            [self.tableView reloadData];
+        }
+        self.isObservingModelChanges = YES;
     }
 }
 
@@ -240,11 +275,22 @@
 }
 
 - (void) controllerWillChangeContent:(NSFetchedResultsController*)controller {
+    
+    if (!self.isObservingModelChanges) {
+        return;
+    }
+    
+    NSLog(@"[HistoryTableViewController] Controller will change content");
     [self.tableView beginUpdates];
+    self.isTableUpdating = YES;
 }
 
 - (void) controller:(NSFetchedResultsController*)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-    
+
+    if (!self.isObservingModelChanges) {
+        return;
+    }
+
     switch (type) {
         case NSFetchedResultsChangeInsert:
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
@@ -257,7 +303,13 @@
 }
 
 - (void) controller:(NSFetchedResultsController*)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath*)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath*)newIndexPath {
-    
+
+    if (!self.isObservingModelChanges) {
+        return;
+    }
+
+    NSLog(@"[HistoryTableViewController] Controller changed object");
+
     UITableView *tableView = self.tableView;
     
     switch (type) {
@@ -282,7 +334,16 @@
 }
 
 - (void) controllerDidChangeContent:(NSFetchedResultsController*)controller {
-    [self.tableView endUpdates];
+    
+    if (!self.isObservingModelChanges) {
+        return;
+    }
+
+    NSLog(@"[HistoryTableViewController] Controller changed content");
+    if (self.isTableUpdating) {
+        [self.tableView endUpdates];
+        self.isTableUpdating = NO;
+    }
 }
 
 @end

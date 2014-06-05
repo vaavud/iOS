@@ -34,6 +34,7 @@
 		E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E904AC9917F0911000171F7F /* MapKit.framework */; };
 		E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */; };
 		E907093E193F4AFB0087F80F /* SettingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = E907093D193F4AFB0087F80F /* SettingsIcon.png */; };
+		E90709441940AFD80087F80F /* TransitionController.m in Sources */ = {isa = PBXBuildFile; fileRef = E90709431940AFD80087F80F /* TransitionController.m */; };
 		E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F76CD1771EB2B00F51A4F /* ServerUploadManager.m */; };
 		E912793218BF5FF4009C7769 /* NoHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E912793118BF5FF4009C7769 /* NoHistoryViewController.m */; };
 		E912793518BF7893009C7769 /* NoHistoryArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = E912793418BF7893009C7769 /* NoHistoryArrowView.m */; };
@@ -303,6 +304,8 @@
 		E904AC9D17F193DF00171F7F /* MeasurementAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementAnnotation.h; sourceTree = "<group>"; };
 		E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementAnnotation.m; sourceTree = "<group>"; };
 		E907093D193F4AFB0087F80F /* SettingsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsIcon.png; sourceTree = "<group>"; };
+		E90709421940AFD80087F80F /* TransitionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionController.h; sourceTree = "<group>"; };
+		E90709431940AFD80087F80F /* TransitionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionController.m; sourceTree = "<group>"; };
 		E90F76CC1771EB2A00F51A4F /* ServerUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerUploadManager.h; sourceTree = "<group>"; };
 		E90F76CD1771EB2B00F51A4F /* ServerUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerUploadManager.m; sourceTree = "<group>"; };
 		E912793018BF5FF4009C7769 /* NoHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoHistoryViewController.h; sourceTree = "<group>"; };
@@ -754,6 +757,7 @@
 		D7B5BD4E175775BA0069F739 /* VaavudViewFiles */ = {
 			isa = PBXGroup;
 			children = (
+				E90709411940AFAC0087F80F /* Components */,
 				E9DE09B7192E4C6A003877D9 /* Settings */,
 				E9AF2B8317F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.h */,
 				E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */,
@@ -806,6 +810,15 @@
 				E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */,
 			);
 			name = Map;
+			sourceTree = "<group>";
+		};
+		E90709411940AFAC0087F80F /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				E90709421940AFD80087F80F /* TransitionController.h */,
+				E90709431940AFD80087F80F /* TransitionController.m */,
+			);
+			name = Components;
 			sourceTree = "<group>";
 		};
 		E98853C7176868BE00F78128 /* Images */ = {
@@ -1386,6 +1399,7 @@
 				E9CD2254177B2AEA0054ED3F /* MagicalRecord.m in Sources */,
 				E904AC9817F08F6E00171F7F /* MapViewController.m in Sources */,
 				E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */,
+				E90709441940AFD80087F80F /* TransitionController.m in Sources */,
 				E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */,
 				E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */,
 				E93C865A1781BE56005E4212 /* LocationManager.m in Sources */,

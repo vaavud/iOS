@@ -12,7 +12,7 @@
 @interface ServerUploadManager : NSObject
 
 @property(nonatomic, readonly) BOOL hasReachability;
-@property(nonatomic, readonly) BOOL isHistorySyncInProgress;
+@property(nonatomic, readonly) BOOL isHistorySyncBusy;
 
 +(ServerUploadManager *) sharedInstance;
 

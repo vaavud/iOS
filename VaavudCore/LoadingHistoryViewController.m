@@ -35,7 +35,7 @@
 }
 
 - (void) checkIfDone {
-    if (![ServerUploadManager sharedInstance].isHistorySyncInProgress) {
+    if (![ServerUploadManager sharedInstance].isHistorySyncBusy) {
         [self.timer invalidate];
         self.timer = nil;
         HistoryRootViewController *historyRootViewController = (HistoryRootViewController*) [self.navigationController parentViewController];

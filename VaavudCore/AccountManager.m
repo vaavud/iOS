@@ -346,8 +346,9 @@ BOOL isDoingLogout = NO;
     }
 
     // delete all measurement sessions
-    [MeasurementSession MR_deleteAllMatchingPredicate:[NSPredicate predicateWithValue:YES]];
-    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
+    [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
+        [MeasurementSession MR_deleteAllMatchingPredicate:[NSPredicate predicateWithValue:YES] inContext:localContext];
+    }];
 
     [[ServerUploadManager sharedInstance] registerDevice];
 }
