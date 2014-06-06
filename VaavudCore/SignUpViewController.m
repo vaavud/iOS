@@ -54,13 +54,13 @@ BOOL didShowFeedback;
     [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
     self.orLabel.text = NSLocalizedString(@"REGISTER_OR", nil);
     self.firstNameTextField.guideText = NSLocalizedString(@"REGISTER_FIELD_FIRST_NAME", nil);
-    self.firstNameTextField.guidedDelegate = self;
+    self.firstNameTextField.delegate = self;
     self.lastNameTextField.guideText = NSLocalizedString(@"REGISTER_FIELD_LAST_NAME", nil);
-    self.lastNameTextField.guidedDelegate = self;
+    self.lastNameTextField.delegate = self;
     self.emailTextField.guideText = NSLocalizedString(@"REGISTER_FIELD_EMAIL", nil);
-    self.emailTextField.guidedDelegate = self;
+    self.emailTextField.delegate = self;
     self.passwordTextField.guideText = NSLocalizedString(@"REGISTER_FIELD_PASSWORD", nil);
-    self.passwordTextField.guidedDelegate = self;
+    self.passwordTextField.delegate = self;
     [self.termsButton setTitle:NSLocalizedString(@"LINK_TERMS_OF_SERVICE", nil) forState:UIControlStateNormal];
     [self.privacyButton setTitle:NSLocalizedString(@"LINK_PRIVACY_POLICY", nil) forState:UIControlStateNormal];
     self.andLabel.text = NSLocalizedString(@"REGISTER_TERMS_AND", nil);
@@ -349,6 +349,33 @@ BOOL didShowFeedback;
 
 -(NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
+}
+
+- (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    GuidedTextField *guidedTextField = (GuidedTextField*) textField;
+    
+    NSRange textFieldRange = NSMakeRange(0, [textField.text length]);
+    if ((NSEqualRanges(range, textFieldRange) && [string length] == 0) || (textField.secureTextEntry && guidedTextField.isFirstEdit && range.location > 0 && range.length == 1 && string.length == 0)) {
+        if (guidedTextField.label.hidden) {
+            guidedTextField.label.hidden = NO;
+        }
+    }
+    else {
+        if (!guidedTextField.label.hidden) {
+            guidedTextField.label.hidden = YES;
+        }
+    }
+    
+    guidedTextField.isFirstEdit = NO;
+    
+    return YES;
+}
+
+- (BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
+    GuidedTextField *guidedTextField = (GuidedTextField*) textField;
+    guidedTextField.isFirstEdit = YES;
+    return YES;
 }
 
 @end

@@ -11,6 +11,6 @@
 #import "GuidedTextField.h"
 #import "AccountManager.h"
 
-@interface SignUpViewController : UIViewController <GuidedTextFieldDelegate, AuthenticationDelegate, UIAlertViewDelegate>
+@interface SignUpViewController : UIViewController <AuthenticationDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 
 @end

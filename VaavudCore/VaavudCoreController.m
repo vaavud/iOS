@@ -192,7 +192,7 @@
         
         NSLog(@"[VaavudCoreController] There is a pending x-success callback: %@", appDelegate.xCallbackSuccess);
         
-        // TODO: this will return to the caller to quickly before we're fully uploaded to own servers
+        // TODO: this will return to the caller too quickly before we're fully uploaded to own servers
         NSString* callbackURL = [NSString stringWithFormat:@"%@?windSpeedAvg=%@&windSpeedMax=%@", appDelegate.xCallbackSuccess, measurementSession.windSpeedAvg, measurementSession.windSpeedMax];
         appDelegate.xCallbackSuccess = nil;
         

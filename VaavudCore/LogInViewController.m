@@ -38,9 +38,9 @@ BOOL didShowFeedback;
     [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
     self.orLabel.text = NSLocalizedString(@"REGISTER_OR", nil);
     self.emailTextField.guideText = NSLocalizedString(@"REGISTER_FIELD_EMAIL", nil);
-    self.emailTextField.guidedDelegate = self;
+    self.emailTextField.delegate = self;
     self.passwordTextField.guideText = NSLocalizedString(@"REGISTER_FIELD_PASSWORD", nil);
-    self.passwordTextField.guidedDelegate = self;
+    self.passwordTextField.delegate = self;
     
     self.navigationItem.title = NSLocalizedString(@"REGISTER_TITLE_LOGIN", nil);
     [self createRegisterButton];
@@ -235,6 +235,35 @@ BOOL didShowFeedback;
 
 -(NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
+}
+
+- (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    GuidedTextField *guidedTextField = (GuidedTextField*) textField;
+    
+    NSRange textFieldRange = NSMakeRange(0, [textField.text length]);
+    if ((NSEqualRanges(range, textFieldRange) && [string length] == 0) || (textField.secureTextEntry && guidedTextField.isFirstEdit && range.location > 0 && range.length == 1 && string.length == 0)) {
+        if (guidedTextField.label.hidden) {
+            guidedTextField.label.hidden = NO;
+            [self changedEmptiness:textField isEmpty:YES];
+        }
+    }
+    else {
+        if (!guidedTextField.label.hidden) {
+            guidedTextField.label.hidden = YES;
+            [self changedEmptiness:textField isEmpty:NO];
+        }
+    }
+    
+    guidedTextField.isFirstEdit = NO;
+    
+    return YES;
+}
+
+- (BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
+    GuidedTextField *guidedTextField = (GuidedTextField*) textField;
+    guidedTextField.isFirstEdit = YES;
+    return YES;
 }
 
 @end

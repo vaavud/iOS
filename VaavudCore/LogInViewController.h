@@ -11,6 +11,6 @@
 #import "GuidedTextField.h"
 #import "AccountManager.h"
 
-@interface LogInViewController : UIViewController <GuidedTextFieldDelegate, AuthenticationDelegate, UIAlertViewDelegate>
+@interface LogInViewController : UIViewController <AuthenticationDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 
 @end

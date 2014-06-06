@@ -159,10 +159,12 @@
             if (xSuccess && xSuccess != nil && xSuccess != (id)[NSNull null] && [xSuccess length] > 0) {
                 NSLog(@"[VaavudAppDelegate] opened with x-callback-url, setting x-success to %@", xSuccess);
                 self.xCallbackSuccess = xSuccess;
-                
-                TabBarController *tabBarController = (TabBarController*) self.window.rootViewController;
-                if (tabBarController && tabBarController != nil && tabBarController.isViewLoaded) {
-                    tabBarController.selectedIndex = 0;
+
+                if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
+                    TabBarController *tabBarController = (TabBarController*) self.window.rootViewController;
+                    if (tabBarController && tabBarController != nil && tabBarController.isViewLoaded) {
+                        tabBarController.selectedIndex = 0;
+                    }
                 }
             }
         }

@@ -8,15 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol GuidedTextFieldDelegate <NSObject>
-@optional
-- (void) changedEmptiness:(UITextField*)textField isEmpty:(BOOL)isEmpty;
-- (BOOL) textFieldShouldReturn:(UITextField*)textField;
-@end
+@interface GuidedTextField : UITextField
 
-@interface GuidedTextField : UITextField <UITextFieldDelegate>
-
-@property (nonatomic, weak) id<GuidedTextFieldDelegate> guidedDelegate;
 @property (nonatomic) NSString *guideText;
+@property (nonatomic) UILabel *label;
+@property (nonatomic) BOOL isFirstEdit;
 
 @end

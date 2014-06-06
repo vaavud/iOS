@@ -522,8 +522,6 @@ SHARED_INSTANCE
         }
     }
     
-    NSDate *beginSyncDate = [NSDate date];
-    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     NSString *formatString = @"yyyy-MM-dd HH:mm:ss.SSS Z";
     [formatter setDateFormat:formatString];
@@ -554,7 +552,7 @@ SHARED_INSTANCE
         parameters = [DictionarySerializationUtil convertValuesToBasicTypes:parameters];
     }
 
-    NSLog(@"[ServerUploadManager] History sync (took %f s to compute hash)", -[beginSyncDate timeIntervalSinceNow]);
+    //NSLog(@"[ServerUploadManager] History sync (took %f s to compute hash)", -[beginSyncDate timeIntervalSinceNow]);
     
     // only let it look like history sync is busy if it was forced
     self.isHistorySyncBusy = ignoreGracePeriod;
@@ -562,7 +560,7 @@ SHARED_INSTANCE
     
     [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/history" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
-        NSLog(@"[ServerUploadManager] History response");
+        //NSLog(@"[ServerUploadManager] History response");
 
         // clear consecutive errors since we got a successful reponse
         self.consecutiveNetworkErrors = 0;
@@ -587,6 +585,10 @@ SHARED_INSTANCE
                 }
             }
             
+            int measurementsDeleted = 0;
+            int measurementsModified = 0;
+            int measurementsCreated = 0;
+            
             // go through all existing measurements in our local database and
             // (1) update any measurement that has been modified - i.e. its endTime has changed
             // (2) delete any measurement that wasn't in the response from the server
@@ -594,7 +596,7 @@ SHARED_INSTANCE
             //     that map will only contain new measurements
             
             NSArray *measurementSessions = [MeasurementSession MR_findAllSortedBy:@"endTime" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"endTime >= %@", fromEndTime] inContext:localContext];
-            NSLog(@"[ServerUploadManager] Existing sessions after endTime: %u", (int)measurementSessions.count);
+            //NSLog(@"[ServerUploadManager] Existing sessions after endTime: %u", (int)measurementSessions.count);
             for (int i = 0; i < measurementSessions.count; i++) {
                 MeasurementSession *measurementSession = measurementSessions[i];
                 if (measurementSession.uuid && measurementSession.uuid.length > 0) {
@@ -602,7 +604,7 @@ SHARED_INSTANCE
                     if (measurementDictionary) {
                         NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[measurementDictionary objectForKey:@"endTime"]) doubleValue] / 1000.0)];
                         if ([measurementSession.endTime isEqualToDate:endTime]) {
-                            NSLog(@"[ServerUploadManager] Measurement known: %@, endTime: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.endTime]);
+                            //NSLog(@"[ServerUploadManager] Measurement known: %@, endTime: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.endTime]);
                         }
                         else {
                             NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[measurementDictionary objectForKey:@"startTime"]) doubleValue] / 1000.0)];
@@ -615,7 +617,8 @@ SHARED_INSTANCE
                             
                             if ([measurementSession.measuring boolValue] == NO && [measurementSession.uploaded boolValue] == YES) {
                                 
-                                NSLog(@"[ServerUploadManager] Measurement modified: %@, endTime=%@", measurementSession.uuid, endTime);
+                                //NSLog(@"[ServerUploadManager] Measurement modified: %@, endTime=%@", measurementSession.uuid, endTime);
+                                measurementsModified++;
                                 
                                 measurementSession.startTime = startTime;
                                 measurementSession.endTime = endTime;
@@ -626,7 +629,7 @@ SHARED_INSTANCE
                                 
                                 if (points.count > measurementSession.points.count) {
                                     
-                                    NSLog(@"[ServerUploadManager] Measurement points added, old size=%lu, new size=%lu", (unsigned long)measurementSession.points.count, (unsigned long)points.count);
+                                    //NSLog(@"[ServerUploadManager] Measurement points added, old size=%lu, new size=%lu", (unsigned long)measurementSession.points.count, (unsigned long)points.count);
                                     
                                     NSOrderedSet *measurementPoints = [self createMeasurementPoints:points withSession:measurementSession inContext:localContext];
                                     [measurementSession setPoints:measurementPoints];
@@ -636,7 +639,8 @@ SHARED_INSTANCE
                         [uuidToDictionary removeObjectForKey:measurementSession.uuid];
                     }
                     else {
-                        NSLog(@"[ServerUploadManager] Measurement deleted: %@, endTime: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.endTime]);
+                        //NSLog(@"[ServerUploadManager] Measurement deleted: %@, endTime: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.endTime]);
+                        measurementsDeleted++;
                         [measurementSession MR_deleteInContext:localContext];
                     }
                 }
@@ -663,7 +667,8 @@ SHARED_INSTANCE
                     
                     if ([measurementSession.measuring boolValue] == NO && [measurementSession.uploaded boolValue] == YES) {
                         
-                        NSLog(@"[ServerUploadManager] Measurement before fromEndTime modified: %@, endTime=%@", measurementSession.uuid, endTime);
+                        //NSLog(@"[ServerUploadManager] Measurement before fromEndTime modified: %@, endTime=%@", measurementSession.uuid, endTime);
+                        measurementsModified++;
                         
                         measurementSession.startTime = startTime;
                         measurementSession.endTime = endTime;
@@ -674,7 +679,7 @@ SHARED_INSTANCE
                         
                         if (points.count > measurementSession.points.count) {
                             
-                            NSLog(@"[ServerUploadManager] Measurement points added, old size=%lu, new size=%lu", (unsigned long)measurementSession.points.count, (unsigned long)points.count);
+                            //NSLog(@"[ServerUploadManager] Measurement points added, old size=%lu, new size=%lu", (unsigned long)measurementSession.points.count, (unsigned long)points.count);
                             
                             NSOrderedSet *measurementPoints = [self createMeasurementPoints:points withSession:measurementSession inContext:localContext];
                             [measurementSession setPoints:measurementPoints];
@@ -683,7 +688,8 @@ SHARED_INSTANCE
                 }
                 else {
                     
-                    NSLog(@"[ServerUploadManager] Measurement created: %@, endTime=%@ (%@)", uuid, endTime, (NSString*)[measurementDictionary objectForKey:@"endTime"]);
+                    //NSLog(@"[ServerUploadManager] Measurement created: %@, endTime=%@ (%@)", uuid, endTime, (NSString*)[measurementDictionary objectForKey:@"endTime"]);
+                    measurementsCreated++;
                     
                     MeasurementSession *measurementSession = [MeasurementSession MR_createInContext:localContext];
                     measurementSession.uuid = uuid;
@@ -705,14 +711,14 @@ SHARED_INSTANCE
                 }
             }
 
-            NSLog(@"[ServerUploadManager] History processing finished");
+            NSLog(@"[ServerUploadManager] History processed, modified=%u, created=%u, deleted=%u", measurementsModified, measurementsCreated, measurementsDeleted);
 
         } completion:^(BOOL isSuccess, NSError *error) {
             self.lastHistorySync = [NSDate date];
             self.isHistorySyncBusy = NO;
             self.isHistorySyncInProgress = NO;
             
-            NSLog(@"[ServerUploadManager] End saveWithBlock with success=%@", isSuccess ? @"YES" : @"NO");
+            //NSLog(@"[ServerUploadManager] End saveWithBlock with success=%@", isSuccess ? @"YES" : @"NO");
             
             if (success) {
                 success();
