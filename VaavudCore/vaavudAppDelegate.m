@@ -54,7 +54,9 @@
     }
 
     // Whenever a person opens the app, check for a cached session and refresh token
-    [[AccountManager sharedInstance] registerWithFacebook:nil action:AuthenticationActionRefresh];
+    if ([[AccountManager sharedInstance] isLoggedIn]) {
+        [[AccountManager sharedInstance] registerWithFacebook:nil action:AuthenticationActionRefresh];
+    }
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     UIViewController *viewController = nil;
