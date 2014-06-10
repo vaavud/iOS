@@ -87,3 +87,8 @@
 "REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Assicurati di avere la connessione dati o il Wi-Fi.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Errore";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Riprova più tardi.";
+
+"SETTINGS_TITLE" = "Impostazioni";
+"SETTINGS_SHOP_LINK" = "Compra il misuratore del vento";
+
+"DIALOG_CONFIRM" = "Sei sicuro?";

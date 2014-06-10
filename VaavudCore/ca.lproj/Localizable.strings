@@ -84,3 +84,8 @@
 "REGISTER_FEEDBACK_MALFORMED_EMAIL_TITLE" = "Email incorrecte";
 "REGISTER_FEEDBACK_MALFORMED_EMAIL_MESSAGE" = "No sembla ser un email vàlid.";
 "REGISTER_FEEDBACK_NO_REACHABILITY_TITLE" = "Problema de connectivitat";
+
+"SETTINGS_TITLE" = "Configuració";
+"SETTINGS_SHOP_LINK" =" Compra un anemómetre";
+
+"DIALOG_CONFIRM" = "¿N'estàs segur?";

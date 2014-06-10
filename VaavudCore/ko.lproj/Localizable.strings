@@ -87,3 +87,8 @@
 "REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "셀룰러 데이터가 켜져있는지, 또는 Wi-Fi가 연결되어 있는지 확인하세요.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "오류";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "나중에 다시 해보세요.";
+
+"SETTINGS_TITLE" = "설정";
+"SETTINGS_SHOP_LINK" = "바람 측정기 구매";
+
+"DIALOG_CONFIRM" = "계속하시겠습니까?";

@@ -87,3 +87,8 @@
 "REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Certifique-se de que tem ligaÁ„o por dados por pacotes ou por Wi-Fi.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Erro";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Por favor, tente novamente mais tarde.";
+
+"SETTINGS_TITLE" = "Definições";
+"SETTINGS_SHOP_LINK" = "Comprar um medidor de vento";
+
+"DIALOG_CONFIRM" = "Tem a certeza?";

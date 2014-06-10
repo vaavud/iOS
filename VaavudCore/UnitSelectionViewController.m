@@ -26,6 +26,8 @@
         self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     }
 
+    self.navigationItem.title = NSLocalizedString(@"HEADING_UNIT", nil);
+
     self.view.autoresizesSubviews = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 

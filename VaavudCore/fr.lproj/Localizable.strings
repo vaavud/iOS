@@ -87,3 +87,8 @@
 "REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Assurez-vous que vous avez une connexion mobile ou Wi-Fi.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Erreur";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Veuillez réessayer ultérieurement.";
+
+"SETTINGS_TITLE" = "Paramètres";
+"SETTINGS_SHOP_LINK" = "Acheter l'anémomètre";
+
+"DIALOG_CONFIRM" = "Êtes-vous sûr?";

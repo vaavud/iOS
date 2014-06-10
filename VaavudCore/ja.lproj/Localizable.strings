@@ -87,3 +87,8 @@
 "REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "携帯データ通信またはWi-Fiに接続されていることを確認してください。";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "エラー";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "後程再試行してください。";
+
+"SETTINGS_TITLE" = "設定";
+"SETTINGS_SHOP_LINK" = "ウィンドメーターを買う";
+
+"DIALOG_CONFIRM" = "本当にいいですか？";

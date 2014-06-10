@@ -87,3 +87,8 @@
 "REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Stellen Sie sicher, dass Sie eine Handy-Daten- oder WiFi-Verbindung haben.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Fehler";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Bitte versuchen Sie es später erneut.";
+
+"SETTINGS_TITLE" = "Einstellungen";
+"SETTINGS_SHOP_LINK" = "Wind Meter Kaufen";
+
+"DIALOG_CONFIRM" = "Sind Sie sicher?";

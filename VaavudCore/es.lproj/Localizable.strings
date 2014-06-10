@@ -87,3 +87,8 @@
 "REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Asegurate de que tienes conectividad de datos o WiFi.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Error";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Por favor, intentalo más tarde.";
+
+"SETTINGS_TITLE" = "Configuración";
+"SETTINGS_SHOP_LINK" = "Compra un anemómetro";
+
+"DIALOG_CONFIRM" = "¿Estás seguro?";
