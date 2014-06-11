@@ -4,7 +4,7 @@
  */
 "TAB_MEASURE" = "Medir";
 "TAB_MAP" = "Mapa";
-"TAB_HISTORY" = "HistÛrico";
+"TAB_HISTORY" = "Histórico";
 "TAB_ABOUT" = "Sobre";
 
 "NAVIGATION_BACK" = "Voltar";
@@ -17,18 +17,18 @@
 
 "REL_TIME_FUTURE" = "futuro";
 "REL_TIME_NOW" = "agora mesmo";
-"REL_TIME_1_MIN_AGO" = "1 min. atr·s";
-"REL_TIME_X_MINS_AGO" = "%d minutos atr·s";
-"REL_TIME_1_HOUR_AGO" = "1 hora atr·s";
-"REL_TIME_X_HOURS_AGO" = "%d horas atr·s";
-"REL_TIME_1_DAY_AGO" = "1 dia atr·s";
-"REL_TIME_X_DAYS_AGO" = "%d dias atr·s";
+"REL_TIME_1_MIN_AGO" = "1 min. atrás";
+"REL_TIME_X_MINS_AGO" = "%d minutos atrás";
+"REL_TIME_1_HOUR_AGO" = "1 hora atrás";
+"REL_TIME_X_HOURS_AGO" = "%d horas atrás";
+"REL_TIME_1_DAY_AGO" = "1 dia atrás";
+"REL_TIME_X_DAYS_AGO" = "%d dias atrás";
 
-"HEADING_AVERAGE" = "MÈdia";
+"HEADING_AVERAGE" = "Média";
 "HEADING_CURRENT" = "Atual";
-"HEADING_MAX" = "M·x.";
+"HEADING_MAX" = "Máx.";
 "HEADING_UNIT" = "Unidade";
-"HEADING_NEARBY_MEASUREMENTS" = "Medidas PrÛximas";
+"HEADING_NEARBY_MEASUREMENTS" = "Medidas Próximas";
 
 "BUTTON_START" = "Iniciar";
 "BUTTON_STOP" = "Parar";
@@ -36,34 +36,34 @@
 "BUTTON_CANCEL" = "Cancelar";
 "BUTTON_DONE" = "Feito";
 
-"INFO_MEASURING" = "MediÁ„o em progresso";
+"INFO_MEASURING" = "Medição em progresso";
 "INFO_NO_SIGNAL" = "Sem sinal";
-"INFO_KEEP_STEADY" = "Mantenha est·vel e na vertical";
+"INFO_KEEP_STEADY" = "Mantenha estável e na vertical";
 
 "X_HOURS" = "%d horas";
-"MAP_REFRESH_ERROR_TITLE" = "Erro na AtualizaÁ„o do Mapa";
-"MAP_REFRESH_ERROR_MESSAGE" = "Certifique-se de que tem ligaÁ„o por dados por pacotes ou por Wi-Fi.";
+"MAP_REFRESH_ERROR_TITLE" = "Erro na Atualização do Mapa";
+"MAP_REFRESH_ERROR_MESSAGE" = "Certifique-se de que tem ligação por dados, por pacotes ou por Wi-Fi.";
 
-"HISTORY_TITLE" = "HistÛrico";
-"HISTORY_REGISTER_TEASER" = "Inscreva-se para ver todo o seu histÛrico de mediÁıes";
-"HISTORY_NO_MEASUREMENTS" = "Ainda sem mediÁıes";
-"HISTORY_GO_TO_MEASURE" = "V· atÈ \"Medir\" e prima \"Iniciar\" para comeÁar!";
+"HISTORY_TITLE" = "Histórico";
+"HISTORY_REGISTER_TEASER" = "Inscreva-se para ver todo o seu histórico de medições";
+"HISTORY_NO_MEASUREMENTS" = "Ainda sem medições";
+"HISTORY_GO_TO_MEASURE" = "Vá até \"Medir\" e prima \"Iniciar\" para começar!";
 
 "ABOUT_TITLE" = "Sobre";
-"ABOUT_VAAVUD_TEXT" = "A Vaavud È uma start-up tecnolÛgica dinamarquesa.\n O nosso objetivo È o de produzir os melhores medidores de vento do planeta no que diz respeito a utilidade, funcionalidades e integraÁ„o em produtos terceiros.\n Para saber mais e para comprar um medidor de vento Vaavud, visite Vaavud.com\n e copie; Vaavud ApS 2014, todos os direitos reservados\n Vers„o: %@";
-"LINK_TERMS_OF_SERVICE" = "Termos do ServiÁo";
-"LINK_PRIVACY_POLICY" = "PolÌtica de Privacidade";
+"ABOUT_VAAVUD_TEXT" = "A Vaavud è uma start-up tecnológica dinamarquesa.\n O nosso objetivo è o de produzir os melhores medidores de vento do planeta no que diz respeito a utilidade, funcionalidades e integraçāo em produtos terceiros.\n Para saber mais e para comprar um medidor de vento Vaavud, visite Vaavud.com\n &copy; Vaavud ApS 2014, todos os direitos reservados\n Versāo: %@";
+"LINK_TERMS_OF_SERVICE" = "Termos do Serviço";
+"LINK_PRIVACY_POLICY" = "Política de Privacidade";
 
-"REGISTER_TITLE_SIGNUP" = "InscriÁ„o";
-"REGISTER_TITLE_LOGIN" = "Inicio de Sess„o";
+"REGISTER_TITLE_SIGNUP" = "Inscriçāo";
+"REGISTER_TITLE_LOGIN" = "Inicio de Sessāo";
 "REGISTER_OR" = "Ou";
 "REGISTER_TERMS_AND" = "e";
-"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK" = "Inicie sess„o com o Facebook";
+"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK" = "Inicie sessāo com o Facebook";
 "REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK" = "Inscreva-se com o Facebook";
-"REGISTER_FACEBOOK_DISCLAIMER" = "Nunca publicaremos no Facebook sem a sua autorizaÁ„o";
+"REGISTER_FACEBOOK_DISCLAIMER" = "Nunca publicaremos no Facebook sem a sua autorizaçāo";
 "REGISTER_BUTTON_CREATE" = "Criar";
-"REGISTER_BUTTON_LOGIN" = "Iniciar Sess„o";
-"REGISTER_BUTTON_LOGOUT" = "Terminar Sess„o";
+"REGISTER_BUTTON_LOGIN" = "Iniciar Sessāo";
+"REGISTER_BUTTON_LOGOUT" = "Terminar Sessāo";
 "REGISTER_FIELD_FIRST_NAME" = "Primeiro nome";
 "REGISTER_FIELD_LAST_NAME" = "Apelido";
 "REGISTER_FIELD_EMAIL" = "E-mail";
@@ -72,19 +72,19 @@
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "Introduza o seu nome";
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "Basta o seu primeiro nome.";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Introduza o seu e-mail";
-"REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "N„o daremos o seu e-mail a terceiros!";
+"REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "Nāo daremos o seu e-mail a terceiros!";
 "REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "Palavra-passe demasiado pequena";
 "REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4 caracteres ou mais.";
-"REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "ImpossÌvel iniciar sess„o";
-"REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "E-mail ou palavra-passe n„o est„o corretos.";
-"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "A conta j· existe";
+"REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "Impossível iniciar sessāo";
+"REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "E-mail ou palavra-passe nāo estāo corretos.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "A conta já existe";
 "REGISTER_FEEDBACK_ACCOUNT_EXISTS_MESSAGE" = "E-mail ou palavra-passe incorretos.";
-"REGISTER_FEEDBACK_ACCOUNT_EXISTS_LOGIN_WITH_FACEBOOK" = "Iniciar sess„o com o Facebook.";
-"REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD" = "ForneÁa a palavra-passe da conta Vaavud para iniciar a sess„o com o Facebook:";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_LOGIN_WITH_FACEBOOK" = "Iniciar sessāo com o Facebook.";
+"REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD" = "Forneça a palavra-passe da conta Vaavud para iniciar a sessāo com o Facebook:";
 "REGISTER_FEEDBACK_MALFORMED_EMAIL_TITLE" = "E-mail incorreto";
-"REGISTER_FEEDBACK_MALFORMED_EMAIL_MESSAGE" = "N„o parece ser um endereÁo de e-mail v·lido.";
-"REGISTER_FEEDBACK_NO_REACHABILITY_TITLE" = "Problema de ligaÁ„o";
-"REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Certifique-se de que tem ligaÁ„o por dados por pacotes ou por Wi-Fi.";
+"REGISTER_FEEDBACK_MALFORMED_EMAIL_MESSAGE" = "Nāo parece ser um endereço de e-mail válido.";
+"REGISTER_FEEDBACK_NO_REACHABILITY_TITLE" = "Problema de ligaçāo";
+"REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Certifique-se de que tem ligaçāo por dados, por pacotes ou por Wi-Fi.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Erro";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Por favor, tente novamente mais tarde.";
 
