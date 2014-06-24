@@ -20,12 +20,6 @@
 				<string>AppIcon120x120</string>
 				<string>AppIcon114x114</string>
 				<string>AppIcon57x57</string>
-				<string>VaavudIcon80</string>
-				<string>VaavudIcon58</string>
-				<string>VaavudIcon29</string>
-				<string>VaavudIcon120</string>
-				<string>VaavudIcon114.png</string>
-				<string>VaavudIcon57.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>
@@ -37,6 +31,7 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
+				<string>AppIcon72x72</string>
 				<string>AppIcon58x58</string>
 				<string>AppIcon29x29</string>
 				<string>AppIcon80x80</string>
@@ -46,20 +41,6 @@
 				<string>AppIcon152x152</string>
 				<string>AppIcon76x76</string>
 				<string>AppIcon144x144</string>
-				<string>AppIcon72x72</string>
-				<string>VaavudIcon40</string>
-				<string>VaavudIcon100</string>
-				<string>VaavudIcon50</string>
-				<string>VaavudIcon152</string>
-				<string>VaavudIcon76</string>
-				<string>VaavudIcon144</string>
-				<string>VaavudIcon72</string>
-				<string>VaavudIcon80</string>
-				<string>VaavudIcon58</string>
-				<string>VaavudIcon29</string>
-				<string>VaavudIcon120</string>
-				<string>VaavudIcon114.png</string>
-				<string>VaavudIcon57.png</string>
 			</array>
 			<key>UIPrerenderedIcon</key>
 			<true/>
@@ -90,7 +71,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.48</string>
+	<string>1.50</string>
 	<key>FacebookAppID</key>
 	<string>624217360948538</string>
 	<key>FacebookDisplayName</key>
