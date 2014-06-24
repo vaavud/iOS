@@ -82,7 +82,7 @@
     self.startStopButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.startStopButton.layer.masksToBounds = YES;
 
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"VaavudTransparent100px.png"]];
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
     
     UIImage *aboutImage = [UIImage imageNamed:@"SettingsIcon.png"];
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {

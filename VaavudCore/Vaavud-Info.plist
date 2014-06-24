@@ -14,6 +14,12 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
+				<string>AppIcon80x80</string>
+				<string>AppIcon58x58</string>
+				<string>AppIcon29x29</string>
+				<string>AppIcon120x120</string>
+				<string>AppIcon114x114</string>
+				<string>AppIcon57x57</string>
 				<string>VaavudIcon80</string>
 				<string>VaavudIcon58</string>
 				<string>VaavudIcon29</string>
@@ -31,6 +37,16 @@
 		<dict>
 			<key>CFBundleIconFiles</key>
 			<array>
+				<string>AppIcon58x58</string>
+				<string>AppIcon29x29</string>
+				<string>AppIcon80x80</string>
+				<string>AppIcon40x40</string>
+				<string>AppIcon100x100</string>
+				<string>AppIcon50x50</string>
+				<string>AppIcon152x152</string>
+				<string>AppIcon76x76</string>
+				<string>AppIcon144x144</string>
+				<string>AppIcon72x72</string>
 				<string>VaavudIcon40</string>
 				<string>VaavudIcon100</string>
 				<string>VaavudIcon50</string>

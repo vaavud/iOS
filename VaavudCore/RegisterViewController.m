@@ -32,7 +32,7 @@
             
             if (!title || title.length == 0) {
 
-                UIImage *logoImage = [UIImage imageNamed:@"VaavudTransparent100px.png"];
+                UIImage *logoImage = [UIImage imageNamed:@"logo.png"];
                 UIImageView *logoImageView = [[UIImageView alloc] initWithImage:logoImage];
                 self.navigationItem.titleView = logoImageView;
                 
