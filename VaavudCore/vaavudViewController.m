@@ -13,7 +13,10 @@
 #import "UIColor+VaavudColors.h"
 #import "Mixpanel.h"
 #import "MeasurementSession+Util.h"
+#import "ImageUtil.h"
+#import "FacebookSharedView.h"
 #import <math.h>
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface vaavudViewController ()
 
@@ -319,6 +322,8 @@
         if ([Property isMixpanelEnabled]) {
             [[Mixpanel sharedInstance] track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)]}];
         }
+        
+        [self promptForFacebookSharing];
     }
 }
 
@@ -347,4 +352,94 @@
     return UIInterfaceOrientationMaskAll;
 }
 
+- (void) promptForFacebookSharing {
+    
+    if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && [FBDialogs canPresentShareDialogWithOpenGraphActionParams:[self createActionParams]]) {
+        
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SHARE_DIALOG_TITLE", nil)
+                                    message:NSLocalizedString(@"SHARE_TO_FACEBOOK_QUESTION", nil)
+                                   delegate:self
+                          cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                          otherButtonTitles:NSLocalizedString(@"BUTTON_OK", nil), nil] show];
+    }
+}
+
+- (FBOpenGraphActionParams*) createActionParams {
+    
+    id<FBGraphObject> object =
+    [FBGraphObject openGraphObjectForPostWithType:@"vaavudapp:wind_speed"
+                                            title:[NSString stringWithFormat:@"%.2f m/s", [self.averageLabelCurrentValue floatValue]]
+                                            image:nil
+                                              url:@"http://www.vaavud.com"
+                                      description:[NSString stringWithFormat:@"Maximum wind speed %.2f m/s", [self.maxLabelCurrentValue floatValue]]];
+
+    NSMutableDictionary *data = [NSMutableDictionary dictionary];
+    [data setObject:[self.averageLabelCurrentValue stringValue] forKey:@"speed"];
+    [data setObject:[self.maxLabelCurrentValue stringValue] forKey:@"max_speed"];
+    
+    if (self.vaavudCoreController.currentLatitude && self.vaavudCoreController.currentLongitude && [self.vaavudCoreController.currentLatitude doubleValue] != 0.0 && [self.vaavudCoreController.currentLongitude doubleValue] != 0.0) {
+        
+        [data setObject:@{@"latitude":[self.vaavudCoreController.currentLatitude stringValue], @"longitude":[self.vaavudCoreController.currentLongitude stringValue]} forKey:@"location"];
+    }
+    [object setObject:data forKey:@"data"];
+    
+    id<FBOpenGraphAction> action = (id<FBOpenGraphAction>)[FBGraphObject graphObject];
+    [action setObject:object forKey:@"wind_speed"];
+    
+    FBOpenGraphActionParams *params = [[FBOpenGraphActionParams alloc] init];
+    params.action = action;
+    params.actionType = @"vaavudapp:measure";
+    
+    return params;
+}
+
+- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        
+        FBOpenGraphActionParams *params = [self createActionParams];
+        
+        if ([FBDialogs canPresentShareDialogWithOpenGraphActionParams:params]) {
+
+            [FBDialogs presentShareDialogWithOpenGraphAction:params.action
+                                                  actionType:@"vaavudapp:measure"
+                                         previewPropertyName:@"wind_speed"
+                                                     handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
+                                                         if (error) {
+                                                             NSLog(@"Error publishing story: %@", error.description);
+                                                         }
+                                                         else {
+                                                             NSLog(@"result %@", results);
+                                                         }
+                                                     }];
+            
+            // If the Facebook app is NOT installed and we can't present the share dialog
+        } else {
+            // FALLBACK GOES HERE
+        }
+        
+        /*
+        NSArray* topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"FacebookSharedView" owner:self options:nil];
+        FacebookSharedView *view = (FacebookSharedView*) [topLevelObjects objectAtIndex:0];
+        UIImage *image = [ImageUtil toImageFromView:view];
+        
+        if ([FBDialogs canPresentOSIntegratedShareDialogWithSession:nil]) {
+            [FBDialogs presentOSIntegratedShareDialogModallyFrom:self initialText:nil image:image url:nil handler:^(FBOSIntegratedShareDialogResult result, NSError *error) {
+                
+                if (error) {
+                    NSLog(@"[VaavudViewController] Facebook OS share dialog error: %@", error.description);
+                }
+            }];
+        }
+        else {
+            [FBDialogs presentShareDialogWithPhotos:@[image] handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
+
+                if (error) {
+                    NSLog(@"[VaavudViewController] Facebook share dialog error: %@", error.description);
+                }
+            }];
+        }
+        */
+    }
+}
+        
 @end

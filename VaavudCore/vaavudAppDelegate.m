@@ -70,6 +70,13 @@
             ((RegisterNavigationController*) viewController).registerDelegate = self;
         }
     }
+    else if (false) {
+
+        // first-time case...
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        viewController = [storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
+    }
     else {
         
         // normal case...

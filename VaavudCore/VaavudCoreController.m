@@ -536,6 +536,9 @@
         measurementSession.latitude = nil;
         measurementSession.longitude = nil;
     }
+    
+    self.currentLatitude = measurementSession.latitude;
+    self.currentLongitude = measurementSession.longitude;
 }
 
 - (MeasurementSession*) getActiveMeasurementSession {

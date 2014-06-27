@@ -10,6 +10,6 @@
 #import <UIKit/UIKit.h>
 #import "CorePlot-CocoaTouch.h"
 
-@interface vaavudViewController : UIViewController <VaavudCoreViewControllerDelegate>
+@interface vaavudViewController : UIViewController <VaavudCoreViewControllerDelegate, UIAlertViewDelegate>
 
 @end

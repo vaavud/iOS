@@ -42,6 +42,9 @@
 @property (nonatomic) BOOL windDirectionIsConfirmed;
 @property (nonatomic) BOOL FFTisValid;
 
+@property (nonatomic, strong) NSNumber *currentLatitude;
+@property (nonatomic, strong) NSNumber *currentLongitude;
+
 @property (nonatomic, weak) id <VaavudCoreViewControllerDelegate> vaavudCoreControllerViewControllerDelegate;
 
 @end

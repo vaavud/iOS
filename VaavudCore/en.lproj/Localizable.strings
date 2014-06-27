@@ -92,3 +92,10 @@
 "SETTINGS_SHOP_LINK" = "Buy wind meter";
 
 "DIALOG_CONFIRM" = "Are you sure?";
+
+"SHARE_DIALOG_TITLE" = "Share";
+"SHARE_TO_FACEBOOK_QUESTION" = "Share your wind reading to Facebook?";
+
+"INTRO_BUTTON_BUY_WINDMETER" = "Buy it";
+"INTRO_BUTTON_GOT_WINDMETER" = "Got it!";
+"INTRO_BUTTON_FINISHED" = "Let's go!";
