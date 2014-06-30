@@ -373,6 +373,8 @@
                                               url:@"http://www.vaavud.com"
                                       description:[NSString stringWithFormat:@"Maximum wind speed %.2f m/s", [self.maxLabelCurrentValue floatValue]]];
 
+    [object setObject:@"en_US" forKey:@"locale"];
+    
     NSMutableDictionary *data = [NSMutableDictionary dictionary];
     [data setObject:[self.averageLabelCurrentValue stringValue] forKey:@"speed"];
     [data setObject:[self.maxLabelCurrentValue stringValue] forKey:@"max_speed"];
