@@ -6,6 +6,10 @@
 //
 
 #define USE_FACEBOOK_SHARE_DIALOG NO
+#define USE_CUSTOM_SHARE_DIALOG YES
+
+#define SHARE_DIALOG_WIDTH 300.0
+#define SHARE_DIALOG_HEIGHT 270.0
 
 #import "vaavudViewController.h"
 #import "vaavudGraphHostingView.h"
@@ -17,6 +21,7 @@
 #import "MeasurementSession+Util.h"
 #import "ImageUtil.h"
 #import "AccountManager.h"
+#import "ShareDialog.h"
 #import <math.h>
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -54,6 +59,9 @@
 @property (nonatomic) NSNumber *actualLabelCurrentValue;
 @property (nonatomic) NSNumber *averageLabelCurrentValue;
 @property (nonatomic) NSNumber *maxLabelCurrentValue;
+
+@property (nonatomic,strong) UIView *customDimmingView;
+@property (nonatomic,strong) ShareDialog *shareDialog;
 
 @end
 
@@ -369,18 +377,70 @@
         }
         else {
             if ([FBSession activeSession].isOpen) {
-                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SHARE_TO_FACEBOOK_TITLE", nil)
-                                                                    message:NSLocalizedString(@"SHARE_TO_FACEBOOK_MESSAGE", nil)
-                                                                   delegate:self
-                                                          cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                          otherButtonTitles:NSLocalizedString(@"BUTTON_OK", nil), nil];
-                alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-                UITextField *textField = [alertView textFieldAtIndex:0];
-                textField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
-                [alertView show];
+                
+                if (USE_CUSTOM_SHARE_DIALOG) {
+                    
+                    self.customDimmingView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tabBarController.view.frame.size.width, self.tabBarController.view.frame.size.height)];
+                    self.customDimmingView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.0];
+                    [self.tabBarController.view addSubview:self.customDimmingView];
+                    
+                    NSArray* topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"ShareDialog" owner:self options:nil];
+                    self.shareDialog = (ShareDialog*) [topLevelObjects objectAtIndex:0];
+                    self.shareDialog.frame = CGRectMake((self.customDimmingView.frame.size.width - SHARE_DIALOG_WIDTH) / 2.0, 40.0, SHARE_DIALOG_WIDTH, SHARE_DIALOG_HEIGHT);
+                    self.shareDialog.layer.cornerRadius = DIALOG_CORNER_RADIUS;
+                    self.shareDialog.layer.masksToBounds = YES;
+                    self.shareDialog.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.95];
+                    self.shareDialog.textView.layer.cornerRadius = FORM_CORNER_RADIUS;
+                    self.shareDialog.textView.layer.masksToBounds = YES;
+                    self.shareDialog.delegate = self;
+                    self.shareDialog.hidden = YES;
+                    [self.customDimmingView addSubview:self.shareDialog];
+                    [self.shareDialog.textView becomeFirstResponder];
+                    
+                    [UIView animateWithDuration:0.2 animations:^{
+                        self.customDimmingView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.4];
+                        self.shareDialog.hidden = NO;
+                    } completion:^(BOOL finished) {
+                        
+                    }];
+                }
+                else {
+                
+                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SHARE_TO_FACEBOOK_TITLE", nil)
+                                                                        message:NSLocalizedString(@"SHARE_TO_FACEBOOK_MESSAGE", nil)
+                                                                       delegate:self
+                                                              cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                              otherButtonTitles:NSLocalizedString(@"BUTTON_OK", nil), nil];
+                    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+                    UITextField *textField = [alertView textFieldAtIndex:0];
+                    textField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+                    [alertView show];
+                }
             }
         }
     }
+}
+
+- (void) share:(NSString *)message {
+    [self dismissShareDialog];
+    [self shareToFacebook:message];
+}
+
+- (void) cancelShare {
+    [self dismissShareDialog];
+}
+
+- (void) dismissShareDialog {
+    [self.shareDialog.textView resignFirstResponder];
+    [UIView animateWithDuration:0.2 animations:^{
+        self.customDimmingView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.0];
+        self.shareDialog.hidden = YES;
+    } completion:^(BOOL finished) {
+        [self.shareDialog removeFromSuperview];
+        [self.customDimmingView removeFromSuperview];
+        self.shareDialog = nil;
+        self.customDimmingView = nil;
+    }];
 }
 
 - (FBOpenGraphActionParams*) createActionParams {
@@ -418,9 +478,8 @@
 - (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex != alertView.cancelButtonIndex) {
         
-        FBOpenGraphActionParams *params = [self createActionParams];
-        
         if (USE_FACEBOOK_SHARE_DIALOG) {
+            FBOpenGraphActionParams *params = [self createActionParams];
             if ([FBDialogs canPresentShareDialogWithOpenGraphActionParams:params]) {
                 
                 [FBDialogs presentShareDialogWithOpenGraphAction:params.action
@@ -441,34 +500,46 @@
             }
         }
         else {
-            
+
+            NSString *message = nil;
             UITextField *textField = [alertView textFieldAtIndex:0];
             if (textField && textField.text.length > 0) {
-                id<FBOpenGraphAction> action = params.action;
-                [action setObject:textField.text forKey:@"message"];
+                message = textField.text;
             }
             
-            AccountManager *accountManager = [AccountManager sharedInstance];
-            [accountManager ensureSharingPermissions:^{
-                NSLog(@"[VaavudViewController] Has sharing permissions");
-                
-                [FBRequestConnection startForPostWithGraphPath:@"me/vaavudapp:measure"
-                                                   graphObject:params.action
-                                             completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                                 
-                                                 if (!error) {
-                                                     // Success, the restaurant has been liked
-                                                     NSLog(@"[VaavudViewController] Posted OG action, id: %@", [result objectForKey:@"id"]);
-                                                 } else {
-                                                     NSLog(@"[VaavudViewController] Failure posting to Facebook: %@", error);
-                                                 }
-                                             }];
-                
-            } failure:^{
-                NSLog(@"[VaavudViewController] Couldn't get sharing permissions");
-            }];
+            [self shareToFacebook:message];
         }
     }
 }
+
+- (void) shareToFacebook:(NSString*)message {
+
+    FBOpenGraphActionParams *params = [self createActionParams];
+
+    if (message && message.length > 0) {
+        id<FBOpenGraphAction> action = params.action;
+        [action setObject:message forKey:@"message"];
+    }
+    
+    AccountManager *accountManager = [AccountManager sharedInstance];
+    [accountManager ensureSharingPermissions:^{
+        NSLog(@"[VaavudViewController] Has sharing permissions");
         
+        [FBRequestConnection startForPostWithGraphPath:@"me/vaavudapp:measure"
+                                           graphObject:params.action
+                                     completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                         
+                                         if (!error) {
+                                             // Success, the restaurant has been liked
+                                             NSLog(@"[VaavudViewController] Posted OG action, id: %@", [result objectForKey:@"id"]);
+                                         } else {
+                                             NSLog(@"[VaavudViewController] Failure posting to Facebook: %@", error);
+                                         }
+                                     }];
+        
+    } failure:^{
+        NSLog(@"[VaavudViewController] Couldn't get sharing permissions");
+    }];
+}
+
 @end

@@ -133,6 +133,8 @@
 		E9B950DD195C580600E9EF02 /* FirstTime-4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E9B950D9195C580600E9EF02 /* FirstTime-4.jpg */; };
 		E9B950E3195C587800E9EF02 /* FirstTimeExplanationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950E0195C587800E9EF02 /* FirstTimeExplanationViewController.m */; };
 		E9B950E4195C587800E9EF02 /* FirstTimeFlowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950E2195C587800E9EF02 /* FirstTimeFlowController.m */; };
+		E9B950E719619F7300E9EF02 /* ShareDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B950E619619F7300E9EF02 /* ShareDialog.xib */; };
+		E9B950EA1961A21500E9EF02 /* ShareDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950E91961A21500E9EF02 /* ShareDialog.m */; };
 		E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */; };
 		E9CD223B177B2AEA0054ED3F /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2203177B2AEA0054ED3F /* MagicalImportFunctions.m */; };
 		E9CD223C177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2205177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m */; };
@@ -466,6 +468,9 @@
 		E9B950E0195C587800E9EF02 /* FirstTimeExplanationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTimeExplanationViewController.m; sourceTree = "<group>"; };
 		E9B950E1195C587800E9EF02 /* FirstTimeFlowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstTimeFlowController.h; sourceTree = "<group>"; };
 		E9B950E2195C587800E9EF02 /* FirstTimeFlowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTimeFlowController.m; sourceTree = "<group>"; };
+		E9B950E619619F7300E9EF02 /* ShareDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareDialog.xib; sourceTree = "<group>"; };
+		E9B950E81961A21500E9EF02 /* ShareDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareDialog.h; sourceTree = "<group>"; };
+		E9B950E91961A21500E9EF02 /* ShareDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDialog.m; sourceTree = "<group>"; };
 		E9BB7A0B178DE2D9002E746F /* QueryStringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryStringUtil.h; sourceTree = "<group>"; };
 		E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryStringUtil.m; sourceTree = "<group>"; };
 		E9CD2202177B2AEA0054ED3F /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
@@ -774,6 +779,7 @@
 		D7B5BD4E175775BA0069F739 /* VaavudViewFiles */ = {
 			isa = PBXGroup;
 			children = (
+				E9B950E519619F5C00E9EF02 /* Share */,
 				E9B950DE195C584200E9EF02 /* FirstTime */,
 				E90709411940AFAC0087F80F /* Components */,
 				E9DE09B7192E4C6A003877D9 /* Settings */,
@@ -1001,6 +1007,16 @@
 				E9B950E2195C587800E9EF02 /* FirstTimeFlowController.m */,
 			);
 			name = FirstTime;
+			sourceTree = "<group>";
+		};
+		E9B950E519619F5C00E9EF02 /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				E9B950E619619F7300E9EF02 /* ShareDialog.xib */,
+				E9B950E81961A21500E9EF02 /* ShareDialog.h */,
+				E9B950E91961A21500E9EF02 /* ShareDialog.m */,
+			);
+			name = Share;
 			sourceTree = "<group>";
 		};
 		E9CD21FF177B2AEA0054ED3F /* MagicalRecord */ = {
@@ -1277,6 +1293,7 @@
 				E97237F5195992080003A9E4 /* AppIcon72x72.png in Resources */,
 				E97238101959A0A70003A9E4 /* Default-iOS7-Landscape@2x~ipad.png in Resources */,
 				E91535C9180840D70070BFB4 /* map_selected.png in Resources */,
+				E9B950E719619F7300E9EF02 /* ShareDialog.xib in Resources */,
 				E9FABFD518929050009C4C46 /* history_selected.png in Resources */,
 				E97237F4195992080003A9E4 /* AppIcon60x60.png in Resources */,
 				E9B950DD195C580600E9EF02 /* FirstTime-4.jpg in Resources */,
@@ -1453,6 +1470,7 @@
 				E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */,
 				E93C86691781C88B005E4212 /* Property.m in Sources */,
 				E93C866F1781D69A005E4212 /* MeasurementSession+Util.m in Sources */,
+				E9B950EA1961A21500E9EF02 /* ShareDialog.m in Sources */,
 				E93C86721781D727005E4212 /* MeasurementPoint+Util.m in Sources */,
 				E93338F7178C561B006E2314 /* ModelManager.m in Sources */,
 				E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */,

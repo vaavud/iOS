@@ -9,7 +9,8 @@
 #import "VaavudCoreController.h"
 #import <UIKit/UIKit.h>
 #import "CorePlot-CocoaTouch.h"
+#import "ShareDialog.h"
 
-@interface vaavudViewController : UIViewController <VaavudCoreViewControllerDelegate, UIAlertViewDelegate>
+@interface vaavudViewController : UIViewController <VaavudCoreViewControllerDelegate, UIAlertViewDelegate, ShareDialogDelegate>
 
 @end
