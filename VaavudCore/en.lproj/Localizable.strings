@@ -95,6 +95,8 @@
 
 "SHARE_DIALOG_TITLE" = "Share";
 "SHARE_TO_FACEBOOK_QUESTION" = "Share your wind reading to Facebook?";
+"SHARE_TO_FACEBOOK_TITLE" = "Share to Facebook?";
+"SHARE_TO_FACEBOOK_MESSAGE" = "Optionally, type a small status update:";
 
 "INTRO_BUTTON_BUY_WINDMETER" = "Buy it";
 "INTRO_BUTTON_GOT_WINDMETER" = "Got it!";

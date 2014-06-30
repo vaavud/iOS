@@ -127,8 +127,6 @@
 		E9B627D1177096D6004678D5 /* VaavudAPIHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627D0177096D6004678D5 /* VaavudAPIHTTPClient.m */; };
 		E9B950C9195B049700E9EF02 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B950C8195B049700E9EF02 /* FacebookSDK.framework */; };
 		E9B950CC195B1DCE00E9EF02 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950CB195B1DCE00E9EF02 /* ImageUtil.m */; };
-		E9B950CF195B210600E9EF02 /* FacebookSharedView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B950CE195B210600E9EF02 /* FacebookSharedView.xib */; };
-		E9B950D5195B252000E9EF02 /* FacebookSharedView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950D4195B252000E9EF02 /* FacebookSharedView.m */; };
 		E9B950DA195C580600E9EF02 /* FirstTime-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E9B950D6195C580600E9EF02 /* FirstTime-1.jpg */; };
 		E9B950DB195C580600E9EF02 /* FirstTime-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E9B950D7195C580600E9EF02 /* FirstTime-2.jpg */; };
 		E9B950DC195C580600E9EF02 /* FirstTime-3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E9B950D8195C580600E9EF02 /* FirstTime-3.jpg */; };
@@ -460,9 +458,6 @@
 		E9B950C8195B049700E9EF02 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		E9B950CA195B1DCE00E9EF02 /* ImageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUtil.h; sourceTree = "<group>"; };
 		E9B950CB195B1DCE00E9EF02 /* ImageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUtil.m; sourceTree = "<group>"; };
-		E9B950CE195B210600E9EF02 /* FacebookSharedView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FacebookSharedView.xib; sourceTree = "<group>"; };
-		E9B950D3195B252000E9EF02 /* FacebookSharedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookSharedView.h; sourceTree = "<group>"; };
-		E9B950D4195B252000E9EF02 /* FacebookSharedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookSharedView.m; sourceTree = "<group>"; };
 		E9B950D6195C580600E9EF02 /* FirstTime-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "FirstTime-1.jpg"; sourceTree = "<group>"; };
 		E9B950D7195C580600E9EF02 /* FirstTime-2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "FirstTime-2.jpg"; sourceTree = "<group>"; };
 		E9B950D8195C580600E9EF02 /* FirstTime-3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "FirstTime-3.jpg"; sourceTree = "<group>"; };
@@ -780,7 +775,6 @@
 			isa = PBXGroup;
 			children = (
 				E9B950DE195C584200E9EF02 /* FirstTime */,
-				E9B950CD195B20D400E9EF02 /* Share */,
 				E90709411940AFAC0087F80F /* Components */,
 				E9DE09B7192E4C6A003877D9 /* Settings */,
 				E9AF2B8317F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.h */,
@@ -996,16 +990,6 @@
 				E9B627D0177096D6004678D5 /* VaavudAPIHTTPClient.m */,
 			);
 			name = Network;
-			sourceTree = "<group>";
-		};
-		E9B950CD195B20D400E9EF02 /* Share */ = {
-			isa = PBXGroup;
-			children = (
-				E9B950CE195B210600E9EF02 /* FacebookSharedView.xib */,
-				E9B950D3195B252000E9EF02 /* FacebookSharedView.h */,
-				E9B950D4195B252000E9EF02 /* FacebookSharedView.m */,
-			);
-			name = Share;
 			sourceTree = "<group>";
 		};
 		E9B950DE195C584200E9EF02 /* FirstTime */ = {
@@ -1336,7 +1320,6 @@
 				E97237FF195993790003A9E4 /* logo.png in Resources */,
 				E91535BF1806C2D20070BFB4 /* WindMarker.png in Resources */,
 				E907093E193F4AFB0087F80F /* SettingsIcon.png in Resources */,
-				E9B950CF195B210600E9EF02 /* FacebookSharedView.xib in Resources */,
 				E91535CA180840D70070BFB4 /* map_selected@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1419,7 +1402,6 @@
 				E9F33CCB18B4AFBF0033EDC7 /* UIColor+VaavudColors.m in Sources */,
 				E9CD223C177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				E9FD000B17FD6A06001A8491 /* FormatUtil.m in Sources */,
-				E9B950D5195B252000E9EF02 /* FacebookSharedView.m in Sources */,
 				E9CD223D177B2AEA0054ED3F /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				E9CD223E177B2AEA0054ED3F /* NSNumber+MagicalDataImport.m in Sources */,
 				E9CD223F177B2AEA0054ED3F /* NSObject+MagicalDataImport.m in Sources */,

@@ -141,7 +141,7 @@ BOOL isDoingLogout = NO;
 }
 
 - (NSArray*) facebookSignupPermissions {
-    return @[@"basic_info", @"email"];
+    return @[@"public_profile", @"user_friends"];
 }
 
 - (void) facebookSessionStateChanged:(FBSession*)session state:(FBSessionState)state error:(NSError*)error password:(NSString*)password action:(enum AuthenticationActionType)action success:(void(^)(enum AuthenticationResponseType response))success failure:(void(^)(enum AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {
@@ -410,6 +410,67 @@ BOOL isDoingLogout = NO;
     else {
         return AuthenticationResponseGenericError;
     }
+}
+
+- (void) ensureSharingPermissions:(void(^)())success failure:(void(^)())failure {
+    
+    NSArray *permissionsNeeded = @[@"publish_actions"];
+    
+    // Request the permissions the user currently has
+    [FBRequestConnection startWithGraphPath:@"/me/permissions"
+                          completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                              if (!error){
+                                  
+                                  // These are the current permissions the user has:
+                                  NSArray *currentPermissionsArray = (NSArray *)[result data];
+                                  NSMutableSet *grantedPermissions = [NSMutableSet setWithCapacity:currentPermissionsArray.count];
+                                  for (NSDictionary *dictionary in currentPermissionsArray) {
+                                      NSString *permission = [dictionary objectForKey:@"permission"];
+                                      NSString *status = [dictionary objectForKey:@"status"];
+                                      if ([@"granted" isEqualToString:status]) {
+                                          [grantedPermissions addObject:permission];
+                                      }
+                                  }
+                                  
+                                  // We will store here the missing permissions that we will have to request
+                                  NSMutableArray *requestPermissions = [[NSMutableArray alloc] initWithArray:@[]];
+                                  
+                                  // Check if all the permissions we need are present in the user's current permissions
+                                  // If they are not present add them to the permissions to be requested
+                                  for (NSString *permission in permissionsNeeded){
+                                      if (![grantedPermissions containsObject:permission]){
+                                          [requestPermissions addObject:permission];
+                                      }
+                                  }
+                                  
+                                  //NSLog(@"[AccountManager] Current permissions: %@, request permissions: %@", grantedPermissions, requestPermissions);
+                                  
+                                  // If we have permissions to request
+                                  if ([requestPermissions count] > 0){
+                                      // Ask for the missing permissions
+                                      [FBSession.activeSession
+                                       requestNewPublishPermissions:requestPermissions
+                                       defaultAudience:FBSessionDefaultAudienceEveryone
+                                       completionHandler:^(FBSession *session, NSError *error) {
+                                           if (!error) {
+                                               // Permission granted
+                                               NSLog(@"[AccountManager] New permissions granted %@", [FBSession.activeSession permissions]);
+                                               // We can request the user information
+                                               success();
+                                           } else {
+                                               NSLog(@"[AccountManager] Failure requesting permissions");
+                                               failure();
+                                           }
+                                       }];
+                                  } else {
+                                      success();
+                                  }
+                                  
+                              } else {
+                                  NSLog(@"[AccountManager] Failure calling /me/permissions: %@", error);
+                                  failure();
+                              }
+                          }];
 }
 
 @end

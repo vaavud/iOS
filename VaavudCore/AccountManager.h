@@ -61,4 +61,6 @@ enum AuthenticationResponseType : NSUInteger {
 
 -(BOOL) isLoggedIn;
 
+- (void) ensureSharingPermissions:(void(^)())success failure:(void(^)())failure;
+
 @end

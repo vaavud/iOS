@@ -5,6 +5,8 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
+#define USE_FACEBOOK_SHARE_DIALOG NO
+
 #import "vaavudViewController.h"
 #import "vaavudGraphHostingView.h"
 #import "Property+Util.h"
@@ -14,7 +16,7 @@
 #import "Mixpanel.h"
 #import "MeasurementSession+Util.h"
 #import "ImageUtil.h"
-#import "FacebookSharedView.h"
+#import "AccountManager.h"
 #import <math.h>
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -354,13 +356,30 @@
 
 - (void) promptForFacebookSharing {
     
-    if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && [FBDialogs canPresentShareDialogWithOpenGraphActionParams:[self createActionParams]]) {
+    if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F)) {
         
-        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SHARE_DIALOG_TITLE", nil)
-                                    message:NSLocalizedString(@"SHARE_TO_FACEBOOK_QUESTION", nil)
-                                   delegate:self
-                          cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                          otherButtonTitles:NSLocalizedString(@"BUTTON_OK", nil), nil] show];
+        if (USE_FACEBOOK_SHARE_DIALOG) {
+            if ([FBDialogs canPresentShareDialogWithOpenGraphActionParams:[self createActionParams]]) {
+                [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SHARE_DIALOG_TITLE", nil)
+                                            message:NSLocalizedString(@"SHARE_TO_FACEBOOK_QUESTION", nil)
+                                           delegate:self
+                                  cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                  otherButtonTitles:NSLocalizedString(@"BUTTON_OK", nil), nil] show];
+            }
+        }
+        else {
+            if ([FBSession activeSession].isOpen) {
+                UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SHARE_TO_FACEBOOK_TITLE", nil)
+                                                                    message:NSLocalizedString(@"SHARE_TO_FACEBOOK_MESSAGE", nil)
+                                                                   delegate:self
+                                                          cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                          otherButtonTitles:NSLocalizedString(@"BUTTON_OK", nil), nil];
+                alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+                UITextField *textField = [alertView textFieldAtIndex:0];
+                textField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+                [alertView show];
+            }
+        }
     }
 }
 
@@ -387,6 +406,7 @@
     
     id<FBOpenGraphAction> action = (id<FBOpenGraphAction>)[FBGraphObject graphObject];
     [action setObject:object forKey:@"wind_speed"];
+    [action setObject:@"true" forKey:@"fb:explicitly_shared"];
     
     FBOpenGraphActionParams *params = [[FBOpenGraphActionParams alloc] init];
     params.action = action;
@@ -400,47 +420,54 @@
         
         FBOpenGraphActionParams *params = [self createActionParams];
         
-        if ([FBDialogs canPresentShareDialogWithOpenGraphActionParams:params]) {
-
-            [FBDialogs presentShareDialogWithOpenGraphAction:params.action
-                                                  actionType:@"vaavudapp:measure"
-                                         previewPropertyName:@"wind_speed"
-                                                     handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
-                                                         if (error) {
-                                                             NSLog(@"Error publishing story: %@", error.description);
-                                                         }
-                                                         else {
-                                                             NSLog(@"result %@", results);
-                                                         }
-                                                     }];
-            
-            // If the Facebook app is NOT installed and we can't present the share dialog
-        } else {
-            // FALLBACK GOES HERE
-        }
-        
-        /*
-        NSArray* topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"FacebookSharedView" owner:self options:nil];
-        FacebookSharedView *view = (FacebookSharedView*) [topLevelObjects objectAtIndex:0];
-        UIImage *image = [ImageUtil toImageFromView:view];
-        
-        if ([FBDialogs canPresentOSIntegratedShareDialogWithSession:nil]) {
-            [FBDialogs presentOSIntegratedShareDialogModallyFrom:self initialText:nil image:image url:nil handler:^(FBOSIntegratedShareDialogResult result, NSError *error) {
+        if (USE_FACEBOOK_SHARE_DIALOG) {
+            if ([FBDialogs canPresentShareDialogWithOpenGraphActionParams:params]) {
                 
-                if (error) {
-                    NSLog(@"[VaavudViewController] Facebook OS share dialog error: %@", error.description);
-                }
-            }];
+                [FBDialogs presentShareDialogWithOpenGraphAction:params.action
+                                                      actionType:@"vaavudapp:measure"
+                                             previewPropertyName:@"wind_speed"
+                                                         handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
+                                                             if (error) {
+                                                                 NSLog(@"Error publishing story: %@", error.description);
+                                                             }
+                                                             else {
+                                                                 NSLog(@"result %@", results);
+                                                             }
+                                                         }];
+                
+                // If the Facebook app is NOT installed and we can't present the share dialog
+            } else {
+                // FALLBACK GOES HERE
+            }
         }
         else {
-            [FBDialogs presentShareDialogWithPhotos:@[image] handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
-
-                if (error) {
-                    NSLog(@"[VaavudViewController] Facebook share dialog error: %@", error.description);
-                }
+            
+            UITextField *textField = [alertView textFieldAtIndex:0];
+            if (textField && textField.text.length > 0) {
+                id<FBOpenGraphAction> action = params.action;
+                [action setObject:textField.text forKey:@"message"];
+            }
+            
+            AccountManager *accountManager = [AccountManager sharedInstance];
+            [accountManager ensureSharingPermissions:^{
+                NSLog(@"[VaavudViewController] Has sharing permissions");
+                
+                [FBRequestConnection startForPostWithGraphPath:@"me/vaavudapp:measure"
+                                                   graphObject:params.action
+                                             completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                                 
+                                                 if (!error) {
+                                                     // Success, the restaurant has been liked
+                                                     NSLog(@"[VaavudViewController] Posted OG action, id: %@", [result objectForKey:@"id"]);
+                                                 } else {
+                                                     NSLog(@"[VaavudViewController] Failure posting to Facebook: %@", error);
+                                                 }
+                                             }];
+                
+            } failure:^{
+                NSLog(@"[VaavudViewController] Couldn't get sharing permissions");
             }];
         }
-        */
     }
 }
         
