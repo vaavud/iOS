@@ -531,7 +531,7 @@ SHARED_INSTANCE
     NSMutableString *concatenatedUUIDs = [NSMutableString stringWithCapacity:measurementSessions.count * (36 + 10)];
     for (int i = 0; i < measurementSessions.count; i++) {
         MeasurementSession *measurementSession = measurementSessions[i];
-        if (measurementSession.endTime && measurementSession.uuid && measurementSession.uuid.length > 0 && [measurementSession.measuring boolValue] == NO) {
+        if (measurementSession.endTime && measurementSession.uuid && measurementSession.uuid.length > 0 && [measurementSession.measuring boolValue] == NO && [measurementSession.uploaded boolValue] == YES) {
             NSString *endTimeSecondsString = [[NSNumber numberWithLongLong:(long) ceil([measurementSession.endTime timeIntervalSince1970])] stringValue];
             //NSLog(@"uuid=%@, time=%@", measurementSession.uuid, endTimeSecondsString);
             [concatenatedUUIDs appendString:measurementSession.uuid];
@@ -639,9 +639,12 @@ SHARED_INSTANCE
                         [uuidToDictionary removeObjectForKey:measurementSession.uuid];
                     }
                     else {
-                        //NSLog(@"[ServerUploadManager] Measurement deleted: %@, endTime: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.endTime]);
-                        measurementsDeleted++;
-                        [measurementSession MR_deleteInContext:localContext];
+                        // only delete if uploaded
+                        if ([measurementSession.uploaded boolValue] == YES) {
+                            //NSLog(@"[ServerUploadManager] Measurement deleted: %@, endTime: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.endTime]);
+                            measurementsDeleted++;
+                            [measurementSession MR_deleteInContext:localContext];
+                        }
                     }
                 }
             }

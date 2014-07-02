@@ -422,8 +422,9 @@
 }
 
 - (void) share:(NSString *)message {
+    NSArray *imageUrls = self.shareDialog.imageUrls;
     [self dismissShareDialog];
-    [self shareToFacebook:message];
+    [self shareToFacebook:message imageUrls:imageUrls];
 }
 
 - (void) cancelShare {
@@ -441,6 +442,15 @@
         self.shareDialog = nil;
         self.customDimmingView = nil;
     }];
+}
+
+- (void) presentViewControllerFromShareDialog:(UIViewController *)viewController {
+    //viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:viewController animated:YES completion:nil];
+}
+
+- (void) dismissViewControllerFromShareDialog {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (FBOpenGraphActionParams*) createActionParams {
@@ -507,18 +517,29 @@
                 message = textField.text;
             }
             
-            [self shareToFacebook:message];
+            [self shareToFacebook:message imageUrls:nil];
         }
     }
 }
 
-- (void) shareToFacebook:(NSString*)message {
+- (void) shareToFacebook:(NSString*)message imageUrls:(NSArray*)imageUrls {
 
     FBOpenGraphActionParams *params = [self createActionParams];
+    id<FBOpenGraphAction> action = params.action;
 
     if (message && message.length > 0) {
-        id<FBOpenGraphAction> action = params.action;
         [action setObject:message forKey:@"message"];
+    }
+    
+    if (imageUrls && imageUrls.count > 0) {
+
+        NSMutableArray *imageArray = [NSMutableArray array];
+        
+        for (NSString *imageUrl in imageUrls) {
+            [imageArray addObject:@{@"url": imageUrl, @"user_generated" : @"true"}];
+        }
+
+        action.image = imageArray;
     }
     
     AccountManager *accountManager = [AccountManager sharedInstance];
@@ -526,7 +547,7 @@
         NSLog(@"[VaavudViewController] Has sharing permissions");
         
         [FBRequestConnection startForPostWithGraphPath:@"me/vaavudapp:measure"
-                                           graphObject:params.action
+                                           graphObject:action
                                      completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                                          
                                          if (!error) {

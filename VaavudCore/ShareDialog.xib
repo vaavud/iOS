@@ -19,11 +19,11 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="nsB-QN-kwh">
-                    <rect key="frame" x="10" y="46" width="280" height="150"/>
+                    <rect key="frame" x="10" y="46" width="280" height="100"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="150" id="CCk-qd-iug"/>
+                        <constraint firstAttribute="height" constant="100" id="CCk-qd-iug"/>
                     </constraints>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -50,6 +50,16 @@
                         <action selector="cancelButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="eM3-Ib-txE"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mcj-7R-QKM">
+                    <rect key="frame" x="207" y="154" width="81" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="Add Picture">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="pictureButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="YSc-G0-bpD"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -62,6 +72,8 @@
                 <constraint firstItem="zgo-Vf-RvR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="ePu-3W-Tqn"/>
                 <constraint firstAttribute="trailing" secondItem="oiW-Ia-5TS" secondAttribute="trailing" constant="20" id="jYc-8I-dJt"/>
                 <constraint firstItem="52R-7E-QC6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="nc7-42-BDB"/>
+                <constraint firstAttribute="trailing" secondItem="mcj-7R-QKM" secondAttribute="trailing" constant="12" id="r2b-qD-F88"/>
+                <constraint firstItem="mcj-7R-QKM" firstAttribute="top" secondItem="nsB-QN-kwh" secondAttribute="bottom" constant="8" id="xsK-1F-Zg6"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>

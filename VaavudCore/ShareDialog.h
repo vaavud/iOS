@@ -13,10 +13,12 @@
 
 - (void) share:(NSString*)message;
 - (void) cancelShare;
+- (void) presentViewControllerFromShareDialog:(UIViewController*)viewController;
+- (void) dismissViewControllerFromShareDialog;
 
 @end
 
-@interface ShareDialog : UIView
+@interface ShareDialog : UIView<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate>
 
 @property (nonatomic, weak) id<ShareDialogDelegate> delegate;
 
@@ -24,5 +26,5 @@
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @property (weak, nonatomic) IBOutlet UIButton *okButton;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
-
+@property (nonatomic,strong) NSMutableArray *imageUrls;
 @end
