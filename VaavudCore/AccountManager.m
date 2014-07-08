@@ -238,7 +238,7 @@ BOOL isDoingLogout = NO;
                                               
                                               if (!error) {
                                                   // Permission granted
-                                                  NSLog(@"[AccountManager] New permissions granted %@", [FBSession.activeSession permissions]);
+                                                  //NSLog(@"[AccountManager] New permissions granted %@", [FBSession.activeSession permissions]);
                                                   [self facebookUserLoggedIn:action password:password isRecursive:YES success:success failure:failure];
                                               } else {
                                                   NSLog(@"[AccountManager] Failure requesting permissions");
