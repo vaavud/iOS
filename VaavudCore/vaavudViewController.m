@@ -333,7 +333,7 @@
             [[Mixpanel sharedInstance] track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)]}];
         }
         
-        [self promptForFacebookSharing];
+        //[self promptForFacebookSharing];
     }
 }
 
@@ -538,8 +538,12 @@
         for (NSString *imageUrl in imageUrls) {
             [imageArray addObject:@{@"url": imageUrl, @"user_generated" : @"true"}];
         }
+        
+        //NSLog(@"image: %@", imageArray);
 
         action.image = imageArray;
+        //[action setObject:@[@{@"url": imageUrls[0], @"user_generated": @"true"}] forKey:@"image"];
+        //NSLog(@"image: %@", [action objectForKey:@"image"]);
     }
     
     AccountManager *accountManager = [AccountManager sharedInstance];

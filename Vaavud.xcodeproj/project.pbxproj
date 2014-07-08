@@ -85,6 +85,7 @@
 		E97238181959A0A70003A9E4 /* Default@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E972380B1959A0A70003A9E4 /* Default@2x~ipad.png */; };
 		E97238191959A0A70003A9E4 /* Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = E972380C1959A0A70003A9E4 /* Default@2x~iphone.png */; };
 		E972381A1959A0A70003A9E4 /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E972380D1959A0A70003A9E4 /* Default~ipad.png */; };
+		E9793A801964528500E3823E /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9793A7F1964528500E3823E /* FacebookSDK.framework */; };
 		E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */; };
 		E97AC6D018BCDE19004DEC65 /* TermsPrivacyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */; };
 		E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */; };
@@ -125,7 +126,6 @@
 		E9B627CB177092EF004678D5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B627CA177092EF004678D5 /* SystemConfiguration.framework */; };
 		E9B627CD1770930D004678D5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B627CC1770930D004678D5 /* MobileCoreServices.framework */; };
 		E9B627D1177096D6004678D5 /* VaavudAPIHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627D0177096D6004678D5 /* VaavudAPIHTTPClient.m */; };
-		E9B950C9195B049700E9EF02 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B950C8195B049700E9EF02 /* FacebookSDK.framework */; };
 		E9B950CC195B1DCE00E9EF02 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950CB195B1DCE00E9EF02 /* ImageUtil.m */; };
 		E9B950DA195C580600E9EF02 /* FirstTime-1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E9B950D6195C580600E9EF02 /* FirstTime-1.jpg */; };
 		E9B950DB195C580600E9EF02 /* FirstTime-2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E9B950D7195C580600E9EF02 /* FirstTime-2.jpg */; };
@@ -380,6 +380,7 @@
 		E972380B1959A0A70003A9E4 /* Default@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~ipad.png"; sourceTree = "<group>"; };
 		E972380C1959A0A70003A9E4 /* Default@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~iphone.png"; sourceTree = "<group>"; };
 		E972380D1959A0A70003A9E4 /* Default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~ipad.png"; sourceTree = "<group>"; };
+		E9793A7F1964528500E3823E /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		E97AC6C818BCC66A004DEC65 /* TermsPrivacyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsPrivacyViewController.h; sourceTree = "<group>"; };
 		E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsPrivacyViewController.m; sourceTree = "<group>"; };
 		E97AC6CE18BCDE19004DEC65 /* TermsPrivacyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsPrivacyNavigationController.h; sourceTree = "<group>"; };
@@ -457,7 +458,6 @@
 		E9B627CC1770930D004678D5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		E9B627CF177096D6004678D5 /* VaavudAPIHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudAPIHTTPClient.h; sourceTree = "<group>"; };
 		E9B627D0177096D6004678D5 /* VaavudAPIHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudAPIHTTPClient.m; sourceTree = "<group>"; };
-		E9B950C8195B049700E9EF02 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		E9B950CA195B1DCE00E9EF02 /* ImageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUtil.h; sourceTree = "<group>"; };
 		E9B950CB195B1DCE00E9EF02 /* ImageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUtil.m; sourceTree = "<group>"; };
 		E9B950D6195C580600E9EF02 /* FirstTime-1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "FirstTime-1.jpg"; sourceTree = "<group>"; };
@@ -583,7 +583,7 @@
 				D7A4F1CB173A8DDB00D1ACEE /* UIKit.framework in Frameworks */,
 				D7A4F1CD173A8DDB00D1ACEE /* Foundation.framework in Frameworks */,
 				D7A4F1CF173A8DDB00D1ACEE /* CoreGraphics.framework in Frameworks */,
-				E9B950C9195B049700E9EF02 /* FacebookSDK.framework in Frameworks */,
+				E9793A801964528500E3823E /* FacebookSDK.framework in Frameworks */,
 				D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */,
 				A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */,
 			);
@@ -710,7 +710,7 @@
 		D7A4F1C9173A8DDB00D1ACEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E9B950C8195B049700E9EF02 /* FacebookSDK.framework */,
+				E9793A7F1964528500E3823E /* FacebookSDK.framework */,
 				E982DF2D18181152004DAB3E /* AdSupport.framework */,
 				E904AC9917F0911000171F7F /* MapKit.framework */,
 				D7DA72401743C1CD00DFE962 /* Accelerate.framework */,

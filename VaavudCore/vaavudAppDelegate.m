@@ -41,6 +41,7 @@
     [[ModelManager sharedInstance] initializeModel];
     [[ServerUploadManager sharedInstance] start];
     [[LocationManager sharedInstance] start];
+    //[FBSettings setLoggingBehavior:[NSSet setWithObjects:FBLoggingBehaviorFBRequests, FBLoggingBehaviorInformational, nil]];
     
     self.xCallbackSuccess = nil;
 
