@@ -56,12 +56,13 @@
     [self.delegate dismissViewControllerFromShareDialog];
     
     // Get the UIImage from the image picker controller
-    UIImage* image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    //UIImage *image = [UIImage imageNamed:@"history_selected.png"];
     
     // Stage the image
     [FBRequestConnection startForUploadStagingResourceWithImage:image completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if(!error) {
-            NSLog(@"Successfully staged image with staged URI: %@", [result objectForKey:@"uri"]);
+            NSLog(@"[ShareDialog] Successfully staged image with staged URI: %@", [result objectForKey:@"uri"]);
             
             if (!self.imageUrls) {
                 self.imageUrls = [NSMutableArray array];

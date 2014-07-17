@@ -333,7 +333,7 @@
             [[Mixpanel sharedInstance] track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)]}];
         }
         
-        //[self promptForFacebookSharing];
+        [self promptForFacebookSharing];
     }
 }
 
@@ -455,8 +455,10 @@
 
 - (FBOpenGraphActionParams*) createActionParams {
     
+    NSString *objectName = @"wind_speed";
+    
     id<FBGraphObject> object =
-    [FBGraphObject openGraphObjectForPostWithType:@"vaavudapp:wind_speed"
+    [FBGraphObject openGraphObjectForPostWithType:[@"vaavudapp:" stringByAppendingString:objectName]
                                             title:[NSString stringWithFormat:@"%.2f m/s", [self.averageLabelCurrentValue floatValue]]
                                             image:nil
                                               url:@"http://www.vaavud.com"
@@ -475,7 +477,7 @@
     [object setObject:data forKey:@"data"];
     
     id<FBOpenGraphAction> action = (id<FBOpenGraphAction>)[FBGraphObject graphObject];
-    [action setObject:object forKey:@"wind_speed"];
+    [action setObject:object forKey:objectName];
     [action setObject:@"true" forKey:@"fb:explicitly_shared"];
     
     FBOpenGraphActionParams *params = [[FBOpenGraphActionParams alloc] init];
@@ -530,20 +532,23 @@
     if (message && message.length > 0) {
         [action setObject:message forKey:@"message"];
     }
-    
+
     if (imageUrls && imageUrls.count > 0) {
 
+        /*
         NSMutableArray *imageArray = [NSMutableArray array];
-        
         for (NSString *imageUrl in imageUrls) {
             [imageArray addObject:@{@"url": imageUrl, @"user_generated" : @"true"}];
         }
-        
-        //NSLog(@"image: %@", imageArray);
-
         action.image = imageArray;
-        //[action setObject:@[@{@"url": imageUrls[0], @"user_generated": @"true"}] forKey:@"image"];
-        //NSLog(@"image: %@", [action objectForKey:@"image"]);
+        */
+
+        int i = 0;
+        for (NSString *imageUrl in imageUrls) {
+            action[[NSString stringWithFormat:@"image[%u][url]", i]] = imageUrl;
+            action[[NSString stringWithFormat:@"image[%u][user_generated]", i]] = @"true";
+            i++;
+        }
     }
     
     AccountManager *accountManager = [AccountManager sharedInstance];
