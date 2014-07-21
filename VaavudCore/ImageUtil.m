@@ -34,4 +34,13 @@
     return copied;
 }
 
++ (UIImage*) resizeImage:(UIImage*)image toSize:(CGSize)size {
+
+    UIGraphicsBeginImageContextWithOptions(size, NO, 1.0);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
 @end

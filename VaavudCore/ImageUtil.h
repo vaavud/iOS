@@ -10,8 +10,8 @@
 
 @interface ImageUtil : NSObject
 
-+ (UIImage *)toImageFromView:(UIView*)view;
-
-+ (UIImage *)toImageFromView:(UIView*)view scale:(CGFloat)scale;
++ (UIImage*) toImageFromView:(UIView*)view;
++ (UIImage*) toImageFromView:(UIView*)view scale:(CGFloat)scale;
++ (UIImage*) resizeImage:(UIImage*)image toSize:(CGSize)size;
 
 @end

@@ -477,58 +477,82 @@ BOOL isDoingLogout = NO;
     
     NSArray *permissionsNeeded = @[@"publish_actions"];
     
-    // Request the permissions the user currently has
-    [FBRequestConnection startWithGraphPath:@"/me/permissions"
-                          completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                              if (!error){
-                                  
-                                  // These are the current permissions the user has:
-                                  NSArray *currentPermissionsArray = (NSArray *)[result data];
-                                  NSMutableSet *grantedPermissions = [NSMutableSet setWithCapacity:currentPermissionsArray.count];
-                                  for (NSDictionary *dictionary in currentPermissionsArray) {
-                                      NSString *permission = [dictionary objectForKey:@"permission"];
-                                      NSString *status = [dictionary objectForKey:@"status"];
-                                      if ([@"granted" isEqualToString:status]) {
-                                          [grantedPermissions addObject:permission];
+    if ([FBSession activeSession].isOpen) {
+
+        // Request the permissions the user currently has
+        [FBRequestConnection startWithGraphPath:@"/me/permissions"
+                              completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+                                  if (!error) {
+
+                                      // These are the current permissions the user has:
+                                      NSArray *currentPermissionsArray = (NSArray *)[result data];
+                                      NSMutableSet *grantedPermissions = [NSMutableSet setWithCapacity:currentPermissionsArray.count];
+                                      for (NSDictionary *dictionary in currentPermissionsArray) {
+                                          NSString *permission = [dictionary objectForKey:@"permission"];
+                                          NSString *status = [dictionary objectForKey:@"status"];
+                                          if ([@"granted" isEqualToString:status]) {
+                                              [grantedPermissions addObject:permission];
+                                          }
                                       }
-                                  }
-                                  
-                                  // We will store the missing permissions we will have to request
-                                  NSMutableArray *requestPermissions = [NSMutableArray array];
-                                  
-                                  // Check if all the permissions we need are present in the user's current permissions
-                                  // If they are not present add them to the permissions to be requested
-                                  for (NSString *permission in permissionsNeeded) {
-                                      if (![grantedPermissions containsObject:permission]) {
-                                          [requestPermissions addObject:permission];
+                                      
+                                      // We will store the missing permissions we will have to request
+                                      NSMutableArray *requestPermissions = [NSMutableArray array];
+                                      
+                                      // Check if all the permissions we need are present in the user's current permissions
+                                      // If they are not present add them to the permissions to be requested
+                                      for (NSString *permission in permissionsNeeded) {
+                                          if (![grantedPermissions containsObject:permission]) {
+                                              [requestPermissions addObject:permission];
+                                          }
                                       }
-                                  }
-                                  
-                                  //NSLog(@"[AccountManager] Current permissions: %@, request permissions: %@", grantedPermissions, requestPermissions);
-                                  
-                                  // If we have permissions to request
-                                  if ([requestPermissions count] > 0) {
-                                      // Ask for the missing permissions
-                                      [FBSession.activeSession requestNewPublishPermissions:requestPermissions defaultAudience:FBSessionDefaultAudienceEveryone completionHandler:^(FBSession *session, NSError *error) {
-                                           if (!error) {
-                                               // Permission granted
-                                               NSLog(@"[AccountManager] New permissions granted %@", [FBSession.activeSession permissions]);
-                                               // We can request the user information
-                                               success();
-                                           } else {
-                                               NSLog(@"[AccountManager] Failure requesting permissions");
-                                               failure();
-                                           }
-                                       }];
+
+                                      // If we have permissions to request
+                                      if ([requestPermissions count] > 0) {
+                                          [self promptForSharingPermissions:requestPermissions success:success failure:failure];
+                                      } else {
+                                          success();
+                                      }
+
                                   } else {
-                                      success();
+                                      NSLog(@"[AccountManager] Failure calling /me/permissions: %@", error);
+                                      failure();
                                   }
-                                  
-                              } else {
-                                  NSLog(@"[AccountManager] Failure calling /me/permissions: %@", error);
-                                  failure();
-                              }
-                          }];
+                              }];
+    }
+    else {
+        //[self promptForSharingPermissions:permissionsNeeded success:success failure:failure];
+        [FBSession openActiveSessionWithPublishPermissions:permissionsNeeded defaultAudience:FBSessionDefaultAudienceEveryone allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+
+            if (!error) {
+                // Permission granted
+                NSLog(@"[AccountManager] New permissions granted %@", [FBSession.activeSession permissions]);
+                // We can request the user information
+                success();
+            } else {
+                NSLog(@"[AccountManager] Failure requesting permissions");
+                failure();
+            }
+        }];
+    }
+}
+
+- (void) promptForSharingPermissions:(NSArray*)permissions success:(void(^)())success failure:(void(^)())failure {
+    
+    
+    //NSLog(@"[AccountManager] Current permissions: %@, request permissions: %@", grantedPermissions, requestPermissions);
+    
+    // Ask for the missing permissions
+    [FBSession.activeSession requestNewPublishPermissions:permissions defaultAudience:FBSessionDefaultAudienceEveryone completionHandler:^(FBSession *session, NSError *error) {
+        if (!error) {
+            // Permission granted
+            NSLog(@"[AccountManager] New permissions granted %@", [FBSession.activeSession permissions]);
+            // We can request the user information
+            success();
+        } else {
+            NSLog(@"[AccountManager] Failure requesting permissions");
+            failure();
+        }
+    }];
 }
 
 @end

@@ -5,9 +5,6 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
-#define USE_FACEBOOK_SHARE_DIALOG NO
-#define USE_CUSTOM_SHARE_DIALOG YES
-
 #define SHARE_DIALOG_WIDTH 300.0
 #define SHARE_DIALOG_HEIGHT 270.0
 
@@ -22,6 +19,7 @@
 #import "ImageUtil.h"
 #import "AccountManager.h"
 #import "ShareDialog.h"
+#import "ServerUploadManager.h"
 #import <math.h>
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -364,70 +362,53 @@
 
 - (void) promptForFacebookSharing {
     
-    if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F)) {
+    if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F) && [ServerUploadManager sharedInstance].hasReachability) {
+                
+        self.customDimmingView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tabBarController.view.frame.size.width, self.tabBarController.view.frame.size.height)];
+        self.customDimmingView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.0];
+        [self.tabBarController.view addSubview:self.customDimmingView];
         
-        if (USE_FACEBOOK_SHARE_DIALOG) {
-            if ([FBDialogs canPresentShareDialogWithOpenGraphActionParams:[self createActionParams]]) {
-                [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SHARE_DIALOG_TITLE", nil)
-                                            message:NSLocalizedString(@"SHARE_TO_FACEBOOK_QUESTION", nil)
-                                           delegate:self
-                                  cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                  otherButtonTitles:NSLocalizedString(@"BUTTON_OK", nil), nil] show];
-            }
-        }
-        else {
-            if ([FBSession activeSession].isOpen) {
-                
-                if (USE_CUSTOM_SHARE_DIALOG) {
-                    
-                    self.customDimmingView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tabBarController.view.frame.size.width, self.tabBarController.view.frame.size.height)];
-                    self.customDimmingView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.0];
-                    [self.tabBarController.view addSubview:self.customDimmingView];
-                    
-                    NSArray* topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"ShareDialog" owner:self options:nil];
-                    self.shareDialog = (ShareDialog*) [topLevelObjects objectAtIndex:0];
-                    self.shareDialog.frame = CGRectMake((self.customDimmingView.frame.size.width - SHARE_DIALOG_WIDTH) / 2.0, 40.0, SHARE_DIALOG_WIDTH, SHARE_DIALOG_HEIGHT);
-                    self.shareDialog.layer.cornerRadius = DIALOG_CORNER_RADIUS;
-                    self.shareDialog.layer.masksToBounds = YES;
-                    self.shareDialog.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.95];
-                    self.shareDialog.textView.layer.cornerRadius = FORM_CORNER_RADIUS;
-                    self.shareDialog.textView.layer.masksToBounds = YES;
-                    self.shareDialog.delegate = self;
-                    self.shareDialog.hidden = YES;
-                    [self.customDimmingView addSubview:self.shareDialog];
-                    [self.shareDialog.textView becomeFirstResponder];
-                    
-                    [UIView animateWithDuration:0.2 animations:^{
-                        self.customDimmingView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.4];
-                        self.shareDialog.hidden = NO;
-                    } completion:^(BOOL finished) {
-                        
-                    }];
-                }
-                else {
-                
-                    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"SHARE_TO_FACEBOOK_TITLE", nil)
-                                                                        message:NSLocalizedString(@"SHARE_TO_FACEBOOK_MESSAGE", nil)
-                                                                       delegate:self
-                                                              cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                                              otherButtonTitles:NSLocalizedString(@"BUTTON_OK", nil), nil];
-                    alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
-                    UITextField *textField = [alertView textFieldAtIndex:0];
-                    textField.autocapitalizationType = UITextAutocapitalizationTypeSentences;
-                    [alertView show];
-                }
-            }
-        }
+        NSArray* topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"ShareDialog" owner:self options:nil];
+        self.shareDialog = (ShareDialog*) [topLevelObjects objectAtIndex:0];
+        self.shareDialog.frame = CGRectMake((self.customDimmingView.frame.size.width - SHARE_DIALOG_WIDTH) / 2.0, 40.0, SHARE_DIALOG_WIDTH, SHARE_DIALOG_HEIGHT);
+        self.shareDialog.layer.cornerRadius = DIALOG_CORNER_RADIUS;
+        self.shareDialog.layer.masksToBounds = YES;
+        self.shareDialog.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.95];
+        self.shareDialog.textView.layer.cornerRadius = FORM_CORNER_RADIUS;
+        self.shareDialog.textView.layer.masksToBounds = YES;
+        self.shareDialog.delegate = self;
+        self.shareDialog.hidden = YES;
+        [self.customDimmingView addSubview:self.shareDialog];
+        [self.shareDialog.textView becomeFirstResponder];
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            self.customDimmingView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.4];
+            self.shareDialog.hidden = NO;
+        } completion:^(BOOL finished) {
+            
+        }];
     }
 }
 
-- (void) share:(NSString *)message {
-    NSArray *imageUrls = self.shareDialog.imageUrls;
-    [self dismissShareDialog];
-    [self shareToFacebook:message imageUrls:imageUrls];
+- (void) startShareActivityIndicator {
+    if (self.shareDialog && self.customDimmingView) {
+        [self.shareDialog.textView resignFirstResponder];
+        self.shareDialog.hidden = YES;
+        UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        view.frame = CGRectMake(self.customDimmingView.frame.size.width / 2.0 - view.frame.size.width / 2.0,
+                                self.customDimmingView.frame.size.height / 2.0 - view.frame.size.height / 2.0,
+                                view.frame.size.width,
+                                view.frame.size.height);
+        [self.customDimmingView addSubview:view];
+        [view startAnimating];
+    }
 }
 
-- (void) cancelShare {
+- (void) shareSuccessful {
+    [self dismissShareDialog];
+}
+
+- (void) shareCancelled {
     [self dismissShareDialog];
 }
 
@@ -445,7 +426,6 @@
 }
 
 - (void) presentViewControllerFromShareDialog:(UIViewController *)viewController {
-    //viewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
     [self presentViewController:viewController animated:YES completion:nil];
 }
 
@@ -453,123 +433,20 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (FBOpenGraphActionParams*) createActionParams {
-    
-    NSString *objectName = @"wind_speed";
-    
-    id<FBGraphObject> object =
-    [FBGraphObject openGraphObjectForPostWithType:[@"vaavudapp:" stringByAppendingString:objectName]
-                                            title:[NSString stringWithFormat:@"%.2f m/s", [self.averageLabelCurrentValue floatValue]]
-                                            image:nil
-                                              url:@"http://www.vaavud.com"
-                                      description:[NSString stringWithFormat:@"Maximum wind speed %.2f m/s", [self.maxLabelCurrentValue floatValue]]];
-
-    [object setObject:@"en_US" forKey:@"locale"];
-    
-    NSMutableDictionary *data = [NSMutableDictionary dictionary];
-    [data setObject:[self.averageLabelCurrentValue stringValue] forKey:@"speed"];
-    [data setObject:[self.maxLabelCurrentValue stringValue] forKey:@"max_speed"];
-    
-    if (self.vaavudCoreController.currentLatitude && self.vaavudCoreController.currentLongitude && [self.vaavudCoreController.currentLatitude doubleValue] != 0.0 && [self.vaavudCoreController.currentLongitude doubleValue] != 0.0) {
-        
-        [data setObject:@{@"latitude":[self.vaavudCoreController.currentLatitude stringValue], @"longitude":[self.vaavudCoreController.currentLongitude stringValue]} forKey:@"location"];
-    }
-    [object setObject:data forKey:@"data"];
-    
-    id<FBOpenGraphAction> action = (id<FBOpenGraphAction>)[FBGraphObject graphObject];
-    [action setObject:object forKey:objectName];
-    [action setObject:@"true" forKey:@"fb:explicitly_shared"];
-    
-    FBOpenGraphActionParams *params = [[FBOpenGraphActionParams alloc] init];
-    params.action = action;
-    params.actionType = @"vaavudapp:measure";
-    
-    return params;
+- (NSNumber*) shareAvgSpeed {
+    return self.averageLabelCurrentValue;
 }
 
-- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-    if (buttonIndex != alertView.cancelButtonIndex) {
-        
-        if (USE_FACEBOOK_SHARE_DIALOG) {
-            FBOpenGraphActionParams *params = [self createActionParams];
-            if ([FBDialogs canPresentShareDialogWithOpenGraphActionParams:params]) {
-                
-                [FBDialogs presentShareDialogWithOpenGraphAction:params.action
-                                                      actionType:@"vaavudapp:measure"
-                                             previewPropertyName:@"wind_speed"
-                                                         handler:^(FBAppCall *call, NSDictionary *results, NSError *error) {
-                                                             if (error) {
-                                                                 NSLog(@"Error publishing story: %@", error.description);
-                                                             }
-                                                             else {
-                                                                 NSLog(@"result %@", results);
-                                                             }
-                                                         }];
-                
-                // If the Facebook app is NOT installed and we can't present the share dialog
-            } else {
-                // FALLBACK GOES HERE
-            }
-        }
-        else {
-
-            NSString *message = nil;
-            UITextField *textField = [alertView textFieldAtIndex:0];
-            if (textField && textField.text.length > 0) {
-                message = textField.text;
-            }
-            
-            [self shareToFacebook:message imageUrls:nil];
-        }
-    }
+- (NSNumber*) shareMaxSpeed {
+    return self.maxLabelCurrentValue;
 }
 
-- (void) shareToFacebook:(NSString*)message imageUrls:(NSArray*)imageUrls {
+- (NSNumber*) shareLatitude {
+    return self.vaavudCoreController.currentLatitude;
+}
 
-    FBOpenGraphActionParams *params = [self createActionParams];
-    id<FBOpenGraphAction> action = params.action;
-
-    if (message && message.length > 0) {
-        [action setObject:message forKey:@"message"];
-    }
-
-    if (imageUrls && imageUrls.count > 0) {
-
-        /*
-        NSMutableArray *imageArray = [NSMutableArray array];
-        for (NSString *imageUrl in imageUrls) {
-            [imageArray addObject:@{@"url": imageUrl, @"user_generated" : @"true"}];
-        }
-        action.image = imageArray;
-        */
-
-        int i = 0;
-        for (NSString *imageUrl in imageUrls) {
-            action[[NSString stringWithFormat:@"image[%u][url]", i]] = imageUrl;
-            action[[NSString stringWithFormat:@"image[%u][user_generated]", i]] = @"true";
-            i++;
-        }
-    }
-    
-    AccountManager *accountManager = [AccountManager sharedInstance];
-    [accountManager ensureSharingPermissions:^{
-        NSLog(@"[VaavudViewController] Has sharing permissions");
-        
-        [FBRequestConnection startForPostWithGraphPath:@"me/vaavudapp:measure"
-                                           graphObject:action
-                                     completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                         
-                                         if (!error) {
-                                             // Success, the restaurant has been liked
-                                             NSLog(@"[VaavudViewController] Posted OG action, id: %@", [result objectForKey:@"id"]);
-                                         } else {
-                                             NSLog(@"[VaavudViewController] Failure posting to Facebook: %@", error);
-                                         }
-                                     }];
-        
-    } failure:^{
-        NSLog(@"[VaavudViewController] Couldn't get sharing permissions");
-    }];
+- (NSNumber*) shareLongitude {
+    return self.vaavudCoreController.currentLongitude;
 }
 
 @end

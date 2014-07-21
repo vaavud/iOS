@@ -11,10 +11,15 @@
 
 @protocol ShareDialogDelegate <NSObject>
 
-- (void) share:(NSString*)message;
-- (void) cancelShare;
+- (void) shareSuccessful;
+- (void) shareCancelled;
 - (void) presentViewControllerFromShareDialog:(UIViewController*)viewController;
 - (void) dismissViewControllerFromShareDialog;
+- (void) startShareActivityIndicator;
+- (NSNumber*) shareAvgSpeed;
+- (NSNumber*) shareMaxSpeed;
+- (NSNumber*) shareLatitude;
+- (NSNumber*) shareLongitude;
 
 @end
 
@@ -27,4 +32,5 @@
 @property (weak, nonatomic) IBOutlet UIButton *okButton;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (nonatomic,strong) NSMutableArray *imageUrls;
+
 @end
