@@ -60,6 +60,22 @@
                         <action selector="pictureButtonTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="YSc-G0-bpD"/>
                     </connections>
                 </button>
+                <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="IN0-vU-J1D">
+                    <rect key="frame" x="10" y="154" width="189" height="50"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="189" id="Ztv-sE-Qxh"/>
+                        <constraint firstAttribute="height" constant="50" id="qrN-Km-qg6"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9Ez-Uq-zcm">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <cells/>
+                </collectionView>
             </subviews>
             <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
@@ -68,17 +84,21 @@
                 <constraint firstAttribute="bottom" secondItem="oiW-Ia-5TS" secondAttribute="bottom" constant="10" id="DPD-De-jXl"/>
                 <constraint firstAttribute="centerX" secondItem="zgo-Vf-RvR" secondAttribute="centerX" id="M1j-jC-Y3Y"/>
                 <constraint firstItem="nsB-QN-kwh" firstAttribute="top" secondItem="zgo-Vf-RvR" secondAttribute="bottom" constant="10" id="MTM-Kn-ysj"/>
+                <constraint firstItem="nsB-QN-kwh" firstAttribute="leading" secondItem="IN0-vU-J1D" secondAttribute="leading" id="Uyt-wJ-FHf"/>
                 <constraint firstAttribute="bottom" secondItem="52R-7E-QC6" secondAttribute="bottom" constant="10" id="Y7K-FZ-iqW"/>
                 <constraint firstItem="zgo-Vf-RvR" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="15" id="ePu-3W-Tqn"/>
                 <constraint firstAttribute="trailing" secondItem="oiW-Ia-5TS" secondAttribute="trailing" constant="20" id="jYc-8I-dJt"/>
                 <constraint firstItem="52R-7E-QC6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="nc7-42-BDB"/>
                 <constraint firstAttribute="trailing" secondItem="mcj-7R-QKM" secondAttribute="trailing" constant="12" id="r2b-qD-F88"/>
+                <constraint firstItem="IN0-vU-J1D" firstAttribute="top" secondItem="nsB-QN-kwh" secondAttribute="bottom" constant="8" id="vhh-CT-LkR"/>
                 <constraint firstItem="mcj-7R-QKM" firstAttribute="top" secondItem="nsB-QN-kwh" secondAttribute="bottom" constant="8" id="xsK-1F-Zg6"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="cancelButton" destination="52R-7E-QC6" id="6QJ-wz-g07"/>
+                <outlet property="collectionView" destination="IN0-vU-J1D" id="d3Z-ZS-fdT"/>
                 <outlet property="okButton" destination="oiW-Ia-5TS" id="cyy-xe-OmJ"/>
+                <outlet property="pictureButton" destination="mcj-7R-QKM" id="uTW-01-vfR"/>
                 <outlet property="textView" destination="nsB-QN-kwh" id="Ckp-1O-qfs"/>
                 <outlet property="titleLabel" destination="zgo-Vf-RvR" id="XZw-al-bZ9"/>
             </connections>

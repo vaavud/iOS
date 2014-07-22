@@ -13,8 +13,11 @@
 
 @interface ShareDialog ()
 
+@property (nonatomic) BOOL hasLayedOut;
 @property (nonatomic) int stagingFacebookImage;
 @property (nonatomic) BOOL shouldInitiateShare;
+@property (nonatomic, strong) NSMutableArray *imageArray;
+@property (nonatomic) int numberOfPictures;
 
 @end
 
@@ -24,9 +27,21 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.stagingFacebookImage = 0;
+        self.numberOfPictures = 0;
         self.shouldInitiateShare = NO;
+        self.hasLayedOut = NO;
     }
     return self;
+}
+
+- (void) layoutSubviews {
+    [super layoutSubviews];
+    
+    if (!self.hasLayedOut) {
+        self.hasLayedOut = YES;
+        self.collectionView.dataSource = self;
+        [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"ImageCell"];
+    }
 }
 
 - (IBAction) okButtonTapped:(id)sender {
@@ -102,6 +117,8 @@
         NSLog(@"[VaavudViewController] Has sharing permissions for staging image");
         
         self.stagingFacebookImage++;
+        self.numberOfPictures++;
+        [self refreshPictureButton];
         
         // Stage the image
         [FBRequestConnection startForUploadStagingResourceWithImage:image completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -113,9 +130,12 @@
                 
                 if (!self.imageUrls) {
                     self.imageUrls = [NSMutableArray array];
+                    self.imageArray = [NSMutableArray array];
                 }
                 [self.imageUrls addObject:[result objectForKey:@"uri"]];
+                [self.imageArray addObject:image];
                 
+                [self.collectionView reloadData];
             } else {
                 NSLog(@"[ShareDialog] Error staging Facebook image: %@", error);
             }
@@ -132,6 +152,15 @@
 
 - (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self.delegate dismissViewControllerFromShareDialog];
+}
+
+- (void) refreshPictureButton {
+    if (self.numberOfPictures >= 3) {
+        self.pictureButton.enabled = NO;
+    }
+    else {
+        self.pictureButton.enabled = YES;
+    }
 }
 
 - (void) shareToFacebook {
@@ -211,5 +240,32 @@
     
     return params;
 }
+
+- (NSInteger) numberOfSectionsInCollectionView:(UICollectionView*)collectionView {
+    return 1;
+}
+
+- (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    NSInteger count = (self.imageArray ? self.imageArray.count : 0);
+    NSLog(@"[ShareDialog] Number of items: %u", count);
+    return count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
+    if (!cell.contentView.subviews || cell.contentView.subviews.count == 0) {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height)];
+        [cell.contentView addSubview:imageView];
+    }
+
+    UIImage *image = self.imageArray[indexPath.item];
+    UIImageView *view = cell.contentView.subviews[0];
+    [view setImage:image];
+    
+    NSLog(@"[ShareDialog] Cell for section %u, item %u, view size %f x %f", indexPath.section, indexPath.item, view.frame.size.width, view.frame.size.height);
+    
+    return cell;
+}
+
 
 @end
