@@ -93,10 +93,12 @@
 
 "DIALOG_CONFIRM" = "Are you sure?";
 
-"SHARE_DIALOG_TITLE" = "Share";
-"SHARE_TO_FACEBOOK_QUESTION" = "Share your wind reading to Facebook?";
 "SHARE_TO_FACEBOOK_TITLE" = "Share to Facebook?";
-"SHARE_TO_FACEBOOK_MESSAGE" = "Optionally, type a small status update:";
+"SHARE_TAKE_PHOTO" = "Take Photo";
+"SHARE_CHOOSE_EXISTING" = "Choose Existing";
+
+"SETTINGS_SOCIAL_SHARING" = "Facebook status update";
+"SETTINGS_SOCIAL_SHARING_DETAILS" = "We won't post without asking";
 
 "INTRO_BUTTON_BUY_WINDMETER" = "Buy it";
 "INTRO_BUTTON_GOT_WINDMETER" = "Got it!";

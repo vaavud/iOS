@@ -71,7 +71,7 @@
             ((RegisterNavigationController*) viewController).registerDelegate = self;
         }
     }
-    else if (false) {
+    else if (true) {
 
         // first-time case...
         

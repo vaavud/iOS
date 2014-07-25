@@ -199,7 +199,7 @@ BOOL isDoingLogout = NO;
 
 - (void) facebookUserLoggedIn:(enum AuthenticationActionType)action password:(NSString*)password isRecursive:(BOOL)isRecursive success:(void(^)(enum AuthenticationResponseType response))success failure:(void(^)(enum AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {
     
-    //NSLog(@"[AccountManager] facebookUserLoggedIn");
+    NSLog(@"[AccountManager] facebookUserLoggedIn");
     
     // Check we got the permissions we need
     [FBRequestConnection startWithGraphPath:@"/me/permissions"

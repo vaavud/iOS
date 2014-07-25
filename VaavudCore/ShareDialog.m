@@ -35,13 +35,18 @@
 }
 
 - (void) layoutSubviews {
-    [super layoutSubviews];
     
     if (!self.hasLayedOut) {
         self.hasLayedOut = YES;
         self.collectionView.dataSource = self;
         [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"ImageCell"];
+        
+        self.titleLabel.text = NSLocalizedString(@"SHARE_TO_FACEBOOK_TITLE", nil);
+        [self.okButton setTitle:NSLocalizedString(@"BUTTON_OK", nil) forState:UIControlStateNormal];
+        [self.cancelButton setTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) forState:UIControlStateNormal];
     }
+
+    [super layoutSubviews];
 }
 
 - (IBAction) okButtonTapped:(id)sender {
@@ -64,7 +69,7 @@
 
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
 
-        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Take Photo", @"Choose Existing", nil];
+        UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"SHARE_TAKE_PHOTO", nil), NSLocalizedString(@"SHARE_CHOOSE_EXISTING", nil), nil];
         [actionSheet showInView:[self superview]];
     }
 }
@@ -97,7 +102,7 @@
     // Get the UIImage from the image picker controller
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     
-    NSLog(@"[ShareDialog] Original size: %f x %f", image.size.width, image.size.height);
+    //NSLog(@"[ShareDialog] Original size: %f x %f", image.size.width, image.size.height);
     
     if (image.size.width > 1024.0F || image.size.height > 1024.0F) {
         CGSize size;
@@ -109,13 +114,14 @@
         }
         image = [ImageUtil resizeImage:image toSize:size];
 
-        NSLog(@"[ShareDialog] Resized to: %f x %f", image.size.width, image.size.height);
+        //NSLog(@"[ShareDialog] Resized to: %f x %f", image.size.width, image.size.height);
     }
 
     AccountManager *accountManager = [AccountManager sharedInstance];
     [accountManager ensureSharingPermissions:^{
-        NSLog(@"[VaavudViewController] Has sharing permissions for staging image");
+        //NSLog(@"[ShareDialog] Has sharing permissions for staging image");
         
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         self.stagingFacebookImage++;
         self.numberOfPictures++;
         [self refreshPictureButton];
@@ -124,6 +130,9 @@
         [FBRequestConnection startForUploadStagingResourceWithImage:image completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
             
             self.stagingFacebookImage--;
+            if (self.stagingFacebookImage == 0) {
+                [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+            }
 
             if (!error) {
                 NSLog(@"[ShareDialog] Successfully staged image with staged URI: %@", [result objectForKey:@"uri"]);
@@ -135,7 +144,17 @@
                 [self.imageUrls addObject:[result objectForKey:@"uri"]];
                 [self.imageArray addObject:image];
                 
-                [self.collectionView reloadData];
+                if (self.collectionView.hidden) {
+                    [UIView animateWithDuration:0.2 animations:^{
+                        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, SHARE_DIALOG_WIDTH, SHARE_DIALOG_HEIGHT_WITH_PICTURES);
+                    } completion:^(BOOL finished) {
+                        self.collectionView.hidden = NO;
+                        [self.collectionView reloadData];
+                    }];
+                }
+                else {
+                    [self.collectionView reloadData];
+                }
             } else {
                 NSLog(@"[ShareDialog] Error staging Facebook image: %@", error);
             }
@@ -184,12 +203,16 @@
     
     AccountManager *accountManager = [AccountManager sharedInstance];
     [accountManager ensureSharingPermissions:^{
-        NSLog(@"[VaavudViewController] Has sharing permissions");
+        //NSLog(@"[ShareDialog] Has sharing permissions");
         
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+
         [FBRequestConnection startForPostWithGraphPath:@"me/vaavudapp:measure"
                                            graphObject:action
                                      completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
                                          
+                                         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+
                                          if (!error) {
                                              // Success, the restaurant has been liked
                                              NSLog(@"[VaavudViewController] Posted OG action, id: %@", [result objectForKey:@"id"]);
@@ -213,9 +236,9 @@
     id<FBGraphObject> object =
     [FBGraphObject openGraphObjectForPostWithType:[@"vaavudapp:" stringByAppendingString:objectName]
                                             title:[NSString stringWithFormat:@"%.2f m/s", [[self.delegate shareAvgSpeed] floatValue]]
-                                            image:nil
+                                            image:@"http://vaavud.com/FacebookOpenGraphObjectImage.png"
                                               url:@"http://www.vaavud.com"
-                                      description:[NSString stringWithFormat:@"Maximum wind speed %.2f m/s", [[self.delegate shareMaxSpeed] floatValue]]];
+                                      description:[NSString stringWithFormat:@"Max wind speed: %.2f m/s", [[self.delegate shareMaxSpeed] floatValue]]];
     
     [object setObject:@"en_US" forKey:@"locale"];
     
@@ -247,11 +270,12 @@
 
 - (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     NSInteger count = (self.imageArray ? self.imageArray.count : 0);
-    NSLog(@"[ShareDialog] Number of items: %u", count);
+    //NSLog(@"[ShareDialog] Number of items: %u", count);
     return count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
     if (!cell.contentView.subviews || cell.contentView.subviews.count == 0) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, cell.contentView.frame.size.width, cell.contentView.frame.size.height)];
@@ -262,10 +286,9 @@
     UIImageView *view = cell.contentView.subviews[0];
     [view setImage:image];
     
-    NSLog(@"[ShareDialog] Cell for section %u, item %u, view size %f x %f", indexPath.section, indexPath.item, view.frame.size.width, view.frame.size.height);
+    //NSLog(@"[ShareDialog] Cell for section %u, item %u, view size %f x %f", indexPath.section, indexPath.item, view.frame.size.width, view.frame.size.height);
     
     return cell;
 }
-
 
 @end

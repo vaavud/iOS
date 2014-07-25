@@ -30,6 +30,7 @@ static NSString * const KEY_ANALYTICS_GRID_DEGREE = @"analyticsGridDegree";
 static NSString * const KEY_HOUR_OPTIONS = @"hourOptions";
 static NSString * const KEY_ENABLE_MIXPANEL = @"enableMixPanel";
 static NSString * const KEY_ENABLE_FACEBOOK_DISCLAIMER = @"enableFacebookDisclaimer";
+static NSString * const KEY_ENABLE_SHARE_DIALOG = @"enableShareDialog";
 
 // User-related properties
 static NSString * const KEY_EMAIL = @"email";

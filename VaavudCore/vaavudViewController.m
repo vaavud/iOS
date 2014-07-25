@@ -5,9 +5,6 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
-#define SHARE_DIALOG_WIDTH 300.0
-#define SHARE_DIALOG_HEIGHT 270.0
-
 #import "vaavudViewController.h"
 #import "vaavudGraphHostingView.h"
 #import "Property+Util.h"
@@ -362,7 +359,7 @@
 
 - (void) promptForFacebookSharing {
     
-    if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F) && [ServerUploadManager sharedInstance].hasReachability) {
+    if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F) && [ServerUploadManager sharedInstance].hasReachability && [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:YES]) {
                 
         self.customDimmingView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tabBarController.view.frame.size.width, self.tabBarController.view.frame.size.height)];
         self.customDimmingView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.0];
@@ -370,7 +367,7 @@
         
         NSArray* topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"ShareDialog" owner:self options:nil];
         self.shareDialog = (ShareDialog*) [topLevelObjects objectAtIndex:0];
-        self.shareDialog.frame = CGRectMake((self.customDimmingView.frame.size.width - SHARE_DIALOG_WIDTH) / 2.0, 40.0, SHARE_DIALOG_WIDTH, SHARE_DIALOG_HEIGHT);
+        self.shareDialog.frame = CGRectMake((self.customDimmingView.frame.size.width - SHARE_DIALOG_WIDTH) / 2.0, 40.0, SHARE_DIALOG_WIDTH, SHARE_DIALOG_HEIGHT_NO_PICTURES);
         self.shareDialog.layer.cornerRadius = DIALOG_CORNER_RADIUS;
         self.shareDialog.layer.masksToBounds = YES;
         self.shareDialog.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.95];

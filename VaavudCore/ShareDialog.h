@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#define SHARE_DIALOG_WIDTH 300.0
+#define SHARE_DIALOG_HEIGHT_NO_PICTURES 238.0
+#define SHARE_DIALOG_HEIGHT_WITH_PICTURES 280.0
 
 @protocol ShareDialogDelegate <NSObject>
 
