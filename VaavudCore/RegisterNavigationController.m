@@ -18,6 +18,17 @@
         self.navigationBar.barStyle = UIBarStyleBlack;
         self.navigationBar.tintColor = [UIColor blackColor];
     }
+    
+    if (self.startScreen && self.startScreen > 0) {
+        if (self.startScreen == RegisterScreenTypeLogIn) {
+            UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LogInViewController"];
+            [self setViewControllers:@[viewController] animated:NO];
+        }
+        else if (self.startScreen == RegisterScreenTypeSignUp) {
+            UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"SignUpViewController"];
+            [self setViewControllers:@[viewController] animated:NO];
+        }
+    }
 }
 
 -(NSUInteger)supportedInterfaceOrientations {

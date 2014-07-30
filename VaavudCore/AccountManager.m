@@ -389,6 +389,7 @@ BOOL isDoingLogout = NO;
     [Property setAsString:nil forKey:KEY_AUTH_TOKEN];
     [Property setAsString:[UUIDUtil generateUUID] forKey:KEY_DEVICE_UUID];
     [Property setAsDate:[NSDate date] forKey:KEY_CREATION_TIME];
+    [Property setAsString:nil forKey:KEY_USER_HAS_WIND_METER];
     if ([self getAuthenticationState] != AuthenticationStateNeverLoggedIn) {
         [self setAuthenticationState:AuthenticationStateWasLoggedIn];
     }

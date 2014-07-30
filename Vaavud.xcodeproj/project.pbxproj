@@ -137,6 +137,8 @@
 		E9B950E719619F7300E9EF02 /* ShareDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B950E619619F7300E9EF02 /* ShareDialog.xib */; };
 		E9B950EA1961A21500E9EF02 /* ShareDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950E91961A21500E9EF02 /* ShareDialog.m */; };
 		E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */; };
+		E9CB327919869B110043C8CE /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = E9CB327719869B110043C8CE /* camera.png */; };
+		E9CB327A19869B110043C8CE /* camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9CB327819869B110043C8CE /* camera@2x.png */; };
 		E9CD223B177B2AEA0054ED3F /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2203177B2AEA0054ED3F /* MagicalImportFunctions.m */; };
 		E9CD223C177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2205177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m */; };
 		E9CD223D177B2AEA0054ED3F /* NSEntityDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2207177B2AEA0054ED3F /* NSEntityDescription+MagicalDataImport.m */; };
@@ -476,6 +478,8 @@
 		E9B950E91961A21500E9EF02 /* ShareDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDialog.m; sourceTree = "<group>"; };
 		E9BB7A0B178DE2D9002E746F /* QueryStringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryStringUtil.h; sourceTree = "<group>"; };
 		E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryStringUtil.m; sourceTree = "<group>"; };
+		E9CB327719869B110043C8CE /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		E9CB327819869B110043C8CE /* camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera@2x.png"; sourceTree = "<group>"; };
 		E9CD2202177B2AEA0054ED3F /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
 		E9CD2203177B2AEA0054ED3F /* MagicalImportFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicalImportFunctions.m; sourceTree = "<group>"; };
 		E9CD2204177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributeDescription+MagicalDataImport.h"; sourceTree = "<group>"; };
@@ -853,6 +857,8 @@
 		E98853C7176868BE00F78128 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E9CB327719869B110043C8CE /* camera.png */,
+				E9CB327819869B110043C8CE /* camera@2x.png */,
 				E9B950D6195C580600E9EF02 /* FirstTime-1.jpg */,
 				E9B950D7195C580600E9EF02 /* FirstTime-2.jpg */,
 				E9B950D8195C580600E9EF02 /* FirstTime-3.jpg */,
@@ -1286,12 +1292,14 @@
 				E91535C01806C2D20070BFB4 /* WindMarker@2x.png in Resources */,
 				E97237F9195992080003A9E4 /* AppIcon114x114.png in Resources */,
 				E97237F3195992080003A9E4 /* AppIcon58x58.png in Resources */,
+				E9CB327919869B110043C8CE /* camera.png in Resources */,
 				E91535CB180840D70070BFB4 /* measure_selected.png in Resources */,
 				E9FABFD818929050009C4C46 /* history@2x.png in Resources */,
 				E9DE09D21935E4D5003877D9 /* SettingsIcon@2x.png in Resources */,
 				D7A4F1D5173A8DDB00D1ACEE /* InfoPlist.strings in Resources */,
 				D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */,
 				E97238181959A0A70003A9E4 /* Default@2x~ipad.png in Resources */,
+				E9CB327A19869B110043C8CE /* camera@2x.png in Resources */,
 				E91535B91806C2D20070BFB4 /* map.png in Resources */,
 				E91535BA1806C2D20070BFB4 /* map@2x.png in Resources */,
 				E97237EF195992080003A9E4 /* AppIcon29x29.png in Resources */,

@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RegisterNavigationController.h"
+#import "FirstTimeExplanationViewController.h"
 
-@interface FirstTimeFlowController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface FirstTimeFlowController : UIViewController <UIPageViewControllerDataSource, UIPageViewControllerDelegate, RegisterNavigationControllerDelegate, FirstTimeExplanationViewControllerDelegate>
 
 @end

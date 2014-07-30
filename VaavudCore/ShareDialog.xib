@@ -67,7 +67,7 @@
                         <constraint firstAttribute="width" constant="45" id="E6F-LE-AZ5"/>
                         <constraint firstAttribute="height" constant="45" id="MpL-SN-cag"/>
                     </constraints>
-                    <state key="normal" image="SettingsIcon.png">
+                    <state key="normal" image="camera.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -141,6 +141,6 @@
         </view>
     </objects>
     <resources>
-        <image name="SettingsIcon.png" width="24" height="24"/>
+        <image name="camera.png" width="26" height="26"/>
     </resources>
 </document>

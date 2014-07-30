@@ -40,6 +40,7 @@ static NSString * const KEY_USER_ID = @"userId";
 static NSString * const KEY_FIRST_NAME = @"firstName";
 static NSString * const KEY_LAST_NAME = @"lastName";
 static NSString * const KEY_AUTHENTICATION_STATE = @"authenticationState";
+static NSString * const KEY_USER_HAS_WIND_METER = @"userHasWindMeter";
 
 @interface Property (Util)
 

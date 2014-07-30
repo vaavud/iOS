@@ -197,6 +197,9 @@
     [[ServerUploadManager sharedInstance] syncHistory:1 ignoreGracePeriod:YES success:nil failure:nil];
 }
 
+- (void) cancelled:(UIViewController*)viewController {
+}
+
 - (NSString*) registerScreenTitle {
     return nil;
 }

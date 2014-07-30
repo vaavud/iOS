@@ -8,18 +8,33 @@
 
 #import <UIKit/UIKit.h>
 
+@class FirstTimeExplanationViewController;
+
+@protocol FirstTimeExplanationViewControllerDelegate <NSObject>
+
+- (void) topButtonPushedOnController:(FirstTimeExplanationViewController*)controller;
+- (void) bottomButtonPushedOnController:(FirstTimeExplanationViewController*)controller;
+- (void) tinyButtonPushedOnController:(FirstTimeExplanationViewController*)controller;
+
+@end
+
 @interface FirstTimeExplanationViewController : UIViewController
+
+@property (nonatomic, weak) id<FirstTimeExplanationViewControllerDelegate> delegate;
+
+@property (nonatomic) NSString *imageName;
+@property (nonatomic) NSString *topExplanationText;
+@property (nonatomic) NSString *explanationText;
+@property (nonatomic) NSString *topButtonText;
+@property (nonatomic) NSString *bottomButtonText;
+@property (nonatomic) NSString *tinyButtonText;
+@property (nonatomic) NSUInteger pageIndex;
 
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UILabel *explanationLabel;
-
-@property (nonatomic) BOOL textVerticalMiddle;
-@property (nonatomic) BOOL showQuestionButtons;
-@property (nonatomic) BOOL showFinishButton;
-@property (nonatomic) NSString *imageName;
-@property (nonatomic) NSString *explanationText;
-@property (nonatomic) NSUInteger pageIndex;
-@property (weak, nonatomic) IBOutlet UIButton *leftButton;
-@property (weak, nonatomic) IBOutlet UIButton *rightButton;
+@property (weak, nonatomic) IBOutlet UILabel *topExplanationLabel;
+@property (weak, nonatomic) IBOutlet UIButton *topButton;
+@property (weak, nonatomic) IBOutlet UIButton *bottomButton;
+@property (weak, nonatomic) IBOutlet UIButton *tinyButton;
 
 @end

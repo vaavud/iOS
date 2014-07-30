@@ -46,6 +46,9 @@
     [self chooseContentController:YES];
 }
 
+- (void) cancelled:(UIViewController*)viewController {
+}
+
 - (NSString*) registerScreenTitle {
     return NSLocalizedString(@"HISTORY_TITLE", nil);
 }

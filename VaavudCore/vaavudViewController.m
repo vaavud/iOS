@@ -57,6 +57,7 @@
 
 @property (nonatomic,strong) UIView *customDimmingView;
 @property (nonatomic,strong) ShareDialog *shareDialog;
+@property (nonatomic,strong) UIActivityIndicatorView *activityIndicatorView;
 
 @end
 
@@ -361,13 +362,17 @@
     
     if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F) && [ServerUploadManager sharedInstance].hasReachability && [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:YES]) {
                 
-        self.customDimmingView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tabBarController.view.frame.size.width, self.tabBarController.view.frame.size.height)];
+        self.customDimmingView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tabBarController.view.bounds.size.width, self.tabBarController.view.bounds.size.height)];
+        self.customDimmingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        self.customDimmingView.translatesAutoresizingMaskIntoConstraints = YES;
         self.customDimmingView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.0];
         [self.tabBarController.view addSubview:self.customDimmingView];
         
         NSArray* topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"ShareDialog" owner:self options:nil];
         self.shareDialog = (ShareDialog*) [topLevelObjects objectAtIndex:0];
-        self.shareDialog.frame = CGRectMake((self.customDimmingView.frame.size.width - SHARE_DIALOG_WIDTH) / 2.0, 40.0, SHARE_DIALOG_WIDTH, SHARE_DIALOG_HEIGHT_NO_PICTURES);
+        self.shareDialog.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin;
+        self.shareDialog.translatesAutoresizingMaskIntoConstraints = YES;
+        self.shareDialog.frame = CGRectMake((self.customDimmingView.bounds.size.width - SHARE_DIALOG_WIDTH) / 2.0, 40.0, SHARE_DIALOG_WIDTH, SHARE_DIALOG_HEIGHT_NO_PICTURES);
         self.shareDialog.layer.cornerRadius = DIALOG_CORNER_RADIUS;
         self.shareDialog.layer.masksToBounds = YES;
         self.shareDialog.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.95];
@@ -391,13 +396,15 @@
     if (self.shareDialog && self.customDimmingView) {
         [self.shareDialog.textView resignFirstResponder];
         self.shareDialog.hidden = YES;
-        UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        view.frame = CGRectMake(self.customDimmingView.frame.size.width / 2.0 - view.frame.size.width / 2.0,
-                                self.customDimmingView.frame.size.height / 2.0 - view.frame.size.height / 2.0,
-                                view.frame.size.width,
-                                view.frame.size.height);
-        [self.customDimmingView addSubview:view];
-        [view startAnimating];
+        self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        self.activityIndicatorView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
+        self.activityIndicatorView.translatesAutoresizingMaskIntoConstraints = YES;
+        self.activityIndicatorView.frame = CGRectMake(self.customDimmingView.bounds.size.width / 2.0 - self.activityIndicatorView.bounds.size.width / 2.0,
+                                self.customDimmingView.bounds.size.height / 2.0 - self.activityIndicatorView.bounds.size.height / 2.0,
+                                self.activityIndicatorView.bounds.size.width,
+                                self.activityIndicatorView.bounds.size.height);
+        [self.customDimmingView addSubview:self.activityIndicatorView];
+        [self.activityIndicatorView startAnimating];
     }
 }
 
@@ -419,6 +426,7 @@
         [self.customDimmingView removeFromSuperview];
         self.shareDialog = nil;
         self.customDimmingView = nil;
+        self.activityIndicatorView = nil;
     }];
 }
 

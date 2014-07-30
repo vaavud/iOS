@@ -50,6 +50,20 @@ BOOL didShowFeedback;
     
     self.facebookButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.facebookButton.layer.masksToBounds = YES;
+
+    if (!self.navigationItem.backBarButtonItem) {
+        UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIBarButtonItemStylePlain target:self action:@selector(crossButtonPushed)];
+        self.navigationItem.leftBarButtonItem = item;
+    }
+}
+
+- (void) crossButtonPushed {
+    if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
+        RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
+        if (registerNavigationController.registerDelegate) {
+            [registerNavigationController.registerDelegate cancelled:self];
+        }
+    }
 }
 
 - (void) viewDidAppear:(BOOL)animated {

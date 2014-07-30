@@ -100,6 +100,13 @@
 "SETTINGS_SOCIAL_SHARING" = "Facebook status update";
 "SETTINGS_SOCIAL_SHARING_DETAILS" = "We won't post without asking";
 
-"INTRO_BUTTON_BUY_WINDMETER" = "Buy it";
-"INTRO_BUTTON_GOT_WINDMETER" = "Got it!";
-"INTRO_BUTTON_FINISHED" = "Let's go!";
+"INTRO_FLOW_SCREEN_1" = "The rugged, electronicless Vaavud wind meter turns your smartphone into a high-tech meteorological tool.";
+"INTRO_FLOW_SCREEN_2" = "Use the live map to check the conditions at your favorite spots before you go.";
+"INTRO_FLOW_HAVE_WIND_METER" = "Do you already have a Vaavud wind meter?";
+"INTRO_FLOW_WANT_TO_BUY" = "Do you want to buy a wind meter now?";
+
+"INTRO_FLOW_BUTTON_SKIP" = "Skip for now";
+"INTRO_FLOW_BUTTON_LATER" = "Later";
+
+"BUTTON_YES" = "Yes";
+"BUTTON_NO" = "No";

@@ -12,9 +12,6 @@
 
 @interface FirstTimeExplanationViewController ()
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *explanationTextTopSpacingConstraint;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *rightButtonHorizontalCenterConstraint;
-
 @end
 
 @implementation FirstTimeExplanationViewController
@@ -23,44 +20,58 @@
     [super viewDidLoad];
     
     UIImage *image = [UIImage imageNamed:self.imageName];
-    self.imageView.image = image;    
+    self.imageView.image = image;
+    self.topExplanationLabel.text = self.topExplanationText;
     self.explanationLabel.text = self.explanationText;
     
-    if (self.textVerticalMiddle) {
-        self.explanationTextTopSpacingConstraint.constant = 420.0;
+    if (self.topButtonText) {
+        [self.topButton setTitle:self.topButtonText forState:UIControlStateNormal];
     }
     else {
-        self.explanationTextTopSpacingConstraint.constant = 50.0;
+        self.topButton.hidden = YES;
     }
     
-    [self.leftButton setTitle:NSLocalizedString(@"INTRO_BUTTON_BUY_WINDMETER", nil) forState:UIControlStateNormal];
-    [self.rightButton setTitle:NSLocalizedString(@"INTRO_BUTTON_GOT_WINDMETER", nil) forState:UIControlStateNormal];
-    self.leftButton.hidden = !self.showQuestionButtons;
-    self.rightButton.hidden = !self.showQuestionButtons;
-
-    if (self.showFinishButton) {
-        self.rightButton.hidden = NO;
-        self.rightButtonHorizontalCenterConstraint.constant = 0;
-        [self.rightButton setTitle:NSLocalizedString(@"INTRO_BUTTON_FINISHED", nil) forState:UIControlStateNormal];
-        self.explanationTextTopSpacingConstraint.constant = 360.0;
+    if (self.bottomButtonText) {
+        [self.bottomButton setTitle:self.bottomButtonText forState:UIControlStateNormal];
+    }
+    else {
+        self.bottomButton.hidden = YES;
     }
     
-    self.leftButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
-    self.leftButton.layer.masksToBounds = YES;
-    self.rightButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
-    self.rightButton.layer.masksToBounds = YES;
-
+    if (self.tinyButtonText) {
+        [self.tinyButton setTitle:self.tinyButtonText forState:UIControlStateNormal];
+    }
+    else {
+        self.tinyButton.hidden = YES;
+    }
+    
+    self.topButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
+    self.topButton.layer.masksToBounds = YES;
+    self.bottomButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
+    self.bottomButton.layer.masksToBounds = YES;
 }
 
-- (IBAction)leftButtonPushed:(id)sender {
+- (IBAction)topButtonPushed:(id)sender {
+    
+    if (self.delegate) {
+        [self.delegate topButtonPushedOnController:self];
+    }
+    
+    /*
     NSString *country = [Property getAsString:KEY_COUNTRY];
     NSString *language = [Property getAsString:KEY_LANGUAGE];
     NSString *url = [NSString stringWithFormat:@"http://vaavud.com/mobile-shop-redirect/?country=%@&language=%@", country, language];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    */
 }
 
-- (IBAction)rightButtonPushed:(id)sender {
-    
+- (IBAction)bottomButtonPushed:(id)sender {
+
+    if (self.delegate) {
+        [self.delegate bottomButtonPushedOnController:self];
+    }
+
+    /*
     if (self.showQuestionButtons) {
         FirstTimeExplanationViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTimeExplanationViewController"];
         
@@ -76,6 +87,14 @@
     else if (self.showFinishButton) {
         UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
         [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
+    }
+    */
+}
+
+- (IBAction)tinyButtonPushed:(id)sender {
+
+    if (self.delegate) {
+        [self.delegate tinyButtonPushedOnController:self];
     }
 }
 
