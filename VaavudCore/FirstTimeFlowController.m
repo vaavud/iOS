@@ -69,7 +69,7 @@
 
     // Bring the common controls to the foreground (they were hidden since the frame is taller)
     [self.view bringSubviewToFront:self.pageControl];
-    [self.view bringSubviewToFront:self.customNavigationBar];
+    [self.view bringSubviewToFront:self.customNavigationBar];    
 }
 
 - (void) viewDidAppear:(BOOL)animated {
@@ -246,6 +246,12 @@
         if ([AccountManager sharedInstance].isLoggedIn) {
             [[ServerUploadManager sharedInstance] syncHistory:1 ignoreGracePeriod:YES success:nil failure:nil];
         }
+    }
+}
+
+- (void) continueFlowFromController:(FirstTimeExplanationViewController*)controller {
+    if (controller.pageId == 4) {
+        [self gotoInstructionFlowFrom:controller];
     }
 }
 

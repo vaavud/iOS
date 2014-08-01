@@ -14,12 +14,16 @@
 
 @interface FirstTimeExplanationViewController ()
 
+@property (nonatomic) BOOL hasClickedBuy;
+
 @end
 
 @implementation FirstTimeExplanationViewController
 
 - (void) viewDidLoad {
     [super viewDidLoad];
+    
+    self.hasClickedBuy = NO;
     
     UIImage *image = [UIImage imageNamed:self.imageName];
     self.imageView.image = image;
@@ -60,11 +64,25 @@
     self.bottomButton.layer.masksToBounds = YES;
     self.tinyButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.tinyButton.layer.masksToBounds = YES;
+
+    if (self.pageId == 4) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    }
+}
+
+- (void) appDidBecomeActive:(NSNotification*) notification {
+    //NSLog(@"appDidBecomeActive, hasClickedBuy=%@, currentPageId=%u", self.hasClickedBuy ? @"YES" : @"NO", self.pageId);
+    if (self.hasClickedBuy && self.pageId == 4) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+        if (self.delegate) {
+            [self.delegate continueFlowFromController:self];
+        }
+    }
 }
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:self.mixpanelScreen];
     }
@@ -74,7 +92,11 @@
     
     if (self.delegate) {
         [self.delegate topButtonPushedOnController:self];
-    }    
+    }
+    
+    if (self.pageId == 4) {
+        self.hasClickedBuy = YES;
+    }
 }
 
 - (IBAction)bottomButtonPushed:(id)sender {

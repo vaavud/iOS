@@ -15,6 +15,7 @@
 - (void) topButtonPushedOnController:(FirstTimeExplanationViewController*)controller;
 - (void) bottomButtonPushedOnController:(FirstTimeExplanationViewController*)controller;
 - (void) tinyButtonPushedOnController:(FirstTimeExplanationViewController*)controller;
+- (void) continueFlowFromController:(FirstTimeExplanationViewController*)controller;
 
 @end
 
