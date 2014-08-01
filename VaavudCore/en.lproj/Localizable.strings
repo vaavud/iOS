@@ -100,14 +100,14 @@
 "SETTINGS_SOCIAL_SHARING" = "Facebook status update";
 "SETTINGS_SOCIAL_SHARING_DETAILS" = "We won't post without asking";
 
-"INTRO_FLOW_SCREEN_1" = "The rugged, electronicless Vaavud wind meter turns your smartphone into a high-tech meteorological tool.";
+"INTRO_FLOW_SCREEN_1" = "The Vaavud wind meter turns your phone into a high-tech meteorological tool.";
 "INTRO_FLOW_SCREEN_2" = "Use the live map to check the conditions at your favorite spots before you go.";
 "INTRO_FLOW_HAVE_WIND_METER" = "Do you already have a Vaavud wind meter?";
 "INTRO_FLOW_WANT_TO_BUY" = "Do you want to buy a wind meter now?";
-"INSTRUCTION_FLOW_SCREEN_1" = "Here are a few tips for making good wind measurements:";
-"INSTRUCTION_FLOW_SCREEN_2" = "For maximum precision, hold the phone above your head vertical and steady, parallel to the wind.";
-"INSTRUCTION_FLOW_SCREEN_3" = "Make sure you measure in a free area. Vegetation, rocks, equipment, etc, will cause turbulence and affect the wind speed.";
-"INSTRUCTION_FLOW_SCREEN_4" = "Keep measuring at least until the progress indicator is full (60 seconds) to get a proper average.";
+"INSTRUCTION_FLOW_SCREEN_1" = "Here are a few tips for making good wind measurements.";
+"INSTRUCTION_FLOW_SCREEN_2" = "For maximum precision hold the phone steady and vertical above your head.";
+"INSTRUCTION_FLOW_SCREEN_3" = "Don't stand behind vegetation, equipment, rocks etc.";
+"INSTRUCTION_FLOW_SCREEN_4" = "Keep measuring at least until the progress indicator is full to get a proper average.";
 "INTRO_FLOW_BUTTON_SKIP" = "Skip for now";
 "INTRO_FLOW_BUTTON_LATER" = "Later";
 "INTRO_FLOW_BUTTON_GOT_IT" = "Ok, got it!";
