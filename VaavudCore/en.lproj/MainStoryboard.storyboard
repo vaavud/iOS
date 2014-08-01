@@ -561,7 +561,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="260" translatesAutoresizingMaskIntoConstraints="NO" id="92M-qr-ece">
-                                <rect key="frame" x="30" y="373" width="260" height="21"/>
+                                <rect key="frame" x="30" y="354" width="260" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="260" id="iT2-Pm-zId"/>
@@ -620,8 +620,12 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFs-jM-11l">
-                                <rect key="frame" x="137" y="402" width="46" height="30"/>
+                                <rect key="frame" x="20" y="397" width="280" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="QIQ-nM-9fr"/>
+                                    <constraint firstAttribute="width" constant="280" id="WFx-VB-ln0"/>
+                                </constraints>
                                 <state key="normal" title="Button">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -635,7 +639,7 @@
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="SqB-58-y7j" secondAttribute="centerX" id="AB5-ZI-O9I"/>
                             <constraint firstAttribute="trailing" secondItem="NT6-hI-qMr" secondAttribute="trailing" id="Eh5-pH-FsM"/>
-                            <constraint firstItem="uHk-th-iHg" firstAttribute="top" secondItem="92M-qr-ece" secondAttribute="bottom" constant="86" id="Mhg-8T-fD9"/>
+                            <constraint firstItem="uHk-th-iHg" firstAttribute="top" secondItem="92M-qr-ece" secondAttribute="bottom" constant="105" id="Mhg-8T-fD9"/>
                             <constraint firstItem="NT6-hI-qMr" firstAttribute="top" secondItem="HEU-gu-VCd" secondAttribute="top" id="UNH-m7-PIa"/>
                             <constraint firstAttribute="centerX" secondItem="Pvj-NR-cXf" secondAttribute="centerX" id="a34-nc-2FP"/>
                             <constraint firstItem="uuY-48-OP5" firstAttribute="top" secondItem="Pvj-NR-cXf" secondAttribute="bottom" id="bKT-tQ-2YV"/>
@@ -643,7 +647,7 @@
                             <constraint firstItem="NT6-hI-qMr" firstAttribute="leading" secondItem="HEU-gu-VCd" secondAttribute="leading" id="jDt-Rp-gJA"/>
                             <constraint firstAttribute="centerX" secondItem="uuY-48-OP5" secondAttribute="centerX" id="nTw-8d-N1W"/>
                             <constraint firstAttribute="centerX" secondItem="92M-qr-ece" secondAttribute="centerX" id="qF9-ZP-NjM"/>
-                            <constraint firstItem="uHk-th-iHg" firstAttribute="top" secondItem="fFs-jM-11l" secondAttribute="bottom" constant="48" id="rQm-KC-fS3"/>
+                            <constraint firstItem="uHk-th-iHg" firstAttribute="top" secondItem="fFs-jM-11l" secondAttribute="bottom" constant="40" id="rQm-KC-fS3"/>
                             <constraint firstItem="uHk-th-iHg" firstAttribute="top" secondItem="NT6-hI-qMr" secondAttribute="bottom" id="vGL-3w-58P"/>
                             <constraint firstAttribute="centerX" secondItem="fFs-jM-11l" secondAttribute="centerX" id="vbM-G0-qDC"/>
                             <constraint firstItem="SqB-58-y7j" firstAttribute="top" secondItem="uuY-48-OP5" secondAttribute="bottom" constant="10" id="yfQ-ef-yzD"/>
@@ -652,6 +656,7 @@
                     <connections>
                         <outlet property="bottomButton" destination="SqB-58-y7j" id="qy7-0t-4Vj"/>
                         <outlet property="explanationLabel" destination="92M-qr-ece" id="PlV-Oj-p5Z"/>
+                        <outlet property="explanationLabelBottomSpaceConstraint" destination="Mhg-8T-fD9" id="APA-4B-2WS"/>
                         <outlet property="imageView" destination="NT6-hI-qMr" id="dTl-oN-t7b"/>
                         <outlet property="tinyButton" destination="fFs-jM-11l" id="BJt-dR-oXe"/>
                         <outlet property="topButton" destination="uuY-48-OP5" id="VBk-Nc-XeP"/>

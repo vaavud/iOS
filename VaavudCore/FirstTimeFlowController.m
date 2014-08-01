@@ -9,11 +9,11 @@
 #import "FirstTimeFlowController.h"
 #import "Mixpanel.h"
 #import "Property+Util.h"
+#import "AccountManager.h"
+#import "ServerUploadManager.h"
 
 @interface FirstTimeFlowController ()
 
-@property (strong, nonatomic) NSArray *pageImages;
-@property (strong, nonatomic) NSArray *pageTexts;
 @property (nonatomic) UIPageViewController *pageController;
 @property (nonatomic, weak) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UINavigationBar *customNavigationBar;
@@ -26,8 +26,11 @@
 - (void) viewDidLoad {
     [super viewDidLoad];
     
-    self.pageImages = @[@"FirstTime-1.jpg", @"FirstTime-2.jpg", @"FirstTime-3.jpg"];
-    self.pageTexts = @[NSLocalizedString(@"INTRO_FLOW_SCREEN_1", nil), NSLocalizedString(@"INTRO_FLOW_SCREEN_2", nil), @""];
+    if (!self.pageImages) {
+        self.pageImages = @[@"FirstTime-1.jpg", @"FirstTime-2.jpg", @"FirstTime-3.jpg"];
+        self.pageTexts = @[NSLocalizedString(@"INTRO_FLOW_SCREEN_1", nil), NSLocalizedString(@"INTRO_FLOW_SCREEN_2", nil), @""];
+        self.pageIds = @[@0, @1, @2];
+    }
     
     self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     
@@ -98,14 +101,19 @@
     explanationViewController.delegate = self;
     explanationViewController.imageName = self.pageImages[index];
     explanationViewController.pageIndex = index;
+    explanationViewController.pageId = [self.pageIds[index] integerValue];
+    explanationViewController.explanationText = self.pageTexts[index];
+    explanationViewController.tinyButtonIsSolid = NO;
 
-    if (index < 2) {
-        explanationViewController.explanationText = self.pageTexts[index];
-    }
-    else if (index == 2) {
+    if (explanationViewController.pageId == 2) {
         explanationViewController.topButtonText = NSLocalizedString(@"REGISTER_TITLE_SIGNUP", nil);
         explanationViewController.bottomButtonText = NSLocalizedString(@"REGISTER_TITLE_LOGIN", nil);
         explanationViewController.tinyButtonText = NSLocalizedString(@"INTRO_FLOW_BUTTON_SKIP", nil);
+    }
+    
+    if (explanationViewController.pageId == 8) {
+        explanationViewController.tinyButtonText = NSLocalizedString(@"INTRO_FLOW_BUTTON_GOT_IT", nil);
+        explanationViewController.tinyButtonIsSolid = YES;
     }
     
     return explanationViewController;
@@ -150,7 +158,7 @@
 
 - (void) topButtonPushedOnController:(FirstTimeExplanationViewController*)controller {
     
-    if (controller.pageIndex == 2) {
+    if (controller.pageId == 2) {
         UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
         RegisterNavigationController *newController = (RegisterNavigationController*) [loginStoryBoard instantiateInitialViewController];
         if ([newController isKindOfClass:[RegisterNavigationController class]]) {
@@ -159,7 +167,11 @@
             [self presentViewController:newController animated:YES completion:nil];
         }
     }
-    else if (controller.pageIndex == 4) {
+    else if (controller.pageId == 3) {
+        
+        [self gotoInstructionFlowFrom:controller];
+    }
+    else if (controller.pageId == 4) {
         
         NSString *country = [Property getAsString:KEY_COUNTRY];
         NSString *language = [Property getAsString:KEY_LANGUAGE];
@@ -172,7 +184,7 @@
 
 - (void) bottomButtonPushedOnController:(FirstTimeExplanationViewController*)controller {
     
-    if (controller.pageIndex == 2) {
+    if (controller.pageId == 2) {
         UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
         RegisterNavigationController *newController = (RegisterNavigationController*) [loginStoryBoard instantiateInitialViewController];
         if ([newController isKindOfClass:[RegisterNavigationController class]]) {
@@ -181,34 +193,42 @@
             [self presentViewController:newController animated:YES completion:nil];
         }
     }
-    else if (controller.pageIndex == 3) {
+    else if (controller.pageId == 3) {
 
         FirstTimeExplanationViewController *explanationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTimeExplanationViewController"];
         explanationViewController.delegate = self;
-        explanationViewController.imageName = @"FirstTime-3.jpg";
-        explanationViewController.pageIndex = 4;
+        explanationViewController.imageName = @"FirstTime-1.jpg";
+        explanationViewController.pageIndex = 0;
+        explanationViewController.pageId = 4;
         explanationViewController.topExplanationText = NSLocalizedString(@"INTRO_FLOW_WANT_TO_BUY", nil);
         explanationViewController.topButtonText = NSLocalizedString(@"BUTTON_YES", nil);
         explanationViewController.bottomButtonText = NSLocalizedString(@"INTRO_FLOW_BUTTON_LATER", nil);
         explanationViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         [controller presentViewController:explanationViewController animated:YES completion:nil];
     }
+    else if (controller.pageId == 4) {
+        
+        [self gotoInstructionFlowFrom:controller];
+    }
 }
 
 - (void) tinyButtonPushedOnController:(FirstTimeExplanationViewController*)controller {
     
-    if (controller.pageIndex == 2) {
+    if (controller.pageId == 2) {
         [self gotoNewFlowScreenFrom:controller];
+    }
+    else if (controller.pageId == 8) {
+
+        UIViewController *nextViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+        [UIApplication sharedApplication].delegate.window.rootViewController = nextViewController;
+        
+        if ([AccountManager sharedInstance].isLoggedIn) {
+            [[ServerUploadManager sharedInstance] syncHistory:1 ignoreGracePeriod:YES success:nil failure:nil];
+        }
     }
 }
 
 - (void) userAuthenticated:(BOOL)isSignup viewController:(UIViewController*)viewController {
-    
-    //UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    //UIViewController *nextViewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
-    //self.window.rootViewController = nextViewController;
-    
-    //[[ServerUploadManager sharedInstance] syncHistory:1 ignoreGracePeriod:YES success:nil failure:nil];
     
     [self gotoNewFlowScreenFrom:viewController];
 }
@@ -234,13 +254,26 @@
         FirstTimeExplanationViewController *explanationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTimeExplanationViewController"];
         explanationViewController.delegate = self;
         explanationViewController.imageName = @"FirstTime-3.jpg";
-        explanationViewController.pageIndex = 3;
+        explanationViewController.pageIndex = 0;
+        explanationViewController.pageId = 3;
         explanationViewController.topExplanationText = NSLocalizedString(@"INTRO_FLOW_HAVE_WIND_METER", nil);
         explanationViewController.topButtonText = NSLocalizedString(@"BUTTON_YES", nil);
         explanationViewController.bottomButtonText = NSLocalizedString(@"BUTTON_NO", nil);
         explanationViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
         [viewController presentViewController:explanationViewController animated:YES completion:nil];
     }
+}
+
+- (void) gotoInstructionFlowFrom:(UIViewController*)viewController {
+
+    FirstTimeFlowController *newViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
+
+    newViewController.pageImages = @[@"FirstTime-4.jpg", @"FirstTime-4.jpg", @"FirstTime-4.jpg", @"FirstTime-4.jpg"];
+    newViewController.pageTexts = @[NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_1", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_2", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_3", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_4", nil)];
+    newViewController.pageIds = @[@5, @6, @7, @8];
+
+    newViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [viewController presentViewController:newViewController animated:YES completion:nil];
 }
 
 @end

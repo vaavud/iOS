@@ -9,6 +9,7 @@
 #import "FirstTimeExplanationViewController.h"
 #import "ImageUtil.h"
 #import "Property+Util.h"
+#import "UIColor+VaavudColors.h"
 
 @interface FirstTimeExplanationViewController ()
 
@@ -40,15 +41,24 @@
     
     if (self.tinyButtonText) {
         [self.tinyButton setTitle:self.tinyButtonText forState:UIControlStateNormal];
+
+        if (self.tinyButtonIsSolid) {
+            self.tinyButton.titleLabel.font = [UIFont systemFontOfSize:18.0];
+            self.tinyButton.titleLabel.textColor = [UIColor vaavudBlueColor];
+            self.tinyButton.backgroundColor = [UIColor whiteColor];
+        }
     }
     else {
         self.tinyButton.hidden = YES;
+        self.explanationLabelBottomSpaceConstraint.constant = 80.0;
     }
     
     self.topButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.topButton.layer.masksToBounds = YES;
     self.bottomButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.bottomButton.layer.masksToBounds = YES;
+    self.tinyButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
+    self.tinyButton.layer.masksToBounds = YES;
 }
 
 - (IBAction)topButtonPushed:(id)sender {
