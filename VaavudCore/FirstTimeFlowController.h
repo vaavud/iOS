@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) NSArray *pageImages;
 @property (strong, nonatomic) NSArray *pageTexts;
+@property (strong, nonatomic) NSArray *pageMixpanelScreens;
 @property (strong, nonatomic) NSArray *pageIds;
 
 @end

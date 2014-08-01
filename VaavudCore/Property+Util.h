@@ -31,6 +31,7 @@ static NSString * const KEY_HOUR_OPTIONS = @"hourOptions";
 static NSString * const KEY_ENABLE_MIXPANEL = @"enableMixPanel";
 static NSString * const KEY_ENABLE_FACEBOOK_DISCLAIMER = @"enableFacebookDisclaimer";
 static NSString * const KEY_ENABLE_SHARE_DIALOG = @"enableShareDialog";
+static NSString * const KEY_HAS_SEEN_INTRO_FLOW = @"hasSeenIntroFlow";
 
 // User-related properties
 static NSString * const KEY_EMAIL = @"email";
@@ -61,6 +62,7 @@ static NSString * const KEY_USER_HAS_WIND_METER = @"userHasWindMeter";
 + (void) setAsFloatArray:(NSArray*) value forKey:(NSString*) name;
 
 + (BOOL) isMixpanelEnabled;
++ (void) refreshHasWindMeter;
 
 + (NSDictionary *) getDeviceDictionary;
 

@@ -54,5 +54,5 @@ static int const FQ60_FFT_DATA_LENGTH = 80;
 
 static NSString * const GOOGLE_STATIC_MAPS_API_KEY = @"AIzaSyDrrZsMKRBkCw214SbJA6q2lO-cXbu7m0Y";
 
-//static NSString * const vaavudAPIBaseURLString = @"http://10.121.1.33:8080/";
+//static NSString * const vaavudAPIBaseURLString = @"http://10.121.1.64:8080/";
 static NSString * const vaavudAPIBaseURLString = @"https://mobile-api.vaavud.com/";

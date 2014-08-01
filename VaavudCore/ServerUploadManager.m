@@ -721,8 +721,10 @@ SHARED_INSTANCE
             self.isHistorySyncBusy = NO;
             self.isHistorySyncInProgress = NO;
             
+            [Property refreshHasWindMeter];
+
             //NSLog(@"[ServerUploadManager] End saveWithBlock with success=%@", isSuccess ? @"YES" : @"NO");
-            
+
             if (success) {
                 success();
             }

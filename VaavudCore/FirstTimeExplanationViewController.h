@@ -29,6 +29,7 @@
 @property (nonatomic) NSString *bottomButtonText;
 @property (nonatomic) NSString *tinyButtonText;
 @property (nonatomic) BOOL tinyButtonIsSolid;
+@property (nonatomic) NSString *mixpanelScreen;
 @property (nonatomic) NSUInteger pageIndex;
 @property (nonatomic) NSUInteger pageId;
 

@@ -8,6 +8,7 @@
 
 #import "Property+Util.h"
 #import "UnitUtil.h"
+#import "MeasurementSession+Util.h"
 
 @implementation Property (Util)
 
@@ -123,6 +124,13 @@
 
 + (BOOL) isMixpanelEnabled {
     return [Property getAsBoolean:KEY_ENABLE_MIXPANEL defaultValue:YES];
+}
+
++ (void) refreshHasWindMeter {
+    if (![Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO]) {
+        BOOL hasMeasurements = ([MeasurementSession MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"windSpeedAvg > 0"]] > 0);
+        [Property setAsBoolean:hasMeasurements forKey:KEY_USER_HAS_WIND_METER];
+    }
 }
 
 + (NSDictionary *) getDeviceDictionary {

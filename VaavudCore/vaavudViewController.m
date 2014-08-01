@@ -330,6 +330,7 @@
         }
         
         [self promptForFacebookSharing];
+        [Property refreshHasWindMeter];
     }
 }
 

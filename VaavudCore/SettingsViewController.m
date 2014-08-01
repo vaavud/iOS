@@ -76,7 +76,13 @@
 
 - (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex != alertView.cancelButtonIndex) {
-        [self gotoRegisterViewController];
+        if ([[AccountManager sharedInstance] isLoggedIn]) {
+            [[AccountManager sharedInstance] logout];
+
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+            UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
+            [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
+        }
     }
 }
 
@@ -86,27 +92,14 @@
         [[AccountManager sharedInstance] logout];
     }
     
-    if ([[AccountManager sharedInstance] getAuthenticationState] == AuthenticationStateNeverLoggedIn) {
-        
-        // note: for this to work, the UINavigationController we're in (MeasureNavigationController) must be a subclass of RegisterNavigationController
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
-        UIViewController *nextViewController = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
-        if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
-            ((RegisterNavigationController*) self.navigationController).registerDelegate = (vaavudAppDelegate*) [UIApplication sharedApplication].delegate;
-        }
-        [self.navigationController pushViewController:nextViewController animated:YES];
+    // note: for this to work, the UINavigationController we're in (MeasureNavigationController) must be a subclass of RegisterNavigationController
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
+    UIViewController *nextViewController = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
+    if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
+        ((RegisterNavigationController*) self.navigationController).registerDelegate = (vaavudAppDelegate*) [UIApplication sharedApplication].delegate;
     }
-    else {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
-        UIViewController *nextViewController = [storyboard instantiateInitialViewController];
-        if ([nextViewController isKindOfClass:[RegisterNavigationController class]]) {
-            ((RegisterNavigationController*) nextViewController).registerDelegate = (vaavudAppDelegate*) [UIApplication sharedApplication].delegate;
-        }
-        [UIApplication sharedApplication].delegate.window.rootViewController = nextViewController;
-        //nextViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        //[self presentViewController:nextViewController animated:YES completion:nil];
-    }
+    [self.navigationController pushViewController:nextViewController animated:YES];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

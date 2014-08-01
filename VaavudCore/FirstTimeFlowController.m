@@ -26,10 +26,19 @@
 - (void) viewDidLoad {
     [super viewDidLoad];
     
+    //NSLog(@"[FirstTimeFlowController] isLoggedIn=%@, hasWindMeter=%@", [AccountManager sharedInstance].isLoggedIn ? @"YES" : @"NO", [Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO] ? @"YES" : @"NO");
+    
     if (!self.pageImages) {
-        self.pageImages = @[@"FirstTime-1.jpg", @"FirstTime-2.jpg", @"FirstTime-3.jpg"];
-        self.pageTexts = @[NSLocalizedString(@"INTRO_FLOW_SCREEN_1", nil), NSLocalizedString(@"INTRO_FLOW_SCREEN_2", nil), @""];
-        self.pageIds = @[@0, @1, @2];
+
+        if ([AccountManager sharedInstance].isLoggedIn && [Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO]) {
+            [self createInstructionFlowOn:self];
+        }
+        else {
+            self.pageImages = @[@"001_basejumper.jpg", @"002_map.jpg", @"003_sign_up.jpg"];
+            self.pageTexts = @[NSLocalizedString(@"INTRO_FLOW_SCREEN_1", nil), NSLocalizedString(@"INTRO_FLOW_SCREEN_2", nil), @""];
+            self.pageMixpanelScreens = @[@"Intro Flow Screen 1", @"Intro Flow Screen 2", @"Intro Flow Register Screen"];
+            self.pageIds = @[@0, @1, @2];
+        }
     }
     
     self.pageController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
@@ -65,7 +74,6 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    //if ([Property isMixpanelEnabled]) [[Mixpanel sharedInstance] track:@"Explanation Flow Screen"];
 }
 
 - (UIViewController*) pageViewController:(UIPageViewController*)pageViewController viewControllerBeforeViewController:(UIViewController*)viewController {
@@ -102,13 +110,21 @@
     explanationViewController.imageName = self.pageImages[index];
     explanationViewController.pageIndex = index;
     explanationViewController.pageId = [self.pageIds[index] integerValue];
+    explanationViewController.mixpanelScreen = self.pageMixpanelScreens[index];
     explanationViewController.explanationText = self.pageTexts[index];
     explanationViewController.tinyButtonIsSolid = NO;
 
     if (explanationViewController.pageId == 2) {
-        explanationViewController.topButtonText = NSLocalizedString(@"REGISTER_TITLE_SIGNUP", nil);
-        explanationViewController.bottomButtonText = NSLocalizedString(@"REGISTER_TITLE_LOGIN", nil);
-        explanationViewController.tinyButtonText = NSLocalizedString(@"INTRO_FLOW_BUTTON_SKIP", nil);
+        
+        if ([AccountManager sharedInstance].isLoggedIn) {
+            explanationViewController = [self createHaveWindMeterController];
+            explanationViewController.pageIndex = index;
+        }
+        else {
+            explanationViewController.topButtonText = NSLocalizedString(@"REGISTER_TITLE_SIGNUP", nil);
+            explanationViewController.bottomButtonText = NSLocalizedString(@"REGISTER_TITLE_LOGIN", nil);
+            explanationViewController.tinyButtonText = NSLocalizedString(@"INTRO_FLOW_BUTTON_SKIP", nil);
+        }
     }
     
     if (explanationViewController.pageId == 8) {
@@ -168,7 +184,9 @@
         }
     }
     else if (controller.pageId == 3) {
-        
+
+        [Property setAsBoolean:YES forKey:KEY_USER_HAS_WIND_METER];
+
         [self gotoInstructionFlowFrom:controller];
     }
     else if (controller.pageId == 4) {
@@ -194,17 +212,18 @@
         }
     }
     else if (controller.pageId == 3) {
-
+        
         FirstTimeExplanationViewController *explanationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTimeExplanationViewController"];
         explanationViewController.delegate = self;
-        explanationViewController.imageName = @"FirstTime-1.jpg";
+        explanationViewController.imageName = @"004_wind_meter.jpg";
         explanationViewController.pageIndex = 0;
         explanationViewController.pageId = 4;
+        explanationViewController.mixpanelScreen = @"Intro Flow Buy Screen";
         explanationViewController.topExplanationText = NSLocalizedString(@"INTRO_FLOW_WANT_TO_BUY", nil);
         explanationViewController.topButtonText = NSLocalizedString(@"BUTTON_YES", nil);
         explanationViewController.bottomButtonText = NSLocalizedString(@"INTRO_FLOW_BUTTON_LATER", nil);
-        explanationViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-        [controller presentViewController:explanationViewController animated:YES completion:nil];
+        //explanationViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        [controller presentViewController:explanationViewController animated:NO completion:nil];
     }
     else if (controller.pageId == 4) {
         
@@ -219,6 +238,8 @@
     }
     else if (controller.pageId == 8) {
 
+        [Property setAsBoolean:YES forKey:KEY_HAS_SEEN_INTRO_FLOW];
+        
         UIViewController *nextViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
         [UIApplication sharedApplication].delegate.window.rootViewController = nextViewController;
         
@@ -248,17 +269,10 @@
 - (void) gotoNewFlowScreenFrom:(UIViewController*)viewController {
     
     if ([Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO]) {
-        // TODO: go to instruction flow
+        [self gotoInstructionFlowFrom:viewController];
     }
     else {
-        FirstTimeExplanationViewController *explanationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTimeExplanationViewController"];
-        explanationViewController.delegate = self;
-        explanationViewController.imageName = @"FirstTime-3.jpg";
-        explanationViewController.pageIndex = 0;
-        explanationViewController.pageId = 3;
-        explanationViewController.topExplanationText = NSLocalizedString(@"INTRO_FLOW_HAVE_WIND_METER", nil);
-        explanationViewController.topButtonText = NSLocalizedString(@"BUTTON_YES", nil);
-        explanationViewController.bottomButtonText = NSLocalizedString(@"BUTTON_NO", nil);
+        UIViewController *explanationViewController = [self createHaveWindMeterController];
         explanationViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
         [viewController presentViewController:explanationViewController animated:YES completion:nil];
     }
@@ -267,13 +281,34 @@
 - (void) gotoInstructionFlowFrom:(UIViewController*)viewController {
 
     FirstTimeFlowController *newViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
-
-    newViewController.pageImages = @[@"FirstTime-4.jpg", @"FirstTime-4.jpg", @"FirstTime-4.jpg", @"FirstTime-4.jpg"];
-    newViewController.pageTexts = @[NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_1", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_2", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_3", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_4", nil)];
-    newViewController.pageIds = @[@5, @6, @7, @8];
+    [self createInstructionFlowOn:newViewController];
 
     newViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [viewController presentViewController:newViewController animated:YES completion:nil];
+}
+
+- (FirstTimeExplanationViewController*) createHaveWindMeterController {
+    FirstTimeExplanationViewController *explanationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTimeExplanationViewController"];
+    explanationViewController.delegate = self;
+    explanationViewController.imageName = @"004_wind_meter.jpg";
+    explanationViewController.pageIndex = 0;
+    explanationViewController.pageId = 3;
+    explanationViewController.mixpanelScreen = @"Intro Flow Have Wind Meter Screen";
+    explanationViewController.topExplanationText = NSLocalizedString(@"INTRO_FLOW_HAVE_WIND_METER", nil);
+    explanationViewController.topButtonText = NSLocalizedString(@"BUTTON_YES", nil);
+    explanationViewController.bottomButtonText = NSLocalizedString(@"BUTTON_NO", nil);
+    return explanationViewController;
+}
+
+- (void) createInstructionFlowOn:(FirstTimeFlowController*)controller {
+    controller.pageImages = @[@"005_paraglider.jpg", @"006_hold_top.jpg", @"006_open_space.jpg", @"007_reading.jpg"];
+    controller.pageTexts = @[NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_1", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_2", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_3", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_4", nil)];
+    controller.pageIds = @[@5, @6, @7, @8];
+    controller.pageMixpanelScreens = @[@"Instruction Flow Screen 1", @"Instruction Flow Screen 2", @"Instruction Flow Screen 3", @"Instruction Flow Screen 4"];
+}
+
+-(NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
 }
 
 @end

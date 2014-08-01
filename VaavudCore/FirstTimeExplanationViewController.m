@@ -10,6 +10,7 @@
 #import "ImageUtil.h"
 #import "Property+Util.h"
 #import "UIColor+VaavudColors.h"
+#import "Mixpanel.h"
 
 @interface FirstTimeExplanationViewController ()
 
@@ -50,7 +51,7 @@
     }
     else {
         self.tinyButton.hidden = YES;
-        self.explanationLabelBottomSpaceConstraint.constant = 80.0;
+        self.explanationLabelBottomSpaceConstraint.constant = 50.0;
     }
     
     self.topButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
@@ -61,18 +62,19 @@
     self.tinyButton.layer.masksToBounds = YES;
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:self.mixpanelScreen];
+    }
+}
+
 - (IBAction)topButtonPushed:(id)sender {
     
     if (self.delegate) {
         [self.delegate topButtonPushedOnController:self];
-    }
-    
-    /*
-    NSString *country = [Property getAsString:KEY_COUNTRY];
-    NSString *language = [Property getAsString:KEY_LANGUAGE];
-    NSString *url = [NSString stringWithFormat:@"http://vaavud.com/mobile-shop-redirect/?country=%@&language=%@", country, language];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-    */
+    }    
 }
 
 - (IBAction)bottomButtonPushed:(id)sender {
@@ -80,25 +82,6 @@
     if (self.delegate) {
         [self.delegate bottomButtonPushedOnController:self];
     }
-
-    /*
-    if (self.showQuestionButtons) {
-        FirstTimeExplanationViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTimeExplanationViewController"];
-        
-        viewController.imageName = @"FirstTime-4.jpg";
-        viewController.explanationText = @"To take a proper wind measurement, plug in the wind meter and hold it up against the wind, facing the display towards yourself.";
-        viewController.showQuestionButtons = NO;
-        viewController.showFinishButton = YES;
-        viewController.textVerticalMiddle = NO;
-        
-        viewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-        [self presentViewController:viewController animated:YES completion:nil];
-    }
-    else if (self.showFinishButton) {
-        UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
-        [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
-    }
-    */
 }
 
 - (IBAction)tinyButtonPushed:(id)sender {
@@ -106,6 +89,10 @@
     if (self.delegate) {
         [self.delegate tinyButtonPushedOnController:self];
     }
+}
+
+-(NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
 }
 
 @end

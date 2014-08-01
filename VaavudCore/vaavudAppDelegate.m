@@ -59,31 +59,27 @@
         [[AccountManager sharedInstance] registerWithFacebook:nil action:AuthenticationActionRefresh];
     }
     
+    // set has wind meter property if not set
+    if (![Property getAsString:KEY_USER_HAS_WIND_METER]) {
+        [Property refreshHasWindMeter];
+    }
+
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     UIViewController *viewController = nil;
-    if ([[AccountManager sharedInstance] getAuthenticationState] == AuthenticationStateWasLoggedIn) {
+    
+    if ([Property getAsBoolean:KEY_HAS_SEEN_INTRO_FLOW defaultValue:NO]) {
+
+        // normal case...
         
-        // if user was once logged in, force user to log in or sign up again...
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
-        viewController = [storyboard instantiateInitialViewController];
-        if ([viewController isKindOfClass:[RegisterNavigationController class]]) {
-            ((RegisterNavigationController*) viewController).registerDelegate = self;
-        }
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        viewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
     }
-    else if (true) {
+    else {
 
         // first-time case...
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         viewController = [storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
-    }
-    else {
-        
-        // normal case...
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        viewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
     }
     
     self.window.rootViewController = viewController;

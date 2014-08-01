@@ -334,6 +334,11 @@ BOOL isDoingLogout = NO;
                 [Property setAsString:lastName forKey:KEY_LAST_NAME];
             }
             
+            NSNumber *hasWindMeter = [responseObject objectForKey:@"hasWindMeter"];
+            if (hasWindMeter && ![hasWindMeter isEqual:[NSNull null]]) {
+                [Property setAsBoolean:([hasWindMeter integerValue] == 1) forKey:KEY_USER_HAS_WIND_METER];
+            }
+            
             // indentify in Mixpanel and possibly create alias
             if ([Property isMixpanelEnabled]) {
                 Mixpanel *mixpanel = [Mixpanel sharedInstance];
@@ -390,6 +395,7 @@ BOOL isDoingLogout = NO;
     [Property setAsString:[UUIDUtil generateUUID] forKey:KEY_DEVICE_UUID];
     [Property setAsDate:[NSDate date] forKey:KEY_CREATION_TIME];
     [Property setAsString:nil forKey:KEY_USER_HAS_WIND_METER];
+    [Property setAsBoolean:NO forKey:KEY_HAS_SEEN_INTRO_FLOW];
     if ([self getAuthenticationState] != AuthenticationStateNeverLoggedIn) {
         [self setAuthenticationState:AuthenticationStateWasLoggedIn];
     }
