@@ -59,10 +59,21 @@
     self.analyticsGridDegree = [[Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] doubleValue];
     self.latestLocalNumberOfMeasurements = 0;
 
-    self.hoursAgo = 3;
+    NSNumber *number = [Property getAsInteger:KEY_MAP_HOURS];
+    self.hoursAgo = (number ? [number intValue] : 24);
     NSArray *hourOptions = [Property getAsFloatArray:KEY_HOUR_OPTIONS];
     if (hourOptions != nil && hourOptions.count > 0) {
-        self.hoursAgo = round([hourOptions[hourOptions.count - 1] floatValue]);
+        BOOL optionFound = NO;
+        for (NSNumber *hourOption in hourOptions) {
+            int option = round([hourOption floatValue]);
+            if (self.hoursAgo == option) {
+                optionFound = YES;
+                break;
+            }
+        }
+        if (!optionFound) {
+            self.hoursAgo = round([hourOptions[hourOptions.count - 1] floatValue]);
+        }
     }
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
@@ -544,12 +555,14 @@
             int hourOptionInt = round([hourOptions[i] floatValue]);
             if (hourOptionInt > self.hoursAgo) {
                 self.hoursAgo = hourOptionInt;
+                [Property setAsInteger:[NSNumber numberWithInt:self.hoursAgo] forKey:KEY_MAP_HOURS];
                 isOptionChanged = YES;
                 break;
             }
         }
         if (!isOptionChanged) {
             self.hoursAgo = round([hourOptions[0] floatValue]);
+            [Property setAsInteger:[NSNumber numberWithInt:self.hoursAgo] forKey:KEY_MAP_HOURS];
         }
     }
     

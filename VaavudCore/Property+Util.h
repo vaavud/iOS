@@ -20,6 +20,7 @@ static NSString * const KEY_MODEL = @"model";
 static NSString * const KEY_COUNTRY = @"country";
 static NSString * const KEY_LANGUAGE = @"language";
 static NSString * const KEY_WIND_SPEED_UNIT = @"windSpeedUnit";
+static NSString * const KEY_MAP_HOURS = @"mapHours";
 static NSString * const KEY_HAS_PROMPTED_FOR_LOCATION = @"hasPromptedForLocation";
 static NSString * const KEY_FREQUENCY_START = @"frequencyStart";
 static NSString * const KEY_FREQUENCY_FACTOR = @"frequencyFactor";
