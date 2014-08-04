@@ -15,6 +15,7 @@
 @protocol ShareDialogDelegate <NSObject>
 
 - (void) shareSuccessful;
+- (void) shareFailure;
 - (void) shareCancelled;
 - (void) presentViewControllerFromShareDialog:(UIViewController*)viewController;
 - (void) dismissViewControllerFromShareDialog;

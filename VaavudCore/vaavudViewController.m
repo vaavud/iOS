@@ -362,7 +362,11 @@
 - (void) promptForFacebookSharing {
     
     if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F) && [ServerUploadManager sharedInstance].hasReachability && [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:YES]) {
-                
+        
+        if ([Property isMixpanelEnabled]) {
+            [[Mixpanel sharedInstance] track:@"Share Dialog"];
+        }
+
         self.customDimmingView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.tabBarController.view.bounds.size.width, self.tabBarController.view.bounds.size.height)];
         self.customDimmingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         self.customDimmingView.translatesAutoresizingMaskIntoConstraints = YES;
@@ -411,10 +415,26 @@
 
 - (void) shareSuccessful {
     [self dismissShareDialog];
+
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:@"Share Dialog Successful"];
+    }
+}
+
+- (void) shareFailure {
+    [self dismissShareDialog];
+    
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:@"Share Dialog Failure"];
+    }
 }
 
 - (void) shareCancelled {
     [self dismissShareDialog];
+
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:@"Share Dialog Cancelled"];
+    }
 }
 
 - (void) dismissShareDialog {

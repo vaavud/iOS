@@ -216,16 +216,16 @@
                                          if (!error) {
                                              // Success, the restaurant has been liked
                                              NSLog(@"[VaavudViewController] Posted OG action, id: %@", [result objectForKey:@"id"]);
+                                             [self.delegate shareSuccessful];
                                          } else {
                                              NSLog(@"[VaavudViewController] Failure posting to Facebook: %@", error);
+                                             [self.delegate shareFailure];
                                          }
-                                         
-                                         [self.delegate shareSuccessful];
                                      }];
         
     } failure:^{
         NSLog(@"[VaavudViewController] Couldn't get sharing permissions");
-        [self.delegate shareSuccessful];
+        [self.delegate shareFailure];
     }];
 }
 

@@ -132,6 +132,9 @@
             NSString *unit = [UnitUtil jsonNameForWindSpeedUnit:[windSpeedUnit intValue]];
             [dictionary setObject:unit forKey:@"Speed Unit"];
         }
+        
+        BOOL enableShareDialog = [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:YES];
+        [dictionary setObject:(enableShareDialog ? @"true" : @"false") forKey:@"Enable Share Dialog"];
 
         if (dictionary.count > 0) {
             [mixpanel registerSuperProperties:dictionary];
