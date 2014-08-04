@@ -11,6 +11,7 @@
 #import "Property+Util.h"
 #import "AccountManager.h"
 #import "ServerUploadManager.h"
+#import "TabBarController.h"
 
 @interface FirstTimeFlowController ()
 
@@ -227,7 +228,12 @@
     }
     else if (controller.pageId == 4) {
         
-        [self gotoInstructionFlowFrom:controller];
+        if ([Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO]) {
+            [self gotoInstructionFlowFrom:controller];
+        }
+        else {
+            [self gotoMainScreenFromController:controller];
+        }
     }
 }
 
@@ -237,15 +243,22 @@
         [self gotoNewFlowScreenFrom:controller];
     }
     else if (controller.pageId == 8) {
+        [self gotoMainScreenFromController:controller];
+    }
+}
 
-        [Property setAsBoolean:YES forKey:KEY_HAS_SEEN_INTRO_FLOW];
-        
-        UIViewController *nextViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
-        [UIApplication sharedApplication].delegate.window.rootViewController = nextViewController;
-        
-        if ([AccountManager sharedInstance].isLoggedIn) {
-            [[ServerUploadManager sharedInstance] syncHistory:1 ignoreGracePeriod:YES success:nil failure:nil];
-        }
+- (void) gotoMainScreenFromController:(UIViewController*)controller {
+
+    [Property setAsBoolean:YES forKey:KEY_HAS_SEEN_INTRO_FLOW];
+    
+    TabBarController *nextViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+    if (![Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO]) {
+        nextViewController.selectedIndex = 1;
+    }
+    [UIApplication sharedApplication].delegate.window.rootViewController = nextViewController;
+    
+    if ([AccountManager sharedInstance].isLoggedIn) {
+        [[ServerUploadManager sharedInstance] syncHistory:1 ignoreGracePeriod:YES success:nil failure:nil];
     }
 }
 

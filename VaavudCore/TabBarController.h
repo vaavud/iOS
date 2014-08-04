@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SMCalloutView.h"
+#import "DismissOnTouchUIView.h"
 
-@interface TabBarController : UITabBarController
+#define CALLOUT_GUIDE_VIEW_WIDTH 250.0
+
+@interface TabBarController : UITabBarController <SMCalloutViewDelegate,DismissOnTouchUIViewDelegate>
+
+- (BOOL) isShowingGuideView;
+- (void) showCalloutGuideView:(NSString*)headingText explanationText:(NSString*)explanationText customPosition:(CGRect)rect inView:(UIView*)inView;
 
 @end

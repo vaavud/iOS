@@ -16,6 +16,7 @@
 #import "LocationManager.h"
 #import "ServerUploadManager.h"
 #import "Mixpanel.h"
+#import "TabBarController.h"
 #include <math.h>
 
 #define MERCATOR_RADIUS 85445659.44705395
@@ -25,6 +26,7 @@
 #define MAX_NEARBY_MEASUREMENTS 50
 
 @interface MapViewController ()
+
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
 @property (nonatomic) MeasurementCalloutView *measurementCalloutView;
 @property (nonatomic) NSDate *lastMeasurementsRead;
@@ -36,6 +38,8 @@
 @property (nonatomic) NSTimer *refreshTimer;
 @property (nonatomic) UIImage *placeholderImage;
 @property (nonatomic) NSDate *viewAppearedTime;
+@property (nonatomic) NSTimer *showGuideViewTimer;
+
 @end
 
 @implementation MapViewController
@@ -198,6 +202,20 @@
     }
 }
 
+- (void) viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+
+    if (![Property getAsBoolean:KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN defaultValue:NO]) {
+        [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN];
+        
+        TabBarController *tabBarController = (TabBarController*) self.tabBarController;
+        [tabBarController showCalloutGuideView:NSLocalizedString(@"MAP_GUIDE_TIME_INTERVAL_TITLE", nil)
+                               explanationText:NSLocalizedString(@"MAP_GUIDE_TIME_INTERVAL_EXPLANATION", nil)
+                                customPosition:self.hoursButton.frame
+                                        inView:nil];
+    }
+}
+
 - (void)refreshMap {
     [self loadMeasurements:YES showActivityIndicator:NO];
 }
@@ -252,6 +270,7 @@
             }
         }
     } failure:^(NSError *error) {
+        //NSLog(@"[MapViewController] Error reading measurements");
         [self clearActivityIndicator];
         [self showNoDataFeedbackMessage];
     }];
@@ -405,7 +424,31 @@
         }
         
         self.isSelectingFromTableView = NO;
+        
+        if (![Property getAsBoolean:KEY_MAP_GUIDE_ZOOM_SHOWN defaultValue:NO]) {
+            self.showGuideViewTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(showGuideViewForZoom) userInfo:nil repeats:NO];
+        }
 	}
+}
+
+- (void) showGuideViewForZoom {
+    
+    if (self.measurementCalloutView) {
+        
+        if (self.showGuideViewTimer) {
+            [self.showGuideViewTimer invalidate];
+            self.showGuideViewTimer = nil;
+        }
+
+        [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_ZOOM_SHOWN];
+
+        TabBarController *tabBarController = (TabBarController*) self.tabBarController;
+        [tabBarController showCalloutGuideView:NSLocalizedString(@"MAP_GUIDE_ZOOM_TITLE", nil)
+                               explanationText:NSLocalizedString(@"MAP_GUIDE_ZOOM_EXPLANATION", nil)
+                                customPosition:self.measurementCalloutView.imageView.frame
+                                        inView:nil];
+    
+    }
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
