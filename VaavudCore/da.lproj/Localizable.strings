@@ -99,6 +99,7 @@
 
 "SETTINGS_SOCIAL_SHARING" = "Facebook statusopdatering";
 "SETTINGS_SOCIAL_SHARING_DETAILS" = "Vi deler ikke uden at spørge";
+"SETTINGS_MEASURING_TIPS" = "Vindmålingstips";
 
 "INTRO_FLOW_SCREEN_1" = "En Vaavud vindmåler gør din telefon til et high-tech meteorologisk værktøj.";
 "INTRO_FLOW_SCREEN_2" = "Brug kortet med live vindmålinger til at checke forholdene på dit favoritsted før du tager derud.";

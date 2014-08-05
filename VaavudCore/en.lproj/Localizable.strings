@@ -99,6 +99,7 @@
 
 "SETTINGS_SOCIAL_SHARING" = "Facebook status update";
 "SETTINGS_SOCIAL_SHARING_DETAILS" = "We won't post without asking";
+"SETTINGS_MEASURING_TIPS" = "Measuring tips";
 
 "INTRO_FLOW_SCREEN_1" = "The Vaavud wind meter turns your phone into a high-tech meteorological tool.";
 "INTRO_FLOW_SCREEN_2" = "Use the live map to check the conditions at your favorite spots before you go.";

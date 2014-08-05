@@ -17,4 +17,6 @@
 @property (strong, nonatomic) NSArray *pageMixpanelScreens;
 @property (strong, nonatomic) NSArray *pageIds;
 
++ (void) gotoInstructionFlowFrom:(UIViewController*)viewController returnViaDismiss:(BOOL)returnViaDismiss;
+
 @end

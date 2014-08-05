@@ -19,6 +19,7 @@
 @property (nonatomic, weak) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UINavigationBar *customNavigationBar;
 @property (weak, nonatomic) IBOutlet UINavigationItem *customNavigationItem;
+@property (nonatomic) BOOL returnViaDismiss;
 
 @end
 
@@ -32,7 +33,7 @@
     if (!self.pageImages) {
 
         if ([AccountManager sharedInstance].isLoggedIn && [Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO]) {
-            [self createInstructionFlowOn:self];
+            [FirstTimeFlowController createInstructionFlowOn:self];
         }
         else {
             self.pageImages = @[@"001_basejumper.jpg", @"002_map.jpg", @"003_sign_up.jpg"];
@@ -188,7 +189,7 @@
 
         [Property setAsBoolean:YES forKey:KEY_USER_HAS_WIND_METER];
 
-        [self gotoInstructionFlowFrom:controller];
+        [FirstTimeFlowController gotoInstructionFlowFrom:controller returnViaDismiss:NO];
     }
     else if (controller.pageId == 4) {
         
@@ -229,7 +230,7 @@
     else if (controller.pageId == 4) {
         
         if ([Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO]) {
-            [self gotoInstructionFlowFrom:controller];
+            [FirstTimeFlowController gotoInstructionFlowFrom:controller returnViaDismiss:NO];
         }
         else {
             [self gotoMainScreenFromController:controller];
@@ -243,7 +244,12 @@
         [self gotoNewFlowScreenFrom:controller];
     }
     else if (controller.pageId == 8) {
-        [self gotoMainScreenFromController:controller];
+        if (self.returnViaDismiss) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
+        else {
+            [self gotoMainScreenFromController:controller];
+        }
     }
 }
 
@@ -265,7 +271,7 @@
 - (void) continueFlowFromController:(FirstTimeExplanationViewController*)controller {
     if (controller.pageId == 4) {
         if ([Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO]) {
-            [self gotoInstructionFlowFrom:controller];
+            [FirstTimeFlowController gotoInstructionFlowFrom:controller returnViaDismiss:NO];
         }
         else {
             [self gotoMainScreenFromController:controller];
@@ -293,22 +299,13 @@
 - (void) gotoNewFlowScreenFrom:(UIViewController*)viewController {
     
     if ([Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO]) {
-        [self gotoInstructionFlowFrom:viewController];
+        [FirstTimeFlowController gotoInstructionFlowFrom:viewController returnViaDismiss:NO];
     }
     else {
         UIViewController *explanationViewController = [self createHaveWindMeterController];
         explanationViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
         [viewController presentViewController:explanationViewController animated:YES completion:nil];
     }
-}
-
-- (void) gotoInstructionFlowFrom:(UIViewController*)viewController {
-
-    FirstTimeFlowController *newViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
-    [self createInstructionFlowOn:newViewController];
-
-    newViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [viewController presentViewController:newViewController animated:YES completion:nil];
 }
 
 - (FirstTimeExplanationViewController*) createHaveWindMeterController {
@@ -324,7 +321,18 @@
     return explanationViewController;
 }
 
-- (void) createInstructionFlowOn:(FirstTimeFlowController*)controller {
++ (void) gotoInstructionFlowFrom:(UIViewController*)viewController returnViaDismiss:(BOOL)returnViaDismiss {
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    FirstTimeFlowController *newViewController = [storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
+    [FirstTimeFlowController createInstructionFlowOn:newViewController];
+    newViewController.returnViaDismiss = returnViaDismiss;
+    
+    newViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [viewController presentViewController:newViewController animated:YES completion:nil];
+}
+
++ (void) createInstructionFlowOn:(FirstTimeFlowController*)controller {
     controller.pageImages = @[@"005_paraglider.jpg", @"006_hold_top.jpg", @"006_open_space.jpg", @"007_reading.jpg"];
     controller.pageTexts = @[NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_1", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_2", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_3", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_4", nil)];
     controller.pageIds = @[@5, @6, @7, @8];

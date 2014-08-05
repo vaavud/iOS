@@ -12,6 +12,7 @@
 #import "UnitUtil.h"
 #import "RegisterNavigationController.h"
 #import "vaavudAppDelegate.h"
+#import "FirstTimeFlowController.h"
 
 @interface SettingsViewController ()
 
@@ -107,7 +108,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -150,6 +151,13 @@
             break;
         case 3:
             cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
+            cell.textLabel.text = NSLocalizedString(@"SETTINGS_MEASURING_TIPS", nil);
+            cell.detailTextLabel.text = nil;
+            cell.accessoryView = nil;
+            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+            break;
+        case 4:
+            cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
             cell.textLabel.text = NSLocalizedString(@"ABOUT_TITLE", nil);
             cell.detailTextLabel.text = nil;
             cell.accessoryView = nil;
@@ -186,6 +194,10 @@
             break;
         }
         case 3: {
+            [FirstTimeFlowController gotoInstructionFlowFrom:self returnViaDismiss:YES];
+            break;
+        }
+        case 4: {
             [self performSegueWithIdentifier:@"aboutSegue" sender:self];
             break;
         }
