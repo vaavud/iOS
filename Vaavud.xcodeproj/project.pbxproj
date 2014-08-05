@@ -98,7 +98,6 @@
 		E9793A85196C411C00E3823E /* ParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9793A84196C411C00E3823E /* ParentViewController.m */; };
 		E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */; };
 		E97AC6D018BCDE19004DEC65 /* TermsPrivacyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */; };
-		E99053F219769A6200CC0583 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E99053F119769A6200CC0583 /* FacebookSDK.framework */; };
 		E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */; };
 		E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */; };
 		E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8917DF5BA600DED985 /* libz.dylib */; };
@@ -123,6 +122,7 @@
 		E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */; };
 		E9AF2B9117F5B96500BDF6D9 /* MeasurementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9AF2B9017F5B96500BDF6D9 /* MeasurementTableViewCell.xib */; };
 		E9AF597E181826E6009A8221 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9AF597A181826E6009A8221 /* libTestFlight.a */; };
+		E9B3881B199108BE00A118D5 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B3881A199108BE00A118D5 /* FacebookSDK.framework */; };
 		E9B47A031794217200E8A82E /* Terms.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A021794217200E8A82E /* Terms.m */; };
 		E9B47A0A1794315100E8A82E /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A091794315100E8A82E /* TermsViewController.m */; };
 		E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627AF17708E63004678D5 /* AFHTTPClient.m */; };
@@ -407,7 +407,6 @@
 		E97AC6CE18BCDE19004DEC65 /* TermsPrivacyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsPrivacyNavigationController.h; sourceTree = "<group>"; };
 		E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsPrivacyNavigationController.m; sourceTree = "<group>"; };
 		E982DF2D18181152004DAB3E /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		E99053F119769A6200CC0583 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		E995F0B0177C55A80011BF07 /* DictionarySerializationUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionarySerializationUtil.h; sourceTree = "<group>"; };
 		E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionarySerializationUtil.m; sourceTree = "<group>"; };
 		E995F0B6177C7A2A0011BF07 /* MeasurementPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementPoint.h; sourceTree = "<group>"; };
@@ -453,6 +452,7 @@
 		E9AF597B181826E6009A8221 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		E9AF597C181826E6009A8221 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
 		E9AF597D181826E6009A8221 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
+		E9B3881A199108BE00A118D5 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		E9B47A011794217200E8A82E /* Terms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terms.h; sourceTree = "<group>"; };
 		E9B47A021794217200E8A82E /* Terms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terms.m; sourceTree = "<group>"; };
 		E9B47A081794315100E8A82E /* TermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
@@ -603,7 +603,7 @@
 				D7A4F1CB173A8DDB00D1ACEE /* UIKit.framework in Frameworks */,
 				D7A4F1CD173A8DDB00D1ACEE /* Foundation.framework in Frameworks */,
 				D7A4F1CF173A8DDB00D1ACEE /* CoreGraphics.framework in Frameworks */,
-				E99053F219769A6200CC0583 /* FacebookSDK.framework in Frameworks */,
+				E9B3881B199108BE00A118D5 /* FacebookSDK.framework in Frameworks */,
 				D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */,
 				A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */,
 			);
@@ -730,7 +730,7 @@
 		D7A4F1C9173A8DDB00D1ACEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E99053F119769A6200CC0583 /* FacebookSDK.framework */,
+				E9B3881A199108BE00A118D5 /* FacebookSDK.framework */,
 				E982DF2D18181152004DAB3E /* AdSupport.framework */,
 				E904AC9917F0911000171F7F /* MapKit.framework */,
 				D7DA72401743C1CD00DFE962 /* Accelerate.framework */,
