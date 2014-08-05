@@ -167,6 +167,11 @@ BOOL didShowFeedback;
 
     [[AccountManager sharedInstance] registerWithPassword:self.passwordTextField.text email:self.emailTextField.text firstName:self.firstNameTextField.text lastName:self.lastNameTextField.text action:AuthenticationActionSignup success:^(enum AuthenticationResponseType response) {
         
+        [self.passwordTextField resignFirstResponder];
+        [self.emailTextField resignFirstResponder];
+        self.passwordTextField.delegate = nil;
+        self.emailTextField.delegate = nil;
+
         if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
             RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
             if (registerNavigationController.registerDelegate) {

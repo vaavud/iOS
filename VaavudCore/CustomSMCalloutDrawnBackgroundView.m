@@ -15,13 +15,33 @@
 #define ANCHOR_MARGIN_MIN 24 // the smallest possible distance from the edge of our control to the edge of the anchor, from either left or right
 
 @interface UIView (SMFrameAdditions)
+
 @property (nonatomic, assign) CGPoint $origin;
 @property (nonatomic, assign) CGSize $size;
 @property (nonatomic, assign) CGFloat $x, $y, $width, $height; // normal rect properties
 @property (nonatomic, assign) CGFloat $left, $top, $right, $bottom; // these will stretch/shrink the rect
+
+@end
+
+@interface CustomSMCalloutDrawnBackgroundView ()
+
+@property (nonatomic) BOOL hideArrow;
+
 @end
 
 @implementation CustomSMCalloutDrawnBackgroundView
+
++ (CustomSMCalloutDrawnBackgroundView*) view {
+    CustomSMCalloutDrawnBackgroundView* view = [CustomSMCalloutDrawnBackgroundView new];
+    view.hideArrow = NO;
+    return view;
+}
+
++ (CustomSMCalloutDrawnBackgroundView*) viewWithNoArrow {
+    CustomSMCalloutDrawnBackgroundView* view = [CustomSMCalloutDrawnBackgroundView new];
+    view.hideArrow = YES;
+    return view;
+}
 
 - (void)drawRect:(CGRect)rect {
     
@@ -78,7 +98,7 @@
     [backgroundPath addArcWithCenter:CGPointMake(CGRectGetMinX(frame) + radius, CGRectGetMaxY(frame) - radius) radius:radius startAngle:M_PI endAngle:M_PI / 2 clockwise:NO]; // bottom-left corner
     
     // pointer down
-    if (!pointingUp) {
+    if (!pointingUp && !self.hideArrow) {
         [backgroundPath addLineToPoint:CGPointMake(CGRectGetMinX(anchorRect), CGRectGetMaxY(frame))];
         [backgroundPath addLineToPoint:CGPointMake(CGRectGetMinX(anchorRect) + anchorRect.size.width / 2, CGRectGetMaxY(frame) + anchorRect.size.height)];
         [backgroundPath addLineToPoint:CGPointMake(CGRectGetMaxX(anchorRect), CGRectGetMaxY(frame))];
@@ -90,7 +110,7 @@
     [backgroundPath addArcWithCenter:CGPointMake(CGRectGetMaxX(frame) - radius, CGRectGetMinY(frame) + radius) radius:radius startAngle:0.0f endAngle:-M_PI / 2 clockwise:NO]; // top-right corner
     
     // pointer up
-    if (pointingUp) {
+    if (pointingUp && !self.hideArrow) {
         [backgroundPath addLineToPoint:CGPointMake(CGRectGetMaxX(anchorRect), CGRectGetMinY(frame))];
         [backgroundPath addLineToPoint:CGPointMake(CGRectGetMinX(anchorRect) + anchorRect.size.width / 2, CGRectGetMinY(frame) - anchorRect.size.height)];
         [backgroundPath addLineToPoint:CGPointMake(CGRectGetMinX(anchorRect), CGRectGetMinY(frame))];

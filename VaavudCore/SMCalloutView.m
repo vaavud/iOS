@@ -432,7 +432,7 @@ NSTimeInterval kSMCalloutViewRepositionDelayForUIScrollView = 1.0/3.0;
     }
     else if (type == SMCalloutAnimationStretch) {
         CABasicAnimation *stretchAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-        stretchAnimation.duration = 0.1;
+        stretchAnimation.duration = 0.15;
         stretchAnimation.fromValue = presenting ? @0.0 : @1.0;
         stretchAnimation.toValue = presenting ? @1.0 : @0.0;
         animation = stretchAnimation;

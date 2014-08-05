@@ -10,4 +10,7 @@
 
 @interface CustomSMCalloutDrawnBackgroundView : SMCalloutDrawnBackgroundView
 
++ (CustomSMCalloutDrawnBackgroundView*) view;
++ (CustomSMCalloutDrawnBackgroundView*) viewWithNoArrow;
+
 @end

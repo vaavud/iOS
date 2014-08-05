@@ -115,7 +115,9 @@
 "BUTTON_YES" = "Yes";
 "BUTTON_NO" = "No";
 
+"MAP_GUIDE_MARKER_TITLE" = "Measurement Details";
+"MAP_GUIDE_MARKER_EXPLANATION" = "Tap a marker on the map to see details about the wind measurement.";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "Change Time Interval";
-"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "You can change the time interval of measurements shown on the map by tapping the hour indicator.";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "You can change how many hours back in time measurements are shown by tapping the hour indicator.";
 "MAP_GUIDE_ZOOM_TITLE" = "Quick Zoom";
-"MAP_GUIDE_ZOOM_EXPLANATION" = "You can tap the map thumbnail to zoom to the location of the measurement.";
+"MAP_GUIDE_ZOOM_EXPLANATION" = "Tap the map thumbnail to zoom to the location of the measurement.";

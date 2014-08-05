@@ -11,6 +11,7 @@
 #import "SMCalloutView.h"
 #import "MeasurementSession+Util.h"
 #import "MeasurementAnnotation.h"
+#import "TabBarController.h"
 
 @interface CustomMapView : MKMapView
 
@@ -20,7 +21,7 @@
 
 @end
 
-@interface MapViewController : UIViewController <MKMapViewDelegate, SMCalloutViewDelegate>
+@interface MapViewController : UIViewController <MKMapViewDelegate, SMCalloutViewDelegate, GuideViewDismissedListener>
 
 @property (nonatomic, weak) IBOutlet CustomMapView *mapView;
 @property (nonatomic, weak) IBOutlet UIButton *hoursButton;

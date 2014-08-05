@@ -12,9 +12,13 @@
 
 #define CALLOUT_GUIDE_VIEW_WIDTH 250.0
 
+@protocol GuideViewDismissedListener <NSObject>
+- (void) guideViewDismissed;
+@end
+
 @interface TabBarController : UITabBarController <SMCalloutViewDelegate,DismissOnTouchUIViewDelegate>
 
 - (BOOL) isShowingGuideView;
-- (void) showCalloutGuideView:(NSString*)headingText explanationText:(NSString*)explanationText customPosition:(CGRect)rect inView:(UIView*)inView;
+- (void) showCalloutGuideView:(NSString*)headingText explanationText:(NSString*)explanationText customPosition:(CGRect)rect withArrow:(BOOL)withArrow inView:(UIView*)inView;
 
 @end

@@ -85,6 +85,7 @@
     
     self.mapView.calloutView = [SMCalloutView new];
     self.mapView.calloutView.delegate = self;
+    self.mapView.calloutView.presentAnimation = SMCalloutAnimationStretch;
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
     
     [self refreshHours];
@@ -216,6 +217,20 @@
 - (void) viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
 
+    if (![Property getAsBoolean:KEY_MAP_GUIDE_MARKER_SHOWN defaultValue:NO]) {
+        [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MARKER_SHOWN];
+        
+        TabBarController *tabBarController = (TabBarController*) self.tabBarController;
+        [tabBarController showCalloutGuideView:NSLocalizedString(@"MAP_GUIDE_MARKER_TITLE", nil)
+                               explanationText:NSLocalizedString(@"MAP_GUIDE_MARKER_EXPLANATION", nil)
+                                customPosition:CGRectMake(self.view.bounds.size.width / 2.0F, self.view.bounds.size.height / 2.0F, 1.0F, 1.0F)
+                                     withArrow:NO
+                                        inView:nil];
+    }
+}
+
+- (void) guideViewDismissed {
+    
     if (![Property getAsBoolean:KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN defaultValue:NO]) {
         [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN];
         
@@ -223,6 +238,7 @@
         [tabBarController showCalloutGuideView:NSLocalizedString(@"MAP_GUIDE_TIME_INTERVAL_TITLE", nil)
                                explanationText:NSLocalizedString(@"MAP_GUIDE_TIME_INTERVAL_EXPLANATION", nil)
                                 customPosition:self.hoursButton.frame
+                                     withArrow:YES
                                         inView:nil];
     }
 }
@@ -419,7 +435,7 @@
         [containerView addSubview:self.measurementCalloutView];
                         
         self.mapView.calloutView.contentView = containerView;
-        self.mapView.calloutView.backgroundView = [CustomSMCalloutDrawnBackgroundView new];
+        self.mapView.calloutView.backgroundView = [CustomSMCalloutDrawnBackgroundView view];
         
         [self.mapView.calloutView presentCalloutFromRect:view.bounds
                                          inView:view
@@ -457,6 +473,7 @@
         [tabBarController showCalloutGuideView:NSLocalizedString(@"MAP_GUIDE_ZOOM_TITLE", nil)
                                explanationText:NSLocalizedString(@"MAP_GUIDE_ZOOM_EXPLANATION", nil)
                                 customPosition:self.measurementCalloutView.imageView.frame
+                                     withArrow:YES
                                         inView:nil];
     
     }

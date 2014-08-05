@@ -52,6 +52,9 @@
             self.tinyButton.titleLabel.textColor = [UIColor vaavudBlueColor];
             self.tinyButton.backgroundColor = [UIColor whiteColor];
         }
+        else {
+            self.tinyButton.backgroundColor = [UIColor clearColor];
+        }
     }
     else {
         self.tinyButton.hidden = YES;

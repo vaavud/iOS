@@ -94,6 +94,11 @@ BOOL didShowFeedback;
 
     [[AccountManager sharedInstance] registerWithPassword:self.passwordTextField.text email:self.emailTextField.text firstName:nil lastName:nil action:AuthenticationActionLogin success:^(enum AuthenticationResponseType response) {
 
+        [self.passwordTextField resignFirstResponder];
+        [self.emailTextField resignFirstResponder];
+        self.passwordTextField.delegate = nil;
+        self.emailTextField.delegate = nil;
+        
         if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
             RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
             if (registerNavigationController.registerDelegate) {
@@ -185,7 +190,11 @@ BOOL didShowFeedback;
 }
 
 - (void) changedEmptiness:(UITextField*)textField isEmpty:(BOOL)isEmpty {
+
     UITextField *otherTextField = (textField == self.emailTextField) ? self.passwordTextField : self.emailTextField;
+    if (!otherTextField) {
+        return;
+    }
     if (!isEmpty && otherTextField.text.length > 0) {
         self.navigationItem.rightBarButtonItem.enabled = YES;
     }
@@ -195,6 +204,7 @@ BOOL didShowFeedback;
 }
 
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
+
     if (self.emailTextField.text.length > 0 && self.passwordTextField.text.length > 0) {
         [self doneButtonPushed];
     }
@@ -254,6 +264,9 @@ BOOL didShowFeedback;
 - (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
     GuidedTextField *guidedTextField = (GuidedTextField*) textField;
+    if (!guidedTextField) {
+        return YES;
+    }
     
     NSRange textFieldRange = NSMakeRange(0, [textField.text length]);
     if ((NSEqualRanges(range, textFieldRange) && [string length] == 0) || (textField.secureTextEntry && guidedTextField.isFirstEdit && range.location > 0 && range.length == 1 && string.length == 0)) {
@@ -275,6 +288,7 @@ BOOL didShowFeedback;
 }
 
 - (BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
+
     GuidedTextField *guidedTextField = (GuidedTextField*) textField;
     guidedTextField.isFirstEdit = YES;
     return YES;

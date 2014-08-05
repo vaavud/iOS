@@ -64,6 +64,7 @@
     
     self.calloutView = [SMCalloutView new];
     self.calloutView.delegate = self;
+    self.calloutView.presentAnimation = SMCalloutAnimationStretch;
 }
 
 -(NSUInteger)supportedInterfaceOrientations {
@@ -86,7 +87,7 @@
     return self.isCalloutGuideViewShown;
 }
 
-- (void) showCalloutGuideView:(NSString*)headingText explanationText:(NSString*)explanationText customPosition:(CGRect)rect inView:(UIView*)inView {
+- (void) showCalloutGuideView:(NSString*)headingText explanationText:(NSString*)explanationText customPosition:(CGRect)rect withArrow:(BOOL)withArrow inView:(UIView*)inView {
     
     if (self.isCalloutGuideViewShown) {
         [self hideCalloutGuideView:NO];
@@ -102,7 +103,7 @@
     [containerView addSubview:self.calloutGuideView];
     
     self.calloutView.contentView = containerView;
-    self.calloutView.backgroundView = [CustomSMCalloutDrawnBackgroundView new];
+    self.calloutView.backgroundView = withArrow ? [CustomSMCalloutDrawnBackgroundView view] : [CustomSMCalloutDrawnBackgroundView viewWithNoArrow];
     
     SMCalloutArrowDirection arrowDirection = SMCalloutArrowDirectionDown;
     CGFloat bottomLayoutGuide = 49.0;
@@ -166,6 +167,14 @@
             [self.overlayDimmingView removeFromSuperview];
             self.overlayDimmingView = nil;
         }
+    }
+}
+
+- (void) calloutViewDidDisappear:(SMCalloutView*)calloutView {
+    UIViewController *viewController = self.selectedViewController;
+    if (viewController && [viewController conformsToProtocol:@protocol(GuideViewDismissedListener)]) {
+        UIViewController<GuideViewDismissedListener> *guideViewController = (UIViewController<GuideViewDismissedListener>*) viewController;
+        [guideViewController guideViewDismissed];
     }
 }
 
