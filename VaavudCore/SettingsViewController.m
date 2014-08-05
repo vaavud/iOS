@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) UIWebView *webView;
 @property (nonatomic, strong) UISwitch *facebookSharingSwitch;
+@property (nonatomic) BOOL enableShareFeature;
 
 @end
 
@@ -26,6 +27,8 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
+    
+    self.enableShareFeature = [Property getAsBoolean:KEY_ENABLE_SHARE_FEATURE defaultValue:NO];
     
     if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
         self.navigationController.navigationBar.tintColor = [UIColor blackColor];
@@ -48,7 +51,7 @@
     return UIInterfaceOrientationMaskAll;
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refreshLogoutButton];
     [self.tableView reloadData];
@@ -108,61 +111,59 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return self.enableShareFeature ? 5 : 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     UITableViewCell *cell;
     
-    switch (indexPath.item) {
-        case 0:
-            cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
-            cell.textLabel.text = NSLocalizedString(@"HEADING_UNIT", nil);
-            cell.detailTextLabel.text = [UnitUtil displayNameForWindSpeedUnit:[[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue]];
-            cell.accessoryView = nil;
-            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-            break;
-        case 1:
-            cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"switchCell"];
-
-            if (!cell) {
-                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"switchCell"];
-            }
-
-            if (!self.facebookSharingSwitch) {
-                self.facebookSharingSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-                self.facebookSharingSwitch.on = [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:YES];
-                [self.facebookSharingSwitch addTarget:self action:@selector(facebookSharingValueChanged:) forControlEvents:UIControlEventValueChanged];
-            }
-
-            cell.textLabel.text = NSLocalizedString(@"SETTINGS_SOCIAL_SHARING", nil);
-            cell.detailTextLabel.text = NSLocalizedString(@"SETTINGS_SOCIAL_SHARING_DETAILS", nil);
-            cell.accessoryView = self.facebookSharingSwitch;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.backgroundColor = [UIColor colorWithWhite:248.0/255.0 alpha:1.0];
-            break;
-        case 2:
-            cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
-            cell.textLabel.text = NSLocalizedString(@"SETTINGS_SHOP_LINK", nil);
-            cell.detailTextLabel.text = nil;
-            cell.accessoryView = nil;
-            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-            break;
-        case 3:
-            cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
-            cell.textLabel.text = NSLocalizedString(@"SETTINGS_MEASURING_TIPS", nil);
-            cell.detailTextLabel.text = nil;
-            cell.accessoryView = nil;
-            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-            break;
-        case 4:
-            cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
-            cell.textLabel.text = NSLocalizedString(@"ABOUT_TITLE", nil);
-            cell.detailTextLabel.text = nil;
-            cell.accessoryView = nil;
-            cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-            break;
+    if (indexPath.item == 0) {
+        cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
+        cell.textLabel.text = NSLocalizedString(@"HEADING_UNIT", nil);
+        cell.detailTextLabel.text = [UnitUtil displayNameForWindSpeedUnit:[[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue]];
+        cell.accessoryView = nil;
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    }
+    else if (self.enableShareFeature && indexPath.item == 1) {
+        cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"switchCell"];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"switchCell"];
+        }
+        
+        if (!self.facebookSharingSwitch) {
+            self.facebookSharingSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+            self.facebookSharingSwitch.on = [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:YES];
+            [self.facebookSharingSwitch addTarget:self action:@selector(facebookSharingValueChanged:) forControlEvents:UIControlEventValueChanged];
+        }
+        
+        cell.textLabel.text = NSLocalizedString(@"SETTINGS_SOCIAL_SHARING", nil);
+        cell.detailTextLabel.text = NSLocalizedString(@"SETTINGS_SOCIAL_SHARING_DETAILS", nil);
+        cell.accessoryView = self.facebookSharingSwitch;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = [UIColor colorWithWhite:248.0/255.0 alpha:1.0];
+    }
+    else if ((self.enableShareFeature && indexPath.item == 2) || (!self.enableShareFeature && indexPath.item == 1)) {
+        cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
+        cell.textLabel.text = NSLocalizedString(@"SETTINGS_SHOP_LINK", nil);
+        cell.detailTextLabel.text = nil;
+        cell.accessoryView = nil;
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    }
+    else if ((self.enableShareFeature && indexPath.item == 3) || (!self.enableShareFeature && indexPath.item == 2)) {
+        cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
+        cell.textLabel.text = NSLocalizedString(@"SETTINGS_MEASURING_TIPS", nil);
+        cell.detailTextLabel.text = nil;
+        cell.accessoryView = nil;
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    }
+    else if ((self.enableShareFeature && indexPath.item == 4) || (!self.enableShareFeature && indexPath.item == 3)) {
+        cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
+        cell.textLabel.text = NSLocalizedString(@"ABOUT_TITLE", nil);
+        cell.detailTextLabel.text = nil;
+        cell.accessoryView = nil;
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
     
     cell.textLabel.textColor = [UIColor darkGrayColor];
@@ -171,7 +172,7 @@
 }
 
 - (NSIndexPath*) tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.item == 1) {
+    if (self.enableShareFeature && indexPath.item == 1) {
         return nil;
     }
     return indexPath;
@@ -181,26 +182,20 @@
 
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    switch (indexPath.item) {
-        case 0: {
-            [self performSegueWithIdentifier:@"unitSegue" sender:self];
-            break;
-        }
-        case 2: {
-            NSString *country = [Property getAsString:KEY_COUNTRY];
-            NSString *language = [Property getAsString:KEY_LANGUAGE];
-            NSString *url = [NSString stringWithFormat:@"http://vaavud.com/mobile-shop-redirect/?country=%@&language=%@", country, language];
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-            break;
-        }
-        case 3: {
-            [FirstTimeFlowController gotoInstructionFlowFrom:self returnViaDismiss:YES];
-            break;
-        }
-        case 4: {
-            [self performSegueWithIdentifier:@"aboutSegue" sender:self];
-            break;
-        }
+    if (indexPath.item == 0) {
+        [self performSegueWithIdentifier:@"unitSegue" sender:self];
+    }
+    else if ((self.enableShareFeature && indexPath.item == 2) || (!self.enableShareFeature && indexPath.item == 1)) {
+        NSString *country = [Property getAsString:KEY_COUNTRY];
+        NSString *language = [Property getAsString:KEY_LANGUAGE];
+        NSString *url = [NSString stringWithFormat:@"http://vaavud.com/mobile-shop-redirect/?country=%@&language=%@", country, language];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
+    }
+    else if ((self.enableShareFeature && indexPath.item == 3) || (!self.enableShareFeature && indexPath.item == 2)) {
+        [FirstTimeFlowController gotoInstructionFlowFrom:self returnViaDismiss:YES];
+    }
+    else if ((self.enableShareFeature && indexPath.item == 4) || (!self.enableShareFeature && indexPath.item == 3)) {
+        [self performSegueWithIdentifier:@"aboutSegue" sender:self];
     }
 }
 

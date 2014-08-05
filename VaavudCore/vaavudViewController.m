@@ -361,7 +361,7 @@
 
 - (void) promptForFacebookSharing {
     
-    if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F) && [ServerUploadManager sharedInstance].hasReachability && [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:YES]) {
+    if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F) && [ServerUploadManager sharedInstance].hasReachability && [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:YES] && [Property getAsBoolean:KEY_ENABLE_SHARE_FEATURE defaultValue:NO]) {
         
         if ([Property isMixpanelEnabled]) {
             [[Mixpanel sharedInstance] track:@"Share Dialog"];
