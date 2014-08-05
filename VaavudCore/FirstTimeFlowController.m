@@ -264,7 +264,12 @@
 
 - (void) continueFlowFromController:(FirstTimeExplanationViewController*)controller {
     if (controller.pageId == 4) {
-        [self gotoInstructionFlowFrom:controller];
+        if ([Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO]) {
+            [self gotoInstructionFlowFrom:controller];
+        }
+        else {
+            [self gotoMainScreenFromController:controller];
+        }
     }
 }
 

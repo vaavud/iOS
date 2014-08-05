@@ -100,6 +100,24 @@
 "SETTINGS_SOCIAL_SHARING" = "Facebook statusopdatering";
 "SETTINGS_SOCIAL_SHARING_DETAILS" = "Vi deler ikke uden at spørge";
 
-"INTRO_BUTTON_BUY_WINDMETER" = "Køb den";
-"INTRO_BUTTON_GOT_WINDMETER" = "Har den!";
-"INTRO_BUTTON_FINISHED" = "Begynd!";
+"INTRO_FLOW_SCREEN_1" = "En Vaavud vindmåler gør din telefon til et high-tech meteorologisk værktøj.";
+"INTRO_FLOW_SCREEN_2" = "Brug kortet med live vindmålinger til at checke forholdene på dit favoritsted før du tager derud.";
+"INTRO_FLOW_HAVE_WIND_METER" = "Har du allerede en Vaavud vindmåler?";
+"INTRO_FLOW_WANT_TO_BUY" = "Vil du købe en nu?";
+"INSTRUCTION_FLOW_SCREEN_1" = "Her er et par tips til at lave gode vindmålinger.";
+"INSTRUCTION_FLOW_SCREEN_2" = "For maksimal præcision skal du holde telefonen roligt og lodret over dit hoved.";
+"INSTRUCTION_FLOW_SCREEN_3" = "Undgå at stå bag beplantning, udstyr, klipper, o.l.";
+"INSTRUCTION_FLOW_SCREEN_4" = "Bliv ved med at måle indtil indikatoren er helt blå for at få en pålidelig middelvind.";
+"INTRO_FLOW_BUTTON_SKIP" = "Videre";
+"INTRO_FLOW_BUTTON_LATER" = "Senere";
+"INTRO_FLOW_BUTTON_GOT_IT" = "OK!";
+
+"BUTTON_YES" = "Ja";
+"BUTTON_NO" = "Nej";
+
+"MAP_GUIDE_MARKER_TITLE" = "Vindmålingsdetaljer";
+"MAP_GUIDE_MARKER_EXPLANATION" = "Tryk på en vindmålingsmarkør for at se flere detaljer.";
+"MAP_GUIDE_TIME_INTERVAL_TITLE" = "Ændre tidsinterval";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Du kan ændre hvor mange timer tilbage i tiden, der bliver vist målinger for, ved at trykke på timeindikatoren.";
+"MAP_GUIDE_ZOOM_TITLE" = "Hurtig-zoom";
+"MAP_GUIDE_ZOOM_EXPLANATION" = "Tryk på det lille kort for at zoome ind til det sted målingen er taget.";

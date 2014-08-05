@@ -400,6 +400,7 @@ BOOL isDoingLogout = NO;
     [Property setAsBoolean:NO forKey:KEY_MAP_GUIDE_MARKER_SHOWN];
     [Property setAsBoolean:NO forKey:KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN];
     [Property setAsBoolean:NO forKey:KEY_MAP_GUIDE_ZOOM_SHOWN];
+    [Property setAsBoolean:YES forKey:KEY_ENABLE_SHARE_DIALOG];
     if ([self getAuthenticationState] != AuthenticationStateNeverLoggedIn) {
         [self setAuthenticationState:AuthenticationStateWasLoggedIn];
     }
