@@ -27,7 +27,7 @@
 
 @end
 
-@interface ShareDialog : UIView<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UICollectionViewDataSource>
+@interface ShareDialog : UIView<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIActionSheetDelegate,UICollectionViewDataSource,UITextViewDelegate>
 
 @property (nonatomic, weak) id<ShareDialogDelegate> delegate;
 
@@ -38,5 +38,6 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic,strong) NSMutableArray *imageUrls;
 @property (weak, nonatomic) IBOutlet UIButton *pictureButton;
+@property (weak, nonatomic) IBOutlet UILabel *guideLabel;
 
 @end

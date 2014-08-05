@@ -42,8 +42,11 @@
         [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"ImageCell"];
         
         self.titleLabel.text = NSLocalizedString(@"SHARE_TO_FACEBOOK_TITLE", nil);
+        self.guideLabel.text = NSLocalizedString(@"SHARE_GUIDE", nil);
         [self.okButton setTitle:NSLocalizedString(@"BUTTON_OK", nil) forState:UIControlStateNormal];
         [self.cancelButton setTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) forState:UIControlStateNormal];
+        
+        self.textView.delegate = self;
     }
 
     [super layoutSubviews];
@@ -289,6 +292,27 @@
     //NSLog(@"[ShareDialog] Cell for section %u, item %u, view size %f x %f", indexPath.section, indexPath.item, view.frame.size.width, view.frame.size.height);
     
     return cell;
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)string {
+
+    if (!textView) {
+        return YES;
+    }
+    
+    NSRange textFieldRange = NSMakeRange(0, [textView.text length]);
+    if (NSEqualRanges(range, textFieldRange) && [string length] == 0) {
+        if (self.guideLabel.hidden) {
+            self.guideLabel.hidden = NO;
+        }
+    }
+    else {
+        if (!self.guideLabel.hidden) {
+            self.guideLabel.hidden = YES;
+        }
+    }
+    
+    return YES;
 }
 
 @end

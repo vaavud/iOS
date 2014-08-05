@@ -106,11 +106,20 @@
                         <constraint firstAttribute="height" constant="45" id="UwT-FK-NRc"/>
                     </constraints>
                 </view>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iay-1p-SyA">
+                    <rect key="frame" x="15" y="54" width="36" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="nsB-QN-kwh" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="01l-fN-3Oq"/>
                 <constraint firstAttribute="trailing" secondItem="nsB-QN-kwh" secondAttribute="trailing" constant="10" id="6tg-8P-6Ib"/>
+                <constraint firstItem="nsB-QN-kwh" firstAttribute="top" secondItem="Iay-1p-SyA" secondAttribute="top" constant="-8" id="E7G-hB-2Mz"/>
+                <constraint firstItem="nsB-QN-kwh" firstAttribute="leading" secondItem="Iay-1p-SyA" secondAttribute="leading" constant="-5" id="EcJ-Av-Ooj"/>
                 <constraint firstAttribute="bottom" secondItem="52R-7E-QC6" secondAttribute="bottom" id="Grh-r0-2II"/>
                 <constraint firstItem="mcj-7R-QKM" firstAttribute="leading" secondItem="IN0-vU-J1D" secondAttribute="trailing" constant="10" id="K3t-G2-CA7"/>
                 <constraint firstAttribute="centerX" secondItem="zgo-Vf-RvR" secondAttribute="centerX" id="M1j-jC-Y3Y"/>
@@ -133,6 +142,7 @@
             <connections>
                 <outlet property="cancelButton" destination="52R-7E-QC6" id="6QJ-wz-g07"/>
                 <outlet property="collectionView" destination="IN0-vU-J1D" id="d3Z-ZS-fdT"/>
+                <outlet property="guideLabel" destination="Iay-1p-SyA" id="UTV-d0-8FY"/>
                 <outlet property="okButton" destination="oiW-Ia-5TS" id="cyy-xe-OmJ"/>
                 <outlet property="pictureButton" destination="mcj-7R-QKM" id="uTW-01-vfR"/>
                 <outlet property="textView" destination="nsB-QN-kwh" id="Ckp-1O-qfs"/>
