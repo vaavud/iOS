@@ -98,7 +98,7 @@
 "SHARE_TAKE_PHOTO" = "Tirar fotografia";
 "SHARE_CHOOSE_EXISTING" = "Escolher da galeria";
 
-"SETTINGS_SOCIAL_SHARING" = "Actualizar estado no Facebook";
+"SETTINGS_SOCIAL_SHARING" = "Activar partilha no facebook";
 "SETTINGS_SOCIAL_SHARING_DETAILS" = "Não postamos sem perguntar primeiro";
 "SETTINGS_MEASURING_TIPS" = "Dicas para medir o vento";
 
@@ -118,8 +118,8 @@
 "BUTTON_NO" = "Não";
 
 "MAP_GUIDE_MARKER_TITLE" = "Detalhes da medição";
-"MAP_GUIDE_MARKER_EXPLANATION" = "Toque num marcador do mapa para ver detalhes sobre a medição de vento";
+"MAP_GUIDE_MARKER_EXPLANATION" = "Toque numa medição para ver mais detalhes.";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "Alterar intervalo de tempo";
-"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Pode escolher quantas horas atrás no tempo são mostradas medições tocando no indicador das horas.";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Altere o intervalo de tempo e as unidade de medida tocando no texto.";
 "MAP_GUIDE_ZOOM_TITLE" = "Zoom rápido";
-"MAP_GUIDE_ZOOM_EXPLANATION" = "Toque na miniatura do mapa para fazer zoom até ao local da medição.";
+"MAP_GUIDE_ZOOM_EXPLANATION" = "Toque na miniatura do mapa para fazer zoom até á localização exacta.";

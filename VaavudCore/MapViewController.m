@@ -232,10 +232,12 @@
     else if (![Property getAsBoolean:KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN defaultValue:NO]) {
         [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN];
         
+        CGRect rect = CGRectMake(self.hoursButton.frame.origin.x, self.tabBarController.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height - self.hoursButton.frame.size.height,  self.hoursButton.frame.size.width, self.hoursButton.frame.size.height);
+        
         TabBarController *tabBarController = (TabBarController*) self.tabBarController;
         [tabBarController showCalloutGuideView:NSLocalizedString(@"MAP_GUIDE_TIME_INTERVAL_TITLE", nil)
                                explanationText:NSLocalizedString(@"MAP_GUIDE_TIME_INTERVAL_EXPLANATION", nil)
-                                customPosition:self.hoursButton.frame
+                                customPosition:rect
                                      withArrow:YES
                                         inView:nil];
     }
@@ -466,13 +468,13 @@
         }
 
         [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_ZOOM_SHOWN];
-
+        
         TabBarController *tabBarController = (TabBarController*) self.tabBarController;
         [tabBarController showCalloutGuideView:NSLocalizedString(@"MAP_GUIDE_ZOOM_TITLE", nil)
                                explanationText:NSLocalizedString(@"MAP_GUIDE_ZOOM_EXPLANATION", nil)
-                                customPosition:self.measurementCalloutView.imageView.frame
+                                customPosition:self.measurementCalloutView.imageView.bounds
                                      withArrow:YES
-                                        inView:nil];
+                                        inView:self.mapView.calloutView];
     
     }
 }

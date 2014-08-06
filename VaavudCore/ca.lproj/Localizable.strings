@@ -89,3 +89,34 @@
 "SETTINGS_SHOP_LINK" =" Compra un anemómetre";
 
 "DIALOG_CONFIRM" = "¿N'estàs segur?";
+
+"SHARE_TO_FACEBOOK_TITLE" = "Comparteix a Facebook?";
+"SHARE_GUIDE" = "Què sents?";
+"SHARE_TAKE_PHOTO" = "Pren una foto";
+"SHARE_CHOOSE_EXISTING" = "Tria una existent";
+
+"SETTINGS_SOCIAL_SHARING" = "Habilitar la compartició a Facebook";
+"SETTINGS_SOCIAL_SHARING_DETAILS" = "Mai publicarem sense preguntar";
+"SETTINGS_MEASURING_TIPS" = "Consells per mesurar";
+
+"INTRO_FLOW_SCREEN_1" = "L'anemòmetre Vaavud converteix el teu telèfon en una eina meteorològica d'alta tecnologia.";
+"INTRO_FLOW_SCREEN_2" = "Utilitza el mapa en temps real per comprovar les condicions en els seus llocs favorits abans d'anar.";
+"INTRO_FLOW_HAVE_WIND_METER" = "Ja tens un mesurador de vent Vaavud?";
+"INTRO_FLOW_WANT_TO_BUY" = "Vols comprar un mesurador de vent ara? ";
+"INSTRUCTION_FLOW_SCREEN_1" = "Aquí tens alguns consells per fer bones mesures de vent.";
+"INSTRUCTION_FLOW_SCREEN_2" = "Per obtenir la màxima precisió situa el telèfon estable i vertical pel damunt del teu cap.";
+"INSTRUCTION_FLOW_SCREEN_3" = "No romanguis darrere de la vegetació, l'equip, roques, etc.";
+"INSTRUCTION_FLOW_SCREEN_4" = "Continua mesurant com a mínim fins que l'indicador de progrés es completi per obtenir un promig adequat.";
+"INTRO_FLOW_BUTTON_SKIP" = "Ometre per ara";
+"INTRO_FLOW_BUTTON_LATER" = "Més tard";
+"INTRO_FLOW_BUTTON_GOT_IT" = "Ok, Entès!";
+
+"BUTTON_YES" = "Si";
+"BUTTON_NO" = "No";
+
+"MAP_GUIDE_MARKER_TITLE" = "Detalls del mesurament";
+"MAP_GUIDE_MARKER_EXPLANATION" = "Prem en un mesurament per veure més detalls.";
+"MAP_GUIDE_TIME_INTERVAL_TITLE" = "Canvia l'interval de temps";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Pots canviar l'interval de temps i la unitat de mesura prement sobre el text.";
+"MAP_GUIDE_ZOOM_TITLE" = "Zoom ràpid";
+"MAP_GUIDE_ZOOM_EXPLANATION" = "Prem al mapa en miniatura per ampliar la ubicació exacta.";

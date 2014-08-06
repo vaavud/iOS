@@ -92,3 +92,34 @@
 "SETTINGS_SHOP_LINK" = "Compra un anemómetro";
 
 "DIALOG_CONFIRM" = "¿Estás seguro?";
+
+"SHARE_TO_FACEBOOK_TITLE" = "Compartir en Facebook?";
+"SHARE_GUIDE" = "¿Que sientes?";
+"SHARE_TAKE_PHOTO" = "Toma una foto";
+"SHARE_CHOOSE_EXISTING" = "Elige una existente";
+
+"SETTINGS_SOCIAL_SHARING" = "Habilitar compartición en Facebook";
+"SETTINGS_SOCIAL_SHARING_DETAILS" = "Nunca publicaremos sin preguntar";
+"SETTINGS_MEASURING_TIPS" = "Consejos para medir";
+
+"INTRO_FLOW_SCREEN_1" = "El anemómetro Vaavud convierte tu teléfono en una herramienta meteorológica de alta tecnología.";
+"INTRO_FLOW_SCREEN_2" = "Usa el mapa en tiempo real para comprobar las condiciones en sus lugares favoritos antes de ir.";
+"INTRO_FLOW_HAVE_WIND_METER" = "¿Ya tienes un medidor de viento Vaavud?";
+"INTRO_FLOW_WANT_TO_BUY" = "¿Quieres comprar un medidor de viento ahora?";
+"INSTRUCTION_FLOW_SCREEN_1" = "Aquí tienes algunos consejos para hacer buenas mediciones de viento.";
+"INSTRUCTION_FLOW_SCREEN_2" = "Para obtener la máxima precisión situa el teléfono estable y vertical por encima de tu cabeza.";
+"INSTRUCTION_FLOW_SCREEN_3" = "No permanezcas detrás de la vegetación, el equipo, rocas, etc.";
+"INSTRUCTION_FLOW_SCREEN_4" = "Permanece midiendo al menos hasta que el indicador de progreso se complete para obtener un promedio adecuado.";
+"INTRO_FLOW_BUTTON_SKIP" = "Omitir por ahora";
+"INTRO_FLOW_BUTTON_LATER" = "Más tarde";
+"INTRO_FLOW_BUTTON_GOT_IT" = "Entendido!";
+
+"BUTTON_YES" = "Si";
+"BUTTON_NO" = "No";
+
+"MAP_GUIDE_MARKER_TITLE" = "Detalles de la medición";
+"MAP_GUIDE_MARKER_EXPLANATION" = "Pulsa en una medición para ver más detalles.";
+"MAP_GUIDE_TIME_INTERVAL_TITLE" = "Cambia el intervalo de tiempo";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Puedes cambiar el intervalo de tiempo y la unidad de medida pulsando sobre el texto.";
+"MAP_GUIDE_ZOOM_TITLE" = "Zoom rápido";
+"MAP_GUIDE_ZOOM_EXPLANATION" = "Pulsa sobre el mapa en miniatura para ampliar la ubicación exacta.";

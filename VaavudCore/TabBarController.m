@@ -65,6 +65,8 @@
     self.calloutView = [SMCalloutView new];
     self.calloutView.delegate = self;
     self.calloutView.presentAnimation = SMCalloutAnimationStretch;
+    self.calloutView.translatesAutoresizingMaskIntoConstraints = YES;
+    self.calloutView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 }
 
 -(NSUInteger)supportedInterfaceOrientations {
@@ -106,34 +108,27 @@
     self.calloutView.backgroundView = withArrow ? [CustomSMCalloutDrawnBackgroundView view] : [CustomSMCalloutDrawnBackgroundView viewWithNoArrow];
     
     SMCalloutArrowDirection arrowDirection = SMCalloutArrowDirectionDown;
-    CGFloat bottomLayoutGuide = 49.0;
-    CGFloat y = self.view.frame.size.height - bottomLayoutGuide - 1.0;
-    CGFloat x;
-    
-    x = rect.origin.x;
-    y = rect.origin.y;
+    CGFloat y = rect.origin.y;
+    CGFloat x = rect.origin.x;
     arrowDirection = SMCalloutArrowDirectionAny;
     
     if (!inView) {
         inView = self.view;
+
+        CGFloat overlayDimmingViewHeight = inView.bounds.size.height;
+        CGRect overlayDimmingViewRect = CGRectMake(0, 0, inView.bounds.size.width, overlayDimmingViewHeight);
+        
+        self.overlayDimmingView = [[DismissOnTouchUIView alloc] initWithFrame:overlayDimmingViewRect];
+        self.overlayDimmingView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.0];
+        self.overlayDimmingView.translatesAutoresizingMaskIntoConstraints = YES;
+        self.overlayDimmingView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        [inView addSubview:self.overlayDimmingView];
+        self.overlayDimmingView.delegate = self;
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            self.overlayDimmingView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.3];
+        } completion:nil];
     }
-    
-    CGFloat overlayDimmingViewHeight = inView.frame.size.height;
-    
-    if ([inView isKindOfClass:[UIScrollView class]]) {
-        overlayDimmingViewHeight = MAX(overlayDimmingViewHeight, ((UIScrollView*) inView).contentSize.height);
-    }
-    
-    CGRect overlayDimmingViewRect = CGRectMake(0, 0, inView.frame.size.width, overlayDimmingViewHeight);
-    
-    self.overlayDimmingView = [[DismissOnTouchUIView alloc] initWithFrame:overlayDimmingViewRect];
-    self.overlayDimmingView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.0];
-    [inView addSubview:self.overlayDimmingView];
-    self.overlayDimmingView.delegate = self;
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        self.overlayDimmingView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.3];
-    } completion:nil];
     
     [self.calloutView presentCalloutFromRect:CGRectMake(x, y, rect.size.width, rect.size.height)
                                       inView:inView
