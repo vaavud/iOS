@@ -98,7 +98,7 @@
 "SHARE_TAKE_PHOTO" = "Take Photo";
 "SHARE_CHOOSE_EXISTING" = "Choose Existing";
 
-"SETTINGS_SOCIAL_SHARING" = "Facebook status update";
+"SETTINGS_SOCIAL_SHARING" = "Enable Facebook sharing";
 "SETTINGS_SOCIAL_SHARING_DETAILS" = "We won't post without asking";
 "SETTINGS_MEASURING_TIPS" = "Measuring tips";
 
@@ -118,8 +118,8 @@
 "BUTTON_NO" = "No";
 
 "MAP_GUIDE_MARKER_TITLE" = "Measurement Details";
-"MAP_GUIDE_MARKER_EXPLANATION" = "Tap a marker on the map to see details about the wind measurement.";
+"MAP_GUIDE_MARKER_EXPLANATION" = "Tap on a measurement to see further details.";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "Change Time Interval";
-"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "You can change how many hours back in time measurements are shown by tapping the hour indicator.";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Change time interval and unit of measure by tapping on the text.";
 "MAP_GUIDE_ZOOM_TITLE" = "Quick Zoom";
-"MAP_GUIDE_ZOOM_EXPLANATION" = "Tap the map thumbnail to zoom to the location of the measurement.";
+"MAP_GUIDE_ZOOM_EXPLANATION" = "Tap on the map thumbnail to zoom to the exact location.";
