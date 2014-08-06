@@ -39,6 +39,11 @@
     
     if (self.bottomButtonText) {
         [self.bottomButton setTitle:self.bottomButtonText forState:UIControlStateNormal];
+        
+        if (self.bottomButtonIsTransparent) {
+            self.bottomButton.backgroundColor = [UIColor clearColor];
+            self.bottomButton.titleLabel.textColor = [UIColor whiteColor];
+        }
     }
     else {
         self.bottomButton.hidden = YES;

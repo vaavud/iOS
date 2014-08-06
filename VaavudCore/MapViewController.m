@@ -136,6 +136,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    
     [super viewWillAppear:animated];
 
     // note: grid degree might have been updated by a device register call
@@ -205,6 +206,8 @@
     }
     
     self.viewAppearedTime = [NSDate date];
+    
+    [self showGuideIfNeeded];
 }
 
 - (void) viewWillDisappear:(BOOL)animated {
@@ -214,9 +217,8 @@
     }
 }
 
-- (void) viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-
+- (void) showGuideIfNeeded {
+    
     if (![Property getAsBoolean:KEY_MAP_GUIDE_MARKER_SHOWN defaultValue:NO]) {
         [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MARKER_SHOWN];
         
@@ -227,11 +229,7 @@
                                      withArrow:NO
                                         inView:nil];
     }
-}
-
-- (void) guideViewDismissed {
-    
-    if (![Property getAsBoolean:KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN defaultValue:NO]) {
+    else if (![Property getAsBoolean:KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN defaultValue:NO]) {
         [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN];
         
         TabBarController *tabBarController = (TabBarController*) self.tabBarController;

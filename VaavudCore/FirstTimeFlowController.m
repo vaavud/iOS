@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UINavigationBar *customNavigationBar;
 @property (weak, nonatomic) IBOutlet UINavigationItem *customNavigationItem;
 @property (nonatomic) BOOL returnViaDismiss;
+@property (nonatomic) BOOL useBorderlessBuyLaterButton;
 
 @end
 
@@ -114,6 +115,7 @@
     explanationViewController.pageId = [self.pageIds[index] integerValue];
     explanationViewController.mixpanelScreen = self.pageMixpanelScreens[index];
     explanationViewController.explanationText = self.pageTexts[index];
+    explanationViewController.bottomButtonIsTransparent = NO;
     explanationViewController.tinyButtonIsSolid = NO;
 
     if (explanationViewController.pageId == 2) {
@@ -192,13 +194,13 @@
         [FirstTimeFlowController gotoInstructionFlowFrom:controller returnViaDismiss:NO];
     }
     else if (controller.pageId == 4) {
+
+        [[Mixpanel sharedInstance] track:@"Intro Flow Clicked Buy" properties:@{@"Borderless Later Button": self.useBorderlessBuyLaterButton ? @"true" : @"false"}];
         
         NSString *country = [Property getAsString:KEY_COUNTRY];
         NSString *language = [Property getAsString:KEY_LANGUAGE];
         NSString *url = [NSString stringWithFormat:@"http://vaavud.com/mobile-shop-redirect/?country=%@&language=%@", country, language];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-        
-        // TODO: make sure to display next step in flow when user returns - maybe set a flag and do a transition when becoming active
     }
 }
 
@@ -215,6 +217,8 @@
     }
     else if (controller.pageId == 3) {
         
+        self.useBorderlessBuyLaterButton = (arc4random_uniform(2) == 1);
+        
         FirstTimeExplanationViewController *explanationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTimeExplanationViewController"];
         explanationViewController.delegate = self;
         explanationViewController.imageName = @"004_wind_meter.jpg";
@@ -224,7 +228,12 @@
         explanationViewController.topExplanationText = NSLocalizedString(@"INTRO_FLOW_WANT_TO_BUY", nil);
         explanationViewController.topButtonText = NSLocalizedString(@"BUTTON_YES", nil);
         explanationViewController.bottomButtonText = NSLocalizedString(@"INTRO_FLOW_BUTTON_LATER", nil);
-        //explanationViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        explanationViewController.bottomButtonIsTransparent = NO;
+        
+        if (self.useBorderlessBuyLaterButton) {
+            explanationViewController.bottomButtonIsTransparent = YES;
+        }
+        
         [controller presentViewController:explanationViewController animated:NO completion:nil];
     }
     else if (controller.pageId == 4) {
@@ -318,6 +327,7 @@
     explanationViewController.topExplanationText = NSLocalizedString(@"INTRO_FLOW_HAVE_WIND_METER", nil);
     explanationViewController.topButtonText = NSLocalizedString(@"BUTTON_YES", nil);
     explanationViewController.bottomButtonText = NSLocalizedString(@"BUTTON_NO", nil);
+    explanationViewController.bottomButtonIsTransparent = NO;
     return explanationViewController;
 }
 

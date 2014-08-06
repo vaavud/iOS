@@ -413,11 +413,11 @@
     }
 }
 
-- (void) shareSuccessful {
+- (void) shareSuccessful:(BOOL)hasMessage numberOfPhotos:(NSInteger)numberOfPhotos {
     [self dismissShareDialog];
 
     if ([Property isMixpanelEnabled]) {
-        [[Mixpanel sharedInstance] track:@"Share Dialog Successful"];
+        [[Mixpanel sharedInstance] track:@"Share Dialog Successful" properties:@{@"Message": (hasMessage ? @"true" : @"false"), @"Photos": [NSNumber numberWithInteger:numberOfPhotos]}];
     }
 }
 

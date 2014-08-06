@@ -14,7 +14,7 @@
 
 @protocol ShareDialogDelegate <NSObject>
 
-- (void) shareSuccessful;
+- (void) shareSuccessful:(BOOL)hasMessage numberOfPhotos:(NSInteger)numberOfPhotos;
 - (void) shareFailure;
 - (void) shareCancelled;
 - (void) presentViewControllerFromShareDialog:(UIViewController*)viewController;

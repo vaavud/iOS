@@ -13,6 +13,7 @@
 #import "RegisterNavigationController.h"
 #import "vaavudAppDelegate.h"
 #import "FirstTimeFlowController.h"
+#import "Mixpanel.h"
 
 @interface SettingsViewController ()
 
@@ -186,12 +187,17 @@
         [self performSegueWithIdentifier:@"unitSegue" sender:self];
     }
     else if ((self.enableShareFeature && indexPath.item == 2) || (!self.enableShareFeature && indexPath.item == 1)) {
+        
+        [[Mixpanel sharedInstance] track:@"Settings Clicked Buy"];
+
         NSString *country = [Property getAsString:KEY_COUNTRY];
         NSString *language = [Property getAsString:KEY_LANGUAGE];
         NSString *url = [NSString stringWithFormat:@"http://vaavud.com/mobile-shop-redirect/?country=%@&language=%@", country, language];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
     }
     else if ((self.enableShareFeature && indexPath.item == 3) || (!self.enableShareFeature && indexPath.item == 2)) {
+        
+        [[Mixpanel sharedInstance] track:@"Settings Clicked Measuring Tips"];
         [FirstTimeFlowController gotoInstructionFlowFrom:self returnViaDismiss:YES];
     }
     else if ((self.enableShareFeature && indexPath.item == 4) || (!self.enableShareFeature && indexPath.item == 3)) {
@@ -209,6 +215,7 @@
 
 - (IBAction) facebookSharingValueChanged:(UISwitch*)sender {
     [Property setAsBoolean:self.facebookSharingSwitch.on forKey:KEY_ENABLE_SHARE_DIALOG];
+    [[Mixpanel sharedInstance] registerSuperProperties:@{@"Enable Share Dialog" : (self.facebookSharingSwitch.on ? @"true" : @"false")}];
 }
 
 @end

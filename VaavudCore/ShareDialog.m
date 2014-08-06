@@ -190,11 +190,17 @@
     FBOpenGraphActionParams *params = [self createActionParams];
     id<FBOpenGraphAction> action = params.action;
     
+    BOOL hasMessage = NO;
+    NSInteger numberOfPhotos = 0;
+    
     if (self.textView.text && self.textView.text.length > 0) {
         [action setObject:self.textView.text forKey:@"message"];
+        hasMessage = YES;
     }
     
     if (self.imageUrls && self.imageUrls.count > 0) {
+        
+        numberOfPhotos = self.imageUrls.count;
         
         int i = 0;
         for (NSString *imageUrl in self.imageUrls) {
@@ -219,7 +225,7 @@
                                          if (!error) {
                                              // Success, the restaurant has been liked
                                              NSLog(@"[VaavudViewController] Posted OG action, id: %@", [result objectForKey:@"id"]);
-                                             [self.delegate shareSuccessful];
+                                             [self.delegate shareSuccessful:hasMessage numberOfPhotos:numberOfPhotos];
                                          } else {
                                              NSLog(@"[VaavudViewController] Failure posting to Facebook: %@", error);
                                              [self.delegate shareFailure];
