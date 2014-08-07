@@ -93,33 +93,33 @@
 
 "DIALOG_CONFIRM" = "계속하시겠습니까?";
 
-"SHARE_TO_FACEBOOK_TITLE" = "ÆäÀÌ½º ºÏ¿¡ °øÀ¯?";
-"SHARE_GUIDE" = "±×°ÍÀº ¾î¶»½À´Ï±î?";
-"SHARE_TAKE_PHOTO" = "»çÁøÂï±â";
-"SHARE_CHOOSE_EXISTING" = "±âÁ¸¿¡¼­ ¼±ÅÃ";
+"SHARE_TO_FACEBOOK_TITLE" = "페이스 북에 공유?";
+"SHARE_GUIDE" = "그것은 어떻습니까?";
+"SHARE_TAKE_PHOTO" = "사진찍기";
+"SHARE_CHOOSE_EXISTING" = "기존에서 선택";
 
-"SETTINGS_SOCIAL_SHARING" = "ÆäÀÌ½º ºÏÀÌ °øÀ¯ È°¼ºÈ­";
-"SETTINGS_SOCIAL_SHARING_DETAILS" = "¿ì¸®´Â ¿äÃ»ÇÏÁö ¾Ê°í °Ô½ÃÇÏÁö ¾Ê½À´Ï´Ù";
-"SETTINGS_MEASURING_TIPS" = "ÃøÁ¤ÆÁ";
+"SETTINGS_SOCIAL_SHARING" = "페이스 북이 공유 활성화";
+"SETTINGS_SOCIAL_SHARING_DETAILS" = "우리는 요청하지 않고 게시하지 않습니다";
+"SETTINGS_MEASURING_TIPS" = "측정팁";
 
-"INTRO_FLOW_SCREEN_1" = "Vaavud ¹Ù¶÷ ¹ÌÅÍ´Â ´ç½ÅÀÇ ÀüÈ­¸¦ Ã·´Ü ±â»ó µµ±¸·Î ¹Ù²ß´Ï´Ù.";
-"INTRO_FLOW_SCREEN_2" = "´ç½ÅÀÌ ¸¶À½¿¡ µå´Â Àå¼Ò¿¡ °¡±âÀü¿¡ ±×°÷ÀÇ Á¶°ÇÀ» È®ÀÎÇÏ±â À§ÇØ ¶óÀÌºê ¸ÊÀ» »ç¿ëÇÕ´Ï´Ù.";
-"INTRO_FLOW_HAVE_WIND_METER" = "Vaavud ¹Ù¶÷ ¹ÌÅÍ¸¦ ÀÌ¹Ì °¡Áö°í °è½Ê´Ï±î?";
-"INTRO_FLOW_WANT_TO_BUY" = "¹Ù¶÷ ¹ÌÅÍ¸¦ Áö±Ý ±¸¸ÅÇÏ±â ¿øÇÏ½Ê´Ï±î?";
-"INSTRUCTION_FLOW_SCREEN_1" = "¿©±â¿¡ ÁÁÀº ¹Ù¶÷ ÃøÁ¤À»À§ÇÑ ¸î °¡Áö ÆÁÀ» Á¦°ø ÇÕ´Ï´Ù.";
-"INSTRUCTION_FLOW_SCREEN_2" = "ÃÖ´ë Á¤¹Ðµµ¸¦ À§ÇØ ¸Ó¸® À§ ¼öÁ÷À¸·Î ÀüÈ­¸¦ Àß ÀâÀ¸½Ê½Ã¿À.";
-"INSTRUCTION_FLOW_SCREEN_3" = "½Ä¹°, Àåºñ, ¹ÙÀ§ µîµîÀÇ µÚ¿¡ ¼­ ÀÖÁö ¸¶½Ê½Ã¿À";
-"INSTRUCTION_FLOW_SCREEN_4" = "ÁøÇà Ç¥½Ã±â°¡ ÀûÀýÇÑ Æò±ÕÀ» ¾òÀ» ¶§ ±îÁö ÃøÁ¤ÇÏ½Ê½Ã¿À.";
-"INTRO_FLOW_BUTTON_SKIP" = "Áö±ÝÀº °Ç³Ê ¶Ù±â";
-"INTRO_FLOW_BUTTON_LATER" = "³ªÁß¿¡";
-"INTRO_FLOW_BUTTON_GOT_IT" = "³×, ¹Þ¾Ò½À´Ï´Ù!";
+"INTRO_FLOW_SCREEN_1" = "Vaavud 바람 미터는 당신의 전화를 첨단 기상 도구로 바꿉니다.";
+"INTRO_FLOW_SCREEN_2" = "당신이 마음에 드는 장소에 가기전에 그곳의 조건을 확인하기 위해 라이브 맵을 사용합니다.";
+"INTRO_FLOW_HAVE_WIND_METER" = "Vaavud 바람 미터를 이미 가지고 계십니까?";
+"INTRO_FLOW_WANT_TO_BUY" = "바람 미터를 지금 구매하기 원하십니까?";
+"INSTRUCTION_FLOW_SCREEN_1" = "여기에 좋은 바람 측정을위한 몇 가지 팁을 제공 합니다.";
+"INSTRUCTION_FLOW_SCREEN_2" = "최대 정밀도를 위해 머리 위 수직으로 전화를 잘 잡으십시오.";
+"INSTRUCTION_FLOW_SCREEN_3" = "식물, 장비, 바위 등등의 뒤에 서 있지 마십시오";
+"INSTRUCTION_FLOW_SCREEN_4" = "진행 표시기가 적절한 평균을 얻을 때 까지 측정하십시오.";
+"INTRO_FLOW_BUTTON_SKIP" = "지금은 건너 뛰기";
+"INTRO_FLOW_BUTTON_LATER" = "나중에";
+"INTRO_FLOW_BUTTON_GOT_IT" = "네, 받았습니다!";
 
-"BUTTON_YES" = "³×";
-"BUTTON_NO" = "¾Æ´Ï¿À";
+"BUTTON_YES" = "네";
+"BUTTON_NO" = "아니오";
 
-"MAP_GUIDE_MARKER_TITLE" = "ÃøÁ¤ ¼¼ºÎ»çÇ×";
-"MAP_GUIDE_MARKER_EXPLANATION" = "´õ ÀÚ¼¼ÇÑ »çÇ×À» È®ÀÎÇÏ±â À§ÇØ ÃøÁ¤À» ´©¸¨´Ï´Ù.";
-"MAP_GUIDE_TIME_INTERVAL_TITLE" = "º¯°æ ½Ã°£ °£°Ý";
-"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "ÅØ½ºÆ®¸¦ ´­·¯¼­ ½Ã°£ °£°Ý°ú ÃøÁ¤ ´ÜÀ§ º¯°æÇÏ±â.";
-"MAP_GUIDE_ZOOM_TITLE" = "ºü¸¥ ÁÜ";
-"MAP_GUIDE_ZOOM_EXPLANATION" = "Á¤È®ÇÑ À§Ä¡ È®ÀÎÀ» À§ÇØ ÁöµµÀÇ Ãà¼ÒÆÇÀ» ´­·¯ Á¤È®ÇÑ À§Ä¡·Î È®´ëÇÕ´Ï´Ù.";
+"MAP_GUIDE_MARKER_TITLE" = "측정 세부사항";
+"MAP_GUIDE_MARKER_EXPLANATION" = "더 자세한 사항을 확인하기 위해 측정을 누릅니다.";
+"MAP_GUIDE_TIME_INTERVAL_TITLE" = "변경 시간 간격";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "텍스트를 눌러서 시간 간격과 측정 단위 변경하기.";
+"MAP_GUIDE_ZOOM_TITLE" = "빠른 줌";
+"MAP_GUIDE_ZOOM_EXPLANATION" = "정확한 위치 확인을 위해 지도의 축소판을 눌러 정확한 위치로 확대합니다.";

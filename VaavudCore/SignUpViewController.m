@@ -84,7 +84,7 @@ BOOL didShowFeedback;
         self.disclaimerLabel.text = NSLocalizedString(@"REGISTER_FACEBOOK_DISCLAIMER", nil);
     }
     
-    if (!self.navigationItem.backBarButtonItem) {
+    if (!self.navigationController || self.navigationController.viewControllers.count <= 1) {
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIBarButtonItemStylePlain target:self action:@selector(crossButtonPushed)];
         self.navigationItem.leftBarButtonItem = item;
     }

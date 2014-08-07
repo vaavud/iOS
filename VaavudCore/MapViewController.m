@@ -609,11 +609,20 @@
     }
     
     if ([Property isMixpanelEnabled]) {
+        
+        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+        if (label) {
+            [dictionary setObject:label forKey:@"Grid"];
+        }
         if (source) {
-            [[Mixpanel sharedInstance] track:track properties:@{@"Grid": label, @"Source": source}];
+            [dictionary setObject:source forKey:@"Source"];
+        }
+        
+        if (dictionary.count > 0) {
+            [[Mixpanel sharedInstance] track:track properties:dictionary];
         }
         else {
-            [[Mixpanel sharedInstance] track:track properties:@{@"Grid": label}];
+            [[Mixpanel sharedInstance] track:track];
         }
     }
 }

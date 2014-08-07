@@ -146,7 +146,7 @@ enum plotName : NSUInteger {
 
 - (void) addDataPoint {
     
-    BOOL updateYRange = NO; // by default do not update y-range
+    //BOOL updateYRange = NO; // by default do not update y-range
     
     // Check if there is a new point to add
     NSNumber *x = [self.vaavudCoreController.windSpeedTime lastObject];
@@ -163,7 +163,7 @@ enum plotName : NSUInteger {
             self.graphYMinValue = [y floatValue];
             self.graphYMaxValue = [y floatValue];
             
-            updateYRange = YES; // update Y range if first time;
+            //updateYRange = YES; // update Y range if first time;
         }
     }
     
@@ -183,17 +183,17 @@ enum plotName : NSUInteger {
         // update min and max values
         if ([y floatValue] > self.graphYMaxValue) {
             self.graphYMaxValue = [y floatValue];
-            updateYRange = YES;
+            //updateYRange = YES;
         }
         
         if ([y floatValue] < self.graphYMinValue) {
             self.graphYMinValue = [y floatValue];
-            updateYRange = YES;
+            //updateYRange = YES;
         }
         
-        updateYRange = YES; // "BUG FIX" DOES NOT UPDATE PROPERLY IF NO
+        //updateYRange = YES; // "BUG FIX" DOES NOT UPDATE PROPERLY IF NO
         
-        if (updateYRange && !self.isPaused) {
+        if (/*updateYRange &&*/ !self.isPaused) {
             [self updateYRange];
         }
     }

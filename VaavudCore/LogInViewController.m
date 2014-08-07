@@ -51,7 +51,7 @@ BOOL didShowFeedback;
     self.facebookButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.facebookButton.layer.masksToBounds = YES;
 
-    if (!self.navigationItem.backBarButtonItem) {
+    if (!self.navigationController || self.navigationController.viewControllers.count <= 1) {
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) style:UIBarButtonItemStylePlain target:self action:@selector(crossButtonPushed)];
         self.navigationItem.leftBarButtonItem = item;
     }
