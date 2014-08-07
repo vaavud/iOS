@@ -92,3 +92,34 @@
 "SETTINGS_SHOP_LINK" = "Wind Meter Kaufen";
 
 "DIALOG_CONFIRM" = "Sind Sie sicher?";
+
+"SHARE_TO_FACEBOOK_TITLE" = "Auf Facebook teilen?";
+"SHARE_GUIDE" = "Wie fühlt es sich an?";
+"SHARE_TAKE_PHOTO" = "Foto aufnehmen";
+"SHARE_CHOOSE_EXISTING" = "Foto wählen";
+
+"SETTINGS_SOCIAL_SHARING" = "Teilen auf Facebook aktivieren";
+"SETTINGS_SOCIAL_SHARING_DETAILS" = "Wir posten nichts ohne Ihre Zustimmung";
+"SETTINGS_MEASURING_TIPS" = "Mess-Tipps";
+
+"INTRO_FLOW_SCREEN_1" = "Der Windmesser von Vaavud macht aus Ihrem Telefon ein meteorologisches High-Tech-Gerät.";
+"INTRO_FLOW_SCREEN_2" = "Sie können die Live-Karte verwenden, um die Wetterbedingungen an Ihren Lieblingsorten zu überprüfen, bevor Sie losgehen.";
+"INTRO_FLOW_HAVE_WIND_METER" = "Besitzen Sie bereits einen Windmesser von Vaavud?";
+"INTRO_FLOW_WANT_TO_BUY" = "Möchten Sie jetzt einen Windmesser kaufen?";
+"INSTRUCTION_FLOW_SCREEN_1" = "Hier kommen ein paar Tipps für gute Windmessungen.";
+"INSTRUCTION_FLOW_SCREEN_2" = "Halten Sie das Telefon für maximale Genauigkeit ruhig und senkrecht über Ihrem Kopf.";
+"INSTRUCTION_FLOW_SCREEN_3" = "Stellen Sie sich nicht hinter Bäume, Sträucher, Geräte, Felsen usw.";
+"INSTRUCTION_FLOW_SCREEN_4" = "Messen Sie mindestens so lange, bis die Fortschrittsanzeige voll ist, um einen brauchbaren Durchschnittswert zu erhalten.";
+"INTRO_FLOW_BUTTON_SKIP" = "Jetzt überspringen";
+"INTRO_FLOW_BUTTON_LATER" = "Später";
+"INTRO_FLOW_BUTTON_GOT_IT" = "Okay, ich hab's verstanden!";
+
+"BUTTON_YES" = "Ja";
+"BUTTON_NO" = "Nein";
+
+"MAP_GUIDE_MARKER_TITLE" = "Messdetails";
+"MAP_GUIDE_MARKER_EXPLANATION" = "Auf eine Messung drücken, um weitere Details einzublenden.";
+"MAP_GUIDE_TIME_INTERVAL_TITLE" = "Zeitintervall ändern";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Wechseln Sie den Zeitintervall und die Maßeinheit, indem Sie den Text antippen.";
+"MAP_GUIDE_ZOOM_TITLE" = "Schnell-Zoom";
+"MAP_GUIDE_ZOOM_EXPLANATION" = "Tippen Sie die Kartenminiatur an, um exakt auf den Ort hinein zu zoomen.";

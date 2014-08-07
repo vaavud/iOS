@@ -92,3 +92,34 @@
 "SETTINGS_SHOP_LINK" = "购买风力计";
 
 "DIALOG_CONFIRM" = "您确定吗？";
+
+"SHARE_TO_FACEBOOK_TITLE" = "分享至Facebook？";
+"SHARE_GUIDE" = "它是什么样的？";
+"SHARE_TAKE_PHOTO" = "拍照 ";
+"SHARE_CHOOSE_EXISTING" = "选择现有的";
+
+"SETTINGS_SOCIAL_SHARING" = "启用Facebook分享";
+"SETTINGS_SOCIAL_SHARING_DETAILS" = "我们不会未经许可发布";
+"SETTINGS_MEASURING_TIPS" = "测量小贴士";
+
+"INTRO_FLOW_SCREEN_1" = " Vaavud风力计能够将您的手机变成一种高科技的气象工具。";
+"INTRO_FLOW_SCREEN_2" = "出行前，使用实时地图检查您最喜欢的地点的状况。";
+"INTRO_FLOW_HAVE_WIND_METER" = "您是否已经拥有一个Vaavud风力计？";
+"INTRO_FLOW_WANT_TO_BUY" = "您是否想要马上购买一个风力计？";
+"INSTRUCTION_FLOW_SCREEN_1" = "以下是进行正确风力测量的一些小贴士。";
+"INSTRUCTION_FLOW_SCREEN_2" = "为了获得最大的精确度，请垂直握稳手机于您的头部上方。";
+"INSTRUCTION_FLOW_SCREEN_3" = "切勿站在植被、设备、岩石等后面。";
+"INSTRUCTION_FLOW_SCREEN_4" = "请持续测量，直至进度指示器走满能够获得一个恰当的平均。";
+"INTRO_FLOW_BUTTON_SKIP" = "暂时跳过";
+"INTRO_FLOW_BUTTON_LATER" = "以后再说";
+"INTRO_FLOW_BUTTON_GOT_IT" = "好的，明白！";
+
+"BUTTON_YES" = "是";
+"BUTTON_NO" = "否";
+
+"MAP_GUIDE_MARKER_TITLE" = "测量详情";
+"MAP_GUIDE_MARKER_EXPLANATION" = "点击测量结果查看更多详情。";
+"MAP_GUIDE_TIME_INTERVAL_TITLE" = "更改时间间隔";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "点击文字更改时间间隔和测量单位。";
+"MAP_GUIDE_ZOOM_TITLE" = "快速缩放";
+"MAP_GUIDE_ZOOM_EXPLANATION" = "点击地图缩略图缩放至准确的位置。";

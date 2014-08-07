@@ -92,3 +92,34 @@
 "SETTINGS_SHOP_LINK" = "바람 측정기 구매";
 
 "DIALOG_CONFIRM" = "계속하시겠습니까?";
+
+"SHARE_TO_FACEBOOK_TITLE" = "ÆäÀÌ½º ºÏ¿¡ °øÀ¯?";
+"SHARE_GUIDE" = "±×°ÍÀº ¾î¶»½À´Ï±î?";
+"SHARE_TAKE_PHOTO" = "»çÁøÂï±â";
+"SHARE_CHOOSE_EXISTING" = "±âÁ¸¿¡¼­ ¼±ÅÃ";
+
+"SETTINGS_SOCIAL_SHARING" = "ÆäÀÌ½º ºÏÀÌ °øÀ¯ È°¼ºÈ­";
+"SETTINGS_SOCIAL_SHARING_DETAILS" = "¿ì¸®´Â ¿äÃ»ÇÏÁö ¾Ê°í °Ô½ÃÇÏÁö ¾Ê½À´Ï´Ù";
+"SETTINGS_MEASURING_TIPS" = "ÃøÁ¤ÆÁ";
+
+"INTRO_FLOW_SCREEN_1" = "Vaavud ¹Ù¶÷ ¹ÌÅÍ´Â ´ç½ÅÀÇ ÀüÈ­¸¦ Ã·´Ü ±â»ó µµ±¸·Î ¹Ù²ß´Ï´Ù.";
+"INTRO_FLOW_SCREEN_2" = "´ç½ÅÀÌ ¸¶À½¿¡ µå´Â Àå¼Ò¿¡ °¡±âÀü¿¡ ±×°÷ÀÇ Á¶°ÇÀ» È®ÀÎÇÏ±â À§ÇØ ¶óÀÌºê ¸ÊÀ» »ç¿ëÇÕ´Ï´Ù.";
+"INTRO_FLOW_HAVE_WIND_METER" = "Vaavud ¹Ù¶÷ ¹ÌÅÍ¸¦ ÀÌ¹Ì °¡Áö°í °è½Ê´Ï±î?";
+"INTRO_FLOW_WANT_TO_BUY" = "¹Ù¶÷ ¹ÌÅÍ¸¦ Áö±Ý ±¸¸ÅÇÏ±â ¿øÇÏ½Ê´Ï±î?";
+"INSTRUCTION_FLOW_SCREEN_1" = "¿©±â¿¡ ÁÁÀº ¹Ù¶÷ ÃøÁ¤À»À§ÇÑ ¸î °¡Áö ÆÁÀ» Á¦°ø ÇÕ´Ï´Ù.";
+"INSTRUCTION_FLOW_SCREEN_2" = "ÃÖ´ë Á¤¹Ðµµ¸¦ À§ÇØ ¸Ó¸® À§ ¼öÁ÷À¸·Î ÀüÈ­¸¦ Àß ÀâÀ¸½Ê½Ã¿À.";
+"INSTRUCTION_FLOW_SCREEN_3" = "½Ä¹°, Àåºñ, ¹ÙÀ§ µîµîÀÇ µÚ¿¡ ¼­ ÀÖÁö ¸¶½Ê½Ã¿À";
+"INSTRUCTION_FLOW_SCREEN_4" = "ÁøÇà Ç¥½Ã±â°¡ ÀûÀýÇÑ Æò±ÕÀ» ¾òÀ» ¶§ ±îÁö ÃøÁ¤ÇÏ½Ê½Ã¿À.";
+"INTRO_FLOW_BUTTON_SKIP" = "Áö±ÝÀº °Ç³Ê ¶Ù±â";
+"INTRO_FLOW_BUTTON_LATER" = "³ªÁß¿¡";
+"INTRO_FLOW_BUTTON_GOT_IT" = "³×, ¹Þ¾Ò½À´Ï´Ù!";
+
+"BUTTON_YES" = "³×";
+"BUTTON_NO" = "¾Æ´Ï¿À";
+
+"MAP_GUIDE_MARKER_TITLE" = "ÃøÁ¤ ¼¼ºÎ»çÇ×";
+"MAP_GUIDE_MARKER_EXPLANATION" = "´õ ÀÚ¼¼ÇÑ »çÇ×À» È®ÀÎÇÏ±â À§ÇØ ÃøÁ¤À» ´©¸¨´Ï´Ù.";
+"MAP_GUIDE_TIME_INTERVAL_TITLE" = "º¯°æ ½Ã°£ °£°Ý";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "ÅØ½ºÆ®¸¦ ´­·¯¼­ ½Ã°£ °£°Ý°ú ÃøÁ¤ ´ÜÀ§ º¯°æÇÏ±â.";
+"MAP_GUIDE_ZOOM_TITLE" = "ºü¸¥ ÁÜ";
+"MAP_GUIDE_ZOOM_EXPLANATION" = "Á¤È®ÇÑ À§Ä¡ È®ÀÎÀ» À§ÇØ ÁöµµÀÇ Ãà¼ÒÆÇÀ» ´­·¯ Á¤È®ÇÑ À§Ä¡·Î È®´ëÇÕ´Ï´Ù.";

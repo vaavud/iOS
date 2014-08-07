@@ -92,3 +92,34 @@
 "SETTINGS_SHOP_LINK" = "購買風力計";
 
 "DIALOG_CONFIRM" = "您確定嗎？";
+
+"SHARE_TO_FACEBOOK_TITLE" = "分享至Facebook？";
+"SHARE_GUIDE" = "它是什麽樣的？";
+"SHARE_TAKE_PHOTO" = "拍照 ";
+"SHARE_CHOOSE_EXISTING" = "選擇現有的";
+
+"SETTINGS_SOCIAL_SHARING" = "啟用Facebook分享";
+"SETTINGS_SOCIAL_SHARING_DETAILS" = "我們不會未經許可發佈";
+"SETTINGS_MEASURING_TIPS" = "測量小貼士";
+
+"INTRO_FLOW_SCREEN_1" = " Vaavud風力計能夠將您的手機變成一種高科技的氣象工具。";
+"INTRO_FLOW_SCREEN_2" = "出行前，使用實時地圖檢查您最喜歡的地點的狀況。";
+"INTRO_FLOW_HAVE_WIND_METER" = "您是否已經擁有一個Vaavud風力計？";
+"INTRO_FLOW_WANT_TO_BUY" = "您是否想要馬上購買一個風力計？";
+"INSTRUCTION_FLOW_SCREEN_1" = "以下是進行正確風力測量的一些小貼士。";
+"INSTRUCTION_FLOW_SCREEN_2" = "為了獲得最大的精確度，請垂直握穩手機於您的頭部上方。";
+"INSTRUCTION_FLOW_SCREEN_3" = "切勿站在植被、設備、巖石等後面。";
+"INSTRUCTION_FLOW_SCREEN_4" = "請持續測量，直至進度指示器走滿能夠獲得一個恰當的平均。";
+"INTRO_FLOW_BUTTON_SKIP" = "暫時跳過";
+"INTRO_FLOW_BUTTON_LATER" = "以後再說";
+"INTRO_FLOW_BUTTON_GOT_IT" = "好的，明白！";
+
+"BUTTON_YES" = "是";
+"BUTTON_NO" = "否";
+
+"MAP_GUIDE_MARKER_TITLE" = "測量詳情";
+"MAP_GUIDE_MARKER_EXPLANATION" = "點擊測量結果查看更多詳情。";
+"MAP_GUIDE_TIME_INTERVAL_TITLE" = "更改時間間隔";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "點擊文字更改時間間隔和測量單位。";
+"MAP_GUIDE_ZOOM_TITLE" = "快速縮放";
+"MAP_GUIDE_ZOOM_EXPLANATION" = "點擊地圖縮略圖縮放至準確的位置。";

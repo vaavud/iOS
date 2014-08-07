@@ -92,3 +92,34 @@
 "SETTINGS_SHOP_LINK" = "Compra il misuratore del vento";
 
 "DIALOG_CONFIRM" = "Sei sicuro?";
+
+"SHARE_TO_FACEBOOK_TITLE" = "Condividere su Facebook?";
+"SHARE_GUIDE" = "Com'è?";
+"SHARE_TAKE_PHOTO" = "Fai foto";
+"SHARE_CHOOSE_EXISTING" = "Scegli esistenti";
+
+"SETTINGS_SOCIAL_SHARING" = "Abilita condivisione Facebook";
+"SETTINGS_SOCIAL_SHARING_DETAILS" = "Non posteremo senza chiedere";
+"SETTINGS_MEASURING_TIPS" = "Suggerimenti di misurazione";
+
+"INTRO_FLOW_SCREEN_1" = "Il misuratore del ventoVaavud trasforma il tuo telefono in uno strumeto tecnologico high-tech.";
+"INTRO_FLOW_SCREEN_2" = "Usa la mappa dal vivo per verificare le condizioni dei tuoi posti preferiti prima di andare.";
+"INTRO_FLOW_HAVE_WIND_METER" = "Hai già un misuratore del vento Vaavud?";
+"INTRO_FLOW_WANT_TO_BUY" = "Vuoi acquistare un misuratore del vento ora?";
+"INSTRUCTION_FLOW_SCREEN_1" = "Qui ci sono alcuni suggerimenti per fare delle buone misurazioni del vento.";
+"INSTRUCTION_FLOW_SCREEN_2" = "Per una massima precisione tieni il telefono fermo e in posizione verticale sopra la tua testa.";
+"INSTRUCTION_FLOW_SCREEN_3" = "Non stare dietro alla vegetazione, all'attrezzatura, alle rocce ecc.";
+"INSTRUCTION_FLOW_SCREEN_4" = "Mantieni la misurazione almeno fino a che l'indicatore progressivo è pieno per ottenere una media corretta.";
+"INTRO_FLOW_BUTTON_SKIP" = "Salta per il momento";
+"INTRO_FLOW_BUTTON_LATER" = "Più tardi";
+"INTRO_FLOW_BUTTON_GOT_IT" = "Ok, ricevuto!";
+
+"BUTTON_YES" = "Sì";
+"BUTTON_NO" = "No";
+
+"MAP_GUIDE_MARKER_TITLE" = "Informazioni di misurazione";
+"MAP_GUIDE_MARKER_EXPLANATION" = "Tocca su una misurazione per visualizzare ulteriori informazioni.";
+"MAP_GUIDE_TIME_INTERVAL_TITLE" = "Cambia l'intervallo di tempo";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Cambia l'intervallo di tempo e l'unità di misura toccando il testo.";
+"MAP_GUIDE_ZOOM_TITLE" = "Zoom Veloce";
+"MAP_GUIDE_ZOOM_EXPLANATION" = "Tocca sulla miniatura della mappa per zoomare sulla posizione esatta.";
