@@ -192,7 +192,8 @@
 
         NSString *country = [Property getAsString:KEY_COUNTRY];
         NSString *language = [Property getAsString:KEY_LANGUAGE];
-        NSString *url = [NSString stringWithFormat:@"http://vaavud.com/mobile-shop-redirect/?country=%@&language=%@", country, language];
+        NSString *mixpanelId = [Mixpanel sharedInstance].distinctId;
+        NSString *url = [NSString stringWithFormat:@"http://vaavud.com/mobile-shop-redirect/?country=%@&language=%@&ref=%@&source=settings", country, language, mixpanelId];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
     }
     else if ((self.enableShareFeature && indexPath.item == 3) || (!self.enableShareFeature && indexPath.item == 2)) {
