@@ -1,10 +1,10 @@
 PODS:
-  - Mixpanel (2.3.4)
+  - Mixpanel (2.3.6)
 
 DEPENDENCIES:
   - Mixpanel
 
 SPEC CHECKSUMS:
-  Mixpanel: 16e6f1d5f8aeb9282ee864e169557de0bd9549df
+  Mixpanel: 9aba38257fc4d2777ab5db1afc55e22bdfd57a4a
 
-COCOAPODS: 0.32.1
+COCOAPODS: 0.33.1
