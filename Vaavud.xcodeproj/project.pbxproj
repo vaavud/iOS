@@ -66,6 +66,191 @@
 		E957593A193E222D00B5D0AE /* LoadingHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9575939193E222D00B5D0AE /* LoadingHistoryViewController.m */; };
 		E960260818575452009396B1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E960260A18575452009396B1 /* Localizable.strings */; };
 		E960260E18575E41009396B1 /* MeasurementCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E960261018575E41009396B1 /* MeasurementCalloutView.xib */; };
+		E96FB4ED19A353B500CB7306 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1D6173A8DDB00D1ACEE /* main.m */; };
+		E96FB4EE19A353B500CB7306 /* vaavudAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1DA173A8DDB00D1ACEE /* vaavudAppDelegate.m */; };
+		E96FB4EF19A353B500CB7306 /* vaavudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */; };
+		E96FB4F019A353B500CB7306 /* VaavudCoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */; };
+		E96FB4F119A353B500CB7306 /* VaavudMagneticFieldDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */; };
+		E96FB4F219A353B500CB7306 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */; };
+		E96FB4F319A353B500CB7306 /* vaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* vaavudFFT.m */; };
+		E96FB4F419A353B500CB7306 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950CB195B1DCE00E9EF02 /* ImageUtil.m */; };
+		E96FB4F519A353B500CB7306 /* DismissOnTouchUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91D421A198F7E4900106E15 /* DismissOnTouchUIView.m */; };
+		E96FB4F619A353B500CB7306 /* vaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* vaavudDynamicsController.m */; };
+		E96FB4F719A353B500CB7306 /* vaavudGraphHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7B5BD50175775EB0069F739 /* vaavudGraphHostingView.m */; };
+		E96FB4F819A353B500CB7306 /* RegisterNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */; };
+		E96FB4F919A353B500CB7306 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */; };
+		E96FB4FA19A353B500CB7306 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DE09B9192E4C84003877D9 /* SettingsViewController.m */; };
+		E96FB4FB19A353B500CB7306 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627AF17708E63004678D5 /* AFHTTPClient.m */; };
+		E96FB4FC19A353B500CB7306 /* TMCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097318994000004F1C12 /* TMCache.m */; };
+		E96FB4FD19A353B500CB7306 /* PasswordUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099B18AA501D004F1C12 /* PasswordUtil.m */; };
+		E96FB4FE19A353B500CB7306 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B117708E63004678D5 /* AFHTTPRequestOperation.m */; };
+		E96FB4FF19A353B500CB7306 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B317708E63004678D5 /* AFImageRequestOperation.m */; };
+		E96FB50019A353B500CB7306 /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B517708E63004678D5 /* AFJSONRequestOperation.m */; };
+		E96FB50119A353B500CB7306 /* GuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91D4217198F7C8400106E15 /* GuideView.m */; };
+		E96FB50219A353B500CB7306 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B717708E63004678D5 /* AFNetworkActivityIndicatorManager.m */; };
+		E96FB50319A353B500CB7306 /* CustomSMCalloutDrawnBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */; };
+		E96FB50419A353B500CB7306 /* UIImageView+TMCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097C18994570004F1C12 /* UIImageView+TMCache.m */; };
+		E96FB50519A353B500CB7306 /* HistoryNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FABFDA18929158009C4C46 /* HistoryNavigationController.m */; };
+		E96FB50619A353B500CB7306 /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627BA17708E63004678D5 /* AFPropertyListRequestOperation.m */; };
+		E96FB50719A353B500CB7306 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627BC17708E63004678D5 /* AFURLConnectionOperation.m */; };
+		E96FB50819A353B500CB7306 /* TermsPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */; };
+		E96FB50919A353B500CB7306 /* MeasurementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */; };
+		E96FB50A19A353B500CB7306 /* MeasureNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097F189BD29F004F1C12 /* MeasureNavigationController.m */; };
+		E96FB50B19A353B500CB7306 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627BE17708E63004678D5 /* AFXMLRequestOperation.m */; };
+		E96FB50C19A353B500CB7306 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627C017708E63004678D5 /* UIImageView+AFNetworking.m */; };
+		E96FB50D19A353B500CB7306 /* VaavudAPIHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627D0177096D6004678D5 /* VaavudAPIHTTPClient.m */; };
+		E96FB50E19A353B500CB7306 /* MeasurementAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */; };
+		E96FB50F19A353B500CB7306 /* ServerUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F76CD1771EB2B00F51A4F /* ServerUploadManager.m */; };
+		E96FB51019A353B500CB7306 /* HistoryTableViewSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FABFE91896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m */; };
+		E96FB51119A353B500CB7306 /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2203177B2AEA0054ED3F /* MagicalImportFunctions.m */; };
+		E96FB51219A353B500CB7306 /* UIColor+VaavudColors.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F33CCA18B4AFBF0033EDC7 /* UIColor+VaavudColors.m */; };
+		E96FB51319A353B500CB7306 /* NSAttributeDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2205177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m */; };
+		E96FB51419A353B500CB7306 /* FormatUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FD000A17FD6A06001A8491 /* FormatUtil.m */; };
+		E96FB51519A353B500CB7306 /* NSEntityDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2207177B2AEA0054ED3F /* NSEntityDescription+MagicalDataImport.m */; };
+		E96FB51619A353B500CB7306 /* NSNumber+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2209177B2AEA0054ED3F /* NSNumber+MagicalDataImport.m */; };
+		E96FB51719A353B500CB7306 /* NSObject+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD220B177B2AEA0054ED3F /* NSObject+MagicalDataImport.m */; };
+		E96FB51819A353B500CB7306 /* NSRelationshipDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD220D177B2AEA0054ED3F /* NSRelationshipDescription+MagicalDataImport.m */; };
+		E96FB51919A353B500CB7306 /* ParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9793A84196C411C00E3823E /* ParentViewController.m */; };
+		E96FB51A19A353B500CB7306 /* HistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FABFDD18929473009C4C46 /* HistoryTableViewController.m */; };
+		E96FB51B19A353B500CB7306 /* NSString+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD220F177B2AEA0054ED3F /* NSString+MagicalDataImport.m */; };
+		E96FB51C19A353B500CB7306 /* NSManagedObject+MagicalAggregation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2212177B2AEA0054ED3F /* NSManagedObject+MagicalAggregation.m */; };
+		E96FB51D19A353B500CB7306 /* UnitSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9575936193CAE3D00B5D0AE /* UnitSelectionViewController.m */; };
+		E96FB51E19A353B500CB7306 /* TermsPrivacyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */; };
+		E96FB51F19A353B500CB7306 /* NSManagedObject+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2214177B2AEA0054ED3F /* NSManagedObject+MagicalDataImport.m */; };
+		E96FB52019A353B500CB7306 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A409A718AB9B80004F1C12 /* LogInViewController.m */; };
+		E96FB52119A353B500CB7306 /* NSManagedObject+MagicalFinders.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2216177B2AEA0054ED3F /* NSManagedObject+MagicalFinders.m */; };
+		E96FB52219A353B500CB7306 /* NSManagedObject+MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2218177B2AEA0054ED3F /* NSManagedObject+MagicalRecord.m */; };
+		E96FB52319A353B500CB7306 /* LoadingHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9575939193E222D00B5D0AE /* LoadingHistoryViewController.m */; };
+		E96FB52419A353B500CB7306 /* GuidedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098618A26FEB004F1C12 /* GuidedTextField.m */; };
+		E96FB52519A353B500CB7306 /* HistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FABFE0189294BD009C4C46 /* HistoryTableViewCell.m */; };
+		E96FB52619A353B500CB7306 /* NSManagedObject+MagicalRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD221A177B2AEA0054ED3F /* NSManagedObject+MagicalRequests.m */; };
+		E96FB52719A353B500CB7306 /* NSManagedObjectContext+MagicalObserving.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD221D177B2AEA0054ED3F /* NSManagedObjectContext+MagicalObserving.m */; };
+		E96FB52819A353B500CB7306 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F33CCD18B4B3CB0033EDC7 /* AccountManager.m */; };
+		E96FB52919A353B500CB7306 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099218A52E40004F1C12 /* RegisterViewController.m */; };
+		E96FB52A19A353B500CB7306 /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EBB99417E33DBB0086BE01 /* MeasurementSession.m */; };
+		E96FB52B19A353B500CB7306 /* NSManagedObjectContext+MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD221F177B2AEA0054ED3F /* NSManagedObjectContext+MagicalRecord.m */; };
+		E96FB52C19A353B500CB7306 /* NoHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E912793118BF5FF4009C7769 /* NoHistoryViewController.m */; };
+		E96FB52D19A353B500CB7306 /* NSManagedObjectContext+MagicalSaves.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2221177B2AEA0054ED3F /* NSManagedObjectContext+MagicalSaves.m */; };
+		E96FB52E19A353B500CB7306 /* NSManagedObjectContext+MagicalThreading.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2223177B2AEA0054ED3F /* NSManagedObjectContext+MagicalThreading.m */; };
+		E96FB52F19A353B500CB7306 /* TMDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097518994000004F1C12 /* TMDiskCache.m */; };
+		E96FB53019A353B500CB7306 /* NoHistoryArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = E912793418BF7893009C7769 /* NoHistoryArrowView.m */; };
+		E96FB53119A353B500CB7306 /* NSManagedObjectModel+MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2225177B2AEA0054ED3F /* NSManagedObjectModel+MagicalRecord.m */; };
+		E96FB53219A353B500CB7306 /* NSPersistentStore+MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2227177B2AEA0054ED3F /* NSPersistentStore+MagicalRecord.m */; };
+		E96FB53319A353B500CB7306 /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2229177B2AEA0054ED3F /* NSPersistentStoreCoordinator+MagicalRecord.m */; };
+		E96FB53419A353B500CB7306 /* FirstTimeFlowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950E2195C587800E9EF02 /* FirstTimeFlowController.m */; };
+		E96FB53519A353B500CB7306 /* MeasurementCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */; };
+		E96FB53619A353B500CB7306 /* MagicalRecord+Actions.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD222C177B2AEA0054ED3F /* MagicalRecord+Actions.m */; };
+		E96FB53719A353B500CB7306 /* MagicalRecord+ErrorHandling.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD222E177B2AEA0054ED3F /* MagicalRecord+ErrorHandling.m */; };
+		E96FB53819A353B500CB7306 /* FirstTimeExplanationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950E0195C587800E9EF02 /* FirstTimeExplanationViewController.m */; };
+		E96FB53919A353B500CB7306 /* MagicalRecord+iCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2230177B2AEA0054ED3F /* MagicalRecord+iCloud.m */; };
+		E96FB53A19A353B500CB7306 /* MagicalRecord+Options.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2232177B2AEA0054ED3F /* MagicalRecord+Options.m */; };
+		E96FB53B19A353B500CB7306 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C5C3617EC826800E84D3C /* TabBarController.m */; };
+		E96FB53C19A353B500CB7306 /* MagicalRecord+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2234177B2AEA0054ED3F /* MagicalRecord+Setup.m */; };
+		E96FB53D19A353B500CB7306 /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2236177B2AEA0054ED3F /* MagicalRecord+ShorthandSupport.m */; };
+		E96FB53E19A353B500CB7306 /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2238177B2AEA0054ED3F /* MagicalRecord.m */; };
+		E96FB53F19A353B500CB7306 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9717F08F6E00171F7F /* MapViewController.m */; };
+		E96FB54019A353B500CB7306 /* DictionarySerializationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */; };
+		E96FB54119A353B500CB7306 /* MeasurementPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */; };
+		E96FB54219A353B500CB7306 /* UUIDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E94CBB5D177DB3050089D440 /* UUIDUtil.m */; };
+		E96FB54319A353B500CB7306 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86591781BE56005E4212 /* LocationManager.m */; };
+		E96FB54419A353B500CB7306 /* Property+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86621781C764005E4212 /* Property+Util.m */; };
+		E96FB54519A353B500CB7306 /* AlgorithmConstantsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */; };
+		E96FB54619A353B500CB7306 /* Property.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86681781C88B005E4212 /* Property.m */; };
+		E96FB54719A353B500CB7306 /* MeasurementSession+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */; };
+		E96FB54819A353B500CB7306 /* ShareDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950E91961A21500E9EF02 /* ShareDialog.m */; };
+		E96FB54919A353B500CB7306 /* MeasurementPoint+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86711781D727005E4212 /* MeasurementPoint+Util.m */; };
+		E96FB54A19A353B500CB7306 /* ModelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E93338F6178C561B006E2314 /* ModelManager.m */; };
+		E96FB54B19A353B500CB7306 /* QueryStringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */; };
+		E96FB54C19A353B500CB7306 /* HistoryRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098C18A50D11004F1C12 /* HistoryRootViewController.m */; };
+		E96FB54D19A353B500CB7306 /* TMMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097718994000004F1C12 /* TMMemoryCache.m */; };
+		E96FB54E19A353B500CB7306 /* UnitUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E99F8F70178EC5AD0090402C /* UnitUtil.m */; };
+		E96FB54F19A353B500CB7306 /* Terms.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A021794217200E8A82E /* Terms.m */; };
+		E96FB55019A353B500CB7306 /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A091794315100E8A82E /* TermsViewController.m */; };
+		E96FB55119A353B500CB7306 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098F18A52151004F1C12 /* SignUpViewController.m */; };
+		E96FB55319A353B500CB7306 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E904AC9917F0911000171F7F /* MapKit.framework */; };
+		E96FB55419A353B500CB7306 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8917DF5BA600DED985 /* libz.dylib */; };
+		E96FB55519A353B500CB7306 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9AF597A181826E6009A8221 /* libTestFlight.a */; };
+		E96FB55619A353B500CB7306 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B627CC1770930D004678D5 /* MobileCoreServices.framework */; };
+		E96FB55719A353B500CB7306 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B627CA177092EF004678D5 /* SystemConfiguration.framework */; };
+		E96FB55819A353B500CB7306 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9EE1FB8176A024B00D1F006 /* CoreData.framework */; };
+		E96FB55919A353B500CB7306 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B5BD521757A23C0069F739 /* CoreLocation.framework */; };
+		E96FB55A19A353B500CB7306 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DA72401743C1CD00DFE962 /* Accelerate.framework */; };
+		E96FB55B19A353B500CB7306 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C860ED173AD08F005E9946 /* QuartzCore.framework */; };
+		E96FB55C19A353B500CB7306 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */; };
+		E96FB55D19A353B500CB7306 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */; };
+		E96FB55E19A353B500CB7306 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CC173A8DDB00D1ACEE /* Foundation.framework */; };
+		E96FB55F19A353B500CB7306 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CE173A8DDB00D1ACEE /* CoreGraphics.framework */; };
+		E96FB56019A353B500CB7306 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B3881A199108BE00A118D5 /* FacebookSDK.framework */; };
+		E96FB56119A353B500CB7306 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */; };
+		E96FB56219A353B500CB7306 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A086025EA7704C458175CADF /* libPods.a */; };
+		E96FB56419A353B500CB7306 /* MeasurementCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E960261018575E41009396B1 /* MeasurementCalloutView.xib */; };
+		E96FB56519A353B500CB7306 /* WindMarker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535B21806C2D20070BFB4 /* WindMarker@2x.png */; };
+		E96FB56619A353B500CB7306 /* AppIcon114x114.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237EB195992080003A9E4 /* AppIcon114x114.png */; };
+		E96FB56719A353B500CB7306 /* AppIcon58x58.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237E5195992080003A9E4 /* AppIcon58x58.png */; };
+		E96FB56819A353B500CB7306 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = E9CB327719869B110043C8CE /* camera.png */; };
+		E96FB56919A353B500CB7306 /* measure_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535C5180840D70070BFB4 /* measure_selected.png */; };
+		E96FB56A19A353B500CB7306 /* history@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9FABFD418929050009C4C46 /* history@2x.png */; };
+		E96FB56B19A353B500CB7306 /* SettingsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DE09D11935E4D5003877D9 /* SettingsIcon@2x.png */; };
+		E96FB56C19A353B500CB7306 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1D3173A8DDB00D1ACEE /* InfoPlist.strings */; };
+		E96FB56D19A353B500CB7306 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */; };
+		E96FB56E19A353B500CB7306 /* Default@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E972380B1959A0A70003A9E4 /* Default@2x~ipad.png */; };
+		E96FB56F19A353B500CB7306 /* GuideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E91D4214198F7A9800106E15 /* GuideView.xib */; };
+		E96FB57019A353B500CB7306 /* camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9CB327819869B110043C8CE /* camera@2x.png */; };
+		E96FB57119A353B500CB7306 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535AB1806C2D20070BFB4 /* map.png */; };
+		E96FB57219A353B500CB7306 /* map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535AC1806C2D20070BFB4 /* map@2x.png */; };
+		E96FB57319A353B500CB7306 /* AppIcon29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237E1195992080003A9E4 /* AppIcon29x29.png */; };
+		E96FB57419A353B500CB7306 /* AppIcon72x72.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237E7195992080003A9E4 /* AppIcon72x72.png */; };
+		E96FB57519A353B500CB7306 /* Default-iOS7-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E97238031959A0A60003A9E4 /* Default-iOS7-Landscape@2x~ipad.png */; };
+		E96FB57619A353B500CB7306 /* 002_map@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E91D4205198BDFEA00106E15 /* 002_map@2x.jpg */; };
+		E96FB57719A353B500CB7306 /* map_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535C3180840D70070BFB4 /* map_selected.png */; };
+		E96FB57819A353B500CB7306 /* ShareDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B950E619619F7300E9EF02 /* ShareDialog.xib */; };
+		E96FB57919A353B500CB7306 /* 006_open_space@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E91D420A198BDFEA00106E15 /* 006_open_space@2x.jpg */; };
+		E96FB57A19A353B500CB7306 /* history_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = E9FABFD118929050009C4C46 /* history_selected.png */; };
+		E96FB57B19A353B500CB7306 /* AppIcon60x60.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237E6195992080003A9E4 /* AppIcon60x60.png */; };
+		E96FB57C19A353B500CB7306 /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = E97238021959A0A60003A9E4 /* Default-568h@2x~iphone.png */; };
+		E96FB57D19A353B500CB7306 /* Default-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E97238091959A0A70003A9E4 /* Default-Landscape~ipad.png */; };
+		E96FB57E19A353B500CB7306 /* 003_sign_up@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E91D4206198BDFEA00106E15 /* 003_sign_up@2x.jpg */; };
+		E96FB57F19A353B500CB7306 /* history.png in Resources */ = {isa = PBXBuildFile; fileRef = E9FABFD318929050009C4C46 /* history.png */; };
+		E96FB58019A353B500CB7306 /* history_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9FABFD218929050009C4C46 /* history_selected@2x.png */; };
+		E96FB58119A353B500CB7306 /* Default-Landscape@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E97238081959A0A60003A9E4 /* Default-Landscape@2x~ipad.png */; };
+		E96FB58219A353B500CB7306 /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9A4098918A4DAE1004F1C12 /* Register.storyboard */; };
+		E96FB58319A353B500CB7306 /* Default-iOS7@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E97238051959A0A60003A9E4 /* Default-iOS7@2x~ipad.png */; };
+		E96FB58419A353B500CB7306 /* AppIcon57x57.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237E4195992080003A9E4 /* AppIcon57x57.png */; };
+		E96FB58519A353B500CB7306 /* AppIcon76x76.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237E8195992080003A9E4 /* AppIcon76x76.png */; };
+		E96FB58619A353B500CB7306 /* HistoryTableViewSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9FABFE61896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib */; };
+		E96FB58719A353B500CB7306 /* about_action@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9A4098218A0EE1B004F1C12 /* about_action@2x.png */; };
+		E96FB58819A353B500CB7306 /* Default-iOS7@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = E97238061959A0A60003A9E4 /* Default-iOS7@2x~iphone.png */; };
+		E96FB58919A353B500CB7306 /* 007_reading@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E91D420B198BDFEA00106E15 /* 007_reading@2x.jpg */; };
+		E96FB58A19A353B500CB7306 /* measure.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535AF1806C2D20070BFB4 /* measure.png */; };
+		E96FB58B19A353B500CB7306 /* measure_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535C6180840D70070BFB4 /* measure_selected@2x.png */; };
+		E96FB58C19A353B500CB7306 /* Default-568h-iOS7.png in Resources */ = {isa = PBXBuildFile; fileRef = E97238011959A0A60003A9E4 /* Default-568h-iOS7.png */; };
+		E96FB58D19A353B500CB7306 /* 001_basejumper@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E91D4204198BDFEA00106E15 /* 001_basejumper@2x.jpg */; };
+		E96FB58E19A353B500CB7306 /* map_placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9FABFE318969A2F009C4C46 /* map_placeholder@2x.png */; };
+		E96FB58F19A353B500CB7306 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E960260A18575452009396B1 /* Localizable.strings */; };
+		E96FB59019A353B500CB7306 /* Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = E972380C1959A0A70003A9E4 /* Default@2x~iphone.png */; };
+		E96FB59119A353B500CB7306 /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E972380D1959A0A70003A9E4 /* Default~ipad.png */; };
+		E96FB59219A353B500CB7306 /* AppIcon50x50.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237E3195992080003A9E4 /* AppIcon50x50.png */; };
+		E96FB59319A353B500CB7306 /* measure@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535B01806C2D20070BFB4 /* measure@2x.png */; };
+		E96FB59419A353B500CB7306 /* AppIcon144x144.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237ED195992080003A9E4 /* AppIcon144x144.png */; };
+		E96FB59519A353B500CB7306 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = E972380A1959A0A70003A9E4 /* Default.png */; };
+		E96FB59619A353B500CB7306 /* Default-iOS7-Landscape~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E97238041959A0A60003A9E4 /* Default-iOS7-Landscape~ipad.png */; };
+		E96FB59719A353B500CB7306 /* logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237FE195993790003A9E4 /* logo@2x.png */; };
+		E96FB59819A353B500CB7306 /* AppIcon120x120.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237EC195992080003A9E4 /* AppIcon120x120.png */; };
+		E96FB59919A353B500CB7306 /* MeasurementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9AF2B9017F5B96500BDF6D9 /* MeasurementTableViewCell.xib */; };
+		E96FB59A19A353B500CB7306 /* about_action.png in Resources */ = {isa = PBXBuildFile; fileRef = E9A4098118A0EE1B004F1C12 /* about_action.png */; };
+		E96FB59B19A353B500CB7306 /* Default-iOS7~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E97238071959A0A60003A9E4 /* Default-iOS7~ipad.png */; };
+		E96FB59C19A353B500CB7306 /* AppIcon100x100.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237EA195992080003A9E4 /* AppIcon100x100.png */; };
+		E96FB59D19A353B500CB7306 /* AppIcon40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237E2195992080003A9E4 /* AppIcon40x40.png */; };
+		E96FB59E19A353B500CB7306 /* AppIcon152x152.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237EE195992080003A9E4 /* AppIcon152x152.png */; };
+		E96FB59F19A353B500CB7306 /* 006_hold_top@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E91D4209198BDFEA00106E15 /* 006_hold_top@2x.jpg */; };
+		E96FB5A019A353B500CB7306 /* AppIcon80x80.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237E9195992080003A9E4 /* AppIcon80x80.png */; };
+		E96FB5A119A353B500CB7306 /* map_placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = E9FABFE218969A2F009C4C46 /* map_placeholder.png */; };
+		E96FB5A219A353B500CB7306 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237FD195993790003A9E4 /* logo.png */; };
+		E96FB5A319A353B500CB7306 /* WindMarker.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535B11806C2D20070BFB4 /* WindMarker.png */; };
+		E96FB5A419A353B500CB7306 /* 004_wind_meter@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E91D4207198BDFEA00106E15 /* 004_wind_meter@2x.jpg */; };
+		E96FB5A519A353B500CB7306 /* 005_paraglider@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E91D4208198BDFEA00106E15 /* 005_paraglider@2x.jpg */; };
+		E96FB5A619A353B500CB7306 /* SettingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = E907093D193F4AFB0087F80F /* SettingsIcon.png */; };
+		E96FB5A719A353B500CB7306 /* map_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535C4180840D70070BFB4 /* map_selected@2x.png */; };
 		E97237EF195992080003A9E4 /* AppIcon29x29.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237E1195992080003A9E4 /* AppIcon29x29.png */; };
 		E97237F0195992080003A9E4 /* AppIcon40x40.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237E2195992080003A9E4 /* AppIcon40x40.png */; };
 		E97237F1195992080003A9E4 /* AppIcon50x50.png in Resources */ = {isa = PBXBuildFile; fileRef = E97237E3195992080003A9E4 /* AppIcon50x50.png */; };
@@ -371,6 +556,8 @@
 		E96025FB18574DC0009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E960260B18575461009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E960260D18575473009396B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E96FB5AC19A353B500CB7306 /* Agriculture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Agriculture.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E96FB5AD19A353B500CB7306 /* Agriculture-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Agriculture-Info.plist"; path = "/Users/thomas/Documents/xcode/Vaavud/Agriculture-Info.plist"; sourceTree = "<absolute>"; };
 		E97237E1195992080003A9E4 /* AppIcon29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon29x29.png; sourceTree = "<group>"; };
 		E97237E2195992080003A9E4 /* AppIcon40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon40x40.png; sourceTree = "<group>"; };
 		E97237E3195992080003A9E4 /* AppIcon50x50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon50x50.png; sourceTree = "<group>"; };
@@ -609,6 +796,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E96FB55219A353B500CB7306 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E96FB55319A353B500CB7306 /* MapKit.framework in Frameworks */,
+				E96FB55419A353B500CB7306 /* libz.dylib in Frameworks */,
+				E96FB55519A353B500CB7306 /* libTestFlight.a in Frameworks */,
+				E96FB55619A353B500CB7306 /* MobileCoreServices.framework in Frameworks */,
+				E96FB55719A353B500CB7306 /* SystemConfiguration.framework in Frameworks */,
+				E96FB55819A353B500CB7306 /* CoreData.framework in Frameworks */,
+				E96FB55919A353B500CB7306 /* CoreLocation.framework in Frameworks */,
+				E96FB55A19A353B500CB7306 /* Accelerate.framework in Frameworks */,
+				E96FB55B19A353B500CB7306 /* QuartzCore.framework in Frameworks */,
+				E96FB55C19A353B500CB7306 /* CoreMotion.framework in Frameworks */,
+				E96FB55D19A353B500CB7306 /* UIKit.framework in Frameworks */,
+				E96FB55E19A353B500CB7306 /* Foundation.framework in Frameworks */,
+				E96FB55F19A353B500CB7306 /* CoreGraphics.framework in Frameworks */,
+				E96FB56019A353B500CB7306 /* FacebookSDK.framework in Frameworks */,
+				E96FB56119A353B500CB7306 /* libCorePlot-CocoaTouch.a in Frameworks */,
+				E96FB56219A353B500CB7306 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -716,6 +926,7 @@
 				D7A4F1C8173A8DDB00D1ACEE /* Products */,
 				D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */,
 				1E0A1A9D801049A6BFBEF37D /* Pods.xcconfig */,
+				E96FB5AD19A353B500CB7306 /* Agriculture-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -723,6 +934,7 @@
 			isa = PBXGroup;
 			children = (
 				D7A4F1C7173A8DDB00D1ACEE /* Vaavud.app */,
+				E96FB5AC19A353B500CB7306 /* Agriculture.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1259,6 +1471,25 @@
 			productReference = D7A4F1C7173A8DDB00D1ACEE /* Vaavud.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E96FB4EA19A353B500CB7306 /* Agriculture */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E96FB5A919A353B500CB7306 /* Build configuration list for PBXNativeTarget "Agriculture" */;
+			buildPhases = (
+				E96FB4EB19A353B500CB7306 /* Check Pods Manifest.lock */,
+				E96FB4EC19A353B500CB7306 /* Sources */,
+				E96FB55219A353B500CB7306 /* Frameworks */,
+				E96FB56319A353B500CB7306 /* Resources */,
+				E96FB5A819A353B500CB7306 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Agriculture;
+			productName = VaavudCore;
+			productReference = E96FB5AC19A353B500CB7306 /* Agriculture.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1270,6 +1501,9 @@
 				ORGANIZATIONNAME = "Andreas Okholm";
 				TargetAttributes = {
 					D7A4F1C6173A8DDB00D1ACEE = {
+						DevelopmentTeam = X5DMTGX3GW;
+					};
+					E96FB4EA19A353B500CB7306 = {
 						DevelopmentTeam = X5DMTGX3GW;
 					};
 				};
@@ -1299,6 +1533,7 @@
 			projectRoot = "";
 			targets = (
 				D7A4F1C6173A8DDB00D1ACEE /* Vaavud */,
+				E96FB4EA19A353B500CB7306 /* Agriculture */,
 			);
 		};
 /* End PBXProject section */
@@ -1379,6 +1614,81 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E96FB56319A353B500CB7306 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E96FB56419A353B500CB7306 /* MeasurementCalloutView.xib in Resources */,
+				E96FB56519A353B500CB7306 /* WindMarker@2x.png in Resources */,
+				E96FB56619A353B500CB7306 /* AppIcon114x114.png in Resources */,
+				E96FB56719A353B500CB7306 /* AppIcon58x58.png in Resources */,
+				E96FB56819A353B500CB7306 /* camera.png in Resources */,
+				E96FB56919A353B500CB7306 /* measure_selected.png in Resources */,
+				E96FB56A19A353B500CB7306 /* history@2x.png in Resources */,
+				E96FB56B19A353B500CB7306 /* SettingsIcon@2x.png in Resources */,
+				E96FB56C19A353B500CB7306 /* InfoPlist.strings in Resources */,
+				E96FB56D19A353B500CB7306 /* MainStoryboard.storyboard in Resources */,
+				E96FB56E19A353B500CB7306 /* Default@2x~ipad.png in Resources */,
+				E96FB56F19A353B500CB7306 /* GuideView.xib in Resources */,
+				E96FB57019A353B500CB7306 /* camera@2x.png in Resources */,
+				E96FB57119A353B500CB7306 /* map.png in Resources */,
+				E96FB57219A353B500CB7306 /* map@2x.png in Resources */,
+				E96FB57319A353B500CB7306 /* AppIcon29x29.png in Resources */,
+				E96FB57419A353B500CB7306 /* AppIcon72x72.png in Resources */,
+				E96FB57519A353B500CB7306 /* Default-iOS7-Landscape@2x~ipad.png in Resources */,
+				E96FB57619A353B500CB7306 /* 002_map@2x.jpg in Resources */,
+				E96FB57719A353B500CB7306 /* map_selected.png in Resources */,
+				E96FB57819A353B500CB7306 /* ShareDialog.xib in Resources */,
+				E96FB57919A353B500CB7306 /* 006_open_space@2x.jpg in Resources */,
+				E96FB57A19A353B500CB7306 /* history_selected.png in Resources */,
+				E96FB57B19A353B500CB7306 /* AppIcon60x60.png in Resources */,
+				E96FB57C19A353B500CB7306 /* Default-568h@2x~iphone.png in Resources */,
+				E96FB57D19A353B500CB7306 /* Default-Landscape~ipad.png in Resources */,
+				E96FB57E19A353B500CB7306 /* 003_sign_up@2x.jpg in Resources */,
+				E96FB57F19A353B500CB7306 /* history.png in Resources */,
+				E96FB58019A353B500CB7306 /* history_selected@2x.png in Resources */,
+				E96FB58119A353B500CB7306 /* Default-Landscape@2x~ipad.png in Resources */,
+				E96FB58219A353B500CB7306 /* Register.storyboard in Resources */,
+				E96FB58319A353B500CB7306 /* Default-iOS7@2x~ipad.png in Resources */,
+				E96FB58419A353B500CB7306 /* AppIcon57x57.png in Resources */,
+				E96FB58519A353B500CB7306 /* AppIcon76x76.png in Resources */,
+				E96FB58619A353B500CB7306 /* HistoryTableViewSectionHeaderView.xib in Resources */,
+				E96FB58719A353B500CB7306 /* about_action@2x.png in Resources */,
+				E96FB58819A353B500CB7306 /* Default-iOS7@2x~iphone.png in Resources */,
+				E96FB58919A353B500CB7306 /* 007_reading@2x.jpg in Resources */,
+				E96FB58A19A353B500CB7306 /* measure.png in Resources */,
+				E96FB58B19A353B500CB7306 /* measure_selected@2x.png in Resources */,
+				E96FB58C19A353B500CB7306 /* Default-568h-iOS7.png in Resources */,
+				E96FB58D19A353B500CB7306 /* 001_basejumper@2x.jpg in Resources */,
+				E96FB58E19A353B500CB7306 /* map_placeholder@2x.png in Resources */,
+				E96FB58F19A353B500CB7306 /* Localizable.strings in Resources */,
+				E96FB59019A353B500CB7306 /* Default@2x~iphone.png in Resources */,
+				E96FB59119A353B500CB7306 /* Default~ipad.png in Resources */,
+				E96FB59219A353B500CB7306 /* AppIcon50x50.png in Resources */,
+				E96FB59319A353B500CB7306 /* measure@2x.png in Resources */,
+				E96FB59419A353B500CB7306 /* AppIcon144x144.png in Resources */,
+				E96FB59519A353B500CB7306 /* Default.png in Resources */,
+				E96FB59619A353B500CB7306 /* Default-iOS7-Landscape~ipad.png in Resources */,
+				E96FB59719A353B500CB7306 /* logo@2x.png in Resources */,
+				E96FB59819A353B500CB7306 /* AppIcon120x120.png in Resources */,
+				E96FB59919A353B500CB7306 /* MeasurementTableViewCell.xib in Resources */,
+				E96FB59A19A353B500CB7306 /* about_action.png in Resources */,
+				E96FB59B19A353B500CB7306 /* Default-iOS7~ipad.png in Resources */,
+				E96FB59C19A353B500CB7306 /* AppIcon100x100.png in Resources */,
+				E96FB59D19A353B500CB7306 /* AppIcon40x40.png in Resources */,
+				E96FB59E19A353B500CB7306 /* AppIcon152x152.png in Resources */,
+				E96FB59F19A353B500CB7306 /* 006_hold_top@2x.jpg in Resources */,
+				E96FB5A019A353B500CB7306 /* AppIcon80x80.png in Resources */,
+				E96FB5A119A353B500CB7306 /* map_placeholder.png in Resources */,
+				E96FB5A219A353B500CB7306 /* logo.png in Resources */,
+				E96FB5A319A353B500CB7306 /* WindMarker.png in Resources */,
+				E96FB5A419A353B500CB7306 /* 004_wind_meter@2x.jpg in Resources */,
+				E96FB5A519A353B500CB7306 /* 005_paraglider@2x.jpg in Resources */,
+				E96FB5A619A353B500CB7306 /* SettingsIcon.png in Resources */,
+				E96FB5A719A353B500CB7306 /* map_selected@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1398,6 +1708,36 @@
 			showEnvVarsInLog = 0;
 		};
 		B53D863A9E054A47A41840FD /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E96FB4EB19A353B500CB7306 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E96FB5A819A353B500CB7306 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1520,6 +1860,114 @@
 				E9B47A031794217200E8A82E /* Terms.m in Sources */,
 				E9B47A0A1794315100E8A82E /* TermsViewController.m in Sources */,
 				E9A4099018A52151004F1C12 /* SignUpViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E96FB4EC19A353B500CB7306 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E96FB4ED19A353B500CB7306 /* main.m in Sources */,
+				E96FB4EE19A353B500CB7306 /* vaavudAppDelegate.m in Sources */,
+				E96FB4EF19A353B500CB7306 /* vaavudViewController.m in Sources */,
+				E96FB4F019A353B500CB7306 /* VaavudCoreController.m in Sources */,
+				E96FB4F119A353B500CB7306 /* VaavudMagneticFieldDataManager.m in Sources */,
+				E96FB4F219A353B500CB7306 /* SMCalloutView.m in Sources */,
+				E96FB4F319A353B500CB7306 /* vaavudFFT.m in Sources */,
+				E96FB4F419A353B500CB7306 /* ImageUtil.m in Sources */,
+				E96FB4F519A353B500CB7306 /* DismissOnTouchUIView.m in Sources */,
+				E96FB4F619A353B500CB7306 /* vaavudDynamicsController.m in Sources */,
+				E96FB4F719A353B500CB7306 /* vaavudGraphHostingView.m in Sources */,
+				E96FB4F819A353B500CB7306 /* RegisterNavigationController.m in Sources */,
+				E96FB4F919A353B500CB7306 /* Model.xcdatamodeld in Sources */,
+				E96FB4FA19A353B500CB7306 /* SettingsViewController.m in Sources */,
+				E96FB4FB19A353B500CB7306 /* AFHTTPClient.m in Sources */,
+				E96FB4FC19A353B500CB7306 /* TMCache.m in Sources */,
+				E96FB4FD19A353B500CB7306 /* PasswordUtil.m in Sources */,
+				E96FB4FE19A353B500CB7306 /* AFHTTPRequestOperation.m in Sources */,
+				E96FB4FF19A353B500CB7306 /* AFImageRequestOperation.m in Sources */,
+				E96FB50019A353B500CB7306 /* AFJSONRequestOperation.m in Sources */,
+				E96FB50119A353B500CB7306 /* GuideView.m in Sources */,
+				E96FB50219A353B500CB7306 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				E96FB50319A353B500CB7306 /* CustomSMCalloutDrawnBackgroundView.m in Sources */,
+				E96FB50419A353B500CB7306 /* UIImageView+TMCache.m in Sources */,
+				E96FB50519A353B500CB7306 /* HistoryNavigationController.m in Sources */,
+				E96FB50619A353B500CB7306 /* AFPropertyListRequestOperation.m in Sources */,
+				E96FB50719A353B500CB7306 /* AFURLConnectionOperation.m in Sources */,
+				E96FB50819A353B500CB7306 /* TermsPrivacyViewController.m in Sources */,
+				E96FB50919A353B500CB7306 /* MeasurementTableViewCell.m in Sources */,
+				E96FB50A19A353B500CB7306 /* MeasureNavigationController.m in Sources */,
+				E96FB50B19A353B500CB7306 /* AFXMLRequestOperation.m in Sources */,
+				E96FB50C19A353B500CB7306 /* UIImageView+AFNetworking.m in Sources */,
+				E96FB50D19A353B500CB7306 /* VaavudAPIHTTPClient.m in Sources */,
+				E96FB50E19A353B500CB7306 /* MeasurementAnnotation.m in Sources */,
+				E96FB50F19A353B500CB7306 /* ServerUploadManager.m in Sources */,
+				E96FB51019A353B500CB7306 /* HistoryTableViewSectionHeaderView.m in Sources */,
+				E96FB51119A353B500CB7306 /* MagicalImportFunctions.m in Sources */,
+				E96FB51219A353B500CB7306 /* UIColor+VaavudColors.m in Sources */,
+				E96FB51319A353B500CB7306 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
+				E96FB51419A353B500CB7306 /* FormatUtil.m in Sources */,
+				E96FB51519A353B500CB7306 /* NSEntityDescription+MagicalDataImport.m in Sources */,
+				E96FB51619A353B500CB7306 /* NSNumber+MagicalDataImport.m in Sources */,
+				E96FB51719A353B500CB7306 /* NSObject+MagicalDataImport.m in Sources */,
+				E96FB51819A353B500CB7306 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
+				E96FB51919A353B500CB7306 /* ParentViewController.m in Sources */,
+				E96FB51A19A353B500CB7306 /* HistoryTableViewController.m in Sources */,
+				E96FB51B19A353B500CB7306 /* NSString+MagicalDataImport.m in Sources */,
+				E96FB51C19A353B500CB7306 /* NSManagedObject+MagicalAggregation.m in Sources */,
+				E96FB51D19A353B500CB7306 /* UnitSelectionViewController.m in Sources */,
+				E96FB51E19A353B500CB7306 /* TermsPrivacyNavigationController.m in Sources */,
+				E96FB51F19A353B500CB7306 /* NSManagedObject+MagicalDataImport.m in Sources */,
+				E96FB52019A353B500CB7306 /* LogInViewController.m in Sources */,
+				E96FB52119A353B500CB7306 /* NSManagedObject+MagicalFinders.m in Sources */,
+				E96FB52219A353B500CB7306 /* NSManagedObject+MagicalRecord.m in Sources */,
+				E96FB52319A353B500CB7306 /* LoadingHistoryViewController.m in Sources */,
+				E96FB52419A353B500CB7306 /* GuidedTextField.m in Sources */,
+				E96FB52519A353B500CB7306 /* HistoryTableViewCell.m in Sources */,
+				E96FB52619A353B500CB7306 /* NSManagedObject+MagicalRequests.m in Sources */,
+				E96FB52719A353B500CB7306 /* NSManagedObjectContext+MagicalObserving.m in Sources */,
+				E96FB52819A353B500CB7306 /* AccountManager.m in Sources */,
+				E96FB52919A353B500CB7306 /* RegisterViewController.m in Sources */,
+				E96FB52A19A353B500CB7306 /* MeasurementSession.m in Sources */,
+				E96FB52B19A353B500CB7306 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
+				E96FB52C19A353B500CB7306 /* NoHistoryViewController.m in Sources */,
+				E96FB52D19A353B500CB7306 /* NSManagedObjectContext+MagicalSaves.m in Sources */,
+				E96FB52E19A353B500CB7306 /* NSManagedObjectContext+MagicalThreading.m in Sources */,
+				E96FB52F19A353B500CB7306 /* TMDiskCache.m in Sources */,
+				E96FB53019A353B500CB7306 /* NoHistoryArrowView.m in Sources */,
+				E96FB53119A353B500CB7306 /* NSManagedObjectModel+MagicalRecord.m in Sources */,
+				E96FB53219A353B500CB7306 /* NSPersistentStore+MagicalRecord.m in Sources */,
+				E96FB53319A353B500CB7306 /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
+				E96FB53419A353B500CB7306 /* FirstTimeFlowController.m in Sources */,
+				E96FB53519A353B500CB7306 /* MeasurementCalloutView.m in Sources */,
+				E96FB53619A353B500CB7306 /* MagicalRecord+Actions.m in Sources */,
+				E96FB53719A353B500CB7306 /* MagicalRecord+ErrorHandling.m in Sources */,
+				E96FB53819A353B500CB7306 /* FirstTimeExplanationViewController.m in Sources */,
+				E96FB53919A353B500CB7306 /* MagicalRecord+iCloud.m in Sources */,
+				E96FB53A19A353B500CB7306 /* MagicalRecord+Options.m in Sources */,
+				E96FB53B19A353B500CB7306 /* TabBarController.m in Sources */,
+				E96FB53C19A353B500CB7306 /* MagicalRecord+Setup.m in Sources */,
+				E96FB53D19A353B500CB7306 /* MagicalRecord+ShorthandSupport.m in Sources */,
+				E96FB53E19A353B500CB7306 /* MagicalRecord.m in Sources */,
+				E96FB53F19A353B500CB7306 /* MapViewController.m in Sources */,
+				E96FB54019A353B500CB7306 /* DictionarySerializationUtil.m in Sources */,
+				E96FB54119A353B500CB7306 /* MeasurementPoint.m in Sources */,
+				E96FB54219A353B500CB7306 /* UUIDUtil.m in Sources */,
+				E96FB54319A353B500CB7306 /* LocationManager.m in Sources */,
+				E96FB54419A353B500CB7306 /* Property+Util.m in Sources */,
+				E96FB54519A353B500CB7306 /* AlgorithmConstantsUtil.m in Sources */,
+				E96FB54619A353B500CB7306 /* Property.m in Sources */,
+				E96FB54719A353B500CB7306 /* MeasurementSession+Util.m in Sources */,
+				E96FB54819A353B500CB7306 /* ShareDialog.m in Sources */,
+				E96FB54919A353B500CB7306 /* MeasurementPoint+Util.m in Sources */,
+				E96FB54A19A353B500CB7306 /* ModelManager.m in Sources */,
+				E96FB54B19A353B500CB7306 /* QueryStringUtil.m in Sources */,
+				E96FB54C19A353B500CB7306 /* HistoryRootViewController.m in Sources */,
+				E96FB54D19A353B500CB7306 /* TMMemoryCache.m in Sources */,
+				E96FB54E19A353B500CB7306 /* UnitUtil.m in Sources */,
+				E96FB54F19A353B500CB7306 /* Terms.m in Sources */,
+				E96FB55019A353B500CB7306 /* TermsViewController.m in Sources */,
+				E96FB55119A353B500CB7306 /* SignUpViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1690,6 +2138,62 @@
 			};
 			name = Release;
 		};
+		E96FB5AA19A353B500CB7306 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E0A1A9D801049A6BFBEF37D /* Pods.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					.,
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
+				INFOPLIST_FILE = "Agriculture-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/VaavudCore\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = Agriculture;
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		E96FB5AB19A353B500CB7306 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1E0A1A9D801049A6BFBEF37D /* Pods.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					.,
+					"$(PROJECT_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
+				INFOPLIST_FILE = "Agriculture-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/VaavudCore\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = Agriculture;
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1707,6 +2211,15 @@
 			buildConfigurations = (
 				D7A4F1EB173A8DDB00D1ACEE /* Debug */,
 				D7A4F1EC173A8DDB00D1ACEE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E96FB5A919A353B500CB7306 /* Build configuration list for PBXNativeTarget "Agriculture" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E96FB5AA19A353B500CB7306 /* Debug */,
+				E96FB5AB19A353B500CB7306 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
