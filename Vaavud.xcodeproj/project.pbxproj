@@ -302,6 +302,8 @@
 		E9A4099C18AA501D004F1C12 /* PasswordUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099B18AA501D004F1C12 /* PasswordUtil.m */; };
 		E9A4099F18AA75C6004F1C12 /* RegisterNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */; };
 		E9A409A818AB9B80004F1C12 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A409A718AB9B80004F1C12 /* LogInViewController.m */; };
+		E9AE301B19A36A25004A79C4 /* Agriculture.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9AE301A19A36A25004A79C4 /* Agriculture.storyboard */; };
+		E9AE301C19A36A25004A79C4 /* Agriculture.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9AE301A19A36A25004A79C4 /* Agriculture.storyboard */; };
 		E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */; };
 		E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */; };
 		E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */; };
@@ -628,6 +630,7 @@
 		E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterNavigationController.m; sourceTree = "<group>"; };
 		E9A409A618AB9B80004F1C12 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
 		E9A409A718AB9B80004F1C12 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
+		E9AE301A19A36A25004A79C4 /* Agriculture.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Agriculture.storyboard; sourceTree = "<group>"; };
 		E9AF2B8017F32A9800BDF6D9 /* SMCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCalloutView.h; sourceTree = "<group>"; };
 		E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMCalloutView.m; sourceTree = "<group>"; };
 		E9AF2B8317F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSMCalloutDrawnBackgroundView.h; sourceTree = "<group>"; };
@@ -964,6 +967,7 @@
 		D7A4F1D0173A8DDB00D1ACEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E9AE301919A369EF004A79C4 /* Agriculture */,
 				D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */,
 				E904AC9C17F1939C00171F7F /* Map */,
 				E9EE1FA51769EC7F00D1F006 /* Model */,
@@ -1181,6 +1185,14 @@
 				E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		E9AE301919A369EF004A79C4 /* Agriculture */ = {
+			isa = PBXGroup;
+			children = (
+				E9AE301A19A36A25004A79C4 /* Agriculture.storyboard */,
+			);
+			name = Agriculture;
 			sourceTree = "<group>";
 		};
 		E9AF2B7F17F32A5900BDF6D9 /* NFarinaCalloutView */ = {
@@ -1570,6 +1582,7 @@
 				E972380F1959A0A70003A9E4 /* Default-568h@2x~iphone.png in Resources */,
 				E97238161959A0A70003A9E4 /* Default-Landscape~ipad.png in Resources */,
 				E91D420E198BDFEA00106E15 /* 003_sign_up@2x.jpg in Resources */,
+				E9AE301B19A36A25004A79C4 /* Agriculture.storyboard in Resources */,
 				E9FABFD718929050009C4C46 /* history.png in Resources */,
 				E9FABFD618929050009C4C46 /* history_selected@2x.png in Resources */,
 				E97238151959A0A70003A9E4 /* Default-Landscape@2x~ipad.png in Resources */,
@@ -1645,6 +1658,7 @@
 				E96FB57C19A353B500CB7306 /* Default-568h@2x~iphone.png in Resources */,
 				E96FB57D19A353B500CB7306 /* Default-Landscape~ipad.png in Resources */,
 				E96FB57E19A353B500CB7306 /* 003_sign_up@2x.jpg in Resources */,
+				E9AE301C19A36A25004A79C4 /* Agriculture.storyboard in Resources */,
 				E96FB57F19A353B500CB7306 /* history.png in Resources */,
 				E96FB58019A353B500CB7306 /* history_selected@2x.png in Resources */,
 				E96FB58119A353B500CB7306 /* Default-Landscape@2x~ipad.png in Resources */,
@@ -2095,6 +2109,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CORE=1",
+				);
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -2123,6 +2142,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"CORE=1",
+				);
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -2151,6 +2175,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"AGRI=1",
+				);
 				INFOPLIST_FILE = "Agriculture-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -2179,6 +2208,11 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"AGRI=1",
+				);
 				INFOPLIST_FILE = "Agriculture-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = (
