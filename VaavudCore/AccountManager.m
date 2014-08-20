@@ -339,11 +339,6 @@ BOOL isDoingLogout = NO;
                 [Property setAsBoolean:([hasWindMeter integerValue] == 1) forKey:KEY_USER_HAS_WIND_METER];
             }
             
-            NSNumber *enableShareFeature = [responseObject objectForKey:@"enableShareFeature"];
-            if (enableShareFeature && ![enableShareFeature isEqual:[NSNull null]]) {
-                [Property setAsBoolean:([enableShareFeature integerValue] == 1) forKey:KEY_ENABLE_SHARE_FEATURE];
-            }
-
             // indentify in Mixpanel and possibly create alias
             if ([Property isMixpanelEnabled]) {
                 Mixpanel *mixpanel = [Mixpanel sharedInstance];

@@ -32,7 +32,6 @@ static NSString * const KEY_HOUR_OPTIONS = @"hourOptions";
 static NSString * const KEY_ENABLE_MIXPANEL = @"enableMixPanel";
 static NSString * const KEY_ENABLE_FACEBOOK_DISCLAIMER = @"enableFacebookDisclaimer";
 static NSString * const KEY_ENABLE_SHARE_DIALOG = @"enableShareDialog";
-static NSString * const KEY_ENABLE_SHARE_FEATURE = @"enableShareFeature";
 static NSString * const KEY_HAS_SEEN_INTRO_FLOW = @"hasSeenIntroFlow";
 static NSString * const KEY_MAP_GUIDE_MARKER_SHOWN = @"mapGuideMarkerShown";
 static NSString * const KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN = @"mapGuideTimeIntervalShown";
