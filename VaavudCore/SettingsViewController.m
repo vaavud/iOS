@@ -20,7 +20,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) UIWebView *webView;
 @property (nonatomic, strong) UISwitch *facebookSharingSwitch;
-@property (nonatomic) BOOL enableShareFeature;
 
 @end
 
@@ -28,8 +27,6 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    
-    self.enableShareFeature = [Property getAsBoolean:KEY_ENABLE_SHARE_FEATURE defaultValue:NO];
     
     if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
         self.navigationController.navigationBar.tintColor = [UIColor blackColor];
@@ -112,7 +109,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.enableShareFeature ? 5 : 4;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -126,7 +123,7 @@
         cell.accessoryView = nil;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
-    else if (self.enableShareFeature && indexPath.item == 1) {
+    else if (indexPath.item == 1) {
         cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"switchCell"];
         
         if (!cell) {
@@ -145,21 +142,21 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor colorWithWhite:248.0/255.0 alpha:1.0];
     }
-    else if ((self.enableShareFeature && indexPath.item == 2) || (!self.enableShareFeature && indexPath.item == 1)) {
+    else if (indexPath.item == 2) {
         cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
         cell.textLabel.text = NSLocalizedString(@"SETTINGS_SHOP_LINK", nil);
         cell.detailTextLabel.text = nil;
         cell.accessoryView = nil;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
-    else if ((self.enableShareFeature && indexPath.item == 3) || (!self.enableShareFeature && indexPath.item == 2)) {
+    else if (indexPath.item == 3) {
         cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
         cell.textLabel.text = NSLocalizedString(@"SETTINGS_MEASURING_TIPS", nil);
         cell.detailTextLabel.text = nil;
         cell.accessoryView = nil;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
-    else if ((self.enableShareFeature && indexPath.item == 4) || (!self.enableShareFeature && indexPath.item == 3)) {
+    else if (indexPath.item == 4) {
         cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
         cell.textLabel.text = NSLocalizedString(@"ABOUT_TITLE", nil);
         cell.detailTextLabel.text = nil;
@@ -173,7 +170,7 @@
 }
 
 - (NSIndexPath*) tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.enableShareFeature && indexPath.item == 1) {
+    if (indexPath.item == 1) {
         return nil;
     }
     return indexPath;
@@ -186,7 +183,7 @@
     if (indexPath.item == 0) {
         [self performSegueWithIdentifier:@"unitSegue" sender:self];
     }
-    else if ((self.enableShareFeature && indexPath.item == 2) || (!self.enableShareFeature && indexPath.item == 1)) {
+    else if (indexPath.item == 2) {
         
         [[Mixpanel sharedInstance] track:@"Settings Clicked Buy"];
 
@@ -196,12 +193,12 @@
         NSString *url = [NSString stringWithFormat:@"http://vaavud.com/mobile-shop-redirect/?country=%@&language=%@&ref=%@&source=settings", country, language, mixpanelId];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
     }
-    else if ((self.enableShareFeature && indexPath.item == 3) || (!self.enableShareFeature && indexPath.item == 2)) {
+    else if (indexPath.item == 3) {
         
         [[Mixpanel sharedInstance] track:@"Settings Clicked Measuring Tips"];
         [FirstTimeFlowController gotoInstructionFlowFrom:self returnViaDismiss:YES];
     }
-    else if ((self.enableShareFeature && indexPath.item == 4) || (!self.enableShareFeature && indexPath.item == 3)) {
+    else if (indexPath.item == 4) {
         [self performSegueWithIdentifier:@"aboutSegue" sender:self];
     }
 }

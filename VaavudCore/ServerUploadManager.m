@@ -318,11 +318,6 @@ SHARED_INSTANCE
             }
         }
         
-        NSNumber *enableShareFeature = [responseObject objectForKey:@"enableShareFeature"];
-        if (enableShareFeature && ![enableShareFeature isEqual:[NSNull null]]) {
-            [Property setAsBoolean:([enableShareFeature integerValue] == 1) forKey:KEY_ENABLE_SHARE_FEATURE];
-        }
-
         // only trigger upload once we get OK from server for registering device, otherwise the device could be unregistered when uploading
         [self triggerUpload];
         
