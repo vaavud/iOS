@@ -9,6 +9,7 @@
 #import "NoHistoryViewController.h"
 #import "Mixpanel.h"
 #import "Property+Util.h"
+#import "UIColor+VaavudColors.h"
 
 @interface NoHistoryViewController ()
 
@@ -31,6 +32,8 @@
     self.navigationItem.title = NSLocalizedString(@"HISTORY_TITLE", nil);
     self.noMeasurementsLabel.text = NSLocalizedString(@"HISTORY_NO_MEASUREMENTS", nil);
     self.gotoMeasureLabel.text = NSLocalizedString(@"HISTORY_GO_TO_MEASURE", nil);
+    
+    self.noMeasurementsLabel.textColor = [UIColor vaavudColor];
     
     self.noMeasurementsLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.noMeasurementsLabel.numberOfLines = 0;

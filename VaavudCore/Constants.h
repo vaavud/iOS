@@ -6,6 +6,9 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
+#define MACRO_NAME(f) #f
+#define MACRO_VALUE(f)  MACRO_NAME(f)
+
 #define APP "Vaavud"
 
 #define preferedSampleFrequency 100 // actual is arround 63 

@@ -9,6 +9,7 @@
 #import "AgriLoginViewController.h"
 #import "Mixpanel.h"
 #import "Property+Util.h"
+#import "ServerUploadManager.h"
 
 @interface AgriLoginViewController ()
 
@@ -112,6 +113,9 @@
             UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
             [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
         }
+        
+        [[ServerUploadManager sharedInstance] syncHistory:1 ignoreGracePeriod:YES success:nil failure:nil];
+
     } failure:^(enum AuthenticationResponseType response) {
 
         [self.activityIndicator stopAnimating];

@@ -30,7 +30,7 @@
 
 - (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
 
-    [TestFlight takeOff:@"1b4310d3-6215-4ff5-a881-dd67a6d7ab91"];
+    [TestFlight takeOff:[[NSString alloc] initWithCString:MACRO_VALUE(TESTFLIGHT_TOKEN) encoding:NSASCIIStringEncoding]];
 
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
