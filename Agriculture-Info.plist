@@ -61,17 +61,18 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLName</key>
 			<string>com.vaavud</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb624217360948538</string>
-				<string>vaavud</string>
+				<string>vaavudagri</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1.60</string>
+	<string>1.61</string>
 	<key>FacebookAppID</key>
 	<string>624217360948538</string>
 	<key>FacebookDisplayName</key>

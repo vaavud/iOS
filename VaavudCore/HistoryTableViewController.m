@@ -16,6 +16,7 @@
 #import "Property+Util.h"
 #import "Mixpanel.h"
 #import "ServerUploadManager.h"
+#import "UIColor+VaavudColors.h"
 
 @interface HistoryTableViewController ()
 
@@ -142,16 +143,6 @@
         [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
         [request setCachePolicy:NSURLRequestReturnCacheDataElseLoad];
         
-        /*
-         NSURLCache *cache = [NSURLCache sharedURLCache];
-         NSCachedURLResponse *cachedResponse = [cache cachedResponseForRequest:request];
-         BOOL cachedHit = (cachedResponse != nil);
-         NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init];
-         [dayFormatter setDateFormat:@"dd-MM HH:mm"];
-         NSString *dtime = [dayFormatter stringFromDate:session.startTime];
-         NSLog(@"%@ h=%d (%f,%f)", dtime, cachedHit, [session.latitude doubleValue], [session.longitude doubleValue]);
-         */
-        
         [cell.mapImageView setCachedImageWithURLRequest:request placeholderImage:self.placeholderImage success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
             if (image) {
                 //NSLog(@"%@, Cache-Control:%@", dtime, [response.allHeaderFields valueForKey:@"Cache-Control"]);
@@ -181,6 +172,7 @@
     else {
         cell.maxLabel.text = @" -";
     }
+    cell.maxLabel.textColor = [UIColor vaavudColor];
     
     NSString *unitName = [UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit];
     cell.unitLabel.text = unitName;

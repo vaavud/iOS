@@ -12,6 +12,7 @@
 #import "UIImageView+TMCache.h"
 #import "FormatUtil.h"
 #import "MeasurementTableViewCell.h"
+#import "UIColor+VaavudColors.h"
 
 static NSString *cellIdentifier = @"MeasurementCell";
 
@@ -55,6 +56,7 @@ BOOL isTableInitialized = NO;
     else {
         self.maxLabel.text = @"-";
     }
+    self.maxLabel.textColor = [UIColor vaavudColor];
     
     NSString *unitName = [UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit];
     self.avgUnitLabel.text = unitName;

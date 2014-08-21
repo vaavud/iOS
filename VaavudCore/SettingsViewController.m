@@ -55,6 +55,14 @@
     [self.tableView reloadData];
 }
 
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:@"Settings Screen"];
+    }
+}
+
 - (void) refreshLogoutButton {
     if ([[AccountManager sharedInstance] isLoggedIn]) {
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGOUT", nil) style:UIBarButtonItemStylePlain target:self action:@selector(logoutButtonPushed)];
@@ -81,9 +89,15 @@
         if ([[AccountManager sharedInstance] isLoggedIn]) {
             [[AccountManager sharedInstance] logout];
 
+#ifdef AGRI
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Agriculture" bundle:nil];
+            UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"AgriLoginViewController"];
+            [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
+#elif CORE
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
             UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
             [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
+#endif
         }
     }
 }

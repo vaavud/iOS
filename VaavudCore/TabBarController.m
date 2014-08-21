@@ -43,7 +43,7 @@
         self.tabBar.tintColor = [UIColor clearColor];
     }
     else {
-        self.tabBar.tintColor = [UIColor vaavudBlueColor];
+        self.tabBar.tintColor = [UIColor vaavudColor];
     }
     
     NSArray* topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"GuideView" owner:self options:nil];

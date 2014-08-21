@@ -68,7 +68,16 @@
     self.customNavigationBar.backgroundColor = [UIColor clearColor];
     self.view.backgroundColor = [UIColor clearColor];
     self.customNavigationBar.tintColor = [UIColor whiteColor];
+    
+#ifdef AGRI
+    
+    self.customNavigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"agri-logo.png"]];
+    
+#elif CORE
+    
     self.customNavigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
+    
+#endif
 
     // Bring the common controls to the foreground (they were hidden since the frame is taller)
     [self.view bringSubviewToFront:self.pageControl];

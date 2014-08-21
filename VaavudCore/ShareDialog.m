@@ -9,6 +9,7 @@
 #import "ShareDialog.h"
 #import "AccountManager.h"
 #import "ImageUtil.h"
+#import "UIColor+VaavudColors.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 @interface ShareDialog ()
@@ -47,6 +48,12 @@
         [self.cancelButton setTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) forState:UIControlStateNormal];
         
         self.textView.delegate = self;
+        
+#ifdef AGRI
+        [self.okButton setTitleColor:[UIColor vaavudColor] forState:UIControlStateNormal];
+        [self.cancelButton setTitleColor:[UIColor vaavudColor] forState:UIControlStateNormal];
+#endif
+        
     }
 
     [super layoutSubviews];

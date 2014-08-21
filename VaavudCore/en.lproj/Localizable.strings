@@ -123,3 +123,5 @@
 "MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Change time interval and unit of measure by tapping on the text.";
 "MAP_GUIDE_ZOOM_TITLE" = "Quick Zoom";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "Tap on the map thumbnail to zoom to the exact location.";
+
+"AGRI_REGISTER_BUTTON" = "Register";

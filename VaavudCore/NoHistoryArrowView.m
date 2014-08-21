@@ -19,7 +19,7 @@
 - (void) drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 1.0);
-    CGContextSetStrokeColorWithColor(context, [UIColor vaavudBlueColor].CGColor);
+    CGContextSetStrokeColorWithColor(context, [UIColor vaavudColor].CGColor);
     
     CGFloat dashArray[] = {8,4};
     CGContextSetLineDash(context, 0, dashArray, 2);

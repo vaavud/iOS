@@ -18,6 +18,7 @@
 #import "Mixpanel.h"
 #import "Property+Util.h"
 #import "UnitUtil.h"
+#import "UIColor+VaavudColors.h"
 
 @interface vaavudAppDelegate()
 
@@ -67,20 +68,45 @@
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     UIViewController *viewController = nil;
     
-    if ([Property getAsBoolean:KEY_HAS_SEEN_INTRO_FLOW defaultValue:NO]) {
+#ifdef AGRI
+    
+    // AGRICULTURE APP
+    
+    if ([self.window respondsToSelector:@selector(setTintColor:)]) {
+        UIColor *vaavudColor = [UIColor vaavudColor];
+        self.window.tintColor = vaavudColor;
+        [[UINavigationBar appearance] setTintColor:vaavudColor];
+    }
+    
+    if ([[AccountManager sharedInstance] isLoggedIn]) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        viewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+    }
+    else {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Agriculture" bundle:nil];
+        viewController = [storyboard instantiateViewControllerWithIdentifier:@"AgriLoginViewController"];
+    }
 
+#elif CORE
+    
+    // CORE VAAVUD APP
+    
+    if ([Property getAsBoolean:KEY_HAS_SEEN_INTRO_FLOW defaultValue:NO]) {
+        
         // normal case...
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         viewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
     }
     else {
-
+        
         // first-time case...
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         viewController = [storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
     }
+
+#endif
     
     self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];

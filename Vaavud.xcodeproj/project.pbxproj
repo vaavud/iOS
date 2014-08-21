@@ -302,6 +302,12 @@
 		E9A4099C18AA501D004F1C12 /* PasswordUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099B18AA501D004F1C12 /* PasswordUtil.m */; };
 		E9A4099F18AA75C6004F1C12 /* RegisterNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */; };
 		E9A409A818AB9B80004F1C12 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A409A718AB9B80004F1C12 /* LogInViewController.m */; };
+		E9AB11D919A60DF3000C6FB1 /* AgriLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AB11D819A60DF3000C6FB1 /* AgriLoginViewController.m */; };
+		E9AB11DA19A60DF3000C6FB1 /* AgriLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AB11D819A60DF3000C6FB1 /* AgriLoginViewController.m */; };
+		E9AB11DC19A615B4000C6FB1 /* Agri-Login-Logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9AB11DB19A615B4000C6FB1 /* Agri-Login-Logo@2x.png */; };
+		E9AB11DD19A615B4000C6FB1 /* Agri-Login-Logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9AB11DB19A615B4000C6FB1 /* Agri-Login-Logo@2x.png */; };
+		E9AB11DF19A631BF000C6FB1 /* agri-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9AB11DE19A631BF000C6FB1 /* agri-logo@2x.png */; };
+		E9AB11E019A631BF000C6FB1 /* agri-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9AB11DE19A631BF000C6FB1 /* agri-logo@2x.png */; };
 		E9AE301B19A36A25004A79C4 /* Agriculture.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9AE301A19A36A25004A79C4 /* Agriculture.storyboard */; };
 		E9AE301C19A36A25004A79C4 /* Agriculture.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9AE301A19A36A25004A79C4 /* Agriculture.storyboard */; };
 		E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */; };
@@ -630,6 +636,10 @@
 		E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterNavigationController.m; sourceTree = "<group>"; };
 		E9A409A618AB9B80004F1C12 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
 		E9A409A718AB9B80004F1C12 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
+		E9AB11D719A60DF3000C6FB1 /* AgriLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriLoginViewController.h; sourceTree = "<group>"; };
+		E9AB11D819A60DF3000C6FB1 /* AgriLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriLoginViewController.m; sourceTree = "<group>"; };
+		E9AB11DB19A615B4000C6FB1 /* Agri-Login-Logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Agri-Login-Logo@2x.png"; sourceTree = SOURCE_ROOT; };
+		E9AB11DE19A631BF000C6FB1 /* agri-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "agri-logo@2x.png"; sourceTree = SOURCE_ROOT; };
 		E9AE301A19A36A25004A79C4 /* Agriculture.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Agriculture.storyboard; sourceTree = "<group>"; };
 		E9AF2B8017F32A9800BDF6D9 /* SMCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCalloutView.h; sourceTree = "<group>"; };
 		E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMCalloutView.m; sourceTree = "<group>"; };
@@ -1187,9 +1197,29 @@
 			name = Login;
 			sourceTree = "<group>";
 		};
+		E9AB11D319A60B7E000C6FB1 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				E9AB11DE19A631BF000C6FB1 /* agri-logo@2x.png */,
+				E9AB11DB19A615B4000C6FB1 /* Agri-Login-Logo@2x.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		E9AB11D619A60D68000C6FB1 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				E9AB11D719A60DF3000C6FB1 /* AgriLoginViewController.h */,
+				E9AB11D819A60DF3000C6FB1 /* AgriLoginViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 		E9AE301919A369EF004A79C4 /* Agriculture */ = {
 			isa = PBXGroup;
 			children = (
+				E9AB11D619A60D68000C6FB1 /* Login */,
+				E9AB11D319A60B7E000C6FB1 /* Images */,
 				E9AE301A19A36A25004A79C4 /* Agriculture.storyboard */,
 			);
 			name = Agriculture;
@@ -1567,6 +1597,7 @@
 				D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */,
 				E97238181959A0A70003A9E4 /* Default@2x~ipad.png in Resources */,
 				E91D4215198F7A9800106E15 /* GuideView.xib in Resources */,
+				E9AB11DC19A615B4000C6FB1 /* Agri-Login-Logo@2x.png in Resources */,
 				E9CB327A19869B110043C8CE /* camera@2x.png in Resources */,
 				E91535B91806C2D20070BFB4 /* map.png in Resources */,
 				E91535BA1806C2D20070BFB4 /* map@2x.png in Resources */,
@@ -1623,6 +1654,7 @@
 				E91D420F198BDFEA00106E15 /* 004_wind_meter@2x.jpg in Resources */,
 				E91D4210198BDFEA00106E15 /* 005_paraglider@2x.jpg in Resources */,
 				E907093E193F4AFB0087F80F /* SettingsIcon.png in Resources */,
+				E9AB11DF19A631BF000C6FB1 /* agri-logo@2x.png in Resources */,
 				E91535CA180840D70070BFB4 /* map_selected@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1643,6 +1675,7 @@
 				E96FB56D19A353B500CB7306 /* MainStoryboard.storyboard in Resources */,
 				E96FB56E19A353B500CB7306 /* Default@2x~ipad.png in Resources */,
 				E96FB56F19A353B500CB7306 /* GuideView.xib in Resources */,
+				E9AB11DD19A615B4000C6FB1 /* Agri-Login-Logo@2x.png in Resources */,
 				E96FB57019A353B500CB7306 /* camera@2x.png in Resources */,
 				E96FB57119A353B500CB7306 /* map.png in Resources */,
 				E96FB57219A353B500CB7306 /* map@2x.png in Resources */,
@@ -1699,6 +1732,7 @@
 				E96FB5A419A353B500CB7306 /* 004_wind_meter@2x.jpg in Resources */,
 				E96FB5A519A353B500CB7306 /* 005_paraglider@2x.jpg in Resources */,
 				E96FB5A619A353B500CB7306 /* SettingsIcon.png in Resources */,
+				E9AB11E019A631BF000C6FB1 /* agri-logo@2x.png in Resources */,
 				E96FB5A719A353B500CB7306 /* map_selected@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1828,6 +1862,7 @@
 				E9CD2244177B2AEA0054ED3F /* NSManagedObject+MagicalFinders.m in Sources */,
 				E9CD2245177B2AEA0054ED3F /* NSManagedObject+MagicalRecord.m in Sources */,
 				E957593A193E222D00B5D0AE /* LoadingHistoryViewController.m in Sources */,
+				E9AB11D919A60DF3000C6FB1 /* AgriLoginViewController.m in Sources */,
 				E9A4098718A26FEB004F1C12 /* GuidedTextField.m in Sources */,
 				E9FABFE1189294BD009C4C46 /* HistoryTableViewCell.m in Sources */,
 				E9CD2246177B2AEA0054ED3F /* NSManagedObject+MagicalRequests.m in Sources */,
@@ -1936,6 +1971,7 @@
 				E96FB52119A353B500CB7306 /* NSManagedObject+MagicalFinders.m in Sources */,
 				E96FB52219A353B500CB7306 /* NSManagedObject+MagicalRecord.m in Sources */,
 				E96FB52319A353B500CB7306 /* LoadingHistoryViewController.m in Sources */,
+				E9AB11DA19A60DF3000C6FB1 /* AgriLoginViewController.m in Sources */,
 				E96FB52419A353B500CB7306 /* GuidedTextField.m in Sources */,
 				E96FB52519A353B500CB7306 /* HistoryTableViewCell.m in Sources */,
 				E96FB52619A353B500CB7306 /* NSManagedObject+MagicalRequests.m in Sources */,

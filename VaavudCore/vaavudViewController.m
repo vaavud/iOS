@@ -80,10 +80,11 @@
     self.compassTableShort = [NSArray arrayWithObjects:  @"N",@"NE",@"E",@"SE",@"S",@"SW",@"W",@"NW", nil];
 
     // Set correct font text colors
-    UIColor *vaavudBlueUIcolor = [UIColor vaavudBlueColor];
+    UIColor *vaavudBlueUIcolor = [UIColor vaavudColor];
     self.actualLabel.textColor = vaavudBlueUIcolor;
     self.maxLabel.textColor = vaavudBlueUIcolor;
     [self.unitButton setTitleColor:vaavudBlueUIcolor forState:UIControlStateNormal];
+    self.statusBar.progressTintColor = vaavudBlueUIcolor;
     
     self.buttonShowsStart = YES;
     [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
@@ -91,11 +92,19 @@
     self.startStopButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.startStopButton.layer.masksToBounds = YES;
 
+#ifdef AGRI
+    
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"agri-logo.png"]];
+
+#elif CORE
+    
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
+
+#endif
     
     UIImage *aboutImage = [UIImage imageNamed:@"SettingsIcon.png"];
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        aboutImage = [aboutImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        //aboutImage = [aboutImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     }
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithImage:aboutImage style:UIBarButtonItemStylePlain target:self action:@selector(aboutButtonPushed)];
     self.navigationItem.rightBarButtonItem = item;
@@ -190,7 +199,7 @@
 
 - (NSTimeInterval) stop:(BOOL)onlyUI {
     self.buttonShowsStart = YES;
-    self.startStopButton.backgroundColor = [UIColor vaavudBlueColor];
+    self.startStopButton.backgroundColor = [UIColor vaavudColor];
     [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
 
     [self.displayLinkGraphUI invalidate];

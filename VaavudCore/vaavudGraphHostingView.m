@@ -7,6 +7,7 @@
 //
 
 #import "vaavudGraphHostingView.h"
+#import "UIColor+VaavudColors.h"
 
 // Support class plotIdentifier
 
@@ -42,7 +43,6 @@
     return copy;
 }
 
-
 - (id) initWithCoder:(NSCoder *)aDecoder
 {
     self = [super init];
@@ -62,12 +62,7 @@
 
 @end
 
-
-
-
-
 @interface vaavudGraphHostingView ()
-
 
 @property (nonatomic, strong)   NSMutableArray *dataForPlotX;
 @property (nonatomic, strong)   NSMutableArray *dataForPlotY;
@@ -237,7 +232,14 @@ enum plotName : NSUInteger {
     lineStyle.miterLimit                = 1.0f;
     lineStyle.lineWidth                 = 4.0f;
     
-    CPTColor *vaavudBlue                = [[CPTColor alloc] initWithComponentRed: 0 green: (float) 174/255 blue: (float) 239/255 alpha: 1 ];
+    UIColor *vaavudColor = [UIColor vaavudColor];
+    CGFloat red;
+    CGFloat green;
+    CGFloat blue;
+    CGFloat alpha;
+    [vaavudColor getRed:&red green:&green blue:&blue alpha:&alpha];
+    
+    CPTColor *vaavudBlue                = [[CPTColor alloc] initWithComponentRed: red green: green blue: blue alpha: alpha ];
     lineStyle.lineColor                 = vaavudBlue;
     windSpeedLinePlot.dataLineStyle     = lineStyle;
     windSpeedLinePlot.identifier        = [[VaavudPlotIdentifier alloc] initWithPlotType: windSpeedPlot andWindSpeedPlotIndex: self.windSpeedPlotCounter];
