@@ -70,6 +70,26 @@ static NSSet* countriesUsingMph;
     }
 }
 
++ (NSString*) englishDisplayNameForWindSpeedUnit:(WindSpeedUnit) unit {
+    if (unit == WindSpeedUnitMS) {
+        return @"m/s";
+    }
+    else if (unit == WindSpeedUnitMPH) {
+        return @"mph";
+    }
+    else if (unit == WindSpeedUnitKN) {
+        return @"knots";
+    }
+    else if (unit == WindSpeedUnitBFT) {
+        return @"bft";
+    }
+    else {
+        // default to km/h
+        return @"km/h";
+    }
+}
+
+
 + (double) displayWindSpeedFromDouble:(double) windSpeedMS unit:(WindSpeedUnit) unit {
     if (unit == WindSpeedUnitMS) {
         return windSpeedMS;

@@ -335,7 +335,13 @@
         NSTimeInterval durationSecounds = [self stop:NO];
 
         if ([Property isMixpanelEnabled]) {
-            [[Mixpanel sharedInstance] track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)]}];
+            
+            if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F)) {
+                [[Mixpanel sharedInstance] track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)], @"Avg Wind Speed": self.averageLabelCurrentValue, @"Max Wind Speed": self.maxLabelCurrentValue}];
+            }
+            else {
+                [[Mixpanel sharedInstance] track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)]}];
+            }
         }
         
         [self promptForFacebookSharing];
@@ -468,12 +474,12 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (NSNumber*) shareAvgSpeed {
-    return self.averageLabelCurrentValue;
+- (double) shareAvgSpeed {
+    return [UnitUtil displayWindSpeedFromDouble:[self.averageLabelCurrentValue doubleValue] unit:self.windSpeedUnit];
 }
 
-- (NSNumber*) shareMaxSpeed {
-    return self.maxLabelCurrentValue;
+- (double) shareMaxSpeed {
+    return [UnitUtil displayWindSpeedFromDouble:[self.maxLabelCurrentValue doubleValue] unit:self.windSpeedUnit];
 }
 
 - (NSNumber*) shareLatitude {
@@ -482,6 +488,10 @@
 
 - (NSNumber*) shareLongitude {
     return self.vaavudCoreController.currentLongitude;
+}
+
+- (NSString*) shareUnit {
+    return [UnitUtil englishDisplayNameForWindSpeedUnit:self.windSpeedUnit];
 }
 
 @end
