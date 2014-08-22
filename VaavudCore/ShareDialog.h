@@ -20,10 +20,11 @@
 - (void) presentViewControllerFromShareDialog:(UIViewController*)viewController;
 - (void) dismissViewControllerFromShareDialog;
 - (void) startShareActivityIndicator;
-- (NSNumber*) shareAvgSpeed;
-- (NSNumber*) shareMaxSpeed;
+- (double) shareAvgSpeed;
+- (double) shareMaxSpeed;
 - (NSNumber*) shareLatitude;
 - (NSNumber*) shareLongitude;
+- (NSString*) shareUnit;
 
 @end
 

@@ -33,4 +33,6 @@ typedef enum {
 
 + (NSNumber*) displayWindSpeedFromNumber:(NSNumber*) windSpeedMS unit:(WindSpeedUnit) unit;
 
++ (NSString*) englishDisplayNameForWindSpeedUnit:(WindSpeedUnit) unit;
+
 @end

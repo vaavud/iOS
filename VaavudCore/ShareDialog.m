@@ -244,16 +244,17 @@
     
     id<FBGraphObject> object =
     [FBGraphObject openGraphObjectForPostWithType:[@"vaavudapp:" stringByAppendingString:objectName]
-                                            title:[NSString stringWithFormat:@"%.2f m/s", [[self.delegate shareAvgSpeed] floatValue]]
+                                            title:[NSString stringWithFormat:@"%.2f %@", [self.delegate shareAvgSpeed], [self.delegate shareUnit]]
                                             image:@"http://vaavud.com/FacebookOpenGraphObjectImage.png"
                                               url:@"http://www.vaavud.com"
-                                      description:[NSString stringWithFormat:@"Max wind speed: %.2f m/s", [[self.delegate shareMaxSpeed] floatValue]]];
+                                      description:[NSString stringWithFormat:@"Max wind speed: %.2f %@", [self.delegate shareMaxSpeed], [self.delegate shareUnit]]];
     
     [object setObject:@"en_US" forKey:@"locale"];
     
     NSMutableDictionary *data = [NSMutableDictionary dictionary];
-    [data setObject:[[self.delegate shareAvgSpeed] stringValue] forKey:@"speed"];
-    [data setObject:[[self.delegate shareMaxSpeed] stringValue] forKey:@"max_speed"];
+    [data setObject:[NSString stringWithFormat:@"%.2f", [self.delegate shareAvgSpeed]] forKey:@"speed"];
+    [data setObject:[NSString stringWithFormat:@"%.2f", [self.delegate shareMaxSpeed]] forKey:@"max_speed"];
+    [data setObject:[self.delegate shareUnit] forKey:@"unit"];
     
     NSNumber *currentLatitude = [self.delegate shareLatitude];
     NSNumber *currentLongitude = [self.delegate shareLongitude];
