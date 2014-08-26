@@ -216,12 +216,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="awb-Dl-s1K" userLabel="averageLabel">
-                                <rect key="frame" x="40" y="101" width="120" height="45"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="C8v-da-uQJ"/>
-                                    <constraint firstAttribute="height" constant="45" id="bvr-iY-ePE"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="50"/>
+                                <rect key="frame" x="40" y="101" width="7" height="39"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
                                 <color key="textColor" red="0.0" green="0.50196078431372548" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -234,25 +230,24 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vH5-bw-vXJ" userLabel="temperatureLabel">
-                                <rect key="frame" x="160" y="101" width="120" height="45"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="16.8" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vH5-bw-vXJ" userLabel="temperatureLabel">
+                                <rect key="frame" x="159" y="101" width="90" height="39"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="HIp-eW-BIE"/>
-                                    <constraint firstAttribute="width" constant="120" id="vCw-0r-T4t"/>
+                                    <constraint firstAttribute="width" constant="90" id="vCw-0r-T4t"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="50"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
                                 <color key="textColor" red="0.0" green="0.50196078431372548" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X5y-Nx-ciV" userLabel="Data Separator View">
-                                <rect key="frame" x="30" y="166" width="260" height="1"/>
+                                <rect key="frame" x="30" y="160" width="260" height="1"/>
                                 <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="RFl-DD-frw"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAE-aa-Rt2" customClass="vaavudGraphHostingView">
-                                <rect key="frame" x="10" y="172" width="284" height="207"/>
+                                <rect key="frame" x="10" y="166" width="284" height="213"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4li-GH-kZY" userLabel="Start/Stop Button">
@@ -316,6 +311,20 @@
                                     <action selector="nextButtonPushed:" destination="Xsf-1y-JfF" eventType="touchUpInside" id="5Th-92-MoA"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="°C" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jdj-AK-F1B">
+                                <rect key="frame" x="257" y="114" width="23" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;m/s>" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJ1-M8-Prc">
+                                <rect key="frame" x="55" y="114" width="51" height="23"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -324,12 +333,14 @@
                             <constraint firstAttribute="trailing" secondItem="6vD-8d-Ziv" secondAttribute="trailing" constant="40" id="5RO-Gz-7BY"/>
                             <constraint firstItem="jDv-iF-Xb3" firstAttribute="centerX" secondItem="4li-GH-kZY" secondAttribute="centerX" id="Bvy-cU-GQg"/>
                             <constraint firstItem="8dX-l3-WGc" firstAttribute="top" secondItem="4li-GH-kZY" secondAttribute="bottom" constant="28" id="GHD-LL-6mW"/>
+                            <constraint firstItem="jdj-AK-F1B" firstAttribute="leading" secondItem="vH5-bw-vXJ" secondAttribute="trailing" constant="8" id="HAS-dR-M68"/>
                             <constraint firstItem="ZVB-bG-4my" firstAttribute="leading" secondItem="GkO-jI-Ghi" secondAttribute="leading" constant="40" id="HJV-w4-i9m"/>
                             <constraint firstItem="oAE-aa-Rt2" firstAttribute="top" secondItem="X5y-Nx-ciV" secondAttribute="bottom" constant="5" id="Hus-eW-qfP"/>
+                            <constraint firstItem="jdj-AK-F1B" firstAttribute="baseline" secondItem="vH5-bw-vXJ" secondAttribute="baseline" id="IQn-Pg-SiW"/>
                             <constraint firstItem="jDv-iF-Xb3" firstAttribute="top" secondItem="rfZ-6X-dx7" secondAttribute="bottom" constant="5" id="JeI-II-aS3"/>
-                            <constraint firstItem="vH5-bw-vXJ" firstAttribute="trailing" secondItem="6vD-8d-Ziv" secondAttribute="trailing" id="KHK-sD-AJi"/>
                             <constraint firstItem="jDv-iF-Xb3" firstAttribute="centerX" secondItem="rfZ-6X-dx7" secondAttribute="centerX" id="LIX-MH-xNC"/>
                             <constraint firstItem="VPj-QL-7oG" firstAttribute="centerX" secondItem="jDv-iF-Xb3" secondAttribute="centerX" id="LMs-dv-Dhj"/>
+                            <constraint firstItem="jdj-AK-F1B" firstAttribute="trailing" secondItem="6vD-8d-Ziv" secondAttribute="trailing" id="Oj5-wz-wgu"/>
                             <constraint firstItem="ZVB-bG-4my" firstAttribute="top" secondItem="Swr-dx-wkF" secondAttribute="bottom" constant="17" id="PCV-P3-tLs"/>
                             <constraint firstAttribute="trailing" secondItem="oAE-aa-Rt2" secondAttribute="trailing" constant="26" id="PlY-5q-iJ3"/>
                             <constraint firstItem="jDv-iF-Xb3" firstAttribute="width" secondItem="4li-GH-kZY" secondAttribute="width" id="TAF-uB-ngZ"/>
@@ -338,11 +349,13 @@
                             <constraint firstItem="oAE-aa-Rt2" firstAttribute="leading" secondItem="GkO-jI-Ghi" secondAttribute="leading" constant="10" id="VAH-nV-MxV"/>
                             <constraint firstItem="UZX-l8-kse" firstAttribute="leading" secondItem="GkO-jI-Ghi" secondAttribute="leading" constant="30" id="WcE-Ml-jTF"/>
                             <constraint firstItem="VPj-QL-7oG" firstAttribute="top" secondItem="jDv-iF-Xb3" secondAttribute="bottom" constant="8" id="XDu-9V-yqD"/>
+                            <constraint firstItem="nJ1-M8-Prc" firstAttribute="leading" secondItem="awb-Dl-s1K" secondAttribute="trailing" constant="8" id="cEw-J6-Fzq"/>
                             <constraint firstItem="4li-GH-kZY" firstAttribute="top" secondItem="VPj-QL-7oG" secondAttribute="bottom" constant="8" id="iG8-QQ-tgn"/>
                             <constraint firstAttribute="trailing" secondItem="UZX-l8-kse" secondAttribute="trailing" constant="30" id="iUJ-mo-Mvy"/>
                             <constraint firstItem="awb-Dl-s1K" firstAttribute="leading" secondItem="ZVB-bG-4my" secondAttribute="leading" id="ibG-SI-8XW"/>
                             <constraint firstItem="vH5-bw-vXJ" firstAttribute="top" secondItem="6vD-8d-Ziv" secondAttribute="bottom" constant="-1" id="mOl-to-HK1"/>
                             <constraint firstItem="VPj-QL-7oG" firstAttribute="width" secondItem="jDv-iF-Xb3" secondAttribute="width" id="ncC-wH-BAG"/>
+                            <constraint firstItem="awb-Dl-s1K" firstAttribute="baseline" secondItem="nJ1-M8-Prc" secondAttribute="baseline" id="t0O-a4-Mrx"/>
                             <constraint firstItem="X5y-Nx-ciV" firstAttribute="leading" secondItem="GkO-jI-Ghi" secondAttribute="leading" constant="30" id="tf7-kL-4gm"/>
                             <constraint firstItem="UZX-l8-kse" firstAttribute="top" secondItem="oAE-aa-Rt2" secondAttribute="bottom" constant="1" id="u5w-N7-6BT"/>
                             <constraint firstAttribute="trailing" secondItem="X5y-Nx-ciV" secondAttribute="trailing" constant="30" id="udj-tM-B1G"/>
@@ -359,7 +372,9 @@
                         <outlet property="statusBar" destination="jDv-iF-Xb3" id="TtS-mV-ZgS"/>
                         <outlet property="temperatureHeadingLabel" destination="6vD-8d-Ziv" id="KlP-Qr-ker"/>
                         <outlet property="temperatureLabel" destination="vH5-bw-vXJ" id="bvv-VR-8KP"/>
+                        <outlet property="temperatureUnitLabel" destination="jdj-AK-F1B" id="5Ye-68-IcV"/>
                         <outlet property="windSpeedHeadingLabel" destination="ZVB-bG-4my" id="uAt-eE-ltd"/>
+                        <outlet property="windSpeedUnitLabel" destination="nJ1-M8-Prc" id="2JK-WC-dv6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uhp-Xt-WzD" sceneMemberID="firstResponder"/>

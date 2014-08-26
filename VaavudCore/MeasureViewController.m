@@ -77,6 +77,14 @@
     return nil;
 }
 
+- (UILabel*) temperatureHeadingLabel {
+    return nil;
+}
+
+- (UILabel*) temperatureLabel {
+    return nil;
+}
+
 - (UILabel*) informationTextLabel {
     return nil;
 }
@@ -101,6 +109,7 @@
     [super viewDidLoad];
 
     self.windSpeedUnit = -1; // make sure windSpeedUnit is updated in viewWillAppear by setting it to an invalid value
+    self.shareToFacebook = YES;
     
     if (self.averageHeadingLabel) {
         self.averageHeadingLabel.text = [NSLocalizedString(@"HEADING_AVERAGE", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
@@ -114,12 +123,19 @@
     if (self.unitHeadingLabel) {
         self.unitHeadingLabel.text = [NSLocalizedString(@"HEADING_UNIT", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     }
+    if (self.temperatureHeadingLabel) {
+        self.temperatureHeadingLabel.text = [NSLocalizedString(@"HEADING_TEMPERATURE", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+        self.lookupTemperature = YES;
+    }
+    else {
+        self.lookupTemperature = NO;
+    }
     
     if (self.graphHostView) {
         [self.graphHostView setupCorePlotGraph];
     }
     
-    self.compassTableShort = [NSArray arrayWithObjects:  @"N",@"NE",@"E",@"SE",@"S",@"SW",@"W",@"NW", nil];
+    self.compassTableShort = [NSArray arrayWithObjects:@"N",@"NE",@"E",@"SE",@"S",@"SW",@"W",@"NW", nil];
 
     // Set correct font text colors
     UIColor *vaavudBlueUIcolor = [UIColor vaavudColor];
@@ -220,6 +236,7 @@
     }
     
     self.vaavudCoreController = [[VaavudCoreController alloc] init];
+    self.vaavudCoreController.lookupTemperature = self.lookupTemperature;
     self.vaavudCoreController.vaavudCoreControllerViewControllerDelegate = self; // set the core controller's view controller delegate to self (reports when meassurements are valid)
     
     if (self.graphHostView) {
@@ -354,6 +371,12 @@
     }
 }
 
+- (void) temperatureUpdated:(float)temperature {
+    if (self.temperatureLabel) {
+        self.temperatureLabel.text = [self formatValue:temperature - 273.15F];
+    }
+}
+
 - (NSString*) formatValue:(double) value {
     if (value > 100.0) {
         return [NSString stringWithFormat: @"%.0f", value];
@@ -429,7 +452,7 @@
 
 - (void) promptForFacebookSharing {
     
-    if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F) && [ServerUploadManager sharedInstance].hasReachability && [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:YES]) {
+    if (self.shareToFacebook && self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F) && [ServerUploadManager sharedInstance].hasReachability && [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:YES]) {
         
         if ([Property isMixpanelEnabled]) {
             [[Mixpanel sharedInstance] track:@"Share Dialog"];

@@ -808,6 +808,46 @@ SHARED_INSTANCE
     }];
 }
 
+- (void) lookupTemperatureForLocation:(double)latitude longitude:(double)longitude success:(void(^)(NSNumber *temperature))success failure:(void(^)(NSError *error))failure {
+    
+    if (isnan(latitude) || isnan(longitude) || (latitude == 0.0 && longitude == 0.0)) {
+        if (failure) {
+            failure(nil);
+        }
+        return;
+    }
+    
+    if (!self.hasReachability) {
+        if (failure) {
+            failure(nil);
+        }
+        return;
+    }
+    
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:OPEN_WEATHERMAP_APIID, @"APIID", [NSNumber numberWithDouble:latitude], @"lat", [NSNumber numberWithDouble:longitude], @"lon", nil];
+    
+    [[VaavudAPIHTTPClient sharedInstance] getPath:@"http://api.openweathermap.org/data/2.5/weather" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"[ServerUploadManager] Got successful response looking up temperature");
+        
+        id main = [responseObject objectForKey:@"main"];
+        NSNumber *temperature = [main objectForKey:@"temp"];
+        
+        if (success) {
+            success(temperature);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        long statusCode = (long)operation.response.statusCode;
+        NSLog(@"[ServerUploadManager] Got error status code %ld looking up temperature: %@", statusCode, error);
+        
+        self.hasRegisteredDevice = NO;
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
 -(NSNumber*) doubleValue:(id) responseObject forKey:(NSString*) key {
     NSString *value = [responseObject objectForKey:key];
     if (value && value != nil && value != (id)[NSNull null] && ([value length] > 0)) {

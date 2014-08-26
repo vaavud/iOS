@@ -128,3 +128,4 @@
 "HEADING_WIND_SPEED" = "Wind Speed";
 "HEADING_TEMPERATURE" = "Temperature";
 "BUTTON_NEXT" = "Next";
+"UNIT_CELCIUS" = "°C";

@@ -8,6 +8,8 @@
 
 #import "AgriMeasureViewController.h"
 #import "UIColor+VaavudColors.h"
+#import "Property+Util.h"
+#import "UnitUtil.h"
 
 @interface AgriMeasureViewController ()
 
@@ -15,6 +17,8 @@
 @property (nonatomic, weak) IBOutlet UILabel *averageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *temperatureHeadingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *temperatureLabel;
+@property (weak, nonatomic) IBOutlet UILabel *temperatureUnitLabel;
+@property (weak, nonatomic) IBOutlet UILabel *windSpeedUnitLabel;
 
 @property (nonatomic, weak) IBOutlet UILabel *informationTextLabel;
 @property (nonatomic, weak) IBOutlet UIProgressView *statusBar;
@@ -31,11 +35,13 @@
 - (void) viewDidLoad {
     [super viewDidLoad];
 
+    self.shareToFacebook = NO;
+    
     UIColor *vaavudColor = [UIColor vaavudColor];
 
     self.windSpeedHeadingLabel.text = [NSLocalizedString(@"HEADING_WIND_SPEED", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    self.temperatureHeadingLabel.text = [NSLocalizedString(@"HEADING_TEMPERATURE", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-
+    self.temperatureUnitLabel.text = NSLocalizedString(@"UNIT_CELCIUS", nil);
+    
     [self.nextButton setTitle:NSLocalizedString(@"BUTTON_NEXT", nil) forState:UIControlStateNormal];
     self.nextButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.nextButton.layer.masksToBounds = YES;
@@ -45,6 +51,9 @@
 
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
+    WindSpeedUnit windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
+    self.windSpeedUnitLabel.text = [UnitUtil displayNameForWindSpeedUnit:windSpeedUnit];
 }
 
 - (IBAction) startStopButtonPushed:(id)sender {

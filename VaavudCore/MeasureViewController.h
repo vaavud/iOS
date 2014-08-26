@@ -14,19 +14,28 @@
 
 @interface MeasureViewController : UIViewController <VaavudCoreViewControllerDelegate, UIAlertViewDelegate, ShareDialogDelegate>
 
-- (UILabel*) averageHeadingLabel;
-- (UILabel*) currentHeadingLabel;
-- (UILabel*) maxHeadingLabel;
-- (UILabel*) unitHeadingLabel;
+@property (nonatomic) BOOL lookupTemperature;
+@property (nonatomic) BOOL shareToFacebook;
 
-- (UILabel*) actualLabel;
+- (UILabel*) averageHeadingLabel;
 - (UILabel*) averageLabel;
+
+- (UILabel*) currentHeadingLabel;
+- (UILabel*) actualLabel;
+
+- (UILabel*) maxHeadingLabel;
 - (UILabel*) maxLabel;
+
+- (UILabel*) unitHeadingLabel;
+- (UIButton*) unitButton;
+
+- (UILabel*) temperatureHeadingLabel;
+- (UILabel*) temperatureLabel;
+
 - (UILabel*) informationTextLabel;
 - (UIProgressView*) statusBar;
 
 - (UIButton*) startStopButton;
-- (UIButton*) unitButton;
 
 - (vaavudGraphHostingView*) graphHostView;
 

@@ -32,7 +32,6 @@
 @property (nonatomic, strong) NSMutableArray *windDirection;
 @property (nonatomic, strong) NSDate *startTime;
 
-
  // private properties
 @property (nonatomic, strong) VaavudMagneticFieldDataManager *sharedMagneticFieldDataManager;
 @property (nonatomic, strong) vaavudDynamicsController *vaavudDynamicsController;
@@ -40,17 +39,17 @@
 @property (nonatomic, strong) NSArray *FFTresulty;
 @property (nonatomic, strong) NSArray *FFTresultz;
 
-@property (nonatomic, strong)   vaavudFFT *FFTEngine;
-@property (nonatomic) int       magneticFieldUpdatesCounter;
+@property (nonatomic, strong) vaavudFFT *FFTEngine;
+@property (nonatomic) int magneticFieldUpdatesCounter;
 @property (nonatomic) NSInteger isValidPercent;
-@property (nonatomic) BOOL      isValidCurrentStatus;
-@property (nonatomic) BOOL      wasValidStatus;
-@property (nonatomic) BOOL      iPhone4Algo;
+@property (nonatomic) BOOL isValidCurrentStatus;
+@property (nonatomic) BOOL wasValidStatus;
+@property (nonatomic) BOOL iPhone4Algo;
 
-@property (nonatomic) double    sumOfValidMeasurements;
-@property (nonatomic) int       numberOfValidMeasurements;
-@property (nonatomic) int       numberOfMeasurements;
-@property (nonatomic) double    maxWindspeed;
+@property (nonatomic) double sumOfValidMeasurements;
+@property (nonatomic) int numberOfValidMeasurements;
+@property (nonatomic) int numberOfMeasurements;
+@property (nonatomic) double maxWindspeed;
 
 @property (nonatomic) NSString *measurementSessionUUID;
 
@@ -59,12 +58,13 @@
 @property (nonatomic) double frequencyFactor;
 @property (nonatomic) double frequencyStart;
 
+@property (nonatomic) BOOL isTemperatureLookupInitiated;
+
 - (void) updateIsValid;
 - (NSNumber *) getSampleFrequency;
 - (double) convertFrequencyToWindspeed: (double) frequency;
 
 @end
-
 
 @implementation VaavudCoreController 
 
@@ -82,14 +82,12 @@
         self.FFTEngine = [[vaavudFFT alloc] initFFTLength: self.fftLength andFftDataLength: self.fftDataLength];
         
         //NSLog(@"[VaavudCoreController] Using algorithm parameters: iPhone4Algo=%hhd, frequencyStart=%f, frequencyFactor=%f, fftLength=%d, fftDataLength=%d", self.iPhone4Algo, self.frequencyStart, self.frequencyFactor, self.fftLength, self.fftDataLength);
-
     }
     
     return self;
 }
 
-- (void) start
-{
+- (void) start {
     self.dynamicsIsValid = NO;
     self.isValidPercent = 50; // start at 50% valid
     self.isValidCurrentStatus = NO;
@@ -164,6 +162,12 @@
     self.vaavudDynamicsController = [[vaavudDynamicsController alloc] init];
     self.vaavudDynamicsController.vaavudCoreController = self;
     [self.vaavudDynamicsController start];
+    
+    // lookup temperature
+    if (self.lookupTemperature) {
+        self.isTemperatureLookupInitiated = NO;
+        [self initiateTemperatureLookup];
+    }
 }
 
 - (NSTimeInterval) stop {
@@ -227,8 +231,13 @@
         return;
     }
     
+    if (self.lookupTemperature && !self.isTemperatureLookupInitiated) {
+        // temperature will only be looked up once, but the following call will only succeed if we've got a location
+        [self initiateTemperatureLookup];
+    }
+    
     if (!self.FFTisValid) {
-        self.isValidPercent =0;
+        self.isValidPercent = 0;
     }
     
     if (self.FFTisValid && self.dynamicsIsValid) {
@@ -485,17 +494,15 @@
 }
 
 
-- (NSNumber *) getAverage
-{
+- (NSNumber *) getAverage {
     return [NSNumber numberWithDouble: self.sumOfValidMeasurements/self.numberOfValidMeasurements];
 }
-- (NSNumber *) getMax
-{
+
+- (NSNumber *) getMax {
     return [NSNumber numberWithDouble: self.maxWindspeed];
 }
 
-- (NSNumber *) getProgress
-{
+- (NSNumber *) getProgress {
     
     float elapsedTime = [[self.windSpeedTime lastObject] floatValue];
     float measurementFrequency = self.numberOfMeasurements/elapsedTime;
@@ -503,12 +510,12 @@
 
     
     double progress = validTime/minimumNumberOfSeconds;
-    if (progress > 1)
+    if (progress > 1) {
         progress = 1;
+    }
     
     return [NSNumber numberWithDouble: progress];
 }
-
 
 - (double) convertFrequencyToWindspeed: (double) frequency {
     
@@ -524,7 +531,6 @@
     
     return windspeed;
 }
-
 
 - (void) updateMeasurementSessionLocation: (MeasurementSession*) measurementSession {
     CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
@@ -547,6 +553,23 @@
     }
     else {
         return nil;
+    }
+}
+
+- (void) initiateTemperatureLookup {
+    CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
+    if ([LocationManager isCoordinateValid:latestLocation]) {
+        
+        self.isTemperatureLookupInitiated = YES;
+        
+        [[ServerUploadManager sharedInstance] lookupTemperatureForLocation:latestLocation.latitude longitude:latestLocation.longitude success:^(NSNumber *temperature) {
+            NSLog(@"[VaavudCoreController] Got success looking up temperature: %@", temperature);
+            if (temperature) {
+                [self.vaavudCoreControllerViewControllerDelegate temperatureUpdated:[temperature floatValue]];
+            }
+        } failure:^(NSError *error) {
+            NSLog(@"[VaavudCoreController] Got error looking up temperature: %@", error);
+        }];
     }
 }
 

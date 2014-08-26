@@ -10,6 +10,7 @@
 
 - (void) windSpeedMeasurementsAreValid:(BOOL)valid;
 - (void) measuringStoppedByModel;
+- (void) temperatureUpdated:(float)temperature;
 
 @end
 
@@ -26,6 +27,8 @@
 - (NSNumber *) getAverage;
 - (NSNumber *) getMax;
 - (NSNumber *) getProgress;
+
+@property (nonatomic) BOOL lookupTemperature;
 
 @property (readonly, nonatomic, strong) NSNumber *setWindDirection;
 @property (readonly, nonatomic, strong) NSMutableArray *windSpeed;

@@ -14,14 +14,16 @@
 @property(nonatomic, readonly) BOOL hasReachability;
 @property(nonatomic, readonly) BOOL isHistorySyncBusy;
 
-+(ServerUploadManager *) sharedInstance;
++ (ServerUploadManager*) sharedInstance;
 
--(void) start;
--(void) triggerUpload;
--(void) readMeasurements:(int)hours retry:(int)retryCount success:(void (^)(NSArray *measurements))success failure:(void (^)(NSError *error))failure;
--(void) registerDevice;
--(void) registerUser:(NSString*)action email:(NSString*)email passwordHash:(NSString*)passwordHash facebookId:(NSString*)facebookId facebookAccessToken:(NSString*)facebookAccessToken firstName:(NSString*)firstName lastName:(NSString*)lastName gender:(NSNumber*)gender verified:(NSNumber*)verified retry:(int)retryCount success:(void (^)(NSString *status, id responseObject))success failure:(void (^)(NSError *error))failure;
--(void) syncHistory:(int)retryCount ignoreGracePeriod:(BOOL)ignoreGracePeriod success:(void (^)())success failure:(void (^)(NSError *error))failure;
--(void) deleteMeasurementSession:(NSString*)measurementSessionUuid retry:(int)retryCount success:(void(^)())success failure:(void(^)(NSError *error))failure;
+- (void) start;
+- (void) triggerUpload;
+- (void) readMeasurements:(int)hours retry:(int)retryCount success:(void (^)(NSArray *measurements))success failure:(void (^)(NSError *error))failure;
+- (void) registerDevice;
+- (void) registerUser:(NSString*)action email:(NSString*)email passwordHash:(NSString*)passwordHash facebookId:(NSString*)facebookId facebookAccessToken:(NSString*)facebookAccessToken firstName:(NSString*)firstName lastName:(NSString*)lastName gender:(NSNumber*)gender verified:(NSNumber*)verified retry:(int)retryCount success:(void (^)(NSString *status, id responseObject))success failure:(void (^)(NSError *error))failure;
+- (void) syncHistory:(int)retryCount ignoreGracePeriod:(BOOL)ignoreGracePeriod success:(void (^)())success failure:(void (^)(NSError *error))failure;
+- (void) deleteMeasurementSession:(NSString*)measurementSessionUuid retry:(int)retryCount success:(void(^)())success failure:(void(^)(NSError *error))failure;
+
+- (void) lookupTemperatureForLocation:(double)latitude longitude:(double)longitude success:(void(^)(NSNumber *temperature))success failure:(void(^)(NSError *error))failure;
 
 @end
