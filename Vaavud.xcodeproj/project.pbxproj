@@ -707,6 +707,7 @@
 		E9C7798D19AB87D1000A6921 /* AgriMeasureNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriMeasureNavigationController.m; sourceTree = "<group>"; };
 		E9C7799119AB8DE4000A6921 /* AgriSettingsNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriSettingsNavigationController.h; sourceTree = "<group>"; };
 		E9C7799219AB8DE4000A6921 /* AgriSettingsNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriSettingsNavigationController.m; sourceTree = "<group>"; };
+		E9C7799519ACADB1000A6921 /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
 		E9CB327719869B110043C8CE /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		E9CB327819869B110043C8CE /* camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera@2x.png"; sourceTree = "<group>"; };
 		E9CD2202177B2AEA0054ED3F /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
@@ -1507,14 +1508,14 @@
 		E9EE1FA61769EC9200D1F006 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				E9EBB99317E33DBB0086BE01 /* MeasurementSession.h */,
-				E9EBB99417E33DBB0086BE01 /* MeasurementSession.m */,
 				E93C86701781D727005E4212 /* MeasurementPoint+Util.h */,
 				E93C86711781D727005E4212 /* MeasurementPoint+Util.m */,
 				E995F0B6177C7A2A0011BF07 /* MeasurementPoint.h */,
 				E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */,
 				E93C866D1781D69A005E4212 /* MeasurementSession+Util.h */,
 				E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */,
+				E9EBB99317E33DBB0086BE01 /* MeasurementSession.h */,
+				E9EBB99417E33DBB0086BE01 /* MeasurementSession.m */,
 				E93C86611781C764005E4212 /* Property+Util.h */,
 				E93C86621781C764005E4212 /* Property+Util.m */,
 				E93C86671781C88B005E4212 /* Property.h */,
@@ -2376,10 +2377,11 @@
 		E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				E9C7799519ACADB1000A6921 /* Model 3.xcdatamodel */,
 				E9EBB98F17E33C660086BE01 /* Model 2.xcdatamodel */,
 				E9EE1FA31769E54E00D1F006 /* Model.xcdatamodel */,
 			);
-			currentVersion = E9EBB98F17E33C660086BE01 /* Model 2.xcdatamodel */;
+			currentVersion = E9C7799519ACADB1000A6921 /* Model 3.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

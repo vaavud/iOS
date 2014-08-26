@@ -566,6 +566,12 @@
             NSLog(@"[VaavudCoreController] Got success looking up temperature: %@", temperature);
             if (temperature) {
                 [self.vaavudCoreControllerViewControllerDelegate temperatureUpdated:[temperature floatValue]];
+                
+                MeasurementSession *measurementSession = [self getActiveMeasurementSession];
+                if (measurementSession) {
+                    measurementSession.temperature = temperature;
+                    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
+                }
             }
         } failure:^(NSError *error) {
             NSLog(@"[VaavudCoreController] Got error looking up temperature: %@", error);

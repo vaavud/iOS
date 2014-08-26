@@ -2,8 +2,8 @@
 //  MeasurementSession.m
 //  Vaavud
 //
-//  Created by Thomas Stilling Ambus on 13/09/2013.
-//  Copyright (c) 2013 Andreas Okholm. All rights reserved.
+//  Created by Thomas Stilling Ambus on 26/08/2014.
+//  Copyright (c) 2014 Andreas Okholm. All rights reserved.
 //
 
 #import "MeasurementSession.h"
@@ -13,20 +13,21 @@
 @implementation MeasurementSession
 
 @dynamic device;
+@dynamic endIndex;
 @dynamic endTime;
 @dynamic latitude;
 @dynamic longitude;
 @dynamic measuring;
+@dynamic source;
+@dynamic startIndex;
 @dynamic startTime;
 @dynamic timezoneOffset;
 @dynamic uploaded;
-@dynamic startIndex;
 @dynamic uuid;
 @dynamic windDirection;
 @dynamic windSpeedAvg;
 @dynamic windSpeedMax;
-@dynamic endIndex;
-@dynamic source;
+@dynamic temperature;
 @dynamic points;
 
 @end

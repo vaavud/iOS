@@ -2,8 +2,8 @@
 //  MeasurementPoint.m
 //  Vaavud
 //
-//  Created by Thomas Stilling Ambus on 27/06/2013.
-//  Copyright (c) 2013 Andreas Okholm. All rights reserved.
+//  Created by Thomas Stilling Ambus on 26/08/2014.
+//  Copyright (c) 2014 Andreas Okholm. All rights reserved.
 //
 
 #import "MeasurementPoint.h"
