@@ -16,7 +16,6 @@
 #import <Foundation/Foundation.h>
 #import "VaavudMagneticFieldDataManager.h"
 #import "vaavudDynamicsController.h"
-#import "vaavudViewController.h"
 
 @interface VaavudCoreController : NSObject <VaavudMagneticFieldDataManagerDelegate, vaavudDynamicsControllerDelegate>
 

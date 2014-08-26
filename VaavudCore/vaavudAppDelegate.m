@@ -79,8 +79,8 @@
     }
     
     if ([[AccountManager sharedInstance] isLoggedIn]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        viewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Agriculture" bundle:nil];
+        viewController = [storyboard instantiateViewControllerWithIdentifier:@"AgriTabBarController"];
     }
     else {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Agriculture" bundle:nil];

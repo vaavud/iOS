@@ -109,8 +109,8 @@
             }
         }
         else {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-            UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Agriculture" bundle:nil];
+            UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"AgriTabBarController"];
             [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
         }
         

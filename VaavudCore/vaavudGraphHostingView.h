@@ -21,6 +21,6 @@
 - (void) pauseUpdates;
 - (void) resumeUpdates;
 
-@property (nonatomic, weak)     VaavudCoreController          *vaavudCoreController;
+@property (nonatomic, weak) VaavudCoreController *vaavudCoreController;
 
 @end

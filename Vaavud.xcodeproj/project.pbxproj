@@ -18,7 +18,7 @@
 		D7A4F1D7173A8DDB00D1ACEE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1D6173A8DDB00D1ACEE /* main.m */; };
 		D7A4F1DB173A8DDB00D1ACEE /* vaavudAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1DA173A8DDB00D1ACEE /* vaavudAppDelegate.m */; };
 		D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */; };
-		D7A4F1E7173A8DDB00D1ACEE /* vaavudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */; };
+		D7A4F1E7173A8DDB00D1ACEE /* MeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1E6173A8DDB00D1ACEE /* MeasureViewController.m */; };
 		D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */; };
 		D7A4F1F4173A9FC200D1ACEE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */; };
 		D7B5BD51175775EB0069F739 /* vaavudGraphHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7B5BD50175775EB0069F739 /* vaavudGraphHostingView.m */; };
@@ -54,6 +54,8 @@
 		E91D4215198F7A9800106E15 /* GuideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E91D4214198F7A9800106E15 /* GuideView.xib */; };
 		E91D4218198F7C8400106E15 /* GuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91D4217198F7C8400106E15 /* GuideView.m */; };
 		E91D421B198F7E4900106E15 /* DismissOnTouchUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91D421A198F7E4900106E15 /* DismissOnTouchUIView.m */; };
+		E91E490D19AB5F3D00616887 /* CoreMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E91E490C19AB5F3D00616887 /* CoreMeasureViewController.m */; };
+		E91E490E19AB5F3D00616887 /* CoreMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E91E490C19AB5F3D00616887 /* CoreMeasureViewController.m */; };
 		E93338F7178C561B006E2314 /* ModelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E93338F6178C561B006E2314 /* ModelManager.m */; };
 		E93C5C3717EC826800E84D3C /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C5C3617EC826800E84D3C /* TabBarController.m */; };
 		E93C865A1781BE56005E4212 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86591781BE56005E4212 /* LocationManager.m */; };
@@ -68,7 +70,7 @@
 		E960260E18575E41009396B1 /* MeasurementCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E960261018575E41009396B1 /* MeasurementCalloutView.xib */; };
 		E96FB4ED19A353B500CB7306 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1D6173A8DDB00D1ACEE /* main.m */; };
 		E96FB4EE19A353B500CB7306 /* vaavudAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1DA173A8DDB00D1ACEE /* vaavudAppDelegate.m */; };
-		E96FB4EF19A353B500CB7306 /* vaavudViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */; };
+		E96FB4EF19A353B500CB7306 /* MeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1E6173A8DDB00D1ACEE /* MeasureViewController.m */; };
 		E96FB4F019A353B500CB7306 /* VaavudCoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */; };
 		E96FB4F119A353B500CB7306 /* VaavudMagneticFieldDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */; };
 		E96FB4F219A353B500CB7306 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */; };
@@ -336,6 +338,12 @@
 		E9B950E719619F7300E9EF02 /* ShareDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B950E619619F7300E9EF02 /* ShareDialog.xib */; };
 		E9B950EA1961A21500E9EF02 /* ShareDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950E91961A21500E9EF02 /* ShareDialog.m */; };
 		E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */; };
+		E9C7798A19AB7C09000A6921 /* AgriMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C7798919AB7C09000A6921 /* AgriMeasureViewController.m */; };
+		E9C7798B19AB7C09000A6921 /* AgriMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C7798919AB7C09000A6921 /* AgriMeasureViewController.m */; };
+		E9C7798E19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C7798D19AB87D1000A6921 /* AgriMeasureNavigationController.m */; };
+		E9C7798F19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C7798D19AB87D1000A6921 /* AgriMeasureNavigationController.m */; };
+		E9C7799319AB8DE4000A6921 /* AgriSettingsNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C7799219AB8DE4000A6921 /* AgriSettingsNavigationController.m */; };
+		E9C7799419AB8DE4000A6921 /* AgriSettingsNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C7799219AB8DE4000A6921 /* AgriSettingsNavigationController.m */; };
 		E9CB327919869B110043C8CE /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = E9CB327719869B110043C8CE /* camera.png */; };
 		E9CB327A19869B110043C8CE /* camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9CB327819869B110043C8CE /* camera@2x.png */; };
 		E9CD223B177B2AEA0054ED3F /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2203177B2AEA0054ED3F /* MagicalImportFunctions.m */; };
@@ -493,8 +501,8 @@
 		D7A4F1D8173A8DDB00D1ACEE /* Vaavud-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Prefix.pch"; sourceTree = "<group>"; };
 		D7A4F1D9173A8DDB00D1ACEE /* vaavudAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vaavudAppDelegate.h; sourceTree = "<group>"; };
 		D7A4F1DA173A8DDB00D1ACEE /* vaavudAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vaavudAppDelegate.m; sourceTree = "<group>"; };
-		D7A4F1E5173A8DDB00D1ACEE /* vaavudViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vaavudViewController.h; sourceTree = "<group>"; };
-		D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vaavudViewController.m; sourceTree = "<group>"; };
+		D7A4F1E5173A8DDB00D1ACEE /* MeasureViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeasureViewController.h; sourceTree = "<group>"; };
+		D7A4F1E6173A8DDB00D1ACEE /* MeasureViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeasureViewController.m; sourceTree = "<group>"; };
 		D7A4F1F0173A8FAB00D1ACEE /* VaavudCoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudCoreController.h; sourceTree = "<group>"; };
 		D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudCoreController.m; sourceTree = "<group>"; };
 		D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -541,6 +549,8 @@
 		E91D4217198F7C8400106E15 /* GuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideView.m; sourceTree = "<group>"; };
 		E91D4219198F7E4900106E15 /* DismissOnTouchUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DismissOnTouchUIView.h; sourceTree = "<group>"; };
 		E91D421A198F7E4900106E15 /* DismissOnTouchUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DismissOnTouchUIView.m; sourceTree = "<group>"; };
+		E91E490B19AB5F3D00616887 /* CoreMeasureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreMeasureViewController.h; sourceTree = "<group>"; };
+		E91E490C19AB5F3D00616887 /* CoreMeasureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreMeasureViewController.m; sourceTree = "<group>"; };
 		E93338F5178C561B006E2314 /* ModelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelManager.h; sourceTree = "<group>"; };
 		E93338F6178C561B006E2314 /* ModelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelManager.m; sourceTree = "<group>"; };
 		E93C5C3517EC826800E84D3C /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
@@ -691,6 +701,12 @@
 		E9B950E91961A21500E9EF02 /* ShareDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDialog.m; sourceTree = "<group>"; };
 		E9BB7A0B178DE2D9002E746F /* QueryStringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryStringUtil.h; sourceTree = "<group>"; };
 		E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryStringUtil.m; sourceTree = "<group>"; };
+		E9C7798819AB7C09000A6921 /* AgriMeasureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriMeasureViewController.h; sourceTree = "<group>"; };
+		E9C7798919AB7C09000A6921 /* AgriMeasureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriMeasureViewController.m; sourceTree = "<group>"; };
+		E9C7798C19AB87D1000A6921 /* AgriMeasureNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriMeasureNavigationController.h; sourceTree = "<group>"; };
+		E9C7798D19AB87D1000A6921 /* AgriMeasureNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriMeasureNavigationController.m; sourceTree = "<group>"; };
+		E9C7799119AB8DE4000A6921 /* AgriSettingsNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriSettingsNavigationController.h; sourceTree = "<group>"; };
+		E9C7799219AB8DE4000A6921 /* AgriSettingsNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriSettingsNavigationController.m; sourceTree = "<group>"; };
 		E9CB327719869B110043C8CE /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		E9CB327819869B110043C8CE /* camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera@2x.png"; sourceTree = "<group>"; };
 		E9CD2202177B2AEA0054ED3F /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
@@ -1025,50 +1041,16 @@
 		D7B5BD4E175775BA0069F739 /* VaavudViewFiles */ = {
 			isa = PBXGroup;
 			children = (
-				E9B950E519619F5C00E9EF02 /* Share */,
-				E9B950DE195C584200E9EF02 /* FirstTime */,
 				E90709411940AFAC0087F80F /* Components */,
-				E9DE09B7192E4C6A003877D9 /* Settings */,
-				E9AF2B8317F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.h */,
-				E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */,
-				E9FABFD918929158009C4C46 /* HistoryNavigationController.h */,
-				E9FABFDA18929158009C4C46 /* HistoryNavigationController.m */,
-				E9A4098B18A50D11004F1C12 /* HistoryRootViewController.h */,
-				E9A4098C18A50D11004F1C12 /* HistoryRootViewController.m */,
-				E9FABFDF189294BD009C4C46 /* HistoryTableViewCell.h */,
-				E9FABFE0189294BD009C4C46 /* HistoryTableViewCell.m */,
-				E9FABFDC18929473009C4C46 /* HistoryTableViewController.h */,
-				E9FABFDD18929473009C4C46 /* HistoryTableViewController.m */,
-				E9FABFE81896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.h */,
-				E9FABFE91896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m */,
-				E9FABFE61896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib */,
+				E9B950DE195C584200E9EF02 /* FirstTime */,
+				E91E490F19AB5FA600616887 /* History */,
 				E9A4098818A4DA9E004F1C12 /* Login */,
-				E904AC9617F08F6E00171F7F /* MapViewController.h */,
-				E904AC9717F08F6E00171F7F /* MapViewController.m */,
-				E9D0F4B317F9A59000C220B3 /* MeasurementCalloutView.h */,
-				E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */,
-				E960261018575E41009396B1 /* MeasurementCalloutView.xib */,
-				E9AF2B8D17F5B93800BDF6D9 /* MeasurementTableViewCell.h */,
-				E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */,
-				E9AF2B9017F5B96500BDF6D9 /* MeasurementTableViewCell.xib */,
-				E9A4097E189BD29F004F1C12 /* MeasureNavigationController.h */,
-				E9A4097F189BD29F004F1C12 /* MeasureNavigationController.m */,
+				E91E491019AB641F00616887 /* Map */,
+				E91E490A19AB5EEB00616887 /* Measure */,
+				E9DE09B7192E4C6A003877D9 /* Settings */,
+				E9B950E519619F5C00E9EF02 /* Share */,
 				E93C5C3517EC826800E84D3C /* TabBarController.h */,
 				E93C5C3617EC826800E84D3C /* TabBarController.m */,
-				E9B47A011794217200E8A82E /* Terms.h */,
-				E9B47A021794217200E8A82E /* Terms.m */,
-				E9B47A081794315100E8A82E /* TermsViewController.h */,
-				E9B47A091794315100E8A82E /* TermsViewController.m */,
-				D7B5BD4F175775EB0069F739 /* vaavudGraphHostingView.h */,
-				D7B5BD50175775EB0069F739 /* vaavudGraphHostingView.m */,
-				D7A4F1E5173A8DDB00D1ACEE /* vaavudViewController.h */,
-				D7A4F1E6173A8DDB00D1ACEE /* vaavudViewController.m */,
-				E912793018BF5FF4009C7769 /* NoHistoryViewController.h */,
-				E912793118BF5FF4009C7769 /* NoHistoryViewController.m */,
-				E912793318BF7893009C7769 /* NoHistoryArrowView.h */,
-				E912793418BF7893009C7769 /* NoHistoryArrowView.m */,
-				E9575938193E222D00B5D0AE /* LoadingHistoryViewController.h */,
-				E9575939193E222D00B5D0AE /* LoadingHistoryViewController.m */,
 			);
 			name = VaavudViewFiles;
 			sourceTree = "<group>";
@@ -1085,15 +1067,71 @@
 		E90709411940AFAC0087F80F /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				E9793A83196C411C00E3823E /* ParentViewController.h */,
-				E9793A84196C411C00E3823E /* ParentViewController.m */,
-				E91D4214198F7A9800106E15 /* GuideView.xib */,
-				E91D4216198F7C8400106E15 /* GuideView.h */,
-				E91D4217198F7C8400106E15 /* GuideView.m */,
+				E9AF2B8317F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.h */,
+				E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */,
 				E91D4219198F7E4900106E15 /* DismissOnTouchUIView.h */,
 				E91D421A198F7E4900106E15 /* DismissOnTouchUIView.m */,
+				E91D4216198F7C8400106E15 /* GuideView.h */,
+				E91D4217198F7C8400106E15 /* GuideView.m */,
+				E91D4214198F7A9800106E15 /* GuideView.xib */,
+				E9793A83196C411C00E3823E /* ParentViewController.h */,
+				E9793A84196C411C00E3823E /* ParentViewController.m */,
 			);
 			name = Components;
+			sourceTree = "<group>";
+		};
+		E91E490A19AB5EEB00616887 /* Measure */ = {
+			isa = PBXGroup;
+			children = (
+				E9A4097E189BD29F004F1C12 /* MeasureNavigationController.h */,
+				E9A4097F189BD29F004F1C12 /* MeasureNavigationController.m */,
+				E91E490B19AB5F3D00616887 /* CoreMeasureViewController.h */,
+				E91E490C19AB5F3D00616887 /* CoreMeasureViewController.m */,
+				D7B5BD4F175775EB0069F739 /* vaavudGraphHostingView.h */,
+				D7B5BD50175775EB0069F739 /* vaavudGraphHostingView.m */,
+				D7A4F1E5173A8DDB00D1ACEE /* MeasureViewController.h */,
+				D7A4F1E6173A8DDB00D1ACEE /* MeasureViewController.m */,
+			);
+			name = Measure;
+			sourceTree = "<group>";
+		};
+		E91E490F19AB5FA600616887 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				E9FABFD918929158009C4C46 /* HistoryNavigationController.h */,
+				E9FABFDA18929158009C4C46 /* HistoryNavigationController.m */,
+				E9A4098B18A50D11004F1C12 /* HistoryRootViewController.h */,
+				E9A4098C18A50D11004F1C12 /* HistoryRootViewController.m */,
+				E9FABFDF189294BD009C4C46 /* HistoryTableViewCell.h */,
+				E9FABFE0189294BD009C4C46 /* HistoryTableViewCell.m */,
+				E9FABFDC18929473009C4C46 /* HistoryTableViewController.h */,
+				E9FABFDD18929473009C4C46 /* HistoryTableViewController.m */,
+				E9FABFE81896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.h */,
+				E9FABFE91896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m */,
+				E9FABFE61896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib */,
+				E9575938193E222D00B5D0AE /* LoadingHistoryViewController.h */,
+				E9575939193E222D00B5D0AE /* LoadingHistoryViewController.m */,
+				E912793318BF7893009C7769 /* NoHistoryArrowView.h */,
+				E912793418BF7893009C7769 /* NoHistoryArrowView.m */,
+				E912793018BF5FF4009C7769 /* NoHistoryViewController.h */,
+				E912793118BF5FF4009C7769 /* NoHistoryViewController.m */,
+			);
+			name = History;
+			sourceTree = "<group>";
+		};
+		E91E491019AB641F00616887 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				E904AC9617F08F6E00171F7F /* MapViewController.h */,
+				E904AC9717F08F6E00171F7F /* MapViewController.m */,
+				E9D0F4B317F9A59000C220B3 /* MeasurementCalloutView.h */,
+				E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */,
+				E960261018575E41009396B1 /* MeasurementCalloutView.xib */,
+				E9AF2B8D17F5B93800BDF6D9 /* MeasurementTableViewCell.h */,
+				E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */,
+				E9AF2B9017F5B96500BDF6D9 /* MeasurementTableViewCell.xib */,
+			);
+			name = Map;
 			sourceTree = "<group>";
 		};
 		E98853C7176868BE00F78128 /* Images */ = {
@@ -1218,9 +1256,11 @@
 		E9AE301919A369EF004A79C4 /* Agriculture */ = {
 			isa = PBXGroup;
 			children = (
-				E9AB11D619A60D68000C6FB1 /* Login */,
-				E9AB11D319A60B7E000C6FB1 /* Images */,
 				E9AE301A19A36A25004A79C4 /* Agriculture.storyboard */,
+				E9AB11D319A60B7E000C6FB1 /* Images */,
+				E9AB11D619A60D68000C6FB1 /* Login */,
+				E9C7798719AB7BD2000A6921 /* Measure */,
+				E9C7799019AB8DC1000A6921 /* Settings */,
 			);
 			name = Agriculture;
 			sourceTree = "<group>";
@@ -1302,6 +1342,26 @@
 				E9B950E91961A21500E9EF02 /* ShareDialog.m */,
 			);
 			name = Share;
+			sourceTree = "<group>";
+		};
+		E9C7798719AB7BD2000A6921 /* Measure */ = {
+			isa = PBXGroup;
+			children = (
+				E9C7798819AB7C09000A6921 /* AgriMeasureViewController.h */,
+				E9C7798919AB7C09000A6921 /* AgriMeasureViewController.m */,
+				E9C7798C19AB87D1000A6921 /* AgriMeasureNavigationController.h */,
+				E9C7798D19AB87D1000A6921 /* AgriMeasureNavigationController.m */,
+			);
+			name = Measure;
+			sourceTree = "<group>";
+		};
+		E9C7799019AB8DC1000A6921 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				E9C7799119AB8DE4000A6921 /* AgriSettingsNavigationController.h */,
+				E9C7799219AB8DE4000A6921 /* AgriSettingsNavigationController.m */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		E9CD21FF177B2AEA0054ED3F /* MagicalRecord */ = {
@@ -1424,6 +1484,10 @@
 			children = (
 				E9DE09B8192E4C84003877D9 /* SettingsViewController.h */,
 				E9DE09B9192E4C84003877D9 /* SettingsViewController.m */,
+				E9B47A011794217200E8A82E /* Terms.h */,
+				E9B47A021794217200E8A82E /* Terms.m */,
+				E9B47A081794315100E8A82E /* TermsViewController.h */,
+				E9B47A091794315100E8A82E /* TermsViewController.m */,
 				E9575935193CAE3D00B5D0AE /* UnitSelectionViewController.h */,
 				E9575936193CAE3D00B5D0AE /* UnitSelectionViewController.m */,
 			);
@@ -1809,9 +1873,10 @@
 			files = (
 				D7A4F1D7173A8DDB00D1ACEE /* main.m in Sources */,
 				D7A4F1DB173A8DDB00D1ACEE /* vaavudAppDelegate.m in Sources */,
-				D7A4F1E7173A8DDB00D1ACEE /* vaavudViewController.m in Sources */,
+				D7A4F1E7173A8DDB00D1ACEE /* MeasureViewController.m in Sources */,
 				D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController.m in Sources */,
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
+				E9C7799319AB8DE4000A6921 /* AgriSettingsNavigationController.m in Sources */,
 				E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */,
 				D71BE13717439AA000B38E34 /* vaavudFFT.m in Sources */,
 				E9B950CC195B1DCE00E9EF02 /* ImageUtil.m in Sources */,
@@ -1846,6 +1911,7 @@
 				E9CD223B177B2AEA0054ED3F /* MagicalImportFunctions.m in Sources */,
 				E9F33CCB18B4AFBF0033EDC7 /* UIColor+VaavudColors.m in Sources */,
 				E9CD223C177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m in Sources */,
+				E9C7798E19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */,
 				E9FD000B17FD6A06001A8491 /* FormatUtil.m in Sources */,
 				E9CD223D177B2AEA0054ED3F /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				E9CD223E177B2AEA0054ED3F /* NSNumber+MagicalDataImport.m in Sources */,
@@ -1873,6 +1939,7 @@
 				E9CD2248177B2AEA0054ED3F /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				E912793218BF5FF4009C7769 /* NoHistoryViewController.m in Sources */,
 				E9CD2249177B2AEA0054ED3F /* NSManagedObjectContext+MagicalSaves.m in Sources */,
+				E9C7798A19AB7C09000A6921 /* AgriMeasureViewController.m in Sources */,
 				E9CD224A177B2AEA0054ED3F /* NSManagedObjectContext+MagicalThreading.m in Sources */,
 				E9A4097918994000004F1C12 /* TMDiskCache.m in Sources */,
 				E912793518BF7893009C7769 /* NoHistoryArrowView.m in Sources */,
@@ -1892,6 +1959,7 @@
 				E9CD2254177B2AEA0054ED3F /* MagicalRecord.m in Sources */,
 				E904AC9817F08F6E00171F7F /* MapViewController.m in Sources */,
 				E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */,
+				E91E490D19AB5F3D00616887 /* CoreMeasureViewController.m in Sources */,
 				E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */,
 				E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */,
 				E93C865A1781BE56005E4212 /* LocationManager.m in Sources */,
@@ -1918,9 +1986,10 @@
 			files = (
 				E96FB4ED19A353B500CB7306 /* main.m in Sources */,
 				E96FB4EE19A353B500CB7306 /* vaavudAppDelegate.m in Sources */,
-				E96FB4EF19A353B500CB7306 /* vaavudViewController.m in Sources */,
+				E96FB4EF19A353B500CB7306 /* MeasureViewController.m in Sources */,
 				E96FB4F019A353B500CB7306 /* VaavudCoreController.m in Sources */,
 				E96FB4F119A353B500CB7306 /* VaavudMagneticFieldDataManager.m in Sources */,
+				E9C7799419AB8DE4000A6921 /* AgriSettingsNavigationController.m in Sources */,
 				E96FB4F219A353B500CB7306 /* SMCalloutView.m in Sources */,
 				E96FB4F319A353B500CB7306 /* vaavudFFT.m in Sources */,
 				E96FB4F419A353B500CB7306 /* ImageUtil.m in Sources */,
@@ -1955,6 +2024,7 @@
 				E96FB51119A353B500CB7306 /* MagicalImportFunctions.m in Sources */,
 				E96FB51219A353B500CB7306 /* UIColor+VaavudColors.m in Sources */,
 				E96FB51319A353B500CB7306 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
+				E9C7798F19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */,
 				E96FB51419A353B500CB7306 /* FormatUtil.m in Sources */,
 				E96FB51519A353B500CB7306 /* NSEntityDescription+MagicalDataImport.m in Sources */,
 				E96FB51619A353B500CB7306 /* NSNumber+MagicalDataImport.m in Sources */,
@@ -1982,6 +2052,7 @@
 				E96FB52B19A353B500CB7306 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				E96FB52C19A353B500CB7306 /* NoHistoryViewController.m in Sources */,
 				E96FB52D19A353B500CB7306 /* NSManagedObjectContext+MagicalSaves.m in Sources */,
+				E9C7798B19AB7C09000A6921 /* AgriMeasureViewController.m in Sources */,
 				E96FB52E19A353B500CB7306 /* NSManagedObjectContext+MagicalThreading.m in Sources */,
 				E96FB52F19A353B500CB7306 /* TMDiskCache.m in Sources */,
 				E96FB53019A353B500CB7306 /* NoHistoryArrowView.m in Sources */,
@@ -2001,6 +2072,7 @@
 				E96FB53E19A353B500CB7306 /* MagicalRecord.m in Sources */,
 				E96FB53F19A353B500CB7306 /* MapViewController.m in Sources */,
 				E96FB54019A353B500CB7306 /* DictionarySerializationUtil.m in Sources */,
+				E91E490E19AB5F3D00616887 /* CoreMeasureViewController.m in Sources */,
 				E96FB54119A353B500CB7306 /* MeasurementPoint.m in Sources */,
 				E96FB54219A353B500CB7306 /* UUIDUtil.m in Sources */,
 				E96FB54319A353B500CB7306 /* LocationManager.m in Sources */,

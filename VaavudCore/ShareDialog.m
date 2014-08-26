@@ -175,7 +175,7 @@
         }];
         
     } failure:^{
-        NSLog(@"[VaavudViewController] Couldn't get sharing permissions");
+        NSLog(@"[ShareDialog] Couldn't get sharing permissions");
     }];
 }
 
@@ -231,16 +231,16 @@
 
                                          if (!error) {
                                              // Success, the restaurant has been liked
-                                             NSLog(@"[VaavudViewController] Posted OG action, id: %@", [result objectForKey:@"id"]);
+                                             NSLog(@"[ShareDialog] Posted OG action, id: %@", [result objectForKey:@"id"]);
                                              [self.delegate shareSuccessful:hasMessage numberOfPhotos:numberOfPhotos];
                                          } else {
-                                             NSLog(@"[VaavudViewController] Failure posting to Facebook: %@", error);
+                                             NSLog(@"[ShareDialog] Failure posting to Facebook: %@", error);
                                              [self.delegate shareFailure];
                                          }
                                      }];
         
     } failure:^{
-        NSLog(@"[VaavudViewController] Couldn't get sharing permissions");
+        NSLog(@"[ShareDialog] Couldn't get sharing permissions");
         [self.delegate shareFailure];
     }];
 }

@@ -125,3 +125,6 @@
 "MAP_GUIDE_ZOOM_EXPLANATION" = "Tap on the map thumbnail to zoom to the exact location.";
 
 "AGRI_REGISTER_BUTTON" = "Register";
+"HEADING_WIND_SPEED" = "Wind Speed";
+"HEADING_TEMPERATURE" = "Temperature";
+"BUTTON_NEXT" = "Next";
