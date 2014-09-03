@@ -177,6 +177,8 @@
     
     self.view.autoresizesSubviews = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    
+    [[VEVaavudElectronicSDK sharedVaavudElectronic] addListener:self];
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -587,6 +589,24 @@
 
 - (NSString*) shareUnit {
     return [UnitUtil englishDisplayNameForWindSpeedUnit:self.windSpeedUnit];
+}
+
+/* Vaavud Electronic */
+
+- (void) devicePlugedInChecking {
+    NSLog(@"devicePlugedInChecking");
+}
+
+- (void) notVaavudPlugedIn {
+    NSLog(@"notVaavudPlugedIn");
+}
+
+- (void) vaavudPlugedIn {
+    NSLog(@"vaavudPlugedIn");
+}
+
+- (void) deviceWasUnpluged {
+    NSLog(@"deviceWasUnpluged");
 }
 
 @end

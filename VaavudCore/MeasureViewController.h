@@ -11,8 +11,9 @@
 #import "vaavudGraphHostingView.h"
 #import "CorePlot-CocoaTouch.h"
 #import "ShareDialog.h"
+#import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
 
-@interface MeasureViewController : UIViewController <VaavudCoreViewControllerDelegate, UIAlertViewDelegate, ShareDialogDelegate>
+@interface MeasureViewController : UIViewController <VaavudCoreViewControllerDelegate, UIAlertViewDelegate, ShareDialogDelegate, VaavudElectronicWindDelegate>
 
 @property (nonatomic) BOOL lookupTemperature;
 @property (nonatomic) BOOL shareToFacebook;
