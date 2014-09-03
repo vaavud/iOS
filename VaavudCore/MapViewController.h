@@ -21,7 +21,7 @@
 
 @end
 
-@interface MapViewController : UIViewController <MKMapViewDelegate, SMCalloutViewDelegate>
+@interface MapViewController : UIViewController <MKMapViewDelegate, SMCalloutViewDelegate, TabSelectedListener>
 
 @property (nonatomic, weak) IBOutlet CustomMapView *mapView;
 @property (nonatomic, weak) IBOutlet UIButton *hoursButton;

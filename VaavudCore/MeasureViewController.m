@@ -216,6 +216,12 @@
     }
 }
 
+- (void) tabSelected {
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:@"Measure Tab"];
+    }
+}
+
 - (void) viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.graphHostView pauseUpdates];
@@ -317,6 +323,12 @@
     }
 }
 
+- (void) updateMeasuredValues:(NSNumber*)windSpeedAvg windSpeedMax:(NSNumber*)windSpeedMax {
+    self.averageLabelCurrentValue = windSpeedAvg;
+    self.maxLabelCurrentValue = windSpeedMax;
+    [self updateLabelsFromCurrentValues];
+}
+
 - (void) updateLabels {    
     
     if (self.isValid) {
@@ -406,24 +418,31 @@
         [self start];
         
         if ([Property isMixpanelEnabled]) {
-            NSNumber *measurementCount = [MeasurementSession MR_numberOfEntities];
-            if (measurementCount) {
-                [[Mixpanel sharedInstance] registerSuperProperties:@{@"Measurements": [measurementCount stringValue]}];
-            }
-            [[Mixpanel sharedInstance] track:@"Start Measurement"];
+            Mixpanel *mixpanel = [Mixpanel sharedInstance];
 
+            NSInteger measurementCount = [MeasurementSession MR_countOfEntities];
+            NSInteger realMeasurementCount = [MeasurementSession MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"windSpeedAvg > 0"]];
+            [mixpanel registerSuperProperties:@{@"Measurements":[NSNumber numberWithInteger:measurementCount], @"Real Measurements":[NSNumber numberWithInteger:realMeasurementCount]}];
+            
+            [mixpanel track:@"Start Measurement"];
         }
     }
     else {
         NSTimeInterval durationSecounds = [self stop:NO];
 
         if ([Property isMixpanelEnabled]) {
+
+            Mixpanel *mixpanel = [Mixpanel sharedInstance];
+            
+            NSInteger measurementCount = [MeasurementSession MR_countOfEntities];
+            NSInteger realMeasurementCount = [MeasurementSession MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"windSpeedAvg > 0"]];
+            [mixpanel registerSuperProperties:@{@"Measurements":[NSNumber numberWithInteger:measurementCount], @"Real Measurements":[NSNumber numberWithInteger:realMeasurementCount]}];
             
             if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F)) {
-                [[Mixpanel sharedInstance] track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)], @"Avg Wind Speed": self.averageLabelCurrentValue, @"Max Wind Speed": self.maxLabelCurrentValue}];
+                [mixpanel track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)], @"Avg Wind Speed": self.averageLabelCurrentValue, @"Max Wind Speed": self.maxLabelCurrentValue}];
             }
             else {
-                [[Mixpanel sharedInstance] track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)]}];
+                [mixpanel track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)]}];
             }
         }
         

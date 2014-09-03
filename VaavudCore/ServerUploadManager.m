@@ -723,6 +723,12 @@ SHARED_INSTANCE
             
             [Property refreshHasWindMeter];
 
+            Mixpanel *mixpanel = [Mixpanel sharedInstance];
+            
+            NSInteger measurementCount = [MeasurementSession MR_countOfEntities];
+            NSInteger realMeasurementCount = [MeasurementSession MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"windSpeedAvg > 0"]];
+            [mixpanel registerSuperProperties:@{@"Measurements":[NSNumber numberWithInteger:measurementCount], @"Real Measurements":[NSNumber numberWithInteger:realMeasurementCount]}];
+
             //NSLog(@"[ServerUploadManager] End saveWithBlock with success=%@", isSuccess ? @"YES" : @"NO");
 
             if (success) {

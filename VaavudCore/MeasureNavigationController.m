@@ -7,6 +7,8 @@
 //
 
 #import "MeasureNavigationController.h"
+#import "Mixpanel.h"
+#import "Property+Util.h"
 
 @interface MeasureNavigationController ()
 
@@ -19,7 +21,7 @@
     self.tabBarItem.title = NSLocalizedString(@"TAB_MEASURE", nil);
 }
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
         
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
@@ -36,10 +38,10 @@
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void) tabSelected {
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:@"Measure Tab"];
+    }
 }
 
 @end

@@ -17,27 +17,17 @@
 @property (nonatomic) SMCalloutView *calloutView;
 @property (nonatomic) DismissOnTouchUIView *overlayDimmingView;
 @property (nonatomic) BOOL isCalloutGuideViewShown;
+@property (nonatomic) UIViewController *currentController;
 
 @end
 
 @implementation TabBarController
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-    }
-    return self;
-}
-
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-    }
-    return self;
-}
-
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
+    
+    self.delegate = self;
+    self.currentController = nil;
     
 	if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
         self.tabBar.tintColor = [UIColor clearColor];
@@ -69,7 +59,20 @@
     self.calloutView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 }
 
--(NSUInteger)supportedInterfaceOrientations {
+- (void) tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
+    
+    if (viewController == self.currentController) {
+        return;
+    }
+    self.currentController = viewController;
+    
+    if (viewController && [viewController conformsToProtocol:@protocol(TabSelectedListener)]) {
+        UIViewController<TabSelectedListener> *tabSelectedController = (UIViewController<TabSelectedListener>*) viewController;
+        [tabSelectedController tabSelected];
+    }
+}
+
+-(NSUInteger) supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 

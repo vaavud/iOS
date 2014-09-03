@@ -14,6 +14,7 @@
 #import "MeasurementSession+Util.h"
 #import "ServerUploadManager.h"
 #import "LoadingHistoryViewController.h"
+#import "Mixpanel.h"
 
 @interface HistoryRootViewController ()
 
@@ -38,6 +39,12 @@
         self.tabBarItem.selectedImage = selectedTabImage;
 #endif
         
+    }
+}
+
+- (void) tabSelected {
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:@"History Tab"];
     }
 }
 

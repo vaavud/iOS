@@ -186,6 +186,9 @@
         
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
             if (success) {
+                if (self.vaavudCoreControllerViewControllerDelegate) {
+                    [self.vaavudCoreControllerViewControllerDelegate updateMeasuredValues:measurementSession.windSpeedAvg windSpeedMax:measurementSession.windSpeedMax];
+                }
                 [[ServerUploadManager sharedInstance] triggerUpload];
             }
         }];
@@ -210,7 +213,6 @@
     
     return durationSeconds;
 }
-
 
 - (void) remove
 {

@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "RegisterNavigationController.h"
+#import "TabBarController.h"
 
-@interface MeasureNavigationController : RegisterNavigationController
+@interface MeasureNavigationController : RegisterNavigationController<TabSelectedListener>
 
 @end

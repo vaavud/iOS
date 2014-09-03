@@ -161,7 +161,17 @@
         
         BOOL enableShareDialog = [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:YES];
         [dictionary setObject:(enableShareDialog ? @"true" : @"false") forKey:@"Enable Share Dialog"];
-
+        
+        NSInteger measurementCount = [MeasurementSession MR_countOfEntities];
+        if (measurementCount > 0) {
+            [dictionary setObject:[NSNumber numberWithInteger:measurementCount] forKey:@"Measurements"];
+        }
+        
+        NSInteger realMeasurementCount = [MeasurementSession MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"windSpeedAvg > 0"]];
+        if (realMeasurementCount > 0) {
+            [dictionary setObject:[NSNumber numberWithInteger:realMeasurementCount] forKey:@"Real Measurements"];
+        }
+        
         if (dictionary.count > 0) {
             [mixpanel registerSuperProperties:dictionary];
         }

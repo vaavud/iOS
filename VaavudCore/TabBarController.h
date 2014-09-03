@@ -16,7 +16,11 @@
 - (void) guideViewDismissed;
 @end
 
-@interface TabBarController : UITabBarController <SMCalloutViewDelegate,DismissOnTouchUIViewDelegate>
+@protocol TabSelectedListener <NSObject>
+- (void) tabSelected;
+@end
+
+@interface TabBarController : UITabBarController <SMCalloutViewDelegate,DismissOnTouchUIViewDelegate,UITabBarControllerDelegate>
 
 - (BOOL) isShowingGuideView;
 - (void) showCalloutGuideView:(NSString*)headingText explanationText:(NSString*)explanationText customPosition:(CGRect)rect withArrow:(BOOL)withArrow inView:(UIView*)inView;

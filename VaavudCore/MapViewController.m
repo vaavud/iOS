@@ -139,6 +139,12 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
 }
 
+- (void) tabSelected {
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:@"Map Tab"];
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
@@ -606,18 +612,9 @@
 
 -(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation*)annotation withAction:(NSString*)action mixpanelTrack:(NSString*)track mixpanelSource:(NSString*)source {
     
-    NSString *label = nil;
-    
-    if (annotation) {
-        label = [self gridValueFromCoordinate:annotation];
-    }
-    
     if ([Property isMixpanelEnabled]) {
         
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-        if (label) {
-            [dictionary setObject:label forKey:@"Grid"];
-        }
         if (source) {
             [dictionary setObject:source forKey:@"Source"];
         }
@@ -629,19 +626,6 @@
             [[Mixpanel sharedInstance] track:track];
         }
     }
-}
-
--(NSString*)gridValueFromCoordinate:(MeasurementAnnotation*)annotation {
-    double latitude = annotation.coordinate.latitude;
-    double longitude = annotation.coordinate.longitude;
-    
-    double latitudeInRadians = latitude * M_PI / 180.0;
-    
-    int latitudeGrid = floor(latitude/(cos(latitudeInRadians)*2*self.analyticsGridDegree));
-    int longitudeGrid = floor(longitude/self.analyticsGridDegree);
-    
-    NSString *grid = [NSString stringWithFormat:@"%@:%d,%d", [[NSNumber numberWithDouble:self.analyticsGridDegree] stringValue], latitudeGrid, longitudeGrid];
-    return grid;
 }
 
 @end

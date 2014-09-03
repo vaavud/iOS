@@ -8,12 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "RegisterNavigationController.h"
+#import "TabBarController.h"
 
 @protocol HistoryLoadedListener <NSObject>
 - (void) historyLoaded;
 @end
 
-@interface HistoryRootViewController : UIViewController <RegisterNavigationControllerDelegate>
+@interface HistoryRootViewController : UIViewController <RegisterNavigationControllerDelegate, TabSelectedListener>
 
 - (void) chooseContentControllerWithNoHistorySync;
 

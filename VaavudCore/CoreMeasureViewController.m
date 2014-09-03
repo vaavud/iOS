@@ -38,7 +38,7 @@
 - (void) viewDidLoad {
     [super viewDidLoad];
     
-    [self.settingsBarButtonItem setTitle:NSLocalizedString(@"SETTINGS_TITLE", nil)];
+    //[self.settingsBarButtonItem setTitle:NSLocalizedString(@"SETTINGS_TITLE", nil)];
 }
 
 - (void) viewDidAppear:(BOOL)animated {

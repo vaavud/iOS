@@ -9,6 +9,7 @@
 @protocol VaavudCoreViewControllerDelegate
 
 - (void) windSpeedMeasurementsAreValid:(BOOL)valid;
+- (void) updateMeasuredValues:(NSNumber*)windSpeedAvg windSpeedMax:(NSNumber*)windSpeedMax;
 - (void) measuringStoppedByModel;
 - (void) temperatureUpdated:(float)temperature;
 
