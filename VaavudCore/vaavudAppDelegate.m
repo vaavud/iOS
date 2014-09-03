@@ -175,6 +175,28 @@
         if (dictionary.count > 0) {
             [mixpanel registerSuperProperties:dictionary];
         }
+        
+        /*
+        // test Mixpanel People
+
+        if ([[AccountManager sharedInstance] isLoggedIn]) {
+            
+            NSString *email = [Property getAsString:KEY_EMAIL];
+            if (email && creationTime) {
+                
+                NSString *firstName = [Property getAsString:KEY_FIRST_NAME];
+                NSString *lastName = [Property getAsString:KEY_LAST_NAME];
+                
+                [mixpanel.people set:@{
+                                       @"$email": email,
+                                       @"$created": creationTime,
+                                       @"$first_name": (firstName) ? firstName : [NSNull null],
+                                       @"$last_name": (lastName) ? lastName : [NSNull null],
+                                       @"$last_login": [NSDate date]
+                                       }];
+            }
+        }
+        */
     }
     
     if (self.lastAppActive == nil || fabs([self.lastAppActive timeIntervalSinceNow]) > 30.0 * 60.0 /* 30 mins */) {
