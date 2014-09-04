@@ -18,6 +18,7 @@
 #import "ServerUploadManager.h"
 #import "vaavudGraphHostingView.h"
 #import "UnitUtil.h"
+#import "MixpanelUtil.h"
 #import <math.h>
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -419,11 +420,6 @@
         
         if ([Property isMixpanelEnabled]) {
             Mixpanel *mixpanel = [Mixpanel sharedInstance];
-
-            NSInteger measurementCount = [MeasurementSession MR_countOfEntities];
-            NSInteger realMeasurementCount = [MeasurementSession MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"windSpeedAvg > 0"]];
-            [mixpanel registerSuperProperties:@{@"Measurements":[NSNumber numberWithInteger:measurementCount], @"Real Measurements":[NSNumber numberWithInteger:realMeasurementCount]}];
-            
             [mixpanel track:@"Start Measurement"];
         }
     }
@@ -433,10 +429,7 @@
         if ([Property isMixpanelEnabled]) {
 
             Mixpanel *mixpanel = [Mixpanel sharedInstance];
-            
-            NSInteger measurementCount = [MeasurementSession MR_countOfEntities];
-            NSInteger realMeasurementCount = [MeasurementSession MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"windSpeedAvg > 0"]];
-            [mixpanel registerSuperProperties:@{@"Measurements":[NSNumber numberWithInteger:measurementCount], @"Real Measurements":[NSNumber numberWithInteger:realMeasurementCount]}];
+            [MixpanelUtil updateMeasurementProperties:NO];
             
             if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F)) {
                 [mixpanel track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)], @"Avg Wind Speed": self.averageLabelCurrentValue, @"Max Wind Speed": self.maxLabelCurrentValue}];

@@ -19,6 +19,7 @@
 #import "Property+Util.h"
 #import "UnitUtil.h"
 #import "UIColor+VaavudColors.h"
+#import "MixpanelUtil.h"
 
 @interface vaavudAppDelegate()
 
@@ -128,6 +129,9 @@
     
     if ([Property isMixpanelEnabled]) {
         
+        [MixpanelUtil registerUserAsMixpanelProfile];
+        [MixpanelUtil updateMeasurementProperties:YES];
+
         Mixpanel *mixpanel = [Mixpanel sharedInstance];
         
         // Mixpanel super properties
@@ -162,41 +166,9 @@
         BOOL enableShareDialog = [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:YES];
         [dictionary setObject:(enableShareDialog ? @"true" : @"false") forKey:@"Enable Share Dialog"];
         
-        NSInteger measurementCount = [MeasurementSession MR_countOfEntities];
-        if (measurementCount > 0) {
-            [dictionary setObject:[NSNumber numberWithInteger:measurementCount] forKey:@"Measurements"];
-        }
-        
-        NSInteger realMeasurementCount = [MeasurementSession MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"windSpeedAvg > 0"]];
-        if (realMeasurementCount > 0) {
-            [dictionary setObject:[NSNumber numberWithInteger:realMeasurementCount] forKey:@"Real Measurements"];
-        }
-        
         if (dictionary.count > 0) {
             [mixpanel registerSuperProperties:dictionary];
         }
-        
-        /*
-        // test Mixpanel People
-
-        if ([[AccountManager sharedInstance] isLoggedIn]) {
-            
-            NSString *email = [Property getAsString:KEY_EMAIL];
-            if (email && creationTime) {
-                
-                NSString *firstName = [Property getAsString:KEY_FIRST_NAME];
-                NSString *lastName = [Property getAsString:KEY_LAST_NAME];
-                
-                [mixpanel.people set:@{
-                                       @"$email": email,
-                                       @"$created": creationTime,
-                                       @"$first_name": (firstName) ? firstName : [NSNull null],
-                                       @"$last_name": (lastName) ? lastName : [NSNull null],
-                                       @"$last_login": [NSDate date]
-                                       }];
-            }
-        }
-        */
     }
     
     if (self.lastAppActive == nil || fabs([self.lastAppActive timeIntervalSinceNow]) > 30.0 * 60.0 /* 30 mins */) {

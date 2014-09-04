@@ -30,6 +30,7 @@ static NSString * const KEY_ALGORITHM = @"algorithm";
 static NSString * const KEY_ANALYTICS_GRID_DEGREE = @"analyticsGridDegree";
 static NSString * const KEY_HOUR_OPTIONS = @"hourOptions";
 static NSString * const KEY_ENABLE_MIXPANEL = @"enableMixPanel";
+static NSString * const KEY_ENABLE_MIXPANEL_PEOPLE = @"enableMixPanelPeople";
 static NSString * const KEY_ENABLE_FACEBOOK_DISCLAIMER = @"enableFacebookDisclaimer";
 static NSString * const KEY_ENABLE_SHARE_DIALOG = @"enableShareDialog";
 static NSString * const KEY_HAS_SEEN_INTRO_FLOW = @"hasSeenIntroFlow";
@@ -66,6 +67,7 @@ static NSString * const KEY_USER_HAS_WIND_METER = @"userHasWindMeter";
 + (void) setAsFloatArray:(NSArray*) value forKey:(NSString*) name;
 
 + (BOOL) isMixpanelEnabled;
++ (BOOL) isMixpanelPeopleEnabled;
 + (void) refreshHasWindMeter;
 
 + (NSDictionary *) getDeviceDictionary;
