@@ -12,7 +12,6 @@
 #import "ServerUploadManager.h"
 #import "Property+Util.h"
 #import "RegisterNavigationController.h"
-#import "vaavudAppDelegate.h"
 #import "UUIDUtil.h"
 #import "TermsPrivacyViewController.h"
 #import "Mixpanel.h"

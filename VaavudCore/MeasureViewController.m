@@ -24,31 +24,37 @@
 
 @interface MeasureViewController ()
 
+// Common
+
 @property (nonatomic) BOOL buttonShowsStart;
-
-@property (nonatomic, strong) NSTimer *statusBarTimer;
-@property (nonatomic, strong) CADisplayLink *displayLinkGraphUI;
-@property (nonatomic, strong) CADisplayLink *displayLinkGraphValues;
-@property (nonatomic, strong) VaavudCoreController *vaavudCoreController;
-@property (nonatomic, strong) NSArray *compassTableShort;
-
-@property (nonatomic) BOOL isValid;
 
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
 
 @property (nonatomic) NSNumber *actualLabelCurrentValue;
 @property (nonatomic) NSNumber *averageLabelCurrentValue;
 @property (nonatomic) NSNumber *maxLabelCurrentValue;
+@property (nonatomic) NSNumber *directionLabelCurrentValue;
 
 @property (nonatomic,strong) UIView *customDimmingView;
 @property (nonatomic,strong) ShareDialog *shareDialog;
 @property (nonatomic,strong) UIActivityIndicatorView *activityIndicatorView;
 
+@property (nonatomic) BOOL useSleipnir;
+
+// Mjolnir properties
+
+@property (nonatomic, strong) NSTimer *statusBarTimer;
+@property (nonatomic, strong) CADisplayLink *displayLinkGraphUI;
+@property (nonatomic, strong) CADisplayLink *displayLinkGraphValues;
+@property (nonatomic, strong) VaavudCoreController *vaavudCoreController;
+@property (nonatomic, strong) NSArray *compassTableShort;
+@property (nonatomic) BOOL isValid;
+
 @end
 
-@implementation MeasureViewController {
-    
-}
+@implementation MeasureViewController {}
+
+/**** Storyboard Properties Specifiable by Subclasses ****/
 
 - (UILabel*) averageHeadingLabel {
     return nil;
@@ -75,6 +81,14 @@
 }
 
 - (UILabel*) maxLabel {
+    return nil;
+}
+
+- (UILabel*) directionHeadingLabel {
+    return nil;
+}
+
+- (UILabel*) directionLabel {
     return nil;
 }
 
@@ -106,11 +120,19 @@
     return nil;
 }
 
+/**** Setup ****/
+
 - (void) viewDidLoad {
     [super viewDidLoad];
 
     self.windSpeedUnit = -1; // make sure windSpeedUnit is updated in viewWillAppear by setting it to an invalid value
     self.shareToFacebook = YES;
+    self.useSleipnir = NO;
+    
+    self.averageLabelCurrentValue = nil;
+    self.actualLabelCurrentValue = nil;
+    self.maxLabelCurrentValue = nil;
+    self.directionLabelCurrentValue = nil;
     
     if (self.averageHeadingLabel) {
         self.averageHeadingLabel.text = [NSLocalizedString(@"HEADING_AVERAGE", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
@@ -123,6 +145,9 @@
     }
     if (self.unitHeadingLabel) {
         self.unitHeadingLabel.text = [NSLocalizedString(@"HEADING_UNIT", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+    }
+    if (self.directionHeadingLabel) {
+        self.directionHeadingLabel.text = [NSLocalizedString(@"HEADING_WIND_DIRECTION", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     }
     if (self.temperatureHeadingLabel) {
         self.temperatureHeadingLabel.text = [NSLocalizedString(@"HEADING_TEMPERATURE", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
@@ -153,6 +178,10 @@
         [self.unitButton setTitleColor:vaavudBlueUIcolor forState:UIControlStateNormal];
     }
     
+    if (self.directionLabel) {
+        self.directionLabel.textColor = vaavudBlueUIcolor;
+    }
+    
     if (self.statusBar) {
         self.statusBar.progressTintColor = vaavudBlueUIcolor;
     }
@@ -179,7 +208,25 @@
     self.view.autoresizesSubviews = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    [[VEVaavudElectronicSDK sharedVaavudElectronic] addListener:self];
+    [SleipnirMeasurementController sharedInstance].viewDelegate = self;
+}
+
+-(NSUInteger) supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
+- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    
+    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    
+    if (interfaceOrientation == UIInterfaceOrientationPortrait) {
+        self.vaavudCoreController.upsideDown = NO;
+    }
+    
+    if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+        self.vaavudCoreController.upsideDown = YES;
+    }
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -231,7 +278,19 @@
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
-- (void) start {
+/**** Common Start/Stop Measuring ****/
+
+- (IBAction) startStopButtonPushed:(id)sender {
+    
+    if (self.buttonShowsStart) {
+        [self startWithUITracking:YES];
+    }
+    else {
+        [self stopWithUITracking:YES action:@"Button"];
+    }
+}
+
+- (void) startWithUITracking:(BOOL)uiTracking {
     
     self.buttonShowsStart = NO;
     
@@ -239,10 +298,130 @@
         self.startStopButton.backgroundColor = [UIColor vaavudRedColor];
         [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_STOP", nil) forState:UIControlStateNormal];
     }
-
+    
     if (self.statusBar) {
         [self.statusBar setProgress:0];
     }
+    
+    self.actualLabelCurrentValue = nil;
+    self.averageLabelCurrentValue = nil;
+    self.maxLabelCurrentValue = nil;
+    self.directionLabelCurrentValue = nil;
+    [self updateLabelsFromCurrentValues];
+    
+    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    
+    if (self.useSleipnir) {
+        // Sleipnir start
+        [[SleipnirMeasurementController sharedInstance] start];
+    }
+    else {
+        // Mjolnir start
+        [self start];
+    }
+    
+    if (uiTracking) {
+        if ([Property isMixpanelEnabled]) {
+            Mixpanel *mixpanel = [Mixpanel sharedInstance];
+            [mixpanel track:@"Start Measurement"];
+        }
+    }
+}
+
+- (void) stopWithUITracking:(BOOL)uiTracking action:(NSString*)action {
+    
+    self.buttonShowsStart = YES;
+    
+    if (self.startStopButton) {
+        self.startStopButton.backgroundColor = [UIColor vaavudColor];
+        [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
+    }
+    
+    if (self.informationTextLabel) {
+        self.informationTextLabel.text = @"";
+    }
+    
+    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+    
+    NSTimeInterval durationSecounds = 0.0;
+    if (self.useSleipnir) {
+        // Sleipnir stop
+        durationSecounds = [[SleipnirMeasurementController sharedInstance] stop];
+    }
+    else {
+        // Mjolnir stop
+        durationSecounds = [self stop:NO];
+    }
+    
+    [Property refreshHasWindMeter];
+
+    if (uiTracking) {
+        if ([Property isMixpanelEnabled]) {
+            
+            Mixpanel *mixpanel = [Mixpanel sharedInstance];
+            [MixpanelUtil updateMeasurementProperties:NO];
+            
+            if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F)) {
+                [mixpanel track:@"Stop Measurement" properties:@{@"Action": action, @"Duration": [NSNumber numberWithInt:round(durationSecounds)], @"Avg Wind Speed": self.averageLabelCurrentValue, @"Max Wind Speed": self.maxLabelCurrentValue}];
+            }
+            else {
+                [mixpanel track:@"Stop Measurement" properties:@{@"Action": action, @"Duration": [NSNumber numberWithInt:round(durationSecounds)]}];
+            }
+        }
+        
+        [self promptForFacebookSharing];
+    }
+}
+
+/*
+ * Called from VaavudCoreController if:
+ * (1) the measurement session is deleted while measuring
+ * (2) the measurement session's "measuring" flag turns to NO while measuring
+ *     - which will be the case if ServerUploadManager sees a long period of inactivity
+ */
+- (void) measuringStoppedByModel {
+    
+    [self stopWithUITracking:NO action:@"Model"];
+}
+
+/**** Sleipnir Measurement ****/
+
+- (void) viewSleipnirPluggedIn {
+    
+    if (!self.useSleipnir && !self.buttonShowsStart) {
+        
+        // measurement with Mjolnir is in progress when Sleipnir is plugged in, so stop it
+        [self stopWithUITracking:NO action:@"Plug"];
+    }
+    self.useSleipnir = YES;
+}
+
+- (void) viewSleipnirPluggedOut {
+    
+    if (!self.buttonShowsStart) {
+        [self stopWithUITracking:YES action:@"Unplug"];
+    }
+    
+    self.useSleipnir = NO;
+}
+
+- (void) viewAddSpeed:(NSNumber*)currentSpeed avgSpeed:(NSNumber*)averageSpeed maxSpeed:(NSNumber*)maxSpeed {
+    
+    self.actualLabelCurrentValue = currentSpeed;
+    self.averageLabelCurrentValue = averageSpeed;
+    self.maxLabelCurrentValue = maxSpeed;
+    [self updateLabelsFromCurrentValues];
+}
+
+- (void) viewUpdateDirection:(NSNumber*)avgDirection {
+    
+    self.directionLabelCurrentValue = avgDirection;
+    [self updateLabelsFromCurrentValues];
+}
+
+/**** Mjolnir Measurement ****/
+
+- (void) start {
     
     self.vaavudCoreController = [[VaavudCoreController alloc] init];
     self.vaavudCoreController.lookupTemperature = self.lookupTemperature;
@@ -253,54 +432,24 @@
         [self.graphHostView setupCorePlotGraph];
     }
     
-    self.actualLabelCurrentValue = nil;
-    self.averageLabelCurrentValue = nil;
-    self.maxLabelCurrentValue = nil;
-    [self updateLabelsFromCurrentValues];
-    
     [self.vaavudCoreController start];
+
     self.statusBarTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateLabels) userInfo:nil repeats:YES];
-    
-    [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 }
 
 - (NSTimeInterval) stop:(BOOL)onlyUI {
-    self.buttonShowsStart = YES;
-    
-    if (self.startStopButton) {
-        self.startStopButton.backgroundColor = [UIColor vaavudColor];
-        [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
-    }
 
     [self.displayLinkGraphUI invalidate];
     [self.displayLinkGraphValues invalidate];
+    
+    NSTimeInterval durationSeconds = [self.vaavudCoreController stop];
     
     if (self.statusBarTimer) {
         [self.statusBarTimer invalidate];
         self.statusBarTimer = nil;
     }
-    
-    NSTimeInterval durationSeconds = 0.0;
-    if (!onlyUI) {
-        durationSeconds = [self.vaavudCoreController stop];
-    }
-    
-    if (self.informationTextLabel) {
-        self.informationTextLabel.text = @"";
-    }
-    
-    [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
-    return durationSeconds;
-}
 
-/*
- * Called from VaavudCoreController if:
- * (1) the measurement session is deleted while measuring
- * (2) the measurement session's "measuring" flag turns to NO while measuring
- *     - which will be the case if ServerUploadManager sees a long period of inactivity
- */
-- (void) measuringStoppedByModel {
-    [self stop:YES];
+    return durationSeconds;
 }
 
 - (void) windSpeedMeasurementsAreValid:(BOOL)valid {
@@ -363,6 +512,8 @@
     [self updateLabelsFromCurrentValues];
 }
 
+/**** Common Measurement Values Update ****/
+
 - (void) updateLabelsFromCurrentValues {
     if (self.actualLabel && self.actualLabelCurrentValue != nil && !isnan([self.actualLabelCurrentValue doubleValue])) {
         self.actualLabel.text = [self formatValue:[UnitUtil displayWindSpeedFromDouble:[self.actualLabelCurrentValue doubleValue] unit:self.windSpeedUnit]];
@@ -384,6 +535,13 @@
     else {
         self.maxLabel.text = @"-";
     }
+    
+    if (self.directionLabel && self.directionLabelCurrentValue != nil && !isnan([self.directionLabelCurrentValue doubleValue])) {
+        self.directionLabel.text = [NSString stringWithFormat:@"%@°", [NSNumber numberWithInt:(int)round([self.directionLabelCurrentValue doubleValue])]];
+    }
+    else {
+        self.directionLabel.text = @"-";
+    }
 }
 
 - (void) temperatureUpdated:(float)temperature {
@@ -401,50 +559,6 @@
     }
 }
 
-- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    
-    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    if (interfaceOrientation == UIInterfaceOrientationPortrait) {
-        self.vaavudCoreController.upsideDown = NO;
-    }
-    
-    if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
-        self.vaavudCoreController.upsideDown = YES;
-    }
-}
-
-- (IBAction) startStopButtonPushed:(id)sender {
-    
-    if (self.buttonShowsStart) {
-        [self start];
-        
-        if ([Property isMixpanelEnabled]) {
-            Mixpanel *mixpanel = [Mixpanel sharedInstance];
-            [mixpanel track:@"Start Measurement"];
-        }
-    }
-    else {
-        NSTimeInterval durationSecounds = [self stop:NO];
-
-        if ([Property isMixpanelEnabled]) {
-
-            Mixpanel *mixpanel = [Mixpanel sharedInstance];
-            [MixpanelUtil updateMeasurementProperties:NO];
-            
-            if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F)) {
-                [mixpanel track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)], @"Avg Wind Speed": self.averageLabelCurrentValue, @"Max Wind Speed": self.maxLabelCurrentValue}];
-            }
-            else {
-                [mixpanel track:@"Stop Measurement" properties:@{@"Duration": [NSNumber numberWithInt:round(durationSecounds)]}];
-            }
-        }
-        
-        [self promptForFacebookSharing];
-        [Property refreshHasWindMeter];
-    }
-}
 
 - (IBAction) unitButtonPushed:(id)sender {
     self.windSpeedUnit = [UnitUtil nextWindSpeedUnit:self.windSpeedUnit];
@@ -460,9 +574,7 @@
     }
 }
 
--(NSUInteger)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskAll;
-}
+/**** FACEBOOK SHARING ****/
 
 - (void) promptForFacebookSharing {
     
@@ -582,24 +694,6 @@
 
 - (NSString*) shareUnit {
     return [UnitUtil englishDisplayNameForWindSpeedUnit:self.windSpeedUnit];
-}
-
-/* Vaavud Electronic */
-
-- (void) devicePlugedInChecking {
-    NSLog(@"devicePlugedInChecking");
-}
-
-- (void) notVaavudPlugedIn {
-    NSLog(@"notVaavudPlugedIn");
-}
-
-- (void) vaavudPlugedIn {
-    NSLog(@"vaavudPlugedIn");
-}
-
-- (void) deviceWasUnpluged {
-    NSLog(@"deviceWasUnpluged");
 }
 
 @end

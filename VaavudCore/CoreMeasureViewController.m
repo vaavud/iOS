@@ -15,12 +15,14 @@
 @property (nonatomic, weak) IBOutlet UILabel *currentHeadingLabel;
 @property (nonatomic, weak) IBOutlet UILabel *maxHeadingLabel;
 @property (nonatomic, weak) IBOutlet UILabel *unitHeadingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *directionHeadingLabel;
 
 @property (nonatomic, weak) IBOutlet UILabel *actualLabel;
 @property (nonatomic, weak) IBOutlet UILabel *averageLabel;
 @property (nonatomic, weak) IBOutlet UILabel *maxLabel;
 @property (nonatomic, weak) IBOutlet UILabel *informationTextLabel;
 @property (nonatomic, weak) IBOutlet UIProgressView *statusBar;
+@property (weak, nonatomic) IBOutlet UILabel *directionLabel;
 
 @property (nonatomic, weak) IBOutlet UIButton *startStopButton;
 @property (nonatomic, weak) IBOutlet UIButton *unitButton;

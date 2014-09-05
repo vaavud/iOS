@@ -13,7 +13,6 @@
 #import "ServerUploadManager.h"
 #import "UUIDUtil.h"
 #import "PasswordUtil.h"
-#import "vaavudAppDelegate.h"
 #import "Mixpanel.h"
 #import "MixpanelUtil.h"
 #import <FacebookSDK/FacebookSDK.h>

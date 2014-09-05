@@ -10,7 +10,7 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import "RegisterNavigationController.h"
 
-@interface vaavudAppDelegate : UIResponder <UIApplicationDelegate, RegisterNavigationControllerDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, RegisterNavigationControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic) NSString* xCallbackSuccess;

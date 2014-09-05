@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
-#import "vaavudAppDelegate.h"
+#import "AppDelegate.h"
 #import "VaavudCoreController.h"
 #import <CoreMotion/CoreMotion.h>
 #import <CoreData/CoreData.h>
@@ -19,9 +19,7 @@
 #import "LocationManager.h"
 #import "Property+Util.h"
 
-@interface VaavudCoreController () {
-    
-}
+@interface VaavudCoreController () {}
 
 // public properties - create setters
 @property (nonatomic, strong) NSNumber *setWindDirection;
@@ -60,6 +58,8 @@
 
 @property (nonatomic) BOOL isTemperatureLookupInitiated;
 
+@property (nonatomic) BOOL hasBeenStopped;
+
 - (void) updateIsValid;
 - (NSNumber *) getSampleFrequency;
 - (double) convertFrequencyToWindspeed: (double) frequency;
@@ -74,6 +74,7 @@
     self = [super init];
     
     if (self) {
+        self.hasBeenStopped = NO;
         self.iPhone4Algo = ([[Property getAsInteger:KEY_ALGORITHM] intValue] == ALGORITHM_IPHONE4);
         self.frequencyStart = [[Property getAsDouble:KEY_FREQUENCY_START] doubleValue];
         self.frequencyFactor = [[Property getAsDouble:KEY_FREQUENCY_FACTOR] doubleValue];
@@ -133,7 +134,7 @@
     measurementSession.uploaded = [NSNumber numberWithBool:NO];
     measurementSession.startIndex = [NSNumber numberWithInt:0];
     [self updateMeasurementSessionLocation:measurementSession];
-    vaavudAppDelegate *appDelegate = (vaavudAppDelegate *)[[UIApplication sharedApplication] delegate];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if (appDelegate.xCallbackSuccess && appDelegate.xCallbackSuccess != nil && appDelegate.xCallbackSuccess != (id)[NSNull null] && [appDelegate.xCallbackSuccess length] > 0) {
         NSArray *components = [appDelegate.xCallbackSuccess componentsSeparatedByString:@":"];
         if ([components count] > 0) {
@@ -171,6 +172,12 @@
 }
 
 - (NSTimeInterval) stop {
+    
+    if (self.hasBeenStopped) {
+        return 0.0;
+    }
+    self.hasBeenStopped = YES;
+    
     [self.sharedMagneticFieldDataManager stop];
     [self.vaavudDynamicsController stop];
 
@@ -194,7 +201,7 @@
         }];
     }
     
-    vaavudAppDelegate *appDelegate = (vaavudAppDelegate *)[[UIApplication sharedApplication] delegate];
+    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     if (appDelegate.xCallbackSuccess && appDelegate.xCallbackSuccess != nil && appDelegate.xCallbackSuccess != (id)[NSNull null] && [appDelegate.xCallbackSuccess length] > 0) {
         
         NSLog(@"[VaavudCoreController] There is a pending x-success callback: %@", appDelegate.xCallbackSuccess);

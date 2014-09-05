@@ -16,7 +16,7 @@
 		D7A4F1CF173A8DDB00D1ACEE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CE173A8DDB00D1ACEE /* CoreGraphics.framework */; };
 		D7A4F1D5173A8DDB00D1ACEE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1D3173A8DDB00D1ACEE /* InfoPlist.strings */; };
 		D7A4F1D7173A8DDB00D1ACEE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1D6173A8DDB00D1ACEE /* main.m */; };
-		D7A4F1DB173A8DDB00D1ACEE /* vaavudAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1DA173A8DDB00D1ACEE /* vaavudAppDelegate.m */; };
+		D7A4F1DB173A8DDB00D1ACEE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1DA173A8DDB00D1ACEE /* AppDelegate.m */; };
 		D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */; };
 		D7A4F1E7173A8DDB00D1ACEE /* MeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1E6173A8DDB00D1ACEE /* MeasureViewController.m */; };
 		D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */; };
@@ -99,7 +99,7 @@
 		E960260818575452009396B1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E960260A18575452009396B1 /* Localizable.strings */; };
 		E960260E18575E41009396B1 /* MeasurementCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E960261018575E41009396B1 /* MeasurementCalloutView.xib */; };
 		E96FB4ED19A353B500CB7306 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1D6173A8DDB00D1ACEE /* main.m */; };
-		E96FB4EE19A353B500CB7306 /* vaavudAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1DA173A8DDB00D1ACEE /* vaavudAppDelegate.m */; };
+		E96FB4EE19A353B500CB7306 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1DA173A8DDB00D1ACEE /* AppDelegate.m */; };
 		E96FB4EF19A353B500CB7306 /* MeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1E6173A8DDB00D1ACEE /* MeasureViewController.m */; };
 		E96FB4F019A353B500CB7306 /* VaavudCoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */; };
 		E96FB4F119A353B500CB7306 /* VaavudMagneticFieldDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */; };
@@ -316,6 +316,7 @@
 		E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */; };
 		E97AC6D018BCDE19004DEC65 /* TermsPrivacyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */; };
 		E984F26319B878BD004024C6 /* MixpanelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E984F26219B878BD004024C6 /* MixpanelUtil.m */; };
+		E98C9A6019B9D9EE009428F3 /* SleipnirMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C9A5F19B9D9EE009428F3 /* SleipnirMeasurementController.m */; };
 		E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */; };
 		E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */; };
 		E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8917DF5BA600DED985 /* libz.dylib */; };
@@ -561,8 +562,8 @@
 		D7A4F1D4173A8DDB00D1ACEE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D7A4F1D6173A8DDB00D1ACEE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D7A4F1D8173A8DDB00D1ACEE /* Vaavud-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Prefix.pch"; sourceTree = "<group>"; };
-		D7A4F1D9173A8DDB00D1ACEE /* vaavudAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = vaavudAppDelegate.h; sourceTree = "<group>"; };
-		D7A4F1DA173A8DDB00D1ACEE /* vaavudAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = vaavudAppDelegate.m; sourceTree = "<group>"; };
+		D7A4F1D9173A8DDB00D1ACEE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D7A4F1DA173A8DDB00D1ACEE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D7A4F1E5173A8DDB00D1ACEE /* MeasureViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeasureViewController.h; sourceTree = "<group>"; };
 		D7A4F1E6173A8DDB00D1ACEE /* MeasureViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeasureViewController.m; sourceTree = "<group>"; };
 		D7A4F1F0173A8FAB00D1ACEE /* VaavudCoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudCoreController.h; sourceTree = "<group>"; };
@@ -703,6 +704,8 @@
 		E982DF2D18181152004DAB3E /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		E984F26119B878BD004024C6 /* MixpanelUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixpanelUtil.h; sourceTree = "<group>"; };
 		E984F26219B878BD004024C6 /* MixpanelUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixpanelUtil.m; sourceTree = "<group>"; };
+		E98C9A5E19B9D9EE009428F3 /* SleipnirMeasurementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleipnirMeasurementController.h; sourceTree = "<group>"; };
+		E98C9A5F19B9D9EE009428F3 /* SleipnirMeasurementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleipnirMeasurementController.m; sourceTree = "<group>"; };
 		E995F0B0177C55A80011BF07 /* DictionarySerializationUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionarySerializationUtil.h; sourceTree = "<group>"; };
 		E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionarySerializationUtil.m; sourceTree = "<group>"; };
 		E995F0B6177C7A2A0011BF07 /* MeasurementPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementPoint.h; sourceTree = "<group>"; };
@@ -1088,17 +1091,15 @@
 		D7A4F1D0173A8DDB00D1ACEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				D7A4F1D9173A8DDB00D1ACEE /* AppDelegate.h */,
+				D7A4F1DA173A8DDB00D1ACEE /* AppDelegate.m */,
 				E9AE301919A369EF004A79C4 /* Agriculture */,
-				D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */,
-				E904AC9C17F1939C00171F7F /* Map */,
+				D7A4F1EF173A8F4600D1ACEE /* Hardware */,
 				E9EE1FA51769EC7F00D1F006 /* Model */,
 				E9B627CE177096A4004678D5 /* Network */,
 				E9DBD3BA17688E9C00CCDA57 /* ThirdParty */,
 				E9EE1FAD1769F01800D1F006 /* Util */,
-				D7A4F1D9173A8DDB00D1ACEE /* vaavudAppDelegate.h */,
-				D7A4F1DA173A8DDB00D1ACEE /* vaavudAppDelegate.m */,
-				D7A4F1EF173A8F4600D1ACEE /* VaavudCoreFiles */,
-				D7B5BD4E175775BA0069F739 /* VaavudViewFiles */,
+				D7B5BD4E175775BA0069F739 /* View */,
 			);
 			name = Classes;
 			path = VaavudCore;
@@ -1107,35 +1108,30 @@
 		D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D7A4F1D2173A8DDB00D1ACEE /* Vaavud-Info.plist */,
+				D7A4F1F5173AA16700D1ACEE /* Constants.h */,
 				D7A4F1D3173A8DDB00D1ACEE /* InfoPlist.strings */,
-				D7A4F1D6173A8DDB00D1ACEE /* main.m */,
-				D7A4F1D8173A8DDB00D1ACEE /* Vaavud-Prefix.pch */,
 				E960260A18575452009396B1 /* Localizable.strings */,
+				D7A4F1D6173A8DDB00D1ACEE /* main.m */,
+				D7A4F1D2173A8DDB00D1ACEE /* Vaavud-Info.plist */,
+				D7A4F1D8173A8DDB00D1ACEE /* Vaavud-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			path = VaavudCore;
 			sourceTree = "<group>";
 		};
-		D7A4F1EF173A8F4600D1ACEE /* VaavudCoreFiles */ = {
+		D7A4F1EF173A8F4600D1ACEE /* Hardware */ = {
 			isa = PBXGroup;
 			children = (
-				D7A4F1F5173AA16700D1ACEE /* Constants.h */,
-				D7A4F1F0173A8FAB00D1ACEE /* VaavudCoreController.h */,
-				D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */,
-				D7092E881748FE9C00993235 /* vaavudDynamicsController.h */,
-				D7092E891748FE9C00993235 /* vaavudDynamicsController.m */,
-				D71BE13517439AA000B38E34 /* vaavudFFT.h */,
-				D71BE13617439AA000B38E34 /* vaavudFFT.m */,
-				D7C860F8173B061E005E9946 /* VaavudMagneticFieldDataManager.h */,
-				D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */,
+				E98C9A5D19B9D936009428F3 /* Sleipnir */,
+				E98C9A5C19B9D91F009428F3 /* Mjolnir */,
 			);
-			name = VaavudCoreFiles;
+			name = Hardware;
 			sourceTree = "<group>";
 		};
-		D7B5BD4E175775BA0069F739 /* VaavudViewFiles */ = {
+		D7B5BD4E175775BA0069F739 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */,
 				E90709411940AFAC0087F80F /* Components */,
 				E9B950DE195C584200E9EF02 /* FirstTime */,
 				E91E490F19AB5FA600616887 /* History */,
@@ -1144,19 +1140,8 @@
 				E91E490A19AB5EEB00616887 /* Measure */,
 				E9DE09B7192E4C6A003877D9 /* Settings */,
 				E9B950E519619F5C00E9EF02 /* Share */,
-				E93C5C3517EC826800E84D3C /* TabBarController.h */,
-				E93C5C3617EC826800E84D3C /* TabBarController.m */,
 			);
-			name = VaavudViewFiles;
-			sourceTree = "<group>";
-		};
-		E904AC9C17F1939C00171F7F /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				E904AC9D17F193DF00171F7F /* MeasurementAnnotation.h */,
-				E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */,
-			);
-			name = Map;
+			name = View;
 			sourceTree = "<group>";
 		};
 		E90709411940AFAC0087F80F /* Components */ = {
@@ -1171,6 +1156,8 @@
 				E91D4214198F7A9800106E15 /* GuideView.xib */,
 				E9793A83196C411C00E3823E /* ParentViewController.h */,
 				E9793A84196C411C00E3823E /* ParentViewController.m */,
+				E93C5C3517EC826800E84D3C /* TabBarController.h */,
+				E93C5C3617EC826800E84D3C /* TabBarController.m */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -1219,6 +1206,8 @@
 			children = (
 				E904AC9617F08F6E00171F7F /* MapViewController.h */,
 				E904AC9717F08F6E00171F7F /* MapViewController.m */,
+				E904AC9D17F193DF00171F7F /* MeasurementAnnotation.h */,
+				E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */,
 				E9D0F4B317F9A59000C220B3 /* MeasurementCalloutView.h */,
 				E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */,
 				E960261018575E41009396B1 /* MeasurementCalloutView.xib */,
@@ -1345,6 +1334,41 @@
 			name = Images;
 			sourceTree = "<group>";
 		};
+		E98C9A5B19B9D80F009428F3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E9AE301A19A36A25004A79C4 /* Agriculture.storyboard */,
+				E9AB11D619A60D68000C6FB1 /* Login */,
+				E9C7798719AB7BD2000A6921 /* Measure */,
+				E9C7799019AB8DC1000A6921 /* Settings */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		E98C9A5C19B9D91F009428F3 /* Mjolnir */ = {
+			isa = PBXGroup;
+			children = (
+				D7A4F1F0173A8FAB00D1ACEE /* VaavudCoreController.h */,
+				D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */,
+				D7092E881748FE9C00993235 /* vaavudDynamicsController.h */,
+				D7092E891748FE9C00993235 /* vaavudDynamicsController.m */,
+				D71BE13517439AA000B38E34 /* vaavudFFT.h */,
+				D71BE13617439AA000B38E34 /* vaavudFFT.m */,
+				D7C860F8173B061E005E9946 /* VaavudMagneticFieldDataManager.h */,
+				D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */,
+			);
+			name = Mjolnir;
+			sourceTree = "<group>";
+		};
+		E98C9A5D19B9D936009428F3 /* Sleipnir */ = {
+			isa = PBXGroup;
+			children = (
+				E98C9A5E19B9D9EE009428F3 /* SleipnirMeasurementController.h */,
+				E98C9A5F19B9D9EE009428F3 /* SleipnirMeasurementController.m */,
+			);
+			name = Sleipnir;
+			sourceTree = "<group>";
+		};
 		E9A4097118994000004F1C12 /* TMCache */ = {
 			isa = PBXGroup;
 			children = (
@@ -1401,11 +1425,8 @@
 		E9AE301919A369EF004A79C4 /* Agriculture */ = {
 			isa = PBXGroup;
 			children = (
-				E9AE301A19A36A25004A79C4 /* Agriculture.storyboard */,
+				E98C9A5B19B9D80F009428F3 /* View */,
 				E9AB11D319A60B7E000C6FB1 /* Images */,
-				E9AB11D619A60D68000C6FB1 /* Login */,
-				E9C7798719AB7BD2000A6921 /* Measure */,
-				E9C7799019AB8DC1000A6921 /* Settings */,
 			);
 			name = Agriculture;
 			sourceTree = "<group>";
@@ -1643,16 +1664,6 @@
 		E9EE1FA51769EC7F00D1F006 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E9EE1FA61769EC9200D1F006 /* Data */,
-				E93338F5178C561B006E2314 /* ModelManager.h */,
-				E93338F6178C561B006E2314 /* ModelManager.m */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
-		E9EE1FA61769EC9200D1F006 /* Data */ = {
-			isa = PBXGroup;
-			children = (
 				E93C86701781D727005E4212 /* MeasurementPoint+Util.h */,
 				E93C86711781D727005E4212 /* MeasurementPoint+Util.m */,
 				E995F0B6177C7A2A0011BF07 /* MeasurementPoint.h */,
@@ -1661,12 +1672,14 @@
 				E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */,
 				E9EBB99317E33DBB0086BE01 /* MeasurementSession.h */,
 				E9EBB99417E33DBB0086BE01 /* MeasurementSession.m */,
+				E93338F5178C561B006E2314 /* ModelManager.h */,
+				E93338F6178C561B006E2314 /* ModelManager.m */,
 				E93C86611781C764005E4212 /* Property+Util.h */,
 				E93C86621781C764005E4212 /* Property+Util.m */,
 				E93C86671781C88B005E4212 /* Property.h */,
 				E93C86681781C88B005E4212 /* Property.m */,
 			);
-			name = Data;
+			name = Model;
 			sourceTree = "<group>";
 		};
 		E9EE1FAD1769F01800D1F006 /* Util */ = {
@@ -2049,7 +2062,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7A4F1D7173A8DDB00D1ACEE /* main.m in Sources */,
-				D7A4F1DB173A8DDB00D1ACEE /* vaavudAppDelegate.m in Sources */,
+				D7A4F1DB173A8DDB00D1ACEE /* AppDelegate.m in Sources */,
 				D7A4F1E7173A8DDB00D1ACEE /* MeasureViewController.m in Sources */,
 				D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController.m in Sources */,
 				E948382B19B75320009595B0 /* EZAudioPlotGLKViewController.m in Sources */,
@@ -2154,6 +2167,7 @@
 				E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */,
 				E93C865A1781BE56005E4212 /* LocationManager.m in Sources */,
 				E93C86631781C764005E4212 /* Property+Util.m in Sources */,
+				E98C9A6019B9D9EE009428F3 /* SleipnirMeasurementController.m in Sources */,
 				E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */,
 				E93C86691781C88B005E4212 /* Property.m in Sources */,
 				E93C866F1781D69A005E4212 /* MeasurementSession+Util.m in Sources */,
@@ -2175,7 +2189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E96FB4ED19A353B500CB7306 /* main.m in Sources */,
-				E96FB4EE19A353B500CB7306 /* vaavudAppDelegate.m in Sources */,
+				E96FB4EE19A353B500CB7306 /* AppDelegate.m in Sources */,
 				E96FB4EF19A353B500CB7306 /* MeasureViewController.m in Sources */,
 				E96FB4F019A353B500CB7306 /* VaavudCoreController.m in Sources */,
 				E948382C19B75320009595B0 /* EZAudioPlotGLKViewController.m in Sources */,

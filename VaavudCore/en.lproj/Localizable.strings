@@ -127,5 +127,6 @@
 "AGRI_REGISTER_BUTTON" = "Register";
 "HEADING_WIND_SPEED" = "Wind Speed";
 "HEADING_TEMPERATURE" = "Temperature";
+"HEADING_WIND_DIRECTION" = "Direction";
 "BUTTON_NEXT" = "Next";
 "UNIT_CELCIUS" = "°C";

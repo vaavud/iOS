@@ -10,6 +10,7 @@
 #import "Mixpanel.h"
 #import "Property+Util.h"
 #import "ServerUploadManager.h"
+#import "RegisterNavigationController.h"
 
 @interface AgriLoginViewController ()
 

@@ -11,7 +11,7 @@
 #import "Property+Util.h"
 #import "UnitUtil.h"
 #import "RegisterNavigationController.h"
-#import "vaavudAppDelegate.h"
+#import "AppDelegate.h"
 #import "FirstTimeFlowController.h"
 #import "Mixpanel.h"
 
@@ -113,7 +113,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
     UIViewController *nextViewController = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
-        ((RegisterNavigationController*) self.navigationController).registerDelegate = (vaavudAppDelegate*) [UIApplication sharedApplication].delegate;
+        ((RegisterNavigationController*) self.navigationController).registerDelegate = (AppDelegate*) [UIApplication sharedApplication].delegate;
     }
     [self.navigationController pushViewController:nextViewController animated:YES];
 }

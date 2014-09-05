@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
-#import "vaavudAppDelegate.h"
+#import "AppDelegate.h"
 #import "TestFlight.h"
 #import "ModelManager.h"
 #import "ServerUploadManager.h"
@@ -21,13 +21,13 @@
 #import "UIColor+VaavudColors.h"
 #import "MixpanelUtil.h"
 
-@interface vaavudAppDelegate()
+@interface AppDelegate()
 
 @property (nonatomic, strong) NSDate *lastAppActive;
 
 @end
 
-@implementation vaavudAppDelegate
+@implementation AppDelegate
 
 - (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
 

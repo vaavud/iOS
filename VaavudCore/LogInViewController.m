@@ -11,7 +11,6 @@
 #import "ServerUploadManager.h"
 #import "Property+Util.h"
 #import "RegisterNavigationController.h"
-#import "vaavudAppDelegate.h"
 #import "AccountManager.h"
 #import "Mixpanel.h"
 #import <FacebookSDK/FacebookSDK.h>
