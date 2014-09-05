@@ -17,6 +17,7 @@
 #import "ServerUploadManager.h"
 #import "Mixpanel.h"
 #import "TabBarController.h"
+#import "MixpanelUtil.h"
 #include <math.h>
 
 #define MERCATOR_RADIUS 85445659.44705395
@@ -459,6 +460,8 @@
         else {
             [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"measurement marker touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Map"];
         }
+        
+        [MixpanelUtil addMapInteractionToProfile];
         
         self.isSelectingFromTableView = NO;
         

@@ -15,6 +15,7 @@
 #import "PasswordUtil.h"
 #import "vaavudAppDelegate.h"
 #import "Mixpanel.h"
+#import "MixpanelUtil.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 @implementation AccountManager
@@ -339,6 +340,12 @@ BOOL isDoingLogout = NO;
                 [Property setAsBoolean:([hasWindMeter integerValue] == 1) forKey:KEY_USER_HAS_WIND_METER];
             }
             
+            NSNumber *creationTimeMillis = [responseObject objectForKey:@"creationTime"];
+            if (creationTimeMillis) {
+                NSDate *creationTime = [NSDate dateWithTimeIntervalSince1970:([creationTimeMillis doubleValue] / 1000.0)];
+                [Property setAsDate:creationTime forKey:KEY_CREATION_TIME];
+            }
+            
             // indentify in Mixpanel and possibly create alias
             if ([Property isMixpanelEnabled]) {
                 Mixpanel *mixpanel = [Mixpanel sharedInstance];
@@ -359,10 +366,12 @@ BOOL isDoingLogout = NO;
                 [mixpanel identify:[userId stringValue]];
 
                 // register Mixpanel super properties
-                [mixpanel registerSuperProperties:@{@"User": @"true"}];
+                [mixpanel registerSuperProperties:@{@"User": @"true", @"Creation Time": [Property getAsDate:KEY_CREATION_TIME]}];
                 if (facebookId) {
                     [mixpanel registerSuperProperties:@{@"Facebook": @"true"}];
                 }
+                
+                [MixpanelUtil registerUserAsMixpanelProfile];
             }
             
             if (success) {
@@ -390,6 +399,11 @@ BOOL isDoingLogout = NO;
     }
     isDoingLogout = YES;
 
+    [Property setAsString:nil forKey:KEY_EMAIL];
+    [Property setAsString:nil forKey:KEY_FIRST_NAME];
+    [Property setAsString:nil forKey:KEY_LAST_NAME];
+    [Property setAsString:nil forKey:KEY_USER_ID];
+    [Property setAsString:nil forKey:KEY_FACEBOOK_USER_ID];
     [Property setAsString:nil forKey:KEY_FACEBOOK_ACCESS_TOKEN];
     [Property setAsString:nil forKey:KEY_AUTH_TOKEN];
     [Property setAsString:[UUIDUtil generateUUID] forKey:KEY_DEVICE_UUID];

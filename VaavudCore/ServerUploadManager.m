@@ -299,9 +299,17 @@ SHARED_INSTANCE
             [Property setAsFloatArray:hourOptions forKey:KEY_HOUR_OPTIONS];
         }
         
-        NSString *enableMixpanel = [responseObject objectForKey:@"enableMixpanel"];
-        if (enableMixpanel && enableMixpanel != nil && enableMixpanel != (id)[NSNull null] && ([enableMixpanel length] > 0)) {
-            [Property setAsBoolean:[@"true" isEqualToString:enableMixpanel] forKey:KEY_ENABLE_MIXPANEL];
+        NSObject *enableMixpanel = [responseObject objectForKey:@"enableMixpanel"];
+        if (enableMixpanel && [enableMixpanel isKindOfClass:[NSString class]]) {
+            [Property setAsBoolean:[@"true" isEqualToString:(NSString*)enableMixpanel] forKey:KEY_ENABLE_MIXPANEL];
+        }
+        else if (enableMixpanel && [enableMixpanel isKindOfClass:[NSNumber class]]) {
+            [Property setAsBoolean:([(NSNumber*)enableMixpanel integerValue] == 1) forKey:KEY_ENABLE_MIXPANEL];
+        }
+        
+        NSNumber *enableMixpanelPeople = [responseObject objectForKey:@"enableMixpanelPeople"];
+        if (enableMixpanelPeople) {
+            [Property setAsBoolean:([(NSNumber*)enableMixpanelPeople integerValue] == 1) forKey:KEY_ENABLE_MIXPANEL_PEOPLE];
         }
 
         NSString *enableFacebookDisclaimer = [responseObject objectForKey:@"enableFacebookDisclaimer"];

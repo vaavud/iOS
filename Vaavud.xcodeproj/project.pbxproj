@@ -315,6 +315,7 @@
 		E9793A85196C411C00E3823E /* ParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9793A84196C411C00E3823E /* ParentViewController.m */; };
 		E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */; };
 		E97AC6D018BCDE19004DEC65 /* TermsPrivacyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */; };
+		E984F26319B878BD004024C6 /* MixpanelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E984F26219B878BD004024C6 /* MixpanelUtil.m */; };
 		E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */; };
 		E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */; };
 		E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8917DF5BA600DED985 /* libz.dylib */; };
@@ -700,6 +701,8 @@
 		E97AC6CE18BCDE19004DEC65 /* TermsPrivacyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsPrivacyNavigationController.h; sourceTree = "<group>"; };
 		E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsPrivacyNavigationController.m; sourceTree = "<group>"; };
 		E982DF2D18181152004DAB3E /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		E984F26119B878BD004024C6 /* MixpanelUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixpanelUtil.h; sourceTree = "<group>"; };
+		E984F26219B878BD004024C6 /* MixpanelUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixpanelUtil.m; sourceTree = "<group>"; };
 		E995F0B0177C55A80011BF07 /* DictionarySerializationUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionarySerializationUtil.h; sourceTree = "<group>"; };
 		E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionarySerializationUtil.m; sourceTree = "<group>"; };
 		E995F0B6177C7A2A0011BF07 /* MeasurementPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementPoint.h; sourceTree = "<group>"; };
@@ -1694,6 +1697,8 @@
 				E94CBB5D177DB3050089D440 /* UUIDUtil.m */,
 				E9B950CA195B1DCE00E9EF02 /* ImageUtil.h */,
 				E9B950CB195B1DCE00E9EF02 /* ImageUtil.m */,
+				E984F26119B878BD004024C6 /* MixpanelUtil.h */,
+				E984F26219B878BD004024C6 /* MixpanelUtil.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -2085,6 +2090,7 @@
 				E9FABFEA1896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m in Sources */,
 				E9CD223B177B2AEA0054ED3F /* MagicalImportFunctions.m in Sources */,
 				E9F33CCB18B4AFBF0033EDC7 /* UIColor+VaavudColors.m in Sources */,
+				E984F26319B878BD004024C6 /* MixpanelUtil.m in Sources */,
 				E9CD223C177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				E9C7798E19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */,
 				E948382719B75320009595B0 /* EZAudioPlot.m in Sources */,
