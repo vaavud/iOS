@@ -314,10 +314,12 @@
     if (self.useSleipnir) {
         // Sleipnir start
         [[SleipnirMeasurementController sharedInstance] start];
+        
+
     }
     else {
         // Mjolnir start
-        [self start];
+        [self mjolnirStart];
     }
     
     if (uiTracking) {
@@ -350,7 +352,7 @@
     }
     else {
         // Mjolnir stop
-        durationSecounds = [self stop:NO];
+        durationSecounds = [self mjolnirStop:NO];
     }
     
     [Property refreshHasWindMeter];
@@ -421,7 +423,7 @@
 
 /**** Mjolnir Measurement ****/
 
-- (void) start {
+- (void) mjolnirStart {
     
     self.vaavudCoreController = [[VaavudCoreController alloc] init];
     self.vaavudCoreController.lookupTemperature = self.lookupTemperature;
@@ -437,7 +439,7 @@
     self.statusBarTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateLabels) userInfo:nil repeats:YES];
 }
 
-- (NSTimeInterval) stop:(BOOL)onlyUI {
+- (NSTimeInterval) mjolnirStop:(BOOL)onlyUI {
 
     [self.displayLinkGraphUI invalidate];
     [self.displayLinkGraphValues invalidate];

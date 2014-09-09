@@ -17,10 +17,8 @@
 @property (nonatomic) double accumulatedSpeed;
 @property (nonatomic) double maxSpeed;
 @property (nonatomic) int numberOfSpeedSamples;
-@property (nonatomic) double accumulatedDirection;
-@property (nonatomic) int numberOfDirectionSamples;
 @property (nonatomic, strong) NSNumber *averageSpeed;
-@property (nonatomic, strong) NSNumber *averageDirection;
+@property (nonatomic, strong) NSNumber *direction;
 
 @end
 
@@ -45,10 +43,8 @@ SHARED_INSTANCE
     self.accumulatedSpeed = 0.0;
     self.maxSpeed = 0.0;
     self.numberOfSpeedSamples = 0;
-    self.accumulatedDirection = 0.0;
-    self.numberOfDirectionSamples = 0;
     self.averageSpeed = nil;
-    self.averageDirection = nil;
+    self.direction = nil;
 }
 
 - (void) start {
@@ -118,13 +114,11 @@ SHARED_INSTANCE
     
     // make sure we don't do anything with new data after the user has clicked stop
     if (self.isStarted && windDirection) {
-        double currentDirection = [windDirection doubleValue];
-        self.accumulatedDirection = currentDirection;
-        self.numberOfDirectionSamples++;
-        self.averageDirection = [NSNumber numberWithDouble:(self.accumulatedDirection / self.numberOfDirectionSamples)];
+
+        self.direction = windDirection;
         
         if (self.viewDelegate) {
-            [self.viewDelegate viewUpdateDirection:self.averageDirection];
+            [self.viewDelegate viewUpdateDirection:self.direction];
         }
     }
 }
