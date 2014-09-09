@@ -1,5 +1,5 @@
 //
-//  vaavudGraphHostingView.h
+//  MjolnirGraphHostingView.h
 //  VaavudCore
 //
 //  Created by Andreas Okholm on 5/30/13.
@@ -11,7 +11,7 @@
 #import "CorePlot-CocoaTouch.h"
 #import "UnitUtil.h"
 
-@interface vaavudGraphHostingView : CPTGraphHostingView <CPTPlotDataSource, CPTPlotSpaceDelegate>
+@interface MjolnirGraphHostingView : CPTGraphHostingView <CPTPlotDataSource, CPTPlotSpaceDelegate>
 
 - (void) setupCorePlotGraph;
 - (void) createNewPlot;

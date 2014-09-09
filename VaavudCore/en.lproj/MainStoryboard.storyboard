@@ -130,9 +130,9 @@
                                     <constraint firstAttribute="height" constant="1" id="sqj-qH-pdq"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jop-HL-F0a" customClass="vaavudGraphHostingView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jop-HL-F0a" userLabel="Graph Container">
                                 <rect key="frame" x="10" y="207" width="284" height="140"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bS1-jk-rNp" userLabel="Start/Stop Button">
                                 <rect key="frame" x="40" y="381" width="240" height="35"/>
@@ -245,7 +245,7 @@
                         <outlet property="currentHeadingLabel" destination="3jS-Rr-IOD" id="x4T-Ud-VDX"/>
                         <outlet property="directionHeadingLabel" destination="f8n-QV-wk6" id="D9p-il-VAP"/>
                         <outlet property="directionLabel" destination="NPp-rW-tPa" id="PeD-AQ-hIm"/>
-                        <outlet property="graphHostView" destination="jop-HL-F0a" id="evt-jF-Ucf"/>
+                        <outlet property="graphContainer" destination="jop-HL-F0a" id="Tds-hm-Xjb"/>
                         <outlet property="informationTextLabel" destination="0Ej-kg-OB6" id="q7u-cM-DZX"/>
                         <outlet property="maxHeadingLabel" destination="qBg-VY-wWc" id="AkO-mf-HBx"/>
                         <outlet property="maxLabel" destination="E6z-xo-cgt" id="3hP-pM-d5U"/>

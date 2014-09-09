@@ -16,7 +16,7 @@
 #import "AccountManager.h"
 #import "ShareDialog.h"
 #import "ServerUploadManager.h"
-#import "vaavudGraphHostingView.h"
+#import "MjolnirGraphHostingView.h"
 #import "UnitUtil.h"
 #import "MixpanelUtil.h"
 #import <math.h>
@@ -43,11 +43,11 @@
 
 // Mjolnir properties
 
-@property (nonatomic, strong) NSTimer *statusBarTimer;
+@property (nonatomic, strong) VaavudCoreController *vaavudCoreController;
+@property (nonatomic, strong) MjolnirGraphHostingView *mjolnirGraphHostingView;
 @property (nonatomic, strong) CADisplayLink *displayLinkGraphUI;
 @property (nonatomic, strong) CADisplayLink *displayLinkGraphValues;
-@property (nonatomic, strong) VaavudCoreController *vaavudCoreController;
-@property (nonatomic, strong) NSArray *compassTableShort;
+@property (nonatomic, strong) NSTimer *statusBarTimer;
 @property (nonatomic) BOOL isValid;
 
 @end
@@ -116,7 +116,7 @@
     return nil;
 }
 
-- (vaavudGraphHostingView*) graphHostView {
+- (UIView*) graphContainer {
     return nil;
 }
 
@@ -157,12 +157,6 @@
         self.lookupTemperature = NO;
     }
     
-    if (self.graphHostView) {
-        [self.graphHostView setupCorePlotGraph];
-    }
-    
-    self.compassTableShort = [NSArray arrayWithObjects:@"N",@"NE",@"E",@"SE",@"S",@"SW",@"W",@"NW", nil];
-
     // Set correct font text colors
     UIColor *vaavudBlueUIcolor = [UIColor vaavudColor];
     
@@ -194,6 +188,8 @@
         self.startStopButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
         self.startStopButton.layer.masksToBounds = YES;
     }
+    
+    [self mjolnirCreateGraphView];
 
 #ifdef AGRI
     
@@ -242,15 +238,15 @@
         
         [self updateLabelsFromCurrentValues];
         
-        if (self.graphHostView) {
+        if (self.mjolnirGraphHostingView) {
             // note: for some reason the y-axis is not changed correctly the first time, so we call the following method twice
-            [self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
-            [self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
+            [self.mjolnirGraphHostingView changeWindSpeedUnit:self.windSpeedUnit];
+            [self.mjolnirGraphHostingView changeWindSpeedUnit:self.windSpeedUnit];
         }
     }
 
-    if (self.graphHostView) {
-        [self.graphHostView resumeUpdates];
+    if (self.mjolnirGraphHostingView) {
+        [self.mjolnirGraphHostingView resumeUpdates];
     }
     
     if (!self.buttonShowsStart) {
@@ -274,7 +270,9 @@
 
 - (void) viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.graphHostView pauseUpdates];
+    if (self.mjolnirGraphHostingView) {
+        [self.mjolnirGraphHostingView pauseUpdates];
+    }
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
@@ -429,9 +427,13 @@
     self.vaavudCoreController.lookupTemperature = self.lookupTemperature;
     self.vaavudCoreController.vaavudCoreControllerViewControllerDelegate = self; // set the core controller's view controller delegate to self (reports when meassurements are valid)
     
-    if (self.graphHostView) {
-        self.graphHostView.vaavudCoreController = self.vaavudCoreController;
-        [self.graphHostView setupCorePlotGraph];
+    if (self.graphContainer) {
+        [self mjolnirCreateGraphView];
+        
+        if (self.mjolnirGraphHostingView) {
+            self.mjolnirGraphHostingView.vaavudCoreController = self.vaavudCoreController;
+            [self.mjolnirGraphHostingView setupCorePlotGraph];
+        }
     }
     
     [self.vaavudCoreController start];
@@ -454,26 +456,53 @@
     return durationSeconds;
 }
 
+- (void) mjolnirCreateGraphView {
+    
+    if (self.graphContainer) {
+
+        [self mjolnirDestroyGraphView];
+        
+        self.mjolnirGraphHostingView = [[MjolnirGraphHostingView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.graphContainer.bounds.size.width, self.graphContainer.bounds.size.height)];
+        self.mjolnirGraphHostingView.autoresizesSubviews = YES;
+        self.mjolnirGraphHostingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        
+        [self.graphContainer addSubview:self.mjolnirGraphHostingView];
+
+        [self.mjolnirGraphHostingView setupCorePlotGraph];
+    }
+}
+
+- (void) mjolnirDestroyGraphView {
+    
+    if (self.graphContainer && self.mjolnirGraphHostingView) {
+        
+        [self.mjolnirGraphHostingView removeFromSuperview];
+        self.mjolnirGraphHostingView = nil;
+    }
+}
+
 - (void) windSpeedMeasurementsAreValid:(BOOL)valid {
     self.isValid = valid;
     
     if (!valid) {
-        [self.displayLinkGraphUI invalidate];
-        [self.displayLinkGraphValues invalidate];
+        if (self.displayLinkGraphUI) {
+            [self.displayLinkGraphUI invalidate];
+            [self.displayLinkGraphValues invalidate];
+        }
     }
     else {
-        if (self.graphHostView) {
-            [self.graphHostView createNewPlot];
+        if (self.mjolnirGraphHostingView) {
+            [self.mjolnirGraphHostingView createNewPlot];
+
+            self.displayLinkGraphUI = [CADisplayLink displayLinkWithTarget:self.mjolnirGraphHostingView selector:@selector(shiftGraphX)];
+            self.displayLinkGraphUI.frameInterval = 10; // SET VALUE HIGHER FOR IPHONE 4
+            
+            self.displayLinkGraphValues = [CADisplayLink displayLinkWithTarget:self.mjolnirGraphHostingView selector:@selector(addDataPoint)];
+            self.displayLinkGraphValues.frameInterval = 10; // SET VALUE HIGHER FOR IPHONE 4
+            
+            [self.displayLinkGraphUI addToRunLoop:[NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
+            [self.displayLinkGraphValues addToRunLoop:[NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
         }
-        
-        self.displayLinkGraphUI = [CADisplayLink displayLinkWithTarget:self.graphHostView selector:@selector(shiftGraphX)];
-        self.displayLinkGraphUI.frameInterval = 10; // SET VALUE HIGHER FOR IPHONE 4
-        
-        self.displayLinkGraphValues = [CADisplayLink displayLinkWithTarget:self.graphHostView selector:@selector(addDataPoint)];
-        self.displayLinkGraphValues.frameInterval = 10; // SET VALUE HIGHER FOR IPHONE 4
-        
-        [self.displayLinkGraphUI addToRunLoop:[NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
-        [self.displayLinkGraphValues addToRunLoop:[NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
     }
 }
 
@@ -569,10 +598,10 @@
     [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
     [self updateLabelsFromCurrentValues];
 
-    if (self.graphHostView) {
+    if (self.mjolnirGraphHostingView) {
         // note: for some reason the y-axis is not changed correctly the first time, so we call the following method twice
-        [self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
-        [self.graphHostView changeWindSpeedUnit:self.windSpeedUnit];
+        [self.mjolnirGraphHostingView changeWindSpeedUnit:self.windSpeedUnit];
+        [self.mjolnirGraphHostingView changeWindSpeedUnit:self.windSpeedUnit];
     }
 }
 

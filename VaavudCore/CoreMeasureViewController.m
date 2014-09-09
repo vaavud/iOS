@@ -7,7 +7,6 @@
 //
 
 #import "CoreMeasureViewController.h"
-#import "vaavudGraphHostingView.h"
 
 @interface CoreMeasureViewController ()
 
@@ -27,7 +26,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *startStopButton;
 @property (nonatomic, weak) IBOutlet UIButton *unitButton;
 
-@property (nonatomic, strong) IBOutlet vaavudGraphHostingView *graphHostView;
+@property (nonatomic, weak) IBOutlet UIView *graphContainer;
 
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *bottomLayoutGuideConstraint;
 

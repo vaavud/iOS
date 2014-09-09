@@ -26,7 +26,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *startStopButton;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
-@property (nonatomic, strong) IBOutlet vaavudGraphHostingView *graphHostView;
+@property (weak, nonatomic) IBOutlet UIView *graphContainer;
 
 @end
 

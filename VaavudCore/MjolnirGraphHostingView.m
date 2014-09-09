@@ -1,12 +1,12 @@
 //
-//  vaavudGraphHostingView.m
+//  MjolnirGraphHostingView.m
 //  VaavudCore
 //
 //  Created by Andreas Okholm on 5/30/13.
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
-#import "vaavudGraphHostingView.h"
+#import "MjolnirGraphHostingView.h"
 #import "UIColor+VaavudColors.h"
 
 // Support class plotIdentifier
@@ -62,7 +62,7 @@
 
 @end
 
-@interface vaavudGraphHostingView ()
+@interface MjolnirGraphHostingView ()
 
 @property (nonatomic, strong)   NSMutableArray *dataForPlotX;
 @property (nonatomic, strong)   NSMutableArray *dataForPlotY;
@@ -88,7 +88,7 @@ enum plotName : NSUInteger {
 
 @end
 
-@implementation vaavudGraphHostingView
+@implementation MjolnirGraphHostingView
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];

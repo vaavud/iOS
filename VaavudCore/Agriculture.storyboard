@@ -246,7 +246,7 @@
                                     <constraint firstAttribute="height" constant="1" id="RFl-DD-frw"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAE-aa-Rt2" customClass="vaavudGraphHostingView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAE-aa-Rt2" userLabel="Graph Container">
                                 <rect key="frame" x="10" y="166" width="284" height="213"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -365,7 +365,7 @@
                     <navigationItem key="navigationItem" id="oSg-gp-DTc"/>
                     <connections>
                         <outlet property="averageLabel" destination="awb-Dl-s1K" id="Tup-KX-bQq"/>
-                        <outlet property="graphHostView" destination="oAE-aa-Rt2" id="K3v-H8-kfq"/>
+                        <outlet property="graphContainer" destination="oAE-aa-Rt2" id="JsO-IP-Ajp"/>
                         <outlet property="informationTextLabel" destination="rfZ-6X-dx7" id="4C0-So-89Y"/>
                         <outlet property="nextButton" destination="VPj-QL-7oG" id="zei-IO-FkT"/>
                         <outlet property="startStopButton" destination="4li-GH-kZY" id="0cL-Td-fHU"/>

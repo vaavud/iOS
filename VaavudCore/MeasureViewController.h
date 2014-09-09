@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "VaavudCoreController.h"
-#import "vaavudGraphHostingView.h"
 #import "CorePlot-CocoaTouch.h"
 #import "ShareDialog.h"
 #import "SleipnirMeasurementController.h"
@@ -41,7 +40,7 @@
 
 - (UIButton*) startStopButton;
 
-- (vaavudGraphHostingView*) graphHostView;
+- (UIView*) graphContainer;
 
 - (IBAction) startStopButtonPushed:(id)sender;
 - (IBAction) unitButtonPushed:(id)sender;
