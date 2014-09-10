@@ -40,7 +40,6 @@
 @property (nonatomic, strong) vaavudFFT *FFTEngine;
 @property (nonatomic) int magneticFieldUpdatesCounter;
 @property (nonatomic) NSInteger isValidPercent;
-@property (nonatomic) BOOL isValidCurrentStatus;
 @property (nonatomic) BOOL wasValidStatus;
 @property (nonatomic) BOOL iPhone4Algo;
 
@@ -194,7 +193,7 @@
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
             if (success) {
                 if (self.vaavudCoreControllerViewControllerDelegate) {
-                    [self.vaavudCoreControllerViewControllerDelegate updateMeasuredValues:measurementSession.windSpeedAvg windSpeedMax:measurementSession.windSpeedMax];
+                    [self.vaavudCoreControllerViewControllerDelegate mjolnirUpdateMeasuredValues:measurementSession.windSpeedAvg windSpeedMax:measurementSession.windSpeedMax];
                 }
                 [[ServerUploadManager sharedInstance] triggerUpload];
             }
@@ -267,8 +266,10 @@
     
     [self.isValid addObject: [NSNumber numberWithBool: self.isValidCurrentStatus]];
 
-    if (self.wasValidStatus != self.isValidCurrentStatus){
-        [self.vaavudCoreControllerViewControllerDelegate windSpeedMeasurementsAreValid: self.isValidCurrentStatus];
+    if (self.wasValidStatus != self.isValidCurrentStatus && self.vaavudCoreControllerViewControllerDelegate) {
+        if ([self.vaavudCoreControllerViewControllerDelegate respondsToSelector:@selector(mjolnirMeasurementsAreValid:)]) {
+            [self.vaavudCoreControllerViewControllerDelegate mjolnirMeasurementsAreValid:self.isValidCurrentStatus];
+        }
     }
     
     // note: we shouldn't end up here if there isn't an active MeasurementSession with measuring=YES, but safe-guard just in case
@@ -516,7 +517,6 @@
     float elapsedTime = [[self.windSpeedTime lastObject] floatValue];
     float measurementFrequency = self.numberOfMeasurements/elapsedTime;
     float validTime = self.numberOfValidMeasurements / measurementFrequency;
-
     
     double progress = validTime/minimumNumberOfSeconds;
     if (progress > 1) {
@@ -574,7 +574,9 @@
         [[ServerUploadManager sharedInstance] lookupTemperatureForLocation:latestLocation.latitude longitude:latestLocation.longitude success:^(NSNumber *temperature) {
             NSLog(@"[VaavudCoreController] Got success looking up temperature: %@", temperature);
             if (temperature) {
-                [self.vaavudCoreControllerViewControllerDelegate temperatureUpdated:[temperature floatValue]];
+                if (self.vaavudCoreControllerViewControllerDelegate) {
+                    [self.vaavudCoreControllerViewControllerDelegate temperatureUpdated:[temperature floatValue]];
+                }
                 
                 MeasurementSession *measurementSession = [self getActiveMeasurementSession];
                 if (measurementSession) {

@@ -71,6 +71,7 @@
 @property (nonatomic, strong)   CPTXYPlotSpace *plotSpace;
 @property (nonatomic, strong)   CPTScatterPlot *latestWindSpeedPlot;
 @property (nonatomic, strong)   CPTScatterPlot *averageWindSpeedPlot;
+@property (nonatomic, strong) CPTPlotRange *yRange;
 @property (nonatomic)           float       graphTimeWidth;
 @property (nonatomic)           float       graphMinWindspeedWidth;
 @property (nonatomic, strong)   NSDate      *startTime;
@@ -210,12 +211,12 @@ enum plotName : NSUInteger {
         graphYwidth = graphMinWindspeedWidth;
     }
     
-    CPTPlotRange *plotRange = [CPTPlotRange plotRangeWithLocation: CPTDecimalFromFloat(graphYLowerBound) length:CPTDecimalFromFloat(graphYwidth)];
+    self.yRange = [CPTPlotRange plotRangeWithLocation: CPTDecimalFromFloat(graphYLowerBound) length:CPTDecimalFromFloat(graphYwidth)];
     
-    //NSLog(@"Changing yRange: graphYLowerBound=%f, graphYwidth=%f, graphYMinValue=%f, graphYMaxValue=%f, graphMinWindspeedWidth=%f", graphYLowerBound, graphYwidth, graphYMinValue, graphYMaxValue, graphMinWindspeedWidth);
+    //NSLog(@"Changing yRange: graphYLowerBound=%f, graphYwidth=%f, graphYMaxValue=%f, graphMinWindspeedWidth=%f", graphYLowerBound, graphYwidth, graphYMaxValue, graphMinWindspeedWidth);
     
-    self.plotSpace.yRange  = plotRange;
-    self.plotSpace.globalYRange = plotRange;
+    self.plotSpace.yRange  = self.yRange;
+    self.plotSpace.globalYRange = self.yRange;
 }
 
 - (void) createNewPlot {
@@ -292,8 +293,8 @@ enum plotName : NSUInteger {
     self.plotSpace.allowsUserInteraction = YES;
     self.plotSpace.xRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(self.graphTimeWidth)];
     self.plotSpace.yRange                = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(self.graphMinWindspeedWidth)];
-    self.plotSpace.GlobalXRange          = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(self.graphTimeWidth)];
-    self.plotSpace.GlobalYRange          = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(self.graphMinWindspeedWidth)];
+    self.plotSpace.globalXRange          = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(self.graphTimeWidth)];
+    self.plotSpace.globalYRange          = nil; //[CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0.0) length:CPTDecimalFromFloat(self.graphMinWindspeedWidth)];
     self.plotSpace.delegate = self;
     
     // Axes
@@ -421,8 +422,8 @@ enum plotName : NSUInteger {
 
 // do not zoom in Y
 -(CPTPlotRange *)plotSpace:(CPTPlotSpace *)space willChangePlotRangeTo:(CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate{
-    if (coordinate == CPTCoordinateY) {
-        newRange = ((CPTXYPlotSpace*)space).yRange;
+    if (coordinate == CPTCoordinateY && self.yRange) {
+        newRange = self.yRange;
     }
     return newRange;
 }

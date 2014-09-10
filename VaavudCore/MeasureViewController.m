@@ -16,6 +16,7 @@
 #import "AccountManager.h"
 #import "ShareDialog.h"
 #import "ServerUploadManager.h"
+#import "GraphView.h"
 #import "MjolnirGraphHostingView.h"
 #import "UnitUtil.h"
 #import "MixpanelUtil.h"
@@ -34,10 +35,15 @@
 @property (nonatomic) NSNumber *averageLabelCurrentValue;
 @property (nonatomic) NSNumber *maxLabelCurrentValue;
 @property (nonatomic) NSNumber *directionLabelCurrentValue;
+@property (nonatomic) GraphView *graphView;
 
 @property (nonatomic,strong) UIView *customDimmingView;
 @property (nonatomic,strong) ShareDialog *shareDialog;
 @property (nonatomic,strong) UIActivityIndicatorView *activityIndicatorView;
+
+@property (nonatomic, strong) CADisplayLink *shiftGraphXTimer;
+@property (nonatomic, strong) NSTimer *statusBarTimer;
+@property (nonatomic, strong) NSDate *statusBarStartTime;
 
 @property (nonatomic) BOOL useSleipnir;
 
@@ -45,10 +51,9 @@
 
 @property (nonatomic, strong) VaavudCoreController *vaavudCoreController;
 @property (nonatomic, strong) MjolnirGraphHostingView *mjolnirGraphHostingView;
-@property (nonatomic, strong) CADisplayLink *displayLinkGraphUI;
-@property (nonatomic, strong) CADisplayLink *displayLinkGraphValues;
-@property (nonatomic, strong) NSTimer *statusBarTimer;
-@property (nonatomic) BOOL isValid;
+@property (nonatomic, strong) CADisplayLink *mjolnirDisplayLinkGraphUI;
+@property (nonatomic, strong) CADisplayLink *mjolnirDisplayLinkGraphValues;
+@property (nonatomic, strong) NSTimer *mjolnirMeasuringTimer;
 
 @end
 
@@ -189,7 +194,7 @@
         self.startStopButton.layer.masksToBounds = YES;
     }
     
-    [self mjolnirCreateGraphView];
+    [self createGraphView];
 
 #ifdef AGRI
     
@@ -243,6 +248,10 @@
             [self.mjolnirGraphHostingView changeWindSpeedUnit:self.windSpeedUnit];
             [self.mjolnirGraphHostingView changeWindSpeedUnit:self.windSpeedUnit];
         }
+        
+        if (self.graphView) {
+            [self.graphView changeWindSpeedUnit:self.windSpeedUnit];
+        }
     }
 
     if (self.mjolnirGraphHostingView) {
@@ -290,6 +299,8 @@
 
 - (void) startWithUITracking:(BOOL)uiTracking {
     
+    // update start/stop button text...
+    
     self.buttonShowsStart = NO;
     
     if (self.startStopButton) {
@@ -297,8 +308,11 @@
         [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_STOP", nil) forState:UIControlStateNormal];
     }
     
+    // reset labels and progress bar...
+    
     if (self.statusBar) {
         [self.statusBar setProgress:0];
+        self.statusBarStartTime = [NSDate date];
     }
     
     self.actualLabelCurrentValue = nil;
@@ -307,18 +321,35 @@
     self.directionLabelCurrentValue = nil;
     [self updateLabelsFromCurrentValues];
     
+    // make sure the display doesn't turn off during measuring...
+    
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
+    
+    // start measuring...
     
     if (self.useSleipnir) {
         // Sleipnir start
+        [self createGraphView];
         [[SleipnirMeasurementController sharedInstance] start];
-        
-
     }
     else {
         // Mjolnir start
         [self mjolnirStart];
     }
+    
+    // add timer that auto-scrolls the x-axis...
+    
+    if (self.graphView) {
+        self.shiftGraphXTimer = [CADisplayLink displayLinkWithTarget:self.graphView selector:@selector(shiftGraphX)];
+        self.shiftGraphXTimer.frameInterval = 10;
+        [self.shiftGraphXTimer addToRunLoop:[NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
+    }
+
+    // add timer that updates the progress bar...
+    
+    self.statusBarTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateStatusBar) userInfo:nil repeats:YES];
+
+    // Mixpanel tracking...
     
     if (uiTracking) {
         if ([Property isMixpanelEnabled]) {
@@ -329,6 +360,8 @@
 }
 
 - (void) stopWithUITracking:(BOOL)uiTracking action:(NSString*)action {
+    
+    // update start/stop button text...
     
     self.buttonShowsStart = YES;
     
@@ -341,7 +374,23 @@
         self.informationTextLabel.text = @"";
     }
     
+    // allow display to turn off again...
+    
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
+    
+    // stop timers...
+    
+    if (self.shiftGraphXTimer) {
+        [self.shiftGraphXTimer invalidate];
+        self.shiftGraphXTimer = nil;
+    }
+    
+    if (self.statusBarTimer) {
+        [self.statusBarTimer invalidate];
+        self.statusBarTimer = nil;
+    }
+
+    // stop measuring...
     
     NSTimeInterval durationSecounds = 0.0;
     if (self.useSleipnir) {
@@ -353,9 +402,15 @@
         durationSecounds = [self mjolnirStop:NO];
     }
     
+    // refresh whether the user has a wind meter...
+    
     [Property refreshHasWindMeter];
 
+    // this will only be false if we were stopped by the model (e.g. measurement deleted while measuring)
     if (uiTracking) {
+
+        // Mixpanel tracking...
+        
         if ([Property isMixpanelEnabled]) {
             
             Mixpanel *mixpanel = [Mixpanel sharedInstance];
@@ -368,6 +423,8 @@
                 [mixpanel track:@"Stop Measurement" properties:@{@"Action": action, @"Duration": [NSNumber numberWithInt:round(durationSecounds)]}];
             }
         }
+        
+        // potentially popup Facebook share dialog...
         
         [self promptForFacebookSharing];
     }
@@ -382,6 +439,30 @@
 - (void) measuringStoppedByModel {
     
     [self stopWithUITracking:NO action:@"Model"];
+}
+
+- (void) createGraphView {
+    
+    if (self.graphContainer) {
+    
+        [self destroyGraphView];
+        [self mjolnirDestroyGraphView];
+        
+        self.graphView = [[GraphView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.graphContainer.frame.size.width, self.graphContainer.frame.size.height)];
+        self.graphView.autoresizesSubviews = YES;
+        self.graphView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        
+        [self.graphContainer addSubview:self.graphView];
+    }
+}
+
+- (void) destroyGraphView {
+    
+    if (self.graphContainer && self.graphView) {
+        
+        [self.graphView removeFromSuperview];
+        self.graphView = nil;
+    }
 }
 
 /**** Sleipnir Measurement ****/
@@ -411,6 +492,10 @@
     self.averageLabelCurrentValue = averageSpeed;
     self.maxLabelCurrentValue = maxSpeed;
     [self updateLabelsFromCurrentValues];
+    
+    if (self.graphView) {
+        [self.graphView addPoint:[NSDate date] currentSpeed:currentSpeed averageSpeed:averageSpeed];
+    }
 }
 
 - (void) viewUpdateDirection:(NSNumber*)avgDirection {
@@ -428,7 +513,8 @@
     self.vaavudCoreController.vaavudCoreControllerViewControllerDelegate = self; // set the core controller's view controller delegate to self (reports when meassurements are valid)
     
     if (self.graphContainer) {
-        [self mjolnirCreateGraphView];
+        //[self mjolnirCreateGraphView];
+        [self createGraphView];
         
         if (self.mjolnirGraphHostingView) {
             self.mjolnirGraphHostingView.vaavudCoreController = self.vaavudCoreController;
@@ -438,19 +524,23 @@
     
     [self.vaavudCoreController start];
 
-    self.statusBarTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateLabels) userInfo:nil repeats:YES];
+    self.mjolnirMeasuringTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(mjolnirUpdateLabels) userInfo:nil repeats:YES];
 }
 
 - (NSTimeInterval) mjolnirStop:(BOOL)onlyUI {
 
-    [self.displayLinkGraphUI invalidate];
-    [self.displayLinkGraphValues invalidate];
+    if (self.mjolnirGraphHostingView && self.mjolnirDisplayLinkGraphUI) {
+        [self.mjolnirDisplayLinkGraphUI invalidate];
+        [self.mjolnirDisplayLinkGraphValues invalidate];
+        self.mjolnirDisplayLinkGraphUI = nil;
+        self.mjolnirDisplayLinkGraphValues = nil;
+    }
     
     NSTimeInterval durationSeconds = [self.vaavudCoreController stop];
     
-    if (self.statusBarTimer) {
-        [self.statusBarTimer invalidate];
-        self.statusBarTimer = nil;
+    if (self.mjolnirMeasuringTimer) {
+        [self.mjolnirMeasuringTimer invalidate];
+        self.mjolnirMeasuringTimer = nil;
     }
 
     return durationSeconds;
@@ -460,9 +550,10 @@
     
     if (self.graphContainer) {
 
+        [self destroyGraphView];
         [self mjolnirDestroyGraphView];
         
-        self.mjolnirGraphHostingView = [[MjolnirGraphHostingView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.graphContainer.bounds.size.width, self.graphContainer.bounds.size.height)];
+        self.mjolnirGraphHostingView = [[MjolnirGraphHostingView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.graphContainer.frame.size.width, self.graphContainer.frame.size.height)];
         self.mjolnirGraphHostingView.autoresizesSubviews = YES;
         self.mjolnirGraphHostingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
@@ -475,46 +566,20 @@
 - (void) mjolnirDestroyGraphView {
     
     if (self.graphContainer && self.mjolnirGraphHostingView) {
-        
         [self.mjolnirGraphHostingView removeFromSuperview];
         self.mjolnirGraphHostingView = nil;
     }
 }
 
-- (void) windSpeedMeasurementsAreValid:(BOOL)valid {
-    self.isValid = valid;
-    
-    if (!valid) {
-        if (self.displayLinkGraphUI) {
-            [self.displayLinkGraphUI invalidate];
-            [self.displayLinkGraphValues invalidate];
-        }
-    }
-    else {
-        if (self.mjolnirGraphHostingView) {
-            [self.mjolnirGraphHostingView createNewPlot];
-
-            self.displayLinkGraphUI = [CADisplayLink displayLinkWithTarget:self.mjolnirGraphHostingView selector:@selector(shiftGraphX)];
-            self.displayLinkGraphUI.frameInterval = 10; // SET VALUE HIGHER FOR IPHONE 4
-            
-            self.displayLinkGraphValues = [CADisplayLink displayLinkWithTarget:self.mjolnirGraphHostingView selector:@selector(addDataPoint)];
-            self.displayLinkGraphValues.frameInterval = 10; // SET VALUE HIGHER FOR IPHONE 4
-            
-            [self.displayLinkGraphUI addToRunLoop:[NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
-            [self.displayLinkGraphValues addToRunLoop:[NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
-        }
-    }
-}
-
-- (void) updateMeasuredValues:(NSNumber*)windSpeedAvg windSpeedMax:(NSNumber*)windSpeedMax {
+- (void) mjolnirUpdateMeasuredValues:(NSNumber*)windSpeedAvg windSpeedMax:(NSNumber*)windSpeedMax {
     self.averageLabelCurrentValue = windSpeedAvg;
     self.maxLabelCurrentValue = windSpeedMax;
     [self updateLabelsFromCurrentValues];
 }
 
-- (void) updateLabels {    
+- (void) mjolnirUpdateLabels {
     
-    if (self.isValid) {
+    if (self.vaavudCoreController.isValidCurrentStatus) {
         self.actualLabelCurrentValue = [self.vaavudCoreController.windSpeed lastObject];
         self.averageLabelCurrentValue = [self.vaavudCoreController getAverage];
         self.maxLabelCurrentValue = [self.vaavudCoreController getMax];
@@ -525,6 +590,10 @@
         
         if (self.statusBar) {
             [self.statusBar setProgress:[[self.vaavudCoreController getProgress] floatValue]];
+        }
+        
+        if (self.graphView) {
+            [self.graphView addPoint:[NSDate date] currentSpeed:self.actualLabelCurrentValue averageSpeed:self.averageLabelCurrentValue];
         }
     }
     else {
@@ -590,6 +659,16 @@
     }
 }
 
+- (void) updateStatusBar {
+    if (self.statusBar) {
+        float timeSinceStart = -[self.statusBarStartTime timeIntervalSinceNow];
+        double progress = timeSinceStart / minimumNumberOfSeconds;
+        if (progress > 1) {
+            progress = 1;
+        }
+        [self.statusBar setProgress:progress];
+    }
+}
 
 - (IBAction) unitButtonPushed:(id)sender {
     self.windSpeedUnit = [UnitUtil nextWindSpeedUnit:self.windSpeedUnit];
@@ -602,6 +681,10 @@
         // note: for some reason the y-axis is not changed correctly the first time, so we call the following method twice
         [self.mjolnirGraphHostingView changeWindSpeedUnit:self.windSpeedUnit];
         [self.mjolnirGraphHostingView changeWindSpeedUnit:self.windSpeedUnit];
+    }
+    
+    if (self.graphView) {
+        [self.graphView changeWindSpeedUnit:self.windSpeedUnit];
     }
 }
 

@@ -6,12 +6,14 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
-@protocol VaavudCoreViewControllerDelegate
+@protocol VaavudCoreViewControllerDelegate <NSObject>
 
-- (void) windSpeedMeasurementsAreValid:(BOOL)valid;
-- (void) updateMeasuredValues:(NSNumber*)windSpeedAvg windSpeedMax:(NSNumber*)windSpeedMax;
+- (void) mjolnirUpdateMeasuredValues:(NSNumber*)windSpeedAvg windSpeedMax:(NSNumber*)windSpeedMax;
 - (void) measuringStoppedByModel;
 - (void) temperatureUpdated:(float)temperature;
+
+@optional
+- (void) mjolnirMeasurementsAreValid:(BOOL)valid;
 
 @end
 
@@ -44,6 +46,7 @@
 @property (nonatomic) BOOL dynamicsIsValid;
 @property (nonatomic) BOOL windDirectionIsConfirmed;
 @property (nonatomic) BOOL FFTisValid;
+@property (nonatomic) BOOL isValidCurrentStatus;
 
 @property (nonatomic, strong) NSNumber *currentLatitude;
 @property (nonatomic, strong) NSNumber *currentLongitude;

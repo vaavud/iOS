@@ -17,7 +17,7 @@
 - (void) createNewPlot;
 - (void) shiftGraphX;
 - (void) addDataPoint;
-- (void) changeWindSpeedUnit:(WindSpeedUnit) unit;
+- (void) changeWindSpeedUnit:(WindSpeedUnit)unit;
 - (void) pauseUpdates;
 - (void) resumeUpdates;
 

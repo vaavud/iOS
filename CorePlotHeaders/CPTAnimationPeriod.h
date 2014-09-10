@@ -50,9 +50,19 @@
  **/
 @interface CPTAnimationPeriod(AbstractMethods)
 
+/// @name Initialization
+/// @{
+-(void)setStartValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter;
+/// @}
+
 /// @name Interpolation
 /// @{
 -(NSValue *)tweenedValueForProgress:(CGFloat)progress;
+/// @}
+
+/// @name Comparison
+/// @{
+-(BOOL)canStartWithValueFromObject:(id)boundObject propertyGetter:(SEL)boundGetter;
 /// @}
 
 @end
