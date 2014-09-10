@@ -79,16 +79,16 @@ SHARED_INSTANCE
 - (void) vaavudPlugedIn {
     
     NSLog(@"[SleipnirMeasurementController] vaavudPlugedIn");
-    if (self.viewDelegate) {
-        [self.viewDelegate viewSleipnirPluggedIn];
+    if (self.delegate) {
+        [self.delegate sleipnirPluggedIn];
     }
 }
 
 - (void) deviceWasUnpluged {
     
     NSLog(@"[SleipnirMeasurementController] deviceWasUnpluged");
-    if (self.viewDelegate) {
-        [self.viewDelegate viewSleipnirPluggedOut];
+    if (self.delegate) {
+        [self.delegate sleipnirPluggedOut];
     }
 }
 
@@ -104,8 +104,8 @@ SHARED_INSTANCE
         self.averageSpeed = [NSNumber numberWithDouble:(self.accumulatedSpeed / self.numberOfSpeedSamples)];
         self.maxSpeed = MAX(self.maxSpeed, currentSpeed);
         
-        if (self.viewDelegate) {
-            [self.viewDelegate viewAddSpeed:speed avgSpeed:self.averageSpeed maxSpeed:[NSNumber numberWithDouble:self.maxSpeed]];
+        if (self.delegate) {
+            [self.delegate addSpeedMeasurement:speed avgSpeed:self.averageSpeed maxSpeed:[NSNumber numberWithDouble:self.maxSpeed]];
         }
     }
 }
@@ -117,8 +117,8 @@ SHARED_INSTANCE
 
         self.direction = windDirection;
         
-        if (self.viewDelegate) {
-            [self.viewDelegate viewUpdateDirection:self.direction];
+        if (self.delegate) {
+            [self.delegate updateDirection:self.direction];
         }
     }
 }

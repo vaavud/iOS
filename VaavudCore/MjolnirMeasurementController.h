@@ -6,14 +6,14 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
-@protocol VaavudCoreViewControllerDelegate <NSObject>
+@protocol MjolnirMeasurementControllerDelegate <NSObject>
 
-- (void) mjolnirUpdateMeasuredValues:(NSNumber*)windSpeedAvg windSpeedMax:(NSNumber*)windSpeedMax;
+- (void) addSpeedMeasurement:(NSNumber*)currentSpeed avgSpeed:(NSNumber*)avgSpeed maxSpeed:(NSNumber*)maxSpeed;
 - (void) measuringStoppedByModel;
 - (void) temperatureUpdated:(float)temperature;
 
 @optional
-- (void) mjolnirMeasurementsAreValid:(BOOL)valid;
+- (void) changedValidity:(BOOL)isValid dynamicsIsValid:(BOOL)dynamicsIsValid;
 
 @end
 
@@ -21,7 +21,7 @@
 #import "VaavudMagneticFieldDataManager.h"
 #import "vaavudDynamicsController.h"
 
-@interface VaavudCoreController : NSObject <VaavudMagneticFieldDataManagerDelegate, vaavudDynamicsControllerDelegate>
+@interface MjolnirMeasurementController : NSObject <VaavudMagneticFieldDataManagerDelegate, vaavudDynamicsControllerDelegate>
 
 - (id) init;
 - (void) start;
@@ -51,6 +51,6 @@
 @property (nonatomic, strong) NSNumber *currentLatitude;
 @property (nonatomic, strong) NSNumber *currentLongitude;
 
-@property (nonatomic, weak) id <VaavudCoreViewControllerDelegate> vaavudCoreControllerViewControllerDelegate;
+@property (nonatomic, weak) id <MjolnirMeasurementControllerDelegate> delegate;
 
 @end

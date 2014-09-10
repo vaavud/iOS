@@ -19,9 +19,8 @@
 		D7A4F1DB173A8DDB00D1ACEE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1DA173A8DDB00D1ACEE /* AppDelegate.m */; };
 		D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */; };
 		D7A4F1E7173A8DDB00D1ACEE /* MeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1E6173A8DDB00D1ACEE /* MeasureViewController.m */; };
-		D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */; };
+		D7A4F1F2173A8FAB00D1ACEE /* MjolnirMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* MjolnirMeasurementController.m */; };
 		D7A4F1F4173A9FC200D1ACEE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */; };
-		D7B5BD51175775EB0069F739 /* MjolnirGraphHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7B5BD50175775EB0069F739 /* MjolnirGraphHostingView.m */; };
 		D7B5BD531757A23C0069F739 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B5BD521757A23C0069F739 /* CoreLocation.framework */; };
 		D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C860ED173AD08F005E9946 /* QuartzCore.framework */; };
 		D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */; };
@@ -101,14 +100,13 @@
 		E96FB4ED19A353B500CB7306 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1D6173A8DDB00D1ACEE /* main.m */; };
 		E96FB4EE19A353B500CB7306 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1DA173A8DDB00D1ACEE /* AppDelegate.m */; };
 		E96FB4EF19A353B500CB7306 /* MeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1E6173A8DDB00D1ACEE /* MeasureViewController.m */; };
-		E96FB4F019A353B500CB7306 /* VaavudCoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */; };
+		E96FB4F019A353B500CB7306 /* MjolnirMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* MjolnirMeasurementController.m */; };
 		E96FB4F119A353B500CB7306 /* VaavudMagneticFieldDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */; };
 		E96FB4F219A353B500CB7306 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */; };
 		E96FB4F319A353B500CB7306 /* vaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* vaavudFFT.m */; };
 		E96FB4F419A353B500CB7306 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950CB195B1DCE00E9EF02 /* ImageUtil.m */; };
 		E96FB4F519A353B500CB7306 /* DismissOnTouchUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91D421A198F7E4900106E15 /* DismissOnTouchUIView.m */; };
 		E96FB4F619A353B500CB7306 /* vaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* vaavudDynamicsController.m */; };
-		E96FB4F719A353B500CB7306 /* MjolnirGraphHostingView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7B5BD50175775EB0069F739 /* MjolnirGraphHostingView.m */; };
 		E96FB4F819A353B500CB7306 /* RegisterNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */; };
 		E96FB4F919A353B500CB7306 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */; };
 		E96FB4FA19A353B500CB7306 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DE09B9192E4C84003877D9 /* SettingsViewController.m */; };
@@ -491,12 +489,10 @@
 		D7A4F1DA173A8DDB00D1ACEE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D7A4F1E5173A8DDB00D1ACEE /* MeasureViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeasureViewController.h; sourceTree = "<group>"; };
 		D7A4F1E6173A8DDB00D1ACEE /* MeasureViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeasureViewController.m; sourceTree = "<group>"; };
-		D7A4F1F0173A8FAB00D1ACEE /* VaavudCoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudCoreController.h; sourceTree = "<group>"; };
-		D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudCoreController.m; sourceTree = "<group>"; };
+		D7A4F1F0173A8FAB00D1ACEE /* MjolnirMeasurementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MjolnirMeasurementController.h; sourceTree = "<group>"; };
+		D7A4F1F1173A8FAB00D1ACEE /* MjolnirMeasurementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MjolnirMeasurementController.m; sourceTree = "<group>"; };
 		D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		D7A4F1F5173AA16700D1ACEE /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		D7B5BD4F175775EB0069F739 /* MjolnirGraphHostingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MjolnirGraphHostingView.h; sourceTree = "<group>"; };
-		D7B5BD50175775EB0069F739 /* MjolnirGraphHostingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MjolnirGraphHostingView.m; sourceTree = "<group>"; };
 		D7B5BD521757A23C0069F739 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D7C860ED173AD08F005E9946 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D7C860F8173B061E005E9946 /* VaavudMagneticFieldDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudMagneticFieldDataManager.h; sourceTree = "<group>"; };
@@ -1094,8 +1090,6 @@
 				E9A4097F189BD29F004F1C12 /* MeasureNavigationController.m */,
 				D7A4F1E5173A8DDB00D1ACEE /* MeasureViewController.h */,
 				D7A4F1E6173A8DDB00D1ACEE /* MeasureViewController.m */,
-				D7B5BD4F175775EB0069F739 /* MjolnirGraphHostingView.h */,
-				D7B5BD50175775EB0069F739 /* MjolnirGraphHostingView.m */,
 			);
 			name = Measure;
 			sourceTree = "<group>";
@@ -1271,8 +1265,8 @@
 		E98C9A5C19B9D91F009428F3 /* Mjolnir */ = {
 			isa = PBXGroup;
 			children = (
-				D7A4F1F0173A8FAB00D1ACEE /* VaavudCoreController.h */,
-				D7A4F1F1173A8FAB00D1ACEE /* VaavudCoreController.m */,
+				D7A4F1F0173A8FAB00D1ACEE /* MjolnirMeasurementController.h */,
+				D7A4F1F1173A8FAB00D1ACEE /* MjolnirMeasurementController.m */,
 				D7092E881748FE9C00993235 /* vaavudDynamicsController.h */,
 				D7092E891748FE9C00993235 /* vaavudDynamicsController.m */,
 				D71BE13517439AA000B38E34 /* vaavudFFT.h */,
@@ -2072,7 +2066,7 @@
 				D7A4F1D7173A8DDB00D1ACEE /* main.m in Sources */,
 				D7A4F1DB173A8DDB00D1ACEE /* AppDelegate.m in Sources */,
 				D7A4F1E7173A8DDB00D1ACEE /* MeasureViewController.m in Sources */,
-				D7A4F1F2173A8FAB00D1ACEE /* VaavudCoreController.m in Sources */,
+				D7A4F1F2173A8FAB00D1ACEE /* MjolnirMeasurementController.m in Sources */,
 				E948382B19B75320009595B0 /* EZAudioPlotGLKViewController.m in Sources */,
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
 				E9C7799319AB8DE4000A6921 /* AgriSettingsNavigationController.m in Sources */,
@@ -2081,7 +2075,6 @@
 				E9B950CC195B1DCE00E9EF02 /* ImageUtil.m in Sources */,
 				E91D421B198F7E4900106E15 /* DismissOnTouchUIView.m in Sources */,
 				D7092E8A1748FE9C00993235 /* vaavudDynamicsController.m in Sources */,
-				D7B5BD51175775EB0069F739 /* MjolnirGraphHostingView.m in Sources */,
 				E9A4099F18AA75C6004F1C12 /* RegisterNavigationController.m in Sources */,
 				E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */,
 				E9DE09BA192E4C84003877D9 /* SettingsViewController.m in Sources */,
@@ -2200,7 +2193,7 @@
 				E96FB4ED19A353B500CB7306 /* main.m in Sources */,
 				E96FB4EE19A353B500CB7306 /* AppDelegate.m in Sources */,
 				E96FB4EF19A353B500CB7306 /* MeasureViewController.m in Sources */,
-				E96FB4F019A353B500CB7306 /* VaavudCoreController.m in Sources */,
+				E96FB4F019A353B500CB7306 /* MjolnirMeasurementController.m in Sources */,
 				E948382C19B75320009595B0 /* EZAudioPlotGLKViewController.m in Sources */,
 				E96FB4F119A353B500CB7306 /* VaavudMagneticFieldDataManager.m in Sources */,
 				E9C7799419AB8DE4000A6921 /* AgriSettingsNavigationController.m in Sources */,
@@ -2209,7 +2202,6 @@
 				E96FB4F419A353B500CB7306 /* ImageUtil.m in Sources */,
 				E96FB4F519A353B500CB7306 /* DismissOnTouchUIView.m in Sources */,
 				E96FB4F619A353B500CB7306 /* vaavudDynamicsController.m in Sources */,
-				E96FB4F719A353B500CB7306 /* MjolnirGraphHostingView.m in Sources */,
 				E96FB4F819A353B500CB7306 /* RegisterNavigationController.m in Sources */,
 				E96FB4F919A353B500CB7306 /* Model.xcdatamodeld in Sources */,
 				E96FB4FA19A353B500CB7306 /* SettingsViewController.m in Sources */,

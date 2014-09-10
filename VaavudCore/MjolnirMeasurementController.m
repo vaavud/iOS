@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "VaavudCoreController.h"
+#import "MjolnirMeasurementController.h"
 #import <CoreMotion/CoreMotion.h>
 #import <CoreData/CoreData.h>
 #import "VaavudMagneticFieldDataManager.h"
@@ -19,7 +19,7 @@
 #import "LocationManager.h"
 #import "Property+Util.h"
 
-@interface VaavudCoreController () {}
+@interface MjolnirMeasurementController () {}
 
 // public properties - create setters
 @property (nonatomic, strong) NSNumber *setWindDirection;
@@ -56,6 +56,7 @@
 @property (nonatomic) double frequencyStart;
 
 @property (nonatomic) BOOL isTemperatureLookupInitiated;
+@property (nonatomic, strong) NSTimer *measuringTimer;
 
 @property (nonatomic) BOOL hasBeenStopped;
 
@@ -65,7 +66,7 @@
 
 @end
 
-@implementation VaavudCoreController 
+@implementation MjolnirMeasurementController
 
 // Public methods
 
@@ -88,6 +89,7 @@
 }
 
 - (void) start {
+    
     self.dynamicsIsValid = NO;
     self.isValidPercent = 50; // start at 50% valid
     self.isValidCurrentStatus = NO;
@@ -168,6 +170,12 @@
         self.isTemperatureLookupInitiated = NO;
         [self initiateTemperatureLookup];
     }
+    
+    self.measuringTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(pushValuesToDelegate) userInfo:nil repeats:YES];
+    
+    if ([self.delegate respondsToSelector:@selector(changedValidity:dynamicsIsValid:)]) {
+        [self.delegate changedValidity:self.isValidCurrentStatus dynamicsIsValid:self.dynamicsIsValid];
+    }
 }
 
 - (NSTimeInterval) stop {
@@ -177,6 +185,11 @@
     }
     self.hasBeenStopped = YES;
     
+    if (self.measuringTimer) {
+        [self.measuringTimer invalidate];
+        self.measuringTimer = nil;
+    }
+
     [self.sharedMagneticFieldDataManager stop];
     [self.vaavudDynamicsController stop];
 
@@ -192,8 +205,9 @@
         
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
             if (success) {
-                if (self.vaavudCoreControllerViewControllerDelegate) {
-                    [self.vaavudCoreControllerViewControllerDelegate mjolnirUpdateMeasuredValues:measurementSession.windSpeedAvg windSpeedMax:measurementSession.windSpeedMax];
+                if (self.delegate) {
+                    // this is just to update the UI label values so they reflect what was saved
+                    [self.delegate addSpeedMeasurement:nil avgSpeed:measurementSession.windSpeedAvg maxSpeed:measurementSession.windSpeedMax];
                 }
                 [[ServerUploadManager sharedInstance] triggerUpload];
             }
@@ -220,9 +234,18 @@
     return durationSeconds;
 }
 
-- (void) remove
-{
-    
+- (void) pushValuesToDelegate {
+    if (self.delegate && self.isValidCurrentStatus) {
+        
+        NSNumber *currentSpeed = [self.windSpeed lastObject];
+        NSNumber *avgSpeed = [self getAverage];
+        NSNumber *maxSpeed = [self getMax];
+
+        [self.delegate addSpeedMeasurement:currentSpeed avgSpeed:avgSpeed maxSpeed:maxSpeed];
+    }
+}
+
+- (void) remove {
 }
 
 - (void) updateIsValid {
@@ -233,8 +256,8 @@
         // deleted from the history or ServerUploadManager toggled the measuring flag to NO after a long period of
         // inactivity.
         [self stop];
-        if (self.vaavudCoreControllerViewControllerDelegate) {
-            [self.vaavudCoreControllerViewControllerDelegate measuringStoppedByModel];
+        if (self.delegate) {
+            [self.delegate measuringStoppedByModel];
         }
         return;
     }
@@ -264,14 +287,14 @@
         self.isValidCurrentStatus = NO;
     }
     
-    [self.isValid addObject: [NSNumber numberWithBool: self.isValidCurrentStatus]];
+    [self.isValid addObject:[NSNumber numberWithBool:self.isValidCurrentStatus]];
 
-    if (self.wasValidStatus != self.isValidCurrentStatus && self.vaavudCoreControllerViewControllerDelegate) {
-        if ([self.vaavudCoreControllerViewControllerDelegate respondsToSelector:@selector(mjolnirMeasurementsAreValid:)]) {
-            [self.vaavudCoreControllerViewControllerDelegate mjolnirMeasurementsAreValid:self.isValidCurrentStatus];
+    if (self.wasValidStatus != self.isValidCurrentStatus && self.delegate) {
+        if ([self.delegate respondsToSelector:@selector(changedValidity:dynamicsIsValid:)]) {
+            [self.delegate changedValidity:self.isValidCurrentStatus dynamicsIsValid:self.dynamicsIsValid];
         }
     }
-    
+
     // note: we shouldn't end up here if there isn't an active MeasurementSession with measuring=YES, but safe-guard just in case
     if (self.numberOfValidMeasurements % saveEveryNthPoint == 0) {
         
@@ -314,38 +337,38 @@
 }
 
 // protocol method
-- (void) DynamicsIsValid: (BOOL) validity
-{
+- (void) DynamicsIsValid:(BOOL)validity {
     self.dynamicsIsValid = validity;
 }
 
-- (void) newHeading: (NSNumber*) newHeading
-{
-    
-    if (self.upsideDown){
+- (void) newHeading:(NSNumber*)newHeading {
+
+    if (self.upsideDown) {
         double heading;
         heading = [newHeading doubleValue];
         
-        if (heading > 180)
+        if (heading > 180) {
             heading -= 180;
-        else
+        }
+        else {
             heading += 180;
+        }
         
-        newHeading = [NSNumber numberWithDouble: heading];
-        
+        newHeading = [NSNumber numberWithDouble:heading];
     }
     
-    [self.windDirection addObject: newHeading];
-    [self.windDirectionTime addObject: [NSNumber numberWithDouble: [self.startTime timeIntervalSinceDate: [NSDate date]]]];
+    [self.windDirection addObject:newHeading];
+    [self.windDirectionTime addObject:[NSNumber numberWithDouble:[self.startTime timeIntervalSinceDate:[NSDate date]]]];
     
-    if (!self.windDirectionIsConfirmed)
+    if (!self.windDirectionIsConfirmed) {
         self.setWindDirection = newHeading;
+    }
 }
 
 
 // protocol method
-- (void) magneticFieldValuesUpdated
-{
+- (void) magneticFieldValuesUpdated {
+    
     self.magneticFieldUpdatesCounter += 1;
     
     if (self.magneticFieldUpdatesCounter > self.fftDataLength){
@@ -574,8 +597,8 @@
         [[ServerUploadManager sharedInstance] lookupTemperatureForLocation:latestLocation.latitude longitude:latestLocation.longitude success:^(NSNumber *temperature) {
             NSLog(@"[VaavudCoreController] Got success looking up temperature: %@", temperature);
             if (temperature) {
-                if (self.vaavudCoreControllerViewControllerDelegate) {
-                    [self.vaavudCoreControllerViewControllerDelegate temperatureUpdated:[temperature floatValue]];
+                if (self.delegate) {
+                    [self.delegate temperatureUpdated:[temperature floatValue]];
                 }
                 
                 MeasurementSession *measurementSession = [self getActiveMeasurementSession];

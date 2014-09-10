@@ -11,8 +11,6 @@
 #import "vaavudDynamicsController.h"
 #import <CoreMotion/CoreMotion.h>
 
-
-
 @interface vaavudDynamicsController ()
 
     @property (nonatomic, strong) CMMotionManager *motionManager;
