@@ -12,6 +12,8 @@
 
 @interface SleipnirMeasurementController : WindMeasurementController <VaavudElectronicWindDelegate>
 
+@property (nonatomic) BOOL isDeviceConnected;
+
 + (SleipnirMeasurementController*) sharedInstance;
 
 @end

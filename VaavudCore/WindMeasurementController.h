@@ -34,5 +34,6 @@ enum WindMeterDeviceType : NSUInteger {
 
 - (void) start;
 - (NSTimeInterval) stop;
+- (enum WindMeterDeviceType) windMeterDeviceType;
 
 @end

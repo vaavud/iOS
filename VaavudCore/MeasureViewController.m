@@ -134,7 +134,7 @@
 
     self.windSpeedUnit = -1; // make sure windSpeedUnit is updated in viewWillAppear by setting it to an invalid value
     self.shareToFacebook = YES;
-    self.useSleipnir = NO;
+    self.useSleipnir = [SleipnirMeasurementController sharedInstance].isDeviceConnected;
     
     self.averageLabelCurrentValue = nil;
     self.actualLabelCurrentValue = nil;

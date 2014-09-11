@@ -31,7 +31,9 @@ SHARED_INSTANCE
     
     if (self) {
         [self resetMeasurementData];
-        [[VEVaavudElectronicSDK sharedVaavudElectronic] addListener:self];
+        VEVaavudElectronicSDK *sdk = [VEVaavudElectronicSDK sharedVaavudElectronic];
+        self.isDeviceConnected = ([sdk vaavudElectronicConnectionStatus] == VaavudElectronicConnectionStatusConnected);
+        [sdk addListener:self];
     }
     
     return self;
@@ -45,6 +47,10 @@ SHARED_INSTANCE
     self.numberOfSpeedSamples = 0;
     self.averageSpeed = nil;
     self.direction = nil;
+}
+
+- (enum WindMeterDeviceType) windMeterDeviceType {
+    return SleipnirWindMeterDeviceType;
 }
 
 - (void) start {
@@ -79,6 +85,7 @@ SHARED_INSTANCE
 - (void) vaavudPlugedIn {
     
     NSLog(@"[SleipnirMeasurementController] vaavudPlugedIn");
+    self.isDeviceConnected = YES;
     if (self.delegate && [self.delegate respondsToSelector:@selector(deviceConnected:)]) {
         [self.delegate deviceConnected:SleipnirWindMeterDeviceType];
     }
@@ -87,6 +94,7 @@ SHARED_INSTANCE
 - (void) deviceWasUnpluged {
     
     NSLog(@"[SleipnirMeasurementController] deviceWasUnpluged");
+    self.isDeviceConnected = NO;
     if (self.delegate && [self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
         [self.delegate deviceDisconnected:SleipnirWindMeterDeviceType];
     }

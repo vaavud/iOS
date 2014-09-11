@@ -24,6 +24,8 @@
 @property (nonatomic) BOOL wasValid;
 @property (nonatomic, weak) WindMeasurementController *controller;
 @property (nonatomic, strong) NSString *measurementSessionUuid;
+@property (nonatomic, strong) NSNumber *currentAvgSpeed;
+@property (nonatomic, strong) NSNumber *currentMaxSpeed;
 @property (nonatomic, strong) NSNumber *currentDirection;
 @property (nonatomic, strong) NSDate *lastSaveTime;
 
@@ -48,6 +50,9 @@ SHARED_INSTANCE
         self.hasBeenStopped = NO;
         self.wasValid = YES;
         self.lastSaveTime = nil;
+        self.currentAvgSpeed = nil;
+        self.currentMaxSpeed = nil;
+        self.currentDirection = nil;
 
         NSArray *measuringMeasurementSessions = [MeasurementSession MR_findByAttribute:@"measuring" withValue:[NSNumber numberWithBool:YES]];
         if (measuringMeasurementSessions && [measuringMeasurementSessions count] > 0) {
@@ -62,6 +67,7 @@ SHARED_INSTANCE
         MeasurementSession *measurementSession = [MeasurementSession MR_createEntity];
         measurementSession.uuid = [UUIDUtil generateUUID];
         measurementSession.device = [Property getAsString:KEY_DEVICE_UUID];
+        measurementSession.windMeter = [NSNumber numberWithInteger:[self.controller windMeterDeviceType]];
         measurementSession.startTime = [NSDate date];
         measurementSession.timezoneOffset = [NSNumber numberWithInt:[[NSTimeZone localTimeZone] secondsFromGMTForDate:measurementSession.startTime]];
         measurementSession.endTime = measurementSession.startTime;
@@ -118,7 +124,15 @@ SHARED_INSTANCE
     // note: active measurement session may become nil if it is deleted from history while measuring
     MeasurementSession *measurementSession = [self getActiveMeasurementSession];
     if (measurementSession && [measurementSession.measuring boolValue]) {
+
         measurementSession.measuring = [NSNumber numberWithBool:NO];
+        measurementSession.endTime = [NSDate date];
+        
+        // make sure the DB reflects whats currently shown in the UI
+        measurementSession.windSpeedAvg = self.currentAvgSpeed;
+        measurementSession.windSpeedMax = self.currentMaxSpeed;
+        measurementSession.windDirection = self.currentDirection;
+
         if (measurementSession.startTime && measurementSession.endTime) {
             durationSeconds = [measurementSession.endTime timeIntervalSinceDate:measurementSession.startTime];
         }
@@ -136,6 +150,13 @@ SHARED_INSTANCE
     self.measurementSessionUuid = nil;
         
     return durationSeconds;
+}
+
+- (enum WindMeterDeviceType) windMeterDeviceType {
+    if (self.controller) {
+        return [self.controller windMeterDeviceType];
+    }
+    return 0;
 }
 
 - (MeasurementSession*) getActiveMeasurementSession {
@@ -195,6 +216,9 @@ SHARED_INSTANCE
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
     }
 
+    self.currentAvgSpeed = avgSpeed;
+    self.currentMaxSpeed = maxSpeed;
+    
     if (self.delegate) {
         [self.delegate addSpeedMeasurement:currentSpeed avgSpeed:avgSpeed maxSpeed:maxSpeed];
     }

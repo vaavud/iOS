@@ -78,6 +78,10 @@
     return self;
 }
 
+- (enum WindMeterDeviceType) windMeterDeviceType {
+    return MjolnirWindMeterDeviceType;
+}
+
 - (void) start {
     
     self.dynamicsIsValid = NO;
