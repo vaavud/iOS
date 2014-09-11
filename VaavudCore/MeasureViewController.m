@@ -343,7 +343,7 @@
     if (uiTracking) {
         if ([Property isMixpanelEnabled]) {
             Mixpanel *mixpanel = [Mixpanel sharedInstance];
-            [mixpanel track:@"Start Measurement"];
+            [mixpanel track:@"Start Measurement" properties:@{@"Wind Meter": [controller mixpanelWindMeterName]}];
         }
     }
 }
@@ -401,10 +401,10 @@
             [MixpanelUtil updateMeasurementProperties:NO];
             
             if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F)) {
-                [mixpanel track:@"Stop Measurement" properties:@{@"Action": action, @"Duration": [NSNumber numberWithInt:round(durationSecounds)], @"Avg Wind Speed": self.averageLabelCurrentValue, @"Max Wind Speed": self.maxLabelCurrentValue}];
+                [mixpanel track:@"Stop Measurement" properties:@{@"Action": action, @"Wind Meter": [controller mixpanelWindMeterName], @"Duration": [NSNumber numberWithInt:round(durationSecounds)], @"Avg Wind Speed": self.averageLabelCurrentValue, @"Max Wind Speed": self.maxLabelCurrentValue}];
             }
             else {
-                [mixpanel track:@"Stop Measurement" properties:@{@"Action": action, @"Duration": [NSNumber numberWithInt:round(durationSecounds)]}];
+                [mixpanel track:@"Stop Measurement" properties:@{@"Action": action, @"Wind Meter": [controller mixpanelWindMeterName], @"Duration": [NSNumber numberWithInt:round(durationSecounds)]}];
             }
         }
         

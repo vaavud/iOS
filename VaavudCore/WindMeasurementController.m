@@ -21,4 +21,15 @@
     return 0;
 }
 
+- (NSString*) mixpanelWindMeterName {
+    switch ([self windMeterDeviceType]) {
+        case MjolnirWindMeterDeviceType:
+            return @"Mjolnir";
+        case SleipnirWindMeterDeviceType:
+            return @"Sleipnir";
+        default:
+            return @"Unknown";
+    }
+}
+
 @end
