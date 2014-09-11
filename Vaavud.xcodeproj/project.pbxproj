@@ -405,6 +405,10 @@
 		E9CD2253177B2AEA0054ED3F /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2236177B2AEA0054ED3F /* MagicalRecord+ShorthandSupport.m */; };
 		E9CD2254177B2AEA0054ED3F /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2238177B2AEA0054ED3F /* MagicalRecord.m */; };
 		E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */; };
+		E9D9044D19C1971000ABA9F4 /* WindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */; };
+		E9D9044E19C1971000ABA9F4 /* WindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */; };
+		E9D9045119C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9045019C1984D00ABA9F4 /* SavingWindMeasurementController.m */; };
+		E9D9045219C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9045019C1984D00ABA9F4 /* SavingWindMeasurementController.m */; };
 		E9DE09BA192E4C84003877D9 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DE09B9192E4C84003877D9 /* SettingsViewController.m */; };
 		E9DE09D21935E4D5003877D9 /* SettingsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DE09D11935E4D5003877D9 /* SettingsIcon@2x.png */; };
 		E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */; };
@@ -861,6 +865,10 @@
 		E9CD223A177B2AEA0054ED3F /* CoreData+MagicalRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MagicalRecord.h"; sourceTree = "<group>"; };
 		E9D0F4B317F9A59000C220B3 /* MeasurementCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementCalloutView.h; sourceTree = "<group>"; };
 		E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementCalloutView.m; sourceTree = "<group>"; };
+		E9D9044B19C1971000ABA9F4 /* WindMeasurementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindMeasurementController.h; sourceTree = "<group>"; };
+		E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindMeasurementController.m; sourceTree = "<group>"; };
+		E9D9044F19C1984D00ABA9F4 /* SavingWindMeasurementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavingWindMeasurementController.h; sourceTree = "<group>"; };
+		E9D9045019C1984D00ABA9F4 /* SavingWindMeasurementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavingWindMeasurementController.m; sourceTree = "<group>"; };
 		E9DE09B8192E4C84003877D9 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		E9DE09B9192E4C84003877D9 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		E9DE09D11935E4D5003877D9 /* SettingsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsIcon@2x.png"; sourceTree = "<group>"; };
@@ -1039,8 +1047,12 @@
 		D7A4F1EF173A8F4600D1ACEE /* Hardware */ = {
 			isa = PBXGroup;
 			children = (
-				E98C9A5D19B9D936009428F3 /* Sleipnir */,
 				E98C9A5C19B9D91F009428F3 /* Mjolnir */,
+				E9D9044F19C1984D00ABA9F4 /* SavingWindMeasurementController.h */,
+				E9D9045019C1984D00ABA9F4 /* SavingWindMeasurementController.m */,
+				E98C9A5D19B9D936009428F3 /* Sleipnir */,
+				E9D9044B19C1971000ABA9F4 /* WindMeasurementController.h */,
+				E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */,
 			);
 			name = Hardware;
 			sourceTree = "<group>";
@@ -2070,6 +2082,7 @@
 				E948382B19B75320009595B0 /* EZAudioPlotGLKViewController.m in Sources */,
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
 				E9C7799319AB8DE4000A6921 /* AgriSettingsNavigationController.m in Sources */,
+				E9D9044D19C1971000ABA9F4 /* WindMeasurementController.m in Sources */,
 				E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */,
 				D71BE13717439AA000B38E34 /* vaavudFFT.m in Sources */,
 				E9B950CC195B1DCE00E9EF02 /* ImageUtil.m in Sources */,
@@ -2098,6 +2111,7 @@
 				E9A40980189BD29F004F1C12 /* MeasureNavigationController.m in Sources */,
 				E9B627C817708E63004678D5 /* AFXMLRequestOperation.m in Sources */,
 				E9B627C917708E63004678D5 /* UIImageView+AFNetworking.m in Sources */,
+				E9D9045119C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */,
 				E9B627D1177096D6004678D5 /* VaavudAPIHTTPClient.m in Sources */,
 				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,
 				E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */,
@@ -2220,6 +2234,7 @@
 				E96FB50519A353B500CB7306 /* HistoryNavigationController.m in Sources */,
 				E96FB50619A353B500CB7306 /* AFPropertyListRequestOperation.m in Sources */,
 				E96FB50719A353B500CB7306 /* AFURLConnectionOperation.m in Sources */,
+				E9D9044E19C1971000ABA9F4 /* WindMeasurementController.m in Sources */,
 				E96FB50819A353B500CB7306 /* TermsPrivacyViewController.m in Sources */,
 				E96FB50919A353B500CB7306 /* MeasurementTableViewCell.m in Sources */,
 				E948383619B75320009595B0 /* TPCircularBuffer.c in Sources */,
@@ -2293,6 +2308,7 @@
 				E96FB54119A353B500CB7306 /* MeasurementPoint.m in Sources */,
 				E948383019B75320009595B0 /* EZOutput.m in Sources */,
 				E96FB54219A353B500CB7306 /* UUIDUtil.m in Sources */,
+				E9D9045219C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */,
 				E96FB54319A353B500CB7306 /* LocationManager.m in Sources */,
 				E96FB54419A353B500CB7306 /* Property+Util.m in Sources */,
 				E96FB54519A353B500CB7306 /* AlgorithmConstantsUtil.m in Sources */,

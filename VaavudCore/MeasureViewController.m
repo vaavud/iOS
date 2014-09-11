@@ -6,6 +6,9 @@
 //
 
 #import "MeasureViewController.h"
+#import "MjolnirMeasurementController.h"
+#import "SleipnirMeasurementController.h"
+#import "SavingWindMeasurementController.h"
 #import "Property+Util.h"
 #import "UnitUtil.h"
 #import "TermsViewController.h"
@@ -19,6 +22,7 @@
 #import "GraphView.h"
 #import "UnitUtil.h"
 #import "MixpanelUtil.h"
+#import "AppDelegate.h"
 #import <math.h>
 #import <FacebookSDK/FacebookSDK.h>
 
@@ -30,25 +34,28 @@
 
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
 
-@property (nonatomic) NSNumber *actualLabelCurrentValue;
-@property (nonatomic) NSNumber *averageLabelCurrentValue;
-@property (nonatomic) NSNumber *maxLabelCurrentValue;
-@property (nonatomic) NSNumber *directionLabelCurrentValue;
-@property (nonatomic) GraphView *graphView;
+@property (nonatomic, strong) NSNumber *actualLabelCurrentValue;
+@property (nonatomic, strong) NSNumber *averageLabelCurrentValue;
+@property (nonatomic, strong) NSNumber *maxLabelCurrentValue;
+@property (nonatomic, strong) NSNumber *directionLabelCurrentValue;
+@property (nonatomic, strong) NSNumber *currentLatitude;
+@property (nonatomic, strong) NSNumber *currentLongitude;
+@property (nonatomic, strong) NSNumber *currentTemperature;
+@property (nonatomic, strong) GraphView *graphView;
 
-@property (nonatomic,strong) UIView *customDimmingView;
-@property (nonatomic,strong) ShareDialog *shareDialog;
-@property (nonatomic,strong) UIActivityIndicatorView *activityIndicatorView;
+@property (nonatomic, strong) UIView *customDimmingView;
+@property (nonatomic, strong) ShareDialog *shareDialog;
+@property (nonatomic, strong) UIActivityIndicatorView *activityIndicatorView;
 
 @property (nonatomic, strong) CADisplayLink *shiftGraphXTimer;
 @property (nonatomic, strong) NSTimer *statusBarTimer;
 @property (nonatomic, strong) NSDate *statusBarStartTime;
 
+@property (nonatomic, strong) NSDate *lastValidityChangeTime;
+@property (nonatomic) double nonValidDuration;
+@property (nonatomic) BOOL isValid;
+
 @property (nonatomic) BOOL useSleipnir;
-
-// Mjolnir properties
-
-@property (nonatomic, strong) MjolnirMeasurementController *vaavudCoreController;
 
 @end
 
@@ -211,20 +218,6 @@
     return UIInterfaceOrientationMaskAll;
 }
 
-- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    
-    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    if (interfaceOrientation == UIInterfaceOrientationPortrait) {
-        self.vaavudCoreController.upsideDown = NO;
-    }
-    
-    if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
-        self.vaavudCoreController.upsideDown = YES;
-    }
-}
-
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -301,6 +294,9 @@
     self.averageLabelCurrentValue = nil;
     self.maxLabelCurrentValue = nil;
     self.directionLabelCurrentValue = nil;
+    self.lastValidityChangeTime = [NSDate date];
+    self.nonValidDuration = 0.0;
+    self.isValid = YES;
     [self updateLabelsFromCurrentValues];
 
     if (self.graphContainer) {
@@ -311,16 +307,24 @@
     
     [[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 
-    // start measuring...
+    // select hardware controller...
+    
+    WindMeasurementController *hardwareController;
     
     if (self.useSleipnir) {
-        // Sleipnir start
-        [[SleipnirMeasurementController sharedInstance] start];
+        hardwareController = [SleipnirMeasurementController sharedInstance];
     }
     else {
-        // Mjolnir start
-        [self mjolnirStart];
+        hardwareController = [[MjolnirMeasurementController alloc] init];
     }
+    
+    // start measuring...
+    
+    SavingWindMeasurementController *controller = [SavingWindMeasurementController sharedInstance];
+    controller.lookupTemperature = self.lookupTemperature;
+    controller.delegate = self;
+    [controller setHardwareController:hardwareController];
+    [controller start];
     
     // add timer that auto-scrolls the x-axis...
     
@@ -377,15 +381,10 @@
 
     // stop measuring...
     
-    NSTimeInterval durationSecounds = 0.0;
-    if (self.useSleipnir) {
-        // Sleipnir stop
-        durationSecounds = [[SleipnirMeasurementController sharedInstance] stop];
-    }
-    else {
-        // Mjolnir stop
-        durationSecounds = [self mjolnirStop:NO];
-    }
+    SavingWindMeasurementController *controller = [SavingWindMeasurementController sharedInstance];
+    
+    NSTimeInterval durationSecounds = [controller stop];
+    [controller clearHardwareController];
     
     // refresh whether the user has a wind meter...
     
@@ -409,9 +408,30 @@
             }
         }
         
-        // potentially popup Facebook share dialog...
+        // check if we were called from another app and return to it if so...
         
-        [self promptForFacebookSharing];
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        if (appDelegate.xCallbackSuccess && appDelegate.xCallbackSuccess != nil && appDelegate.xCallbackSuccess != (id)[NSNull null] && [appDelegate.xCallbackSuccess length] > 0) {
+            
+            NSLog(@"[VaavudCoreController] There is a pending x-success callback: %@", appDelegate.xCallbackSuccess);
+            
+            // TODO: this will return to the caller too quickly before we're fully uploaded to own servers
+            NSString* callbackURL = [NSString stringWithFormat:@"%@?windSpeedAvg=%@&windSpeedMax=%@", appDelegate.xCallbackSuccess, self.averageLabelCurrentValue, self.maxLabelCurrentValue];
+            appDelegate.xCallbackSuccess = nil;
+            
+            NSLog(@"[VaavudCoreController] Trying to open callback URL: %@", callbackURL);
+            
+            BOOL success = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callbackURL]];
+            if (!success) {
+                NSLog(@"Failed to open callback URL");
+            }
+        }
+        else {
+
+            // potentially popup Facebook share dialog...
+            
+            [self promptForFacebookSharing];
+        }
     }
 }
 
@@ -431,7 +451,7 @@
     
         [self destroyGraphView];
         
-        self.graphView = [[GraphView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.graphContainer.frame.size.width, self.graphContainer.frame.size.height)];
+        self.graphView = [[GraphView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.graphContainer.frame.size.width, self.graphContainer.frame.size.height) windSpeedUnit:self.windSpeedUnit];
         self.graphView.autoresizesSubviews = YES;
         self.graphView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
@@ -447,28 +467,9 @@
     }
 }
 
-/**** Sleipnir Measurement ****/
-
-- (void) sleipnirPluggedIn {
-    
-    if (!self.useSleipnir && !self.buttonShowsStart) {
-        
-        // measurement with Mjolnir is in progress when Sleipnir is plugged in, so stop it
-        [self stopWithUITracking:NO action:@"Plug"];
-    }
-    self.useSleipnir = YES;
-}
-
-- (void) sleipnirPluggedOut {
-    
-    if (!self.buttonShowsStart) {
-        [self stopWithUITracking:YES action:@"Unplug"];
-    }
-    
-    self.useSleipnir = NO;
-}
-
 - (void) addSpeedMeasurement:(NSNumber*)currentSpeed avgSpeed:(NSNumber*)avgSpeed maxSpeed:(NSNumber*)maxSpeed {
+    
+    //NSLog(@"[MeasurementViewController] Adding measurement, current=%@, avg=%@, max=%@", currentSpeed, avgSpeed, maxSpeed);
     
     self.actualLabelCurrentValue = currentSpeed;
     self.averageLabelCurrentValue = avgSpeed;
@@ -487,31 +488,53 @@
     [self updateLabelsFromCurrentValues];
 }
 
+/**** Sleipnir Measurement ****/
+
+- (void) deviceConnected:(enum WindMeterDeviceType)device {
+    
+    if (device == SleipnirWindMeterDeviceType) {
+        if (!self.useSleipnir && !self.buttonShowsStart) {
+            
+            // measurement with Mjolnir is in progress when Sleipnir is plugged in, so stop it
+            [self stopWithUITracking:NO action:@"Plug"];
+        }
+        self.useSleipnir = YES;
+    }
+}
+
+- (void) deviceDisconnected:(enum WindMeterDeviceType)device {
+    
+    if (device == SleipnirWindMeterDeviceType) {
+        if (!self.buttonShowsStart) {
+            [self stopWithUITracking:YES action:@"Unplug"];
+        }
+        
+        self.useSleipnir = NO;
+    }
+}
+
 /**** Mjolnir Measurement ****/
-
-- (void) mjolnirStart {
-    
-    self.vaavudCoreController = [[MjolnirMeasurementController alloc] init];
-    self.vaavudCoreController.lookupTemperature = self.lookupTemperature;
-    self.vaavudCoreController.delegate = self; // set the core controller's view controller delegate to self (reports when meassurements are valid)
-    
-    [self.vaavudCoreController start];
-}
-
-- (NSTimeInterval) mjolnirStop:(BOOL)onlyUI {
-    
-    NSTimeInterval durationSeconds = [self.vaavudCoreController stop];
-    return durationSeconds;
-}
 
 - (void) changedValidity:(BOOL)isValid dynamicsIsValid:(BOOL)dynamicsIsValid {
     
+    NSDate *now = [NSDate date];
+    
     if (isValid) {
+
+        if (!self.isValid) {
+            self.nonValidDuration += [now timeIntervalSinceDate:self.lastValidityChangeTime];
+        }
+        
         if (self.informationTextLabel) {
             self.informationTextLabel.text = NSLocalizedString(@"INFO_MEASURING", nil);
         }
     }
     else {
+
+        if (self.isValid) {
+            self.lastValidityChangeTime = now;
+        }
+        
         self.actualLabelCurrentValue = nil;
 
         if (self.informationTextLabel) {
@@ -522,7 +545,13 @@
                 self.informationTextLabel.text = NSLocalizedString(@"INFO_KEEP_STEADY", nil);
             }
         }
+        
+        if (self.graphView) {
+            [self.graphView newPlot];
+        }
     }
+    
+    self.isValid = isValid;
     
     [self updateLabelsFromCurrentValues];
 }
@@ -559,9 +588,17 @@
     }
 }
 
-- (void) temperatureUpdated:(float)temperature {
-    if (self.temperatureLabel) {
-        self.temperatureLabel.text = [self formatValue:temperature - 273.15F];
+- (void) updateTemperature:(NSNumber*)temperature {
+    self.currentTemperature = temperature;
+    if (self.temperatureLabel && temperature) {
+        self.temperatureLabel.text = [self formatValue:[temperature floatValue] - 273.15F];
+    }
+}
+
+- (void) updateLocation:(NSNumber*)latitude longitude:(NSNumber*)longitude {
+    if (latitude && longitude) {
+        self.currentLatitude = latitude;
+        self.currentLongitude = longitude;
     }
 }
 
@@ -575,11 +612,11 @@
 }
 
 - (void) updateStatusBar {
-    if (self.statusBar) {
-        float timeSinceStart = -[self.statusBarStartTime timeIntervalSinceNow];
+    if (self.statusBar && self.isValid) {
+        float timeSinceStart = MAX(0.0, -[self.statusBarStartTime timeIntervalSinceNow] - self.nonValidDuration);
         double progress = timeSinceStart / minimumNumberOfSeconds;
-        if (progress > 1) {
-            progress = 1;
+        if (progress > 1.0) {
+            progress = 1.0;
         }
         [self.statusBar setProgress:progress];
     }
@@ -708,11 +745,11 @@
 }
 
 - (NSNumber*) shareLatitude {
-    return self.vaavudCoreController.currentLatitude;
+    return self.currentLatitude;
 }
 
 - (NSNumber*) shareLongitude {
-    return self.vaavudCoreController.currentLongitude;
+    return self.currentLongitude;
 }
 
 - (NSString*) shareUnit {

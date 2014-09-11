@@ -79,16 +79,16 @@ SHARED_INSTANCE
 - (void) vaavudPlugedIn {
     
     NSLog(@"[SleipnirMeasurementController] vaavudPlugedIn");
-    if (self.delegate) {
-        [self.delegate sleipnirPluggedIn];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceConnected:)]) {
+        [self.delegate deviceConnected:SleipnirWindMeterDeviceType];
     }
 }
 
 - (void) deviceWasUnpluged {
     
     NSLog(@"[SleipnirMeasurementController] deviceWasUnpluged");
-    if (self.delegate) {
-        [self.delegate sleipnirPluggedOut];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
+        [self.delegate deviceDisconnected:SleipnirWindMeterDeviceType];
     }
 }
 
@@ -117,7 +117,7 @@ SHARED_INSTANCE
 
         self.direction = windDirection;
         
-        if (self.delegate) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(updateDirection:)]) {
             [self.delegate updateDirection:self.direction];
         }
     }

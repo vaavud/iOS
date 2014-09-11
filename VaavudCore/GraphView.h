@@ -15,7 +15,11 @@
 
 @property (nonatomic, strong) NSDate *startTime;
 
+- (id) initWithFrame:(CGRect)frame windSpeedUnit:(WindSpeedUnit)unit;
+
 - (void) changeWindSpeedUnit:(WindSpeedUnit)unit;
 - (void) addPoint:(NSDate*)time currentSpeed:(NSNumber*)speed averageSpeed:(NSNumber*)average;
 - (void) shiftGraphX;
+- (void) newPlot;
+
 @end

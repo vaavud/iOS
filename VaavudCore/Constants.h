@@ -24,9 +24,6 @@
 // Threshold for valid measurement
 #define minimumNumberOfSeconds 30
 
-// Only save every Nth measurement point - set to 1 to save all
-#define saveEveryNthPoint 10
-
 #define BUTTON_CORNER_RADIUS 4
 #define FORM_CORNER_RADIUS 4
 #define DIALOG_CORNER_RADIUS 6

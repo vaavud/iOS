@@ -12,11 +12,6 @@
 #import <CoreData/CoreData.h>
 #import "VaavudMagneticFieldDataManager.h"
 #import "vaavudFFT.h"
-#import "MeasurementSession.h"
-#import "MeasurementPoint.h"
-#import "UUIDUtil.h"
-#import "ServerUploadManager.h"
-#import "LocationManager.h"
 #import "Property+Util.h"
 
 @interface MjolnirMeasurementController () {}
@@ -40,7 +35,6 @@
 @property (nonatomic, strong) vaavudFFT *FFTEngine;
 @property (nonatomic) int magneticFieldUpdatesCounter;
 @property (nonatomic) NSInteger isValidPercent;
-@property (nonatomic) BOOL wasValidStatus;
 @property (nonatomic) BOOL iPhone4Algo;
 
 @property (nonatomic) double sumOfValidMeasurements;
@@ -55,10 +49,7 @@
 @property (nonatomic) double frequencyFactor;
 @property (nonatomic) double frequencyStart;
 
-@property (nonatomic) BOOL isTemperatureLookupInitiated;
 @property (nonatomic, strong) NSTimer *measuringTimer;
-
-@property (nonatomic) BOOL hasBeenStopped;
 
 - (void) updateIsValid;
 - (NSNumber *) getSampleFrequency;
@@ -74,7 +65,6 @@
     self = [super init];
     
     if (self) {
-        self.hasBeenStopped = NO;
         self.iPhone4Algo = ([[Property getAsInteger:KEY_ALGORITHM] intValue] == ALGORITHM_IPHONE4);
         self.frequencyStart = [[Property getAsDouble:KEY_FREQUENCY_START] doubleValue];
         self.frequencyFactor = [[Property getAsDouble:KEY_FREQUENCY_FACTOR] doubleValue];
@@ -95,12 +85,12 @@
     self.isValidCurrentStatus = NO;
     self.windDirectionIsConfirmed = NO;
     
-    self.startTime          = [NSDate date];
-    self.windSpeed          = [NSMutableArray arrayWithCapacity:1000];
-    self.windSpeedTime      = [NSMutableArray arrayWithCapacity:1000];
-    self.isValid            = [NSMutableArray arrayWithCapacity:1000];
-    self.windDirection      = [NSMutableArray arrayWithCapacity:50];
-    self.windDirectionTime  = [NSMutableArray arrayWithCapacity:50];
+    self.startTime = [NSDate date];
+    self.windSpeed = [NSMutableArray arrayWithCapacity:1000];
+    self.windSpeedTime = [NSMutableArray arrayWithCapacity:1000];
+    self.isValid = [NSMutableArray arrayWithCapacity:1000];
+    self.windDirection = [NSMutableArray arrayWithCapacity:50];
+    self.windDirectionTime = [NSMutableArray arrayWithCapacity:50];
     self.magneticFieldUpdatesCounter = 0;
     self.numberOfValidMeasurements = 0;
     self.sumOfValidMeasurements = 0;
@@ -115,45 +105,6 @@
     if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
         self.upsideDown = YES;
     }
-
-    NSArray *measuringMeasurementSessions = [MeasurementSession MR_findByAttribute:@"measuring" withValue:[NSNumber numberWithBool:YES]];
-    if (measuringMeasurementSessions && [measuringMeasurementSessions count] > 0) {
-        for (MeasurementSession *measurementSession in measuringMeasurementSessions) {
-            measurementSession.measuring = [NSNumber numberWithBool:NO];
-        }
-        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
-    }
-    
-    // create new MeasurementSession and save it in the database
-    MeasurementSession *measurementSession = [MeasurementSession MR_createEntity];
-    measurementSession.uuid = [UUIDUtil generateUUID];
-    measurementSession.device = [Property getAsString:KEY_DEVICE_UUID];
-    measurementSession.startTime = [NSDate date];
-    measurementSession.timezoneOffset = [NSNumber numberWithInt:[[NSTimeZone localTimeZone] secondsFromGMTForDate:measurementSession.startTime]];
-    measurementSession.endTime = measurementSession.startTime;
-    measurementSession.measuring = [NSNumber numberWithBool:YES];
-    measurementSession.uploaded = [NSNumber numberWithBool:NO];
-    measurementSession.startIndex = [NSNumber numberWithInt:0];
-    [self updateMeasurementSessionLocation:measurementSession];
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    if (appDelegate.xCallbackSuccess && appDelegate.xCallbackSuccess != nil && appDelegate.xCallbackSuccess != (id)[NSNull null] && [appDelegate.xCallbackSuccess length] > 0) {
-        NSArray *components = [appDelegate.xCallbackSuccess componentsSeparatedByString:@":"];
-        if ([components count] > 0) {
-            measurementSession.source = [components objectAtIndex:0];
-        }
-        else {
-            measurementSession.source = appDelegate.xCallbackSuccess;
-        }
-    }
-    else {
-        measurementSession.source = @"vaavud";
-    }
-    self.measurementSessionUUID = measurementSession.uuid;
-    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
-        if (success) {
-            [[ServerUploadManager sharedInstance] triggerUpload];
-        }
-    }];
     
     // create reference to MagneticField Data Manager and start
     self.sharedMagneticFieldDataManager = [VaavudMagneticFieldDataManager sharedMagneticFieldDataManager];
@@ -165,12 +116,6 @@
     self.vaavudDynamicsController.vaavudCoreController = self;
     [self.vaavudDynamicsController start];
     
-    // lookup temperature
-    if (self.lookupTemperature) {
-        self.isTemperatureLookupInitiated = NO;
-        [self initiateTemperatureLookup];
-    }
-    
     self.measuringTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(pushValuesToDelegate) userInfo:nil repeats:YES];
     
     if ([self.delegate respondsToSelector:@selector(changedValidity:dynamicsIsValid:)]) {
@@ -179,12 +124,7 @@
 }
 
 - (NSTimeInterval) stop {
-    
-    if (self.hasBeenStopped) {
-        return 0.0;
-    }
-    self.hasBeenStopped = YES;
-    
+        
     if (self.measuringTimer) {
         [self.measuringTimer invalidate];
         self.measuringTimer = nil;
@@ -193,45 +133,7 @@
     [self.sharedMagneticFieldDataManager stop];
     [self.vaavudDynamicsController stop];
 
-    MeasurementSession *measurementSession = [self getActiveMeasurementSession];
-    NSTimeInterval durationSeconds = 0.0;
-
-    // note: active measurement session may become nil if it is deleted from history while measuring
-    if (measurementSession) {
-        measurementSession.measuring = [NSNumber numberWithBool:NO];
-        if (measurementSession.startTime && measurementSession.endTime) {
-            durationSeconds = [measurementSession.endTime timeIntervalSinceDate:measurementSession.startTime];
-        }
-        
-        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
-            if (success) {
-                if (self.delegate) {
-                    // this is just to update the UI label values so they reflect what was saved
-                    [self.delegate addSpeedMeasurement:nil avgSpeed:measurementSession.windSpeedAvg maxSpeed:measurementSession.windSpeedMax];
-                }
-                [[ServerUploadManager sharedInstance] triggerUpload];
-            }
-        }];
-    }
-    
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    if (appDelegate.xCallbackSuccess && appDelegate.xCallbackSuccess != nil && appDelegate.xCallbackSuccess != (id)[NSNull null] && [appDelegate.xCallbackSuccess length] > 0) {
-        
-        NSLog(@"[VaavudCoreController] There is a pending x-success callback: %@", appDelegate.xCallbackSuccess);
-        
-        // TODO: this will return to the caller too quickly before we're fully uploaded to own servers
-        NSString* callbackURL = [NSString stringWithFormat:@"%@?windSpeedAvg=%@&windSpeedMax=%@", appDelegate.xCallbackSuccess, measurementSession.windSpeedAvg, measurementSession.windSpeedMax];
-        appDelegate.xCallbackSuccess = nil;
-        
-        NSLog(@"[VaavudCoreController] Trying to open callback URL: %@", callbackURL);
-        
-        BOOL success = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callbackURL]];
-        if (!success) {
-            NSLog(@"Failed to open callback URL");
-        }
-    }
-    
-    return durationSeconds;
+    return [[NSDate date] timeIntervalSinceDate:self.startTime];
 }
 
 - (void) pushValuesToDelegate {
@@ -250,22 +152,7 @@
 
 - (void) updateIsValid {
     
-    MeasurementSession *measurementSession = [self getActiveMeasurementSession];
-    if (measurementSession == nil || [measurementSession.measuring boolValue] == NO) {
-        // Measurement session became nil or "measuring" became NO during measuring which is most likely due to it being
-        // deleted from the history or ServerUploadManager toggled the measuring flag to NO after a long period of
-        // inactivity.
-        [self stop];
-        if (self.delegate) {
-            [self.delegate measuringStoppedByModel];
-        }
-        return;
-    }
-    
-    if (self.lookupTemperature && !self.isTemperatureLookupInitiated) {
-        // temperature will only be looked up once, but the following call will only succeed if we've got a location
-        [self initiateTemperatureLookup];
-    }
+    BOOL wasValid = self.isValidCurrentStatus;
     
     if (!self.FFTisValid) {
         self.isValidPercent = 0;
@@ -289,56 +176,22 @@
     
     [self.isValid addObject:[NSNumber numberWithBool:self.isValidCurrentStatus]];
 
-    if (self.wasValidStatus != self.isValidCurrentStatus && self.delegate) {
-        if ([self.delegate respondsToSelector:@selector(changedValidity:dynamicsIsValid:)]) {
+    if (wasValid != self.isValidCurrentStatus) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(changedValidity:dynamicsIsValid:)]) {
             [self.delegate changedValidity:self.isValidCurrentStatus dynamicsIsValid:self.dynamicsIsValid];
         }
     }
-
-    // note: we shouldn't end up here if there isn't an active MeasurementSession with measuring=YES, but safe-guard just in case
-    if (self.numberOfValidMeasurements % saveEveryNthPoint == 0) {
-        
-        if (self.isValidCurrentStatus) {
-            
-            // update location to the latest position (we might not have a fix when pressing start)
-            [self updateMeasurementSessionLocation:measurementSession];
-            
-            // always update measurement session's endtime and summary info
-            measurementSession.endTime = [NSDate date];
-            measurementSession.windSpeedAvg = [self getAverage];
-            measurementSession.windSpeedMax = [self getMax];
-            measurementSession.windDirection = self.setWindDirection;
- 
-            // add MeasurementPoint and save to database
-            MeasurementPoint *measurementPoint = [MeasurementPoint MR_createEntity];
-            measurementPoint.session = measurementSession;
-            measurementPoint.time = [NSDate date];
-            measurementPoint.windSpeed = [self.windSpeed objectAtIndex:self.numberOfMeasurements - 1];
-            measurementPoint.windDirection = [self.windDirection lastObject];
-
-            [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
-
-        }
-        else if (self.wasValidStatus) {
-            
-            // current measurement is not valid, but the previous one was, so add a point indicating that there is a "hole" in the data
-
-            MeasurementPoint *measurementPoint = [MeasurementPoint MR_createEntity];
-            measurementPoint.session = measurementSession;
-            measurementPoint.time = [NSDate date];
-            measurementPoint.windSpeed = nil;
-            measurementPoint.windDirection = nil;        
-            
-            [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
-        }
-    }
-    
-    self.wasValidStatus = self.isValidCurrentStatus;
 }
 
 // protocol method
 - (void) DynamicsIsValid:(BOOL)validity {
-    self.dynamicsIsValid = validity;
+    if (self.dynamicsIsValid != validity) {
+        self.dynamicsIsValid = validity;
+
+        if (self.delegate && [self.delegate respondsToSelector:@selector(changedValidity:dynamicsIsValid:)]) {
+            [self.delegate changedValidity:self.isValidCurrentStatus dynamicsIsValid:self.dynamicsIsValid];
+        }
+    }
 }
 
 - (void) newHeading:(NSNumber*)newHeading {
@@ -364,7 +217,6 @@
         self.setWindDirection = newHeading;
     }
 }
-
 
 // protocol method
 - (void) magneticFieldValuesUpdated {
@@ -517,25 +369,25 @@
     } // if counter > datalength
 }
 
-- (NSNumber *) getSampleFrequency {
+- (NSNumber*) getSampleFrequency {
     
     double timedifference = [[self.sharedMagneticFieldDataManager.magneticFieldReadingsTime lastObject] doubleValue];
     
-    NSNumber* sampleFrequency = [NSNumber numberWithDouble: (double) (self.magneticFieldUpdatesCounter-1) / timedifference];
+    NSNumber *sampleFrequency = [NSNumber numberWithDouble:(double) (self.magneticFieldUpdatesCounter-1) / timedifference];
     //NSLog(@"freq=%@", n);
     return sampleFrequency;
 }
 
 
-- (NSNumber *) getAverage {
-    return [NSNumber numberWithDouble: self.sumOfValidMeasurements/self.numberOfValidMeasurements];
+- (NSNumber*) getAverage {
+    return [NSNumber numberWithDouble:self.sumOfValidMeasurements / self.numberOfValidMeasurements];
 }
 
-- (NSNumber *) getMax {
-    return [NSNumber numberWithDouble: self.maxWindspeed];
+- (NSNumber*) getMax {
+    return [NSNumber numberWithDouble:self.maxWindspeed];
 }
 
-- (NSNumber *) getProgress {
+- (NSNumber*) getProgress {
     
     float elapsedTime = [[self.windSpeedTime lastObject] floatValue];
     float measurementFrequency = self.numberOfMeasurements/elapsedTime;
@@ -562,55 +414,6 @@
     } 
     
     return windspeed;
-}
-
-- (void) updateMeasurementSessionLocation: (MeasurementSession*) measurementSession {
-    CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
-    if ([LocationManager isCoordinateValid:latestLocation]) {
-        measurementSession.latitude = [NSNumber numberWithDouble:latestLocation.latitude];
-        measurementSession.longitude = [NSNumber numberWithDouble:latestLocation.longitude];
-    }
-    else {
-        measurementSession.latitude = nil;
-        measurementSession.longitude = nil;
-    }
-    
-    self.currentLatitude = measurementSession.latitude;
-    self.currentLongitude = measurementSession.longitude;
-}
-
-- (MeasurementSession*) getActiveMeasurementSession {
-    if (self.measurementSessionUUID && self.measurementSessionUUID != nil) {
-        return [MeasurementSession MR_findFirstByAttribute:@"uuid" withValue:self.measurementSessionUUID];
-    }
-    else {
-        return nil;
-    }
-}
-
-- (void) initiateTemperatureLookup {
-    CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
-    if ([LocationManager isCoordinateValid:latestLocation]) {
-        
-        self.isTemperatureLookupInitiated = YES;
-        
-        [[ServerUploadManager sharedInstance] lookupTemperatureForLocation:latestLocation.latitude longitude:latestLocation.longitude success:^(NSNumber *temperature) {
-            NSLog(@"[VaavudCoreController] Got success looking up temperature: %@", temperature);
-            if (temperature) {
-                if (self.delegate) {
-                    [self.delegate temperatureUpdated:[temperature floatValue]];
-                }
-                
-                MeasurementSession *measurementSession = [self getActiveMeasurementSession];
-                if (measurementSession) {
-                    measurementSession.temperature = temperature;
-                    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
-                }
-            }
-        } failure:^(NSError *error) {
-            NSLog(@"[VaavudCoreController] Got error looking up temperature: %@", error);
-        }];
-    }
 }
 
 @end

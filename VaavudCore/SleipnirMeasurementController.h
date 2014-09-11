@@ -8,23 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
+#import "WindMeasurementController.h"
 
-@protocol SleipnirMeasurementControllerDelegate <NSObject>
-
-- (void) sleipnirPluggedIn;
-- (void) sleipnirPluggedOut;
-- (void) addSpeedMeasurement:(NSNumber*)currentSpeed avgSpeed:(NSNumber*)avgSpeed maxSpeed:(NSNumber*)maxSpeed;
-- (void) updateDirection:(NSNumber*)direction;
-
-@end
-
-@interface SleipnirMeasurementController : NSObject <VaavudElectronicWindDelegate>
-
-@property (nonatomic, weak) id<SleipnirMeasurementControllerDelegate> delegate;
+@interface SleipnirMeasurementController : WindMeasurementController <VaavudElectronicWindDelegate>
 
 + (SleipnirMeasurementController*) sharedInstance;
-
-- (void) start;
-- (NSTimeInterval) stop;
 
 @end

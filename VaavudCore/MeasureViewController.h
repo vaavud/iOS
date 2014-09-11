@@ -9,10 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "CorePlot-CocoaTouch.h"
 #import "ShareDialog.h"
-#import "MjolnirMeasurementController.h"
-#import "SleipnirMeasurementController.h"
+#import "WindMeasurementController.h"
 
-@interface MeasureViewController : UIViewController <UIAlertViewDelegate, ShareDialogDelegate, MjolnirMeasurementControllerDelegate, SleipnirMeasurementControllerDelegate>
+@interface MeasureViewController : UIViewController <UIAlertViewDelegate, ShareDialogDelegate, WindMeasurementControllerDelegate>
 
 @property (nonatomic) BOOL lookupTemperature;
 @property (nonatomic) BOOL shareToFacebook;

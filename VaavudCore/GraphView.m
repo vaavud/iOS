@@ -9,6 +9,7 @@
 #define AVERAGE_PLOT_IDENTIFIER -1
 #define GRAPH_TIME_WIDTH 16.0
 #define GRAPH_MIN_Y 5.0
+#define GRAPH_TIME_GAP_FOR_STRAIGHT_LINE 2.0
 
 #import "GraphView.h"
 #import "UIColor+VaavudColors.h"
@@ -19,6 +20,9 @@
 @property (nonatomic) double maxWindSpeed;
 @property (nonatomic, strong) CPTPlotRange *yRange;
 @property (nonatomic, strong) NSNumber *averageValue;
+@property (nonatomic, strong) NSNumber *latestAverageX;
+@property (nonatomic, strong) NSNumber *lastValue;
+@property (nonatomic, strong) NSDate *lastValueTime;
 
 /*
  * An array of plots
@@ -38,7 +42,7 @@
 - (id) initWithCoder:(NSCoder*)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
-        [self initialize];
+        [self initialize:WindSpeedUnitKMH];
     }
     return self;
 }
@@ -46,20 +50,31 @@
 - (id) initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        [self initialize];
+        [self initialize:WindSpeedUnitKMH];
     }
     return self;
 }
 
-- (void) initialize {
+- (id) initWithFrame:(CGRect)frame windSpeedUnit:(WindSpeedUnit)unit {
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self initialize:unit];
+    }
+    return self;
+}
 
-    NSLog(@"[GraphView] initialize");
+- (void) initialize:(WindSpeedUnit)unit {
+
+    //NSLog(@"[GraphView] initialize");
     
-    self.windSpeedUnit = WindSpeedUnitKMH;
+    self.windSpeedUnit = unit;
     self.maxWindSpeed = 0.0;
     self.yRange = nil;
     self.averageValue = nil;
+    self.latestAverageX = nil;
     self.startTime = [NSDate date];
+    self.lastValue = nil;
+    self.lastValueTime = nil;
     self.plots = [NSMutableArray array];
 
     self.graphHostingView = [[CPTGraphHostingView alloc] initWithFrame:self.bounds];
@@ -142,10 +157,10 @@
     
     // create initial current plot...
     
-    [self addCurrentPlot];
+    [self newPlot];
 }
 
-- (void) addCurrentPlot {
+- (void) newPlot {
 
     NSMutableArray *plotData = [NSMutableArray arrayWithCapacity:50];
     [self.plots addObject:plotData];
@@ -174,13 +189,24 @@
     [self.graphHostingView.hostedGraph addPlot:self.currentPlot];
 }
 
-- (void) changeWindSpeedUnit:(WindSpeedUnit) unit {
-    self.windSpeedUnit = unit;
-    [self updateYRange];
-    [self.graphHostingView.hostedGraph reloadData];
+- (void) changeWindSpeedUnit:(WindSpeedUnit)unit {
+    
+    if (self.windSpeedUnit != unit) {
+        self.windSpeedUnit = unit;
+        [self updateYRange];
+        [self.graphHostingView.hostedGraph reloadData];
+    }
 }
 
 - (void) addPoint:(NSDate*)time currentSpeed:(NSNumber*)speed averageSpeed:(NSNumber*)average {
+    
+    NSTimeInterval intervalSinceLast = 0.0;
+    if (self.lastValueTime && time) {
+        intervalSinceLast = [time timeIntervalSinceDate:self.lastValueTime];
+        if (intervalSinceLast <= 0.0) {
+            return;
+        }
+    }
     
     if (average) {
         self.averageValue = average;
@@ -188,16 +214,29 @@
     }
     
     if (time && speed) {
-        
+
         NSTimeInterval interval = [time timeIntervalSinceDate:self.startTime];
         if (interval >= 0.0) {
+            
+            NSNumber *x = [NSNumber numberWithDouble:interval];
+            self.latestAverageX = x;
+            self.lastValueTime = time;
             
             if (self.plots && self.plots.count > 0) {
                 NSMutableArray *data = self.plots[self.plots.count - 1];
                 if (data) {
-                    NSArray *entry = @[[NSNumber numberWithDouble:interval], speed];
-                    [data addObject:entry];
-                    [self.currentPlot insertDataAtIndex:(data.count - 1) numberOfRecords:1];
+                    
+                    if (self.lastValue && intervalSinceLast >= GRAPH_TIME_GAP_FOR_STRAIGHT_LINE) {
+                        [data addObject:@[x, self.lastValue]];
+                        [data addObject:@[x, speed]];
+                        [self.currentPlot insertDataAtIndex:(data.count - 2) numberOfRecords:2];
+                    }
+                    else {
+                        [data addObject:@[x, speed]];
+                        [self.currentPlot insertDataAtIndex:(data.count - 1) numberOfRecords:1];
+                    }
+                    
+                    self.lastValue = speed;
                     
                     double speedDouble = [speed doubleValue];
                     if (speedDouble > self.maxWindSpeed) {
@@ -254,7 +293,7 @@
     NSInteger identifier = [(NSNumber*) plot.identifier integerValue];
     
     if (AVERAGE_PLOT_IDENTIFIER == identifier) {
-        NSUInteger records = (self.averageValue) ? 2 : 0;
+        NSUInteger records = (self.averageValue && self.latestAverageX) ? 2 : 0;
         //NSLog(@"[GraphView] Records for average plot is %u", records);
         return records;
     }
@@ -277,26 +316,12 @@
     NSInteger identifier = [((NSNumber*) plot.identifier) integerValue];
     
     if (AVERAGE_PLOT_IDENTIFIER == identifier) {
+        
+        //NSLog(@"[GraphView] latestAverageX=%@, averageValue=%@", self.latestAverageX, self.averageValue);
+        
         if (fieldEnum == CPTScatterPlotFieldX) {
-            
-            if (self.plots && self.plots.count > 0) {
-                NSArray *currentData = self.plots[self.plots.count - 1];
-                if (currentData && currentData.count > 0) {
-                    NSArray *latestEntry = currentData[currentData.count - 1];
-                    if (latestEntry && latestEntry.count == 2) {
-                        NSNumber *latestX = latestEntry[0];
-                        return (index == 0) ? [NSNumber numberWithDouble:0.0] : latestX;
-                    }
-                    else {
-                        NSLog(@"[GraphView] ERROR: No (x,y) data or wrong number of components getting average plot");
-                    }
-                }
-                else {
-                    //NSLog(@"[GraphView] WARNING: Empty current plot getting average plot");
-                }
-            }
-            else {
-                NSLog(@"[GraphView] ERROR: No plots getting average plot");
+            if (index == 1 && self.latestAverageX) {
+                return self.latestAverageX;
             }
             return [NSNumber numberWithDouble:0.0];
         }
