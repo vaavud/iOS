@@ -11,9 +11,13 @@
 @implementation UnitUtil
 
 static NSSet* countriesUsingMph;
+static NSArray* directionNameStrings;
+static NSArray* directionImageStrings;
 
 + (void) initialize {
     countriesUsingMph = [NSSet setWithObjects:@"US", @"UM", @"GB", @"CA", @"VG", @"VI", nil];
+    directionNameStrings = @[@"DIRECTION_N", @"DIRECTION_NNE", @"DIRECTION_NE", @"DIRECTION_ENE", @"DIRECTION_E", @"DIRECTION_ESE", @"DIRECTION_SE", @"DIRECTION_SSE", @"DIRECTION_S", @"DIRECTION_SSW", @"DIRECTION_SW", @"DIRECTION_WSW", @"DIRECTION_W", @"DIRECTION_WNW", @"DIRECTION_NW", @"DIRECTION_NNW"];
+    directionImageStrings = @[@"windarrow_red_N.png", @"windarrow_red_NNE.png", @"windarrow_red_NE.png", @"windarrow_red_ENE.png", @"windarrow_red_E.png", @"windarrow_red_ESE.png", @"windarrow_red_SE.png", @"windarrow_red_SSE.png", @"windarrow_red_S.png", @"windarrow_red_SSW.png", @"windarrow_red_SW.png", @"windarrow_red_WSW.png", @"windarrow_red_W.png", @"windarrow_red_WNW.png", @"windarrow_red_NW.png", @"windarrow_red_NNW.png"];
 }
 
 + (WindSpeedUnit) nextWindSpeedUnit:(WindSpeedUnit) unit {
@@ -89,7 +93,6 @@ static NSSet* countriesUsingMph;
     }
 }
 
-
 + (double) displayWindSpeedFromDouble:(double) windSpeedMS unit:(WindSpeedUnit) unit {
     if (unit == WindSpeedUnitMS) {
         return windSpeedMS;
@@ -137,6 +140,45 @@ static NSSet* countriesUsingMph;
 
 + (NSNumber*) displayWindSpeedFromNumber:(NSNumber*) windSpeedMS unit:(WindSpeedUnit) unit {
     return [NSNumber numberWithDouble:[UnitUtil displayWindSpeedFromDouble:[windSpeedMS doubleValue] unit:unit]];
+}
+
++ (NSString*) displayNameForDirection:(NSNumber*)direction {
+    if (!direction) {
+        return @"-";
+    }
+    NSInteger index = [self directionIndex:[direction doubleValue]];
+    return NSLocalizedString(directionNameStrings[index], nil);
+}
+
++ (NSString*) imageNameForDirection:(NSNumber*)direction {
+    if (!direction) {
+        return nil;
+    }
+    NSInteger index = [self directionIndex:[direction doubleValue]];
+    return directionImageStrings[index];
+}
+
++ (NSInteger) directionIndex:(double)direction {
+    if (direction < 0.0 || direction >= 360.0) {
+        direction = fmod(direction, 360.0);
+    }
+    NSInteger index = round((direction / 360.0) * 16.0);
+    if (index == 16) {
+        index = 0;
+    }
+    return index;
+}
+
++ (NSString*) displayNameForDirectionUnit:(NSInteger)directionUnit {
+    switch (directionUnit) {
+        case 0:
+            return NSLocalizedString(@"DIRECTION_CARDINAL", nil);
+        case 1:
+            return NSLocalizedString(@"DIRECTION_DEGREES", nil);
+        default:
+            NSLog(@"[UnitUtil] Unknown direction unit %u", directionUnit);
+            return @"_";
+    }
 }
 
 @end

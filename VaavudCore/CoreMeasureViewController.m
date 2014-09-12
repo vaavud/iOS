@@ -22,6 +22,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *informationTextLabel;
 @property (nonatomic, weak) IBOutlet UIProgressView *statusBar;
 @property (weak, nonatomic) IBOutlet UILabel *directionLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *directionImageView;
 
 @property (nonatomic, weak) IBOutlet UIButton *startStopButton;
 @property (nonatomic, weak) IBOutlet UIButton *unitButton;

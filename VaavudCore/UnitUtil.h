@@ -35,4 +35,10 @@ typedef enum {
 
 + (NSString*) englishDisplayNameForWindSpeedUnit:(WindSpeedUnit) unit;
 
++ (NSString*) displayNameForDirection:(NSNumber*)direction;
+
++ (NSString*) imageNameForDirection:(NSNumber*)direction;
+
++ (NSString*) displayNameForDirectionUnit:(NSInteger)directionUnit;
+
 @end

@@ -93,7 +93,14 @@ SHARED_INSTANCE
         NSLog(@"[ModelManager] No wind speed unit, guessing the preferred unit to be: %@", windSpeedUnit);
         [Property setAsInteger:windSpeedUnit forKey:KEY_WIND_SPEED_UNIT];
     }
-    
+
+    if ([Property getAsInteger:KEY_DIRECTION_UNIT] == nil) {
+        // this must be the first time, since there is no direction unit
+        NSNumber* directionUnit = [NSNumber numberWithInt:1];
+        NSLog(@"[ModelManager] No direction unit, setting it to: %@", directionUnit);
+        [Property setAsInteger:directionUnit forKey:KEY_DIRECTION_UNIT];
+    }
+
     if ([Property getAsDouble:KEY_FREQUENCY_START] == nil) {
         // this must be the first time, since frequency start (and related properties) are not set
         [Property setAsDouble:[AlgorithmConstantsUtil getFrequencyStart:model osVersion:osVersion] forKey:KEY_FREQUENCY_START];

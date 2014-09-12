@@ -33,6 +33,7 @@
 @property (nonatomic) BOOL buttonShowsStart;
 
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
+@property (nonatomic) NSInteger directionUnit;
 
 @property (nonatomic, strong) NSNumber *actualLabelCurrentValue;
 @property (nonatomic, strong) NSNumber *averageLabelCurrentValue;
@@ -56,6 +57,8 @@
 @property (nonatomic) BOOL isValid;
 
 @property (nonatomic) BOOL useSleipnir;
+@property (nonatomic, strong) UIAlertView *notificationView;
+@property (nonatomic, strong) NSTimer *notificationTimer;
 
 @end
 
@@ -99,6 +102,10 @@
     return nil;
 }
 
+- (UIImageView*) directionImageView {
+    return nil;
+}
+
 - (UILabel*) temperatureHeadingLabel {
     return nil;
 }
@@ -133,6 +140,7 @@
     [super viewDidLoad];
 
     self.windSpeedUnit = -1; // make sure windSpeedUnit is updated in viewWillAppear by setting it to an invalid value
+    self.directionUnit = -1;
     self.shareToFacebook = YES;
     self.useSleipnir = [SleipnirMeasurementController sharedInstance].isDeviceConnected;
     
@@ -179,8 +187,8 @@
         [self.unitButton setTitleColor:vaavudBlueUIcolor forState:UIControlStateNormal];
     }
     
-    if (self.directionLabel) {
-        self.directionLabel.textColor = vaavudBlueUIcolor;
+    if (self.directionImageView) {
+        self.directionImageView.hidden = YES;
     }
     
     if (self.statusBar) {
@@ -234,6 +242,13 @@
         if (self.graphView) {
             [self.graphView changeWindSpeedUnit:self.windSpeedUnit];
         }
+    }
+    
+    NSNumber *directionUnitNumber = [Property getAsInteger:KEY_DIRECTION_UNIT];
+    NSInteger directionUnit = (directionUnitNumber) ? [directionUnitNumber doubleValue] : 0;
+    if (self.directionUnit != directionUnit) {
+        self.directionUnit = directionUnit;
+        [self updateDirectionFromCurrentValue];
     }
 
     if (!self.buttonShowsStart) {
@@ -298,6 +313,7 @@
     self.nonValidDuration = 0.0;
     self.isValid = YES;
     [self updateLabelsFromCurrentValues];
+    [self updateDirectionFromCurrentValue];
 
     if (self.graphContainer) {
         [self createGraphView];
@@ -330,7 +346,7 @@
     
     if (self.graphView) {
         self.shiftGraphXTimer = [CADisplayLink displayLinkWithTarget:self.graphView selector:@selector(shiftGraphX)];
-        self.shiftGraphXTimer.frameInterval = 10;
+        self.shiftGraphXTimer.frameInterval = 5;
         [self.shiftGraphXTimer addToRunLoop:[NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
     }
 
@@ -485,7 +501,7 @@
 - (void) updateDirection:(NSNumber*)avgDirection {
     
     self.directionLabelCurrentValue = avgDirection;
-    [self updateLabelsFromCurrentValues];
+    [self updateDirectionFromCurrentValue];
 }
 
 /**** Sleipnir Measurement ****/
@@ -499,6 +515,8 @@
             [self stopWithUITracking:NO action:@"Plug"];
         }
         self.useSleipnir = YES;
+        
+        [self showNotification:NSLocalizedString(@"DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_CONNECTED_MESSAGE", nil)];
     }
 }
 
@@ -510,7 +528,24 @@
         }
         
         self.useSleipnir = NO;
+
+        [self showNotification:NSLocalizedString(@"DEVICE_DISCONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_DISCONNECTED_MESSAGE", nil)];
     }
+}
+
+- (void) showNotification:(NSString*)title message:(NSString*)message {
+    
+    self.notificationView = [[UIAlertView alloc] initWithTitle:title
+                                                       message:message
+                                                      delegate:nil
+                                             cancelButtonTitle:nil
+                                             otherButtonTitles:nil];
+    [self.notificationView show];
+    self.notificationTimer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(dismissNotification) userInfo:nil repeats:NO];
+}
+
+- (void) dismissNotification {
+    [self.notificationView dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 /**** Mjolnir Measurement ****/
@@ -559,32 +594,59 @@
 /**** Common Measurement Values Update ****/
 
 - (void) updateLabelsFromCurrentValues {
-    if (self.actualLabel && self.actualLabelCurrentValue != nil && !isnan([self.actualLabelCurrentValue doubleValue])) {
+    if (self.actualLabel && self.actualLabelCurrentValue && !isnan([self.actualLabelCurrentValue doubleValue])) {
         self.actualLabel.text = [self formatValue:[UnitUtil displayWindSpeedFromDouble:[self.actualLabelCurrentValue doubleValue] unit:self.windSpeedUnit]];
     }
     else {
         self.actualLabel.text = @"-";
     }
     
-    if (self.averageLabel && self.averageLabelCurrentValue != nil && !isnan([self.averageLabelCurrentValue doubleValue])) {
+    if (self.averageLabel && self.averageLabelCurrentValue && !isnan([self.averageLabelCurrentValue doubleValue])) {
         self.averageLabel.text = [self formatValue:[UnitUtil displayWindSpeedFromDouble:[self.averageLabelCurrentValue doubleValue] unit:self.windSpeedUnit]];
     }
     else {
         self.averageLabel.text = @"-";
     }
     
-    if (self.maxLabel && self.maxLabelCurrentValue != nil && !isnan([self.maxLabelCurrentValue doubleValue])) {
+    if (self.maxLabel && self.maxLabelCurrentValue && !isnan([self.maxLabelCurrentValue doubleValue])) {
         self.maxLabel.text = [self formatValue:[UnitUtil displayWindSpeedFromDouble:[self.maxLabelCurrentValue doubleValue] unit:self.windSpeedUnit]];
     }
     else {
         self.maxLabel.text = @"-";
     }
-    
-    if (self.directionLabel && self.directionLabelCurrentValue != nil && !isnan([self.directionLabelCurrentValue doubleValue])) {
-        self.directionLabel.text = [NSString stringWithFormat:@"%@°", [NSNumber numberWithInt:(int)round([self.directionLabelCurrentValue doubleValue])]];
+}
+
+- (void) updateDirectionFromCurrentValue {
+
+    if (self.directionLabelCurrentValue && !isnan([self.directionLabelCurrentValue doubleValue])) {
+        
+        if (self.directionLabel) {
+            if (self.directionUnit == 0) {
+                self.directionLabel.text = [UnitUtil displayNameForDirection:self.directionLabelCurrentValue];
+            }
+            else {
+                self.directionLabel.text = [NSString stringWithFormat:@"%@°", [NSNumber numberWithInt:(int)round([self.directionLabelCurrentValue doubleValue])]];
+            }
+        }
+        else {
+            self.directionLabel.text = @"-";
+        }
+        
+        if (self.directionImageView) {
+            NSString *imageName = [UnitUtil imageNameForDirection:self.directionLabelCurrentValue];
+            if (imageName) {
+                self.directionImageView.image = [UIImage imageNamed:imageName];
+                self.directionImageView.hidden = NO;
+            }
+            else {
+                self.directionImageView.hidden = YES;
+            }
+        }
     }
     else {
-        self.directionLabel.text = @"-";
+        if (self.directionImageView) {
+            self.directionImageView.hidden = YES;
+        }
     }
 }
 

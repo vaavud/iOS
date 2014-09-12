@@ -16,21 +16,22 @@
 
 @interface MjolnirMeasurementController () {}
 
-// public properties - create setters
-@property (nonatomic, strong) NSNumber *setWindDirection;
 @property (nonatomic, strong) NSMutableArray *windSpeed;
 @property (nonatomic, strong) NSMutableArray *isValid;
 @property (nonatomic, strong) NSMutableArray *windSpeedTime;
-@property (nonatomic, strong) NSMutableArray *windDirectionTime;
-@property (nonatomic, strong) NSMutableArray *windDirection;
 @property (nonatomic, strong) NSDate *startTime;
 
- // private properties
+@property (nonatomic) BOOL dynamicsIsValid;
+@property (nonatomic) BOOL FFTisValid;
+@property (nonatomic) BOOL isValidCurrentStatus;
+
 @property (nonatomic, strong) VaavudMagneticFieldDataManager *sharedMagneticFieldDataManager;
 @property (nonatomic, strong) vaavudDynamicsController *vaavudDynamicsController;
 @property (nonatomic, strong) NSArray *FFTresultx;
 @property (nonatomic, strong) NSArray *FFTresulty;
 @property (nonatomic, strong) NSArray *FFTresultz;
+@property (nonatomic) int fftLength;
+@property (nonatomic) int fftDataLength;
 
 @property (nonatomic, strong) vaavudFFT *FFTEngine;
 @property (nonatomic) int magneticFieldUpdatesCounter;
@@ -44,22 +45,14 @@
 
 @property (nonatomic) NSString *measurementSessionUUID;
 
-@property (nonatomic) int fftLength;
-@property (nonatomic) int fftDataLength;
 @property (nonatomic) double frequencyFactor;
 @property (nonatomic) double frequencyStart;
 
 @property (nonatomic, strong) NSTimer *measuringTimer;
 
-- (void) updateIsValid;
-- (NSNumber *) getSampleFrequency;
-- (double) convertFrequencyToWindspeed: (double) frequency;
-
 @end
 
 @implementation MjolnirMeasurementController
-
-// Public methods
 
 - (id) init {
     self = [super init];
@@ -87,28 +80,14 @@
     self.dynamicsIsValid = NO;
     self.isValidPercent = 50; // start at 50% valid
     self.isValidCurrentStatus = NO;
-    self.windDirectionIsConfirmed = NO;
     
     self.startTime = [NSDate date];
     self.windSpeed = [NSMutableArray arrayWithCapacity:1000];
     self.windSpeedTime = [NSMutableArray arrayWithCapacity:1000];
     self.isValid = [NSMutableArray arrayWithCapacity:1000];
-    self.windDirection = [NSMutableArray arrayWithCapacity:50];
-    self.windDirectionTime = [NSMutableArray arrayWithCapacity:50];
     self.magneticFieldUpdatesCounter = 0;
     self.numberOfValidMeasurements = 0;
     self.sumOfValidMeasurements = 0;
-    
-    // Set interface direction
-    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    if (interfaceOrientation == UIInterfaceOrientationPortrait) {
-        self.upsideDown = NO;
-    }
-    
-    if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
-        self.upsideDown = YES;
-    }
     
     // create reference to MagneticField Data Manager and start
     self.sharedMagneticFieldDataManager = [VaavudMagneticFieldDataManager sharedMagneticFieldDataManager];
@@ -120,7 +99,7 @@
     self.vaavudDynamicsController.vaavudCoreController = self;
     [self.vaavudDynamicsController start];
     
-    self.measuringTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(pushValuesToDelegate) userInfo:nil repeats:YES];
+    self.measuringTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(pushValuesToDelegate) userInfo:nil repeats:YES];
     
     if ([self.delegate respondsToSelector:@selector(changedValidity:dynamicsIsValid:)]) {
         [self.delegate changedValidity:self.isValidCurrentStatus dynamicsIsValid:self.dynamicsIsValid];
@@ -187,7 +166,6 @@
     }
 }
 
-// protocol method
 - (void) DynamicsIsValid:(BOOL)validity {
     if (self.dynamicsIsValid != validity) {
         self.dynamicsIsValid = validity;
@@ -200,29 +178,8 @@
 
 - (void) newHeading:(NSNumber*)newHeading {
 
-    if (self.upsideDown) {
-        double heading;
-        heading = [newHeading doubleValue];
-        
-        if (heading > 180) {
-            heading -= 180;
-        }
-        else {
-            heading += 180;
-        }
-        
-        newHeading = [NSNumber numberWithDouble:heading];
-    }
-    
-    [self.windDirection addObject:newHeading];
-    [self.windDirectionTime addObject:[NSNumber numberWithDouble:[self.startTime timeIntervalSinceDate:[NSDate date]]]];
-    
-    if (!self.windDirectionIsConfirmed) {
-        self.setWindDirection = newHeading;
-    }
 }
 
-// protocol method
 - (void) magneticFieldValuesUpdated {
     
     self.magneticFieldUpdatesCounter += 1;

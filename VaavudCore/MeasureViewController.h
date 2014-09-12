@@ -30,6 +30,7 @@
 
 - (UILabel*) directionHeadingLabel;
 - (UILabel*) directionLabel;
+- (UIImageView*) directionImageView;
 
 - (UILabel*) temperatureHeadingLabel;
 - (UILabel*) temperatureLabel;

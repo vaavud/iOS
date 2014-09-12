@@ -123,7 +123,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
+    return 6;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -138,6 +138,15 @@
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
     else if (indexPath.item == 1) {
+        cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
+        cell.textLabel.text = NSLocalizedString(@"HEADING_WIND_DIRECTION", nil);
+        NSNumber *directionUnit = [Property getAsInteger:KEY_DIRECTION_UNIT];
+        NSInteger unit = (directionUnit) ? [directionUnit integerValue] : 0;
+        cell.detailTextLabel.text = [UnitUtil displayNameForDirectionUnit:unit];
+        cell.accessoryView = nil;
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    }
+    else if (indexPath.item == 2) {
         cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"switchCell"];
         
         if (!cell) {
@@ -156,21 +165,21 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor colorWithWhite:248.0/255.0 alpha:1.0];
     }
-    else if (indexPath.item == 2) {
+    else if (indexPath.item == 3) {
         cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
         cell.textLabel.text = NSLocalizedString(@"SETTINGS_SHOP_LINK", nil);
         cell.detailTextLabel.text = nil;
         cell.accessoryView = nil;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
-    else if (indexPath.item == 3) {
+    else if (indexPath.item == 4) {
         cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
         cell.textLabel.text = NSLocalizedString(@"SETTINGS_MEASURING_TIPS", nil);
         cell.detailTextLabel.text = nil;
         cell.accessoryView = nil;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
-    else if (indexPath.item == 4) {
+    else if (indexPath.item == 5) {
         cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
         cell.textLabel.text = NSLocalizedString(@"ABOUT_TITLE", nil);
         cell.detailTextLabel.text = nil;
@@ -184,7 +193,7 @@
 }
 
 - (NSIndexPath*) tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.item == 1) {
+    if (indexPath.item == 2) {
         return nil;
     }
     return indexPath;
@@ -197,7 +206,10 @@
     if (indexPath.item == 0) {
         [self performSegueWithIdentifier:@"unitSegue" sender:self];
     }
-    else if (indexPath.item == 2) {
+    else if (indexPath.item == 1) {
+        [self performSegueWithIdentifier:@"directionSegue" sender:self];
+    }
+    else if (indexPath.item == 3) {
         
         [[Mixpanel sharedInstance] track:@"Settings Clicked Buy"];
 
@@ -207,12 +219,12 @@
         NSString *url = [NSString stringWithFormat:@"http://vaavud.com/mobile-shop-redirect/?country=%@&language=%@&ref=%@&source=settings", country, language, mixpanelId];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
     }
-    else if (indexPath.item == 3) {
+    else if (indexPath.item == 4) {
         
         [[Mixpanel sharedInstance] track:@"Settings Clicked Measuring Tips"];
         [FirstTimeFlowController gotoInstructionFlowFrom:self returnViaDismiss:YES];
     }
-    else if (indexPath.item == 4) {
+    else if (indexPath.item == 5) {
         [self performSegueWithIdentifier:@"aboutSegue" sender:self];
     }
 }
