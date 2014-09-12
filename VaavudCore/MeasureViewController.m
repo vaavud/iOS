@@ -535,6 +535,16 @@
 
 - (void) showNotification:(NSString*)title message:(NSString*)message {
     
+    if (self.notificationTimer) {
+        [self.notificationTimer invalidate];
+        self.notificationTimer = nil;
+    }
+    
+    if (self.notificationView) {
+        [self.notificationView dismissWithClickedButtonIndex:0 animated:NO];
+        self.notificationView = nil;
+    }
+    
     self.notificationView = [[UIAlertView alloc] initWithTitle:title
                                                        message:message
                                                       delegate:nil
@@ -546,6 +556,8 @@
 
 - (void) dismissNotification {
     [self.notificationView dismissWithClickedButtonIndex:0 animated:YES];
+    self.notificationTimer = nil;
+    self.notificationView = nil;
 }
 
 /**** Mjolnir Measurement ****/

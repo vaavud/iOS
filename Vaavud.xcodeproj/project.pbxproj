@@ -476,6 +476,8 @@
 		E9D904B919C3156F00ABA9F4 /* windarrow_red_WNW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9D9049A19C3156F00ABA9F4 /* windarrow_red_WNW@2x.png */; };
 		E9D904BA19C3156F00ABA9F4 /* windarrow_red_WSW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9D9049B19C3156F00ABA9F4 /* windarrow_red_WSW@2x.png */; };
 		E9D904BB19C3156F00ABA9F4 /* windarrow_red_WSW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9D9049B19C3156F00ABA9F4 /* windarrow_red_WSW@2x.png */; };
+		E9D904BC19C325E100ABA9F4 /* SleipnirMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C9A5F19B9D9EE009428F3 /* SleipnirMeasurementController.m */; };
+		E9D904BD19C3262700ABA9F4 /* MixpanelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E984F26219B878BD004024C6 /* MixpanelUtil.m */; };
 		E9DE09BA192E4C84003877D9 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DE09B9192E4C84003877D9 /* SettingsViewController.m */; };
 		E9DE09D21935E4D5003877D9 /* SettingsIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9DE09D11935E4D5003877D9 /* SettingsIcon@2x.png */; };
 		E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */; };
@@ -2404,6 +2406,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E9D904BD19C3262700ABA9F4 /* MixpanelUtil.m in Sources */,
+				E9D904BC19C325E100ABA9F4 /* SleipnirMeasurementController.m in Sources */,
 				E96FB4ED19A353B500CB7306 /* main.m in Sources */,
 				E96FB4EE19A353B500CB7306 /* AppDelegate.m in Sources */,
 				E96FB4EF19A353B500CB7306 /* MeasureViewController.m in Sources */,
