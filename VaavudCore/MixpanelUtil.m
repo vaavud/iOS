@@ -24,6 +24,7 @@
             
             NSString *firstName = [Property getAsString:KEY_FIRST_NAME];
             NSString *lastName = [Property getAsString:KEY_LAST_NAME];
+            NSString *mixpanelId = [Mixpanel sharedInstance].distinctId;
             
             NSLog(@"[MixpanelUtil] Register Mixpanel People profile: email=%@, created=%@, first_name=%@, last_name=%@", email, creationTime, firstName, lastName);
 
@@ -32,6 +33,7 @@
                                    @"$created": creationTime,
                                    @"$first_name": (firstName) ? firstName : [NSNull null],
                                    @"$last_name": (lastName) ? lastName : [NSNull null],
+                                   @"Distinct Id": mixpanelId
                                    }];
 
             [MixpanelUtil updateMeasurementProperties:NO];
