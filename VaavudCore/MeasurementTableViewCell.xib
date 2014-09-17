@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -26,10 +26,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km/h" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wQj-YX-2eY">
-                        <rect key="frame" x="60" y="19" width="48" height="20"/>
+                        <rect key="frame" x="60" y="19" width="33" height="20"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="48" id="dWd-PR-Wn5"/>
                             <constraint firstAttribute="height" constant="20" id="sBd-67-3iJ"/>
                         </constraints>
                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
@@ -47,13 +46,32 @@
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1GT-me-BH0">
+                        <rect key="frame" x="103" y="21" width="18" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="aV9-1N-juE"/>
+                            <constraint firstAttribute="width" constant="18" id="rsi-sc-Ud9"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WSW" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Npe-8v-jBI">
+                        <rect key="frame" x="129" y="21" width="39" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="lVK-Sm-QIR" firstAttribute="baseline" secondItem="wQj-YX-2eY" secondAttribute="baseline" id="3P8-4G-0H5"/>
+                    <constraint firstItem="Npe-8v-jBI" firstAttribute="leading" secondItem="1GT-me-BH0" secondAttribute="trailing" constant="8" id="AKL-t1-MPl"/>
+                    <constraint firstItem="Npe-8v-jBI" firstAttribute="baseline" secondItem="wQj-YX-2eY" secondAttribute="baseline" id="Bmk-Vm-aal"/>
                     <constraint firstAttribute="bottom" secondItem="Wrx-nk-FPC" secondAttribute="bottom" id="Dh1-51-78A"/>
                     <constraint firstAttribute="trailing" secondItem="lVK-Sm-QIR" secondAttribute="trailing" constant="5" id="Qdx-g7-W86"/>
                     <constraint firstItem="wQj-YX-2eY" firstAttribute="leading" secondItem="Wrx-nk-FPC" secondAttribute="trailing" constant="5" id="TON-8C-3bQ"/>
                     <constraint firstItem="Wrx-nk-FPC" firstAttribute="baseline" secondItem="wQj-YX-2eY" secondAttribute="baseline" constant="-3" id="dSP-ON-QbJ"/>
+                    <constraint firstItem="1GT-me-BH0" firstAttribute="leading" secondItem="wQj-YX-2eY" secondAttribute="trailing" constant="10" id="ibk-qW-ZN0"/>
+                    <constraint firstAttribute="bottom" secondItem="1GT-me-BH0" secondAttribute="bottom" id="llP-Va-tyj"/>
                     <constraint firstItem="Wrx-nk-FPC" firstAttribute="leading" secondItem="wG8-fb-IqB" secondAttribute="leading" id="xEi-AP-WYv"/>
                 </constraints>
             </tableViewCellContentView>
@@ -61,6 +79,8 @@
             <connections>
                 <outlet property="avgWindSpeedLabel" destination="Wrx-nk-FPC" id="uik-9K-iVA"/>
                 <outlet property="avgWindSpeedUnitLabel" destination="wQj-YX-2eY" id="i2a-PI-1Wj"/>
+                <outlet property="directionImageView" destination="1GT-me-BH0" id="Bhm-gU-Yq1"/>
+                <outlet property="directionLabel" destination="Npe-8v-jBI" id="DY6-KI-uL3"/>
                 <outlet property="timeLabel" destination="lVK-Sm-QIR" id="cWl-Z2-XK6"/>
             </connections>
         </tableViewCell>

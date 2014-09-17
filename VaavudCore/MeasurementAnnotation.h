@@ -16,8 +16,9 @@
 @property (nonatomic, readonly) NSDate *startTime;
 @property (nonatomic, readonly) float avgWindSpeed;
 @property (nonatomic, readonly) float maxWindSpeed;
+@property (nonatomic, readonly) NSNumber *windDirection;
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
 
-- (id)initWithLocation:(CLLocationCoordinate2D)coord startTime:(NSDate*)startTime avgWindSpeed:(float)avgWindSpeed maxWindSpeed:(float)maxWindSpeed;
+- (id)initWithLocation:(CLLocationCoordinate2D)coord startTime:(NSDate*)startTime avgWindSpeed:(float)avgWindSpeed maxWindSpeed:(float)maxWindSpeed windDirection:(NSNumber*)direction;
 
 @end

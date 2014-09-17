@@ -29,6 +29,7 @@
 @interface MapViewController ()
 
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
+@property (nonatomic) NSInteger directionUnit;
 @property (nonatomic) MeasurementCalloutView *measurementCalloutView;
 @property (nonatomic) NSDate *lastMeasurementsRead;
 @property (nonatomic) BOOL isLoading;
@@ -92,6 +93,7 @@
     self.mapView.calloutView.delegate = self;
     self.mapView.calloutView.presentAnimation = SMCalloutAnimationStretch;
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
+    self.directionUnit = -1;
     
     [self refreshHours];
     [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
@@ -161,6 +163,15 @@
         [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
     }
 
+    NSNumber *directionUnitNumber = [Property getAsInteger:KEY_DIRECTION_UNIT];
+    NSInteger directionUnit = (directionUnitNumber) ? [directionUnitNumber doubleValue] : 0;
+    if (self.directionUnit != directionUnit) {
+        self.directionUnit = directionUnit;
+        if (self.mapView.selectedAnnotations.count > 0) {
+            [self.mapView deselectAnnotation:self.mapView.selectedAnnotations[0] animated:NO];
+        }
+    }
+    
     BOOL forceReload = NO;
     MeasurementSession *measurementSession = [MeasurementSession MR_findFirstOrderedByAttribute:@"startTime" ascending:NO];
     if (measurementSession && measurementSession != nil && [measurementSession.measuring boolValue] == NO) {
@@ -303,7 +314,12 @@
                 float windSpeedAvg = ([measurement objectAtIndex:3] == nil) ? 0.0 : [((NSString*)[measurement objectAtIndex:3]) floatValue];
                 float windSpeedMax = ([measurement objectAtIndex:4] == nil) ? 0.0 : [((NSString*)[measurement objectAtIndex:4]) floatValue];
                 
-                MeasurementAnnotation *measurementAnnotation = [[MeasurementAnnotation alloc] initWithLocation:CLLocationCoordinate2DMake(latitude,longitude) startTime:startTime avgWindSpeed:windSpeedAvg maxWindSpeed:windSpeedMax];
+                NSNumber *windDirection = nil;
+                if (measurement.count >=6) {
+                    windDirection = measurement[5];
+                }
+                
+                MeasurementAnnotation *measurementAnnotation = [[MeasurementAnnotation alloc] initWithLocation:CLLocationCoordinate2DMake(latitude,longitude) startTime:startTime avgWindSpeed:windSpeedAvg maxWindSpeed:windSpeedMax windDirection:windDirection];
                 [self.mapView addAnnotation:measurementAnnotation];
             }
         }
@@ -441,6 +457,7 @@
         self.measurementCalloutView.mapViewController = self;
         self.measurementCalloutView.placeholderImage = self.placeholderImage;
         self.measurementCalloutView.windSpeedUnit = self.windSpeedUnit;
+        self.measurementCalloutView.directionUnit = self.directionUnit;
         self.measurementCalloutView.nearbyAnnotations = nearbyAnnotations;
         self.measurementCalloutView.measurementAnnotation = view.annotation;
         [containerView addSubview:self.measurementCalloutView];

@@ -10,13 +10,14 @@
 
 @implementation MeasurementAnnotation
 
-- (id)initWithLocation:(CLLocationCoordinate2D)coordinate startTime:(NSDate*)startTime avgWindSpeed:(float)avgWindSpeed maxWindSpeed:(float)maxWindSpeed {
+- (id)initWithLocation:(CLLocationCoordinate2D)coordinate startTime:(NSDate*)startTime avgWindSpeed:(float)avgWindSpeed maxWindSpeed:(float)maxWindSpeed windDirection:(NSNumber*)direction {
     self = [super init];
     if (self) {
         _coordinate = coordinate;
         _startTime = startTime;
         _avgWindSpeed = avgWindSpeed;
         _maxWindSpeed = maxWindSpeed;
+        _windDirection = direction;
     }
     return self;
 }

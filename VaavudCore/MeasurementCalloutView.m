@@ -60,7 +60,6 @@ BOOL isTableInitialized = NO;
     
     NSString *unitName = [UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit];
     self.avgUnitLabel.text = unitName;
-    self.maxUnitLabel.text = unitName;
     
     NSString *iconUrl = @"http://vaavud.com/appgfx/SmallWindMarker.png";
     NSString *markers = [NSString stringWithFormat:@"icon:%@|shadow:false|%f,%f", iconUrl, self.measurementAnnotation.coordinate.latitude, self.measurementAnnotation.coordinate.longitude];
@@ -70,6 +69,30 @@ BOOL isTableInitialized = NO;
     
     self.timeLabel.text = [FormatUtil formatRelativeDate:measurementAnnotation.startTime];
 
+    if (self.measurementAnnotation.windDirection) {
+        
+        if (self.directionUnit == 0) {
+            self.directionLabel.text = [UnitUtil displayNameForDirection:self.measurementAnnotation.windDirection];
+        }
+        else {
+            self.directionLabel.text = [NSString stringWithFormat:@"%@°", [NSNumber numberWithInt:(int)round([self.measurementAnnotation.windDirection doubleValue])]];
+        }
+        self.directionLabel.hidden = NO;
+        
+        NSString *imageName = [UnitUtil imageNameForDirection:self.measurementAnnotation.windDirection];
+        if (imageName) {
+            self.directionImageView.image = [UIImage imageNamed:imageName];
+            self.directionImageView.hidden = NO;
+        }
+        else {
+            self.directionImageView.hidden = YES;
+        }
+    }
+    else {
+        self.directionImageView.hidden = YES;
+        self.directionLabel.hidden = YES;
+    }
+    
     if (self.nearbyAnnotations.count == 0) {
         [self.tableView removeFromSuperview];
         [[self viewWithTag:1] removeFromSuperview]; // remove "Nearby Measurements" view
@@ -97,7 +120,7 @@ BOOL isTableInitialized = NO;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     MeasurementTableViewCell *cell = (MeasurementTableViewCell*) [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     MeasurementAnnotation *measurementAnnotation = [self.nearbyAnnotations objectAtIndex:[indexPath item]];
-    [cell setValues:measurementAnnotation.avgWindSpeed unit:self.windSpeedUnit time:measurementAnnotation.startTime];
+    [cell setValues:measurementAnnotation.avgWindSpeed unit:self.windSpeedUnit time:measurementAnnotation.startTime windDirection:measurementAnnotation.windDirection directionUnit:self.directionUnit];
     return cell;
 }
 
