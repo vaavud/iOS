@@ -2868,7 +2868,7 @@
 					"TESTFLIGHT_TOKEN=1b4310d3-6215-4ff5-a881-dd67a6d7ab91",
 				);
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2902,7 +2902,7 @@
 					"TESTFLIGHT_TOKEN=1b4310d3-6215-4ff5-a881-dd67a6d7ab91",
 				);
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2936,7 +2936,7 @@
 					"TESTFLIGHT_TOKEN=c86487ec-bff5-4c36-9865-fb44e7eabbe3",
 				);
 				INFOPLIST_FILE = "Agriculture-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2970,7 +2970,7 @@
 					"TESTFLIGHT_TOKEN=c86487ec-bff5-4c36-9865-fb44e7eabbe3",
 				);
 				INFOPLIST_FILE = "Agriculture-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
