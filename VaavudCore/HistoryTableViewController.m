@@ -23,6 +23,7 @@
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) UIImage *placeholderImage;
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
+@property (nonatomic) NSInteger directionUnit;
 @property (nonatomic) NSDate *latestLocalEndTime;
 @property (nonatomic) BOOL isObservingModelChanges;
 @property (nonatomic) BOOL isAppeared;
@@ -36,6 +37,7 @@
     [super viewDidLoad];
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
+    self.directionUnit = -1;
     self.navigationItem.title = NSLocalizedString(@"HISTORY_TITLE", nil);
     self.isObservingModelChanges = NO;
     self.isTableUpdating = NO;
@@ -49,23 +51,36 @@
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
+    BOOL tableReloadRequired = NO;
+    
     WindSpeedUnit newWindSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
     //NSLog(@"[MapViewController] viewWillAppear: windSpeedUnit=%u", self.windSpeedUnit);
     if (newWindSpeedUnit != self.windSpeedUnit) {
         self.windSpeedUnit = newWindSpeedUnit;
-        [self.tableView reloadData];
+        tableReloadRequired = YES;
+    }
+    
+    NSNumber *directionUnitNumber = [Property getAsInteger:KEY_DIRECTION_UNIT];
+    NSInteger directionUnit = (directionUnitNumber) ? [directionUnitNumber doubleValue] : 0;
+    if (self.directionUnit != directionUnit) {
+        self.directionUnit = directionUnit;
+        tableReloadRequired = YES;
     }
     
     // if we're not observing model changes, refresh the whole table...
     
     if (!self.isObservingModelChanges) {
-        [self.tableView reloadData];
+        tableReloadRequired = YES;
         
         // if there is no history sync going on, turn on model observing...
         
         if (![ServerUploadManager sharedInstance].isHistorySyncBusy) {
             self.isObservingModelChanges = YES;
         }
+    }
+
+    if (tableReloadRequired) {
+        [self.tableView reloadData];
     }
 }
 
@@ -183,6 +198,30 @@
     [dayFormatter setTimeStyle:NSDateFormatterShortStyle];
     NSString *time = [[[dayFormatter stringFromDate:session.startTime] stringByReplacingOccurrencesOfString:@"." withString:@":"] uppercaseStringWithLocale:[NSLocale currentLocale]];
     cell.timeLabel.text = time;
+    
+    if (session.windMeter && ([session.windMeter integerValue] > 1) && session.windDirection) {
+        
+        if (self.directionUnit == 0) {
+            cell.directionLabel.text = [UnitUtil displayNameForDirection:session.windDirection];
+        }
+        else {
+            cell.directionLabel.text = [NSString stringWithFormat:@"%@°", [NSNumber numberWithInt:(int)round([session.windDirection doubleValue])]];
+        }
+        cell.directionLabel.hidden = NO;
+
+        NSString *imageName = [UnitUtil imageNameForDirection:session.windDirection];
+        if (imageName) {
+            cell.directionImageView.image = [UIImage imageNamed:imageName];
+            cell.directionImageView.hidden = NO;
+        }
+        else {
+            cell.directionImageView.hidden = YES;
+        }
+    }
+    else {
+        cell.directionImageView.hidden = YES;
+        cell.directionLabel.hidden = YES;
+    }
 }
 
 - (CGFloat) tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {

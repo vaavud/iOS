@@ -17,5 +17,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *maxLabel;
 @property (nonatomic, weak) IBOutlet UILabel *avgLabel;
 @property (nonatomic, weak) IBOutlet UILabel *unitLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *directionImageView;
+@property (weak, nonatomic) IBOutlet UILabel *directionLabel;
 
 @end
