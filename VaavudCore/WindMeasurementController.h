@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 enum WindMeterDeviceType : NSUInteger {
+    UnknownWindMeterDeviceType = 0,
     MjolnirWindMeterDeviceType = 1,
     SleipnirWindMeterDeviceType = 2
 };

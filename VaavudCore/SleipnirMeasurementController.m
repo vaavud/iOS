@@ -79,7 +79,12 @@ SHARED_INSTANCE
 }
 
 - (void) notVaavudPlugedIn {
+    
     NSLog(@"[SleipnirMeasurementController] notVaavudPlugedIn");
+    self.isDeviceConnected = NO;
+    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceConnected:)]) {
+        [self.delegate deviceConnected:UnknownWindMeterDeviceType];
+    }
 }
 
 - (void) vaavudPlugedIn {
@@ -94,9 +99,17 @@ SHARED_INSTANCE
 - (void) deviceWasUnpluged {
     
     NSLog(@"[SleipnirMeasurementController] deviceWasUnpluged");
-    self.isDeviceConnected = NO;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
-        [self.delegate deviceDisconnected:SleipnirWindMeterDeviceType];
+    if (self.isDeviceConnected) {
+        self.isDeviceConnected = NO;
+        if (self.delegate && [self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
+            [self.delegate deviceDisconnected:SleipnirWindMeterDeviceType];
+        }
+    }
+    else {
+        self.isDeviceConnected = NO;
+        if (self.delegate && [self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
+            [self.delegate deviceDisconnected:UnknownWindMeterDeviceType];
+        }
     }
 }
 

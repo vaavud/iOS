@@ -156,7 +156,7 @@ SHARED_INSTANCE
     if (self.controller) {
         return [self.controller windMeterDeviceType];
     }
-    return 0;
+    return UnknownWindMeterDeviceType;
 }
 
 - (MeasurementSession*) getActiveMeasurementSession {

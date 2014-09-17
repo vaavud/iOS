@@ -21,7 +21,6 @@
 @property (nonatomic, strong) CPTPlotRange *yRange;
 @property (nonatomic, strong) NSNumber *averageValue;
 @property (nonatomic, strong) NSNumber *latestAverageX;
-@property (nonatomic, strong) NSNumber *lastValue;
 @property (nonatomic, strong) NSDate *lastValueTime;
 
 /*
@@ -73,7 +72,6 @@
     self.averageValue = nil;
     self.latestAverageX = nil;
     self.startTime = [NSDate date];
-    self.lastValue = nil;
     self.lastValueTime = nil;
     self.plots = [NSMutableArray array];
 
@@ -208,6 +206,10 @@
         }
     }
     
+    if (intervalSinceLast >= GRAPH_TIME_GAP_FOR_STRAIGHT_LINE) {
+        [self newPlot];
+    }
+    
     if (average) {
         self.averageValue = average;
         [self.averagePlot reloadData];
@@ -225,18 +227,8 @@
             if (self.plots && self.plots.count > 0) {
                 NSMutableArray *data = self.plots[self.plots.count - 1];
                 if (data) {
-                    
-                    if (self.lastValue && intervalSinceLast >= GRAPH_TIME_GAP_FOR_STRAIGHT_LINE) {
-                        [data addObject:@[x, self.lastValue]];
-                        [data addObject:@[x, speed]];
-                        [self.currentPlot insertDataAtIndex:(data.count - 2) numberOfRecords:2];
-                    }
-                    else {
-                        [data addObject:@[x, speed]];
-                        [self.currentPlot insertDataAtIndex:(data.count - 1) numberOfRecords:1];
-                    }
-                    
-                    self.lastValue = speed;
+                    [data addObject:@[x, speed]];
+                    [self.currentPlot insertDataAtIndex:(data.count - 1) numberOfRecords:1];
                     
                     double speedDouble = [speed doubleValue];
                     if (speedDouble > self.maxWindSpeed) {

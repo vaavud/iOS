@@ -152,3 +152,7 @@
 "DEVICE_CONNECTED_MESSAGE" = "Sleipnir wind meter connected";
 "DEVICE_DISCONNECTED_TITLE" = "Device Disconnected";
 "DEVICE_DISCONNECTED_MESSAGE" = "Sleipnir wind meter disconnected";
+"UNKNOWN_DEVICE_CONNECTED_TITLE" = "Unknown Device";
+"UNKNOWN_DEVICE_CONNECTED_MESSAGE" = "Sleipnir not recognized, try reinserting";
+"UNKNOWN_DEVICE_DISCONNECTED_TITLE" = "Device Disconnected";
+"UNKNOWN_DEVICE_DISCONNECTED_MESSAGE" = "Unknown device disconnected";

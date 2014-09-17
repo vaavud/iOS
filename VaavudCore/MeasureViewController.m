@@ -518,6 +518,11 @@
         
         [self showNotification:NSLocalizedString(@"DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_CONNECTED_MESSAGE", nil)];
     }
+    else if (device == UnknownWindMeterDeviceType) {
+
+        self.useSleipnir = NO;
+        [self showNotification:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_MESSAGE", nil)];
+    }
 }
 
 - (void) deviceDisconnected:(enum WindMeterDeviceType)device {
@@ -528,8 +533,12 @@
         }
         
         self.useSleipnir = NO;
-
         [self showNotification:NSLocalizedString(@"DEVICE_DISCONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_DISCONNECTED_MESSAGE", nil)];
+    }
+    else if (device == UnknownWindMeterDeviceType) {
+        
+        self.useSleipnir = NO;
+        [self showNotification:NSLocalizedString(@"UNKNOWN_DEVICE_DISCONNECTED_TITLE", nil) message:NSLocalizedString(@"UNKNOWN_DEVICE_DISCONNECTED_MESSAGE", nil)];
     }
 }
 
@@ -551,7 +560,7 @@
                                              cancelButtonTitle:nil
                                              otherButtonTitles:nil];
     [self.notificationView show];
-    self.notificationTimer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(dismissNotification) userInfo:nil repeats:NO];
+    self.notificationTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(dismissNotification) userInfo:nil repeats:NO];
 }
 
 - (void) dismissNotification {
@@ -640,9 +649,6 @@
                 self.directionLabel.text = [NSString stringWithFormat:@"%@°", [NSNumber numberWithInt:(int)round([self.directionLabelCurrentValue doubleValue])]];
             }
         }
-        else {
-            self.directionLabel.text = @"-";
-        }
         
         if (self.directionImageView) {
             NSString *imageName = [UnitUtil imageNameForDirection:self.directionLabelCurrentValue];
@@ -656,6 +662,9 @@
         }
     }
     else {
+        if (self.directionLabel) {
+            self.directionLabel.text = @"-";
+        }
         if (self.directionImageView) {
             self.directionImageView.hidden = YES;
         }

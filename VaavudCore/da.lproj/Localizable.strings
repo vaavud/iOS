@@ -152,3 +152,7 @@
 "DEVICE_CONNECTED_MESSAGE" = "Sleipnir vindmåler tilsluttet";
 "DEVICE_DISCONNECTED_TITLE" = "Enhed fjernet";
 "DEVICE_DISCONNECTED_MESSAGE" = "Sleipnir vindmåler fjernet";
+"UNKNOWN_DEVICE_CONNECTED_TITLE" = "Ukendt enhed";
+"UNKNOWN_DEVICE_CONNECTED_MESSAGE" = "Sleipnir ikke genkendt, prøv at sætte den i igen";
+"UNKNOWN_DEVICE_DISCONNECTED_TITLE" = "Enhed fjernet";
+"UNKNOWN_DEVICE_DISCONNECTED_MESSAGE" = "Ukendt enhed fjernet";
