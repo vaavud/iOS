@@ -22,23 +22,16 @@ typedef enum {
 @interface UnitUtil : NSObject
 
 + (WindSpeedUnit) nextWindSpeedUnit:(WindSpeedUnit) unit;
-
 + (WindSpeedUnit) windSpeedUnitForCountry:(NSString*) countryCode;
-
 + (NSString*) jsonNameForWindSpeedUnit:(WindSpeedUnit) unit;
-
 + (NSString*) displayNameForWindSpeedUnit:(WindSpeedUnit) unit;
-
 + (double) displayWindSpeedFromDouble:(double) windSpeedMS unit:(WindSpeedUnit) unit;
-
 + (NSNumber*) displayWindSpeedFromNumber:(NSNumber*) windSpeedMS unit:(WindSpeedUnit) unit;
-
 + (NSString*) englishDisplayNameForWindSpeedUnit:(WindSpeedUnit) unit;
 
 + (NSString*) displayNameForDirection:(NSNumber*)direction;
-
 + (NSString*) imageNameForDirection:(NSNumber*)direction;
-
++ (NSString*) mapImageNameForDirection:(NSNumber*)direction;
 + (NSString*) displayNameForDirectionUnit:(NSInteger)directionUnit;
 
 @end

@@ -13,11 +13,13 @@
 static NSSet* countriesUsingMph;
 static NSArray* directionNameStrings;
 static NSArray* directionImageStrings;
+static NSArray* mapDirectionImageStrings;
 
 + (void) initialize {
     countriesUsingMph = [NSSet setWithObjects:@"US", @"UM", @"GB", @"CA", @"VG", @"VI", nil];
     directionNameStrings = @[@"DIRECTION_N", @"DIRECTION_NNE", @"DIRECTION_NE", @"DIRECTION_ENE", @"DIRECTION_E", @"DIRECTION_ESE", @"DIRECTION_SE", @"DIRECTION_SSE", @"DIRECTION_S", @"DIRECTION_SSW", @"DIRECTION_SW", @"DIRECTION_WSW", @"DIRECTION_W", @"DIRECTION_WNW", @"DIRECTION_NW", @"DIRECTION_NNW"];
     directionImageStrings = @[@"windarrow_red_N.png", @"windarrow_red_NNE.png", @"windarrow_red_NE.png", @"windarrow_red_ENE.png", @"windarrow_red_E.png", @"windarrow_red_ESE.png", @"windarrow_red_SE.png", @"windarrow_red_SSE.png", @"windarrow_red_S.png", @"windarrow_red_SSW.png", @"windarrow_red_SW.png", @"windarrow_red_WSW.png", @"windarrow_red_W.png", @"windarrow_red_WNW.png", @"windarrow_red_NW.png", @"windarrow_red_NNW.png"];
+    mapDirectionImageStrings = @[@"mapmarker_w_direction_N.png", @"mapmarker_w_direction_NNE.png", @"mapmarker_w_direction_NE.png", @"mapmarker_w_direction_ENE.png", @"mapmarker_w_direction_E.png", @"mapmarker_w_direction_ESE.png", @"mapmarker_w_direction_SE.png", @"mapmarker_w_direction_SSE.png", @"mapmarker_w_direction_S.png", @"mapmarker_w_direction_SSW.png", @"mapmarker_w_direction_SW.png", @"mapmarker_w_direction_WSW.png", @"mapmarker_w_direction_W.png", @"mapmarker_w_direction_WNW.png", @"mapmarker_w_direction_NW.png", @"mapmarker_w_direction_NNW.png"];
 }
 
 + (WindSpeedUnit) nextWindSpeedUnit:(WindSpeedUnit) unit {
@@ -156,6 +158,14 @@ static NSArray* directionImageStrings;
     }
     NSInteger index = [self directionIndex:[direction doubleValue]];
     return directionImageStrings[index];
+}
+
++ (NSString*) mapImageNameForDirection:(NSNumber*)direction {
+    if (!direction) {
+        return nil;
+    }
+    NSInteger index = [self directionIndex:[direction doubleValue]];
+    return mapDirectionImageStrings[index];
 }
 
 + (NSInteger) directionIndex:(double)direction {

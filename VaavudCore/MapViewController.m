@@ -152,6 +152,8 @@
     
     [super viewWillAppear:animated];
 
+    BOOL forceReload = NO;
+
     // note: grid degree might have been updated by a device register call
     self.analyticsGridDegree = [[Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] doubleValue];
 
@@ -159,20 +161,17 @@
     //NSLog(@"[MapViewController] viewWillAppear: windSpeedUnit=%u", self.windSpeedUnit);
     if (newWindSpeedUnit != self.windSpeedUnit) {
         self.windSpeedUnit = newWindSpeedUnit;
-        [self windSpeedUnitChanged];
         [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
+        forceReload = YES;
     }
 
     NSNumber *directionUnitNumber = [Property getAsInteger:KEY_DIRECTION_UNIT];
     NSInteger directionUnit = (directionUnitNumber) ? [directionUnitNumber doubleValue] : 0;
     if (self.directionUnit != directionUnit) {
         self.directionUnit = directionUnit;
-        if (self.mapView.selectedAnnotations.count > 0) {
-            [self.mapView deselectAnnotation:self.mapView.selectedAnnotations[0] animated:NO];
-        }
+        forceReload = YES;
     }
     
-    BOOL forceReload = NO;
     MeasurementSession *measurementSession = [MeasurementSession MR_findFirstOrderedByAttribute:@"startTime" ascending:NO];
     if (measurementSession && measurementSession != nil && [measurementSession.measuring boolValue] == NO) {
         NSDate *newLatestLocalStartTime = measurementSession.startTime;
@@ -315,8 +314,11 @@
                 float windSpeedMax = ([measurement objectAtIndex:4] == nil) ? 0.0 : [((NSString*)[measurement objectAtIndex:4]) floatValue];
                 
                 NSNumber *windDirection = nil;
-                if (measurement.count >=6) {
-                    windDirection = measurement[5];
+                if (measurement.count >= 6) {
+                    NSNumber *value = measurement[5];
+                    if (value && value != (id)[NSNull null]) {
+                        windDirection = value;
+                    }
                 }
                 
                 MeasurementAnnotation *measurementAnnotation = [[MeasurementAnnotation alloc] initWithLocation:CLLocationCoordinate2DMake(latitude,longitude) startTime:startTime avgWindSpeed:windSpeedAvg maxWindSpeed:windSpeedMax windDirection:windDirection];
@@ -396,27 +398,36 @@
             
             measureAnnotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:MeasureAnnotationIdentifier];
             measureAnnotationView.canShowCallout = NO;
-            
-            UIImage *markerImage = [UIImage imageNamed:@"WindMarker.png"];
-            measureAnnotationView.image = markerImage;
             measureAnnotationView.opaque = NO;
             
-            UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+            UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 38, 38)];
             lbl.backgroundColor = [UIColor clearColor];
             lbl.font = [UIFont systemFontOfSize:12];
             lbl.textColor = [UIColor whiteColor];
             lbl.textAlignment = NSTextAlignmentCenter;
-            //lbl.alpha = 0.5;
             lbl.tag = 42;
             [measureAnnotationView addSubview:lbl];
             measureAnnotationView.frame = lbl.frame;
-            
         }
         else {
             measureAnnotationView.annotation = annotation;
         }
+
+        UIImage *markerImage = nil;
+
+        if (measurementAnnotation.windDirection) {
+            NSString *imageName = [UnitUtil mapImageNameForDirection:measurementAnnotation.windDirection];
+            if (imageName) {
+                markerImage = [UIImage imageNamed:imageName];
+            }
+        }
+        if (!markerImage) {
+            markerImage = [UIImage imageNamed:@"mapmarker_no_direction.png"];
+        }
         
-        UILabel *lbl = (UILabel *)[measureAnnotationView viewWithTag:42];
+        measureAnnotationView.image = markerImage;
+        
+        UILabel *lbl = (UILabel*) [measureAnnotationView viewWithTag:42];
         lbl.text = [FormatUtil formatValueWithTwoDigits:[UnitUtil displayWindSpeedFromDouble:measurementAnnotation.avgWindSpeed unit:self.windSpeedUnit]];
         
         return measureAnnotationView;

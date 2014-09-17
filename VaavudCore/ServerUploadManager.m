@@ -568,7 +568,7 @@ SHARED_INSTANCE
     
     [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/history" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
-        //NSLog(@"[ServerUploadManager] History response");
+        //NSLog(@"[ServerUploadManager] History response: %@", responseObject);
 
         // clear consecutive errors since we got a successful reponse
         self.consecutiveNetworkErrors = 0;
@@ -621,6 +621,8 @@ SHARED_INSTANCE
                             NSNumber *longitude = [self numberValueFrom:measurementDictionary forKey:@"longitude"];
                             NSNumber *windSpeedAvg = [self numberValueFrom:measurementDictionary forKey:@"windSpeedAvg"];
                             NSNumber *windSpeedMax = [self numberValueFrom:measurementDictionary forKey:@"windSpeedMax"];
+                            NSNumber *windDirection = [self numberValueFrom:measurementDictionary forKey:@"windDirection"];
+                            NSNumber *temperature = [self numberValueFrom:measurementDictionary forKey:@"temperature"];
                             NSArray *points = [measurementDictionary objectForKey:@"points"];
                             
                             if ([measurementSession.measuring boolValue] == NO && [measurementSession.uploaded boolValue] == YES) {
@@ -634,7 +636,9 @@ SHARED_INSTANCE
                                 measurementSession.longitude = longitude;
                                 measurementSession.windSpeedAvg = windSpeedAvg;
                                 measurementSession.windSpeedMax = windSpeedMax;
-                                
+                                measurementSession.windDirection = windDirection;
+                                measurementSession.temperature = temperature;
+
                                 if (points.count > measurementSession.points.count) {
                                     
                                     //NSLog(@"[ServerUploadManager] Measurement points added, old size=%lu, new size=%lu", (unsigned long)measurementSession.points.count, (unsigned long)points.count);
@@ -671,7 +675,12 @@ SHARED_INSTANCE
                 NSNumber *longitude = [self numberValueFrom:measurementDictionary forKey:@"longitude"];
                 NSNumber *windSpeedAvg = [self numberValueFrom:measurementDictionary forKey:@"windSpeedAvg"];
                 NSNumber *windSpeedMax = [self numberValueFrom:measurementDictionary forKey:@"windSpeedMax"];
+                NSNumber *windDirection = [self numberValueFrom:measurementDictionary forKey:@"windDirection"];
+                NSNumber *temperature = [self numberValueFrom:measurementDictionary forKey:@"temperature"];
+                NSNumber *windMeter = [self numberValueFrom:measurementDictionary forKey:@"windMeter"];
                 NSArray *points = [measurementDictionary objectForKey:@"points"];
+                
+                //NSLog(@"windDirection=%@, windMeter=%@, temperature=%@", windDirection, windMeter, temperature);
                 
                 MeasurementSession *measurementSession = [MeasurementSession MR_findFirstByAttribute:@"uuid" withValue:uuid inContext:localContext];
                 if (measurementSession && measurementSession != nil && measurementSession != (id)[NSNull null]) {
@@ -687,6 +696,8 @@ SHARED_INSTANCE
                         measurementSession.longitude = longitude;
                         measurementSession.windSpeedAvg = windSpeedAvg;
                         measurementSession.windSpeedMax = windSpeedMax;
+                        measurementSession.windDirection = windDirection;
+                        measurementSession.temperature = temperature;
                         
                         if (points.count > measurementSession.points.count) {
                             
@@ -716,6 +727,9 @@ SHARED_INSTANCE
                     measurementSession.longitude = longitude;
                     measurementSession.windSpeedAvg = windSpeedAvg;
                     measurementSession.windSpeedMax = windSpeedMax;
+                    measurementSession.windDirection = windDirection;
+                    measurementSession.temperature = temperature;
+                    measurementSession.windMeter = windMeter;
                     
                     NSOrderedSet *measurementPoints = [self createMeasurementPoints:points withSession:measurementSession inContext:localContext];
                     [measurementSession setPoints:measurementPoints];
@@ -880,7 +894,7 @@ SHARED_INSTANCE
 
 -(NSString*) stringValueFrom:(NSDictionary*)dictionary forKey:(NSString*)key {
     NSString *value = (NSString*) [dictionary objectForKey:key];
-    if (value && value != nil && ![value isEqual:[NSNull null]] && ![@"<null>" isEqualToString:value] && [value length] > 0) {
+    if (value && value != nil && value != (id)[NSNull null] && ![@"<null>" isEqualToString:value] && [value length] > 0) {
         return (NSString*) value;
     }
     return nil;
@@ -888,7 +902,7 @@ SHARED_INSTANCE
 
 -(NSNumber*) numberValueFrom:(NSDictionary*)dictionary forKey:(NSString*)key {
     NSObject *v = [dictionary objectForKey:key];
-    if ([v isKindOfClass:[NSNumber class]]) {
+    if (v && v != (id)[NSNull null] && [v isKindOfClass:[NSNumber class]]) {
         return (NSNumber*) v;
     }
     return nil;
