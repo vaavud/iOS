@@ -720,7 +720,7 @@
 		E960260B18575461009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E960260D18575473009396B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E96FB5AC19A353B500CB7306 /* Agriculture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Agriculture.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E96FB5AD19A353B500CB7306 /* Agriculture-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Agriculture-Info.plist"; path = "/Users/thomas/Documents/xcode/Vaavud/Agriculture-Info.plist"; sourceTree = "<absolute>"; };
+		E96FB5AD19A353B500CB7306 /* Agriculture-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Agriculture-Info.plist"; sourceTree = SOURCE_ROOT; };
 		E97237E1195992080003A9E4 /* AppIcon29x29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon29x29.png; sourceTree = "<group>"; };
 		E97237E2195992080003A9E4 /* AppIcon40x40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon40x40.png; sourceTree = "<group>"; };
 		E97237E3195992080003A9E4 /* AppIcon50x50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppIcon50x50.png; sourceTree = "<group>"; };
