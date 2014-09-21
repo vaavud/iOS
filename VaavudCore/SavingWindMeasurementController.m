@@ -255,6 +255,13 @@ SHARED_INSTANCE
     }
 }
 
+- (void) deviceAvailabilityChanged:(enum WindMeterDeviceType) device andAvailability: (BOOL) available {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceAvailabilityChanged:andAvailability:)]) {
+        [self.delegate deviceAvailabilityChanged:device andAvailability:available];
+    }
+}
+
+
 - (void) deviceConnected:(enum WindMeterDeviceType)device {
     if (self.delegate && [self.delegate respondsToSelector:@selector(deviceConnected:)]) {
         [self.delegate deviceConnected:device];

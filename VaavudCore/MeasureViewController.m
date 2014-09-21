@@ -506,6 +506,12 @@
 
 /**** Sleipnir Measurement ****/
 
+- (void) deviceAvailabilityChanged:(enum WindMeterDeviceType) device andAvailability: (BOOL) available {
+    if (device == SleipnirWindMeterDeviceType) {
+        self.useSleipnir = available;
+    }
+}
+
 - (void) deviceConnected:(enum WindMeterDeviceType)device {
     
     if (device == SleipnirWindMeterDeviceType) {
@@ -514,13 +520,11 @@
             // measurement with Mjolnir is in progress when Sleipnir is plugged in, so stop it
             [self stopWithUITracking:NO action:@"Plug"];
         }
-        self.useSleipnir = YES;
         
         [self showNotification:NSLocalizedString(@"DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_CONNECTED_MESSAGE", nil)];
     }
     else if (device == UnknownWindMeterDeviceType) {
 
-        self.useSleipnir = NO;
         [self showNotification:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_MESSAGE", nil)];
     }
 }
@@ -532,12 +536,10 @@
             [self stopWithUITracking:YES action:@"Unplug"];
         }
         
-        self.useSleipnir = NO;
         [self showNotification:NSLocalizedString(@"DEVICE_DISCONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_DISCONNECTED_MESSAGE", nil)];
     }
     else if (device == UnknownWindMeterDeviceType) {
         
-        self.useSleipnir = NO;
         [self showNotification:NSLocalizedString(@"UNKNOWN_DEVICE_DISCONNECTED_TITLE", nil) message:NSLocalizedString(@"UNKNOWN_DEVICE_DISCONNECTED_MESSAGE", nil)];
     }
 }

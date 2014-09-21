@@ -32,7 +32,8 @@ SHARED_INSTANCE
     if (self) {
         [self resetMeasurementData];
         VEVaavudElectronicSDK *sdk = [VEVaavudElectronicSDK sharedVaavudElectronic];
-        self.isDeviceConnected = ([sdk vaavudElectronicConnectionStatus] == VaavudElectronicConnectionStatusConnected);
+        self.isDeviceConnected = sdk.sleipnirAvailable;
+        
         [sdk addListener:self];
     }
     
@@ -74,44 +75,52 @@ SHARED_INSTANCE
     return durationSeconds;
 }
 
-- (void) devicePlugedInChecking {
+
+
+- (void) sleipnirAvailabliltyChanged: (BOOL) available {
+    self.isDeviceConnected = available;
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceAvailabilityChanged:andAvailability:)]) {
+        [self.delegate deviceAvailabilityChanged:SleipnirWindMeterDeviceType andAvailability:available];
+    }
+    
+    if (available)
+        NSLog(@"[SleipnirMeasurementController] sleipnirAvailabliltyChanged - available");
+    else
+        NSLog(@"[SleipnirMeasurementController] sleipnirAvailabliltyChanged - Not available");
+}
+
+
+- (void) deviceConnectedTypeSleipnir: (BOOL) sleipnir {
+    if (sleipnir)
+        NSLog(@"[SleipnirMeasurementController] deviceConnected - Sleipnir");
+    else
+        NSLog(@"[SleipnirMeasurementController] deviceConnected - Unknown");
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceConnected:)]) {
+        enum WindMeterDeviceType deviceType = (sleipnir) ? SleipnirWindMeterDeviceType : UnknownWindMeterDeviceType;
+        [self.delegate deviceConnected:deviceType];
+    }
+}
+
+
+- (void) deviceDisconnectedTypeSleipnir: (BOOL) sleipnir {
+    if (sleipnir)
+        NSLog(@"[SleipnirMeasurementController] deviceDisconnected - Sleipnir");
+    else
+        NSLog(@"[SleipnirMeasurementController] deviceDisconnected - Unknown");
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
+        enum WindMeterDeviceType deviceType = (sleipnir) ? SleipnirWindMeterDeviceType : UnknownWindMeterDeviceType;
+        [self.delegate deviceDisconnected:deviceType];
+    }
+
+}
+
+- (void) deviceConnectedChecking {
     NSLog(@"[SleipnirMeasurementController] devicePlugedInChecking");
 }
 
-- (void) notVaavudPlugedIn {
-    
-    NSLog(@"[SleipnirMeasurementController] notVaavudPlugedIn");
-    self.isDeviceConnected = NO;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceConnected:)]) {
-        [self.delegate deviceConnected:UnknownWindMeterDeviceType];
-    }
-}
-
-- (void) vaavudPlugedIn {
-    
-    NSLog(@"[SleipnirMeasurementController] vaavudPlugedIn");
-    self.isDeviceConnected = YES;
-    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceConnected:)]) {
-        [self.delegate deviceConnected:SleipnirWindMeterDeviceType];
-    }
-}
-
-- (void) deviceWasUnpluged {
-    
-    NSLog(@"[SleipnirMeasurementController] deviceWasUnpluged");
-    if (self.isDeviceConnected) {
-        self.isDeviceConnected = NO;
-        if (self.delegate && [self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
-            [self.delegate deviceDisconnected:SleipnirWindMeterDeviceType];
-        }
-    }
-    else {
-        self.isDeviceConnected = NO;
-        if (self.delegate && [self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
-            [self.delegate deviceDisconnected:UnknownWindMeterDeviceType];
-        }
-    }
-}
 
 - (void) newSpeed:(NSNumber*)speed {
     

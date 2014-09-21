@@ -23,6 +23,7 @@ enum WindMeterDeviceType : NSUInteger {
 - (void) updateLocation:(NSNumber*)latitude longitude:(NSNumber*)longitude;
 - (void) updateTemperature:(NSNumber*)temperature;
 - (void) changedValidity:(BOOL)isValid dynamicsIsValid:(BOOL)dynamicsIsValid;
+- (void) deviceAvailabilityChanged:(enum WindMeterDeviceType) device andAvailability: (BOOL) available;
 - (void) deviceConnected:(enum WindMeterDeviceType)device;
 - (void) deviceDisconnected:(enum WindMeterDeviceType)device;
 - (void) measuringStoppedByModel;
