@@ -207,7 +207,6 @@
 		E96FB55D19A353B500CB7306 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */; };
 		E96FB55E19A353B500CB7306 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CC173A8DDB00D1ACEE /* Foundation.framework */; };
 		E96FB55F19A353B500CB7306 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CE173A8DDB00D1ACEE /* CoreGraphics.framework */; };
-		E96FB56019A353B500CB7306 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B3881A199108BE00A118D5 /* FacebookSDK.framework */; };
 		E96FB56119A353B500CB7306 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */; };
 		E96FB56219A353B500CB7306 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A086025EA7704C458175CADF /* libPods.a */; };
 		E96FB56419A353B500CB7306 /* MeasurementCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E960261018575E41009396B1 /* MeasurementCalloutView.xib */; };
@@ -305,6 +304,8 @@
 		E97238181959A0A70003A9E4 /* Default@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E972380B1959A0A70003A9E4 /* Default@2x~ipad.png */; };
 		E97238191959A0A70003A9E4 /* Default@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = E972380C1959A0A70003A9E4 /* Default@2x~iphone.png */; };
 		E972381A1959A0A70003A9E4 /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E972380D1959A0A70003A9E4 /* Default~ipad.png */; };
+		E972403419D97A74008642E2 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E972403319D97A74008642E2 /* FacebookSDK.framework */; };
+		E972403519D97A74008642E2 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E972403319D97A74008642E2 /* FacebookSDK.framework */; };
 		E9793A85196C411C00E3823E /* ParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9793A84196C411C00E3823E /* ParentViewController.m */; };
 		E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */; };
 		E97AC6D018BCDE19004DEC65 /* TermsPrivacyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */; };
@@ -344,7 +345,6 @@
 		E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */; };
 		E9AF2B9117F5B96500BDF6D9 /* MeasurementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9AF2B9017F5B96500BDF6D9 /* MeasurementTableViewCell.xib */; };
 		E9AF597E181826E6009A8221 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9AF597A181826E6009A8221 /* libTestFlight.a */; };
-		E9B3881B199108BE00A118D5 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B3881A199108BE00A118D5 /* FacebookSDK.framework */; };
 		E9B47A031794217200E8A82E /* Terms.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A021794217200E8A82E /* Terms.m */; };
 		E9B47A0A1794315100E8A82E /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A091794315100E8A82E /* TermsViewController.m */; };
 		E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627AF17708E63004678D5 /* AFHTTPClient.m */; };
@@ -751,6 +751,7 @@
 		E972380B1959A0A70003A9E4 /* Default@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~ipad.png"; sourceTree = "<group>"; };
 		E972380C1959A0A70003A9E4 /* Default@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~iphone.png"; sourceTree = "<group>"; };
 		E972380D1959A0A70003A9E4 /* Default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~ipad.png"; sourceTree = "<group>"; };
+		E972403319D97A74008642E2 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		E9793A83196C411C00E3823E /* ParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentViewController.h; sourceTree = "<group>"; };
 		E9793A84196C411C00E3823E /* ParentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentViewController.m; sourceTree = "<group>"; };
 		E97AC6C818BCC66A004DEC65 /* TermsPrivacyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsPrivacyViewController.h; sourceTree = "<group>"; };
@@ -892,7 +893,6 @@
 		E9AF597B181826E6009A8221 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		E9AF597C181826E6009A8221 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
 		E9AF597D181826E6009A8221 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
-		E9B3881A199108BE00A118D5 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		E9B47A011794217200E8A82E /* Terms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terms.h; sourceTree = "<group>"; };
 		E9B47A021794217200E8A82E /* Terms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terms.m; sourceTree = "<group>"; };
 		E9B47A081794315100E8A82E /* TermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
@@ -1118,13 +1118,13 @@
 				E9B627CB177092EF004678D5 /* SystemConfiguration.framework in Frameworks */,
 				E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */,
 				D7B5BD531757A23C0069F739 /* CoreLocation.framework in Frameworks */,
+				E972403419D97A74008642E2 /* FacebookSDK.framework in Frameworks */,
 				D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */,
 				D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */,
 				D7A4F1F4173A9FC200D1ACEE /* CoreMotion.framework in Frameworks */,
 				D7A4F1CB173A8DDB00D1ACEE /* UIKit.framework in Frameworks */,
 				D7A4F1CD173A8DDB00D1ACEE /* Foundation.framework in Frameworks */,
 				D7A4F1CF173A8DDB00D1ACEE /* CoreGraphics.framework in Frameworks */,
-				E9B3881B199108BE00A118D5 /* FacebookSDK.framework in Frameworks */,
 				D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */,
 				A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */,
 			);
@@ -1142,13 +1142,13 @@
 				E96FB55719A353B500CB7306 /* SystemConfiguration.framework in Frameworks */,
 				E96FB55819A353B500CB7306 /* CoreData.framework in Frameworks */,
 				E96FB55919A353B500CB7306 /* CoreLocation.framework in Frameworks */,
+				E972403519D97A74008642E2 /* FacebookSDK.framework in Frameworks */,
 				E96FB55A19A353B500CB7306 /* Accelerate.framework in Frameworks */,
 				E96FB55B19A353B500CB7306 /* QuartzCore.framework in Frameworks */,
 				E96FB55C19A353B500CB7306 /* CoreMotion.framework in Frameworks */,
 				E96FB55D19A353B500CB7306 /* UIKit.framework in Frameworks */,
 				E96FB55E19A353B500CB7306 /* Foundation.framework in Frameworks */,
 				E96FB55F19A353B500CB7306 /* CoreGraphics.framework in Frameworks */,
-				E96FB56019A353B500CB7306 /* FacebookSDK.framework in Frameworks */,
 				E96FB56119A353B500CB7306 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				E96FB56219A353B500CB7306 /* libPods.a in Frameworks */,
 			);
@@ -1202,8 +1202,8 @@
 		D7A4F1C9173A8DDB00D1ACEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E972403319D97A74008642E2 /* FacebookSDK.framework */,
 				E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */,
-				E9B3881A199108BE00A118D5 /* FacebookSDK.framework */,
 				E982DF2D18181152004DAB3E /* AdSupport.framework */,
 				E904AC9917F0911000171F7F /* MapKit.framework */,
 				D7DA72401743C1CD00DFE962 /* Accelerate.framework */,
