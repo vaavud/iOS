@@ -31,6 +31,8 @@
 
 - (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
 
+    //NSLog(@"[AppDelegate] didFinishLaunchingWithOptions");
+    
     [TestFlight takeOff:[[NSString alloc] initWithCString:MACRO_VALUE(TESTFLIGHT_TOKEN) encoding:NSASCIIStringEncoding]];
 
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];

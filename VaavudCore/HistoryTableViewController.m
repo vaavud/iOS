@@ -45,6 +45,7 @@
 }
 
 - (void) viewDidUnload {
+    [super viewDidUnload];
     self.fetchedResultsController = nil;
 }
 
@@ -328,6 +329,14 @@
             
         case NSFetchedResultsChangeDelete:
             [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+
+        case NSFetchedResultsChangeUpdate:
+            // do nothing, never happens
+            break;
+            
+        case NSFetchedResultsChangeMove:
+            // do nothing, never happens
             break;
     }
 }

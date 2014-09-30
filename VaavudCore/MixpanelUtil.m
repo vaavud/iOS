@@ -41,6 +41,12 @@
     }
 }
 
++ (void) resetMixpanelProfile {
+    if ([Property isMixpanelPeopleEnabled]) {
+        
+    }
+}
+
 + (void) updateMeasurementProperties:(BOOL)onlySuperProperties {
 
     NSDate *firstMeasurement = [MixpanelUtil dateOfFirstMeasurement];

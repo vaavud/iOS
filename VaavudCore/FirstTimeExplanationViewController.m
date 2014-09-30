@@ -42,7 +42,7 @@
         
         if (self.bottomButtonIsTransparent) {
             self.bottomButton.backgroundColor = [UIColor clearColor];
-            self.bottomButton.titleLabel.textColor = [UIColor whiteColor];
+            [self.bottomButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         }
     }
     else {
@@ -54,7 +54,7 @@
 
         if (self.tinyButtonIsSolid) {
             self.tinyButton.titleLabel.font = [UIFont systemFontOfSize:18.0];
-            self.tinyButton.titleLabel.textColor = [UIColor vaavudBlueColor];
+            [self.tinyButton setTitleColor:[UIColor vaavudBlueColor] forState:UIControlStateNormal];
             self.tinyButton.backgroundColor = [UIColor whiteColor];
         }
         else {

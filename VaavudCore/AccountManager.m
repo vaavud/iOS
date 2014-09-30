@@ -428,7 +428,8 @@ BOOL isDoingLogout = NO;
     }
 
     if ([Property isMixpanelEnabled]) {
-        [[Mixpanel sharedInstance] reset];
+        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+        [mixpanel reset];
     }
 
     // delete all measurement sessions

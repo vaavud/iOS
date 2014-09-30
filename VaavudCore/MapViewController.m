@@ -585,7 +585,7 @@
     NSSet *set = [self.mapView annotationsInMapRect:mapRect];
     
     if (set.count == 0) {
-        return [NSArray arrayWithObject:nil];
+        return [NSArray array];
     }
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"startTime" ascending:NO];

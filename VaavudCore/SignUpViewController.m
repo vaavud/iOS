@@ -99,6 +99,7 @@ BOOL didShowFeedback;
 }
 
 - (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     // register for keyboard notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
