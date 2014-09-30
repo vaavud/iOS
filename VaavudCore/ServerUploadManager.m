@@ -23,6 +23,7 @@
 #import "AccountManager.h"
 #import "Mixpanel.h"
 #import "DictionarySerializationUtil.h"
+#import "MixpanelUtil.h"
 
 @interface ServerUploadManager ()
 
@@ -322,7 +323,7 @@ SHARED_INSTANCE
             NSDate *creationTime = [NSDate dateWithTimeIntervalSince1970:([creationTimeMillis doubleValue] / 1000.0)];
             [Property setAsDate:creationTime forKey:KEY_CREATION_TIME];
             if ([Property isMixpanelEnabled]) {
-                [[Mixpanel sharedInstance] registerSuperPropertiesOnce:@{@"Creation Time": creationTime}];
+                [[Mixpanel sharedInstance] registerSuperPropertiesOnce:@{@"Creation Time": [MixpanelUtil toUTFDateString:creationTime]}];
             }
         }
         

@@ -139,7 +139,7 @@
         // Mixpanel super properties
         NSDate *creationTime = [Property getAsDate:KEY_CREATION_TIME];
         if (creationTime) {
-            [mixpanel registerSuperPropertiesOnce:@{@"Creation Time": creationTime}];
+            [mixpanel registerSuperPropertiesOnce:@{@"Creation Time": [MixpanelUtil toUTFDateString:creationTime]}];
         }
         
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithCapacity:10];

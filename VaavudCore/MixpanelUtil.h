@@ -13,5 +13,6 @@
 + (void) registerUserAsMixpanelProfile;
 + (void) updateMeasurementProperties:(BOOL)onlySuperProperties;
 + (void) addMapInteractionToProfile;
++ (NSString*) toUTFDateString:(NSDate*)date;
 
 @end

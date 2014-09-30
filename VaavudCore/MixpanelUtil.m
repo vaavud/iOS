@@ -30,7 +30,7 @@
 
             [[Mixpanel sharedInstance].people set:@{
                                    @"$email": email,
-                                   @"$created": creationTime,
+                                   @"$created": [MixpanelUtil toUTFDateString:creationTime],
                                    @"$first_name": (firstName) ? firstName : [NSNull null],
                                    @"$last_name": (lastName) ? lastName : [NSNull null],
                                    @"Distinct Id": mixpanelId
@@ -38,12 +38,6 @@
 
             [MixpanelUtil updateMeasurementProperties:NO];
         }
-    }
-}
-
-+ (void) resetMixpanelProfile {
-    if ([Property isMixpanelPeopleEnabled]) {
-        
     }
 }
 
@@ -63,8 +57,8 @@
         [[Mixpanel sharedInstance].people set:@{
                                                 @"Measurements":[NSNumber numberWithInteger:measurementCount],
                                                 @"Real Measurements":[NSNumber numberWithInteger:realMeasurementCount],
-                                                @"First Measurement": (firstMeasurement) ? firstMeasurement : [NSNull null],
-                                                @"Last Measurement": (lastMeasurement) ? lastMeasurement : [NSNull null]
+                                                @"First Measurement": (firstMeasurement) ? [MixpanelUtil toUTFDateString:firstMeasurement] : [NSNull null],
+                                                @"Last Measurement": (lastMeasurement) ? [MixpanelUtil toUTFDateString:lastMeasurement] : [NSNull null]
                                                 }];
     }
 }
@@ -74,7 +68,7 @@
     if ([Property isMixpanelPeopleEnabled] && [[AccountManager sharedInstance] isLoggedIn] && [Property getAsString:KEY_USER_ID]) {
         
         [[Mixpanel sharedInstance].people increment:@{@"Map Interactions": @1}];
-        [[Mixpanel sharedInstance].people set:@{@"Last Map Interaction": [NSDate date]}];
+        [[Mixpanel sharedInstance].people set:@{@"Last Map Interaction": [MixpanelUtil toUTFDateString:[NSDate date]]}];
     }
 }
 
@@ -94,6 +88,18 @@
         return measurementSession.startTime;
     }
     return nil;
+}
+
++ (NSString*) toUTFDateString:(NSDate *)date {
+    
+    if (!date) {
+        return nil;
+    }
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
+    return [formatter stringFromDate:date];
 }
 
 @end

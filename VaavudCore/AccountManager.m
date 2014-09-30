@@ -365,7 +365,7 @@ BOOL isDoingLogout = NO;
                 [mixpanel identify:[userId stringValue]];
 
                 // register Mixpanel super properties
-                [mixpanel registerSuperProperties:@{@"User": @"true", @"Creation Time": [Property getAsDate:KEY_CREATION_TIME]}];
+                [mixpanel registerSuperProperties:@{@"User": @"true", @"Creation Time": [MixpanelUtil toUTFDateString:[Property getAsDate:KEY_CREATION_TIME]]}];
                 if (facebookId) {
                     [mixpanel registerSuperProperties:@{@"Facebook": @"true"}];
                 }
@@ -430,6 +430,7 @@ BOOL isDoingLogout = NO;
     if ([Property isMixpanelEnabled]) {
         Mixpanel *mixpanel = [Mixpanel sharedInstance];
         [mixpanel reset];
+        [mixpanel identify:[Property getAsString:KEY_DEVICE_UUID]];
     }
 
     // delete all measurement sessions
