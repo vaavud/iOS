@@ -306,6 +306,7 @@
 		E972381A1959A0A70003A9E4 /* Default~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = E972380D1959A0A70003A9E4 /* Default~ipad.png */; };
 		E972403419D97A74008642E2 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E972403319D97A74008642E2 /* FacebookSDK.framework */; };
 		E972403519D97A74008642E2 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E972403319D97A74008642E2 /* FacebookSDK.framework */; };
+		E972407419DAAB54008642E2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E972407319DAAB54008642E2 /* Images.xcassets */; };
 		E9793A85196C411C00E3823E /* ParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9793A84196C411C00E3823E /* ParentViewController.m */; };
 		E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */; };
 		E97AC6D018BCDE19004DEC65 /* TermsPrivacyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */; };
@@ -752,6 +753,7 @@
 		E972380C1959A0A70003A9E4 /* Default@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x~iphone.png"; sourceTree = "<group>"; };
 		E972380D1959A0A70003A9E4 /* Default~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~ipad.png"; sourceTree = "<group>"; };
 		E972403319D97A74008642E2 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		E972407319DAAB54008642E2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Vaavud/Images.xcassets; sourceTree = "<group>"; };
 		E9793A83196C411C00E3823E /* ParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentViewController.h; sourceTree = "<group>"; };
 		E9793A84196C411C00E3823E /* ParentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentViewController.m; sourceTree = "<group>"; };
 		E97AC6C818BCC66A004DEC65 /* TermsPrivacyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsPrivacyViewController.h; sourceTree = "<group>"; };
@@ -1179,6 +1181,7 @@
 		D7A4F1BE173A8DDB00D1ACEE = {
 			isa = PBXGroup;
 			children = (
+				E972407319DAAB54008642E2 /* Images.xcassets */,
 				E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */,
 				D7A4F1D0173A8DDB00D1ACEE /* Classes */,
 				D7A4F1C9173A8DDB00D1ACEE /* Frameworks */,
@@ -1409,40 +1412,6 @@
 		E98853C7176868BE00F78128 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				E9D9052119C9BE0600ABA9F4 /* mapmarker_no_direction@2x.png */,
-				E9D9051E19C9BDF400ABA9F4 /* mapmarker_no_direction.png */,
-				E9D904EE19C9BB4A00ABA9F4 /* mapmarker_w_direction_E@2x.png */,
-				E9D904EF19C9BB4A00ABA9F4 /* mapmarker_w_direction_ENE@2x.png */,
-				E9D904F019C9BB4A00ABA9F4 /* mapmarker_w_direction_ESE@2x.png */,
-				E9D904F119C9BB4A00ABA9F4 /* mapmarker_w_direction_N@2x.png */,
-				E9D904F219C9BB4A00ABA9F4 /* mapmarker_w_direction_NE@2x.png */,
-				E9D904F319C9BB4A00ABA9F4 /* mapmarker_w_direction_NNE@2x.png */,
-				E9D904F419C9BB4A00ABA9F4 /* mapmarker_w_direction_NNW@2x.png */,
-				E9D904F519C9BB4A00ABA9F4 /* mapmarker_w_direction_NW@2x.png */,
-				E9D904F619C9BB4A00ABA9F4 /* mapmarker_w_direction_SE@2x.png */,
-				E9D904F719C9BB4A00ABA9F4 /* mapmarker_w_direction_SSE@2x.png */,
-				E9D904F819C9BB4A00ABA9F4 /* mapmarker_w_direction_SSW@2x.png */,
-				E9D904F919C9BB4A00ABA9F4 /* mapmarker_w_direction_SW@2x.png */,
-				E9D904FA19C9BB4A00ABA9F4 /* mapmarker_w_direction_W@2x.png */,
-				E9D904FB19C9BB4A00ABA9F4 /* mapmarker_w_direction_WNW@2x.png */,
-				E9D904FC19C9BB4A00ABA9F4 /* mapmarker_w_direction_WSW@2x.png */,
-				E9D904FD19C9BB4A00ABA9F4 /* mapmarker_w_direction_S@2x.png */,
-				E9D904BE19C9BB2D00ABA9F4 /* mapmarker_w_direction_E.png */,
-				E9D904BF19C9BB2D00ABA9F4 /* mapmarker_w_direction_ENE.png */,
-				E9D904C019C9BB2D00ABA9F4 /* mapmarker_w_direction_ESE.png */,
-				E9D904C119C9BB2D00ABA9F4 /* mapmarker_w_direction_N.png */,
-				E9D904C219C9BB2D00ABA9F4 /* mapmarker_w_direction_NE.png */,
-				E9D904C319C9BB2D00ABA9F4 /* mapmarker_w_direction_NNE.png */,
-				E9D904C419C9BB2D00ABA9F4 /* mapmarker_w_direction_NNW.png */,
-				E9D904C519C9BB2D00ABA9F4 /* mapmarker_w_direction_NW.png */,
-				E9D904C619C9BB2D00ABA9F4 /* mapmarker_w_direction_SE.png */,
-				E9D904C719C9BB2D00ABA9F4 /* mapmarker_w_direction_SSE.png */,
-				E9D904C819C9BB2D00ABA9F4 /* mapmarker_w_direction_SSW.png */,
-				E9D904C919C9BB2D00ABA9F4 /* mapmarker_w_direction_SW.png */,
-				E9D904CA19C9BB2D00ABA9F4 /* mapmarker_w_direction_W.png */,
-				E9D904CB19C9BB2D00ABA9F4 /* mapmarker_w_direction_WNW.png */,
-				E9D904CC19C9BB2D00ABA9F4 /* mapmarker_w_direction_WSW.png */,
-				E9D904CD19C9BB2D00ABA9F4 /* mapmarker_w_direction_S.png */,
 				E91D4204198BDFEA00106E15 /* 001_basejumper@2x.jpg */,
 				E91D4205198BDFEA00106E15 /* 002_map@2x.jpg */,
 				E91D4206198BDFEA00106E15 /* 003_sign_up@2x.jpg */,
@@ -1453,11 +1422,6 @@
 				E91D420B198BDFEA00106E15 /* 007_reading@2x.jpg */,
 				E9A4098118A0EE1B004F1C12 /* about_action.png */,
 				E9A4098218A0EE1B004F1C12 /* about_action@2x.png */,
-				E97237EA195992080003A9E4 /* AppIcon100x100.png */,
-				E97237EB195992080003A9E4 /* AppIcon114x114.png */,
-				E97237EC195992080003A9E4 /* AppIcon120x120.png */,
-				E97237ED195992080003A9E4 /* AppIcon144x144.png */,
-				E97237EE195992080003A9E4 /* AppIcon152x152.png */,
 				E97237E1195992080003A9E4 /* AppIcon29x29.png */,
 				E97237E2195992080003A9E4 /* AppIcon40x40.png */,
 				E97237E3195992080003A9E4 /* AppIcon50x50.png */,
@@ -1467,6 +1431,11 @@
 				E97237E7195992080003A9E4 /* AppIcon72x72.png */,
 				E97237E8195992080003A9E4 /* AppIcon76x76.png */,
 				E97237E9195992080003A9E4 /* AppIcon80x80.png */,
+				E97237EA195992080003A9E4 /* AppIcon100x100.png */,
+				E97237EB195992080003A9E4 /* AppIcon114x114.png */,
+				E97237EC195992080003A9E4 /* AppIcon120x120.png */,
+				E97237ED195992080003A9E4 /* AppIcon144x144.png */,
+				E97237EE195992080003A9E4 /* AppIcon152x152.png */,
 				E9CB327719869B110043C8CE /* camera.png */,
 				E9CB327819869B110043C8CE /* camera@2x.png */,
 				E97238011959A0A60003A9E4 /* Default-568h-iOS7.png */,
@@ -1482,22 +1451,56 @@
 				E972380B1959A0A70003A9E4 /* Default@2x~ipad.png */,
 				E972380C1959A0A70003A9E4 /* Default@2x~iphone.png */,
 				E972380D1959A0A70003A9E4 /* Default~ipad.png */,
-				E9FABFD318929050009C4C46 /* history.png */,
-				E9FABFD418929050009C4C46 /* history@2x.png */,
 				E9FABFD118929050009C4C46 /* history_selected.png */,
 				E9FABFD218929050009C4C46 /* history_selected@2x.png */,
+				E9FABFD318929050009C4C46 /* history.png */,
+				E9FABFD418929050009C4C46 /* history@2x.png */,
 				E97237FD195993790003A9E4 /* logo.png */,
 				E97237FE195993790003A9E4 /* logo@2x.png */,
-				E91535AB1806C2D20070BFB4 /* map.png */,
-				E91535AC1806C2D20070BFB4 /* map@2x.png */,
 				E9FABFE218969A2F009C4C46 /* map_placeholder.png */,
 				E9FABFE318969A2F009C4C46 /* map_placeholder@2x.png */,
 				E91535C3180840D70070BFB4 /* map_selected.png */,
 				E91535C4180840D70070BFB4 /* map_selected@2x.png */,
-				E91535AF1806C2D20070BFB4 /* measure.png */,
-				E91535B01806C2D20070BFB4 /* measure@2x.png */,
+				E91535AB1806C2D20070BFB4 /* map.png */,
+				E91535AC1806C2D20070BFB4 /* map@2x.png */,
+				E9D9051E19C9BDF400ABA9F4 /* mapmarker_no_direction.png */,
+				E9D9052119C9BE0600ABA9F4 /* mapmarker_no_direction@2x.png */,
+				E9D904BE19C9BB2D00ABA9F4 /* mapmarker_w_direction_E.png */,
+				E9D904EE19C9BB4A00ABA9F4 /* mapmarker_w_direction_E@2x.png */,
+				E9D904BF19C9BB2D00ABA9F4 /* mapmarker_w_direction_ENE.png */,
+				E9D904EF19C9BB4A00ABA9F4 /* mapmarker_w_direction_ENE@2x.png */,
+				E9D904C019C9BB2D00ABA9F4 /* mapmarker_w_direction_ESE.png */,
+				E9D904F019C9BB4A00ABA9F4 /* mapmarker_w_direction_ESE@2x.png */,
+				E9D904C119C9BB2D00ABA9F4 /* mapmarker_w_direction_N.png */,
+				E9D904F119C9BB4A00ABA9F4 /* mapmarker_w_direction_N@2x.png */,
+				E9D904C219C9BB2D00ABA9F4 /* mapmarker_w_direction_NE.png */,
+				E9D904F219C9BB4A00ABA9F4 /* mapmarker_w_direction_NE@2x.png */,
+				E9D904C319C9BB2D00ABA9F4 /* mapmarker_w_direction_NNE.png */,
+				E9D904F319C9BB4A00ABA9F4 /* mapmarker_w_direction_NNE@2x.png */,
+				E9D904C419C9BB2D00ABA9F4 /* mapmarker_w_direction_NNW.png */,
+				E9D904F419C9BB4A00ABA9F4 /* mapmarker_w_direction_NNW@2x.png */,
+				E9D904C519C9BB2D00ABA9F4 /* mapmarker_w_direction_NW.png */,
+				E9D904F519C9BB4A00ABA9F4 /* mapmarker_w_direction_NW@2x.png */,
+				E9D904CD19C9BB2D00ABA9F4 /* mapmarker_w_direction_S.png */,
+				E9D904FD19C9BB4A00ABA9F4 /* mapmarker_w_direction_S@2x.png */,
+				E9D904C619C9BB2D00ABA9F4 /* mapmarker_w_direction_SE.png */,
+				E9D904F619C9BB4A00ABA9F4 /* mapmarker_w_direction_SE@2x.png */,
+				E9D904C719C9BB2D00ABA9F4 /* mapmarker_w_direction_SSE.png */,
+				E9D904F719C9BB4A00ABA9F4 /* mapmarker_w_direction_SSE@2x.png */,
+				E9D904C819C9BB2D00ABA9F4 /* mapmarker_w_direction_SSW.png */,
+				E9D904F819C9BB4A00ABA9F4 /* mapmarker_w_direction_SSW@2x.png */,
+				E9D904C919C9BB2D00ABA9F4 /* mapmarker_w_direction_SW.png */,
+				E9D904F919C9BB4A00ABA9F4 /* mapmarker_w_direction_SW@2x.png */,
+				E9D904CA19C9BB2D00ABA9F4 /* mapmarker_w_direction_W.png */,
+				E9D904FA19C9BB4A00ABA9F4 /* mapmarker_w_direction_W@2x.png */,
+				E9D904CB19C9BB2D00ABA9F4 /* mapmarker_w_direction_WNW.png */,
+				E9D904FB19C9BB4A00ABA9F4 /* mapmarker_w_direction_WNW@2x.png */,
+				E9D904CC19C9BB2D00ABA9F4 /* mapmarker_w_direction_WSW.png */,
+				E9D904FC19C9BB4A00ABA9F4 /* mapmarker_w_direction_WSW@2x.png */,
 				E91535C5180840D70070BFB4 /* measure_selected.png */,
 				E91535C6180840D70070BFB4 /* measure_selected@2x.png */,
+				E91535AF1806C2D20070BFB4 /* measure.png */,
+				E91535B01806C2D20070BFB4 /* measure@2x.png */,
 				E907093D193F4AFB0087F80F /* SettingsIcon.png */,
 				E9DE09D11935E4D5003877D9 /* SettingsIcon@2x.png */,
 				E9D9045C19C3155500ABA9F4 /* windarrow_red_E.png */,
@@ -2217,6 +2220,7 @@
 				E9D9051F19C9BDF400ABA9F4 /* mapmarker_no_direction.png in Resources */,
 				E91D420C198BDFEA00106E15 /* 001_basejumper@2x.jpg in Resources */,
 				E9D904A819C3156F00ABA9F4 /* windarrow_red_NNW@2x.png in Resources */,
+				E972407419DAAB54008642E2 /* Images.xcassets in Resources */,
 				E9D9047819C3155500ABA9F4 /* windarrow_red_NNW.png in Resources */,
 				E9D9047419C3155500ABA9F4 /* windarrow_red_NE.png in Resources */,
 				E948383919B75320009595B0 /* VERSION in Resources */,
@@ -2860,6 +2864,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D99B754D5D7EF24DCE1202B3 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2893,6 +2899,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CDE6761506C86D4075981625 /* Pods.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
