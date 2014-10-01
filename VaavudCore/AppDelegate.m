@@ -44,7 +44,7 @@
     [MagicalRecord setupAutoMigratingCoreDataStack];
     [[ModelManager sharedInstance] initializeModel];
     [[ServerUploadManager sharedInstance] start];
-    [[LocationManager sharedInstance] start];
+    [[LocationManager sharedInstance] startIfEnabled];
     //[FBSettings setLoggingBehavior:[NSSet setWithObjects:FBLoggingBehaviorFBRequests, FBLoggingBehaviorInformational, nil]];
     
     self.xCallbackSuccess = nil;

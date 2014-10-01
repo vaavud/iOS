@@ -839,6 +839,8 @@ SHARED_INSTANCE
 
 - (void) lookupTemperatureForLocation:(double)latitude longitude:(double)longitude success:(void(^)(NSNumber *temperature))success failure:(void(^)(NSError *error))failure {
     
+    NSLog(@"[ServerUploadManager] Lookup temperature for location (%f, %f)", latitude, longitude);
+    
     if (isnan(latitude) || isnan(longitude) || (latitude == 0.0 && longitude == 0.0)) {
         if (failure) {
             failure(nil);
@@ -854,6 +856,8 @@ SHARED_INSTANCE
     }
     
     NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:OPEN_WEATHERMAP_APIID, @"APIID", [NSNumber numberWithDouble:latitude], @"lat", [NSNumber numberWithDouble:longitude], @"lon", nil];
+    
+    NSLog(@"[ServerUploadManager] Calling OpenWeatherMap");
     
     [[VaavudAPIHTTPClient sharedInstance] getPath:@"http://api.openweathermap.org/data/2.5/weather" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         

@@ -23,12 +23,13 @@
 #import "UnitUtil.h"
 #import "MixpanelUtil.h"
 #import "AppDelegate.h"
+#import "LocationManager.h"
 #import <math.h>
 #import <FacebookSDK/FacebookSDK.h>
 
 @interface MeasureViewController ()
 
-// Common
+@property (nonatomic) BOOL lookupTemperature;
 
 @property (nonatomic) BOOL buttonShowsStart;
 
@@ -288,6 +289,11 @@
 }
 
 - (void) startWithUITracking:(BOOL)uiTracking {
+    
+    // this does nothing if location services are already started, but otherwise it will prompt the user to allow
+    // vaavud to use location if we're not already allowed
+    
+    [[LocationManager sharedInstance] start];
     
     // update start/stop button text...
     
@@ -674,6 +680,9 @@
 }
 
 - (void) updateTemperature:(NSNumber*)temperature {
+    
+    NSLog(@"[MeasureViewController] Got temperature %@", temperature);
+    
     self.currentTemperature = temperature;
     if (self.temperatureLabel && temperature) {
         self.temperatureLabel.text = [self formatValue:[temperature floatValue] - 273.15F];

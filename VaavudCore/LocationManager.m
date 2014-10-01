@@ -15,6 +15,7 @@
 @property (nonatomic) CLLocationManager *locationManager;
 @property (nonatomic) NSDate *latestLocationTimestamp;
 @property (nonatomic) BOOL isStarted;
+@property (nonatomic) BOOL shouldPromptForPermission;
 
 @end
 
@@ -30,15 +31,8 @@ SHARED_INSTANCE
     self = [super init];
     
     if (self) {
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        self.locationManager.distanceFilter = kCLDistanceFilterNone;
         self.isStarted = NO;
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
+        self.shouldPromptForPermission = NO;
     }
     
     return self;
@@ -51,30 +45,90 @@ SHARED_INSTANCE
 
 - (void) appDidBecomeActive:(NSNotification*) notification {
     //NSLog(@"[LocationManager] appDidBecomeActive");
-    [self start];
+    [self doStart];
 }
 
 -(void) appWillTerminate:(NSNotification*) notification {
     NSLog(@"[LocationManager] appWillTerminate");
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
+    if (self.isStarted) {
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
+    }
+}
+
+- (void) startIfEnabled {
+    self.shouldPromptForPermission = NO;
+    [self doStart];
 }
 
 - (void) start {
+    self.shouldPromptForPermission = YES;
+    [self doStart];
+}
+
+- (void) doStart {
     if (!self.isStarted) {
-        BOOL shouldPromptForLocation = NO;
-        if (![Property getAsBoolean:KEY_HAS_PROMPTED_FOR_LOCATION]) {
-            shouldPromptForLocation = YES;
-            [Property setAsBoolean:YES forKey:KEY_HAS_PROMPTED_FOR_LOCATION];
-            NSLog(@"[LocationManager] Has not prompted for location");
-        }
         
-        if ([CLLocationManager locationServicesEnabled] || shouldPromptForLocation) {
-            NSLog(@"[LocationManager] Starting location updates");
-            [self.locationManager startUpdatingLocation];
-            self.isStarted = YES;
+        CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
+        
+        NSLog(@"[LocationManager] Authorization status is %u", authorizationStatus);
+        
+        if (authorizationStatus == kCLAuthorizationStatusRestricted || authorizationStatus == kCLAuthorizationStatusDenied) {
+            self.latestLocation = CLLocationCoordinate2DMake(0, 0);
+            return;
         }
+
+        if (!self.locationManager) {
+            self.locationManager = [[CLLocationManager alloc] init];
+            self.locationManager.delegate = self;
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+            self.locationManager.distanceFilter = kCLDistanceFilterNone;
+        }
+
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+            
+            if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
+                
+                if (self.shouldPromptForPermission) {
+                    NSLog(@"[LocationManager] Request when-in-use location authorization");
+                    [self.locationManager requestWhenInUseAuthorization];
+                }
+            }
+            else {
+                if ([CLLocationManager locationServicesEnabled]) {
+                    [self startUpdating];
+                }
+            }
+        }
+        else {
+            if ([CLLocationManager locationServicesEnabled] &&
+                (authorizationStatus != kCLAuthorizationStatusNotDetermined || self.shouldPromptForPermission)) {
+                
+                [self startUpdating];
+            }
+        }
+    }
+}
+
+- (void) startUpdating {
+
+    NSLog(@"[LocationManager] Starting location updates");
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
+
+    [self.locationManager startUpdatingLocation];
+    self.isStarted = YES;
+}
+
+- (void) locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    
+    NSLog(@"[LocationManager] Changed authorization status to %u", status);
+    
+    if (status != kCLAuthorizationStatusRestricted && status != kCLAuthorizationStatusDenied && status != kCLAuthorizationStatusNotDetermined) {
+        [self startUpdating];
     }
 }
 

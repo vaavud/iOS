@@ -14,9 +14,9 @@
 @property (nonatomic) CLLocationCoordinate2D latestLocation;
 
 + (LocationManager *) sharedInstance;
-
 + (BOOL) isCoordinateValid:(CLLocationCoordinate2D) coordinate;
 
 - (void) start;
+- (void) startIfEnabled;
 
 @end

@@ -19,7 +19,6 @@
 
 @interface SavingWindMeasurementController ()
 
-@property (nonatomic) BOOL isTemperatureLookupInitiated;
 @property (nonatomic) BOOL hasBeenStopped;
 @property (nonatomic) BOOL wasValid;
 @property (nonatomic, weak) WindMeasurementController *controller;
@@ -28,6 +27,7 @@
 @property (nonatomic, strong) NSNumber *currentMaxSpeed;
 @property (nonatomic, strong) NSNumber *currentDirection;
 @property (nonatomic, strong) NSDate *lastSaveTime;
+@property (nonatomic, strong) NSTimer *temperatureLookupTimer;
 
 @end
 
@@ -74,7 +74,7 @@ SHARED_INSTANCE
         measurementSession.measuring = [NSNumber numberWithBool:YES];
         measurementSession.uploaded = [NSNumber numberWithBool:NO];
         measurementSession.startIndex = [NSNumber numberWithInt:0];
-        [self updateMeasurementSessionLocation];
+        [self updateMeasurementSessionLocation:measurementSession];
         
         AppDelegate *appDelegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
         if (appDelegate.xCallbackSuccess && appDelegate.xCallbackSuccess != nil && appDelegate.xCallbackSuccess != (id)[NSNull null] && [appDelegate.xCallbackSuccess length] > 0) {
@@ -100,8 +100,7 @@ SHARED_INSTANCE
         // lookup temperature
         
         if (self.lookupTemperature) {
-            self.isTemperatureLookupInitiated = NO;
-            [self initiateTemperatureLookup];
+            self.temperatureLookupTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(initiateTemperatureLookup) userInfo:nil repeats:YES];
         }
 
         [self.controller start];
@@ -114,6 +113,11 @@ SHARED_INSTANCE
         return 0.0;
     }
     self.hasBeenStopped = YES;
+
+    if (self.temperatureLookupTimer) {
+        [self.temperatureLookupTimer invalidate];
+        self.temperatureLookupTimer = nil;
+    }
 
     if (self.controller) {
         [self.controller stop];
@@ -184,11 +188,6 @@ SHARED_INSTANCE
         return;
     }
 
-    if (self.lookupTemperature && !self.isTemperatureLookupInitiated) {
-        // temperature will only be looked up once, but the following call will only succeed if we've got a location
-        [self initiateTemperatureLookup];
-    }
-
     //NSLog(@"[SavingWindMeasurementController] Adding measurement, current=%@, avg=%@, max=%@", currentSpeed, avgSpeed, maxSpeed);
     
     // only save if more than SAVE_MINIMUM_INTERVAL_SECONDS has passed since we last saved a point
@@ -198,7 +197,7 @@ SHARED_INSTANCE
         self.lastSaveTime = now;
         
         // update location to the latest position (we might not have a fix when pressing start)
-        [self updateMeasurementSessionLocation];
+        [self updateMeasurementSessionLocation:measurementSession];
         
         // always update measurement session's endtime and summary info
         measurementSession.endTime = [NSDate date];
@@ -282,13 +281,15 @@ SHARED_INSTANCE
 
 #pragma mark Location methods
 
-- (void) updateMeasurementSessionLocation {
+- (void) updateMeasurementSessionLocation:(MeasurementSession*)measurementSession {
 
-    MeasurementSession *measurementSession = [self getActiveMeasurementSession];
     if (measurementSession && [measurementSession.measuring boolValue]) {
 
         CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
         if ([LocationManager isCoordinateValid:latestLocation]) {
+            
+            //NSLog(@"[SavingWindMeasurementController] Valid location (%+.6f, %+.6f)", latestLocation.latitude, latestLocation.longitude);
+            
             measurementSession.latitude = [NSNumber numberWithDouble:latestLocation.latitude];
             measurementSession.longitude = [NSNumber numberWithDouble:latestLocation.longitude];
         }
@@ -307,15 +308,25 @@ SHARED_INSTANCE
 
 - (void) initiateTemperatureLookup {
 
+    NSLog(@"[SavingWindMeasurementController] initiateTemperatureLookup");
+    
     MeasurementSession *measurementSession = [self getActiveMeasurementSession];
     if (measurementSession && [measurementSession.measuring boolValue]) {
 
+        NSLog(@"[SavingWindMeasurementController] Has measurement session");
+        
         CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
         if ([LocationManager isCoordinateValid:latestLocation]) {
-            
-            self.isTemperatureLookupInitiated = YES;
+
+            NSLog(@"[SavingWindMeasurementController] Has location");
+
+            if (self.temperatureLookupTimer) {
+                [self.temperatureLookupTimer invalidate];
+                self.temperatureLookupTimer = nil;
+            }
             
             [[ServerUploadManager sharedInstance] lookupTemperatureForLocation:latestLocation.latitude longitude:latestLocation.longitude success:^(NSNumber *temperature) {
+                
                 NSLog(@"[SavingWindMeasurementController] Got success looking up temperature: %@", temperature);
                 if (temperature) {
                     if (self.delegate && [self.delegate respondsToSelector:@selector(updateTemperature:)]) {

@@ -13,7 +13,6 @@
 
 @interface MeasureViewController : UIViewController <UIAlertViewDelegate, ShareDialogDelegate, WindMeasurementControllerDelegate>
 
-@property (nonatomic) BOOL lookupTemperature;
 @property (nonatomic) BOOL shareToFacebook;
 
 - (UILabel*) averageHeadingLabel;
