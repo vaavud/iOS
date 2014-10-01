@@ -718,7 +718,7 @@ SHARED_INSTANCE
                     measurementSession.uuid = uuid;
                     measurementSession.device = deviceUuid;
                     measurementSession.startTime = startTime;
-                    measurementSession.timezoneOffset = [NSNumber numberWithInt:[[NSTimeZone localTimeZone] secondsFromGMTForDate:measurementSession.startTime]];
+                    measurementSession.timezoneOffset = [NSNumber numberWithInt:(int) [[NSTimeZone localTimeZone] secondsFromGMTForDate:measurementSession.startTime]];
                     measurementSession.endTime = endTime;
                     measurementSession.measuring = [NSNumber numberWithBool:NO];
                     measurementSession.uploaded = [NSNumber numberWithBool:YES];

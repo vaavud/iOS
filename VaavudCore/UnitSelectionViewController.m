@@ -50,7 +50,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"UnitCellIdentifier" forIndexPath:indexPath];
     NSNumber *unit = self.units[indexPath.item];
-    cell.textLabel.text = [UnitUtil displayNameForWindSpeedUnit:[unit integerValue]];
+    cell.textLabel.text = [UnitUtil displayNameForWindSpeedUnit:(int) [unit integerValue]];
     cell.textLabel.textColor = [UIColor darkGrayColor];
 
     if ([unit integerValue] == [[Property getAsInteger:KEY_WIND_SPEED_UNIT] integerValue]) {

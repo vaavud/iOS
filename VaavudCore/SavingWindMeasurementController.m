@@ -69,7 +69,7 @@ SHARED_INSTANCE
         measurementSession.device = [Property getAsString:KEY_DEVICE_UUID];
         measurementSession.windMeter = [NSNumber numberWithInteger:[self.controller windMeterDeviceType]];
         measurementSession.startTime = [NSDate date];
-        measurementSession.timezoneOffset = [NSNumber numberWithInt:[[NSTimeZone localTimeZone] secondsFromGMTForDate:measurementSession.startTime]];
+        measurementSession.timezoneOffset = [NSNumber numberWithInt:(int) [[NSTimeZone localTimeZone] secondsFromGMTForDate:measurementSession.startTime]];
         measurementSession.endTime = measurementSession.startTime;
         measurementSession.measuring = [NSNumber numberWithBool:YES];
         measurementSession.uploaded = [NSNumber numberWithBool:NO];
