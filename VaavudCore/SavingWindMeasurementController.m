@@ -313,7 +313,7 @@ SHARED_INSTANCE
     MeasurementSession *measurementSession = [self getActiveMeasurementSession];
     if (measurementSession && [measurementSession.measuring boolValue]) {
 
-        NSLog(@"[SavingWindMeasurementController] Has measurement session");
+        //NSLog(@"[SavingWindMeasurementController] Has measurement session");
         
         CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
         if ([LocationManager isCoordinateValid:latestLocation]) {

@@ -45,6 +45,8 @@
 	<string>Vaavud</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We use your location to lookup temperature and report where the measurement was taken.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Arkitech Medium.ttf</string>
