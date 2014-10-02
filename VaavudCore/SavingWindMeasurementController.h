@@ -7,6 +7,7 @@
 //
 
 #import "WindMeasurementController.h"
+#import "MeasurementSession+Util.h"
 
 @interface SavingWindMeasurementController : WindMeasurementController <WindMeasurementControllerDelegate>
 
@@ -17,5 +18,6 @@
 
 - (void) setHardwareController:(WindMeasurementController*)controller;
 - (void) clearHardwareController;
+- (MeasurementSession*) getLatestMeasurementSession;
 
 @end

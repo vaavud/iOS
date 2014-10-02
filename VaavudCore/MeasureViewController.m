@@ -31,8 +31,6 @@
 
 @property (nonatomic) BOOL lookupTemperature;
 
-@property (nonatomic) BOOL buttonShowsStart;
-
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
 @property (nonatomic) NSInteger directionUnit;
 
@@ -295,6 +293,20 @@
     }
 }
 
+// for subclasses
+- (void) start {
+    [self startWithUITracking:YES];
+}
+
+// for subclasses
+- (void) stop {
+    [self stopWithUITracking:YES action:@"Button"];
+}
+
+- (NSString*) stopButtonTitle {
+    return NSLocalizedString(@"BUTTON_STOP", nil);
+}
+
 - (void) startWithUITracking:(BOOL)uiTracking {
     
     // this does nothing if location services are already started, but otherwise it will prompt the user to allow
@@ -308,7 +320,7 @@
     
     if (self.startStopButton) {
         self.startStopButton.backgroundColor = [UIColor vaavudRedColor];
-        [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_STOP", nil) forState:UIControlStateNormal];
+        [self.startStopButton setTitle:[self stopButtonTitle] forState:UIControlStateNormal];
     }
     
     // reset labels, status bar, and graph...
@@ -322,11 +334,13 @@
     self.averageLabelCurrentValue = nil;
     self.maxLabelCurrentValue = nil;
     self.directionLabelCurrentValue = nil;
+    self.currentTemperature = nil;
     self.lastValidityChangeTime = [NSDate date];
     self.nonValidDuration = 0.0;
     self.isValid = YES;
     [self updateLabelsFromCurrentValues];
     [self updateDirectionFromCurrentValue];
+    self.temperatureLabel.text = @"-";
 
     if (self.graphContainer) {
         [self createGraphView];
@@ -375,6 +389,12 @@
             [mixpanel track:@"Start Measurement" properties:@{@"Wind Meter": [controller mixpanelWindMeterName]}];
         }
     }
+    
+    [self measurementStarted];
+}
+
+// for subclasses
+- (void) measurementStarted {
 }
 
 - (void) stopWithUITracking:(BOOL)uiTracking action:(NSString*)action {
@@ -437,6 +457,11 @@
             }
         }
         
+        MeasurementSession *session = [controller getLatestMeasurementSession];
+        if (session) {
+            [self measurementStopped:session];
+        }
+        
         // check if we were called from another app and return to it if so...
         
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
@@ -462,6 +487,10 @@
             [self promptForFacebookSharing];
         }
     }
+}
+
+// for subclasses
+- (void) measurementStopped:(MeasurementSession*)measurementSession {
 }
 
 /*
@@ -715,7 +744,7 @@
 
 - (void) updateTemperature:(NSNumber*)temperature {
     
-    NSLog(@"[MeasureViewController] Got temperature %@", temperature);
+    //NSLog(@"[MeasureViewController] Got temperature %@", temperature);
     
     self.currentTemperature = temperature;
     if (self.temperatureLabel && temperature) {

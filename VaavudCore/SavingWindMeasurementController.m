@@ -126,7 +126,7 @@ SHARED_INSTANCE
     NSTimeInterval durationSeconds = 0.0;
     
     // note: active measurement session may become nil if it is deleted from history while measuring
-    MeasurementSession *measurementSession = [self getActiveMeasurementSession];
+    MeasurementSession *measurementSession = [self getLatestMeasurementSession];
     if (measurementSession && [measurementSession.measuring boolValue]) {
 
         measurementSession.measuring = [NSNumber numberWithBool:NO];
@@ -151,8 +151,7 @@ SHARED_INSTANCE
             }
         }];
     }
-    self.measurementSessionUuid = nil;
-        
+    
     return durationSeconds;
 }
 
@@ -163,7 +162,7 @@ SHARED_INSTANCE
     return UnknownWindMeterDeviceType;
 }
 
-- (MeasurementSession*) getActiveMeasurementSession {
+- (MeasurementSession*) getLatestMeasurementSession {
     if (self.measurementSessionUuid) {
         return [MeasurementSession MR_findFirstByAttribute:@"uuid" withValue:self.measurementSessionUuid];
     }
@@ -176,7 +175,7 @@ SHARED_INSTANCE
 
 - (void) addSpeedMeasurement:(NSNumber*)currentSpeed avgSpeed:(NSNumber*)avgSpeed maxSpeed:(NSNumber*)maxSpeed {
     
-    MeasurementSession *measurementSession = [self getActiveMeasurementSession];
+    MeasurementSession *measurementSession = [self getLatestMeasurementSession];
     if (!measurementSession || ![measurementSession.measuring boolValue]) {
         // Measurement session became nil or "measuring" became NO during measuring which is most likely due to it being
         // deleted from the history or ServerUploadManager toggled the measuring flag to NO after a long period of
@@ -225,16 +224,18 @@ SHARED_INSTANCE
 
 - (void) updateDirection:(NSNumber*)direction {
     
-    self.currentDirection = direction;
-    
-    if (self.delegate && [self.delegate respondsToSelector:@selector(updateDirection:)]) {
-        [self.delegate updateDirection:direction];
+    if (direction) {
+        self.currentDirection = direction;
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(updateDirection:)]) {
+            [self.delegate updateDirection:direction];
+        }
     }
 }
 
 - (void) changedValidity:(BOOL)isValid dynamicsIsValid:(BOOL)dynamicsIsValid {
     
-    MeasurementSession *measurementSession = [self getActiveMeasurementSession];
+    MeasurementSession *measurementSession = [self getLatestMeasurementSession];
     if (!isValid && self.wasValid && measurementSession && [measurementSession.measuring boolValue]) {
         // current measurement is not valid, but the previous one was, so add a point indicating that there is a "hole" in the data
         
@@ -310,7 +311,7 @@ SHARED_INSTANCE
 
     NSLog(@"[SavingWindMeasurementController] initiateTemperatureLookup");
     
-    MeasurementSession *measurementSession = [self getActiveMeasurementSession];
+    MeasurementSession *measurementSession = [self getLatestMeasurementSession];
     if (measurementSession && [measurementSession.measuring boolValue]) {
 
         //NSLog(@"[SavingWindMeasurementController] Has measurement session");
@@ -325,17 +326,34 @@ SHARED_INSTANCE
                 self.temperatureLookupTimer = nil;
             }
             
-            [[ServerUploadManager sharedInstance] lookupTemperatureForLocation:latestLocation.latitude longitude:latestLocation.longitude success:^(NSNumber *temperature) {
+            [[ServerUploadManager sharedInstance] lookupTemperatureForLocation:latestLocation.latitude longitude:latestLocation.longitude success:^(NSNumber *temperature, NSNumber *direction) {
                 
                 NSLog(@"[SavingWindMeasurementController] Got success looking up temperature: %@", temperature);
                 if (temperature) {
+
+                    BOOL updatedDirection = NO;
+                    
+                    MeasurementSession *measurementSession = [self getLatestMeasurementSession];
+
+                    if (measurementSession) {
+                        measurementSession.temperature = temperature;
+
+                        BOOL hasDirection = (measurementSession.windDirection && (measurementSession.windDirection != (id)[NSNull null]));
+                        if (!hasDirection) {
+                            measurementSession.windDirection = direction;
+                            self.currentDirection = direction;
+                            updatedDirection = YES;
+                        }
+                        
+                        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
+                    }
+
                     if (self.delegate && [self.delegate respondsToSelector:@selector(updateTemperature:)]) {
                         [self.delegate updateTemperature:temperature];
                     }
-                    
-                    if (measurementSession) {
-                        measurementSession.temperature = temperature;
-                        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
+
+                    if (updatedDirection && self.delegate && [self.delegate respondsToSelector:@selector(updateDirection:)]) {
+                        [self.delegate updateDirection:direction];
                     }
                 }
             } failure:^(NSError *error) {

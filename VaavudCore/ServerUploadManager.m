@@ -837,7 +837,7 @@ SHARED_INSTANCE
     }];
 }
 
-- (void) lookupTemperatureForLocation:(double)latitude longitude:(double)longitude success:(void(^)(NSNumber *temperature))success failure:(void(^)(NSError *error))failure {
+- (void) lookupTemperatureForLocation:(double)latitude longitude:(double)longitude success:(void(^)(NSNumber *temperature, NSNumber *direction))success failure:(void(^)(NSError *error))failure {
     
     NSLog(@"[ServerUploadManager] Lookup temperature for location (%f, %f)", latitude, longitude);
     
@@ -861,13 +861,16 @@ SHARED_INSTANCE
     
     [[VaavudAPIHTTPClient sharedInstance] getPath:@"http://api.openweathermap.org/data/2.5/weather" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSLog(@"[ServerUploadManager] Got successful response looking up temperature");
-        
         id main = [responseObject objectForKey:@"main"];
-        NSNumber *temperature = [main objectForKey:@"temp"];
+        NSNumber *temperature = (main) ? [main objectForKey:@"temp"] : nil;
         
+        id wind = [responseObject objectForKey:@"wind"];
+        NSNumber *direction = (wind) ? [wind objectForKey:@"deg"] : nil;
+        
+        NSLog(@"[ServerUploadManager] Got successful response looking up temperature %@ and direction %@", temperature, direction);
+
         if (success) {
-            success(temperature);
+            success(temperature, direction);
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

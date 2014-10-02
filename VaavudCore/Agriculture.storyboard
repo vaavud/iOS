@@ -387,11 +387,54 @@
                         <outlet property="temperatureUnitLabel" destination="jdj-AK-F1B" id="5Ye-68-IcV"/>
                         <outlet property="windSpeedHeadingLabel" destination="ZVB-bG-4my" id="uAt-eE-ltd"/>
                         <outlet property="windSpeedUnitLabel" destination="nJ1-M8-Prc" id="2JK-WC-dv6"/>
+                        <segue destination="vvQ-kX-qaj" kind="push" identifier="manualTemperatureSegue" id="dap-o8-Kkj"/>
+                        <segue destination="BZZ-m9-bww" kind="push" identifier="resultSegue" id="7Oh-PO-dec"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uhp-Xt-WzD" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="730" y="-769"/>
+        </scene>
+        <!--Manual Temperature View Controller-->
+        <scene sceneID="E7h-FH-qKa">
+            <objects>
+                <viewController id="vvQ-kX-qaj" userLabel="Manual Temperature View Controller" customClass="AgriManualTemperatureViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ijf-d5-qoc"/>
+                        <viewControllerLayoutGuide type="bottom" id="1Sm-Xd-ZKB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="k6L-ka-KWv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="511-r9-Ocj"/>
+                    <connections>
+                        <segue destination="BZZ-m9-bww" kind="push" identifier="resultSegue" id="y4C-G3-QSJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nkm-j9-mAm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1230" y="-769"/>
+        </scene>
+        <!--Result View Controller-->
+        <scene sceneID="g2v-ca-b0o">
+            <objects>
+                <viewController id="BZZ-m9-bww" userLabel="Result View Controller" customClass="AgriResultViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GkA-cp-Kxz"/>
+                        <viewControllerLayoutGuide type="bottom" id="LCF-mO-vBS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="i56-p5-Kkb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="O9Y-3T-Tu4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yf9-zm-ABM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1718" y="-769"/>
         </scene>
     </scenes>
     <resources>
@@ -404,4 +447,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="y4C-G3-QSJ"/>
+    </inferredMetricsTieBreakers>
 </document>

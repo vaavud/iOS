@@ -25,6 +25,10 @@
 		D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C860ED173AD08F005E9946 /* QuartzCore.framework */; };
 		D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */; };
 		D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DA72401743C1CD00DFE962 /* Accelerate.framework */; };
+		E9002DB919DD6993002D0132 /* AgriManualTemperatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9002DB819DD6993002D0132 /* AgriManualTemperatureViewController.m */; };
+		E9002DBA19DD6993002D0132 /* AgriManualTemperatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9002DB819DD6993002D0132 /* AgriManualTemperatureViewController.m */; };
+		E9002DBD19DD69CD002D0132 /* AgriResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9002DBC19DD69CD002D0132 /* AgriResultViewController.m */; };
+		E9002DBE19DD69CD002D0132 /* AgriResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9002DBC19DD69CD002D0132 /* AgriResultViewController.m */; };
 		E904AC9817F08F6E00171F7F /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9717F08F6E00171F7F /* MapViewController.m */; };
 		E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E904AC9917F0911000171F7F /* MapKit.framework */; };
 		E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */; };
@@ -583,6 +587,10 @@
 		D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudMagneticFieldDataManager.m; sourceTree = "<group>"; };
 		D7DA72401743C1CD00DFE962 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		D99B754D5D7EF24DCE1202B3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		E9002DB719DD6993002D0132 /* AgriManualTemperatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriManualTemperatureViewController.h; sourceTree = "<group>"; };
+		E9002DB819DD6993002D0132 /* AgriManualTemperatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriManualTemperatureViewController.m; sourceTree = "<group>"; };
+		E9002DBB19DD69CD002D0132 /* AgriResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriResultViewController.h; sourceTree = "<group>"; };
+		E9002DBC19DD69CD002D0132 /* AgriResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriResultViewController.m; sourceTree = "<group>"; };
 		E904AC9617F08F6E00171F7F /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		E904AC9717F08F6E00171F7F /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		E904AC9917F0911000171F7F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -1700,6 +1708,10 @@
 				E9C7798919AB7C09000A6921 /* AgriMeasureViewController.m */,
 				E9C7798C19AB87D1000A6921 /* AgriMeasureNavigationController.h */,
 				E9C7798D19AB87D1000A6921 /* AgriMeasureNavigationController.m */,
+				E9002DB719DD6993002D0132 /* AgriManualTemperatureViewController.h */,
+				E9002DB819DD6993002D0132 /* AgriManualTemperatureViewController.m */,
+				E9002DBB19DD69CD002D0132 /* AgriResultViewController.h */,
+				E9002DBC19DD69CD002D0132 /* AgriResultViewController.m */,
 			);
 			name = Measure;
 			sourceTree = "<group>";
@@ -2409,6 +2421,7 @@
 				E912793518BF7893009C7769 /* NoHistoryArrowView.m in Sources */,
 				E9CD224B177B2AEA0054ED3F /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				E9CD224C177B2AEA0054ED3F /* NSPersistentStore+MagicalRecord.m in Sources */,
+				E9002DBD19DD69CD002D0132 /* AgriResultViewController.m in Sources */,
 				E9CD224D177B2AEA0054ED3F /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
 				E9B950E4195C587800E9EF02 /* FirstTimeFlowController.m in Sources */,
 				E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */,
@@ -2416,6 +2429,7 @@
 				E9CD224F177B2AEA0054ED3F /* MagicalRecord+ErrorHandling.m in Sources */,
 				E948382D19B75320009595B0 /* EZMicrophone.m in Sources */,
 				E9B950E3195C587800E9EF02 /* FirstTimeExplanationViewController.m in Sources */,
+				E9002DB919DD6993002D0132 /* AgriManualTemperatureViewController.m in Sources */,
 				E9CD2250177B2AEA0054ED3F /* MagicalRecord+iCloud.m in Sources */,
 				E9CD2251177B2AEA0054ED3F /* MagicalRecord+Options.m in Sources */,
 				E93C5C3717EC826800E84D3C /* TabBarController.m in Sources */,
@@ -2539,6 +2553,7 @@
 				E9D9045B19C1EA2C00ABA9F4 /* DirectionSelectionTableViewController.m in Sources */,
 				E96FB53019A353B500CB7306 /* NoHistoryArrowView.m in Sources */,
 				E96FB53119A353B500CB7306 /* NSManagedObjectModel+MagicalRecord.m in Sources */,
+				E9002DBE19DD69CD002D0132 /* AgriResultViewController.m in Sources */,
 				E96FB53219A353B500CB7306 /* NSPersistentStore+MagicalRecord.m in Sources */,
 				E96FB53319A353B500CB7306 /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
 				E96FB53419A353B500CB7306 /* FirstTimeFlowController.m in Sources */,
@@ -2546,6 +2561,7 @@
 				E96FB53619A353B500CB7306 /* MagicalRecord+Actions.m in Sources */,
 				E96FB53719A353B500CB7306 /* MagicalRecord+ErrorHandling.m in Sources */,
 				E948382E19B75320009595B0 /* EZMicrophone.m in Sources */,
+				E9002DBA19DD6993002D0132 /* AgriManualTemperatureViewController.m in Sources */,
 				E96FB53819A353B500CB7306 /* FirstTimeExplanationViewController.m in Sources */,
 				E96FB53919A353B500CB7306 /* MagicalRecord+iCloud.m in Sources */,
 				E96FB53A19A353B500CB7306 /* MagicalRecord+Options.m in Sources */,

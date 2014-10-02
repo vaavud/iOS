@@ -10,6 +10,7 @@
 #import "UIColor+VaavudColors.h"
 #import "Property+Util.h"
 #import "UnitUtil.h"
+#import "MeasurementSession+Util.h"
 
 @interface AgriMeasureViewController ()
 
@@ -30,6 +31,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
 @property (weak, nonatomic) IBOutlet UIView *graphContainer;
+
+@property (nonatomic, strong) MeasurementSession *measurementSession;
 
 @end
 
@@ -59,12 +62,40 @@
     self.windSpeedUnitLabel.text = [UnitUtil displayNameForWindSpeedUnit:windSpeedUnit];
 }
 
+- (NSString*) stopButtonTitle {
+    return NSLocalizedString(@"BUTTON_CANCEL", nil);
+}
+
 - (IBAction) startStopButtonPushed:(id)sender {
+    self.measurementSession = nil;
     [super startStopButtonPushed:sender];
+    self.nextButton.enabled = !self.buttonShowsStart;
+}
+
+- (void) measurementStopped:(MeasurementSession*)measurementSession {
+    self.measurementSession = measurementSession;
 }
 
 - (IBAction) nextButtonPushed:(id)sender {
-
+    
+    [self stop];
+    
+    if (self.measurementSession) {
+        BOOL hasTemperature = (self.measurementSession.temperature && (self.measurementSession.temperature != (id)[NSNull null]) && ([self.measurementSession.temperature floatValue] > 0.0f));
+        BOOL hasDirection = (self.measurementSession.windDirection && (self.measurementSession.windDirection != (id)[NSNull null]));
+        
+        NSLog(@"[AgriMeasureViewController] Next with temperature=%@ and direction=%@", self.measurementSession.temperature, self.measurementSession.windDirection);
+        
+        if (hasTemperature && hasDirection) {
+            [self performSegueWithIdentifier:@"resultSegue" sender:self];
+        }
+        else if (!hasTemperature) {
+            [self performSegueWithIdentifier:@"temperatureSegue" sender:self];
+        }
+        else {
+            NSLog(@"[AgriMeasureViewController] Missing segue for manual direction");
+        }
+    }
 }
 
 @end

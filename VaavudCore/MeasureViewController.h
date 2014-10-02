@@ -10,10 +10,12 @@
 #import "CorePlot-CocoaTouch.h"
 #import "ShareDialog.h"
 #import "WindMeasurementController.h"
+#import "MeasurementSession+Util.h"
 
 @interface MeasureViewController : UIViewController <UIAlertViewDelegate, ShareDialogDelegate, WindMeasurementControllerDelegate>
 
 @property (nonatomic) BOOL shareToFacebook;
+@property (nonatomic) BOOL buttonShowsStart;
 
 - (UILabel*) averageHeadingLabel;
 - (UILabel*) averageLabel;
@@ -41,7 +43,15 @@
 
 - (UIView*) graphContainer;
 
+- (NSString*) stopButtonTitle;
+
 - (IBAction) startStopButtonPushed:(id)sender;
 - (IBAction) unitButtonPushed:(id)sender;
+
+- (void) start;
+- (void) stop;
+
+- (void) measurementStarted;
+- (void) measurementStopped:(MeasurementSession*)measurementSession;
 
 @end
