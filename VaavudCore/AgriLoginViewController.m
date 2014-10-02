@@ -148,11 +148,26 @@
 }
 
 - (void) showMessage:(NSString *)text withTitle:(NSString *)title {
-    [[[UIAlertView alloc] initWithTitle:title
-                                message:text
-                               delegate:nil
-                      cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                      otherButtonTitles:nil] show];
+
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                 message:text
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {}]];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    else {
+        [[[UIAlertView alloc] initWithTitle:title
+                                    message:text
+                                   delegate:nil
+                          cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                          otherButtonTitles:nil] show];
+    }
 }
 
 - (void) changedEmptiness:(UITextField*)textField isEmpty:(BOOL)isEmpty {

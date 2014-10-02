@@ -19,6 +19,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *temperatureLabel;
 @property (weak, nonatomic) IBOutlet UILabel *temperatureUnitLabel;
 @property (weak, nonatomic) IBOutlet UILabel *windSpeedUnitLabel;
+@property (weak, nonatomic) IBOutlet UILabel *directionHeadingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *directionLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *directionImageView;
 
 @property (nonatomic, weak) IBOutlet UILabel *informationTextLabel;
 @property (nonatomic, weak) IBOutlet UIProgressView *statusBar;

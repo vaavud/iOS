@@ -76,29 +76,55 @@
 
 - (void) logoutButtonPushed {
     
-    [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGOUT", nil)
-                                message:NSLocalizedString(@"DIALOG_CONFIRM", nil)
-                               delegate:self
-                      cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                      otherButtonTitles:NSLocalizedString(@"BUTTON_OK", nil), nil] show];
-    
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGOUT", nil)
+                                                                                 message:NSLocalizedString(@"DIALOG_CONFIRM", nil)
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                            style:UIAlertActionStyleCancel
+                                                          handler:^(UIAlertAction *action) {
+                                                          }]];
+
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {
+                                                              [self logoutConfirmed];
+                                                          }]];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    else {
+
+        [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGOUT", nil)
+                                    message:NSLocalizedString(@"DIALOG_CONFIRM", nil)
+                                   delegate:self
+                          cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                          otherButtonTitles:NSLocalizedString(@"BUTTON_OK", nil), nil] show];
+    }
 }
 
 - (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex != alertView.cancelButtonIndex) {
-        if ([[AccountManager sharedInstance] isLoggedIn]) {
-            [[AccountManager sharedInstance] logout];
+        [self logoutConfirmed];
+    }
+}
 
+- (void) logoutConfirmed {
+
+    if ([[AccountManager sharedInstance] isLoggedIn]) {
+        [[AccountManager sharedInstance] logout];
+        
 #ifdef AGRI
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Agriculture" bundle:nil];
-            UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"AgriLoginViewController"];
-            [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Agriculture" bundle:nil];
+        UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"AgriLoginViewController"];
+        [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
 #elif CORE
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-            UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
-            [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
+        [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
 #endif
-        }
     }
 }
 

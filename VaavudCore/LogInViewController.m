@@ -217,22 +217,65 @@ BOOL didShowFeedback;
 }
 
 - (void) showMessage:(NSString *)text withTitle:(NSString *)title {
-    [[[UIAlertView alloc] initWithTitle:title
-                                message:text
-                               delegate:nil
-                      cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
-                      otherButtonTitles:nil] show];
+
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
+                                                                                 message:text
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+        
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {}]];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    else {
+        [[[UIAlertView alloc] initWithTitle:title
+                                    message:text
+                                   delegate:nil
+                          cancelButtonTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                          otherButtonTitles:nil] show];
+    }
 }
 
 - (void) promptForPassword {
-    self.alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE", nil)
-                                                        message:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD", nil)
-                                                       delegate:self
-                                              cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
-                                              otherButtonTitles:NSLocalizedString(@"BUTTON_OK", nil), nil];
 
-    self.alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
-    [self.alertView show];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+        
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE", nil)
+                                                                                 message:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD", nil)
+                                                                          preferredStyle:UIAlertControllerStyleAlert];
+
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {}]];
+
+        [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                            style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction *action) {
+                                                              UITextField *passwordTextField = alertController.textFields[0];
+                                                              if (passwordTextField && passwordTextField.text.length > 0) {
+                                                                  [self facebookButtonPushed:nil password:passwordTextField.text];
+                                                              }
+                                                          }]];
+        
+        [alertController addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+            textField.secureTextEntry = YES;
+        }];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    else {
+        self.alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE", nil)
+                                                    message:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD", nil)
+                                                   delegate:self
+                                          cancelButtonTitle:NSLocalizedString(@"BUTTON_CANCEL", nil)
+                                          otherButtonTitles:NSLocalizedString(@"BUTTON_OK", nil), nil];
+        
+        self.alertView.alertViewStyle = UIAlertViewStyleSecureTextInput;
+        [self.alertView show];
+    }
 }
 
 - (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {

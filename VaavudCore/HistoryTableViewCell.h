@@ -11,7 +11,6 @@
 @interface HistoryTableViewCell : UITableViewCell
 
 @property (nonatomic, weak) IBOutlet UIImageView *mapImageView;
-@property (nonatomic, weak) IBOutlet UILabel *locationLabel;
 @property (nonatomic, weak) IBOutlet UILabel *timeLabel;
 @property (nonatomic, weak) IBOutlet UILabel *maxHeadingLabel;
 @property (nonatomic, weak) IBOutlet UILabel *maxLabel;

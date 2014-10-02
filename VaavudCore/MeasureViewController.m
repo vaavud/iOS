@@ -59,6 +59,7 @@
 
 @property (nonatomic) BOOL useSleipnir;
 @property (nonatomic, strong) UIAlertView *notificationView;
+@property (nonatomic, strong) UIAlertController* notificationAlertViewController;
 @property (nonatomic, strong) NSTimer *notificationTimer;
 
 @end
@@ -165,12 +166,18 @@
     if (self.directionHeadingLabel) {
         self.directionHeadingLabel.text = [NSLocalizedString(@"HEADING_WIND_DIRECTION", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     }
+    if (self.directionLabel) {
+        self.directionLabel.text = @"-";
+    }
     if (self.temperatureHeadingLabel) {
         self.temperatureHeadingLabel.text = [NSLocalizedString(@"HEADING_TEMPERATURE", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
         self.lookupTemperature = YES;
     }
     else {
         self.lookupTemperature = NO;
+    }
+    if (self.temperatureLabel) {
+        self.temperatureLabel.text = @"-";
     }
     
     // Set correct font text colors
@@ -557,24 +564,51 @@
         self.notificationTimer = nil;
     }
     
-    if (self.notificationView) {
-        [self.notificationView dismissWithClickedButtonIndex:0 animated:NO];
-        self.notificationView = nil;
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+        
+        if (self.notificationAlertViewController) {
+            [self dismissViewControllerAnimated:NO completion:nil];
+            self.notificationAlertViewController = nil;
+        }
+
+        self.notificationAlertViewController = [UIAlertController alertControllerWithTitle:title
+                                                                       message:message
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        [self presentViewController:self.notificationAlertViewController animated:YES completion:nil];
+    }
+    else {
+        if (self.notificationView) {
+            [self.notificationView dismissWithClickedButtonIndex:0 animated:NO];
+            self.notificationView = nil;
+        }
+        
+        self.notificationView = [[UIAlertView alloc] initWithTitle:title
+                                                           message:message
+                                                          delegate:nil
+                                                 cancelButtonTitle:nil
+                                                 otherButtonTitles:nil];
+        [self.notificationView show];
     }
     
-    self.notificationView = [[UIAlertView alloc] initWithTitle:title
-                                                       message:message
-                                                      delegate:nil
-                                             cancelButtonTitle:nil
-                                             otherButtonTitles:nil];
-    [self.notificationView show];
     self.notificationTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(dismissNotification) userInfo:nil repeats:NO];
 }
 
 - (void) dismissNotification {
-    [self.notificationView dismissWithClickedButtonIndex:0 animated:YES];
+    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
+        if (self.notificationAlertViewController) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+            self.notificationAlertViewController = nil;
+        }
+    }
+    else {
+        if (self.notificationView) {
+            [self.notificationView dismissWithClickedButtonIndex:0 animated:YES];
+            self.notificationView = nil;
+        }
+    }
+    
     self.notificationTimer = nil;
-    self.notificationView = nil;
 }
 
 /**** Mjolnir Measurement ****/
