@@ -2,7 +2,7 @@
 //  MeasurementSession.h
 //  Vaavud
 //
-//  Created by Thomas Stilling Ambus on 11/09/2014.
+//  Created by Thomas Stilling Ambus on 03/10/2014.
 //  Copyright (c) 2014 Andreas Okholm. All rights reserved.
 //
 
@@ -27,9 +27,15 @@
 @property (nonatomic, retain) NSNumber * uploaded;
 @property (nonatomic, retain) NSString * uuid;
 @property (nonatomic, retain) NSNumber * windDirection;
+@property (nonatomic, retain) NSNumber * windMeter;
 @property (nonatomic, retain) NSNumber * windSpeedAvg;
 @property (nonatomic, retain) NSNumber * windSpeedMax;
-@property (nonatomic, retain) NSNumber * windMeter;
+@property (nonatomic, retain) NSNumber * reducingEquipment;
+@property (nonatomic, retain) NSNumber * dose;
+@property (nonatomic, retain) NSNumber * boomHeight;
+@property (nonatomic, retain) NSNumber * sprayQuality;
+@property (nonatomic, retain) NSNumber * generalConsideration;
+@property (nonatomic, retain) NSNumber * specialConsideration;
 @property (nonatomic, retain) NSOrderedSet *points;
 @end
 

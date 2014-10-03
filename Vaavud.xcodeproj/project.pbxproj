@@ -68,6 +68,8 @@
 		E93C86691781C88B005E4212 /* Property.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86681781C88B005E4212 /* Property.m */; };
 		E93C866F1781D69A005E4212 /* MeasurementSession+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */; };
 		E93C86721781D727005E4212 /* MeasurementPoint+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86711781D727005E4212 /* MeasurementPoint+Util.m */; };
+		E93EED3719DEDA78004D8759 /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E93EED3619DEDA78004D8759 /* MeasurementSession.m */; };
+		E93EED3819DEDA78004D8759 /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E93EED3619DEDA78004D8759 /* MeasurementSession.m */; };
 		E94837FF19B75173009595B0 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E94837FA19B75066009595B0 /* libVaavudElectronicSDK.a */; };
 		E948380219B751D6009595B0 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E94837FA19B75066009595B0 /* libVaavudElectronicSDK.a */; };
 		E948381F19B75320009595B0 /* AEFloatConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = E948380519B75320009595B0 /* AEFloatConverter.m */; };
@@ -360,8 +362,6 @@
 		E9D9044E19C1971000ABA9F4 /* WindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */; };
 		E9D9045119C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9045019C1984D00ABA9F4 /* SavingWindMeasurementController.m */; };
 		E9D9045219C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9045019C1984D00ABA9F4 /* SavingWindMeasurementController.m */; };
-		E9D9045619C1D4A600ABA9F4 /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9045519C1D4A600ABA9F4 /* MeasurementSession.m */; };
-		E9D9045719C1D4A600ABA9F4 /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9045519C1D4A600ABA9F4 /* MeasurementSession.m */; };
 		E9D9045A19C1EA2C00ABA9F4 /* DirectionSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9045919C1EA2C00ABA9F4 /* DirectionSelectionTableViewController.m */; };
 		E9D9045B19C1EA2C00ABA9F4 /* DirectionSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9045919C1EA2C00ABA9F4 /* DirectionSelectionTableViewController.m */; };
 		E9D9046C19C3155500ABA9F4 /* windarrow_red_E.png in Resources */ = {isa = PBXBuildFile; fileRef = E9D9045C19C3155500ABA9F4 /* windarrow_red_E.png */; };
@@ -647,6 +647,9 @@
 		E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MeasurementSession+Util.m"; sourceTree = "<group>"; };
 		E93C86701781D727005E4212 /* MeasurementPoint+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MeasurementPoint+Util.h"; sourceTree = "<group>"; };
 		E93C86711781D727005E4212 /* MeasurementPoint+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MeasurementPoint+Util.m"; sourceTree = "<group>"; };
+		E93EED3219DED9FA004D8759 /* Model 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 5.xcdatamodel"; sourceTree = "<group>"; };
+		E93EED3519DEDA78004D8759 /* MeasurementSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSession.h; sourceTree = "<group>"; };
+		E93EED3619DEDA78004D8759 /* MeasurementSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSession.m; sourceTree = "<group>"; };
 		E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VaavudElectronicSDK.xcodeproj; path = ../../../git/VaavudElectronicSDK/VaavudElectronicSDK.xcodeproj; sourceTree = "<group>"; };
 		E948380419B75320009595B0 /* AEFloatConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEFloatConverter.h; sourceTree = "<group>"; };
 		E948380519B75320009595B0 /* AEFloatConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEFloatConverter.m; sourceTree = "<group>"; };
@@ -938,8 +941,6 @@
 		E9D9044F19C1984D00ABA9F4 /* SavingWindMeasurementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavingWindMeasurementController.h; sourceTree = "<group>"; };
 		E9D9045019C1984D00ABA9F4 /* SavingWindMeasurementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavingWindMeasurementController.m; sourceTree = "<group>"; };
 		E9D9045319C1D41D00ABA9F4 /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
-		E9D9045419C1D4A600ABA9F4 /* MeasurementSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSession.h; sourceTree = "<group>"; };
-		E9D9045519C1D4A600ABA9F4 /* MeasurementSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSession.m; sourceTree = "<group>"; };
 		E9D9045819C1EA2C00ABA9F4 /* DirectionSelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionSelectionTableViewController.h; sourceTree = "<group>"; };
 		E9D9045919C1EA2C00ABA9F4 /* DirectionSelectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionSelectionTableViewController.m; sourceTree = "<group>"; };
 		E9D9045C19C3155500ABA9F4 /* windarrow_red_E.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windarrow_red_E.png; sourceTree = "<group>"; };
@@ -1871,20 +1872,20 @@
 		E9EE1FA51769EC7F00D1F006 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E93C86701781D727005E4212 /* MeasurementPoint+Util.h */,
-				E93C86711781D727005E4212 /* MeasurementPoint+Util.m */,
 				E995F0B6177C7A2A0011BF07 /* MeasurementPoint.h */,
 				E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */,
+				E93C86701781D727005E4212 /* MeasurementPoint+Util.h */,
+				E93C86711781D727005E4212 /* MeasurementPoint+Util.m */,
+				E93EED3519DEDA78004D8759 /* MeasurementSession.h */,
+				E93EED3619DEDA78004D8759 /* MeasurementSession.m */,
 				E93C866D1781D69A005E4212 /* MeasurementSession+Util.h */,
 				E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */,
-				E9D9045419C1D4A600ABA9F4 /* MeasurementSession.h */,
-				E9D9045519C1D4A600ABA9F4 /* MeasurementSession.m */,
 				E93338F5178C561B006E2314 /* ModelManager.h */,
 				E93338F6178C561B006E2314 /* ModelManager.m */,
-				E93C86611781C764005E4212 /* Property+Util.h */,
-				E93C86621781C764005E4212 /* Property+Util.m */,
 				E93C86671781C88B005E4212 /* Property.h */,
 				E93C86681781C88B005E4212 /* Property.m */,
+				E93C86611781C764005E4212 /* Property+Util.h */,
+				E93C86621781C764005E4212 /* Property+Util.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -2378,7 +2379,6 @@
 				E9B627C617708E63004678D5 /* AFPropertyListRequestOperation.m in Sources */,
 				E9B627C717708E63004678D5 /* AFURLConnectionOperation.m in Sources */,
 				E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */,
-				E9D9045619C1D4A600ABA9F4 /* MeasurementSession.m in Sources */,
 				E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */,
 				E948383519B75320009595B0 /* TPCircularBuffer.c in Sources */,
 				E9A40980189BD29F004F1C12 /* MeasureNavigationController.m in Sources */,
@@ -2422,6 +2422,7 @@
 				E9FABFE1189294BD009C4C46 /* HistoryTableViewCell.m in Sources */,
 				E9CD2246177B2AEA0054ED3F /* NSManagedObject+MagicalRequests.m in Sources */,
 				E9CD2247177B2AEA0054ED3F /* NSManagedObjectContext+MagicalObserving.m in Sources */,
+				E93EED3719DEDA78004D8759 /* MeasurementSession.m in Sources */,
 				E9F33CCE18B4B3CB0033EDC7 /* AccountManager.m in Sources */,
 				E948382519B75320009595B0 /* EZAudioPlayer.m in Sources */,
 				E9A4099318A52E40004F1C12 /* RegisterViewController.m in Sources */,
@@ -2515,7 +2516,6 @@
 				E9D9044E19C1971000ABA9F4 /* WindMeasurementController.m in Sources */,
 				E96FB50819A353B500CB7306 /* TermsPrivacyViewController.m in Sources */,
 				E96FB50919A353B500CB7306 /* MeasurementTableViewCell.m in Sources */,
-				E9D9045719C1D4A600ABA9F4 /* MeasurementSession.m in Sources */,
 				E948383619B75320009595B0 /* TPCircularBuffer.c in Sources */,
 				E96FB50A19A353B500CB7306 /* MeasureNavigationController.m in Sources */,
 				E96FB50B19A353B500CB7306 /* AFXMLRequestOperation.m in Sources */,
@@ -2555,6 +2555,7 @@
 				E96FB52519A353B500CB7306 /* HistoryTableViewCell.m in Sources */,
 				E96FB52619A353B500CB7306 /* NSManagedObject+MagicalRequests.m in Sources */,
 				E96FB52719A353B500CB7306 /* NSManagedObjectContext+MagicalObserving.m in Sources */,
+				E93EED3819DEDA78004D8759 /* MeasurementSession.m in Sources */,
 				E96FB52819A353B500CB7306 /* AccountManager.m in Sources */,
 				E948382619B75320009595B0 /* EZAudioPlayer.m in Sources */,
 				E96FB52919A353B500CB7306 /* RegisterViewController.m in Sources */,
@@ -2906,12 +2907,13 @@
 		E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				E93EED3219DED9FA004D8759 /* Model 5.xcdatamodel */,
 				E9D9045319C1D41D00ABA9F4 /* Model 4.xcdatamodel */,
 				E9C7799519ACADB1000A6921 /* Model 3.xcdatamodel */,
 				E9EBB98F17E33C660086BE01 /* Model 2.xcdatamodel */,
 				E9EE1FA31769E54E00D1F006 /* Model.xcdatamodel */,
 			);
-			currentVersion = E9D9045319C1D41D00ABA9F4 /* Model 4.xcdatamodel */;
+			currentVersion = E93EED3219DED9FA004D8759 /* Model 5.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

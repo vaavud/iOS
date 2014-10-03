@@ -2,7 +2,7 @@
 //  MeasurementSession.m
 //  Vaavud
 //
-//  Created by Thomas Stilling Ambus on 11/09/2014.
+//  Created by Thomas Stilling Ambus on 03/10/2014.
 //  Copyright (c) 2014 Andreas Okholm. All rights reserved.
 //
 
@@ -26,9 +26,15 @@
 @dynamic uploaded;
 @dynamic uuid;
 @dynamic windDirection;
+@dynamic windMeter;
 @dynamic windSpeedAvg;
 @dynamic windSpeedMax;
-@dynamic windMeter;
+@dynamic reducingEquipment;
+@dynamic dose;
+@dynamic boomHeight;
+@dynamic sprayQuality;
+@dynamic generalConsideration;
+@dynamic specialConsideration;
 @dynamic points;
 
 @end
