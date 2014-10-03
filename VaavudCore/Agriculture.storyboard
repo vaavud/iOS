@@ -389,6 +389,7 @@
                         <outlet property="windSpeedUnitLabel" destination="nJ1-M8-Prc" id="2JK-WC-dv6"/>
                         <segue destination="vvQ-kX-qaj" kind="push" identifier="manualTemperatureSegue" id="dap-o8-Kkj"/>
                         <segue destination="BZZ-m9-bww" kind="push" identifier="resultSegue" id="7Oh-PO-dec"/>
+                        <segue destination="cLL-IW-vu7" kind="push" identifier="manualDirectionSegue" id="2tJ-jd-dfC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uhp-Xt-WzD" sceneMemberID="firstResponder"/>
@@ -398,7 +399,7 @@
         <!--Manual Temperature View Controller-->
         <scene sceneID="E7h-FH-qKa">
             <objects>
-                <viewController id="vvQ-kX-qaj" userLabel="Manual Temperature View Controller" customClass="AgriManualTemperatureViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AgriManualTemperatureViewController" id="vvQ-kX-qaj" userLabel="Manual Temperature View Controller" customClass="AgriManualTemperatureViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ijf-d5-qoc"/>
                         <viewControllerLayoutGuide type="bottom" id="1Sm-Xd-ZKB"/>
@@ -406,21 +407,162 @@
                     <view key="view" contentMode="scaleToFill" id="k6L-ka-KWv">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fJN-Q0-i9v" userLabel="Next Button">
+                                <rect key="frame" x="40" y="456" width="240" height="35"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="WTh-oK-KSd"/>
+                                    <constraint firstAttribute="height" constant="35" id="rcs-AO-fzK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="23"/>
+                                <state key="normal" title="&lt;Next>">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextButtonClicked:" destination="vvQ-kX-qaj" eventType="touchUpInside" id="QO1-iy-KKn"/>
+                                    <action selector="nextButtonPushed:" destination="Xsf-1y-JfF" eventType="touchUpInside" id="6JO-al-ujn"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;The temperature could not be determined automatically. Please enter it manually.>" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="DIZ-kZ-mg8">
+                                <rect key="frame" x="20" y="94" width="280" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="NxN-UQ-gYt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="o7z-0w-YuZ">
+                                <rect key="frame" x="0.0" y="203" width="320" height="162"/>
+                            </pickerView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="DIZ-kZ-mg8" firstAttribute="top" secondItem="Ijf-d5-qoc" secondAttribute="bottom" constant="30" id="Cf0-3h-Mlp"/>
+                            <constraint firstAttribute="centerX" secondItem="o7z-0w-YuZ" secondAttribute="centerX" id="GqN-Zy-Mze"/>
+                            <constraint firstAttribute="centerX" secondItem="DIZ-kZ-mg8" secondAttribute="centerX" id="Ily-L1-tfF"/>
+                            <constraint firstItem="1Sm-Xd-ZKB" firstAttribute="top" secondItem="fJN-Q0-i9v" secondAttribute="bottom" constant="28" id="Jbu-IW-q62"/>
+                            <constraint firstAttribute="centerY" secondItem="o7z-0w-YuZ" secondAttribute="centerY" id="bha-bt-yCG"/>
+                            <constraint firstAttribute="centerX" secondItem="fJN-Q0-i9v" secondAttribute="centerX" id="mzI-LF-zsc"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="511-r9-Ocj"/>
                     <connections>
+                        <outlet property="explanationLabel" destination="DIZ-kZ-mg8" id="rXi-kO-rEq"/>
+                        <outlet property="nextButton" destination="fJN-Q0-i9v" id="0gz-z1-pCf"/>
+                        <outlet property="temperaturePickerView" destination="o7z-0w-YuZ" id="x0A-Kv-O0E"/>
                         <segue destination="BZZ-m9-bww" kind="push" identifier="resultSegue" id="y4C-G3-QSJ"/>
+                        <segue destination="cLL-IW-vu7" kind="push" identifier="manualDirectionSegue" id="pA4-Za-gYe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nkm-j9-mAm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1230" y="-769"/>
         </scene>
+        <!--Manual Direction View Controller-->
+        <scene sceneID="phu-eF-LwU">
+            <objects>
+                <viewController id="cLL-IW-vu7" userLabel="Manual Direction View Controller" customClass="AgriManualDirectionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5mx-eo-5Sw"/>
+                        <viewControllerLayoutGuide type="bottom" id="2jm-qe-bi8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wqs-Fz-afz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Unplug your wind meter and hold your phone up against the wind.>" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="4ta-GS-BS3">
+                                <rect key="frame" x="20" y="94" width="280" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="E9C-L0-fcQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="Agri-Manual-Direction.png" translatesAutoresizingMaskIntoConstraints="NO" id="d8f-dD-4QM">
+                                <rect key="frame" x="0.0" y="217" width="320" height="351"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6je-eZ-S0U" userLabel="Next Button">
+                                <rect key="frame" x="40" y="456" width="240" height="35"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="8aC-6Y-Bql"/>
+                                    <constraint firstAttribute="height" constant="35" id="gPO-7N-Ozg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="23"/>
+                                <state key="normal" title="&lt;Next>">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextButtonClicked:" destination="cLL-IW-vu7" eventType="touchUpInside" id="Jjy-x1-6kD"/>
+                                    <action selector="nextButtonClicked:" destination="vvQ-kX-qaj" eventType="touchUpInside" id="xCU-aQ-nh6"/>
+                                    <action selector="nextButtonPushed:" destination="Xsf-1y-JfF" eventType="touchUpInside" id="0GG-is-14t"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WNW" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fcD-GP-b0T" userLabel="directionLabel">
+                                <rect key="frame" x="149" y="160" width="49" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="49" id="1SE-aS-nQF"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="14"/>
+                                <color key="textColor" red="0.0" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7DF-09-r4p">
+                                <rect key="frame" x="131" y="159" width="18" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="18" id="44q-rU-AzQ"/>
+                                    <constraint firstAttribute="height" constant="18" id="S6O-e7-wVw"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7DF-09-r4p" firstAttribute="top" secondItem="4ta-GS-BS3" secondAttribute="bottom" constant="30" id="Cqs-YB-uak"/>
+                            <constraint firstAttribute="trailing" secondItem="d8f-dD-4QM" secondAttribute="trailing" id="IYE-9X-rFW"/>
+                            <constraint firstAttribute="centerX" secondItem="4ta-GS-BS3" secondAttribute="centerX" id="JB4-1K-e8T"/>
+                            <constraint firstItem="d8f-dD-4QM" firstAttribute="top" secondItem="7DF-09-r4p" secondAttribute="bottom" constant="40" id="Nf8-wG-Rfj"/>
+                            <constraint firstItem="4ta-GS-BS3" firstAttribute="top" secondItem="5mx-eo-5Sw" secondAttribute="bottom" constant="30" id="Qej-71-W9c"/>
+                            <constraint firstItem="d8f-dD-4QM" firstAttribute="leading" secondItem="wqs-Fz-afz" secondAttribute="leading" id="YNt-PE-ccg"/>
+                            <constraint firstItem="fcD-GP-b0T" firstAttribute="bottom" secondItem="7DF-09-r4p" secondAttribute="bottom" constant="2" id="aRa-7H-8eg"/>
+                            <constraint firstItem="fcD-GP-b0T" firstAttribute="leading" secondItem="7DF-09-r4p" secondAttribute="trailing" id="bPM-KW-47N"/>
+                            <constraint firstAttribute="bottom" secondItem="d8f-dD-4QM" secondAttribute="bottom" id="gWy-TG-FXc"/>
+                            <constraint firstAttribute="centerX" secondItem="6je-eZ-S0U" secondAttribute="centerX" id="kli-I2-8lz"/>
+                            <constraint firstItem="2jm-qe-bi8" firstAttribute="top" secondItem="6je-eZ-S0U" secondAttribute="bottom" constant="28" id="nP6-Nx-QIU"/>
+                            <constraint firstAttribute="centerX" secondItem="7DF-09-r4p" secondAttribute="centerX" constant="20" id="nm7-FO-Cny"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="kV3-PR-RQG"/>
+                    <connections>
+                        <outlet property="directionImageView" destination="7DF-09-r4p" id="xRV-Fv-59s"/>
+                        <outlet property="directionLabel" destination="fcD-GP-b0T" id="fRy-MF-8Ye"/>
+                        <outlet property="explanationLabel" destination="4ta-GS-BS3" id="ZbL-dC-4yU"/>
+                        <outlet property="nextButton" destination="6je-eZ-S0U" id="X4k-hO-e2E"/>
+                        <segue destination="BZZ-m9-bww" kind="push" identifier="resultSegue" id="1x7-Lo-AVc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q5B-R2-1Nf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1678" y="-769"/>
+        </scene>
         <!--Result View Controller-->
         <scene sceneID="g2v-ca-b0o">
             <objects>
-                <viewController id="BZZ-m9-bww" userLabel="Result View Controller" customClass="AgriResultViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AgriResultViewController" id="BZZ-m9-bww" userLabel="Result View Controller" customClass="AgriResultViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GkA-cp-Kxz"/>
                         <viewControllerLayoutGuide type="bottom" id="LCF-mO-vBS"/>
@@ -434,11 +576,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yf9-zm-ABM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1718" y="-769"/>
+            <point key="canvasLocation" x="2187" y="-369"/>
         </scene>
     </scenes>
     <resources>
         <image name="Agri-Login-Logo.png" width="490" height="206"/>
+        <image name="Agri-Manual-Direction.png" width="788" height="1074"/>
         <image name="SettingsIcon.png" width="24" height="24"/>
         <image name="measure.png" width="26" height="26"/>
     </resources>
@@ -448,6 +591,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="y4C-G3-QSJ"/>
+        <segue reference="1x7-Lo-AVc"/>
+        <segue reference="2tJ-jd-dfC"/>
     </inferredMetricsTieBreakers>
 </document>

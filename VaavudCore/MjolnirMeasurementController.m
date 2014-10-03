@@ -348,20 +348,6 @@
     return [NSNumber numberWithDouble:self.maxWindspeed];
 }
 
-- (NSNumber*) getProgress {
-    
-    float elapsedTime = [[self.windSpeedTime lastObject] floatValue];
-    float measurementFrequency = self.numberOfMeasurements/elapsedTime;
-    float validTime = self.numberOfValidMeasurements / measurementFrequency;
-    
-    double progress = validTime/minimumNumberOfSeconds;
-    if (progress > 1) {
-        progress = 1;
-    }
-    
-    return [NSNumber numberWithDouble: progress];
-}
-
 - (double) convertFrequencyToWindspeed: (double) frequency {
     
     // Based on 09.07.2013 Windtunnel test. Parametes can be found in windTunnelAnalysis_9_07_2013.xlsx

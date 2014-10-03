@@ -16,6 +16,7 @@
 
 @property (nonatomic) BOOL shareToFacebook;
 @property (nonatomic) BOOL buttonShowsStart;
+@property (nonatomic) BOOL isMinimumThresholdReached;
 
 - (UILabel*) averageHeadingLabel;
 - (UILabel*) averageLabel;
@@ -53,5 +54,10 @@
 
 - (void) measurementStarted;
 - (void) measurementStopped:(MeasurementSession*)measurementSession;
+
+- (void) minimumThresholdReached;
+
+- (void) showNotification:(NSString*)title message:(NSString*)message dismissAfter:(NSTimeInterval)time;
+- (void) dismissNotification;
 
 @end

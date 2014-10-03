@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "MeasureViewController.h"
 
+@protocol MeasurementSessionConsumer <NSObject>
+- (void) setMeasurementSession:(MeasurementSession*)session;
+- (void) setHasTemperature:(BOOL)temperature;
+- (void) setHasDirection:(BOOL)direction;
+@end
+
 @interface AgriMeasureViewController : MeasureViewController
 
 @end

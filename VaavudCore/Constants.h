@@ -21,8 +21,7 @@
 #define orientationDeviationMaxForValid 0.63 // rad  (36) degrees
 #define FFTpeakMagnitudeMinForValid 5 // (abs(FFT(maxbin))
 
-// Threshold for valid measurement
-#define minimumNumberOfSeconds 30
+#define KELVIN_TO_CELCIUS 273.15
 
 #define BUTTON_CORNER_RADIUS 4
 #define FORM_CORNER_RADIUS 4

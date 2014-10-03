@@ -5,6 +5,9 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
+#define minimumNumberOfSeconds 60
+#define DISMISS_NOTIFICATION_AFTER 2.0
+
 #import "MeasureViewController.h"
 #import "MjolnirMeasurementController.h"
 #import "SleipnirMeasurementController.h"
@@ -309,6 +312,11 @@
 
 - (void) startWithUITracking:(BOOL)uiTracking {
     
+    if (!self.buttonShowsStart) {
+        // already stopped
+        return;
+    }
+
     // this does nothing if location services are already started, but otherwise it will prompt the user to allow
     // vaavud to use location if we're not already allowed
     
@@ -380,6 +388,7 @@
     // add timer that updates the progress bar...
     
     self.statusBarTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updateStatusBar) userInfo:nil repeats:YES];
+    self.isMinimumThresholdReached = NO;
 
     // Mixpanel tracking...
     
@@ -398,6 +407,11 @@
 }
 
 - (void) stopWithUITracking:(BOOL)uiTracking action:(NSString*)action {
+    
+    if (self.buttonShowsStart) {
+        // already stopped
+        return;
+    }
     
     // update start/stop button text...
     
@@ -563,11 +577,11 @@
             [self stopWithUITracking:NO action:@"Plug"];
         }
         
-        [self showNotification:NSLocalizedString(@"DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_CONNECTED_MESSAGE", nil)];
+        [self showNotification:NSLocalizedString(@"DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_CONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
     }
     else if (device == UnknownWindMeterDeviceType) {
 
-        [self showNotification:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_MESSAGE", nil)];
+        [self showNotification:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
     }
 }
 
@@ -578,15 +592,15 @@
             [self stopWithUITracking:YES action:@"Unplug"];
         }
         
-        [self showNotification:NSLocalizedString(@"DEVICE_DISCONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_DISCONNECTED_MESSAGE", nil)];
+        [self showNotification:NSLocalizedString(@"DEVICE_DISCONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_DISCONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
     }
     else if (device == UnknownWindMeterDeviceType) {
         
-        [self showNotification:NSLocalizedString(@"UNKNOWN_DEVICE_DISCONNECTED_TITLE", nil) message:NSLocalizedString(@"UNKNOWN_DEVICE_DISCONNECTED_MESSAGE", nil)];
+        [self showNotification:NSLocalizedString(@"UNKNOWN_DEVICE_DISCONNECTED_TITLE", nil) message:NSLocalizedString(@"UNKNOWN_DEVICE_DISCONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
     }
 }
 
-- (void) showNotification:(NSString*)title message:(NSString*)message {
+- (void) showNotification:(NSString*)title message:(NSString*)message dismissAfter:(NSTimeInterval)time {
     
     if (self.notificationTimer) {
         [self.notificationTimer invalidate];
@@ -620,7 +634,7 @@
         [self.notificationView show];
     }
     
-    self.notificationTimer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(dismissNotification) userInfo:nil repeats:NO];
+    self.notificationTimer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(dismissNotification) userInfo:nil repeats:NO];
 }
 
 - (void) dismissNotification {
@@ -748,7 +762,7 @@
     
     self.currentTemperature = temperature;
     if (self.temperatureLabel && temperature) {
-        self.temperatureLabel.text = [self formatValue:[temperature floatValue] - 273.15F];
+        self.temperatureLabel.text = [self formatValue:[temperature floatValue] - KELVIN_TO_CELCIUS];
     }
 }
 
@@ -774,9 +788,17 @@
         double progress = timeSinceStart / minimumNumberOfSeconds;
         if (progress > 1.0) {
             progress = 1.0;
+            if (!self.isMinimumThresholdReached) {
+                self.isMinimumThresholdReached = YES;
+                [self minimumThresholdReached];
+            }
         }
         [self.statusBar setProgress:progress];
     }
+}
+
+// for subclasses
+- (void) minimumThresholdReached {
 }
 
 - (IBAction) unitButtonPushed:(id)sender {

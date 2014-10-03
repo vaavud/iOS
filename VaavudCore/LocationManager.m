@@ -120,6 +120,7 @@ SHARED_INSTANCE
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
 
     [self.locationManager startUpdatingLocation];
+    [self.locationManager startUpdatingHeading];
     self.isStarted = YES;
 }
 
@@ -136,6 +137,8 @@ SHARED_INSTANCE
     if (self.isStarted) {
         NSLog(@"[LocationManager] Stopping location updates");
         [self.locationManager stopUpdatingLocation];
+        [self.locationManager stopUpdatingHeading];
+        self.latestHeading = nil;
         self.isStarted = NO;
     }
 }
@@ -163,6 +166,10 @@ SHARED_INSTANCE
         self.latestLocation = location.coordinate;
         self.latestLocationTimestamp = eventDate;
     }    
+}
+
+- (void) locationManager:(CLLocationManager*)manager didUpdateHeading:(CLHeading*)newHeading {
+    self.latestHeading = [NSNumber numberWithDouble:newHeading.trueHeading];
 }
 
 - (CLLocationCoordinate2D) latestLocation {

@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AgriMeasureViewController.h"
 
-@interface AgriResultViewController : UIViewController
+@interface AgriResultViewController : UIViewController <MeasurementSessionConsumer>
+
+@property (nonatomic, strong) MeasurementSession *measurementSession;
+@property (nonatomic) BOOL hasTemperature;
+@property (nonatomic) BOOL hasDirection;
 
 @end

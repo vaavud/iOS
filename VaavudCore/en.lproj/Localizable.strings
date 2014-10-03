@@ -124,7 +124,6 @@
 "MAP_GUIDE_ZOOM_TITLE" = "Quick Zoom";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "Tap on the map thumbnail to zoom to the exact location.";
 
-"AGRI_REGISTER_BUTTON" = "Register";
 "HEADING_WIND_SPEED" = "Wind Speed";
 "HEADING_TEMPERATURE" = "Temperature";
 "HEADING_WIND_DIRECTION" = "Direction";
@@ -156,3 +155,11 @@
 "UNKNOWN_DEVICE_CONNECTED_MESSAGE" = "Sleipnir not recognized, try reinserting";
 "UNKNOWN_DEVICE_DISCONNECTED_TITLE" = "Device Disconnected";
 "UNKNOWN_DEVICE_DISCONNECTED_MESSAGE" = "Unknown device disconnected";
+
+"AGRI_REGISTER_BUTTON" = "Register";
+"AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Measure for 60s";
+"AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "You must measure for at least 60s indicated by the bar becoming fully green.";
+"AGRI_ENTER_TEMPERATURE" = "Enter Temperature";
+"AGRI_ENTER_TEMPERATURE_EXPLANATION" = "The temperature could not be determined automatically. Please enter it manually:";
+"AGRI_MANUAL_DIRECTION" = "Wind Direction";
+"AGRI_MANUAL_DIRECTION_EXPLANATION" = "Disconnect your wind meter and hold up your phone against the wind. Press Next when you are doing that.";

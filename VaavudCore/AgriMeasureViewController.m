@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Andreas Okholm. All rights reserved.
 //
 
+#define AGRI_DEBUG_ALWAYS_ENABLE_NEXT NO
+
 #import "AgriMeasureViewController.h"
 #import "UIColor+VaavudColors.h"
 #import "Property+Util.h"
@@ -23,16 +25,17 @@
 @property (weak, nonatomic) IBOutlet UILabel *directionHeadingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *directionLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *directionImageView;
-
 @property (nonatomic, weak) IBOutlet UILabel *informationTextLabel;
 @property (nonatomic, weak) IBOutlet UIProgressView *statusBar;
-
 @property (nonatomic, weak) IBOutlet UIButton *startStopButton;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
-
 @property (weak, nonatomic) IBOutlet UIView *graphContainer;
 
 @property (nonatomic, strong) MeasurementSession *measurementSession;
+
+@property (nonatomic) BOOL hasTemperature;
+@property (nonatomic) BOOL hasDirection;
+@property (nonatomic) BOOL nextAllowed;
 
 @end
 
@@ -70,31 +73,58 @@
     self.measurementSession = nil;
     [super startStopButtonPushed:sender];
     self.nextButton.enabled = !self.buttonShowsStart;
+    self.nextAllowed = AGRI_DEBUG_ALWAYS_ENABLE_NEXT;
+}
+
+- (void) minimumThresholdReached {
+    self.nextAllowed = YES;
 }
 
 - (void) measurementStopped:(MeasurementSession*)measurementSession {
     self.measurementSession = measurementSession;
+    
+    // we determine these values here, so that if you later press back after having typed any temperature or direction
+    // pressing next again will take you through the same flow again instead of skipping
+    self.hasTemperature = (self.measurementSession.temperature && (self.measurementSession.temperature != (id)[NSNull null]) && ([self.measurementSession.temperature floatValue] > 0.0f));
+    self.hasDirection = (self.measurementSession.windDirection && (self.measurementSession.windDirection != (id)[NSNull null]));
 }
 
 - (IBAction) nextButtonPushed:(id)sender {
     
-    [self stop];
+    if (!self.nextAllowed) {
+        [self showNotification:NSLocalizedString(@"AGRI_MIN_TIME_NOT_REACHED_TITLE", nil) message:NSLocalizedString(@"AGRI_MIN_TIME_NOT_REACHED_MESSAGE", nil) dismissAfter:4.0];
+    }
+    else {
     
-    if (self.measurementSession) {
-        BOOL hasTemperature = (self.measurementSession.temperature && (self.measurementSession.temperature != (id)[NSNull null]) && ([self.measurementSession.temperature floatValue] > 0.0f));
-        BOOL hasDirection = (self.measurementSession.windDirection && (self.measurementSession.windDirection != (id)[NSNull null]));
+        // this will only do something if we're measuring, i.e. "measurementStopped" will not be triggered if we're already stopped
+        [self stop];
         
-        NSLog(@"[AgriMeasureViewController] Next with temperature=%@ and direction=%@", self.measurementSession.temperature, self.measurementSession.windDirection);
-        
-        if (hasTemperature && hasDirection) {
-            [self performSegueWithIdentifier:@"resultSegue" sender:self];
+        if (self.measurementSession) {
+            
+            NSLog(@"[AgriMeasureViewController] Next with temperature=%@ and direction=%@", self.measurementSession.temperature, self.measurementSession.windDirection);
+            
+            if (self.hasTemperature && self.hasDirection) {
+                [self performSegueWithIdentifier:@"resultSegue" sender:self];
+            }
+            else if (!self.hasTemperature) {
+                [self performSegueWithIdentifier:@"manualTemperatureSegue" sender:self];
+            }
+            else {
+                [self performSegueWithIdentifier:@"manualDirectionSegue" sender:self];
+            }
         }
-        else if (!hasTemperature) {
-            [self performSegueWithIdentifier:@"temperatureSegue" sender:self];
-        }
-        else {
-            NSLog(@"[AgriMeasureViewController] Missing segue for manual direction");
-        }
+    }
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+
+    UIViewController *controller = [segue destinationViewController];
+    
+    if ([controller conformsToProtocol:@protocol(MeasurementSessionConsumer)]) {
+        UIViewController<MeasurementSessionConsumer> *consumer = (UIViewController<MeasurementSessionConsumer>*) controller;
+        [consumer setMeasurementSession:self.measurementSession];
+        [consumer setHasTemperature:self.hasTemperature];
+        [consumer setHasDirection:self.hasDirection];
     }
 }
 

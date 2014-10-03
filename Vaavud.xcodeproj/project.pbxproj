@@ -29,6 +29,10 @@
 		E9002DBA19DD6993002D0132 /* AgriManualTemperatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9002DB819DD6993002D0132 /* AgriManualTemperatureViewController.m */; };
 		E9002DBD19DD69CD002D0132 /* AgriResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9002DBC19DD69CD002D0132 /* AgriResultViewController.m */; };
 		E9002DBE19DD69CD002D0132 /* AgriResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9002DBC19DD69CD002D0132 /* AgriResultViewController.m */; };
+		E9002DC119DE9755002D0132 /* AgriManualDirectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9002DC019DE9755002D0132 /* AgriManualDirectionViewController.m */; };
+		E9002DC219DE9755002D0132 /* AgriManualDirectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9002DC019DE9755002D0132 /* AgriManualDirectionViewController.m */; };
+		E9002DC419DE9AEA002D0132 /* Agri-Manual-Direction.png in Resources */ = {isa = PBXBuildFile; fileRef = E9002DC319DE9AEA002D0132 /* Agri-Manual-Direction.png */; };
+		E9002DC519DE9AEA002D0132 /* Agri-Manual-Direction.png in Resources */ = {isa = PBXBuildFile; fileRef = E9002DC319DE9AEA002D0132 /* Agri-Manual-Direction.png */; };
 		E904AC9817F08F6E00171F7F /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9717F08F6E00171F7F /* MapViewController.m */; };
 		E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E904AC9917F0911000171F7F /* MapKit.framework */; };
 		E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */; };
@@ -591,6 +595,9 @@
 		E9002DB819DD6993002D0132 /* AgriManualTemperatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriManualTemperatureViewController.m; sourceTree = "<group>"; };
 		E9002DBB19DD69CD002D0132 /* AgriResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriResultViewController.h; sourceTree = "<group>"; };
 		E9002DBC19DD69CD002D0132 /* AgriResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriResultViewController.m; sourceTree = "<group>"; };
+		E9002DBF19DE9755002D0132 /* AgriManualDirectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriManualDirectionViewController.h; sourceTree = "<group>"; };
+		E9002DC019DE9755002D0132 /* AgriManualDirectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriManualDirectionViewController.m; sourceTree = "<group>"; };
+		E9002DC319DE9AEA002D0132 /* Agri-Manual-Direction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Agri-Manual-Direction.png"; sourceTree = "<group>"; };
 		E904AC9617F08F6E00171F7F /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		E904AC9717F08F6E00171F7F /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		E904AC9917F0911000171F7F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -1598,6 +1605,7 @@
 		E9AB11D319A60B7E000C6FB1 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				E9002DC319DE9AEA002D0132 /* Agri-Manual-Direction.png */,
 				E9AB11DE19A631BF000C6FB1 /* agri-logo@2x.png */,
 				E9AB11DB19A615B4000C6FB1 /* Agri-Login-Logo@2x.png */,
 			);
@@ -1712,6 +1720,8 @@
 				E9002DB819DD6993002D0132 /* AgriManualTemperatureViewController.m */,
 				E9002DBB19DD69CD002D0132 /* AgriResultViewController.h */,
 				E9002DBC19DD69CD002D0132 /* AgriResultViewController.m */,
+				E9002DBF19DE9755002D0132 /* AgriManualDirectionViewController.h */,
+				E9002DC019DE9755002D0132 /* AgriManualDirectionViewController.m */,
 			);
 			name = Measure;
 			sourceTree = "<group>";
@@ -2120,6 +2130,7 @@
 				E9D9047C19C3155500ABA9F4 /* windarrow_red_S.png in Resources */,
 				E9D9051C19C9BB4A00ABA9F4 /* mapmarker_w_direction_S@2x.png in Resources */,
 				E91535BE1806C2D20070BFB4 /* measure@2x.png in Resources */,
+				E9002DC419DE9AEA002D0132 /* Agri-Manual-Direction.png in Resources */,
 				E9D9050C19C9BB4A00ABA9F4 /* mapmarker_w_direction_NW@2x.png in Resources */,
 				E9D9051A19C9BB4A00ABA9F4 /* mapmarker_w_direction_WSW@2x.png in Resources */,
 				E9723800195993790003A9E4 /* logo@2x.png in Resources */,
@@ -2238,6 +2249,7 @@
 				E9D9047D19C3155500ABA9F4 /* windarrow_red_S.png in Resources */,
 				E9D9051D19C9BB4A00ABA9F4 /* mapmarker_w_direction_S@2x.png in Resources */,
 				E96FB59319A353B500CB7306 /* measure@2x.png in Resources */,
+				E9002DC519DE9AEA002D0132 /* Agri-Manual-Direction.png in Resources */,
 				E9D9050D19C9BB4A00ABA9F4 /* mapmarker_w_direction_NW@2x.png in Resources */,
 				E9D9051B19C9BB4A00ABA9F4 /* mapmarker_w_direction_WSW@2x.png in Resources */,
 				E96FB59719A353B500CB7306 /* logo@2x.png in Resources */,
@@ -2339,6 +2351,7 @@
 				D7A4F1E7173A8DDB00D1ACEE /* MeasureViewController.m in Sources */,
 				D7A4F1F2173A8FAB00D1ACEE /* MjolnirMeasurementController.m in Sources */,
 				E948382B19B75320009595B0 /* EZAudioPlotGLKViewController.m in Sources */,
+				E9002DC119DE9755002D0132 /* AgriManualDirectionViewController.m in Sources */,
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
 				E9C7799319AB8DE4000A6921 /* AgriSettingsNavigationController.m in Sources */,
 				E9D9044D19C1971000ABA9F4 /* WindMeasurementController.m in Sources */,
@@ -2471,6 +2484,7 @@
 				E96FB4ED19A353B500CB7306 /* main.m in Sources */,
 				E96FB4EE19A353B500CB7306 /* AppDelegate.m in Sources */,
 				E96FB4EF19A353B500CB7306 /* MeasureViewController.m in Sources */,
+				E9002DC219DE9755002D0132 /* AgriManualDirectionViewController.m in Sources */,
 				E96FB4F019A353B500CB7306 /* MjolnirMeasurementController.m in Sources */,
 				E948382C19B75320009595B0 /* EZAudioPlotGLKViewController.m in Sources */,
 				E96FB4F119A353B500CB7306 /* VaavudMagneticFieldDataManager.m in Sources */,
