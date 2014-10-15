@@ -92,7 +92,7 @@
 - (IBAction) nextButtonPushed:(id)sender {
     
     if (!self.nextAllowed) {
-        [self showNotification:NSLocalizedString(@"AGRI_MIN_TIME_NOT_REACHED_TITLE", nil) message:NSLocalizedString(@"AGRI_MIN_TIME_NOT_REACHED_MESSAGE", nil) dismissAfter:4.0];
+        [self showNotification:NSLocalizedString(@"AGRI_MIN_TIME_NOT_REACHED_TITLE", nil) message:NSLocalizedString(@"AGRI_MIN_TIME_NOT_REACHED_MESSAGE", nil) dismissAfter:2.5];
     }
     else {
     
