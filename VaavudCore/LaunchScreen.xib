@@ -18,32 +18,30 @@
                         <constraint firstAttribute="width" constant="88" id="UnW-Nt-leP"/>
                     </constraints>
                 </imageView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cj3-he-orF">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="one-pixel-line.png" translatesAutoresizingMaskIntoConstraints="NO" id="ANQ-K4-Q8f">
                     <rect key="frame" x="0.0" y="64" width="480" height="1"/>
-                    <color key="backgroundColor" red="0.67843137254901964" green="0.67843137254901964" blue="0.67843137254901964" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="1" id="mOJ-7u-Add"/>
+                        <constraint firstAttribute="height" constant="1" id="WMn-WF-PaC"/>
                     </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sNa-Wa-4HJ">
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="one-pixel-line.png" translatesAutoresizingMaskIntoConstraints="NO" id="eIE-bf-2vS">
                     <rect key="frame" x="0.0" y="430" width="480" height="1"/>
-                    <color key="backgroundColor" red="0.67843137254901964" green="0.67843137254901964" blue="0.67843137254901964" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="1" id="Hp5-qO-Vxi"/>
+                        <constraint firstAttribute="height" constant="1" id="jA3-lF-JtZ"/>
                     </constraints>
-                </view>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Cj3-he-orF" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Y6y-ay-jMW"/>
-                <constraint firstItem="sNa-Wa-4HJ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="ZHf-ns-svX"/>
-                <constraint firstAttribute="bottom" secondItem="sNa-Wa-4HJ" secondAttribute="bottom" constant="49" id="eFf-zk-T7s"/>
-                <constraint firstAttribute="trailing" secondItem="Cj3-he-orF" secondAttribute="trailing" id="fNO-Yg-Zvf"/>
+                <constraint firstAttribute="trailing" secondItem="eIE-bf-2vS" secondAttribute="trailing" id="3lA-WD-rC0"/>
+                <constraint firstAttribute="bottom" secondItem="eIE-bf-2vS" secondAttribute="bottom" constant="49" id="LHL-yz-dEk"/>
+                <constraint firstItem="eIE-bf-2vS" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="R92-72-Byb"/>
+                <constraint firstItem="ANQ-K4-Q8f" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="64" id="dfj-fJ-pFN"/>
+                <constraint firstAttribute="trailing" secondItem="ANQ-K4-Q8f" secondAttribute="trailing" id="eyv-yc-91G"/>
                 <constraint firstAttribute="centerX" secondItem="gDl-Ic-0NI" secondAttribute="centerX" id="hic-fb-QLZ"/>
-                <constraint firstItem="Cj3-he-orF" firstAttribute="top" secondItem="gDl-Ic-0NI" secondAttribute="bottom" constant="14" id="jyM-YW-H50"/>
                 <constraint firstItem="gDl-Ic-0NI" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="20" id="ka4-H1-hSt"/>
-                <constraint firstItem="Cj3-he-orF" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="64" id="rGh-Zg-9kx"/>
-                <constraint firstAttribute="trailing" secondItem="sNa-Wa-4HJ" secondAttribute="trailing" id="riL-py-DpI"/>
+                <constraint firstItem="ANQ-K4-Q8f" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="vJw-L7-iV8"/>
+                <constraint firstItem="ANQ-K4-Q8f" firstAttribute="top" secondItem="gDl-Ic-0NI" secondAttribute="bottom" constant="14" id="wGA-Rk-3qa"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -57,5 +55,6 @@
     </objects>
     <resources>
         <image name="logo.png" width="88" height="15"/>
+        <image name="one-pixel-line.png" width="750" height="1"/>
     </resources>
 </document>
