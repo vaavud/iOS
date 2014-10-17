@@ -123,3 +123,45 @@
 "MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "時間間隔や測定単位を変更するにはテキストをタップしてください。";
 "MAP_GUIDE_ZOOM_TITLE" = "クイックズーム";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "的確な場所にズームするには地図のサムネイルをタップしてください。";
+
+/* SHOULD BE TRANSLATED! */
+
+"HEADING_WIND_SPEED" = "Wind Speed";
+"HEADING_TEMPERATURE" = "Temperature";
+"HEADING_WIND_DIRECTION" = "Direction";
+"BUTTON_NEXT" = "Next";
+"UNIT_CELCIUS" = "°C";
+"DIRECTION_CARDINAL" = "Cardinal";
+"DIRECTION_DEGREES" = "Degrees";
+"DIRECTION_N" = "N";
+"DIRECTION_NNE" = "NNE";
+"DIRECTION_NE" = "NE";
+"DIRECTION_ENE" = "ENE";
+"DIRECTION_E" = "E";
+"DIRECTION_ESE" = "ESE";
+"DIRECTION_SE" = "SE";
+"DIRECTION_SSE" = "SSE";
+"DIRECTION_S" = "S";
+"DIRECTION_SSW" = "SSW";
+"DIRECTION_SW" = "SW";
+"DIRECTION_WSW" = "WSW";
+"DIRECTION_W" = "W";
+"DIRECTION_WNW" = "WNW";
+"DIRECTION_NW" = "NW";
+"DIRECTION_NNW" = "NNW";
+"DEVICE_CONNECTED_TITLE" = "Device Connected";
+"DEVICE_CONNECTED_MESSAGE" = "Sleipnir wind meter connected";
+"DEVICE_DISCONNECTED_TITLE" = "Device Disconnected";
+"DEVICE_DISCONNECTED_MESSAGE" = "Sleipnir wind meter disconnected";
+"UNKNOWN_DEVICE_CONNECTED_TITLE" = "Unknown Device";
+"UNKNOWN_DEVICE_CONNECTED_MESSAGE" = "Sleipnir not recognized, try reinserting";
+"UNKNOWN_DEVICE_DISCONNECTED_TITLE" = "Device Disconnected";
+"UNKNOWN_DEVICE_DISCONNECTED_MESSAGE" = "Unknown device disconnected";
+
+"AGRI_REGISTER_BUTTON" = "Register";
+"AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Measure for 60s";
+"AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "You must measure for at least 60s indicated by the bar becoming fully green.";
+"AGRI_ENTER_TEMPERATURE" = "Enter Temperature";
+"AGRI_ENTER_TEMPERATURE_EXPLANATION" = "The temperature could not be determined automatically. Please enter it manually:";
+"AGRI_MANUAL_DIRECTION" = "Wind Direction";
+"AGRI_MANUAL_DIRECTION_EXPLANATION" = "Disconnect your wind meter and hold up your phone against the wind. Press Next when you are doing that.";
