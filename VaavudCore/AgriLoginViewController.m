@@ -19,7 +19,6 @@
 @property (weak, nonatomic) IBOutlet GuidedTextField *emailTextField;
 @property (weak, nonatomic) IBOutlet GuidedTextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
-@property (weak, nonatomic) IBOutlet UIButton *registerButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic) CGFloat contentOffsetAfterShowingKeyboard;
 
@@ -31,7 +30,6 @@
     [super viewDidLoad];
     
     [self.loginButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN", nil) forState:UIControlStateNormal];
-    [self.registerButton setTitle:NSLocalizedString(@"AGRI_REGISTER_BUTTON", nil) forState:UIControlStateNormal];
     
     self.emailTextField.guideText = NSLocalizedString(@"REGISTER_FIELD_EMAIL", nil);
     self.emailTextField.delegate = self;
@@ -46,8 +44,6 @@
     
     self.loginButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.loginButton.layer.masksToBounds = YES;
-    self.registerButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
-    self.registerButton.layer.masksToBounds = YES;
     
     // Listen to keyboard...
     
@@ -241,6 +237,8 @@
         CGFloat bottomInset = kbSize.height - self.bottomLayoutGuide.length;
         
         self.contentOffsetAfterShowingKeyboard = 0.0;
+        
+        NSLog(@"[AgriLoginViewController] Keyboard will show");
         
         [UIView animateWithDuration:[info[UIKeyboardAnimationDurationUserInfoKey] doubleValue] delay:0.0 options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionLayoutSubviews | animationCurve << 16) animations:^{
             

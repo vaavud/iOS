@@ -156,7 +156,6 @@
 "UNKNOWN_DEVICE_DISCONNECTED_TITLE" = "Enhed fjernet";
 "UNKNOWN_DEVICE_DISCONNECTED_MESSAGE" = "Ukendt enhed fjernet";
 
-"AGRI_REGISTER_BUTTON" = "Register";
 "AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Mål i 60s";
 "AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "Du skal måle i mindst 60s, indikeret af at baren bliver helt grøn.";
 "AGRI_ENTER_TEMPERATURE" = "Indtast temperatur";

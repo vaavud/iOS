@@ -158,7 +158,6 @@
 "UNKNOWN_DEVICE_DISCONNECTED_TITLE" = "Device Disconnected";
 "UNKNOWN_DEVICE_DISCONNECTED_MESSAGE" = "Unknown device disconnected";
 
-"AGRI_REGISTER_BUTTON" = "Register";
 "AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Measure for 60s";
 "AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "You must measure for at least 60s indicated by the bar becoming fully green.";
 "AGRI_ENTER_TEMPERATURE" = "Enter Temperature";

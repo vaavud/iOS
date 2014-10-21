@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Andreas Okholm. All rights reserved.
 //
 
-#define AGRI_DEBUG_ALWAYS_ENABLE_NEXT NO
-
 #import "AgriMeasureViewController.h"
 #import "UIColor+VaavudColors.h"
 #import "Property+Util.h"
