@@ -186,7 +186,7 @@ static NSArray* mapDirectionImageStrings;
         case 1:
             return NSLocalizedString(@"DIRECTION_DEGREES", nil);
         default:
-            NSLog(@"[UnitUtil] Unknown direction unit %u", directionUnit);
+            NSLog(@"[UnitUtil] Unknown direction unit %ld", (long)directionUnit);
             return @"_";
     }
 }
