@@ -11,6 +11,7 @@
 #import "LocationManager.h"
 #import "Property+Util.h"
 #import "UnitUtil.h"
+#import "Mixpanel.h"
 
 @interface AgriManualDirectionViewController ()
 
@@ -26,7 +27,7 @@
 
 @implementation AgriManualDirectionViewController
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
     
     [self.nextButton setTitle:NSLocalizedString(@"BUTTON_NEXT", nil) forState:UIControlStateNormal];
@@ -55,6 +56,14 @@
     if (self.directionUnit != directionUnit) {
         self.directionUnit = directionUnit;
         [self updateDirection];
+    }
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:@"Agri Manual Direction Screen"];
     }
 }
 
@@ -94,7 +103,7 @@
     }
 }
 
-- (IBAction)nextButtonClicked:(id)sender {
+- (IBAction) nextButtonClicked:(id)sender {
 
     if (self.measurementSession) {
         

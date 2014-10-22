@@ -49,14 +49,25 @@ static NSString * const KEY_LAST_NAME = @"lastName";
 static NSString * const KEY_AUTHENTICATION_STATE = @"authenticationState";
 static NSString * const KEY_USER_HAS_WIND_METER = @"userHasWindMeter";
 
+// Agri-related properties
+
+static NSString * const KEY_AGRI_DEFAULT_REDUCING_EQUIPMENT = @"agriDefaultReducingEquipment";
+static NSString * const KEY_AGRI_DEFAULT_DOSE = @"agriDefaultDose";
+static NSString * const KEY_AGRI_DEFAULT_BOOM_HEIGHT = @"agriDefaultBoomHeight";
+static NSString * const KEY_AGRI_DEFAULT_SPRAY_QUALITY = @"agriDefaultSprayQuality";
+
 @interface Property (Util)
 
 + (NSString*) getAsString:(NSString*) name;
 + (BOOL) getAsBoolean:(NSString*) name;
 + (BOOL) getAsBoolean:(NSString*)name defaultValue:(BOOL)defaultValue;
 + (NSNumber*) getAsInteger:(NSString*) name;
++ (NSNumber*) getAsInteger:(NSString*) name defaultValue:(int)defaultValue;
 + (NSNumber*) getAsLongLong:(NSString*) name;
 + (NSNumber*) getAsDouble:(NSString*) name;
++ (NSNumber*) getAsDouble:(NSString*) name defaultValue:(double)defaultValue;
++ (NSNumber*) getAsFloat:(NSString*) name;
++ (NSNumber*) getAsFloat:(NSString*) name defaultValue:(float)defaultValue;
 + (NSDate*) getAsDate:(NSString*)name;
 + (NSArray*) getAsFloatArray:(NSString*) name;
 + (void) setAsString:(NSString*) value forKey:(NSString*) name;
@@ -64,6 +75,7 @@ static NSString * const KEY_USER_HAS_WIND_METER = @"userHasWindMeter";
 + (void) setAsInteger:(NSNumber*) value forKey:(NSString*) name;
 + (void) setAsLongLong:(NSNumber*) value forKey:(NSString*) name;
 + (void) setAsDouble:(NSNumber*) value forKey:(NSString*) name;
++ (void) setAsFloat:(NSNumber*) value forKey:(NSString*) name;
 + (void) setAsDate:(NSDate*)value forKey:(NSString*)name;
 + (void) setAsFloatArray:(NSArray*) value forKey:(NSString*) name;
 

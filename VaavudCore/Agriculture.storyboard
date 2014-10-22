@@ -631,6 +631,9 @@
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vyE-em-a1N">
                                 <rect key="frame" x="255" y="127" width="51" height="31"/>
+                                <connections>
+                                    <action selector="reducingEquipmentValueChanged:" destination="BZZ-m9-bww" eventType="valueChanged" id="Vqz-mQ-Aam"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Dose>" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2iZ-Hb-XwB">
                                 <rect key="frame" x="16" y="162" width="43" height="14"/>
@@ -645,6 +648,9 @@
                                     <segment title="&lt;Half>"/>
                                     <segment title="&lt;Full>"/>
                                 </segments>
+                                <connections>
+                                    <action selector="doseSegmentControlValueChanged:" destination="BZZ-m9-bww" eventType="valueChanged" id="oiC-P9-8Bs"/>
+                                </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Boom Height>" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jo8-05-M4h">
                                 <rect key="frame" x="16" y="218" width="84" height="14"/>
@@ -659,6 +665,9 @@
                                     <segment title="&lt;40 cm>"/>
                                     <segment title="&lt;60 cm>"/>
                                 </segments>
+                                <connections>
+                                    <action selector="boomHeightValueChanged:" destination="BZZ-m9-bww" eventType="valueChanged" id="huy-T8-uly"/>
+                                </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Spray Quality>" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KO1-1I-cWE">
                                 <rect key="frame" x="16" y="274" width="87" height="14"/>
@@ -673,6 +682,9 @@
                                     <segment title="&lt;Medium>"/>
                                     <segment title="&lt;Coarse>"/>
                                 </segments>
+                                <connections>
+                                    <action selector="sprayQualityValueChanged:" destination="BZZ-m9-bww" eventType="valueChanged" id="JSD-Hh-ure"/>
+                                </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jcv-fp-pBA" userLabel="Bottom Container View">
                                 <rect key="frame" x="16" y="323" width="288" height="245"/>

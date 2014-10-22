@@ -1889,16 +1889,16 @@
 		E9C7798719AB7BD2000A6921 /* Measure */ = {
 			isa = PBXGroup;
 			children = (
-				E9C7798819AB7C09000A6921 /* AgriMeasureViewController.h */,
-				E9C7798919AB7C09000A6921 /* AgriMeasureViewController.m */,
-				E9C7798C19AB87D1000A6921 /* AgriMeasureNavigationController.h */,
-				E9C7798D19AB87D1000A6921 /* AgriMeasureNavigationController.m */,
-				E9002DB719DD6993002D0132 /* AgriManualTemperatureViewController.h */,
-				E9002DB819DD6993002D0132 /* AgriManualTemperatureViewController.m */,
-				E9002DBB19DD69CD002D0132 /* AgriResultViewController.h */,
-				E9002DBC19DD69CD002D0132 /* AgriResultViewController.m */,
 				E9002DBF19DE9755002D0132 /* AgriManualDirectionViewController.h */,
 				E9002DC019DE9755002D0132 /* AgriManualDirectionViewController.m */,
+				E9002DB719DD6993002D0132 /* AgriManualTemperatureViewController.h */,
+				E9002DB819DD6993002D0132 /* AgriManualTemperatureViewController.m */,
+				E9C7798C19AB87D1000A6921 /* AgriMeasureNavigationController.h */,
+				E9C7798D19AB87D1000A6921 /* AgriMeasureNavigationController.m */,
+				E9C7798819AB7C09000A6921 /* AgriMeasureViewController.h */,
+				E9C7798919AB7C09000A6921 /* AgriMeasureViewController.m */,
+				E9002DBB19DD69CD002D0132 /* AgriResultViewController.h */,
+				E9002DBC19DD69CD002D0132 /* AgriResultViewController.m */,
 			);
 			name = Measure;
 			sourceTree = "<group>";

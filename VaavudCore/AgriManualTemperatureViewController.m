@@ -11,6 +11,8 @@
 #define DEFAULT_TEMP_CELCIUS 15
 
 #import "AgriManualTemperatureViewController.h"
+#import "Mixpanel.h"
+#import "Property+Util.h"
 
 @interface AgriManualTemperatureViewController ()
 
@@ -39,6 +41,14 @@
     
     NSInteger startTemp = (self.measurementSession && self.measurementSession.temperature && ([self.measurementSession.temperature floatValue] > 0)) ? roundf([self.measurementSession.temperature floatValue] - KELVIN_TO_CELCIUS) : DEFAULT_TEMP_CELCIUS;
     [self.temperaturePickerView selectRow:(startTemp - MIN_TEMP_CELCIUS) inComponent:0 animated:NO];
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:@"Agri Manual Temperature Screen"];
+    }
 }
 
 - (IBAction)nextButtonClicked:(id)sender {

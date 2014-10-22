@@ -45,6 +45,14 @@
     return [NSNumber numberWithInt:[value integerValue]];
 }
 
++ (NSNumber*) getAsInteger:(NSString*) name defaultValue:(int)defaultValue {
+    NSString* value = [self getAsString:name];
+    if (value == nil) {
+        return [NSNumber numberWithInt:defaultValue];
+    }
+    return [NSNumber numberWithInt:[value integerValue]];
+}
+
 + (NSNumber*) getAsLongLong:(NSString*) name {
     NSString* value = [self getAsString:name];
     if (value == nil) {
@@ -59,6 +67,30 @@
         return nil;
     }
     return [NSNumber numberWithDouble:[value doubleValue]];
+}
+
++ (NSNumber*) getAsDouble:(NSString*)name defaultValue:(double)defaultValue {
+    NSString* value = [self getAsString:name];
+    if (value == nil) {
+        return [NSNumber numberWithDouble:defaultValue];
+    }
+    return [NSNumber numberWithDouble:[value doubleValue]];
+}
+
++ (NSNumber*) getAsFloat:(NSString*) name {
+    NSString* value = [self getAsString:name];
+    if (value == nil) {
+        return nil;
+    }
+    return [NSNumber numberWithFloat:[value floatValue]];
+}
+
++ (NSNumber*) getAsFloat:(NSString*)name defaultValue:(float)defaultValue {
+    NSString* value = [self getAsString:name];
+    if (value == nil) {
+        return [NSNumber numberWithFloat:defaultValue];
+    }
+    return [NSNumber numberWithFloat:[value floatValue]];
 }
 
 + (NSDate*) getAsDate:(NSString*)name {
@@ -92,6 +124,10 @@
 }
 
 + (void) setAsDouble:(NSNumber*) value forKey:(NSString*) name {
+    [self setAsString:[value stringValue] forKey:name];
+}
+
++ (void) setAsFloat:(NSNumber*) value forKey:(NSString*) name {
     [self setAsString:[value stringValue] forKey:name];
 }
 
