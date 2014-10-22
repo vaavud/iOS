@@ -283,7 +283,7 @@
     [UIApplication sharedApplication].delegate.window.rootViewController = nextViewController;
     
     if ([AccountManager sharedInstance].isLoggedIn) {
-        [[ServerUploadManager sharedInstance] syncHistory:1 ignoreGracePeriod:YES success:nil failure:nil];
+        [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:YES success:nil failure:nil];
     }
 }
 

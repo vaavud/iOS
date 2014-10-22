@@ -225,7 +225,7 @@
     //[viewController presentViewController:nextViewController animated:YES completion:nil];
     self.window.rootViewController = nextViewController;
     
-    [[ServerUploadManager sharedInstance] syncHistory:1 ignoreGracePeriod:YES success:nil failure:nil];
+    [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:YES success:nil failure:nil];
 }
 
 - (void) cancelled:(UIViewController*)viewController {

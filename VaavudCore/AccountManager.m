@@ -438,7 +438,7 @@ BOOL isDoingLogout = NO;
         [MeasurementSession MR_deleteAllMatchingPredicate:[NSPredicate predicateWithValue:YES] inContext:localContext];
     }];
 
-    [[ServerUploadManager sharedInstance] registerDevice];
+    [[ServerUploadManager sharedInstance] registerDevice:3];
 }
 
 - (BOOL) isLoggedIn {

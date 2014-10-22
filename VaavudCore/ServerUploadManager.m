@@ -125,7 +125,7 @@ SHARED_INSTANCE
     self.backoffWaitCount = 0;
 
     // register device
-    [self registerDevice];
+    [self registerDevice:3];
 }
 
 - (void) triggerUpload {
@@ -151,7 +151,7 @@ SHARED_INSTANCE
 
     // if we didn't successfully call register device yet, do this instead of uploading
     if (self.hasRegisteredDevice == NO) {
-        [self registerDevice];
+        [self registerDevice:2];
         return;
     }
     
@@ -236,16 +236,26 @@ SHARED_INSTANCE
     }
 }
 
-- (void) registerDevice {
+- (void) registerDevice:(int)retryCount {
 
     NSLog(@"[ServerUploadManager] Register device");
     self.hasRegisteredDevice = NO;
+
+    if (!self.hasReachability) {
+        NSLog(@"[ServerUploadManager] Register device, no reachability");
+        return;
+    }
+    
+    if (retryCount <= 0) {
+        NSLog(@"[ServerUploadManager] Register device, no more retries");
+        return;
+    }
 
     NSDictionary *parameters = [Property getDeviceDictionary];
     
     [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/device/register" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        //NSLog(@"[ServerUploadManager] Got successful response registering device");
+        NSLog(@"[ServerUploadManager] Got successful response registering device");
         self.hasRegisteredDevice = YES;
         
         // clear consecutive errors since we got a successful reponse
@@ -343,6 +353,9 @@ SHARED_INSTANCE
             // Unauthorized most likely means that a user is associated with this device and the authToken has been changed or invalidated
             // server-side.
             [[AccountManager sharedInstance] logout];
+        }
+        else {
+            [self registerDevice:retryCount - 1];
         }
     }];
 }

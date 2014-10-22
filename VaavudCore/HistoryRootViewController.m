@@ -131,7 +131,7 @@
 - (void) syncHistory:(BOOL)ignoreGracePeriod {
     
     if ([[AccountManager sharedInstance] isLoggedIn]) {
-        [[ServerUploadManager sharedInstance] syncHistory:1 ignoreGracePeriod:ignoreGracePeriod success:^{
+        [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:ignoreGracePeriod success:^{
             //NSLog(@"[HistoryRootViewController] Got successful callback from history sync");
             
             if (self.childViewController && [self.childViewController conformsToProtocol:@protocol(HistoryLoadedListener)]) {
