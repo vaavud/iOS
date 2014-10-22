@@ -101,6 +101,11 @@ SHARED_INSTANCE
 // this is triggered by the OS informing us that the app did become active or AFNetworking telling us that reachability has changed to YES and we haven't yet executed these tasks after becoming active. Thus, if we don't have reachability when becoming active, these tasks are postponed until reachability changes to YES.
 - (void) handleDidBecomeActiveTasks {
     
+    NSString *authToken = [Property getAsString:KEY_AUTH_TOKEN];
+    if (authToken && authToken.length > 0) {
+        [[VaavudAPIHTTPClient sharedInstance] setAuthToken:authToken];
+    }
+    
     if (self.lastDidBecomeActive && self.lastDidBecomeActive != nil) {
         NSTimeInterval howRecent = [self.lastDidBecomeActive timeIntervalSinceNow];
         if (abs(howRecent) < graceTimeBetweenDidBecomeActiveTasks) {
@@ -151,7 +156,7 @@ SHARED_INSTANCE
 
     // if we didn't successfully call register device yet, do this instead of uploading
     if (self.hasRegisteredDevice == NO) {
-        [self registerDevice:2];
+        [self registerDevice:3];
         return;
     }
     
