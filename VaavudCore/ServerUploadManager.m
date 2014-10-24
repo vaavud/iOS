@@ -184,18 +184,32 @@ SHARED_INSTANCE
                 }
             }
             
+            BOOL isFinishedButUploadAdditionalData = NO;
+            BOOL doUpload = YES;
+            
             if ([measurementSession.startIndex intValue] == [pointCount intValue] && ([pointCount intValue] > 0 || [measurementSession.measuring boolValue] == NO)) {
 
+                doUpload = NO;
+                
                 if ([measurementSession.measuring boolValue] == NO) {
-                    //NSLog(@"[ServerUploadManager] Found MeasurementSession (%@) that is not measuring and has no new points, so setting it as uploaded", measurementSession.uuid);
-                    measurementSession.uploaded = [NSNumber numberWithBool:YES];
-                    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
+                    
+                    if ((measurementSession.dose && [measurementSession.dose floatValue] > 0.0F) || (measurementSession.boomHeight && [measurementSession.boomHeight intValue] > 0) || (measurementSession.sprayQuality && [measurementSession.sprayQuality intValue] > 0)) {
+                        
+                        isFinishedButUploadAdditionalData = YES;
+                        doUpload = YES;
+                    }
+                    else {
+                        //NSLog(@"[ServerUploadManager] Found MeasurementSession (%@) that is not measuring and has no new points, so setting it as uploaded", measurementSession.uuid);
+                        measurementSession.uploaded = [NSNumber numberWithBool:YES];
+                        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
+                    }
                 }
                 else {
                     //NSLog(@"[ServerUploadManager] Found MeasurementSession that is not uploaded, is still measuring, but has no new points, so skipping");
                 }
             }
-            else {
+            
+            if (doUpload) {
                 
                 //NSLog(@"[ServerUploadManager] Uploading MeasurementSession (%@)", measurementSession.uuid);
                 
@@ -216,6 +230,12 @@ SHARED_INSTANCE
                     // lookup MeasurementSession again since it might have changed while uploading
                     MeasurementSession *msession = [MeasurementSession MR_findFirstByAttribute:@"uuid" withValue:uuid];
                     msession.startIndex = newEndIndex;
+                    
+                    if (isFinishedButUploadAdditionalData) {
+                        NSLog(@"[ServerUploadManager] Is finished, just uploaded additional data, so setting as uploaded");
+                        measurementSession.uploaded = [NSNumber numberWithBool:YES];
+                    }
+                    
                     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
                     
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

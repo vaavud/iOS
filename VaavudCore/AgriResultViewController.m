@@ -11,6 +11,7 @@
 #import "UnitUtil.h"
 #import "Property+Util.h"
 #import "Mixpanel.h"
+#import "ServerUploadManager.h"
 
 @interface AgriResultViewController ()
 
@@ -454,7 +455,10 @@
         self.measurementSession.sprayQuality = [self getSprayQualityValue];
         self.measurementSession.generalConsideration = self.generalDistance;
         self.measurementSession.specialConsideration = self.specialDistance;
+        self.measurementSession.uploaded = [NSNumber numberWithBool:NO];
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
+        
+        [[ServerUploadManager sharedInstance] triggerUpload];
         
         if ([self.navigationController.viewControllers[0] isKindOfClass:[AgriMeasureViewController class]]) {
             
