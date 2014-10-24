@@ -284,6 +284,36 @@
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
+- (void) reset {
+    
+    if (!self.buttonShowsStart) {
+        [self stop];
+    }
+
+    // reset labels, status bar, and graph...
+    
+    if (self.statusBar) {
+        [self.statusBar setProgress:0];
+        self.statusBarStartTime = [NSDate date];
+    }
+    
+    self.actualLabelCurrentValue = nil;
+    self.averageLabelCurrentValue = nil;
+    self.maxLabelCurrentValue = nil;
+    self.directionLabelCurrentValue = nil;
+    self.currentTemperature = nil;
+    self.lastValidityChangeTime = [NSDate date];
+    self.nonValidDuration = 0.0;
+    self.isValid = YES;
+    [self updateLabelsFromCurrentValues];
+    [self updateDirectionFromCurrentValue];
+    self.temperatureLabel.text = @"-";
+    
+    if (self.graphContainer) {
+        [self createGraphView];
+    }
+}
+
 /**** Common Start/Stop Measuring ****/
 
 - (IBAction) startStopButtonPushed:(id)sender {

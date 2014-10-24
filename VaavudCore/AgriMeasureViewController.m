@@ -67,6 +67,12 @@
     return NSLocalizedString(@"BUTTON_CANCEL", nil);
 }
 
+- (void) reset {
+    [super reset];
+    self.measurementSession = nil;
+    self.nextButton.enabled = !self.buttonShowsStart;
+}
+
 - (IBAction) startStopButtonPushed:(id)sender {
     self.measurementSession = nil;
     [super startStopButtonPushed:sender];

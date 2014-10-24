@@ -51,6 +51,7 @@
 
 - (void) start;
 - (void) stop;
+- (void) reset;
 
 - (void) measurementStarted;
 - (void) measurementStopped:(MeasurementSession*)measurementSession;
