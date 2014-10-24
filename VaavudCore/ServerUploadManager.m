@@ -365,7 +365,7 @@ SHARED_INSTANCE
     }];
 }
 
--(void) registerUser:(NSString*)action email:(NSString*)email passwordHash:(NSString*)passwordHash facebookId:(NSString*)facebookId facebookAccessToken:(NSString*)facebookAccessToken firstName:(NSString*)firstName lastName:(NSString*)lastName gender:(NSNumber*)gender verified:(NSNumber*)verified retry:(int)retryCount success:(void (^)(NSString *status, id responseObject))success failure:(void (^)(NSError *error))failure {
+-(void) registerUser:(NSString*)action email:(NSString*)email passwordHash:(NSString*)passwordHash facebookId:(NSString*)facebookId facebookAccessToken:(NSString*)facebookAccessToken firstName:(NSString*)firstName lastName:(NSString*)lastName gender:(NSNumber*)gender verified:(NSNumber*)verified metaInfo:(NSDictionary*)metaInfo retry:(int)retryCount success:(void (^)(NSString *status, id responseObject))success failure:(void (^)(NSError *error))failure {
     
     if (!self.hasReachability) {
         failure(nil);
@@ -378,6 +378,9 @@ SHARED_INSTANCE
     }
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithCapacity:10];
+    if (metaInfo && metaInfo.count > 0) {
+        [parameters setValuesForKeysWithDictionary:metaInfo];
+    }
     if (action) {
         [parameters setObject:action forKey:@"action"];
     }
@@ -439,10 +442,13 @@ SHARED_INSTANCE
         
         // check for unauthorized
         if (statusCode == 401) {
+            
+            // call failure before logging out, because otherwise the delegate failure call is ignored due to logout increasing call count
+            failure(error);
+
             // Unauthorized most likely means that a user is associated with this device and the authToken has been changed or invalidated
             // server-side. Thus, we need to remove the local authToken, create a new deviceUuid, and re-register the user
             [[AccountManager sharedInstance] logout];
-            failure(error);
         }
         else if (statusCode == 404) {
             failure(error);
@@ -457,7 +463,8 @@ SHARED_INSTANCE
                       lastName:lastName
                         gender:gender
                       verified:verified
-                         retry:retryCount-1
+                      metaInfo:metaInfo
+                         retry:retryCount - 1
                        success:success
                        failure:failure];
         }
