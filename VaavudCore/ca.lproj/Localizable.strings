@@ -157,6 +157,8 @@
 "UNKNOWN_DEVICE_CONNECTED_MESSAGE" = "Sleipnir not recognized, try reinserting";
 "UNKNOWN_DEVICE_DISCONNECTED_TITLE" = "Device Disconnected";
 "UNKNOWN_DEVICE_DISCONNECTED_MESSAGE" = "Unknown device disconnected";
+"REGISTER_FEEDBACK_MISSING_FACEBOOK_PERMISSIONS_TITLE" = "Missing Permission";
+"REGISTER_FEEDBACK_MISSING_FACEBOOK_PERMISSIONS_MESSAGE" = "Please allow Facebook to provide us with your email address and list of friends.";
 
 "AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Measure for 60s";
 "AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "You must measure for at least 60s indicated by the bar becoming fully green.";
@@ -164,3 +166,21 @@
 "AGRI_ENTER_TEMPERATURE_EXPLANATION" = "The temperature could not be determined automatically. Please enter it manually:";
 "AGRI_MANUAL_DIRECTION" = "Wind Direction";
 "AGRI_MANUAL_DIRECTION_EXPLANATION" = "Disconnect your wind meter and hold up your phone against the wind. Press Next when you are doing that.";
+"AGRI_REDUCING_EQUIPMENT" = "Reducing Equipment";
+"AGRI_DOSE" = "Dose";
+"AGRI_DOSE_QUARTER" = "Quarter";
+"AGRI_DOSE_HALF" = "Half";
+"AGRI_DOSE_FULL" = "Full";
+"AGRI_BOOM_HEIGHT" = "Boom Height";
+"AGRI_BOOM_HEIGHT_25CM" = "25 cm";
+"AGRI_BOOM_HEIGHT_40CM" = "40 cm";
+"AGRI_BOOM_HEIGHT_60CM" = "60 cm";
+"AGRI_SPRAY_QUALITY" = "Spray Quality";
+"AGRI_SPRAY_QUALITY_FINE" = "Fine";
+"AGRI_SPRAY_QUALITY_MEDIUM" = "Medium";
+"AGRI_SPRAY_QUALITY_COARSE" = "Coarse";
+"AGRI_PROTECTIVE_DISTANCE" = "Protective Distance";
+"AGRI_GENERAL_DISTANCE" = "General:";
+"AGRI_SPECIAL_DISTANCE" = "Special:";
+"AGRI_DISTANCE_UNIT_M" = "m";
+"AGRI_RESULT_SAVE_BUTTON" = "Save";

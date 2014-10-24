@@ -256,6 +256,10 @@ BOOL didShowFeedback;
                 [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_NO_REACHABILITY_TITLE", nil)];
                 return;
             }
+            else if (response == AuthenticationResponseFacebookMissingPermission) {
+                [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_MISSING_FACEBOOK_PERMISSIONS_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_MISSING_FACEBOOK_PERMISSIONS_TITLE", nil)];
+                return;
+            }
             else {
                 message = NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_MESSAGE", nil);
             }
