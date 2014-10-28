@@ -15,31 +15,31 @@
 
 @interface AgriResultViewController ()
 
-@property (nonatomic, weak) IBOutlet UILabel *windSpeedHeadingLabel; // OK
-@property (nonatomic, weak) IBOutlet UILabel *averageLabel; // OK
-@property (weak, nonatomic) IBOutlet UILabel *temperatureHeadingLabel; // OK
-@property (weak, nonatomic) IBOutlet UILabel *temperatureLabel; // OK
-@property (weak, nonatomic) IBOutlet UILabel *temperatureUnitLabel; // OK
-@property (weak, nonatomic) IBOutlet UILabel *windSpeedUnitLabel; // OK
-@property (weak, nonatomic) IBOutlet UILabel *directionHeadingLabel; // OK
-@property (weak, nonatomic) IBOutlet UILabel *directionLabel; // OK
-@property (weak, nonatomic) IBOutlet UIImageView *directionImageView; // OK
-@property (weak, nonatomic) IBOutlet UILabel *reducingEquipmentHeadingLabel; // OK
+@property (nonatomic, weak) IBOutlet UILabel *windSpeedHeadingLabel;
+@property (nonatomic, weak) IBOutlet UILabel *averageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *temperatureHeadingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *temperatureLabel;
+@property (weak, nonatomic) IBOutlet UILabel *temperatureUnitLabel;
+@property (weak, nonatomic) IBOutlet UILabel *windSpeedUnitLabel;
+@property (weak, nonatomic) IBOutlet UILabel *directionHeadingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *directionLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *directionImageView;
+@property (weak, nonatomic) IBOutlet UILabel *reducingEquipmentHeadingLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *reducingEquipmentSwitch;
-@property (weak, nonatomic) IBOutlet UILabel *doseHeadingLabel; // OK
+@property (weak, nonatomic) IBOutlet UILabel *doseHeadingLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *doseSegmentControl;
-@property (weak, nonatomic) IBOutlet UILabel *boomHeightHeadingLabel; // OK
+@property (weak, nonatomic) IBOutlet UILabel *boomHeightHeadingLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *boomHeightSegmentControl;
-@property (weak, nonatomic) IBOutlet UILabel *sprayQualityHeadingLabel; // OK
+@property (weak, nonatomic) IBOutlet UILabel *sprayQualityHeadingLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *sprayQualitySegmentControl;
-@property (weak, nonatomic) IBOutlet UILabel *protectiveDistanceLabel; // OK
-@property (weak, nonatomic) IBOutlet UILabel *generalDistanceHeadingLabel; // OK
+@property (weak, nonatomic) IBOutlet UILabel *protectiveDistanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *generalDistanceHeadingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *generalDistanceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *generalDistanceUnitLabel; // OK
-@property (weak, nonatomic) IBOutlet UILabel *specialDistanceHeadingLabel; // OK
+@property (weak, nonatomic) IBOutlet UILabel *generalDistanceUnitLabel;
+@property (weak, nonatomic) IBOutlet UILabel *specialDistanceHeadingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *specialDistanceLabel;
-@property (weak, nonatomic) IBOutlet UILabel *specialDistanceUnitLabel; // OK
-@property (weak, nonatomic) IBOutlet UIButton *saveButton; // OK
+@property (weak, nonatomic) IBOutlet UILabel *specialDistanceUnitLabel;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
 
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
 @property (nonatomic) NSInteger directionUnit;
@@ -129,13 +129,13 @@
         [self setSelectedSprayQuality:[Property getAsInteger:KEY_AGRI_DEFAULT_SPRAY_QUALITY defaultValue:1]];
     }
     
-    if (self.measurementSession && self.measurementSession.endTime) {
+    if (self.measurementSession && self.measurementSession.startTime) {
         
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.timeStyle = NSDateFormatterShortStyle;
         dateFormatter.dateStyle = NSDateFormatterMediumStyle;
         
-        self.navigationItem.title = [dateFormatter stringFromDate:self.measurementSession.endTime];
+        self.navigationItem.title = [dateFormatter stringFromDate:self.measurementSession.startTime];
     }
     else {
         self.navigationItem.title = @"";

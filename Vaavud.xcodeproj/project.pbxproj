@@ -195,6 +195,10 @@
 		E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E94CBB5D177DB3050089D440 /* UUIDUtil.m */; };
 		E9543DE919F7DA54005A01D7 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9543DE819F7DA54005A01D7 /* FacebookSDK.framework */; };
 		E9543DEA19F7DA54005A01D7 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9543DE819F7DA54005A01D7 /* FacebookSDK.framework */; };
+		E9543DFC19FFBF6C005A01D7 /* AgriHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9543DFB19FFBF6C005A01D7 /* AgriHistoryTableViewController.m */; };
+		E9543DFD19FFBF6C005A01D7 /* AgriHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9543DFB19FFBF6C005A01D7 /* AgriHistoryTableViewController.m */; };
+		E9543E0019FFCB2E005A01D7 /* AgriSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9543DFF19FFCB2E005A01D7 /* AgriSummaryViewController.m */; };
+		E9543E0119FFCB2E005A01D7 /* AgriSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9543DFF19FFCB2E005A01D7 /* AgriSummaryViewController.m */; };
 		E9575937193CAE3D00B5D0AE /* UnitSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9575936193CAE3D00B5D0AE /* UnitSelectionViewController.m */; };
 		E957593A193E222D00B5D0AE /* LoadingHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9575939193E222D00B5D0AE /* LoadingHistoryViewController.m */; };
 		E960260818575452009396B1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E960260A18575452009396B1 /* Localizable.strings */; };
@@ -814,6 +818,10 @@
 		E94CBB5C177DB3050089D440 /* UUIDUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUIDUtil.h; sourceTree = "<group>"; };
 		E94CBB5D177DB3050089D440 /* UUIDUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUIDUtil.m; sourceTree = "<group>"; };
 		E9543DE819F7DA54005A01D7 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		E9543DFA19FFBF6C005A01D7 /* AgriHistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriHistoryTableViewController.h; sourceTree = "<group>"; };
+		E9543DFB19FFBF6C005A01D7 /* AgriHistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriHistoryTableViewController.m; sourceTree = "<group>"; };
+		E9543DFE19FFCB2E005A01D7 /* AgriSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriSummaryViewController.h; sourceTree = "<group>"; };
+		E9543DFF19FFCB2E005A01D7 /* AgriSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriSummaryViewController.m; sourceTree = "<group>"; };
 		E9575935193CAE3D00B5D0AE /* UnitSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitSelectionViewController.h; sourceTree = "<group>"; };
 		E9575936193CAE3D00B5D0AE /* UnitSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitSelectionViewController.m; sourceTree = "<group>"; };
 		E9575938193E222D00B5D0AE /* LoadingHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingHistoryViewController.h; sourceTree = "<group>"; };
@@ -1478,6 +1486,17 @@
 			path = VERSION;
 			sourceTree = "<group>";
 		};
+		E9543DED19FFBE1D005A01D7 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				E9543DFA19FFBF6C005A01D7 /* AgriHistoryTableViewController.h */,
+				E9543DFB19FFBF6C005A01D7 /* AgriHistoryTableViewController.m */,
+				E9543DFE19FFCB2E005A01D7 /* AgriSummaryViewController.h */,
+				E9543DFF19FFCB2E005A01D7 /* AgriSummaryViewController.m */,
+			);
+			name = History;
+			sourceTree = "<group>";
+		};
 		E98853C7176868BE00F78128 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -1628,6 +1647,7 @@
 			isa = PBXGroup;
 			children = (
 				E9AE301A19A36A25004A79C4 /* Agriculture.storyboard */,
+				E9543DED19FFBE1D005A01D7 /* History */,
 				E9AB11D619A60D68000C6FB1 /* Login */,
 				E9C7798719AB7BD2000A6921 /* Measure */,
 				E9C7799019AB8DC1000A6921 /* Settings */,
@@ -2649,6 +2669,7 @@
 				E9B627C817708E63004678D5 /* AFXMLRequestOperation.m in Sources */,
 				E9B627C917708E63004678D5 /* UIImageView+AFNetworking.m in Sources */,
 				E9D9045119C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */,
+				E9543DFC19FFBF6C005A01D7 /* AgriHistoryTableViewController.m in Sources */,
 				E9B627D1177096D6004678D5 /* VaavudAPIHTTPClient.m in Sources */,
 				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,
 				E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */,
@@ -2712,6 +2733,7 @@
 				E9CD2251177B2AEA0054ED3F /* MagicalRecord+Options.m in Sources */,
 				E93C5C3717EC826800E84D3C /* TabBarController.m in Sources */,
 				E9CD2252177B2AEA0054ED3F /* MagicalRecord+Setup.m in Sources */,
+				E9543E0019FFCB2E005A01D7 /* AgriSummaryViewController.m in Sources */,
 				E9CD2253177B2AEA0054ED3F /* MagicalRecord+ShorthandSupport.m in Sources */,
 				E9CD2254177B2AEA0054ED3F /* MagicalRecord.m in Sources */,
 				E98C9A6319BF0E80009428F3 /* GraphView.m in Sources */,
@@ -2782,6 +2804,7 @@
 				E96FB50919A353B500CB7306 /* MeasurementTableViewCell.m in Sources */,
 				E948383619B75320009595B0 /* TPCircularBuffer.c in Sources */,
 				E96FB50A19A353B500CB7306 /* MeasureNavigationController.m in Sources */,
+				E9543DFD19FFBF6C005A01D7 /* AgriHistoryTableViewController.m in Sources */,
 				E96FB50B19A353B500CB7306 /* AFXMLRequestOperation.m in Sources */,
 				E96FB50C19A353B500CB7306 /* UIImageView+AFNetworking.m in Sources */,
 				E96FB50D19A353B500CB7306 /* VaavudAPIHTTPClient.m in Sources */,
@@ -2845,6 +2868,7 @@
 				E96FB53919A353B500CB7306 /* MagicalRecord+iCloud.m in Sources */,
 				E96FB53A19A353B500CB7306 /* MagicalRecord+Options.m in Sources */,
 				E96FB53B19A353B500CB7306 /* TabBarController.m in Sources */,
+				E9543E0119FFCB2E005A01D7 /* AgriSummaryViewController.m in Sources */,
 				E96FB53C19A353B500CB7306 /* MagicalRecord+Setup.m in Sources */,
 				E96FB53D19A353B500CB7306 /* MagicalRecord+ShorthandSupport.m in Sources */,
 				E96FB53E19A353B500CB7306 /* MagicalRecord.m in Sources */,

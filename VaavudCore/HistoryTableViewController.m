@@ -20,7 +20,6 @@
 
 @interface HistoryTableViewController ()
 
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) UIImage *placeholderImage;
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
 @property (nonatomic) NSInteger directionUnit;

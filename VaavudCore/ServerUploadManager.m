@@ -669,6 +669,12 @@ SHARED_INSTANCE
                             NSNumber *windSpeedMax = [self numberValueFrom:measurementDictionary forKey:@"windSpeedMax"];
                             NSNumber *windDirection = [self numberValueFrom:measurementDictionary forKey:@"windDirection"];
                             NSNumber *temperature = [self numberValueFrom:measurementDictionary forKey:@"temperature"];
+                            NSNumber *reducingEquipment = [self numberValueFrom:measurementDictionary forKey:@"reducingEquipment"];
+                            NSNumber *dose = [self numberValueFrom:measurementDictionary forKey:@"dose"];
+                            NSNumber *boomHeight = [self numberValueFrom:measurementDictionary forKey:@"boomHeight"];
+                            NSNumber *sprayQuality = [self numberValueFrom:measurementDictionary forKey:@"sprayQuality"];
+                            NSNumber *generalConsideration = [self numberValueFrom:measurementDictionary forKey:@"generalConsideration"];
+                            NSNumber *specialConsideration = [self numberValueFrom:measurementDictionary forKey:@"specialConsideration"];
                             NSArray *points = [measurementDictionary objectForKey:@"points"];
                             
                             if ([measurementSession.measuring boolValue] == NO && [measurementSession.uploaded boolValue] == YES) {
@@ -684,6 +690,12 @@ SHARED_INSTANCE
                                 measurementSession.windSpeedMax = windSpeedMax;
                                 measurementSession.windDirection = windDirection;
                                 measurementSession.temperature = temperature;
+                                measurementSession.reducingEquipment = reducingEquipment;
+                                measurementSession.dose = dose;
+                                measurementSession.boomHeight = boomHeight;
+                                measurementSession.sprayQuality = sprayQuality;
+                                measurementSession.generalConsideration = generalConsideration;
+                                measurementSession.specialConsideration = specialConsideration;
 
                                 if (points.count > measurementSession.points.count) {
                                     
@@ -723,6 +735,12 @@ SHARED_INSTANCE
                 NSNumber *windSpeedMax = [self numberValueFrom:measurementDictionary forKey:@"windSpeedMax"];
                 NSNumber *windDirection = [self numberValueFrom:measurementDictionary forKey:@"windDirection"];
                 NSNumber *temperature = [self numberValueFrom:measurementDictionary forKey:@"temperature"];
+                NSNumber *reducingEquipment = [self numberValueFrom:measurementDictionary forKey:@"reducingEquipment"];
+                NSNumber *dose = [self numberValueFrom:measurementDictionary forKey:@"dose"];
+                NSNumber *boomHeight = [self numberValueFrom:measurementDictionary forKey:@"boomHeight"];
+                NSNumber *sprayQuality = [self numberValueFrom:measurementDictionary forKey:@"sprayQuality"];
+                NSNumber *generalConsideration = [self numberValueFrom:measurementDictionary forKey:@"generalConsideration"];
+                NSNumber *specialConsideration = [self numberValueFrom:measurementDictionary forKey:@"specialConsideration"];
                 NSNumber *windMeter = [self numberValueFrom:measurementDictionary forKey:@"windMeter"];
                 NSArray *points = [measurementDictionary objectForKey:@"points"];
                 
@@ -744,7 +762,13 @@ SHARED_INSTANCE
                         measurementSession.windSpeedMax = windSpeedMax;
                         measurementSession.windDirection = windDirection;
                         measurementSession.temperature = temperature;
-                        
+                        measurementSession.reducingEquipment = reducingEquipment;
+                        measurementSession.dose = dose;
+                        measurementSession.boomHeight = boomHeight;
+                        measurementSession.sprayQuality = sprayQuality;
+                        measurementSession.generalConsideration = generalConsideration;
+                        measurementSession.specialConsideration = specialConsideration;
+
                         if (points.count > measurementSession.points.count) {
                             
                             //NSLog(@"[ServerUploadManager] Measurement points added, old size=%lu, new size=%lu", (unsigned long)measurementSession.points.count, (unsigned long)points.count);
@@ -775,6 +799,12 @@ SHARED_INSTANCE
                     measurementSession.windSpeedMax = windSpeedMax;
                     measurementSession.windDirection = windDirection;
                     measurementSession.temperature = temperature;
+                    measurementSession.reducingEquipment = reducingEquipment;
+                    measurementSession.dose = dose;
+                    measurementSession.boomHeight = boomHeight;
+                    measurementSession.sprayQuality = sprayQuality;
+                    measurementSession.generalConsideration = generalConsideration;
+                    measurementSession.specialConsideration = specialConsideration;
                     measurementSession.windMeter = windMeter;
                     
                     NSOrderedSet *measurementPoints = [self createMeasurementPoints:points withSession:measurementSession inContext:localContext];

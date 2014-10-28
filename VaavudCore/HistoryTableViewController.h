@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "HistoryRootViewController.h"
+#import "HistoryTableViewCell.h"
 
 @interface HistoryTableViewController : UITableViewController<HistoryLoadedListener, NSFetchedResultsControllerDelegate>
+
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+
+- (void) configureCell:(HistoryTableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath;
 
 @end
