@@ -17,6 +17,7 @@
 @property (nonatomic) BOOL shareToFacebook;
 @property (nonatomic) BOOL buttonShowsStart;
 @property (nonatomic) BOOL isMinimumThresholdReached;
+@property (nonatomic, strong) NSNumber *privacy;
 
 - (UILabel*) averageHeadingLabel;
 - (UILabel*) averageLabel;

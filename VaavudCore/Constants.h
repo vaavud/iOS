@@ -54,5 +54,5 @@ static int const FQ60_FFT_DATA_LENGTH = 80;
 static NSString * const GOOGLE_STATIC_MAPS_API_KEY = @"AIzaSyDrrZsMKRBkCw214SbJA6q2lO-cXbu7m0Y";
 static NSString * const OPEN_WEATHERMAP_APIID = @"ee85fc6e4832549dee0f2004453fb478";
 
-static NSString * const vaavudAPIBaseURLString = @"http://10.121.1.32:8080/";
-//static NSString * const vaavudAPIBaseURLString = @"https://mobile-api.vaavud.com/";
+//static NSString * const vaavudAPIBaseURLString = @"http://10.121.1.32:8080/";
+static NSString * const vaavudAPIBaseURLString = @"https://mobile-api.vaavud.com/";

@@ -401,8 +401,13 @@
     
     // start measuring...
     
+    if (!self.privacy) {
+        self.privacy = [NSNumber numberWithInt:1];
+    }
+    
     SavingWindMeasurementController *controller = [SavingWindMeasurementController sharedInstance];
     controller.lookupTemperature = self.lookupTemperature;
+    controller.privacy = self.privacy;
     controller.delegate = self;
     [controller setHardwareController:hardwareController];
     [controller start];

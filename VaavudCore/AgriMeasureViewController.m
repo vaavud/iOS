@@ -44,6 +44,7 @@
     [super viewDidLoad];
 
     self.shareToFacebook = NO;
+    self.privacy = [NSNumber numberWithInt:0];
     
     UIColor *vaavudColor = [UIColor vaavudColor];
 

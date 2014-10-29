@@ -62,6 +62,10 @@ SHARED_INSTANCE
             [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
         }
         
+        if (!self.privacy) {
+            self.privacy = [NSNumber numberWithInt:1];
+        }
+        
         // create new MeasurementSession and save it in the database
 
         MeasurementSession *measurementSession = [MeasurementSession MR_createEntity];
@@ -74,6 +78,7 @@ SHARED_INSTANCE
         measurementSession.measuring = [NSNumber numberWithBool:YES];
         measurementSession.uploaded = [NSNumber numberWithBool:NO];
         measurementSession.startIndex = [NSNumber numberWithInt:0];
+        measurementSession.privacy = self.privacy;
         [self updateMeasurementSessionLocation:measurementSession];
         
         AppDelegate *appDelegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];

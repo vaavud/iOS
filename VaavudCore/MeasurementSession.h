@@ -2,7 +2,7 @@
 //  MeasurementSession.h
 //  Vaavud
 //
-//  Created by Thomas Stilling Ambus on 03/10/2014.
+//  Created by Thomas Stilling Ambus on 29/10/2014.
 //  Copyright (c) 2014 Andreas Okholm. All rights reserved.
 //
 
@@ -13,13 +13,19 @@
 
 @interface MeasurementSession : NSManagedObject
 
+@property (nonatomic, retain) NSNumber * boomHeight;
 @property (nonatomic, retain) NSString * device;
+@property (nonatomic, retain) NSNumber * dose;
 @property (nonatomic, retain) NSNumber * endIndex;
 @property (nonatomic, retain) NSDate * endTime;
+@property (nonatomic, retain) NSNumber * generalConsideration;
 @property (nonatomic, retain) NSNumber * latitude;
 @property (nonatomic, retain) NSNumber * longitude;
 @property (nonatomic, retain) NSNumber * measuring;
+@property (nonatomic, retain) NSNumber * reducingEquipment;
 @property (nonatomic, retain) NSString * source;
+@property (nonatomic, retain) NSNumber * specialConsideration;
+@property (nonatomic, retain) NSNumber * sprayQuality;
 @property (nonatomic, retain) NSNumber * startIndex;
 @property (nonatomic, retain) NSDate * startTime;
 @property (nonatomic, retain) NSNumber * temperature;
@@ -30,12 +36,7 @@
 @property (nonatomic, retain) NSNumber * windMeter;
 @property (nonatomic, retain) NSNumber * windSpeedAvg;
 @property (nonatomic, retain) NSNumber * windSpeedMax;
-@property (nonatomic, retain) NSNumber * reducingEquipment;
-@property (nonatomic, retain) NSNumber * dose;
-@property (nonatomic, retain) NSNumber * boomHeight;
-@property (nonatomic, retain) NSNumber * sprayQuality;
-@property (nonatomic, retain) NSNumber * generalConsideration;
-@property (nonatomic, retain) NSNumber * specialConsideration;
+@property (nonatomic, retain) NSNumber * privacy;
 @property (nonatomic, retain) NSOrderedSet *points;
 @end
 
