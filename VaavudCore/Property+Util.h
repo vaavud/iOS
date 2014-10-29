@@ -51,6 +51,7 @@ static NSString * const KEY_USER_HAS_WIND_METER = @"userHasWindMeter";
 
 // Agri-related properties
 
+static NSString * const KEY_AGRI_VALID_SUBSCRIPTION = @"agriValidSubscription";
 static NSString * const KEY_AGRI_DEFAULT_REDUCING_EQUIPMENT = @"agriDefaultReducingEquipment";
 static NSString * const KEY_AGRI_DEFAULT_DOSE = @"agriDefaultDose";
 static NSString * const KEY_AGRI_DEFAULT_BOOM_HEIGHT = @"agriDefaultBoomHeight";

@@ -94,25 +94,36 @@
         
         [self.activityIndicator stopAnimating];
 
-        [self.passwordTextField resignFirstResponder];
-        [self.emailTextField resignFirstResponder];
-        self.passwordTextField.delegate = nil;
-        self.emailTextField.delegate = nil;
-        
-        if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
-            RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
-            if (registerNavigationController.registerDelegate) {
-                [registerNavigationController.registerDelegate userAuthenticated:(response == AuthenticationResponseCreated) viewController:self];
+        if ([Property getAsBoolean:KEY_AGRI_VALID_SUBSCRIPTION]) {
+
+            [self.passwordTextField resignFirstResponder];
+            [self.emailTextField resignFirstResponder];
+            self.passwordTextField.delegate = nil;
+            self.emailTextField.delegate = nil;
+            
+            if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
+                RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
+                if (registerNavigationController.registerDelegate) {
+                    [registerNavigationController.registerDelegate userAuthenticated:(response == AuthenticationResponseCreated) viewController:self];
+                }
             }
+            else {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Agriculture" bundle:nil];
+                UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"AgriTabBarController"];
+                [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
+            }
+            
+            [[ServerUploadManager sharedInstance] syncHistory:1 ignoreGracePeriod:YES success:nil failure:nil];
+
         }
         else {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Agriculture" bundle:nil];
-            UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"AgriTabBarController"];
-            [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
-        }
-        
-        [[ServerUploadManager sharedInstance] syncHistory:1 ignoreGracePeriod:YES success:nil failure:nil];
+            if ([Property isMixpanelEnabled]) {
+                [[Mixpanel sharedInstance] track:@"No Agri Subscription" properties:@{@"Screen": @"Agri Login"}];
+            }
 
+            [self showMessage:NSLocalizedString(@"AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE", nil) withTitle:NSLocalizedString(@"AGRI_REGISTER_NO_SUBSCRIPTION_TITLE", nil)];
+            [[AccountManager sharedInstance] logout];
+        }
     } failure:^(enum AuthenticationResponseType response) {
 
         [self.activityIndicator stopAnimating];

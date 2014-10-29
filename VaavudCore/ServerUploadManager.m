@@ -362,6 +362,10 @@ SHARED_INSTANCE
             }
         }
         
+        NSNumber *validAgricultureSubscription = [self numberValueFrom:responseObject forKey:@"validAgricultureSubscription"];
+        [Property setAsBoolean:(validAgricultureSubscription && [validAgricultureSubscription intValue] == 1) forKey:KEY_AGRI_VALID_SUBSCRIPTION];
+        NSLog(@"[ServerUploadManager] Agri valid subscription: %hhd", [Property getAsBoolean:KEY_AGRI_VALID_SUBSCRIPTION]);
+        
         // only trigger upload once we get OK from server for registering device, otherwise the device could be unregistered when uploading
         [self triggerUpload];
         
@@ -444,6 +448,10 @@ SHARED_INSTANCE
                 [Property setAsString:authToken forKey:KEY_AUTH_TOKEN];
                 [[VaavudAPIHTTPClient sharedInstance] setAuthToken:authToken];
             }
+            
+            NSNumber *validAgricultureSubscription = [self numberValueFrom:responseObject forKey:@"validAgricultureSubscription"];
+            [Property setAsBoolean:(validAgricultureSubscription && [validAgricultureSubscription intValue] == 1) forKey:KEY_AGRI_VALID_SUBSCRIPTION];
+            NSLog(@"[ServerUploadManager] Agri valid subscription: %hhd", [Property getAsBoolean:KEY_AGRI_VALID_SUBSCRIPTION]);
             
             NSLog(@"[ServerUploadManager] Got status %@ registering user", status);
 

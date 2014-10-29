@@ -185,3 +185,5 @@
 "AGRI_DISTANCE_UNIT_M" = "m";
 "AGRI_RESULT_SAVE_BUTTON" = "Save";
 "AGRI_RESULT_CONFIRM_SAVE_TITLE" = "Save Measurement?";
+"AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "No Subscription";
+"AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "You don't have a valid subscription. Please contact Vaavud.";

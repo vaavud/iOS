@@ -11,6 +11,7 @@
 #import "Property+Util.h"
 #import "UnitUtil.h"
 #import "MeasurementSession+Util.h"
+#import "AccountManager.h"
 
 @interface AgriMeasureViewController ()
 
@@ -61,6 +62,13 @@
     
     WindSpeedUnit windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
     self.windSpeedUnitLabel.text = [UnitUtil displayNameForWindSpeedUnit:windSpeedUnit];
+    
+    if (![Property getAsBoolean:KEY_AGRI_VALID_SUBSCRIPTION]) {
+        [[AccountManager sharedInstance] logout];
+        
+        UIViewController *viewController = [self.storyboard instantiateViewControllerWithIdentifier:@"AgriLoginViewController"];
+        [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
+    }
 }
 
 - (NSString*) stopButtonTitle {
