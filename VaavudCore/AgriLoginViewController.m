@@ -26,7 +26,7 @@
 
 @implementation AgriLoginViewController
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
     
     [self.loginButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN", nil) forState:UIControlStateNormal];
@@ -58,7 +58,7 @@
                                                object:nil];
 }
 
--(NSUInteger)supportedInterfaceOrientations {
+- (NSUInteger) supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 

@@ -89,6 +89,10 @@
     self.saveButton.backgroundColor = vaavudColor;
 }
 
+- (NSUInteger) supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 

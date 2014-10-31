@@ -19,7 +19,7 @@
     self.tabBarItem.title = NSLocalizedString(@"SETTINGS_TITLE", nil);
 }
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];

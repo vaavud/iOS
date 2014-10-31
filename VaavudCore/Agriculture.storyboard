@@ -90,8 +90,8 @@
                                     <constraint firstAttribute="bottom" secondItem="cVc-bp-qMR" secondAttribute="bottom" constant="20" id="IFD-db-oas"/>
                                     <constraint firstItem="Gds-Su-poo" firstAttribute="top" secondItem="Xtd-In-Gn5" secondAttribute="top" constant="60" id="ejg-sj-BeM"/>
                                     <constraint firstItem="cVc-bp-qMR" firstAttribute="top" secondItem="8Gu-f0-nnU" secondAttribute="bottom" constant="20" id="f7t-zD-0QK"/>
-                                    <constraint firstItem="8Gu-f0-nnU" firstAttribute="leading" secondItem="Xtd-In-Gn5" secondAttribute="leading" constant="20" id="pjb-14-1qV"/>
                                     <constraint firstItem="8Gu-f0-nnU" firstAttribute="top" secondItem="Gds-Su-poo" secondAttribute="bottom" constant="40" id="wH8-TM-i46"/>
+                                    <constraint firstAttribute="centerX" secondItem="8Gu-f0-nnU" secondAttribute="centerX" id="zX0-Tf-Ltf"/>
                                 </constraints>
                             </scrollView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="gsX-zi-izI">
@@ -758,16 +758,16 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="YC5-Pk-rPR" firstAttribute="leading" secondItem="VUB-Za-zIF" secondAttribute="trailing" constant="8" id="1ee-9C-Nuh"/>
-                                    <constraint firstItem="vpV-uv-SWW" firstAttribute="leading" secondItem="jcv-fp-pBA" secondAttribute="leading" id="40T-bo-XvC"/>
                                     <constraint firstItem="Ki6-d2-dKn" firstAttribute="top" secondItem="vpV-uv-SWW" secondAttribute="bottom" constant="10" id="916-Kj-oOb"/>
-                                    <constraint firstAttribute="trailing" secondItem="Dsr-pH-bH1" secondAttribute="trailing" id="AEo-yF-IQz"/>
                                     <constraint firstItem="DtO-My-1c4" firstAttribute="leading" secondItem="03G-PX-03l" secondAttribute="trailing" constant="8" id="DXO-XX-NOV"/>
+                                    <constraint firstItem="Dsr-pH-bH1" firstAttribute="leading" secondItem="kYU-pV-Gm0" secondAttribute="trailing" constant="26" id="LBP-Nb-guA"/>
                                     <constraint firstItem="vpV-uv-SWW" firstAttribute="baseline" secondItem="VUB-Za-zIF" secondAttribute="baseline" id="OhZ-ED-UwQ"/>
                                     <constraint firstItem="03G-PX-03l" firstAttribute="baseline" secondItem="DtO-My-1c4" secondAttribute="baseline" id="Pdn-j4-0XF"/>
                                     <constraint firstItem="DtO-My-1c4" firstAttribute="baseline" secondItem="Dsr-pH-bH1" secondAttribute="baseline" id="Xll-sS-pxe"/>
                                     <constraint firstItem="Dsr-pH-bH1" firstAttribute="leading" secondItem="DtO-My-1c4" secondAttribute="trailing" constant="8" id="bly-A9-O1z"/>
                                     <constraint firstItem="VUB-Za-zIF" firstAttribute="leading" secondItem="vpV-uv-SWW" secondAttribute="trailing" constant="8" id="e6x-dH-ix9"/>
                                     <constraint firstAttribute="centerX" secondItem="kYU-pV-Gm0" secondAttribute="centerX" id="g4o-Uz-BPk"/>
+                                    <constraint firstItem="kYU-pV-Gm0" firstAttribute="leading" secondItem="vpV-uv-SWW" secondAttribute="trailing" constant="-1" id="ki8-1l-2ss"/>
                                     <constraint firstItem="vpV-uv-SWW" firstAttribute="top" secondItem="kYU-pV-Gm0" secondAttribute="bottom" constant="10" id="l00-Q1-TYR"/>
                                     <constraint firstItem="YC5-Pk-rPR" firstAttribute="baseline" secondItem="VUB-Za-zIF" secondAttribute="baseline" id="mkm-3c-BUv"/>
                                     <constraint firstAttribute="centerX" secondItem="Ki6-d2-dKn" secondAttribute="centerX" id="otC-Gq-qxS"/>

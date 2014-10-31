@@ -96,7 +96,7 @@ SHARED_INSTANCE
 
     if ([Property getAsInteger:KEY_DIRECTION_UNIT] == nil) {
         // this must be the first time, since there is no direction unit
-        NSNumber* directionUnit = [NSNumber numberWithInt:1];
+        NSNumber* directionUnit = [NSNumber numberWithInt:0];
         NSLog(@"[ModelManager] No direction unit, setting it to: %@", directionUnit);
         [Property setAsInteger:directionUnit forKey:KEY_DIRECTION_UNIT];
     }

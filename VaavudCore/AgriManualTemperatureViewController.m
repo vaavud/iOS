@@ -24,7 +24,7 @@
 
 @implementation AgriManualTemperatureViewController
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
 
     [self.nextButton setTitle:NSLocalizedString(@"BUTTON_NEXT", nil) forState:UIControlStateNormal];
@@ -43,6 +43,10 @@
     [self.temperaturePickerView selectRow:(startTemp - MIN_TEMP_CELCIUS) inComponent:0 animated:NO];
 }
 
+- (NSUInteger) supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
 - (void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
@@ -51,7 +55,7 @@
     }
 }
 
-- (IBAction)nextButtonClicked:(id)sender {
+- (IBAction) nextButtonClicked:(id)sender {
     NSNumber *temperatureKelvin = [NSNumber numberWithInteger:[self.temperaturePickerView selectedRowInComponent:0] + MIN_TEMP_CELCIUS + KELVIN_TO_CELCIUS];
     if (self.measurementSession) {
         self.measurementSession.temperature = temperatureKelvin;
@@ -67,7 +71,7 @@
     }
 }
 
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+- (NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
 

@@ -28,6 +28,17 @@
             
             NSLog(@"[MixpanelUtil] Register Mixpanel People profile: email=%@, created=%@, first_name=%@, last_name=%@", email, creationTime, firstName, lastName);
 
+#ifdef AGRI
+            [[Mixpanel sharedInstance].people set:@{
+                                                    @"$email": email,
+                                                    @"$created": [MixpanelUtil toUTFDateString:creationTime],
+                                                    @"$first_name": (firstName) ? firstName : [NSNull null],
+                                                    @"$last_name": (lastName) ? lastName : [NSNull null],
+                                                    @"Distinct Id": mixpanelId,
+                                                    @"Uses Agriculture": @"true"
+                                                    }];
+            
+#elif CORE
             [[Mixpanel sharedInstance].people set:@{
                                    @"$email": email,
                                    @"$created": [MixpanelUtil toUTFDateString:creationTime],
@@ -35,6 +46,7 @@
                                    @"$last_name": (lastName) ? lastName : [NSNull null],
                                    @"Distinct Id": mixpanelId
                                    }];
+#endif
 
             [MixpanelUtil updateMeasurementProperties:NO];
         }

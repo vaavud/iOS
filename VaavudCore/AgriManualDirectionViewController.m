@@ -48,6 +48,10 @@
     self.directionTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateDirection) userInfo:nil repeats:YES];
 }
 
+- (NSUInteger) supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
 - (void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     

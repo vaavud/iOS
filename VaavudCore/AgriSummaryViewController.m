@@ -11,6 +11,7 @@
 #import "Property+Util.h"
 #import "LocationManager.h"
 #import "MeasurementAnnotation.h"
+#import "Mixpanel.h"
 
 @interface AgriSummaryViewController ()
 
@@ -33,7 +34,7 @@
 
 @implementation AgriSummaryViewController
 
-- (void)viewDidLoad {
+- (void) viewDidLoad {
     [super viewDidLoad];
     
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
@@ -46,6 +47,10 @@
     self.mapView.delegate = self;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+}
+
+- (NSUInteger) supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
 }
 
 - (void) viewWillAppear:(BOOL)animated {
@@ -82,6 +87,14 @@
             MeasurementAnnotation *measurementAnnotation = [[MeasurementAnnotation alloc] initWithLocation:coordinate windDirection:self.measurementSession.windDirection];
             [self.mapView addAnnotation:measurementAnnotation];
         }
+    }
+}
+
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:@"Agri Summary Screen"];
     }
 }
 
