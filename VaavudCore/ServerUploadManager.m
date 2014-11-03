@@ -677,7 +677,7 @@ SHARED_INSTANCE
                             NSNumber *windSpeedMax = [self numberValueFrom:measurementDictionary forKey:@"windSpeedMax"];
                             NSNumber *windDirection = [self numberValueFrom:measurementDictionary forKey:@"windDirection"];
                             NSNumber *temperature = [self numberValueFrom:measurementDictionary forKey:@"temperature"];
-                            NSNumber *reducingEquipment = [self numberValueFrom:measurementDictionary forKey:@"reducingEquipment"];
+                            NSNumber *reduceEquipment = [self numberValueFrom:measurementDictionary forKey:@"reduceEquipment"];
                             NSNumber *dose = [self numberValueFrom:measurementDictionary forKey:@"dose"];
                             NSNumber *boomHeight = [self numberValueFrom:measurementDictionary forKey:@"boomHeight"];
                             NSNumber *sprayQuality = [self numberValueFrom:measurementDictionary forKey:@"sprayQuality"];
@@ -687,6 +687,7 @@ SHARED_INSTANCE
                             
                             if ([measurementSession.measuring boolValue] == NO && [measurementSession.uploaded boolValue] == YES) {
                                 
+                                //NSLog(@"[ServerUploadManager] Modified: reduceEquipment=%@, sprayQuality=%@", reduceEquipment, sprayQuality);
                                 //NSLog(@"[ServerUploadManager] Measurement modified: %@, endTime=%@", measurementSession.uuid, endTime);
                                 measurementsModified++;
                                 
@@ -698,7 +699,7 @@ SHARED_INSTANCE
                                 measurementSession.windSpeedMax = windSpeedMax;
                                 measurementSession.windDirection = windDirection;
                                 measurementSession.temperature = temperature;
-                                measurementSession.reducingEquipment = reducingEquipment;
+                                measurementSession.reduceEquipment = reduceEquipment;
                                 measurementSession.dose = dose;
                                 measurementSession.boomHeight = boomHeight;
                                 measurementSession.sprayQuality = sprayQuality;
@@ -732,6 +733,7 @@ SHARED_INSTANCE
             NSArray *newMeasurementSessions = [uuidToDictionary allValues];
             for (int i = 0; i < newMeasurementSessions.count; i++) {
                 NSDictionary *measurementDictionary = (NSDictionary*) newMeasurementSessions[i];
+                //NSLog(@"[ServerUploadManager] reduceEquipment=%@, sprayQuality=%@", [measurementDictionary objectForKey:@"reduceEquipment"], [measurementDictionary objectForKey:@"sprayQuality"]);
                 
                 NSString *uuid = [self stringValueFrom:measurementDictionary forKey:@"uuid"];
                 NSString *deviceUuid = [self stringValueFrom:measurementDictionary forKey:@"deviceUuid"];
@@ -743,7 +745,7 @@ SHARED_INSTANCE
                 NSNumber *windSpeedMax = [self numberValueFrom:measurementDictionary forKey:@"windSpeedMax"];
                 NSNumber *windDirection = [self numberValueFrom:measurementDictionary forKey:@"windDirection"];
                 NSNumber *temperature = [self numberValueFrom:measurementDictionary forKey:@"temperature"];
-                NSNumber *reducingEquipment = [self numberValueFrom:measurementDictionary forKey:@"reducingEquipment"];
+                NSNumber *reduceEquipment = [self numberValueFrom:measurementDictionary forKey:@"reduceEquipment"];
                 NSNumber *dose = [self numberValueFrom:measurementDictionary forKey:@"dose"];
                 NSNumber *boomHeight = [self numberValueFrom:measurementDictionary forKey:@"boomHeight"];
                 NSNumber *sprayQuality = [self numberValueFrom:measurementDictionary forKey:@"sprayQuality"];
@@ -759,6 +761,7 @@ SHARED_INSTANCE
                     
                     if ([measurementSession.measuring boolValue] == NO && [measurementSession.uploaded boolValue] == YES) {
                         
+                        //NSLog(@"[ServerUploadManager] Modified: reduceEquipment=%@, sprayQuality=%@", reduceEquipment, sprayQuality);
                         //NSLog(@"[ServerUploadManager] Measurement before fromEndTime modified: %@, endTime=%@", measurementSession.uuid, endTime);
                         measurementsModified++;
                         
@@ -770,7 +773,7 @@ SHARED_INSTANCE
                         measurementSession.windSpeedMax = windSpeedMax;
                         measurementSession.windDirection = windDirection;
                         measurementSession.temperature = temperature;
-                        measurementSession.reducingEquipment = reducingEquipment;
+                        measurementSession.reduceEquipment = reduceEquipment;
                         measurementSession.dose = dose;
                         measurementSession.boomHeight = boomHeight;
                         measurementSession.sprayQuality = sprayQuality;
@@ -788,6 +791,7 @@ SHARED_INSTANCE
                 }
                 else {
                     
+                    //NSLog(@"[ServerUploadManager] Created: reduceEquipment=%@, sprayQuality=%@", reduceEquipment, sprayQuality);
                     //NSLog(@"[ServerUploadManager] Measurement created: %@, endTime=%@ (%@)", uuid, endTime, (NSString*)[measurementDictionary objectForKey:@"endTime"]);
                     measurementsCreated++;
                     
@@ -807,7 +811,7 @@ SHARED_INSTANCE
                     measurementSession.windSpeedMax = windSpeedMax;
                     measurementSession.windDirection = windDirection;
                     measurementSession.temperature = temperature;
-                    measurementSession.reducingEquipment = reducingEquipment;
+                    measurementSession.reduceEquipment = reduceEquipment;
                     measurementSession.dose = dose;
                     measurementSession.boomHeight = boomHeight;
                     measurementSession.sprayQuality = sprayQuality;

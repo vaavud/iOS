@@ -630,20 +630,26 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vyE-em-a1N">
-                                <rect key="frame" x="255" y="127" width="51" height="31"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="QzG-co-iCx" userLabel="Reducing Equipment Segment Control">
+                                <rect key="frame" x="16" y="157" width="288" height="29"/>
+                                <segments>
+                                    <segment title="&lt;None>"/>
+                                    <segment title="&lt;50 %>"/>
+                                    <segment title="&lt;75 %>"/>
+                                    <segment title="&lt;90 %>"/>
+                                </segments>
                                 <connections>
-                                    <action selector="reducingEquipmentValueChanged:" destination="BZZ-m9-bww" eventType="valueChanged" id="Vqz-mQ-Aam"/>
+                                    <action selector="reducingEquipmentValueChanged:" destination="BZZ-m9-bww" eventType="valueChanged" id="GIT-I8-faW"/>
                                 </connections>
-                            </switch>
+                            </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Dose>" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2iZ-Hb-XwB">
-                                <rect key="frame" x="16" y="162" width="43" height="14"/>
+                                <rect key="frame" x="16" y="192" width="43" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="rPY-nT-n7O" userLabel="Dose Segment Control">
-                                <rect key="frame" x="16" y="183" width="288" height="29"/>
+                                <rect key="frame" x="16" y="213" width="288" height="29"/>
                                 <segments>
                                     <segment title="&lt;Quarter>"/>
                                     <segment title="&lt;Half>"/>
@@ -654,13 +660,13 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Boom Height>" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jo8-05-M4h">
-                                <rect key="frame" x="16" y="218" width="84" height="14"/>
+                                <rect key="frame" x="16" y="248" width="84" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ArM-ko-CyD" userLabel="Boom Height Segment Control">
-                                <rect key="frame" x="16" y="239" width="288" height="29"/>
+                                <rect key="frame" x="16" y="269" width="288" height="29"/>
                                 <segments>
                                     <segment title="&lt;25 cm>"/>
                                     <segment title="&lt;40 cm>"/>
@@ -671,13 +677,13 @@
                                 </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Spray Quality>" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KO1-1I-cWE">
-                                <rect key="frame" x="16" y="274" width="87" height="14"/>
+                                <rect key="frame" x="16" y="304" width="87" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="V1j-S6-Ktm" userLabel="Spray Quality Segment Control">
-                                <rect key="frame" x="16" y="295" width="288" height="29"/>
+                                <rect key="frame" x="16" y="325" width="288" height="29"/>
                                 <segments>
                                     <segment title="&lt;Fine>"/>
                                     <segment title="&lt;Medium>"/>
@@ -688,34 +694,34 @@
                                 </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jcv-fp-pBA" userLabel="Bottom Container View">
-                                <rect key="frame" x="16" y="323" width="288" height="245"/>
+                                <rect key="frame" x="16" y="353" width="288" height="215"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;General:>" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vpV-uv-SWW">
-                                        <rect key="frame" x="0.0" y="83" width="61" height="14"/>
+                                        <rect key="frame" x="0.0" y="68" width="61" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="3" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VUB-Za-zIF" userLabel="generalDistanceLabel">
-                                        <rect key="frame" x="69" y="71" width="14" height="29"/>
+                                        <rect key="frame" x="69" y="56" width="14" height="29"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="22"/>
                                         <color key="textColor" red="0.0" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;m>" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YC5-Pk-rPR" userLabel="generalDistanceUnitLabel">
-                                        <rect key="frame" x="91" y="76" width="35" height="23"/>
+                                        <rect key="frame" x="91" y="61" width="35" height="23"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Special:>" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="03G-PX-03l">
-                                        <rect key="frame" x="166" y="83" width="57" height="14"/>
+                                        <rect key="frame" x="166" y="68" width="57" height="14"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ki6-d2-dKn" userLabel="Save Button">
-                                        <rect key="frame" x="24" y="107" width="240" height="35"/>
+                                        <rect key="frame" x="24" y="92" width="240" height="35"/>
                                         <color key="backgroundColor" red="0.0" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="bHe-7G-MvZ"/>
@@ -737,19 +743,19 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;Protective Distance>" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kYU-pV-Gm0">
-                                        <rect key="frame" x="60" y="53" width="167" height="20"/>
+                                        <rect key="frame" x="60" y="38" width="167" height="20"/>
                                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="17"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&lt;m>" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dsr-pH-bH1" userLabel="specialDistanceUnitLabel">
-                                        <rect key="frame" x="253" y="76" width="35" height="23"/>
+                                        <rect key="frame" x="253" y="61" width="35" height="23"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="17"/>
                                         <color key="textColor" red="0.0" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="8" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DtO-My-1c4" userLabel="specialDistanceLabel">
-                                        <rect key="frame" x="231" y="71" width="14" height="29"/>
+                                        <rect key="frame" x="231" y="56" width="14" height="29"/>
                                         <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="22"/>
                                         <color key="textColor" red="0.0" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -778,13 +784,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="vyE-em-a1N" firstAttribute="top" secondItem="JWI-PL-FU2" secondAttribute="bottom" constant="5" id="0YG-H9-83z"/>
                             <constraint firstItem="AZR-Kd-CE4" firstAttribute="leading" secondItem="i56-p5-Kkb" secondAttribute="leadingMargin" id="3tR-uK-kd7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="jcv-fp-pBA" secondAttribute="trailing" id="4ac-KL-h3b"/>
-                            <constraint firstItem="2iZ-Hb-XwB" firstAttribute="top" secondItem="vyE-em-a1N" secondAttribute="bottom" constant="4" id="5Kh-fk-Llh"/>
+                            <constraint firstItem="QzG-co-iCx" firstAttribute="top" secondItem="AZR-Kd-CE4" secondAttribute="bottom" constant="7" id="8da-H2-GsH"/>
                             <constraint firstItem="JWI-PL-FU2" firstAttribute="leading" secondItem="i56-p5-Kkb" secondAttribute="leadingMargin" id="8qZ-Eq-cJu"/>
                             <constraint firstItem="jcv-fp-pBA" firstAttribute="top" secondItem="V1j-S6-Ktm" secondAttribute="bottom" id="BgK-VN-Gaf"/>
                             <constraint firstItem="o4h-oI-Sr3" firstAttribute="top" secondItem="GkA-cp-Kxz" secondAttribute="bottom" constant="10" id="D7e-su-PPa"/>
+                            <constraint firstItem="2iZ-Hb-XwB" firstAttribute="top" secondItem="QzG-co-iCx" secondAttribute="bottom" constant="7" id="DGJ-5J-IeS"/>
                             <constraint firstItem="ArM-ko-CyD" firstAttribute="trailing" secondItem="i56-p5-Kkb" secondAttribute="trailingMargin" id="Dba-uC-zL3"/>
                             <constraint firstItem="BWa-lH-lEc" firstAttribute="top" secondItem="PTG-oR-hih" secondAttribute="bottom" id="Dqd-mH-MMM"/>
                             <constraint firstItem="BeD-Af-DdI" firstAttribute="top" secondItem="G4Y-Ig-OBY" secondAttribute="bottom" id="FUE-GP-94w"/>
@@ -793,6 +799,7 @@
                             <constraint firstItem="V1j-S6-Ktm" firstAttribute="trailing" secondItem="i56-p5-Kkb" secondAttribute="trailingMargin" id="JWn-mw-38k"/>
                             <constraint firstItem="1y6-NL-ogc" firstAttribute="bottom" secondItem="Za2-gS-Yck" secondAttribute="bottom" constant="2" id="Ja8-hf-UWk"/>
                             <constraint firstItem="2iZ-Hb-XwB" firstAttribute="leading" secondItem="i56-p5-Kkb" secondAttribute="leadingMargin" id="JxI-KP-qo6"/>
+                            <constraint firstItem="AZR-Kd-CE4" firstAttribute="top" secondItem="JWI-PL-FU2" secondAttribute="bottom" constant="14" id="LC5-VT-vwT"/>
                             <constraint firstItem="yhh-NB-zwN" firstAttribute="leading" secondItem="BWa-lH-lEc" secondAttribute="trailing" constant="4" id="MZz-ZT-09a"/>
                             <constraint firstItem="yhh-NB-zwN" firstAttribute="trailing" secondItem="PTG-oR-hih" secondAttribute="trailing" id="Nu4-zz-Bga"/>
                             <constraint firstItem="dMf-mR-cUN" firstAttribute="leading" secondItem="BeD-Af-DdI" secondAttribute="trailing" constant="4" id="SaS-rw-dIQ"/>
@@ -801,15 +808,14 @@
                             <constraint firstItem="rPY-nT-n7O" firstAttribute="top" secondItem="2iZ-Hb-XwB" secondAttribute="bottom" constant="7" id="VaT-8a-1nN"/>
                             <constraint firstItem="ArM-ko-CyD" firstAttribute="leading" secondItem="i56-p5-Kkb" secondAttribute="leadingMargin" id="VnN-mk-L7d"/>
                             <constraint firstAttribute="bottomMargin" secondItem="jcv-fp-pBA" secondAttribute="bottom" id="XRp-Th-eH2"/>
-                            <constraint firstItem="vyE-em-a1N" firstAttribute="trailing" secondItem="i56-p5-Kkb" secondAttribute="trailingMargin" id="Xfl-31-6zH"/>
                             <constraint firstItem="KO1-1I-cWE" firstAttribute="top" secondItem="ArM-ko-CyD" secondAttribute="bottom" constant="7" id="Xvh-BZ-g3w"/>
-                            <constraint firstItem="AZR-Kd-CE4" firstAttribute="centerY" secondItem="vyE-em-a1N" secondAttribute="centerY" id="aLW-mC-H4y"/>
                             <constraint firstItem="BeD-Af-DdI" firstAttribute="leading" secondItem="G4Y-Ig-OBY" secondAttribute="leading" id="aXn-3H-NiX"/>
                             <constraint firstItem="1y6-NL-ogc" firstAttribute="top" secondItem="o4h-oI-Sr3" secondAttribute="bottom" constant="9" id="bPB-k2-2SY"/>
                             <constraint firstItem="G4Y-Ig-OBY" firstAttribute="leading" secondItem="i56-p5-Kkb" secondAttribute="leadingMargin" id="bai-tj-ktk"/>
                             <constraint firstItem="jcv-fp-pBA" firstAttribute="leading" secondItem="i56-p5-Kkb" secondAttribute="leadingMargin" id="c0a-sp-Ui4"/>
                             <constraint firstItem="BeD-Af-DdI" firstAttribute="baseline" secondItem="dMf-mR-cUN" secondAttribute="baseline" id="cDh-VM-fF6"/>
                             <constraint firstItem="ArM-ko-CyD" firstAttribute="top" secondItem="jo8-05-M4h" secondAttribute="bottom" constant="7" id="czG-mL-kOk"/>
+                            <constraint firstItem="QzG-co-iCx" firstAttribute="trailing" secondItem="i56-p5-Kkb" secondAttribute="trailingMargin" id="eci-bg-0Bq"/>
                             <constraint firstItem="yhh-NB-zwN" firstAttribute="baseline" secondItem="BWa-lH-lEc" secondAttribute="baseline" id="fnF-nT-M0V"/>
                             <constraint firstItem="PTG-oR-hih" firstAttribute="top" secondItem="GkA-cp-Kxz" secondAttribute="bottom" constant="10" id="g8l-Hl-ZRW"/>
                             <constraint firstItem="G4Y-Ig-OBY" firstAttribute="top" secondItem="GkA-cp-Kxz" secondAttribute="bottom" constant="10" id="kkp-WG-pvf"/>
@@ -820,6 +826,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="PTG-oR-hih" secondAttribute="trailing" id="pa7-24-Ybb"/>
                             <constraint firstItem="rPY-nT-n7O" firstAttribute="leading" secondItem="i56-p5-Kkb" secondAttribute="leadingMargin" id="qea-TB-PbC"/>
                             <constraint firstItem="rPY-nT-n7O" firstAttribute="trailing" secondItem="i56-p5-Kkb" secondAttribute="trailingMargin" id="sxg-kL-2Wh"/>
+                            <constraint firstItem="QzG-co-iCx" firstAttribute="leading" secondItem="i56-p5-Kkb" secondAttribute="leadingMargin" id="tEA-1h-2Bt"/>
                             <constraint firstItem="V1j-S6-Ktm" firstAttribute="leading" secondItem="i56-p5-Kkb" secondAttribute="leadingMargin" id="x3m-CR-ETy"/>
                             <constraint firstItem="jo8-05-M4h" firstAttribute="leading" secondItem="i56-p5-Kkb" secondAttribute="leadingMargin" id="xeP-7h-njH"/>
                         </constraints>
@@ -839,7 +846,7 @@
                         <outlet property="generalDistanceUnitLabel" destination="YC5-Pk-rPR" id="qXe-an-KJd"/>
                         <outlet property="protectiveDistanceLabel" destination="kYU-pV-Gm0" id="oUP-nz-qXf"/>
                         <outlet property="reducingEquipmentHeadingLabel" destination="AZR-Kd-CE4" id="LuK-3R-Wgp"/>
-                        <outlet property="reducingEquipmentSwitch" destination="vyE-em-a1N" id="pGm-dh-G36"/>
+                        <outlet property="reducingEquipmentSegmentControl" destination="QzG-co-iCx" id="QhU-UH-lDb"/>
                         <outlet property="saveButton" destination="Ki6-d2-dKn" id="R57-lu-SsL"/>
                         <outlet property="specialDistanceHeadingLabel" destination="03G-PX-03l" id="p59-n5-TZo"/>
                         <outlet property="specialDistanceLabel" destination="DtO-My-1c4" id="uEW-aq-C9W"/>

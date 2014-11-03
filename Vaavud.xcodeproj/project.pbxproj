@@ -48,8 +48,10 @@
 		E91535CA180840D70070BFB4 /* map_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535C4180840D70070BFB4 /* map_selected@2x.png */; };
 		E91535CB180840D70070BFB4 /* measure_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535C5180840D70070BFB4 /* measure_selected.png */; };
 		E91535CC180840D70070BFB4 /* measure_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535C6180840D70070BFB4 /* measure_selected@2x.png */; };
-		E9159CA01A01287A00742188 /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E9159C9F1A01287A00742188 /* MeasurementSession.m */; };
-		E9159CA11A01287A00742188 /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E9159C9F1A01287A00742188 /* MeasurementSession.m */; };
+		E9159CA51A03E09100742188 /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E9159CA41A03E09100742188 /* MeasurementSession.m */; };
+		E9159CA61A03E09100742188 /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E9159CA41A03E09100742188 /* MeasurementSession.m */; };
+		E9159CA91A078E5C00742188 /* AgriResultComputation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9159CA81A078E5C00742188 /* AgriResultComputation.m */; };
+		E9159CAA1A078E5C00742188 /* AgriResultComputation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9159CA81A078E5C00742188 /* AgriResultComputation.m */; };
 		E91D420C198BDFEA00106E15 /* 001_basejumper@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E91D4204198BDFEA00106E15 /* 001_basejumper@2x.jpg */; };
 		E91D420D198BDFEA00106E15 /* 002_map@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E91D4205198BDFEA00106E15 /* 002_map@2x.jpg */; };
 		E91D420E198BDFEA00106E15 /* 003_sign_up@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E91D4206198BDFEA00106E15 /* 003_sign_up@2x.jpg */; };
@@ -711,8 +713,11 @@
 		E91535C5180840D70070BFB4 /* measure_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = measure_selected.png; sourceTree = "<group>"; };
 		E91535C6180840D70070BFB4 /* measure_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "measure_selected@2x.png"; sourceTree = "<group>"; };
 		E9159C9B1A0127C200742188 /* Model 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 6.xcdatamodel"; sourceTree = "<group>"; };
-		E9159C9E1A01287A00742188 /* MeasurementSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSession.h; sourceTree = "<group>"; };
-		E9159C9F1A01287A00742188 /* MeasurementSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSession.m; sourceTree = "<group>"; };
+		E9159CA21A03E04A00742188 /* Model 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.xcdatamodel"; sourceTree = "<group>"; };
+		E9159CA31A03E09100742188 /* MeasurementSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSession.h; sourceTree = "<group>"; };
+		E9159CA41A03E09100742188 /* MeasurementSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSession.m; sourceTree = "<group>"; };
+		E9159CA71A078E5C00742188 /* AgriResultComputation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriResultComputation.h; sourceTree = "<group>"; };
+		E9159CA81A078E5C00742188 /* AgriResultComputation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriResultComputation.m; sourceTree = "<group>"; };
 		E91D4204198BDFEA00106E15 /* 001_basejumper@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "001_basejumper@2x.jpg"; sourceTree = "<group>"; };
 		E91D4205198BDFEA00106E15 /* 002_map@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "002_map@2x.jpg"; sourceTree = "<group>"; };
 		E91D4206198BDFEA00106E15 /* 003_sign_up@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "003_sign_up@2x.jpg"; sourceTree = "<group>"; };
@@ -1920,6 +1925,8 @@
 				E9C7798919AB7C09000A6921 /* AgriMeasureViewController.m */,
 				E9002DBB19DD69CD002D0132 /* AgriResultViewController.h */,
 				E9002DBC19DD69CD002D0132 /* AgriResultViewController.m */,
+				E9159CA71A078E5C00742188 /* AgriResultComputation.h */,
+				E9159CA81A078E5C00742188 /* AgriResultComputation.m */,
 			);
 			name = Measure;
 			sourceTree = "<group>";
@@ -2073,8 +2080,8 @@
 				E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */,
 				E93C86701781D727005E4212 /* MeasurementPoint+Util.h */,
 				E93C86711781D727005E4212 /* MeasurementPoint+Util.m */,
-				E9159C9E1A01287A00742188 /* MeasurementSession.h */,
-				E9159C9F1A01287A00742188 /* MeasurementSession.m */,
+				E9159CA31A03E09100742188 /* MeasurementSession.h */,
+				E9159CA41A03E09100742188 /* MeasurementSession.m */,
 				E93C866D1781D69A005E4212 /* MeasurementSession+Util.h */,
 				E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */,
 				E93338F5178C561B006E2314 /* ModelManager.h */,
@@ -2657,7 +2664,7 @@
 				E9B627C417708E63004678D5 /* AFJSONRequestOperation.m in Sources */,
 				E948382119B75320009595B0 /* EZAudio.m in Sources */,
 				E91D4218198F7C8400106E15 /* GuideView.m in Sources */,
-				E9159CA01A01287A00742188 /* MeasurementSession.m in Sources */,
+				E9159CA51A03E09100742188 /* MeasurementSession.m in Sources */,
 				E9B627C517708E63004678D5 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */,
 				E9A4097D18994570004F1C12 /* UIImageView+TMCache.m in Sources */,
@@ -2713,6 +2720,7 @@
 				E948382519B75320009595B0 /* EZAudioPlayer.m in Sources */,
 				E9A4099318A52E40004F1C12 /* RegisterViewController.m in Sources */,
 				E9CD2248177B2AEA0054ED3F /* NSManagedObjectContext+MagicalRecord.m in Sources */,
+				E9159CA91A078E5C00742188 /* AgriResultComputation.m in Sources */,
 				E912793218BF5FF4009C7769 /* NoHistoryViewController.m in Sources */,
 				E9CD2249177B2AEA0054ED3F /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				E9C7798A19AB7C09000A6921 /* AgriMeasureViewController.m in Sources */,
@@ -2792,7 +2800,7 @@
 				E96FB4FF19A353B500CB7306 /* AFImageRequestOperation.m in Sources */,
 				E96FB50019A353B500CB7306 /* AFJSONRequestOperation.m in Sources */,
 				E948382219B75320009595B0 /* EZAudio.m in Sources */,
-				E9159CA11A01287A00742188 /* MeasurementSession.m in Sources */,
+				E9159CA61A03E09100742188 /* MeasurementSession.m in Sources */,
 				E96FB50119A353B500CB7306 /* GuideView.m in Sources */,
 				E96FB50219A353B500CB7306 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				E98C9A6419BF0E80009428F3 /* GraphView.m in Sources */,
@@ -2848,6 +2856,7 @@
 				E948382619B75320009595B0 /* EZAudioPlayer.m in Sources */,
 				E96FB52919A353B500CB7306 /* RegisterViewController.m in Sources */,
 				E96FB52B19A353B500CB7306 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
+				E9159CAA1A078E5C00742188 /* AgriResultComputation.m in Sources */,
 				E96FB52C19A353B500CB7306 /* NoHistoryViewController.m in Sources */,
 				E96FB52D19A353B500CB7306 /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				E9C7798B19AB7C09000A6921 /* AgriMeasureViewController.m in Sources */,
@@ -3196,6 +3205,7 @@
 		E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				E9159CA21A03E04A00742188 /* Model 7.xcdatamodel */,
 				E9159C9B1A0127C200742188 /* Model 6.xcdatamodel */,
 				E93EED3219DED9FA004D8759 /* Model 5.xcdatamodel */,
 				E9D9045319C1D41D00ABA9F4 /* Model 4.xcdatamodel */,
@@ -3203,7 +3213,7 @@
 				E9EBB98F17E33C660086BE01 /* Model 2.xcdatamodel */,
 				E9EE1FA31769E54E00D1F006 /* Model.xcdatamodel */,
 			);
-			currentVersion = E9159C9B1A0127C200742188 /* Model 6.xcdatamodel */;
+			currentVersion = E9159CA21A03E04A00742188 /* Model 7.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

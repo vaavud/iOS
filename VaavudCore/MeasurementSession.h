@@ -2,7 +2,7 @@
 //  MeasurementSession.h
 //  Vaavud
 //
-//  Created by Thomas Stilling Ambus on 29/10/2014.
+//  Created by Thomas Stilling Ambus on 31/10/2014.
 //  Copyright (c) 2014 Andreas Okholm. All rights reserved.
 //
 
@@ -22,6 +22,7 @@
 @property (nonatomic, retain) NSNumber * latitude;
 @property (nonatomic, retain) NSNumber * longitude;
 @property (nonatomic, retain) NSNumber * measuring;
+@property (nonatomic, retain) NSNumber * privacy;
 @property (nonatomic, retain) NSNumber * reducingEquipment;
 @property (nonatomic, retain) NSString * source;
 @property (nonatomic, retain) NSNumber * specialConsideration;
@@ -36,7 +37,7 @@
 @property (nonatomic, retain) NSNumber * windMeter;
 @property (nonatomic, retain) NSNumber * windSpeedAvg;
 @property (nonatomic, retain) NSNumber * windSpeedMax;
-@property (nonatomic, retain) NSNumber * privacy;
+@property (nonatomic, retain) NSNumber * reduceEquipment;
 @property (nonatomic, retain) NSOrderedSet *points;
 @end
 

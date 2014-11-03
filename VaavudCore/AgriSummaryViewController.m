@@ -221,7 +221,7 @@
 
     if (indexPath.item == 0) {
         cell.textLabel.text = NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT", nil);
-        cell.detailTextLabel.text = (self.measurementSession && self.measurementSession.reducingEquipment && [self.measurementSession.reducingEquipment boolValue]) ? NSLocalizedString(@"YES", nil) : NSLocalizedString(@"NO", nil);
+        cell.detailTextLabel.text = (self.measurementSession && self.measurementSession.reduceEquipment && [self.measurementSession.reduceEquipment intValue] > 0) ? [self getReducingEquipmentText:[self.measurementSession.reduceEquipment intValue]] : @"-";
     }
     else if (indexPath.item == 1) {
         cell.textLabel.text = NSLocalizedString(@"AGRI_DOSE", nil);
@@ -251,6 +251,29 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     return [UIView new];
+}
+
+- (NSString*) getReducingEquipmentText:(int)value {
+    
+    if (value == 1) {
+        return NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT_NONE", nil);
+    }
+    else if (value == 2) {
+        return NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT_50", nil);
+    }
+    else if (value == 3) {
+        return NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT_75", nil);
+    }
+    else if (value == 4) {
+        return NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT_90", nil);
+    }
+    else if (value == 0) {
+        return @"";
+    }
+    else {
+        NSLog(@"[AgriSummaryViewController] ERROR: Unknown reducing equipment value %d", value);
+        return @"-";
+    }
 }
 
 - (NSString*) getDoseText:(float)value {

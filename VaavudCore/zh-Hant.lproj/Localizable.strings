@@ -169,6 +169,10 @@
 "AGRI_MANUAL_DIRECTION" = "Wind Direction";
 "AGRI_MANUAL_DIRECTION_EXPLANATION" = "Disconnect your wind meter and hold up your phone against the wind. Press Next when you are doing that.";
 "AGRI_REDUCING_EQUIPMENT" = "Reducing Equipment";
+"AGRI_REDUCING_EQUIPMENT_NONE" = "None";
+"AGRI_REDUCING_EQUIPMENT_50" = "50 %";
+"AGRI_REDUCING_EQUIPMENT_75" = "75 %";
+"AGRI_REDUCING_EQUIPMENT_90" = "90 %";
 "AGRI_DOSE" = "Dose";
 "AGRI_DOSE_QUARTER" = "Quarter";
 "AGRI_DOSE_HALF" = "Half";

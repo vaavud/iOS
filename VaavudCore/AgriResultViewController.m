@@ -12,6 +12,7 @@
 #import "Property+Util.h"
 #import "Mixpanel.h"
 #import "ServerUploadManager.h"
+#import "AgriResultComputation.h"
 
 @interface AgriResultViewController ()
 
@@ -25,7 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *directionLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *directionImageView;
 @property (weak, nonatomic) IBOutlet UILabel *reducingEquipmentHeadingLabel;
-@property (weak, nonatomic) IBOutlet UISwitch *reducingEquipmentSwitch;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *reducingEquipmentSegmentControl;
 @property (weak, nonatomic) IBOutlet UILabel *doseHeadingLabel;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *doseSegmentControl;
 @property (weak, nonatomic) IBOutlet UILabel *boomHeightHeadingLabel;
@@ -70,7 +71,12 @@
     self.generalDistanceUnitLabel.text = NSLocalizedString(@"AGRI_DISTANCE_UNIT_M", nil);
     self.specialDistanceHeadingLabel.text = NSLocalizedString(@"AGRI_SPECIAL_DISTANCE", nil);
     self.specialDistanceUnitLabel.text = NSLocalizedString(@"AGRI_DISTANCE_UNIT_M", nil);
-    
+
+    [self.reducingEquipmentSegmentControl setTitle:NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT_NONE", nil) forSegmentAtIndex:0];
+    [self.reducingEquipmentSegmentControl setTitle:NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT_50", nil) forSegmentAtIndex:1];
+    [self.reducingEquipmentSegmentControl setTitle:NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT_75", nil) forSegmentAtIndex:2];
+    [self.reducingEquipmentSegmentControl setTitle:NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT_90", nil) forSegmentAtIndex:3];
+
     [self.doseSegmentControl setTitle:NSLocalizedString(@"AGRI_DOSE_QUARTER", nil) forSegmentAtIndex:0];
     [self.doseSegmentControl setTitle:NSLocalizedString(@"AGRI_DOSE_HALF", nil) forSegmentAtIndex:1];
     [self.doseSegmentControl setTitle:NSLocalizedString(@"AGRI_DOSE_FULL", nil) forSegmentAtIndex:2];
@@ -105,11 +111,11 @@
         self.directionUnit = directionUnit;
     }
 
-    if (self.measurementSession && self.measurementSession.reducingEquipment) {
-        [self.reducingEquipmentSwitch setOn:[self.measurementSession.reducingEquipment boolValue]];
+    if (self.measurementSession && self.measurementSession.reduceEquipment && ([self.measurementSession.reduceEquipment intValue] > 0)) {
+        [self setSelectedReducingEquipment:self.measurementSession.reduceEquipment];
     }
     else {
-        [self.reducingEquipmentSwitch setOn:[Property getAsBoolean:KEY_AGRI_DEFAULT_REDUCING_EQUIPMENT defaultValue:NO] animated:NO];
+        [self setSelectedReducingEquipment:[Property getAsInteger:KEY_AGRI_DEFAULT_REDUCING_EQUIPMENT defaultValue:1]];
     }
     
     if (self.measurementSession && self.measurementSession.dose && ([self.measurementSession.dose floatValue] > 0.0F)) {
@@ -204,15 +210,24 @@
 - (void) updateComputedValues {
     
     if (self.measurementSession && self.measurementSession.windSpeedAvg && !isnan([self.measurementSession.windSpeedAvg doubleValue])
-                                && self.measurementSession.windDirection && !isnan([self.measurementSession.windDirection doubleValue])
                                 && self.measurementSession.temperature && [self.measurementSession.temperature floatValue] > 0.0) {
 
-        // TODO: Compute real values
-        self.generalDistance = nil;
-        self.specialDistance = nil;
+        NSNumber *reduceEquipment = [self getReducingEquipmentValue];
+        NSNumber *dose = [self getDoseValue];
+        NSNumber *boomHeight = [self getBoomHeightValue];
+        NSNumber *sprayQuality = [self getSprayQualityValue];
         
-        self.generalDistanceLabel.text = @"-";
-        self.specialDistanceLabel.text = @"-";
+        self.generalDistance = [[AgriResultComputation sharedInstance] generalConsideration:self.measurementSession.temperature windSpeed:self.measurementSession.windSpeedAvg reduceEquipment:reduceEquipment dose:dose boomHeight:boomHeight sprayQuality:sprayQuality];
+        self.specialDistance = [[AgriResultComputation sharedInstance] specialConsideration:self.measurementSession.temperature windSpeed:self.measurementSession.windSpeedAvg reduceEquipment:reduceEquipment dose:dose boomHeight:boomHeight sprayQuality:sprayQuality];
+        
+        if (self.generalDistance && self.specialDistance && [self.generalDistance intValue] > 0 && [self.specialDistance intValue] > 0) {
+            self.generalDistanceLabel.text = [self.generalDistance stringValue];
+            self.specialDistanceLabel.text = [self.specialDistance stringValue];
+        }
+        else {
+            self.generalDistanceLabel.text = @"-";
+            self.specialDistanceLabel.text = @"-";
+        }
     }
     else {
         self.generalDistance = nil;
@@ -228,6 +243,32 @@
     }
     else {
         return [NSString stringWithFormat: @"%.1f", value];
+    }
+}
+
+- (void) setSelectedReducingEquipment:(NSNumber*)reduceEquipment {
+    
+    if (reduceEquipment) {
+        int reducingEquipmentInt = [reduceEquipment intValue];
+        if (reducingEquipmentInt == 1) {
+            self.reducingEquipmentSegmentControl.selectedSegmentIndex = 0;
+        }
+        else if (reducingEquipmentInt == 2) {
+            self.reducingEquipmentSegmentControl.selectedSegmentIndex = 1;
+        }
+        else if (reducingEquipmentInt == 3) {
+            self.reducingEquipmentSegmentControl.selectedSegmentIndex = 2;
+        }
+        else if (reducingEquipmentInt == 4) {
+            self.reducingEquipmentSegmentControl.selectedSegmentIndex = 3;
+        }
+        else {
+            NSLog(@"[AgriResultViewController] ERROR: Unsupported reducing equipment %d setting UI", reducingEquipmentInt);
+            self.reducingEquipmentSegmentControl.selectedSegmentIndex = 0;
+        }
+    }
+    else {
+        self.reducingEquipmentSegmentControl.selectedSegmentIndex = 0;
     }
 }
 
@@ -302,8 +343,25 @@
 
 - (IBAction) reducingEquipmentValueChanged:(id)sender {
 
-    [Property setAsBoolean:self.reducingEquipmentSwitch.on forKey:KEY_AGRI_DEFAULT_REDUCING_EQUIPMENT];
+    [Property setAsInteger:[self getReducingEquipmentValue] forKey:KEY_AGRI_DEFAULT_REDUCING_EQUIPMENT];
     [self updateComputedValues];
+}
+
+- (NSNumber*) getReducingEquipmentValue {
+    
+    switch (self.reducingEquipmentSegmentControl.selectedSegmentIndex) {
+        case 0:
+            return [NSNumber numberWithInt:1];
+        case 1:
+            return [NSNumber numberWithInt:2];
+        case 2:
+            return [NSNumber numberWithInt:3];
+        case 3:
+            return [NSNumber numberWithInt:4];
+        default:
+            NSLog(@"[AgriResultViewController] ERROR: Unknown reducing equipment selected segment index %d", self.reducingEquipmentSegmentControl.selectedSegmentIndex);
+            return [NSNumber numberWithInt:1];
+    }
 }
 
 - (IBAction) doseSegmentControlValueChanged:(id)sender {
@@ -399,7 +457,7 @@
         if (summary.length > 0) {
             [summary appendString:@"\n"];
         }
-        [summary appendFormat:@"%@: %@", NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT", nil), self.reducingEquipmentSwitch.on ? NSLocalizedString(@"YES", nil) : NSLocalizedString(@"NO", nil)];
+        [summary appendFormat:@"%@: %@", NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT", nil), [self.reducingEquipmentSegmentControl titleForSegmentAtIndex:self.reducingEquipmentSegmentControl.selectedSegmentIndex]];
         
         [summary appendString:@"\n"];
         [summary appendFormat:@"%@: %@", NSLocalizedString(@"AGRI_DOSE", nil), [self.doseSegmentControl titleForSegmentAtIndex:self.doseSegmentControl.selectedSegmentIndex]];
@@ -453,7 +511,7 @@
     
     if (self.measurementSession) {
         
-        self.measurementSession.reducingEquipment = [NSNumber numberWithBool:self.reducingEquipmentSwitch.on];
+        self.measurementSession.reduceEquipment = [self getReducingEquipmentValue];
         self.measurementSession.dose = [self getDoseValue];
         self.measurementSession.boomHeight = [self getBoomHeightValue];
         self.measurementSession.sprayQuality = [self getSprayQualityValue];

@@ -167,6 +167,10 @@
 "AGRI_MANUAL_DIRECTION" = "Vindretning";
 "AGRI_MANUAL_DIRECTION_EXPLANATION" = "Tag din vindmåler ud og hold telefonen op mod vinden. Tryk Næste når du gør det.";
 "AGRI_REDUCING_EQUIPMENT" = "Reducerende udstyr";
+"AGRI_REDUCING_EQUIPMENT_NONE" = "Intet";
+"AGRI_REDUCING_EQUIPMENT_50" = "50 %";
+"AGRI_REDUCING_EQUIPMENT_75" = "75 %";
+"AGRI_REDUCING_EQUIPMENT_90" = "90 %";
 "AGRI_DOSE" = "Dose";
 "AGRI_DOSE_QUARTER" = "Kvart";
 "AGRI_DOSE_HALF" = "Halv";
