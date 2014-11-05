@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = NSLocalizedString(@"ABOUT_TITLE", nil);
+    self.navigationItem.title = NSLocalizedString(@"AGRI_WORD_LIST", nil);
     
     self.webView.delegate = self;
     
