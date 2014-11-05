@@ -161,6 +161,7 @@
 "REGISTER_FEEDBACK_MISSING_FACEBOOK_PERMISSIONS_MESSAGE" = "Please allow Facebook to provide us with your email address and list of friends.";
 "YES" = "Yes";
 "NO" = "No";
+"REGISTER_BUTTON_SIGNUP" = "Sign up";
 
 "AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Measure for 60s";
 "AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "You must measure for at least 60s indicated by the bar becoming fully green.";

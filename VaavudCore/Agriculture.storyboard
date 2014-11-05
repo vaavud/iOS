@@ -62,7 +62,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cVc-bp-qMR">
-                                        <rect key="frame" x="95" y="318" width="130" height="40"/>
+                                        <rect key="frame" x="20" y="318" width="130" height="40"/>
                                         <color key="backgroundColor" red="0.0" green="0.50196078431372548" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="130" id="dEn-EM-DYM"/>
@@ -82,12 +82,29 @@
                                             <constraint firstAttribute="width" constant="280" id="xO4-4Y-GJy"/>
                                         </constraints>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vED-Hn-pQC">
+                                        <rect key="frame" x="170" y="318" width="130" height="40"/>
+                                        <color key="backgroundColor" red="0.0" green="0.50196078430000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="130" id="DjN-J2-dEo"/>
+                                            <constraint firstAttribute="height" constant="40" id="cJj-Fw-D9N"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                        <state key="normal" title="&lt;Sign Up>">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="loginButtonClicked:" destination="VbE-MH-szX" eventType="touchUpInside" id="5ki-Wa-iG8"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="centerX" secondItem="Gds-Su-poo" secondAttribute="centerX" id="3fx-TH-s3W"/>
-                                    <constraint firstAttribute="centerX" secondItem="cVc-bp-qMR" secondAttribute="centerX" id="91s-ql-Pg2"/>
+                                    <constraint firstItem="vED-Hn-pQC" firstAttribute="top" secondItem="8Gu-f0-nnU" secondAttribute="bottom" constant="20" id="5hw-4W-8nI"/>
                                     <constraint firstAttribute="trailing" secondItem="8Gu-f0-nnU" secondAttribute="trailing" constant="20" id="GSa-NP-8Io"/>
+                                    <constraint firstItem="8Gu-f0-nnU" firstAttribute="trailing" secondItem="vED-Hn-pQC" secondAttribute="trailing" id="Gsr-hw-oKp"/>
                                     <constraint firstAttribute="bottom" secondItem="cVc-bp-qMR" secondAttribute="bottom" constant="20" id="IFD-db-oas"/>
+                                    <constraint firstItem="8Gu-f0-nnU" firstAttribute="leading" secondItem="cVc-bp-qMR" secondAttribute="leading" id="bMw-gy-rOe"/>
                                     <constraint firstItem="Gds-Su-poo" firstAttribute="top" secondItem="Xtd-In-Gn5" secondAttribute="top" constant="60" id="ejg-sj-BeM"/>
                                     <constraint firstItem="cVc-bp-qMR" firstAttribute="top" secondItem="8Gu-f0-nnU" secondAttribute="bottom" constant="20" id="f7t-zD-0QK"/>
                                     <constraint firstItem="8Gu-f0-nnU" firstAttribute="top" secondItem="Gds-Su-poo" secondAttribute="bottom" constant="40" id="wH8-TM-i46"/>
@@ -115,6 +132,7 @@
                         <outlet property="loginButton" destination="cVc-bp-qMR" id="VKo-Io-Hiz"/>
                         <outlet property="passwordTextField" destination="O1T-6O-nmJ" id="H8f-z1-1S9"/>
                         <outlet property="scrollView" destination="Xtd-In-Gn5" id="Q1Q-eK-jbJ"/>
+                        <outlet property="signupButton" destination="vED-Hn-pQC" id="xh4-Lc-zir"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TLb-5Z-UyN" userLabel="First Responder" sceneMemberID="firstResponder"/>

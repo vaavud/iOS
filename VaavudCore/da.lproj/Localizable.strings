@@ -159,6 +159,7 @@
 "REGISTER_FEEDBACK_MISSING_FACEBOOK_PERMISSIONS_MESSAGE" = "Tillad venligst at Facebook giver os din emailadresse og liste af venner.";
 "YES" = "Ja";
 "NO" = "Nej";
+"REGISTER_BUTTON_SIGNUP" = "Opret";
 
 "AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Mål i 60s";
 "AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "Du skal måle i mindst 60s, indikeret af at baren bliver helt grøn.";

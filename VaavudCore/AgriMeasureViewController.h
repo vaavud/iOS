@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Andreas Okholm. All rights reserved.
 //
 
-#define AGRI_DEBUG_ALWAYS_ENABLE_NEXT YES
+#define AGRI_DEBUG_ALWAYS_ENABLE_NEXT NO
 
 #import <UIKit/UIKit.h>
 #import "MeasureViewController.h"

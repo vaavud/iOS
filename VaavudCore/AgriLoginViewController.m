@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet GuidedTextField *emailTextField;
 @property (weak, nonatomic) IBOutlet GuidedTextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIButton *signupButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic) CGFloat contentOffsetAfterShowingKeyboard;
 
@@ -30,6 +31,7 @@
     [super viewDidLoad];
     
     [self.loginButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN", nil) forState:UIControlStateNormal];
+    [self.signupButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_SIGNUP", nil) forState:UIControlStateNormal];
     
     self.emailTextField.guideText = NSLocalizedString(@"REGISTER_FIELD_EMAIL", nil);
     self.emailTextField.delegate = self;
@@ -44,7 +46,10 @@
     
     self.loginButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.loginButton.layer.masksToBounds = YES;
-    
+
+    self.signupButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
+    self.signupButton.layer.masksToBounds = YES;
+
     // Listen to keyboard...
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -90,7 +95,9 @@
     //[self.passwordTextField resignFirstResponder];
     [self.activityIndicator startAnimating];
     
-    [[AccountManager sharedInstance] registerWithPassword:self.passwordTextField.text email:self.emailTextField.text firstName:nil lastName:nil action:AuthenticationActionLogin success:^(enum AuthenticationResponseType response) {
+    enum AuthenticationActionType action = (sender && sender == self.loginButton) ? AuthenticationActionLogin : AuthenticationActionSignup;
+    
+    [[AccountManager sharedInstance] registerWithPassword:self.passwordTextField.text email:self.emailTextField.text firstName:nil lastName:nil action:action success:^(enum AuthenticationResponseType response) {
         
         [self.activityIndicator stopAnimating];
 
@@ -148,10 +155,6 @@
             [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ERROR_TITLE", nil)];
         }
     }];
-}
-
-- (IBAction)registerButtonClicked:(id)sender {
-
 }
 
 - (void) showMessage:(NSString *)text withTitle:(NSString *)title {

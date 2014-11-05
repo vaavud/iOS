@@ -325,17 +325,17 @@ BOOL isDoingLogout = NO;
             [self setAuthenticationState:AuthenticationStateLoggedIn];
             
             NSNumber *userId = [responseObject objectForKey:@"userId"];
-            if (userId && ![lastName isEqual:[NSNull null]] && !isnan([userId longLongValue]) && ([userId longLongValue] > 0)) {
+            if (userId && ![userId isEqual:[NSNull null]] && !isnan([userId longLongValue]) && ([userId longLongValue] > 0)) {
                 [Property setAsLongLong:userId forKey:KEY_USER_ID];
             }
             
             NSString *email = [responseObject objectForKey:@"email"];
-            if (email && ![lastName isEqual:[NSNull null]] && email.length > 0) {
+            if (email && ![email isEqual:[NSNull null]] && email.length > 0) {
                 [Property setAsString:email forKey:KEY_EMAIL];
             }
             
             NSString *firstName = [responseObject objectForKey:@"firstName"];
-            if (firstName && ![lastName isEqual:[NSNull null]] && firstName.length > 0) {
+            if (firstName && ![firstName isEqual:[NSNull null]] && firstName.length > 0) {
                 [Property setAsString:firstName forKey:KEY_FIRST_NAME];
             }
             
