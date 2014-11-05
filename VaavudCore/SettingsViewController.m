@@ -173,6 +173,17 @@
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
     else if (indexPath.item == 2) {
+        
+#ifdef AGRI
+
+        cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
+        cell.textLabel.text = NSLocalizedString(@"AGRI_WORD_LIST", nil);
+        cell.detailTextLabel.text = nil;
+        cell.accessoryView = nil;
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+
+#elif CORE
+
         cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"switchCell"];
         
         if (!cell) {
@@ -190,6 +201,9 @@
         cell.accessoryView = self.facebookSharingSwitch;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = [UIColor colorWithWhite:248.0/255.0 alpha:1.0];
+
+#endif
+
     }
     else if (indexPath.item == 3) {
         cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
@@ -219,9 +233,15 @@
 }
 
 - (NSIndexPath*) tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+#ifdef CORE
+
     if (indexPath.item == 2) {
         return nil;
     }
+
+#endif
+
     return indexPath;
 }
 
@@ -235,6 +255,17 @@
     else if (indexPath.item == 1) {
         [self performSegueWithIdentifier:@"directionSegue" sender:self];
     }
+    
+#ifdef AGRI
+    
+    else if (indexPath.item == 2) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Agriculture" bundle:nil];
+        UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"AgriWordListViewController"];
+        [self.navigationController pushViewController:viewController animated:YES];
+    }
+    
+#endif
+    
     else if (indexPath.item == 3) {
         
         [[Mixpanel sharedInstance] track:@"Settings Clicked Buy"];

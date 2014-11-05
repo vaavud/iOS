@@ -995,24 +995,24 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4:45 PM" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="udv-aO-SSB">
-                                            <rect key="frame" x="256" y="10" width="49" height="15"/>
+                                            <rect key="frame" x="271" y="10" width="49" height="15"/>
                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="13"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km/h" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZIS-9r-LYo">
-                                            <rect key="frame" x="272" y="70" width="33" height="18"/>
+                                            <rect key="frame" x="287" y="70" width="33" height="18"/>
                                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28.8" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="53l-HG-xGm">
-                                            <rect key="frame" x="131" y="61" width="48" height="29"/>
-                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="22"/>
+                                            <rect key="frame" x="131" y="65" width="39" height="24"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="18"/>
                                             <color key="textColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="deviceRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28.8" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VIa-tf-Taw">
-                                            <rect key="frame" x="185" y="45" width="83" height="50"/>
-                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="38"/>
+                                            <rect key="frame" x="218" y="53" width="65" height="39"/>
+                                            <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
                                             <color key="textColor" red="0.82352941180000006" green="0.1450980392" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -1035,8 +1035,8 @@
                                         <constraint firstItem="6d4-xa-nNN" firstAttribute="baseline" secondItem="udv-aO-SSB" secondAttribute="baseline" id="3fM-XM-Pb4"/>
                                         <constraint firstItem="53l-HG-xGm" firstAttribute="baseline" secondItem="5xN-cI-w41" secondAttribute="baseline" id="5i8-aI-oSD"/>
                                         <constraint firstItem="ZIS-9r-LYo" firstAttribute="leading" secondItem="VIa-tf-Taw" secondAttribute="trailing" constant="4" id="6Zh-af-XKT"/>
-                                        <constraint firstAttribute="trailing" secondItem="ZIS-9r-LYo" secondAttribute="trailing" constant="15" id="BeN-65-tn6"/>
-                                        <constraint firstAttribute="trailing" secondItem="udv-aO-SSB" secondAttribute="trailing" constant="15" id="Cff-lf-h1N"/>
+                                        <constraint firstAttribute="trailing" secondItem="ZIS-9r-LYo" secondAttribute="trailing" id="BeN-65-tn6"/>
+                                        <constraint firstAttribute="trailing" secondItem="udv-aO-SSB" secondAttribute="trailing" id="Cff-lf-h1N"/>
                                         <constraint firstItem="6d4-xa-nNN" firstAttribute="leading" secondItem="1T7-tJ-GUS" secondAttribute="trailing" constant="8" id="CrA-EL-D05"/>
                                         <constraint firstItem="ZIS-9r-LYo" firstAttribute="baseline" secondItem="VIa-tf-Taw" secondAttribute="baseline" id="DAg-kf-2vd"/>
                                         <constraint firstItem="5xN-cI-w41" firstAttribute="bottom" secondItem="We3-ZF-Y4Z" secondAttribute="bottom" constant="3" id="Fix-dS-xgb"/>
@@ -1284,6 +1284,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6lR-BM-vpn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="623" y="2128"/>
+        </scene>
+        <!--Word List View Controller-->
+        <scene sceneID="BOm-uv-6g4">
+            <objects>
+                <viewController storyboardIdentifier="AgriWordListViewController" id="fwQ-4I-fl5" userLabel="Word List View Controller" customClass="AgriWordListViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RVp-ra-3LE"/>
+                        <viewControllerLayoutGuide type="bottom" id="pBA-FG-6GZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9pn-hB-6N3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wWm-0g-JZW">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="wWm-0g-JZW" firstAttribute="leading" secondItem="9pn-hB-6N3" secondAttribute="leading" id="2Rx-E1-epk"/>
+                            <constraint firstAttribute="trailing" secondItem="wWm-0g-JZW" secondAttribute="trailing" id="fO2-wQ-7D2"/>
+                            <constraint firstAttribute="bottom" secondItem="wWm-0g-JZW" secondAttribute="bottom" id="yK9-Hk-GD9"/>
+                            <constraint firstItem="wWm-0g-JZW" firstAttribute="top" secondItem="9pn-hB-6N3" secondAttribute="top" id="yOI-tm-z2g"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="About" id="Tui-V5-obF"/>
+                    <connections>
+                        <outlet property="webView" destination="wWm-0g-JZW" id="5op-ZR-YsO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="00b-YQ-ZhD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="730" y="10"/>
         </scene>
     </scenes>
     <resources>
