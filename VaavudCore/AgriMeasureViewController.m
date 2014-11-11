@@ -45,16 +45,13 @@
 
     self.shareToFacebook = NO;
     self.privacy = [NSNumber numberWithInt:0];
-    
-    UIColor *vaavudColor = [UIColor vaavudColor];
-
     self.windSpeedHeadingLabel.text = [NSLocalizedString(@"HEADING_WIND_SPEED", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     self.temperatureUnitLabel.text = NSLocalizedString(@"UNIT_CELCIUS", nil);
     
     [self.nextButton setTitle:NSLocalizedString(@"BUTTON_NEXT", nil) forState:UIControlStateNormal];
     self.nextButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.nextButton.layer.masksToBounds = YES;
-    self.nextButton.backgroundColor = vaavudColor;
+    self.nextButton.hidden = YES;
     self.nextButton.enabled = NO;
 }
 
@@ -80,12 +77,22 @@
     [super reset];
     self.measurementSession = nil;
     self.nextButton.enabled = !self.buttonShowsStart;
+    if (!self.buttonShowsStart) {
+        self.nextButton.hidden = NO;
+    } else {
+        self.nextButton.hidden = YES;
+    }
 }
 
 - (IBAction) startStopButtonPushed:(id)sender {
     self.measurementSession = nil;
     [super startStopButtonPushed:sender];
     self.nextButton.enabled = !self.buttonShowsStart;
+    if (!self.buttonShowsStart) {
+        self.nextButton.hidden = NO;
+    } else {
+        self.nextButton.hidden = YES;
+    }
     self.nextAllowed = AGRI_DEBUG_ALWAYS_ENABLE_NEXT;
 }
 

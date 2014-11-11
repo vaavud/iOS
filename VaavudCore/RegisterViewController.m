@@ -32,15 +32,7 @@
             
             if (!title || title.length == 0) {
 
-#ifdef AGRI
-                
-                self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"agri-logo.png"]];
-                
-#elif CORE
-                
                 self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
-                
-#endif
 
                 //NSLog(@"Navigation title view rect: (%f, %f, %f, %f)", self.navigationItem.titleView.frame.origin.x, self.navigationItem.titleView.frame.origin.y, self.navigationItem.titleView.frame.size.width, self.navigationItem.titleView.frame.size.height);
             }

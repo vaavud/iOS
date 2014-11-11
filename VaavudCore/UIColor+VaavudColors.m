@@ -19,7 +19,7 @@
 }
 
 + (UIColor*)vaavudAgricultureGreenColor {
-    return [UIColor colorWithRed:(0.0/255.0) green:(128.0/255.0) blue:(0.0/255.0) alpha:1.0];
+    return [UIColor colorWithRed:(108.0/255.0) green:(192.0/255.0) blue:(73.0/255.0) alpha:1.0];
 }
 
 + (UIColor*)vaavudColor {
