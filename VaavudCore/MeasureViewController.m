@@ -762,13 +762,27 @@
         }
         
         if (self.directionImageView) {
-            NSString *imageName = [UnitUtil imageNameForDirection:self.directionLabelCurrentValue];
-            if (imageName) {
-                self.directionImageView.image = [UIImage imageNamed:imageName];
-                self.directionImageView.hidden = NO;
+            if (self.directionUnit == 0) {
+                NSString *imageName = [UnitUtil imageNameForDirection:self.directionLabelCurrentValue];
+                if (imageName) {
+                    self.directionImageView.image = [UIImage imageNamed:imageName];
+                    self.directionImageView.transform = CGAffineTransformMakeRotation(0);
+                    self.directionImageView.hidden = NO;
+                }
+                else {
+                    self.directionImageView.hidden = YES;
+                }
             }
             else {
-                self.directionImageView.hidden = YES;
+//                NSString *imageName = [UnitUtil imageNameForDirection:[NSNumber numberWithInt:0]];
+//                if (imageName) {
+                    self.directionImageView.image = [UIImage imageNamed:@"wind_arrow.png"];
+                    self.directionImageView.transform = CGAffineTransformMakeRotation([self.directionLabelCurrentValue doubleValue]/180 * M_PI);
+                    self.directionImageView.hidden = NO;
+//                }
+//                else {
+//                    self.directionImageView.hidden = YES;
+//                }
             }
         }
     }
