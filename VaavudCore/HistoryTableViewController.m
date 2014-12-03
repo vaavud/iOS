@@ -21,6 +21,7 @@
 @interface HistoryTableViewController ()
 
 @property (nonatomic, strong) UIImage *placeholderImage;
+@property (nonatomic, strong) UIImage *windDirectionArrowImage;
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
 @property (nonatomic) NSInteger directionUnit;
 @property (nonatomic) NSDate *latestLocalEndTime;
@@ -35,6 +36,7 @@
 - (void) viewDidLoad {
     [super viewDidLoad];
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
+    self.windDirectionArrowImage = [UIImage imageNamed:@"wind_arrow.png"];
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
     self.directionUnit = -1;
     self.navigationItem.title = NSLocalizedString(@"HISTORY_TITLE", nil);
@@ -208,10 +210,10 @@
             cell.directionLabel.text = [NSString stringWithFormat:@"%@°", [NSNumber numberWithInt:(int)round([session.windDirection doubleValue])]];
         }
         cell.directionLabel.hidden = NO;
-
-        NSString *imageName = [UnitUtil imageNameForDirection:session.windDirection];
-        if (imageName) {
-            cell.directionImageView.image = [UIImage imageNamed:imageName];
+        
+        cell.directionImageView.image = self.windDirectionArrowImage;
+        if (cell.directionImageView.image) {
+            cell.directionImageView.transform = CGAffineTransformMakeRotation([session.windDirection doubleValue]/180 * M_PI);
             cell.directionImageView.hidden = NO;
         }
         else {

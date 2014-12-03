@@ -43,14 +43,17 @@
         }
         self.directionLabel.hidden = NO;
         
-        NSString *imageName = [UnitUtil imageNameForDirection:direction];
-        if (imageName) {
-            self.directionImageView.image = [UIImage imageNamed:imageName];
+
+        self.directionImageView.image = [UIImage imageNamed:@"wind_arrow.png"];;
+        if (self.directionImageView.image) {
+            self.directionImageView.transform = CGAffineTransformMakeRotation([direction doubleValue]/180 * M_PI);
             self.directionImageView.hidden = NO;
         }
         else {
             self.directionImageView.hidden = YES;
         }
+        
+        
     }
     else {
         self.directionImageView.hidden = YES;
