@@ -183,6 +183,7 @@
     self.currentPlot.identifier = [NSNumber numberWithInteger:self.plots.count - 1];
     self.currentPlot.dataSource = self;
     self.currentPlot.cachePrecision = CPTPlotCachePrecisionDouble;
+    self.currentPlot.interpolation = CPTScatterPlotInterpolationLinear;
     
     [self.graphHostingView.hostedGraph addPlot:self.currentPlot];
 }
