@@ -19,7 +19,7 @@
 #define accelerationMaxForValid 0.4 // g acc/(9.82 m/s^2)
 #define angularVelocityMaxForValid 0.4 // rad/s (maybe deg/s or another unit)
 #define orientationDeviationMaxForValid 0.63 // rad  (36) degrees
-#define FFTpeakMagnitudeMinForValid 5 // (abs(FFT(maxbin))
+//#define FFTpeakMagnitudeMinForValid 2.5 // (abs(FFT(maxbin))
 
 #define KELVIN_TO_CELCIUS 273.15
 
@@ -48,11 +48,17 @@ static double const I5_FREQUENCY_FACTOR = 1.04;
 static int const FQ40_FFT_LENGTH = 64;
 static int const FQ40_FFT_DATA_LENGTH = 50;
 
+static int const FQ50_FFT_LENGTH = 128;
+static int const FQ50_FFT_DATA_LENGTH = 65;
+
 static int const FQ60_FFT_LENGTH = 128;
 static int const FQ60_FFT_DATA_LENGTH = 80;
+
+static double const FFT_PEAK_MAG_MIN_GENERAL = 5.0;
+static double const FFT_PEAK_MAG_MIN_IPHONE6 = 2.5;
 
 static NSString * const GOOGLE_STATIC_MAPS_API_KEY = @"AIzaSyDrrZsMKRBkCw214SbJA6q2lO-cXbu7m0Y";
 static NSString * const OPEN_WEATHERMAP_APIID = @"ee85fc6e4832549dee0f2004453fb478";
 
-//static NSString * const vaavudAPIBaseURLString = @"http://10.121.1.32:8080/";
-static NSString * const vaavudAPIBaseURLString = @"https://mobile-api.vaavud.com/";
+static NSString * const vaavudAPIBaseURLString = @"http://10.121.1.62:8080/";
+//static NSString * const vaavudAPIBaseURLString = @"https://mobile-api.vaavud.com/";

@@ -110,6 +110,11 @@ SHARED_INSTANCE
         [Property setAsInteger:[AlgorithmConstantsUtil getAlgorithm:model osVersion:osVersion] forKey:KEY_ALGORITHM];
         NSLog(@"[ModelManager] Setting algorithm parameters from local detection: algorithm=%@, frequencyStart=%@, frequencyFactor=%@, fftLength=%@, fftDataLength=%@", [Property getAsInteger:KEY_ALGORITHM], [Property getAsDouble:KEY_FREQUENCY_START], [Property getAsDouble:KEY_FREQUENCY_FACTOR], [Property getAsInteger:KEY_FFT_LENGTH], [Property getAsInteger:KEY_FFT_DATA_LENGTH]);
     }
+    
+    if ([Property getAsDouble:KEY_FFT_MAG_MIN] == nil) {
+        [Property setAsDouble:[AlgorithmConstantsUtil getFFTMagMin:model osVersion:osVersion] forKey:KEY_FFT_MAG_MIN];
+        NSLog(@"[ModelManager] Setting algorithm parameter from local detection: fftMagMin=%@", [Property getAsDouble:KEY_FFT_MAG_MIN]);
+    }
 
     if ([Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] == nil) {
         // this must be the first time, since there is no grid degree
@@ -144,6 +149,9 @@ SHARED_INSTANCE
     NSString *sDeviceModel = [NSString stringWithCString:systemInfo.machine
                                                 encoding:NSUTF8StringEncoding];
     
+    return sDeviceModel;
+    
+    // NOT in use anymore;
     // http://theiphonewiki.com/wiki/Models  // Maria would like to update tge list
     
     if ([sDeviceModel isEqual:@"i386"])      return @"Simulator";         // iPhone Simulator

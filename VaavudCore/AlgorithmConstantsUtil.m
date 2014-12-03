@@ -11,6 +11,7 @@
 static int const OTHER = 0;
 static int const IPHONE4 = 1;
 static int const IPHONE5 = 2;
+static int const IPHONE6 = 3;
 
 @implementation AlgorithmConstantsUtil
 
@@ -82,22 +83,34 @@ static int const IPHONE5 = 2;
     }
 }
 
-+(int) getGeneralModel:(NSString*) model {
-    NSRange charRange = NSMakeRange(0, 7);
-    NSString* modelSubstring;
-    if ([model length] >= 7) {
-        modelSubstring = [model substringWithRange:charRange];
++(NSNumber*) getFFTMagMin:(NSString*) model osVersion:(NSString*) version {
+    switch ([AlgorithmConstantsUtil getGeneralModel:model]) {
+        case IPHONE6: {
+            return [NSNumber numberWithDouble:FFT_PEAK_MAG_MIN_IPHONE6];
+        }
+        default: {
+            return [NSNumber numberWithDouble:FFT_PEAK_MAG_MIN_GENERAL];
+        }
     }
+}
 
-    if ([modelSubstring isEqualToString: @"iPhone4"]) {
-        return IPHONE4;
-    }
-    else if ([modelSubstring isEqualToString: @"iPhone5"]) {
-        return IPHONE5;
-    }
-    else {
-        return OTHER;
-    }
++(int) getGeneralModel:(NSString*) model {
+    
+    if ([model isEqual:@"iPhone3,1"]) return IPHONE4;       // iPhone 4 (GSM)
+    if ([model isEqual:@"iPhone3,2"]) return IPHONE4;       // iPhone 4 (GMS Rev A)
+    if ([model isEqual:@"iPhone3,3"]) return IPHONE4;       // iPhone 4 (GSM + CDMA)
+    if ([model isEqual:@"iPhone4,1"]) return IPHONE4;       // iPhone 4S
+    if ([model isEqual:@"iPhone5,1"]) return IPHONE5;       // iPhone 5 (GSM)
+    if ([model isEqual:@"iPhone5,2"]) return IPHONE5;       // iPhone 5 (GSM + CDMA)
+    if ([model isEqual:@"iPhone5,3"]) return IPHONE5;       // iPhone 5c
+    if ([model isEqual:@"iPhone5,4"]) return IPHONE5;       // iPhone 5c
+    if ([model isEqual:@"iPhone6,1"]) return IPHONE5;       // iPhone 5s
+    if ([model isEqual:@"iPhone6,2"]) return IPHONE5;       // iPhone 5s
+    if ([model isEqual:@"iPhone7,1"]) return IPHONE6;       // iPhone 6
+    if ([model isEqual:@"iPhone7,2"]) return IPHONE6;       // iPhone 6+
+    
+    return OTHER;
+    
 }
 
 +(BOOL) isOSVersionGreaterThan6_1_3:(NSString*) osVersion {

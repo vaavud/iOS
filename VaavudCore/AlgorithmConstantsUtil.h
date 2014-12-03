@@ -16,5 +16,6 @@
 +(NSNumber*) getFrequencyFactor:(NSString*) model osVersion:(NSString*) version;
 +(NSNumber*) getFFTLength:(NSString*) model osVersion:(NSString*) version;
 +(NSNumber*) getFFTDataLength:(NSString*) model osVersion:(NSString*) version;
++(NSNumber*) getFFTMagMin:(NSString*) model osVersion:(NSString*) version;
 
 @end

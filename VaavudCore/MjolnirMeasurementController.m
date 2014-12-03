@@ -47,6 +47,7 @@
 
 @property (nonatomic) double frequencyFactor;
 @property (nonatomic) double frequencyStart;
+@property (nonatomic) double fftPeakMagnitudeMinForValid;
 
 @property (nonatomic, strong) NSTimer *measuringTimer;
 
@@ -63,9 +64,10 @@
         self.frequencyFactor = [[Property getAsDouble:KEY_FREQUENCY_FACTOR] doubleValue];
         self.fftLength = [[Property getAsInteger:KEY_FFT_LENGTH] intValue];
         self.fftDataLength = [[Property getAsInteger:KEY_FFT_DATA_LENGTH] intValue];
+        self.fftPeakMagnitudeMinForValid = [[Property getAsDouble:KEY_FFT_MAG_MIN] doubleValue];
         self.FFTEngine = [[vaavudFFT alloc] initFFTLength: self.fftLength andFftDataLength: self.fftDataLength];
         
-        //NSLog(@"[VaavudCoreController] Using algorithm parameters: iPhone4Algo=%hhd, frequencyStart=%f, frequencyFactor=%f, fftLength=%d, fftDataLength=%d", self.iPhone4Algo, self.frequencyStart, self.frequencyFactor, self.fftLength, self.fftDataLength);
+        NSLog(@"[VaavudCoreController] Using algorithm parameters: iPhone4Algo=%hhd, frequencyStart=%f, frequencyFactor=%f, fftLength=%d, fftDataLength=%d, fft_MagnitudeMin=%f", self.iPhone4Algo, self.frequencyStart, self.frequencyFactor, self.fftLength, self.fftDataLength, self.fftPeakMagnitudeMinForValid);
     }
     
     return self;
@@ -310,7 +312,7 @@
             [self.windSpeedTime addObject: [self.sharedMagneticFieldDataManager.magneticFieldReadingsTime lastObject]];
             
             
-            if (frequencyMagnitude > FFTpeakMagnitudeMinForValid) {
+            if (frequencyMagnitude > self.fftPeakMagnitudeMinForValid) {
                 self.FFTisValid = YES;
                 
                 self.sumOfValidMeasurements += windspeed;
@@ -335,7 +337,7 @@
     double timedifference = [[self.sharedMagneticFieldDataManager.magneticFieldReadingsTime lastObject] doubleValue];
     
     NSNumber *sampleFrequency = [NSNumber numberWithDouble:(double) (self.magneticFieldUpdatesCounter-1) / timedifference];
-    //NSLog(@"freq=%@", n);
+//    NSLog(@"freq=%f.1", sampleFrequency.floatValue);
     return sampleFrequency;
 }
 
