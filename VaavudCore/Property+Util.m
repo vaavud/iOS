@@ -42,7 +42,7 @@
     if (value == nil) {
         return nil;
     }
-    return [NSNumber numberWithInt:[value integerValue]];
+    return [NSNumber numberWithInteger:[value integerValue]];
 }
 
 + (NSNumber*) getAsInteger:(NSString*) name defaultValue:(int)defaultValue {
@@ -50,7 +50,7 @@
     if (value == nil) {
         return [NSNumber numberWithInt:defaultValue];
     }
-    return [NSNumber numberWithInt:[value integerValue]];
+    return [NSNumber numberWithInteger:[value integerValue]];
 }
 
 + (NSNumber*) getAsLongLong:(NSString*) name {

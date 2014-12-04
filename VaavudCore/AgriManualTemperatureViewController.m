@@ -80,7 +80,7 @@
 }
 
 - (NSString*) pickerView:(UIPickerView*)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return [NSString stringWithFormat:@"%d °C", row + MIN_TEMP_CELCIUS];
+    return [NSString stringWithFormat:@"%ld °C", row + MIN_TEMP_CELCIUS];
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

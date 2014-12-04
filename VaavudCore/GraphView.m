@@ -298,7 +298,7 @@
             return records;
         }
         else {
-            NSLog(@"[GraphView] ERROR: No plots or identifier out of bounds (%u) getting number of records for plot", identifier);
+            NSLog(@"[GraphView] ERROR: No plots or identifier out of bounds (%lu) getting number of records for plot", identifier);
         }
         return 0;
     }
@@ -341,15 +341,15 @@
                     }
                 }
                 else {
-                    NSLog(@"[GraphView] ERROR: No (x,y) data for plot (%u) at index (%u)", identifier, index);
+                    NSLog(@"[GraphView] ERROR: No (x,y) data for plot (%lu) at index (%lu)", identifier, index);
                 }
             }
             else {
-                NSLog(@"[GraphView] ERROR: No data for plot (%u) or index out of bounds (%u)", identifier, index);
+                NSLog(@"[GraphView] ERROR: No data for plot (%lu) or index out of bounds (%lu)", identifier, index);
             }
         }
         else {
-            NSLog(@"[GraphView] ERROR: No plots or identifier out of bounds (%u)", identifier);
+            NSLog(@"[GraphView] ERROR: No plots or identifier out of bounds (%lu)", identifier);
         }
         return [NSNumber numberWithDouble:0.0];
     }
