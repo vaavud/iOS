@@ -1033,10 +1033,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRZ-We-01T">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wRZ-We-01T">
                                 <rect key="frame" x="36" y="40" width="248" height="113"/>
                                 <string key="text">To calibrated your sleipnir go indoors and blow into the device multiple times. Wait untill the device slows down before blowing again</string>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -1108,11 +1108,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AoJ-3L-d7j" customClass="DACircularProgressView">
-                                <rect key="frame" x="110" y="190" width="100" height="100"/>
+                                <rect key="frame" x="119" y="199" width="83" height="83"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="0RA-fy-TKp"/>
-                                    <constraint firstAttribute="height" constant="100" id="jcl-qa-Io7"/>
+                                    <constraint firstAttribute="width" constant="83" id="0RA-fy-TKp"/>
+                                    <constraint firstAttribute="height" constant="83" id="jcl-qa-Io7"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="51%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CV9-2Y-GAE">
@@ -1121,8 +1121,8 @@
                                 <color key="textColor" red="0.0" green="0.63137257099151611" blue="0.88235294818878174" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Repeat this until the circle is full" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fus-kP-Vx6">
-                                <rect key="frame" x="46" y="318" width="228" height="58"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repeat this until the circle is full" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fus-kP-Vx6">
+                                <rect key="frame" x="46" y="310" width="228" height="57"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
                                 <color key="textColor" red="0.0" green="0.63137257099999999" blue="0.88235294819999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1174,35 +1174,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dcm-1b-tgY">
-                                <rect key="frame" x="136" y="430" width="48" height="30"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleColor" red="0.42352941630000002" green="0.75294119120000003" blue="0.28627452250000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="2" kind="custom" identifier="slipnirCalibrationDismiss" customClass="sleipnirCalibrationDismissSegue" id="XMm-uO-yRl"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Calibration Complete!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vfx-fp-N16">
-                                <rect key="frame" x="46" y="317" width="228" height="58"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calibration Complete!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vfx-fp-N16">
+                                <rect key="frame" x="49" y="311" width="223" height="29"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
                                 <color key="textColor" red="0.42352941632270813" green="0.75294119119644165" blue="0.28627452254295349" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circularProgressComplete" translatesAutoresizingMaskIntoConstraints="NO" id="TVB-yr-Urm">
+                                <rect key="frame" x="118" y="198" width="85" height="85"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="TVB-yr-Urm" secondAttribute="centerY" id="KSN-8F-L2q"/>
+                            <constraint firstItem="vfx-fp-N16" firstAttribute="top" secondItem="TVB-yr-Urm" secondAttribute="bottom" constant="28" id="ceA-TK-FIu"/>
+                            <constraint firstAttribute="centerX" secondItem="vfx-fp-N16" secondAttribute="centerX" id="hMf-5X-1YM"/>
+                            <constraint firstAttribute="centerX" secondItem="TVB-yr-Urm" secondAttribute="centerX" id="zA7-d3-PTs"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="27I-vs-1se"/>
+                    <connections>
+                        <segue destination="2" kind="custom" identifier="slipnirCalibrationDismiss" customClass="sleipnirCalibrationDismissSegue" id="i2c-1u-pcQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bRo-i3-soA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2303" y="-1417"/>
+            <point key="canvasLocation" x="2283" y="-1417"/>
         </scene>
     </scenes>
     <resources>
         <image name="SettingsIcon.png" width="24" height="24"/>
+        <image name="circularProgressComplete" width="85" height="85"/>
         <image name="history.png" width="26" height="26"/>
         <image name="map.png" width="26" height="26"/>
         <image name="map_placeholder.png" width="74" height="74"/>
@@ -1214,8 +1216,8 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="GbF-4S-RBV"/>
         <segue reference="Gxj-Ne-bqP"/>
+        <segue reference="i2c-1u-pcQ"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
 </document>

@@ -31,11 +31,11 @@
     }
     
     self.circularProgress.progress = 0.0;
-    self.circularProgress.thicknessRatio = 0.06;
+    self.circularProgress.thicknessRatio = 0.0598;
     self.circularProgress.progressTintColor = [UIColor vaavudBlueColor];
-    self.circularProgress.trackTintColor = [UIColor lightGrayColor];
+    self.circularProgress.trackTintColor = [UIColor vaavudGreyColor];
     
-    self.labelProgress.text = @"0 %";
+    self.labelProgress.text = @"0%";
     
     
     self.vaavudElectronicSDK = [VEVaavudElectronicSDK sharedVaavudElectronic];
@@ -49,7 +49,7 @@
 - (void) calibrationPercentageComplete:(NSNumber *)percentage {
     self.circularProgress.progress = percentage.floatValue;
     
-    self.labelProgress.text = [NSString stringWithFormat:@"%i %%", (int) (percentage.floatValue*100)];
+    self.labelProgress.text = [NSString stringWithFormat:@"%i%%", (int) (percentage.floatValue*100)];
     
     
     if (percentage.floatValue >= 1) {

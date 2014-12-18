@@ -12,7 +12,8 @@
 
 + (UIColor*)vaavudBlueColor;
 + (UIColor*)vaavudRedColor;
-+ (UIColor*)vaavudAgricultureGreenColor;
++ (UIColor*)vaavudGreenColor;
 + (UIColor*)vaavudColor;
++ (UIColor*)vaavudGreyColor;
 
 @end
