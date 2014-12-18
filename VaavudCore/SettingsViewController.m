@@ -149,7 +149,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 6;
+    return 7;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -225,6 +225,12 @@
         cell.detailTextLabel.text = nil;
         cell.accessoryView = nil;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    } else if (indexPath.item == 6) {
+        cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
+        cell.textLabel.text = NSLocalizedString(@"CALIBRATE_SLEIPNIR", nil);
+        cell.detailTextLabel.text = nil;
+        cell.accessoryView = nil;
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
     
     cell.textLabel.textColor = [UIColor darkGrayColor];
@@ -284,6 +290,10 @@
     else if (indexPath.item == 5) {
         [self performSegueWithIdentifier:@"aboutSegue" sender:self];
     }
+    else if (indexPath.item == 6 ) {
+        [self performSegueWithIdentifier:@"sleipnirCalibrationSegueFromSettings" sender:self];
+    }
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

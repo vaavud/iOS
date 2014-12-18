@@ -1,10 +1,13 @@
 PODS:
+  - DACircularProgress (2.2.0)
   - Mixpanel (2.5.3)
 
 DEPENDENCIES:
+  - DACircularProgress
   - Mixpanel
 
 SPEC CHECKSUMS:
+  DACircularProgress: 3b41941891a56dc6aa17971f5322a9a38a6f446e
   Mixpanel: 708ec9a6ee6e741f7db107831e18b2fc2e7531f1
 
-COCOAPODS: 0.34.1
+COCOAPODS: 0.35.0

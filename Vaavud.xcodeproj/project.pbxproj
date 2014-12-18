@@ -11,6 +11,16 @@
 		D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */; };
 		D7092E8A1748FE9C00993235 /* vaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* vaavudDynamicsController.m */; };
 		D71BE13717439AA000B38E34 /* vaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* vaavudFFT.m */; };
+		D7497E941A418E5F0092F045 /* SleipnirCalibrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497E931A418E5F0092F045 /* SleipnirCalibrationViewController.m */; };
+		D7497E951A418E5F0092F045 /* SleipnirCalibrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497E931A418E5F0092F045 /* SleipnirCalibrationViewController.m */; };
+		D7497EA21A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EA11A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m */; };
+		D7497EA31A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EA11A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m */; };
+		D7497EA91A41E8F60092F045 /* sleipnirCalibrationDismissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EA81A41E8F60092F045 /* sleipnirCalibrationDismissSegue.m */; };
+		D7497EAA1A41E8F60092F045 /* sleipnirCalibrationDismissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EA81A41E8F60092F045 /* sleipnirCalibrationDismissSegue.m */; };
+		D7497EAD1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EAC1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m */; };
+		D7497EAE1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EAC1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m */; };
+		D7497EC11A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EC01A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m */; };
+		D7497EC21A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EC01A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m */; };
 		D7A4F1CB173A8DDB00D1ACEE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */; };
 		D7A4F1CD173A8DDB00D1ACEE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CC173A8DDB00D1ACEE /* Foundation.framework */; };
 		D7A4F1CF173A8DDB00D1ACEE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CE173A8DDB00D1ACEE /* CoreGraphics.framework */; };
@@ -617,6 +627,16 @@
 		D72D7A1F1906BEE300DCEC72 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D72D7A201906BFBA00DCEC72 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D72D7A211906C1F900DCEC72 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D7497E921A418E5F0092F045 /* SleipnirCalibrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleipnirCalibrationViewController.h; sourceTree = "<group>"; };
+		D7497E931A418E5F0092F045 /* SleipnirCalibrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleipnirCalibrationViewController.m; sourceTree = "<group>"; };
+		D7497EA01A41BFC40092F045 /* SleipnirCalibrationIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleipnirCalibrationIntroViewController.h; sourceTree = "<group>"; };
+		D7497EA11A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleipnirCalibrationIntroViewController.m; sourceTree = "<group>"; };
+		D7497EA71A41E8F60092F045 /* sleipnirCalibrationDismissSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sleipnirCalibrationDismissSegue.h; sourceTree = "<group>"; };
+		D7497EA81A41E8F60092F045 /* sleipnirCalibrationDismissSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sleipnirCalibrationDismissSegue.m; sourceTree = "<group>"; };
+		D7497EAB1A41EA500092F045 /* SleipnirCalibrationBlowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleipnirCalibrationBlowViewController.h; sourceTree = "<group>"; };
+		D7497EAC1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleipnirCalibrationBlowViewController.m; sourceTree = "<group>"; };
+		D7497EBF1A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleipnirCalibrationCompleteViewController.h; sourceTree = "<group>"; };
+		D7497EC01A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleipnirCalibrationCompleteViewController.m; sourceTree = "<group>"; };
 		D7A4F1C7173A8DDB00D1ACEE /* Vaavud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vaavud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D7A4F1CC173A8DDB00D1ACEE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1216,6 +1236,23 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
+		D7497EB81A421A090092F045 /* SleipnirCalibration */ = {
+			isa = PBXGroup;
+			children = (
+				D7497E921A418E5F0092F045 /* SleipnirCalibrationViewController.h */,
+				D7497E931A418E5F0092F045 /* SleipnirCalibrationViewController.m */,
+				D7497EA01A41BFC40092F045 /* SleipnirCalibrationIntroViewController.h */,
+				D7497EA11A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m */,
+				D7497EA71A41E8F60092F045 /* sleipnirCalibrationDismissSegue.h */,
+				D7497EA81A41E8F60092F045 /* sleipnirCalibrationDismissSegue.m */,
+				D7497EAB1A41EA500092F045 /* SleipnirCalibrationBlowViewController.h */,
+				D7497EAC1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m */,
+				D7497EBF1A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.h */,
+				D7497EC01A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m */,
+			);
+			name = SleipnirCalibration;
+			sourceTree = "<group>";
+		};
 		D7A4F1BE173A8DDB00D1ACEE = {
 			isa = PBXGroup;
 			children = (
@@ -1414,6 +1451,7 @@
 		E91E490A19AB5EEB00616887 /* Measure */ = {
 			isa = PBXGroup;
 			children = (
+				D7497EB81A421A090092F045 /* SleipnirCalibration */,
 				E91E490B19AB5F3D00616887 /* CoreMeasureViewController.h */,
 				E91E490C19AB5F3D00616887 /* CoreMeasureViewController.m */,
 				E98C9A6119BF0E80009428F3 /* GraphView.h */,
@@ -2574,6 +2612,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7A4F1D7173A8DDB00D1ACEE /* main.m in Sources */,
+				D7497E941A418E5F0092F045 /* SleipnirCalibrationViewController.m in Sources */,
 				D7A4F1DB173A8DDB00D1ACEE /* AppDelegate.m in Sources */,
 				D7A4F1E7173A8DDB00D1ACEE /* MeasureViewController.m in Sources */,
 				D7A4F1F2173A8FAB00D1ACEE /* MjolnirMeasurementController.m in Sources */,
@@ -2601,6 +2640,7 @@
 				E91D4218198F7C8400106E15 /* GuideView.m in Sources */,
 				E9159CA51A03E09100742188 /* MeasurementSession.m in Sources */,
 				E9B627C517708E63004678D5 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				D7497EC11A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m in Sources */,
 				E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */,
 				E9A4097D18994570004F1C12 /* UIImageView+TMCache.m in Sources */,
 				E9FABFDB18929158009C4C46 /* HistoryNavigationController.m in Sources */,
@@ -2624,6 +2664,7 @@
 				E9CD223C177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				E9C7798E19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */,
 				E948382719B75320009595B0 /* EZAudioPlot.m in Sources */,
+				D7497EA91A41E8F60092F045 /* sleipnirCalibrationDismissSegue.m in Sources */,
 				E9FD000B17FD6A06001A8491 /* FormatUtil.m in Sources */,
 				E948383119B75320009595B0 /* EZPlot.m in Sources */,
 				E9CD223D177B2AEA0054ED3F /* NSEntityDescription+MagicalDataImport.m in Sources */,
@@ -2651,11 +2692,13 @@
 				E9FABFE1189294BD009C4C46 /* HistoryTableViewCell.m in Sources */,
 				E9CD2246177B2AEA0054ED3F /* NSManagedObject+MagicalRequests.m in Sources */,
 				E9CD2247177B2AEA0054ED3F /* NSManagedObjectContext+MagicalObserving.m in Sources */,
+				D7497EAD1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m in Sources */,
 				E9F33CCE18B4B3CB0033EDC7 /* AccountManager.m in Sources */,
 				E948382519B75320009595B0 /* EZAudioPlayer.m in Sources */,
 				E9A4099318A52E40004F1C12 /* RegisterViewController.m in Sources */,
 				E9CD2248177B2AEA0054ED3F /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				E9159CA91A078E5C00742188 /* AgriResultComputation.m in Sources */,
+				D7497EA21A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m in Sources */,
 				E912793218BF5FF4009C7769 /* NoHistoryViewController.m in Sources */,
 				E9CD2249177B2AEA0054ED3F /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				E9C7798A19AB7C09000A6921 /* AgriMeasureViewController.m in Sources */,
@@ -2711,6 +2754,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9D904BD19C3262700ABA9F4 /* MixpanelUtil.m in Sources */,
+				D7497E951A418E5F0092F045 /* SleipnirCalibrationViewController.m in Sources */,
 				E9D904BC19C325E100ABA9F4 /* SleipnirMeasurementController.m in Sources */,
 				E96FB4ED19A353B500CB7306 /* main.m in Sources */,
 				E96FB4EE19A353B500CB7306 /* AppDelegate.m in Sources */,
@@ -2738,6 +2782,7 @@
 				E948382219B75320009595B0 /* EZAudio.m in Sources */,
 				E9159CA61A03E09100742188 /* MeasurementSession.m in Sources */,
 				E96FB50119A353B500CB7306 /* GuideView.m in Sources */,
+				D7497EC21A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m in Sources */,
 				E96FB50219A353B500CB7306 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				E98C9A6419BF0E80009428F3 /* GraphView.m in Sources */,
 				E96FB50319A353B500CB7306 /* CustomSMCalloutDrawnBackgroundView.m in Sources */,
@@ -2761,6 +2806,7 @@
 				E96FB51219A353B500CB7306 /* UIColor+VaavudColors.m in Sources */,
 				E96FB51319A353B500CB7306 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				E9C7798F19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */,
+				D7497EAA1A41E8F60092F045 /* sleipnirCalibrationDismissSegue.m in Sources */,
 				E948382819B75320009595B0 /* EZAudioPlot.m in Sources */,
 				E96FB51419A353B500CB7306 /* FormatUtil.m in Sources */,
 				E948383219B75320009595B0 /* EZPlot.m in Sources */,
@@ -2788,11 +2834,13 @@
 				E96FB52519A353B500CB7306 /* HistoryTableViewCell.m in Sources */,
 				E96FB52619A353B500CB7306 /* NSManagedObject+MagicalRequests.m in Sources */,
 				E96FB52719A353B500CB7306 /* NSManagedObjectContext+MagicalObserving.m in Sources */,
+				D7497EAE1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m in Sources */,
 				E96FB52819A353B500CB7306 /* AccountManager.m in Sources */,
 				E948382619B75320009595B0 /* EZAudioPlayer.m in Sources */,
 				E96FB52919A353B500CB7306 /* RegisterViewController.m in Sources */,
 				E96FB52B19A353B500CB7306 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				E9159CAA1A078E5C00742188 /* AgriResultComputation.m in Sources */,
+				D7497EA31A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m in Sources */,
 				E96FB52C19A353B500CB7306 /* NoHistoryViewController.m in Sources */,
 				E96FB52D19A353B500CB7306 /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				E9C7798B19AB7C09000A6921 /* AgriMeasureViewController.m in Sources */,
@@ -2971,6 +3019,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2988,6 +3037,7 @@
 				);
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -2995,6 +3045,8 @@
 				);
 				PRODUCT_NAME = Vaavud;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "VaavudCore/Vaavud-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3006,6 +3058,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3023,6 +3076,7 @@
 				);
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -3030,6 +3084,7 @@
 				);
 				PRODUCT_NAME = Vaavud;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "VaavudCore/Vaavud-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3041,6 +3096,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconAgriculture;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3058,6 +3114,7 @@
 				);
 				INFOPLIST_FILE = "Agriculture-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -3065,6 +3122,8 @@
 				);
 				PRODUCT_NAME = Agriculture;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "VaavudCore/Agriculture-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -3076,6 +3135,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconAgriculture;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3093,6 +3153,7 @@
 				);
 				INFOPLIST_FILE = "Agriculture-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -3100,6 +3161,7 @@
 				);
 				PRODUCT_NAME = Agriculture;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "VaavudCore/Agriculture-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
