@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22A3405E1A5AE022006CE401 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */; };
+		22A340661A5BDA21006CE401 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */; };
 		A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A086025EA7704C458175CADF /* libPods.a */; };
 		D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */; };
 		D7092E8A1748FE9C00993235 /* vaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* vaavudDynamicsController.m */; };
@@ -192,8 +194,6 @@
 		E93EEDC019EE92E3004D8759 /* one-pixel-line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E93EEDBD19EE92E3004D8759 /* one-pixel-line@2x.png */; };
 		E93EEDC119EE92E3004D8759 /* one-pixel-line@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E93EEDBE19EE92E3004D8759 /* one-pixel-line@3x.png */; };
 		E93EEDC219EE92E3004D8759 /* one-pixel-line@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E93EEDBE19EE92E3004D8759 /* one-pixel-line@3x.png */; };
-		E94837FF19B75173009595B0 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E94837FA19B75066009595B0 /* libVaavudElectronicSDK.a */; };
-		E948380219B751D6009595B0 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E94837FA19B75066009595B0 /* libVaavudElectronicSDK.a */; };
 		E948381F19B75320009595B0 /* AEFloatConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = E948380519B75320009595B0 /* AEFloatConverter.m */; };
 		E948382019B75320009595B0 /* AEFloatConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = E948380519B75320009595B0 /* AEFloatConverter.m */; };
 		E948382119B75320009595B0 /* EZAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = E948380719B75320009595B0 /* EZAudio.m */; };
@@ -578,28 +578,28 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E94837F919B75066009595B0 /* PBXContainerItemProxy */ = {
+		22A340521A5ADB1D006CE401 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D7D9996919B3AD3B0099FB8F;
 			remoteInfo = VaavudElectronicSDK;
 		};
-		E94837FB19B75066009595B0 /* PBXContainerItemProxy */ = {
+		22A340541A5ADB1D006CE401 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = D7D9997919B3AD3B0099FB8F;
 			remoteInfo = VaavudElectronicSDKTests;
 		};
-		E94837FD19B75140009595B0 /* PBXContainerItemProxy */ = {
+		22A340581A5ADC12006CE401 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = D7D9996819B3AD3B0099FB8F;
 			remoteInfo = VaavudElectronicSDK;
 		};
-		E948380019B751CF009595B0 /* PBXContainerItemProxy */ = {
+		22A340621A5BDA17006CE401 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */;
 			proxyType = 1;
@@ -802,7 +802,7 @@
 		E93EEDBA19EE9039004D8759 /* one-pixel-line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "one-pixel-line.png"; sourceTree = "<group>"; };
 		E93EEDBD19EE92E3004D8759 /* one-pixel-line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "one-pixel-line@2x.png"; sourceTree = "<group>"; };
 		E93EEDBE19EE92E3004D8759 /* one-pixel-line@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "one-pixel-line@3x.png"; sourceTree = "<group>"; };
-		E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VaavudElectronicSDK.xcodeproj; path = ../../../git/VaavudElectronicSDK/VaavudElectronicSDK.xcodeproj; sourceTree = "<group>"; };
+		E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VaavudElectronicSDK.xcodeproj; path = ../VaavudElectronicSDK/VaavudElectronicSDK.xcodeproj; sourceTree = "<group>"; };
 		E948380419B75320009595B0 /* AEFloatConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEFloatConverter.h; sourceTree = "<group>"; };
 		E948380519B75320009595B0 /* AEFloatConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEFloatConverter.m; sourceTree = "<group>"; };
 		E948380619B75320009595B0 /* EZAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudio.h; sourceTree = "<group>"; };
@@ -1170,7 +1170,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E94837FF19B75173009595B0 /* libVaavudElectronicSDK.a in Frameworks */,
+				22A3405E1A5AE022006CE401 /* libVaavudElectronicSDK.a in Frameworks */,
 				E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */,
 				E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */,
 				E9AF597E181826E6009A8221 /* libTestFlight.a in Frameworks */,
@@ -1194,7 +1194,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E948380219B751D6009595B0 /* libVaavudElectronicSDK.a in Frameworks */,
+				22A340661A5BDA21006CE401 /* libVaavudElectronicSDK.a in Frameworks */,
 				E96FB55319A353B500CB7306 /* MapKit.framework in Frameworks */,
 				E96FB55419A353B500CB7306 /* libz.dylib in Frameworks */,
 				E96FB55519A353B500CB7306 /* libTestFlight.a in Frameworks */,
@@ -1224,6 +1224,15 @@
 				CDE6761506C86D4075981625 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		22A3404D1A5ADB1D006CE401 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */,
+				22A340551A5ADB1D006CE401 /* VaavudElectronicSDKTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		D702418A17478B16008954FD /* CorePlot */ = {
@@ -1503,15 +1512,6 @@
 				E9AF2B9017F5B96500BDF6D9 /* MeasurementTableViewCell.xib */,
 			);
 			name = Map;
-			sourceTree = "<group>";
-		};
-		E94837F419B75066009595B0 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				E94837FA19B75066009595B0 /* libVaavudElectronicSDK.a */,
-				E94837FC19B75066009595B0 /* VaavudElectronicSDKTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		E948380319B75320009595B0 /* EZAudio */ = {
@@ -2164,7 +2164,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				E94837FE19B75140009595B0 /* PBXTargetDependency */,
+				22A340591A5ADC12006CE401 /* PBXTargetDependency */,
 			);
 			name = Vaavud;
 			productName = VaavudCore;
@@ -2184,7 +2184,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				E948380119B751CF009595B0 /* PBXTargetDependency */,
+				22A340631A5BDA17006CE401 /* PBXTargetDependency */,
 			);
 			name = Agriculture;
 			productName = VaavudCore;
@@ -2233,7 +2233,7 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = E94837F419B75066009595B0 /* Products */;
+					ProductGroup = 22A3404D1A5ADB1D006CE401 /* Products */;
 					ProjectRef = E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */;
 				},
 			);
@@ -2246,18 +2246,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		E94837FA19B75066009595B0 /* libVaavudElectronicSDK.a */ = {
+		22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libVaavudElectronicSDK.a;
-			remoteRef = E94837F919B75066009595B0 /* PBXContainerItemProxy */;
+			remoteRef = 22A340521A5ADB1D006CE401 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		E94837FC19B75066009595B0 /* VaavudElectronicSDKTests.xctest */ = {
+		22A340551A5ADB1D006CE401 /* VaavudElectronicSDKTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = VaavudElectronicSDKTests.xctest;
-			remoteRef = E94837FB19B75066009595B0 /* PBXContainerItemProxy */;
+			remoteRef = 22A340541A5ADB1D006CE401 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -2894,15 +2894,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E94837FE19B75140009595B0 /* PBXTargetDependency */ = {
+		22A340591A5ADC12006CE401 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = VaavudElectronicSDK;
-			targetProxy = E94837FD19B75140009595B0 /* PBXContainerItemProxy */;
+			targetProxy = 22A340581A5ADC12006CE401 /* PBXContainerItemProxy */;
 		};
-		E948380119B751CF009595B0 /* PBXTargetDependency */ = {
+		22A340631A5BDA17006CE401 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = VaavudElectronicSDK;
-			targetProxy = E948380019B751CF009595B0 /* PBXContainerItemProxy */;
+			targetProxy = 22A340621A5BDA17006CE401 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
