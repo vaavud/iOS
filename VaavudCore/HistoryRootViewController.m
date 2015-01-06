@@ -122,20 +122,19 @@
     [viewController didMoveToParentViewController:self];
 }
 
-- (void)hideContentController:(UIViewController*)viewController {
+- (void)hideContentController:(UIViewController *)viewController {
     [viewController willMoveToParentViewController:nil];
     [viewController.view removeFromSuperview];
     [viewController removeFromParentViewController];
 }
 
-- (void) syncHistory:(BOOL)ignoreGracePeriod {
-    
+- (void)syncHistory:(BOOL)ignoreGracePeriod {
     if ([[AccountManager sharedInstance] isLoggedIn]) {
         [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:ignoreGracePeriod success:^{
             //NSLog(@"[HistoryRootViewController] Got successful callback from history sync");
             
-            if (self.childViewController && [self.childViewController conformsToProtocol:@protocol(HistoryLoadedListener)]) {
-                UIViewController<HistoryLoadedListener> *listener = (UIViewController<HistoryLoadedListener>*) self.childViewController;
+            if ([self.childViewController conformsToProtocol:@protocol(HistoryLoadedListener)]) {
+                id<HistoryLoadedListener> listener = (id<HistoryLoadedListener>)self.childViewController;
                 [listener historyLoaded];
             }
             else if ([[AccountManager sharedInstance] isLoggedIn]) {

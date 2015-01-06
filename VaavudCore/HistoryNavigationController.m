@@ -26,8 +26,8 @@
 }
 
 - (void) historyLoaded {
-    if (self.topViewController && [self.topViewController conformsToProtocol:@protocol(HistoryLoadedListener)]) {
-        UIViewController<HistoryLoadedListener> *listener = (UIViewController<HistoryLoadedListener>*) self.topViewController;
+    if ([self.topViewController conformsToProtocol:@protocol(HistoryLoadedListener)]) {
+        id<HistoryLoadedListener> listener = (id<HistoryLoadedListener>)self.topViewController;
         [listener historyLoaded];
     }
 }

@@ -33,7 +33,7 @@
 
 @implementation HistoryTableViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
     self.windDirectionArrowImage = [UIImage imageNamed:@"wind_arrow.png"];
@@ -45,12 +45,12 @@
     self.isAppeared = NO;
 }
 
-- (void) viewDidUnload {
+- (void)viewDidUnload {
     [super viewDidUnload];
     self.fetchedResultsController = nil;
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
     BOOL tableReloadRequired = NO;
@@ -86,7 +86,7 @@
     }
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     self.isAppeared = YES;
@@ -96,7 +96,7 @@
     }
 }
 
-- (void) viewDidDisappear:(BOOL)animated {
+- (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
     // don't update table while we're not being displayed
@@ -104,7 +104,7 @@
     self.isAppeared = NO;
 }
 
-- (void) historyLoaded {
+- (void)historyLoaded {
     NSLog(@"[HistoryTableViewController] History loaded");
     
     if (self.isAppeared) {
@@ -115,22 +115,21 @@
     }
 }
 
-- (NSFetchedResultsController*) fetchedResultsController {
-    if (_fetchedResultsController != nil) {
-        return _fetchedResultsController;
+- (NSFetchedResultsController *)fetchedResultsController {
+    if (!_fetchedResultsController) {
+        _fetchedResultsController = [MeasurementSession MR_fetchAllGroupedBy:@"day" withPredicate:nil sortedBy:@"startTime" ascending:NO delegate:nil];
+        _fetchedResultsController.delegate = self;
     }
-    _fetchedResultsController = [MeasurementSession MR_fetchAllGroupedBy:@"day" withPredicate:nil sortedBy:@"startTime" ascending:NO delegate:nil];
-    _fetchedResultsController.delegate = self;
     return _fetchedResultsController;
 }
 
 #pragma mark - Table view data source
 
-- (NSInteger) numberOfSectionsInTableView:(UITableView*)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
     return [[self.fetchedResultsController sections] count];
 }
 
-- (NSInteger) tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([[self.fetchedResultsController sections] count] > 0) {
         id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
         //NSLog(@"numberOfRowsInSection=%lu", (unsigned long)[sectionInfo numberOfObjects]);
@@ -141,14 +140,14 @@
     }
 }
 
-- (UITableViewCell*) tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
+- (UITableViewCell *)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
-    HistoryTableViewCell *cell = (HistoryTableViewCell*) [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    HistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
 
-- (void) configureCell:(HistoryTableViewCell*)cell atIndexPath:(NSIndexPath*)indexPath {
+- (void) configureCell:(HistoryTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     MeasurementSession *session = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     if (session.latitude && session.longitude && (session.latitude != 0) && (session.longitude != 0)) {
@@ -226,11 +225,11 @@
     }
 }
 
-- (CGFloat) tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
     return 36;
 }
 
-- (UIView*) tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
+- (UIView *)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
     static NSString *HeaderIdentifier = @"HeaderIdentifier";
     
     UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HeaderIdentifier];
@@ -250,7 +249,7 @@
 
     }
     
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    id<NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"dd MM yyyy"];
@@ -271,12 +270,12 @@
     return view;
 }
 
-- (CGFloat) tableView:(UITableView*)tableView heightForFooterInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     // note: apparently 0 means default, so return number very close to zero to trick the height to zero
     return 0.01;
 }
 
-- (UIView*) tableView:(UITableView*)tableView viewForFooterInSection:(NSInteger)section {
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     static NSString *FooterIdentifier = @"FooterIdentifier";
     
     UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:FooterIdentifier];
@@ -289,11 +288,11 @@
     return view;
 }
 
-- (BOOL) tableView:(UITableView*)tableView canEditRowAtIndexPath:(NSIndexPath*)indexPath {
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
 
-- (void) tableView:(UITableView*)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath*)indexPath {
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         //NSLog(@"Delete pressed");
@@ -306,7 +305,7 @@
     }
 }
 
-- (void) controllerWillChangeContent:(NSFetchedResultsController*)controller {
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     
     if (!self.isObservingModelChanges) {
         return;
@@ -317,7 +316,7 @@
     self.isTableUpdating = YES;
 }
 
-- (void) controller:(NSFetchedResultsController*)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
+- (void)controller:(NSFetchedResultsController*)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
 
     if (!self.isObservingModelChanges) {
         return;
@@ -342,7 +341,7 @@
     }
 }
 
-- (void) controller:(NSFetchedResultsController*)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath*)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath*)newIndexPath {
+- (void) controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
 
     if (!self.isObservingModelChanges) {
         return;
@@ -353,7 +352,6 @@
     UITableView *tableView = self.tableView;
     
     switch (type) {
-            
         case NSFetchedResultsChangeInsert:
             [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
@@ -373,8 +371,7 @@
     }
 }
 
-- (void) controllerDidChangeContent:(NSFetchedResultsController*)controller {
-    
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     if (!self.isObservingModelChanges) {
         return;
     }

@@ -20,7 +20,7 @@
 
 @implementation FirstTimeExplanationViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     self.hasClickedBuy = NO;
@@ -78,7 +78,7 @@
     }
 }
 
-- (void) appDidBecomeActive:(NSNotification*) notification {
+- (void)appDidBecomeActive:(NSNotification*) notification {
     //NSLog(@"appDidBecomeActive, hasClickedBuy=%@, currentPageId=%u", self.hasClickedBuy ? @"YES" : @"NO", self.pageId);
     if (self.hasClickedBuy && self.pageId == 4) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -88,7 +88,7 @@
     }
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
     if ([Property isMixpanelEnabled]) {
@@ -102,7 +102,6 @@
 }
 
 - (IBAction)topButtonPushed:(id)sender {
-    
     if (self.delegate) {
         [self.delegate topButtonPushedOnController:self];
     }
@@ -113,14 +112,12 @@
 }
 
 - (IBAction)bottomButtonPushed:(id)sender {
-
     if (self.delegate) {
         [self.delegate bottomButtonPushedOnController:self];
     }
 }
 
 - (IBAction)tinyButtonPushed:(id)sender {
-
     if (self.delegate) {
         [self.delegate tinyButtonPushedOnController:self];
     }

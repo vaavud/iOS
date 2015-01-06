@@ -47,7 +47,7 @@
 
 BOOL didShowFeedback;
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
@@ -89,7 +89,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (void) crossButtonPushed {
+- (void)crossButtonPushed {
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
         RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
         if (registerNavigationController.registerDelegate) {
@@ -98,7 +98,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     // register for keyboard notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -112,7 +112,7 @@ BOOL didShowFeedback;
                                                object:nil];
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     if ([Property isMixpanelEnabled]) {
@@ -120,7 +120,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (void) viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 
     // unregister for keyboard notifications while not visible.
@@ -136,12 +136,11 @@ BOOL didShowFeedback;
     [AccountManager sharedInstance].delegate = nil;
 }
 
-- (void) createRegisterButton {
+- (void)createRegisterButton {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_CREATE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPushed)];
 }
 
-- (void) doneButtonPushed {
-
+- (void)doneButtonPushed {
     if (!self.firstNameTextField.text || self.firstNameTextField.text.length == 0) {
         [self.firstNameTextField becomeFirstResponder];
         [self showMessage:NSLocalizedString(@"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE", nil)];
@@ -179,7 +178,6 @@ BOOL didShowFeedback;
             }
         }
     } failure:^(enum AuthenticationResponseType response) {
-        
         if ([Property isMixpanelEnabled]) {
             [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": [NSNumber numberWithInt:response], @"Screen": @"Signup", @"Method": @"Password"}];
         }
@@ -206,12 +204,11 @@ BOOL didShowFeedback;
     }];
 }
 
-- (IBAction) facebookButtonPushed:(id)sender {
+- (IBAction)facebookButtonPushed:(id)sender {
     [self facebookButtonPushed:sender password:nil];
 }
 
-- (void) facebookButtonPushed:(id)sender password:(NSString*)password {
-    
+- (void)facebookButtonPushed:(id)sender password:(NSString*)password {
     [self.activityIndicator startAnimating];
     [self.facebookButton setTitle:@"" forState:UIControlStateNormal];
 
@@ -221,8 +218,7 @@ BOOL didShowFeedback;
     [accountManager registerWithFacebook:password action:AuthenticationActionSignup];
 }
 
-- (void) facebookAuthenticationSuccess:(enum AuthenticationResponseType)response {
-
+- (void)facebookAuthenticationSuccess:(enum AuthenticationResponseType)response {
     [self.activityIndicator stopAnimating];
     [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
     
@@ -234,8 +230,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (void) facebookAuthenticationFailure:(enum AuthenticationResponseType)response message:(NSString*)message displayFeedback:(BOOL)displayFeedback {
-
+- (void)facebookAuthenticationFailure:(enum AuthenticationResponseType)response message:(NSString*)message displayFeedback:(BOOL)displayFeedback {
     NSLog(@"[SignUpViewController] error registering user, response=%u, message=%@, displayFeedback=%@", response, message, (displayFeedback ? @"YES" : @"NO"));
     
     [self.activityIndicator stopAnimating];
@@ -268,10 +263,8 @@ BOOL didShowFeedback;
     }
 }
 
-- (void) showMessage:(NSString *)text withTitle:(NSString *)title {
-
+- (void)showMessage:(NSString *)text withTitle:(NSString *)title {
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-        
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
                                                                                  message:text
                                                                           preferredStyle:UIAlertControllerStyleAlert];
@@ -291,8 +284,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (BOOL) textFieldShouldReturn:(UITextField *)textField {
-    
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (self.firstNameTextField.text.length > 0 && self.emailTextField.text.length > 0 && self.passwordTextField.text.length > 0) {
         [self doneButtonPushed];
     }
@@ -311,10 +303,8 @@ BOOL didShowFeedback;
     return YES;
 }
 
-- (void) promptForPassword {
-
+- (void)promptForPassword {
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-        
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE", nil)
                                                                                  message:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD", nil)
                                                                           preferredStyle:UIAlertControllerStyleAlert];
@@ -350,7 +340,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex != alertView.cancelButtonIndex) {
         UITextField *passwordTextField = [alertView textFieldAtIndex:0];
         if (passwordTextField && passwordTextField.text.length > 0) {
@@ -359,7 +349,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (BOOL) alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView {
+- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView {
     UITextField *passwordTextField = [alertView textFieldAtIndex:0];
     if (passwordTextField && passwordTextField.text.length > 0) {
         return YES;
@@ -367,11 +357,11 @@ BOOL didShowFeedback;
     return NO;
 }
 
-- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     self.alertView = nil;
 }
 
-- (IBAction) termsButtonPushed:(id)sender {
+- (IBAction)termsButtonPushed:(id)sender {
     UINavigationController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TermsPrivacyNavigationController"];
     TermsPrivacyViewController *termsPrivacyController = (TermsPrivacyViewController*) controller.topViewController;
     termsPrivacyController.screenName = @"Signup Terms Screen";
@@ -380,7 +370,7 @@ BOOL didShowFeedback;
     [self presentViewController:controller animated:YES completion:nil];
 }
 
-- (IBAction) privacyButtonPushed:(id)sender {
+- (IBAction)privacyButtonPushed:(id)sender {
     UINavigationController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TermsPrivacyNavigationController"];
     TermsPrivacyViewController *termsPrivacyController = (TermsPrivacyViewController*) controller.topViewController;
     termsPrivacyController.screenName = @"Signup Privacy Screen";
@@ -389,8 +379,7 @@ BOOL didShowFeedback;
     [self presentViewController:controller animated:YES completion:nil];
 }
 
--(void) keyboardWillShow:(NSNotification*)aNotification {
-    
+-(void)keyboardWillShow:(NSNotification*)aNotification {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         NSDictionary* info = [aNotification userInfo];
         CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
@@ -402,8 +391,7 @@ BOOL didShowFeedback;
     }
 }
 
--(void) keyboardWillHide:(NSNotification*)aNotification {
-    
+-(void)keyboardWillHide:(NSNotification*)aNotification {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         CGFloat bottomInset = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? self.bottomLayoutGuide.length : 0.0;
         
@@ -416,9 +404,8 @@ BOOL didShowFeedback;
     return UIInterfaceOrientationMaskAll;
 }
 
-- (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
-    GuidedTextField *guidedTextField = (GuidedTextField*) textField;
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    GuidedTextField *guidedTextField = (GuidedTextField *)textField;
     
     NSRange textFieldRange = NSMakeRange(0, [textField.text length]);
     if ((NSEqualRanges(range, textFieldRange) && [string length] == 0) || (textField.secureTextEntry && guidedTextField.isFirstEdit && range.location > 0 && range.length == 1 && string.length == 0)) {
@@ -437,7 +424,7 @@ BOOL didShowFeedback;
     return YES;
 }
 
-- (BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     GuidedTextField *guidedTextField = (GuidedTextField*) textField;
     guidedTextField.isFirstEdit = YES;
     return YES;

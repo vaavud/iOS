@@ -141,7 +141,7 @@
     UIViewController *controller = [segue destinationViewController];
     
     if ([controller conformsToProtocol:@protocol(MeasurementSessionConsumer)]) {
-        UIViewController<MeasurementSessionConsumer> *consumer = (UIViewController<MeasurementSessionConsumer>*) controller;
+        id<MeasurementSessionConsumer> consumer = (id<MeasurementSessionConsumer>)controller;
         [consumer setMeasurementSession:self.measurementSession];
         [consumer setHasTemperature:self.hasTemperature];
         [consumer setHasDirection:self.hasDirection];

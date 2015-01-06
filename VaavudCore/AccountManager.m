@@ -25,7 +25,7 @@ int facebookRegisterIdentifier = 0;
 BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
 BOOL isDoingLogout = NO;
 
-- (void) registerWithPassword:(NSString*)password email:(NSString*)email firstName:(NSString*)firstName lastName:(NSString*)lastName action:(enum AuthenticationActionType)action success:(void(^)(enum AuthenticationResponseType response))success failure:(void(^)(enum AuthenticationResponseType response))failure {
+- (void) registerWithPassword:(NSString *)password email:(NSString*)email firstName:(NSString*)firstName lastName:(NSString*)lastName action:(enum AuthenticationActionType)action success:(void(^)(enum AuthenticationResponseType response))success failure:(void(^)(enum AuthenticationResponseType response))failure {
 
     isDoingLogout = NO;
     

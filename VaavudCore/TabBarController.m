@@ -59,7 +59,7 @@
     self.calloutView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 }
 
-- (void) tabBarController:(UITabBarController*)tabBarController didSelectViewController:(UIViewController*)viewController {
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController*)viewController {
     
     if (viewController == self.currentController) {
         return;
@@ -67,32 +67,32 @@
     self.currentController = viewController;
     
     if (viewController && [viewController conformsToProtocol:@protocol(TabSelectedListener)]) {
-        UIViewController<TabSelectedListener> *tabSelectedController = (UIViewController<TabSelectedListener>*) viewController;
+        id<TabSelectedListener> tabSelectedController = (id<TabSelectedListener>)viewController;
         [tabSelectedController tabSelected];
     }
 }
 
--(NSUInteger) supportedInterfaceOrientations {
+-(NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 }
 
-- (void) guideViewTap:(UITapGestureRecognizer*)recognizer {
+- (void)guideViewTap:(UITapGestureRecognizer*)recognizer {
     [self hideCalloutGuideView:YES];
 }
 
-- (void) dismissOverlayView {
+- (void)dismissOverlayView {
     [self hideCalloutGuideView:YES];
 }
 
-- (BOOL) isShowingGuideView {
+- (BOOL)isShowingGuideView {
     return self.isCalloutGuideViewShown;
 }
 
-- (void) showCalloutGuideView:(NSString*)headingText explanationText:(NSString*)explanationText customPosition:(CGRect)rect withArrow:(BOOL)withArrow inView:(UIView*)inView {
+- (void)showCalloutGuideView:(NSString *)headingText explanationText:(NSString *)explanationText customPosition:(CGRect)rect withArrow:(BOOL)withArrow inView:(UIView *)inView {
     
     if (self.isCalloutGuideViewShown) {
         [self hideCalloutGuideView:NO];
@@ -111,8 +111,6 @@
     self.calloutView.backgroundView = withArrow ? [CustomSMCalloutDrawnBackgroundView view] : [CustomSMCalloutDrawnBackgroundView viewWithNoArrow];
     
     SMCalloutArrowDirection arrowDirection = SMCalloutArrowDirectionDown;
-    CGFloat y = rect.origin.y;
-    CGFloat x = rect.origin.x;
     arrowDirection = SMCalloutArrowDirectionAny;
     
     if (!inView) {
@@ -133,7 +131,7 @@
         } completion:nil];
     }
     
-    [self.calloutView presentCalloutFromRect:CGRectMake(x, y, rect.size.width, rect.size.height)
+    [self.calloutView presentCalloutFromRect:rect
                                       inView:inView
                            constrainedToView:inView
                     permittedArrowDirections:arrowDirection
@@ -142,8 +140,7 @@
     self.isCalloutGuideViewShown = YES;
 }
 
-- (void) hideCalloutGuideView:(BOOL)animated {
-    
+- (void)hideCalloutGuideView:(BOOL)animated {
     self.isCalloutGuideViewShown = NO;
     
     if (self.calloutView.window) {
@@ -153,7 +150,6 @@
     if (self.overlayDimmingView) {
         self.overlayDimmingView.delegate = nil;
         if (animated) {
-            
             [UIView animateWithDuration:0.3 animations:^{
                 self.overlayDimmingView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.0];
             } completion:^(BOOL finished) {
@@ -168,10 +164,10 @@
     }
 }
 
-- (void) calloutViewDidDisappear:(SMCalloutView*)calloutView {
+- (void)calloutViewDidDisappear:(SMCalloutView*)calloutView {
     UIViewController *viewController = self.selectedViewController;
-    if (viewController && [viewController conformsToProtocol:@protocol(GuideViewDismissedListener)]) {
-        UIViewController<GuideViewDismissedListener> *guideViewController = (UIViewController<GuideViewDismissedListener>*) viewController;
+    if ([viewController conformsToProtocol:@protocol(GuideViewDismissedListener)]) {
+        id<GuideViewDismissedListener> guideViewController = (id<GuideViewDismissedListener>)viewController;
         [guideViewController guideViewDismissed];
     }
 }
