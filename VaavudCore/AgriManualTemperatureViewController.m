@@ -80,7 +80,7 @@
 }
 
 - (NSString*) pickerView:(UIPickerView*)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return [NSString stringWithFormat:@"%ld °C", row + MIN_TEMP_CELCIUS];
+    return [NSString stringWithFormat:@"%d °C", row + MIN_TEMP_CELCIUS];
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -88,7 +88,7 @@
     UIViewController *controller = [segue destinationViewController];
     
     if ([controller conformsToProtocol:@protocol(MeasurementSessionConsumer)]) {
-        UIViewController<MeasurementSessionConsumer> *consumer = (UIViewController<MeasurementSessionConsumer>*) controller;
+        UIViewController<MeasurementSessionConsumer> *consumer = (UIViewController<MeasurementSessionConsumer> *) controller;
         [consumer setMeasurementSession:self.measurementSession];
         [consumer setHasTemperature:self.hasTemperature];
         [consumer setHasDirection:self.hasDirection];

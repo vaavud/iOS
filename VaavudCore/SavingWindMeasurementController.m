@@ -35,16 +35,16 @@
 
 SHARED_INSTANCE
 
-- (void) setHardwareController:(WindMeasurementController*)controller {
+- (void)setHardwareController:(WindMeasurementController *)controller {
     self.controller = controller;
     self.controller.delegate = self;
 }
 
-- (void) clearHardwareController {
+- (void)clearHardwareController {
     self.controller = nil;
 }
 
-- (void) start {
+- (void)start {
     if (self.controller) {
         
         self.hasBeenStopped = NO;

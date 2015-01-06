@@ -182,7 +182,7 @@ BOOL isDoingLogout = NO;
                 }
             }
             else {
-                NSLog(@"[AccountManager] Facebook error %ld", errorCategory);
+                NSLog(@"[AccountManager] Facebook error %d", errorCategory);
                 if (failure) {
                     failure(AuthenticationResponseGenericError, nil, YES);
                 }

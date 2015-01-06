@@ -347,62 +347,57 @@
     [self updateComputedValues];
 }
 
-- (NSNumber*) getReducingEquipmentValue {
-    
+- (NSNumber *)getReducingEquipmentValue {
     switch (self.reducingEquipmentSegmentControl.selectedSegmentIndex) {
         case 0:
-            return [NSNumber numberWithInt:1];
+            return @1;
         case 1:
-            return [NSNumber numberWithInt:2];
+            return @2;
         case 2:
-            return [NSNumber numberWithInt:3];
+            return @3;
         case 3:
-            return [NSNumber numberWithInt:4];
+            return @4;
         default:
-            NSLog(@"[AgriResultViewController] ERROR: Unknown reducing equipment selected segment index %ld", self.reducingEquipmentSegmentControl.selectedSegmentIndex);
-            return [NSNumber numberWithInt:1];
+            NSLog(@"[AgriResultViewController] ERROR: Unknown reducing equipment selected segment index %ld", (long)self.reducingEquipmentSegmentControl.selectedSegmentIndex);
+            return @1;
     }
 }
 
-- (IBAction) doseSegmentControlValueChanged:(id)sender {
-    
+- (IBAction)doseSegmentControlValueChanged:(id)sender {
     [Property setAsFloat:[self getDoseValue] forKey:KEY_AGRI_DEFAULT_DOSE];
     [self updateComputedValues];
 }
 
-- (NSNumber*) getDoseValue {
-    
+- (NSNumber *)getDoseValue {
     switch (self.doseSegmentControl.selectedSegmentIndex) {
         case 0:
-            return [NSNumber numberWithFloat:0.25];
+            return @0.25f;
         case 1:
-            return [NSNumber numberWithFloat:0.5];
+            return @0.5f;
         case 2:
-            return [NSNumber numberWithFloat:1.0];
+            return @1.0f;
         default:
-            NSLog(@"[AgriResultViewController] ERROR: Unknown dose selected segment index %ld", self.doseSegmentControl.selectedSegmentIndex);
-            return [NSNumber numberWithFloat:1.0];
+            NSLog(@"[AgriResultViewController] ERROR: Unknown dose selected segment index %d", self.doseSegmentControl.selectedSegmentIndex);
+            return @1.0f;
     }
 }
 
 - (IBAction) boomHeightValueChanged:(id)sender {
-
     [Property setAsInteger:[self getBoomHeightValue] forKey:KEY_AGRI_DEFAULT_BOOM_HEIGHT];
     [self updateComputedValues];
 }
 
-- (NSNumber*) getBoomHeightValue {
-    
+- (NSNumber *)getBoomHeightValue {
     switch (self.boomHeightSegmentControl.selectedSegmentIndex) {
         case 0:
-            return [NSNumber numberWithInt:25];
+            return @25;
         case 1:
-            return [NSNumber numberWithInt:40];
+            return @40;
         case 2:
-            return [NSNumber numberWithInt:60];
+            return @60;
         default:
-            NSLog(@"[AgriResultViewController] ERROR: Unknown boom height selected segment index %ld", self.boomHeightSegmentControl.selectedSegmentIndex);
-            return [NSNumber numberWithInt:60];
+            NSLog(@"[AgriResultViewController] ERROR: Unknown boom height selected segment index %d", self.boomHeightSegmentControl.selectedSegmentIndex);
+            return @60;
     }
 }
 
@@ -416,18 +411,18 @@
     
     switch (self.sprayQualitySegmentControl.selectedSegmentIndex) {
         case 0:
-            return [NSNumber numberWithInt:1];
+            return @1;
         case 1:
-            return [NSNumber numberWithInt:2];
+            return @2;
         case 2:
-            return [NSNumber numberWithInt:3];
+            return @3;
         default:
-            NSLog(@"[AgriResultViewController] ERROR: Unknown spray quality selected segment index %ld", self.sprayQualitySegmentControl.selectedSegmentIndex);
-            return [NSNumber numberWithInt:3];
+            NSLog(@"[AgriResultViewController] ERROR: Unknown spray quality selected segment index %d", self.sprayQualitySegmentControl.selectedSegmentIndex);
+            return @3;
     }
 }
 
-- (IBAction) saveButtonPushed:(id)sender {
+- (IBAction)saveButtonPushed:(id)sender {
     
     NSMutableString *summary = [NSMutableString string];
     
@@ -473,7 +468,6 @@
     }
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-        
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"AGRI_RESULT_CONFIRM_SAVE_TITLE", nil)
                                                                                  message:summary
                                                                           preferredStyle:UIAlertControllerStyleAlert];
@@ -492,7 +486,6 @@
         [self presentViewController:alertController animated:YES completion:nil];
     }
     else {
-        
         [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"AGRI_RESULT_CONFIRM_SAVE_TITLE", nil)
                                     message:summary
                                    delegate:self
@@ -501,16 +494,14 @@
     }
 }
 
-- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex != alertView.cancelButtonIndex) {
         [self performSave];
     }
 }
 
-- (void) performSave {
-    
+- (void)performSave {
     if (self.measurementSession) {
-        
         self.measurementSession.reduceEquipment = [self getReducingEquipmentValue];
         self.measurementSession.dose = [self getDoseValue];
         self.measurementSession.boomHeight = [self getBoomHeightValue];

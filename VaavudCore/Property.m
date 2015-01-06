@@ -8,7 +8,6 @@
 
 #import "Property.h"
 
-
 @implementation Property
 
 @dynamic name;

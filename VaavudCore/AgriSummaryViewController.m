@@ -34,7 +34,7 @@
 
 @implementation AgriSummaryViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
@@ -49,11 +49,11 @@
     self.tableView.dataSource = self;
 }
 
-- (NSUInteger) supportedInterfaceOrientations {
+- (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
@@ -90,7 +90,7 @@
     }
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     if ([Property isMixpanelEnabled]) {
@@ -98,8 +98,7 @@
     }
 }
 
-- (void) updateMeasuredValues {
-    
+- (void)updateMeasuredValues {
     if (self.measurementSession && self.measurementSession.windSpeedAvg && !isnan([self.measurementSession.windSpeedAvg doubleValue])) {
         self.windSpeedLabel.text = [self formatValue:[UnitUtil displayWindSpeedFromDouble:[self.measurementSession.windSpeedAvg doubleValue] unit:self.windSpeedUnit]];
     }
@@ -142,7 +141,7 @@
     }
 }
 
-- (NSString*) formatValue:(double)value {
+- (NSString *)formatValue:(double)value {
     if (value > 100.0) {
         return [NSString stringWithFormat: @"%.0f", value];
     }
@@ -152,7 +151,6 @@
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-    
     // If it's the user location, just return nil.
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
         return nil;
@@ -161,7 +159,7 @@
         
         static NSString *MeasureAnnotationIdentifier = @"MeasureAnnotationIdentifier";
         
-        MeasurementAnnotation *measurementAnnotation = (MeasurementAnnotation*) annotation;
+        MeasurementAnnotation *measurementAnnotation = (MeasurementAnnotation *) annotation;
         measurementAnnotation.windSpeedUnit = self.windSpeedUnit;
         
         MKAnnotationView *measureAnnotationView =
@@ -217,7 +215,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"infoCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"infoCell" forIndexPath:indexPath];
 
     if (indexPath.item == 0) {
         cell.textLabel.text = NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT", nil);
@@ -253,7 +251,7 @@
     return [UIView new];
 }
 
-- (NSString*) getReducingEquipmentText:(int)value {
+- (NSString *) getReducingEquipmentText:(int)value {
     
     if (value == 1) {
         return NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT_NONE", nil);
@@ -276,8 +274,7 @@
     }
 }
 
-- (NSString*) getDoseText:(float)value {
-    
+- (NSString *)getDoseText:(float)value {
     if (value == 0.25F) {
         return NSLocalizedString(@"AGRI_DOSE_QUARTER", nil);
     }
@@ -293,8 +290,7 @@
     }
 }
 
-- (NSString*) getBoomHeightText:(int)value {
-
+- (NSString *)getBoomHeightText:(int)value {
     if (value == 25) {
         return NSLocalizedString(@"AGRI_BOOM_HEIGHT_25CM", nil);
     }
@@ -310,8 +306,7 @@
     }
 }
 
-- (NSString*) getSprayQualityText:(int)value {
-
+- (NSString *)getSprayQualityText:(int)value {
     if (value == 1) {
         return NSLocalizedString(@"AGRI_SPRAY_QUALITY_FINE", nil);
     }

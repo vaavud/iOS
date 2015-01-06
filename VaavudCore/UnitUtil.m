@@ -10,15 +10,15 @@
 
 @implementation UnitUtil
 
-static NSSet* countriesUsingMph;
-static NSArray* directionNameStrings;
-static NSArray* directionImageStrings;
-static NSArray* mapDirectionImageStrings;
+static NSSet *countriesUsingMph;
+static NSArray *directionNameStrings;
+static NSArray *directionImageStrings;
+static NSArray *mapDirectionImageStrings;
 
-+ (void) initialize {
++ (void)initialize {
     countriesUsingMph = [NSSet setWithObjects:@"US", @"UM", @"GB", @"CA", @"VG", @"VI", nil];
     directionNameStrings = @[@"DIRECTION_N", @"DIRECTION_NNE", @"DIRECTION_NE", @"DIRECTION_ENE", @"DIRECTION_E", @"DIRECTION_ESE", @"DIRECTION_SE", @"DIRECTION_SSE", @"DIRECTION_S", @"DIRECTION_SSW", @"DIRECTION_SW", @"DIRECTION_WSW", @"DIRECTION_W", @"DIRECTION_WNW", @"DIRECTION_NW", @"DIRECTION_NNW"];
-
+    
 #ifdef AGRI
     // AGRICULTURE APP
     directionImageStrings = @[@"windarrow_green_N.png", @"windarrow_green_NNE.png", @"windarrow_green_NE.png", @"windarrow_green_ENE.png", @"windarrow_green_E.png", @"windarrow_green_ESE.png", @"windarrow_green_SE.png", @"windarrow_green_SSE.png", @"windarrow_green_S.png", @"windarrow_green_SSW.png", @"windarrow_green_SW.png", @"windarrow_green_WSW.png", @"windarrow_green_W.png", @"windarrow_green_WNW.png", @"windarrow_green_NW.png", @"windarrow_green_NNW.png"];
@@ -30,7 +30,7 @@ static NSArray* mapDirectionImageStrings;
     mapDirectionImageStrings = @[@"mapmarker_w_direction_N.png", @"mapmarker_w_direction_NNE.png", @"mapmarker_w_direction_NE.png", @"mapmarker_w_direction_ENE.png", @"mapmarker_w_direction_E.png", @"mapmarker_w_direction_ESE.png", @"mapmarker_w_direction_SE.png", @"mapmarker_w_direction_SSE.png", @"mapmarker_w_direction_S.png", @"mapmarker_w_direction_SSW.png", @"mapmarker_w_direction_SW.png", @"mapmarker_w_direction_WSW.png", @"mapmarker_w_direction_W.png", @"mapmarker_w_direction_WNW.png", @"mapmarker_w_direction_NW.png", @"mapmarker_w_direction_NNW.png"];
 }
 
-+ (WindSpeedUnit) nextWindSpeedUnit:(WindSpeedUnit) unit {
++ (WindSpeedUnit)nextWindSpeedUnit:(WindSpeedUnit)unit {
     unit++;
     if (unit > 4) {
         unit = 0;
@@ -38,7 +38,7 @@ static NSArray* mapDirectionImageStrings;
     return unit;
 }
 
-+ (WindSpeedUnit) windSpeedUnitForCountry:(NSString*) countryCode {
++ (WindSpeedUnit)windSpeedUnitForCountry:(NSString *)countryCode {
     if ([countriesUsingMph containsObject:countryCode]) {
         return WindSpeedUnitMPH;
     }
@@ -47,7 +47,7 @@ static NSArray* mapDirectionImageStrings;
     }
 }
 
-+ (NSString*) jsonNameForWindSpeedUnit:(WindSpeedUnit) unit {
++ (NSString *)jsonNameForWindSpeedUnit:(WindSpeedUnit)unit {
     if (unit == WindSpeedUnitMS) {
         return @"MS";
     }
@@ -65,7 +65,7 @@ static NSArray* mapDirectionImageStrings;
     }
 }
 
-+ (NSString*) displayNameForWindSpeedUnit:(WindSpeedUnit) unit {
++ (NSString *)displayNameForWindSpeedUnit:(WindSpeedUnit)unit {
     if (unit == WindSpeedUnitMS) {
         return NSLocalizedString(@"UNIT_MS", nil);
     }
@@ -84,7 +84,7 @@ static NSArray* mapDirectionImageStrings;
     }
 }
 
-+ (NSString*) englishDisplayNameForWindSpeedUnit:(WindSpeedUnit) unit {
++ (NSString *)englishDisplayNameForWindSpeedUnit:(WindSpeedUnit)unit {
     if (unit == WindSpeedUnitMS) {
         return @"m/s";
     }
@@ -103,7 +103,7 @@ static NSArray* mapDirectionImageStrings;
     }
 }
 
-+ (double) displayWindSpeedFromDouble:(double) windSpeedMS unit:(WindSpeedUnit) unit {
++ (double)displayWindSpeedFromDouble:(double)windSpeedMS unit:(WindSpeedUnit)unit {
     if (unit == WindSpeedUnitMS) {
         return windSpeedMS;
     }
@@ -148,11 +148,11 @@ static NSArray* mapDirectionImageStrings;
     }
 }
 
-+ (NSNumber*) displayWindSpeedFromNumber:(NSNumber*) windSpeedMS unit:(WindSpeedUnit) unit {
++ (NSNumber *)displayWindSpeedFromNumber:(NSNumber *)windSpeedMS unit:(WindSpeedUnit)unit {
     return [NSNumber numberWithDouble:[UnitUtil displayWindSpeedFromDouble:[windSpeedMS doubleValue] unit:unit]];
 }
 
-+ (NSString*) displayNameForDirection:(NSNumber*)direction {
++ (NSString *)displayNameForDirection:(NSNumber *)direction {
     if (!direction) {
         return @"-";
     }
@@ -160,7 +160,7 @@ static NSArray* mapDirectionImageStrings;
     return NSLocalizedString(directionNameStrings[index], nil);
 }
 
-+ (NSString*) imageNameForDirection:(NSNumber*)direction {
++ (NSString *)imageNameForDirection:(NSNumber *)direction {
     if (!direction) {
         return nil;
     }
@@ -168,7 +168,7 @@ static NSArray* mapDirectionImageStrings;
     return directionImageStrings[index];
 }
 
-+ (NSString*) mapImageNameForDirection:(NSNumber*)direction {
++ (NSString *)mapImageNameForDirection:(NSNumber *)direction {
     if (!direction) {
         return nil;
     }
@@ -176,7 +176,7 @@ static NSArray* mapDirectionImageStrings;
     return mapDirectionImageStrings[index];
 }
 
-+ (NSInteger) directionIndex:(double)direction {
++ (NSInteger)directionIndex:(double)direction {
     if (direction < 0.0 || direction >= 360.0) {
         direction = fmod(direction, 360.0);
     }
@@ -187,7 +187,7 @@ static NSArray* mapDirectionImageStrings;
     return index;
 }
 
-+ (NSString*) displayNameForDirectionUnit:(NSInteger)directionUnit {
++ (NSString *)displayNameForDirectionUnit:(NSInteger)directionUnit {
     switch (directionUnit) {
         case 0:
             return NSLocalizedString(@"DIRECTION_CARDINAL", nil);

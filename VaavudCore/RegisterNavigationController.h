@@ -14,10 +14,10 @@ enum RegisterScreenType : NSUInteger {
 };
 
 @protocol RegisterNavigationControllerDelegate <NSObject>
-- (void) userAuthenticated:(BOOL)isSignup viewController:(UIViewController*)viewController;
-- (void) cancelled:(UIViewController*)viewController;
-- (NSString*) registerScreenTitle;
-- (NSString*) registerTeaserText;
+- (void)userAuthenticated:(BOOL)isSignup viewController:(UIViewController *)viewController;
+- (void)cancelled:(UIViewController *)viewController;
+- (NSString *)registerScreenTitle;
+- (NSString *)registerTeaserText;
 @end
 
 @interface RegisterNavigationController : UINavigationController
