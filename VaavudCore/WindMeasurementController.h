@@ -20,6 +20,7 @@ enum WindMeterDeviceType : NSUInteger {
 
 @optional
 - (void) updateDirection:(NSNumber*)direction;
+- (void) updateDirectionLocal:(NSNumber *)direction;
 - (void) updateLocation:(NSNumber*)latitude longitude:(NSNumber*)longitude;
 - (void) updateTemperature:(NSNumber*)temperature;
 - (void) changedValidity:(BOOL)isValid dynamicsIsValid:(BOOL)dynamicsIsValid;

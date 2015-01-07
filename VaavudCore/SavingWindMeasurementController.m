@@ -238,6 +238,16 @@ SHARED_INSTANCE
     }
 }
 
+- (void) updateDirectionLocal:(NSNumber*)direction {
+    
+    if (direction) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(updateDirectionLocal:)]) {
+            [self.delegate updateDirectionLocal:direction];
+        }
+    }
+}
+
+
 - (void) changedValidity:(BOOL)isValid dynamicsIsValid:(BOOL)dynamicsIsValid {
     
     MeasurementSession *measurementSession = [self getLatestMeasurementSession];

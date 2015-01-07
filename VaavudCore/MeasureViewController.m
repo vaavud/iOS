@@ -586,6 +586,22 @@
     [self updateDirectionFromCurrentValue];
 }
 
+- (void) updateDirectionLocal:(NSNumber *)direction {
+    if (self.directionImageView) {
+        
+        self.directionImageView.image = [UIImage imageNamed:@"wind_arrow.png"];
+        if (self.directionImageView.image) {
+            self.directionImageView.transform = CGAffineTransformMakeRotation([direction doubleValue]/180 * M_PI);
+            self.directionImageView.hidden = NO;
+        }
+        else {
+            self.directionImageView.hidden = YES;
+        }
+    }
+}
+
+
+
 /**** Sleipnir Measurement ****/
 
 - (void) deviceAvailabilityChanged:(enum WindMeterDeviceType) device andAvailability: (BOOL) available {
@@ -758,18 +774,6 @@
             }
             else {
                 self.directionLabel.text = [NSString stringWithFormat:@"%@°", [NSNumber numberWithInt:(int)round([self.directionLabelCurrentValue doubleValue])]];
-            }
-        }
-        
-        if (self.directionImageView) {
-
-            self.directionImageView.image = [UIImage imageNamed:@"wind_arrow.png"];
-            if (self.directionImageView.image) {
-                self.directionImageView.transform = CGAffineTransformMakeRotation([self.directionLabelCurrentValue doubleValue]/180 * M_PI);
-                self.directionImageView.hidden = NO;
-            }
-            else {
-                self.directionImageView.hidden = YES;
             }
         }
     }
