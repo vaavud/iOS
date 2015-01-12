@@ -10,6 +10,7 @@
 
 @interface VaavudFFT : NSObject
 
+
 - (id)initFFTLength:(int)N andFftDataLength:(int)fftDataLengthIn;
 - (NSArray *)doFFT:(NSArray *)FFTin;
 
