@@ -11,14 +11,14 @@
 		22A340661A5BDA21006CE401 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */; };
 		A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A086025EA7704C458175CADF /* libPods.a */; };
 		D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */; };
-		D7092E8A1748FE9C00993235 /* vaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* vaavudDynamicsController.m */; };
+		D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
 		D71BE13717439AA000B38E34 /* vaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* vaavudFFT.m */; };
 		D7497E941A418E5F0092F045 /* SleipnirCalibrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497E931A418E5F0092F045 /* SleipnirCalibrationViewController.m */; };
 		D7497E951A418E5F0092F045 /* SleipnirCalibrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497E931A418E5F0092F045 /* SleipnirCalibrationViewController.m */; };
 		D7497EA21A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EA11A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m */; };
 		D7497EA31A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EA11A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m */; };
-		D7497EA91A41E8F60092F045 /* sleipnirCalibrationDismissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EA81A41E8F60092F045 /* sleipnirCalibrationDismissSegue.m */; };
-		D7497EAA1A41E8F60092F045 /* sleipnirCalibrationDismissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EA81A41E8F60092F045 /* sleipnirCalibrationDismissSegue.m */; };
+		D7497EA91A41E8F60092F045 /* SleipnirCalibrationDismissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EA81A41E8F60092F045 /* SleipnirCalibrationDismissSegue.m */; };
+		D7497EAA1A41E8F60092F045 /* SleipnirCalibrationDismissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EA81A41E8F60092F045 /* SleipnirCalibrationDismissSegue.m */; };
 		D7497EAD1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EAC1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m */; };
 		D7497EAE1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EAC1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m */; };
 		D7497EC11A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EC01A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m */; };
@@ -242,7 +242,7 @@
 		E96FB4F319A353B500CB7306 /* vaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* vaavudFFT.m */; };
 		E96FB4F419A353B500CB7306 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950CB195B1DCE00E9EF02 /* ImageUtil.m */; };
 		E96FB4F519A353B500CB7306 /* DismissOnTouchUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91D421A198F7E4900106E15 /* DismissOnTouchUIView.m */; };
-		E96FB4F619A353B500CB7306 /* vaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* vaavudDynamicsController.m */; };
+		E96FB4F619A353B500CB7306 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
 		E96FB4F819A353B500CB7306 /* RegisterNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */; };
 		E96FB4F919A353B500CB7306 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */; };
 		E96FB4FA19A353B500CB7306 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DE09B9192E4C84003877D9 /* SettingsViewController.m */; };
@@ -612,8 +612,8 @@
 		A086025EA7704C458175CADF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDE6761506C86D4075981625 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
-		D7092E881748FE9C00993235 /* vaavudDynamicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudDynamicsController.h; sourceTree = "<group>"; };
-		D7092E891748FE9C00993235 /* vaavudDynamicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudDynamicsController.m; sourceTree = "<group>"; };
+		D7092E881748FE9C00993235 /* VaavudDynamicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudDynamicsController.h; sourceTree = "<group>"; };
+		D7092E891748FE9C00993235 /* VaavudDynamicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudDynamicsController.m; sourceTree = "<group>"; };
 		D71BE13517439AA000B38E34 /* vaavudFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudFFT.h; sourceTree = "<group>"; };
 		D71BE13617439AA000B38E34 /* vaavudFFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudFFT.m; sourceTree = "<group>"; };
 		D72D7A16190685BD00DCEC72 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -631,8 +631,8 @@
 		D7497E931A418E5F0092F045 /* SleipnirCalibrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleipnirCalibrationViewController.m; sourceTree = "<group>"; };
 		D7497EA01A41BFC40092F045 /* SleipnirCalibrationIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleipnirCalibrationIntroViewController.h; sourceTree = "<group>"; };
 		D7497EA11A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleipnirCalibrationIntroViewController.m; sourceTree = "<group>"; };
-		D7497EA71A41E8F60092F045 /* sleipnirCalibrationDismissSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sleipnirCalibrationDismissSegue.h; sourceTree = "<group>"; };
-		D7497EA81A41E8F60092F045 /* sleipnirCalibrationDismissSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = sleipnirCalibrationDismissSegue.m; sourceTree = "<group>"; };
+		D7497EA71A41E8F60092F045 /* SleipnirCalibrationDismissSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleipnirCalibrationDismissSegue.h; sourceTree = "<group>"; };
+		D7497EA81A41E8F60092F045 /* SleipnirCalibrationDismissSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleipnirCalibrationDismissSegue.m; sourceTree = "<group>"; };
 		D7497EAB1A41EA500092F045 /* SleipnirCalibrationBlowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleipnirCalibrationBlowViewController.h; sourceTree = "<group>"; };
 		D7497EAC1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleipnirCalibrationBlowViewController.m; sourceTree = "<group>"; };
 		D7497EBF1A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleipnirCalibrationCompleteViewController.h; sourceTree = "<group>"; };
@@ -1252,8 +1252,8 @@
 				D7497E931A418E5F0092F045 /* SleipnirCalibrationViewController.m */,
 				D7497EA01A41BFC40092F045 /* SleipnirCalibrationIntroViewController.h */,
 				D7497EA11A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m */,
-				D7497EA71A41E8F60092F045 /* sleipnirCalibrationDismissSegue.h */,
-				D7497EA81A41E8F60092F045 /* sleipnirCalibrationDismissSegue.m */,
+				D7497EA71A41E8F60092F045 /* SleipnirCalibrationDismissSegue.h */,
+				D7497EA81A41E8F60092F045 /* SleipnirCalibrationDismissSegue.m */,
 				D7497EAB1A41EA500092F045 /* SleipnirCalibrationBlowViewController.h */,
 				D7497EAC1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m */,
 				D7497EBF1A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.h */,
@@ -1681,8 +1681,8 @@
 			children = (
 				D7A4F1F0173A8FAB00D1ACEE /* MjolnirMeasurementController.h */,
 				D7A4F1F1173A8FAB00D1ACEE /* MjolnirMeasurementController.m */,
-				D7092E881748FE9C00993235 /* vaavudDynamicsController.h */,
-				D7092E891748FE9C00993235 /* vaavudDynamicsController.m */,
+				D7092E881748FE9C00993235 /* VaavudDynamicsController.h */,
+				D7092E891748FE9C00993235 /* VaavudDynamicsController.m */,
 				D71BE13517439AA000B38E34 /* vaavudFFT.h */,
 				D71BE13617439AA000B38E34 /* vaavudFFT.m */,
 				D7C860F8173B061E005E9946 /* VaavudMagneticFieldDataManager.h */,
@@ -2626,7 +2626,7 @@
 				D71BE13717439AA000B38E34 /* vaavudFFT.m in Sources */,
 				E9B950CC195B1DCE00E9EF02 /* ImageUtil.m in Sources */,
 				E91D421B198F7E4900106E15 /* DismissOnTouchUIView.m in Sources */,
-				D7092E8A1748FE9C00993235 /* vaavudDynamicsController.m in Sources */,
+				D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */,
 				E9A4099F18AA75C6004F1C12 /* RegisterNavigationController.m in Sources */,
 				E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */,
 				E9DE09BA192E4C84003877D9 /* SettingsViewController.m in Sources */,
@@ -2664,7 +2664,7 @@
 				E9CD223C177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				E9C7798E19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */,
 				E948382719B75320009595B0 /* EZAudioPlot.m in Sources */,
-				D7497EA91A41E8F60092F045 /* sleipnirCalibrationDismissSegue.m in Sources */,
+				D7497EA91A41E8F60092F045 /* SleipnirCalibrationDismissSegue.m in Sources */,
 				E9FD000B17FD6A06001A8491 /* FormatUtil.m in Sources */,
 				E948383119B75320009595B0 /* EZPlot.m in Sources */,
 				E9CD223D177B2AEA0054ED3F /* NSEntityDescription+MagicalDataImport.m in Sources */,
@@ -2769,7 +2769,7 @@
 				E96FB4F319A353B500CB7306 /* vaavudFFT.m in Sources */,
 				E96FB4F419A353B500CB7306 /* ImageUtil.m in Sources */,
 				E96FB4F519A353B500CB7306 /* DismissOnTouchUIView.m in Sources */,
-				E96FB4F619A353B500CB7306 /* vaavudDynamicsController.m in Sources */,
+				E96FB4F619A353B500CB7306 /* VaavudDynamicsController.m in Sources */,
 				E96FB4F819A353B500CB7306 /* RegisterNavigationController.m in Sources */,
 				E96FB4F919A353B500CB7306 /* Model.xcdatamodeld in Sources */,
 				E96FB4FA19A353B500CB7306 /* SettingsViewController.m in Sources */,
@@ -2806,7 +2806,7 @@
 				E96FB51219A353B500CB7306 /* UIColor+VaavudColors.m in Sources */,
 				E96FB51319A353B500CB7306 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				E9C7798F19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */,
-				D7497EAA1A41E8F60092F045 /* sleipnirCalibrationDismissSegue.m in Sources */,
+				D7497EAA1A41E8F60092F045 /* SleipnirCalibrationDismissSegue.m in Sources */,
 				E948382819B75320009595B0 /* EZAudioPlot.m in Sources */,
 				E96FB51419A353B500CB7306 /* FormatUtil.m in Sources */,
 				E948383219B75320009595B0 /* EZPlot.m in Sources */,

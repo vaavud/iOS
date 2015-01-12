@@ -16,16 +16,16 @@
 
 @interface VaavudMagneticFieldDataManager : NSObject
 
-+ (VaavudMagneticFieldDataManager*) sharedMagneticFieldDataManager;
++ (VaavudMagneticFieldDataManager *)sharedMagneticFieldDataManager;
 
-- (void) start;
-- (void) stop;
+- (void)start;
+- (void)stop;
 
 @property (readonly, nonatomic, strong) NSMutableArray *magneticFieldReadingsTime;
 @property (readonly, nonatomic, strong) NSMutableArray *magneticFieldReadingsx;
 @property (readonly, nonatomic, strong) NSMutableArray *magneticFieldReadingsy;
 @property (readonly, nonatomic, strong) NSMutableArray *magneticFieldReadingsz;
 
-@property (nonatomic, weak) id <VaavudMagneticFieldDataManagerDelegate> delegate; //define MyClassDelegate as delegate
+@property (nonatomic, weak) id<VaavudMagneticFieldDataManagerDelegate> delegate;
 
 @end

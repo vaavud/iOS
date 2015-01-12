@@ -13,6 +13,6 @@
 @interface AppDelegate : UIResponder <UIApplicationDelegate, RegisterNavigationControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-@property (nonatomic) NSString* xCallbackSuccess;
+@property (nonatomic) NSString *xCallbackSuccess;
 
 @end

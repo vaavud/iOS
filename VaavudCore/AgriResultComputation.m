@@ -19,7 +19,7 @@
 
 SHARED_INSTANCE
 
-- (id) init {
+- (id)init {
     self = [super init];
     
     if (self) {
@@ -209,7 +209,7 @@ SHARED_INSTANCE
     return self;
 }
 
-- (NSNumber*) generalConsideration:(NSNumber*)temperature windSpeed:(NSNumber*)windSpeed reduceEquipment:(NSNumber*)reduceEquipment dose:(NSNumber*)dose boomHeight:(NSNumber*)boomHeight sprayQuality:(NSNumber*)sprayQuality {
+- (NSNumber *)generalConsideration:(NSNumber *)temperature windSpeed:(NSNumber *)windSpeed reduceEquipment:(NSNumber *)reduceEquipment dose:(NSNumber *)dose boomHeight:(NSNumber *)boomHeight sprayQuality:(NSNumber *)sprayQuality {
     
     temperature = [self roundTemperature:temperature];
     if (!temperature) {
@@ -292,7 +292,7 @@ SHARED_INSTANCE
     }
 }
 
-- (NSNumber*) specialConsideration:(NSNumber*)temperature windSpeed:(NSNumber*)windSpeed reduceEquipment:(NSNumber*)reduceEquipment dose:(NSNumber*)dose boomHeight:(NSNumber*)boomHeight sprayQuality:(NSNumber*)sprayQuality {
+- (NSNumber *)specialConsideration:(NSNumber *)temperature windSpeed:(NSNumber *)windSpeed reduceEquipment:(NSNumber *)reduceEquipment dose:(NSNumber *)dose boomHeight:(NSNumber *)boomHeight sprayQuality:(NSNumber *)sprayQuality {
     
     temperature = [self roundTemperature:temperature];
     if (!temperature) {
@@ -375,7 +375,7 @@ SHARED_INSTANCE
     }
 }
 
-- (NSNumber*) roundTemperature:(NSNumber*)temperature {
+- (NSNumber *)roundTemperature:(NSNumber *)temperature {
     if (!temperature || [temperature floatValue] == 0.0F) {
         NSLog(@"[AgriResultComputation] No temperature");
         return nil;
@@ -393,7 +393,7 @@ SHARED_INSTANCE
     }
 }
 
-- (NSNumber*) roundWindSpeed:(NSNumber*)windSpeed {
+- (NSNumber *)roundWindSpeed:(NSNumber *)windSpeed {
     if (!windSpeed) {
         NSLog(@"[AgriResultComputation] No wind speed");
         return nil;

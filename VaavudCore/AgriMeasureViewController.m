@@ -40,7 +40,7 @@
 
 @implementation AgriMeasureViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     self.shareToFacebook = NO;
@@ -55,7 +55,7 @@
     self.nextButton.enabled = NO;
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     WindSpeedUnit windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
@@ -69,11 +69,11 @@
     }
 }
 
-- (NSString*) stopButtonTitle {
+- (NSString *)stopButtonTitle {
     return NSLocalizedString(@"BUTTON_CANCEL", nil);
 }
 
-- (void) reset {
+- (void)reset {
     [super reset];
     self.measurementSession = nil;
     self.nextButton.enabled = !self.buttonShowsStart;
@@ -84,7 +84,7 @@
     }
 }
 
-- (IBAction) startStopButtonPushed:(id)sender {
+- (IBAction)startStopButtonPushed:(id)sender {
     self.measurementSession = nil;
     [super startStopButtonPushed:sender];
     self.nextButton.enabled = !self.buttonShowsStart;
@@ -96,11 +96,11 @@
     self.nextAllowed = AGRI_DEBUG_ALWAYS_ENABLE_NEXT;
 }
 
-- (void) minimumThresholdReached {
+- (void)minimumThresholdReached {
     self.nextAllowed = YES;
 }
 
-- (void) measurementStopped:(MeasurementSession*)measurementSession {
+- (void)measurementStopped:(MeasurementSession *)measurementSession {
     self.measurementSession = measurementSession;
     
     // we determine these values here, so that if you later press back after having typed any temperature or direction
@@ -109,18 +109,15 @@
     self.hasDirection = (self.measurementSession.windDirection && (self.measurementSession.windDirection != (id)[NSNull null]));
 }
 
-- (IBAction) nextButtonPushed:(id)sender {
-    
+- (IBAction)nextButtonPushed:(id)sender {
     if (!self.nextAllowed) {
         [self showNotification:NSLocalizedString(@"AGRI_MIN_TIME_NOT_REACHED_TITLE", nil) message:NSLocalizedString(@"AGRI_MIN_TIME_NOT_REACHED_MESSAGE", nil) dismissAfter:2.5];
     }
     else {
-    
         // this will only do something if we're measuring, i.e. "measurementStopped" will not be triggered if we're already stopped
         [self stop];
         
         if (self.measurementSession) {
-            
             NSLog(@"[AgriMeasureViewController] Next with temperature=%@ and direction=%@", self.measurementSession.temperature, self.measurementSession.windDirection);
             
             if (self.hasTemperature && self.hasDirection) {
@@ -136,8 +133,7 @@
     }
 }
 
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     UIViewController *controller = [segue destinationViewController];
     
     if ([controller conformsToProtocol:@protocol(MeasurementSessionConsumer)]) {

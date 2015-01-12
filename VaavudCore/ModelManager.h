@@ -10,8 +10,8 @@
 
 @interface ModelManager : NSObject
 
-+ (ModelManager *) sharedInstance;
++ (ModelManager *)sharedInstance;
 
-- (void) initializeModel;
+- (void)initializeModel;
 
 @end

@@ -10,7 +10,6 @@
 
 @implementation RegisterNavigationController
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     

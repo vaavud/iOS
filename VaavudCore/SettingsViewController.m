@@ -25,7 +25,7 @@
 
 @implementation SettingsViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
@@ -45,17 +45,17 @@
     self.webView = [[UIWebView alloc] initWithFrame:CGRectZero];
 }
 
-- (NSUInteger) supportedInterfaceOrientations {
+- (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self refreshLogoutButton];
     [self.tableView reloadData];
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     if ([Property isMixpanelEnabled]) {
@@ -63,7 +63,7 @@
     }
 }
 
-- (void) refreshLogoutButton {
+- (void)refreshLogoutButton {
     if ([[AccountManager sharedInstance] isLoggedIn]) {
         UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGOUT", nil) style:UIBarButtonItemStylePlain target:self action:@selector(logoutButtonPushed)];
         self.navigationItem.rightBarButtonItem = item;
@@ -74,10 +74,8 @@
     }
 }
 
-- (void) logoutButtonPushed {
-    
+- (void)logoutButtonPushed {
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-        
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGOUT", nil)
                                                                                  message:NSLocalizedString(@"DIALOG_CONFIRM", nil)
                                                                           preferredStyle:UIAlertControllerStyleAlert];
@@ -105,14 +103,13 @@
     }
 }
 
-- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex != alertView.cancelButtonIndex) {
         [self logoutConfirmed];
     }
 }
 
-- (void) logoutConfirmed {
-
+- (void)logoutConfirmed {
     if ([[AccountManager sharedInstance] isLoggedIn]) {
         [[AccountManager sharedInstance] logout];
         
@@ -128,8 +125,7 @@
     }
 }
 
-- (void) gotoRegisterViewController {
-
+- (void)gotoRegisterViewController {
     if ([[AccountManager sharedInstance] isLoggedIn]) {
         [[AccountManager sharedInstance] logout];
     }
@@ -153,18 +149,17 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     UITableViewCell *cell;
     
     if (indexPath.item == 0) {
-        cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
         cell.textLabel.text = NSLocalizedString(@"HEADING_UNIT", nil);
         cell.detailTextLabel.text = [UnitUtil displayNameForWindSpeedUnit:[[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue]];
         cell.accessoryView = nil;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
     else if (indexPath.item == 1) {
-        cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
         cell.textLabel.text = NSLocalizedString(@"HEADING_WIND_DIRECTION", nil);
         NSNumber *directionUnit = [Property getAsInteger:KEY_DIRECTION_UNIT];
         NSInteger unit = (directionUnit) ? [directionUnit integerValue] : 0;
@@ -176,7 +171,7 @@
         
 #ifdef AGRI
 
-        cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
         cell.textLabel.text = NSLocalizedString(@"AGRI_WORD_LIST", nil);
         cell.detailTextLabel.text = nil;
         cell.accessoryView = nil;
@@ -184,7 +179,7 @@
 
 #elif CORE
 
-        cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"switchCell"];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"switchCell"];
         
         if (!cell) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"switchCell"];
@@ -206,27 +201,27 @@
 
     }
     else if (indexPath.item == 3) {
-        cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
         cell.textLabel.text = NSLocalizedString(@"SETTINGS_SHOP_LINK", nil);
         cell.detailTextLabel.text = nil;
         cell.accessoryView = nil;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
     else if (indexPath.item == 4) {
-        cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
         cell.textLabel.text = NSLocalizedString(@"SETTINGS_MEASURING_TIPS", nil);
         cell.detailTextLabel.text = nil;
         cell.accessoryView = nil;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
     else if (indexPath.item == 5) {
-        cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
         cell.textLabel.text = NSLocalizedString(@"ABOUT_TITLE", nil);
         cell.detailTextLabel.text = nil;
         cell.accessoryView = nil;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     } else if (indexPath.item == 6) {
-        cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
+        cell = [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
         cell.textLabel.text = NSLocalizedString(@"CALIBRATE_SLEIPNIR", nil);
         cell.detailTextLabel.text = nil;
         cell.accessoryView = nil;
@@ -238,7 +233,7 @@
     return cell;
 }
 
-- (NSIndexPath*) tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 #ifdef CORE
 
@@ -251,8 +246,7 @@
     return indexPath;
 }
 
-- (void) tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.item == 0) {
@@ -273,7 +267,6 @@
 #endif
     
     else if (indexPath.item == 3) {
-        
         [[Mixpanel sharedInstance] track:@"Settings Clicked Buy"];
 
         NSString *country = [Property getAsString:KEY_COUNTRY];
@@ -283,7 +276,6 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
     }
     else if (indexPath.item == 4) {
-        
         [[Mixpanel sharedInstance] track:@"Settings Clicked Measuring Tips"];
         [FirstTimeFlowController gotoInstructionFlowFrom:self returnViaDismiss:YES];
     }
@@ -304,7 +296,7 @@
     return [UIView new];
 }
 
-- (IBAction) facebookSharingValueChanged:(UISwitch*)sender {
+- (IBAction)facebookSharingValueChanged:(UISwitch *)sender {
     [Property setAsBoolean:self.facebookSharingSwitch.on forKey:KEY_ENABLE_SHARE_DIALOG];
     [[Mixpanel sharedInstance] registerSuperProperties:@{@"Enable Share Dialog" : (self.facebookSharingSwitch.on ? @"true" : @"false")}];
 }

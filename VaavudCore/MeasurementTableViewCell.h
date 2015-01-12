@@ -17,6 +17,10 @@
 @property (weak, nonatomic) IBOutlet UIImageView *directionImageView;
 @property (weak, nonatomic) IBOutlet UILabel *directionLabel;
 
--(void) setValues:(double)avgWindSpeed unit:(WindSpeedUnit)unit time:(NSDate*)time windDirection:(NSNumber*)direction directionUnit:(NSInteger)directionUnit;
+-(void)setValues:(double)avgWindSpeed
+            unit:(WindSpeedUnit)unit
+            time:(NSDate *)time
+   windDirection:(NSNumber *)direction
+   directionUnit:(NSInteger)directionUnit;
 
 @end

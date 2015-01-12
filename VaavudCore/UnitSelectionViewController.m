@@ -63,8 +63,7 @@
     return cell;
 }
 
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSNumber *currentUnit = [Property getAsInteger:KEY_WIND_SPEED_UNIT];
     NSInteger indexOfCurrentUnit = [self.units indexOfObject:currentUnit];
     

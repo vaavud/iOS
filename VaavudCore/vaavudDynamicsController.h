@@ -9,20 +9,20 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@protocol vaavudDynamicsControllerDelegate
+@protocol VaavudDynamicsControllerDelegate
 
-- (void) DynamicsIsValid: (BOOL) validity;
-- (void) newHeading: (NSNumber*) newHeading;
+- (void)dynamicsIsValid:(BOOL)validity;
+- (void)newHeading:(NSNumber *)newHeading;
 
 @end
 
-@interface vaavudDynamicsController : NSObject <CLLocationManagerDelegate>
+@interface VaavudDynamicsController : NSObject <CLLocationManagerDelegate>
 
-- (void) start;
-- (void) stop;
+- (void)start;
+- (void)stop;
 
 @property (nonatomic) BOOL isValid;
 
-@property (nonatomic, weak) id <vaavudDynamicsControllerDelegate> vaavudCoreController;
+@property (nonatomic, weak) id<VaavudDynamicsControllerDelegate> vaavudCoreController;
 
 @end

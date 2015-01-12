@@ -85,7 +85,6 @@ BOOL didShowFeedback;
 }
 
 - (void)doneButtonPushed {
-    
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
@@ -105,7 +104,6 @@ BOOL didShowFeedback;
             }
         }
     } failure:^(enum AuthenticationResponseType response) {
-
         if ([Property isMixpanelEnabled]) {
             [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": [NSNumber numberWithInt:response], @"Screen": @"Login", @"Method": @"Password"}];
         }
@@ -156,9 +154,11 @@ BOOL didShowFeedback;
     }
 }
 
-- (void)facebookAuthenticationFailure:(enum AuthenticationResponseType)response message:(NSString*)message displayFeedback:(BOOL)displayFeedback {
+- (void)facebookAuthenticationFailure:(enum AuthenticationResponseType)response
+                              message:(NSString *)message
+                      displayFeedback:(BOOL)displayFeedback {
 
-    NSLog(@"[LogInViewController] error registering user, response=%d, message=%@, displayFeedback=%@", response, message, (displayFeedback ? @"YES" : @"NO"));
+    NSLog(@"[LogInViewController] error registering user, response=%lu, message=%@, displayFeedback=%@", response, message, (displayFeedback ? @"YES" : @"NO"));
     
     [self.activityIndicator stopAnimating];
     [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
@@ -238,7 +238,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (void) promptForPassword {
+- (void)promptForPassword {
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE", nil)
                                                                                  message:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD", nil)

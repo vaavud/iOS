@@ -1322,7 +1322,7 @@
         <image name="Agri-Manual-Direction.png" width="788" height="1074"/>
         <image name="SettingsIcon.png" width="24" height="24"/>
         <image name="history.png" width="26" height="26"/>
-        <image name="logoLogin" width="197" height="32"/>
+        <image name="logoLogin" width="24" height="24"/>
         <image name="map_placeholder.png" width="74" height="74"/>
         <image name="measure.png" width="26" height="26"/>
     </resources>

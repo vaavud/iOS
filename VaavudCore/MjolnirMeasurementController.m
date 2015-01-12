@@ -26,7 +26,7 @@
 @property (nonatomic) BOOL isValidCurrentStatus;
 
 @property (nonatomic, strong) VaavudMagneticFieldDataManager *sharedMagneticFieldDataManager;
-@property (nonatomic, strong) vaavudDynamicsController *vaavudDynamicsController;
+@property (nonatomic, strong) VaavudDynamicsController *vaavudDynamicsController;
 @property (nonatomic, strong) NSArray *FFTresultx;
 @property (nonatomic, strong) NSArray *FFTresulty;
 @property (nonatomic, strong) NSArray *FFTresultz;
@@ -55,7 +55,7 @@
 
 @implementation MjolnirMeasurementController
 
-- (id) init {
+- (id)init {
     self = [super init];
     
     if (self) {
@@ -73,12 +73,11 @@
     return self;
 }
 
-- (enum WindMeterDeviceType) windMeterDeviceType {
+- (enum WindMeterDeviceType)windMeterDeviceType {
     return MjolnirWindMeterDeviceType;
 }
 
-- (void) start {
-    
+- (void)start {
     self.dynamicsIsValid = NO;
     self.isValidPercent = 50; // start at 50% valid
     self.isValidCurrentStatus = NO;
@@ -97,7 +96,7 @@
     [self.sharedMagneticFieldDataManager start];
     
     // create dynamics controller and start
-    self.vaavudDynamicsController = [[vaavudDynamicsController alloc] init];
+    self.vaavudDynamicsController = [[VaavudDynamicsController alloc] init];
     self.vaavudDynamicsController.vaavudCoreController = self;
     [self.vaavudDynamicsController start];
     
@@ -108,8 +107,7 @@
     }
 }
 
-- (NSTimeInterval) stop {
-        
+- (NSTimeInterval)stop {
     if (self.measuringTimer) {
         [self.measuringTimer invalidate];
         self.measuringTimer = nil;
@@ -121,7 +119,7 @@
     return [[NSDate date] timeIntervalSinceDate:self.startTime];
 }
 
-- (void) pushValuesToDelegate {
+- (void)pushValuesToDelegate {
     if (self.delegate && self.isValidCurrentStatus) {
         
         NSNumber *currentSpeed = [self.windSpeed lastObject];
@@ -132,11 +130,10 @@
     }
 }
 
-- (void) remove {
+- (void)remove {
 }
 
-- (void) updateIsValid {
-    
+- (void)updateIsValid {
     BOOL wasValid = self.isValidCurrentStatus;
     
     if (!self.FFTisValid) {
@@ -168,7 +165,7 @@
     }
 }
 
-- (void) DynamicsIsValid:(BOOL)validity {
+- (void)dynamicsIsValid:(BOOL)validity {
     if (self.dynamicsIsValid != validity) {
         self.dynamicsIsValid = validity;
 
@@ -178,17 +175,14 @@
     }
 }
 
-- (void) newHeading:(NSNumber*)newHeading {
-
+- (void)newHeading:(NSNumber *)newHeading {
 }
 
-- (void) magneticFieldValuesUpdated {
-    
+- (void)magneticFieldValuesUpdated {
     self.magneticFieldUpdatesCounter += 1;
     
     if (self.magneticFieldUpdatesCounter > self.fftDataLength){
-        
-        bool runAnalysis;
+        BOOL runAnalysis;
         NSMutableArray *FFTaverage;
         
         if (self.iPhone4Algo) {
@@ -209,10 +203,8 @@
             }
         }
         
-        if ( runAnalysis ) {
-            
+        if (runAnalysis) {
             if (self.iPhone4Algo) {
-             
                 NSRange subArrayRange = NSMakeRange(self.magneticFieldUpdatesCounter - self.fftDataLength, self.fftDataLength);
                 
                     self.FFTresulty = [self.FFTEngine doFFT: [self.sharedMagneticFieldDataManager.magneticFieldReadingsy subarrayWithRange:subArrayRange]];
@@ -221,21 +213,15 @@
                 // create average
                 int resultArrayLength = self.fftLength/2;
                 
-                
                 FFTaverage = [NSMutableArray arrayWithCapacity: resultArrayLength];
                 
                 for (int i = 0; i < resultArrayLength; i++) {
-                    
                     double mean = ( [[self.FFTresulty objectAtIndex:i ] doubleValue] + [[self.FFTresultz objectAtIndex:i ] doubleValue] ) / 2;
                     
                     [FFTaverage insertObject:[NSNumber numberWithDouble: mean] atIndex: i];
                 }
-
-                
-                
             }
             else {
-                
                 int modulus = self.magneticFieldUpdatesCounter % 9 / 3;
                 
                 NSRange subArrayRange = NSMakeRange(self.magneticFieldUpdatesCounter - self.fftDataLength, self.fftDataLength);
@@ -259,7 +245,6 @@
                 // create average
                 int resultArrayLength = self.fftLength/2;
                 
-                
                 FFTaverage = [NSMutableArray arrayWithCapacity: resultArrayLength];
                 
                 for (int i = 0; i < resultArrayLength; i++) {
@@ -282,7 +267,6 @@
             int maxBin = 0;
             
             for (int i=0; i<self.fftLength/2; i++) {
-                
                 if ([[FFTaverage objectAtIndex:i] doubleValue] > maxPeak){
                     maxBin = i;
                     maxPeak = [[FFTaverage objectAtIndex:i] doubleValue];
@@ -311,7 +295,6 @@
             [self.windSpeed addObject: [NSNumber numberWithDouble: windspeed]];
             [self.windSpeedTime addObject: [self.sharedMagneticFieldDataManager.magneticFieldReadingsTime lastObject]];
             
-            
             if (frequencyMagnitude > self.fftPeakMagnitudeMinForValid) {
                 self.FFTisValid = YES;
                 
@@ -332,8 +315,7 @@
     } // if counter > datalength
 }
 
-- (NSNumber*) getSampleFrequency {
-    
+- (NSNumber *)getSampleFrequency {
     double timedifference = [[self.sharedMagneticFieldDataManager.magneticFieldReadingsTime lastObject] doubleValue];
     
     NSNumber *sampleFrequency = [NSNumber numberWithDouble:(double) (self.magneticFieldUpdatesCounter-1) / timedifference];
@@ -341,26 +323,22 @@
     return sampleFrequency;
 }
 
-
-- (NSNumber*) getAverage {
+- (NSNumber *)getAverage {
     return [NSNumber numberWithDouble:self.sumOfValidMeasurements / self.numberOfValidMeasurements];
 }
 
-- (NSNumber*) getMax {
+- (NSNumber *)getMax {
     return [NSNumber numberWithDouble:self.maxWindspeed];
 }
 
-- (double) convertFrequencyToWindspeed: (double) frequency {
-    
+- (double)convertFrequencyToWindspeed:(double)frequency {
     // Based on 09.07.2013 Windtunnel test. Parametes can be found in windTunnelAnalysis_9_07_2013.xlsx
     // Corrected base on data from Windtunnel test Experiment26Aug2013Data.xlsx
-    double windspeed;
-    
-    windspeed = self.frequencyFactor * frequency + self.frequencyStart;
+    double windspeed = self.frequencyFactor * frequency + self.frequencyStart;
     
     if (frequency > 17.65 && frequency < 28.87) {
         windspeed = windspeed + -0.068387 * pow((frequency - 23.2667), 2) + 2.153493;
-    } 
+    }
     
     return windspeed;
 }

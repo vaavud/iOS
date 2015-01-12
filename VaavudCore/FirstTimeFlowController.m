@@ -32,7 +32,6 @@
     //NSLog(@"[FirstTimeFlowController] isLoggedIn=%@, hasWindMeter=%@", [AccountManager sharedInstance].isLoggedIn ? @"YES" : @"NO", [Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO] ? @"YES" : @"NO");
     
     if (!self.pageImages) {
-
         if ([AccountManager sharedInstance].isLoggedIn && [Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO]) {
             [FirstTimeFlowController createInstructionFlowOn:self];
         }
@@ -80,7 +79,8 @@
     [super viewDidAppear:animated];
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
+      viewControllerBeforeViewController:(UIViewController *)viewController {
 
     NSUInteger index = [self indexForViewController:viewController];
     if ((index == 0) || (index == NSNotFound)) {
@@ -90,7 +90,8 @@
     return [self viewControllerAtIndex:index];
 }
 
-- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
+       viewControllerAfterViewController:(UIViewController *)viewController {
 
     NSUInteger index = [self indexForViewController:viewController];
     if (index == NSNotFound) {
@@ -104,7 +105,6 @@
 }
 
 - (UIViewController *)viewControllerAtIndex:(NSUInteger)index {
-    
     if (([self.pageImages count] == 0) || (index >= [self.pageImages count])) {
         return nil;
     }
@@ -149,18 +149,22 @@
     return 0;
 }
 
-- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed {
+- (void)pageViewController:(UIPageViewController *)pageViewController
+        didFinishAnimating:(BOOL)finished
+   previousViewControllers:(NSArray *)previousViewControllers
+       transitionCompleted:(BOOL)completed {
 
     if (completed) {
         [self syncCustomPageControl];
     }
 }
 
-- (void) pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers {
+- (void)pageViewController:(UIPageViewController *)pageViewController
+willTransitionToViewControllers:(NSArray *)pendingViewControllers {
 
 }
 
-- (void) syncCustomPageControl {
+- (void)syncCustomPageControl {
     NSArray *controllers = self.pageController.viewControllers;
     if (controllers.count > 0) {
         NSUInteger index = [self indexForViewController:controllers[0]];
@@ -177,7 +181,6 @@
 }
 
 - (void)topButtonPushedOnController:(FirstTimeExplanationViewController *)controller {
-    
     if (controller.pageId == 2) {
         UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
         RegisterNavigationController *newController = [loginStoryBoard instantiateInitialViewController];
@@ -193,7 +196,6 @@
         [FirstTimeFlowController gotoInstructionFlowFrom:controller returnViaDismiss:NO];
     }
     else if (controller.pageId == 4) {
-
         [[Mixpanel sharedInstance] track:@"Intro Flow Clicked Buy" properties:@{@"Borderless Later Button": self.useBorderlessBuyLaterButton ? @"true" : @"false"}];
         
         NSString *country = [Property getAsString:KEY_COUNTRY];

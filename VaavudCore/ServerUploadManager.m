@@ -44,7 +44,7 @@
 
 SHARED_INSTANCE
 
-- (id) init {
+- (id)init {
     self = [super init];
     
     if (self) {
@@ -80,27 +80,26 @@ SHARED_INSTANCE
     return self;
 }
 
-- (void) start {
+- (void)start {
     self.syncTimer = [NSTimer scheduledTimerWithTimeInterval:uploadInterval target:self selector:@selector(checkForUnUploadedData) userInfo:nil repeats:YES];
 }
 
 // notification from the OS
-- (void) appDidBecomeActive:(NSNotification*) notification {
+- (void)appDidBecomeActive:(NSNotification *)notification {
     //NSLog(@"[ServerUploadManager] appDidBecomeActive");
     self.justDidBecomeActive = YES;
     [self handleDidBecomeActiveTasks];
 }
 
 // notification from the OS
--(void) appWillTerminate:(NSNotification*) notification {
+-(void)appWillTerminate:(NSNotification *)notification {
     NSLog(@"[ServerUploadManager] appWillTerminate");
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
 }
 
 // this is triggered by the OS informing us that the app did become active or AFNetworking telling us that reachability has changed to YES and we haven't yet executed these tasks after becoming active. Thus, if we don't have reachability when becoming active, these tasks are postponed until reachability changes to YES.
-- (void) handleDidBecomeActiveTasks {
-    
+- (void)handleDidBecomeActiveTasks {
     NSString *authToken = [Property getAsString:KEY_AUTH_TOKEN];
     if (authToken && authToken.length > 0) {
         [[VaavudAPIHTTPClient sharedInstance] setAuthToken:authToken];
@@ -133,13 +132,12 @@ SHARED_INSTANCE
     [self registerDevice:3];
 }
 
-- (void) triggerUpload {
+- (void)triggerUpload {
     //NSLog(@"[ServerUploadManager] Trigger upload");
     [self checkForUnUploadedData];
 }
 
-- (void) checkForUnUploadedData {
-    
+- (void)checkForUnUploadedData {
     //NSLog(@"[ServerUploadManager, %@] checkForUnUploadedData", [NSThread currentThread]);
     
     if (!self.hasReachability) {
@@ -167,7 +165,6 @@ SHARED_INSTANCE
         //NSLog(@"[ServerUploadManager] Found %d un-uploaded MeasurementSessions", [unuploadedMeasurementSessions count]);
         
         for (MeasurementSession *measurementSession in unuploadedMeasurementSessions) {
-
             NSNumber *pointCount = [NSNumber numberWithUnsignedInteger:[measurementSession.points count]];
 
             //NSLog(@"[ServerUploadManager] Found non-uploaded MeasurementSession with uuid=%@, startTime=%@, startIndex=%@, endIndex=%@, pointCount=%@", measurementSession.uuid, measurementSession.startTime, measurementSession.startIndex, measurementSession.endIndex, pointCount);
@@ -192,7 +189,6 @@ SHARED_INSTANCE
                 doUpload = NO;
                 
                 if ([measurementSession.measuring boolValue] == NO) {
-                    
                     if ((measurementSession.dose && [measurementSession.dose floatValue] > 0.0F) || (measurementSession.boomHeight && [measurementSession.boomHeight intValue] > 0) || (measurementSession.sprayQuality && [measurementSession.sprayQuality intValue] > 0)) {
                         
                         isFinishedButUploadAdditionalData = YES;
@@ -210,7 +206,6 @@ SHARED_INSTANCE
             }
             
             if (doUpload) {
-                
                 //NSLog(@"[ServerUploadManager] Uploading MeasurementSession (%@)", measurementSession.uuid);
                 
                 NSNumber *newEndIndex = pointCount;
@@ -237,7 +232,6 @@ SHARED_INSTANCE
                     }
                     
                     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
-                    
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     long statusCode = (long)operation.response.statusCode;
                     NSLog(@"[ServerUploadManager] Got error status code %ld uploading: %@", statusCode, error);
@@ -261,8 +255,7 @@ SHARED_INSTANCE
     }
 }
 
-- (void) registerDevice:(int)retryCount {
-
+- (void)registerDevice:(int)retryCount {
     NSLog(@"[ServerUploadManager] Register device");
     self.hasRegisteredDevice = NO;
 
@@ -298,7 +291,7 @@ SHARED_INSTANCE
             NSLog(@"[ServerUploadManager] Got no authToken");
         }
         
-        // set algorithm parameters
+        // Set algorithm parameters
         
         NSString *algorithm = [responseObject objectForKey:@"algorithm"];
         if (algorithm && algorithm != nil && algorithm != (id)[NSNull null] && ([algorithm length] > 0)) {
@@ -370,7 +363,7 @@ SHARED_INSTANCE
         [self triggerUpload];
         
         [self syncHistory:1 ignoreGracePeriod:YES success:nil failure:nil];
-
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         long statusCode = (long)operation.response.statusCode;
         NSLog(@"[ServerUploadManager] Got error status code %ld registering device: %@", statusCode, error);
@@ -389,7 +382,7 @@ SHARED_INSTANCE
     }];
 }
 
--(void) registerUser:(NSString*)action email:(NSString*)email passwordHash:(NSString*)passwordHash facebookId:(NSString*)facebookId facebookAccessToken:(NSString*)facebookAccessToken firstName:(NSString*)firstName lastName:(NSString*)lastName gender:(NSNumber*)gender verified:(NSNumber*)verified metaInfo:(NSDictionary*)metaInfo retry:(int)retryCount success:(void (^)(NSString *status, id responseObject))success failure:(void (^)(NSError *error))failure {
+-(void)registerUser:(NSString *)action email:(NSString *)email passwordHash:(NSString *)passwordHash facebookId:(NSString *)facebookId facebookAccessToken:(NSString *)facebookAccessToken firstName:(NSString *)firstName lastName:(NSString *)lastName gender:(NSNumber *)gender verified:(NSNumber *)verified metaInfo:(NSDictionary *)metaInfo retry:(int)retryCount success:(void (^)(NSString *status, id responseObject))success failure:(void (^)(NSError *error))failure {
     
     if (!self.hasReachability) {
         failure(nil);
@@ -470,7 +463,6 @@ SHARED_INSTANCE
         
         // check for unauthorized
         if (statusCode == 401) {
-            
             // call failure before logging out, because otherwise the delegate failure call is ignored due to logout increasing call count
             failure(error);
 
@@ -499,7 +491,7 @@ SHARED_INSTANCE
     }];
 }
 
--(void) readMeasurements:(int)hours retry:(int)retryCount success:(void (^)(NSArray *measurements))success failure:(void (^)(NSError *error))failure {
+-(void)readMeasurements:(int)hours retry:(int)retryCount success:(void (^)(NSArray *measurements))success failure:(void (^)(NSError *error))failure {
     if (!self.hasReachability) {
         if (failure) {
             failure(nil);
@@ -550,7 +542,7 @@ SHARED_INSTANCE
     }];
 }
 
--(void) syncHistory:(int)retryCount ignoreGracePeriod:(BOOL)ignoreGracePeriod success:(void (^)())success failure:(void (^)(NSError *error))failure {
+-(void)syncHistory:(int)retryCount ignoreGracePeriod:(BOOL)ignoreGracePeriod success:(void (^)())success failure:(void (^)(NSError *error))failure {
     
     if (!self.hasReachability) {
         if (failure) {
@@ -604,7 +596,6 @@ SHARED_INSTANCE
     
     NSDictionary *parameters = [NSDictionary new];
     if (latestEndTime && concatenatedUUIDs.length > 0) {
-        
         // round up to nearest whole second to avoid precision issues
         latestEndTime = [NSDate dateWithTimeIntervalSince1970:ceil([latestEndTime timeIntervalSince1970])];
         
@@ -621,7 +612,6 @@ SHARED_INSTANCE
     self.isHistorySyncInProgress = YES;
     
     [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/history" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
         //NSLog(@"[ServerUploadManager] History response: %@", responseObject);
 
         // clear consecutive errors since we got a successful reponse
@@ -629,7 +619,6 @@ SHARED_INSTANCE
         self.backoffWaitCount = 0;
         
         [MagicalRecord saveWithBlock:^(NSManagedObjectContext *localContext) {
-            
             NSDictionary *responseDictionary = (NSDictionary*) responseObject;
             
             NSDate *fromEndTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[responseDictionary objectForKey:@"fromEndTime"]) doubleValue] / 1000.0)];
@@ -732,7 +721,7 @@ SHARED_INSTANCE
             
             NSArray *newMeasurementSessions = [uuidToDictionary allValues];
             for (int i = 0; i < newMeasurementSessions.count; i++) {
-                NSDictionary *measurementDictionary = (NSDictionary*) newMeasurementSessions[i];
+                NSDictionary *measurementDictionary = (NSDictionary *)newMeasurementSessions[i];
                 //NSLog(@"[ServerUploadManager] reduceEquipment=%@, sprayQuality=%@", [measurementDictionary objectForKey:@"reduceEquipment"], [measurementDictionary objectForKey:@"sprayQuality"]);
                 
                 NSString *uuid = [self stringValueFrom:measurementDictionary forKey:@"uuid"];
@@ -757,7 +746,7 @@ SHARED_INSTANCE
                 //NSLog(@"windDirection=%@, windMeter=%@, temperature=%@", windDirection, windMeter, temperature);
                 
                 MeasurementSession *measurementSession = [MeasurementSession MR_findFirstByAttribute:@"uuid" withValue:uuid inContext:localContext];
-                if (measurementSession && measurementSession != nil && measurementSession != (id)[NSNull null]) {
+                if (measurementSession && measurementSession != (id)[NSNull null]) {
                     
                     if ([measurementSession.measuring boolValue] == NO && [measurementSession.uploaded boolValue] == YES) {
                         
@@ -781,7 +770,6 @@ SHARED_INSTANCE
                         measurementSession.specialConsideration = specialConsideration;
 
                         if (points.count > measurementSession.points.count) {
-                            
                             //NSLog(@"[ServerUploadManager] Measurement points added, old size=%lu, new size=%lu", (unsigned long)measurementSession.points.count, (unsigned long)points.count);
                             
                             NSOrderedSet *measurementPoints = [self createMeasurementPoints:points withSession:measurementSession inContext:localContext];
@@ -790,7 +778,6 @@ SHARED_INSTANCE
                     }
                 }
                 else {
-                    
                     //NSLog(@"[ServerUploadManager] Created: reduceEquipment=%@, sprayQuality=%@", reduceEquipment, sprayQuality);
                     //NSLog(@"[ServerUploadManager] Measurement created: %@, endTime=%@ (%@)", uuid, endTime, (NSString*)[measurementDictionary objectForKey:@"endTime"]);
                     measurementsCreated++;
@@ -869,7 +856,7 @@ SHARED_INSTANCE
     }];
 }
 
-- (void) deleteMeasurementSession:(NSString*)measurementSessionUuid retry:(int)retryCount success:(void(^)())success failure:(void(^)(NSError *error))failure {
+- (void)deleteMeasurementSession:(NSString*)measurementSessionUuid retry:(int)retryCount success:(void(^)())success failure:(void(^)(NSError *error))failure {
 
     if (!measurementSessionUuid || measurementSessionUuid.length == 0) {
         NSLog(@"[ServerUploadManager] ERROR: No measurement session uuid calling delete measurement session");
@@ -893,7 +880,6 @@ SHARED_INSTANCE
     NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:measurementSessionUuid, @"uuid", nil];
     
     [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/measurement/delete" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
         NSLog(@"[ServerUploadManager] Got successful response deleting measurement");
         
         // clear consecutive errors since we got a successful reponse
@@ -924,8 +910,7 @@ SHARED_INSTANCE
     }];
 }
 
-- (void) lookupTemperatureForLocation:(double)latitude longitude:(double)longitude success:(void(^)(NSNumber *temperature, NSNumber *direction))success failure:(void(^)(NSError *error))failure {
-    
+- (void)lookupTemperatureForLocation:(double)latitude longitude:(double)longitude success:(void(^)(NSNumber *temperature, NSNumber *direction))success failure:(void(^)(NSError *error))failure {
     NSLog(@"[ServerUploadManager] Lookup temperature for location (%f, %f)", latitude, longitude);
     
     if (isnan(latitude) || isnan(longitude) || (latitude == 0.0 && longitude == 0.0)) {
@@ -971,46 +956,45 @@ SHARED_INSTANCE
     }];
 }
 
--(NSNumber*) doubleValue:(id) responseObject forKey:(NSString*) key {
+-(NSNumber *)doubleValue:(id)responseObject forKey:(NSString *)key {
     NSString *value = [responseObject objectForKey:key];
-    if (value && value != nil && value != (id)[NSNull null] && ([value length] > 0)) {
-        return [NSNumber numberWithDouble:[value doubleValue]];
+    if (value && value != (id)[NSNull null] && ([value length] > 0)) {
+        return @([value doubleValue]);
     }
     return nil;
 }
 
--(NSNumber*) integerValue:(id) responseObject forKey:(NSString*) key {
+-(NSNumber *)integerValue:(id)responseObject forKey:(NSString *)key {
     NSString *value = [responseObject objectForKey:key];
-    if (value && value != nil && value != (id)[NSNull null] && ([value length] > 0)) {
-        return [NSNumber numberWithInt:[value doubleValue]];
+    if (value && value != (id)[NSNull null] && ([value length] > 0)) {
+        return @([value doubleValue]);
     }
     return nil;
 }
 
--(NSString*) stringValueFrom:(NSDictionary*)dictionary forKey:(NSString*)key {
-    NSString *value = (NSString*) [dictionary objectForKey:key];
-    if (value && value != nil && value != (id)[NSNull null] && ![@"<null>" isEqualToString:value] && [value length] > 0) {
-        return (NSString*) value;
+-(NSString *)stringValueFrom:(NSDictionary *)dictionary forKey:(NSString*)key {
+    NSString *value = [dictionary objectForKey:key];
+    if (value && value != (id)[NSNull null] && ![@"<null>" isEqualToString:value] && [value length] > 0) {
+        return value;
     }
     return nil;
 }
 
--(NSNumber*) numberValueFrom:(NSDictionary*)dictionary forKey:(NSString*)key {
+-(NSNumber *)numberValueFrom:(NSDictionary *)dictionary forKey:(NSString *)key {
     NSObject *v = [dictionary objectForKey:key];
     if (v && v != (id)[NSNull null] && [v isKindOfClass:[NSNumber class]]) {
-        return (NSNumber*) v;
+        return (NSNumber *)v;
     }
     return nil;
 }
 
-- (NSOrderedSet*) createMeasurementPoints:(NSArray*)array withSession:(MeasurementSession*)session inContext:(NSManagedObjectContext*)context {
-    
+- (NSOrderedSet *)createMeasurementPoints:(NSArray *)array withSession:(MeasurementSession *)session inContext:(NSManagedObjectContext *)context {
     NSMutableOrderedSet *set = [NSMutableOrderedSet new];
     
     for (int i = 0; i < array.count; i++) {
         NSDictionary *dictionary = array[i];
         
-        NSDate *time = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[dictionary objectForKey:@"time"]) doubleValue] / 1000.0)];
+        NSDate *time = [NSDate dateWithTimeIntervalSince1970:([((NSString *)[dictionary objectForKey:@"time"]) doubleValue] / 1000.0)];
         NSNumber *speed = [self numberValueFrom:dictionary forKey:@"speed"];
     
         MeasurementPoint *measurementPoint = [MeasurementPoint MR_createInContext:context];

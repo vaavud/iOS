@@ -11,8 +11,8 @@
 #import <UIKit/UIKit.h>
 #import "MeasureViewController.h"
 
-@protocol MeasurementSessionConsumer <NSObject>
-- (void) setMeasurementSession:(MeasurementSession*)session;
+@protocol MeasurementSessionConsumer
+- (void) setMeasurementSession:(MeasurementSession *)session;
 - (void) setHasTemperature:(BOOL)temperature;
 - (void) setHasDirection:(BOOL)direction;
 @end

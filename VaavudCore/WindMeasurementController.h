@@ -16,17 +16,17 @@ enum WindMeterDeviceType : NSUInteger {
 
 @protocol WindMeasurementControllerDelegate <NSObject>
 
-- (void) addSpeedMeasurement:(NSNumber*)currentSpeed avgSpeed:(NSNumber*)avgSpeed maxSpeed:(NSNumber*)maxSpeed;
+- (void)addSpeedMeasurement:(NSNumber *)currentSpeed avgSpeed:(NSNumber *)avgSpeed maxSpeed:(NSNumber *)maxSpeed;
 
 @optional
-- (void) updateDirection:(NSNumber*)direction;
-- (void) updateLocation:(NSNumber*)latitude longitude:(NSNumber*)longitude;
-- (void) updateTemperature:(NSNumber*)temperature;
-- (void) changedValidity:(BOOL)isValid dynamicsIsValid:(BOOL)dynamicsIsValid;
-- (void) deviceAvailabilityChanged:(enum WindMeterDeviceType) device andAvailability: (BOOL) available;
-- (void) deviceConnected:(enum WindMeterDeviceType)device;
-- (void) deviceDisconnected:(enum WindMeterDeviceType)device;
-- (void) measuringStoppedByModel;
+- (void)updateDirection:(NSNumber *)direction;
+- (void)updateLocation:(NSNumber *)latitude longitude:(NSNumber *)longitude;
+- (void)updateTemperature:(NSNumber *)temperature;
+- (void)changedValidity:(BOOL)isValid dynamicsIsValid:(BOOL)dynamicsIsValid;
+- (void)deviceAvailabilityChanged:(enum WindMeterDeviceType) device andAvailability:(BOOL)available;
+- (void)deviceConnected:(enum WindMeterDeviceType)device;
+- (void)deviceDisconnected:(enum WindMeterDeviceType)device;
+- (void)measuringStoppedByModel;
 
 @end
 
@@ -34,9 +34,9 @@ enum WindMeterDeviceType : NSUInteger {
 
 @property (nonatomic, weak) id<WindMeasurementControllerDelegate> delegate;
 
-- (void) start;
-- (NSTimeInterval) stop;
-- (enum WindMeterDeviceType) windMeterDeviceType;
-- (NSString*) mixpanelWindMeterName;
+- (void)start;
+- (NSTimeInterval)stop;
+- (enum WindMeterDeviceType)windMeterDeviceType;
+- (NSString *)mixpanelWindMeterName;
 
 @end

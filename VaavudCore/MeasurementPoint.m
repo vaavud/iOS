@@ -9,7 +9,6 @@
 #import "MeasurementPoint.h"
 #import "MeasurementSession.h"
 
-
 @implementation MeasurementPoint
 
 @dynamic time;

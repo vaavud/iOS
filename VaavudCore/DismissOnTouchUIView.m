@@ -10,10 +10,9 @@
 
 @implementation DismissOnTouchUIView
 
-- (UIView*) hitTest:(CGPoint)point withEvent:(UIEvent*)event {
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     UIView *hitView = [super hitTest:point withEvent:event];
     if (hitView == self) {
-        
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             if (self.delegate) {
                 [self.delegate dismissOverlayView];
@@ -23,6 +22,7 @@
         
         return nil;
     }
+    
     return hitView;
 }
 

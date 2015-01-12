@@ -14,14 +14,13 @@
 
 @implementation MixpanelUtil
 
-+ (void) registerUserAsMixpanelProfile {
++ (void)registerUserAsMixpanelProfile {
     if ([Property isMixpanelPeopleEnabled] && [[AccountManager sharedInstance] isLoggedIn] && [Property getAsString:KEY_USER_ID]) {
         
         NSString *email = [Property getAsString:KEY_EMAIL];
         NSDate *creationTime = [Property getAsDate:KEY_CREATION_TIME];
 
         if (email && creationTime) {
-            
             NSString *firstName = [Property getAsString:KEY_FIRST_NAME];
             NSString *lastName = [Property getAsString:KEY_LAST_NAME];
             NSString *mixpanelId = [Mixpanel sharedInstance].distinctId;
@@ -53,8 +52,7 @@
     }
 }
 
-+ (void) updateMeasurementProperties:(BOOL)onlySuperProperties {
-
++ (void)updateMeasurementProperties:(BOOL)onlySuperProperties {
     NSDate *firstMeasurement = [MixpanelUtil dateOfFirstMeasurement];
     NSDate *lastMeasurement = [MixpanelUtil dateOfLastMeasurement];
     NSInteger measurementCount = [MeasurementSession MR_countOfEntities];
@@ -75,17 +73,14 @@
     }
 }
 
-+ (void) addMapInteractionToProfile {
-
++ (void)addMapInteractionToProfile {
     if ([Property isMixpanelPeopleEnabled] && [[AccountManager sharedInstance] isLoggedIn] && [Property getAsString:KEY_USER_ID]) {
-        
         [[Mixpanel sharedInstance].people increment:@{@"Map Interactions": @1}];
         [[Mixpanel sharedInstance].people set:@{@"Last Map Interaction": [MixpanelUtil toUTFDateString:[NSDate date]]}];
     }
 }
 
-+ (NSDate*) dateOfFirstMeasurement {
-    
++ (NSDate *)dateOfFirstMeasurement {
     MeasurementSession *measurementSession = [MeasurementSession MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"windSpeedAvg > 0"] sortedBy:@"startTime" ascending:YES];
     if (measurementSession && measurementSession.startTime) {
         return measurementSession.startTime;
@@ -93,8 +88,7 @@
     return nil;
 }
 
-+ (NSDate*) dateOfLastMeasurement {
-    
++ (NSDate *)dateOfLastMeasurement {
     MeasurementSession *measurementSession = [MeasurementSession MR_findFirstWithPredicate:[NSPredicate predicateWithFormat:@"windSpeedAvg > 0"] sortedBy:@"startTime" ascending:NO];
     if (measurementSession && measurementSession.startTime) {
         return measurementSession.startTime;
@@ -102,8 +96,7 @@
     return nil;
 }
 
-+ (NSString*) toUTFDateString:(NSDate *)date {
-    
++ (NSString *)toUTFDateString:(NSDate *)date {
     if (!date) {
         return nil;
     }

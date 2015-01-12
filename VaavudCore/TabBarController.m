@@ -37,7 +37,7 @@
     }
     
     NSArray* topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"GuideView" owner:self options:nil];
-    self.calloutGuideView = (GuideView*) [topLevelObjects objectAtIndex:0];
+    self.calloutGuideView = [topLevelObjects objectAtIndex:0];
     self.calloutGuideView.frame = CGRectMake(0, 0, CALLOUT_GUIDE_VIEW_WIDTH, [self.calloutGuideView preferredHeight]);
     self.calloutGuideView.backgroundColor = [UIColor clearColor];
     self.calloutGuideView.headingLabel.textColor = [UIColor darkGrayColor];
@@ -60,7 +60,6 @@
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController*)viewController {
-    
     if (viewController == self.currentController) {
         return;
     }
@@ -72,7 +71,7 @@
     }
 }
 
--(NSUInteger)supportedInterfaceOrientations {
+- (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
@@ -80,7 +79,7 @@
     [super viewWillAppear:animated];
 }
 
-- (void)guideViewTap:(UITapGestureRecognizer*)recognizer {
+- (void)guideViewTap:(UITapGestureRecognizer *)recognizer {
     [self hideCalloutGuideView:YES];
 }
 
@@ -92,8 +91,11 @@
     return self.isCalloutGuideViewShown;
 }
 
-- (void)showCalloutGuideView:(NSString *)headingText explanationText:(NSString *)explanationText customPosition:(CGRect)rect withArrow:(BOOL)withArrow inView:(UIView *)inView {
-    
+- (void)showCalloutGuideView:(NSString *)headingText
+             explanationText:(NSString *)explanationText
+              customPosition:(CGRect)rect
+                   withArrow:(BOOL)withArrow
+                      inView:(UIView *)inView {
     if (self.isCalloutGuideViewShown) {
         [self hideCalloutGuideView:NO];
     }
@@ -164,7 +166,7 @@
     }
 }
 
-- (void)calloutViewDidDisappear:(SMCalloutView*)calloutView {
+- (void)calloutViewDidDisappear:(SMCalloutView *)calloutView {
     UIViewController *viewController = self.selectedViewController;
     if ([viewController conformsToProtocol:@protocol(GuideViewDismissedListener)]) {
         id<GuideViewDismissedListener> guideViewController = (id<GuideViewDismissedListener>)viewController;

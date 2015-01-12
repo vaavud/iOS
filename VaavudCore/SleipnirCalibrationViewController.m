@@ -15,10 +15,7 @@
 
 @implementation SleipnirCalibrationViewController
 
-
-- (void) viewDidLoad {
-    
-    
+- (void)viewDidLoad {
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
         //only apply the blur if the user hasn't disabled transparency effects
         if (!UIAccessibilityIsReduceTransparencyEnabled()) {
@@ -26,11 +23,8 @@
             UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
 //            UIBlurEffect *blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleExtraLight];
 
-           
-            
             UIVisualEffectView *blurEffectView = [[UIVisualEffectView alloc] initWithEffect: blurEffect];
 
-            
             blurEffectView.frame = self.view.bounds;
             
             [self.view addSubview:blurEffectView];
@@ -48,12 +42,10 @@
             //        view.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Leading, multiplier: 1, constant: 0))
             //        view.addConstraint(NSLayoutConstraint(item: blurEffectView, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: view, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: 0))
         }
-        
     }
-    
 }
 
--(NSUInteger) supportedInterfaceOrientations {
+-(NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 

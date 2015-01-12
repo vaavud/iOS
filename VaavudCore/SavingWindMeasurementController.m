@@ -46,7 +46,6 @@ SHARED_INSTANCE
 
 - (void)start {
     if (self.controller) {
-        
         self.hasBeenStopped = NO;
         self.wasValid = YES;
         self.lastSaveTime = nil;
@@ -67,7 +66,6 @@ SHARED_INSTANCE
         }
         
         // create new MeasurementSession and save it in the database
-
         MeasurementSession *measurementSession = [MeasurementSession MR_createEntity];
         measurementSession.uuid = [UUIDUtil generateUUID];
         measurementSession.device = [Property getAsString:KEY_DEVICE_UUID];
@@ -81,7 +79,7 @@ SHARED_INSTANCE
         measurementSession.privacy = self.privacy;
         [self updateMeasurementSessionLocation:measurementSession];
         
-        AppDelegate *appDelegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
+        AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         if (appDelegate.xCallbackSuccess && appDelegate.xCallbackSuccess != nil && appDelegate.xCallbackSuccess != (id)[NSNull null] && [appDelegate.xCallbackSuccess length] > 0) {
             NSArray *components = [appDelegate.xCallbackSuccess componentsSeparatedByString:@":"];
             if ([components count] > 0) {
@@ -96,7 +94,7 @@ SHARED_INSTANCE
         }
         
         self.measurementSessionUuid = measurementSession.uuid;
-        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error){
+        [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
             if (success) {
                 [[ServerUploadManager sharedInstance] triggerUpload];
             }
@@ -112,8 +110,7 @@ SHARED_INSTANCE
     }
 }
 
-- (NSTimeInterval) stop {
-    
+- (NSTimeInterval)stop {
     if (self.hasBeenStopped) {
         return 0.0;
     }
@@ -160,14 +157,14 @@ SHARED_INSTANCE
     return durationSeconds;
 }
 
-- (enum WindMeterDeviceType) windMeterDeviceType {
+- (enum WindMeterDeviceType)windMeterDeviceType {
     if (self.controller) {
         return [self.controller windMeterDeviceType];
     }
     return UnknownWindMeterDeviceType;
 }
 
-- (MeasurementSession*) getLatestMeasurementSession {
+- (MeasurementSession *)getLatestMeasurementSession {
     if (self.measurementSessionUuid) {
         return [MeasurementSession MR_findFirstByAttribute:@"uuid" withValue:self.measurementSessionUuid];
     }
@@ -178,7 +175,7 @@ SHARED_INSTANCE
 
 #pragma mark WindMeasurementControllerDelegate methods
 
-- (void) addSpeedMeasurement:(NSNumber*)currentSpeed avgSpeed:(NSNumber*)avgSpeed maxSpeed:(NSNumber*)maxSpeed {
+- (void)addSpeedMeasurement:(NSNumber *)currentSpeed avgSpeed:(NSNumber *)avgSpeed maxSpeed:(NSNumber *)maxSpeed {
     
     MeasurementSession *measurementSession = [self getLatestMeasurementSession];
     if (!measurementSession || ![measurementSession.measuring boolValue]) {
@@ -227,8 +224,7 @@ SHARED_INSTANCE
     }
 }
 
-- (void) updateDirection:(NSNumber*)direction {
-    
+- (void)updateDirection:(NSNumber *)direction {
     if (direction) {
         self.currentDirection = direction;
         
@@ -238,8 +234,7 @@ SHARED_INSTANCE
     }
 }
 
-- (void) changedValidity:(BOOL)isValid dynamicsIsValid:(BOOL)dynamicsIsValid {
-    
+- (void)changedValidity:(BOOL)isValid dynamicsIsValid:(BOOL)dynamicsIsValid {
     MeasurementSession *measurementSession = [self getLatestMeasurementSession];
     if (!isValid && self.wasValid && measurementSession && [measurementSession.measuring boolValue]) {
         // current measurement is not valid, but the previous one was, so add a point indicating that there is a "hole" in the data
@@ -260,35 +255,33 @@ SHARED_INSTANCE
     }
 }
 
-- (void) deviceAvailabilityChanged:(enum WindMeterDeviceType) device andAvailability: (BOOL) available {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceAvailabilityChanged:andAvailability:)]) {
+- (void)deviceAvailabilityChanged:(enum WindMeterDeviceType)device andAvailability:(BOOL)available {
+    if ([self.delegate respondsToSelector:@selector(deviceAvailabilityChanged:andAvailability:)]) {
         [self.delegate deviceAvailabilityChanged:device andAvailability:available];
     }
 }
 
-
-- (void) deviceConnected:(enum WindMeterDeviceType)device {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceConnected:)]) {
+- (void)deviceConnected:(enum WindMeterDeviceType)device {
+    if ([self.delegate respondsToSelector:@selector(deviceConnected:)]) {
         [self.delegate deviceConnected:device];
     }
 }
 
 - (void) deviceDisconnected:(enum WindMeterDeviceType)device {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
+    if ([self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
         [self.delegate deviceDisconnected:device];
     }
 }
 
 - (void) measuringStoppedByModel {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(measuringStoppedByModel)]) {
+    if ([self.delegate respondsToSelector:@selector(measuringStoppedByModel)]) {
         [self.delegate measuringStoppedByModel];
     }
 }
 
 #pragma mark Location methods
 
-- (void) updateMeasurementSessionLocation:(MeasurementSession*)measurementSession {
-
+- (void)updateMeasurementSessionLocation:(MeasurementSession *)measurementSession {
     if (measurementSession && [measurementSession.measuring boolValue]) {
 
         CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
@@ -304,7 +297,7 @@ SHARED_INSTANCE
             measurementSession.longitude = nil;
         }
         
-        if (self.delegate && [self.delegate respondsToSelector:@selector(updateLocation:longitude:)]) {
+        if ([self.delegate respondsToSelector:@selector(updateLocation:longitude:)]) {
             [self.delegate updateLocation:measurementSession.latitude longitude:measurementSession.longitude];
         }
     }
@@ -312,8 +305,7 @@ SHARED_INSTANCE
 
 #pragma mark Temperature methods
 
-- (void) initiateTemperatureLookup {
-
+- (void)initiateTemperatureLookup {
     NSLog(@"[SavingWindMeasurementController] initiateTemperatureLookup");
     
     MeasurementSession *measurementSession = [self getLatestMeasurementSession];
@@ -353,11 +345,11 @@ SHARED_INSTANCE
                         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
                     }
 
-                    if (self.delegate && [self.delegate respondsToSelector:@selector(updateTemperature:)]) {
+                    if ([self.delegate respondsToSelector:@selector(updateTemperature:)]) {
                         [self.delegate updateTemperature:temperature];
                     }
 
-                    if (updatedDirection && self.delegate && [self.delegate respondsToSelector:@selector(updateDirection:)]) {
+                    if (updatedDirection && [self.delegate respondsToSelector:@selector(updateDirection:)]) {
                         [self.delegate updateDirection:direction];
                     }
                 }

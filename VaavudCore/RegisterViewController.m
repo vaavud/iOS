@@ -21,7 +21,7 @@
 
 @implementation RegisterViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
@@ -53,7 +53,7 @@
     [self.logInButton setTitle:NSLocalizedString(@"REGISTER_TITLE_LOGIN", nil) forState:UIControlStateNormal];
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     if ([Property isMixpanelEnabled]) {

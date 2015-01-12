@@ -16,12 +16,12 @@
 
 @implementation MeasureNavigationController
 
-- (void) awakeFromNib {
+- (void)awakeFromNib {
     [super awakeFromNib];
     self.tabBarItem.title = NSLocalizedString(@"TAB_MEASURE", nil);
 }
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
         
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
@@ -38,7 +38,7 @@
     }
 }
 
-- (void) tabSelected {
+- (void)tabSelected {
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"Measure Tab"];
     }

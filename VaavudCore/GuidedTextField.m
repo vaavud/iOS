@@ -36,7 +36,7 @@
 
 - (void)initGuide {
     self.isFirstEdit = YES;
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    self.label = [[UILabel alloc] initWithFrame:self.bounds];
     self.label.text = self.guideText;
     [self addSubview:self.label];
     self.label.font = [UIFont systemFontOfSize:self.font.pointSize];

@@ -26,7 +26,7 @@
 
 SHARED_INSTANCE
 
-- (id) init {
+- (id)init {
     self = [super init];
     
     if (self) {
@@ -40,8 +40,7 @@ SHARED_INSTANCE
     return self;
 }
 
-- (void) resetMeasurementData {
-
+- (void)resetMeasurementData {
     self.isStarted = NO;
     self.accumulatedSpeed = 0.0;
     self.maxSpeed = 0.0;
@@ -50,19 +49,18 @@ SHARED_INSTANCE
     self.direction = nil;
 }
 
-- (enum WindMeterDeviceType) windMeterDeviceType {
+- (enum WindMeterDeviceType)windMeterDeviceType {
     return SleipnirWindMeterDeviceType;
 }
 
-- (void) start {
-
+- (void)start {
     [self resetMeasurementData];
     self.isStarted = YES;
     self.startTime = [NSDate date];
     [[VEVaavudElectronicSDK sharedVaavudElectronic] start];
 }
 
-- (NSTimeInterval) stop {
+- (NSTimeInterval)stop {
     
     if (!self.isStarted) {
         // don't do anything if we're already stopped
@@ -75,55 +73,55 @@ SHARED_INSTANCE
     return durationSeconds;
 }
 
-
-
-- (void) sleipnirAvailabliltyChanged: (BOOL) available {
+- (void)sleipnirAvailabliltyChanged:(BOOL)available {
     self.isDeviceConnected = available;
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceAvailabilityChanged:andAvailability:)]) {
+    if ([self.delegate respondsToSelector:@selector(deviceAvailabilityChanged:andAvailability:)]) {
         [self.delegate deviceAvailabilityChanged:SleipnirWindMeterDeviceType andAvailability:available];
     }
     
-    if (available)
+    if (available) {
         NSLog(@"[SleipnirMeasurementController] sleipnirAvailabliltyChanged - available");
-    else
+    }
+    else {
         NSLog(@"[SleipnirMeasurementController] sleipnirAvailabliltyChanged - Not available");
+    }
 }
 
-
-- (void) deviceConnectedTypeSleipnir: (BOOL) sleipnir {
-    if (sleipnir)
+- (void)deviceConnectedTypeSleipnir:(BOOL)sleipnir {
+    if (sleipnir) {
         NSLog(@"[SleipnirMeasurementController] deviceConnected - Sleipnir");
-    else
+    }
+    else {
         NSLog(@"[SleipnirMeasurementController] deviceConnected - Unknown");
+    }
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceConnected:)]) {
-        enum WindMeterDeviceType deviceType = (sleipnir) ? SleipnirWindMeterDeviceType : UnknownWindMeterDeviceType;
+    if ([self.delegate respondsToSelector:@selector(deviceConnected:)]) {
+        enum WindMeterDeviceType deviceType = sleipnir ? SleipnirWindMeterDeviceType : UnknownWindMeterDeviceType;
         [self.delegate deviceConnected:deviceType];
     }
 }
 
 
-- (void) deviceDisconnectedTypeSleipnir: (BOOL) sleipnir {
-    if (sleipnir)
+- (void)deviceDisconnectedTypeSleipnir:(BOOL)sleipnir {
+    if (sleipnir) {
         NSLog(@"[SleipnirMeasurementController] deviceDisconnected - Sleipnir");
-    else
+    }
+    else {
         NSLog(@"[SleipnirMeasurementController] deviceDisconnected - Unknown");
+    }
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
+    if ([self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
         enum WindMeterDeviceType deviceType = (sleipnir) ? SleipnirWindMeterDeviceType : UnknownWindMeterDeviceType;
         [self.delegate deviceDisconnected:deviceType];
     }
-
 }
 
-- (void) deviceConnectedChecking {
+- (void)deviceConnectedChecking {
     NSLog(@"[SleipnirMeasurementController] devicePlugedInChecking");
 }
 
-
-- (void) newSpeed:(NSNumber*)speed {
-    
+- (void)newSpeed:(NSNumber *)speed {
     //NSLog(@"[SleipnirMeasurementController] newSpeed=%@", speed);
     
     // make sure we don't do anything with new data after the user has clicked stop
@@ -140,14 +138,13 @@ SHARED_INSTANCE
     }
 }
 
-- (void) newWindDirection:(NSNumber*)windDirection {
-    
+- (void)newWindDirection:(NSNumber *)windDirection {
     // make sure we don't do anything with new data after the user has clicked stop
     if (self.isStarted && windDirection) {
 
         self.direction = windDirection;
         
-        if (self.delegate && [self.delegate respondsToSelector:@selector(updateDirection:)]) {
+        if ([self.delegate respondsToSelector:@selector(updateDirection:)]) {
             [self.delegate updateDirection:self.direction];
         }
     }

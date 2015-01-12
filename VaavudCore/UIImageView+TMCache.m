@@ -7,8 +7,7 @@
 
 @interface TMImageCache : NSObject
 - (UIImage *)cachedImageForRequest:(NSURLRequest *)request;
-- (void)cacheImage:(UIImage *)image
-        forRequest:(NSURLRequest *)request;
+- (void)cacheImage:(UIImage *)image forRequest:(NSURLRequest *)request;
 @end
 
 #pragma mark -
@@ -146,9 +145,7 @@ static inline NSString * TMImageCacheKeyFromURLRequest(NSURLRequest *request) {
     return [cache objectForKey:TMImageCacheKeyFromURLRequest(request)];
 }
 
-- (void)cacheImage:(UIImage *)image
-        forRequest:(NSURLRequest *)request
-{
+- (void)cacheImage:(UIImage *)image forRequest:(NSURLRequest *)request {
     if (image && request) {
         TMCache *cache = [TMCache sharedCache];
         [cache setObject:image forKey:TMImageCacheKeyFromURLRequest(request)];

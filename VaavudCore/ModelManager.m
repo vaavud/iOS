@@ -16,11 +16,9 @@
 #import "MeasurementPoint.h"
 #import "AlgorithmConstantsUtil.h"
 
-@interface ModelManager() {
+@interface ModelManager()
 
-}
-
-+ (NSString*) getModel;
++ (NSString *)getModel;
 
 @end
 
@@ -29,17 +27,8 @@
 
 SHARED_INSTANCE
 
-- (id) init {
-    self = [super init];
-    
-    if (self) {
-    }
-    
-    return self;
-}
-
-- (void) initializeModel {
-    NSString* deviceUuid = [Property getAsString:KEY_DEVICE_UUID];
+- (void)initializeModel {
+    NSString *deviceUuid = [Property getAsString:KEY_DEVICE_UUID];
     if (!deviceUuid || deviceUuid == nil) {
         NSLog(@"[ModelManager] First run ever, initializing model");
         
@@ -140,9 +129,7 @@ SHARED_INSTANCE
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 
-+ (NSString*) getModel
-{
-    
++ (NSString *)getModel {
     struct utsname systemInfo;
     uname(&systemInfo);
     
@@ -185,10 +172,8 @@ SHARED_INSTANCE
     if ([sDeviceModel isEqual:@"iPad2,6"])   return @"iPadMini1GGSM";     // iPad Mini 1G (GSM)
     if ([sDeviceModel isEqual:@"iPad2,7"])   return @"iPadMini1GGSM+CDMA";// iPad Mini 1G (GSM + CDMA)
     
-    
     // if no equal is found
     return sDeviceModel;
-    
 }
 
 @end

@@ -62,8 +62,7 @@
     return self;
 }
 
-- (void) initialize:(WindSpeedUnit)unit {
-
+- (void)initialize:(WindSpeedUnit)unit {
     //NSLog(@"[GraphView] initialize");
     
     self.windSpeedUnit = unit;
@@ -158,8 +157,7 @@
     [self newPlot];
 }
 
-- (void) newPlot {
-
+- (void)newPlot {
     NSMutableArray *plotData = [NSMutableArray arrayWithCapacity:50];
     [self.plots addObject:plotData];
 
@@ -188,7 +186,7 @@
     [self.graphHostingView.hostedGraph addPlot:self.currentPlot];
 }
 
-- (void) changeWindSpeedUnit:(WindSpeedUnit)unit {
+- (void)changeWindSpeedUnit:(WindSpeedUnit)unit {
     if (self.windSpeedUnit != unit) {
         self.windSpeedUnit = unit;
         [self updateYRange];
@@ -196,7 +194,7 @@
     }
 }
 
-- (void) addPoint:(NSDate *)time currentSpeed:(NSNumber *)speed averageSpeed:(NSNumber *)average {
+- (void)addPoint:(NSDate *)time currentSpeed:(NSNumber *)speed averageSpeed:(NSNumber *)average {
     NSTimeInterval intervalSinceLast = 0.0;
     if (self.lastValueTime && time) {
         intervalSinceLast = [time timeIntervalSinceDate:self.lastValueTime];
@@ -215,10 +213,8 @@
     }
     
     if (time && speed) {
-
         NSTimeInterval interval = [time timeIntervalSinceDate:self.startTime];
         if (interval >= 0.0) {
-            
             NSNumber *x = [NSNumber numberWithDouble:interval];
             self.latestAverageX = x;
             self.lastValueTime = time;
@@ -277,7 +273,7 @@
 
 #pragma mark Plot Data Source methods
 
-- (NSUInteger) numberOfRecordsForPlot:(CPTPlot *)plot {
+- (NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
     NSInteger identifier = [(NSNumber *)plot.identifier integerValue];
     
     if (AVERAGE_PLOT_IDENTIFIER == identifier) {
@@ -299,9 +295,9 @@
     }
 }
 
-- (NSNumber *)numberForPlot:(CPTPlot*)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
+- (NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
     
-    NSInteger identifier = [((NSNumber*) plot.identifier) integerValue];
+    NSInteger identifier = [((NSNumber *)plot.identifier) integerValue];
     
     if (AVERAGE_PLOT_IDENTIFIER == identifier) {
         

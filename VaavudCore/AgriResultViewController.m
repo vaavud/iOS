@@ -51,7 +51,7 @@
 
 @implementation AgriResultViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
@@ -95,11 +95,11 @@
     self.saveButton.backgroundColor = vaavudColor;
 }
 
-- (NSUInteger) supportedInterfaceOrientations {
+- (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
@@ -140,7 +140,6 @@
     }
     
     if (self.measurementSession && self.measurementSession.startTime) {
-        
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.timeStyle = NSDateFormatterShortStyle;
         dateFormatter.dateStyle = NSDateFormatterMediumStyle;
@@ -155,7 +154,7 @@
     [self updateComputedValues];
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
     if ([Property isMixpanelEnabled]) {
@@ -163,8 +162,7 @@
     }
 }
 
-- (void) updateMeasuredValues {
-    
+- (void)updateMeasuredValues {
     if (self.measurementSession && self.measurementSession.windSpeedAvg && !isnan([self.measurementSession.windSpeedAvg doubleValue])) {
         self.averageLabel.text = [self formatValue:[UnitUtil displayWindSpeedFromDouble:[self.measurementSession.windSpeedAvg doubleValue] unit:self.windSpeedUnit]];
     }
@@ -207,8 +205,7 @@
     }
 }
 
-- (void) updateComputedValues {
-    
+- (void)updateComputedValues {
     if (self.measurementSession && self.measurementSession.windSpeedAvg && !isnan([self.measurementSession.windSpeedAvg doubleValue])
                                 && self.measurementSession.temperature && [self.measurementSession.temperature floatValue] > 0.0) {
 
@@ -237,7 +234,7 @@
     }
 }
 
-- (NSString*) formatValue:(double)value {
+- (NSString *)formatValue:(double)value {
     if (value > 100.0) {
         return [NSString stringWithFormat: @"%.0f", value];
     }
@@ -246,8 +243,7 @@
     }
 }
 
-- (void) setSelectedReducingEquipment:(NSNumber*)reduceEquipment {
-    
+- (void)setSelectedReducingEquipment:(NSNumber *)reduceEquipment {
     if (reduceEquipment) {
         int reducingEquipmentInt = [reduceEquipment intValue];
         if (reducingEquipmentInt == 1) {
@@ -272,8 +268,7 @@
     }
 }
 
-- (void) setSelectedDose:(NSNumber*)dose {
-    
+- (void)setSelectedDose:(NSNumber *)dose {
     if (dose) {
         float doseFloat = [dose floatValue];
         if (doseFloat == 0.25) {
@@ -295,8 +290,7 @@
     }
 }
 
-- (void) setSelectedBoomHeight:(NSNumber*)boomHeight {
-    
+- (void)setSelectedBoomHeight:(NSNumber*)boomHeight {
     if (boomHeight) {
         int boomHeightInt = [boomHeight intValue];
         if (boomHeightInt == 25) {
@@ -318,8 +312,7 @@
     }
 }
 
-- (void) setSelectedSprayQuality:(NSNumber*)sprayQuality {
-    
+- (void)setSelectedSprayQuality:(NSNumber *)sprayQuality {
     if (sprayQuality) {
         int sprayQualityInt = [sprayQuality intValue];
         if (sprayQualityInt == 1) {
@@ -341,8 +334,7 @@
     }
 }
 
-- (IBAction) reducingEquipmentValueChanged:(id)sender {
-
+- (IBAction)reducingEquipmentValueChanged:(id)sender {
     [Property setAsInteger:[self getReducingEquipmentValue] forKey:KEY_AGRI_DEFAULT_REDUCING_EQUIPMENT];
     [self updateComputedValues];
 }
@@ -377,12 +369,12 @@
         case 2:
             return @1.0f;
         default:
-            NSLog(@"[AgriResultViewController] ERROR: Unknown dose selected segment index %d", self.doseSegmentControl.selectedSegmentIndex);
+            NSLog(@"[AgriResultViewController] ERROR: Unknown dose selected segment index %ld", (long)self.doseSegmentControl.selectedSegmentIndex);
             return @1.0f;
     }
 }
 
-- (IBAction) boomHeightValueChanged:(id)sender {
+- (IBAction)boomHeightValueChanged:(id)sender {
     [Property setAsInteger:[self getBoomHeightValue] forKey:KEY_AGRI_DEFAULT_BOOM_HEIGHT];
     [self updateComputedValues];
 }
@@ -396,19 +388,18 @@
         case 2:
             return @60;
         default:
-            NSLog(@"[AgriResultViewController] ERROR: Unknown boom height selected segment index %d", self.boomHeightSegmentControl.selectedSegmentIndex);
+            NSLog(@"[AgriResultViewController] ERROR: Unknown boom height selected segment index %ld", (long)self.boomHeightSegmentControl.selectedSegmentIndex);
             return @60;
     }
 }
 
-- (IBAction) sprayQualityValueChanged:(id)sender {
+- (IBAction)sprayQualityValueChanged:(id)sender {
 
     [Property setAsInteger:[self getSprayQualityValue] forKey:KEY_AGRI_DEFAULT_SPRAY_QUALITY];
     [self updateComputedValues];
 }
 
-- (NSNumber*) getSprayQualityValue {
-    
+- (NSNumber *)getSprayQualityValue {
     switch (self.sprayQualitySegmentControl.selectedSegmentIndex) {
         case 0:
             return @1;
@@ -417,13 +408,12 @@
         case 2:
             return @3;
         default:
-            NSLog(@"[AgriResultViewController] ERROR: Unknown spray quality selected segment index %d", self.sprayQualitySegmentControl.selectedSegmentIndex);
+            NSLog(@"[AgriResultViewController] ERROR: Unknown spray quality selected segment index %ld", (long)self.sprayQualitySegmentControl.selectedSegmentIndex);
             return @3;
     }
 }
 
 - (IBAction)saveButtonPushed:(id)sender {
-    
     NSMutableString *summary = [NSMutableString string];
     
     if (self.measurementSession) {

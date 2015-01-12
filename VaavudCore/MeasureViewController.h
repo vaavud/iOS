@@ -19,47 +19,47 @@
 @property (nonatomic) BOOL isMinimumThresholdReached;
 @property (nonatomic, strong) NSNumber *privacy;
 
-- (UILabel*) averageHeadingLabel;
-- (UILabel*) averageLabel;
+- (UILabel *)averageHeadingLabel;
+- (UILabel *)averageLabel;
 
-- (UILabel*) currentHeadingLabel;
-- (UILabel*) actualLabel;
+- (UILabel *)currentHeadingLabel;
+- (UILabel *)actualLabel;
 
-- (UILabel*) maxHeadingLabel;
-- (UILabel*) maxLabel;
+- (UILabel *)maxHeadingLabel;
+- (UILabel *)maxLabel;
 
-- (UILabel*) unitHeadingLabel;
-- (UIButton*) unitButton;
+- (UILabel *)unitHeadingLabel;
+- (UIButton *)unitButton;
 
-- (UILabel*) directionHeadingLabel;
-- (UILabel*) directionLabel;
-- (UIImageView*) directionImageView;
+- (UILabel *)directionHeadingLabel;
+- (UILabel *)directionLabel;
+- (UIImageView *)directionImageView;
 
-- (UILabel*) temperatureHeadingLabel;
-- (UILabel*) temperatureLabel;
+- (UILabel *)temperatureHeadingLabel;
+- (UILabel *)temperatureLabel;
 
-- (UILabel*) informationTextLabel;
-- (UIProgressView*) statusBar;
+- (UILabel *)informationTextLabel;
+- (UIProgressView *)statusBar;
 
-- (UIButton*) startStopButton;
+- (UIButton *)startStopButton;
 
-- (UIView*) graphContainer;
+- (UIView *)graphContainer;
 
-- (NSString*) stopButtonTitle;
+- (NSString *)stopButtonTitle;
 
-- (IBAction) startStopButtonPushed:(id)sender;
-- (IBAction) unitButtonPushed:(id)sender;
+- (IBAction)startStopButtonPushed:(id)sender;
+- (IBAction)unitButtonPushed:(id)sender;
 
-- (void) start;
-- (void) stop;
-- (void) reset;
+- (void)start;
+- (void)stop;
+- (void)reset;
 
-- (void) measurementStarted;
-- (void) measurementStopped:(MeasurementSession*)measurementSession;
+- (void)measurementStarted;
+- (void)measurementStopped:(MeasurementSession *)measurementSession;
 
-- (void) minimumThresholdReached;
+- (void)minimumThresholdReached;
 
-- (void) showNotification:(NSString*)title message:(NSString*)message dismissAfter:(NSTimeInterval)time;
-- (void) dismissNotification;
+- (void)showNotification:(NSString *)title message:(NSString *)message dismissAfter:(NSTimeInterval)time;
+- (void)dismissNotification;
 
 @end

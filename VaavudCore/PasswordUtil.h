@@ -10,6 +10,6 @@
 
 @interface PasswordUtil : NSObject
 
-+(NSString*) createHash:(NSString*)password salt:(NSString*)salt;
++(NSString *)createHash:(NSString *)password salt:(NSString *)salt;
 
 @end

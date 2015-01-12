@@ -10,7 +10,7 @@
 
 @implementation GuideView
 
-- (CGFloat) preferredHeight {
+- (CGFloat)preferredHeight {
     CGFloat headingHeight = [self.headingLabel sizeThatFits:CGSizeMake(self.headingLabelWidthConstraint.constant, FLT_MAX)].height;
     CGFloat explanationHeight = [self.explanationLabel sizeThatFits:CGSizeMake(self.explanationLabelWidthConstraint.constant, FLT_MAX)].height;
     self.headingLabelHeightConstraint.constant = headingHeight;

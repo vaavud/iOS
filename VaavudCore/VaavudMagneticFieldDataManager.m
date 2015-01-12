@@ -21,22 +21,18 @@
 @property (nonatomic, strong) CMMotionManager *motionManager;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 
-
 - (void) startMagneticFieldSensor;
 
 @end
 
 
 @implementation VaavudMagneticFieldDataManager {
-    
     NSNumber *startTime;
-    
 }
 
 static VaavudMagneticFieldDataManager *sharedMagneticFieldDataManager = nil;
 
-+ (VaavudMagneticFieldDataManager*) sharedMagneticFieldDataManager
-{
++ (VaavudMagneticFieldDataManager *)sharedMagneticFieldDataManager {
     if (sharedMagneticFieldDataManager == nil) {
         sharedMagneticFieldDataManager = [[super allocWithZone:NULL] init];
     }
@@ -44,36 +40,25 @@ static VaavudMagneticFieldDataManager *sharedMagneticFieldDataManager = nil;
 }
 
 
-- (void) start
-{
-    
+- (void)start {
     // create mutable array that will hold magnetic field data
     self.magneticFieldReadingsTime = [[NSMutableArray alloc] init];
     self.magneticFieldReadingsx = [[NSMutableArray alloc] init];
     self.magneticFieldReadingsy = [[NSMutableArray alloc] init];
     self.magneticFieldReadingsz = [[NSMutableArray alloc] init];
 
-    
-    startTime = [[NSNumber alloc] initWithDouble: CACurrentMediaTime()];
+    startTime = [[NSNumber alloc] initWithDouble:CACurrentMediaTime()];
     
     [self startMagneticFieldSensor];
-    
-    
 }
 
-- (void) stop
-{
+- (void)stop {
     [self.motionManager stopMagnetometerUpdates];
     self.motionManager = nil;
-    
 }
 
-
 // Private methods
-- (void) startMagneticFieldSensor
-{
-    
-    
+- (void)startMagneticFieldSensor {
     self.motionManager = [[CMMotionManager alloc] init];
     
     if (self.motionManager.magnetometerAvailable) {
@@ -90,14 +75,11 @@ static VaavudMagneticFieldDataManager *sharedMagneticFieldDataManager = nil;
             [self.magneticFieldReadingsz addObject: [NSNumber numberWithDouble: magneticField.z]];
 
             [self.delegate magneticFieldValuesUpdated]; // SEND Notification to delegate that a new measurement has been recived
-            
         }];
-        
-    }  else {
-        NSLog(@"No MagnetometerAvailable on device.");
     }
-    
-    
+    else {
+        NSLog(@"No Magnetometer available on device.");
+    }
 }
 
 

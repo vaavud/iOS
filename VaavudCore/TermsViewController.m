@@ -41,7 +41,7 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
 }
 
-- (IBAction) backButtonPushed {
+- (IBAction)backButtonPushed {
     if ([self.webView.request.URL.path compare:@"/"] != NSOrderedSame) {
         NSString *html = [Terms getTermsOfService];
         [self.webView loadHTMLString:html baseURL:[NSURL URLWithString:@"http://vaavud.com"]];

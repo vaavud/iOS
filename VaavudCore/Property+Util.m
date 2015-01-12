@@ -12,7 +12,7 @@
 
 @implementation Property (Util)
 
-+ (NSString*) getAsString:(NSString *)name {
++ (NSString *)getAsString:(NSString *)name {
     Property *property = [Property MR_findFirstByAttribute:@"name" withValue:name];
     if (property && property.value != (id)[NSNull null]) {
         return property.value;
@@ -22,13 +22,13 @@
     }
 }
 
-+ (BOOL) getAsBoolean:(NSString *)name {
++ (BOOL)getAsBoolean:(NSString *)name {
     NSString* value = [self getAsString:name];
     return [@"1" isEqualToString:value];
 }
 
-+ (BOOL) getAsBoolean:(NSString*)name defaultValue:(BOOL)defaultValue {
-    NSString* value = [self getAsString:name];
++ (BOOL)getAsBoolean:(NSString *)name defaultValue:(BOOL)defaultValue {
+    NSString *value = [self getAsString:name];
     if (value) {
         return [@"1" isEqualToString:value];
     }
@@ -37,71 +37,71 @@
     }
 }
 
-+ (NSNumber*) getAsInteger:(NSString*) name {
-    NSString* value = [self getAsString:name];
++ (NSNumber *)getAsInteger:(NSString *)name {
+    NSString *value = [self getAsString:name];
     if (value == nil) {
         return nil;
     }
-    return [NSNumber numberWithInteger:[value integerValue]];
+    return @([value integerValue]);
 }
 
-+ (NSNumber*) getAsInteger:(NSString*) name defaultValue:(int)defaultValue {
-    NSString* value = [self getAsString:name];
++ (NSNumber *)getAsInteger:(NSString *)name defaultValue:(int)defaultValue {
+    NSString *value = [self getAsString:name];
     if (value == nil) {
         return [NSNumber numberWithInt:defaultValue];
     }
-    return [NSNumber numberWithInteger:[value integerValue]];
+    return @([value integerValue]);
 }
 
-+ (NSNumber*) getAsLongLong:(NSString*) name {
-    NSString* value = [self getAsString:name];
++ (NSNumber *)getAsLongLong:(NSString *)name {
+    NSString *value = [self getAsString:name];
     if (value == nil) {
         return nil;
     }
-    return [NSNumber numberWithLongLong:[value longLongValue]];
+    return @([value longLongValue]);
 }
 
-+ (NSNumber*) getAsDouble:(NSString*) name {
-    NSString* value = [self getAsString:name];
++ (NSNumber *)getAsDouble:(NSString *)name {
+    NSString *value = [self getAsString:name];
     if (value == nil) {
         return nil;
     }
-    return [NSNumber numberWithDouble:[value doubleValue]];
+    return @([value doubleValue]);
 }
 
-+ (NSNumber*) getAsDouble:(NSString*)name defaultValue:(double)defaultValue {
-    NSString* value = [self getAsString:name];
++ (NSNumber *)getAsDouble:(NSString *)name defaultValue:(double)defaultValue {
+    NSString *value = [self getAsString:name];
     if (value == nil) {
-        return [NSNumber numberWithDouble:defaultValue];
+        return @(defaultValue);
     }
-    return [NSNumber numberWithDouble:[value doubleValue]];
+    return @([value doubleValue]);
 }
 
-+ (NSNumber*) getAsFloat:(NSString*) name {
-    NSString* value = [self getAsString:name];
++ (NSNumber *)getAsFloat:(NSString *)name {
+    NSString *value = [self getAsString:name];
     if (value == nil) {
         return nil;
     }
-    return [NSNumber numberWithFloat:[value floatValue]];
+    return @([value floatValue]);
 }
 
-+ (NSNumber*) getAsFloat:(NSString*)name defaultValue:(float)defaultValue {
-    NSString* value = [self getAsString:name];
++ (NSNumber *)getAsFloat:(NSString *)name defaultValue:(float)defaultValue {
+    NSString *value = [self getAsString:name];
     if (value == nil) {
-        return [NSNumber numberWithFloat:defaultValue];
+        return @(defaultValue);
     }
-    return [NSNumber numberWithFloat:[value floatValue]];
+    return @([value floatValue]);
 }
 
-+ (NSDate*) getAsDate:(NSString*)name {
-    NSString* value = [self getAsString:name];
++ (NSDate *)getAsDate:(NSString *)name {
+    NSString *value = [self getAsString:name];
     if (value == nil) {
         return nil;
     }
     return [NSDate dateWithTimeIntervalSince1970:[value doubleValue]];
 }
 
-+ (void) setAsString:(NSString *)value forKey:(NSString*)name {
++ (void)setAsString:(NSString *)value forKey:(NSString *)name {
     Property *property = [Property MR_findFirstByAttribute:@"name" withValue:name];
     if (!property) {
         property = [Property MR_createEntity];
@@ -111,31 +111,31 @@
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
 }
 
-+ (void) setAsBoolean:(BOOL)value forKey:(NSString *)name {
++ (void)setAsBoolean:(BOOL)value forKey:(NSString *)name {
     [self setAsString:(value ? @"1" : @"0") forKey:name];
 }
 
-+ (void) setAsInteger:(NSNumber*) value forKey:(NSString*) name {
++ (void)setAsInteger:(NSNumber *)value forKey:(NSString *)name {
     [self setAsString:[value stringValue] forKey:name];
 }
 
-+ (void) setAsLongLong:(NSNumber*) value forKey:(NSString*) name {
++ (void)setAsLongLong:(NSNumber *)value forKey:(NSString *)name {
     [self setAsString:[value stringValue] forKey:name];
 }
 
-+ (void) setAsDouble:(NSNumber*) value forKey:(NSString*) name {
++ (void)setAsDouble:(NSNumber *)value forKey:(NSString *)name {
     [self setAsString:[value stringValue] forKey:name];
 }
 
-+ (void) setAsFloat:(NSNumber*) value forKey:(NSString*) name {
++ (void)setAsFloat:(NSNumber *)value forKey:(NSString *) name {
     [self setAsString:[value stringValue] forKey:name];
 }
 
-+ (void) setAsDate:(NSDate*)value forKey:(NSString*)name {
++ (void)setAsDate:(NSDate *)value forKey:(NSString *)name {
     [self setAsString:[[NSNumber numberWithDouble:[value timeIntervalSince1970]] stringValue] forKey:name];
 }
 
-+ (NSArray*) getAsFloatArray:(NSString*) name {
++ (NSArray *)getAsFloatArray:(NSString *)name {
     NSString *value = [self getAsString:name];
     if (value == nil || value.length == 0) {
         return nil;
@@ -150,7 +150,7 @@
     return floatArray;
 }
 
-+ (void) setAsFloatArray:(NSArray*) value forKey:(NSString*) name {
++ (void)setAsFloatArray:(NSArray *)value forKey:(NSString *)name {
     NSString *storedValue = @"";
     if (value != nil && value.count > 0) {
         storedValue = [value componentsJoinedByString:@","];
@@ -158,24 +158,23 @@
     [self setAsString:storedValue forKey:name];
 }
 
-+ (BOOL) isMixpanelEnabled {
++ (BOOL)isMixpanelEnabled {
     return [Property getAsBoolean:KEY_ENABLE_MIXPANEL defaultValue:YES];
 }
 
-+ (BOOL) isMixpanelPeopleEnabled {
++ (BOOL)isMixpanelPeopleEnabled {
     return [Property getAsBoolean:KEY_ENABLE_MIXPANEL_PEOPLE defaultValue:YES];
 }
 
-+ (void) refreshHasWindMeter {
++ (void)refreshHasWindMeter {
     if (![Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO]) {
         BOOL hasMeasurements = ([MeasurementSession MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"windSpeedAvg > 0"]] > 0);
         [Property setAsBoolean:hasMeasurements forKey:KEY_USER_HAS_WIND_METER];
     }
 }
 
-+ (NSDictionary *) getDeviceDictionary {
-    
-    NSNumber* timezoneOffsetMillis = [NSNumber numberWithLong:([[NSTimeZone localTimeZone] secondsFromGMT] * 1000L)];
++ (NSDictionary *)getDeviceDictionary {
+    NSNumber *timezoneOffsetMillis = [NSNumber numberWithLong:([[NSTimeZone localTimeZone] secondsFromGMT] * 1000L)];
     
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                 [Property getAsString:KEY_DEVICE_UUID], @"uuid",
@@ -193,6 +192,5 @@
     
     return dictionary;
 }
-
 
 @end

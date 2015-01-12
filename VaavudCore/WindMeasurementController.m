@@ -10,18 +10,18 @@
 
 @implementation WindMeasurementController
 
-- (void) start {
+- (void)start {
 }
 
-- (NSTimeInterval) stop {
+- (NSTimeInterval)stop {
     return 0.0;
 }
 
-- (enum WindMeterDeviceType) windMeterDeviceType {
+- (enum WindMeterDeviceType)windMeterDeviceType {
     return 0;
 }
 
-- (NSString*) mixpanelWindMeterName {
+- (NSString *)mixpanelWindMeterName {
     switch ([self windMeterDeviceType]) {
         case MjolnirWindMeterDeviceType:
             return @"Mjolnir";

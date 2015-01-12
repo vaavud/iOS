@@ -24,7 +24,7 @@
 
 @implementation AgriManualTemperatureViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     [self.nextButton setTitle:NSLocalizedString(@"BUTTON_NEXT", nil) forState:UIControlStateNormal];
@@ -43,11 +43,11 @@
     [self.temperaturePickerView selectRow:(startTemp - MIN_TEMP_CELCIUS) inComponent:0 animated:NO];
 }
 
-- (NSUInteger) supportedInterfaceOrientations {
+- (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     if ([Property isMixpanelEnabled]) {
@@ -55,7 +55,7 @@
     }
 }
 
-- (IBAction) nextButtonClicked:(id)sender {
+- (IBAction)nextButtonClicked:(id)sender {
     NSNumber *temperatureKelvin = [NSNumber numberWithInteger:[self.temperaturePickerView selectedRowInComponent:0] + MIN_TEMP_CELCIUS + KELVIN_TO_CELCIUS];
     if (self.measurementSession) {
         self.measurementSession.temperature = temperatureKelvin;
@@ -71,20 +71,19 @@
     }
 }
 
-- (NSInteger) numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
     return 1;
 }
 
-- (NSInteger) pickerView:(UIPickerView*)pickerView numberOfRowsInComponent:(NSInteger)component {
+- (NSInteger)pickerView:(UIPickerView*)pickerView numberOfRowsInComponent:(NSInteger)component {
     return MAX_TEMP_CELCIUS - MIN_TEMP_CELCIUS;
 }
 
-- (NSString*) pickerView:(UIPickerView*)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
-    return [NSString stringWithFormat:@"%d °C", row + MIN_TEMP_CELCIUS];
+- (NSString *)pickerView:(UIPickerView*)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+    return [NSString stringWithFormat:@"%ld °C", row + MIN_TEMP_CELCIUS];
 }
 
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     UIViewController *controller = [segue destinationViewController];
     
     if ([controller conformsToProtocol:@protocol(MeasurementSessionConsumer)]) {

@@ -37,7 +37,7 @@ BOOL isTableInitialized = NO;
     [super layoutSubviews];
 }
 
--(void)setMeasurementAnnotation:(MeasurementAnnotation*)measurementAnnotation {
+-(void)setMeasurementAnnotation:(MeasurementAnnotation *)measurementAnnotation {
     _measurementAnnotation = measurementAnnotation;
     
     self.maxHeadingLabel.text = [NSLocalizedString(@"HEADING_MAX", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
@@ -87,7 +87,6 @@ BOOL isTableInitialized = NO;
         else {
             self.directionImageView.hidden = YES;
         }
-        
     }
     else {
         self.directionImageView.hidden = YES;
@@ -105,7 +104,7 @@ BOOL isTableInitialized = NO;
     }
 }
 
-- (IBAction) mapButtonTapped {
+- (IBAction)mapButtonTapped {
     [self.mapViewController zoomToAnnotation:self.measurementAnnotation];
     [self.mapViewController googleAnalyticsAnnotationEvent:self.measurementAnnotation withAction:@"map thumbnail touch" mixpanelTrack:@"Map Marker Thumbnail Zoom" mixpanelSource:nil];
 }
@@ -119,7 +118,7 @@ BOOL isTableInitialized = NO;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    MeasurementTableViewCell *cell = (MeasurementTableViewCell*) [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    MeasurementTableViewCell *cell = (MeasurementTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     MeasurementAnnotation *measurementAnnotation = [self.nearbyAnnotations objectAtIndex:[indexPath item]];
     [cell setValues:measurementAnnotation.avgWindSpeed unit:self.windSpeedUnit time:measurementAnnotation.startTime windDirection:measurementAnnotation.windDirection directionUnit:self.directionUnit];
     return cell;

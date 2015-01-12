@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "VaavudMagneticFieldDataManager.h"
-#import "vaavudDynamicsController.h"
+#import "VaavudDynamicsController.h"
 #import "WindMeasurementController.h"
 
-@interface MjolnirMeasurementController : WindMeasurementController <VaavudMagneticFieldDataManagerDelegate, vaavudDynamicsControllerDelegate>
+@interface MjolnirMeasurementController : WindMeasurementController <VaavudMagneticFieldDataManagerDelegate, VaavudDynamicsControllerDelegate>
 
 @end

@@ -69,77 +69,77 @@
 
 /**** Storyboard Properties Specifiable by Subclasses ****/
 
-- (UILabel*) averageHeadingLabel {
+- (UILabel *)averageHeadingLabel {
     return nil;
 }
 
-- (UILabel*) currentHeadingLabel {
+- (UILabel *)currentHeadingLabel {
     return nil;
 }
 
-- (UILabel*) maxHeadingLabel {
+- (UILabel *)maxHeadingLabel {
     return nil;
 }
 
-- (UILabel*) unitHeadingLabel {
+- (UILabel *)unitHeadingLabel {
     return nil;
 }
 
-- (UILabel*) actualLabel {
+- (UILabel *)actualLabel {
     return nil;
 }
 
-- (UILabel*) averageLabel {
+- (UILabel *)averageLabel {
     return nil;
 }
 
-- (UILabel*) maxLabel {
+- (UILabel *)maxLabel {
     return nil;
 }
 
-- (UILabel*) directionHeadingLabel {
+- (UILabel *)directionHeadingLabel {
     return nil;
 }
 
-- (UILabel*) directionLabel {
+- (UILabel *)directionLabel {
     return nil;
 }
 
-- (UIImageView*) directionImageView {
+- (UIImageView *)directionImageView {
     return nil;
 }
 
-- (UILabel*) temperatureHeadingLabel {
+- (UILabel *)temperatureHeadingLabel {
     return nil;
 }
 
-- (UILabel*) temperatureLabel {
+- (UILabel *)temperatureLabel {
     return nil;
 }
 
-- (UILabel*) informationTextLabel {
+- (UILabel *)informationTextLabel {
     return nil;
 }
 
-- (UIProgressView*) statusBar {
+- (UIProgressView *)statusBar {
     return nil;
 }
 
-- (UIButton*) startStopButton {
+- (UIButton *)startStopButton {
     return nil;
 }
 
-- (UIButton*) unitButton {
+- (UIButton *)unitButton {
     return nil;
 }
 
-- (UIView*) graphContainer {
+- (UIView *)graphContainer {
     return nil;
 }
 
 /**** Setup ****/
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     self.windSpeedUnit = -1; // make sure windSpeedUnit is updated in viewWillAppear by setting it to an invalid value
@@ -222,11 +222,11 @@
     [SleipnirMeasurementController sharedInstance].delegate = self;
 }
 
--(NSUInteger) supportedInterfaceOrientations {
+-(NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     WindSpeedUnit newWindSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
@@ -256,7 +256,7 @@
     }
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
     if ([Property isMixpanelEnabled]) {
@@ -264,19 +264,18 @@
     }
 }
 
-- (void) tabSelected {
+- (void)tabSelected {
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"Measure Tab"];
     }
 }
 
-- (void) viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [[UIApplication sharedApplication] setIdleTimerDisabled:NO];
 }
 
-- (void) reset {
-    
+- (void)reset {
     if (!self.buttonShowsStart) {
         [self stop];
     }
@@ -307,8 +306,7 @@
 
 /**** Common Start/Stop Measuring ****/
 
-- (IBAction) startStopButtonPushed:(id)sender {
-    
+- (IBAction)startStopButtonPushed:(id)sender {
     if (self.buttonShowsStart) {
         [self startWithUITracking:YES];
     }
@@ -318,21 +316,20 @@
 }
 
 // for subclasses
-- (void) start {
+- (void)start {
     [self startWithUITracking:YES];
 }
 
 // for subclasses
-- (void) stop {
+- (void)stop {
     [self stopWithUITracking:YES action:@"Button"];
 }
 
-- (NSString*) stopButtonTitle {
+- (NSString *)stopButtonTitle {
     return NSLocalizedString(@"BUTTON_STOP", nil);
 }
 
-- (void) startWithUITracking:(BOOL)uiTracking {
-    
+- (void)startWithUITracking:(BOOL)uiTracking {
     if (!self.buttonShowsStart) {
         // already stopped
         return;
@@ -429,10 +426,10 @@
 }
 
 // for subclasses
-- (void) measurementStarted {
+- (void)measurementStarted {
 }
 
-- (void) stopWithUITracking:(BOOL)uiTracking action:(NSString*)action {
+- (void)stopWithUITracking:(BOOL)uiTracking action:(NSString *)action {
     
     if (self.buttonShowsStart) {
         // already stopped
@@ -481,7 +478,6 @@
 
     // this will only be false if we were stopped by the model (e.g. measurement deleted while measuring)
     if (uiTracking) {
-
         // Mixpanel tracking...
         
         if ([Property isMixpanelEnabled]) {
@@ -530,7 +526,7 @@
 }
 
 // for subclasses
-- (void) measurementStopped:(MeasurementSession*)measurementSession {
+- (void)measurementStopped:(MeasurementSession*)measurementSession {
 }
 
 /*
@@ -539,14 +535,12 @@
  * (2) the measurement session's "measuring" flag turns to NO while measuring
  *     - which will be the case if ServerUploadManager sees a long period of inactivity
  */
-- (void) measuringStoppedByModel {
+- (void)measuringStoppedByModel {
     [self stopWithUITracking:NO action:@"Model"];
 }
 
-- (void) createGraphView {
-    
+- (void)createGraphView {
     if (self.graphContainer) {
-    
         [self destroyGraphView];
         
         self.graphView = [[GraphView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.graphContainer.frame.size.width, self.graphContainer.frame.size.height) windSpeedUnit:self.windSpeedUnit];
@@ -557,16 +551,14 @@
     }
 }
 
-- (void) destroyGraphView {
-    
+- (void)destroyGraphView {
     if (self.graphContainer && self.graphView) {
         [self.graphView removeFromSuperview];
         self.graphView = nil;
     }
 }
 
-- (void) addSpeedMeasurement:(NSNumber*)currentSpeed avgSpeed:(NSNumber*)avgSpeed maxSpeed:(NSNumber*)maxSpeed {
-    
+- (void)addSpeedMeasurement:(NSNumber *)currentSpeed avgSpeed:(NSNumber *)avgSpeed maxSpeed:(NSNumber *)maxSpeed {
     //NSLog(@"[MeasurementViewController] Adding measurement, current=%@, avg=%@, max=%@", currentSpeed, avgSpeed, maxSpeed);
     
     self.actualLabelCurrentValue = currentSpeed;
@@ -580,22 +572,20 @@
     }
 }
 
-- (void) updateDirection:(NSNumber*)avgDirection {
-    
+- (void)updateDirection:(NSNumber *)avgDirection {
     self.directionLabelCurrentValue = avgDirection;
     [self updateDirectionFromCurrentValue];
 }
 
 /**** Sleipnir Measurement ****/
 
-- (void) deviceAvailabilityChanged:(enum WindMeterDeviceType) device andAvailability: (BOOL) available {
+- (void)deviceAvailabilityChanged:(enum WindMeterDeviceType)device andAvailability:(BOOL)available {
     if (device == SleipnirWindMeterDeviceType) {
         self.useSleipnir = available;
     }
 }
 
-- (void) deviceConnected:(enum WindMeterDeviceType)device {
-    
+- (void)deviceConnected:(enum WindMeterDeviceType)device {
     if (device == SleipnirWindMeterDeviceType) {
         if (!self.useSleipnir && !self.buttonShowsStart) {
             
@@ -606,13 +596,11 @@
         [self showNotification:NSLocalizedString(@"DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_CONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
     }
     else if (device == UnknownWindMeterDeviceType) {
-
         [self showNotification:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
     }
 }
 
-- (void) deviceDisconnected:(enum WindMeterDeviceType)device {
-    
+- (void)deviceDisconnected:(enum WindMeterDeviceType)device {
     if (device == SleipnirWindMeterDeviceType) {
         if (!self.buttonShowsStart) {
             [self stopWithUITracking:YES action:@"Unplug"];
@@ -621,20 +609,17 @@
         [self showNotification:NSLocalizedString(@"DEVICE_DISCONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_DISCONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
     }
     else if (device == UnknownWindMeterDeviceType) {
-        
         [self showNotification:NSLocalizedString(@"UNKNOWN_DEVICE_DISCONNECTED_TITLE", nil) message:NSLocalizedString(@"UNKNOWN_DEVICE_DISCONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
     }
 }
 
-- (void) showNotification:(NSString*)title message:(NSString*)message dismissAfter:(NSTimeInterval)time {
-    
+- (void)showNotification:(NSString *)title message:(NSString *)message dismissAfter:(NSTimeInterval)time {
     if (self.notificationTimer) {
         [self.notificationTimer invalidate];
         self.notificationTimer = nil;
     }
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-        
         if (self.notificationAlertViewController) {
             [self dismissViewControllerAnimated:NO completion:nil];
             self.notificationAlertViewController = nil;
@@ -663,7 +648,7 @@
     self.notificationTimer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(dismissNotification) userInfo:nil repeats:NO];
 }
 
-- (void) dismissNotification {
+- (void)dismissNotification {
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
         if (self.notificationAlertViewController) {
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -682,12 +667,10 @@
 
 /**** Mjolnir Measurement ****/
 
-- (void) changedValidity:(BOOL)isValid dynamicsIsValid:(BOOL)dynamicsIsValid {
-    
+- (void)changedValidity:(BOOL)isValid dynamicsIsValid:(BOOL)dynamicsIsValid {
     NSDate *now = [NSDate date];
     
     if (isValid) {
-
         if (!self.isValid) {
             self.nonValidDuration += [now timeIntervalSinceDate:self.lastValidityChangeTime];
         }
@@ -697,7 +680,6 @@
         }
     }
     else {
-
         if (self.isValid) {
             self.lastValidityChangeTime = now;
         }
@@ -725,7 +707,7 @@
 
 /**** Common Measurement Values Update ****/
 
-- (void) updateLabelsFromCurrentValues {
+- (void)updateLabelsFromCurrentValues {
     if (self.actualLabel && self.actualLabelCurrentValue && !isnan([self.actualLabelCurrentValue doubleValue])) {
         self.actualLabel.text = [self formatValue:[UnitUtil displayWindSpeedFromDouble:[self.actualLabelCurrentValue doubleValue] unit:self.windSpeedUnit]];
     }
@@ -748,10 +730,8 @@
     }
 }
 
-- (void) updateDirectionFromCurrentValue {
-
+- (void)updateDirectionFromCurrentValue {
     if (self.directionLabelCurrentValue && !isnan([self.directionLabelCurrentValue doubleValue])) {
-        
         if (self.directionLabel) {
             if (self.directionUnit == 0) {
                 self.directionLabel.text = [UnitUtil displayNameForDirection:self.directionLabelCurrentValue];
@@ -762,7 +742,6 @@
         }
         
         if (self.directionImageView) {
-
             self.directionImageView.image = [UIImage imageNamed:@"wind_arrow.png"];
             if (self.directionImageView.image) {
                 self.directionImageView.transform = CGAffineTransformMakeRotation([self.directionLabelCurrentValue doubleValue]/180 * M_PI);
@@ -783,8 +762,7 @@
     }
 }
 
-- (void) updateTemperature:(NSNumber*)temperature {
-    
+- (void)updateTemperature:(NSNumber *)temperature {
     //NSLog(@"[MeasureViewController] Got temperature %@", temperature);
     
     self.currentTemperature = temperature;
@@ -793,14 +771,14 @@
     }
 }
 
-- (void) updateLocation:(NSNumber*)latitude longitude:(NSNumber*)longitude {
+- (void)updateLocation:(NSNumber *)latitude longitude:(NSNumber *)longitude {
     if (latitude && longitude) {
         self.currentLatitude = latitude;
         self.currentLongitude = longitude;
     }
 }
 
-- (NSString*) formatValue:(double) value {
+- (NSString *)formatValue:(double)value {
     if (value > 100.0) {
         return [NSString stringWithFormat: @"%.0f", value];
     }
@@ -809,7 +787,7 @@
     }
 }
 
-- (void) updateStatusBar {
+- (void)updateStatusBar {
     if (self.statusBar && self.isValid) {
         float timeSinceStart = MAX(0.0, -[self.statusBarStartTime timeIntervalSinceNow] - self.nonValidDuration);
         double progress = timeSinceStart / minimumNumberOfSeconds;
@@ -825,10 +803,10 @@
 }
 
 // for subclasses
-- (void) minimumThresholdReached {
+- (void)minimumThresholdReached {
 }
 
-- (IBAction) unitButtonPushed:(id)sender {
+- (IBAction)unitButtonPushed:(id)sender {
     self.windSpeedUnit = [UnitUtil nextWindSpeedUnit:self.windSpeedUnit];
     [Property setAsInteger:[NSNumber numberWithInt:self.windSpeedUnit] forKey:KEY_WIND_SPEED_UNIT];
 
@@ -842,8 +820,7 @@
 
 /**** FACEBOOK SHARING ****/
 
-- (void) promptForFacebookSharing {
-    
+- (void)promptForFacebookSharing {
     if (self.shareToFacebook && self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F) && [ServerUploadManager sharedInstance].hasReachability && [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:YES]) {
         
         if ([Property isMixpanelEnabled]) {
@@ -880,7 +857,7 @@
     }
 }
 
-- (void) startShareActivityIndicator {
+- (void)startShareActivityIndicator {
     if (self.shareDialog && self.customDimmingView) {
         [self.shareDialog.textView resignFirstResponder];
         self.shareDialog.hidden = YES;
@@ -896,7 +873,7 @@
     }
 }
 
-- (void) shareSuccessful:(BOOL)hasMessage numberOfPhotos:(NSInteger)numberOfPhotos {
+- (void)shareSuccessful:(BOOL)hasMessage numberOfPhotos:(NSInteger)numberOfPhotos {
     [self dismissShareDialog];
 
     if ([Property isMixpanelEnabled]) {
@@ -904,7 +881,7 @@
     }
 }
 
-- (void) shareFailure {
+- (void)shareFailure {
     [self dismissShareDialog];
     
     if ([Property isMixpanelEnabled]) {
@@ -912,7 +889,7 @@
     }
 }
 
-- (void) shareCancelled {
+- (void)shareCancelled {
     [self dismissShareDialog];
 
     if ([Property isMixpanelEnabled]) {
@@ -920,7 +897,7 @@
     }
 }
 
-- (void) dismissShareDialog {
+- (void)dismissShareDialog {
     [self.shareDialog.textView resignFirstResponder];
     [UIView animateWithDuration:0.2 animations:^{
         self.customDimmingView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.0];
@@ -934,31 +911,31 @@
     }];
 }
 
-- (void) presentViewControllerFromShareDialog:(UIViewController *)viewController {
+- (void)presentViewControllerFromShareDialog:(UIViewController *)viewController {
     [self presentViewController:viewController animated:YES completion:nil];
 }
 
-- (void) dismissViewControllerFromShareDialog {
+- (void)dismissViewControllerFromShareDialog {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (double) shareAvgSpeed {
+- (double)shareAvgSpeed {
     return [UnitUtil displayWindSpeedFromDouble:[self.averageLabelCurrentValue doubleValue] unit:self.windSpeedUnit];
 }
 
-- (double) shareMaxSpeed {
+- (double)shareMaxSpeed {
     return [UnitUtil displayWindSpeedFromDouble:[self.maxLabelCurrentValue doubleValue] unit:self.windSpeedUnit];
 }
 
-- (NSNumber*) shareLatitude {
+- (NSNumber *)shareLatitude {
     return self.currentLatitude;
 }
 
-- (NSNumber*) shareLongitude {
+- (NSNumber *)shareLongitude {
     return self.currentLongitude;
 }
 
-- (NSString*) shareUnit {
+- (NSString *)shareUnit {
     return [UnitUtil englishDisplayNameForWindSpeedUnit:self.windSpeedUnit];
 }
 

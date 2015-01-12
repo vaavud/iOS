@@ -38,7 +38,7 @@
     "<p><span>Reducerande utrustning</span></p>"
     "</div>"
     "<div>"
-    "<p><span>Dette är spridere eller utrustning som efter provning placerats i någon af klasserna 50%, 75% eller 90% avdriftsreduktion, hvilket medför betydeligt kortere skyddavstand.</span></p>"
+    "<p><span>Detta är spridare eller utrustning som efter provning placerats i någon av klasserna 50%, 75% eller 90% avdriftsreduktion, vilket medför betydligt kortare skyddsavstand.</span></p>"
     "</div>"
     "<div class='heading'>"
     "<p><span>Dosis</span></p>"

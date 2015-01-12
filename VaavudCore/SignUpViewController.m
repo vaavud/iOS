@@ -208,7 +208,7 @@ BOOL didShowFeedback;
     [self facebookButtonPushed:sender password:nil];
 }
 
-- (void)facebookButtonPushed:(id)sender password:(NSString*)password {
+- (void)facebookButtonPushed:(id)sender password:(NSString *)password {
     [self.activityIndicator startAnimating];
     [self.facebookButton setTitle:@"" forState:UIControlStateNormal];
 
@@ -230,8 +230,10 @@ BOOL didShowFeedback;
     }
 }
 
-- (void)facebookAuthenticationFailure:(enum AuthenticationResponseType)response message:(NSString*)message displayFeedback:(BOOL)displayFeedback {
-    NSLog(@"[SignUpViewController] error registering user, response=%u, message=%@, displayFeedback=%@", response, message, (displayFeedback ? @"YES" : @"NO"));
+- (void)facebookAuthenticationFailure:(enum AuthenticationResponseType)response
+                              message:(NSString *)message
+                      displayFeedback:(BOOL)displayFeedback {
+    NSLog(@"[SignUpViewController] error registering user, response=%lu, message=%@, displayFeedback=%@", response, message, (displayFeedback ? @"YES" : @"NO"));
     
     [self.activityIndicator stopAnimating];
     [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
@@ -425,7 +427,7 @@ BOOL didShowFeedback;
 }
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    GuidedTextField *guidedTextField = (GuidedTextField*) textField;
+    GuidedTextField *guidedTextField = (GuidedTextField *) textField;
     guidedTextField.isFirstEdit = YES;
     return YES;
 }

@@ -24,7 +24,7 @@
 
 @implementation ShareDialog
 
-- (id) initWithCoder:(NSCoder*)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.stagingFacebookImage = 0;
@@ -35,8 +35,7 @@
     return self;
 }
 
-- (void) layoutSubviews {
-    
+- (void)layoutSubviews {
     if (!self.hasLayedOut) {
         self.hasLayedOut = YES;
         self.collectionView.dataSource = self;
@@ -59,8 +58,7 @@
     [super layoutSubviews];
 }
 
-- (IBAction) okButtonTapped:(id)sender {
-
+- (IBAction)okButtonTapped:(id)sender {
     self.shouldInitiateShare = YES;
     [self.delegate startShareActivityIndicator];
     
@@ -69,12 +67,11 @@
     }
 }
 
-- (IBAction) cancelButtonTapped:(id)sender {
+- (IBAction)cancelButtonTapped:(id)sender {
     [self.delegate shareCancelled];
 }
 
-- (IBAction) pictureButtonTapped:(id)sender {
-    
+- (IBAction)pictureButtonTapped:(id)sender {
     [self.textView resignFirstResponder];
 
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
@@ -84,8 +81,7 @@
     }
 }
 
-- (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == actionSheet.firstOtherButtonIndex) {
         [self presentImagePicker:UIImagePickerControllerSourceTypeCamera];
     }
@@ -97,7 +93,7 @@
     }
 }
 
-- (void) presentImagePicker:(UIImagePickerControllerSourceType)type {
+- (void)presentImagePicker:(UIImagePickerControllerSourceType)type {
     UIImagePickerController *imagePickController = [[UIImagePickerController alloc] init];
     imagePickController.sourceType = type;
     imagePickController.delegate = self;
@@ -105,8 +101,7 @@
     [self.delegate presentViewControllerFromShareDialog:imagePickController];
 }
 
-- (void) imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary*)info {
-
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [self.delegate dismissViewControllerFromShareDialog];
     
     // Get the UIImage from the image picker controller
@@ -179,11 +174,11 @@
     }];
 }
 
-- (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self.delegate dismissViewControllerFromShareDialog];
 }
 
-- (void) refreshPictureButton {
+- (void)refreshPictureButton {
     if (self.numberOfPictures >= 3) {
         self.pictureButton.enabled = NO;
     }
@@ -192,8 +187,7 @@
     }
 }
 
-- (void) shareToFacebook {
-    
+- (void)shareToFacebook {
     FBOpenGraphActionParams *params = [self createActionParams];
     id<FBOpenGraphAction> action = params.action;
     
@@ -206,7 +200,6 @@
     }
     
     if (self.imageUrls && self.imageUrls.count > 0) {
-        
         numberOfPhotos = self.imageUrls.count;
         
         int i = 0;
@@ -245,8 +238,7 @@
     }];
 }
 
-- (FBOpenGraphActionParams*) createActionParams {
-    
+- (FBOpenGraphActionParams *)createActionParams {
     NSString *objectName = @"wind_speed";
     
     id<FBGraphObject> object =
@@ -281,11 +273,11 @@
     return params;
 }
 
-- (NSInteger) numberOfSectionsInCollectionView:(UICollectionView*)collectionView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 
-- (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     NSInteger count = (self.imageArray ? self.imageArray.count : 0);
     //NSLog(@"[ShareDialog] Number of items: %u", count);
     return count;

@@ -10,7 +10,7 @@
 
 @implementation FormatUtil
 
-+ (NSString*) formatRelativeDate:(NSDate*) date {
++ (NSString *)formatRelativeDate:(NSDate *)date {
     double timeAgoSeconds = [date timeIntervalSinceNow];
     if (timeAgoSeconds > 0) {
         return NSLocalizedString(@"REL_TIME_FUTURE", nil);
@@ -42,7 +42,7 @@
     }
 }
 
-+ (NSString*) formatValueWithTwoDigits:(float) value {
++ (NSString *)formatValueWithTwoDigits:(float)value {
     if (round(value) >= 10) {
         return [NSString stringWithFormat: @"%.0f", value];
     }
@@ -51,7 +51,7 @@
     }
 }
 
-+ (NSString*) formatValueWithThreeDigits:(double) value {
++ (NSString *)formatValueWithThreeDigits:(double) value {
     if (round(value) >= 100.0) {
         return [NSString stringWithFormat: @"%.0f", value];
     }

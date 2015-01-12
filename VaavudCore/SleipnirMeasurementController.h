@@ -14,6 +14,6 @@
 
 @property (nonatomic) BOOL isDeviceConnected;
 
-+ (SleipnirMeasurementController*) sharedInstance;
++ (SleipnirMeasurementController *)sharedInstance;
 
 @end

@@ -14,17 +14,17 @@
 
 @protocol ShareDialogDelegate <NSObject>
 
-- (void) shareSuccessful:(BOOL)hasMessage numberOfPhotos:(NSInteger)numberOfPhotos;
-- (void) shareFailure;
-- (void) shareCancelled;
-- (void) presentViewControllerFromShareDialog:(UIViewController*)viewController;
-- (void) dismissViewControllerFromShareDialog;
-- (void) startShareActivityIndicator;
-- (double) shareAvgSpeed;
-- (double) shareMaxSpeed;
-- (NSNumber*) shareLatitude;
-- (NSNumber*) shareLongitude;
-- (NSString*) shareUnit;
+- (void)shareSuccessful:(BOOL)hasMessage numberOfPhotos:(NSInteger)numberOfPhotos;
+- (void)shareFailure;
+- (void)shareCancelled;
+- (void)presentViewControllerFromShareDialog:(UIViewController *)viewController;
+- (void)dismissViewControllerFromShareDialog;
+- (void)startShareActivityIndicator;
+- (double)shareAvgSpeed;
+- (double)shareMaxSpeed;
+- (NSNumber *)shareLatitude;
+- (NSNumber *)shareLongitude;
+- (NSString *)shareUnit;
 
 @end
 

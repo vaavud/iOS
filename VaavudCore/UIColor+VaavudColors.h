@@ -10,10 +10,10 @@
 
 @interface UIColor (VaavudColors)
 
-+ (UIColor*)vaavudBlueColor;
-+ (UIColor*)vaavudRedColor;
-+ (UIColor*)vaavudGreenColor;
-+ (UIColor*)vaavudColor;
-+ (UIColor*)vaavudGreyColor;
++ (UIColor *)vaavudBlueColor;
++ (UIColor *)vaavudRedColor;
++ (UIColor *)vaavudGreenColor;
++ (UIColor *)vaavudColor;
++ (UIColor *)vaavudGreyColor;
 
 @end

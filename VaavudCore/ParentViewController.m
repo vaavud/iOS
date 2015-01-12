@@ -27,7 +27,7 @@
     }
 }
 
-- (void)switchChildController:(UIViewController*)childViewController {
+- (void)switchChildController:(UIViewController *)childViewController {
     if (childViewController && childViewController != self.childViewController) {
         if (self.childViewController) {
             [self hideChildController:self.childViewController];
@@ -37,14 +37,14 @@
     }
 }
 
-- (void)showChildController:(UIViewController*)viewController {
+- (void)showChildController:(UIViewController *)viewController {
     viewController.view.frame = self.view.frame;
     [self addChildViewController:viewController];
     [self.view addSubview:viewController.view];
     [viewController didMoveToParentViewController:self];
 }
 
-- (void)hideChildController:(UIViewController*)viewController {
+- (void)hideChildController:(UIViewController *)viewController {
     [viewController willMoveToParentViewController:nil];
     [viewController.view removeFromSuperview];
     [viewController removeFromParentViewController];

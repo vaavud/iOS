@@ -19,7 +19,11 @@
     return self;
 }
 
--(void) setValues:(double)avgWindSpeed unit:(WindSpeedUnit)unit time:(NSDate*)time windDirection:(NSNumber*)direction directionUnit:(NSInteger)directionUnit {
+-(void)setValues:(double)avgWindSpeed
+            unit:(WindSpeedUnit)unit
+            time:(NSDate *)time
+   windDirection:(NSNumber *)direction
+   directionUnit:(NSInteger)directionUnit {
     
     if (!isnan(avgWindSpeed)) {
         self.avgWindSpeedLabel.text = [FormatUtil formatValueWithThreeDigits:[UnitUtil displayWindSpeedFromDouble:avgWindSpeed unit:unit]];
@@ -34,7 +38,6 @@
     self.timeLabel.text = [FormatUtil formatRelativeDate:time];
     
     if (direction) {
-        
         if (directionUnit == 0) {
             self.directionLabel.text = [UnitUtil displayNameForDirection:direction];
         }
@@ -52,8 +55,6 @@
         else {
             self.directionImageView.hidden = YES;
         }
-        
-        
     }
     else {
         self.directionImageView.hidden = YES;

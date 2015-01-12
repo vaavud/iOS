@@ -125,7 +125,7 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView*)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return [[self.fetchedResultsController sections] count];
 }
 
@@ -144,10 +144,11 @@
     static NSString *CellIdentifier = @"Cell";
     HistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
+    
     return cell;
 }
 
-- (void) configureCell:(HistoryTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+- (void)configureCell:(HistoryTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     MeasurementSession *session = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     if (session.latitude && session.longitude && (session.latitude != 0) && (session.longitude != 0)) {
@@ -201,7 +202,6 @@
     cell.timeLabel.text = time;
     
     if (session.windMeter && ([session.windMeter integerValue] > 1) && session.windDirection) {
-        
         if (self.directionUnit == 0) {
             cell.directionLabel.text = [UnitUtil displayNameForDirection:session.windDirection];
         }
@@ -225,7 +225,7 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView*)tableView heightForHeaderInSection:(NSInteger)section {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 36;
 }
 
@@ -246,10 +246,9 @@
         [view.contentView addSubview:subview];
 
         //NSLog(@"frame=(%f,%f,%f,%f)", subview.frame.origin.x, subview.frame.origin.y, subview.frame.size.width, subview.frame.size.height);
-
     }
     
-    id<NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    id<NSFetchedResultsSectionInfo>sectionInfo = self.fetchedResultsController.sections[section];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"dd MM yyyy"];
@@ -263,7 +262,7 @@
     [monthFormatter setDateFormat:@"MMM"];
     NSString *month = [[[monthFormatter stringFromDate:date] stringByReplacingOccurrencesOfString:@"." withString:@""] uppercaseStringWithLocale:[NSLocale currentLocale]];
 
-    HistoryTableViewSectionHeaderView *headerView = (HistoryTableViewSectionHeaderView*) [view viewWithTag:1];
+    HistoryTableViewSectionHeaderView *headerView = (HistoryTableViewSectionHeaderView *)[view viewWithTag:1];
     headerView.monthLabel.text = month;
     headerView.dayLabel.text = day;
     
@@ -306,7 +305,6 @@
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    
     if (!self.isObservingModelChanges) {
         return;
     }
@@ -316,8 +314,11 @@
     self.isTableUpdating = YES;
 }
 
-- (void)controller:(NSFetchedResultsController*)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type {
-
+- (void)controller:(NSFetchedResultsController *)controller
+  didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex
+     forChangeType:(NSFetchedResultsChangeType)type {
+    
     if (!self.isObservingModelChanges) {
         return;
     }
@@ -341,7 +342,11 @@
     }
 }
 
-- (void) controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath {
+- (void) controller:(NSFetchedResultsController *)controller
+    didChangeObject:(id)anObject
+        atIndexPath:(NSIndexPath *)indexPath
+      forChangeType:(NSFetchedResultsChangeType)type
+       newIndexPath:(NSIndexPath *)newIndexPath {
 
     if (!self.isObservingModelChanges) {
         return;
