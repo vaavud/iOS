@@ -52,7 +52,7 @@
         
         // check memmory allocation
         if (ioData == NULL || A.realp == NULL || A.imagp == NULL) {
-            printf("\nmalloc failed to allocate memory for  the real FFT"
+            printf("\nmalloc failed to allocate memory for the real FFT"
                    "section of the sample.\n");
             exit(0);
         }
@@ -61,7 +61,7 @@
          * availability. */
         setupReal = vDSP_create_fftsetup(log2n, FFT_RADIX2);
         if (setupReal == NULL) {
-            printf("\nFFT_Setup failed to allocate enough memory  for"
+            printf("\nFFT_Setup failed to allocate enough memory for"
                    "the real FFT.\n");
             exit(0);
         }
@@ -101,7 +101,7 @@
     /* Carry out a Forward FFT transform. */
     vDSP_fft_zrip(setupReal, &A, stride, log2n, FFT_FORWARD);
     
-    /* Scale it by  2n. */
+    /* Scale it by 2n. */
     scale = (float) 1.0 / (2 * n);
     
     vDSP_vsmul(A.realp, stride, &scale, A.realp, stride, nOver2);
