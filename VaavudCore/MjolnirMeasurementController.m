@@ -11,7 +11,7 @@
 #import <CoreMotion/CoreMotion.h>
 #import <CoreData/CoreData.h>
 #import "VaavudMagneticFieldDataManager.h"
-#import "vaavudFFT.h"
+#import "VaavudFFT.h"
 #import "Property+Util.h"
 
 @interface MjolnirMeasurementController () {}
@@ -33,7 +33,7 @@
 @property (nonatomic) int fftLength;
 @property (nonatomic) int fftDataLength;
 
-@property (nonatomic, strong) vaavudFFT *FFTEngine;
+@property (nonatomic, strong) VaavudFFT *FFTEngine;
 @property (nonatomic) int magneticFieldUpdatesCounter;
 @property (nonatomic) NSInteger isValidPercent;
 @property (nonatomic) BOOL iPhone4Algo;
@@ -65,7 +65,7 @@
         self.fftLength = [[Property getAsInteger:KEY_FFT_LENGTH] intValue];
         self.fftDataLength = [[Property getAsInteger:KEY_FFT_DATA_LENGTH] intValue];
         self.fftPeakMagnitudeMinForValid = [[Property getAsDouble:KEY_FFT_MAG_MIN] doubleValue];
-        self.FFTEngine = [[vaavudFFT alloc] initFFTLength: self.fftLength andFftDataLength: self.fftDataLength];
+        self.FFTEngine = [[VaavudFFT alloc] initFFTLength: self.fftLength andFftDataLength: self.fftDataLength];
         
         NSLog(@"[VaavudCoreController] Using algorithm parameters: iPhone4Algo=%d, frequencyStart=%f, frequencyFactor=%f, fftLength=%d, fftDataLength=%d, fft_MagnitudeMin=%f", self.iPhone4Algo, self.frequencyStart, self.frequencyFactor, self.fftLength, self.fftDataLength, self.fftPeakMagnitudeMinForValid);
     }

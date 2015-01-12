@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface vaavudFFT : NSObject
+@interface VaavudFFT : NSObject
 
 - (id)initFFTLength:(int)N andFftDataLength:(int)fftDataLengthIn;
-- (NSArray *)doFFT: (NSArray *)FFTin;
+- (NSArray *)doFFT:(NSArray *)FFTin;
 
 @end

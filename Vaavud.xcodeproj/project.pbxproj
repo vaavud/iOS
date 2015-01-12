@@ -12,7 +12,7 @@
 		A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A086025EA7704C458175CADF /* libPods.a */; };
 		D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */; };
 		D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
-		D71BE13717439AA000B38E34 /* vaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* vaavudFFT.m */; };
+		D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* VaavudFFT.m */; };
 		D7497E941A418E5F0092F045 /* SleipnirCalibrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497E931A418E5F0092F045 /* SleipnirCalibrationViewController.m */; };
 		D7497E951A418E5F0092F045 /* SleipnirCalibrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497E931A418E5F0092F045 /* SleipnirCalibrationViewController.m */; };
 		D7497EA21A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EA11A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m */; };
@@ -239,7 +239,7 @@
 		E96FB4F019A353B500CB7306 /* MjolnirMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* MjolnirMeasurementController.m */; };
 		E96FB4F119A353B500CB7306 /* VaavudMagneticFieldDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */; };
 		E96FB4F219A353B500CB7306 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */; };
-		E96FB4F319A353B500CB7306 /* vaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* vaavudFFT.m */; };
+		E96FB4F319A353B500CB7306 /* VaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* VaavudFFT.m */; };
 		E96FB4F419A353B500CB7306 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950CB195B1DCE00E9EF02 /* ImageUtil.m */; };
 		E96FB4F519A353B500CB7306 /* DismissOnTouchUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91D421A198F7E4900106E15 /* DismissOnTouchUIView.m */; };
 		E96FB4F619A353B500CB7306 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
@@ -614,8 +614,8 @@
 		D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
 		D7092E881748FE9C00993235 /* VaavudDynamicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudDynamicsController.h; sourceTree = "<group>"; };
 		D7092E891748FE9C00993235 /* VaavudDynamicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudDynamicsController.m; sourceTree = "<group>"; };
-		D71BE13517439AA000B38E34 /* vaavudFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vaavudFFT.h; sourceTree = "<group>"; };
-		D71BE13617439AA000B38E34 /* vaavudFFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = vaavudFFT.m; sourceTree = "<group>"; };
+		D71BE13517439AA000B38E34 /* VaavudFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudFFT.h; sourceTree = "<group>"; };
+		D71BE13617439AA000B38E34 /* VaavudFFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudFFT.m; sourceTree = "<group>"; };
 		D72D7A16190685BD00DCEC72 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D72D7A17190685BD00DCEC72 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D72D7A191906A04800DCEC72 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1683,8 +1683,8 @@
 				D7A4F1F1173A8FAB00D1ACEE /* MjolnirMeasurementController.m */,
 				D7092E881748FE9C00993235 /* VaavudDynamicsController.h */,
 				D7092E891748FE9C00993235 /* VaavudDynamicsController.m */,
-				D71BE13517439AA000B38E34 /* vaavudFFT.h */,
-				D71BE13617439AA000B38E34 /* vaavudFFT.m */,
+				D71BE13517439AA000B38E34 /* VaavudFFT.h */,
+				D71BE13617439AA000B38E34 /* VaavudFFT.m */,
 				D7C860F8173B061E005E9946 /* VaavudMagneticFieldDataManager.h */,
 				D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */,
 			);
@@ -2623,7 +2623,7 @@
 				E9C7799319AB8DE4000A6921 /* AgriSettingsNavigationController.m in Sources */,
 				E9D9044D19C1971000ABA9F4 /* WindMeasurementController.m in Sources */,
 				E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */,
-				D71BE13717439AA000B38E34 /* vaavudFFT.m in Sources */,
+				D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */,
 				E9B950CC195B1DCE00E9EF02 /* ImageUtil.m in Sources */,
 				E91D421B198F7E4900106E15 /* DismissOnTouchUIView.m in Sources */,
 				D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */,
@@ -2766,7 +2766,7 @@
 				E96FB4F119A353B500CB7306 /* VaavudMagneticFieldDataManager.m in Sources */,
 				E9C7799419AB8DE4000A6921 /* AgriSettingsNavigationController.m in Sources */,
 				E96FB4F219A353B500CB7306 /* SMCalloutView.m in Sources */,
-				E96FB4F319A353B500CB7306 /* vaavudFFT.m in Sources */,
+				E96FB4F319A353B500CB7306 /* VaavudFFT.m in Sources */,
 				E96FB4F419A353B500CB7306 /* ImageUtil.m in Sources */,
 				E96FB4F519A353B500CB7306 /* DismissOnTouchUIView.m in Sources */,
 				E96FB4F619A353B500CB7306 /* VaavudDynamicsController.m in Sources */,

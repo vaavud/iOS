@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
-#import "vaavudFFT.h"
+#import "VaavudFFT.h"
 #include <Accelerate/Accelerate.h>
 
-@interface vaavudFFT ()
+@interface VaavudFFT ()
 
 - (float)pWelchWindow:(int)i;
 
 @end
 
-@implementation vaavudFFT {
+@implementation VaavudFFT {
     COMPLEX_SPLIT   A;
     FFTSetup        setupReal;
     uint32_t        log2n;
@@ -45,10 +45,10 @@
         //printf("1D real FFT of length log2 ( %d ) = %d\n\n", n, log2n);
         
         // Allocate memmory
-        A.realp = (float *) malloc(nOver2 * sizeof(float));
-        A.imagp = (float *) malloc(nOver2 * sizeof(float));
+        A.realp = (float *)malloc(nOver2 * sizeof(float));
+        A.imagp = (float *)malloc(nOver2 * sizeof(float));
         
-        ioData= (float*) malloc(n*sizeof(float));
+        ioData= (float *)malloc(n*sizeof(float));
         
         // check memmory allocation
         if (ioData == NULL || A.realp == NULL || A.imagp == NULL) {
