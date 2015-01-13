@@ -234,6 +234,14 @@ SHARED_INSTANCE
     }
 }
 
+- (void)updateDirectionLocal:(NSNumber *)direction {
+    if (direction) {
+        if ([self.delegate respondsToSelector:@selector(updateDirectionLocal:)]) {
+            [self.delegate updateDirectionLocal:direction];
+        }
+    }
+}
+
 - (void)changedValidity:(BOOL)isValid dynamicsIsValid:(BOOL)dynamicsIsValid {
     MeasurementSession *measurementSession = [self getLatestMeasurementSession];
     if (!isValid && self.wasValid && measurementSession && [measurementSession.measuring boolValue]) {
@@ -267,13 +275,13 @@ SHARED_INSTANCE
     }
 }
 
-- (void) deviceDisconnected:(enum WindMeterDeviceType)device {
+- (void)deviceDisconnected:(enum WindMeterDeviceType)device {
     if ([self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
         [self.delegate deviceDisconnected:device];
     }
 }
 
-- (void) measuringStoppedByModel {
+- (void)measuringStoppedByModel {
     if ([self.delegate respondsToSelector:@selector(measuringStoppedByModel)]) {
         [self.delegate measuringStoppedByModel];
     }
