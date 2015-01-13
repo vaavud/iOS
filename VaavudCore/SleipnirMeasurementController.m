@@ -141,7 +141,6 @@ SHARED_INSTANCE
 - (void)newWindDirection:(NSNumber *)windDirection {
     // make sure we don't do anything with new data after the user has clicked stop
     if (self.isStarted && windDirection) {
-
         self.direction = windDirection;
         
         if ([self.delegate respondsToSelector:@selector(updateDirection:)]) {
@@ -151,10 +150,8 @@ SHARED_INSTANCE
 }
 
 - (void) newWindAngleLocal:(NSNumber *)angle {
-    
     if (self.isStarted && angle) {
-        
-        if (self.delegate && [self.delegate respondsToSelector:@selector(updateDirectionLocal:)]) {
+        if ([self.delegate respondsToSelector:@selector(updateDirectionLocal:)]) {
             [self.delegate updateDirectionLocal:angle];
         }
     }

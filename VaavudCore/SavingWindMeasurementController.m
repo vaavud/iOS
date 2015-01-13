@@ -228,7 +228,7 @@ SHARED_INSTANCE
     if (direction) {
         self.currentDirection = direction;
         
-        if (self.delegate && [self.delegate respondsToSelector:@selector(updateDirection:)]) {
+        if ([self.delegate respondsToSelector:@selector(updateDirection:)]) {
             [self.delegate updateDirection:direction];
         }
     }

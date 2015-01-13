@@ -577,9 +577,8 @@
     [self updateDirectionFromCurrentValue];
 }
 
-- (void) updateDirectionLocal:(NSNumber *)direction {
+- (void)updateDirectionLocal:(NSNumber *)direction {
     if (self.directionImageView) {
-        
         self.directionImageView.image = [UIImage imageNamed:@"wind_arrow.png"];
         if (self.directionImageView.image) {
             self.directionImageView.transform = CGAffineTransformMakeRotation([direction doubleValue]/180 * M_PI);
@@ -590,8 +589,6 @@
         }
     }
 }
-
-
 
 /**** Sleipnir Measurement ****/
 
