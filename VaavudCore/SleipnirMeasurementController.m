@@ -150,4 +150,15 @@ SHARED_INSTANCE
     }
 }
 
+- (void) newWindAngleLocal:(NSNumber *)angle {
+    
+    if (self.isStarted && angle) {
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(updateDirectionLocal:)]) {
+            [self.delegate updateDirectionLocal:angle];
+        }
+    }
+}
+
+
 @end
