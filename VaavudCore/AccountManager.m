@@ -169,8 +169,8 @@ BOOL isDoingLogout = NO;
 
 - (void)facebookSessionStateChanged:(FBSession *)session
                               state:(FBSessionState)state
-                              error:(NSError*)error
-                           password:(NSString*)password
+                              error:(NSError *)error
+                           password:(NSString *)password
                              action:(enum AuthenticationActionType)action
                             success:(void(^)(enum AuthenticationResponseType response))success
                             failure:(void(^)(enum AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {

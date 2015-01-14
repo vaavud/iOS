@@ -108,7 +108,7 @@
 
 - (IBAction)nextButtonClicked:(id)sender {
     if (self.measurementSession) {
-        if (self.latestDirection || AGRI_DEBUG_ALWAYS_ENABLE_NEXT) {
+        if (self.latestDirection) {
             self.measurementSession.windDirection = self.latestDirection;
             
             NSLog(@"[AgriManualDirectionViewController] Next with direction=%@", self.measurementSession.windDirection);
@@ -121,7 +121,7 @@
     UIViewController *controller = [segue destinationViewController];
     
     if ([controller conformsToProtocol:@protocol(MeasurementSessionConsumer)]) {
-        id<MeasurementSessionConsumer> consumer = (id<MeasurementSessionConsumer>)controller;
+        id<MeasurementSessionConsumer>consumer = (id<MeasurementSessionConsumer>)controller;
         [consumer setMeasurementSession:self.measurementSession];
         [consumer setHasTemperature:self.hasTemperature];
         [consumer setHasDirection:self.hasDirection];

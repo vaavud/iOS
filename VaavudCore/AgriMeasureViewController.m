@@ -15,8 +15,8 @@
 
 @interface AgriMeasureViewController ()
 
-@property (nonatomic, weak) IBOutlet UILabel *windSpeedHeadingLabel;
-@property (nonatomic, weak) IBOutlet UILabel *averageLabel;
+@property (weak, nonatomic) IBOutlet UILabel *windSpeedHeadingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *averageLabel;
 @property (weak, nonatomic) IBOutlet UILabel *temperatureHeadingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *temperatureLabel;
 @property (weak, nonatomic) IBOutlet UILabel *temperatureUnitLabel;
@@ -24,9 +24,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *directionHeadingLabel;
 @property (weak, nonatomic) IBOutlet UILabel *directionLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *directionImageView;
-@property (nonatomic, weak) IBOutlet UILabel *informationTextLabel;
-@property (nonatomic, weak) IBOutlet UIProgressView *statusBar;
-@property (nonatomic, weak) IBOutlet UIButton *startStopButton;
+@property (weak, nonatomic) IBOutlet UILabel *informationTextLabel;
+@property (weak, nonatomic) IBOutlet UIProgressView *statusBar;
+@property (weak, nonatomic) IBOutlet UIButton *startStopButton;
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (weak, nonatomic) IBOutlet UIView *graphContainer;
 
@@ -51,8 +51,12 @@
     [self.nextButton setTitle:NSLocalizedString(@"BUTTON_NEXT", nil) forState:UIControlStateNormal];
     self.nextButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.nextButton.layer.masksToBounds = YES;
-    self.nextButton.hidden = YES;
-    self.nextButton.enabled = NO;
+
+    self.statusBar.layer.cornerRadius = BUTTON_CORNER_RADIUS;
+    self.statusBar.layer.masksToBounds = YES;
+    
+    self.statusBar.hidden = YES;
+    [self hideNextButton];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -74,30 +78,46 @@
 }
 
 - (void)reset {
+    NSLog(@"sub reset");
     [super reset];
     self.measurementSession = nil;
-    self.nextButton.enabled = !self.buttonShowsStart;
-    if (!self.buttonShowsStart) {
-        self.nextButton.hidden = NO;
-    } else {
-        self.nextButton.hidden = YES;
-    }
+    self.statusBar.hidden = YES;
+    [self hideNextButton];
+}
+
+- (void)start {
+    NSLog(@"sub start");
+    [super start];
+    self.statusBar.hidden = NO;
+    [self hideNextButton];
+}
+
+- (void)stop {
+    NSLog(@"sub stop");
+    [super stop];
+    self.statusBar.hidden = YES;
+    [self hideNextButton];
 }
 
 - (IBAction)startStopButtonPushed:(id)sender {
     self.measurementSession = nil;
     [super startStopButtonPushed:sender];
-    self.nextButton.enabled = !self.buttonShowsStart;
-    if (!self.buttonShowsStart) {
-        self.nextButton.hidden = NO;
-    } else {
-        self.nextButton.hidden = YES;
-    }
-    self.nextAllowed = AGRI_DEBUG_ALWAYS_ENABLE_NEXT;
 }
 
 - (void)minimumThresholdReached {
     self.nextAllowed = YES;
+    self.statusBar.hidden = YES;
+    self.nextButton.hidden = NO;
+}
+
+- (void)hideNextButton {
+    if ([Property getAsBoolean:KEY_AGRI_TEST_MODE defaultValue:NO]) {
+        self.nextButton.hidden = NO;
+        self.statusBar.hidden = YES;
+    }
+    else {
+        self.nextButton.hidden = YES;
+    }
 }
 
 - (void)measurementStopped:(MeasurementSession *)measurementSession {
@@ -137,7 +157,7 @@
     UIViewController *controller = [segue destinationViewController];
     
     if ([controller conformsToProtocol:@protocol(MeasurementSessionConsumer)]) {
-        id<MeasurementSessionConsumer> consumer = (id<MeasurementSessionConsumer>)controller;
+        id<MeasurementSessionConsumer>consumer = (id<MeasurementSessionConsumer>)controller;
         [consumer setMeasurementSession:self.measurementSession];
         [consumer setHasTemperature:self.hasTemperature];
         [consumer setHasDirection:self.hasDirection];

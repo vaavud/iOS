@@ -58,6 +58,10 @@ static NSString * const KEY_AGRI_DEFAULT_DOSE = @"agriDefaultDose";
 static NSString * const KEY_AGRI_DEFAULT_BOOM_HEIGHT = @"agriDefaultBoomHeight";
 static NSString * const KEY_AGRI_DEFAULT_SPRAY_QUALITY = @"agriDefaultSprayQuality";
 
+// This is new
+static NSString * const KEY_AGRI_TEST_MODE = @"testMode";
+
+
 @interface Property (Util)
 
 + (NSString *)getAsString:(NSString *)name;

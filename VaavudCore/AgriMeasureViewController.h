@@ -6,15 +6,13 @@
 //  Copyright (c) 2014 Andreas Okholm. All rights reserved.
 //
 
-#define AGRI_DEBUG_ALWAYS_ENABLE_NEXT YES
-
 #import <UIKit/UIKit.h>
 #import "MeasureViewController.h"
 
 @protocol MeasurementSessionConsumer
-- (void) setMeasurementSession:(MeasurementSession *)session;
-- (void) setHasTemperature:(BOOL)temperature;
-- (void) setHasDirection:(BOOL)direction;
+- (void)setMeasurementSession:(MeasurementSession *)session;
+- (void)setHasTemperature:(BOOL)temperature;
+- (void)setHasDirection:(BOOL)direction;
 @end
 
 @interface AgriMeasureViewController : MeasureViewController

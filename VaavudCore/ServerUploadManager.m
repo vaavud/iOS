@@ -856,8 +856,11 @@ SHARED_INSTANCE
     }];
 }
 
-- (void)deleteMeasurementSession:(NSString*)measurementSessionUuid retry:(int)retryCount success:(void(^)())success failure:(void(^)(NSError *error))failure {
-
+- (void)deleteMeasurementSession:(NSString *)measurementSessionUuid
+                           retry:(int)retryCount
+                         success:(void(^)())success
+                         failure:(void(^)(NSError *error))failure {
+    
     if (!measurementSessionUuid || measurementSessionUuid.length == 0) {
         NSLog(@"[ServerUploadManager] ERROR: No measurement session uuid calling delete measurement session");
         return;

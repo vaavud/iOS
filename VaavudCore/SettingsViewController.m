@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) UIWebView *webView;
 @property (nonatomic, strong) UISwitch *facebookSharingSwitch;
+@property (nonatomic, strong) UISwitch *testModeSwitch;
 
 @end
 
@@ -135,7 +136,7 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
     UIViewController *nextViewController = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
-        ((RegisterNavigationController*) self.navigationController).registerDelegate = (AppDelegate*) [UIApplication sharedApplication].delegate;
+        ((RegisterNavigationController *)self.navigationController).registerDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
     }
     [self.navigationController pushViewController:nextViewController animated:YES];
 }
@@ -145,7 +146,11 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+#ifdef AGRI
+    return 8;
+#elif CORE
     return 7;
+#endif
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -220,14 +225,34 @@
         cell.detailTextLabel.text = nil;
         cell.accessoryView = nil;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-    } else if (indexPath.item == 6) {
+    }
+    else if (indexPath.item == 6) {
         cell = [tableView dequeueReusableCellWithIdentifier:@"settingsCell" forIndexPath:indexPath];
         cell.textLabel.text = NSLocalizedString(@"CALIBRATE_SLEIPNIR", nil);
         cell.detailTextLabel.text = nil;
         cell.accessoryView = nil;
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     }
-    
+    else if (indexPath.item == 7) {
+        cell = [tableView dequeueReusableCellWithIdentifier:@"switchCell"];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"switchCell"];
+        }
+
+        if (!self.testModeSwitch) {
+            self.testModeSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
+            self.testModeSwitch.on = [Property getAsBoolean:KEY_AGRI_TEST_MODE defaultValue:NO];
+            [self.testModeSwitch addTarget:self action:@selector(testModeValueChanged:) forControlEvents:UIControlEventValueChanged];
+        }
+        
+        cell.textLabel.text = NSLocalizedString(@"TOGGLE_TEST_MODE", nil);
+        cell.detailTextLabel.text = NSLocalizedString(@"CONTINUE_WITHOUT_WAITING_60_SEC", nil);
+        cell.accessoryView = self.testModeSwitch;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = [UIColor colorWithWhite:248.0/255.0 alpha:1.0];
+    }
+
     cell.textLabel.textColor = [UIColor darkGrayColor];
 
     return cell;
@@ -294,6 +319,13 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     return [UIView new];
+}
+
+- (IBAction)testModeValueChanged:(UISwitch *)sender {
+    [Property setAsBoolean:self.testModeSwitch.on forKey:KEY_AGRI_TEST_MODE];
+    NSLog(@"test mode value changed");
+    
+//    [[Mixpanel sharedInstance] registerSuperProperties:@{@"Test mode" : (self.testModeSwitch.on ? @"true" : @"false")}];
 }
 
 - (IBAction)facebookSharingValueChanged:(UISwitch *)sender {

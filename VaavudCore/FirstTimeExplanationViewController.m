@@ -78,7 +78,7 @@
     }
 }
 
-- (void)appDidBecomeActive:(NSNotification*) notification {
+- (void)appDidBecomeActive:(NSNotification *)notification {
     //NSLog(@"appDidBecomeActive, hasClickedBuy=%@, currentPageId=%u", self.hasClickedBuy ? @"YES" : @"NO", self.pageId);
     if (self.hasClickedBuy && self.pageId == 4) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];

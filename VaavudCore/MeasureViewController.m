@@ -5,7 +5,7 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
-#define minimumNumberOfSeconds 60
+#define minimumNumberOfSeconds 10
 #define DISMISS_NOTIFICATION_AFTER 2.0
 
 #import "MeasureViewController.h"
@@ -60,12 +60,13 @@
 
 @property (nonatomic) BOOL useSleipnir;
 @property (nonatomic, strong) UIAlertView *notificationView;
-@property (nonatomic, strong) UIAlertController* notificationAlertViewController;
+@property (nonatomic, strong) UIAlertController *notificationAlertViewController;
 @property (nonatomic, strong) NSTimer *notificationTimer;
 
 @end
 
-@implementation MeasureViewController {}
+@implementation MeasureViewController
+
 
 /**** Storyboard Properties Specifiable by Subclasses ****/
 
@@ -182,18 +183,18 @@
     }
     
     // Set correct font text colors
-    UIColor *vaavudBlueUIcolor = [UIColor vaavudColor];
+    UIColor *vaavudUiColor = [UIColor vaavudColor];
     
     if (self.actualLabel) {
-        self.actualLabel.textColor = vaavudBlueUIcolor;
+        self.actualLabel.textColor = vaavudUiColor;
     }
     
     if (self.maxLabel) {
-        self.maxLabel.textColor = vaavudBlueUIcolor;
+        self.maxLabel.textColor = vaavudUiColor;
     }
     
     if (self.unitButton) {
-        [self.unitButton setTitleColor:vaavudBlueUIcolor forState:UIControlStateNormal];
+        [self.unitButton setTitleColor:vaavudUiColor forState:UIControlStateNormal];
     }
     
     if (self.directionImageView) {
@@ -201,14 +202,14 @@
     }
     
     if (self.statusBar) {
-        self.statusBar.progressTintColor = vaavudBlueUIcolor;
+        self.statusBar.progressTintColor = vaavudUiColor;
     }
     
     self.buttonShowsStart = YES;
     
     if (self.startStopButton) {
         [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
-        self.startStopButton.backgroundColor = vaavudBlueUIcolor;
+        self.startStopButton.backgroundColor = vaavudUiColor;
         self.startStopButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
         self.startStopButton.layer.masksToBounds = YES;
     }
@@ -276,6 +277,8 @@
 }
 
 - (void)reset {
+    NSLog(@"super reset");
+
     if (!self.buttonShowsStart) {
         [self stop];
     }
@@ -307,21 +310,25 @@
 /**** Common Start/Stop Measuring ****/
 
 - (IBAction)startStopButtonPushed:(id)sender {
+    NSLog(@"super startStopButtonPushed");
+
     if (self.buttonShowsStart) {
-        [self startWithUITracking:YES];
+        [self start];
     }
     else {
-        [self stopWithUITracking:YES action:@"Button"];
+        [self stop];
     }
 }
 
 // for subclasses
 - (void)start {
+    NSLog(@"super start");
     [self startWithUITracking:YES];
 }
 
 // for subclasses
 - (void)stop {
+    NSLog(@"super stop");
     [self stopWithUITracking:YES action:@"Button"];
 }
 
@@ -330,6 +337,7 @@
 }
 
 - (void)startWithUITracking:(BOOL)uiTracking {
+    NSLog(@"super startWithUITracking");
     if (!self.buttonShowsStart) {
         // already stopped
         return;
@@ -430,7 +438,8 @@
 }
 
 - (void)stopWithUITracking:(BOOL)uiTracking action:(NSString *)action {
-    
+    NSLog(@"super stopWithUITracking");
+
     if (self.buttonShowsStart) {
         // already stopped
         return;
@@ -479,9 +488,7 @@
     // this will only be false if we were stopped by the model (e.g. measurement deleted while measuring)
     if (uiTracking) {
         // Mixpanel tracking...
-        
         if ([Property isMixpanelEnabled]) {
-            
             Mixpanel *mixpanel = [Mixpanel sharedInstance];
             [MixpanelUtil updateMeasurementProperties:NO];
             
@@ -506,7 +513,7 @@
             NSLog(@"[VaavudCoreController] There is a pending x-success callback: %@", appDelegate.xCallbackSuccess);
             
             // TODO: this will return to the caller too quickly before we're fully uploaded to own servers
-            NSString* callbackURL = [NSString stringWithFormat:@"%@?windSpeedAvg=%@&windSpeedMax=%@", appDelegate.xCallbackSuccess, self.averageLabelCurrentValue, self.maxLabelCurrentValue];
+            NSString *callbackURL = [NSString stringWithFormat:@"%@?windSpeedAvg=%@&windSpeedMax=%@", appDelegate.xCallbackSuccess, self.averageLabelCurrentValue, self.maxLabelCurrentValue];
             appDelegate.xCallbackSuccess = nil;
             
             NSLog(@"[VaavudCoreController] Trying to open callback URL: %@", callbackURL);
@@ -526,7 +533,7 @@
 }
 
 // for subclasses
-- (void)measurementStopped:(MeasurementSession*)measurementSession {
+- (void)measurementStopped:(MeasurementSession *)measurementSession {
 }
 
 /*
@@ -543,7 +550,7 @@
     if (self.graphContainer) {
         [self destroyGraphView];
         
-        self.graphView = [[GraphView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.graphContainer.frame.size.width, self.graphContainer.frame.size.height) windSpeedUnit:self.windSpeedUnit];
+        self.graphView = [[GraphView alloc] initWithFrame:self.graphContainer.bounds windSpeedUnit:self.windSpeedUnit];
         self.graphView.autoresizesSubviews = YES;
         self.graphView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
@@ -601,7 +608,6 @@
 - (void)deviceConnected:(enum WindMeterDeviceType)device {
     if (device == SleipnirWindMeterDeviceType) {
         if (!self.useSleipnir && !self.buttonShowsStart) {
-            
             // measurement with Mjolnir is in progress when Sleipnir is plugged in, so stop it
             [self stopWithUITracking:NO action:@"Plug"];
         }
