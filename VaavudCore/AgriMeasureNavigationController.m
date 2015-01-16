@@ -14,12 +14,12 @@
 
 @implementation AgriMeasureNavigationController
 
-- (void) awakeFromNib {
+- (void)awakeFromNib {
     [super awakeFromNib];
     self.tabBarItem.title = NSLocalizedString(@"TAB_MEASURE", nil);
 }
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
 }
 

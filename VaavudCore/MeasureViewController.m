@@ -5,7 +5,6 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
-#define minimumNumberOfSeconds 10
 #define DISMISS_NOTIFICATION_AFTER 2.0
 
 #import "MeasureViewController.h"
@@ -142,6 +141,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.minimumNumberOfSeconds = SECONDS_REQUIRED;
 
     self.windSpeedUnit = -1; // make sure windSpeedUnit is updated in viewWillAppear by setting it to an invalid value
     self.directionUnit = -1;
@@ -809,7 +810,7 @@
 - (void)updateStatusBar {
     if (self.statusBar && self.isValid) {
         float timeSinceStart = MAX(0.0, -[self.statusBarStartTime timeIntervalSinceNow] - self.nonValidDuration);
-        double progress = timeSinceStart / minimumNumberOfSeconds;
+        double progress = timeSinceStart / self.minimumNumberOfSeconds;
         if (progress > 1.0) {
             progress = 1.0;
             if (!self.isMinimumThresholdReached) {

@@ -56,7 +56,7 @@
     self.statusBar.layer.masksToBounds = YES;
     
     self.statusBar.hidden = YES;
-    [self hideNextButton];
+    self.nextButton.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -82,21 +82,23 @@
     [super reset];
     self.measurementSession = nil;
     self.statusBar.hidden = YES;
-    [self hideNextButton];
+    self.nextButton.hidden = YES;
 }
 
 - (void)start {
     NSLog(@"sub start");
     [super start];
+    BOOL testMode = [Property getAsBoolean:KEY_AGRI_TEST_MODE defaultValue:NO];
+    self.minimumNumberOfSeconds = testMode ? 10: SECONDS_REQUIRED;
     self.statusBar.hidden = NO;
-    [self hideNextButton];
+    self.nextButton.hidden = YES;
 }
 
 - (void)stop {
     NSLog(@"sub stop");
     [super stop];
     self.statusBar.hidden = YES;
-    [self hideNextButton];
+    self.nextButton.hidden = YES;
 }
 
 - (IBAction)startStopButtonPushed:(id)sender {
@@ -106,18 +108,14 @@
 
 - (void)minimumThresholdReached {
     self.nextAllowed = YES;
-    self.statusBar.hidden = YES;
     self.nextButton.hidden = NO;
-}
 
-- (void)hideNextButton {
-    if ([Property getAsBoolean:KEY_AGRI_TEST_MODE defaultValue:NO]) {
-        self.nextButton.hidden = NO;
+    [UIView animateWithDuration:0.5 animations:^{
+        self.statusBar.alpha = 0.0;
+    } completion:^(BOOL finished) {
         self.statusBar.hidden = YES;
-    }
-    else {
-        self.nextButton.hidden = YES;
-    }
+        self.statusBar.alpha = 1.0;
+    }];
 }
 
 - (void)measurementStopped:(MeasurementSession *)measurementSession {

@@ -12,10 +12,13 @@
 #import "WindMeasurementController.h"
 #import "MeasurementSession+Util.h"
 
+#define SECONDS_REQUIRED 60
+
 @interface MeasureViewController : UIViewController <UIAlertViewDelegate, ShareDialogDelegate, WindMeasurementControllerDelegate>
 
 @property (nonatomic) BOOL shareToFacebook;
 @property (nonatomic) BOOL buttonShowsStart;
+@property (nonatomic) double minimumNumberOfSeconds;
 @property (nonatomic) BOOL isMinimumThresholdReached;
 @property (nonatomic, strong) NSNumber *privacy;
 

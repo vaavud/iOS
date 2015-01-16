@@ -223,6 +223,9 @@
         cell.directionImageView.hidden = YES;
         cell.directionLabel.hidden = YES;
     }
+    
+    // FIXME: Temporary
+    cell.testModeLabel.hidden = !(cell.testModeLabel && [session.endTime timeIntervalSinceDate:session.startTime] < 60);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

@@ -18,5 +18,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *unitLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *directionImageView;
 @property (weak, nonatomic) IBOutlet UILabel *directionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *testModeLabel;
 
 @end
