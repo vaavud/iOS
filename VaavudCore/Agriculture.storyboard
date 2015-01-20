@@ -328,8 +328,8 @@
                                 <color key="progressTintColor" red="0.062745101750000004" green="0.68627452850000004" blue="0.93725496529999996" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </progressView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oAE-aa-Rt2" userLabel="Graph Container">
-                                <rect key="frame" x="6" y="157" width="294" height="191"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAE-aa-Rt2" userLabel="Graph Container">
+                                <rect key="frame" x="5" y="155" width="294" height="191"/>
                                 <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                         </subviews>
@@ -880,6 +880,7 @@
                         <outlet property="temperatureUnitLabel" destination="yhh-NB-zwN" id="RYt-ms-gOP"/>
                         <outlet property="windSpeedHeadingLabel" destination="G4Y-Ig-OBY" id="4Fd-Eb-eBQ"/>
                         <outlet property="windSpeedUnitLabel" destination="dMf-mR-cUN" id="qi2-7Z-fii"/>
+                        <segue destination="S0D-Du-gFb" kind="push" identifier="showSummaryAfterSaveSegue" id="exj-i7-yux"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yf9-zm-ABM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1240,7 +1241,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hj1-ry-vUH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1650" y="880"/>
+            <point key="canvasLocation" x="1824" y="390"/>
         </scene>
         <!--Loading History View Controller-->
         <scene sceneID="W4d-Ng-SjM">
@@ -1349,7 +1350,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="pA4-Za-gYe"/>
-        <segue reference="1x7-Lo-AVc"/>
+        <segue reference="2tJ-jd-dfC"/>
+        <segue reference="7Oh-PO-dec"/>
+        <segue reference="exj-i7-yux"/>
     </inferredMetricsTieBreakers>
 </document>

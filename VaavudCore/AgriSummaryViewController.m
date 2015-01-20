@@ -12,6 +12,7 @@
 #import "LocationManager.h"
 #import "MeasurementAnnotation.h"
 #import "Mixpanel.h"
+#import "AgriMeasureViewController.h"
 
 @interface AgriSummaryViewController ()
 
@@ -60,12 +61,12 @@
     self.windSpeedUnitLabel.text = [UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit];
     
     NSNumber *directionUnitNumber = [Property getAsInteger:KEY_DIRECTION_UNIT];
-    NSInteger directionUnit = (directionUnitNumber) ? [directionUnitNumber doubleValue] : 0;
+    NSInteger directionUnit = directionUnitNumber ? directionUnitNumber.doubleValue : 0;
     if (self.directionUnit != directionUnit) {
         self.directionUnit = directionUnit;
     }
     
-    if (self.measurementSession && self.measurementSession.startTime) {
+    if (self.measurementSession.startTime) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.timeStyle = NSDateFormatterShortStyle;
         dateFormatter.dateStyle = NSDateFormatterMediumStyle;
@@ -78,7 +79,7 @@
     
     [self updateMeasuredValues];
     
-    if (self.measurementSession && self.measurementSession.latitude && self.measurementSession.longitude) {
+    if (self.measurementSession.latitude && self.measurementSession.longitude) {
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([self.measurementSession.latitude doubleValue], [self.measurementSession.longitude doubleValue]);
         if ([LocationManager isCoordinateValid:coordinate]) {
             [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(coordinate, 500, 500) animated:NO];
@@ -98,15 +99,14 @@
 }
 
 - (void)updateMeasuredValues {
-    if (self.measurementSession && self.measurementSession.windSpeedAvg && !isnan([self.measurementSession.windSpeedAvg doubleValue])) {
+    if (self.measurementSession.windSpeedAvg && !isnan([self.measurementSession.windSpeedAvg doubleValue])) {
         self.windSpeedLabel.text = [self formatValue:[UnitUtil displayWindSpeedFromDouble:[self.measurementSession.windSpeedAvg doubleValue] unit:self.windSpeedUnit]];
     }
     else {
         self.windSpeedLabel.text = @"-";
     }
     
-    if (self.measurementSession && self.measurementSession.windDirection && !isnan([self.measurementSession.windDirection doubleValue])) {
-        
+    if (self.measurementSession.windDirection && !isnan([self.measurementSession.windDirection doubleValue])) {
         if (self.directionUnit == 0) {
             self.directionLabel.text = [UnitUtil displayNameForDirection:self.measurementSession.windDirection];
         }
@@ -132,8 +132,8 @@
         }
     }
     
-    if (self.measurementSession && self.measurementSession.temperature && [self.measurementSession.temperature floatValue] > 0.0) {
-        self.temperatureLabel.text = [self formatValue:[self.measurementSession.temperature floatValue] - KELVIN_TO_CELCIUS];
+    if (self.measurementSession.temperature && self.measurementSession.temperature.floatValue > 0.0) {
+        self.temperatureLabel.text = [self formatValue:self.measurementSession.temperature.floatValue - KELVIN_TO_CELCIUS];
     }
     else {
         self.temperatureLabel.text = @"-";
@@ -155,7 +155,6 @@
         return nil;
     }
     else if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
-        
         static NSString *MeasureAnnotationIdentifier = @"MeasureAnnotationIdentifier";
         
         MeasurementAnnotation *measurementAnnotation = (MeasurementAnnotation *) annotation;
@@ -164,7 +163,6 @@
         MKAnnotationView *measureAnnotationView =
         [self.mapView dequeueReusableAnnotationViewWithIdentifier:MeasureAnnotationIdentifier];
         if (measureAnnotationView == nil) {
-            
             measureAnnotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:MeasureAnnotationIdentifier];
             measureAnnotationView.canShowCallout = NO;
             measureAnnotationView.opaque = NO;
@@ -213,28 +211,27 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"infoCell" forIndexPath:indexPath];
 
     if (indexPath.item == 0) {
         cell.textLabel.text = NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT", nil);
-        cell.detailTextLabel.text = (self.measurementSession && self.measurementSession.reduceEquipment && [self.measurementSession.reduceEquipment intValue] > 0) ? [self getReducingEquipmentText:[self.measurementSession.reduceEquipment intValue]] : @"-";
+        cell.detailTextLabel.text = (self.measurementSession.reduceEquipment && self.measurementSession.reduceEquipment.intValue > 0) ? [self getReducingEquipmentText:self.measurementSession.reduceEquipment.intValue] : @"-";
     }
     else if (indexPath.item == 1) {
         cell.textLabel.text = NSLocalizedString(@"AGRI_DOSE", nil);
-        cell.detailTextLabel.text = (self.measurementSession && self.measurementSession.dose && [self.measurementSession.dose floatValue] > 0.0F) ? [self getDoseText:[self.measurementSession.dose floatValue]] : @"-";
+        cell.detailTextLabel.text = (self.measurementSession.dose && self.measurementSession.dose.floatValue > 0.0F) ? [self getDoseText:self.measurementSession.dose.floatValue] : @"-";
     }
     else if (indexPath.item == 2) {
         cell.textLabel.text = NSLocalizedString(@"AGRI_BOOM_HEIGHT", nil);
-        cell.detailTextLabel.text = (self.measurementSession && self.measurementSession.boomHeight && [self.measurementSession.boomHeight intValue] > 0) ? [self getBoomHeightText:[self.measurementSession.boomHeight intValue]] : @"-";
+        cell.detailTextLabel.text = (self.measurementSession.boomHeight && self.measurementSession.boomHeight.intValue > 0) ? [self getBoomHeightText:self.measurementSession.boomHeight.intValue] : @"-";
     }
     else if (indexPath.item == 3) {
         cell.textLabel.text = NSLocalizedString(@"AGRI_SPRAY_QUALITY", nil);
-        cell.detailTextLabel.text = (self.measurementSession && self.measurementSession.sprayQuality && [self.measurementSession.sprayQuality intValue] > 0) ? [self getSprayQualityText:[self.measurementSession.sprayQuality intValue]] : @"-";
+        cell.detailTextLabel.text = (self.measurementSession.sprayQuality && self.measurementSession.sprayQuality.intValue > 0) ? [self getSprayQualityText:self.measurementSession.sprayQuality.intValue] : @"-";
     }
     else if (indexPath.item == 4) {
         cell.textLabel.text = NSLocalizedString(@"AGRI_PROTECTIVE_DISTANCE", nil);
-        cell.detailTextLabel.text = (self.measurementSession && self.measurementSession.generalConsideration && self.measurementSession.specialConsideration && [self.measurementSession.generalConsideration intValue] > 0 && [self.measurementSession.specialConsideration intValue] > 0) ? [NSString stringWithFormat:@"%d %@ / %d %@", [self.measurementSession.generalConsideration intValue], NSLocalizedString(@"AGRI_DISTANCE_UNIT_M", nil), [self.measurementSession.specialConsideration intValue], NSLocalizedString(@"AGRI_DISTANCE_UNIT_M", nil)] : @"-";
+        cell.detailTextLabel.text = (self.measurementSession.generalConsideration && self.measurementSession.specialConsideration && self.measurementSession.generalConsideration.intValue > 0 && self.measurementSession.specialConsideration.intValue > 0) ? [NSString stringWithFormat:@"%d %@ / %d %@", self.measurementSession.generalConsideration.intValue, NSLocalizedString(@"AGRI_DISTANCE_UNIT_M", nil), self.measurementSession.specialConsideration.intValue, NSLocalizedString(@"AGRI_DISTANCE_UNIT_M", nil)] : @"-";
     }
 
     cell.textLabel.textColor = [UIColor darkGrayColor];
@@ -250,8 +247,7 @@
     return [UIView new];
 }
 
-- (NSString *) getReducingEquipmentText:(int)value {
-    
+- (NSString *)getReducingEquipmentText:(int)value {
     if (value == 1) {
         return NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT_NONE", nil);
     }
@@ -321,6 +317,14 @@
     else {
         NSLog(@"[AgriSummaryViewController] ERROR: Unknown spray quality value %d", value);
         return @"-";
+    }
+}
+
+- (void)popToMeasure:(id)sender {
+    if ([self.navigationController.viewControllers[0] isKindOfClass:[AgriMeasureViewController class]]) {
+        AgriMeasureViewController *measureController = self.navigationController.viewControllers[0];
+        [measureController reset];
+        [self.navigationController popToViewController:measureController animated:YES];
     }
 }
 

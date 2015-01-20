@@ -13,6 +13,7 @@
 #import "Mixpanel.h"
 #import "ServerUploadManager.h"
 #import "AgriResultComputation.h"
+#import "AgriSummaryViewController.h"
 
 @interface AgriResultViewController ()
 
@@ -486,6 +487,7 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex != alertView.cancelButtonIndex) {
         [self performSave];
+        [self performSegueWithIdentifier:@"showSummaryAfterSaveSegue" sender:self];
     }
 }
 
@@ -501,23 +503,21 @@
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
         
         [[ServerUploadManager sharedInstance] triggerUpload];
-        
-        if ([self.navigationController.viewControllers[0] isKindOfClass:[AgriMeasureViewController class]]) {
-            AgriMeasureViewController *measureController = self.navigationController.viewControllers[0];
-            [measureController reset];
-            
-            UITabBarController *tabBarController = self.navigationController.tabBarController;
-            
-            [CATransaction begin];
-            [CATransaction setCompletionBlock:^{
-                tabBarController.selectedIndex = 1;
-                NSLog(@"---------- completion: %lu", (unsigned long)tabBarController.selectedIndex);
-            }];
-            
-            [self.navigationController popToViewController:measureController animated:YES];
-            NSLog(@"---------- pop");
-            [CATransaction commit];
-        }
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    UIViewController *controller = [segue destinationViewController];
+    if ([controller isKindOfClass:[AgriSummaryViewController class]]) {
+        AgriSummaryViewController *summary = (AgriSummaryViewController *)controller;
+        summary.measurementSession = self.measurementSession;
+        summary.navigationItem.hidesBackButton = YES;
+
+        UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:summary
+                                                                  action:@selector(popToMeasure:)];
+        summary.navigationItem.rightBarButtonItem = button;
     }
 }
 

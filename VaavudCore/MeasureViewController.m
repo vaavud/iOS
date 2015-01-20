@@ -690,6 +690,9 @@
 - (void)changedValidity:(BOOL)isValid dynamicsIsValid:(BOOL)dynamicsIsValid {
     NSDate *now = [NSDate date];
     
+    isValid = YES; // FIXME: Remove
+    dynamicsIsValid = YES;  // FIXME: Remove
+    
     if (isValid) {
         if (!self.isValid) {
             self.nonValidDuration += [now timeIntervalSinceDate:self.lastValidityChangeTime];
