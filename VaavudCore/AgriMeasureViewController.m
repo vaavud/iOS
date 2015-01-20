@@ -32,6 +32,7 @@
 
 @property (nonatomic, strong) MeasurementSession *measurementSession;
 
+
 @property (nonatomic) BOOL hasTemperature;
 @property (nonatomic) BOOL hasDirection;
 @property (nonatomic) BOOL nextAllowed;
@@ -49,6 +50,8 @@
     self.temperatureUnitLabel.text = NSLocalizedString(@"UNIT_CELCIUS", nil);
     
     [self.nextButton setTitle:NSLocalizedString(@"BUTTON_NEXT", nil) forState:UIControlStateNormal];
+    self.navigationItem.backBarButtonItem.title = NSLocalizedString(@"BUTTON_CANCEL", nil);
+    
     self.nextButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.nextButton.layer.masksToBounds = YES;
 
@@ -78,7 +81,6 @@
 }
 
 - (void)reset {
-    NSLog(@"sub reset");
     [super reset];
     self.measurementSession = nil;
     self.statusBar.hidden = YES;
@@ -86,16 +88,14 @@
 }
 
 - (void)start {
-    NSLog(@"sub start");
     [super start];
     BOOL testMode = [Property getAsBoolean:KEY_AGRI_TEST_MODE defaultValue:NO];
-    self.minimumNumberOfSeconds = testMode ? 10: SECONDS_REQUIRED;
+    self.minimumNumberOfSeconds = testMode ? SECONDS_REQUIRED_TESTMODE : SECONDS_REQUIRED;
     self.statusBar.hidden = NO;
     self.nextButton.hidden = YES;
 }
 
 - (void)stop {
-    NSLog(@"sub stop");
     [super stop];
     self.statusBar.hidden = YES;
     self.nextButton.hidden = YES;

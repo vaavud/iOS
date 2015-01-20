@@ -66,7 +66,6 @@
     }
     
     if (self.measurementSession && self.measurementSession.startTime) {
-        
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.timeStyle = NSDateFormatterShortStyle;
         dateFormatter.dateStyle = NSDateFormatterMediumStyle;

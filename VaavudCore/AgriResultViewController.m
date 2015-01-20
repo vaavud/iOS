@@ -417,7 +417,6 @@
     NSMutableString *summary = [NSMutableString string];
     
     if (self.measurementSession) {
-        
         if (self.measurementSession.windSpeedAvg && !isnan([self.measurementSession.windSpeedAvg doubleValue]) && self.averageLabel.text) {
             if (summary.length > 0) {
                 [summary appendString:@"\n"];
@@ -504,10 +503,20 @@
         [[ServerUploadManager sharedInstance] triggerUpload];
         
         if ([self.navigationController.viewControllers[0] isKindOfClass:[AgriMeasureViewController class]]) {
-            
             AgriMeasureViewController *measureController = self.navigationController.viewControllers[0];
             [measureController reset];
+            
+            UITabBarController *tabBarController = self.navigationController.tabBarController;
+            
+            [CATransaction begin];
+            [CATransaction setCompletionBlock:^{
+                tabBarController.selectedIndex = 1;
+                NSLog(@"---------- completion: %lu", (unsigned long)tabBarController.selectedIndex);
+            }];
+            
             [self.navigationController popToViewController:measureController animated:YES];
+            NSLog(@"---------- pop");
+            [CATransaction commit];
         }
     }
 }

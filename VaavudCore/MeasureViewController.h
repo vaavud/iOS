@@ -13,6 +13,7 @@
 #import "MeasurementSession+Util.h"
 
 #define SECONDS_REQUIRED 60
+#define SECONDS_REQUIRED_TESTMODE 10
 
 @interface MeasureViewController : UIViewController <UIAlertViewDelegate, ShareDialogDelegate, WindMeasurementControllerDelegate>
 

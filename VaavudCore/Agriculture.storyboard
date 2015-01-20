@@ -184,7 +184,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y7o-bq-aFq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="149" y="-769"/>
+            <point key="canvasLocation" x="19" y="-769"/>
         </scene>
         <!--Agri Measure View Controller-->
         <scene sceneID="cPV-Di-rvz">
@@ -230,10 +230,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="RFl-DD-frw"/>
                                 </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oAE-aa-Rt2" userLabel="Graph Container">
-                                <rect key="frame" x="5" y="155" width="294" height="191"/>
-                                <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4li-GH-kZY" userLabel="Start/Stop Button">
                                 <rect key="frame" x="40" y="456" width="240" height="35"/>
@@ -332,6 +328,10 @@
                                 <color key="progressTintColor" red="0.062745101750000004" green="0.68627452850000004" blue="0.93725496529999996" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </progressView>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oAE-aa-Rt2" userLabel="Graph Container">
+                                <rect key="frame" x="6" y="157" width="294" height="191"/>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -386,6 +386,7 @@
                         <outlet property="directionLabel" destination="3io-f9-8ph" id="Uh1-TZ-W9k"/>
                         <outlet property="graphContainer" destination="oAE-aa-Rt2" id="JsO-IP-Ajp"/>
                         <outlet property="informationTextLabel" destination="rfZ-6X-dx7" id="4C0-So-89Y"/>
+                        <outlet property="navigationItem" destination="oSg-gp-DTc" id="4Ac-w2-6yv"/>
                         <outlet property="nextButton" destination="VPj-QL-7oG" id="zei-IO-FkT"/>
                         <outlet property="startStopButton" destination="4li-GH-kZY" id="0cL-Td-fHU"/>
                         <outlet property="statusBar" destination="jDv-iF-Xb3" id="TtS-mV-ZgS"/>
@@ -401,7 +402,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uhp-Xt-WzD" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="730" y="-769"/>
+            <point key="canvasLocation" x="496" y="-769"/>
         </scene>
         <!--Manual Temperature View Controller-->
         <scene sceneID="E7h-FH-qKa">
@@ -471,7 +472,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nkm-j9-mAm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1186" y="-769"/>
+            <point key="canvasLocation" x="1011" y="-769"/>
         </scene>
         <!--Manual Direction View Controller-->
         <scene sceneID="phu-eF-LwU">
@@ -564,7 +565,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q5B-R2-1Nf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1724" y="-769"/>
+            <point key="canvasLocation" x="1548" y="-769"/>
         </scene>
         <!--Result View Controller-->
         <scene sceneID="g2v-ca-b0o">
@@ -760,7 +761,6 @@
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="nextButtonPushed:" destination="Xsf-1y-JfF" eventType="touchUpInside" id="A3y-Bi-7j5"/>
                                             <action selector="saveButtonPushed:" destination="BZZ-m9-bww" eventType="touchUpInside" id="Pnp-bA-BEs"/>
                                         </connections>
                                     </button>
@@ -884,7 +884,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yf9-zm-ABM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2193" y="-660"/>
+            <point key="canvasLocation" x="1998" y="-715"/>
         </scene>
         <!--<History>-->
         <scene sceneID="fsK-Js-DL5">
@@ -1349,7 +1349,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="7Oh-PO-dec"/>
-        <segue reference="2tJ-jd-dfC"/>
+        <segue reference="pA4-Za-gYe"/>
+        <segue reference="1x7-Lo-AVc"/>
     </inferredMetricsTieBreakers>
 </document>
