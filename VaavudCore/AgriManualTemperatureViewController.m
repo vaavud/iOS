@@ -39,7 +39,7 @@
     self.temperaturePickerView.dataSource = self;
     self.temperaturePickerView.delegate = self;
     
-    NSInteger startTemp = (self.measurementSession && self.measurementSession.temperature && ([self.measurementSession.temperature floatValue] > 0)) ? roundf([self.measurementSession.temperature floatValue] - KELVIN_TO_CELCIUS) : DEFAULT_TEMP_CELCIUS;
+    NSInteger startTemp = (self.measurementSession.temperature && (self.measurementSession.temperature.floatValue > 0)) ? roundf([self.measurementSession.temperature floatValue] - KELVIN_TO_CELCIUS) : DEFAULT_TEMP_CELCIUS;
     [self.temperaturePickerView selectRow:(startTemp - MIN_TEMP_CELCIUS) inComponent:0 animated:NO];
 }
 
@@ -56,7 +56,7 @@
 }
 
 - (IBAction)nextButtonClicked:(id)sender {
-    NSNumber *temperatureKelvin = [NSNumber numberWithInteger:[self.temperaturePickerView selectedRowInComponent:0] + MIN_TEMP_CELCIUS + KELVIN_TO_CELCIUS];
+    NSNumber *temperatureKelvin = @([self.temperaturePickerView selectedRowInComponent:0] + MIN_TEMP_CELCIUS + KELVIN_TO_CELCIUS);
     if (self.measurementSession) {
         self.measurementSession.temperature = temperatureKelvin;
         

@@ -112,7 +112,7 @@
         self.directionUnit = directionUnit;
     }
 
-    if (self.measurementSession && self.measurementSession.reduceEquipment && ([self.measurementSession.reduceEquipment intValue] > 0)) {
+    if (self.measurementSession.reduceEquipment && ([self.measurementSession.reduceEquipment intValue] > 0)) {
         [self setSelectedReducingEquipment:self.measurementSession.reduceEquipment];
     }
     else {
@@ -126,21 +126,21 @@
         [self setSelectedDose:[Property getAsFloat:KEY_AGRI_DEFAULT_DOSE defaultValue:0.25F]];
     }
     
-    if (self.measurementSession && self.measurementSession.boomHeight && ([self.measurementSession.boomHeight intValue] > 0)) {
+    if (self.measurementSession.boomHeight && ([self.measurementSession.boomHeight intValue] > 0)) {
         [self setSelectedBoomHeight:self.measurementSession.boomHeight];
     }
     else {
         [self setSelectedBoomHeight:[Property getAsInteger:KEY_AGRI_DEFAULT_BOOM_HEIGHT defaultValue:25]];
     }
     
-    if (self.measurementSession && self.measurementSession.sprayQuality && ([self.measurementSession.sprayQuality intValue] > 0)) {
+    if (self.measurementSession.sprayQuality && ([self.measurementSession.sprayQuality intValue] > 0)) {
         [self setSelectedSprayQuality:self.measurementSession.sprayQuality];
     }
     else {
         [self setSelectedSprayQuality:[Property getAsInteger:KEY_AGRI_DEFAULT_SPRAY_QUALITY defaultValue:1]];
     }
     
-    if (self.measurementSession && self.measurementSession.startTime) {
+    if (self.measurementSession.startTime) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.timeStyle = NSDateFormatterShortStyle;
         dateFormatter.dateStyle = NSDateFormatterMediumStyle;
@@ -171,7 +171,7 @@
         self.averageLabel.text = @"-";
     }
     
-    if (self.measurementSession && self.measurementSession.windDirection && !isnan([self.measurementSession.windDirection doubleValue])) {
+    if (self.measurementSession.windDirection && !isnan([self.measurementSession.windDirection doubleValue])) {
         
             if (self.directionUnit == 0) {
                 self.directionLabel.text = [UnitUtil displayNameForDirection:self.measurementSession.windDirection];
@@ -198,7 +198,7 @@
         }
     }
     
-    if (self.measurementSession && self.measurementSession.temperature && [self.measurementSession.temperature floatValue] > 0.0) {
+    if (self.measurementSession.temperature && [self.measurementSession.temperature floatValue] > 0.0) {
         self.temperatureLabel.text = [self formatValue:[self.measurementSession.temperature floatValue] - KELVIN_TO_CELCIUS];
     }
     else {
@@ -470,7 +470,7 @@
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *action) {
-                                                              [self performSave];
+                                                              [self saveAndShowSummary];
                                                           }]];
         
         [self presentViewController:alertController animated:YES completion:nil];
@@ -486,9 +486,13 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex != alertView.cancelButtonIndex) {
-        [self performSave];
-        [self performSegueWithIdentifier:@"showSummaryAfterSaveSegue" sender:self];
+        [self saveAndShowSummary];
     }
+}
+
+- (void)saveAndShowSummary {
+    [self performSave];
+    [self performSegueWithIdentifier:@"showSummaryAfterSaveSegue" sender:self];
 }
 
 - (void)performSave {
@@ -499,7 +503,7 @@
         self.measurementSession.sprayQuality = [self getSprayQualityValue];
         self.measurementSession.generalConsideration = self.generalDistance;
         self.measurementSession.specialConsideration = self.specialDistance;
-        self.measurementSession.uploaded = [NSNumber numberWithBool:NO];
+        self.measurementSession.uploaded = @NO;
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
         
         [[ServerUploadManager sharedInstance] triggerUpload];

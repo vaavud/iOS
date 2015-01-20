@@ -80,7 +80,7 @@
     [self updateMeasuredValues];
     
     if (self.measurementSession.latitude && self.measurementSession.longitude) {
-        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([self.measurementSession.latitude doubleValue], [self.measurementSession.longitude doubleValue]);
+        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.measurementSession.latitude.doubleValue, self.measurementSession.longitude.doubleValue);
         if ([LocationManager isCoordinateValid:coordinate]) {
             [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(coordinate, 500, 500) animated:NO];
             
@@ -99,14 +99,14 @@
 }
 
 - (void)updateMeasuredValues {
-    if (self.measurementSession.windSpeedAvg && !isnan([self.measurementSession.windSpeedAvg doubleValue])) {
+    if (self.measurementSession.windSpeedAvg && !isnan(self.measurementSession.windSpeedAvg.doubleValue)) {
         self.windSpeedLabel.text = [self formatValue:[UnitUtil displayWindSpeedFromDouble:[self.measurementSession.windSpeedAvg doubleValue] unit:self.windSpeedUnit]];
     }
     else {
         self.windSpeedLabel.text = @"-";
     }
     
-    if (self.measurementSession.windDirection && !isnan([self.measurementSession.windDirection doubleValue])) {
+    if (self.measurementSession.windDirection && !isnan(self.measurementSession.windDirection.doubleValue)) {
         if (self.directionUnit == 0) {
             self.directionLabel.text = [UnitUtil displayNameForDirection:self.measurementSession.windDirection];
         }
