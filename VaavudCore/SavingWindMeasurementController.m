@@ -129,9 +129,8 @@ SHARED_INSTANCE
     
     // note: active measurement session may become nil if it is deleted from history while measuring
     MeasurementSession *measurementSession = [self getLatestMeasurementSession];
-    if (measurementSession && [measurementSession.measuring boolValue]) {
-
-        measurementSession.measuring = [NSNumber numberWithBool:NO];
+    if (measurementSession && measurementSession.measuring.boolValue) {
+        measurementSession.measuring = @NO;
         measurementSession.endTime = [NSDate date];
         
         // make sure the DB reflects whats currently shown in the UI

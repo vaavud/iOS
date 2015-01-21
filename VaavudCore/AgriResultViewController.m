@@ -504,6 +504,9 @@
         self.measurementSession.generalConsideration = self.generalDistance;
         self.measurementSession.specialConsideration = self.specialDistance;
         self.measurementSession.uploaded = @NO;
+        
+        NSLog(@"performSave ms: %@", self.measurementSession); // FIXME: Remove
+        
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
         
         [[ServerUploadManager sharedInstance] triggerUpload];

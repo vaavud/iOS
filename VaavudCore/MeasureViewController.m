@@ -317,6 +317,7 @@
         [self start];
     }
     else {
+        self.deleteSession = YES;
         [self stop];
     }
 }
@@ -439,8 +440,6 @@
 }
 
 - (void)stopWithUITracking:(BOOL)uiTracking action:(NSString *)action {
-    NSLog(@"super stopWithUITracking");
-
     if (self.buttonShowsStart) {
         // already stopped
         return;
@@ -505,6 +504,12 @@
         if (session) {
             [self measurementStopped:session];
         }
+
+        if (session && self.deleteSession) {
+            [[ServerUploadManager sharedInstance] deleteMeasurementSession:session.uuid retry:3 success:nil failure:nil];
+            [session MR_deleteEntity];
+        }
+        self.deleteSession = NO;
         
         // check if we were called from another app and return to it if so...
         
@@ -525,9 +530,7 @@
             }
         }
         else {
-
             // potentially popup Facebook share dialog...
-            
             [self promptForFacebookSharing];
         }
     }

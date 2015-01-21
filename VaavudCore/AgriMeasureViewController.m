@@ -89,6 +89,9 @@
 
 - (void)start {
     [super start];
+    
+    NSLog(@"ms: %@", self.measurementSession); // FIXME: Remove
+    
     BOOL testMode = [Property getAsBoolean:KEY_AGRI_TEST_MODE defaultValue:NO];
     self.minimumNumberOfSeconds = testMode ? SECONDS_REQUIRED_TESTMODE : SECONDS_REQUIRED;
     self.statusBar.hidden = NO;
@@ -96,12 +99,15 @@
 }
 
 - (void)stop {
+    NSLog(@"stop");
     [super stop];
     self.statusBar.hidden = YES;
     self.nextButton.hidden = YES;
 }
 
 - (IBAction)startStopButtonPushed:(id)sender {
+    NSLog(@"startStopButtonPushed");
+
     self.measurementSession = nil;
     [super startStopButtonPushed:sender];
 }

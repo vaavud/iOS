@@ -17,6 +17,8 @@
 
 @interface MeasureViewController : UIViewController <UIAlertViewDelegate, ShareDialogDelegate, WindMeasurementControllerDelegate>
 
+@property (nonatomic) BOOL deleteSession;
+
 @property (nonatomic) BOOL shareToFacebook;
 @property (nonatomic) BOOL buttonShowsStart;
 @property (nonatomic) double minimumNumberOfSeconds;
