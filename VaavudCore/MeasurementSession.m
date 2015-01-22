@@ -29,6 +29,7 @@
 @dynamic startIndex;
 @dynamic startTime;
 @dynamic temperature;
+@dynamic testMode;
 @dynamic timezoneOffset;
 @dynamic uploaded;
 @dynamic uuid;

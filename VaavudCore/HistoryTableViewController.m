@@ -151,9 +151,6 @@
 - (void)configureCell:(HistoryTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     MeasurementSession *session = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    NSLog(@"configureCell - ms: %@", session); // FIXME: Remove
-
-    
     if (session.latitude && session.longitude && (session.latitude != 0) && (session.longitude != 0)) {
         NSString *iconUrl = @"http://vaavud.com/appgfx/SmallWindMarker.png";
         NSString *markers = [NSString stringWithFormat:@"icon:%@|shadow:false|%f,%f", iconUrl, [session.latitude doubleValue], [session.longitude doubleValue]];
@@ -227,8 +224,7 @@
         cell.directionLabel.hidden = YES;
     }
     
-    // FIXME: Temporary
-    cell.testModeLabel.hidden = !(cell.testModeLabel && [session.endTime timeIntervalSinceDate:session.startTime] < 60);
+    cell.testModeLabel.hidden = !(cell.testModeLabel && session.testMode.boolValue);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

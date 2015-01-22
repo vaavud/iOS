@@ -30,6 +30,7 @@
 @property (nonatomic, retain) NSNumber *startIndex;
 @property (nonatomic, retain) NSDate *startTime;
 @property (nonatomic, retain) NSNumber *temperature;
+@property (nonatomic, retain) NSNumber *testMode;
 @property (nonatomic, retain) NSNumber *timezoneOffset;
 @property (nonatomic, retain) NSNumber *uploaded;
 @property (nonatomic, retain) NSString *uuid;

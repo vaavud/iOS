@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *nextButton;
 @property (weak, nonatomic) IBOutlet UIView *graphContainer;
 
+@property (nonatomic) BOOL testMode;
 @property (nonatomic, strong) MeasurementSession *measurementSession;
 
 
@@ -89,11 +90,8 @@
 
 - (void)start {
     [super start];
-    
-    NSLog(@"ms: %@", self.measurementSession); // FIXME: Remove
-    
-    BOOL testMode = [Property getAsBoolean:KEY_AGRI_TEST_MODE defaultValue:NO];
-    self.minimumNumberOfSeconds = testMode ? SECONDS_REQUIRED_TESTMODE : SECONDS_REQUIRED;
+    self.testMode = [Property getAsBoolean:KEY_AGRI_TEST_MODE defaultValue:NO];
+    self.minimumNumberOfSeconds = self.testMode ? SECONDS_REQUIRED_TESTMODE : SECONDS_REQUIRED;
     self.statusBar.hidden = NO;
     self.nextButton.hidden = YES;
 }
@@ -126,6 +124,7 @@
 
 - (void)measurementStopped:(MeasurementSession *)measurementSession {
     self.measurementSession = measurementSession;
+    self.measurementSession.testMode = @(self.testMode);
     
     // we determine these values here, so that if you later press back after having typed any temperature or direction
     // pressing next again will take you through the same flow again instead of skipping
