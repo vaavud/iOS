@@ -782,7 +782,7 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="fU9-DU-Ga3" customClass="HistoryTableViewCell">
+                            <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="blue" accessoryType="detailDisclosureButton" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="fU9-DU-Ga3" customClass="HistoryTableViewCell">
                                 <rect key="frame" x="0.0" y="119" width="320" height="95"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fU9-DU-Ga3" id="HKJ-EH-PE3">
@@ -867,6 +867,7 @@
                                     <outlet property="timeLabel" destination="HWK-s8-chx" id="BIX-gY-7zS"/>
                                     <outlet property="unitLabel" destination="QRL-h2-O1d" id="zTp-tI-ndQ"/>
                                     <segue destination="8a4-bz-n0M" kind="push" identifier="SummarySegue" id="znO-mG-FLA"/>
+                                    <segue destination="8a4-bz-n0M" kind="push" trigger="accessoryAction" id="8e2-jc-aYh"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -904,6 +905,9 @@
                                     <color key="titleColor" white="0.24944196428571427" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="tapped:" destination="8a4-bz-n0M" eventType="touchUpInside" id="X0p-xg-htf"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="AVERAGE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNl-iK-NzK">
                                 <rect key="frame" x="60" y="127" width="78" height="21"/>
@@ -981,10 +985,52 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wqt-r7-lNV" customClass="TemperatureView" customModule="Vaavud">
+                                <rect key="frame" x="100" y="340" width="38" height="54"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="reading">
+                                        <real key="value" value="0.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eVl-Vd-tKU" customClass="WindchillView" customModule="Vaavud">
+                                <rect key="frame" x="151" y="338" width="58" height="58"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="reading">
+                                        <real key="value" value="0.20000000000000001"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AMa-wF-5vf" customClass="GustinessView" customModule="Vaavud">
+                                <rect key="frame" x="217" y="338" width="58" height="58"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="reading">
+                                        <real key="value" value="0.20000000000000001"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lgk-X9-Lo7" customClass="PressureView" customModule="Vaavud">
+                                <rect key="frame" x="16" y="338" width="58" height="58"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="reading">
+                                        <real key="value" value="0.20000000000000001"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="CPY-sS-rXd"/>
+                    <connections>
+                        <outlet property="gustinessView" destination="AMa-wF-5vf" id="YXL-l3-g7j"/>
+                        <outlet property="pressureView" destination="lgk-X9-Lo7" id="H0C-dY-Oh7"/>
+                        <outlet property="temperatureView" destination="wqt-r7-lNV" id="4Sp-6k-DUZ"/>
+                        <outlet property="windchillView" destination="eVl-Vd-tKU" id="Tr9-Wn-Pev"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fa4-I5-1Q8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1351,8 +1397,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="i2c-1u-pcQ"/>
         <segue reference="eyn-o3-jNF"/>
+        <segue reference="i2c-1u-pcQ"/>
+        <segue reference="znO-mG-FLA"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
 </document>

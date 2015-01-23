@@ -13,6 +13,8 @@
 		22AB2E6D1A70FC15008CAE46 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */; };
 		22AB2E6E1A70FC15008CAE46 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */; };
 		22AB2E701A70FD92008CAE46 /* CoreSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */; };
+		22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
+		22FA6C521A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
 		A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A086025EA7704C458175CADF /* libPods.a */; };
 		D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */; };
 		D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
@@ -619,6 +621,7 @@
 		22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSummaryViewController.swift; sourceTree = "<group>"; };
 		22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Bridging-Header.h"; sourceTree = "<group>"; };
 		22FA6C211A712D3C004DD868 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
+		22FA6C501A727171004DD868 /* VaavudStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VaavudStyle.swift; path = Vaavud/StyleKit/VaavudStyle.swift; sourceTree = SOURCE_ROOT; };
 		A086025EA7704C458175CADF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDE6761506C86D4075981625 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
@@ -1349,6 +1352,7 @@
 		D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				22FA6C501A727171004DD868 /* VaavudStyle.swift */,
 				22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */,
 				22AB2E681A70FC00008CAE46 /* Fonts */,
 				D7A4F1F5173AA16700D1ACEE /* Constants.h */,
@@ -2773,6 +2777,7 @@
 				E9B47A031794217200E8A82E /* Terms.m in Sources */,
 				E9B47A0A1794315100E8A82E /* TermsViewController.m in Sources */,
 				E9A4099018A52151004F1C12 /* SignUpViewController.m in Sources */,
+				22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2864,6 +2869,7 @@
 				D7497EAE1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m in Sources */,
 				E96FB52819A353B500CB7306 /* AccountManager.m in Sources */,
 				E948382619B75320009595B0 /* EZAudioPlayer.m in Sources */,
+				22FA6C521A727171004DD868 /* VaavudStyle.swift in Sources */,
 				E96FB52919A353B500CB7306 /* RegisterViewController.m in Sources */,
 				E96FB52B19A353B500CB7306 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				E9159CAA1A078E5C00742188 /* AgriResultComputation.m in Sources */,

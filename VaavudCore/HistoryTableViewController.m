@@ -306,6 +306,10 @@
     }
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"SummarySegue" sender:self];
+}
+
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     if (!self.isObservingModelChanges) {
         return;
