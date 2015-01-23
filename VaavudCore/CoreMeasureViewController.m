@@ -8,6 +8,8 @@
 
 #import "CoreMeasureViewController.h"
 
+#import "Vaavud-Swift.h"
+
 @interface CoreMeasureViewController ()
 
 @property (nonatomic, weak) IBOutlet UILabel *averageHeadingLabel;

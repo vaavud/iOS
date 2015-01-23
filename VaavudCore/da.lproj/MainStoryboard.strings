@@ -1,0 +1,126 @@
+
+/* Class = "IBUINavigationItem"; title = "History"; ObjectID = "0yT-ND-9nv"; */
+"0yT-ND-9nv.title" = "History";
+
+/* Class = "IBUILabel"; text = "CURRENT"; ObjectID = "3jS-Rr-IOD"; */
+"3jS-Rr-IOD.text" = "CURRENT";
+
+/* Class = "IBUIButton"; normalTitle = "153.2"; ObjectID = "461-PL-VkC"; */
+"461-PL-VkC.normalTitle" = "153.2";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "92M-qr-ece"; */
+"92M-qr-ece.text" = "Label";
+
+/* Class = "IBUIButton"; normalTitle = "Skip for now"; ObjectID = "BBA-EF-Iyr"; */
+"BBA-EF-Iyr.normalTitle" = "Skip for now";
+
+/* Class = "IBUILabel"; text = "UNIT"; ObjectID = "BoF-HW-bXq"; */
+"BoF-HW-bXq.text" = "UNIT";
+
+/* Class = "IBUINavigationItem"; title = "<Direction>"; ObjectID = "CCd-9U-ltk"; */
+"CCd-9U-ltk.title" = "<Direction>";
+
+/* Class = "IBUITabBarItem"; title = "Map"; ObjectID = "CJd-r9-Fhf"; */
+"CJd-r9-Fhf.title" = "Map";
+
+/* Class = "IBUILabel"; text = "51%"; ObjectID = "CV9-2Y-GAE"; */
+"CV9-2Y-GAE.text" = "51%";
+
+/* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "DAA-1u-hdl"; */
+"DAA-1u-hdl.normalTitle" = "Cancel";
+
+/* Class = "IBUILabel"; text = "-"; ObjectID = "E6z-xo-cgt"; */
+"E6z-xo-cgt.text" = "-";
+
+/* Class = "IBUILabel"; text = "Repeat this until the circle is full"; ObjectID = "Fus-kP-Vx6"; */
+"Fus-kP-Vx6.text" = "Repeat this until the circle is full";
+
+/* Class = "IBUIButton"; normalTitle = "Start"; ObjectID = "HCN-OR-3My"; */
+"HCN-OR-3My.normalTitle" = "Start";
+
+/* Class = "IBUILabel"; text = "4:45 PM"; ObjectID = "HWK-s8-chx"; */
+"HWK-s8-chx.text" = "4:45 PM";
+
+/* Class = "IBUILabel"; text = "Go to Measure"; ObjectID = "Jd4-9A-Zve"; */
+"Jd4-9A-Zve.text" = "Go to Measure";
+
+/* Class = "IBUILabel"; text = "No measurements yet"; ObjectID = "NLq-rp-g7I"; */
+"NLq-rp-g7I.text" = "No measurements yet";
+
+/* Class = "IBUILabel"; text = "NWW"; ObjectID = "NPp-rW-tPa"; */
+"NPp-rW-tPa.text" = "NWW";
+
+/* Class = "IBUILabel"; text = "Label"; ObjectID = "Pvj-NR-cXf"; */
+"Pvj-NR-cXf.text" = "Label";
+
+/* Class = "IBUITabBarItem"; title = "History"; ObjectID = "QHu-pe-8z2"; */
+"QHu-pe-8z2.title" = "History";
+
+/* Class = "IBUILabel"; text = "km/h"; ObjectID = "QRL-h2-O1d"; */
+"QRL-h2-O1d.text" = "km/h";
+
+/* Class = "IBUILabel"; text = "You can start the calibration later from the settings menu"; ObjectID = "QpP-XP-vYe"; */
+"QpP-XP-vYe.text" = "You can start the calibration later from the settings menu";
+
+/* Class = "IBUILabel"; text = "AVERAGE"; ObjectID = "ReF-g7-EF0"; */
+"ReF-g7-EF0.text" = "AVERAGE";
+
+/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "SqB-58-y7j"; */
+"SqB-58-y7j.normalTitle" = "Button";
+
+/* Class = "IBUILabel"; text = "Detail"; ObjectID = "Uyu-c1-ZMe"; */
+"Uyu-c1-ZMe.text" = "Detail";
+
+/* Class = "IBUILabel"; text = "-Xy"; ObjectID = "Vbb-Ps-UGv"; */
+"Vbb-Ps-UGv.text" = "-Xy";
+
+/* Class = "IBUILabel"; text = "28.8"; ObjectID = "Wz3-zY-PVb"; */
+"Wz3-zY-PVb.text" = "28.8";
+
+/* Class = "IBUILabel"; text = "28.8"; ObjectID = "Xe8-4M-cY2"; */
+"Xe8-4M-cY2.text" = "28.8";
+
+/* Class = "IBUILabel"; text = "MAX"; ObjectID = "ZsD-H1-ghl"; */
+"ZsD-H1-ghl.text" = "MAX";
+
+/* Class = "IBUILabel"; text = "-"; ObjectID = "aIb-lj-gMl"; */
+"aIb-lj-gMl.text" = "-";
+
+/* Class = "IBUITabBarItem"; title = "Measure"; ObjectID = "bEh-Uj-qCq"; */
+"bEh-Uj-qCq.title" = "Measure";
+
+/* Class = "IBUINavigationItem"; title = "About"; ObjectID = "bV5-Bh-coT"; */
+"bV5-Bh-coT.title" = "About";
+
+/* Class = "IBUIButton"; normalTitle = "153.2"; ObjectID = "f8d-Au-d6A"; */
+"f8d-Au-d6A.normalTitle" = "153.2";
+
+/* Class = "IBUILabel"; text = "DIRECTION"; ObjectID = "f8n-QV-wk6"; */
+"f8n-QV-wk6.text" = "DIRECTION";
+
+/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "fFs-jM-11l"; */
+"fFs-jM-11l.normalTitle" = "Button";
+
+/* Class = "IBUILabel"; text = "Title"; ObjectID = "gBd-HX-aDx"; */
+"gBd-HX-aDx.text" = "Title";
+
+/* Class = "IBUILabel"; text = "MAX"; ObjectID = "qBg-VY-wWc"; */
+"qBg-VY-wWc.text" = "MAX";
+
+/* Class = "IBUILabel"; text = "WSW"; ObjectID = "qyu-nL-faj"; */
+"qyu-nL-faj.text" = "WSW";
+
+/* Class = "IBUINavigationItem"; title = "Unit"; ObjectID = "r0u-Dv-cVn"; */
+"r0u-Dv-cVn.title" = "Unit";
+
+/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "uNl-Eq-hAu"; */
+"uNl-Eq-hAu.normalTitle" = "Button";
+
+/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "uuY-48-OP5"; */
+"uuY-48-OP5.normalTitle" = "Button";
+
+/* Class = "IBUILabel"; text = "Calibration Complete!"; ObjectID = "vfx-fp-N16"; */
+"vfx-fp-N16.text" = "Calibration Complete!";
+
+/* Class = "IBUILabel"; text = "To calibrate your sleipnir go indoors and blow strongly into the device multiple times. Wait untill the device slows down before blowing again"; ObjectID = "wRZ-We-01T"; */
+"wRZ-We-01T.text" = "To calibrate your sleipnir go indoors and blow strongly into the device multiple times. Wait untill the device slows down before blowing again";
