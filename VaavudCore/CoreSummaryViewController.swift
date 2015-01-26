@@ -46,10 +46,12 @@ class CoreSummaryViewController: UIViewController {
     
     @IBAction func tapped(sender: AnyObject) {
         animator.removeAllBehaviors()
+        gustinessItem.center = CGPoint()
+        
         snap(pressureItem, to: CGFloat(arc4random() % 100))
         snap(temperatureItem, to: CGFloat(arc4random() % 100))
         snap(windchillItem, to: CGFloat(arc4random() % 100))
-        snap(gustinessItem, to: CGFloat(arc4random() % 100))
+        snap(gustinessItem, to: 1000)
     }
     
     func snap(item: DynamicReadingItem, to x: CGFloat) {
@@ -95,4 +97,21 @@ class ReadingView: UIView {
     override func drawRect(rect: CGRect) {
         VaavudStyle.drawVaavudGustiness(height: bounds.height, reading: reading)
     }
+}
+
+class DynamicOffsetItem: NSObject, UIDynamicItem {
+    let offsetView: OffsetView
+    var bounds = CGRect(x: 0, y: 0, width: 100, height: 100)
+    var center: CGPoint = CGPoint() { didSet { offsetView.offsetX = center.x/100; offsetView.offsetY = center.y/100; } }
+    var transform = CGAffineTransformIdentity
+    
+    init(offsetView: OffsetView) {
+        self.offsetView = offsetView
+        super.init()
+    }
+}
+
+class OffsetView: UIView {
+    @IBInspectable var offsetX: CGFloat = 0.0 { didSet { setNeedsDisplay() } }
+    @IBInspectable var offsetY: CGFloat = 0.0 { didSet { setNeedsDisplay() } }
 }

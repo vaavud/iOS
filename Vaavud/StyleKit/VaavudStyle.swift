@@ -171,45 +171,32 @@ public class VaavudStyle : NSObject {
 
         //// Variable Declarations
         let scale: CGFloat = height / 100.0
-        let gustinessCenterX: CGFloat = 50 * scale
-        let gustinessCenterY: CGFloat = 50 * scale
-        let gustinessRotation: CGFloat = -reading * 360
+        let pos = CGPointMake(scale * 5 * sin(180 * reading * CGFloat(M_PI)/180) * sin(reading * 300 * CGFloat(M_PI)/180), scale * 10 * sin(180 * reading * CGFloat(M_PI)/180) * sin((reading * 500 + 3) * CGFloat(M_PI)/180))
 
-        //// Bezier 3 Drawing
+        //// Bezier 2 Drawing
         CGContextSaveGState(context)
-        CGContextTranslateCTM(context, gustinessCenterX, gustinessCenterY)
-        CGContextRotateCTM(context, -gustinessRotation * CGFloat(M_PI) / 180)
+        CGContextTranslateCTM(context, pos.x, pos.y)
         CGContextScaleCTM(context, scale, scale)
 
-        var bezier3Path = UIBezierPath()
-        bezier3Path.moveToPoint(CGPointMake(-42.13, 25.65))
-        bezier3Path.addCurveToPoint(CGPointMake(-17.03, -36.01), controlPoint1: CGPointMake(-52.51, 1.87), controlPoint2: CGPointMake(-41.31, -25.7))
-        bezier3Path.addCurveToPoint(CGPointMake(33.52, -16), controlPoint1: CGPointMake(2.6, -44.1), controlPoint2: CGPointMake(25.16, -35.2))
-        bezier3Path.addCurveToPoint(CGPointMake(17.27, 24.08), controlPoint1: CGPointMake(40.22, -0.47), controlPoint2: CGPointMake(33.01, 17.37))
-        bezier3Path.addCurveToPoint(CGPointMake(-15.74, 11.12), controlPoint1: CGPointMake(4.56, 29.46), controlPoint2: CGPointMake(-10.26, 23.63))
-        bezier3Path.addCurveToPoint(CGPointMake(-4.97, -15.19), controlPoint1: CGPointMake(-20.16, 0.83), controlPoint2: CGPointMake(-15.38, -10.87))
-        bezier3Path.addCurveToPoint(CGPointMake(16.73, -6.72), controlPoint1: CGPointMake(3.41, -18.73), controlPoint2: CGPointMake(13.06, -14.92))
-        bezier3Path.addCurveToPoint(CGPointMake(9.64, 10.74), controlPoint1: CGPointMake(19.64, 0), controlPoint2: CGPointMake(16.51, 7.78))
-        bezier3Path.addCurveToPoint(CGPointMake(-4.91, 4.96), controlPoint1: CGPointMake(4.07, 13.14), controlPoint2: CGPointMake(-2.5, 10.55))
-        bezier3Path.addCurveToPoint(CGPointMake(-0.09, -6.79), controlPoint1: CGPointMake(-6.88, 0.4), controlPoint2: CGPointMake(-4.72, -4.87))
-        bezier3Path.addCurveToPoint(CGPointMake(9.86, -2.98), controlPoint1: CGPointMake(3.73, -8.4), controlPoint2: CGPointMake(8.17, -6.66))
-        bezier3Path.addCurveToPoint(CGPointMake(9.2, -1.26), controlPoint1: CGPointMake(10.16, -2.32), controlPoint2: CGPointMake(9.87, -1.55))
-        bezier3Path.addCurveToPoint(CGPointMake(7.46, -1.9), controlPoint1: CGPointMake(8.54, -0.96), controlPoint2: CGPointMake(7.76, -1.25))
-        bezier3Path.addCurveToPoint(CGPointMake(0.94, -4.39), controlPoint1: CGPointMake(6.36, -4.3), controlPoint2: CGPointMake(3.44, -5.44))
-        bezier3Path.addCurveToPoint(CGPointMake(-2.48, 3.94), controlPoint1: CGPointMake(-2.35, -3.02), controlPoint2: CGPointMake(-3.88, 0.7))
-        bezier3Path.addCurveToPoint(CGPointMake(8.59, 8.35), controlPoint1: CGPointMake(-0.65, 8.2), controlPoint2: CGPointMake(4.36, 10.17))
-        bezier3Path.addCurveToPoint(CGPointMake(14.31, -5.68), controlPoint1: CGPointMake(14.13, 5.96), controlPoint2: CGPointMake(16.64, -0.29))
-        bezier3Path.addCurveToPoint(CGPointMake(-3.94, -12.79), controlPoint1: CGPointMake(11.23, -12.57), controlPoint2: CGPointMake(3.11, -15.77))
-        bezier3Path.addCurveToPoint(CGPointMake(-13.32, 10.09), controlPoint1: CGPointMake(-13.01, -9.02), controlPoint2: CGPointMake(-17.16, 1.13))
-        bezier3Path.addCurveToPoint(CGPointMake(16.23, 21.69), controlPoint1: CGPointMake(-8.42, 21.27), controlPoint2: CGPointMake(4.86, 26.5))
-        bezier3Path.addCurveToPoint(CGPointMake(31.1, -14.97), controlPoint1: CGPointMake(30.63, 15.54), controlPoint2: CGPointMake(37.23, -0.77))
-        bezier3Path.addCurveToPoint(CGPointMake(-16, -33.61), controlPoint1: CGPointMake(23.32, -32.85), controlPoint2: CGPointMake(2.29, -41.15))
-        bezier3Path.addCurveToPoint(CGPointMake(-39.71, 24.62), controlPoint1: CGPointMake(-38.93, -23.88), controlPoint2: CGPointMake(-49.51, 2.16))
-        bezier3Path.addCurveToPoint(CGPointMake(-40.4, 26.33), controlPoint1: CGPointMake(-39.42, 25.28), controlPoint2: CGPointMake(-39.73, 26.05))
-        bezier3Path.addCurveToPoint(CGPointMake(-42.13, 25.65), controlPoint1: CGPointMake(-41.07, 26.62), controlPoint2: CGPointMake(-41.84, 26.31))
-        bezier3Path.closePath()
-        VaavudStyle.vaavudDarkGrey.setFill()
-        bezier3Path.fill()
+        var bezier2Path = UIBezierPath()
+        bezier2Path.moveToPoint(CGPointMake(10.27, 81.5))
+        bezier2Path.addCurveToPoint(CGPointMake(37.14, 14.4), controlPoint1: CGPointMake(-0.81, 55.67), controlPoint2: CGPointMake(11.11, 25.64))
+        bezier2Path.addCurveToPoint(CGPointMake(90.86, 36.04), controlPoint1: CGPointMake(57.96, 5.68), controlPoint2: CGPointMake(81.96, 15.24))
+        bezier2Path.addCurveToPoint(CGPointMake(73.74, 78.98), controlPoint1: CGPointMake(97.91, 52.65), controlPoint2: CGPointMake(90.36, 71.77))
+        bezier2Path.addCurveToPoint(CGPointMake(39.32, 65.23), controlPoint1: CGPointMake(60.47, 84.69), controlPoint2: CGPointMake(45.03, 78.48))
+        bezier2Path.addCurveToPoint(CGPointMake(50.4, 37.72), controlPoint1: CGPointMake(34.79, 54.49), controlPoint2: CGPointMake(39.65, 42.25))
+        bezier2Path.addCurveToPoint(CGPointMake(72.39, 46.44), controlPoint1: CGPointMake(58.96, 34.03), controlPoint2: CGPointMake(68.7, 38.05))
+        bezier2Path.addCurveToPoint(CGPointMake(65.34, 64.05), controlPoint1: CGPointMake(75.25, 53.15), controlPoint2: CGPointMake(72.23, 61.04))
+        bezier2Path.addCurveToPoint(CGPointMake(51.24, 58.35), controlPoint1: CGPointMake(59.97, 66.4), controlPoint2: CGPointMake(53.59, 63.89))
+        bezier2Path.addCurveToPoint(CGPointMake(55.77, 47.11), controlPoint1: CGPointMake(49.39, 53.99), controlPoint2: CGPointMake(51.41, 48.96))
+        bezier2Path.addCurveToPoint(CGPointMake(64.84, 50.63), controlPoint1: CGPointMake(59.3, 45.6), controlPoint2: CGPointMake(63.33, 47.28))
+        bezier2Path.lineCapStyle = kCGLineCapRound;
+
+        bezier2Path.lineJoinStyle = kCGLineJoinRound;
+
+        VaavudStyle.vaavudDarkGrey.setStroke()
+        bezier2Path.lineWidth = 5
+        bezier2Path.stroke()
 
         CGContextRestoreGState(context)
     }
