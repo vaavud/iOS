@@ -93,21 +93,34 @@
 #elif CORE
     
     // CORE VAAVUD APP
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    NSString *vcName;
     
     if ([Property getAsBoolean:KEY_HAS_SEEN_INTRO_FLOW defaultValue:NO]) {
-        
-        // normal case...
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        viewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+        // Not a new user
+        NSLog(@"KEY_HAS_SEEN_INTRO_FLOW");
+
+        if ([Property getAsBoolean:KEY_HAS_SEEN_UPGRADE_FLOW defaultValue:NO]) {
+            // Has seen upgrade flow
+            vcName = @"TabBarController";
+            NSLog(@"KEY_HAS_SEEN_UPGRADE_FLOW");
+        }
+        else {
+            // Has not seen upgrade flow
+            NSLog(@"not KEY_HAS_SEEN_UPGRADE_FLOW");
+            vcName = @"UpgradingUserViewController";
+        }
     }
     else {
-        
-        // first-time case...
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        viewController = [storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
+        // Has not seen intro flow
+        // No need to ever show upgrade flow
+        NSLog(@"not KEY_HAS_SEEN_INTRO_FLOW");
+
+//        [Property setAsBoolean:YES forKey:KEY_HAS_SEEN_UPGRADE_FLOW];
+        vcName = @"FirstTimeFlowController";
     }
+
+    viewController = [storyboard instantiateViewControllerWithIdentifier:vcName];
 
 #endif
     

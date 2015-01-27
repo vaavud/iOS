@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */; };
+		2234D3561A77BFE400F325EB /* IntroFlowImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3551A77BFE400F325EB /* IntroFlowImages.xcassets */; };
+		2234D3581A78069F00F325EB /* UpgradingUserPagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3571A78069F00F325EB /* UpgradingUserPagesView.xib */; };
 		22A3405E1A5AE022006CE401 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */; };
 		22A340661A5BDA21006CE401 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */; };
 		22AB2E6C1A70FC15008CAE46 /* BebasNeue Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E691A70FC15008CAE46 /* BebasNeue Bold.otf */; };
@@ -615,6 +618,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradingUserViewController.swift; sourceTree = "<group>"; };
+		2234D3551A77BFE400F325EB /* IntroFlowImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = IntroFlowImages.xcassets; sourceTree = "<group>"; };
+		2234D3571A78069F00F325EB /* UpgradingUserPagesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpgradingUserPagesView.xib; sourceTree = "<group>"; };
 		22AB2E691A70FC15008CAE46 /* BebasNeue Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue Bold.otf"; sourceTree = "<group>"; };
 		22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
@@ -1382,6 +1388,7 @@
 		D7B5BD4E175775BA0069F739 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2234D3571A78069F00F325EB /* UpgradingUserPagesView.xib */,
 				22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */,
 				E90709411940AFAC0087F80F /* Components */,
 				E9B950DE195C584200E9EF02 /* FirstTime */,
@@ -1687,6 +1694,7 @@
 				E907093D193F4AFB0087F80F /* SettingsIcon.png */,
 				E9DE09D11935E4D5003877D9 /* SettingsIcon@2x.png */,
 				E93EED8119EE5C28004D8759 /* SettingsIcon@3x.png */,
+				2234D3551A77BFE400F325EB /* IntroFlowImages.xcassets */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1943,6 +1951,7 @@
 				E9B950E0195C587800E9EF02 /* FirstTimeExplanationViewController.m */,
 				E9B950E1195C587800E9EF02 /* FirstTimeFlowController.h */,
 				E9B950E2195C587800E9EF02 /* FirstTimeFlowController.m */,
+				2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */,
 			);
 			name = FirstTime;
 			sourceTree = "<group>";
@@ -2356,6 +2365,7 @@
 				E91D4213198BDFEA00106E15 /* 007_reading@2x.jpg in Resources */,
 				E9D9051419C9BB4A00ABA9F4 /* mapmarker_w_direction_SW@2x.png in Resources */,
 				E91535BD1806C2D20070BFB4 /* measure.png in Resources */,
+				2234D3561A77BFE400F325EB /* IntroFlowImages.xcassets in Resources */,
 				22AB2E6E1A70FC15008CAE46 /* Roboto-Light.ttf in Resources */,
 				E93EED5519EE5A0A004D8759 /* mapmarker_w_direction_ENE@3x.png in Resources */,
 				E93EEDBB19EE9039004D8759 /* one-pixel-line.png in Resources */,
@@ -2399,6 +2409,7 @@
 				E907093E193F4AFB0087F80F /* SettingsIcon.png in Resources */,
 				E9D9050619C9BB4A00ABA9F4 /* mapmarker_w_direction_NE@2x.png in Resources */,
 				E93EED4019EE5976004D8759 /* history@3x.png in Resources */,
+				2234D3581A78069F00F325EB /* UpgradingUserPagesView.xib in Resources */,
 				E9D9051019C9BB4A00ABA9F4 /* mapmarker_w_direction_SSE@2x.png in Resources */,
 				E9D9050819C9BB4A00ABA9F4 /* mapmarker_w_direction_NNE@2x.png in Resources */,
 				E93EED5F19EE5A0A004D8759 /* mapmarker_w_direction_NNW@3x.png in Resources */,
@@ -2672,6 +2683,7 @@
 				E9B627C517708E63004678D5 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				D7497EC11A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m in Sources */,
 				E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */,
+				2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */,
 				E9A4097D18994570004F1C12 /* UIImageView+TMCache.m in Sources */,
 				E9FABFDB18929158009C4C46 /* HistoryNavigationController.m in Sources */,
 				E9B627C617708E63004678D5 /* AFPropertyListRequestOperation.m in Sources */,

@@ -93,7 +93,7 @@
 
     if ([Property isMixpanelEnabled]) {
         if (self.pageId == 4) {
-            [[Mixpanel sharedInstance] track:self.mixpanelScreen properties:@{@"Borderless Later Button": self.bottomButtonIsTransparent ? @"true" : @"false"}];
+            [[Mixpanel sharedInstance] track:self.mixpanelScreen properties:@{@"Borderless Later Button" : self.bottomButtonIsTransparent ? @"true" : @"false"}];
         }
         else {
             [[Mixpanel sharedInstance] track:self.mixpanelScreen];
