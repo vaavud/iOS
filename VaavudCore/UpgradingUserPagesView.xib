@@ -12,6 +12,22 @@
             <rect key="frame" x="0.0" y="0.0" width="1157" height="543"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C3E-RZ-m83" userLabel="View 0">
+                    <rect key="frame" x="0.0" y="0.0" width="386" height="543"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYL-PV-xrH">
+                            <rect key="frame" x="33" y="55" width="321" height="82"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="DYL-PV-xrH" secondAttribute="width" multiplier="1.2" id="Cud-Gj-71i"/>
+                        <constraint firstAttribute="centerX" secondItem="DYL-PV-xrH" secondAttribute="centerX" id="Cvi-8h-Ohj"/>
+                        <constraint firstItem="DYL-PV-xrH" firstAttribute="top" secondItem="C3E-RZ-m83" secondAttribute="top" constant="55" id="OEV-IZ-eBe"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJk-ua-Thb" userLabel="View 1">
                     <rect key="frame" x="386" y="0.0" width="385" height="543"/>
                     <subviews>
@@ -51,6 +67,18 @@
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qBU-1m-n5D">
+                            <rect key="frame" x="1" y="149" width="386" height="327"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NewFeatureSleipnir" translatesAutoresizingMaskIntoConstraints="NO" id="mgw-TV-Hr5">
+                                    <rect key="frame" x="107" y="18" width="172" height="291"/>
+                                </imageView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="centerY" secondItem="mgw-TV-Hr5" secondAttribute="centerY" id="Nt4-bY-aOv"/>
+                                <constraint firstAttribute="centerX" secondItem="mgw-TV-Hr5" secondAttribute="centerX" id="QIQ-F4-n6u"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="ebe-aR-dXi" secondAttribute="width" multiplier="1.2" id="1lB-qG-YgN"/>
@@ -58,24 +86,12 @@
                         <constraint firstAttribute="centerX" secondItem="l6V-jd-EzT" secondAttribute="centerX" id="Ecg-GQ-Jr3"/>
                         <constraint firstAttribute="centerX" secondItem="ebe-aR-dXi" secondAttribute="centerX" id="FXb-4o-mXk"/>
                         <constraint firstAttribute="centerX" secondItem="By2-Wp-Ksm" secondAttribute="centerX" id="LR4-TW-Ind"/>
+                        <constraint firstItem="qBU-1m-n5D" firstAttribute="top" secondItem="By2-Wp-Ksm" secondAttribute="bottom" id="MXR-KO-ZMd"/>
                         <constraint firstItem="ebe-aR-dXi" firstAttribute="top" secondItem="jEF-aq-0dA" secondAttribute="top" constant="55" id="TqI-XG-DLV"/>
+                        <constraint firstAttribute="width" secondItem="qBU-1m-n5D" secondAttribute="width" id="fdY-wY-odc"/>
                         <constraint firstItem="By2-Wp-Ksm" firstAttribute="top" secondItem="ebe-aR-dXi" secondAttribute="bottom" constant="21" id="jY1-mM-xNW"/>
-                    </constraints>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C3E-RZ-m83" userLabel="View 0">
-                    <rect key="frame" x="0.0" y="0.0" width="386" height="543"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYL-PV-xrH">
-                            <rect key="frame" x="33" y="55" width="321" height="82"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                    </subviews>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="DYL-PV-xrH" secondAttribute="width" multiplier="1.2" id="Cud-Gj-71i"/>
-                        <constraint firstAttribute="centerX" secondItem="DYL-PV-xrH" secondAttribute="centerX" id="Cvi-8h-Ohj"/>
-                        <constraint firstItem="DYL-PV-xrH" firstAttribute="top" secondItem="C3E-RZ-m83" secondAttribute="top" constant="55" id="OEV-IZ-eBe"/>
+                        <constraint firstItem="l6V-jd-EzT" firstAttribute="top" secondItem="qBU-1m-n5D" secondAttribute="bottom" id="s8B-vc-gXv"/>
+                        <constraint firstAttribute="centerX" secondItem="qBU-1m-n5D" secondAttribute="centerX" constant="-0.5" id="sxS-1D-hcF"/>
                     </constraints>
                 </view>
             </subviews>
@@ -98,4 +114,7 @@
             <point key="canvasLocation" x="511.5" y="308.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="NewFeatureSleipnir" width="172" height="291"/>
+    </resources>
 </document>
