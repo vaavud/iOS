@@ -15,15 +15,11 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var phoneOffset: NSLayoutConstraint!
     @IBOutlet weak var phoneScrollView: UIScrollView!
     
-    let pageCount = 3
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    @IBOutlet weak var laterButtonConstraint: NSLayoutConstraint!
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        scrollView.contentSize = CGSize(width: CGFloat(pageCount)*scrollView.bounds.width, height: scrollView.bounds.height)
+        scrollView.contentSize = CGSize(width: CGFloat(pager.numberOfPages)*scrollView.bounds.width, height: scrollView.bounds.height)
         
         if let content = NSBundle.mainBundle().loadNibNamed("UpgradingUserPagesView", owner: nil, options: nil).first as? UIView {
             content.frame.size = scrollView.contentSize
@@ -42,11 +38,39 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
         let page = scrollView.contentOffset.x/scrollView.bounds.width
         pager.currentPage = Int(round(page))
         
-        if page > 1 {
-            phoneOffset.constant = scrollView.bounds.width - scrollView.contentOffset.x
+        if page < 1 {
+            phoneScrollView.contentOffset.x = page*phoneScrollView.bounds.width
         }
         else {
-            phoneScrollView.contentOffset.x = page*phoneScrollView.bounds.width
+            phoneOffset.constant = scrollView.bounds.width - scrollView.contentOffset.x
+            laterButtonConstraint.constant = scrollView.contentOffset.x - 2*scrollView.bounds.width
         }
     }
 }
+
+@IBDesignable class GradientView: UIView {
+    @IBInspectable var startColor: UIColor = UIColor.clearColor() { didSet { update() } }
+    @IBInspectable var endColor: UIColor = UIColor.vaavudLightGreyColor() { didSet { update() } }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        update()
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        update()
+    }
+    
+    override class func layerClass() -> AnyClass {
+        return CAGradientLayer.self
+    }
+    
+    func update() {
+        (layer as CAGradientLayer).colors = [startColor.CGColor, endColor.CGColor]
+        setNeedsDisplay()
+    }
+}
+
+
+

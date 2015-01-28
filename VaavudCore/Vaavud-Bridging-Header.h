@@ -9,5 +9,6 @@
 #ifndef Vaavud_Vaavud_Bridging_Header_h
 #define Vaavud_Vaavud_Bridging_Header_h
 
+#import "UIColor+VaavudColors.h"
 
 #endif

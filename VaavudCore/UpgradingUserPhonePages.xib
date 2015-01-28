@@ -8,17 +8,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB">
-            <rect key="frame" x="0.0" y="0.0" width="627" height="539"/>
+            <rect key="frame" x="0.0" y="0.0" width="640" height="539"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NewFeatureHistoryScreen" translatesAutoresizingMaskIntoConstraints="NO" id="YZ3-Ds-JSP">
-                    <rect key="frame" x="0.0" y="0.0" width="314" height="539"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="539"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NewFeatureSummaryScreen" translatesAutoresizingMaskIntoConstraints="NO" id="Jci-qI-PtC">
-                    <rect key="frame" x="314" y="0.0" width="313" height="539"/>
+                    <rect key="frame" x="320" y="0.0" width="320" height="539"/>
                 </imageView>
             </subviews>
-            <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Jci-qI-PtC" secondAttribute="trailing" id="3I4-0t-dUZ"/>
                 <constraint firstItem="Jci-qI-PtC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="9vV-4f-hjR"/>
@@ -31,7 +31,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="404.5" y="222.5"/>
+            <point key="canvasLocation" x="398" y="222.5"/>
         </view>
     </objects>
     <resources>

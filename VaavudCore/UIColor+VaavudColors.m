@@ -26,6 +26,15 @@
     return [UIColor colorWithRed:(213.0/255.0) green:(213.0/255.0) blue:(213.0/255.0) alpha:1.0];
 }
 
+// FIXME: update
++ (UIColor *)vaavudLightGreyColor {
+    return [UIColor colorWithRed:(213.0/255.0) green:(213.0/255.0) blue:(213.0/255.0) alpha:1.0];
+}
+
++ (UIColor *)vaavudDarkGreyColor {
+    return [UIColor colorWithRed:(213.0/255.0) green:(213.0/255.0) blue:(213.0/255.0) alpha:1.0];
+}
+
 
 + (UIColor *)vaavudColor {
 #ifdef AGRI

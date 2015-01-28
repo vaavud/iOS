@@ -623,6 +623,8 @@
 		2234D3551A77BFE400F325EB /* IntroFlowImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = IntroFlowImages.xcassets; sourceTree = "<group>"; };
 		2234D3571A78069F00F325EB /* UpgradingUserPagesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpgradingUserPagesView.xib; sourceTree = "<group>"; };
 		2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpgradingUserPhonePages.xib; sourceTree = "<group>"; };
+		2234D35C1A78F43700F325EB /* Agriculture-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Agriculture-Bridging-Header.h"; sourceTree = "<group>"; };
+		2234D35F1A78F4F900F325EB /* Agriculture-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Agriculture-Bridging-Header.h"; sourceTree = "<group>"; };
 		22AB2E691A70FC15008CAE46 /* BebasNeue Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue Bold.otf"; sourceTree = "<group>"; };
 		22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
@@ -1296,6 +1298,7 @@
 		D7A4F1BE173A8DDB00D1ACEE = {
 			isa = PBXGroup;
 			children = (
+				2234D35C1A78F43700F325EB /* Agriculture-Bridging-Header.h */,
 				E972407319DAAB54008642E2 /* Images.xcassets */,
 				E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */,
 				D7A4F1D0173A8DDB00D1ACEE /* Classes */,
@@ -1390,6 +1393,7 @@
 		D7B5BD4E175775BA0069F739 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2234D35F1A78F4F900F325EB /* Agriculture-Bridging-Header.h */,
 				2234D3571A78069F00F325EB /* UpgradingUserPagesView.xib */,
 				22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */,
 				E90709411940AFAC0087F80F /* Components */,

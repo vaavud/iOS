@@ -16,4 +16,7 @@
 + (UIColor *)vaavudColor;
 + (UIColor *)vaavudGreyColor;
 
++ (UIColor *)vaavudLightGreyColor;
++ (UIColor *)vaavudDarkGreyColor;
+
 @end
