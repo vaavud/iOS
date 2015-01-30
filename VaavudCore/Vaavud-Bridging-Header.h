@@ -10,5 +10,7 @@
 #define Vaavud_Vaavud_Bridging_Header_h
 
 #import "UIColor+VaavudColors.h"
+#import "LocationManager.h"
+#import "MeasurementSession.h"
 
 #endif

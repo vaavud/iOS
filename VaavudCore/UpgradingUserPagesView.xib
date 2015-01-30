@@ -80,7 +80,7 @@
                                         <constraint firstAttribute="height" constant="44" id="HIn-n7-Ybz"/>
                                     </constraints>
                                     <inset key="contentEdgeInsets" minX="8" minY="5" maxX="8" maxY="5"/>
-                                    <state key="normal" title="Buy the new Sleipnir!">
+                                    <state key="normal" title="Buy the new Sleipnir now!">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>

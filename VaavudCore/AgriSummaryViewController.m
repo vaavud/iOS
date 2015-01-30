@@ -157,7 +157,7 @@
     else if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
         static NSString *MeasureAnnotationIdentifier = @"MeasureAnnotationIdentifier";
         
-        MeasurementAnnotation *measurementAnnotation = (MeasurementAnnotation *) annotation;
+        MeasurementAnnotation *measurementAnnotation = (MeasurementAnnotation *)annotation;
         measurementAnnotation.windSpeedUnit = self.windSpeedUnit;
         
         MKAnnotationView *measureAnnotationView =

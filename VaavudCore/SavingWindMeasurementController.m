@@ -29,6 +29,8 @@
 @property (nonatomic, strong) NSDate *lastSaveTime;
 @property (nonatomic, strong) NSTimer *temperatureLookupTimer;
 
+@property (nonatomic) CLGeocoder *geocoder;
+
 @end
 
 @implementation SavingWindMeasurementController
@@ -46,6 +48,8 @@ SHARED_INSTANCE
 
 - (void)start {
     if (self.controller) {
+        if (!self.geocoder) { self.geocoder = [CLGeocoder new]; }
+        
         self.hasBeenStopped = NO;
         self.wasValid = YES;
         self.lastSaveTime = nil;
@@ -291,13 +295,18 @@ SHARED_INSTANCE
 - (void)updateMeasurementSessionLocation:(MeasurementSession *)measurementSession {
     if (measurementSession && [measurementSession.measuring boolValue]) {
 
-        CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
-        if ([LocationManager isCoordinateValid:latestLocation]) {
+        CLLocationCoordinate2D loc2d = [LocationManager sharedInstance].latestLocation;
+        if ([LocationManager isCoordinateValid:loc2d]) {
             
             //NSLog(@"[SavingWindMeasurementController] Valid location (%+.6f, %+.6f)", latestLocation.latitude, latestLocation.longitude);
             
-            measurementSession.latitude = [NSNumber numberWithDouble:latestLocation.latitude];
-            measurementSession.longitude = [NSNumber numberWithDouble:latestLocation.longitude];
+            measurementSession.latitude = [NSNumber numberWithDouble:loc2d.latitude];
+            measurementSession.longitude = [NSNumber numberWithDouble:loc2d.longitude];
+            
+            if (!measurementSession.geoLocationNameLocalized) {
+                CLLocation *loc = [[CLLocation alloc] initWithLatitude:loc2d.latitude longitude:loc2d.longitude];
+                [self geocodeLocation:loc forSession:measurementSession];
+            }
         }
         else {
             measurementSession.latitude = nil;
@@ -309,6 +318,32 @@ SHARED_INSTANCE
         }
     }
 }
+
+- (void)geocodeLocation:(CLLocation *)location forSession:(MeasurementSession *)session {
+    NSLog(@"M LOCATION requesting for %.2f", session.windSpeedAvg.floatValue);
+    [self.geocoder reverseGeocodeLocation:location completionHandler: ^(NSArray *placemarks, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"M LOCATION received for %.2f", session.windSpeedAvg.floatValue);
+            
+            if (placemarks.count > 0 && !error) {
+                CLPlacemark *first = [placemarks objectAtIndex:0];
+                NSString *text = first.thoroughfare ?: first.locality ?: first.country;
+                
+                session.geoLocationNameLocalized = text;
+                
+                NSLog(@"M LOCATION setting for %.2f: %@", session.windSpeedAvg.floatValue, text);
+            }
+            else {
+                if (error) { NSLog(@"Geocode failed with error: %@", error); }
+                session.geoLocationNameLocalized = NSLocalizedString(@"GEOLOCATION_ERROR", nil);
+            }
+            
+            session.uploaded = @NO;
+            [[ServerUploadManager sharedInstance] triggerUpload];
+        });
+    }];
+}
+
 
 #pragma mark Temperature methods
 

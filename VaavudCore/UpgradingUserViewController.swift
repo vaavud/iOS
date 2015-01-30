@@ -90,14 +90,6 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
     }
 }
 
-@IBDesignable class ArrowView: UIView {
-    @IBInspectable var direction: CGFloat = 0 { didSet { setNeedsDisplay() } }
-
-    override func drawRect(rect: CGRect) {
-        VaavudStyle.drawVaavudArrow(height: bounds.height, windDirection: direction)
-    }
-}
-
 
 
 

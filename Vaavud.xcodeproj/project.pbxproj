@@ -1368,6 +1368,7 @@
 			isa = PBXGroup;
 			children = (
 				22FA6C501A727171004DD868 /* VaavudStyle.swift */,
+				2234D35F1A78F4F900F325EB /* Agriculture-Bridging-Header.h */,
 				22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */,
 				22AB2E681A70FC00008CAE46 /* Fonts */,
 				D7A4F1F5173AA16700D1ACEE /* Constants.h */,
@@ -1397,7 +1398,6 @@
 		D7B5BD4E175775BA0069F739 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2234D35F1A78F4F900F325EB /* Agriculture-Bridging-Header.h */,
 				2234D3571A78069F00F325EB /* UpgradingUserPagesView.xib */,
 				22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */,
 				E90709411940AFAC0087F80F /* Components */,

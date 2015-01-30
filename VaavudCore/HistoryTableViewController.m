@@ -233,44 +233,38 @@
         cell.locationLabel.text = session.geoLocationNameLocalized;
     }
     else {
-        NSLog(@"------------no geolocation, will get---------------");
         cell.locationLabel.alpha = 0.3;
-        cell.locationLabel.text = NSLocalizedString(@"LOADING_LOCATION", @"Loading geolocation in History");
     
         if (session.latitude && session.longitude) {
+            cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_LOADING", nil);
             CLLocationDegrees latitude = session.latitude.doubleValue;
             CLLocationDegrees longitude = session.longitude.doubleValue;
-        
-            NSLog(@"lat:long: %.2f:%.2f", latitude, longitude);
             CLLocation *location = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
 
             [self geocodeLocation:location forCell:cell session:session];
         }
         else {
-            NSLog(@"NO location");
-            session.geoLocationNameLocalized = NSLocalizedString(@"UNKNOWN_LOCATION", @"GPS was off");
+            session.geoLocationNameLocalized = NSLocalizedString(@"GEOLOCATION_UNKNOWN", nil);
             cell.locationLabel.text = session.geoLocationNameLocalized;
         }
     }
 }
 
 - (void)geocodeLocation:(CLLocation *)location forCell:(HistoryTableViewCell *)cell session:(MeasurementSession *)session {
-    NSLog(@"------------requesting: %.2f", session.windSpeedAvg.floatValue);
-    
+    NSLog(@"LOCATION requesting for %.2f", session.windSpeedAvg.floatValue);
     [self.geocoder reverseGeocodeLocation:location completionHandler: ^(NSArray *placemarks, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            NSLog(@"LOCATION received for %.2f: %@", session.windSpeedAvg.floatValue, [placemarks objectAtIndex:0] ?: @"-");
+
             if (placemarks.count > 0 && !error) {
                 CLPlacemark *first = [placemarks objectAtIndex:0];
                 NSString *text = first.thoroughfare ?: first.locality ?: first.country;
                 
-                NSLog(@"--- got it - placemarks (%.2f): %@ - %@ - %@", session.windSpeedAvg.floatValue, first.thoroughfare, first.locality, first.country);
-                
                 session.geoLocationNameLocalized = text;
             }
             else {
-                if (error) { NSLog(@"****** Geocode failed with error: %@", error); }
-                
-                session.geoLocationNameLocalized = NSLocalizedString(@"GEO_LOCATION_ERROR", @"No geolocation found");
+                if (error) { NSLog(@"Geocode failed with error: %@", error); }
+                session.geoLocationNameLocalized = NSLocalizedString(@"GEO_LOCATION_ERROR", nil);
             }
             
             cell.locationLabel.text = session.geoLocationNameLocalized;
@@ -339,7 +333,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         //NSLog(@"Delete pressed");
         MeasurementSession *session = [self.fetchedResultsController objectAtIndexPath:indexPath];

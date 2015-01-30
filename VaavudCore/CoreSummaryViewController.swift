@@ -8,9 +8,34 @@
 
 import Foundation
 import UIKit
+import MapKit
 
-class CoreSummaryViewController: UIViewController {
+class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     var animator: UIDynamicAnimator!
+    
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var averageLabel: UILabel!
+    @IBOutlet weak var maximumLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    
+    @IBOutlet weak var averageUnitLabel: UILabel!
+    @IBOutlet weak var maximumUnitLabel: UILabel!
+    
+    @IBOutlet weak var directionLabel: UIButton!
+    
+    @IBOutlet weak var pressureLabel: NSLayoutConstraint!
+    @IBOutlet weak var pressureUnitLabel: UILabel!
+    
+    @IBOutlet weak var temperatureLabel: UILabel!
+    @IBOutlet weak var temperatureUnitLabel: UILabel!
+    
+    @IBOutlet weak var windchillLabel: UILabel!
+    @IBOutlet weak var windchillUnitLabel: UILabel!
+    
+    @IBOutlet weak var gustinessLabel: UILabel!
+    @IBOutlet weak var gustinessUnitLabel: UILabel!
+    
+    @IBOutlet weak var mapView: MKMapView!
     
     @IBOutlet weak var pressureView: PressureView!
     var pressureItem: DynamicReadingItem!
@@ -21,20 +46,19 @@ class CoreSummaryViewController: UIViewController {
     @IBOutlet weak var gustinessView: GustinessView!
     var gustinessItem: DynamicReadingItem!
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        println("nib")
-        setup()
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        println("coder")
-        setup()
-    }
+    var session: MeasurementSession?
     
-    func setup() {
-    }
+//    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+//        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+//        println("nib")
+//        setup()
+//    }
+//
+//    required init(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//        println("coder")
+//        setup()
+//    }
     
     override func viewDidLoad() {
         animator = UIDynamicAnimator(referenceView: view)
@@ -42,6 +66,19 @@ class CoreSummaryViewController: UIViewController {
         temperatureItem = DynamicReadingItem(readingView: temperatureView)
         windchillItem = DynamicReadingItem(readingView: windchillView)
         gustinessItem = DynamicReadingItem(readingView: gustinessView)
+        
+        setupMapView()
+    }
+    
+    func setupMapView() {
+        if let session = session {
+            if session.latitude == nil || session.longitude == nil {
+                return
+            }
+            
+            let coord = CLLocationCoordinate2D(latitude: session.latitude.doubleValue, longitude: session.longitude.doubleValue)
+            mapView.setRegion(MKCoordinateRegionMakeWithDistance(coord, 500, 500), animated: false)
+        }
     }
     
     @IBAction func tapped(sender: AnyObject) {
@@ -108,6 +145,16 @@ class DynamicOffsetItem: NSObject, UIDynamicItem {
     init(offsetView: OffsetView) {
         self.offsetView = offsetView
         super.init()
+    }
+}
+
+@IBDesignable class ArrowView: UIView {
+    @IBInspectable var strokeWidth: CGFloat = 3.0 { didSet { setNeedsDisplay() } }
+    @IBInspectable var strokeColor: UIColor = UIColor.blackColor() { didSet { setNeedsDisplay() } }
+    
+    override func drawRect(rect: CGRect) {
+        let rect = CGRect(x: 0, y: 0, width: bounds.height, height: bounds.height)
+        VaavudStyle.drawCompassArrow(frame: rect, strokeColor: strokeColor, strokeWidth: strokeWidth)
     }
 }
 

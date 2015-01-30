@@ -193,3 +193,21 @@
 "AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "No Subscription";
 "AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "You don't have a valid subscription. Please contact Vaavud.";
 "AGRI_WORD_LIST" = "Word list";
+
+// New January 2015
+"INTRO_UPGRADE_WHATS_NEW" = "What's new";
+"INTRO_UPGRADE_TEXT0" = "History shows geolocation and, with the new Sleipnir windmeter, wind direction!";
+"INTRO_UPGRADE_TEXT1" = "Summary screen showing your key measurement data, including pressure, temperature etc.";
+"INTRO_UPGRADE_CTA_BUY" = "Buy the new Sleipnir now!";
+
+"MEASURE_AVG" = "Avg"; // Shorter form of the word 'Average'
+"SUMMARY_PRESSURE" = "Pressure";
+"SUMMARY_TEMPERATURE" = "Temperature";
+"SUMMARY_WIND_CHILL" = "Wind chill"; // Basically a technical term
+"SUMMARY_GUSTINESS" = "Gustiness"; // HOw gusty the wind is
+"GEOLOCATION_ERROR" = "Couldn't load location";
+"GEOLOCATION_LOADING" = "Loading location...";
+"GEOLOCATION_UNKNOWN" = "Location not saved";
+
+"UNIT_FAHRENHEIT" = "°F";
+
