@@ -317,7 +317,9 @@
         [self start];
     }
     else {
+#ifdef AGRI
         self.deleteSession = YES;
+#endif
         [self stop];
     }
 }

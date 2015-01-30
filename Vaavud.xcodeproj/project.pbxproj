@@ -11,6 +11,9 @@
 		2234D3561A77BFE400F325EB /* IntroFlowImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3551A77BFE400F325EB /* IntroFlowImages.xcassets */; };
 		2234D3581A78069F00F325EB /* UpgradingUserPagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3571A78069F00F325EB /* UpgradingUserPagesView.xib */; };
 		2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */; };
+		2234D3621A7A2D1400F325EB /* UpgradingUserPagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3611A7A2D1400F325EB /* UpgradingUserPagesView.swift */; };
+		2234D3661A7A597200F325EB /* HistoryImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3651A7A597200F325EB /* HistoryImages.xcassets */; };
+		2234D3681A7A6AB300F325EB /* SummaryImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3671A7A6AB300F325EB /* SummaryImages.xcassets */; };
 		22A3405E1A5AE022006CE401 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */; };
 		22A340661A5BDA21006CE401 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */; };
 		22AB2E6C1A70FC15008CAE46 /* BebasNeue Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E691A70FC15008CAE46 /* BebasNeue Bold.otf */; };
@@ -623,8 +626,10 @@
 		2234D3551A77BFE400F325EB /* IntroFlowImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = IntroFlowImages.xcassets; sourceTree = "<group>"; };
 		2234D3571A78069F00F325EB /* UpgradingUserPagesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpgradingUserPagesView.xib; sourceTree = "<group>"; };
 		2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpgradingUserPhonePages.xib; sourceTree = "<group>"; };
-		2234D35C1A78F43700F325EB /* Agriculture-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Agriculture-Bridging-Header.h"; sourceTree = "<group>"; };
 		2234D35F1A78F4F900F325EB /* Agriculture-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Agriculture-Bridging-Header.h"; sourceTree = "<group>"; };
+		2234D3611A7A2D1400F325EB /* UpgradingUserPagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradingUserPagesView.swift; sourceTree = "<group>"; };
+		2234D3651A7A597200F325EB /* HistoryImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = HistoryImages.xcassets; sourceTree = "<group>"; };
+		2234D3671A7A6AB300F325EB /* SummaryImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SummaryImages.xcassets; sourceTree = "<group>"; };
 		22AB2E691A70FC15008CAE46 /* BebasNeue Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue Bold.otf"; sourceTree = "<group>"; };
 		22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
@@ -1298,7 +1303,6 @@
 		D7A4F1BE173A8DDB00D1ACEE = {
 			isa = PBXGroup;
 			children = (
-				2234D35C1A78F43700F325EB /* Agriculture-Bridging-Header.h */,
 				E972407319DAAB54008642E2 /* Images.xcassets */,
 				E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */,
 				D7A4F1D0173A8DDB00D1ACEE /* Classes */,
@@ -1701,6 +1705,8 @@
 				E9DE09D11935E4D5003877D9 /* SettingsIcon@2x.png */,
 				E93EED8119EE5C28004D8759 /* SettingsIcon@3x.png */,
 				2234D3551A77BFE400F325EB /* IntroFlowImages.xcassets */,
+				2234D3651A7A597200F325EB /* HistoryImages.xcassets */,
+				2234D3671A7A6AB300F325EB /* SummaryImages.xcassets */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1954,6 +1960,7 @@
 			isa = PBXGroup;
 			children = (
 				2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */,
+				2234D3611A7A2D1400F325EB /* UpgradingUserPagesView.swift */,
 				E9B950DF195C587800E9EF02 /* FirstTimeExplanationViewController.h */,
 				E9B950E0195C587800E9EF02 /* FirstTimeExplanationViewController.m */,
 				E9B950E1195C587800E9EF02 /* FirstTimeFlowController.h */,
@@ -2320,6 +2327,7 @@
 				E91535CB180840D70070BFB4 /* measure_selected.png in Resources */,
 				E9FABFD818929050009C4C46 /* history@2x.png in Resources */,
 				E9DE09D21935E4D5003877D9 /* SettingsIcon@2x.png in Resources */,
+				2234D3661A7A597200F325EB /* HistoryImages.xcassets in Resources */,
 				E9D904D819C9BB2D00ABA9F4 /* mapmarker_w_direction_NNE.png in Resources */,
 				E9D9050019C9BB4A00ABA9F4 /* mapmarker_w_direction_ENE@2x.png in Resources */,
 				E93EED6919EE5A0A004D8759 /* mapmarker_w_direction_SSW@3x.png in Resources */,
@@ -2367,6 +2375,7 @@
 				E93EED7B19EE5B81004D8759 /* map@3x.png in Resources */,
 				E9D904EA19C9BB2D00ABA9F4 /* mapmarker_w_direction_WSW.png in Resources */,
 				E9FABFE71896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib in Resources */,
+				2234D3681A7A6AB300F325EB /* SummaryImages.xcassets in Resources */,
 				E93EED8219EE5C28004D8759 /* SettingsIcon@3x.png in Resources */,
 				E93EED5919EE5A0A004D8759 /* mapmarker_w_direction_N@3x.png in Resources */,
 				E91D4213198BDFEA00106E15 /* 007_reading@2x.jpg in Resources */,
@@ -2703,6 +2712,7 @@
 				E9B627C817708E63004678D5 /* AFXMLRequestOperation.m in Sources */,
 				E9B627C917708E63004678D5 /* UIImageView+AFNetworking.m in Sources */,
 				E9D9045119C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */,
+				2234D3621A7A2D1400F325EB /* UpgradingUserPagesView.swift in Sources */,
 				E9543DFC19FFBF6C005A01D7 /* AgriHistoryTableViewController.m in Sources */,
 				E9B627D1177096D6004678D5 /* VaavudAPIHTTPClient.m in Sources */,
 				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,

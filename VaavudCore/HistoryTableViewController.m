@@ -18,16 +18,21 @@
 #import "ServerUploadManager.h"
 #import "UIColor+VaavudColors.h"
 
+@import CoreLocation;
+
 @interface HistoryTableViewController ()
 
 @property (nonatomic, strong) UIImage *placeholderImage;
-@property (nonatomic, strong) UIImage *windDirectionArrowImage;
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
 @property (nonatomic) NSInteger directionUnit;
 @property (nonatomic) NSDate *latestLocalEndTime;
 @property (nonatomic) BOOL isObservingModelChanges;
 @property (nonatomic) BOOL isAppeared;
 @property (nonatomic) BOOL isTableUpdating;
+
+@property (nonatomic) NSDateFormatter *dateFormatter;
+
+@property (nonatomic) CLGeocoder *geocoder;
 
 @end
 
@@ -36,13 +41,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
-    self.windDirectionArrowImage = [UIImage imageNamed:@"wind_arrow.png"];
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
     self.directionUnit = -1;
     self.navigationItem.title = NSLocalizedString(@"HISTORY_TITLE", nil);
     self.isObservingModelChanges = NO;
     self.isTableUpdating = NO;
     self.isAppeared = NO;
+    self.geocoder = [[CLGeocoder alloc] init];
+    
+    self.dateFormatter = [[NSDateFormatter alloc] init];
 }
 
 - (void)viewDidUnload {
@@ -140,7 +147,7 @@
     }
 }
 
-- (UITableViewCell *)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
     HistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     [self configureCell:cell atIndexPath:indexPath];
@@ -150,6 +157,8 @@
 
 - (void)configureCell:(HistoryTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     MeasurementSession *session = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    NSLog(@"configure cell: %ld: %ld", (long)indexPath.section, (long)indexPath.row);
     
     if (session.latitude && session.longitude && (session.latitude != 0) && (session.longitude != 0)) {
         NSString *iconUrl = @"http://vaavud.com/appgfx/SmallWindMarker.png";
@@ -194,11 +203,10 @@
     NSString *unitName = [UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit];
     cell.unitLabel.text = unitName;
     
-    NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init];
-    [dayFormatter setLocale:[NSLocale currentLocale]];
-    [dayFormatter setDateStyle:NSDateFormatterNoStyle];
-    [dayFormatter setTimeStyle:NSDateFormatterShortStyle];
-    NSString *time = [[[dayFormatter stringFromDate:session.startTime] stringByReplacingOccurrencesOfString:@"." withString:@":"] uppercaseStringWithLocale:[NSLocale currentLocale]];
+    self.dateFormatter.locale = [NSLocale currentLocale];
+    self.dateFormatter.timeStyle = NSDateFormatterShortStyle;
+    
+    NSString *time = [[self.dateFormatter stringFromDate:session.startTime] uppercaseStringWithLocale:[NSLocale currentLocale]];
     cell.timeLabel.text = time;
     
     if (session.windMeter && ([session.windMeter integerValue] > 1) && session.windDirection) {
@@ -208,27 +216,74 @@
         else {
             cell.directionLabel.text = [NSString stringWithFormat:@"%@°", [NSNumber numberWithInt:(int)round([session.windDirection doubleValue])]];
         }
+        cell.directionImageView.transform = CGAffineTransformMakeRotation([session.windDirection doubleValue]/180 * M_PI);
+
         cell.directionLabel.hidden = NO;
-        
-        cell.directionImageView.image = self.windDirectionArrowImage;
-        if (cell.directionImageView.image) {
-            cell.directionImageView.transform = CGAffineTransformMakeRotation([session.windDirection doubleValue]/180 * M_PI);
-            cell.directionImageView.hidden = NO;
-        }
-        else {
-            cell.directionImageView.hidden = YES;
-        }
+        cell.directionImageView.hidden = NO;
     }
     else {
-        cell.directionImageView.hidden = YES;
         cell.directionLabel.hidden = YES;
+        cell.directionImageView.hidden = YES;
     }
     
     cell.testModeLabel.hidden = !(cell.testModeLabel && session.testMode.boolValue);
+    
+    if (session.geoLocationNameLocalized) {
+        cell.locationLabel.alpha = 1.0;
+        cell.locationLabel.text = session.geoLocationNameLocalized;
+    }
+    else {
+        NSLog(@"------------no geolocation, will get---------------");
+        cell.locationLabel.alpha = 0.3;
+        cell.locationLabel.text = NSLocalizedString(@"LOADING_LOCATION", @"Loading geolocation in History");
+    
+        if (session.latitude && session.longitude) {
+            CLLocationDegrees latitude = session.latitude.doubleValue;
+            CLLocationDegrees longitude = session.longitude.doubleValue;
+        
+            NSLog(@"lat:long: %.2f:%.2f", latitude, longitude);
+            CLLocation *location = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+
+            [self geocodeLocation:location forCell:cell session:session];
+        }
+        else {
+            NSLog(@"NO location");
+            session.geoLocationNameLocalized = NSLocalizedString(@"UNKNOWN_LOCATION", @"GPS was off");
+            cell.locationLabel.text = session.geoLocationNameLocalized;
+        }
+    }
+}
+
+- (void)geocodeLocation:(CLLocation *)location forCell:(HistoryTableViewCell *)cell session:(MeasurementSession *)session {
+    NSLog(@"------------requesting: %.2f", session.windSpeedAvg.floatValue);
+    
+    [self.geocoder reverseGeocodeLocation:location completionHandler: ^(NSArray *placemarks, NSError *error) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (placemarks.count > 0 && !error) {
+                CLPlacemark *first = [placemarks objectAtIndex:0];
+                NSString *text = first.thoroughfare ?: first.locality ?: first.country;
+                
+                NSLog(@"--- got it - placemarks (%.2f): %@ - %@ - %@", session.windSpeedAvg.floatValue, first.thoroughfare, first.locality, first.country);
+                
+                session.geoLocationNameLocalized = text;
+            }
+            else {
+                if (error) { NSLog(@"****** Geocode failed with error: %@", error); }
+                
+                session.geoLocationNameLocalized = NSLocalizedString(@"GEO_LOCATION_ERROR", @"No geolocation found");
+            }
+            
+            cell.locationLabel.text = session.geoLocationNameLocalized;
+            cell.locationLabel.alpha = 1.0;
+            
+            session.uploaded = @NO;
+            [[ServerUploadManager sharedInstance] triggerUpload];
+        });
+    }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 36;
+    return 25;
 }
 
 - (UIView *)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
@@ -238,35 +293,25 @@
     
     if (!view) {
         view = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:HeaderIdentifier];
-        view.frame = CGRectMake(0.0F, 0.0F, tableView.frame.size.width, 36.0F);
-        view.contentView.backgroundColor = [UIColor groupTableViewBackgroundColor];
-
-        NSArray* topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"HistoryTableViewSectionHeaderView" owner:self options:nil];
+        view.frame = CGRectMake(0.0, 0.0, tableView.frame.size.width, 25.0);
+        view.contentView.backgroundColor = [UIColor vaavudGreyColor];
+        
+        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"HistoryTableViewSectionHeaderView" owner:self options:nil];
         UIView *subview = [topLevelObjects objectAtIndex:0];
         subview.tag = 1;
-        subview.frame = CGRectMake(0.0F, -1.0F, tableView.frame.size.width, 38.0F);
+        subview.frame = view.contentView.bounds;
         [view.contentView addSubview:subview];
-
-        //NSLog(@"frame=(%f,%f,%f,%f)", subview.frame.origin.x, subview.frame.origin.y, subview.frame.size.width, subview.frame.size.height);
     }
     
     id<NSFetchedResultsSectionInfo>sectionInfo = self.fetchedResultsController.sections[section];
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"dd MM yyyy"];
-    NSDate *date = [dateFormatter dateFromString:[sectionInfo name]];
-
-    NSDateFormatter *dayFormatter = [[NSDateFormatter alloc] init];
-    [dayFormatter setDateFormat:@"d"];
-    NSString *day = [dayFormatter stringFromDate:date];
-
-    NSDateFormatter *monthFormatter = [[NSDateFormatter alloc] init];
-    [monthFormatter setDateFormat:@"MMM"];
-    NSString *month = [[[monthFormatter stringFromDate:date] stringByReplacingOccurrencesOfString:@"." withString:@""] uppercaseStringWithLocale:[NSLocale currentLocale]];
-
+    self.dateFormatter.dateFormat = @"dd MM yyyy";
+    NSDate *date = [self.dateFormatter dateFromString:[sectionInfo name]];
+    
     HistoryTableViewSectionHeaderView *headerView = (HistoryTableViewSectionHeaderView *)[view viewWithTag:1];
-    headerView.monthLabel.text = month;
-    headerView.dayLabel.text = day;
+    
+    self.dateFormatter.dateFormat = @"EEEE, MMM dd";
+    headerView.label.text = [[self.dateFormatter stringFromDate:date] uppercaseStringWithLocale:[NSLocale currentLocale]];
     
     return view;
 }
@@ -354,6 +399,8 @@
       forChangeType:(NSFetchedResultsChangeType)type
        newIndexPath:(NSIndexPath *)newIndexPath {
 
+    NSLog(@"didChangeObject: %ld:%ld", newIndexPath.section, newIndexPath.row);
+    
     if (!self.isObservingModelChanges) {
         return;
     }
@@ -372,7 +419,7 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self configureCell:(HistoryTableViewCell*) [self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            [self configureCell:(HistoryTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
             break;
             
         case NSFetchedResultsChangeMove:

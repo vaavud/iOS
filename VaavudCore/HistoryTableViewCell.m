@@ -10,4 +10,8 @@
 
 @implementation HistoryTableViewCell
 
+- (UIEdgeInsets)layoutMargins {
+    return UIEdgeInsetsZero;
+}
+
 @end

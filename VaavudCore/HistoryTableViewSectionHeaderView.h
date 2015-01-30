@@ -10,7 +10,6 @@
 
 @interface HistoryTableViewSectionHeaderView : UIView
 
-@property (nonatomic, weak) IBOutlet UILabel *monthLabel;
-@property (nonatomic, weak) IBOutlet UILabel *dayLabel;
+@property (weak, nonatomic) IBOutlet UILabel *label;
 
 @end

@@ -18,13 +18,25 @@
 @dynamic endIndex;
 @dynamic endTime;
 @dynamic generalConsideration;
+@dynamic geoLocationNameLocalized;
+@dynamic gustiness;
+@dynamic humidity;
 @dynamic latitude;
 @dynamic longitude;
 @dynamic measuring;
+@dynamic pressure;
 @dynamic privacy;
 @dynamic reducingEquipment;
 @dynamic source;
+
+@dynamic sourcedTemperature;
+@dynamic sourcedHumidity;
+@dynamic sourcedPressureGroundLevel;
+@dynamic sourcedWindSpeedAvg;
+@dynamic sourcedWindSpeedMax;
+@dynamic sourcedWindDirection;
 @dynamic specialConsideration;
+
 @dynamic sprayQuality;
 @dynamic startIndex;
 @dynamic startTime;
@@ -33,6 +45,7 @@
 @dynamic timezoneOffset;
 @dynamic uploaded;
 @dynamic uuid;
+@dynamic windChill;
 @dynamic windDirection;
 @dynamic windMeter;
 @dynamic windSpeedAvg;

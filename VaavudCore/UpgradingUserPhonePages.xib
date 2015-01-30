@@ -16,9 +16,11 @@
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NewFeatureSummaryScreen" translatesAutoresizingMaskIntoConstraints="NO" id="Jci-qI-PtC">
                     <rect key="frame" x="320" y="0.0" width="320" height="539"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Jci-qI-PtC" secondAttribute="trailing" id="3I4-0t-dUZ"/>
                 <constraint firstItem="Jci-qI-PtC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="9vV-4f-hjR"/>

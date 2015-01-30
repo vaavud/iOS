@@ -653,6 +653,7 @@ SHARED_INSTANCE
                 if (measurementSession.uuid && measurementSession.uuid.length > 0) {
                     NSDictionary *measurementDictionary = (NSDictionary*) [uuidToDictionary objectForKey:measurementSession.uuid];
                     if (measurementDictionary) {
+                        
                         NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[measurementDictionary objectForKey:@"endTime"]) doubleValue] / 1000.0)];
                         if ([measurementSession.endTime isEqualToDate:endTime]) {
                             //NSLog(@"[ServerUploadManager] Measurement known: %@, endTime: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.endTime]);
@@ -670,9 +671,22 @@ SHARED_INSTANCE
                             NSNumber *dose = [self numberValueFrom:measurementDictionary forKey:@"dose"];
                             NSNumber *boomHeight = [self numberValueFrom:measurementDictionary forKey:@"boomHeight"];
                             NSNumber *sprayQuality = [self numberValueFrom:measurementDictionary forKey:@"sprayQuality"];
+                            NSNumber *testMode = [self numberValueFrom:measurementDictionary forKey:@"testMode"];
                             NSNumber *generalConsideration = [self numberValueFrom:measurementDictionary forKey:@"generalConsideration"];
                             NSNumber *specialConsideration = [self numberValueFrom:measurementDictionary forKey:@"specialConsideration"];
                             NSArray *points = [measurementDictionary objectForKey:@"points"];
+                            
+                            NSNumber *humidity = [self numberValueFrom:measurementDictionary forKey:@"humidity"];
+                            NSNumber *pressure = [self numberValueFrom:measurementDictionary forKey:@"pressure"];
+                            NSNumber *gustiness = [self numberValueFrom:measurementDictionary forKey:@"gustiness"];
+                            NSNumber *windChill = [self numberValueFrom:measurementDictionary forKey:@"windChill"];
+                            NSNumber *sourcedTemperature = [self numberValueFrom:measurementDictionary forKey:@"sourcedTemperature"];
+                            NSNumber *sourcedHumidity = [self numberValueFrom:measurementDictionary forKey:@"sourcedHumidity"];
+                            NSNumber *sourcedPressureGroundLevel = [self numberValueFrom:measurementDictionary forKey:@"sourcedPressureGroundLevel"];
+                            NSNumber *sourcedWindSpeedAvg = [self numberValueFrom:measurementDictionary forKey:@"sourcedWindSpeedAvg"];
+                            NSNumber *sourcedWindSpeedMax = [self numberValueFrom:measurementDictionary forKey:@"sourcedWindSpeedMax"];
+                            NSNumber *sourcedWindDirection = [self numberValueFrom:measurementDictionary forKey:@"sourcedWindDirection"];
+                            NSString *geoLocationNameLocalized = [self stringValueFrom:measurementDictionary forKey:@"geoLocationNameLocalized"];
                             
                             if ([measurementSession.measuring boolValue] == NO && [measurementSession.uploaded boolValue] == YES) {
                                 
@@ -692,8 +706,22 @@ SHARED_INSTANCE
                                 measurementSession.dose = dose;
                                 measurementSession.boomHeight = boomHeight;
                                 measurementSession.sprayQuality = sprayQuality;
+                                measurementSession.testMode = testMode;
+                                
                                 measurementSession.generalConsideration = generalConsideration;
                                 measurementSession.specialConsideration = specialConsideration;
+                                
+                                measurementSession.humidity = humidity;
+                                measurementSession.pressure = pressure;
+                                measurementSession.gustiness = gustiness;
+                                measurementSession.windChill = windChill;
+                                measurementSession.sourcedTemperature = sourcedTemperature;
+                                measurementSession.sourcedHumidity = sourcedHumidity;
+                                measurementSession.sourcedPressureGroundLevel = sourcedPressureGroundLevel;
+                                measurementSession.sourcedWindSpeedAvg = sourcedWindSpeedAvg;
+                                measurementSession.sourcedWindSpeedMax = sourcedWindSpeedMax;
+                                measurementSession.sourcedWindDirection = sourcedWindDirection;
+                                measurementSession.geoLocationNameLocalized = geoLocationNameLocalized;
 
                                 if (points.count > measurementSession.points.count) {
                                     
@@ -740,9 +768,22 @@ SHARED_INSTANCE
                 NSNumber *sprayQuality = [self numberValueFrom:measurementDictionary forKey:@"sprayQuality"];
                 NSNumber *generalConsideration = [self numberValueFrom:measurementDictionary forKey:@"generalConsideration"];
                 NSNumber *specialConsideration = [self numberValueFrom:measurementDictionary forKey:@"specialConsideration"];
+                NSNumber *testMode = [self numberValueFrom:measurementDictionary forKey:@"testMode"];
                 NSNumber *windMeter = [self numberValueFrom:measurementDictionary forKey:@"windMeter"];
                 NSArray *points = [measurementDictionary objectForKey:@"points"];
                 
+                NSNumber *humidity = [self numberValueFrom:measurementDictionary forKey:@"humidity"];
+                NSNumber *pressure = [self numberValueFrom:measurementDictionary forKey:@"pressure"];
+                NSNumber *gustiness = [self numberValueFrom:measurementDictionary forKey:@"gustiness"];
+                NSNumber *windChill = [self numberValueFrom:measurementDictionary forKey:@"windChill"];
+                NSNumber *sourcedTemperature = [self numberValueFrom:measurementDictionary forKey:@"sourcedTemperature"];
+                NSNumber *sourcedHumidity = [self numberValueFrom:measurementDictionary forKey:@"sourcedHumidity"];
+                NSNumber *sourcedPressureGroundLevel = [self numberValueFrom:measurementDictionary forKey:@"sourcedPressureGroundLevel"];
+                NSNumber *sourcedWindSpeedAvg = [self numberValueFrom:measurementDictionary forKey:@"sourcedWindSpeedAvg"];
+                NSNumber *sourcedWindSpeedMax = [self numberValueFrom:measurementDictionary forKey:@"sourcedWindSpeedMax"];
+                NSNumber *sourcedWindDirection = [self numberValueFrom:measurementDictionary forKey:@"sourcedWindDirection"];
+                NSString *geoLocationNameLocalized = [self stringValueFrom:measurementDictionary forKey:@"geoLocationNameLocalized"];
+
                 //NSLog(@"windDirection=%@, windMeter=%@, temperature=%@", windDirection, windMeter, temperature);
                 
                 MeasurementSession *measurementSession = [MeasurementSession MR_findFirstByAttribute:@"uuid" withValue:uuid inContext:localContext];
@@ -768,6 +809,19 @@ SHARED_INSTANCE
                         measurementSession.sprayQuality = sprayQuality;
                         measurementSession.generalConsideration = generalConsideration;
                         measurementSession.specialConsideration = specialConsideration;
+                        measurementSession.testMode = testMode;
+                        
+                        measurementSession.humidity = humidity;
+                        measurementSession.pressure = pressure;
+                        measurementSession.gustiness = gustiness;
+                        measurementSession.windChill = windChill;
+                        measurementSession.sourcedTemperature = sourcedTemperature;
+                        measurementSession.sourcedHumidity = sourcedHumidity;
+                        measurementSession.sourcedPressureGroundLevel = sourcedPressureGroundLevel;
+                        measurementSession.sourcedWindSpeedAvg = sourcedWindSpeedAvg;
+                        measurementSession.sourcedWindSpeedMax = sourcedWindSpeedMax;
+                        measurementSession.sourcedWindDirection = sourcedWindDirection;
+                        measurementSession.geoLocationNameLocalized = geoLocationNameLocalized;
 
                         if (points.count > measurementSession.points.count) {
                             //NSLog(@"[ServerUploadManager] Measurement points added, old size=%lu, new size=%lu", (unsigned long)measurementSession.points.count, (unsigned long)points.count);
@@ -804,6 +858,20 @@ SHARED_INSTANCE
                     measurementSession.sprayQuality = sprayQuality;
                     measurementSession.generalConsideration = generalConsideration;
                     measurementSession.specialConsideration = specialConsideration;
+                    measurementSession.testMode = testMode;
+
+                    measurementSession.humidity = humidity;
+                    measurementSession.pressure = pressure;
+                    measurementSession.gustiness = gustiness;
+                    measurementSession.windChill = windChill;
+                    measurementSession.sourcedTemperature = sourcedTemperature;
+                    measurementSession.sourcedHumidity = sourcedHumidity;
+                    measurementSession.sourcedPressureGroundLevel = sourcedPressureGroundLevel;
+                    measurementSession.sourcedWindSpeedAvg = sourcedWindSpeedAvg;
+                    measurementSession.sourcedWindSpeedMax = sourcedWindSpeedMax;
+                    measurementSession.sourcedWindDirection = sourcedWindDirection;
+                    measurementSession.geoLocationNameLocalized = geoLocationNameLocalized;
+
                     measurementSession.windMeter = windMeter;
                     
                     NSOrderedSet *measurementPoints = [self createMeasurementPoints:points withSession:measurementSession inContext:localContext];

@@ -120,6 +120,11 @@
         vcName = @"FirstTimeFlowController";
     }
 
+    
+    // FIXME: Remove this
+    vcName = @"TabBarController";
+
+    
     viewController = [storyboard instantiateViewControllerWithIdentifier:vcName];
 
 #endif

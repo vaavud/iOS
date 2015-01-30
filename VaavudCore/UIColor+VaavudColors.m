@@ -23,16 +23,15 @@
 }
 
 + (UIColor *)vaavudGreyColor {
-    return [UIColor colorWithRed:(213.0/255.0) green:(213.0/255.0) blue:(213.0/255.0) alpha:1.0];
+    return [UIColor colorWithRed:(228.0/255.0) green:(231.0/255.0) blue:(232.0/255.0) alpha:1.0];
 }
 
-// FIXME: update
 + (UIColor *)vaavudLightGreyColor {
-    return [UIColor colorWithRed:(213.0/255.0) green:(213.0/255.0) blue:(213.0/255.0) alpha:1.0];
+    return [UIColor colorWithRed:(122.0/255.0) green:(134.0/255.0) blue:(140.0/255.0) alpha:1.0];
 }
 
 + (UIColor *)vaavudDarkGreyColor {
-    return [UIColor colorWithRed:(213.0/255.0) green:(213.0/255.0) blue:(213.0/255.0) alpha:1.0];
+    return [UIColor colorWithRed:(48.0/255.0) green:(62.0/255.0) blue:(72.0/255.0) alpha:1.0];
 }
 
 
