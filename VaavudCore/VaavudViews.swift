@@ -70,6 +70,19 @@ class DynamicOffsetItem: NSObject, UIDynamicItem {
     }
 }
 
+@IBDesignable class SleipnirView: UIView {
+    @IBInspectable var strokeWidth: CGFloat = 3.0 { didSet { setNeedsDisplay() } }
+    @IBInspectable var detailStrokeWidth: CGFloat = 1.0 { didSet { setNeedsDisplay() } }
+    @IBInspectable var strokeColor: UIColor = UIColor.blackColor() { didSet { setNeedsDisplay() } }
+    
+    override func drawRect(rect: CGRect) {
+        let rect = CGRect(x: 0, y: 0, width: bounds.height, height: bounds.height)
+        
+        VaavudStyle.drawSleipnirCompass(frame: rect, strokeColor: strokeColor, strokeWidth: strokeWidth, detailStrokeWidth: detailStrokeWidth)
+    }
+}
+
+
 class OffsetView: UIView {
     @IBInspectable var offsetX: CGFloat = 0.0 { didSet { setNeedsDisplay() } }
     @IBInspectable var offsetY: CGFloat = 0.0 { didSet { setNeedsDisplay() } }

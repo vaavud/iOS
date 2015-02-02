@@ -7,6 +7,8 @@
 //
 
 #import "CoreMeasureViewController.h"
+#import "Vaavud-Swift.h"
+#import "SavingWindMeasurementController.h"
 
 @interface CoreMeasureViewController ()
 
@@ -79,6 +81,14 @@
 
 - (IBAction)unitButtonPushed:(id)sender {
     [super unitButtonPushed:sender];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"SummaryFromMeasureSegue"]) {
+        CoreSummaryViewController *destination = segue.destinationViewController;
+        destination.session = self.concludedSession;
+        self.concludedSession = nil;
+    }
 }
 
 @end

@@ -307,9 +307,9 @@
     else if (indexPath.item == 5) {
         [self performSegueWithIdentifier:@"aboutSegue" sender:self];
     }
-    else if (indexPath.item == 6 ) {
-        [self performSegueWithIdentifier:@"sleipnirCalibrationSegueFromSettings" sender:self];
-    }
+//    else if (indexPath.item == 6 ) {
+//        [self performSegueWithIdentifier:@"sleipnirCalibrationSegueFromSettings" sender:self];
+//    }
     
 }
 

@@ -25,6 +25,8 @@
 @property (nonatomic) BOOL isMinimumThresholdReached;
 @property (nonatomic, strong) NSNumber *privacy;
 
+@property (nonatomic) MeasurementSession *concludedSession;
+
 - (UILabel *)averageHeadingLabel;
 - (UILabel *)averageLabel;
 

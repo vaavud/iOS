@@ -533,7 +533,12 @@
         }
         else {
             // potentially popup Facebook share dialog...
-            [self promptForFacebookSharing];
+#ifdef CORE
+            self.concludedSession = [[SavingWindMeasurementController sharedInstance] getLatestMeasurementSession];
+            if (self.concludedSession.windSpeedAvg) {
+                [self performSegueWithIdentifier:@"SummaryFromMeasureSegue" sender:self];
+            }
+#endif
         }
     }
 }
@@ -966,5 +971,6 @@
 - (NSString *)shareUnit {
     return [UnitUtil englishDisplayNameForWindSpeedUnit:self.windSpeedUnit];
 }
+
 
 @end

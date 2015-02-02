@@ -263,17 +263,16 @@
                 NSString *text = first.thoroughfare ?: first.locality ?: first.country;
                 
                 session.geoLocationNameLocalized = text;
+                cell.locationLabel.text = text;
+                session.uploaded = @NO;
+                [[ServerUploadManager sharedInstance] triggerUpload];
             }
             else {
                 if (error) { NSLog(@"Geocode failed with error: %@", error); }
-                session.geoLocationNameLocalized = NSLocalizedString(@"GEO_LOCATION_ERROR", nil);
+                cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_ERROR", nil);
             }
             
-            cell.locationLabel.text = session.geoLocationNameLocalized;
             cell.locationLabel.alpha = 1.0;
-            
-            session.uploaded = @NO;
-            [[ServerUploadManager sharedInstance] triggerUpload];
         });
     }];
 }
@@ -346,12 +345,6 @@
     }
 }
 
-//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-////    [self performSegueWithIdentifier:@"SummarySegue" sender:self];
-//    MeasurementSession *session = [self.fetchedResultsController objectAtIndexPath:indexPath];
-//    NSLog(@"did select session: %@", session.windSpeedAvg);
-//}
-
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     if (!self.isObservingModelChanges) {
         return;
@@ -396,7 +389,7 @@
       forChangeType:(NSFetchedResultsChangeType)type
        newIndexPath:(NSIndexPath *)newIndexPath {
 
-    NSLog(@"didChangeObject: %ld:%ld", newIndexPath.section, newIndexPath.row);
+    NSLog(@"didChangeObject: %ld:%ld", (long)newIndexPath.section, (long)newIndexPath.row);
     
     if (!self.isObservingModelChanges) {
         return;
@@ -438,10 +431,13 @@
     }
 }
 
+-(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    return [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow] != nil;
+}
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSIndexPath *selection = self.tableView.indexPathForSelectedRow;
     CoreSummaryViewController *destination = segue.destinationViewController;
-    destination.session = [self.fetchedResultsController objectAtIndexPath:selection];
+    destination.session = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
 }
 
 @end

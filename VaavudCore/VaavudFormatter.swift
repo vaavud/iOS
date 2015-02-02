@@ -70,7 +70,7 @@ enum SpeedUnit: Int, FloatUnit {
     case Bft = 4
     
     var localizedString: String { return NSLocalizedString(key, comment: "") }
-    var next: SpeedUnit { return SpeedUnit(rawValue: (self.rawValue + 1) % 5)! }
+    var next: SpeedUnit { return SpeedUnit(rawValue: (rawValue + 1) % 5)! }
     var decimals: Int { return [1, 1, 1, 1, 0][rawValue] }
     func fromBase(msValue: Float) -> Float {
         if self == .Bft {
@@ -97,10 +97,10 @@ enum SpeedUnit: Int, FloatUnit {
 }
 
 class VaavudFormatter {
-    var windSpeedUnit = SpeedUnit.Knots
-    var directionUnit = DirectionUnit.Cardinal
-    var pressureUnit = PressureUnit.Mbar
-    var temperatureUnit = TemperatureUnit.Celsius
+    var windSpeedUnit: SpeedUnit = .Knots { didSet { writeWindSpeedUnit() } }
+    var directionUnit: DirectionUnit = .Cardinal { didSet { writeDirectionUnit() } }
+    var pressureUnit: PressureUnit = .Mbar { didSet { writePressureUnit() } }
+    var temperatureUnit: TemperatureUnit = .Celsius { didSet { writeTemperatureUnit() } }
     
     let dateFormatter = NSDateFormatter()
     
@@ -108,8 +108,79 @@ class VaavudFormatter {
     
     init() {
         dateFormatter.locale = NSLocale.currentLocale()
-        dateFormatter.dateFormat = "EEEE, MMM dd"
+        readUnits()
+    }
+    
+    // MARK - Public
+    
+    func localizedTitleDate(date: NSDate?) -> String? {
+        if let date = date {
+            dateFormatter.dateFormat = "EEEE, MMM dd"
+            return dateFormatter.stringFromDate(date).uppercaseString
+        }
+        return nil
+    }
+    
+    func localizedTime(date: NSDate?) -> String? {
+        if let date = date {
+//            dateFormatter.dateFormat = "HH:mm"
+            dateFormatter.timeStyle = .ShortStyle
+            dateFormatter.dateStyle = .NoStyle
+            return dateFormatter.stringFromDate(date)
+        }
+        return nil
+    }
+
+    func localizedWindspeed(msSpeed: Float?) -> String? {
+        readUnits()
+        return localizedConvertedString(msSpeed, unit: windSpeedUnit)
+    }
+    
+    var localizedNorth: String { return NSLocalizedString(directionKey(0), comment: "") }
+    var localizedEast: String { return NSLocalizedString(directionKey(4), comment: "") }
+    var localizedSouth: String { return NSLocalizedString(directionKey(8), comment: "") }
+    var localizedWest: String { return NSLocalizedString(directionKey(12), comment: "") }
+    
+    func localizedDirection(degrees: Float?) -> String? {
+        readUnits()
+        if let degrees = degrees {
+            switch directionUnit {
+            case .Cardinal:
+                let cardinalDirection = DirectionUnit.degreesToCardinal(degrees)
+                return NSLocalizedString(directionKey(cardinalDirection), comment: "")
+            case .Degrees:
+                return NSString(format: "%.0f°", degrees)
+            }
+        }
         
+        return nil
+    }
+    
+    func localizedPressure(mbarPressure: Float?) -> String? {
+        readUnits()
+        return localizedConvertedString(mbarPressure, unit: pressureUnit)
+    }
+    
+    func localizedTemperature(kelvinTemperature: Float?) -> String? {
+        readUnits()
+        return localizedConvertedString(kelvinTemperature, unit: temperatureUnit)
+    }
+    
+    func localizedWindchill(kelvinTemperature: Float?) -> String? {
+        readUnits()
+        return localizedConvertedString(kelvinTemperature, unit: temperatureUnit, decimals: 0)
+    }
+
+    func formattedGustiness(gustiness: Float?) -> String? {
+        if gustiness == nil || gustiness < 0.1 { return nil }
+        return NSString(format: "%.0f", 100*gustiness!)
+    }
+    
+    // MARK - Private
+    
+    // Units
+    
+    private func readUnits() {
         if let storedWindspeedInt = Property.getAsInteger("windSpeedUnit")?.integerValue {
             windSpeedUnit = SpeedUnit(rawValue:storedWindspeedInt)!
         }
@@ -127,49 +198,11 @@ class VaavudFormatter {
         }
     }
     
-    // MARK - Public
-    
-    func localizedTitleDate(date: NSDate) -> String? {
-        return dateFormatter.stringFromDate(date).uppercaseString
-    }
-    
-    func localizedWindspeed(msSpeed: Float?) -> String? {
-        return localizedConvertedString(msSpeed, unit: windSpeedUnit)
-    }
-    
-    func localizedDirection(degrees: Float?) -> String? {
-        if let degrees = degrees {
-            switch directionUnit {
-            case .Cardinal:
-                let cardinalDirection = DirectionUnit.degreesToCardinal(degrees)
-                return NSLocalizedString(directionKey(cardinalDirection), comment: "")
-            case .Degrees:
-                return NSString(format: "%.0f°", degrees)
-            }
-        }
-        
-        return nil
-    }
-    
-    func localizedPressure(mbarPressure: Float?) -> String? {
-        return localizedConvertedString(mbarPressure, unit: pressureUnit)
-    }
-    
-    func localizedTemperature(kelvinTemperature: Float?) -> String? {
-        return localizedConvertedString(kelvinTemperature, unit: temperatureUnit)
-    }
-    
-    func localizedWindchill(kelvinTemperature: Float?) -> String? {
-        return localizedConvertedString(kelvinTemperature, unit: temperatureUnit, decimals: 0)
-    }
+    func writeWindSpeedUnit() { Property.setAsInteger(windSpeedUnit.rawValue, forKey: "windSpeedUnit") }
+    func writeDirectionUnit() { Property.setAsInteger(directionUnit.rawValue, forKey: "directionUnit") }
+    func writePressureUnit() { Property.setAsInteger(pressureUnit.rawValue, forKey: "pressureUnit") }
+    func writeTemperatureUnit() { Property.setAsInteger(temperatureUnit.rawValue, forKey: "temperatureUnit") }
 
-    func formattedGustiness(gustiness: Float?) -> String? {
-        if gustiness == nil || gustiness < 0.1 { return nil }
-        return NSString(format: "%.0f", 100*gustiness!)
-    }
-    
-    // MARK - Private
-    
     // Direction
     
     private func directionKey(cardinal: Int) -> String {
