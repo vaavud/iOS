@@ -805,7 +805,7 @@
         <scene sceneID="ESh-LX-BZr">
             <objects>
                 <tableViewController id="dW6-mM-6nb" customClass="HistoryTableViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="6XY-Gm-7sX">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="6XY-Gm-7sX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -887,6 +887,7 @@
                                     <outlet property="locationLabel" destination="9Ik-6S-adR" id="jRR-wn-h73"/>
                                     <outlet property="timeLabel" destination="jsX-3b-fbh" id="Sjk-sO-JvP"/>
                                     <outlet property="unitLabel" destination="3tP-CV-yHq" id="y4h-yF-3QL"/>
+                                    <segue destination="8a4-bz-n0M" kind="push" identifier="SummarySegue" id="MnQ-EK-wGw"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -966,12 +967,16 @@
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="f7B-yT-SzL" firstAttribute="top" secondItem="ja0-Wh-gSx" secondAttribute="bottom" constant="5" id="Bc2-yW-Oru"/>
                                             <constraint firstAttribute="centerX" secondItem="ja0-Wh-gSx" secondAttribute="centerX" id="CHh-BU-9Xo"/>
                                             <constraint firstAttribute="centerX" secondItem="f7B-yT-SzL" secondAttribute="centerX" id="a0s-gy-jcD"/>
                                             <constraint firstItem="ja0-Wh-gSx" firstAttribute="top" secondItem="NGU-aP-1aV" secondAttribute="top" constant="5" id="ygp-NY-tXm"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="uCT-dJ-e8K" appends="YES" id="jdd-Qt-7sd"/>
+                                        </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qfs-AG-NIG" userLabel="WindchillOuter">
                                         <rect key="frame" x="178" y="0.0" width="71" height="48"/>
@@ -1027,12 +1032,16 @@
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="KxY-wQ-q5G" firstAttribute="top" secondItem="HR4-FD-hzb" secondAttribute="bottom" constant="5" id="QRy-IX-zPC"/>
                                             <constraint firstItem="HR4-FD-hzb" firstAttribute="top" secondItem="qfs-AG-NIG" secondAttribute="top" constant="5" id="Yuf-vd-nPN"/>
                                             <constraint firstAttribute="centerX" secondItem="KxY-wQ-q5G" secondAttribute="centerX" constant="2" id="bdT-F9-tXs"/>
                                             <constraint firstAttribute="centerX" secondItem="HR4-FD-hzb" secondAttribute="centerX" id="uFH-k9-KC4"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="Jhu-aZ-yTW" appends="YES" id="bIb-Dn-H56"/>
+                                        </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Wn-Ut-CaW" userLabel="TemperatureOuter">
                                         <rect key="frame" x="107" y="0.0" width="71" height="48"/>
@@ -1088,18 +1097,23 @@
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="centerX" secondItem="WBx-VP-pNG" secondAttribute="centerX" id="8V0-Fb-L7z"/>
                                             <constraint firstItem="WBx-VP-pNG" firstAttribute="top" secondItem="SIQ-Ha-tfu" secondAttribute="bottom" constant="5" id="QUo-fA-ySw"/>
                                             <constraint firstAttribute="centerX" secondItem="SIQ-Ha-tfu" secondAttribute="centerX" id="ceh-wM-1yk"/>
                                             <constraint firstItem="SIQ-Ha-tfu" firstAttribute="top" secondItem="2Wn-Ut-CaW" secondAttribute="top" constant="5" id="dGS-Kc-YGs"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="Jhu-aZ-yTW" appends="YES" id="Jwn-3Z-VfY"/>
+                                        </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AaQ-eV-JK4" userLabel="GustinessOuter">
                                         <rect key="frame" x="249" y="0.0" width="71" height="48"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GUSTINESS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7N2-He-qYY">
                                                 <rect key="frame" x="9" y="5" width="53" height="12"/>
+                                                <gestureRecognizers/>
                                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="10"/>
                                                 <color key="textColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -1149,6 +1163,7 @@
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="HvU-by-tNP" secondAttribute="bottom" id="DaW-K4-03d"/>
                                             <constraint firstItem="7N2-He-qYY" firstAttribute="top" secondItem="AaQ-eV-JK4" secondAttribute="top" constant="5" id="GyD-ht-LOU"/>
@@ -1156,6 +1171,9 @@
                                             <constraint firstAttribute="centerX" secondItem="HvU-by-tNP" secondAttribute="centerX" id="m5m-H7-Iau"/>
                                             <constraint firstItem="HvU-by-tNP" firstAttribute="top" secondItem="7N2-He-qYY" secondAttribute="bottom" constant="5" id="xCX-GF-ews"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="p3X-v1-glg" appends="YES" id="8fv-jA-Hmf"/>
+                                        </connections>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.82551104323308266" alpha="1" colorSpace="calibratedWhite"/>
@@ -1186,10 +1204,26 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amager Strandpark" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ITn-VN-50V">
                                 <rect key="frame" x="19" y="87" width="170" height="24"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="20"/>
                                 <color key="textColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C2h-JO-28H" customClass="ArrowView" customModule="Vaavud">
+                                <rect key="frame" x="170" y="135" width="94" height="94"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="C2h-JO-28H" secondAttribute="height" multiplier="1:1" id="zcN-mv-TlM"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="strokeColor">
+                                        <color key="value" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="strokeWidth">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S4V-DO-Sud">
                                 <rect key="frame" x="202" y="121" width="30" height="22"/>
                                 <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="8"/>
@@ -1224,21 +1258,30 @@
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AVERAGE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNl-iK-NzK">
                                 <rect key="frame" x="64" y="121" width="65" height="18"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
                                 <color key="textColor" red="0.47843137254901957" green="0.52549019607843139" blue="0.5490196078431373" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28.3" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ha6-Kc-3pj">
                                 <rect key="frame" x="51" y="141" width="90" height="65"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="65"/>
                                 <color key="textColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="gR9-bd-xkO" appends="YES" id="Z0Y-wu-ZLP"/>
+                                </connections>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="M/S" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OfN-lw-f2W">
                                 <rect key="frame" x="143" y="141" width="19" height="12"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="10"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="gR9-bd-xkO" appends="YES" id="QQE-fP-7pz"/>
+                                </connections>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KWl-Zw-lzc">
                                 <rect key="frame" x="193" y="236" width="48" height="36"/>
@@ -1247,6 +1290,9 @@
                                     <color key="titleColor" red="0.0" green="0.63137254901960782" blue="0.88235294117647056" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="tappedWindDirection:" destination="8a4-bz-n0M" eventType="touchUpInside" id="cbT-h8-MYe"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAX" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QYA-qT-P4j">
                                 <rect key="frame" x="82" y="211" width="32" height="18"/>
@@ -1256,31 +1302,24 @@
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25.3" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNx-Ty-Ux8">
                                 <rect key="frame" x="70" y="231" width="55" height="40"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="40"/>
                                 <color key="textColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="gR9-bd-xkO" appends="YES" id="eCt-ql-FIw"/>
+                                </connections>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="M/S" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RdQ-dE-OhZ">
                                 <rect key="frame" x="127" y="231" width="19" height="12"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="10"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="gR9-bd-xkO" appends="YES" id="cVQ-SY-r1F"/>
+                                </connections>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C2h-JO-28H" customClass="ArrowView" customModule="Vaavud">
-                                <rect key="frame" x="170" y="135" width="94" height="94"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="C2h-JO-28H" secondAttribute="height" multiplier="1:1" id="zcN-mv-TlM"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="strokeColor">
-                                        <color key="value" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="strokeWidth">
-                                        <real key="value" value="3"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="tvr-It-KCF">
                                 <rect key="frame" x="0.0" y="335" width="320" height="233"/>
                                 <connections>
@@ -1334,7 +1373,8 @@
                         <outlet property="averageLabel" destination="Ha6-Kc-3pj" id="kci-1N-CU0"/>
                         <outlet property="averageUnitLabel" destination="OfN-lw-f2W" id="6MD-cb-fo2"/>
                         <outlet property="dateLabel" destination="3FB-IL-Zna" id="BXo-yI-SUa"/>
-                        <outlet property="directionLabel" destination="KWl-Zw-lzc" id="Bm8-Ba-GEs"/>
+                        <outlet property="directionButton" destination="KWl-Zw-lzc" id="z0i-jb-XAg"/>
+                        <outlet property="directionView" destination="C2h-JO-28H" id="cX6-p9-oE3"/>
                         <outlet property="gustinessLabel" destination="zww-I2-x89" id="dXU-Rj-bHh"/>
                         <outlet property="gustinessUnitLabel" destination="Wsv-hK-UUh" id="Pox-FH-ak6"/>
                         <outlet property="gustinessView" destination="c5D-lD-0ae" id="X0N-ko-bC1"/>
@@ -1342,7 +1382,7 @@
                         <outlet property="mapView" destination="tvr-It-KCF" id="djU-kd-wz2"/>
                         <outlet property="maximumLabel" destination="BNx-Ty-Ux8" id="4KU-wZ-EL8"/>
                         <outlet property="maximumUnitLabel" destination="RdQ-dE-OhZ" id="TMd-52-tT9"/>
-                        <outlet property="pressureLabel" destination="a0s-gy-jcD" id="usn-f2-uUp"/>
+                        <outlet property="pressureLabel" destination="1Us-Rb-t2X" id="bKY-tu-0Bu"/>
                         <outlet property="pressureUnitLabel" destination="qgi-7c-kvP" id="y3x-e2-R1Q"/>
                         <outlet property="pressureView" destination="rPD-WL-dcc" id="m4N-FT-T2X"/>
                         <outlet property="temperatureLabel" destination="oKY-WA-JW3" id="nzp-2V-Zan"/>
@@ -1354,6 +1394,26 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fa4-I5-1Q8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="uCT-dJ-e8K" userLabel="Pressure Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="tappedPressure:" destination="8a4-bz-n0M" id="DZw-tK-jcb"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Jhu-aZ-yTW" userLabel="Temperature Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="tappedTemperature:" destination="8a4-bz-n0M" id="wl7-cB-imk"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="p3X-v1-glg" userLabel="Gustiness Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="tappedGustiness:" destination="8a4-bz-n0M" id="i5D-wl-tsa"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="gR9-bd-xkO" userLabel="Speed Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="tappedWindSpeed:" destination="8a4-bz-n0M" id="Avu-Hj-AGt"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1651" y="952"/>
         </scene>
@@ -1848,6 +1908,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="MnQ-EK-wGw"/>
         <segue reference="eyn-o3-jNF"/>
         <segue reference="i2c-1u-pcQ"/>
     </inferredMetricsTieBreakers>

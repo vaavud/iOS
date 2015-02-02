@@ -62,6 +62,8 @@ static NSString * const KEY_AGRI_DEFAULT_SPRAY_QUALITY = @"agriDefaultSprayQuali
 static NSString * const KEY_AGRI_TEST_MODE = @"testMode";
 static NSString * const KEY_HAS_SEEN_UPGRADE_FLOW = @"hasSeenUpgradeFlow";
 
+static NSString * const KEY_TEMPERATURE_UNIT = @"temperatureUnit";
+static NSString * const KEY_PRESSURE_UNIT = @"pressureUnit";
 
 @interface Property (Util)
 

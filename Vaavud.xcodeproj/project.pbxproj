@@ -14,6 +14,10 @@
 		2234D3621A7A2D1400F325EB /* UpgradingUserPagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3611A7A2D1400F325EB /* UpgradingUserPagesView.swift */; };
 		2234D3661A7A597200F325EB /* HistoryImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3651A7A597200F325EB /* HistoryImages.xcassets */; };
 		2234D3681A7A6AB300F325EB /* SummaryImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3671A7A6AB300F325EB /* SummaryImages.xcassets */; };
+		229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
+		229FF3141A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
+		229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3171A7EE3A0008A3226 /* VaavudViews.swift */; };
+		229FF3191A7EE3A0008A3226 /* VaavudViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3171A7EE3A0008A3226 /* VaavudViews.swift */; };
 		22A3405E1A5AE022006CE401 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */; };
 		22A340661A5BDA21006CE401 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */; };
 		22AB2E6C1A70FC15008CAE46 /* BebasNeue Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E691A70FC15008CAE46 /* BebasNeue Bold.otf */; };
@@ -630,6 +634,8 @@
 		2234D3611A7A2D1400F325EB /* UpgradingUserPagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradingUserPagesView.swift; sourceTree = "<group>"; };
 		2234D3651A7A597200F325EB /* HistoryImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = HistoryImages.xcassets; sourceTree = "<group>"; };
 		2234D3671A7A6AB300F325EB /* SummaryImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SummaryImages.xcassets; sourceTree = "<group>"; };
+		229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudFormatter.swift; sourceTree = "<group>"; };
+		229FF3171A7EE3A0008A3226 /* VaavudViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudViews.swift; sourceTree = "<group>"; };
 		22AB2E691A70FC15008CAE46 /* BebasNeue Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue Bold.otf"; sourceTree = "<group>"; };
 		22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
@@ -1350,6 +1356,7 @@
 		D7A4F1D0173A8DDB00D1ACEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */,
 				E9AE301919A369EF004A79C4 /* Agriculture */,
 				D7A4F1D9173A8DDB00D1ACEE /* AppDelegate.h */,
 				D7A4F1DA173A8DDB00D1ACEE /* AppDelegate.m */,
@@ -1398,6 +1405,7 @@
 		D7B5BD4E175775BA0069F739 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				229FF3171A7EE3A0008A3226 /* VaavudViews.swift */,
 				2234D3571A78069F00F325EB /* UpgradingUserPagesView.xib */,
 				22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */,
 				E90709411940AFAC0087F80F /* Components */,
@@ -2718,6 +2726,7 @@
 				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,
 				E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */,
 				E9FABFEA1896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m in Sources */,
+				229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */,
 				E9CD223B177B2AEA0054ED3F /* MagicalImportFunctions.m in Sources */,
 				E9F33CCB18B4AFBF0033EDC7 /* UIColor+VaavudColors.m in Sources */,
 				E984F26319B878BD004024C6 /* MixpanelUtil.m in Sources */,
@@ -2752,6 +2761,7 @@
 				E9FABFE1189294BD009C4C46 /* HistoryTableViewCell.m in Sources */,
 				E9CD2246177B2AEA0054ED3F /* NSManagedObject+MagicalRequests.m in Sources */,
 				E9CD2247177B2AEA0054ED3F /* NSManagedObjectContext+MagicalObserving.m in Sources */,
+				229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */,
 				D7497EAD1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m in Sources */,
 				E9F33CCE18B4B3CB0033EDC7 /* AccountManager.m in Sources */,
 				E948382519B75320009595B0 /* EZAudioPlayer.m in Sources */,
@@ -2853,6 +2863,7 @@
 				E96FB50619A353B500CB7306 /* AFPropertyListRequestOperation.m in Sources */,
 				E96FB50719A353B500CB7306 /* AFURLConnectionOperation.m in Sources */,
 				E9D9044E19C1971000ABA9F4 /* WindMeasurementController.m in Sources */,
+				229FF3141A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */,
 				E96FB50819A353B500CB7306 /* TermsPrivacyViewController.m in Sources */,
 				E96FB50919A353B500CB7306 /* MeasurementTableViewCell.m in Sources */,
 				E948383619B75320009595B0 /* TPCircularBuffer.c in Sources */,
@@ -2893,6 +2904,7 @@
 				E9AB11DA19A60DF3000C6FB1 /* AgriLoginViewController.m in Sources */,
 				E948382419B75320009595B0 /* EZAudioFile.m in Sources */,
 				E96FB52419A353B500CB7306 /* GuidedTextField.m in Sources */,
+				229FF3191A7EE3A0008A3226 /* VaavudViews.swift in Sources */,
 				E96FB52519A353B500CB7306 /* HistoryTableViewCell.m in Sources */,
 				E96FB52619A353B500CB7306 /* NSManagedObject+MagicalRequests.m in Sources */,
 				E96FB52719A353B500CB7306 /* NSManagedObjectContext+MagicalObserving.m in Sources */,

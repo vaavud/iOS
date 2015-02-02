@@ -211,3 +211,8 @@
 
 "UNIT_FAHRENHEIT" = "°F";
 
+// More new
+"UNIT_MBAR" = "mbar";
+"UNIT_ATM" = "atm";
+"UNIT_MMHG" = "mmHg";
+

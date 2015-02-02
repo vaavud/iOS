@@ -17,6 +17,8 @@
 #import "Mixpanel.h"
 #import "ServerUploadManager.h"
 #import "UIColor+VaavudColors.h"
+#import "HistoryTableViewCell.h"
+#import "Vaavud-Swift.h"
 
 @import CoreLocation;
 
@@ -254,7 +256,7 @@
     NSLog(@"LOCATION requesting for %.2f", session.windSpeedAvg.floatValue);
     [self.geocoder reverseGeocodeLocation:location completionHandler: ^(NSArray *placemarks, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"LOCATION received for %.2f: %@", session.windSpeedAvg.floatValue, [placemarks objectAtIndex:0] ?: @"-");
+            NSLog(@"LOCATION received for %.2f: %ld", session.windSpeedAvg.floatValue, placemarks.count);
 
             if (placemarks.count > 0 && !error) {
                 CLPlacemark *first = [placemarks objectAtIndex:0];
@@ -344,9 +346,11 @@
     }
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self performSegueWithIdentifier:@"SummarySegue" sender:self];
-}
+//-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+////    [self performSegueWithIdentifier:@"SummarySegue" sender:self];
+//    MeasurementSession *session = [self.fetchedResultsController objectAtIndexPath:indexPath];
+//    NSLog(@"did select session: %@", session.windSpeedAvg);
+//}
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
     if (!self.isObservingModelChanges) {
@@ -435,7 +439,9 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    NSLog(@"prepareForSegue: %@", [segue identifier]);
+    NSIndexPath *selection = self.tableView.indexPathForSelectedRow;
+    CoreSummaryViewController *destination = segue.destinationViewController;
+    destination.session = [self.fetchedResultsController objectAtIndexPath:selection];
 }
 
 @end

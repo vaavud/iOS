@@ -8,6 +8,7 @@
 
 #import "AgriHistoryTableViewController.h"
 #import "AgriSummaryViewController.h"
+#import "HistoryTableViewCell.h"
 
 @interface AgriHistoryTableViewController ()
 

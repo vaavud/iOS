@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "HistoryRootViewController.h"
-#import "HistoryTableViewCell.h"
 
+@class HistoryTableViewCell;
 @interface HistoryTableViewController : UITableViewController<HistoryLoadedListener, NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
