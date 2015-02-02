@@ -229,10 +229,13 @@
     cell.testModeLabel.hidden = !(cell.testModeLabel && session.testMode.boolValue);
     
     if (session.geoLocationNameLocalized) {
-        NSLog(@"session.geoLocationNameLocalized: %@", session.geoLocationNameLocalized);
-
         cell.locationLabel.alpha = 1.0;
-        cell.locationLabel.text = session.geoLocationNameLocalized;
+        if ([session.geoLocationNameLocalized isEqualToString:@"GEOLOCATION_UNKNOWN"]) {
+            cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_UNKNOWN", nil);
+        }
+        else {
+            cell.locationLabel.text = session.geoLocationNameLocalized;
+        }
     }
     else {
         cell.locationLabel.alpha = 0.3;

@@ -24,8 +24,6 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     
     @IBOutlet private weak var directionView: ArrowView!
     @IBOutlet private weak var directionButton: UIButton!
-
-    @IBOutlet private var directionTap: UITapGestureRecognizer!
     
     @IBOutlet private weak var pressureLabel: UILabel!
     @IBOutlet private weak var pressureUnitLabel: UILabel!
@@ -69,6 +67,11 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     private var hasSomeDirection: Float? = nil
     private var hasActualDirection = false
     private var isShowingDirection = false
+    private var hasWindSpeed = false
+    private var hasTemperature = false
+    private var hasPressure = false
+    private var hasGustiness = false
+    private var hasWindChill = false
     
     private var animator: UIDynamicAnimator!
     private var formatter = VaavudFormatter()
@@ -104,40 +107,16 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
             dateLabel.text = time.uppercaseString
         }
         
-        if session.geoLocationNameLocalized == "GEOLOCATION_UNKNOWN" {
-            locationLabel.text = NSLocalizedString("GEOLOCATION_UNKNOWN", comment: "")
-        }
-        else {
-            locationLabel.text = session.geoLocationNameLocalized
-        }
-        
-        hasSomeDirection = (session.windDirection ?? session.sourcedWindDirection)?.floatValue
-        // FIXME: Temporary, will remove when we start sourcing directions
-        hasSomeDirection = session.windDirection?.floatValue
-
-        hasActualDirection = session.windDirection != nil
-
-        if let rotation = hasSomeDirection {
-            let t = CGAffineTransformMakeRotation(π*CGFloat(1 + rotation/180))
-
-            UIView.animateWithDuration(0.3, delay: 0.2, options: nil, animations: { self.directionView.transform = t }, completion: { (done) -> Void in
-                self.animateAll()
-            })
-            
-            showDirection()
-            isShowingDirection = true
-            updateWindDirection(session)
-            
-            if !hasActualDirection {
-                showAndHideSleipnir(delay: 5)
+        if let geoName = session.geoLocationNameLocalized {
+            if geoName == "GEOLOCATION_UNKNOWN" {
+                locationLabel.text = NSLocalizedString("GEOLOCATION_UNKNOWN", comment: "")
+            }
+            else {
+                locationLabel.text = geoName
             }
         }
-        else {
-            println("showSleipnir")
-            showSleipnir()
-            isShowingDirection = false
-        }
         
+        updateWindDirection(session)
         updateWindSpeeds(session)
         updatePressure(session)
         updateTemperature(session)
@@ -238,31 +217,39 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     }
     
     @IBAction func tappedPressure(sender: AnyObject) {
-        animator.removeAllBehaviors()
-        snap(pressureItem, to: CGFloat(arc4random() % 100))
-
-        formatter.pressureUnit = formatter.pressureUnit.next
-        updatePressure(session)
+        if hasPressure {
+            animator.removeAllBehaviors()
+            snap(pressureItem, to: CGFloat(arc4random() % 100))
+            
+            formatter.pressureUnit = formatter.pressureUnit.next
+            updatePressure(session)
+        }
     }
 
     @IBAction func tappedTemperature(sender: AnyObject) {
-        animator.removeAllBehaviors()
-        snap(temperatureItem, to: CGFloat(arc4random() % 100))
-        snap(windchillItem, to: CGFloat(arc4random() % 100))
-
-        formatter.temperatureUnit = formatter.temperatureUnit.next
-        updateTemperature(session)
+        if hasTemperature {
+            animator.removeAllBehaviors()
+            snap(temperatureItem, to: CGFloat(arc4random() % 100))
+            snap(windchillItem, to: CGFloat(arc4random() % 100))
+            
+            formatter.temperatureUnit = formatter.temperatureUnit.next
+            updateTemperature(session)
+        }
     }
     
     @IBAction func tappedWindSpeed(sender: AnyObject) {
-        formatter.windSpeedUnit = formatter.windSpeedUnit.next
-        updateWindSpeeds(session)
+        if hasWindSpeed {
+            formatter.windSpeedUnit = formatter.windSpeedUnit.next
+            updateWindSpeeds(session)
+        }
     }
     
     @IBAction func tappedGustiness(sender: AnyObject) {
-        animator.removeAllBehaviors()
-        gustinessItem.center = CGPoint()
-        snap(gustinessItem, to: 1000)
+        if hasGustiness {
+            animator.removeAllBehaviors()
+            gustinessItem.center = CGPoint()
+            snap(gustinessItem, to: 1000)
+        }
     }
     
     private func animateAll() {
@@ -275,42 +262,104 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     }
     
     private func updateWindSpeeds(ms: MeasurementSession) {
-        averageUnitLabel.text = formatter.windSpeedUnit.localizedString
-        averageLabel.text = formatter.localizedWindspeed(ms.windSpeedAvg?.floatValue)
+        hasWindSpeed = false
 
-        maximumUnitLabel.text = formatter.windSpeedUnit.localizedString
-        maximumLabel.text = formatter.localizedWindspeed(ms.windSpeedMax?.floatValue)
+        if let average = formatter.localizedWindspeed(ms.windSpeedAvg?.floatValue) {
+            averageUnitLabel.text = formatter.windSpeedUnit.localizedString
+            averageLabel.text = average
+            hasWindSpeed = true
+        }
+        else {
+            averageUnitLabel.text = ""
+            averageLabel.text = formatter.missingValue
+        }
+        
+        if let maximum = formatter.localizedWindspeed(ms.windSpeedMax?.floatValue) {
+            maximumUnitLabel.text = formatter.windSpeedUnit.localizedString
+            maximumLabel.text = maximum
+            hasWindSpeed = true
+        }
+        else {
+            maximumUnitLabel.text = ""
+            maximumLabel.text = formatter.missingValue
+        }
     }
     
     private func updateWindDirection(ms: MeasurementSession) {
-        if let direction = formatter.localizedDirection(ms.windDirection?.floatValue ?? ms.sourcedWindDirection?.floatValue) {
-            directionButton.setTitle(direction, forState: .Normal)
+        hasActualDirection = session.windDirection != nil
+
+        hasSomeDirection = (session.windDirection ?? session.sourcedWindDirection)?.floatValue
+        hasSomeDirection = session.windDirection?.floatValue // FIXME: Temporary, will remove when we start sourcing directions
+        
+        if let rotation = hasSomeDirection {
+            let t = CGAffineTransformMakeRotation(π*CGFloat(1 + rotation/180))
+            
+            UIView.animateWithDuration(0.3, delay: 0.2, options: nil, animations: { self.directionView.transform = t }, completion: { (done) -> Void in
+                self.animateAll()
+            })
+            
+            directionButton.setTitle(formatter.localizedDirection(rotation), forState: .Normal)
+            
+            showDirection()
+            isShowingDirection = true
+
+            if !hasActualDirection {
+                showAndHideSleipnir(delay: 5)
+            }
+        }
+        else {
+            showSleipnir()
+            isShowingDirection = false
         }
     }
 
     private func updatePressure(ms: MeasurementSession) {
-        pressureUnitLabel.text = formatter.pressureUnit.localizedString
-
         if let pressure = formatter.localizedPressure(ms.pressure?.floatValue ?? ms.sourcedPressureGroundLevel?.floatValue) {
+            pressureUnitLabel.text = formatter.pressureUnit.localizedString
             pressureLabel.text = pressure
+            hasPressure = true
+        }
+        else {
+            pressureUnitLabel.text = ""
+            pressureLabel.text = formatter.missingValue
+            hasPressure = false
         }
     }
     
     private func updateTemperature(ms: MeasurementSession) {
-        temperatureUnitLabel.text = formatter.temperatureUnit.localizedString
-        windchillUnitLabel.text = formatter.temperatureUnit.localizedString
-        
         if let temperature = formatter.localizedTemperature(ms.temperature?.floatValue ?? ms.sourcedTemperature?.floatValue) {
+            temperatureUnitLabel.text = formatter.temperatureUnit.localizedString
             temperatureLabel.text = temperature
+            hasTemperature = true
         }
+        else {
+            temperatureUnitLabel.text = ""
+            temperatureLabel.text = formatter.missingValue
+            hasTemperature = false
+        }
+        
         if let windChill = formatter.localizedWindchill(ms.windChill?.floatValue) {
+            windchillUnitLabel.text = formatter.temperatureUnit.localizedString
             windchillLabel.text = windChill
+            hasWindChill = true
+        }
+        else {
+            windchillUnitLabel.text = ""
+            windchillLabel.text = formatter.missingValue
+            hasWindChill = false
         }
     }
     
     private func updateGustiness(ms: MeasurementSession) {
         if let gustiness = formatter.formattedGustiness(ms.gustiness?.floatValue) {
             gustinessLabel.text = gustiness
+            gustinessUnitLabel.text = "%"
+            hasGustiness = true
+        }
+        else {
+            gustinessLabel.text = formatter.missingValue
+            gustinessUnitLabel.text = ""
+            hasGustiness = false
         }
     }
     

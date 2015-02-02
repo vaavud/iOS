@@ -113,6 +113,8 @@ class VaavudFormatter {
     
     // MARK - Public
     
+    var missingValue = "-"
+    
     func localizedTitleDate(date: NSDate?) -> String? {
         if let date = date {
             dateFormatter.dateFormat = "EEEE, MMM dd"
@@ -123,7 +125,6 @@ class VaavudFormatter {
     
     func localizedTime(date: NSDate?) -> String? {
         if let date = date {
-//            dateFormatter.dateFormat = "HH:mm"
             dateFormatter.timeStyle = .ShortStyle
             dateFormatter.dateStyle = .NoStyle
             return dateFormatter.stringFromDate(date)
@@ -141,19 +142,16 @@ class VaavudFormatter {
     var localizedSouth: String { return NSLocalizedString(directionKey(8), comment: "") }
     var localizedWest: String { return NSLocalizedString(directionKey(12), comment: "") }
     
-    func localizedDirection(degrees: Float?) -> String? {
+    func localizedDirection(degrees: Float) -> String {
         readUnits()
-        if let degrees = degrees {
-            switch directionUnit {
-            case .Cardinal:
-                let cardinalDirection = DirectionUnit.degreesToCardinal(degrees)
-                return NSLocalizedString(directionKey(cardinalDirection), comment: "")
-            case .Degrees:
-                return NSString(format: "%.0f°", degrees)
-            }
-        }
         
-        return nil
+        switch directionUnit {
+        case .Cardinal:
+            let cardinalDirection = DirectionUnit.degreesToCardinal(degrees)
+            return NSLocalizedString(directionKey(cardinalDirection), comment: "")
+        case .Degrees:
+            return NSString(format: "%.0f°", degrees)
+        }
     }
     
     func localizedPressure(mbarPressure: Float?) -> String? {
@@ -172,7 +170,9 @@ class VaavudFormatter {
     }
 
     func formattedGustiness(gustiness: Float?) -> String? {
-        if gustiness == nil || gustiness < 0.1 { return nil }
+        if gustiness == nil || gustiness < 0.1 {
+            return nil
+        }
         return NSString(format: "%.0f", 100*gustiness!)
     }
     

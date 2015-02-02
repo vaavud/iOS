@@ -878,7 +878,7 @@
             </objects>
             <point key="canvasLocation" x="1207" y="885"/>
         </scene>
-        <!--Core Summary View Controller-->
+        <!--Title-->
         <scene sceneID="Y1a-Mc-SzL">
             <objects>
                 <viewController id="8a4-bz-n0M" customClass="CoreSummaryViewController" customModule="Vaavud" sceneMemberID="viewController">
@@ -1401,7 +1401,7 @@
                             <constraint firstItem="C2h-JO-28H" firstAttribute="centerX" secondItem="MuP-rr-uMT" secondAttribute="centerX" id="zS3-ML-LEn"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="CPY-sS-rXd"/>
+                    <navigationItem key="navigationItem" title="Title" id="9cq-Ve-6sS"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="averageHeadingLabel" destination="BNl-iK-NzK" id="cpS-p7-9HB"/>
@@ -1409,7 +1409,6 @@
                         <outlet property="averageUnitLabel" destination="OfN-lw-f2W" id="6MD-cb-fo2"/>
                         <outlet property="dateLabel" destination="3FB-IL-Zna" id="BXo-yI-SUa"/>
                         <outlet property="directionButton" destination="KWl-Zw-lzc" id="z0i-jb-XAg"/>
-                        <outlet property="directionTap" destination="6mu-4s-aS0" id="BQT-0T-JGv"/>
                         <outlet property="directionView" destination="C2h-JO-28H" id="cX6-p9-oE3"/>
                         <outlet property="eastLabel" destination="Psy-tP-zmd" id="vJX-PC-xZ3"/>
                         <outlet property="gustinessHeadingLabel" destination="7N2-He-qYY" id="1ok-6o-9uo"/>
