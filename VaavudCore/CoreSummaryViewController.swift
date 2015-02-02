@@ -104,9 +104,17 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
             dateLabel.text = time.uppercaseString
         }
         
-        locationLabel.text = session.geoLocationNameLocalized
+        if session.geoLocationNameLocalized == "GEOLOCATION_UNKNOWN" {
+            locationLabel.text = NSLocalizedString("GEOLOCATION_UNKNOWN", comment: "")
+        }
+        else {
+            locationLabel.text = session.geoLocationNameLocalized
+        }
         
         hasSomeDirection = (session.windDirection ?? session.sourcedWindDirection)?.floatValue
+        // FIXME: Temporary, will remove when we start sourcing directions
+        hasSomeDirection = session.windDirection?.floatValue
+
         hasActualDirection = session.windDirection != nil
 
         if let rotation = hasSomeDirection {
@@ -127,6 +135,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
         else {
             println("showSleipnir")
             showSleipnir()
+            isShowingDirection = false
         }
         
         updateWindSpeeds(session)

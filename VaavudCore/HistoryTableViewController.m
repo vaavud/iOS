@@ -160,8 +160,6 @@
 - (void)configureCell:(HistoryTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     MeasurementSession *session = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    NSLog(@"configure cell: %ld: %ld", (long)indexPath.section, (long)indexPath.row);
-    
     if (session.latitude && session.longitude && (session.latitude != 0) && (session.longitude != 0)) {
         NSString *iconUrl = @"http://vaavud.com/appgfx/SmallWindMarker.png";
         NSString *markers = [NSString stringWithFormat:@"icon:%@|shadow:false|%f,%f", iconUrl, [session.latitude doubleValue], [session.longitude doubleValue]];
@@ -231,6 +229,8 @@
     cell.testModeLabel.hidden = !(cell.testModeLabel && session.testMode.boolValue);
     
     if (session.geoLocationNameLocalized) {
+        NSLog(@"session.geoLocationNameLocalized: %@", session.geoLocationNameLocalized);
+
         cell.locationLabel.alpha = 1.0;
         cell.locationLabel.text = session.geoLocationNameLocalized;
     }
@@ -246,7 +246,7 @@
             [self geocodeLocation:location forCell:cell session:session];
         }
         else {
-            session.geoLocationNameLocalized = NSLocalizedString(@"GEOLOCATION_UNKNOWN", nil);
+            session.geoLocationNameLocalized = @"GEOLOCATION_UNKNOWN";
             cell.locationLabel.text = session.geoLocationNameLocalized;
         }
     }
@@ -256,7 +256,7 @@
     NSLog(@"LOCATION requesting for %.2f", session.windSpeedAvg.floatValue);
     [self.geocoder reverseGeocodeLocation:location completionHandler: ^(NSArray *placemarks, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"LOCATION received for %.2f: %ld", session.windSpeedAvg.floatValue, placemarks.count);
+            NSLog(@"LOCATION received for %.2f: %ld", session.windSpeedAvg.floatValue, (unsigned long)placemarks.count);
 
             if (placemarks.count > 0 && !error) {
                 CLPlacemark *first = [placemarks objectAtIndex:0];
@@ -265,7 +265,6 @@
                 session.geoLocationNameLocalized = text;
                 cell.locationLabel.text = text;
                 session.uploaded = @NO;
-                [[ServerUploadManager sharedInstance] triggerUpload];
             }
             else {
                 if (error) { NSLog(@"Geocode failed with error: %@", error); }
@@ -275,6 +274,10 @@
             cell.locationLabel.alpha = 1.0;
         });
     }];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [[ServerUploadManager sharedInstance] triggerUpload];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
