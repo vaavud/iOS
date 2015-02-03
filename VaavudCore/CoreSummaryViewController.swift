@@ -168,8 +168,6 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     }
     
     private func setupGeoLocation(ms: MeasurementSession) {
-        println("speed: \(ms.windSpeedAvg) - geo: \(ms.geoLocationNameLocalized)")
-        
         if let geoName = ms.geoLocationNameLocalized {
             if geoName == "GEOLOCATION_LOADING" {
                 locationLabel.alpha = 0.3
