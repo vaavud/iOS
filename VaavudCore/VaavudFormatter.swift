@@ -131,12 +131,9 @@ class VaavudFormatter {
         }
         return nil
     }
-
-    func localizedWindspeed(msSpeed: Float?) -> String? {
-        readUnits()
-        return localizedConvertedString(msSpeed, unit: windSpeedUnit)
-    }
     
+    // Direction
+
     var localizedNorth: String { return NSLocalizedString(directionKey(0), comment: "") }
     var localizedEast: String { return NSLocalizedString(directionKey(4), comment: "") }
     var localizedSouth: String { return NSLocalizedString(directionKey(8), comment: "") }
@@ -154,21 +151,104 @@ class VaavudFormatter {
         }
     }
     
+    // Speed
+    
+    func updateAverageWindspeedLabels(session: MeasurementSession, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
+        if let string = localizedWindspeed(session.windSpeedAvg?.floatValue) {
+            unitLabel.text = windSpeedUnit.localizedString
+            valueLabel.text = string
+            return true
+        }
+        
+        return failure(valueLabel: valueLabel, unitLabel: unitLabel)
+    }
+
+    func updateMaxWindspeedLabels(session: MeasurementSession, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
+        if let string = localizedWindspeed(session.windSpeedMax?.floatValue) {
+            unitLabel.text = windSpeedUnit.localizedString
+            valueLabel.text = string
+            return true
+        }
+        
+        return failure(valueLabel: valueLabel, unitLabel: unitLabel)
+    }
+
+    func localizedWindspeed(msSpeed: Float?) -> String? {
+        readUnits()
+        return localizedConvertedString(msSpeed, unit: windSpeedUnit)
+    }
+
+    // Pressure
+    
+    func updatePressureLabels(session: MeasurementSession, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
+        let value = session.pressure?.floatValue ?? session.sourcedPressureGroundLevel?.floatValue
+        
+        if let string = localizedPressure(value) {
+            unitLabel.text = pressureUnit.localizedString
+            valueLabel.text = string
+            return true
+        }
+        
+        return failure(valueLabel: valueLabel, unitLabel: unitLabel)
+    }
+
     func localizedPressure(mbarPressure: Float?) -> String? {
         readUnits()
         return localizedConvertedString(mbarPressure, unit: pressureUnit)
     }
     
+    // Temperature
+    
+    func updateTemperatureLabels(session: MeasurementSession, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
+        let value = session.temperature?.floatValue ?? session.sourcedTemperature?.floatValue
+        
+        if let string = localizedTemperature(value) {
+            unitLabel.text = temperatureUnit.localizedString
+            valueLabel.text = string
+            return true
+        }
+        
+        return failure(valueLabel: valueLabel, unitLabel: unitLabel)
+    }
+
     func localizedTemperature(kelvinTemperature: Float?) -> String? {
         readUnits()
         return localizedConvertedString(kelvinTemperature, unit: temperatureUnit)
     }
     
+    // Windchill
+
+    func updateWindchillLabels(session: MeasurementSession, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
+        let value = session.windChill?.floatValue
+        
+        if let string = localizedWindchill(value) {
+            unitLabel.text = temperatureUnit.localizedString
+            valueLabel.text = string
+            return true
+        }
+        
+        return failure(valueLabel: valueLabel, unitLabel: unitLabel)
+    }
+
     func localizedWindchill(kelvinTemperature: Float?) -> String? {
         readUnits()
         return localizedConvertedString(kelvinTemperature, unit: temperatureUnit, decimals: 0)
     }
 
+    // Gustiness
+    
+    func updateGustinessLabels(session: MeasurementSession, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
+        let value = session.gustiness?.floatValue
+        
+        if let string = formattedGustiness(value) {
+            unitLabel.text = "%"
+            valueLabel.text = string
+            return true
+        }
+        
+        return failure(valueLabel: valueLabel, unitLabel: unitLabel)
+    }
+    
     func formattedGustiness(gustiness: Float?) -> String? {
         if gustiness == nil || gustiness < 0.1 {
             return nil
@@ -232,6 +312,12 @@ class VaavudFormatter {
     private func localizedDecimalString(value: Float, decimals: Int) -> String {
         let formatString = NSString(format: "%%.%df", decimals)
         return NSString(format: formatString, locale: NSLocale.currentLocale(), value)
+    }
+    
+    private func failure(# valueLabel: UILabel, unitLabel: UILabel) -> Bool {
+        valueLabel.text = missingValue
+        unitLabel.text = ""
+        return false
     }
 }
 

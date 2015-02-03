@@ -228,19 +228,23 @@
     
     cell.testModeLabel.hidden = !(cell.testModeLabel && session.testMode.boolValue);
     
+    cell.locationLabel.alpha = 0.3;
+
     if (session.geoLocationNameLocalized) {
-        cell.locationLabel.alpha = 1.0;
         if ([session.geoLocationNameLocalized isEqualToString:@"GEOLOCATION_UNKNOWN"]) {
             cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_UNKNOWN", nil);
         }
+        else if ([session.geoLocationNameLocalized isEqualToString:@"GEOLOCATION_LOADING"]) {
+            cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_LOADING", nil);
+        }
         else {
+            cell.locationLabel.alpha = 1.0;
             cell.locationLabel.text = session.geoLocationNameLocalized;
         }
     }
     else {
-        cell.locationLabel.alpha = 0.3;
-    
         if (session.latitude && session.longitude) {
+            session.geoLocationNameLocalized = @"GEOLOCATION_LOADING";
             cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_LOADING", nil);
             CLLocationDegrees latitude = session.latitude.doubleValue;
             CLLocationDegrees longitude = session.longitude.doubleValue;
@@ -250,7 +254,7 @@
         }
         else {
             session.geoLocationNameLocalized = @"GEOLOCATION_UNKNOWN";
-            cell.locationLabel.text = session.geoLocationNameLocalized;
+            cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_UNKNOWN", nil);
         }
     }
 }

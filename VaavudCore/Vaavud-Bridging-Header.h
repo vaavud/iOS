@@ -14,5 +14,6 @@
 #import "MeasurementSession.h"
 #import "UnitUtil.h"
 #import "Property+Util.h"
+#import "MeasurementAnnotation.h"
 
 #endif

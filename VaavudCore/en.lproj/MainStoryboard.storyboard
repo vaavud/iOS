@@ -1020,7 +1020,7 @@
                                             <constraint firstAttribute="centerX" secondItem="HR4-FD-hzb" secondAttribute="centerX" id="uFH-k9-KC4"/>
                                         </constraints>
                                         <connections>
-                                            <outletCollection property="gestureRecognizers" destination="Jhu-aZ-yTW" appends="YES" id="bIb-Dn-H56"/>
+                                            <outletCollection property="gestureRecognizers" destination="qUU-XQ-li6" appends="YES" id="Hba-wC-drW"/>
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Wn-Ut-CaW" userLabel="TemperatureOuter">
@@ -1401,7 +1401,13 @@
                             <constraint firstItem="C2h-JO-28H" firstAttribute="centerX" secondItem="MuP-rr-uMT" secondAttribute="centerX" id="zS3-ML-LEn"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="9cq-Ve-6sS"/>
+                    <navigationItem key="navigationItem" title="Title" id="9cq-Ve-6sS">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="action" id="jhp-oz-vJ6">
+                            <connections>
+                                <action selector="tappedShare:" destination="8a4-bz-n0M" id="4YG-Fp-7gz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="averageHeadingLabel" destination="BNl-iK-NzK" id="cpS-p7-9HB"/>
@@ -1448,6 +1454,11 @@
                 <tapGestureRecognizer id="Jhu-aZ-yTW" userLabel="Temperature Tap Gesture Recognizer">
                     <connections>
                         <action selector="tappedTemperature:" destination="8a4-bz-n0M" id="wl7-cB-imk"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="qUU-XQ-li6" userLabel="Windchill Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="tappedWindchill:" destination="8a4-bz-n0M" id="SCJ-UP-S6f"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="p3X-v1-glg" userLabel="Gustiness Tap Gesture Recognizer">
