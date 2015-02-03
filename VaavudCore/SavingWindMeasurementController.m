@@ -141,6 +141,7 @@ SHARED_INSTANCE
         measurementSession.windSpeedAvg = self.currentAvgSpeed;
         measurementSession.windSpeedMax = self.currentMaxSpeed;
         measurementSession.windDirection = self.currentDirection;
+        measurementSession.gustiness = [self gustinessForPoints:measurementSession.points];
 
         if (measurementSession.startTime && measurementSession.endTime) {
             durationSeconds = [measurementSession.endTime timeIntervalSinceDate:measurementSession.startTime];
@@ -342,6 +343,34 @@ SHARED_INSTANCE
             [[ServerUploadManager sharedInstance] triggerUpload];
         });
     }];
+}
+
+- (NSNumber*)gustinessForPoints: (NSOrderedSet *)points {
+    
+    // turbulenceIntensity
+    // http://apollo.lsc.vsc.edu/classes/met455/notes/section3/3.html
+    // http://en.wikipedia.org/wiki/Algorithms_for_calculating_variance
+    
+    // consider using copy due thread issue? - if points is is removed after function is called
+    int n = 0;
+    float meanSum = 0;
+    float varianceSum = 0;
+    
+    for (int i = 0; i < points.count; i++) {
+        n = n+1;
+        meanSum = meanSum + ((MeasurementPoint *) [points objectAtIndex:i]).windSpeed.floatValue;
+    }
+    
+    float mean = meanSum / (float) n;
+    
+    for (int i = 0; i < points.count; i++) {
+        float x = ((MeasurementPoint *) [points objectAtIndex:i]).windSpeed.floatValue;
+        varianceSum = varianceSum + (x - mean)*(x - mean);
+    }
+    
+    float variance = varianceSum / (float) (n - 1);
+    
+    return [NSNumber numberWithFloat:variance/mean];
 }
 
 
