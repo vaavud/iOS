@@ -38,6 +38,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     @IBOutlet private weak var gustinessUnitLabel: UILabel!
     
     @IBOutlet private weak var mapView: MKMapView!
+    var locationOnMap: CLLocationCoordinate2D!
     
     @IBOutlet private weak var pressureView: PressureView!
     private var pressureItem: DynamicReadingItem!
@@ -87,8 +88,51 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
         title = formatter.localizedTitleDate(session.startTime)
         
         setupMapView()
+//        updateMapView(session)
         setupUI()
         setupLocalUI()
+    }
+    
+    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+        if let annotation = annotation as? MeasurementAnnotation {
+            let identifier = "MeasureAnnotationIdentifier"
+            
+            var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+            
+            if annotationView == nil {
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                annotationView.canShowCallout = false
+                annotationView.opaque = false
+                let label = UILabel(frame: CGRect(x: 0, y: 0, width: 38, height: 38))
+                label.backgroundColor = UIColor.clearColor()
+                label.font = UIFont(name: "HelveticaNeue", size: 12)
+                label.textColor = UIColor.whiteColor()
+                label.textAlignment = .Center
+                label.tag = 42
+            
+                annotationView.addSubview(label)
+                annotationView.frame = label.frame
+            
+                if session.windDirection != nil {
+                    annotationView.image = UIImage(named: UnitUtil.mapImageNameForDirection(session.windDirection))
+                }
+                else {
+                    annotationView.image = UIImage(named:"mapmarker_no_direction.png")
+                }
+            }
+            
+            updateMapAnnotationLabel(annotationView)
+            
+            return annotationView
+        }
+        
+        return nil
+    }
+    
+    private func updateMapAnnotationLabel(annotationView: MKAnnotationView) {
+        if let label = annotationView.viewWithTag(42) as? UILabel {
+            label.text = formatter.localizedWindspeed(session.windSpeedAvg?.floatValue, digits: 2)
+        }
     }
     
     private func setupMapView() {
@@ -98,11 +142,15 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
             return
         }
         
-        let coord = CLLocationCoordinate2D(latitude: session.latitude.doubleValue, longitude: session.longitude.doubleValue)
-        mapView.setRegion(MKCoordinateRegionMakeWithDistance(coord, 500, 500), animated: false)
-        
-        let annotation = MeasurementAnnotation(location: coord, windDirection: session.windDirection)
-        mapView.addAnnotation(annotation)
+        locationOnMap = CLLocationCoordinate2D(latitude: session.latitude.doubleValue, longitude: session.longitude.doubleValue)
+        mapView.setRegion(MKCoordinateRegionMakeWithDistance(locationOnMap, 500, 500), animated: false)
+        mapView.addAnnotation(MeasurementAnnotation(location: locationOnMap, windDirection: session.windDirection))
+    }
+    
+    private func updateMapView(ms: MeasurementSession) {
+        if let annotation = mapView.annotations.first as? MeasurementAnnotation {
+            updateMapAnnotationLabel(mapView.viewForAnnotation(annotation))
+        }
     }
     
     private func setupUI() {
@@ -120,6 +168,8 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     }
     
     private func setupGeoLocation(ms: MeasurementSession) {
+        println("speed: \(ms.windSpeedAvg) - geo: \(ms.geoLocationNameLocalized)")
+        
         if let geoName = ms.geoLocationNameLocalized {
             if geoName == "GEOLOCATION_LOADING" {
                 locationLabel.alpha = 0.3
@@ -281,6 +331,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
         if hasWindSpeed {
             formatter.windSpeedUnit = formatter.windSpeedUnit.next
             updateWindSpeeds(session)
+            updateMapView(session)
         }
     }
     

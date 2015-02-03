@@ -173,11 +173,11 @@ class VaavudFormatter {
         return failure(valueLabel: valueLabel, unitLabel: unitLabel)
     }
 
-    func localizedWindspeed(msSpeed: Float?) -> String? {
+    func localizedWindspeed(msSpeed: Float?, digits: Int? = nil) -> String? {
         readUnits()
-        return localizedConvertedString(msSpeed, unit: windSpeedUnit)
+        return localizedConvertedString(msSpeed, unit: windSpeedUnit, digits: digits)
     }
-
+    
     // Pressure
     
     func updatePressureLabels(session: MeasurementSession, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
@@ -301,16 +301,22 @@ class VaavudFormatter {
         return localizedDecimalString(value!, decimals: decimals)
     }
 
-    private func localizedConvertedString(value: Float?, unit: FloatUnit, min: Float = 0.1, decimals: Int? = nil) -> String? {
+    private func localizedConvertedString(value: Float?, unit: FloatUnit, min: Float = 0.1, decimals: Int? = nil, digits: Int? = nil) -> String? {
         if value == nil || value < min {
             return nil
         }
         
-        return localizedDecimalString(unit.fromBase(value!), decimals: decimals ?? unit.decimals)
+        return localizedDecimalString(unit.fromBase(value!), decimals: decimals ?? unit.decimals, digits: digits)
     }
     
-    private func localizedDecimalString(value: Float, decimals: Int) -> String {
-        let formatString = NSString(format: "%%.%df", decimals)
+    private func localizedDecimalString(value: Float, decimals: Int, digits: Int? = nil) -> String {
+        var actualDecimals = decimals
+        if let digits = digits {
+            let digitsBeforePoint = max(Int(floor(log10(value)) + 1), 1)
+            actualDecimals = min(max(digits - digitsBeforePoint, 0), decimals)
+        }
+        
+        let formatString = NSString(format: "%%.%df", actualDecimals)
         return NSString(format: formatString, locale: NSLocale.currentLocale(), value)
     }
     
