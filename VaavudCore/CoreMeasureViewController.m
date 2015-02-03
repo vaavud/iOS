@@ -83,43 +83,6 @@
     [super unitButtonPushed:sender];
 }
 
-- (void)measurementStopped:(MeasurementSession *)measurementSession {
-    [super measurementStopped:measurementSession];
-    [self windchillForSession:measurementSession];
-}
-
-- (NSNumber *)windchillForSession:(MeasurementSession *)session {
-    NSNumber *temperatureNumber = session.sourcedTemperature;
-    if (!temperatureNumber) {
-        return nil;
-    }
-    
-    double temperature = temperatureNumber.doubleValue - 273.15;
-    
-    NSNumber *windspeedNumber = session.windSpeedAvg ?: session.sourcedWindSpeedAvg;
-    if (!windspeedNumber) {
-        return nil;
-    }
-    
-    double windspeed = windspeedNumber.doubleValue*3.6;
-    
-    if (temperature > 10 || windspeed < 4.8) {
-        return nil;
-    }
-    
-    double k = 13.12;
-    double a = 0.6215;
-    double b = -11.37;
-    double c = 0.3965;
-    double d = 0.16;
-    
-    double wci = k + a*temperature + b*pow(windspeed, d) + c*temperature*pow(windspeed, d);
-    
-    NSLog(@"wci: %f", wci);
-
-    return @(wci);
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"SummaryFromMeasureSegue"]) {
         CoreSummaryViewController *destination = segue.destinationViewController;

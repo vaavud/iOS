@@ -132,8 +132,8 @@
         }
     }
     
-    if (self.measurementSession.temperature && self.measurementSession.temperature.floatValue > 0.0) {
-        self.temperatureLabel.text = [self formatValue:self.measurementSession.temperature.floatValue - KELVIN_TO_CELCIUS];
+    if (self.measurementSession.sourcedTemperature && self.measurementSession.sourcedTemperature.floatValue > 0.0) {
+        self.temperatureLabel.text = [self formatValue:self.measurementSession.sourcedTemperature.floatValue - KELVIN_TO_CELCIUS];
     }
     else {
         self.temperatureLabel.text = @"-";

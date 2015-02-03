@@ -198,8 +198,8 @@
         }
     }
     
-    if (self.measurementSession.temperature && [self.measurementSession.temperature floatValue] > 0.0) {
-        self.temperatureLabel.text = [self formatValue:[self.measurementSession.temperature floatValue] - KELVIN_TO_CELCIUS];
+    if (self.measurementSession.sourcedTemperature && [self.measurementSession.sourcedTemperature floatValue] > 0.0) {
+        self.temperatureLabel.text = [self formatValue:[self.measurementSession.sourcedTemperature floatValue] - KELVIN_TO_CELCIUS];
     }
     else {
         self.temperatureLabel.text = @"-";
@@ -208,15 +208,15 @@
 
 - (void)updateComputedValues {
     if (self.measurementSession && self.measurementSession.windSpeedAvg && !isnan([self.measurementSession.windSpeedAvg doubleValue])
-                                && self.measurementSession.temperature && [self.measurementSession.temperature floatValue] > 0.0) {
+                                && self.measurementSession.sourcedTemperature && [self.measurementSession.sourcedTemperature floatValue] > 0.0) {
 
         NSNumber *reduceEquipment = [self getReducingEquipmentValue];
         NSNumber *dose = [self getDoseValue];
         NSNumber *boomHeight = [self getBoomHeightValue];
         NSNumber *sprayQuality = [self getSprayQualityValue];
         
-        self.generalDistance = [[AgriResultComputation sharedInstance] generalConsideration:self.measurementSession.temperature windSpeed:self.measurementSession.windSpeedAvg reduceEquipment:reduceEquipment dose:dose boomHeight:boomHeight sprayQuality:sprayQuality];
-        self.specialDistance = [[AgriResultComputation sharedInstance] specialConsideration:self.measurementSession.temperature windSpeed:self.measurementSession.windSpeedAvg reduceEquipment:reduceEquipment dose:dose boomHeight:boomHeight sprayQuality:sprayQuality];
+        self.generalDistance = [[AgriResultComputation sharedInstance] generalConsideration:self.measurementSession.sourcedTemperature windSpeed:self.measurementSession.windSpeedAvg reduceEquipment:reduceEquipment dose:dose boomHeight:boomHeight sprayQuality:sprayQuality];
+        self.specialDistance = [[AgriResultComputation sharedInstance] specialConsideration:self.measurementSession.sourcedTemperature windSpeed:self.measurementSession.windSpeedAvg reduceEquipment:reduceEquipment dose:dose boomHeight:boomHeight sprayQuality:sprayQuality];
         
         if (self.generalDistance && self.specialDistance && [self.generalDistance intValue] > 0 && [self.specialDistance intValue] > 0) {
             self.generalDistanceLabel.text = [self.generalDistance stringValue];
@@ -432,7 +432,7 @@
             [summary appendFormat:@"%@: %@", NSLocalizedString(@"HEADING_WIND_DIRECTION", nil), self.directionLabel.text];
         }
         
-        if (self.measurementSession.temperature && ([self.measurementSession.temperature floatValue] > 0.0F) && self.temperatureLabel) {
+        if (self.measurementSession.sourcedTemperature && ([self.measurementSession.sourcedTemperature floatValue] > 0.0F) && self.temperatureLabel) {
             if (summary.length > 0) {
                 [summary appendString:@"\n"];
             }

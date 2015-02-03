@@ -128,7 +128,7 @@
     
     // we determine these values here, so that if you later press back after having typed any temperature or direction
     // pressing next again will take you through the same flow again instead of skipping
-    self.hasTemperature = (self.measurementSession.temperature && (self.measurementSession.temperature != (id)[NSNull null]) && ([self.measurementSession.temperature floatValue] > 0.0f));
+    self.hasTemperature = (self.measurementSession.sourcedTemperature && (self.measurementSession.sourcedTemperature != (id)[NSNull null]) && ([self.measurementSession.sourcedTemperature floatValue] > 0.0f));
     self.hasDirection = (self.measurementSession.windDirection && (self.measurementSession.windDirection != (id)[NSNull null]));
 }
 
@@ -141,7 +141,7 @@
         [self stop];
         
         if (self.measurementSession) {
-            NSLog(@"[AgriMeasureViewController] Next with temperature=%@ and direction=%@", self.measurementSession.temperature, self.measurementSession.windDirection);
+            NSLog(@"[AgriMeasureViewController] Next with temperature=%@ and direction=%@", self.measurementSession.sourcedTemperature, self.measurementSession.windDirection);
             
             if (self.hasTemperature && self.hasDirection) {
                 [self performSegueWithIdentifier:@"resultSegue" sender:self];

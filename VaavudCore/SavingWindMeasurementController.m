@@ -106,10 +106,8 @@ SHARED_INSTANCE
         
         // lookup temperature
         
-        if (self.lookupTemperature) {
-            self.temperatureLookupTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(initiateTemperatureLookup) userInfo:nil repeats:YES];
-        }
-
+        self.temperatureLookupTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(initiateTemperatureLookup) userInfo:nil repeats:YES];
+        
         [self.controller start];
     }
 }
@@ -142,7 +140,8 @@ SHARED_INSTANCE
         measurementSession.windSpeedMax = self.currentMaxSpeed;
         measurementSession.windDirection = self.currentDirection;
         measurementSession.gustiness = [self gustinessForPoints:measurementSession.points];
-
+        measurementSession.windChill = [self windchillForSession:measurementSession];
+        
         if (measurementSession.startTime && measurementSession.endTime) {
             durationSeconds = [measurementSession.endTime timeIntervalSinceDate:measurementSession.startTime];
         }
@@ -313,6 +312,9 @@ SHARED_INSTANCE
             measurementSession.latitude = nil;
             measurementSession.longitude = nil;
             measurementSession.geoLocationNameLocalized = @"GEOLOCATION_UNKNOWN";
+            
+            NSLog(@"saving GEOLOCATION_UNKNOWN");
+
         }
         
         if ([self.delegate respondsToSelector:@selector(updateLocation:longitude:)]) {
@@ -346,34 +348,64 @@ SHARED_INSTANCE
     }];
 }
 
-- (NSNumber*)gustinessForPoints: (NSOrderedSet *)points {
-    
+- (NSNumber *)gustinessForPoints:(NSOrderedSet *)points {
     // turbulenceIntensity
     // http://apollo.lsc.vsc.edu/classes/met455/notes/section3/3.html
     // http://en.wikipedia.org/wiki/Algorithms_for_calculating_variance
     
-    // consider using copy due thread issue? - if points is is removed after function is called
+    // consider using copy due thread issue? - if points is removed after function is called
     int n = 0;
     float meanSum = 0;
     float varianceSum = 0;
     
     for (int i = 0; i < points.count; i++) {
-        n = n+1;
-        meanSum = meanSum + ((MeasurementPoint *) [points objectAtIndex:i]).windSpeed.floatValue;
+        n = n + 1;
+        meanSum = meanSum + ((MeasurementPoint *)[points objectAtIndex:i]).windSpeed.floatValue;
     }
     
-    float mean = meanSum / (float) n;
+    float mean = meanSum/(float)n;
     
     for (int i = 0; i < points.count; i++) {
-        float x = ((MeasurementPoint *) [points objectAtIndex:i]).windSpeed.floatValue;
+        float x = ((MeasurementPoint *)[points objectAtIndex:i]).windSpeed.floatValue;
         varianceSum = varianceSum + (x - mean)*(x - mean);
     }
     
-    float variance = varianceSum / (float) (n - 1);
+    float variance = varianceSum/(float)(n - 1);
     
     return [NSNumber numberWithFloat:variance/mean];
 }
 
+- (NSNumber *)windchillForSession:(MeasurementSession *)session {
+    NSNumber *temperatureNumber = session.sourcedTemperature;
+    if (!temperatureNumber) {
+        return nil;
+    }
+    
+    double temperature = temperatureNumber.doubleValue - 273.15;
+    
+    NSNumber *windspeedNumber = session.windSpeedAvg ?: session.sourcedWindSpeedAvg;
+    if (!windspeedNumber) {
+        return nil;
+    }
+    
+    double windspeed = windspeedNumber.doubleValue*3.6;
+    
+    if (temperature > 10 || windspeed < 4.8) {
+        return nil;
+    }
+    
+    double k = 13.12;
+    double a = 0.6215;
+    double b = -11.37;
+    double c = 0.3965;
+    double d = 0.16;
+    
+    double wci = 273.15 + k + a*temperature + b*pow(windspeed, d) + c*temperature*pow(windspeed, d);
+    
+    NSLog(@"wci: %f", wci);
+    
+    return @(wci);
+}
 
 #pragma mark Temperature methods
 
@@ -405,7 +437,7 @@ SHARED_INSTANCE
                     MeasurementSession *measurementSession = [self getLatestMeasurementSession];
 
                     if (measurementSession) {
-                        measurementSession.temperature = temperature;
+                        measurementSession.sourcedTemperature = temperature;
 
                         BOOL hasDirection = (measurementSession.windDirection && (measurementSession.windDirection != (id)[NSNull null]));
                         if (!hasDirection) {
