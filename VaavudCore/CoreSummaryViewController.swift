@@ -368,26 +368,27 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
         hasSomeDirection = session.windDirection?.floatValue // FIXME: Temporary, will remove when we start sourcing directions
         
         if let rotation = hasSomeDirection {
-
-            //            let t = CGAffineTransformMakeRotation(π*CGFloat(1 + rotation/180))
-            //            UIView.animateWithDuration(0.3, delay: 0.2, options: nil, animations: { self.directionView.transform = t }, completion: { (done) -> Void in
-            //                self.animateAll()
-            //            })
+            switch UIDevice.currentDevice().systemVersion.compare("8.0.0", options: NSStringCompareOptions.NumericSearch) {
+            case .OrderedSame, .OrderedDescending:
+                let t = CGAffineTransformMakeRotation(π*CGFloat(1 + rotation/180))
+                UIView.animateWithDuration(0.3, delay: 0.2, options: nil, animations: { self.directionView.transform = t }, completion: { (done) -> Void in
+                    self.animateAll()
+                })
+            case .OrderedAscending:
+                let tt = CATransform3DMakeRotation(π*CGFloat(1 + rotation/180), 0, 0, 1)
+                
+                let anim = CABasicAnimation(keyPath: "transform")
+                anim.duration = 0.5
+                anim.removedOnCompletion = false
+                anim.fillMode = kCAFillModeForwards
+                CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut))
+                
+                CATransaction.setCompletionBlock{ self.animateAll() }
+                anim.fromValue = NSValue(CATransform3D:CATransform3DIdentity)
+                anim.toValue = NSValue(CATransform3D:tt)
+                directionView.layer.addAnimation(anim, forKey: "")
+            }
             
-            let tt = CATransform3DMakeRotation(π*CGFloat(1 + rotation/180), 0, 0, 1)
-            
-            let anim = CABasicAnimation(keyPath: "transform")
-            anim.duration = 0.5
-            anim.removedOnCompletion = false
-            anim.fillMode = kCAFillModeForwards
-            CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut))
-            
-            CATransaction.setCompletionBlock{ self.animateAll() }
-            anim.fromValue = NSValue(CATransform3D:CATransform3DIdentity)
-            anim.toValue = NSValue(CATransform3D:tt)
-            directionView.layer.addAnimation(anim, forKey: "")
-            
-        
             updateWindDirection(rotation)
             
             showDirection()
