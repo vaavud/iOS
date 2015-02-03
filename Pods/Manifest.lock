@@ -1,8 +1,8 @@
 PODS:
   - DACircularProgress (2.2.0)
-  - Mixpanel (2.6.2):
-    - Mixpanel/MPCategoryHelpers (= 2.6.2)
-  - Mixpanel/MPCategoryHelpers (2.6.2)
+  - Mixpanel (2.7.1):
+    - Mixpanel/MPCategoryHelpers (= 2.7.1)
+  - Mixpanel/MPCategoryHelpers (2.7.1)
 
 DEPENDENCIES:
   - DACircularProgress
@@ -10,6 +10,6 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   DACircularProgress: 3b41941891a56dc6aa17971f5322a9a38a6f446e
-  Mixpanel: c075cedebda3328ce1ee29a18429e265ce967cd8
+  Mixpanel: 57314e0e7c0a63a6471618a41002da3e1408532c
 
 COCOAPODS: 0.35.0
