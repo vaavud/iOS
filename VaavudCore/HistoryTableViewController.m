@@ -227,79 +227,51 @@
     }
     
     cell.testModeLabel.hidden = !(cell.testModeLabel && session.testMode.boolValue);
-    cell.locationLabel.alpha = 0.3;
     
     BOOL hasPosition = session.latitude && session.longitude;
-    BOOL hasGeoLocality = session.geoLocationNameLocalized;
-    BOOL isLoading = [session.geoLocationNameLocalized isEqualToString:@"GEOLOCATION_LOADING"];
-    BOOL isUnknown = [session.geoLocationNameLocalized isEqualToString:@"GEOLOCATION_UNKNOWN"];
+    BOOL hasGeoLocality = session.geoLocationNameLocalized != nil;
 
-//    if (hasGeoLocality && !isUnknown && !isLoading) {
-//        cell.locationLabel.alpha = 1.0;
-//        cell.locationLabel.text = session.geoLocationNameLocalized;
-//    }
-//    else if (isUnknown || !hasPosition) {
-//        session.geoLocationNameLocalized = @"GEOLOCATION_UNKNOWN";
-//        cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_UNKNOWN", nil);
-//    }
-//    else if (hasPosition && (!hasGeoLocality || isLoading)) {
-//        session.geoLocationNameLocalized = @"GEOLOCATION_LOADING";
-//        cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_LOADING", nil);
-//
-//        CLLocation *location = [[CLLocation alloc] initWithLatitude:session.latitude.doubleValue longitude:session.longitude.doubleValue];
-//        [self geocodeLocation:location forCell:cell session:session];
-//    }
+    if (!hasPosition) {
+        cell.locationLabel.alpha = 0.3;
+        cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_UNKNOWN", nil);
+    }
+    else if (!hasGeoLocality) {
+        cell.locationLabel.alpha = 0.3;
+        cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_LOADING", nil);
 
-    
-    if (session.geoLocationNameLocalized) {
-        if ([session.geoLocationNameLocalized isEqualToString:@"GEOLOCATION_UNKNOWN"]) {
-            cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_UNKNOWN", nil);
-        }
-        else if ([session.geoLocationNameLocalized isEqualToString:@"GEOLOCATION_LOADING"]) {
-            cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_LOADING", nil);
-        }
-        else {
-            cell.locationLabel.alpha = 1.0;
-            cell.locationLabel.text = session.geoLocationNameLocalized;
-        }
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:session.latitude.doubleValue longitude:session.longitude.doubleValue];
+        [self geocodeLocation:location forCell:cell session:session];
     }
     else {
-        if (session.latitude && session.longitude) {
-            session.geoLocationNameLocalized = @"GEOLOCATION_LOADING";
-            cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_LOADING", nil);
-            CLLocation *location = [[CLLocation alloc] initWithLatitude:session.latitude.doubleValue longitude:session.longitude.doubleValue];
-
-            [self geocodeLocation:location forCell:cell session:session];
-        }
-        else {
-            session.geoLocationNameLocalized = @"GEOLOCATION_UNKNOWN";
-            cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_UNKNOWN", nil);
-        }
+        cell.locationLabel.alpha = 1.0;
+        cell.locationLabel.text = session.geoLocationNameLocalized;
     }
 }
 
 - (void)geocodeLocation:(CLLocation *)location forCell:(HistoryTableViewCell *)cell session:(MeasurementSession *)session {
     NSLog(@"LOCATION requesting for %.2f", session.windSpeedAvg.floatValue);
-    [self.geocoder reverseGeocodeLocation:location completionHandler: ^(NSArray *placemarks, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"LOCATION received for %.2f: %ld", session.windSpeedAvg.floatValue, (unsigned long)placemarks.count);
-
-            if (placemarks.count > 0 && !error) {
-                CLPlacemark *first = [placemarks objectAtIndex:0];
-                NSString *text = first.thoroughfare ?: first.locality ?: first.country;
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self.geocoder reverseGeocodeLocation:location completionHandler: ^(NSArray *placemarks, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSLog(@"LOCATION received for %.2f: %ld", session.windSpeedAvg.floatValue, (unsigned long)placemarks.count);
                 
-                session.geoLocationNameLocalized = text;
-                cell.locationLabel.text = text;
-                session.uploaded = @NO;
-            }
-            else {
-                if (error) { NSLog(@"Geocode failed with error: %@", error); }
-                cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_ERROR", nil);
-            }
-            
-            cell.locationLabel.alpha = 1.0;
-        });
-    }];
+                if (placemarks.count > 0 && !error) {
+                    CLPlacemark *first = [placemarks objectAtIndex:0];
+                    NSString *text = first.thoroughfare ?: first.locality ?: first.country;
+                    
+                    session.geoLocationNameLocalized = text;
+                    cell.locationLabel.text = text;
+                    session.uploaded = @NO;
+                }
+                else {
+                    if (error) { NSLog(@"Geocode failed with error: %@", error); }
+                    cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_ERROR", nil);
+                }
+                
+                cell.locationLabel.alpha = 1.0;
+            });
+        }];
+    });
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

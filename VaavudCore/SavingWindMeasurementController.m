@@ -311,7 +311,6 @@ SHARED_INSTANCE
         else {
             measurementSession.latitude = nil;
             measurementSession.longitude = nil;
-            measurementSession.geoLocationNameLocalized = @"GEOLOCATION_UNKNOWN";
         }
         
         if ([self.delegate respondsToSelector:@selector(updateLocation:longitude:)]) {
