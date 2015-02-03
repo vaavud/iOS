@@ -398,9 +398,7 @@ SHARED_INSTANCE
     double d = 0.16;
     
     double wci = 273.15 + k + a*temperature + b*pow(windspeed, d) + c*temperature*pow(windspeed, d);
-    
-    NSLog(@"wci: %f", wci);
-    
+        
     return @(wci);
 }
 
@@ -439,9 +437,9 @@ SHARED_INSTANCE
 
                         BOOL hasDirection = (measurementSession.windDirection && (measurementSession.windDirection != (id)[NSNull null]));
                         if (!hasDirection) {
-                            measurementSession.windDirection = direction;
-                            self.currentDirection = direction;
-                            updatedDirection = YES;
+                            measurementSession.sourcedWindDirection = direction;
+//                            self.currentDirection = direction;
+//                            updatedDirection = YES;
                         }
                         
                         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];

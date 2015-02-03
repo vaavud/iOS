@@ -227,9 +227,30 @@
     }
     
     cell.testModeLabel.hidden = !(cell.testModeLabel && session.testMode.boolValue);
-    
     cell.locationLabel.alpha = 0.3;
+    
+    BOOL hasPosition = session.latitude && session.longitude;
+    BOOL hasGeoLocality = session.geoLocationNameLocalized;
+    BOOL isLoading = [session.geoLocationNameLocalized isEqualToString:@"GEOLOCATION_LOADING"];
+    BOOL isUnknown = [session.geoLocationNameLocalized isEqualToString:@"GEOLOCATION_UNKNOWN"];
 
+//    if (hasGeoLocality && !isUnknown && !isLoading) {
+//        cell.locationLabel.alpha = 1.0;
+//        cell.locationLabel.text = session.geoLocationNameLocalized;
+//    }
+//    else if (isUnknown || !hasPosition) {
+//        session.geoLocationNameLocalized = @"GEOLOCATION_UNKNOWN";
+//        cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_UNKNOWN", nil);
+//    }
+//    else if (hasPosition && (!hasGeoLocality || isLoading)) {
+//        session.geoLocationNameLocalized = @"GEOLOCATION_LOADING";
+//        cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_LOADING", nil);
+//
+//        CLLocation *location = [[CLLocation alloc] initWithLatitude:session.latitude.doubleValue longitude:session.longitude.doubleValue];
+//        [self geocodeLocation:location forCell:cell session:session];
+//    }
+
+    
     if (session.geoLocationNameLocalized) {
         if ([session.geoLocationNameLocalized isEqualToString:@"GEOLOCATION_UNKNOWN"]) {
             cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_UNKNOWN", nil);
@@ -246,9 +267,7 @@
         if (session.latitude && session.longitude) {
             session.geoLocationNameLocalized = @"GEOLOCATION_LOADING";
             cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_LOADING", nil);
-            CLLocationDegrees latitude = session.latitude.doubleValue;
-            CLLocationDegrees longitude = session.longitude.doubleValue;
-            CLLocation *location = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+            CLLocation *location = [[CLLocation alloc] initWithLatitude:session.latitude.doubleValue longitude:session.longitude.doubleValue];
 
             [self geocodeLocation:location forCell:cell session:session];
         }
