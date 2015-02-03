@@ -39,10 +39,10 @@ enum PressureUnit: Int, FloatUnit {
     
     var localizedString: String { return NSLocalizedString(key, comment: "") }
     var next: PressureUnit { return PressureUnit(rawValue: (rawValue + 1) % 3)! }
-    var decimals: Int { return [0, 3, 2][rawValue] }
+    var decimals: Int { return [0, 3, 0][rawValue] }
     func fromBase(mbarValue: Float) -> Float { return mbarValue*ratio }
     
-    private var ratio: Float { return [1, 1/101325, 1/133.322387415][rawValue] }
+    private var ratio: Float { return [1, 0.000986923267, 0.75006375541921][rawValue] }
     
     private var key: String { return ["UNIT_MBAR", "UNIT_ATM", "UNIT_MMHG"][rawValue] }
 }

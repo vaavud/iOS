@@ -88,7 +88,6 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
         title = formatter.localizedTitleDate(session.startTime)
         
         setupMapView()
-//        updateMapView(session)
         setupUI()
         setupLocalUI()
     }
@@ -158,6 +157,15 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
             dateLabel.text = time.uppercaseString
         }
         
+        if view.bounds.width > 375 {
+            averageLabel.font = averageLabel.font.fontWithSize(85)
+            maximumLabel.font = maximumLabel.font.fontWithSize(60)
+        }
+        else if view.bounds.width > 320 {
+            averageLabel.font = averageLabel.font.fontWithSize(72)
+            maximumLabel.font = maximumLabel.font.fontWithSize(50)
+        }
+        
         setupGeoLocation(session)
         setupWindDirection(session)
         
@@ -181,6 +189,10 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
                 locationLabel.alpha = 1
                 locationLabel.text = geoName
             }
+        }
+        else {
+            locationLabel.alpha = 0.3
+            locationLabel.text = NSLocalizedString("GEOLOCATION_UNKNOWN", comment: "")
         }
     }
 
@@ -308,6 +320,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     @IBAction func tappedTemperature(sender: AnyObject) {
         if hasTemperature {
             animator.removeAllBehaviors()
+            snap(windchillItem, to: CGFloat(arc4random() % 100))
             snap(temperatureItem, to: CGFloat(arc4random() % 100))
             
             formatter.temperatureUnit = formatter.temperatureUnit.next
@@ -319,7 +332,8 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
         if hasWindChill {
             animator.removeAllBehaviors()
             snap(windchillItem, to: CGFloat(arc4random() % 100))
-            
+            snap(temperatureItem, to: CGFloat(arc4random() % 100))
+
             formatter.temperatureUnit = formatter.temperatureUnit.next
             updateTemperature(session)
         }

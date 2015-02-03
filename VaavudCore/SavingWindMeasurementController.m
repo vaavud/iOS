@@ -106,7 +106,7 @@ SHARED_INSTANCE
         
         // lookup temperature
         
-        self.temperatureLookupTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(initiateTemperatureLookup) userInfo:nil repeats:YES];
+        self.temperatureLookupTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(initiateTemperaturePressureLookup) userInfo:nil repeats:YES];
         
         [self.controller start];
     }
@@ -312,9 +312,6 @@ SHARED_INSTANCE
             measurementSession.latitude = nil;
             measurementSession.longitude = nil;
             measurementSession.geoLocationNameLocalized = @"GEOLOCATION_UNKNOWN";
-            
-            NSLog(@"saving GEOLOCATION_UNKNOWN");
-
         }
         
         if ([self.delegate respondsToSelector:@selector(updateLocation:longitude:)]) {
@@ -409,8 +406,8 @@ SHARED_INSTANCE
 
 #pragma mark Temperature methods
 
-- (void)initiateTemperatureLookup {
-    NSLog(@"[SavingWindMeasurementController] initiateTemperatureLookup");
+- (void)initiateTemperaturePressureLookup {
+    NSLog(@"[SavingWindMeasurementController] initiateTemperaturePressureLookup");
     
     MeasurementSession *measurementSession = [self getLatestMeasurementSession];
     if (measurementSession && [measurementSession.measuring boolValue]) {
@@ -427,7 +424,7 @@ SHARED_INSTANCE
                 self.temperatureLookupTimer = nil;
             }
             
-            [[ServerUploadManager sharedInstance] lookupTemperatureForLocation:latestLocation.latitude longitude:latestLocation.longitude success:^(NSNumber *temperature, NSNumber *direction) {
+            [[ServerUploadManager sharedInstance] lookupForLocation:latestLocation.latitude longitude:latestLocation.longitude success:^(NSNumber *temperature, NSNumber *direction, NSNumber *pressure) {
                 
                 NSLog(@"[SavingWindMeasurementController] Got success looking up temperature: %@", temperature);
                 if (temperature) {
@@ -438,6 +435,7 @@ SHARED_INSTANCE
 
                     if (measurementSession) {
                         measurementSession.sourcedTemperature = temperature;
+                        measurementSession.pressure = pressure;
 
                         BOOL hasDirection = (measurementSession.windDirection && (measurementSession.windDirection != (id)[NSNull null]));
                         if (!hasDirection) {

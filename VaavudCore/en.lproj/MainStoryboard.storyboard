@@ -1195,7 +1195,7 @@
                                 <gestureRecognizers/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="strokeWidth">
-                                        <real key="value" value="2"/>
+                                        <real key="value" value="3"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="detailStrokeWidth">
                                         <real key="value" value="1"/>
@@ -1220,7 +1220,7 @@
                                         <color key="value" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="strokeWidth">
-                                        <real key="value" value="2"/>
+                                        <real key="value" value="3"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -1401,13 +1401,7 @@
                             <constraint firstItem="C2h-JO-28H" firstAttribute="centerX" secondItem="MuP-rr-uMT" secondAttribute="centerX" id="zS3-ML-LEn"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="9cq-Ve-6sS">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="action" id="jhp-oz-vJ6">
-                            <connections>
-                                <action selector="tappedShare:" destination="8a4-bz-n0M" id="4YG-Fp-7gz"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Title" id="9cq-Ve-6sS"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="averageHeadingLabel" destination="BNl-iK-NzK" id="cpS-p7-9HB"/>

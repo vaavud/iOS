@@ -320,6 +320,7 @@
 #ifdef AGRI
         self.deleteSession = YES;
 #endif
+
         [self stop];
     }
 }
@@ -507,7 +508,7 @@
             [self measurementStopped:session];
         }
 
-        if (session && self.deleteSession) {
+        if (session && (self.deleteSession || !session.windSpeedAvg)) {
             [[ServerUploadManager sharedInstance] deleteMeasurementSession:session.uuid retry:3 success:nil failure:nil];
             [session MR_deleteEntity];
         }

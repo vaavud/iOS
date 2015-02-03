@@ -981,7 +981,7 @@ SHARED_INSTANCE
     }];
 }
 
-- (void)lookupTemperatureForLocation:(double)latitude longitude:(double)longitude success:(void(^)(NSNumber *temperature, NSNumber *direction))success failure:(void(^)(NSError *error))failure {
+- (void)lookupForLocation:(double)latitude longitude:(double)longitude success:(void(^)(NSNumber *temperature, NSNumber *direction, NSNumber *pressure))success failure:(void(^)(NSError *error))failure {
     NSLog(@"[ServerUploadManager] Lookup temperature for location (%f, %f)", latitude, longitude);
     
     if (isnan(latitude) || isnan(longitude) || (latitude == 0.0 && longitude == 0.0)) {
@@ -1006,14 +1006,15 @@ SHARED_INSTANCE
         
         id main = [responseObject objectForKey:@"main"];
         NSNumber *temperature = (main) ? [main objectForKey:@"temp"] : nil;
+        NSNumber *pressure = (main) ? [main objectForKey:@"grnd_level"] : nil;
         
         id wind = [responseObject objectForKey:@"wind"];
-        NSNumber *direction = (wind) ? [wind objectForKey:@"deg"] : nil;
-        
+        NSNumber *direction = (wind) ? [wind objectForKey:@"deg"] : nil;        
+
         NSLog(@"[ServerUploadManager] Got successful response looking up temperature %@ and direction %@", temperature, direction);
 
         if (success) {
-            success(temperature, direction);
+            success(temperature, direction, pressure);
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

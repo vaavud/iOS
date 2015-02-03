@@ -149,7 +149,7 @@
 #ifdef AGRI
     return 8;
 #elif CORE
-    return 7;
+    return 6;
 #endif
 }
 
@@ -192,7 +192,7 @@
         
         if (!self.facebookSharingSwitch) {
             self.facebookSharingSwitch = [[UISwitch alloc] initWithFrame:CGRectZero];
-            self.facebookSharingSwitch.on = [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:YES];
+            self.facebookSharingSwitch.on = [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:NO];
             [self.facebookSharingSwitch addTarget:self action:@selector(facebookSharingValueChanged:) forControlEvents:UIControlEventValueChanged];
         }
         
@@ -307,9 +307,9 @@
     else if (indexPath.item == 5) {
         [self performSegueWithIdentifier:@"aboutSegue" sender:self];
     }
-//    else if (indexPath.item == 6 ) {
-//        [self performSegueWithIdentifier:@"sleipnirCalibrationSegueFromSettings" sender:self];
-//    }
+    else if (indexPath.item == 6 ) {
+        [self performSegueWithIdentifier:@"sleipnirCalibrationSegueFromSettings" sender:self];
+    }
     
 }
 
