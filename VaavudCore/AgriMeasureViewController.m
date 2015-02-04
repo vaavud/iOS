@@ -97,15 +97,12 @@
 }
 
 - (void)stop {
-    NSLog(@"stop");
     [super stop];
     self.statusBar.hidden = YES;
     self.nextButton.hidden = YES;
 }
 
 - (IBAction)startStopButtonPushed:(id)sender {
-    NSLog(@"startStopButtonPushed");
-
     self.measurementSession = nil;
     [super startStopButtonPushed:sender];
 }
@@ -140,9 +137,7 @@
         // this will only do something if we're measuring, i.e. "measurementStopped" will not be triggered if we're already stopped
         [self stop];
         
-        if (self.measurementSession) {
-            NSLog(@"[AgriMeasureViewController] Next with temperature=%@ and direction=%@", self.measurementSession.sourcedTemperature, self.measurementSession.windDirection);
-            
+        if (self.measurementSession) {            
             if (self.hasTemperature && self.hasDirection) {
                 [self performSegueWithIdentifier:@"resultSegue" sender:self];
             }

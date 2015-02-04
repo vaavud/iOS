@@ -8,6 +8,7 @@
 
 #import "SleipnirMeasurementController.h"
 #import "SharedSingleton.h"
+#import "Constants.h"
 
 @interface SleipnirMeasurementController ()
 
@@ -81,19 +82,19 @@ SHARED_INSTANCE
     }
     
     if (available) {
-        NSLog(@"[SleipnirMeasurementController] sleipnirAvailabliltyChanged - available");
+        if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] sleipnirAvailabliltyChanged - available");
     }
     else {
-        NSLog(@"[SleipnirMeasurementController] sleipnirAvailabliltyChanged - Not available");
+        if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] sleipnirAvailabliltyChanged - Not available");
     }
 }
 
 - (void)deviceConnectedTypeSleipnir:(BOOL)sleipnir {
     if (sleipnir) {
-        NSLog(@"[SleipnirMeasurementController] deviceConnected - Sleipnir");
+        if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] deviceConnected - Sleipnir");
     }
     else {
-        NSLog(@"[SleipnirMeasurementController] deviceConnected - Unknown");
+        if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] deviceConnected - Unknown");
     }
     
     if ([self.delegate respondsToSelector:@selector(deviceConnected:)]) {
@@ -105,10 +106,10 @@ SHARED_INSTANCE
 
 - (void)deviceDisconnectedTypeSleipnir:(BOOL)sleipnir {
     if (sleipnir) {
-        NSLog(@"[SleipnirMeasurementController] deviceDisconnected - Sleipnir");
+        if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] deviceDisconnected - Sleipnir");
     }
     else {
-        NSLog(@"[SleipnirMeasurementController] deviceDisconnected - Unknown");
+        if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] deviceDisconnected - Unknown");
     }
     
     if ([self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
@@ -118,11 +119,11 @@ SHARED_INSTANCE
 }
 
 - (void)deviceConnectedChecking {
-    NSLog(@"[SleipnirMeasurementController] devicePlugedInChecking");
+    if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] devicePlugedInChecking");
 }
 
 - (void)newSpeed:(NSNumber *)speed {
-    //NSLog(@"[SleipnirMeasurementController] newSpeed=%@", speed);
+    //if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] newSpeed=%@", speed);
     
     // make sure we don't do anything with new data after the user has clicked stop
     if (self.isStarted && speed) {

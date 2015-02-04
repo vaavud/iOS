@@ -243,9 +243,7 @@
         CGFloat bottomInset = kbSize.height - self.bottomLayoutGuide.length;
         
         self.contentOffsetAfterShowingKeyboard = 0.0;
-        
-        NSLog(@"[AgriLoginViewController] Keyboard will show");
-        
+                
         [UIView animateWithDuration:[info[UIKeyboardAnimationDurationUserInfoKey] doubleValue] delay:0.0 options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionLayoutSubviews | animationCurve << 16) animations:^{
             
             self.scrollView.contentInset = UIEdgeInsetsMake(self.scrollView.contentInset.top, 0.0, bottomInset, 0.0);

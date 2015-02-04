@@ -323,7 +323,6 @@
 
 - (IBAction)testModeValueChanged:(UISwitch *)sender {
     [Property setAsBoolean:self.testModeSwitch.on forKey:KEY_AGRI_TEST_MODE];
-    NSLog(@"test mode value changed");
     
 //    [[Mixpanel sharedInstance] registerSuperProperties:@{@"Test mode" : (self.testModeSwitch.on ? @"true" : @"false")}];
 }

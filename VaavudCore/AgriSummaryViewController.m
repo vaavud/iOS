@@ -13,6 +13,7 @@
 #import "MeasurementAnnotation.h"
 #import "Mixpanel.h"
 #import "AgriMeasureViewController.h"
+#import "Constants.h"
 
 @interface AgriSummaryViewController ()
 
@@ -264,7 +265,7 @@
         return @"";
     }
     else {
-        NSLog(@"[AgriSummaryViewController] ERROR: Unknown reducing equipment value %d", value);
+        if (LOG_AGRI) NSLog(@"[AgriSummaryViewController] ERROR: Unknown reducing equipment value %d", value);
         return @"-";
     }
 }
@@ -280,7 +281,7 @@
         return NSLocalizedString(@"AGRI_DOSE_FULL", nil);
     }
     else {
-        NSLog(@"[AgriSummaryViewController] ERROR: Unknown dose value %f", value);
+        if (LOG_AGRI) NSLog(@"[AgriSummaryViewController] ERROR: Unknown dose value %f", value);
         return @"-";
     }
 }
@@ -296,7 +297,7 @@
         return NSLocalizedString(@"AGRI_BOOM_HEIGHT_60CM", nil);
     }
     else {
-        NSLog(@"[AgriSummaryViewController] ERROR: Unknown boom height value %d", value);
+        if (LOG_AGRI) NSLog(@"[AgriSummaryViewController] ERROR: Unknown boom height value %d", value);
         return @"-";
     }
 }
@@ -315,7 +316,7 @@
         return @"";
     }
     else {
-        NSLog(@"[AgriSummaryViewController] ERROR: Unknown spray quality value %d", value);
+        if (LOG_AGRI) NSLog(@"[AgriSummaryViewController] ERROR: Unknown spray quality value %d", value);
         return @"-";
     }
 }

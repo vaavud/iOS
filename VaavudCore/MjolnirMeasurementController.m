@@ -67,7 +67,7 @@
         self.fftPeakMagnitudeMinForValid = [[Property getAsDouble:KEY_FFT_MAG_MIN] doubleValue];
         self.FFTEngine = [[VaavudFFT alloc] initFFTLength: self.fftLength andFftDataLength: self.fftDataLength];
         
-        NSLog(@"[VaavudCoreController] Using algorithm parameters: iPhone4Algo=%d, frequencyStart=%f, frequencyFactor=%f, fftLength=%d, fftDataLength=%d, fft_MagnitudeMin=%f", self.iPhone4Algo, self.frequencyStart, self.frequencyFactor, self.fftLength, self.fftDataLength, self.fftPeakMagnitudeMinForValid);
+        if (LOG_OTHER) NSLog(@"[VaavudCoreController] Using algorithm parameters: iPhone4Algo=%d, frequencyStart=%f, frequencyFactor=%f, fftLength=%d, fftDataLength=%d, fft_MagnitudeMin=%f", self.iPhone4Algo, self.frequencyStart, self.frequencyFactor, self.fftLength, self.fftDataLength, self.fftPeakMagnitudeMinForValid);
     }
     
     return self;
@@ -319,7 +319,6 @@
     double timedifference = [[self.sharedMagneticFieldDataManager.magneticFieldReadingsTime lastObject] doubleValue];
     
     NSNumber *sampleFrequency = [NSNumber numberWithDouble:(double) (self.magneticFieldUpdatesCounter-1) / timedifference];
-//    NSLog(@"freq=%f.1", sampleFrequency.floatValue);
     return sampleFrequency;
 }
 

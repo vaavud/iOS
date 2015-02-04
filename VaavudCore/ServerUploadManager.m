@@ -62,7 +62,7 @@ SHARED_INSTANCE
              AFNetworkReachabilityStatusReachableViaWWAN = 1,
              AFNetworkReachabilityStatusReachableViaWiFi = 2,
              */
-            NSLog(@"[ServerUploadManager] Reachability status changed to: %d", status);
+            if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Reachability status changed to: %d", status);
 
             if (status == 1 || status == 2) {
                 self.hasReachability = YES;
@@ -86,14 +86,13 @@ SHARED_INSTANCE
 
 // notification from the OS
 - (void)appDidBecomeActive:(NSNotification *)notification {
-    //NSLog(@"[ServerUploadManager] appDidBecomeActive");
     self.justDidBecomeActive = YES;
     [self handleDidBecomeActiveTasks];
 }
 
 // notification from the OS
 -(void)appWillTerminate:(NSNotification *)notification {
-    NSLog(@"[ServerUploadManager] appWillTerminate");
+    if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] appWillTerminate");
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
 }
@@ -108,7 +107,7 @@ SHARED_INSTANCE
     if (self.lastDidBecomeActive && self.lastDidBecomeActive != nil) {
         NSTimeInterval howRecent = [self.lastDidBecomeActive timeIntervalSinceNow];
         if (abs(howRecent) < graceTimeBetweenDidBecomeActiveTasks) {
-            NSLog(@"[ServerUploadManager] ignoring did-become-active due to grace period");
+            if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] ignoring did-become-active due to grace period");
 
             self.justDidBecomeActive = NO;
         }
@@ -118,7 +117,6 @@ SHARED_INSTANCE
         return;
     }
     
-    //NSLog(@"[ServerUploadManager] Handle did-become-active tasks");
     self.justDidBecomeActive = NO;
     self.lastDidBecomeActive = [NSDate date];
 
@@ -133,7 +131,7 @@ SHARED_INSTANCE
 }
 
 - (void)triggerUpload {
-    //NSLog(@"[ServerUploadManager] Trigger upload");
+    if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Trigger upload");
     [self checkForUnUploadedData];
 }
 
@@ -216,7 +214,7 @@ SHARED_INSTANCE
                 
                 [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/measure" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     
-                    NSLog(@"[ServerUploadManager] Got successful response uploading");
+                    if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got successful response uploading");
                     
                     // clear consecutive errors since we got a successful reponse
                     self.consecutiveNetworkErrors = 0;
@@ -227,14 +225,14 @@ SHARED_INSTANCE
                     msession.startIndex = newEndIndex;
                     
                     if (isFinishedButUploadAdditionalData) {
-                        NSLog(@"[ServerUploadManager] Is finished, just uploaded additional data, so setting as uploaded");
+                        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Is finished, just uploaded additional data, so setting as uploaded");
                         measurementSession.uploaded = [NSNumber numberWithBool:YES];
                     }
                     
                     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
                 } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                     long statusCode = (long)operation.response.statusCode;
-                    NSLog(@"[ServerUploadManager] Got error status code %ld uploading: %@", statusCode, error);
+                    if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got error status code %ld uploading: %@", statusCode, error);
                     
                     self.consecutiveNetworkErrors++;
 
@@ -251,21 +249,21 @@ SHARED_INSTANCE
         }
     }
     else {
-        //NSLog(@"[ServerUploadManager] Found no uploading MeasurementSession");
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Found no uploading MeasurementSession");
     }
 }
 
 - (void)registerDevice:(int)retryCount {
-    NSLog(@"[ServerUploadManager] Register device");
+    if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Register device");
     self.hasRegisteredDevice = NO;
 
     if (!self.hasReachability) {
-        NSLog(@"[ServerUploadManager] Register device, no reachability");
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Register device, no reachability");
         return;
     }
     
     if (retryCount <= 0) {
-        NSLog(@"[ServerUploadManager] Register device, no more retries");
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Register device, no more retries");
         return;
     }
 
@@ -273,7 +271,7 @@ SHARED_INSTANCE
     
     [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/device/register" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        NSLog(@"[ServerUploadManager] Got successful response registering device");
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got successful response registering device");
         self.hasRegisteredDevice = YES;
         
         // clear consecutive errors since we got a successful reponse
@@ -283,12 +281,12 @@ SHARED_INSTANCE
         // remember the authToken we got from the server as response
         NSString *authToken = [responseObject objectForKey:@"authToken"];
         if (authToken && authToken != nil && authToken != (id)[NSNull null] && ([authToken length] > 0)) {
-            //NSLog(@"[ServerUploadManager] Got authToken");
+            if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got authToken");
             [Property setAsString:authToken forKey:KEY_AUTH_TOKEN];
             [[VaavudAPIHTTPClient sharedInstance] setAuthToken:authToken];
         }
         else {
-            NSLog(@"[ServerUploadManager] Got no authToken");
+            if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got no authToken");
         }
         
         // Set algorithm parameters
@@ -357,7 +355,7 @@ SHARED_INSTANCE
         
         NSNumber *validAgricultureSubscription = [self numberValueFrom:responseObject forKey:@"validAgricultureSubscription"];
         [Property setAsBoolean:(validAgricultureSubscription && [validAgricultureSubscription intValue] == 1) forKey:KEY_AGRI_VALID_SUBSCRIPTION];
-        NSLog(@"[ServerUploadManager] Agri valid subscription: %d", [Property getAsBoolean:KEY_AGRI_VALID_SUBSCRIPTION]);
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Agri valid subscription: %d", [Property getAsBoolean:KEY_AGRI_VALID_SUBSCRIPTION]);
         
         // only trigger upload once we get OK from server for registering device, otherwise the device could be unregistered when uploading
         [self triggerUpload];
@@ -366,7 +364,7 @@ SHARED_INSTANCE
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         long statusCode = (long)operation.response.statusCode;
-        NSLog(@"[ServerUploadManager] Got error status code %ld registering device: %@", statusCode, error);
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got error status code %ld registering device: %@", statusCode, error);
         self.hasRegisteredDevice = NO;
         self.consecutiveNetworkErrors++;
         
@@ -444,20 +442,20 @@ SHARED_INSTANCE
             
             NSNumber *validAgricultureSubscription = [self numberValueFrom:responseObject forKey:@"validAgricultureSubscription"];
             [Property setAsBoolean:(validAgricultureSubscription && [validAgricultureSubscription intValue] == 1) forKey:KEY_AGRI_VALID_SUBSCRIPTION];
-            NSLog(@"[ServerUploadManager] Agri valid subscription: %d", [Property getAsBoolean:KEY_AGRI_VALID_SUBSCRIPTION]);
+            if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Agri valid subscription: %d", [Property getAsBoolean:KEY_AGRI_VALID_SUBSCRIPTION]);
             
-            NSLog(@"[ServerUploadManager] Got status %@ registering user", status);
+            if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got status %@ registering user", status);
 
             success(status, responseObject);
         }
         else {
-            NSLog(@"[ServerUploadManager] Didn't get any status from server");
+            if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Didn't get any status from server");
             failure(nil);
         }
 
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         long statusCode = (long)operation.response.statusCode;
-        NSLog(@"[ServerUploadManager] Got error status code %ld registering user: %@", statusCode, error);
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got error status code %ld registering user: %@", statusCode, error);
         
         self.consecutiveNetworkErrors++;
         
@@ -512,7 +510,7 @@ SHARED_INSTANCE
     
     [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/measurements" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
-        //NSLog(@"[ServerUploadManager] Got successful response reading measurements");
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got successful response reading measurements");
         
         // clear consecutive errors since we got a successful reponse
         self.consecutiveNetworkErrors = 0;
@@ -524,7 +522,7 @@ SHARED_INSTANCE
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         long statusCode = (long)operation.response.statusCode;
-        NSLog(@"[ServerUploadManager] Got error status code %ld reading measurements: %@", statusCode, error);
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got error status code %ld reading measurements: %@", statusCode, error);
         
         self.consecutiveNetworkErrors++;
         
@@ -587,7 +585,7 @@ SHARED_INSTANCE
         MeasurementSession *measurementSession = measurementSessions[i];
         if (measurementSession.endTime && measurementSession.uuid && measurementSession.uuid.length > 0 && [measurementSession.measuring boolValue] == NO && [measurementSession.uploaded boolValue] == YES) {
             NSString *endTimeSecondsString = [[NSNumber numberWithLongLong:(long) ceil([measurementSession.endTime timeIntervalSince1970])] stringValue];
-            //NSLog(@"uuid=%@, time=%@", measurementSession.uuid, endTimeSecondsString);
+            if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] uuid=%@, time=%@", measurementSession.uuid, endTimeSecondsString);
             [concatenatedUUIDs appendString:measurementSession.uuid];
             [concatenatedUUIDs appendString:endTimeSecondsString];
             latestEndTime = measurementSession.endTime;
@@ -600,19 +598,17 @@ SHARED_INSTANCE
         latestEndTime = [NSDate dateWithTimeIntervalSince1970:ceil([latestEndTime timeIntervalSince1970])];
         
         NSString *hashedUUIDs = [UUIDUtil md5Hash:[concatenatedUUIDs uppercaseString]];
-        NSLog(@"[ServerUploadManager] Sync history with hash:%@, time:%@", hashedUUIDs, [formatter stringFromDate:latestEndTime]);
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Sync history with hash:%@, time:%@", hashedUUIDs, [formatter stringFromDate:latestEndTime]);
         parameters = [NSDictionary dictionaryWithObjectsAndKeys:hashedUUIDs, @"hash", latestEndTime, @"latestEndTime", nil];
         parameters = [DictionarySerializationUtil convertValuesToBasicTypes:parameters];
     }
-
-    //NSLog(@"[ServerUploadManager] History sync (took %f s to compute hash)", -[beginSyncDate timeIntervalSinceNow]);
     
     // only let it look like history sync is busy if it was forced
     self.isHistorySyncBusy = ignoreGracePeriod;
     self.isHistorySyncInProgress = YES;
     
     [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/history" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //NSLog(@"[ServerUploadManager] History response: %@", responseObject);
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] History response: %@", responseObject);
 
         // clear consecutive errors since we got a successful reponse
         self.consecutiveNetworkErrors = 0;
@@ -622,7 +618,7 @@ SHARED_INSTANCE
             NSDictionary *responseDictionary = (NSDictionary*) responseObject;
             
             NSDate *fromEndTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[responseDictionary objectForKey:@"fromEndTime"]) doubleValue] / 1000.0)];
-            NSLog(@"[ServerUploadManager] Got successful history sync with fromEndTime: %@ (%@)", [formatter stringFromDate:fromEndTime], (NSString*)[responseDictionary objectForKey:@"fromEndTime"]);
+            if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got successful history sync with fromEndTime: %@ (%@)", [formatter stringFromDate:fromEndTime], (NSString*)[responseDictionary objectForKey:@"fromEndTime"]);
             
             // make response array of measurements into a dictionary with measurement uuid as key
             
@@ -647,7 +643,7 @@ SHARED_INSTANCE
             //     that map will only contain new measurements
             
             NSArray *measurementSessions = [MeasurementSession MR_findAllSortedBy:@"endTime" ascending:YES withPredicate:[NSPredicate predicateWithFormat:@"endTime >= %@", fromEndTime] inContext:localContext];
-            //NSLog(@"[ServerUploadManager] Existing sessions after endTime: %u", (int)measurementSessions.count);
+            if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Existing sessions after endTime: %u", (int)measurementSessions.count);
             for (int i = 0; i < measurementSessions.count; i++) {
                 MeasurementSession *measurementSession = measurementSessions[i];
                 if (measurementSession.uuid && measurementSession.uuid.length > 0) {
@@ -656,7 +652,7 @@ SHARED_INSTANCE
                         
                         NSDate *endTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[measurementDictionary objectForKey:@"endTime"]) doubleValue] / 1000.0)];
                         if ([measurementSession.endTime isEqualToDate:endTime]) {
-                            //NSLog(@"[ServerUploadManager] Measurement known: %@, endTime: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.endTime]);
+                            if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Measurement known: %@, endTime: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.endTime]);
                         }
                         else {
                             NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[measurementDictionary objectForKey:@"startTime"]) doubleValue] / 1000.0)];
@@ -690,8 +686,8 @@ SHARED_INSTANCE
                             
                             if ([measurementSession.measuring boolValue] == NO && [measurementSession.uploaded boolValue] == YES) {
                                 
-                                //NSLog(@"[ServerUploadManager] Modified: reduceEquipment=%@, sprayQuality=%@", reduceEquipment, sprayQuality);
-                                //NSLog(@"[ServerUploadManager] Measurement modified: %@, endTime=%@", measurementSession.uuid, endTime);
+                                if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Modified: reduceEquipment=%@, sprayQuality=%@", reduceEquipment, sprayQuality);
+                                if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Measurement modified: %@, endTime=%@", measurementSession.uuid, endTime);
                                 measurementsModified++;
                                 
                                 measurementSession.startTime = startTime;
@@ -725,7 +721,7 @@ SHARED_INSTANCE
 
                                 if (points.count > measurementSession.points.count) {
                                     
-                                    //NSLog(@"[ServerUploadManager] Measurement points added, old size=%lu, new size=%lu", (unsigned long)measurementSession.points.count, (unsigned long)points.count);
+                                    if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Measurement points added, old size=%lu, new size=%lu", (unsigned long)measurementSession.points.count, (unsigned long)points.count);
                                     
                                     NSOrderedSet *measurementPoints = [self createMeasurementPoints:points withSession:measurementSession inContext:localContext];
                                     [measurementSession setPoints:measurementPoints];
@@ -737,7 +733,7 @@ SHARED_INSTANCE
                     else {
                         // only delete if uploaded
                         if ([measurementSession.uploaded boolValue] == YES) {
-                            //NSLog(@"[ServerUploadManager] Measurement deleted: %@, endTime: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.endTime]);
+                            if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Measurement deleted: %@, endTime: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.endTime]);
                             measurementsDeleted++;
                             [measurementSession MR_deleteInContext:localContext];
                         }
@@ -750,7 +746,7 @@ SHARED_INSTANCE
             NSArray *newMeasurementSessions = [uuidToDictionary allValues];
             for (int i = 0; i < newMeasurementSessions.count; i++) {
                 NSDictionary *measurementDictionary = (NSDictionary *)newMeasurementSessions[i];
-                //NSLog(@"[ServerUploadManager] reduceEquipment=%@, sprayQuality=%@", [measurementDictionary objectForKey:@"reduceEquipment"], [measurementDictionary objectForKey:@"sprayQuality"]);
+                if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] reduceEquipment=%@, sprayQuality=%@", [measurementDictionary objectForKey:@"reduceEquipment"], [measurementDictionary objectForKey:@"sprayQuality"]);
                 
                 NSString *uuid = [self stringValueFrom:measurementDictionary forKey:@"uuid"];
                 NSString *deviceUuid = [self stringValueFrom:measurementDictionary forKey:@"deviceUuid"];
@@ -791,8 +787,8 @@ SHARED_INSTANCE
                     
                     if ([measurementSession.measuring boolValue] == NO && [measurementSession.uploaded boolValue] == YES) {
                         
-                        //NSLog(@"[ServerUploadManager] Modified: reduceEquipment=%@, sprayQuality=%@", reduceEquipment, sprayQuality);
-                        //NSLog(@"[ServerUploadManager] Measurement before fromEndTime modified: %@, endTime=%@", measurementSession.uuid, endTime);
+                        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Modified: reduceEquipment=%@, sprayQuality=%@", reduceEquipment, sprayQuality);
+                        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Measurement before fromEndTime modified: %@, endTime=%@", measurementSession.uuid, endTime);
                         measurementsModified++;
                         
                         measurementSession.startTime = startTime;
@@ -824,7 +820,7 @@ SHARED_INSTANCE
                         measurementSession.geoLocationNameLocalized = geoLocationNameLocalized;
 
                         if (points.count > measurementSession.points.count) {
-                            //NSLog(@"[ServerUploadManager] Measurement points added, old size=%lu, new size=%lu", (unsigned long)measurementSession.points.count, (unsigned long)points.count);
+                            if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Measurement points added, old size=%lu, new size=%lu", (unsigned long)measurementSession.points.count, (unsigned long)points.count);
                             
                             NSOrderedSet *measurementPoints = [self createMeasurementPoints:points withSession:measurementSession inContext:localContext];
                             [measurementSession setPoints:measurementPoints];
@@ -832,8 +828,8 @@ SHARED_INSTANCE
                     }
                 }
                 else {
-                    //NSLog(@"[ServerUploadManager] Created: reduceEquipment=%@, sprayQuality=%@", reduceEquipment, sprayQuality);
-                    //NSLog(@"[ServerUploadManager] Measurement created: %@, endTime=%@ (%@)", uuid, endTime, (NSString*)[measurementDictionary objectForKey:@"endTime"]);
+                    if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Created: reduceEquipment=%@, sprayQuality=%@", reduceEquipment, sprayQuality);
+                    if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Measurement created: %@, endTime=%@ (%@)", uuid, endTime, (NSString*)[measurementDictionary objectForKey:@"endTime"]);
                     measurementsCreated++;
                     
                     MeasurementSession *measurementSession = [MeasurementSession MR_createInContext:localContext];
@@ -879,7 +875,7 @@ SHARED_INSTANCE
                 }
             }
 
-            NSLog(@"[ServerUploadManager] History processed, modified=%u, created=%u, deleted=%u", measurementsModified, measurementsCreated, measurementsDeleted);
+            if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] History processed, modified=%u, created=%u, deleted=%u", measurementsModified, measurementsCreated, measurementsDeleted);
 
         } completion:^(BOOL isSuccess, NSError *error) {
             self.lastHistorySync = [NSDate date];
@@ -894,7 +890,7 @@ SHARED_INSTANCE
             NSInteger realMeasurementCount = [MeasurementSession MR_countOfEntitiesWithPredicate:[NSPredicate predicateWithFormat:@"windSpeedAvg > 0"]];
             [mixpanel registerSuperProperties:@{@"Measurements":[NSNumber numberWithInteger:measurementCount], @"Real Measurements":[NSNumber numberWithInteger:realMeasurementCount]}];
 
-            //NSLog(@"[ServerUploadManager] End saveWithBlock with success=%@", isSuccess ? @"YES" : @"NO");
+            if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] End saveWithBlock with success=%@", isSuccess ? @"YES" : @"NO");
 
             if (success) {
                 success();
@@ -903,7 +899,7 @@ SHARED_INSTANCE
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         long statusCode = (long)operation.response.statusCode;
-        NSLog(@"[ServerUploadManager] Got error status code %ld syncing history: %@", statusCode, error);
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got error status code %ld syncing history: %@", statusCode, error);
         
         self.consecutiveNetworkErrors++;
         self.isHistorySyncBusy = NO;
@@ -930,7 +926,7 @@ SHARED_INSTANCE
                          failure:(void(^)(NSError *error))failure {
     
     if (!measurementSessionUuid || measurementSessionUuid.length == 0) {
-        NSLog(@"[ServerUploadManager] ERROR: No measurement session uuid calling delete measurement session");
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] ERROR: No measurement session uuid calling delete measurement session");
         return;
     }
     
@@ -951,7 +947,7 @@ SHARED_INSTANCE
     NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:measurementSessionUuid, @"uuid", nil];
     
     [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/measurement/delete" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"[ServerUploadManager] Got successful response deleting measurement");
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got successful response deleting measurement");
         
         // clear consecutive errors since we got a successful reponse
         self.consecutiveNetworkErrors = 0;
@@ -963,7 +959,7 @@ SHARED_INSTANCE
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         long statusCode = (long)operation.response.statusCode;
-        NSLog(@"[ServerUploadManager] Got error status code %ld deleting measurement: %@", statusCode, error);
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got error status code %ld deleting measurement: %@", statusCode, error);
         
         self.consecutiveNetworkErrors++;
         
@@ -982,7 +978,7 @@ SHARED_INSTANCE
 }
 
 - (void)lookupForLocation:(double)latitude longitude:(double)longitude success:(void(^)(NSNumber *temperature, NSNumber *direction, NSNumber *pressure))success failure:(void(^)(NSError *error))failure {
-    NSLog(@"[ServerUploadManager] Lookup temperature for location (%f, %f)", latitude, longitude);
+    if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Lookup temperature for location (%f, %f)", latitude, longitude);
     
     if (isnan(latitude) || isnan(longitude) || (latitude == 0.0 && longitude == 0.0)) {
         if (failure) {
@@ -1000,7 +996,7 @@ SHARED_INSTANCE
     
     NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:OPEN_WEATHERMAP_APIID, @"APIID", [NSNumber numberWithDouble:latitude], @"lat", [NSNumber numberWithDouble:longitude], @"lon", nil];
     
-    NSLog(@"[ServerUploadManager] Calling OpenWeatherMap");
+    if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Calling OpenWeatherMap");
     
     [[VaavudAPIHTTPClient sharedInstance] getPath:@"http://api.openweathermap.org/data/2.5/weather" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
@@ -1011,7 +1007,7 @@ SHARED_INSTANCE
         id wind = [responseObject objectForKey:@"wind"];
         NSNumber *direction = (wind) ? [wind objectForKey:@"deg"] : nil;        
 
-        NSLog(@"[ServerUploadManager] Got successful response looking up temperature %@ and direction %@", temperature, direction);
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got successful response looking up temperature %@ and direction %@", temperature, direction);
 
         if (success) {
             success(temperature, direction, pressure);
@@ -1019,7 +1015,7 @@ SHARED_INSTANCE
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         long statusCode = (long)operation.response.statusCode;
-        NSLog(@"[ServerUploadManager] Got error status code %ld looking up temperature: %@", statusCode, error);
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got error status code %ld looking up temperature: %@", statusCode, error);
         
         self.hasRegisteredDevice = NO;
         if (failure) {

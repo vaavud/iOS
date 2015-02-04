@@ -9,6 +9,20 @@
 #define MACRO_NAME(f) #f
 #define MACRO_VALUE(f)  MACRO_NAME(f)
 
+#define LOG_INTRO NO
+#define LOG_NETWORK NO
+#define LOG_HISTORY NO
+#define LOG_AGRI_RESULT NO
+#define LOG_AGRI NO
+#define LOG_ACCOUNT NO
+#define LOG_GRAPH NO
+#define LOG_LOCATION NO
+#define LOG_HISTORY NO
+#define LOG_MODEL NO
+#define LOG_UPLOAD NO
+#define LOG_SLEIPNIR NO
+#define LOG_OTHER NO
+
 #define APP "Vaavud"
 
 #define preferedSampleFrequency 100 // actual is arround 63 

@@ -59,9 +59,7 @@
     NSNumber *temperatureKelvin = @([self.temperaturePickerView selectedRowInComponent:0] + MIN_TEMP_CELCIUS + KELVIN_TO_CELCIUS);
     if (self.measurementSession) {
         self.measurementSession.sourcedTemperature = temperatureKelvin;
-        
-        NSLog(@"[AgriManualTemperatureViewController] Next with temperature=%@", self.measurementSession.sourcedTemperature);
-        
+
         if (self.hasDirection) {
             [self performSegueWithIdentifier:@"resultSegue" sender:self];
         }

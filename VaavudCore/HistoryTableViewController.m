@@ -114,7 +114,7 @@
 }
 
 - (void)historyLoaded {
-    NSLog(@"[HistoryTableViewController] History loaded");
+    if (LOG_HISTORY) NSLog(@"[HistoryTableViewController] History loaded");
     
     if (self.isAppeared) {
         if (!self.isObservingModelChanges) {
@@ -141,7 +141,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([[self.fetchedResultsController sections] count] > 0) {
         id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-        //NSLog(@"numberOfRowsInSection=%lu", (unsigned long)[sectionInfo numberOfObjects]);
         return [sectionInfo numberOfObjects];
     }
     else {
@@ -171,11 +170,10 @@
         
         [cell.mapImageView setCachedImageWithURLRequest:request placeholderImage:self.placeholderImage success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
             if (image) {
-                //NSLog(@"%@, Cache-Control:%@", dtime, [response.allHeaderFields valueForKey:@"Cache-Control"]);
                 cell.mapImageView.image = image;
             }
         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-            NSLog(@"Failure loading map thumbnail");
+            if (LOG_HISTORY) NSLog(@"[HistoryTableViewController] Failure loading map thumbnail");
         }];
     }
     else {
@@ -249,11 +247,11 @@
 }
 
 - (void)geocodeLocation:(CLLocation *)location forCell:(HistoryTableViewCell *)cell session:(MeasurementSession *)session {
-    NSLog(@"LOCATION requesting for %.2f", session.windSpeedAvg.floatValue);
+    if (LOG_HISTORY) NSLog(@"[HistoryTableViewController] LOCATION requesting for %.2f", session.windSpeedAvg.floatValue);
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.geocoder reverseGeocodeLocation:location completionHandler: ^(NSArray *placemarks, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"LOCATION received for %.2f: %ld", session.windSpeedAvg.floatValue, (unsigned long)placemarks.count);
+                if (LOG_HISTORY) NSLog(@"[HistoryTableViewController] LOCATION received for %.2f", session.windSpeedAvg.floatValue);
                 
                 if (placemarks.count > 0 && !error) {
                     CLPlacemark *first = [placemarks objectAtIndex:0];
@@ -264,7 +262,7 @@
                     session.uploaded = @NO;
                 }
                 else {
-                    if (error) { NSLog(@"Geocode failed with error: %@", error); }
+                    if (error) { if (LOG_HISTORY) NSLog(@"[HistoryTableViewController] Geocode failed with error: %@", error); }
                     cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_ERROR", nil);
                 }
                 
@@ -336,7 +334,6 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        //NSLog(@"Delete pressed");
         MeasurementSession *session = [self.fetchedResultsController objectAtIndexPath:indexPath];
         if (session) {
             [[ServerUploadManager sharedInstance] deleteMeasurementSession:session.uuid retry:3 success:nil failure:nil];
@@ -351,7 +348,7 @@
         return;
     }
     
-    //NSLog(@"[HistoryTableViewController] Controller will change content");
+    if (LOG_HISTORY) NSLog(@"[HistoryTableViewController] Controller will change content");
     [self.tableView beginUpdates];
     self.isTableUpdating = YES;
 }
@@ -389,14 +386,11 @@
         atIndexPath:(NSIndexPath *)indexPath
       forChangeType:(NSFetchedResultsChangeType)type
        newIndexPath:(NSIndexPath *)newIndexPath {
-
-    NSLog(@"didChangeObject: %ld:%ld", (long)newIndexPath.section, (long)newIndexPath.row);
-    
     if (!self.isObservingModelChanges) {
         return;
     }
 
-    //NSLog(@"[HistoryTableViewController] Controller changed object");
+    if (LOG_HISTORY) NSLog(@"[HistoryTableViewController] Controller changed object");
 
     UITableView *tableView = self.tableView;
     

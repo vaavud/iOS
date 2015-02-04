@@ -260,7 +260,7 @@
             self.reducingEquipmentSegmentControl.selectedSegmentIndex = 3;
         }
         else {
-            NSLog(@"[AgriResultViewController] ERROR: Unsupported reducing equipment %d setting UI", reducingEquipmentInt);
+            if (LOG_AGRI) NSLog(@"[AgriResultViewController] ERROR: Unsupported reducing equipment %d setting UI", reducingEquipmentInt);
             self.reducingEquipmentSegmentControl.selectedSegmentIndex = 0;
         }
     }
@@ -282,7 +282,7 @@
             self.doseSegmentControl.selectedSegmentIndex = 2;
         }
         else {
-            NSLog(@"[AgriResultViewController] ERROR: Unsupported dose %f setting UI", doseFloat);
+            if (LOG_AGRI) NSLog(@"[AgriResultViewController] ERROR: Unsupported dose %f setting UI", doseFloat);
             self.doseSegmentControl.selectedSegmentIndex = 0;
         }
     }
@@ -304,7 +304,7 @@
             self.boomHeightSegmentControl.selectedSegmentIndex = 2;
         }
         else {
-            NSLog(@"[AgriResultViewController] ERROR: Unsupported boom height %d setting UI", boomHeightInt);
+            if (LOG_AGRI) NSLog(@"[AgriResultViewController] ERROR: Unsupported boom height %d setting UI", boomHeightInt);
             self.boomHeightSegmentControl.selectedSegmentIndex = 0;
         }
     }
@@ -326,7 +326,7 @@
             self.sprayQualitySegmentControl.selectedSegmentIndex = 2;
         }
         else {
-            NSLog(@"[AgriResultViewController] ERROR: Unsupported spray quality %d setting UI", sprayQualityInt);
+            if (LOG_AGRI) NSLog(@"[AgriResultViewController] ERROR: Unsupported spray quality %d setting UI", sprayQualityInt);
             self.sprayQualitySegmentControl.selectedSegmentIndex = 0;
         }
     }
@@ -351,7 +351,7 @@
         case 3:
             return @4;
         default:
-            NSLog(@"[AgriResultViewController] ERROR: Unknown reducing equipment selected segment index %ld", (long)self.reducingEquipmentSegmentControl.selectedSegmentIndex);
+            if (LOG_AGRI) NSLog(@"[AgriResultViewController] ERROR: Unknown reducing equipment selected segment index %ld", (long)self.reducingEquipmentSegmentControl.selectedSegmentIndex);
             return @1;
     }
 }
@@ -370,7 +370,7 @@
         case 2:
             return @1.0f;
         default:
-            NSLog(@"[AgriResultViewController] ERROR: Unknown dose selected segment index %ld", (long)self.doseSegmentControl.selectedSegmentIndex);
+            if (LOG_AGRI) NSLog(@"[AgriResultViewController] ERROR: Unknown dose selected segment index %ld", (long)self.doseSegmentControl.selectedSegmentIndex);
             return @1.0f;
     }
 }
@@ -389,7 +389,7 @@
         case 2:
             return @60;
         default:
-            NSLog(@"[AgriResultViewController] ERROR: Unknown boom height selected segment index %ld", (long)self.boomHeightSegmentControl.selectedSegmentIndex);
+            if (LOG_AGRI) NSLog(@"[AgriResultViewController] ERROR: Unknown boom height selected segment index %ld", (long)self.boomHeightSegmentControl.selectedSegmentIndex);
             return @60;
     }
 }
@@ -409,7 +409,7 @@
         case 2:
             return @3;
         default:
-            NSLog(@"[AgriResultViewController] ERROR: Unknown spray quality selected segment index %ld", (long)self.sprayQualitySegmentControl.selectedSegmentIndex);
+            if (LOG_AGRI) NSLog(@"[AgriResultViewController] ERROR: Unknown spray quality selected segment index %ld", (long)self.sprayQualitySegmentControl.selectedSegmentIndex);
             return @3;
     }
 }

@@ -13,6 +13,7 @@
 
 #import "GraphView.h"
 #import "UIColor+VaavudColors.h"
+#import "Constants.h"
 
 @interface GraphView()
 
@@ -63,8 +64,6 @@
 }
 
 - (void)initialize:(WindSpeedUnit)unit {
-    //NSLog(@"[GraphView] initialize");
-    
     self.windSpeedUnit = unit;
     self.maxWindSpeed = 0.0;
     self.yRange = nil;
@@ -232,15 +231,15 @@
                     }
                 }
                 else {
-                    NSLog(@"[GraphView] ERROR: No data array for current plot");
+                    if (LOG_GRAPH) NSLog(@"[GraphView] ERROR: No data array for current plot");
                 }
             }
             else {
-                NSLog(@"[GraphView] ERROR: No plots adding point");
+                if (LOG_GRAPH) NSLog(@"[GraphView] ERROR: No plots adding point");
             }
         }
         else {
-            NSLog(@"[GraphView] WARNING: time interval is negative adding point, startTime=%@, time=%@", self.startTime, time);
+            if (LOG_GRAPH) NSLog(@"[GraphView] WARNING: time interval is negative adding point, startTime=%@, time=%@", self.startTime, time);
         }
     }
 }
@@ -278,31 +277,27 @@
     
     if (AVERAGE_PLOT_IDENTIFIER == identifier) {
         NSUInteger records = (self.averageValue && self.latestAverageX) ? 2 : 0;
-        //NSLog(@"[GraphView] Records for average plot is %u", records);
+        if (LOG_GRAPH) NSLog(@"[GraphView] Records for average plot is %lu", records);
         return records;
     }
     else {
         if (self.plots && identifier < self.plots.count) {
             NSArray *data = self.plots[identifier];
             NSUInteger records = data.count;
-            //NSLog(@"[GraphView] Records for plot (%u) is %u", identifier, records);
+            if (LOG_GRAPH) NSLog(@"[GraphView] Records for plot (%lu) is %lu", identifier, records);
             return records;
         }
         else {
-            NSLog(@"[GraphView] ERROR: No plots or identifier out of bounds (%lu) getting number of records for plot", (long)identifier);
+            if (LOG_GRAPH) NSLog(@"[GraphView] ERROR: No plots or identifier out of bounds (%lu) getting number of records for plot", (long)identifier);
         }
         return 0;
     }
 }
 
 - (NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
-    
     NSInteger identifier = [((NSNumber *)plot.identifier) integerValue];
     
     if (AVERAGE_PLOT_IDENTIFIER == identifier) {
-        
-        //NSLog(@"[GraphView] latestAverageX=%@, averageValue=%@", self.latestAverageX, self.averageValue);
-        
         if (fieldEnum == CPTScatterPlotFieldX) {
             if (index == 1 && self.latestAverageX) {
                 return self.latestAverageX;
@@ -332,15 +327,15 @@
                     }
                 }
                 else {
-                    NSLog(@"[GraphView] ERROR: No (x,y) data for plot (%lu) at index (%lu)", (long)identifier, (long)index);
+                    if (LOG_GRAPH) NSLog(@"[GraphView] ERROR: No (x,y) data for plot (%lu) at index (%lu)", (long)identifier, (long)index);
                 }
             }
             else {
-                NSLog(@"[GraphView] ERROR: No data for plot (%lu) or index out of bounds (%lu)", (long)identifier, (long)index);
+                if (LOG_GRAPH) NSLog(@"[GraphView] ERROR: No data for plot (%lu) or index out of bounds (%lu)", (long)identifier, (long)index);
             }
         }
         else {
-            NSLog(@"[GraphView] ERROR: No plots or identifier out of bounds (%lu)", (long)identifier);
+            if (LOG_GRAPH) NSLog(@"[GraphView] ERROR: No plots or identifier out of bounds (%lu)", (long)identifier);
         }
         return [NSNumber numberWithDouble:0.0];
     }

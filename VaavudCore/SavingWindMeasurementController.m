@@ -320,21 +320,16 @@ SHARED_INSTANCE
 }
 
 - (void)geocodeLocation:(CLLocation *)location forSession:(MeasurementSession *)session {
-    NSLog(@"M LOCATION requesting for %.2f", session.windSpeedAvg.floatValue);
     [self.geocoder reverseGeocodeLocation:location completionHandler: ^(NSArray *placemarks, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"M LOCATION received for %.2f", session.windSpeedAvg.floatValue);
-            
             if (placemarks.count > 0 && !error) {
                 CLPlacemark *first = [placemarks objectAtIndex:0];
                 NSString *text = first.thoroughfare ?: first.locality ?: first.country;
                 
                 session.geoLocationNameLocalized = text;
-                
-                NSLog(@"M LOCATION setting for %.2f: %@", session.windSpeedAvg.floatValue, text);
             }
             else {
-                if (error) { NSLog(@"Geocode failed with error: %@", error); }
+                if (error) { if (LOG_OTHER) NSLog(@"Geocode failed with error: %@", error); }
                 session.geoLocationNameLocalized = NSLocalizedString(@"GEOLOCATION_ERROR", nil);
             }
             
@@ -404,28 +399,19 @@ SHARED_INSTANCE
 #pragma mark Temperature methods
 
 - (void)initiateTemperaturePressureLookup {
-    NSLog(@"[SavingWindMeasurementController] initiateTemperaturePressureLookup");
+    if (LOG_OTHER) NSLog(@"[SavingWindMeasurementController] initiateTemperaturePressureLookup");
     
     MeasurementSession *measurementSession = [self getLatestMeasurementSession];
     if (measurementSession && [measurementSession.measuring boolValue]) {
-
-        //NSLog(@"[SavingWindMeasurementController] Has measurement session");
-        
         CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
         if ([LocationManager isCoordinateValid:latestLocation]) {
-
-            NSLog(@"[SavingWindMeasurementController] Has location");
-
             if (self.temperatureLookupTimer) {
                 [self.temperatureLookupTimer invalidate];
                 self.temperatureLookupTimer = nil;
             }
-            
+        
             [[ServerUploadManager sharedInstance] lookupForLocation:latestLocation.latitude longitude:latestLocation.longitude success:^(NSNumber *temperature, NSNumber *direction, NSNumber *pressure) {
-                
-                NSLog(@"[SavingWindMeasurementController] Got success looking up temperature: %@", temperature);
                 if (temperature) {
-
                     BOOL updatedDirection = NO;
                     
                     MeasurementSession *measurementSession = [self getLatestMeasurementSession];

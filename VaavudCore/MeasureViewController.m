@@ -278,8 +278,6 @@
 }
 
 - (void)reset {
-    NSLog(@"super reset");
-
     if (!self.buttonShowsStart) {
         [self stop];
     }
@@ -311,8 +309,6 @@
 /**** Common Start/Stop Measuring ****/
 
 - (IBAction)startStopButtonPushed:(id)sender {
-    NSLog(@"super startStopButtonPushed");
-
     if (self.buttonShowsStart) {
         [self start];
     }
@@ -327,13 +323,11 @@
 
 // for subclasses
 - (void)start {
-    NSLog(@"super start");
     [self startWithUITracking:YES];
 }
 
 // for subclasses
 - (void)stop {
-    NSLog(@"super stop");
     [self stopWithUITracking:YES action:@"Button"];
 }
 
@@ -342,7 +336,6 @@
 }
 
 - (void)startWithUITracking:(BOOL)uiTracking {
-    NSLog(@"super startWithUITracking");
     if (!self.buttonShowsStart) {
         // already stopped
         return;
@@ -519,17 +512,17 @@
         AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         if (appDelegate.xCallbackSuccess && appDelegate.xCallbackSuccess != nil && appDelegate.xCallbackSuccess != (id)[NSNull null] && [appDelegate.xCallbackSuccess length] > 0) {
             
-            NSLog(@"[VaavudCoreController] There is a pending x-success callback: %@", appDelegate.xCallbackSuccess);
+            if (LOG_OTHER) NSLog(@"[VaavudCoreController] There is a pending x-success callback: %@", appDelegate.xCallbackSuccess);
             
             // TODO: this will return to the caller too quickly before we're fully uploaded to own servers
             NSString *callbackURL = [NSString stringWithFormat:@"%@?windSpeedAvg=%@&windSpeedMax=%@", appDelegate.xCallbackSuccess, self.averageLabelCurrentValue, self.maxLabelCurrentValue];
             appDelegate.xCallbackSuccess = nil;
             
-            NSLog(@"[VaavudCoreController] Trying to open callback URL: %@", callbackURL);
+            if (LOG_OTHER) NSLog(@"[VaavudCoreController] Trying to open callback URL: %@", callbackURL);
             
             BOOL success = [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callbackURL]];
             if (!success) {
-                NSLog(@"Failed to open callback URL");
+                if (LOG_OTHER) NSLog(@"[VaavudCoreController] Failed to open callback URL");
             }
         }
         else {
@@ -799,7 +792,7 @@
 }
 
 - (void)updateTemperature:(NSNumber *)temperature {
-    //NSLog(@"[MeasureViewController] Got temperature %@", temperature);
+    if (LOG_OTHER) NSLog(@"[MeasureViewController] Got temperature %@", temperature);
     
     self.currentTemperature = temperature;
     if (self.temperatureLabel && temperature) {
@@ -816,11 +809,9 @@
 
 - (NSString *)formatValue:(double)value {
     if (value > 100.0 || self.windSpeedUnit == WindSpeedUnitBFT) {
-        NSLog(@"-----%.0f", value);
         return [NSString stringWithFormat: @"%.0f", value];
     }
     else {
-        NSLog(@"-----%.1f", value);
         return [NSString stringWithFormat: @"%.1f", value];
     }
 }

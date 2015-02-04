@@ -109,8 +109,6 @@
     if (self.measurementSession) {
         if (self.latestDirection) {
             self.measurementSession.windDirection = self.latestDirection;
-            
-            NSLog(@"[AgriManualDirectionViewController] Next with direction=%@", self.measurementSession.windDirection);
             [self performSegueWithIdentifier:@"resultSegue" sender:self];
         }
     }

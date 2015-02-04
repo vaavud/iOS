@@ -78,7 +78,7 @@ BOOL isDoingLogout = NO;
     
     if (action == AuthenticationActionRefresh) {
         if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
-            NSLog(@"[AccountManager] Found a cached Facebook session");
+            if (LOG_ACCOUNT) NSLog(@"[AccountManager] Found a cached Facebook session");
             
             // If there's one, just open the session silently, without showing the user the login UI
             [FBSession openActiveSessionWithReadPermissions:[self facebookSignupPermissions]
@@ -90,7 +90,7 @@ BOOL isDoingLogout = NO;
                                                                         success:nil
                                                                         failure:^(enum AuthenticationResponseType response, NSString *message, BOOL displayFeedback) {
                                                   
-                                                  NSLog(@"[AccountManager] Failure refreshing Facebook session");
+                                                  if (LOG_ACCOUNT) NSLog(@"[AccountManager] Failure refreshing Facebook session");
                                                   
                                                   if (facebookRegisterIdentifier == (fbRegId + 1) && (response == AuthenticationResponseFacebookReopenSession)) {
                                                       [self logout];
@@ -108,7 +108,7 @@ BOOL isDoingLogout = NO;
         }
         
         void(^success)(enum AuthenticationResponseType response) = ^(enum AuthenticationResponseType response) {
-            //NSLog(@"[AccountManager] Delegate success, fbRegId=%u", fbRegId);
+            if (LOG_ACCOUNT) NSLog(@"[AccountManager] Delegate success, fbRegId=%u", fbRegId);
             hasCalledDelegateForCurrentFacebookRegisterIdentifier = YES;
             if (self.delegate) {
                 [self.delegate facebookAuthenticationSuccess:response];
@@ -122,7 +122,7 @@ BOOL isDoingLogout = NO;
             
             if (facebookRegisterIdentifier == (fbRegId + 1)) {
                 if (hasCalledDelegateForCurrentFacebookRegisterIdentifier) {
-                    NSLog(@"[AccountManager] Skipping delegate failure call because delegate has already been called, fbRegId=%u", fbRegId);
+                    if (LOG_ACCOUNT) NSLog(@"[AccountManager] Skipping delegate failure call because delegate has already been called, fbRegId=%u", fbRegId);
                     return;
                 }
                 else {
@@ -143,13 +143,13 @@ BOOL isDoingLogout = NO;
                 }
             }
             else {
-                NSLog(@"[AccountManager] Skipping delegate failure call because a newer Facebook register call is in progress, fbRegId=%u", fbRegId);
+                if (LOG_ACCOUNT) NSLog(@"[AccountManager] Skipping delegate failure call because a newer Facebook register call is in progress, fbRegId=%u", fbRegId);
             }
         };
         
         // Check if Facebook session is already open (might happen if the Facebook login part went ok, but registering on our server failed)
         if (FBSession.activeSession.state == FBSessionStateOpen || FBSession.activeSession.state == FBSessionStateOpenTokenExtended) {
-            NSLog(@"[AccountManager] Facebook session already open");
+            if (LOG_ACCOUNT) NSLog(@"[AccountManager] Facebook session already open");
             [self facebookUserLoggedIn:action password:password isRecursive:NO success:success failure:failure];
         }
         else {
@@ -176,7 +176,7 @@ BOOL isDoingLogout = NO;
                             failure:(void(^)(enum AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {
     if (!error && state == FBSessionStateOpen) {
         // If the session was opened successfully
-        //NSLog(@"[AccountManager] Facebook session opened");
+        if (LOG_ACCOUNT) NSLog(@"[AccountManager] Facebook session opened");
         [self facebookUserLoggedIn:action password:password isRecursive:NO success:success failure:failure];
         return;
     }
@@ -193,20 +193,20 @@ BOOL isDoingLogout = NO;
             
             if (errorCategory == FBErrorCategoryUserCancelled) {
                 // If the user cancelled login
-                NSLog(@"[AccountManager] Facebook user cancelled login");
+                if (LOG_ACCOUNT) NSLog(@"[AccountManager] Facebook user cancelled login");
                 if (failure) {
                     failure(AuthenticationResponseFacebookUserCancelled, nil, YES);
                 }
                 [self doLogout];
             }
             else if ([FBErrorUtility errorCategoryForError:error] == FBErrorCategoryAuthenticationReopenSession) {
-                NSLog(@"[AccountManager] Facebook authentication reopen session");
+                if (LOG_ACCOUNT) NSLog(@"[AccountManager] Facebook authentication reopen session");
                 if (failure) {
                     failure(AuthenticationResponseFacebookReopenSession, nil, NO);
                 }
             }
             else {
-                NSLog(@"[AccountManager] Facebook error %ld", errorCategory);
+                if (LOG_ACCOUNT) NSLog(@"[AccountManager] Facebook error %d", errorCategory);
                 if (failure) {
                     failure(AuthenticationResponseGenericError, nil, YES);
                 }
@@ -216,7 +216,7 @@ BOOL isDoingLogout = NO;
     }
     else {
         if (state == FBSessionStateClosed || state == FBSessionStateClosedLoginFailed) {
-            NSLog(@"[AccountManager] Facebook session closed");
+            if (LOG_ACCOUNT) NSLog(@"[AccountManager] Facebook session closed");
             [self doLogout];
         }
         if (failure) {
@@ -230,7 +230,7 @@ BOOL isDoingLogout = NO;
                      success:(void(^)(enum AuthenticationResponseType response))success
                      failure:(void(^)(enum AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {
     
-    NSLog(@"[AccountManager] facebookUserLoggedIn");
+    if (LOG_ACCOUNT) NSLog(@"[AccountManager] facebookUserLoggedIn");
     
     // Check we got the permissions we need
     [FBRequestConnection startWithGraphPath:@"/me/permissions"
@@ -261,7 +261,7 @@ BOOL isDoingLogout = NO;
                                   }
 
                                   if ([requestPermissions count] > 0) {
-                                      NSLog(@"[AccountManager] Missing permissions: %@", requestPermissions);
+                                      if (LOG_ACCOUNT) NSLog(@"[AccountManager] Missing permissions: %@", requestPermissions);
 
                                       if (action != AuthenticationActionRefresh && !isRecursive) {
                                       
@@ -270,10 +270,10 @@ BOOL isDoingLogout = NO;
                                               
                                               if (!error) {
                                                   // Permission granted
-                                                  //NSLog(@"[AccountManager] New permissions granted %@", [FBSession.activeSession permissions]);
+                                                  if (LOG_ACCOUNT) NSLog(@"[AccountManager] New permissions granted %@", [FBSession.activeSession permissions]);
                                                   [self facebookUserLoggedIn:action password:password isRecursive:YES success:success failure:failure];
                                               } else {
-                                                  NSLog(@"[AccountManager] Failure requesting permissions");
+                                                  if (LOG_ACCOUNT) NSLog(@"[AccountManager] Failure requesting permissions");
                                                   failure(AuthenticationResponseFacebookMissingPermission, nil, YES);
                                               }
                                           }];
@@ -282,14 +282,14 @@ BOOL isDoingLogout = NO;
                                           failure(AuthenticationResponseFacebookMissingPermission, nil, YES);
                                       }
                                   } else {
-                                      NSLog(@"[AccountManager] Has all permissions");
+                                      if (LOG_ACCOUNT) NSLog(@"[AccountManager] Has all permissions");
                                       
                                       NSDictionary *metaInfo = @{@"metaMethod":@"facebookUserLoggedIn", @"metaAppAction":[self actionToString:action], @"metaCurrentPermissions":[[[NSString stringWithFormat:@"%@", currentPermissionsArray] stringByReplacingOccurrencesOfString:@"\n" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""]};
 
                                       [self facebookUserFetchInfo:action password:password metaInfo:metaInfo success:success failure:failure];
                                   }
                               } else {
-                                  NSLog(@"[AccountManager] Failure calling /me/permissions: %@", error);
+                                  if (LOG_ACCOUNT) NSLog(@"[AccountManager] Failure calling /me/permissions: %@", error);
                                   failure(AuthenticationResponseGenericError, nil, YES);
                               }
                           }];
@@ -323,7 +323,7 @@ BOOL isDoingLogout = NO;
                 passwordHash = [PasswordUtil createHash:password salt:email];
             }
             
-            NSLog(@"[AccountManager] Facebook logged in: facebookUserId=%@, email=%@", facebookUserId, email);
+            if (LOG_ACCOUNT) NSLog(@"[AccountManager] Facebook logged in: facebookUserId=%@, email=%@", facebookUserId, email);
             
             [self registerUser:action
                          email:email
@@ -342,7 +342,7 @@ BOOL isDoingLogout = NO;
                        }];
         }
         else {
-            NSLog(@"[AccountManager] Failure calling Graph API to get user info");
+            if (LOG_ACCOUNT) NSLog(@"[AccountManager] Failure calling Graph API to get user info");
             if (failure) {
                 failure(AuthenticationResponseGenericError, nil, YES);
             }
@@ -440,7 +440,7 @@ BOOL isDoingLogout = NO;
             }
         }
     } failure:^(NSError *error) {
-        NSLog(@"[AccountManager] error registering user");
+        if (LOG_ACCOUNT) NSLog(@"[AccountManager] error registering user");
         if (failure) {
             failure(AuthenticationResponseGenericError);
         }
@@ -448,7 +448,7 @@ BOOL isDoingLogout = NO;
 }
 
 - (void)doLogout {
-    NSLog(@"[AccountManager] doLogout");
+    if (LOG_ACCOUNT) NSLog(@"[AccountManager] doLogout");
     if (isDoingLogout) {
         return;
     }
@@ -479,7 +479,7 @@ BOOL isDoingLogout = NO;
         // note: this will cause the completion handler previously used in opening the Facebook session
         // to call this method recursively but since we've already changed AuthenticationState to
         // not logged-in, the first 'if' in this method will cause a return immediately
-        //NSLog(@"[AccountManager] logout - closeAndClearTokenInformation");
+        if (LOG_ACCOUNT) NSLog(@"[AccountManager] logout - closeAndClearTokenInformation");
         [FBSession.activeSession closeAndClearTokenInformation];
     }
 
@@ -594,7 +594,7 @@ BOOL isDoingLogout = NO;
                                       }
                                       
                                   } else {
-                                      NSLog(@"[AccountManager] Failure calling /me/permissions: %@", error);
+                                      if (LOG_ACCOUNT) NSLog(@"[AccountManager] Failure calling /me/permissions: %@", error);
                                       failure();
                                   }
                               }];
@@ -605,29 +605,27 @@ BOOL isDoingLogout = NO;
 
             if (!error) {
                 // Permission granted
-                NSLog(@"[AccountManager] New permissions granted %@", [FBSession.activeSession permissions]);
+                if (LOG_ACCOUNT) NSLog(@"[AccountManager] New permissions granted %@", [FBSession.activeSession permissions]);
                 // We can request the user information
                 success();
             } else {
-                NSLog(@"[AccountManager] Failure requesting permissions");
+                if (LOG_ACCOUNT) NSLog(@"[AccountManager] Failure requesting permissions");
                 failure();
             }
         }];
     }
 }
 
-- (void)promptForSharingPermissions:(NSArray *)permissions success:(void(^)())success failure:(void(^)())failure {
-    //NSLog(@"[AccountManager] Current permissions: %@, request permissions: %@", grantedPermissions, requestPermissions);
-    
+- (void)promptForSharingPermissions:(NSArray *)permissions success:(void(^)())success failure:(void(^)())failure {    
     // Ask for the missing permissions
     [FBSession.activeSession requestNewPublishPermissions:permissions defaultAudience:FBSessionDefaultAudienceEveryone completionHandler:^(FBSession *session, NSError *error) {
         if (!error) {
             // Permission granted
-            NSLog(@"[AccountManager] New permissions granted %@", [FBSession.activeSession permissions]);
+            if (LOG_ACCOUNT) NSLog(@"[AccountManager] New permissions granted %@", [FBSession.activeSession permissions]);
             // We can request the user information
             success();
         } else {
-            NSLog(@"[AccountManager] Failure requesting permissions");
+            if (LOG_ACCOUNT) NSLog(@"[AccountManager] Failure requesting permissions");
             failure();
         }
     }];

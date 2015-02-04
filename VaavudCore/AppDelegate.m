@@ -97,22 +97,22 @@
     
     if ([Property getAsBoolean:KEY_HAS_SEEN_INTRO_FLOW defaultValue:NO]) {
         // Not a new user
-        NSLog(@"KEY_HAS_SEEN_INTRO_FLOW");
+        if (LOG_INTRO) NSLog(@"KEY_HAS_SEEN_INTRO_FLOW");
 
         if ([Property getAsBoolean:KEY_HAS_SEEN_UPGRADE_FLOW defaultValue:NO]) {
             // Has seen upgrade flow
-            NSLog(@"KEY_HAS_SEEN_UPGRADE_FLOW");
+            if (LOG_INTRO) NSLog(@"KEY_HAS_SEEN_UPGRADE_FLOW");
             vcName = @"TabBarController";
         }
         else {
             // Has not seen upgrade flow
-            NSLog(@"not KEY_HAS_SEEN_UPGRADE_FLOW");
+            if (LOG_INTRO) NSLog(@"not KEY_HAS_SEEN_UPGRADE_FLOW");
             vcName = @"UpgradingUserViewController";
         }
     }
     else {
         // Has not seen intro flow so we will show it now
-        NSLog(@"not KEY_HAS_SEEN_INTRO_FLOW");
+        if (LOG_INTRO) NSLog(@"not KEY_HAS_SEEN_INTRO_FLOW");
 
         // No need to ever show upgrade flow
         [Property setAsBoolean:YES forKey:KEY_HAS_SEEN_UPGRADE_FLOW];
@@ -199,14 +199,9 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
 }
 
-- (BOOL)application:(UIApplication*)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     if ([url.scheme isEqualToString:@"vaavud"]) {
-        NSLog(@"url recieved: %@", url);
-        NSLog(@"query string: %@", [url query]);
-        NSLog(@"host: %@", [url host]);
-        NSLog(@"url path: %@", [url path]);
         NSDictionary *dict = [QueryStringUtil parseQueryString:[url query]];
-        NSLog(@"query dict: %@", dict);
         
         self.xCallbackSuccess = nil;
         

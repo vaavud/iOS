@@ -49,7 +49,7 @@ SHARED_INSTANCE
 }
 
 - (void)appWillTerminate:(NSNotification *)notification {
-    NSLog(@"[LocationManager] appWillTerminate");
+    if (LOG_LOCATION) NSLog(@"[LocationManager] appWillTerminate");
     if (self.isStarted) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -71,7 +71,7 @@ SHARED_INSTANCE
     if (!self.isStarted) {
         CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
         
-        NSLog(@"[LocationManager] Authorization status is %u", authorizationStatus);
+      if (LOG_LOCATION) NSLog(@"[LocationManager] Authorization status is %u", authorizationStatus);
         
         if (authorizationStatus == kCLAuthorizationStatusRestricted || authorizationStatus == kCLAuthorizationStatusDenied) {
             self.latestLocation = CLLocationCoordinate2DMake(0, 0);
@@ -88,7 +88,7 @@ SHARED_INSTANCE
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
             if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
                 if (self.shouldPromptForPermission) {
-                    NSLog(@"[LocationManager] Request when-in-use location authorization");
+                  if (LOG_LOCATION) NSLog(@"[LocationManager] Request when-in-use location authorization");
                     [self.locationManager requestWhenInUseAuthorization];
                 }
             }
@@ -105,7 +105,7 @@ SHARED_INSTANCE
 }
 
 - (void)startUpdating {
-    NSLog(@"[LocationManager] Starting location updates");
+  if (LOG_LOCATION) NSLog(@"[LocationManager] Starting location updates");
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -117,7 +117,7 @@ SHARED_INSTANCE
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    NSLog(@"[LocationManager] Changed authorization status to %u", status);
+  if (LOG_LOCATION) NSLog(@"[LocationManager] Changed authorization status to %u", status);
     
     if (status != kCLAuthorizationStatusRestricted && status != kCLAuthorizationStatusDenied && status != kCLAuthorizationStatusNotDetermined) {
         [self startUpdating];
@@ -126,7 +126,7 @@ SHARED_INSTANCE
 
 - (void)stop {
     if (self.isStarted) {
-        NSLog(@"[LocationManager] Stopping location updates");
+      if (LOG_LOCATION) NSLog(@"[LocationManager] Stopping location updates");
         [self.locationManager stopUpdatingLocation];
         [self.locationManager stopUpdatingHeading];
         self.latestHeading = nil;
