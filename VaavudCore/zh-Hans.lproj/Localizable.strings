@@ -197,6 +197,8 @@
 
 // New feb 2015
 
+// Should be converted
+
 "INTRO_UPGRADE_WHATS_NEW" = "新功能";
 "INTRO_UPGRADE_TEXT0" = "歷史顯示地理位置和，隨著新的Sleipnir風向儀，顯示風向！";
 "INTRO_UPGRADE_TEXT1" = "總結屏幕顯示您的關鍵測量數據，包括壓力、溫度等等";
@@ -218,11 +220,9 @@
 "UNIT_ATM" = "atm"; // atmosphere as a unit of pressure
 "UNIT_MMHG" = "mmHg"; // millimetres mercury
 
-// Translate
-
-"SUMMARY_MEASURE_WINDDIRECTION" = "Measure wind direction";
-"SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "With the new Sleipnir windmeter you can measure wind direction!";
-"SUMMARY_UPSELL" = "Measure direction with the new Sleipnir!";
+"SUMMARY_MEASURE_WINDDIRECTION" = "測試風向";
+"SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "有了全新的Sleipnir風向儀，您可以測試風向了！";
+"SUMMARY_UPSELL" = "用全新的Sleipnir測試方向吧！";
 
 
 
