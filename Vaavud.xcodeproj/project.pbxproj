@@ -14,6 +14,8 @@
 		2234D3621A7A2D1400F325EB /* UpgradingUserPagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3611A7A2D1400F325EB /* UpgradingUserPagesView.swift */; };
 		2234D3661A7A597200F325EB /* HistoryImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3651A7A597200F325EB /* HistoryImages.xcassets */; };
 		2234D3681A7A6AB300F325EB /* SummaryImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3671A7A6AB300F325EB /* SummaryImages.xcassets */; };
+		2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
+		2255A63C1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
 		229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
 		229FF3141A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
 		229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3171A7EE3A0008A3226 /* VaavudViews.swift */; };
@@ -634,6 +636,7 @@
 		2234D3611A7A2D1400F325EB /* UpgradingUserPagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradingUserPagesView.swift; sourceTree = "<group>"; };
 		2234D3651A7A597200F325EB /* HistoryImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = HistoryImages.xcassets; sourceTree = "<group>"; };
 		2234D3671A7A6AB300F325EB /* SummaryImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SummaryImages.xcassets; sourceTree = "<group>"; };
+		2255A63A1A818535006589D5 /* VaavudInteractions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudInteractions.swift; sourceTree = "<group>"; };
 		229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudFormatter.swift; sourceTree = "<group>"; };
 		229FF3171A7EE3A0008A3226 /* VaavudViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudViews.swift; sourceTree = "<group>"; };
 		22AB2E691A70FC15008CAE46 /* BebasNeue Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue Bold.otf"; sourceTree = "<group>"; };
@@ -1356,6 +1359,7 @@
 		D7A4F1D0173A8DDB00D1ACEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2255A63A1A818535006589D5 /* VaavudInteractions.swift */,
 				229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */,
 				E9AE301919A369EF004A79C4 /* Agriculture */,
 				D7A4F1D9173A8DDB00D1ACEE /* AppDelegate.h */,
@@ -2741,6 +2745,7 @@
 				E9CD223E177B2AEA0054ED3F /* NSNumber+MagicalDataImport.m in Sources */,
 				E948381F19B75320009595B0 /* AEFloatConverter.m in Sources */,
 				E9CD223F177B2AEA0054ED3F /* NSObject+MagicalDataImport.m in Sources */,
+				2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */,
 				E9CD2240177B2AEA0054ED3F /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				E9793A85196C411C00E3823E /* ParentViewController.m in Sources */,
 				E9FABFDE18929473009C4C46 /* HistoryTableViewController.m in Sources */,
@@ -2846,6 +2851,7 @@
 				E96FB4F919A353B500CB7306 /* Model.xcdatamodeld in Sources */,
 				E96FB4FA19A353B500CB7306 /* SettingsViewController.m in Sources */,
 				E96FB4FB19A353B500CB7306 /* AFHTTPClient.m in Sources */,
+				2255A63C1A818535006589D5 /* VaavudInteractions.swift in Sources */,
 				E96FB4FC19A353B500CB7306 /* TMCache.m in Sources */,
 				E96FB4FD19A353B500CB7306 /* PasswordUtil.m in Sources */,
 				E96FB4FE19A353B500CB7306 /* AFHTTPRequestOperation.m in Sources */,

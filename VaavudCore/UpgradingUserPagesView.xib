@@ -89,7 +89,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="pressedBuy:" destination="iN0-l3-epB" eventType="touchUpInside" id="Qsi-DY-fBc"/>
+                                        <action selector="tappedBuy" destination="iN0-l3-epB" eventType="touchUpInside" id="huh-XI-V03"/>
                                     </connections>
                                 </button>
                             </subviews>

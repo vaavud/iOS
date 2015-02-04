@@ -262,7 +262,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
         else {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
             alert.addAction(UIAlertAction(title: cancel, style: .Cancel, handler: { (action) -> Void in }))
-            alert.addAction(UIAlertAction(title: other, style: .Default, handler: { (action) -> Void in self.openBuySleipnir() }))
+            alert.addAction(UIAlertAction(title: other, style: .Default, handler: { (action) -> Void in VaavudInteractions.openBuySleipnir() }))
             presentViewController(alert, animated: true, completion: nil)
         }
     }
@@ -270,13 +270,9 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
         if alertView.tag == 1 {
             if buttonIndex == 1 {
-                openBuySleipnir()
+                VaavudInteractions.openBuySleipnir()
             }
         }
-    }
-    
-    func openBuySleipnir() {
-        UIApplication.sharedApplication().openURL(NSURL(string: "http://vaavud.com/product/vaavud-sleipnir")!)
     }
     
     

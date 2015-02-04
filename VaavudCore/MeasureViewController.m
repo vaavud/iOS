@@ -700,10 +700,7 @@
 
 - (void)changedValidity:(BOOL)isValid dynamicsIsValid:(BOOL)dynamicsIsValid {
     NSDate *now = [NSDate date];
-    
-    isValid = YES; // FIXME: Remove
-    dynamicsIsValid = YES;  // FIXME: Remove
-    
+        
     if (isValid) {
         if (!self.isValid) {
             self.nonValidDuration += [now timeIntervalSinceDate:self.lastValidityChangeTime];
@@ -742,6 +739,11 @@
 /**** Common Measurement Values Update ****/
 
 - (void)updateLabelsFromCurrentValues {
+//    self.actualLabelCurrentValue = @12.2;
+//    self.averageLabelCurrentValue = @32.2;
+//    self.maxLabelCurrentValue = @42.2;
+//    self.directionLabelCurrentValue = @345;    
+    
     if (self.actualLabel && self.actualLabelCurrentValue && !isnan([self.actualLabelCurrentValue doubleValue])) {
         self.actualLabel.text = [self formatValue:[UnitUtil displayWindSpeedFromDouble:[self.actualLabelCurrentValue doubleValue] unit:self.windSpeedUnit]];
     }
@@ -813,10 +815,12 @@
 }
 
 - (NSString *)formatValue:(double)value {
-    if (value > 100.0) {
+    if (value > 100.0 || self.windSpeedUnit == WindSpeedUnitBFT) {
+        NSLog(@"-----%.0f", value);
         return [NSString stringWithFormat: @"%.0f", value];
     }
     else {
+        NSLog(@"-----%.1f", value);
         return [NSString stringWithFormat: @"%.1f", value];
     }
 }

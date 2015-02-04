@@ -15,5 +15,8 @@
 #import "UnitUtil.h"
 #import "Property+Util.h"
 #import "MeasurementAnnotation.h"
+#import "TabBarController.h"
+#import "AccountManager.h"
+#import "ServerUploadManager.h"
 
 #endif

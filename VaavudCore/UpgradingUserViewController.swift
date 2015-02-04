@@ -15,18 +15,20 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var phoneOffset: NSLayoutConstraint!
     @IBOutlet weak var phoneScrollView: UIScrollView!
     
+    @IBOutlet weak var laterButton: UIButton!
+    
     @IBOutlet weak var laterButtonConstraint: NSLayoutConstraint!
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         scrollView.contentSize = CGSize(width: CGFloat(pager.numberOfPages)*scrollView.bounds.width, height: scrollView.bounds.height)
-        println("scrollView.contentSize: \(scrollView.contentSize)")
         
-        if let content = NSBundle.mainBundle().loadNibNamed("UpgradingUserPagesView", owner: nil, options: nil).first as? UIView {
+        let nibName = "UpgradingUserPagesView"
+        if let content = NSBundle.mainBundle().loadNibNamed(nibName, owner: nil, options: nil).first as? UpgradingUserPagesView {
+            content.owner = self
+            content.localize()
             content.frame.size = scrollView.contentSize
             scrollView.addSubview(content)
-            
-            println("w: \(view.bounds.width) - h: \(view.bounds.height)")
             
             if view.bounds.height < 568 {
                 println("--- iphone 4")
@@ -53,6 +55,27 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    func openBuyDevice() {
+        VaavudInteractions.openBuySleipnir()
+        laterButton.setTitle(NSLocalizedString("BUTTON_DONE", comment: ""), forState: .Normal)
+    }
+
+    @IBAction func tappedDismiss() {
+        if let tabBarController = storyboard?.instantiateViewControllerWithIdentifier("TabBarController") as? TabBarController {
+            if let window = UIApplication.sharedApplication().delegate?.window {
+                window?.rootViewController = tabBarController
+
+                if AccountManager.sharedInstance().isLoggedIn() {
+                    ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: true, success: nil, failure: nil)
+                }
+                
+                if !Property.getAsBoolean("userHasWindMeter", defaultValue: false) {
+                    tabBarController.selectedIndex = 1
+                }
+            }
+        }
+    }
+        
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let page = scrollView.contentOffset.x/scrollView.bounds.width
         pager.currentPage = Int(round(page))

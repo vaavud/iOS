@@ -133,7 +133,7 @@ class VaavudFormatter {
     }
     
     // Direction
-
+    
     var localizedNorth: String { return NSLocalizedString(directionKey(0), comment: "") }
     var localizedEast: String { return NSLocalizedString(directionKey(4), comment: "") }
     var localizedSouth: String { return NSLocalizedString(directionKey(8), comment: "") }

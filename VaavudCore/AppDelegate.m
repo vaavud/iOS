@@ -102,8 +102,8 @@
 
         if ([Property getAsBoolean:KEY_HAS_SEEN_UPGRADE_FLOW defaultValue:NO]) {
             // Has seen upgrade flow
-            vcName = @"TabBarController";
             NSLog(@"KEY_HAS_SEEN_UPGRADE_FLOW");
+            vcName = @"TabBarController";
         }
         else {
             // Has not seen upgrade flow
@@ -112,19 +112,16 @@
         }
     }
     else {
-        // Has not seen intro flow
-        // No need to ever show upgrade flow
+        // Has not seen intro flow so we will show it now
         NSLog(@"not KEY_HAS_SEEN_INTRO_FLOW");
 
-//        [Property setAsBoolean:YES forKey:KEY_HAS_SEEN_UPGRADE_FLOW];
+        // No need to ever show upgrade flow
+        [Property setAsBoolean:YES forKey:KEY_HAS_SEEN_UPGRADE_FLOW];
         vcName = @"FirstTimeFlowController";
     }
-
     
-    // FIXME: Remove this
-    vcName = @"TabBarController";
+//    vcName = @"UpgradingUserViewController"; // FIXME: Remove this
 
-    
     viewController = [storyboard instantiateViewControllerWithIdentifier:vcName];
 
 #endif

@@ -73,7 +73,6 @@
 
 - (void)updateDirection {
     self.latestDirection = [LocationManager sharedInstance].latestHeading;
-    self.latestDirection = @2.0; // FIXME: Remove
 
     if (self.latestDirection && !isnan([self.latestDirection doubleValue])) {
         if (self.directionLabel) {

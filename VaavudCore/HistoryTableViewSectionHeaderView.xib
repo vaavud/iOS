@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="300" height="25"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TUESDAY, JAN 14" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="maV-ET-fJL">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="TUESDAY, JAN 14" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="maV-ET-fJL">
                     <rect key="frame" x="8" y="5" width="97" height="15"/>
                     <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="12"/>
                     <color key="textColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
