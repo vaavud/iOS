@@ -124,7 +124,7 @@
 "MAP_GUIDE_ZOOM_TITLE" = "Zoom ràpid";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "Prem al mapa en miniatura per ampliar la ubicació exacta.";
 
-"HEADING_WIND_SPEED" = "Direccióo del vent";
+"HEADING_WIND_SPEED" = "Direcció del vent";
 "HEADING_TEMPERATURE" = "Temperatura";
 "HEADING_WIND_DIRECTION" = "Direcció";
 "BUTTON_NEXT" = "Següent";
