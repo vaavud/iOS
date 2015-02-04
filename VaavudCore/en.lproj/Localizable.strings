@@ -37,7 +37,7 @@
 "BUTTON_DONE" = "Done";
 
 "INFO_MEASURING" = "Measurement in progress";
-"INFO_NO_SIGNAL" = "No signal";
+"INFO_NO_SIGNAL" = "Cannot detect wind meter";
 "INFO_KEEP_STEADY" = "Keep vertical & steady";
 
 "X_HOURS" = "%d hours";

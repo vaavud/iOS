@@ -37,7 +37,7 @@
 "BUTTON_DONE" = "Feito";
 
 "INFO_MEASURING" = "Medição em progresso";
-"INFO_NO_SIGNAL" = "Sem sinal";
+"INFO_NO_SIGNAL" = "Medidor de vento nao detectado";
 "INFO_KEEP_STEADY" = "Mantenha estável e na vertical";
 
 "X_HOURS" = "%d horas";
@@ -126,13 +126,13 @@
 
 /* SHOULD BE TRANSLATED! */
 
-"HEADING_WIND_SPEED" = "Wind Speed";
-"HEADING_TEMPERATURE" = "Temperature";
-"HEADING_WIND_DIRECTION" = "Direção";
-"BUTTON_NEXT" = "Next";
+"HEADING_WIND_SPEED" = "Velocidade do vento";
+"HEADING_TEMPERATURE" = "Temperatura";
+"HEADING_WIND_DIRECTION" = "Direcção";
+"BUTTON_NEXT" = "Seguinte";
 "UNIT_CELCIUS" = "°C";
 "DIRECTION_CARDINAL" = "Cardinal";
-"DIRECTION_DEGREES" = "Degrees";
+"DIRECTION_DEGREES" = "Graus";
 "DIRECTION_N" = "N";
 "DIRECTION_NNE" = "NNE";
 "DIRECTION_NE" = "NE";
@@ -142,26 +142,26 @@
 "DIRECTION_SE" = "SE";
 "DIRECTION_SSE" = "SSE";
 "DIRECTION_S" = "S";
-"DIRECTION_SSW" = "SSW";
-"DIRECTION_SW" = "SW";
-"DIRECTION_WSW" = "WSW";
-"DIRECTION_W" = "W";
-"DIRECTION_WNW" = "WNW";
-"DIRECTION_NW" = "NW";
-"DIRECTION_NNW" = "NNW";
-"DEVICE_CONNECTED_TITLE" = "Device Connected";
-"DEVICE_CONNECTED_MESSAGE" = "Sleipnir wind meter connected";
-"DEVICE_DISCONNECTED_TITLE" = "Device Disconnected";
-"DEVICE_DISCONNECTED_MESSAGE" = "Sleipnir wind meter disconnected";
-"UNKNOWN_DEVICE_CONNECTED_TITLE" = "Unknown Device";
-"UNKNOWN_DEVICE_CONNECTED_MESSAGE" = "Sleipnir not recognized, try reinserting";
-"UNKNOWN_DEVICE_DISCONNECTED_TITLE" = "Device Disconnected";
-"UNKNOWN_DEVICE_DISCONNECTED_MESSAGE" = "Unknown device disconnected";
-"REGISTER_FEEDBACK_MISSING_FACEBOOK_PERMISSIONS_TITLE" = "Missing Permission";
-"REGISTER_FEEDBACK_MISSING_FACEBOOK_PERMISSIONS_MESSAGE" = "Please allow Facebook to provide us with your email address and list of friends.";
-"YES" = "Yes";
-"NO" = "No";
-"REGISTER_BUTTON_SIGNUP" = "Sign up";
+"DIRECTION_SSW" = "SSO";
+"DIRECTION_SW" = "SO";
+"DIRECTION_WSW" = "OSO";
+"DIRECTION_W" = "O";
+"DIRECTION_WNW" = "ONO";
+"DIRECTION_NW" = "NO";
+"DIRECTION_NNW" = "NNO";
+"DEVICE_CONNECTED_TITLE" = "Dispositivo ligado";
+"DEVICE_CONNECTED_MESSAGE" = "Anemômetro Sleipnir ligado";
+"DEVICE_DISCONNECTED_TITLE" = "Dispositivo desligado";
+"DEVICE_DISCONNECTED_MESSAGE" = "Anemômetro Sleipnir desligado";
+"UNKNOWN_DEVICE_CONNECTED_TITLE" = "Dispositivo desconhecido";
+"UNKNOWN_DEVICE_CONNECTED_MESSAGE" = "Sleipnir não reconhecido, tente outra vez";
+"UNKNOWN_DEVICE_DISCONNECTED_TITLE" = "Dispositivo desligado";
+"UNKNOWN_DEVICE_DISCONNECTED_MESSAGE" = "Dispositivo desconhecido desligado";
+"REGISTER_FEEDBACK_MISSING_FACEBOOK_PERMISSIONS_TITLE" = "Permissão em falta";
+"REGISTER_FEEDBACK_MISSING_FACEBOOK_PERMISSIONS_MESSAGE" = "Por favor permita que o Facebook partilhe connosco o seu email e lista de amigos.";
+"YES" = "Sim";
+"NO" = "Não";
+"REGISTER_BUTTON_SIGNUP" = "Registar";
 
 "AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Measure for 60s";
 "AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "You must measure for at least 60s indicated by the bar becoming fully green.";
@@ -195,3 +195,29 @@
 "AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "No Subscription";
 "AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "You don't have a valid subscription. Please contact Vaavud.";
 "AGRI_WORD_LIST" = "Word list";
+
+// New feb 2015
+
+"INTRO_UPGRADE_WHATS_NEW" = "Novidades";
+"INTRO_UPGRADE_TEXT0" = "Histórico com localização e, com o novo medidor de vento Sleipnir, a direcção do vento";
+"INTRO_UPGRADE_TEXT1" = "Novo ecrã com os valores relevantes da medição, incluindo pressão, temperatura, etc.";
+"INTRO_UPGRADE_CTA_BUY" = "Comprar o novo Sleipnir!";
+
+"MEASURE_AVG" = "Média"; // Shorter form of the word 'Average'
+"SUMMARY_PRESSURE" = "Pressão";
+"SUMMARY_TEMPERATURE" = "Temperatura";
+"SUMMARY_WIND_CHILL" = "Sensação"; // Basically a technical term
+"SUMMARY_GUSTINESS" = "Rajadas"; // How gusty the wind is
+"GEOLOCATION_ERROR" = "Localização desconhecida";
+"GEOLOCATION_LOADING" = "A carregar localização...";
+"GEOLOCATION_UNKNOWN" = "Sem localização";
+
+"UNIT_FAHRENHEIT" = "°F";
+
+"SUMMARY_MEASURE_WINDDIRECTION" = "Mede a direcção do vento";
+"SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "Com o novo medidor de vento Sleipnir podes medir a direcção do vento!";
+"SUMMARY_UPSELL" = "Mede a direcção do vento com o novo Sleipnir!";
+
+"UNIT_MBAR" = "mbar"; // millibar, which is equal to hecto pascal
+"UNIT_ATM" = "atm"; // atmosphere as a unit of pressure
+"UNIT_MMHG" = "mmHg"; // millimetres mercury

@@ -32,5 +32,4 @@ class UpgradingUserPagesView: UIView {
     @IBAction func tappedBuy() {
         owner.openBuyDevice()
     }
-    
 }
