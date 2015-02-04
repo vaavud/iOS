@@ -119,7 +119,7 @@
         vcName = @"FirstTimeFlowController";
     }
     
-//    vcName = @"UpgradingUserViewController"; // FIXME: Remove this
+    vcName = @"UpgradingUserViewController"; // FIXME: Remove this
 
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     viewController = [storyboard instantiateViewControllerWithIdentifier:vcName];
