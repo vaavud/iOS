@@ -75,7 +75,7 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
-        
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let page = scrollView.contentOffset.x/scrollView.bounds.width
         pager.currentPage = Int(round(page))
@@ -93,23 +93,12 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
     @IBInspectable var startColor: UIColor = UIColor.clearColor() { didSet { update() } }
     @IBInspectable var endColor: UIColor = UIColor.vaavudLightGreyColor() { didSet { update() } }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        update()
-    }
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        update()
-    }
-    
     override class func layerClass() -> AnyClass {
         return CAGradientLayer.self
     }
     
     func update() {
         (layer as CAGradientLayer).colors = [startColor.CGColor, endColor.CGColor]
-        setNeedsDisplay()
     }
 }
 

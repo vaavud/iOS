@@ -93,7 +93,6 @@
 #elif CORE
     
     // CORE VAAVUD APP
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     NSString *vcName;
     
     if ([Property getAsBoolean:KEY_HAS_SEEN_INTRO_FLOW defaultValue:NO]) {
@@ -122,6 +121,7 @@
     
 //    vcName = @"UpgradingUserViewController"; // FIXME: Remove this
 
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     viewController = [storyboard instantiateViewControllerWithIdentifier:vcName];
 
 #endif
