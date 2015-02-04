@@ -96,6 +96,12 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
         setupLocalUI()
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        if Property.isMixpanelEnabled() {
+            Mixpanel.sharedInstance().track("Summary Screen - Disappear")
+        }
+    }
+    
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
         if let annotation = annotation as? MeasurementAnnotation {
             let identifier = "MeasureAnnotationIdentifier"
