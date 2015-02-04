@@ -18,5 +18,6 @@
 #import "TabBarController.h"
 #import "AccountManager.h"
 #import "ServerUploadManager.h"
+#import "Mixpanel.h"
 
 #endif

@@ -79,6 +79,10 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     var session: MeasurementSession!
     
     override func viewDidLoad() {
+        if Property.isMixpanelEnabled() {
+            Mixpanel.sharedInstance().track("Summary Screen")
+        }
+        
         animator = UIDynamicAnimator(referenceView: view)
         pressureItem = DynamicReadingItem(readingView: pressureView)
         temperatureItem = DynamicReadingItem(readingView: temperatureView)
