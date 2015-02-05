@@ -643,6 +643,7 @@
 		22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSummaryViewController.swift; sourceTree = "<group>"; };
+		22DB81A81A8389DF00DA67AC /* Model 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.xcdatamodel"; sourceTree = "<group>"; };
 		22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Bridging-Header.h"; sourceTree = "<group>"; };
 		22FA6C211A712D3C004DD868 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		22FA6C501A727171004DD868 /* VaavudStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VaavudStyle.swift; path = Vaavud/StyleKit/VaavudStyle.swift; sourceTree = SOURCE_ROOT; };
@@ -3285,6 +3286,7 @@
 		E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				22DB81A81A8389DF00DA67AC /* Model 8.xcdatamodel */,
 				E9159CA21A03E04A00742188 /* Model 7.xcdatamodel */,
 				E9159C9B1A0127C200742188 /* Model 6.xcdatamodel */,
 				E93EED3219DED9FA004D8759 /* Model 5.xcdatamodel */,
@@ -3293,7 +3295,7 @@
 				E9EBB98F17E33C660086BE01 /* Model 2.xcdatamodel */,
 				E9EE1FA31769E54E00D1F006 /* Model.xcdatamodel */,
 			);
-			currentVersion = E9159CA21A03E04A00742188 /* Model 7.xcdatamodel */;
+			currentVersion = 22DB81A81A8389DF00DA67AC /* Model 8.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
