@@ -1606,7 +1606,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ow3-3G-Odu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-833" y="863"/>
+            <point key="canvasLocation" x="-842" y="802"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yHE-uN-piD">
@@ -1773,7 +1773,6 @@
                                 </state>
                                 <connections>
                                     <action selector="skipCalibration:" destination="VLq-Ik-zZ2" eventType="touchUpInside" id="UDD-jx-EOy"/>
-                                    <segue destination="2" kind="custom" customClass="sleipnirCalibrationDismissSegue" id="GbF-4S-RBV"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HCN-OR-3My">
@@ -1858,9 +1857,6 @@
                                 <state key="normal" title="Cancel">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <segue destination="2" kind="custom" identifier="" customClass="sleipnirCalibrationDismissSegue" id="3yM-we-QY1"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1918,9 +1914,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="27I-vs-1se"/>
-                    <connections>
-                        <segue destination="2" kind="custom" identifier="slipnirCalibrationDismiss" customClass="sleipnirCalibrationDismissSegue" id="i2c-1u-pcQ"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bRo-i3-soA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1943,7 +1936,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="NvT-o3-dsf"/>
         <segue reference="4WK-Ha-uCh"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>

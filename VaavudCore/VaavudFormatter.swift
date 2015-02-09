@@ -117,7 +117,7 @@ class VaavudFormatter {
     
     func localizedTitleDate(date: NSDate?) -> String? {
         if let date = date {
-            dateFormatter.dateFormat = "EEEE, MMM dd"
+            dateFormatter.dateFormat = "EEEE, MMM d"
             return dateFormatter.stringFromDate(date)
         }
         return nil

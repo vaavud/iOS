@@ -304,7 +304,7 @@
     
     HistoryTableViewSectionHeaderView *headerView = (HistoryTableViewSectionHeaderView *)[view viewWithTag:1];
     
-    self.dateFormatter.dateFormat = @"EEEE, MMM dd";
+    self.dateFormatter.dateFormat = @"EEEE, MMM d";
     headerView.label.text = [[self.dateFormatter stringFromDate:date] uppercaseStringWithLocale:[NSLocale currentLocale]];
     
     return view;

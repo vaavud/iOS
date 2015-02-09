@@ -89,7 +89,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
         windchillItem = DynamicReadingItem(readingView: windchillView)
         gustinessItem = DynamicReadingItem(readingView: gustinessView)
         
-        title = formatter.localizedTitleDate(session.startTime)
+        title = formatter.localizedTitleDate(session.startTime)?.uppercaseStringWithLocale(NSLocale.currentLocale())
         
         setupMapView()
         setupUI()
