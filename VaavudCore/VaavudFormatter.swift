@@ -250,7 +250,7 @@ class VaavudFormatter {
     }
     
     func formattedGustiness(gustiness: Float?) -> String? {
-        if gustiness == nil || gustiness < 0.1 {
+        if gustiness == nil || gustiness < 0.001 {
             return nil
         }
         return NSString(format: "%.0f", 100*gustiness!)
