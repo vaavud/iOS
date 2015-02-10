@@ -79,6 +79,8 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     var session: MeasurementSession!
     
     override func viewDidLoad() {
+        hideVolumeHUD()
+        
         if Property.isMixpanelEnabled() {
             Mixpanel.sharedInstance().track("Summary Screen")
         }

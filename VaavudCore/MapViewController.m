@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
+#import "Vaavud-Swift.h"
 #import "MapViewController.h"
 #import "MeasurementAnnotation.h"
 #import "UnitUtil.h"
@@ -18,6 +19,8 @@
 #import "Mixpanel.h"
 #import "TabBarController.h"
 #import "MixpanelUtil.h"
+#import <MediaPlayer/MediaPlayer.h>
+
 #include <math.h>
 
 #define MERCATOR_RADIUS 85445659.44705395
@@ -53,7 +56,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    [self hideVolumeHUD];
+    
     //NSLog(@"[MapViewController] viewDidLoad");
 
     self.isLoading = NO;

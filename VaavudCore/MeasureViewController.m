@@ -7,6 +7,7 @@
 
 #define DISMISS_NOTIFICATION_AFTER 2.0
 
+#import "Vaavud-Swift.h"
 #import "MeasureViewController.h"
 #import "MjolnirMeasurementController.h"
 #import "SleipnirMeasurementController.h"
@@ -141,6 +142,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self hideVolumeHUD];
     
     self.minimumNumberOfSeconds = SECONDS_REQUIRED;
 

@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Andreas Okholm. All rights reserved.
 //
 
+#import "Vaavud-Swift.h"
 #import "HistoryTableViewController.h"
 #import "HistoryTableViewSectionHeaderView.h"
 #import "HistoryTableViewCell.h"
@@ -18,7 +19,6 @@
 #import "ServerUploadManager.h"
 #import "UIColor+VaavudColors.h"
 #import "HistoryTableViewCell.h"
-#import "Vaavud-Swift.h"
 
 @import CoreLocation;
 
@@ -42,6 +42,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self hideVolumeHUD];
+    
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
     self.directionUnit = -1;
