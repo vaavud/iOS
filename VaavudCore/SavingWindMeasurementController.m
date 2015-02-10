@@ -330,11 +330,7 @@ SHARED_INSTANCE
             }
             else {
                 if (error) { if (LOG_OTHER) NSLog(@"Geocode failed with error: %@", error); }
-                session.geoLocationNameLocalized = NSLocalizedString(@"GEOLOCATION_ERROR", nil);
             }
-            
-            session.uploaded = @NO;
-            [[ServerUploadManager sharedInstance] triggerUpload];
         });
     }];
 }
