@@ -11,7 +11,6 @@
 
 @interface SavingWindMeasurementController : WindMeasurementController <WindMeasurementControllerDelegate>
 
-@property (nonatomic, weak) id<WindMeasurementControllerDelegate> delegate;
 @property (nonatomic) BOOL lookupTemperature;
 @property (nonatomic, strong) NSNumber *privacy;
 
