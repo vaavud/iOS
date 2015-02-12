@@ -19,7 +19,29 @@ class CoreSettingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
+        facebookControl.on = Property.getAsBoolean("enableFacebookShareDialog", defaultValue: false)
+        readUnits()
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: "UnitChange", object: nil)
+    }
+    
+    func unitsChanged(note: NSNotification) {
+        println("==== SETTINGS unitsChanged ====")
+        if note.object as? CoreSettingsTableViewController != self {
+            println("==== SETTINGS UDATING ====")
+            readUnits()
+        }
+    }
+    
+    func postUnitChange() {
+        NSNotificationCenter.defaultCenter().postNotificationName("UnitChange", object: self)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func readUnits() {
         if let speedUnit = Property.getAsInteger("windSpeedUnit")?.integerValue {
             speedUnitControl.selectedSegmentIndex = speedUnit
         }
@@ -32,24 +54,26 @@ class CoreSettingsTableViewController: UITableViewController {
         if let temperatureUnit = Property.getAsInteger("temperatureUnit")?.integerValue {
             temperatureUnitControl.selectedSegmentIndex = temperatureUnit
         }
-        
-        facebookControl.on = Property.getAsBoolean("enableFacebookShareDialog", defaultValue: false)
     }
     
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {
         Property.setAsInteger(sender.selectedSegmentIndex, forKey: "windSpeedUnit")
+        postUnitChange()
     }
     
     @IBAction func changedDirectionUnit(sender: UISegmentedControl) {
         Property.setAsInteger(sender.selectedSegmentIndex, forKey: "directionUnit")
+        postUnitChange()
     }
     
     @IBAction func changedPressureUnit(sender: UISegmentedControl) {
         Property.setAsInteger(sender.selectedSegmentIndex, forKey: "pressureUnit")
+        postUnitChange()
     }
     
     @IBAction func changedTemperatureUnit(sender: UISegmentedControl) {
         Property.setAsInteger(sender.selectedSegmentIndex, forKey: "temperatureUnit")
+        postUnitChange()
     }
     
     @IBAction func changedFacebookSetting(sender: UISwitch) {
