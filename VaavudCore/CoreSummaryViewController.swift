@@ -233,9 +233,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     }
     
     @IBAction private func tappedCompass(sender: AnyObject) {
-        println("tapped compass")
         if isShowingDirection {
-            println("showing compass")
             if !hasActualDirection {
                 showAndHideSleipnir()
             }
@@ -244,7 +242,6 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
             }
         }
         else {
-            println("not showing compass")
             tappedSleipnir(sender)
         }
     }
