@@ -17,6 +17,7 @@
 
 @interface SettingsViewController ()
 
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) UIWebView *webView;
 @property (nonatomic, strong) UISwitch *facebookSharingSwitch;

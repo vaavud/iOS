@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import MapKit
 
-class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertViewDelegate {
+class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var averageLabel: UILabel!
     @IBOutlet private weak var maximumLabel: UILabel!
@@ -102,9 +102,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     }
 
     func unitsChanged(note: NSNotification) {
-        println("==== unitsChanged ====")
         if note.object as? CoreSummaryViewController != self {
-            println("==== UDATING ====")
             updateUI()
             updateMapView(session)
         }
@@ -280,33 +278,11 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     }
     
     @IBAction private func tappedSleipnir(sender: AnyObject) {
-        let title = NSLocalizedString("SUMMARY_MEASURE_WINDDIRECTION", comment: "")
-        let message = NSLocalizedString("SUMMARY_WITH_SLEIPNIR_WINDDIRECTION", comment: "")
-        let cancel = NSLocalizedString("BUTTON_CANCEL", comment: "")
-        let other = NSLocalizedString("INTRO_UPGRADE_CTA_BUY", comment: "")
-        showAlert(title, message: message, cancel: cancel, other: other)
-    }
-    
-    func showAlert(title: String, message: String, cancel: String, other: String) {
-        if objc_getClass("UIAlertController") == nil {
-            let alert = UIAlertView(title: title, message: message, delegate: self, cancelButtonTitle: cancel, otherButtonTitles: other)
-            alert.tag = 1
-            alert.show()
-        }
-        else {
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: cancel, style: .Cancel, handler: { (action) -> Void in }))
-            alert.addAction(UIAlertAction(title: other, style: .Default, handler: { (action) -> Void in VaavudInteractions.openBuySleipnir() }))
-            presentViewController(alert, animated: true, completion: nil)
-        }
-    }
-    
-    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
-        if alertView.tag == 1 {
-            if buttonIndex == 1 {
-                VaavudInteractions.openBuySleipnir()
-            }
-        }
+        VaavudInteractions().showLocalAlert("SUMMARY_MEASURE_WINDDIRECTION",
+            messageKey: "SUMMARY_WITH_SLEIPNIR_WINDDIRECTION",
+            otherKey: "INTRO_UPGRADE_CTA_BUY",
+            action: { VaavudInteractions.openBuySleipnir("Summary") },
+            on: self)
     }
     
 //    @IBAction func tappedShare(sender: AnyObject) {

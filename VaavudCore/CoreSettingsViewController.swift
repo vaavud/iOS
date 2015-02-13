@@ -8,8 +8,8 @@
 
 import Foundation
 
-class CoreSettingsTableViewController: UITableViewController {
-    @IBOutlet weak var versionLabel: UILabel!
+class CoreSettingsTableViewController: UITableViewController /*, UIAlertViewDelegate*/ {
+    @IBOutlet weak var logoutButton: UIBarButtonItem!
     
     @IBOutlet weak var speedUnitControl: UISegmentedControl!
     @IBOutlet weak var directionUnitControl: UISegmentedControl!
@@ -17,18 +17,24 @@ class CoreSettingsTableViewController: UITableViewController {
     @IBOutlet weak var temperatureUnitControl: UISegmentedControl!
     @IBOutlet weak var facebookControl: UISwitch!
     
+    @IBOutlet weak var versionLabel: UILabel!
+    
     override func viewDidLoad() {
         versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
         facebookControl.on = Property.getAsBoolean("enableFacebookShareDialog", defaultValue: false)
+        refreshLogoutButton()
         readUnits()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: "UnitChange", object: nil)
     }
     
+    func refreshLogoutButton() {
+        let titleKey = AccountManager.sharedInstance().isLoggedIn() ? "REGISTER_BUTTON_LOGOUT" : "REGISTER_BUTTON_LOGIN"
+        logoutButton.title = NSLocalizedString(titleKey, comment: "")
+    }
+    
     func unitsChanged(note: NSNotification) {
-        println("==== SETTINGS unitsChanged ====")
         if note.object as? CoreSettingsTableViewController != self {
-            println("==== SETTINGS UDATING ====")
             readUnits()
         }
     }
@@ -54,6 +60,39 @@ class CoreSettingsTableViewController: UITableViewController {
         if let temperatureUnit = Property.getAsInteger("temperatureUnit")?.integerValue {
             temperatureUnitControl.selectedSegmentIndex = temperatureUnit
         }
+    }
+    
+    @IBAction func logOut(sender: AnyObject) {
+        if AccountManager.sharedInstance().isLoggedIn() {
+            VaavudInteractions().showLocalAlert("REGISTER_BUTTON_LOGOUT",
+                messageKey: "DIALOG_CONFIRM",
+                otherKey: "BUTTON_OK",
+                action: { self.logoutConfirmed() },
+                on: self)
+        }
+        else {
+            
+        }
+    }
+    
+    func logoutConfirmed() {
+        println("=== LOGOUT")
+//        AccountManager.sharedInstance().logout()
+        
+        //    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        //    UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
+        //    [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
+    }
+    
+    func registerUser() {
+        //    // note: for this to work, the UINavigationController we're in (MeasureNavigationController) must be a subclass of RegisterNavigationController
+        //
+        //    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
+        //    UIViewController *nextViewController = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
+        //    if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
+        //        ((RegisterNavigationController *)self.navigationController).registerDelegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+        //    }
+        //    [self.navigationController pushViewController:nextViewController animated:YES];
     }
     
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {
@@ -98,6 +137,15 @@ class CoreSettingsTableViewController: UITableViewController {
         }
     }
 }
+
+/*
+[[Mixpanel sharedInstance] track:@"Settings Clicked Buy"];
+
+NSString *country = [Property getAsString:KEY_COUNTRY];
+NSString *language = [Property getAsString:KEY_LANGUAGE];
+NSString *mixpanelId = [Mixpanel sharedInstance].distinctId;
+NSString *url = [NSString stringWithFormat:@"http://vaavud.com/mobile-shop-redirect/?country=%@&language=%@&ref=%@&source=settings", country, language, mixpanelId];
+*/
 
 class WebViewController: UIViewController {
     @IBOutlet weak var webView: UIWebView!

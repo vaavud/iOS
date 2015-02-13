@@ -418,7 +418,7 @@
             </objects>
             <point key="canvasLocation" x="58" y="147"/>
         </scene>
-        <!--Core Settings Table View Controller-->
+        <!--Settings-->
         <scene sceneID="4fo-7s-UWd">
             <objects>
                 <tableViewController id="AVc-0U-FEU" customClass="CoreSettingsTableViewController" customModule="Vaavud" sceneMemberID="viewController">
@@ -751,12 +751,19 @@
                             <outlet property="delegate" destination="AVc-0U-FEU" id="aYm-Ok-Vn3"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="3A1-G8-0CJ"/>
+                    <navigationItem key="navigationItem" title="Settings" id="cSV-1z-9B0">
+                        <barButtonItem key="rightBarButtonItem" title="Log out" id="kic-mv-NUN">
+                            <connections>
+                                <action selector="logOut:" destination="AVc-0U-FEU" id="SPd-vc-xlq"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="860"/>
                     <connections>
                         <outlet property="directionUnitControl" destination="bcI-dI-OVQ" id="j1d-pU-vXj"/>
                         <outlet property="facebookControl" destination="7zC-LA-bMA" id="XPI-N6-SZ9"/>
+                        <outlet property="logoutButton" destination="kic-mv-NUN" id="ZFS-dj-OWp"/>
                         <outlet property="pressureUnitControl" destination="d52-Tg-BU8" id="emI-aV-Hwf"/>
                         <outlet property="speedUnitControl" destination="Dvh-om-zIW" id="aW3-Fp-pdv"/>
                         <outlet property="temperatureUnitControl" destination="4TJ-1M-haN" id="Z5O-Xt-ZoP"/>
