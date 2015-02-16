@@ -639,7 +639,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BuyWindmeterSettingsCell" textLabel="99v-5L-cgm" style="IBUITableViewCellStyleDefault" id="cX9-g2-5nl" userLabel="MeasuringTipsSettingsCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BuyWindmeterSettingsCell" textLabel="99v-5L-cgm" style="IBUITableViewCellStyleDefault" id="cX9-g2-5nl" userLabel="MeasuringTipsSettingsCell">
                                         <rect key="frame" x="0.0" y="119" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cX9-g2-5nl" id="Amm-pA-hID">
@@ -655,6 +655,9 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <segue destination="fPm-Au-CcP" kind="modal" modalTransitionStyle="flipHorizontal" id="cuh-0O-hrw"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -754,7 +757,7 @@
                     <navigationItem key="navigationItem" title="Settings" id="cSV-1z-9B0">
                         <barButtonItem key="rightBarButtonItem" title="Log out" id="kic-mv-NUN">
                             <connections>
-                                <action selector="logOut:" destination="AVc-0U-FEU" id="SPd-vc-xlq"/>
+                                <action selector="logInOutTapped:" destination="AVc-0U-FEU" id="Wzw-2y-edt"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -772,7 +775,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PCy-mP-AgH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="512" y="-539"/>
+            <point key="canvasLocation" x="495" y="-549"/>
         </scene>
         <!--Terms View Controller-->
         <scene sceneID="96f-Ql-xhN">

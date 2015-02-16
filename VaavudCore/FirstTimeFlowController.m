@@ -19,7 +19,6 @@
 @property (nonatomic, weak) IBOutlet UIPageControl *pageControl;
 @property (weak, nonatomic) IBOutlet UINavigationBar *customNavigationBar;
 @property (weak, nonatomic) IBOutlet UINavigationItem *customNavigationItem;
-@property (nonatomic) BOOL returnViaDismiss;
 @property (nonatomic) BOOL useBorderlessBuyLaterButton;
 
 @end

@@ -20,4 +20,6 @@
 #import "ServerUploadManager.h"
 #import "Mixpanel.h"
 
+#import "FirstTimeFlowController.h" // FIXME: This class needs to be refactored
+
 #endif
