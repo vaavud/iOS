@@ -1097,7 +1097,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Iy-mw-zb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1207" y="885"/>
+            <point key="canvasLocation" x="1075" y="880"/>
         </scene>
         <!--Title-->
         <scene sceneID="Y1a-Mc-SzL">
@@ -1548,7 +1548,7 @@
                                     <outletCollection property="gestureRecognizers" destination="gR9-bd-xkO" appends="YES" id="TNg-5q-WW5"/>
                                 </connections>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvr-It-KCF">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="hybrid" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvr-It-KCF">
                                 <rect key="frame" x="0.0" y="335" width="320" height="184"/>
                                 <connections>
                                     <outlet property="delegate" destination="8a4-bz-n0M" id="XPz-ZV-j7I"/>
@@ -1697,7 +1697,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1731" y="863"/>
+            <point key="canvasLocation" x="1499" y="880"/>
         </scene>
         <!--Loading History View Controller-->
         <scene sceneID="ARe-rt-Scu">
@@ -1725,7 +1725,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NZk-4v-fsl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1156" y="2144"/>
+            <point key="canvasLocation" x="1075" y="2128"/>
         </scene>
         <!--Upgrading User View Controller-->
         <scene sceneID="E9Z-A7-ELX">
@@ -1884,7 +1884,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SSc-DV-TQO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="623" y="2128"/>
+            <point key="canvasLocation" x="640" y="2128"/>
         </scene>
         <!--No History View Controller-->
         <scene sceneID="kOv-8B-dmy">
@@ -1938,7 +1938,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XW0-sy-aO5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1156" y="1499"/>
+            <point key="canvasLocation" x="1075" y="1499"/>
         </scene>
         <!--History Navigation Controller-->
         <scene sceneID="V9R-ML-X2E">
@@ -2155,8 +2155,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="4WK-Ha-uCh"/>
         <segue reference="s0f-qj-ZNz"/>
+        <segue reference="MnQ-EK-wGw"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
 </document>

@@ -113,11 +113,7 @@ class CoreSettingsTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let webViewController = segue.destinationViewController as? WebViewController {
             if segue.identifier == "AboutSegue" {
-                //        let aboutText = NSLocalizedString("ABOUT_VAAVUD_TEXT", comment: "")
-                
-                let aboutText = "Vaavud is a Danish technology start-up.\n Our mission is to make the best wind meters on the planet in terms of usability, features, and third party integration.\n To learn more and to purchase a Vaavud wind meter visit Vaavud.com\n &copy; Vaavud ApS 2014, all rights reserved"
-                
-                webViewController.html = aboutText.html()
+                webViewController.html = NSLocalizedString("ABOUT_VAAVUD_TEXT", comment: "").html()
             }
             else if segue.identifier == "TermsSegue" {
                 webViewController.url = VaavudInteractions.termsUrl()

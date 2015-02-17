@@ -32,14 +32,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        
 #ifdef CORE
         UIImage *selectedTabImage = [[UIImage imageNamed:@"history_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         self.tabBarItem.selectedImage = selectedTabImage;
 #endif
-        
-    }
 }
 
 - (void)tabSelected {
