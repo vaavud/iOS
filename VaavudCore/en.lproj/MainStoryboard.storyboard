@@ -60,12 +60,12 @@
                     <connections>
                         <segue destination="fQa-n1-y1j" kind="relationship" relationship="viewControllers" id="cE2-i8-0r9"/>
                         <segue destination="awR-2s-6gy" kind="relationship" relationship="viewControllers" id="VnN-b8-sLX"/>
-                        <segue destination="SaW-1V-e7G" kind="relationship" relationship="viewControllers" id="bn0-v7-nZL"/>
+                        <segue destination="Aeq-dx-zyt" kind="relationship" relationship="viewControllers" id="4FX-ci-dgI"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Grw-Gv-BfB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-833" y="-18"/>
+            <point key="canvasLocation" x="-833" y="103"/>
         </scene>
         <!--Core Measure View Controller-->
         <scene sceneID="5">
@@ -416,7 +416,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X7E-Jf-KyM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="58" y="147"/>
+            <point key="canvasLocation" x="-394" y="103"/>
         </scene>
         <!--Settings-->
         <scene sceneID="4fo-7s-UWd">
@@ -758,7 +758,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PCy-mP-AgH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="495" y="-549"/>
+            <point key="canvasLocation" x="701" y="-559"/>
         </scene>
         <!--Terms View Controller-->
         <scene sceneID="96f-Ql-xhN">
@@ -792,7 +792,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nt3-0L-LC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="923" y="-539"/>
+            <point key="canvasLocation" x="1135" y="-559"/>
         </scene>
         <!--First Time Flow Controller-->
         <scene sceneID="iog-Qb-A03">
@@ -951,7 +951,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4P3-tL-tBb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-19" y="-1187"/>
+            <point key="canvasLocation" x="90" y="-1182"/>
         </scene>
         <!--Sleipnir Calibration View Controller-->
         <scene sceneID="h5e-Qd-MUx">
@@ -1097,7 +1097,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Iy-mw-zb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1075" y="880"/>
+            <point key="canvasLocation" x="25" y="772"/>
         </scene>
         <!--Title-->
         <scene sceneID="Y1a-Mc-SzL">
@@ -1548,7 +1548,7 @@
                                     <outletCollection property="gestureRecognizers" destination="gR9-bd-xkO" appends="YES" id="TNg-5q-WW5"/>
                                 </connections>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="hybrid" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvr-It-KCF">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tvr-It-KCF">
                                 <rect key="frame" x="0.0" y="335" width="320" height="184"/>
                                 <connections>
                                     <outlet property="delegate" destination="8a4-bz-n0M" id="XPz-ZV-j7I"/>
@@ -1697,7 +1697,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1499" y="880"/>
+            <point key="canvasLocation" x="457" y="772"/>
         </scene>
         <!--Loading History View Controller-->
         <scene sceneID="ARe-rt-Scu">
@@ -1940,10 +1940,15 @@
             </objects>
             <point key="canvasLocation" x="1075" y="1499"/>
         </scene>
-        <!--History Navigation Controller-->
+        <!--History-->
         <scene sceneID="V9R-ML-X2E">
             <objects>
                 <navigationController storyboardIdentifier="HistoryNavigationController" definesPresentationContext="YES" id="Aeq-dx-zyt" customClass="HistoryNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="History" image="history.png" id="3Op-1J-XEW">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="history_selected.png"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uJ9-Xb-xqC">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1953,7 +1958,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R6b-0s-ez5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="640" y="880"/>
+            <point key="canvasLocation" x="-388" y="772"/>
         </scene>
         <!--History-->
         <scene sceneID="hlX-79-REy">
@@ -1963,7 +1968,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7oe-hs-cl5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="52" y="880"/>
+            <point key="canvasLocation" x="-346" y="1499"/>
         </scene>
         <!--Sleipnir Calibration Intro View Controller-->
         <scene sceneID="aj7-O3-Eyy">
@@ -2145,6 +2150,7 @@
         <image name="SettingsIcon.png" width="24" height="24"/>
         <image name="circularProgressComplete" width="85" height="85"/>
         <image name="history.png" width="26" height="26"/>
+        <image name="history_selected.png" width="26" height="26"/>
         <image name="iPhone6Black" width="217" height="444"/>
         <image name="map.png" width="26" height="26"/>
         <image name="measure.png" width="26" height="26"/>

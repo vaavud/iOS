@@ -40,6 +40,9 @@
             }
             self.teaserLabel.text = [registerNavigationController.registerDelegate registerTeaserText];
         }
+        else {
+            self.teaserLabel.text = self.teaserLabelText;
+        }
     }
     
     self.navigationItem.backBarButtonItem.title = NSLocalizedString(@"BUTTON_CANCEL", nil);

@@ -83,7 +83,7 @@ class CoreSettingsTableViewController: UITableViewController {
     
     func registerUser() {
         let register = UIStoryboard(name: "Register", bundle: nil).instantiateViewControllerWithIdentifier("RegisterViewController") as UIViewController
-        self.navigationController?.pushViewController(register, animated: true)
+        navigationController?.pushViewController(register, animated: true)
     }
     
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {

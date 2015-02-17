@@ -19,6 +19,7 @@
 #import "ServerUploadManager.h"
 #import "UIColor+VaavudColors.h"
 #import "HistoryTableViewCell.h"
+#import "RegisterViewController.h"
 
 @import CoreLocation;
 
@@ -43,6 +44,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self hideVolumeHUD];
+
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
+    RegisterViewController *registerVC = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
+    registerVC.teaserLabelText = NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil);
+    registerVC.navigationItem.hidesBackButton = YES;
+    [self.navigationController pushViewController:registerVC animated:NO];
     
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
