@@ -120,10 +120,16 @@ class CoreSettingsTableViewController: UITableViewController {
                 webViewController.html = aboutText.html()
             }
             else if segue.identifier == "TermsSegue" {
-                webViewController.url = NSURL(string: "http://vaavud.com/legal/terms.php?source=app")
+                webViewController.url = VaavudInteractions.termsUrl()
+                webViewController.title = NSLocalizedString("LINK_TERMS_OF_SERVICE", comment: "")
             }
             else if segue.identifier == "PrivacySegue" {
-                webViewController.url = NSURL(string: "http://vaavud.com/legal/privacy.php?source=app")
+                webViewController.url = VaavudInteractions.privacyUrl()
+                webViewController.title = NSLocalizedString("LINK_PRIVACY_POLICY", comment: "")
+            }
+            else if segue.identifier == "BuyWindmeterSegue" {
+                webViewController.url = VaavudInteractions.buySleipnirUrl(source: "settings")
+                webViewController.title = NSLocalizedString("SETTINGS_SHOP_LINK", comment: "")
             }
         }
         if let firstTimeViewController = segue.destinationViewController as? FirstTimeFlowController {

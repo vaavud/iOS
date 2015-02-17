@@ -12,14 +12,28 @@ import UIKit
 class VaavudInteractions: NSObject, UIAlertViewDelegate {
     var alertAction: () -> () = { }
     
-    class func openBuySleipnir(source: String) {
-        Mixpanel.sharedInstance().track(source + " Clicked Buy")
-        let urlString = "http://vaavud.com/mobile-shop-redirect/?country=" + Property.getAsString("country") +
+    class func termsUrl(source: String = "settings") -> NSURL {
+        let url = "http://vaavud.com/legal/terms.php?source=" + source
+        return NSURL(string: url)!
+    }
+
+    class func privacyUrl(source: String = "settings") -> NSURL {
+        let url = "http://vaavud.com/legal/privacy.php?source=" + source
+        return NSURL(string: url)!
+    }
+    
+    class func buySleipnirUrl(source: String = "app") -> NSURL {
+        let url = "http://vaavud.com/mobile-shop-redirect/?country=" + Property.getAsString("country") +
             "&language=" + Property.getAsString("language") +
             "&ref=" + Mixpanel.sharedInstance().distinctId +
             "&source=" + source
         
-        UIApplication.sharedApplication().openURL(NSURL(string: urlString)!)
+        return NSURL(string: url)!
+    }
+    
+    class func openBuySleipnir(source: String) {
+        Mixpanel.sharedInstance().track(source + " Clicked Buy")
+        UIApplication.sharedApplication().openURL(buySleipnirUrl(source: source))
     }
     
     func showLocalAlert(titleKey: String, messageKey: String, cancelKey: String = "BUTTON_CANCEL", otherKey: String, action: () -> (), on source: UIViewController) {

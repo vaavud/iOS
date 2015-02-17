@@ -622,23 +622,6 @@
                                             <segue destination="0LI-1s-lFS" kind="push" identifier="BuyWindmeterSegue" id="s0f-qj-ZNz"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BuyWindmeterSettingsCell" textLabel="Ntb-Cf-KKB" style="IBUITableViewCellStyleDefault" id="RGZ-DJ-oJb" userLabel="CalibrateSettingsCell">
-                                        <rect key="frame" x="0.0" y="119" width="320" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RGZ-DJ-oJb" id="cDm-K5-fIu">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Calibrate windmeter" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ntb-Cf-KKB">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="BuyWindmeterSettingsCell" textLabel="99v-5L-cgm" style="IBUITableViewCellStyleDefault" id="cX9-g2-5nl" userLabel="MeasuringTipsSettingsCell">
                                         <rect key="frame" x="0.0" y="119" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -780,7 +763,7 @@
         <!--Terms View Controller-->
         <scene sceneID="96f-Ql-xhN">
             <objects>
-                <viewController storyboardIdentifier="WebViewController" id="0LI-1s-lFS" userLabel="Terms View Controller" customClass="WebViewController" customModule="Vaavud" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebViewController" hidesBottomBarWhenPushed="YES" id="0LI-1s-lFS" userLabel="Terms View Controller" customClass="WebViewController" customModule="Vaavud" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="uau-Pg-DZS"/>
                         <viewControllerLayoutGuide type="bottom" id="s33-Yz-j5i"/>
