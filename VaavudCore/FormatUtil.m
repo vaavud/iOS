@@ -16,9 +16,9 @@
         return NSLocalizedString(@"REL_TIME_FUTURE", nil);
     }
     timeAgoSeconds = abs(timeAgoSeconds);
-    int minsAgo = round(timeAgoSeconds / 60.0);
-    int hoursAgo = round(timeAgoSeconds / 3600.0);
-    int daysAgo = round(timeAgoSeconds / (3600.0*24.0));
+    int minsAgo = round(timeAgoSeconds/60.0);
+    int hoursAgo = round(timeAgoSeconds/3600.0);
+    int daysAgo = round(timeAgoSeconds/(3600.0*24.0));
     if (minsAgo < 1) {
         return NSLocalizedString(@"REL_TIME_NOW", nil);
     }
@@ -51,7 +51,7 @@
     }
 }
 
-+ (NSString *)formatValueWithThreeDigits:(double) value {
++ (NSString *)formatValueWithThreeDigits:(double)value {
     if (round(value) >= 100.0) {
         return [NSString localizedStringWithFormat: @"%.0f", value];
     }
