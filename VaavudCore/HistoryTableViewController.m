@@ -214,9 +214,9 @@
             cell.directionLabel.text = [UnitUtil displayNameForDirection:session.windDirection];
         }
         else {
-            cell.directionLabel.text = [NSString stringWithFormat:@"%@°", [NSNumber numberWithInt:(int)round([session.windDirection doubleValue])]];
+            cell.directionLabel.text = [NSString stringWithFormat:@"%.0f°", session.windDirection.floatValue];
         }
-        cell.directionImageView.transform = CGAffineTransformMakeRotation([session.windDirection doubleValue]/180 * M_PI);
+        cell.directionImageView.transform = CGAffineTransformMakeRotation(session.windDirection.doubleValue/180 * M_PI);
 
         cell.directionLabel.hidden = NO;
         cell.directionImageView.hidden = NO;
