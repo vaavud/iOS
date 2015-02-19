@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
+#import "Vaavud-Swift.h"
 #import "MapViewController.h"
 #import "MeasurementAnnotation.h"
 #import "UnitUtil.h"
@@ -18,6 +19,8 @@
 #import "Mixpanel.h"
 #import "TabBarController.h"
 #import "MixpanelUtil.h"
+#import <MediaPlayer/MediaPlayer.h>
+
 #include <math.h>
 
 #define MERCATOR_RADIUS 85445659.44705395
@@ -46,14 +49,15 @@
 
 @implementation MapViewController
 
-- (void) awakeFromNib {
+- (void)awakeFromNib {
     [super awakeFromNib];
     self.tabBarItem.title = NSLocalizedString(@"TAB_MAP", nil);
 }
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
-
+    [self hideVolumeHUD];
+    
     //NSLog(@"[MapViewController] viewDidLoad");
 
     self.isLoading = NO;
@@ -131,25 +135,24 @@
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
-- (void) appDidBecomeActive:(NSNotification*) notification {
+- (void)appDidBecomeActive:(NSNotification *)notification {
     //NSLog(@"[MapViewController] appDidBecomeActive");
     [self loadMeasurements:NO showActivityIndicator:NO];
 }
 
--(void) appWillTerminate:(NSNotification*) notification {
+-(void)appWillTerminate:(NSNotification *) notification {
     //NSLog(@"[MapViewController] appWillTerminate");
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
 }
 
-- (void) tabSelected {
+- (void)tabSelected {
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"Map Tab"];
     }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    
     [super viewWillAppear:animated];
 
     BOOL forceReload = NO;
@@ -204,7 +207,7 @@
                                                                                     toItem:self.hoursButton
                                                                                  attribute:NSLayoutAttributeBottom
                                                                                 multiplier:1.0
-                                                                                  constant:49.0+5.0];
+                                                                                  constant:49.0 + 5.0];
         [self.view addConstraint:bottomSpaceConstraint];
     }
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") && (self.unitBottomLayoutGuideConstraint != nil)) {
@@ -216,11 +219,15 @@
                                                                                     toItem:self.unitButton
                                                                                  attribute:NSLayoutAttributeBottom
                                                                                 multiplier:1.0
-                                                                                  constant:49.0+5.0];
+                                                                                  constant:49.0 + 5.0];
         [self.view addConstraint:bottomSpaceConstraint];
     }
 
-    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:graceTimeBetweenMeasurementsRead target:self selector: @selector(refreshMap) userInfo:nil repeats:YES];
+    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:graceTimeBetweenMeasurementsRead
+                                                         target:self
+                                                       selector:@selector(refreshMap)
+                                                       userInfo:nil
+                                                        repeats:YES];
 
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"Map Screen"];
@@ -231,15 +238,14 @@
     [self showGuideIfNeeded];
 }
 
-- (void) viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     if (self.refreshTimer && self.refreshTimer != nil) {
         [self.refreshTimer invalidate];
     }
 }
 
-- (void) showGuideIfNeeded {
-    
+- (void)showGuideIfNeeded {
     if (![Property getAsBoolean:KEY_MAP_GUIDE_MARKER_SHOWN defaultValue:NO]) {
         [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MARKER_SHOWN];
         
@@ -255,7 +261,7 @@
         
         CGRect rect = CGRectMake(self.hoursButton.frame.origin.x, self.tabBarController.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height - self.hoursButton.frame.size.height,  self.hoursButton.frame.size.width, self.hoursButton.frame.size.height);
         
-        TabBarController *tabBarController = (TabBarController*) self.tabBarController;
+        TabBarController *tabBarController = (TabBarController *)self.tabBarController;
         [tabBarController showCalloutGuideView:NSLocalizedString(@"MAP_GUIDE_TIME_INTERVAL_TITLE", nil)
                                explanationText:NSLocalizedString(@"MAP_GUIDE_TIME_INTERVAL_EXPLANATION", nil)
                                 customPosition:rect
@@ -269,7 +275,6 @@
 }
 
 - (void)loadMeasurements:(BOOL)ignoreGracePeriod showActivityIndicator:(BOOL)showActivityIndicator {
-    
     if (!ignoreGracePeriod && self.lastMeasurementsRead && self.lastMeasurementsRead != nil) {
         NSTimeInterval howRecent = [self.lastMeasurementsRead timeIntervalSinceNow];
         if (abs(howRecent) < (graceTimeBetweenMeasurementsRead - 2.0)) {
@@ -307,8 +312,8 @@
         for (NSArray *measurement in measurements) {
             
             if (measurement.count >= 5) {
-                double latitude = [((NSString*)[measurement objectAtIndex:0]) doubleValue];
-                double longitude = [((NSString*)[measurement objectAtIndex:1]) doubleValue];
+                double latitude = [((NSString *)[measurement objectAtIndex:0]) doubleValue];
+                double longitude = [((NSString *)[measurement objectAtIndex:1]) doubleValue];
                 NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[measurement objectAtIndex:2]) doubleValue] / 1000.0)];
                 float windSpeedAvg = ([measurement objectAtIndex:3] == nil) ? 0.0 : [((NSString*)[measurement objectAtIndex:3]) floatValue];
                 float windSpeedMax = ([measurement objectAtIndex:4] == nil) ? 0.0 : [((NSString*)[measurement objectAtIndex:4]) floatValue];
@@ -379,14 +384,12 @@
     return UIStatusBarStyleLightContent;
 }
 
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     // If it's the user location, just return nil.
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
         return nil;
     }
     else if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
-
         static NSString *MeasureAnnotationIdentifier = @"MeasureAnnotationIdentifier";
         
         MeasurementAnnotation *measurementAnnotation = (MeasurementAnnotation*) annotation;
@@ -438,13 +441,12 @@
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
 	if ([view.annotation isKindOfClass:[MeasurementAnnotation class]]) {
-
         NSArray *nearbyAnnotations;
         
         //NSLog(@"zoomLevel=%f", [self.mapView getZoomLevel]);
         
         if ([self.mapView getZoomLevel] <= 2) {
-            nearbyAnnotations = [NSArray arrayWithObjects: nil];
+            nearbyAnnotations = [NSArray array];
         }
         else {
             nearbyAnnotations = [self findNearbyAnnotations:view.annotation];
@@ -499,10 +501,8 @@
 	}
 }
 
-- (void) showGuideViewForZoom {
-    
+- (void)showGuideViewForZoom {
     if (self.measurementCalloutView) {
-        
         if (self.showGuideViewTimer) {
             [self.showGuideViewTimer invalidate];
             self.showGuideViewTimer = nil;
@@ -530,9 +530,8 @@
 }
 
 - (NSTimeInterval)calloutView:(SMCalloutView *)theCalloutView delayForRepositionWithSize:(CGSize)offset {
-
     if (self.mapView.selectedAnnotations.count > 0) {
-        id<MKAnnotation> annotation = (id<MKAnnotation>) self.mapView.selectedAnnotations[0];
+        id<MKAnnotation> annotation = (id<MKAnnotation>)self.mapView.selectedAnnotations[0];
 
         // TODO: this is an approximation that will not necessarily hold at target latitude
         CGFloat pixelsPerDegreeLat = self.mapView.frame.size.height / self.mapView.region.span.latitudeDelta;
@@ -558,13 +557,12 @@
     return kSMCalloutViewRepositionDelayForUIScrollView;
 }
 
--(void)zoomToAnnotation:(MeasurementAnnotation*)annotation {
+-(void)zoomToAnnotation:(MeasurementAnnotation *)annotation {
     [self.mapView deselectAnnotation:annotation animated:NO];
     [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(annotation.coordinate, 500, 500) animated:YES];
 }
 
-- (NSArray*) findNearbyAnnotations:(MeasurementAnnotation*)annotation {
-
+- (NSArray *)findNearbyAnnotations:(MeasurementAnnotation *)annotation {
     MKMapRect mRect = self.mapView.visibleMapRect;
     MKMapPoint eastMapPoint = MKMapPointMake(MKMapRectGetMinX(mRect), MKMapRectGetMidY(mRect));
     MKMapPoint westMapPoint = MKMapPointMake(MKMapRectGetMaxX(mRect), MKMapRectGetMidY(mRect));
@@ -578,7 +576,6 @@
     double pointsPerMeter = MKMapPointsPerMeterAtLatitude(annotation.coordinate.latitude);
     double nearbyPoints = pointsPerMeter * mapWidthMeters * nearbyFraction;
     MKMapRect mapRect = MKMapRectMake(center.x - (nearbyPoints/2.0), center.y - (nearbyPoints/2.0), nearbyPoints, nearbyPoints );
-    
     
     //NSLog(@"center.x=%f, center.y=%f, pointsPerMeter=%f, nearbyPoints=%f, mapRect.origin.x=%f, mapRect.origin.y=%f, mapRect.size.width=%f, mapRect.size.height=%f", center.x, center.y, pointsPerMeter, nearbyPoints, mapRect.origin.x, mapRect.origin.y, mapRect.size.width, mapRect.size.height);
     
@@ -605,7 +602,7 @@
     return mutableArray;
 }
 
-- (IBAction) hoursButtonPushed {
+- (IBAction)hoursButtonPushed {
     NSArray *hourOptions = [Property getAsFloatArray:KEY_HOUR_OPTIONS];
     if (hourOptions != nil && hourOptions.count > 0) {
         BOOL isOptionChanged = NO;
@@ -628,12 +625,12 @@
     [self loadMeasurements:YES showActivityIndicator:YES];
 }
 
-- (void) refreshHours {
+- (void)refreshHours {
     NSString *hoursAgo = [NSString stringWithFormat:NSLocalizedString(@"X_HOURS", nil), self.hoursAgo];
     [self.hoursButton setTitle:hoursAgo forState:UIControlStateNormal];
 }
 
-- (IBAction) unitButtonPushed {
+- (IBAction)unitButtonPushed {
     self.windSpeedUnit = [UnitUtil nextWindSpeedUnit:self.windSpeedUnit];
     [Property setAsInteger:[NSNumber numberWithInt:self.windSpeedUnit] forKey:KEY_WIND_SPEED_UNIT];
     
@@ -641,10 +638,12 @@
     [self windSpeedUnitChanged];
 }
 
--(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation*)annotation withAction:(NSString*)action mixpanelTrack:(NSString*)track mixpanelSource:(NSString*)source {
+-(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation *)annotation
+                           withAction:(NSString *)action
+                        mixpanelTrack:(NSString *)track
+                       mixpanelSource:(NSString *)source {
     
     if ([Property isMixpanelEnabled]) {
-        
         NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
         if (source) {
             [dictionary setObject:source forKey:@"Source"];
@@ -684,7 +683,7 @@
 
 // Allow touches to be sent to our calloutview.
 // See this for some discussion of why we need to override this: https://github.com/nfarina/calloutview/pull/9
-- (UIView *) hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
     
     UIView *calloutMaybe = [self.calloutView hitTest:[self.calloutView convertPoint:point fromView:self] withEvent:event];
     if (calloutMaybe) {

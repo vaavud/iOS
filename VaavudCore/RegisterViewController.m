@@ -21,17 +21,16 @@
 
 @implementation RegisterViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
-        RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
+        RegisterNavigationController *registerNavigationController = (RegisterNavigationController *)self.navigationController;
         if (registerNavigationController.registerDelegate) {
             
             NSString *title = [registerNavigationController.registerDelegate registerScreenTitle];
             
             if (!title || title.length == 0) {
-
                 self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
 
                 //NSLog(@"Navigation title view rect: (%f, %f, %f, %f)", self.navigationItem.titleView.frame.origin.x, self.navigationItem.titleView.frame.origin.y, self.navigationItem.titleView.frame.size.width, self.navigationItem.titleView.frame.size.height);
@@ -54,7 +53,7 @@
     [self.logInButton setTitle:NSLocalizedString(@"REGISTER_TITLE_LOGIN", nil) forState:UIControlStateNormal];
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     if ([Property isMixpanelEnabled]) {

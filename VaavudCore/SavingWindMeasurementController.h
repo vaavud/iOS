@@ -11,14 +11,13 @@
 
 @interface SavingWindMeasurementController : WindMeasurementController <WindMeasurementControllerDelegate>
 
-@property (nonatomic, weak) id<WindMeasurementControllerDelegate> delegate;
 @property (nonatomic) BOOL lookupTemperature;
 @property (nonatomic, strong) NSNumber *privacy;
 
-+ (SavingWindMeasurementController*) sharedInstance;
++ (SavingWindMeasurementController *)sharedInstance;
 
-- (void) setHardwareController:(WindMeasurementController*)controller;
-- (void) clearHardwareController;
-- (MeasurementSession*) getLatestMeasurementSession;
+- (void)setHardwareController:(WindMeasurementController *)controller;
+- (void)clearHardwareController;
+- (MeasurementSession *)getLatestMeasurementSession;
 
 @end

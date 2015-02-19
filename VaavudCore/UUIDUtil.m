@@ -11,15 +11,14 @@
 
 @implementation UUIDUtil
 
-+ (NSString*) generateUUID {
++ (NSString *)generateUUID {
     CFUUIDRef theUUID = CFUUIDCreate(NULL);
     CFStringRef string = CFUUIDCreateString(NULL, theUUID);
     CFRelease(theUUID);
     return (__bridge_transfer NSString *)string;
 }
 
-+ (NSString*) md5Hash:(NSString*)text {
-
++ (NSString *)md5Hash:(NSString *)text {
     const char *ptr = [text UTF8String];
     unsigned char md5Buffer[CC_MD5_DIGEST_LENGTH];
     

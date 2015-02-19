@@ -29,16 +29,16 @@
     self.navigationItem.title = NSLocalizedString(@"HISTORY_TITLE", nil);
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkIfDone) userInfo:nil repeats:YES];
 }
 
-- (void) checkIfDone {
+- (void)checkIfDone {
     if (![ServerUploadManager sharedInstance].isHistorySyncBusy) {
         [self.timer invalidate];
         self.timer = nil;
-        HistoryRootViewController *historyRootViewController = (HistoryRootViewController*) [self.navigationController parentViewController];
+        HistoryRootViewController *historyRootViewController = (HistoryRootViewController *)[self.navigationController parentViewController];
         [historyRootViewController chooseContentControllerWithNoHistorySync];
     }
 }

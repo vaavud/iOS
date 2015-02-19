@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface sleipnirCalibrationDismissSegue : UIStoryboardSegue
+@interface SleipnirCalibrationDismissSegue : UIStoryboardSegue
 
 @end

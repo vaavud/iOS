@@ -34,7 +34,7 @@ static NSString * const KEY_HOUR_OPTIONS = @"hourOptions";
 static NSString * const KEY_ENABLE_MIXPANEL = @"enableMixPanel";
 static NSString * const KEY_ENABLE_MIXPANEL_PEOPLE = @"enableMixPanelPeople";
 static NSString * const KEY_ENABLE_FACEBOOK_DISCLAIMER = @"enableFacebookDisclaimer";
-static NSString * const KEY_ENABLE_SHARE_DIALOG = @"enableShareDialog";
+static NSString * const KEY_ENABLE_SHARE_DIALOG = @"enableFacebookShareDialog";
 static NSString * const KEY_HAS_SEEN_INTRO_FLOW = @"hasSeenIntroFlow";
 static NSString * const KEY_MAP_GUIDE_MARKER_SHOWN = @"mapGuideMarkerShown";
 static NSString * const KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN = @"mapGuideTimeIntervalShown";
@@ -58,33 +58,40 @@ static NSString * const KEY_AGRI_DEFAULT_DOSE = @"agriDefaultDose";
 static NSString * const KEY_AGRI_DEFAULT_BOOM_HEIGHT = @"agriDefaultBoomHeight";
 static NSString * const KEY_AGRI_DEFAULT_SPRAY_QUALITY = @"agriDefaultSprayQuality";
 
+// This is new
+static NSString * const KEY_AGRI_TEST_MODE = @"testMode";
+static NSString * const KEY_HAS_SEEN_UPGRADE_FLOW = @"hasSeenUpgradeFlow";
+
+static NSString * const KEY_TEMPERATURE_UNIT = @"temperatureUnit";
+static NSString * const KEY_PRESSURE_UNIT = @"pressureUnit";
+
 @interface Property (Util)
 
-+ (NSString*) getAsString:(NSString*) name;
-+ (BOOL) getAsBoolean:(NSString*) name;
-+ (BOOL) getAsBoolean:(NSString*)name defaultValue:(BOOL)defaultValue;
-+ (NSNumber*) getAsInteger:(NSString*) name;
-+ (NSNumber*) getAsInteger:(NSString*) name defaultValue:(int)defaultValue;
-+ (NSNumber*) getAsLongLong:(NSString*) name;
-+ (NSNumber*) getAsDouble:(NSString*) name;
-+ (NSNumber*) getAsDouble:(NSString*) name defaultValue:(double)defaultValue;
-+ (NSNumber*) getAsFloat:(NSString*) name;
-+ (NSNumber*) getAsFloat:(NSString*) name defaultValue:(float)defaultValue;
-+ (NSDate*) getAsDate:(NSString*)name;
-+ (NSArray*) getAsFloatArray:(NSString*) name;
-+ (void) setAsString:(NSString*) value forKey:(NSString*) name;
-+ (void) setAsBoolean:(BOOL) value forKey:(NSString*) name;
-+ (void) setAsInteger:(NSNumber*) value forKey:(NSString*) name;
-+ (void) setAsLongLong:(NSNumber*) value forKey:(NSString*) name;
-+ (void) setAsDouble:(NSNumber*) value forKey:(NSString*) name;
-+ (void) setAsFloat:(NSNumber*) value forKey:(NSString*) name;
-+ (void) setAsDate:(NSDate*)value forKey:(NSString*)name;
-+ (void) setAsFloatArray:(NSArray*) value forKey:(NSString*) name;
++ (NSString *)getAsString:(NSString *)name;
++ (BOOL)getAsBoolean:(NSString *)name;
++ (BOOL)getAsBoolean:(NSString *)name defaultValue:(BOOL)defaultValue;
++ (NSNumber *)getAsInteger:(NSString *)name;
++ (NSNumber *)getAsInteger:(NSString *)name defaultValue:(int)defaultValue;
++ (NSNumber *)getAsLongLong:(NSString *)name;
++ (NSNumber *)getAsDouble:(NSString *)name;
++ (NSNumber *)getAsDouble:(NSString *)name defaultValue:(double)defaultValue;
++ (NSNumber *)getAsFloat:(NSString *)name;
++ (NSNumber *)getAsFloat:(NSString *)name defaultValue:(float)defaultValue;
++ (NSDate *)getAsDate:(NSString *)name;
++ (NSArray *)getAsFloatArray:(NSString *)name;
++ (void)setAsString:(NSString *)value forKey:(NSString *)name;
++ (void)setAsBoolean:(BOOL)value forKey:(NSString *)name;
++ (void)setAsInteger:(NSNumber *)value forKey:(NSString *)name;
++ (void)setAsLongLong:(NSNumber *)value forKey:(NSString *)name;
++ (void)setAsDouble:(NSNumber *)value forKey:(NSString *)name;
++ (void)setAsFloat:(NSNumber *)value forKey:(NSString *)name;
++ (void)setAsDate:(NSDate *)value forKey:(NSString *)name;
++ (void)setAsFloatArray:(NSArray *)value forKey:(NSString *)name;
 
-+ (BOOL) isMixpanelEnabled;
-+ (BOOL) isMixpanelPeopleEnabled;
-+ (void) refreshHasWindMeter;
++ (BOOL)isMixpanelEnabled;
++ (BOOL)isMixpanelPeopleEnabled;
++ (void)refreshHasWindMeter;
 
-+ (NSDictionary *) getDeviceDictionary;
++ (NSDictionary *)getDeviceDictionary;
 
 @end

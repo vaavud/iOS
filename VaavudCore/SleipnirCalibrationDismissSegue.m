@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 Andreas Okholm. All rights reserved.
 //
 
-#import "sleipnirCalibrationDismissSegue.h"
+#import "SleipnirCalibrationDismissSegue.h"
 
-@implementation sleipnirCalibrationDismissSegue
+@implementation SleipnirCalibrationDismissSegue
 
 - (void)perform {
     UIViewController *sourceViewController = self.sourceViewController;
@@ -20,8 +20,6 @@
     }
     
     [baseModalViewController dismissViewControllerAnimated:YES completion:nil];
-    
-    
 //    [sourceViewController.navigationController.presentingViewController  :YES completion:nil];
 }
 

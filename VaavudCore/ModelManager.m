@@ -16,11 +16,9 @@
 #import "MeasurementPoint.h"
 #import "AlgorithmConstantsUtil.h"
 
-@interface ModelManager() {
+@interface ModelManager()
 
-}
-
-+ (NSString*) getModel;
++ (NSString *)getModel;
 
 @end
 
@@ -29,19 +27,10 @@
 
 SHARED_INSTANCE
 
-- (id) init {
-    self = [super init];
-    
-    if (self) {
-    }
-    
-    return self;
-}
-
-- (void) initializeModel {
-    NSString* deviceUuid = [Property getAsString:KEY_DEVICE_UUID];
+- (void)initializeModel {
+    NSString *deviceUuid = [Property getAsString:KEY_DEVICE_UUID];
     if (!deviceUuid || deviceUuid == nil) {
-        NSLog(@"[ModelManager] First run ever, initializing model");
+        if (LOG_MODEL) NSLog(@"[ModelManager] First run ever, initializing model");
         
         deviceUuid = [UUIDUtil generateUUID];
         [Property setAsString:deviceUuid forKey:KEY_DEVICE_UUID];
@@ -58,7 +47,7 @@ SHARED_INSTANCE
     NSString *country = [[NSLocale currentLocale] objectForKey: NSLocaleCountryCode];
 	NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
 
-    //NSLog(@"[ModelManager] app:%@, appVersion:%@, appBuild:%@, os:%@, osVersion:%@, model:%@, deviceUuid:%@, countryCode:%@, language:%@", app, appVersion, appBuild, os, osVersion, model, deviceUuid, country, language);
+    if (LOG_MODEL) NSLog(@"[ModelManager] app:%@, appVersion:%@, appBuild:%@, os:%@, osVersion:%@, model:%@, deviceUuid:%@, countryCode:%@, language:%@", app, appVersion, appBuild, os, osVersion, model, deviceUuid, country, language);
 
     // detect changes and optionally save
     
@@ -90,14 +79,14 @@ SHARED_INSTANCE
     if ([Property getAsInteger:KEY_WIND_SPEED_UNIT] == nil) {
         // this must be the first time, since there is no wind speed unit
         NSNumber* windSpeedUnit = [NSNumber numberWithInt:[UnitUtil windSpeedUnitForCountry:country]];
-        NSLog(@"[ModelManager] No wind speed unit, guessing the preferred unit to be: %@", windSpeedUnit);
+        if (LOG_MODEL) NSLog(@"[ModelManager] No wind speed unit, guessing the preferred unit to be: %@", windSpeedUnit);
         [Property setAsInteger:windSpeedUnit forKey:KEY_WIND_SPEED_UNIT];
     }
 
     if ([Property getAsInteger:KEY_DIRECTION_UNIT] == nil) {
         // this must be the first time, since there is no direction unit
         NSNumber* directionUnit = [NSNumber numberWithInt:0];
-        NSLog(@"[ModelManager] No direction unit, setting it to: %@", directionUnit);
+        if (LOG_MODEL) NSLog(@"[ModelManager] No direction unit, setting it to: %@", directionUnit);
         [Property setAsInteger:directionUnit forKey:KEY_DIRECTION_UNIT];
     }
 
@@ -108,31 +97,31 @@ SHARED_INSTANCE
         [Property setAsInteger:[AlgorithmConstantsUtil getFFTLength:model osVersion:osVersion] forKey:KEY_FFT_LENGTH];
         [Property setAsInteger:[AlgorithmConstantsUtil getFFTDataLength:model osVersion:osVersion] forKey:KEY_FFT_DATA_LENGTH];
         [Property setAsInteger:[AlgorithmConstantsUtil getAlgorithm:model osVersion:osVersion] forKey:KEY_ALGORITHM];
-        NSLog(@"[ModelManager] Setting algorithm parameters from local detection: algorithm=%@, frequencyStart=%@, frequencyFactor=%@, fftLength=%@, fftDataLength=%@", [Property getAsInteger:KEY_ALGORITHM], [Property getAsDouble:KEY_FREQUENCY_START], [Property getAsDouble:KEY_FREQUENCY_FACTOR], [Property getAsInteger:KEY_FFT_LENGTH], [Property getAsInteger:KEY_FFT_DATA_LENGTH]);
+        if (LOG_MODEL) NSLog(@"[ModelManager] Setting algorithm parameters from local detection: algorithm=%@, frequencyStart=%@, frequencyFactor=%@, fftLength=%@, fftDataLength=%@", [Property getAsInteger:KEY_ALGORITHM], [Property getAsDouble:KEY_FREQUENCY_START], [Property getAsDouble:KEY_FREQUENCY_FACTOR], [Property getAsInteger:KEY_FFT_LENGTH], [Property getAsInteger:KEY_FFT_DATA_LENGTH]);
     }
     
     if ([Property getAsDouble:KEY_FFT_MAG_MIN] == nil) {
         [Property setAsDouble:[AlgorithmConstantsUtil getFFTMagMin:model osVersion:osVersion] forKey:KEY_FFT_MAG_MIN];
-        NSLog(@"[ModelManager] Setting algorithm parameter from local detection: fftMagMin=%@", [Property getAsDouble:KEY_FFT_MAG_MIN]);
+        if (LOG_MODEL) NSLog(@"[ModelManager] Setting algorithm parameter from local detection: fftMagMin=%@", [Property getAsDouble:KEY_FFT_MAG_MIN]);
     }
 
     if ([Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] == nil) {
         // this must be the first time, since there is no grid degree
         NSNumber* analyticsGridDegree = [NSNumber numberWithDouble:0.125];
-        NSLog(@"[ModelManager] No grid degree, defaulting to: %@", analyticsGridDegree);
+        if (LOG_MODEL) NSLog(@"[ModelManager] No grid degree, defaulting to: %@", analyticsGridDegree);
         [Property setAsDouble:analyticsGridDegree forKey:KEY_ANALYTICS_GRID_DEGREE];
     }
 
     NSArray *hourOptions = [Property getAsFloatArray:KEY_HOUR_OPTIONS];
     if (hourOptions == nil || hourOptions.count == 0) {
         hourOptions = [NSArray arrayWithObjects:[NSNumber numberWithFloat:3.0f], [NSNumber numberWithFloat:6.0f], [NSNumber numberWithFloat:12.0f], [NSNumber numberWithFloat:24.0f], nil];
-        NSLog(@"[ModelManager] No hour options, defaulting to: (%@)", [hourOptions componentsJoinedByString:@","]);
+        if (LOG_MODEL) NSLog(@"[ModelManager] No hour options, defaulting to: (%@)", [hourOptions componentsJoinedByString:@","]);
         [Property setAsFloatArray:hourOptions forKey:KEY_HOUR_OPTIONS];
     }
     
     if ([Property getAsString:KEY_ENABLE_FACEBOOK_DISCLAIMER] == nil) {
         BOOL enableFacebookDisclaimer = (arc4random_uniform(2) == 1);
-        NSLog(@"[ModelManager] No Facebook disclaimer flag, randomly choosing: %@", enableFacebookDisclaimer ? @"YES" : @"NO");
+        if (LOG_MODEL) NSLog(@"[ModelManager] No Facebook disclaimer flag, randomly choosing: %@", enableFacebookDisclaimer ? @"YES" : @"NO");
         [Property setAsBoolean:enableFacebookDisclaimer forKey:KEY_ENABLE_FACEBOOK_DISCLAIMER];
     }
     
@@ -140,9 +129,7 @@ SHARED_INSTANCE
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 
-+ (NSString*) getModel
-{
-    
++ (NSString *)getModel {
     struct utsname systemInfo;
     uname(&systemInfo);
     
@@ -185,10 +172,8 @@ SHARED_INSTANCE
     if ([sDeviceModel isEqual:@"iPad2,6"])   return @"iPadMini1GGSM";     // iPad Mini 1G (GSM)
     if ([sDeviceModel isEqual:@"iPad2,7"])   return @"iPadMini1GGSM+CDMA";// iPad Mini 1G (GSM + CDMA)
     
-    
     // if no equal is found
     return sDeviceModel;
-    
 }
 
 @end

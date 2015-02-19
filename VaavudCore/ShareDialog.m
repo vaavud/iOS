@@ -24,7 +24,7 @@
 
 @implementation ShareDialog
 
-- (id) initWithCoder:(NSCoder*)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         self.stagingFacebookImage = 0;
@@ -35,8 +35,7 @@
     return self;
 }
 
-- (void) layoutSubviews {
-    
+- (void)layoutSubviews {
     if (!self.hasLayedOut) {
         self.hasLayedOut = YES;
         self.collectionView.dataSource = self;
@@ -59,8 +58,7 @@
     [super layoutSubviews];
 }
 
-- (IBAction) okButtonTapped:(id)sender {
-
+- (IBAction)okButtonTapped:(id)sender {
     self.shouldInitiateShare = YES;
     [self.delegate startShareActivityIndicator];
     
@@ -69,12 +67,11 @@
     }
 }
 
-- (IBAction) cancelButtonTapped:(id)sender {
+- (IBAction)cancelButtonTapped:(id)sender {
     [self.delegate shareCancelled];
 }
 
-- (IBAction) pictureButtonTapped:(id)sender {
-    
+- (IBAction)pictureButtonTapped:(id)sender {
     [self.textView resignFirstResponder];
 
     if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary]) {
@@ -84,8 +81,7 @@
     }
 }
 
-- (void) actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == actionSheet.firstOtherButtonIndex) {
         [self presentImagePicker:UIImagePickerControllerSourceTypeCamera];
     }
@@ -97,7 +93,7 @@
     }
 }
 
-- (void) presentImagePicker:(UIImagePickerControllerSourceType)type {
+- (void)presentImagePicker:(UIImagePickerControllerSourceType)type {
     UIImagePickerController *imagePickController = [[UIImagePickerController alloc] init];
     imagePickController.sourceType = type;
     imagePickController.delegate = self;
@@ -105,14 +101,13 @@
     [self.delegate presentViewControllerFromShareDialog:imagePickController];
 }
 
-- (void) imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary*)info {
-
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     [self.delegate dismissViewControllerFromShareDialog];
     
     // Get the UIImage from the image picker controller
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     
-    //NSLog(@"[ShareDialog] Original size: %f x %f", image.size.width, image.size.height);
+    if (LOG_OTHER) NSLog(@"[ShareDialog] Original size: %f x %f", image.size.width, image.size.height);
     
     if (image.size.width > 1024.0F || image.size.height > 1024.0F) {
         CGSize size;
@@ -124,12 +119,12 @@
         }
         image = [ImageUtil resizeImage:image toSize:size];
 
-        //NSLog(@"[ShareDialog] Resized to: %f x %f", image.size.width, image.size.height);
+        if (LOG_OTHER) NSLog(@"[ShareDialog] Resized to: %f x %f", image.size.width, image.size.height);
     }
 
     AccountManager *accountManager = [AccountManager sharedInstance];
     [accountManager ensureSharingPermissions:^{
-        //NSLog(@"[ShareDialog] Has sharing permissions for staging image");
+        if (LOG_OTHER) NSLog(@"[ShareDialog] Has sharing permissions for staging image");
         
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
         self.stagingFacebookImage++;
@@ -145,7 +140,7 @@
             }
 
             if (!error) {
-                NSLog(@"[ShareDialog] Successfully staged image with staged URI: %@", [result objectForKey:@"uri"]);
+                if (LOG_OTHER) NSLog(@"[ShareDialog] Successfully staged image with staged URI: %@", [result objectForKey:@"uri"]);
                 
                 if (!self.imageUrls) {
                     self.imageUrls = [NSMutableArray array];
@@ -166,7 +161,7 @@
                     [self.collectionView reloadData];
                 }
             } else {
-                NSLog(@"[ShareDialog] Error staging Facebook image: %@", error);
+                if (LOG_OTHER) NSLog(@"[ShareDialog] Error staging Facebook image: %@", error);
             }
             
             if (self.shouldInitiateShare && self.stagingFacebookImage <= 0) {
@@ -175,15 +170,15 @@
         }];
         
     } failure:^{
-        NSLog(@"[ShareDialog] Couldn't get sharing permissions");
+        if (LOG_OTHER) NSLog(@"[ShareDialog] Couldn't get sharing permissions");
     }];
 }
 
-- (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
     [self.delegate dismissViewControllerFromShareDialog];
 }
 
-- (void) refreshPictureButton {
+- (void)refreshPictureButton {
     if (self.numberOfPictures >= 3) {
         self.pictureButton.enabled = NO;
     }
@@ -192,8 +187,7 @@
     }
 }
 
-- (void) shareToFacebook {
-    
+- (void)shareToFacebook {
     FBOpenGraphActionParams *params = [self createActionParams];
     id<FBOpenGraphAction> action = params.action;
     
@@ -206,7 +200,6 @@
     }
     
     if (self.imageUrls && self.imageUrls.count > 0) {
-        
         numberOfPhotos = self.imageUrls.count;
         
         int i = 0;
@@ -219,7 +212,7 @@
     
     AccountManager *accountManager = [AccountManager sharedInstance];
     [accountManager ensureSharingPermissions:^{
-        //NSLog(@"[ShareDialog] Has sharing permissions");
+        if (LOG_OTHER) NSLog(@"[ShareDialog] Has sharing permissions");
         
         [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 
@@ -231,22 +224,21 @@
 
                                          if (!error) {
                                              // Success, the restaurant has been liked
-                                             NSLog(@"[ShareDialog] Posted OG action, id: %@", [result objectForKey:@"id"]);
+                                             if (LOG_OTHER) NSLog(@"[ShareDialog] Posted OG action, id: %@", [result objectForKey:@"id"]);
                                              [self.delegate shareSuccessful:hasMessage numberOfPhotos:numberOfPhotos];
                                          } else {
-                                             NSLog(@"[ShareDialog] Failure posting to Facebook: %@", error);
+                                             if (LOG_OTHER) NSLog(@"[ShareDialog] Failure posting to Facebook: %@", error);
                                              [self.delegate shareFailure];
                                          }
                                      }];
         
     } failure:^{
-        NSLog(@"[ShareDialog] Couldn't get sharing permissions");
+        if (LOG_OTHER) NSLog(@"[ShareDialog] Couldn't get sharing permissions");
         [self.delegate shareFailure];
     }];
 }
 
-- (FBOpenGraphActionParams*) createActionParams {
-    
+- (FBOpenGraphActionParams *)createActionParams {
     NSString *objectName = @"wind_speed";
     
     id<FBGraphObject> object =
@@ -281,13 +273,13 @@
     return params;
 }
 
-- (NSInteger) numberOfSectionsInCollectionView:(UICollectionView*)collectionView {
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return 1;
 }
 
-- (NSInteger) collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     NSInteger count = (self.imageArray ? self.imageArray.count : 0);
-    //NSLog(@"[ShareDialog] Number of items: %u", count);
+    if (LOG_OTHER) NSLog(@"[ShareDialog] Number of items: %ld", (long)count);
     return count;
 }
 
@@ -303,7 +295,7 @@
     UIImageView *view = cell.contentView.subviews[0];
     [view setImage:image];
     
-    //NSLog(@"[ShareDialog] Cell for section %u, item %u, view size %f x %f", indexPath.section, indexPath.item, view.frame.size.width, view.frame.size.height);
+    if (LOG_OTHER) NSLog(@"[ShareDialog] Cell for section %ld, item %ld, view size %f x %f", (long)indexPath.section, (long)indexPath.item, view.frame.size.width, view.frame.size.height);
     
     return cell;
 }

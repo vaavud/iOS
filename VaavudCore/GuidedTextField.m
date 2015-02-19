@@ -14,7 +14,7 @@
 
 @implementation GuidedTextField
 
-- (id) initWithFrame:(CGRect)frame {
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self initSelf];
@@ -22,7 +22,7 @@
     return self;
 }
 
-- (id) initWithCoder:(NSCoder *)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self initSelf];
@@ -30,20 +30,20 @@
     return self;
 }
 
-- (void) initSelf {
+- (void)initSelf {
     [self initGuide];
 }
 
-- (void) initGuide {
+- (void)initGuide {
     self.isFirstEdit = YES;
-    self.label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+    self.label = [[UILabel alloc] initWithFrame:self.bounds];
     self.label.text = self.guideText;
     [self addSubview:self.label];
     self.label.font = [UIFont systemFontOfSize:self.font.pointSize];
     self.label.textColor = [UIColor lightGrayColor];
 }
 
-- (void) setGuideText:(NSString *)guideText {
+- (void)setGuideText:(NSString *)guideText {
     _guideText = guideText;
     self.label.text = guideText;
 }

@@ -12,8 +12,8 @@
 
 + (AgriResultComputation*) sharedInstance;
 
-- (NSNumber*) generalConsideration:(NSNumber*)temperature windSpeed:(NSNumber*)windSpeed reduceEquipment:(NSNumber*)reduceEquipment dose:(NSNumber*)dose boomHeight:(NSNumber*)boomHeight sprayQuality:(NSNumber*)sprayQuality;
+- (NSNumber *)generalConsideration:(NSNumber *)temperature windSpeed:(NSNumber *)windSpeed reduceEquipment:(NSNumber *)reduceEquipment dose:(NSNumber *)dose boomHeight:(NSNumber *)boomHeight sprayQuality:(NSNumber *)sprayQuality;
 
-- (NSNumber*) specialConsideration:(NSNumber*)temperature windSpeed:(NSNumber*)windSpeed reduceEquipment:(NSNumber*)reduceEquipment dose:(NSNumber*)dose boomHeight:(NSNumber*)boomHeight sprayQuality:(NSNumber*)sprayQuality;
+- (NSNumber *)specialConsideration:(NSNumber *)temperature windSpeed:(NSNumber *)windSpeed reduceEquipment:(NSNumber *)reduceEquipment dose:(NSNumber *)dose boomHeight:(NSNumber *)boomHeight sprayQuality:(NSNumber *)sprayQuality;
 
 @end

@@ -14,10 +14,10 @@
 @property (nonatomic) CLLocationCoordinate2D latestLocation;
 @property (nonatomic, strong) NSNumber *latestHeading;
 
-+ (LocationManager *) sharedInstance;
-+ (BOOL) isCoordinateValid:(CLLocationCoordinate2D) coordinate;
++ (LocationManager *)sharedInstance;
++ (BOOL)isCoordinateValid:(CLLocationCoordinate2D)coordinate;
 
-- (void) start;
-- (void) startIfEnabled;
+- (void)start;
+- (void)startIfEnabled;
 
 @end

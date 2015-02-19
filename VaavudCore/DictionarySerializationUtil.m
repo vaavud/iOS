@@ -10,12 +10,10 @@
 
 @implementation DictionarySerializationUtil
 
-+(NSMutableDictionary *) convertValuesToBasicTypes:(NSDictionary *)dictionary {
-
++ (NSMutableDictionary *)convertValuesToBasicTypes:(NSDictionary *)dictionary {
     NSMutableDictionary *mutableDictionary = [dictionary mutableCopy];
     
     [dictionary enumerateKeysAndObjectsUsingBlock:^(id key, id object, BOOL *stop) {
-
         // remove entries with null values
         if (object == nil || [object isKindOfClass:[NSNull class]]) {
             [mutableDictionary removeObjectForKey:key];

@@ -11,7 +11,7 @@
 
 @implementation MeasurementPoint (Util)
 
--(NSDictionary *) toDictionary {
+- (NSDictionary *)toDictionary {
     
     NSMutableDictionary *dictionary = [[self dictionaryWithValuesForKeys:[[[self entity] attributesByName] allKeys]] mutableCopy];
     

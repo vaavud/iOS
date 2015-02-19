@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="MeasurementPoint" representedClassName="MeasurementPoint" syncable="YES">
+        <attribute name="time" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="windDirection" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="windSpeed" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="session" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="MeasurementSession" inverseName="points" inverseEntity="MeasurementSession" syncable="YES"/>
+    </entity>
+    <entity name="MeasurementSession" representedClassName="MeasurementSession" syncable="YES">
+        <attribute name="boomHeight" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="device" attributeType="String" syncable="YES"/>
+        <attribute name="dose" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="endIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="endTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="generalConsideration" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="geoLocationNameLocalized" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gustiness" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="humidity" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" syncable="YES"/>
+        <attribute name="measuring" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="pressure" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="privacy" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="reduceEquipment" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="reducingEquipment" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="source" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sourcedHumidity" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="sourcedPressureGroundLevel" optional="YES" attributeType="Integer 32" syncable="YES"/>
+        <attribute name="sourcedTemperature" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="sourcedWindDirection" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="sourcedWindSpeedAvg" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="sourcedWindSpeedMax" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="specialConsideration" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="sprayQuality" optional="YES" attributeType="Integer 16" syncable="YES"/>
+        <attribute name="startIndex" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="startTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="temperature" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="testMode" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="timezoneOffset" optional="YES" attributeType="Integer 16" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="uploaded" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="uuid" attributeType="String" syncable="YES"/>
+        <attribute name="windChill" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="windDirection" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="windMeter" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="windSpeedAvg" optional="YES" attributeType="Float" syncable="YES"/>
+        <attribute name="windSpeedMax" optional="YES" attributeType="Float" syncable="YES"/>
+        <relationship name="points" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="MeasurementPoint" inverseName="session" inverseEntity="MeasurementPoint" syncable="YES"/>
+    </entity>
+    <entity name="Property" representedClassName="Property" syncable="YES">
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="value" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="MeasurementPoint" positionX="-459" positionY="-0" width="128" height="105"/>
+        <element name="MeasurementSession" positionX="-153" positionY="0" width="128" height="613"/>
+        <element name="Property" positionX="-306" positionY="0" width="128" height="75"/>
+    </elements>
+</model>

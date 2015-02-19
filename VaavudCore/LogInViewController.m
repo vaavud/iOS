@@ -31,7 +31,7 @@
 
 BOOL didShowFeedback;
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
@@ -56,16 +56,16 @@ BOOL didShowFeedback;
     }
 }
 
-- (void) crossButtonPushed {
+- (void)crossButtonPushed {
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
-        RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
+        RegisterNavigationController *registerNavigationController = (RegisterNavigationController *)self.navigationController;
         if (registerNavigationController.registerDelegate) {
             [registerNavigationController.registerDelegate cancelled:self];
         }
     }
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     if ([Property isMixpanelEnabled]) {
@@ -73,19 +73,18 @@ BOOL didShowFeedback;
     }
 }
 
-- (void) viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.alertView.delegate = nil;
     [AccountManager sharedInstance].delegate = nil;
 }
 
-- (void) createRegisterButton {
+- (void)createRegisterButton {
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPushed)];
     self.navigationItem.rightBarButtonItem.enabled = (self.emailTextField.text.length > 0 && self.passwordTextField.text.length > 0);
 }
 
-- (void) doneButtonPushed {
-    
+- (void)doneButtonPushed {
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
@@ -105,7 +104,6 @@ BOOL didShowFeedback;
             }
         }
     } failure:^(enum AuthenticationResponseType response) {
-
         if ([Property isMixpanelEnabled]) {
             [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": [NSNumber numberWithInt:response], @"Screen": @"Login", @"Method": @"Password"}];
         }
@@ -130,12 +128,11 @@ BOOL didShowFeedback;
     }];
 }
 
-- (IBAction) facebookButtonPushed:(id)sender {
+- (IBAction)facebookButtonPushed:(id)sender {
     [self facebookButtonPushed:sender password:nil];
 }
 
-- (void) facebookButtonPushed:(id)sender password:(NSString*)password {
-    
+- (void)facebookButtonPushed:(id)sender password:(NSString *)password {
     [self.activityIndicator startAnimating];
     [self.facebookButton setTitle:@"" forState:UIControlStateNormal];
 
@@ -145,8 +142,7 @@ BOOL didShowFeedback;
     [accountManager registerWithFacebook:password action:AuthenticationActionLogin];
 }
 
-- (void) facebookAuthenticationSuccess:(enum AuthenticationResponseType)response {
-
+- (void)facebookAuthenticationSuccess:(enum AuthenticationResponseType)response {
     [self.activityIndicator stopAnimating];
     [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
     
@@ -158,9 +154,11 @@ BOOL didShowFeedback;
     }
 }
 
-- (void) facebookAuthenticationFailure:(enum AuthenticationResponseType)response message:(NSString*)message displayFeedback:(BOOL)displayFeedback {
+- (void)facebookAuthenticationFailure:(enum AuthenticationResponseType)response
+                              message:(NSString *)message
+                      displayFeedback:(BOOL)displayFeedback {
 
-    NSLog(@"[LogInViewController] error registering user, response=%lu, message=%@, displayFeedback=%@", response, message, (displayFeedback ? @"YES" : @"NO"));
+    if (LOG_OTHER) NSLog(@"[LogInViewController] error registering user, response=%lu, message=%@, displayFeedback=%@", response, message, (displayFeedback ? @"YES" : @"NO"));
     
     [self.activityIndicator stopAnimating];
     [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
@@ -192,8 +190,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (void) changedEmptiness:(UITextField*)textField isEmpty:(BOOL)isEmpty {
-
+- (void)changedEmptiness:(UITextField *)textField isEmpty:(BOOL)isEmpty {
     UITextField *otherTextField = (textField == self.emailTextField) ? self.passwordTextField : self.emailTextField;
     if (!otherTextField) {
         return;
@@ -206,7 +203,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (BOOL) textFieldShouldReturn:(UITextField *)textField {
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
 
     if (self.emailTextField.text.length > 0 && self.passwordTextField.text.length > 0) {
         [self doneButtonPushed];
@@ -220,10 +217,8 @@ BOOL didShowFeedback;
     return YES;
 }
 
-- (void) showMessage:(NSString *)text withTitle:(NSString *)title {
-
+- (void)showMessage:(NSString *)text withTitle:(NSString *)title {
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-        
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
                                                                                  message:text
                                                                           preferredStyle:UIAlertControllerStyleAlert];
@@ -243,10 +238,8 @@ BOOL didShowFeedback;
     }
 }
 
-- (void) promptForPassword {
-
+- (void)promptForPassword {
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-        
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE", nil)
                                                                                  message:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_PROVIDE_PASSWORD", nil)
                                                                           preferredStyle:UIAlertControllerStyleAlert];
@@ -282,7 +275,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex != alertView.cancelButtonIndex) {
         UITextField *passwordTextField = [alertView textFieldAtIndex:0];
         if (passwordTextField && passwordTextField.text.length > 0) {
@@ -291,7 +284,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (BOOL) alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView {
+- (BOOL)alertViewShouldEnableFirstOtherButton:(UIAlertView *)alertView {
     UITextField *passwordTextField = [alertView textFieldAtIndex:0];
     if (passwordTextField && passwordTextField.text.length > 0) {
         return YES;
@@ -299,7 +292,7 @@ BOOL didShowFeedback;
     return NO;
 }
 
-- (void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     self.alertView = nil;
 }
 
@@ -307,15 +300,15 @@ BOOL didShowFeedback;
     return UIInterfaceOrientationMaskAll;
 }
 
-- (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
     GuidedTextField *guidedTextField = (GuidedTextField*) textField;
     if (!guidedTextField) {
         return YES;
     }
     
-    NSRange textFieldRange = NSMakeRange(0, [textField.text length]);
-    if ((NSEqualRanges(range, textFieldRange) && [string length] == 0) || (textField.secureTextEntry && guidedTextField.isFirstEdit && range.location > 0 && range.length == 1 && string.length == 0)) {
+    NSRange textFieldRange = NSMakeRange(0, textField.text.length);
+    if ((NSEqualRanges(range, textFieldRange) && string.length == 0) || (textField.secureTextEntry && guidedTextField.isFirstEdit && range.location > 0 && range.length == 1 && string.length == 0)) {
         if (guidedTextField.label.hidden) {
             guidedTextField.label.hidden = NO;
             [self changedEmptiness:textField isEmpty:YES];
@@ -333,10 +326,10 @@ BOOL didShowFeedback;
     return YES;
 }
 
-- (BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
-
-    GuidedTextField *guidedTextField = (GuidedTextField*) textField;
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    GuidedTextField *guidedTextField = (GuidedTextField *)textField;
     guidedTextField.isFirstEdit = YES;
+    
     return YES;
 }
 

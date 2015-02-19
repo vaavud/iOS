@@ -10,6 +10,6 @@
 
 @interface Terms : NSObject
 
-+ (NSString*)getTermsOfService;
++ (NSString *)getTermsOfService;
 
 @end

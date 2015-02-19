@@ -23,11 +23,11 @@
 
 SHARED_INSTANCE
 
-+ (BOOL) isCoordinateValid:(CLLocationCoordinate2D) coordinate {
++ (BOOL)isCoordinateValid:(CLLocationCoordinate2D)coordinate {
     return CLLocationCoordinate2DIsValid(coordinate) && !(coordinate.latitude == 0.0 && coordinate.longitude == 0.0);
 }
 
-- (id) init {
+- (id)init {
     self = [super init];
     
     if (self) {
@@ -38,18 +38,18 @@ SHARED_INSTANCE
     return self;
 }
 
-- (void) appWillResignActive:(NSNotification*) notification {
+- (void)appWillResignActive:(NSNotification *)notification {
     //NSLog(@"[LocationManager] appWillResignActive");
     [self stop];
 }
 
-- (void) appDidBecomeActive:(NSNotification*) notification {
+- (void)appDidBecomeActive:(NSNotification *)notification {
     //NSLog(@"[LocationManager] appDidBecomeActive");
     [self doStart];
 }
 
--(void) appWillTerminate:(NSNotification*) notification {
-    NSLog(@"[LocationManager] appWillTerminate");
+- (void)appWillTerminate:(NSNotification *)notification {
+    if (LOG_LOCATION) NSLog(@"[LocationManager] appWillTerminate");
     if (self.isStarted) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -57,22 +57,21 @@ SHARED_INSTANCE
     }
 }
 
-- (void) startIfEnabled {
+- (void)startIfEnabled {
     self.shouldPromptForPermission = NO;
     [self doStart];
 }
 
-- (void) start {
+- (void)start {
     self.shouldPromptForPermission = YES;
     [self doStart];
 }
 
-- (void) doStart {
+- (void)doStart {
     if (!self.isStarted) {
-        
         CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
         
-        NSLog(@"[LocationManager] Authorization status is %u", authorizationStatus);
+      if (LOG_LOCATION) NSLog(@"[LocationManager] Authorization status is %u", authorizationStatus);
         
         if (authorizationStatus == kCLAuthorizationStatusRestricted || authorizationStatus == kCLAuthorizationStatusDenied) {
             self.latestLocation = CLLocationCoordinate2DMake(0, 0);
@@ -85,36 +84,29 @@ SHARED_INSTANCE
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
             self.locationManager.distanceFilter = kCLDistanceFilterNone;
         }
-
+        
         if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-            
             if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
-                
                 if (self.shouldPromptForPermission) {
-                    NSLog(@"[LocationManager] Request when-in-use location authorization");
+                  if (LOG_LOCATION) NSLog(@"[LocationManager] Request when-in-use location authorization");
                     [self.locationManager requestWhenInUseAuthorization];
                 }
             }
-            else {
-                if ([CLLocationManager locationServicesEnabled]) {
-                    [self startUpdating];
-                }
-            }
-        }
-        else {
-            if ([CLLocationManager locationServicesEnabled] &&
-                (authorizationStatus != kCLAuthorizationStatusNotDetermined || self.shouldPromptForPermission)) {
-                
+            else if ([CLLocationManager locationServicesEnabled]) {
                 [self startUpdating];
             }
+        }
+        else if ([CLLocationManager locationServicesEnabled] &&
+                 (authorizationStatus != kCLAuthorizationStatusNotDetermined || self.shouldPromptForPermission)) {
+            
+            [self startUpdating];
         }
     }
 }
 
-- (void) startUpdating {
-
-    NSLog(@"[LocationManager] Starting location updates");
-
+- (void)startUpdating {
+  if (LOG_LOCATION) NSLog(@"[LocationManager] Starting location updates");
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
@@ -124,18 +116,17 @@ SHARED_INSTANCE
     self.isStarted = YES;
 }
 
-- (void) locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    
-    NSLog(@"[LocationManager] Changed authorization status to %u", status);
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+  if (LOG_LOCATION) NSLog(@"[LocationManager] Changed authorization status to %u", status);
     
     if (status != kCLAuthorizationStatusRestricted && status != kCLAuthorizationStatusDenied && status != kCLAuthorizationStatusNotDetermined) {
         [self startUpdating];
     }
 }
 
-- (void) stop {
+- (void)stop {
     if (self.isStarted) {
-        NSLog(@"[LocationManager] Stopping location updates");
+      if (LOG_LOCATION) NSLog(@"[LocationManager] Stopping location updates");
         [self.locationManager stopUpdatingLocation];
         [self.locationManager stopUpdatingHeading];
         self.latestHeading = nil;
@@ -144,23 +135,20 @@ SHARED_INSTANCE
 }
 
 // for iOS6
-- (void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    
-    CLLocation* location = [locations lastObject];
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    CLLocation *location = [locations lastObject];
     [self updateLocation:location];
 }
 
 // for iOS5
-- (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
     [self updateLocation:newLocation];
 }
 
-- (void) updateLocation:(CLLocation*) location {
-    NSDate* eventDate = location.timestamp;
+- (void)updateLocation:(CLLocation *)location {
+    NSDate *eventDate = location.timestamp;
     NSTimeInterval howRecent = [eventDate timeIntervalSinceNow];
     if (abs(howRecent) < 15.0 /* seconds */) {
-        
         //NSLog(@"[LocationManager] Got latitude %+.6f, longitude %+.6f\n", location.coordinate.latitude, location.coordinate.longitude);
         
         self.latestLocation = location.coordinate;
@@ -168,11 +156,11 @@ SHARED_INSTANCE
     }    
 }
 
-- (void) locationManager:(CLLocationManager*)manager didUpdateHeading:(CLHeading*)newHeading {
+- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
     self.latestHeading = [NSNumber numberWithDouble:newHeading.trueHeading];
 }
 
-- (CLLocationCoordinate2D) latestLocation {
+- (CLLocationCoordinate2D)latestLocation {
     NSTimeInterval howRecent = [self.latestLocationTimestamp timeIntervalSinceNow];
     if (abs(howRecent) < 60.0 /* seconds */) {
         //NSLog(@"[LocationManager] returning latest location: latitude %+.6f, longitude %+.6f\n", _latestLocation.latitude, _latestLocation.longitude);

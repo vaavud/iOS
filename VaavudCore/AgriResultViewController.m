@@ -13,6 +13,7 @@
 #import "Mixpanel.h"
 #import "ServerUploadManager.h"
 #import "AgriResultComputation.h"
+#import "AgriSummaryViewController.h"
 
 @interface AgriResultViewController ()
 
@@ -51,7 +52,7 @@
 
 @implementation AgriResultViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
@@ -95,11 +96,11 @@
     self.saveButton.backgroundColor = vaavudColor;
 }
 
-- (NSUInteger) supportedInterfaceOrientations {
+- (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
@@ -111,7 +112,7 @@
         self.directionUnit = directionUnit;
     }
 
-    if (self.measurementSession && self.measurementSession.reduceEquipment && ([self.measurementSession.reduceEquipment intValue] > 0)) {
+    if (self.measurementSession.reduceEquipment && ([self.measurementSession.reduceEquipment intValue] > 0)) {
         [self setSelectedReducingEquipment:self.measurementSession.reduceEquipment];
     }
     else {
@@ -125,22 +126,21 @@
         [self setSelectedDose:[Property getAsFloat:KEY_AGRI_DEFAULT_DOSE defaultValue:0.25F]];
     }
     
-    if (self.measurementSession && self.measurementSession.boomHeight && ([self.measurementSession.boomHeight intValue] > 0)) {
+    if (self.measurementSession.boomHeight && ([self.measurementSession.boomHeight intValue] > 0)) {
         [self setSelectedBoomHeight:self.measurementSession.boomHeight];
     }
     else {
         [self setSelectedBoomHeight:[Property getAsInteger:KEY_AGRI_DEFAULT_BOOM_HEIGHT defaultValue:25]];
     }
     
-    if (self.measurementSession && self.measurementSession.sprayQuality && ([self.measurementSession.sprayQuality intValue] > 0)) {
+    if (self.measurementSession.sprayQuality && ([self.measurementSession.sprayQuality intValue] > 0)) {
         [self setSelectedSprayQuality:self.measurementSession.sprayQuality];
     }
     else {
         [self setSelectedSprayQuality:[Property getAsInteger:KEY_AGRI_DEFAULT_SPRAY_QUALITY defaultValue:1]];
     }
     
-    if (self.measurementSession && self.measurementSession.startTime) {
-        
+    if (self.measurementSession.startTime) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.timeStyle = NSDateFormatterShortStyle;
         dateFormatter.dateStyle = NSDateFormatterMediumStyle;
@@ -155,7 +155,7 @@
     [self updateComputedValues];
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
     if ([Property isMixpanelEnabled]) {
@@ -163,8 +163,7 @@
     }
 }
 
-- (void) updateMeasuredValues {
-    
+- (void)updateMeasuredValues {
     if (self.measurementSession && self.measurementSession.windSpeedAvg && !isnan([self.measurementSession.windSpeedAvg doubleValue])) {
         self.averageLabel.text = [self formatValue:[UnitUtil displayWindSpeedFromDouble:[self.measurementSession.windSpeedAvg doubleValue] unit:self.windSpeedUnit]];
     }
@@ -172,7 +171,7 @@
         self.averageLabel.text = @"-";
     }
     
-    if (self.measurementSession && self.measurementSession.windDirection && !isnan([self.measurementSession.windDirection doubleValue])) {
+    if (self.measurementSession.windDirection && !isnan([self.measurementSession.windDirection doubleValue])) {
         
             if (self.directionUnit == 0) {
                 self.directionLabel.text = [UnitUtil displayNameForDirection:self.measurementSession.windDirection];
@@ -199,26 +198,25 @@
         }
     }
     
-    if (self.measurementSession && self.measurementSession.temperature && [self.measurementSession.temperature floatValue] > 0.0) {
-        self.temperatureLabel.text = [self formatValue:[self.measurementSession.temperature floatValue] - KELVIN_TO_CELCIUS];
+    if (self.measurementSession.sourcedTemperature && [self.measurementSession.sourcedTemperature floatValue] > 0.0) {
+        self.temperatureLabel.text = [self formatValue:[self.measurementSession.sourcedTemperature floatValue] - KELVIN_TO_CELCIUS];
     }
     else {
         self.temperatureLabel.text = @"-";
     }
 }
 
-- (void) updateComputedValues {
-    
+- (void)updateComputedValues {
     if (self.measurementSession && self.measurementSession.windSpeedAvg && !isnan([self.measurementSession.windSpeedAvg doubleValue])
-                                && self.measurementSession.temperature && [self.measurementSession.temperature floatValue] > 0.0) {
+                                && self.measurementSession.sourcedTemperature && [self.measurementSession.sourcedTemperature floatValue] > 0.0) {
 
         NSNumber *reduceEquipment = [self getReducingEquipmentValue];
         NSNumber *dose = [self getDoseValue];
         NSNumber *boomHeight = [self getBoomHeightValue];
         NSNumber *sprayQuality = [self getSprayQualityValue];
         
-        self.generalDistance = [[AgriResultComputation sharedInstance] generalConsideration:self.measurementSession.temperature windSpeed:self.measurementSession.windSpeedAvg reduceEquipment:reduceEquipment dose:dose boomHeight:boomHeight sprayQuality:sprayQuality];
-        self.specialDistance = [[AgriResultComputation sharedInstance] specialConsideration:self.measurementSession.temperature windSpeed:self.measurementSession.windSpeedAvg reduceEquipment:reduceEquipment dose:dose boomHeight:boomHeight sprayQuality:sprayQuality];
+        self.generalDistance = [[AgriResultComputation sharedInstance] generalConsideration:self.measurementSession.sourcedTemperature windSpeed:self.measurementSession.windSpeedAvg reduceEquipment:reduceEquipment dose:dose boomHeight:boomHeight sprayQuality:sprayQuality];
+        self.specialDistance = [[AgriResultComputation sharedInstance] specialConsideration:self.measurementSession.sourcedTemperature windSpeed:self.measurementSession.windSpeedAvg reduceEquipment:reduceEquipment dose:dose boomHeight:boomHeight sprayQuality:sprayQuality];
         
         if (self.generalDistance && self.specialDistance && [self.generalDistance intValue] > 0 && [self.specialDistance intValue] > 0) {
             self.generalDistanceLabel.text = [self.generalDistance stringValue];
@@ -237,7 +235,7 @@
     }
 }
 
-- (NSString*) formatValue:(double)value {
+- (NSString *)formatValue:(double)value {
     if (value > 100.0) {
         return [NSString stringWithFormat: @"%.0f", value];
     }
@@ -246,8 +244,7 @@
     }
 }
 
-- (void) setSelectedReducingEquipment:(NSNumber*)reduceEquipment {
-    
+- (void)setSelectedReducingEquipment:(NSNumber *)reduceEquipment {
     if (reduceEquipment) {
         int reducingEquipmentInt = [reduceEquipment intValue];
         if (reducingEquipmentInt == 1) {
@@ -263,7 +260,7 @@
             self.reducingEquipmentSegmentControl.selectedSegmentIndex = 3;
         }
         else {
-            NSLog(@"[AgriResultViewController] ERROR: Unsupported reducing equipment %d setting UI", reducingEquipmentInt);
+            if (LOG_AGRI) NSLog(@"[AgriResultViewController] ERROR: Unsupported reducing equipment %d setting UI", reducingEquipmentInt);
             self.reducingEquipmentSegmentControl.selectedSegmentIndex = 0;
         }
     }
@@ -272,8 +269,7 @@
     }
 }
 
-- (void) setSelectedDose:(NSNumber*)dose {
-    
+- (void)setSelectedDose:(NSNumber *)dose {
     if (dose) {
         float doseFloat = [dose floatValue];
         if (doseFloat == 0.25) {
@@ -286,7 +282,7 @@
             self.doseSegmentControl.selectedSegmentIndex = 2;
         }
         else {
-            NSLog(@"[AgriResultViewController] ERROR: Unsupported dose %f setting UI", doseFloat);
+            if (LOG_AGRI) NSLog(@"[AgriResultViewController] ERROR: Unsupported dose %f setting UI", doseFloat);
             self.doseSegmentControl.selectedSegmentIndex = 0;
         }
     }
@@ -295,8 +291,7 @@
     }
 }
 
-- (void) setSelectedBoomHeight:(NSNumber*)boomHeight {
-    
+- (void)setSelectedBoomHeight:(NSNumber*)boomHeight {
     if (boomHeight) {
         int boomHeightInt = [boomHeight intValue];
         if (boomHeightInt == 25) {
@@ -309,7 +304,7 @@
             self.boomHeightSegmentControl.selectedSegmentIndex = 2;
         }
         else {
-            NSLog(@"[AgriResultViewController] ERROR: Unsupported boom height %d setting UI", boomHeightInt);
+            if (LOG_AGRI) NSLog(@"[AgriResultViewController] ERROR: Unsupported boom height %d setting UI", boomHeightInt);
             self.boomHeightSegmentControl.selectedSegmentIndex = 0;
         }
     }
@@ -318,8 +313,7 @@
     }
 }
 
-- (void) setSelectedSprayQuality:(NSNumber*)sprayQuality {
-    
+- (void)setSelectedSprayQuality:(NSNumber *)sprayQuality {
     if (sprayQuality) {
         int sprayQualityInt = [sprayQuality intValue];
         if (sprayQualityInt == 1) {
@@ -332,7 +326,7 @@
             self.sprayQualitySegmentControl.selectedSegmentIndex = 2;
         }
         else {
-            NSLog(@"[AgriResultViewController] ERROR: Unsupported spray quality %d setting UI", sprayQualityInt);
+            if (LOG_AGRI) NSLog(@"[AgriResultViewController] ERROR: Unsupported spray quality %d setting UI", sprayQualityInt);
             self.sprayQualitySegmentControl.selectedSegmentIndex = 0;
         }
     }
@@ -341,98 +335,89 @@
     }
 }
 
-- (IBAction) reducingEquipmentValueChanged:(id)sender {
-
+- (IBAction)reducingEquipmentValueChanged:(id)sender {
     [Property setAsInteger:[self getReducingEquipmentValue] forKey:KEY_AGRI_DEFAULT_REDUCING_EQUIPMENT];
     [self updateComputedValues];
 }
 
-- (NSNumber*) getReducingEquipmentValue {
-    
+- (NSNumber *)getReducingEquipmentValue {
     switch (self.reducingEquipmentSegmentControl.selectedSegmentIndex) {
         case 0:
-            return [NSNumber numberWithInt:1];
+            return @1;
         case 1:
-            return [NSNumber numberWithInt:2];
+            return @2;
         case 2:
-            return [NSNumber numberWithInt:3];
+            return @3;
         case 3:
-            return [NSNumber numberWithInt:4];
+            return @4;
         default:
-            NSLog(@"[AgriResultViewController] ERROR: Unknown reducing equipment selected segment index %ld", self.reducingEquipmentSegmentControl.selectedSegmentIndex);
-            return [NSNumber numberWithInt:1];
+            if (LOG_AGRI) NSLog(@"[AgriResultViewController] ERROR: Unknown reducing equipment selected segment index %ld", (long)self.reducingEquipmentSegmentControl.selectedSegmentIndex);
+            return @1;
     }
 }
 
-- (IBAction) doseSegmentControlValueChanged:(id)sender {
-    
+- (IBAction)doseSegmentControlValueChanged:(id)sender {
     [Property setAsFloat:[self getDoseValue] forKey:KEY_AGRI_DEFAULT_DOSE];
     [self updateComputedValues];
 }
 
-- (NSNumber*) getDoseValue {
-    
+- (NSNumber *)getDoseValue {
     switch (self.doseSegmentControl.selectedSegmentIndex) {
         case 0:
-            return [NSNumber numberWithFloat:0.25];
+            return @0.25f;
         case 1:
-            return [NSNumber numberWithFloat:0.5];
+            return @0.5f;
         case 2:
-            return [NSNumber numberWithFloat:1.0];
+            return @1.0f;
         default:
-            NSLog(@"[AgriResultViewController] ERROR: Unknown dose selected segment index %ld", self.doseSegmentControl.selectedSegmentIndex);
-            return [NSNumber numberWithFloat:1.0];
+            if (LOG_AGRI) NSLog(@"[AgriResultViewController] ERROR: Unknown dose selected segment index %ld", (long)self.doseSegmentControl.selectedSegmentIndex);
+            return @1.0f;
     }
 }
 
-- (IBAction) boomHeightValueChanged:(id)sender {
-
+- (IBAction)boomHeightValueChanged:(id)sender {
     [Property setAsInteger:[self getBoomHeightValue] forKey:KEY_AGRI_DEFAULT_BOOM_HEIGHT];
     [self updateComputedValues];
 }
 
-- (NSNumber*) getBoomHeightValue {
-    
+- (NSNumber *)getBoomHeightValue {
     switch (self.boomHeightSegmentControl.selectedSegmentIndex) {
         case 0:
-            return [NSNumber numberWithInt:25];
+            return @25;
         case 1:
-            return [NSNumber numberWithInt:40];
+            return @40;
         case 2:
-            return [NSNumber numberWithInt:60];
+            return @60;
         default:
-            NSLog(@"[AgriResultViewController] ERROR: Unknown boom height selected segment index %ld", self.boomHeightSegmentControl.selectedSegmentIndex);
-            return [NSNumber numberWithInt:60];
+            if (LOG_AGRI) NSLog(@"[AgriResultViewController] ERROR: Unknown boom height selected segment index %ld", (long)self.boomHeightSegmentControl.selectedSegmentIndex);
+            return @60;
     }
 }
 
-- (IBAction) sprayQualityValueChanged:(id)sender {
+- (IBAction)sprayQualityValueChanged:(id)sender {
 
     [Property setAsInteger:[self getSprayQualityValue] forKey:KEY_AGRI_DEFAULT_SPRAY_QUALITY];
     [self updateComputedValues];
 }
 
-- (NSNumber*) getSprayQualityValue {
-    
+- (NSNumber *)getSprayQualityValue {
     switch (self.sprayQualitySegmentControl.selectedSegmentIndex) {
         case 0:
-            return [NSNumber numberWithInt:1];
+            return @1;
         case 1:
-            return [NSNumber numberWithInt:2];
+            return @2;
         case 2:
-            return [NSNumber numberWithInt:3];
+            return @3;
         default:
-            NSLog(@"[AgriResultViewController] ERROR: Unknown spray quality selected segment index %ld", self.sprayQualitySegmentControl.selectedSegmentIndex);
-            return [NSNumber numberWithInt:3];
+            if (LOG_AGRI) NSLog(@"[AgriResultViewController] ERROR: Unknown spray quality selected segment index %ld", (long)self.sprayQualitySegmentControl.selectedSegmentIndex);
+            return @3;
     }
 }
 
-- (IBAction) saveButtonPushed:(id)sender {
-    
+- (IBAction)saveButtonPushed:(id)sender {
     NSMutableString *summary = [NSMutableString string];
     
     if (self.measurementSession) {
-        
         if (self.measurementSession.windSpeedAvg && !isnan([self.measurementSession.windSpeedAvg doubleValue]) && self.averageLabel.text) {
             if (summary.length > 0) {
                 [summary appendString:@"\n"];
@@ -447,7 +432,7 @@
             [summary appendFormat:@"%@: %@", NSLocalizedString(@"HEADING_WIND_DIRECTION", nil), self.directionLabel.text];
         }
         
-        if (self.measurementSession.temperature && ([self.measurementSession.temperature floatValue] > 0.0F) && self.temperatureLabel) {
+        if (self.measurementSession.sourcedTemperature && ([self.measurementSession.sourcedTemperature floatValue] > 0.0F) && self.temperatureLabel) {
             if (summary.length > 0) {
                 [summary appendString:@"\n"];
             }
@@ -473,7 +458,6 @@
     }
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-        
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:NSLocalizedString(@"AGRI_RESULT_CONFIRM_SAVE_TITLE", nil)
                                                                                  message:summary
                                                                           preferredStyle:UIAlertControllerStyleAlert];
@@ -486,13 +470,12 @@
         [alertController addAction:[UIAlertAction actionWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
                                                             style:UIAlertActionStyleDefault
                                                           handler:^(UIAlertAction *action) {
-                                                              [self performSave];
+                                                              [self saveAndShowSummary];
                                                           }]];
         
         [self presentViewController:alertController animated:YES completion:nil];
     }
     else {
-        
         [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"AGRI_RESULT_CONFIRM_SAVE_TITLE", nil)
                                     message:summary
                                    delegate:self
@@ -501,33 +484,45 @@
     }
 }
 
-- (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex != alertView.cancelButtonIndex) {
-        [self performSave];
+        [self saveAndShowSummary];
     }
 }
 
-- (void) performSave {
-    
+- (void)saveAndShowSummary {
+    [self performSave];
+    [self performSegueWithIdentifier:@"showSummaryAfterSaveSegue" sender:self];
+}
+
+- (void)performSave {
     if (self.measurementSession) {
-        
         self.measurementSession.reduceEquipment = [self getReducingEquipmentValue];
         self.measurementSession.dose = [self getDoseValue];
         self.measurementSession.boomHeight = [self getBoomHeightValue];
         self.measurementSession.sprayQuality = [self getSprayQualityValue];
         self.measurementSession.generalConsideration = self.generalDistance;
         self.measurementSession.specialConsideration = self.specialDistance;
-        self.measurementSession.uploaded = [NSNumber numberWithBool:NO];
+        self.measurementSession.uploaded = @NO;
+                
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
         
         [[ServerUploadManager sharedInstance] triggerUpload];
-        
-        if ([self.navigationController.viewControllers[0] isKindOfClass:[AgriMeasureViewController class]]) {
-            
-            AgriMeasureViewController *measureController = self.navigationController.viewControllers[0];
-            [measureController reset];
-            [self.navigationController popToViewController:measureController animated:YES];
-        }
+    }
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    UIViewController *controller = [segue destinationViewController];
+    if ([controller isKindOfClass:[AgriSummaryViewController class]]) {
+        AgriSummaryViewController *summary = (AgriSummaryViewController *)controller;
+        summary.measurementSession = self.measurementSession;
+        summary.navigationItem.hidesBackButton = YES;
+
+        UIBarButtonItem *button = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"BUTTON_OK", nil)
+                                                                   style:UIBarButtonItemStyleDone
+                                                                  target:summary
+                                                                  action:@selector(popToMeasure:)];
+        summary.navigationItem.rightBarButtonItem = button;
     }
 }
 

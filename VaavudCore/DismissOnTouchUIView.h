@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol DismissOnTouchUIViewDelegate <NSObject>
-- (void) dismissOverlayView;
+- (void)dismissOverlayView;
 @end
 
 @interface DismissOnTouchUIView : UIView

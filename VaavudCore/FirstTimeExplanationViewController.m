@@ -20,13 +20,14 @@
 
 @implementation FirstTimeExplanationViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     self.hasClickedBuy = NO;
     
     UIImage *image = [UIImage imageNamed:self.imageName];
     self.imageView.image = image;
+    self.topExplanationLabel.textColor = self.topExplanationColor;
     self.topExplanationLabel.text = self.topExplanationText;
     self.explanationLabel.text = self.explanationText;
     
@@ -78,7 +79,7 @@
     }
 }
 
-- (void) appDidBecomeActive:(NSNotification*) notification {
+- (void)appDidBecomeActive:(NSNotification *)notification {
     //NSLog(@"appDidBecomeActive, hasClickedBuy=%@, currentPageId=%u", self.hasClickedBuy ? @"YES" : @"NO", self.pageId);
     if (self.hasClickedBuy && self.pageId == 4) {
         [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -88,12 +89,12 @@
     }
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 
     if ([Property isMixpanelEnabled]) {
         if (self.pageId == 4) {
-            [[Mixpanel sharedInstance] track:self.mixpanelScreen properties:@{@"Borderless Later Button": self.bottomButtonIsTransparent ? @"true" : @"false"}];
+            [[Mixpanel sharedInstance] track:self.mixpanelScreen properties:@{@"Borderless Later Button" : self.bottomButtonIsTransparent ? @"true" : @"false"}];
         }
         else {
             [[Mixpanel sharedInstance] track:self.mixpanelScreen];
@@ -102,7 +103,6 @@
 }
 
 - (IBAction)topButtonPushed:(id)sender {
-    
     if (self.delegate) {
         [self.delegate topButtonPushedOnController:self];
     }
@@ -113,14 +113,12 @@
 }
 
 - (IBAction)bottomButtonPushed:(id)sender {
-
     if (self.delegate) {
         [self.delegate bottomButtonPushedOnController:self];
     }
 }
 
 - (IBAction)tinyButtonPushed:(id)sender {
-
     if (self.delegate) {
         [self.delegate tinyButtonPushedOnController:self];
     }

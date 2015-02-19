@@ -16,7 +16,7 @@
 
 @implementation NoHistoryArrowView
 
-- (void) drawRect:(CGRect)rect {
+- (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
     CGContextSetLineWidth(context, 1.0);
     CGContextSetStrokeColorWithColor(context, [UIColor vaavudColor].CGColor);

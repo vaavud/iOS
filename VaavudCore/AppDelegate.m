@@ -29,7 +29,7 @@
 
 @implementation AppDelegate
 
-- (BOOL) application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     //NSLog(@"[AppDelegate] didFinishLaunchingWithOptions");
     
@@ -93,21 +93,34 @@
 #elif CORE
     
     // CORE VAAVUD APP
+    NSString *vcName;
     
     if ([Property getAsBoolean:KEY_HAS_SEEN_INTRO_FLOW defaultValue:NO]) {
-        
-        // normal case...
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        viewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+        // Not a new user
+        if (LOG_INTRO) NSLog(@"KEY_HAS_SEEN_INTRO_FLOW");
+
+        if ([Property getAsBoolean:KEY_HAS_SEEN_UPGRADE_FLOW defaultValue:NO]) {
+            // Has seen upgrade flow
+            if (LOG_INTRO) NSLog(@"KEY_HAS_SEEN_UPGRADE_FLOW");
+            vcName = @"TabBarController";
+        }
+        else {
+            // Has not seen upgrade flow
+            if (LOG_INTRO) NSLog(@"not KEY_HAS_SEEN_UPGRADE_FLOW");
+            vcName = @"UpgradingUserViewController";
+        }
     }
     else {
-        
-        // first-time case...
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        viewController = [storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
+        // Has not seen intro flow so we will show it now
+        if (LOG_INTRO) NSLog(@"not KEY_HAS_SEEN_INTRO_FLOW");
+
+        // No need to ever show upgrade flow
+        [Property setAsBoolean:YES forKey:KEY_HAS_SEEN_UPGRADE_FLOW];
+        vcName = @"FirstTimeFlowController";
     }
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    viewController = [storyboard instantiateViewControllerWithIdentifier:vcName];
 
 #endif
     
@@ -117,16 +130,16 @@
     return YES;
 }
 							
-- (void) applicationWillResignActive:(UIApplication*)application {
+- (void)applicationWillResignActive:(UIApplication *)application {
 }
 
-- (void) applicationDidEnterBackground:(UIApplication*)application {
+- (void)applicationDidEnterBackground:(UIApplication *)application {
 }
 
-- (void) applicationWillEnterForeground:(UIApplication*)application {
+- (void)applicationWillEnterForeground:(UIApplication *)application {
 }
 
-- (void) applicationDidBecomeActive:(UIApplication*)application {
+- (void)applicationDidBecomeActive:(UIApplication *)application {
     [FBAppCall handleDidBecomeActive];
     
     if ([Property isMixpanelEnabled]) {
@@ -181,17 +194,12 @@
     }
 }
 
-- (void) applicationWillTerminate:(UIApplication*)application {
+- (void)applicationWillTerminate:(UIApplication *)application {
 }
 
-- (BOOL) application:(UIApplication*)application openURL:(NSURL*)url sourceApplication:(NSString*)sourceApplication annotation:(id)annotation {
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     if ([url.scheme isEqualToString:@"vaavud"]) {
-        NSLog(@"url recieved: %@", url);
-        NSLog(@"query string: %@", [url query]);
-        NSLog(@"host: %@", [url host]);
-        NSLog(@"url path: %@", [url path]);
         NSDictionary *dict = [QueryStringUtil parseQueryString:[url query]];
-        NSLog(@"query dict: %@", dict);
         
         self.xCallbackSuccess = nil;
         
@@ -217,8 +225,7 @@
     return YES;
 }
 
-- (void) userAuthenticated:(BOOL)isSignup viewController:(UIViewController*)viewController {
-    
+- (void)userAuthenticated:(BOOL)isSignup viewController:(UIViewController *)viewController {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     UIViewController *nextViewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
     //nextViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
@@ -228,14 +235,14 @@
     [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:YES success:nil failure:nil];
 }
 
-- (void) cancelled:(UIViewController*)viewController {
+- (void)cancelled:(UIViewController *)viewController {
 }
 
-- (NSString*) registerScreenTitle {
+- (NSString *)registerScreenTitle {
     return nil;
 }
 
-- (NSString*) registerTeaserText {
+- (NSString *)registerTeaserText {
     return nil;
 }
 

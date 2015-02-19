@@ -31,20 +31,19 @@
 
 @implementation CustomSMCalloutDrawnBackgroundView
 
-+ (CustomSMCalloutDrawnBackgroundView*) view {
-    CustomSMCalloutDrawnBackgroundView* view = [CustomSMCalloutDrawnBackgroundView new];
++ (CustomSMCalloutDrawnBackgroundView *)view {
+    CustomSMCalloutDrawnBackgroundView *view = [CustomSMCalloutDrawnBackgroundView new];
     view.hideArrow = NO;
     return view;
 }
 
-+ (CustomSMCalloutDrawnBackgroundView*) viewWithNoArrow {
-    CustomSMCalloutDrawnBackgroundView* view = [CustomSMCalloutDrawnBackgroundView new];
++ (CustomSMCalloutDrawnBackgroundView *)viewWithNoArrow {
+    CustomSMCalloutDrawnBackgroundView * view = [CustomSMCalloutDrawnBackgroundView new];
     view.hideArrow = YES;
     return view;
 }
 
 - (void)drawRect:(CGRect)rect {
-    
     BOOL pointingUp = self.arrowPoint.y < self.$height/2;
     CGSize anchorSize = CGSizeMake(27, ANCHOR_HEIGHT);
     CGFloat anchorX = roundf(self.arrowPoint.x - anchorSize.width / 2);
@@ -73,12 +72,12 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     // Color Declarations
-    UIColor* fillBlack = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
-    UIColor* shadowBlack = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.3];
-    UIColor* strokeColor = [UIColor colorWithRed: 0.1 green: 0.1 blue: 0.1 alpha: 1];
+    UIColor *fillBlack = [UIColor colorWithRed: 1 green: 1 blue: 1 alpha: 1];
+    UIColor *shadowBlack = [UIColor colorWithRed: 0 green: 0 blue: 0 alpha: 0.3];
+    UIColor *strokeColor = [UIColor colorWithRed: 0.1 green: 0.1 blue: 0.1 alpha: 1];
     
     // Shadow Declarations
-    UIColor* baseShadow = shadowBlack;
+    UIColor *baseShadow = shadowBlack;
     CGSize baseShadowOffset = CGSizeMake(0.1, 6.1);
     CGFloat baseShadowBlurRadius = 6;
     
@@ -92,7 +91,7 @@
     CGContextBeginTransparencyLayer(context, NULL);
     
     // Background Drawing
-    UIBezierPath* backgroundPath = [UIBezierPath bezierPath];
+    UIBezierPath *backgroundPath = [UIBezierPath bezierPath];
     [backgroundPath moveToPoint:CGPointMake(CGRectGetMinX(frame), CGRectGetMinY(frame) + radius)];
     [backgroundPath addLineToPoint:CGPointMake(CGRectGetMinX(frame), CGRectGetMaxY(frame) - radius)]; // left
     [backgroundPath addArcWithCenter:CGPointMake(CGRectGetMinX(frame) + radius, CGRectGetMaxY(frame) - radius) radius:radius startAngle:M_PI endAngle:M_PI / 2 clockwise:NO]; // bottom-left corner

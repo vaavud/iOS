@@ -37,7 +37,6 @@
 "BUTTON_DONE" = "完成";
 
 "INFO_MEASURING" = "测量中";
-"INFO_NO_SIGNAL" = "无信号";
 "INFO_KEEP_STEADY" = "保持垂直和稳定";
 
 "X_HOURS" = "%d 小时";
@@ -195,3 +194,33 @@
 "AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "No Subscription";
 "AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "You don't have a valid subscription. Please contact Vaavud.";
 "AGRI_WORD_LIST" = "Word list";
+
+// New feb 2015
+
+"INTRO_UPGRADE_WHATS_NEW" = "新功能";
+"INTRO_UPGRADE_TEXT0" = "历史显示地理位置和，随着新的Sl﻿eipnir风向仪，显示风向！";
+"INTRO_UPGRADE_TEXT1" = "总结屏幕显示您的关键测量数据，包括压力、温度等等";
+"INTRO_UPGRADE_CTA_BUY" = "现在购买新Sl﻿eipnir！";
+
+"MEASURE_AVG" = "平均";
+"SUMMARY_PRESSURE" = "压力";
+"SUMMARY_TEMPERATURE" = "温度";
+"SUMMARY_WIND_CHILL" = "风寒";
+"SUMMARY_GUSTINESS" = "狂风";
+"GEOLOCATION_ERROR" = "无法加载位置";
+"GEOLOCATION_LOADING" = "加载位置中…";
+"GEOLOCATION_UNKNOWN" = "位置未保存";
+
+"UNIT_FAHRENHEIT" = "华氏度";
+"INFO_NO_SIGNAL" = "无法监测出风向仪";
+
+"UNIT_MBAR" = "mbar";
+"UNIT_ATM" = "atm";
+"UNIT_MMHG" = "mmHg";
+
+"SUMMARY_MEASURE_WINDDIRECTION" = "测试风向";
+"SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "有了全新的Sl﻿eipnir风向仪，您可以测试风向了！";
+"SUMMARY_UPSELL" = "用全新的Sle﻿ipnir测试方向吧！";
+
+"REGISTER_EXPLANATION" = "您需要登陆才能充分使用Vaavud应用";
+

@@ -27,7 +27,7 @@
 
 @implementation AgriManualDirectionViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     [self.nextButton setTitle:NSLocalizedString(@"BUTTON_NEXT", nil) forState:UIControlStateNormal];
@@ -48,11 +48,11 @@
     self.directionTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(updateDirection) userInfo:nil repeats:YES];
 }
 
-- (NSUInteger) supportedInterfaceOrientations {
+- (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     NSNumber *directionUnitNumber = [Property getAsInteger:KEY_DIRECTION_UNIT];
@@ -63,7 +63,7 @@
     }
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     if ([Property isMixpanelEnabled]) {
@@ -71,12 +71,10 @@
     }
 }
 
-- (void) updateDirection {
-    
+- (void)updateDirection {
     self.latestDirection = [LocationManager sharedInstance].latestHeading;
-    
+
     if (self.latestDirection && !isnan([self.latestDirection doubleValue])) {
-        
         if (self.directionLabel) {
             if (self.directionUnit == 0) {
                 self.directionLabel.text = [UnitUtil displayNameForDirection:self.latestDirection];
@@ -107,25 +105,20 @@
     }
 }
 
-- (IBAction) nextButtonClicked:(id)sender {
-
+- (IBAction)nextButtonClicked:(id)sender {
     if (self.measurementSession) {
-        
-        if (self.latestDirection || AGRI_DEBUG_ALWAYS_ENABLE_NEXT) {
+        if (self.latestDirection) {
             self.measurementSession.windDirection = self.latestDirection;
-            
-            NSLog(@"[AgriManualDirectionViewController] Next with direction=%@", self.measurementSession.windDirection);
             [self performSegueWithIdentifier:@"resultSegue" sender:self];
         }
     }
 }
 
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     UIViewController *controller = [segue destinationViewController];
     
     if ([controller conformsToProtocol:@protocol(MeasurementSessionConsumer)]) {
-        UIViewController<MeasurementSessionConsumer> *consumer = (UIViewController<MeasurementSessionConsumer>*) controller;
+        id<MeasurementSessionConsumer>consumer = (id<MeasurementSessionConsumer>)controller;
         [consumer setMeasurementSession:self.measurementSession];
         [consumer setHasTemperature:self.hasTemperature];
         [consumer setHasDirection:self.hasDirection];

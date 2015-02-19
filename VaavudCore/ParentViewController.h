@@ -10,7 +10,7 @@
 
 @protocol ParentViewControllerDelegate <NSObject>
 
-- (void) selectViewController;
+- (void)selectViewController;
 
 @end
 
@@ -18,6 +18,6 @@
 
 @property (nonatomic, weak) id<ParentViewControllerDelegate> delegate;
 
-- (void) switchChildController:(UIViewController*)childViewController;
+- (void)switchChildController:(UIViewController *)childViewController;
 
 @end

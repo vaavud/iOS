@@ -28,7 +28,7 @@
 "HEADING_CURRENT" = "Nuværende";
 "HEADING_MAX" = "Maks";
 "HEADING_UNIT" = "Enhed";
-"HEADING_NEARBY_MEASUREMENTS" = "Nærliggende Målinger";
+"HEADING_NEARBY_MEASUREMENTS" = "Nærliggende målinger";
 
 "BUTTON_START" = "Start";
 "BUTTON_STOP" = "Stop";
@@ -37,7 +37,7 @@
 "BUTTON_DONE" = "Færdig";
 
 "INFO_MEASURING" = "Måling i gang";
-"INFO_NO_SIGNAL" = "Intet signal";
+"INFO_NO_SIGNAL" = "Kan ikke detektere vindmåler";
 "INFO_KEEP_STEADY" = "Hold lodret og roligt";
 
 "X_HOURS" = "%d timer";
@@ -193,3 +193,31 @@
 "AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "Intet Abonnement";
 "AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "Du har ikke et aktivt abonnement. Kontakt venligst Vaavud.";
 "AGRI_WORD_LIST" = "Ordliste";
+
+// New January 2015
+"INTRO_UPGRADE_WHATS_NEW" = "Hvad er nyt";
+"INTRO_UPGRADE_TEXT0" = "Historien viser geolocation og med Sleipnir vindmåleren, vindretning!";
+"INTRO_UPGRADE_TEXT1" = "Opsummeringsskærm der viser dine nøgle målepunkter inklusiv temperature og tryk osv.";
+"INTRO_UPGRADE_CTA_BUY" = "Køb den nye Sleipnir nu!";
+
+"MEASURE_AVG" = "Gns."; // Shorter form of the word 'Average'
+"SUMMARY_PRESSURE" = "Tryk";
+"SUMMARY_TEMPERATURE" = "Temperatur";
+"SUMMARY_WIND_CHILL" = "Kuldeindeks"; // Basically a technical term
+"SUMMARY_GUSTINESS" = "Turbulens"; // HOw gusty the wind is
+"GEOLOCATION_ERROR" = "Kan ikke hente lokation";
+"GEOLOCATION_LOADING" = "Finder lokation…";
+"GEOLOCATION_UNKNOWN" = "Lokation ikke gemt";
+
+"UNIT_FAHRENHEIT" = "°F";
+
+"UNIT_MBAR" = "mbar"; // millibar, which is equal to hecto pascal
+"UNIT_ATM" = "atm"; // atmosphere as a unit of pressure
+"UNIT_MMHG" = "mmHg"; // millimetres mercury
+
+"SUMMARY_MEASURE_WINDDIRECTION" = "Mål vindretningen";
+"SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "Med den nye Sleipnir-vindmåler kan du måle vindretningen!";
+"SUMMARY_UPSELL" = "Mål vindretningen med den nye Sleipnir!";
+
+"REGISTER_EXPLANATION" = "Du skal logge ind for at få fuldt udbytte af Vaavud appen";
+

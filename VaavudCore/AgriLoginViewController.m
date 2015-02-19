@@ -27,7 +27,7 @@
 
 @implementation AgriLoginViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     [self.loginButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN", nil) forState:UIControlStateNormal];
@@ -63,11 +63,11 @@
                                                object:nil];
 }
 
-- (NSUInteger) supportedInterfaceOrientations {
+- (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     if ([Property isMixpanelEnabled]) {
@@ -75,7 +75,7 @@
     }
 }
 
-- (void) viewWillDisappear:(BOOL)animated {
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 }
 
@@ -136,7 +136,7 @@
         [self.activityIndicator stopAnimating];
 
         if ([Property isMixpanelEnabled]) {
-            [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": [NSNumber numberWithInt:response], @"Screen": @"Agri Login", @"Method": @"Password"}];
+            [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response":[NSNumber numberWithInt:response], @"Screen": @"Agri Login", @"Method": @"Password"}];
         }
         
         if (response == AuthenticationResponseInvalidCredentials) {
@@ -157,10 +157,8 @@
     }];
 }
 
-- (void) showMessage:(NSString *)text withTitle:(NSString *)title {
-
+- (void)showMessage:(NSString *)text withTitle:(NSString *)title {
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-        
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title
                                                                                  message:text
                                                                           preferredStyle:UIAlertControllerStyleAlert];
@@ -180,22 +178,20 @@
     }
 }
 
-- (void) changedEmptiness:(UITextField*)textField isEmpty:(BOOL)isEmpty {
-    
+- (void)changedEmptiness:(UITextField *)textField isEmpty:(BOOL)isEmpty {
     UITextField *otherTextField = (textField == self.emailTextField) ? self.passwordTextField : self.emailTextField;
     if (!otherTextField) {
         return;
     }
     if (!isEmpty && otherTextField.text.length > 0) {
-
+        // CLEANUP
     }
     else {
 
     }
 }
 
-- (BOOL) textFieldShouldReturn:(UITextField *)textField {
-    
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (self.emailTextField.text.length > 0 && self.passwordTextField.text.length > 0) {
         [self loginButtonClicked:nil];
     }
@@ -208,8 +204,7 @@
     return YES;
 }
 
-- (BOOL) textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     GuidedTextField *guidedTextField = (GuidedTextField*) textField;
     if (!guidedTextField) {
         return YES;
@@ -234,26 +229,21 @@
     return YES;
 }
 
-- (BOOL) textFieldShouldBeginEditing:(UITextField *)textField {
-    
-    GuidedTextField *guidedTextField = (GuidedTextField*) textField;
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    GuidedTextField *guidedTextField = (GuidedTextField *)textField;
     guidedTextField.isFirstEdit = YES;
     return YES;
 }
 
-- (void) keyboardWillShow:(NSNotification*)aNotification {
-    
+- (void)keyboardWillShow:(NSNotification *)aNotification {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        
         NSDictionary* info = [aNotification userInfo];
         CGSize kbSize = [info[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
         UIViewAnimationCurve animationCurve = [info[UIKeyboardAnimationCurveUserInfoKey] integerValue];
         CGFloat bottomInset = kbSize.height - self.bottomLayoutGuide.length;
         
         self.contentOffsetAfterShowingKeyboard = 0.0;
-        
-        NSLog(@"[AgriLoginViewController] Keyboard will show");
-        
+                
         [UIView animateWithDuration:[info[UIKeyboardAnimationDurationUserInfoKey] doubleValue] delay:0.0 options:(UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionLayoutSubviews | animationCurve << 16) animations:^{
             
             self.scrollView.contentInset = UIEdgeInsetsMake(self.scrollView.contentInset.top, 0.0, bottomInset, 0.0);
@@ -267,8 +257,7 @@
     }
 }
 
-- (void) keyboardWillHide:(NSNotification*)aNotification {
-    
+- (void)keyboardWillHide:(NSNotification *)aNotification {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         NSDictionary* info = [aNotification userInfo];
         UIViewAnimationCurve animationCurve = [info[UIKeyboardAnimationCurveUserInfoKey] integerValue];

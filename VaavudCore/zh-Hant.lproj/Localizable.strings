@@ -37,7 +37,7 @@
 "BUTTON_DONE" = "完成";
 
 "INFO_MEASURING" = "正在測量";
-"INFO_NO_SIGNAL" = "無訊號";
+"INFO_NO_SIGNAL" = "無法監測出風向儀";
 "INFO_KEEP_STEADY" = "保持垂直和穩定";
 
 "X_HOURS" = "%d小時";
@@ -195,3 +195,32 @@
 "AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "No Subscription";
 "AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "You don't have a valid subscription. Please contact Vaavud.";
 "AGRI_WORD_LIST" = "Word list";
+
+// Feb 2015
+
+"INTRO_UPGRADE_WHATS_NEW" = "新功能";
+"INTRO_UPGRADE_TEXT0" = "歷史顯示地理位置和，隨著新的Sleipnir風向儀，顯示風向！";
+"INTRO_UPGRADE_TEXT1" = "總結屏幕顯示您的關鍵測量數據，包括壓力、溫度等等";
+"INTRO_UPGRADE_CTA_BUY" = "現在購買新Sleipnir！";
+
+"MEASURE_AVG" = "平均";// Shorter form of the word 'Average'
+"SUMMARY_PRESSURE" = "壓力";
+"SUMMARY_TEMPERATURE" = "溫度";
+"SUMMARY_WIND_CHILL" = "風寒";// Basically a technical term
+"SUMMARY_GUSTINESS" = "狂風";// HOw gusty the wind is
+"GEOLOCATION_ERROR" = "無法加載位置";
+"GEOLOCATION_LOADING" = "加載位置中…";
+"GEOLOCATION_UNKNOWN" = "位置未保存";
+
+"UNIT_FAHRENHEIT" = "華氏度";
+
+"UNIT_MBAR" = "mbar"; // millibar, which is equal to hecto pascal
+"UNIT_ATM" = "atm"; // atmosphere as a unit of pressure
+"UNIT_MMHG" = "mmHg"; // millimetres mercury
+
+"SUMMARY_MEASURE_WINDDIRECTION" = "測試風向";
+"SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "有了全新的Sleipnir風向儀，您可以測試風向了！";
+"SUMMARY_UPSELL" = "用全新的Sleipnir測試方向吧！";
+
+"REGISTER_EXPLANATION" = "您需要登陸才能充分使用Vaavud應用";
+

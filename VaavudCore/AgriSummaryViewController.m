@@ -12,6 +12,8 @@
 #import "LocationManager.h"
 #import "MeasurementAnnotation.h"
 #import "Mixpanel.h"
+#import "AgriMeasureViewController.h"
+#import "Constants.h"
 
 @interface AgriSummaryViewController ()
 
@@ -34,7 +36,7 @@
 
 @implementation AgriSummaryViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
@@ -49,24 +51,23 @@
     self.tableView.dataSource = self;
 }
 
-- (NSUInteger) supportedInterfaceOrientations {
+- (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
     self.windSpeedUnitLabel.text = [UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit];
     
     NSNumber *directionUnitNumber = [Property getAsInteger:KEY_DIRECTION_UNIT];
-    NSInteger directionUnit = (directionUnitNumber) ? [directionUnitNumber doubleValue] : 0;
+    NSInteger directionUnit = directionUnitNumber ? directionUnitNumber.doubleValue : 0;
     if (self.directionUnit != directionUnit) {
         self.directionUnit = directionUnit;
     }
     
-    if (self.measurementSession && self.measurementSession.startTime) {
-        
+    if (self.measurementSession.startTime) {
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
         dateFormatter.timeStyle = NSDateFormatterShortStyle;
         dateFormatter.dateStyle = NSDateFormatterMediumStyle;
@@ -79,8 +80,8 @@
     
     [self updateMeasuredValues];
     
-    if (self.measurementSession && self.measurementSession.latitude && self.measurementSession.longitude) {
-        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake([self.measurementSession.latitude doubleValue], [self.measurementSession.longitude doubleValue]);
+    if (self.measurementSession.latitude && self.measurementSession.longitude) {
+        CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(self.measurementSession.latitude.doubleValue, self.measurementSession.longitude.doubleValue);
         if ([LocationManager isCoordinateValid:coordinate]) {
             [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(coordinate, 500, 500) animated:NO];
             
@@ -90,7 +91,7 @@
     }
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     if ([Property isMixpanelEnabled]) {
@@ -98,17 +99,15 @@
     }
 }
 
-- (void) updateMeasuredValues {
-    
-    if (self.measurementSession && self.measurementSession.windSpeedAvg && !isnan([self.measurementSession.windSpeedAvg doubleValue])) {
+- (void)updateMeasuredValues {
+    if (self.measurementSession.windSpeedAvg && !isnan(self.measurementSession.windSpeedAvg.doubleValue)) {
         self.windSpeedLabel.text = [self formatValue:[UnitUtil displayWindSpeedFromDouble:[self.measurementSession.windSpeedAvg doubleValue] unit:self.windSpeedUnit]];
     }
     else {
         self.windSpeedLabel.text = @"-";
     }
     
-    if (self.measurementSession && self.measurementSession.windDirection && !isnan([self.measurementSession.windDirection doubleValue])) {
-        
+    if (self.measurementSession.windDirection && !isnan(self.measurementSession.windDirection.doubleValue)) {
         if (self.directionUnit == 0) {
             self.directionLabel.text = [UnitUtil displayNameForDirection:self.measurementSession.windDirection];
         }
@@ -134,15 +133,15 @@
         }
     }
     
-    if (self.measurementSession && self.measurementSession.temperature && [self.measurementSession.temperature floatValue] > 0.0) {
-        self.temperatureLabel.text = [self formatValue:[self.measurementSession.temperature floatValue] - KELVIN_TO_CELCIUS];
+    if (self.measurementSession.sourcedTemperature && self.measurementSession.sourcedTemperature.floatValue > 0.0) {
+        self.temperatureLabel.text = [self formatValue:self.measurementSession.sourcedTemperature.floatValue - KELVIN_TO_CELCIUS];
     }
     else {
         self.temperatureLabel.text = @"-";
     }
 }
 
-- (NSString*) formatValue:(double)value {
+- (NSString *)formatValue:(double)value {
     if (value > 100.0) {
         return [NSString stringWithFormat: @"%.0f", value];
     }
@@ -152,22 +151,19 @@
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-    
     // If it's the user location, just return nil.
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
         return nil;
     }
     else if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
-        
         static NSString *MeasureAnnotationIdentifier = @"MeasureAnnotationIdentifier";
         
-        MeasurementAnnotation *measurementAnnotation = (MeasurementAnnotation*) annotation;
+        MeasurementAnnotation *measurementAnnotation = (MeasurementAnnotation *)annotation;
         measurementAnnotation.windSpeedUnit = self.windSpeedUnit;
         
         MKAnnotationView *measureAnnotationView =
         [self.mapView dequeueReusableAnnotationViewWithIdentifier:MeasureAnnotationIdentifier];
         if (measureAnnotationView == nil) {
-            
             measureAnnotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:MeasureAnnotationIdentifier];
             measureAnnotationView.canShowCallout = NO;
             measureAnnotationView.opaque = NO;
@@ -216,28 +212,27 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    UITableViewCell *cell = (UITableViewCell*) [tableView dequeueReusableCellWithIdentifier:@"infoCell" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"infoCell" forIndexPath:indexPath];
 
     if (indexPath.item == 0) {
         cell.textLabel.text = NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT", nil);
-        cell.detailTextLabel.text = (self.measurementSession && self.measurementSession.reduceEquipment && [self.measurementSession.reduceEquipment intValue] > 0) ? [self getReducingEquipmentText:[self.measurementSession.reduceEquipment intValue]] : @"-";
+        cell.detailTextLabel.text = (self.measurementSession.reduceEquipment && self.measurementSession.reduceEquipment.intValue > 0) ? [self getReducingEquipmentText:self.measurementSession.reduceEquipment.intValue] : @"-";
     }
     else if (indexPath.item == 1) {
         cell.textLabel.text = NSLocalizedString(@"AGRI_DOSE", nil);
-        cell.detailTextLabel.text = (self.measurementSession && self.measurementSession.dose && [self.measurementSession.dose floatValue] > 0.0F) ? [self getDoseText:[self.measurementSession.dose floatValue]] : @"-";
+        cell.detailTextLabel.text = (self.measurementSession.dose && self.measurementSession.dose.floatValue > 0.0F) ? [self getDoseText:self.measurementSession.dose.floatValue] : @"-";
     }
     else if (indexPath.item == 2) {
         cell.textLabel.text = NSLocalizedString(@"AGRI_BOOM_HEIGHT", nil);
-        cell.detailTextLabel.text = (self.measurementSession && self.measurementSession.boomHeight && [self.measurementSession.boomHeight intValue] > 0) ? [self getBoomHeightText:[self.measurementSession.boomHeight intValue]] : @"-";
+        cell.detailTextLabel.text = (self.measurementSession.boomHeight && self.measurementSession.boomHeight.intValue > 0) ? [self getBoomHeightText:self.measurementSession.boomHeight.intValue] : @"-";
     }
     else if (indexPath.item == 3) {
         cell.textLabel.text = NSLocalizedString(@"AGRI_SPRAY_QUALITY", nil);
-        cell.detailTextLabel.text = (self.measurementSession && self.measurementSession.sprayQuality && [self.measurementSession.sprayQuality intValue] > 0) ? [self getSprayQualityText:[self.measurementSession.sprayQuality intValue]] : @"-";
+        cell.detailTextLabel.text = (self.measurementSession.sprayQuality && self.measurementSession.sprayQuality.intValue > 0) ? [self getSprayQualityText:self.measurementSession.sprayQuality.intValue] : @"-";
     }
     else if (indexPath.item == 4) {
         cell.textLabel.text = NSLocalizedString(@"AGRI_PROTECTIVE_DISTANCE", nil);
-        cell.detailTextLabel.text = (self.measurementSession && self.measurementSession.generalConsideration && self.measurementSession.specialConsideration && [self.measurementSession.generalConsideration intValue] > 0 && [self.measurementSession.specialConsideration intValue] > 0) ? [NSString stringWithFormat:@"%d %@ / %d %@", [self.measurementSession.generalConsideration intValue], NSLocalizedString(@"AGRI_DISTANCE_UNIT_M", nil), [self.measurementSession.specialConsideration intValue], NSLocalizedString(@"AGRI_DISTANCE_UNIT_M", nil)] : @"-";
+        cell.detailTextLabel.text = (self.measurementSession.generalConsideration && self.measurementSession.specialConsideration && self.measurementSession.generalConsideration.intValue > 0 && self.measurementSession.specialConsideration.intValue > 0) ? [NSString stringWithFormat:@"%d %@ / %d %@", self.measurementSession.generalConsideration.intValue, NSLocalizedString(@"AGRI_DISTANCE_UNIT_M", nil), self.measurementSession.specialConsideration.intValue, NSLocalizedString(@"AGRI_DISTANCE_UNIT_M", nil)] : @"-";
     }
 
     cell.textLabel.textColor = [UIColor darkGrayColor];
@@ -253,8 +248,7 @@
     return [UIView new];
 }
 
-- (NSString*) getReducingEquipmentText:(int)value {
-    
+- (NSString *)getReducingEquipmentText:(int)value {
     if (value == 1) {
         return NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT_NONE", nil);
     }
@@ -271,13 +265,12 @@
         return @"";
     }
     else {
-        NSLog(@"[AgriSummaryViewController] ERROR: Unknown reducing equipment value %d", value);
+        if (LOG_AGRI) NSLog(@"[AgriSummaryViewController] ERROR: Unknown reducing equipment value %d", value);
         return @"-";
     }
 }
 
-- (NSString*) getDoseText:(float)value {
-    
+- (NSString *)getDoseText:(float)value {
     if (value == 0.25F) {
         return NSLocalizedString(@"AGRI_DOSE_QUARTER", nil);
     }
@@ -288,13 +281,12 @@
         return NSLocalizedString(@"AGRI_DOSE_FULL", nil);
     }
     else {
-        NSLog(@"[AgriSummaryViewController] ERROR: Unknown dose value %f", value);
+        if (LOG_AGRI) NSLog(@"[AgriSummaryViewController] ERROR: Unknown dose value %f", value);
         return @"-";
     }
 }
 
-- (NSString*) getBoomHeightText:(int)value {
-
+- (NSString *)getBoomHeightText:(int)value {
     if (value == 25) {
         return NSLocalizedString(@"AGRI_BOOM_HEIGHT_25CM", nil);
     }
@@ -305,13 +297,12 @@
         return NSLocalizedString(@"AGRI_BOOM_HEIGHT_60CM", nil);
     }
     else {
-        NSLog(@"[AgriSummaryViewController] ERROR: Unknown boom height value %d", value);
+        if (LOG_AGRI) NSLog(@"[AgriSummaryViewController] ERROR: Unknown boom height value %d", value);
         return @"-";
     }
 }
 
-- (NSString*) getSprayQualityText:(int)value {
-
+- (NSString *)getSprayQualityText:(int)value {
     if (value == 1) {
         return NSLocalizedString(@"AGRI_SPRAY_QUALITY_FINE", nil);
     }
@@ -325,8 +316,16 @@
         return @"";
     }
     else {
-        NSLog(@"[AgriSummaryViewController] ERROR: Unknown spray quality value %d", value);
+        if (LOG_AGRI) NSLog(@"[AgriSummaryViewController] ERROR: Unknown spray quality value %d", value);
         return @"-";
+    }
+}
+
+- (void)popToMeasure:(id)sender {
+    if ([self.navigationController.viewControllers[0] isKindOfClass:[AgriMeasureViewController class]]) {
+        AgriMeasureViewController *measureController = self.navigationController.viewControllers[0];
+        [measureController reset];
+        [self.navigationController popToViewController:measureController animated:YES];
     }
 }
 

@@ -9,10 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-
 @interface Property : NSManagedObject
 
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * value;
+@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) NSString *value;
 
 @end

@@ -11,8 +11,8 @@
 
 @interface VaavudAPIHTTPClient : AFHTTPClient
 
-+ (VaavudAPIHTTPClient *) sharedInstance;
++ (VaavudAPIHTTPClient *)sharedInstance;
 
-- (void) setAuthToken:(NSString *)authToken;
+- (void)setAuthToken:(NSString *)authToken;
 
 @end

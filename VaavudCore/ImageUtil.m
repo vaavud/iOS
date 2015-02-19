@@ -10,12 +10,11 @@
 
 @implementation ImageUtil
 
-+ (UIImage *)toImageFromView:(UIView*)view {
++ (UIImage *)toImageFromView:(UIView *)view {
     return [self toImageFromView:view scale:0];
 }
 
-+ (UIImage *)toImageFromView:(UIView*)view scale:(CGFloat)scale {
-    
++ (UIImage *)toImageFromView:(UIView *)view scale:(CGFloat)scale {
     // If scale is 0, it'll follows the screen scale for creating the bounds
     UIGraphicsBeginImageContextWithOptions(view.bounds.size, NO, scale);
 
@@ -34,8 +33,7 @@
     return copied;
 }
 
-+ (UIImage*) resizeImage:(UIImage*)image toSize:(CGSize)size {
-
++ (UIImage *)resizeImage:(UIImage *)image toSize:(CGSize)size {
     UIGraphicsBeginImageContextWithOptions(size, NO, 1.0);
     [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();

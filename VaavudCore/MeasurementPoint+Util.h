@@ -10,6 +10,6 @@
 
 @interface MeasurementPoint (Util)
 
--(NSDictionary *) toDictionary;
+- (NSDictionary *)toDictionary;
 
 @end

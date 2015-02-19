@@ -10,7 +10,7 @@
 
 @interface UUIDUtil : NSObject
 
-+ (NSString *) generateUUID;
-+ (NSString*) md5Hash:(NSString*)text;
++ (NSString *)generateUUID;
++ (NSString *)md5Hash:(NSString *)text;
 
 @end

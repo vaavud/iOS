@@ -37,7 +37,6 @@
     
     self.labelProgress.text = @"0%";
     
-    
     self.vaavudElectronicSDK = [VEVaavudElectronicSDK sharedVaavudElectronic];
     [self.vaavudElectronicSDK addListener:self];
     [self.vaavudElectronicSDK startCalibration];
@@ -46,11 +45,10 @@
     // Do any additional setup after loading the view.
 }
 
-- (void) calibrationPercentageComplete:(NSNumber *)percentage {
+- (void)calibrationPercentageComplete:(NSNumber *)percentage {
     self.circularProgress.progress = percentage.floatValue;
     
-    self.labelProgress.text = [NSString stringWithFormat:@"%i%%", (int) (percentage.floatValue*100)];
-    
+    self.labelProgress.text = [NSString stringWithFormat:@"%i%%", (int)(percentage.floatValue*100)];
     
     if (percentage.floatValue >= 1) {
         [self.vaavudElectronicSDK stop];

@@ -10,8 +10,8 @@
 
 @interface FormatUtil : NSObject
 
-+ (NSString*) formatRelativeDate:(NSDate*) date;
-+ (NSString*) formatValueWithTwoDigits:(float) value;
-+ (NSString*) formatValueWithThreeDigits:(double) value;
++ (NSString *)formatRelativeDate:(NSDate *)date;
++ (NSString *)formatValueWithTwoDigits:(float)value;
++ (NSString *)formatValueWithThreeDigits:(double)value;
 
 @end

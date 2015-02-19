@@ -12,6 +12,7 @@
 #import "AccountManager.h"
 #import "ServerUploadManager.h"
 #import "TabBarController.h"
+#import "UIColor+VaavudColors.h"
 
 @interface FirstTimeFlowController ()
 
@@ -32,7 +33,6 @@
     //NSLog(@"[FirstTimeFlowController] isLoggedIn=%@, hasWindMeter=%@", [AccountManager sharedInstance].isLoggedIn ? @"YES" : @"NO", [Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO] ? @"YES" : @"NO");
     
     if (!self.pageImages) {
-
         if ([AccountManager sharedInstance].isLoggedIn && [Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO]) {
             [FirstTimeFlowController createInstructionFlowOn:self];
         }
@@ -50,7 +50,7 @@
     self.pageController.delegate = self;
     
     // We need to cover all the control by making the frame taller (+ 37)
-    [[self.pageController view] setFrame:CGRectMake(0, 0, [[self view] bounds].size.width, [[self view] bounds].size.height + 37)];
+    [[self.pageController view] setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height + 37)];
     
     UIViewController *startingViewController = [self viewControllerAtIndex:0];
     NSArray *viewControllers = @[startingViewController];
@@ -80,7 +80,8 @@
     [super viewDidAppear:animated];
 }
 
-- (UIViewController*) pageViewController:(UIPageViewController*)pageViewController viewControllerBeforeViewController:(UIViewController*)viewController {
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
+      viewControllerBeforeViewController:(UIViewController *)viewController {
 
     NSUInteger index = [self indexForViewController:viewController];
     if ((index == 0) || (index == NSNotFound)) {
@@ -90,7 +91,8 @@
     return [self viewControllerAtIndex:index];
 }
 
-- (UIViewController*) pageViewController:(UIPageViewController*)pageViewController viewControllerAfterViewController:(UIViewController*)viewController {
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController
+       viewControllerAfterViewController:(UIViewController *)viewController {
 
     NSUInteger index = [self indexForViewController:viewController];
     if (index == NSNotFound) {
@@ -103,8 +105,7 @@
     return [self viewControllerAtIndex:index];
 }
 
-- (UIViewController*) viewControllerAtIndex:(NSUInteger)index {
-    
+- (UIViewController *)viewControllerAtIndex:(NSUInteger)index {
     if (([self.pageImages count] == 0) || (index >= [self.pageImages count])) {
         return nil;
     }
@@ -120,12 +121,13 @@
     explanationViewController.tinyButtonIsSolid = NO;
 
     if (explanationViewController.pageId == 2) {
-        
         if ([AccountManager sharedInstance].isLoggedIn) {
             explanationViewController = [self createHaveWindMeterController];
             explanationViewController.pageIndex = index;
         }
         else {
+            explanationViewController.topExplanationColor = [UIColor vaavudDarkGreyColor];
+            explanationViewController.topExplanationText = NSLocalizedString(@"REGISTER_EXPLANATION", nil);
             explanationViewController.topButtonText = NSLocalizedString(@"REGISTER_TITLE_SIGNUP", nil);
             explanationViewController.bottomButtonText = NSLocalizedString(@"REGISTER_TITLE_LOGIN", nil);
             explanationViewController.tinyButtonText = NSLocalizedString(@"INTRO_FLOW_BUTTON_SKIP", nil);
@@ -140,28 +142,32 @@
     return explanationViewController;
 }
 
-- (NSInteger) presentationCountForPageViewController:(UIPageViewController*)pageViewController {
+- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController {
     NSInteger numOfPages = [self.pageImages count];
     [self.pageControl setNumberOfPages:numOfPages];
     return numOfPages;
 }
 
-- (NSInteger) presentationIndexForPageViewController:(UIPageViewController*)pageViewController {
+- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController {
     return 0;
 }
 
-- (void) pageViewController:(UIPageViewController*)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray*)previousViewControllers transitionCompleted:(BOOL)completed {
+- (void)pageViewController:(UIPageViewController *)pageViewController
+        didFinishAnimating:(BOOL)finished
+   previousViewControllers:(NSArray *)previousViewControllers
+       transitionCompleted:(BOOL)completed {
 
     if (completed) {
         [self syncCustomPageControl];
     }
 }
 
-- (void) pageViewController:(UIPageViewController*)pageViewController willTransitionToViewControllers:(NSArray*)pendingViewControllers {
+- (void)pageViewController:(UIPageViewController *)pageViewController
+willTransitionToViewControllers:(NSArray *)pendingViewControllers {
 
 }
 
-- (void) syncCustomPageControl {
+- (void)syncCustomPageControl {
     NSArray *controllers = self.pageController.viewControllers;
     if (controllers.count > 0) {
         NSUInteger index = [self indexForViewController:controllers[0]];
@@ -169,19 +175,22 @@
     }
 }
 
-- (UIStatusBarStyle) preferredStatusBarStyle {
+- (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleDefault;
 }
 
-- (NSInteger) indexForViewController:(UIViewController*)viewController {
-    return ((FirstTimeExplanationViewController*) viewController).pageIndex;
+- (NSInteger)indexForViewController:(UIViewController *)viewController {
+    return ((FirstTimeExplanationViewController *)viewController).pageIndex;
 }
 
-- (void) topButtonPushedOnController:(FirstTimeExplanationViewController*)controller {
-    
+- (void)topButtonPushedOnController:(FirstTimeExplanationViewController *)controller {
     if (controller.pageId == 2) {
+        if ([Property isMixpanelEnabled]) {
+            [[Mixpanel sharedInstance] track:@"[INTRO] Did press signup"];
+        }
+        
         UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
-        RegisterNavigationController *newController = (RegisterNavigationController*) [loginStoryBoard instantiateInitialViewController];
+        RegisterNavigationController *newController = [loginStoryBoard instantiateInitialViewController];
         if ([newController isKindOfClass:[RegisterNavigationController class]]) {
             newController.registerDelegate = self;
             newController.startScreen = RegisterScreenTypeSignUp;
@@ -189,13 +198,11 @@
         }
     }
     else if (controller.pageId == 3) {
-
         [Property setAsBoolean:YES forKey:KEY_USER_HAS_WIND_METER];
 
         [FirstTimeFlowController gotoInstructionFlowFrom:controller returnViaDismiss:NO];
     }
     else if (controller.pageId == 4) {
-
         [[Mixpanel sharedInstance] track:@"Intro Flow Clicked Buy" properties:@{@"Borderless Later Button": self.useBorderlessBuyLaterButton ? @"true" : @"false"}];
         
         NSString *country = [Property getAsString:KEY_COUNTRY];
@@ -206,9 +213,12 @@
     }
 }
 
-- (void) bottomButtonPushedOnController:(FirstTimeExplanationViewController*)controller {
-    
+- (void)bottomButtonPushedOnController:(FirstTimeExplanationViewController *)controller {
     if (controller.pageId == 2) {
+        if ([Property isMixpanelEnabled]) {
+            [[Mixpanel sharedInstance] track:@"[INTRO] Did press log in"];
+        }
+
         UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
         RegisterNavigationController *newController = (RegisterNavigationController*) [loginStoryBoard instantiateInitialViewController];
         if ([newController isKindOfClass:[RegisterNavigationController class]]) {
@@ -218,7 +228,6 @@
         }
     }
     else if (controller.pageId == 3) {
-        
         self.useBorderlessBuyLaterButton = (arc4random_uniform(2) == 1);
         
         FirstTimeExplanationViewController *explanationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTimeExplanationViewController"];
@@ -239,7 +248,6 @@
         [controller presentViewController:explanationViewController animated:NO completion:nil];
     }
     else if (controller.pageId == 4) {
-        
         if ([Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO]) {
             [FirstTimeFlowController gotoInstructionFlowFrom:controller returnViaDismiss:NO];
         }
@@ -249,9 +257,12 @@
     }
 }
 
-- (void) tinyButtonPushedOnController:(FirstTimeExplanationViewController*)controller {
-    
+- (void)tinyButtonPushedOnController:(FirstTimeExplanationViewController *)controller {
     if (controller.pageId == 2) {
+        if ([Property isMixpanelEnabled]) {
+            [[Mixpanel sharedInstance] track:@"[INTRO] Did press skip"];
+        }
+
         [self gotoNewFlowScreenFrom:controller];
     }
     else if (controller.pageId == 8) {
@@ -264,8 +275,7 @@
     }
 }
 
-- (void) gotoMainScreenFromController:(UIViewController*)controller {
-
+- (void)gotoMainScreenFromController:(UIViewController *)controller {
     [Property setAsBoolean:YES forKey:KEY_HAS_SEEN_INTRO_FLOW];
     
     TabBarController *nextViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
@@ -279,7 +289,7 @@
     }
 }
 
-- (void) continueFlowFromController:(FirstTimeExplanationViewController*)controller {
+- (void)continueFlowFromController:(FirstTimeExplanationViewController *)controller {
     if (controller.pageId == 4) {
         if ([Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO]) {
             [FirstTimeFlowController gotoInstructionFlowFrom:controller returnViaDismiss:NO];
@@ -290,25 +300,23 @@
     }
 }
 
-- (void) userAuthenticated:(BOOL)isSignup viewController:(UIViewController*)viewController {
-    
+- (void)userAuthenticated:(BOOL)isSignup viewController:(UIViewController *)viewController {
     [self gotoNewFlowScreenFrom:viewController];
 }
 
-- (void) cancelled:(UIViewController*)viewController {
+- (void)cancelled:(UIViewController *)viewController {
     [viewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (NSString*) registerScreenTitle {
+- (NSString *)registerScreenTitle {
     return nil;
 }
 
-- (NSString*) registerTeaserText {
+- (NSString *)registerTeaserText {
     return nil;
 }
 
-- (void) gotoNewFlowScreenFrom:(UIViewController*)viewController {
-    
+- (void)gotoNewFlowScreenFrom:(UIViewController *)viewController {
     if ([Property getAsBoolean:KEY_USER_HAS_WIND_METER defaultValue:NO]) {
         [FirstTimeFlowController gotoInstructionFlowFrom:viewController returnViaDismiss:NO];
     }
@@ -319,7 +327,7 @@
     }
 }
 
-- (FirstTimeExplanationViewController*) createHaveWindMeterController {
+- (FirstTimeExplanationViewController *)createHaveWindMeterController {
     FirstTimeExplanationViewController *explanationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTimeExplanationViewController"];
     explanationViewController.delegate = self;
     explanationViewController.imageName = @"004_wind_meter.jpg";
@@ -333,8 +341,7 @@
     return explanationViewController;
 }
 
-+ (void) gotoInstructionFlowFrom:(UIViewController*)viewController returnViaDismiss:(BOOL)returnViaDismiss {
-    
++ (void)gotoInstructionFlowFrom:(UIViewController*)viewController returnViaDismiss:(BOOL)returnViaDismiss {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     FirstTimeFlowController *newViewController = [storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
     [FirstTimeFlowController createInstructionFlowOn:newViewController];
@@ -344,7 +351,7 @@
     [viewController presentViewController:newViewController animated:YES completion:nil];
 }
 
-+ (void) createInstructionFlowOn:(FirstTimeFlowController*)controller {
++ (void)createInstructionFlowOn:(FirstTimeFlowController *)controller {
     controller.pageImages = @[@"005_paraglider.jpg", @"006_hold_top.jpg", @"006_open_space.jpg", @"007_reading.jpg"];
     controller.pageTexts = @[NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_1", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_2", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_3", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_4", nil)];
     controller.pageIds = @[@5, @6, @7, @8];

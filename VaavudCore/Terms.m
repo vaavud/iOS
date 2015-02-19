@@ -10,8 +10,7 @@
 
 @implementation Terms
 
-+ (NSString*)getTermsOfService {
-    
++ (NSString *)getTermsOfService {
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
 

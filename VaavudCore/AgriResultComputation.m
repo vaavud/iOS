@@ -19,7 +19,7 @@
 
 SHARED_INSTANCE
 
-- (id) init {
+- (id)init {
     self = [super init];
     
     if (self) {
@@ -209,7 +209,7 @@ SHARED_INSTANCE
     return self;
 }
 
-- (NSNumber*) generalConsideration:(NSNumber*)temperature windSpeed:(NSNumber*)windSpeed reduceEquipment:(NSNumber*)reduceEquipment dose:(NSNumber*)dose boomHeight:(NSNumber*)boomHeight sprayQuality:(NSNumber*)sprayQuality {
+- (NSNumber *)generalConsideration:(NSNumber *)temperature windSpeed:(NSNumber *)windSpeed reduceEquipment:(NSNumber *)reduceEquipment dose:(NSNumber *)dose boomHeight:(NSNumber *)boomHeight sprayQuality:(NSNumber *)sprayQuality {
     
     temperature = [self roundTemperature:temperature];
     if (!temperature) {
@@ -222,7 +222,7 @@ SHARED_INSTANCE
     }
     
     if (!dose || [dose floatValue] == 0.0F) {
-        NSLog(@"[AgriResultComputation] No dose");
+        if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No dose");
         return nil;
     }
     
@@ -230,38 +230,38 @@ SHARED_INSTANCE
         //NSLog(@"[AgriResultComputation] Using no reduce equipment model");
         
         if (!boomHeight || [boomHeight intValue] < 25) {
-            NSLog(@"[AgriResultComputation] No boom height");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No boom height");
             return nil;
         }
         
         if (!sprayQuality || [sprayQuality intValue] == 0) {
-            NSLog(@"[AgriResultComputation] No spray quality");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No spray quality");
             return nil;
         }
         
         NSDictionary *windSpeedDictionary = [self.modelWithoutReduce objectForKey:temperature];
         if (!windSpeedDictionary) {
-            NSLog(@"[AgriResultComputation] No wind speed dictionary");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No wind speed dictionary");
             return nil;
         }
         NSDictionary *doseDictionary = [windSpeedDictionary objectForKey:windSpeed];
         if (!doseDictionary) {
-            NSLog(@"[AgriResultComputation] No dose dictionary");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No dose dictionary");
             return nil;
         }
         NSDictionary *boomHeightDictionary = [doseDictionary objectForKey:dose];
         if (!boomHeightDictionary) {
-            NSLog(@"[AgriResultComputation] No boom height dictionary");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No boom height dictionary");
             return nil;
         }
         NSDictionary *sprayQualityDictionary = [boomHeightDictionary objectForKey:boomHeight];
         if (!sprayQualityDictionary) {
-            NSLog(@"[AgriResultComputation] No spray quality dictionary");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No spray quality dictionary");
             return nil;
         }
         NSArray *result = [sprayQualityDictionary objectForKey:sprayQuality];
         if (!result) {
-            NSLog(@"[AgriResultComputation] No result array");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No result array");
             return nil;
         }
         return result[0];
@@ -270,29 +270,29 @@ SHARED_INSTANCE
         //NSLog(@"[AgriResultComputation] Using reduce equipment model");
         NSDictionary *windSpeedDictionary = [self.modelWithReduce objectForKey:temperature];
         if (!windSpeedDictionary) {
-            NSLog(@"[AgriResultComputation] No wind speed dictionary");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No wind speed dictionary");
             return nil;
         }
         NSDictionary *doseDictionary = [windSpeedDictionary objectForKey:windSpeed];
         if (!doseDictionary) {
-            NSLog(@"[AgriResultComputation] No dose dictionary");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No dose dictionary");
             return nil;
         }
         NSDictionary *reduceEquipmentDictionary = [doseDictionary objectForKey:dose];
         if (!reduceEquipmentDictionary) {
-            NSLog(@"[AgriResultComputation] No reduce equipment dictionary");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No reduce equipment dictionary");
             return nil;
         }
         NSArray *result = [reduceEquipmentDictionary objectForKey:reduceEquipment];
         if (!result) {
-            NSLog(@"[AgriResultComputation] No result array");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No result array");
             return nil;
         }
         return result[0];
     }
 }
 
-- (NSNumber*) specialConsideration:(NSNumber*)temperature windSpeed:(NSNumber*)windSpeed reduceEquipment:(NSNumber*)reduceEquipment dose:(NSNumber*)dose boomHeight:(NSNumber*)boomHeight sprayQuality:(NSNumber*)sprayQuality {
+- (NSNumber *)specialConsideration:(NSNumber *)temperature windSpeed:(NSNumber *)windSpeed reduceEquipment:(NSNumber *)reduceEquipment dose:(NSNumber *)dose boomHeight:(NSNumber *)boomHeight sprayQuality:(NSNumber *)sprayQuality {
     
     temperature = [self roundTemperature:temperature];
     if (!temperature) {
@@ -305,7 +305,7 @@ SHARED_INSTANCE
     }
 
     if (!dose || [dose floatValue] == 0.0F) {
-        NSLog(@"[AgriResultComputation] No dose");
+        if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No dose");
         return nil;
     }
 
@@ -313,38 +313,38 @@ SHARED_INSTANCE
         //NSLog(@"[AgriResultComputation] Using no reduce equipment model");
         
         if (!boomHeight || [boomHeight intValue] < 25) {
-            NSLog(@"[AgriResultComputation] No boom height");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No boom height");
             return nil;
         }
         
         if (!sprayQuality || [sprayQuality intValue] == 0) {
-            NSLog(@"[AgriResultComputation] No spray quality");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No spray quality");
             return nil;
         }
         
         NSDictionary *windSpeedDictionary = [self.modelWithoutReduce objectForKey:temperature];
         if (!windSpeedDictionary) {
-            NSLog(@"[AgriResultComputation] No wind speed dictionary");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No wind speed dictionary");
             return nil;
         }
         NSDictionary *doseDictionary = [windSpeedDictionary objectForKey:windSpeed];
         if (!doseDictionary) {
-            NSLog(@"[AgriResultComputation] No dose dictionary");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No dose dictionary");
             return nil;
         }
         NSDictionary *boomHeightDictionary = [doseDictionary objectForKey:dose];
         if (!boomHeightDictionary) {
-            NSLog(@"[AgriResultComputation] No boom height dictionary");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No boom height dictionary");
             return nil;
         }
         NSDictionary *sprayQualityDictionary = [boomHeightDictionary objectForKey:boomHeight];
         if (!sprayQualityDictionary) {
-            NSLog(@"[AgriResultComputation] No spray quality dictionary");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No spray quality dictionary");
             return nil;
         }
         NSArray *result = [sprayQualityDictionary objectForKey:sprayQuality];
         if (!result) {
-            NSLog(@"[AgriResultComputation] No result array");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No result array");
             return nil;
         }
         return result[1];
@@ -353,31 +353,31 @@ SHARED_INSTANCE
         //NSLog(@"[AgriResultComputation] Using reduce equipment model");
         NSDictionary *windSpeedDictionary = [self.modelWithReduce objectForKey:temperature];
         if (!windSpeedDictionary) {
-            NSLog(@"[AgriResultComputation] No wind speed dictionary");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No wind speed dictionary");
             return nil;
         }
         NSDictionary *doseDictionary = [windSpeedDictionary objectForKey:windSpeed];
         if (!doseDictionary) {
-            NSLog(@"[AgriResultComputation] No dose dictionary");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No dose dictionary");
             return nil;
         }
         NSDictionary *reduceEquipmentDictionary = [doseDictionary objectForKey:dose];
         if (!reduceEquipmentDictionary) {
-            NSLog(@"[AgriResultComputation] No reduce equipment dictionary");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No reduce equipment dictionary");
             return nil;
         }
         NSArray *result = [reduceEquipmentDictionary objectForKey:reduceEquipment];
         if (!result) {
-            NSLog(@"[AgriResultComputation] No result array");
+            if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No result array");
             return nil;
         }
         return result[1];
     }
 }
 
-- (NSNumber*) roundTemperature:(NSNumber*)temperature {
+- (NSNumber *)roundTemperature:(NSNumber *)temperature {
     if (!temperature || [temperature floatValue] == 0.0F) {
-        NSLog(@"[AgriResultComputation] No temperature");
+        if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No temperature");
         return nil;
     }
     
@@ -393,9 +393,9 @@ SHARED_INSTANCE
     }
 }
 
-- (NSNumber*) roundWindSpeed:(NSNumber*)windSpeed {
+- (NSNumber *)roundWindSpeed:(NSNumber *)windSpeed {
     if (!windSpeed) {
-        NSLog(@"[AgriResultComputation] No wind speed");
+        if (LOG_AGRI_RESULT) NSLog(@"[AgriResultComputation] No wind speed");
         return nil;
     }
     

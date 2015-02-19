@@ -12,6 +12,6 @@
 
 @interface DictionarySerializationUtil : NSObject
 
-+(NSMutableDictionary *) convertValuesToBasicTypes:(NSDictionary *)dictionary;
++ (NSMutableDictionary *)convertValuesToBasicTypes:(NSDictionary *)dictionary;
 
 @end

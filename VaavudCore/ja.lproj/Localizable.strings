@@ -37,7 +37,7 @@
 "BUTTON_DONE" = "終了";
 
 "INFO_MEASURING" = "計測中です";
-"INFO_NO_SIGNAL" = "信号がありません";
+"INFO_NO_SIGNAL" = "風速計を検知できませんでした";
 "INFO_KEEP_STEADY" = "縦方向に保ち安定させてください";
 
 "X_HOURS" = "%d時間";
@@ -195,3 +195,33 @@
 "AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "No Subscription";
 "AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "You don't have a valid subscription. Please contact Vaavud.";
 "AGRI_WORD_LIST" = "Word list";
+
+"INTRO_UPGRADE_WHATS_NEW" = "新着情報";
+"INTRO_UPGRADE_TEXT0" = "履歴では地理的位置や新しいSlepnir風速計、風向きを表示！";
+"INTRO_UPGRADE_TEXT1" = "概要画面で温度や気圧など主要な測定データを表示。";
+"INTRO_UPGRADE_CTA_BUY" = "新しいSleipnirを今すぐ購入!";
+
+// New feb 2015
+
+"MEASURE_AVG" = "平均";// Shorter form of the word 'Average'
+"SUMMARY_PRESSURE" = "気圧";
+"SUMMARY_TEMPERATURE" = "気温";
+"SUMMARY_WIND_CHILL" = "風速冷却";// Basically a technical term
+"SUMMARY_GUSTINESS" = "突風";// HOw gusty the wind is
+"GEOLOCATION_ERROR" = "場所をロードできませんでした";
+"GEOLOCATION_LOADING" = "場所をロードしています…";
+"GEOLOCATION_UNKNOWN" = "場所が保存されませんでした";
+
+"UNIT_FAHRENHEIT" = "°F";
+
+"UNIT_MBAR" = "mbar"; // millibar, which is equal to hecto pascal
+"UNIT_ATM" = "atm"; // atmosphere as a unit of pressure
+"UNIT_MMHG" = "mmHg"; // millimetres mercury
+
+"SUMMARY_MEASURE_WINDDIRECTION" = "風向の測定";
+"SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "新しいSleipnir風力計で風向を測定できます！";
+"SUMMARY_UPSELL" = "新しいSleipnirで風向を計りましょう！";
+
+"REGISTER_EXPLANATION" = "Vaavudアプリの全機能を使用するにはログインする必要があります";
+
+

@@ -42,26 +42,32 @@ enum AuthenticationResponseType : NSUInteger {
 // that we don't end up calling a deallocated closure we use a delegate as indirection
 
 @protocol AuthenticationDelegate <NSObject>
-- (void) facebookAuthenticationSuccess:(enum AuthenticationResponseType)response;
-- (void) facebookAuthenticationFailure:(enum AuthenticationResponseType)response message:(NSString*)message displayFeedback:(BOOL)displayFeedback;
+- (void)facebookAuthenticationSuccess:(enum AuthenticationResponseType)response;
+- (void)facebookAuthenticationFailure:(enum AuthenticationResponseType)response message:(NSString *)message displayFeedback:(BOOL)displayFeedback;
 @end
 
 @interface AccountManager : NSObject
 
 @property (nonatomic, weak) id<AuthenticationDelegate> delegate;
 
-+ (AccountManager*) sharedInstance;
++ (AccountManager *)sharedInstance;
 
--(void) registerWithPassword:(NSString*)password email:(NSString*)email firstName:(NSString*)firstName lastName:(NSString*)lastName action:(enum AuthenticationActionType)action success:(void(^)(enum AuthenticationResponseType response))success failure:(void(^)(enum AuthenticationResponseType response))failure;
+- (void)registerWithPassword:(NSString *)password
+                      email:(NSString *)email
+                  firstName:(NSString *)firstName
+                   lastName:(NSString *)lastName
+                     action:(enum AuthenticationActionType)action
+                    success:(void(^)(enum AuthenticationResponseType response))success
+                    failure:(void(^)(enum AuthenticationResponseType response))failure;
 
--(void) registerWithFacebook:(NSString*)password action:(enum AuthenticationActionType)action;
+- (void)registerWithFacebook:(NSString *)password action:(enum AuthenticationActionType)action;
 
-- (enum AuthenticationStateType) getAuthenticationState;
+- (enum AuthenticationStateType)getAuthenticationState;
 
--(void) logout;
+- (void)logout;
 
--(BOOL) isLoggedIn;
+- (BOOL)isLoggedIn;
 
-- (void) ensureSharingPermissions:(void(^)())success failure:(void(^)())failure;
+- (void)ensureSharingPermissions:(void(^)())success failure:(void(^)())failure;
 
 @end

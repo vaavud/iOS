@@ -37,7 +37,7 @@
 "BUTTON_DONE" = "Fet";
 
 "INFO_MEASURING" = "Mesurament en progrés";
-"INFO_NO_SIGNAL" = "Sense senyal";
+"INFO_NO_SIGNAL" = "No es pot detectar el anemòmetre";
 "INFO_KEEP_STEADY" = "Mantingues-ho vertical i estable";
 
 "X_HOURS" = "%d hours";
@@ -124,15 +124,13 @@
 "MAP_GUIDE_ZOOM_TITLE" = "Zoom ràpid";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "Prem al mapa en miniatura per ampliar la ubicació exacta.";
 
-/* SHOULD BE TRANSLATED! */
-
-"HEADING_WIND_SPEED" = "Wind Speed";
-"HEADING_TEMPERATURE" = "Temperature";
+"HEADING_WIND_SPEED" = "Direcció del vent";
+"HEADING_TEMPERATURE" = "Temperatura";
 "HEADING_WIND_DIRECTION" = "Direcció";
-"BUTTON_NEXT" = "Next";
+"BUTTON_NEXT" = "Següent";
 "UNIT_CELCIUS" = "°C";
 "DIRECTION_CARDINAL" = "Cardinal";
-"DIRECTION_DEGREES" = "Degrees";
+"DIRECTION_DEGREES" = "Graus";
 "DIRECTION_N" = "N";
 "DIRECTION_NNE" = "NNE";
 "DIRECTION_NE" = "NE";
@@ -142,30 +140,33 @@
 "DIRECTION_SE" = "SE";
 "DIRECTION_SSE" = "SSE";
 "DIRECTION_S" = "S";
-"DIRECTION_SSW" = "SSW";
-"DIRECTION_SW" = "SW";
-"DIRECTION_WSW" = "WSW";
-"DIRECTION_W" = "W";
-"DIRECTION_WNW" = "WNW";
-"DIRECTION_NW" = "NW";
-"DIRECTION_NNW" = "NNW";
-"DEVICE_CONNECTED_TITLE" = "Device Connected";
-"DEVICE_CONNECTED_MESSAGE" = "Sleipnir wind meter connected";
-"DEVICE_DISCONNECTED_TITLE" = "Device Disconnected";
-"DEVICE_DISCONNECTED_MESSAGE" = "Sleipnir wind meter disconnected";
-"UNKNOWN_DEVICE_CONNECTED_TITLE" = "Unknown Device";
-"UNKNOWN_DEVICE_CONNECTED_MESSAGE" = "Sleipnir not recognized, try reinserting";
-"UNKNOWN_DEVICE_DISCONNECTED_TITLE" = "Device Disconnected";
-"UNKNOWN_DEVICE_DISCONNECTED_MESSAGE" = "Unknown device disconnected";
-"REGISTER_FEEDBACK_MISSING_FACEBOOK_PERMISSIONS_TITLE" = "Missing Permission";
-"REGISTER_FEEDBACK_MISSING_FACEBOOK_PERMISSIONS_MESSAGE" = "Please allow Facebook to provide us with your email address and list of friends.";
-"YES" = "Yes";
+"DIRECTION_SSW" = "SSO";
+"DIRECTION_SW" = "SO";
+"DIRECTION_WSW" = "OSO";
+"DIRECTION_W" = "O";
+"DIRECTION_WNW" = "ONO";
+"DIRECTION_NW" = "NO";
+"DIRECTION_NNW" = "NNO";
+"DEVICE_CONNECTED_TITLE" = "Dispositiu Conectat";
+"DEVICE_CONNECTED_MESSAGE" = "Anemómetre Sleipnir conectat";
+"DEVICE_DISCONNECTED_TITLE" = "Dispositiu Desconectat";
+"DEVICE_DISCONNECTED_MESSAGE" = "Anemómetre Sleipnir desconectat";
+"UNKNOWN_DEVICE_CONNECTED_TITLE" = "Dispositiu desconegut";
+"UNKNOWN_DEVICE_CONNECTED_MESSAGE" = "Sleipnir no reconegut, intenta reinsertar-ho";
+"UNKNOWN_DEVICE_DISCONNECTED_TITLE" = "Dispositiu Conectat";
+"UNKNOWN_DEVICE_DISCONNECTED_MESSAGE" = "Dispositiu desconegut desconectat";
+"REGISTER_FEEDBACK_MISSING_FACEBOOK_PERMISSIONS_TITLE" = "Manquen permissos";
+"REGISTER_FEEDBACK_MISSING_FACEBOOK_PERMISSIONS_MESSAGE" = "Si us plau, deixa Facebook que ens proporcioni la seva direcció de correu electronic i la llista d’amics.";
+"YES" = "Si";
 "NO" = "No";
-"REGISTER_BUTTON_SIGNUP" = "Sign up";
+"REGISTER_BUTTON_SIGNUP" = "Registra’t";
 
-"AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Measure for 60s";
-"AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "You must measure for at least 60s indicated by the bar becoming fully green.";
-"AGRI_ENTER_TEMPERATURE" = "Enter Temperature";
+"AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Mide durante 60s";
+"AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "Debes media lameness durante 60s indicado cuando la barra se vuelve verde.";
+"AGRI_ENTER_TEMPERATURE" = "Introduce Temperatura";
+
+/* SHOULD BE TRANSLATED! */
+
 "AGRI_ENTER_TEMPERATURE_EXPLANATION" = "The temperature could not be determined automatically. Please enter it manually:";
 "AGRI_MANUAL_DIRECTION" = "Wind Direction";
 "AGRI_MANUAL_DIRECTION_EXPLANATION" = "Disconnect your wind meter and hold up your phone against the wind. Press Next when you are doing that.";
@@ -195,3 +196,31 @@
 "AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "No Subscription";
 "AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "You don't have a valid subscription. Please contact Vaavud.";
 "AGRI_WORD_LIST" = "Word list";
+
+"INTRO_UPGRADE_WHATS_NEW" = "Novetats";
+"INTRO_UPGRADE_TEXT0" = "L'historial mostra la geolocalització i, amb el nou anemòmetre Sleipnir, la direcció del vent!";
+"INTRO_UPGRADE_TEXT1" = "La pantalla de resum mostra les teves dades clau en el mesurament, incloent la pressió, temperatura, etc.";
+"INTRO_UPGRADE_CTA_BUY" = "Compra el nou Sleipnir ara!";
+
+"MEASURE_AVG" = "Mitjana"; // Shorter form of the word 'Average'
+"SUMMARY_PRESSURE" = "Pressió";
+"SUMMARY_TEMPERATURE" = "Temperatura";
+"SUMMARY_WIND_CHILL" = "Sensació"; // Basically a technical term
+"SUMMARY_GUSTINESS" = "Ràfegues"; // HOw gusty the wind is
+"GEOLOCATION_ERROR" = "Ubicació no disponible";
+"GEOLOCATION_LOADING" = "Carregant ubicació...";
+"GEOLOCATION_UNKNOWN" = "Ubicació desconeguda";
+
+"UNIT_FAHRENHEIT" = "°F";
+
+"SUMMARY_MEASURE_WINDDIRECTION" = "Mesurar la direcció del vent";
+"SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "Amb el nou anemòmetre Sleipnir, la direcció del vent!";
+"SUMMARY_UPSELL" = "Mesura la direcció del vent amb el nou Sleipnir!";
+
+// Not crucial
+"UNIT_MBAR" = "mbar"; // millibar, which is equal to hecto pascal
+"UNIT_ATM" = "atm"; // atmosphere as a unit of pressure
+"UNIT_MMHG" = "mmHg"; // millimetres mercury
+
+"REGISTER_EXPLANATION" = "Necessites enregistrar-te per obtenir tot el benefici de la app Vaavud";
+

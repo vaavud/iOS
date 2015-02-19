@@ -10,15 +10,15 @@
 
 @implementation FormatUtil
 
-+ (NSString*) formatRelativeDate:(NSDate*) date {
++ (NSString *)formatRelativeDate:(NSDate *)date {
     double timeAgoSeconds = [date timeIntervalSinceNow];
     if (timeAgoSeconds > 0) {
         return NSLocalizedString(@"REL_TIME_FUTURE", nil);
     }
     timeAgoSeconds = abs(timeAgoSeconds);
-    int minsAgo = round(timeAgoSeconds / 60.0);
-    int hoursAgo = round(timeAgoSeconds / 3600.0);
-    int daysAgo = round(timeAgoSeconds / (3600.0*24.0));
+    int minsAgo = round(timeAgoSeconds/60.0);
+    int hoursAgo = round(timeAgoSeconds/3600.0);
+    int daysAgo = round(timeAgoSeconds/(3600.0*24.0));
     if (minsAgo < 1) {
         return NSLocalizedString(@"REL_TIME_NOW", nil);
     }
@@ -42,21 +42,21 @@
     }
 }
 
-+ (NSString*) formatValueWithTwoDigits:(float) value {
++ (NSString *)formatValueWithTwoDigits:(float)value {
     if (round(value) >= 10) {
-        return [NSString stringWithFormat: @"%.0f", value];
+        return [NSString localizedStringWithFormat: @"%.0f", value];
     }
     else {
-        return [NSString stringWithFormat: @"%.1f", value];
+        return [NSString localizedStringWithFormat: @"%.1f", value];
     }
 }
 
-+ (NSString*) formatValueWithThreeDigits:(double) value {
++ (NSString *)formatValueWithThreeDigits:(double)value {
     if (round(value) >= 100.0) {
-        return [NSString stringWithFormat: @"%.0f", value];
+        return [NSString localizedStringWithFormat: @"%.0f", value];
     }
     else {
-        return [NSString stringWithFormat: @"%.1f", value];
+        return [NSString localizedStringWithFormat: @"%.1f", value];
     }
 }
 

@@ -12,7 +12,7 @@
 
 @implementation VaavudAPIHTTPClient
 
-+ (VaavudAPIHTTPClient *) sharedInstance {
++ (VaavudAPIHTTPClient *)sharedInstance {
     static VaavudAPIHTTPClient *_sharedInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -21,25 +21,23 @@
     return _sharedInstance;
 }
 
-- (id) initWithBaseURL:(NSURL *)url {
+- (id)initWithBaseURL:(NSURL *)url {
     self = [super initWithBaseURL:url];
-    if (!self) {
-        return nil;
-    }
-    
-    [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
-	[self setDefaultHeader:@"Accept" value:@"application/json"];
-    [self setParameterEncoding:AFJSONParameterEncoding];
-    
-    NSString *authToken = [Property getAsString:KEY_AUTH_TOKEN];
-    if (authToken && authToken != nil) {
-        [self setAuthToken:authToken];
+    if (self) {
+        [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
+        [self setDefaultHeader:@"Accept" value:@"application/json"];
+        [self setParameterEncoding:AFJSONParameterEncoding];
+        
+        NSString *authToken = [Property getAsString:KEY_AUTH_TOKEN];
+        if (authToken && authToken != nil) {
+            [self setAuthToken:authToken];
+        }
     }
     
     return self;
 }
 
-- (void) setAuthToken:(NSString *)authToken {
+- (void)setAuthToken:(NSString *)authToken {
     [self setDefaultHeader:@"authToken" value:authToken];
 }
 

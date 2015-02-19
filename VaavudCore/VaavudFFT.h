@@ -1,5 +1,5 @@
 //
-//  vaavudFFT.h
+//  VaavudFFT.h
 //  VaavudCore
 //
 //  Created by Andreas Okholm on 5/15/13.
@@ -8,9 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface vaavudFFT : NSObject
+@interface VaavudFFT : NSObject
 
-- (id) initFFTLength:(int) N andFftDataLength: (int) fftDataLengthIn;
-- (NSArray*) doFFT: (NSArray*) FFTin;
+- (id)initFFTLength:(int)N andFftDataLength:(int)fftDataLengthIn;
+
+- (NSArray *)doFFT:(NSArray *)FFTin;
 
 @end

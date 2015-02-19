@@ -7,6 +7,8 @@
 //
 
 #import "CoreMeasureViewController.h"
+#import "Vaavud-Swift.h"
+#import "SavingWindMeasurementController.h"
 
 @interface CoreMeasureViewController ()
 
@@ -37,17 +39,17 @@
 
 @implementation CoreMeasureViewController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     //[self.settingsBarButtonItem setTitle:NSLocalizedString(@"SETTINGS_TITLE", nil)];
 }
 
--(NSUInteger) supportedInterfaceOrientations {
+-(NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     //NSLog(@"[CoreMeasureViewController] topLayoutGuide=%f", self.topLayoutGuide.length);
@@ -73,12 +75,20 @@
     }
 }
 
-- (IBAction) startStopButtonPushed:(id)sender {
+- (IBAction)startStopButtonPushed:(id)sender {
     [super startStopButtonPushed:sender];
 }
 
-- (IBAction) unitButtonPushed:(id)sender {
+- (IBAction)unitButtonPushed:(id)sender {
     [super unitButtonPushed:sender];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"SummaryFromMeasureSegue"]) {
+        CoreSummaryViewController *destination = segue.destinationViewController;
+        destination.session = self.concludedSession;
+        self.concludedSession = nil;
+    }
 }
 
 @end

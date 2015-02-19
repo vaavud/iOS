@@ -24,12 +24,12 @@
 
 @implementation HistoryRootViewController
 
-- (void) awakeFromNib {
+- (void)awakeFromNib {
     [super awakeFromNib];
     self.tabBarItem.title = NSLocalizedString(@"TAB_HISTORY", nil);
 }
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
     
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
@@ -42,33 +42,33 @@
     }
 }
 
-- (void) tabSelected {
+- (void)tabSelected {
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"History Tab"];
     }
 }
 
-- (void) viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self chooseContentController:NO];
 }
 
-- (void) userAuthenticated:(BOOL)isSignup viewController:(UIViewController*)viewController {
+- (void)userAuthenticated:(BOOL)isSignup viewController:(UIViewController *)viewController {
     [self chooseContentController:YES];
 }
 
-- (void) cancelled:(UIViewController*)viewController {
+- (void)cancelled:(UIViewController *)viewController {
 }
 
-- (NSString*) registerScreenTitle {
+- (NSString *)registerScreenTitle {
     return NSLocalizedString(@"HISTORY_TITLE", nil);
 }
 
-- (NSString*) registerTeaserText {
+- (NSString *)registerTeaserText {
     return NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil);
 }
 
-- (void) chooseContentController:(BOOL)ignoreGracePeriod {
+- (void)chooseContentController:(BOOL)ignoreGracePeriod {
     if (ignoreGracePeriod) {
         [self syncHistory:YES];
     }
@@ -78,11 +78,10 @@
     }
 }
 
-- (void) chooseContentControllerWithNoHistorySync {
+- (void)chooseContentControllerWithNoHistorySync {
     UIViewController *newController = nil;
     
     if ([[AccountManager sharedInstance] isLoggedIn]) {
-        
         if ([ServerUploadManager sharedInstance].isHistorySyncBusy) {
             newController = [self.storyboard instantiateViewControllerWithIdentifier:@"LoadingHistoryNavigationController"];
         }
@@ -113,29 +112,27 @@
     }
 }
 
-- (void)showContentController:(UIViewController*)viewController {
-    
-    viewController.view.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
+- (void)showContentController:(UIViewController *)viewController {
+    viewController.view.frame = self.view.bounds;
     
     [self addChildViewController:viewController];
     [self.view addSubview:viewController.view];
     [viewController didMoveToParentViewController:self];
 }
 
-- (void)hideContentController:(UIViewController*)viewController {
+- (void)hideContentController:(UIViewController *)viewController {
     [viewController willMoveToParentViewController:nil];
     [viewController.view removeFromSuperview];
     [viewController removeFromParentViewController];
 }
 
-- (void) syncHistory:(BOOL)ignoreGracePeriod {
-    
+- (void)syncHistory:(BOOL)ignoreGracePeriod {
     if ([[AccountManager sharedInstance] isLoggedIn]) {
         [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:ignoreGracePeriod success:^{
             //NSLog(@"[HistoryRootViewController] Got successful callback from history sync");
             
-            if (self.childViewController && [self.childViewController conformsToProtocol:@protocol(HistoryLoadedListener)]) {
-                UIViewController<HistoryLoadedListener> *listener = (UIViewController<HistoryLoadedListener>*) self.childViewController;
+            if ([self.childViewController conformsToProtocol:@protocol(HistoryLoadedListener)]) {
+                id<HistoryLoadedListener> listener = (id<HistoryLoadedListener>)self.childViewController;
                 [listener historyLoaded];
             }
             else if ([[AccountManager sharedInstance] isLoggedIn]) {

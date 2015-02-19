@@ -12,8 +12,7 @@
 
 @implementation MeasurementSession (Util)
 
--(NSDictionary *) toDictionary {
-    
+- (NSDictionary *)toDictionary {
     NSMutableDictionary *dictionary = [[self dictionaryWithValuesForKeys:[[[self entity] attributesByName] allKeys]] mutableCopy];
 
     dictionary = [DictionarySerializationUtil convertValuesToBasicTypes:dictionary];
@@ -33,7 +32,6 @@
     
     // convert measurement points, if any
     if (self.points && ([self.points count] > 0) && ([self.endIndex intValue] - [self.startIndex intValue]) > 0) {
-    
         NSMutableArray *pointsAsDictionaries = [NSMutableArray arrayWithCapacity:([self.endIndex intValue] - [self.startIndex intValue])];
         int index = 0;
         for (MeasurementPoint *point in self.points) {
@@ -52,7 +50,7 @@
     else {
         [dictionary removeObjectForKey:@"points"];
     }
-
+    
     return dictionary;
 }
 

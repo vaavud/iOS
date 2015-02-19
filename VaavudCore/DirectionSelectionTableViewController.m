@@ -57,8 +57,7 @@
     return cell;
 }
 
-- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     NSNumber *directionUnit = [Property getAsInteger:KEY_DIRECTION_UNIT];
     NSInteger directionIndex = (directionUnit) ? [directionUnit integerValue] : 0;
     

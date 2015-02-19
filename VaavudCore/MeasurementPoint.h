@@ -13,9 +13,9 @@
 
 @interface MeasurementPoint : NSManagedObject
 
-@property (nonatomic, retain) NSDate * time;
-@property (nonatomic, retain) NSNumber * windDirection;
-@property (nonatomic, retain) NSNumber * windSpeed;
+@property (nonatomic, retain) NSDate *time;
+@property (nonatomic, retain) NSNumber *windDirection;
+@property (nonatomic, retain) NSNumber *windSpeed;
 @property (nonatomic, retain) MeasurementSession *session;
 
 @end

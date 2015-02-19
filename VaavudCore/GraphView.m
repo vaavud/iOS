@@ -13,6 +13,7 @@
 
 #import "GraphView.h"
 #import "UIColor+VaavudColors.h"
+#import "Constants.h"
 
 @interface GraphView()
 
@@ -38,7 +39,7 @@
 
 @implementation GraphView
 
-- (id) initWithCoder:(NSCoder*)aDecoder {
+- (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     if (self) {
         [self initialize:WindSpeedUnitKMH];
@@ -46,7 +47,7 @@
     return self;
 }
 
-- (id) initWithFrame:(CGRect)frame {
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [self initialize:WindSpeedUnitKMH];
@@ -54,7 +55,7 @@
     return self;
 }
 
-- (id) initWithFrame:(CGRect)frame windSpeedUnit:(WindSpeedUnit)unit {
+- (id)initWithFrame:(CGRect)frame windSpeedUnit:(WindSpeedUnit)unit {
     self = [super initWithFrame:frame];
     if (self) {
         [self initialize:unit];
@@ -62,10 +63,7 @@
     return self;
 }
 
-- (void) initialize:(WindSpeedUnit)unit {
-
-    //NSLog(@"[GraphView] initialize");
-    
+- (void)initialize:(WindSpeedUnit)unit {
     self.windSpeedUnit = unit;
     self.maxWindSpeed = 0.0;
     self.yRange = nil;
@@ -158,8 +156,7 @@
     [self newPlot];
 }
 
-- (void) newPlot {
-
+- (void)newPlot {
     NSMutableArray *plotData = [NSMutableArray arrayWithCapacity:50];
     [self.plots addObject:plotData];
 
@@ -188,8 +185,7 @@
     [self.graphHostingView.hostedGraph addPlot:self.currentPlot];
 }
 
-- (void) changeWindSpeedUnit:(WindSpeedUnit)unit {
-    
+- (void)changeWindSpeedUnit:(WindSpeedUnit)unit {
     if (self.windSpeedUnit != unit) {
         self.windSpeedUnit = unit;
         [self updateYRange];
@@ -197,8 +193,7 @@
     }
 }
 
-- (void) addPoint:(NSDate*)time currentSpeed:(NSNumber*)speed averageSpeed:(NSNumber*)average {
-    
+- (void)addPoint:(NSDate *)time currentSpeed:(NSNumber *)speed averageSpeed:(NSNumber *)average {
     NSTimeInterval intervalSinceLast = 0.0;
     if (self.lastValueTime && time) {
         intervalSinceLast = [time timeIntervalSinceDate:self.lastValueTime];
@@ -217,10 +212,8 @@
     }
     
     if (time && speed) {
-
         NSTimeInterval interval = [time timeIntervalSinceDate:self.startTime];
         if (interval >= 0.0) {
-            
             NSNumber *x = [NSNumber numberWithDouble:interval];
             self.latestAverageX = x;
             self.lastValueTime = time;
@@ -238,32 +231,30 @@
                     }
                 }
                 else {
-                    NSLog(@"[GraphView] ERROR: No data array for current plot");
+                    if (LOG_GRAPH) NSLog(@"[GraphView] ERROR: No data array for current plot");
                 }
             }
             else {
-                NSLog(@"[GraphView] ERROR: No plots adding point");
+                if (LOG_GRAPH) NSLog(@"[GraphView] ERROR: No plots adding point");
             }
         }
         else {
-            NSLog(@"[GraphView] WARNING: time interval is negative adding point, startTime=%@, time=%@", self.startTime, time);
+            if (LOG_GRAPH) NSLog(@"[GraphView] WARNING: time interval is negative adding point, startTime=%@, time=%@", self.startTime, time);
         }
     }
 }
 
-- (void) shiftGraphX {
-    
+- (void)shiftGraphX {
     float timeSinceStart = -[self.startTime timeIntervalSinceNow] + 1; // graph - x range should always be 1 second ahead.
     
     if (timeSinceStart > GRAPH_TIME_WIDTH) {
-        CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace*) self.graphHostingView.hostedGraph.defaultPlotSpace;
+        CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)self.graphHostingView.hostedGraph.defaultPlotSpace;
         plotSpace.xRange  = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(timeSinceStart - GRAPH_TIME_WIDTH) length:CPTDecimalFromFloat(GRAPH_TIME_WIDTH)];
         plotSpace.globalXRange = [CPTPlotRange plotRangeWithLocation:CPTDecimalFromFloat(0) length:CPTDecimalFromFloat(timeSinceStart)];
     }
 }
 
-- (void) updateYRange {
-    
+- (void)updateYRange {
     double maxWindSpeedLocalized = [UnitUtil displayWindSpeedFromDouble:self.maxWindSpeed unit:self.windSpeedUnit];
     double minWindSpeedLocalized = ceilf([UnitUtil displayWindSpeedFromDouble:GRAPH_MIN_Y unit:self.windSpeedUnit]);
     
@@ -281,37 +272,32 @@
 
 #pragma mark Plot Data Source methods
 
-- (NSUInteger) numberOfRecordsForPlot:(CPTPlot*)plot {
-    
-    NSInteger identifier = [(NSNumber*) plot.identifier integerValue];
+- (NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot {
+    NSInteger identifier = [(NSNumber *)plot.identifier integerValue];
     
     if (AVERAGE_PLOT_IDENTIFIER == identifier) {
         NSUInteger records = (self.averageValue && self.latestAverageX) ? 2 : 0;
-        //NSLog(@"[GraphView] Records for average plot is %u", records);
+        if (LOG_GRAPH) NSLog(@"[GraphView] Records for average plot is %lu", records);
         return records;
     }
     else {
         if (self.plots && identifier < self.plots.count) {
             NSArray *data = self.plots[identifier];
             NSUInteger records = data.count;
-            //NSLog(@"[GraphView] Records for plot (%u) is %u", identifier, records);
+            if (LOG_GRAPH) NSLog(@"[GraphView] Records for plot (%lu) is %lu", identifier, records);
             return records;
         }
         else {
-            NSLog(@"[GraphView] ERROR: No plots or identifier out of bounds (%lu) getting number of records for plot", identifier);
+            if (LOG_GRAPH) NSLog(@"[GraphView] ERROR: No plots or identifier out of bounds (%lu) getting number of records for plot", (long)identifier);
         }
         return 0;
     }
 }
 
-- (NSNumber*) numberForPlot:(CPTPlot*)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
-    
-    NSInteger identifier = [((NSNumber*) plot.identifier) integerValue];
+- (NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index {
+    NSInteger identifier = [((NSNumber *)plot.identifier) integerValue];
     
     if (AVERAGE_PLOT_IDENTIFIER == identifier) {
-        
-        //NSLog(@"[GraphView] latestAverageX=%@, averageValue=%@", self.latestAverageX, self.averageValue);
-        
         if (fieldEnum == CPTScatterPlotFieldX) {
             if (index == 1 && self.latestAverageX) {
                 return self.latestAverageX;
@@ -341,15 +327,15 @@
                     }
                 }
                 else {
-                    NSLog(@"[GraphView] ERROR: No (x,y) data for plot (%lu) at index (%lu)", identifier, index);
+                    if (LOG_GRAPH) NSLog(@"[GraphView] ERROR: No (x,y) data for plot (%lu) at index (%lu)", (long)identifier, (long)index);
                 }
             }
             else {
-                NSLog(@"[GraphView] ERROR: No data for plot (%lu) or index out of bounds (%lu)", identifier, index);
+                if (LOG_GRAPH) NSLog(@"[GraphView] ERROR: No data for plot (%lu) or index out of bounds (%lu)", (long)identifier, (long)index);
             }
         }
         else {
-            NSLog(@"[GraphView] ERROR: No plots or identifier out of bounds (%lu)", identifier);
+            if (LOG_GRAPH) NSLog(@"[GraphView] ERROR: No plots or identifier out of bounds (%lu)", (long)identifier);
         }
         return [NSNumber numberWithDouble:0.0];
     }
@@ -357,12 +343,12 @@
 
 #pragma mark Plot Space Delegate Methods
 
-- (CGPoint) plotSpace:(CPTPlotSpace*)space willDisplaceBy:(CGPoint)displacement {
+- (CGPoint)plotSpace:(CPTPlotSpace *)space willDisplaceBy:(CGPoint)displacement {
     // only displace in X
-    return CGPointMake(displacement.x,0);
+    return CGPointMake(displacement.x, 0);
 }
 
-- (CPTPlotRange*) plotSpace:(CPTPlotSpace*)space willChangePlotRangeTo:(CPTPlotRange*)newRange forCoordinate:(CPTCoordinate)coordinate {
+- (CPTPlotRange *)plotSpace:(CPTPlotSpace *)space willChangePlotRangeTo:(CPTPlotRange *)newRange forCoordinate:(CPTCoordinate)coordinate {
     // do not zoom in Y
     if (coordinate == CPTCoordinateY && self.yRange) {
         newRange = self.yRange;

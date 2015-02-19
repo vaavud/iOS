@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="UpgradingUserPagesView" customModule="Vaavud" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="960" height="608"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C3E-RZ-m83" userLabel="View 0">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="608"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What's new" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYL-PV-xrH">
+                            <rect key="frame" x="91" y="20" width="139" height="30"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
+                            <color key="textColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="History shows Geolocation and, with the new Sleipnir windmeter, wind direction!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHy-ZF-8rZ">
+                            <rect key="frame" x="28" y="60" width="265" height="78"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="22"/>
+                            <color key="textColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="centerX" secondItem="QHy-ZF-8rZ" secondAttribute="centerX" id="0qI-vu-3PF"/>
+                        <constraint firstAttribute="centerX" secondItem="DYL-PV-xrH" secondAttribute="centerX" id="Cvi-8h-Ohj"/>
+                        <constraint firstItem="DYL-PV-xrH" firstAttribute="top" secondItem="C3E-RZ-m83" secondAttribute="top" constant="20" id="OEV-IZ-eBe"/>
+                        <constraint firstItem="QHy-ZF-8rZ" firstAttribute="top" secondItem="DYL-PV-xrH" secondAttribute="bottom" constant="10" id="X81-NS-l9v"/>
+                        <constraint firstItem="QHy-ZF-8rZ" firstAttribute="width" secondItem="C3E-RZ-m83" secondAttribute="width" multiplier="530:640" id="zc3-nh-z63"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJk-ua-Thb" userLabel="View 1">
+                    <rect key="frame" x="320" y="0.0" width="320" height="608"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Summary screen showing your key measurement data, including pressure, temperature etc." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74A-FE-VIW">
+                            <rect key="frame" x="28" y="60" width="265" height="104"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="22"/>
+                            <color key="textColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What's new" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zoH-zr-gYm">
+                            <rect key="frame" x="91" y="20" width="139" height="30"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
+                            <color key="textColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="centerX" secondItem="74A-FE-VIW" secondAttribute="centerX" id="27p-lx-YEM"/>
+                        <constraint firstAttribute="width" secondItem="74A-FE-VIW" secondAttribute="width" multiplier="640:530" id="k7h-fX-ShS"/>
+                        <constraint firstItem="zoH-zr-gYm" firstAttribute="top" secondItem="yJk-ua-Thb" secondAttribute="top" constant="20" id="tTG-gt-YsM"/>
+                        <constraint firstAttribute="centerX" secondItem="zoH-zr-gYm" secondAttribute="centerX" id="ulX-YR-FC1"/>
+                        <constraint firstItem="74A-FE-VIW" firstAttribute="top" secondItem="zoH-zr-gYm" secondAttribute="bottom" constant="10" id="xa8-rA-QT9"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jEF-aq-0dA" userLabel="View 2">
+                    <rect key="frame" x="640" y="0.0" width="320" height="608"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NewFeatureSleipnir" translatesAutoresizingMaskIntoConstraints="NO" id="mgw-TV-Hr5">
+                            <rect key="frame" x="74" y="159" width="172" height="291"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="mgw-TV-Hr5" secondAttribute="height" multiplier="172:291" id="ra5-4j-sVK"/>
+                            </constraints>
+                        </imageView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c5U-r2-enH">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="159"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="By2-Wp-Ksm">
+                                    <rect key="frame" x="28" y="58" width="265" height="44"/>
+                                    <color key="backgroundColor" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="44" id="HIn-n7-Ybz"/>
+                                    </constraints>
+                                    <inset key="contentEdgeInsets" minX="8" minY="5" maxX="8" maxY="5"/>
+                                    <state key="normal" title="Buy the new Sleipnir now!">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="4"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="tappedBuy" destination="iN0-l3-epB" eventType="touchUpInside" id="huh-XI-V03"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="centerX" secondItem="By2-Wp-Ksm" secondAttribute="centerX" id="3pY-Ba-yft"/>
+                                <constraint firstAttribute="width" constant="160" id="9uf-k6-Kl8"/>
+                                <constraint firstAttribute="centerY" secondItem="By2-Wp-Ksm" secondAttribute="centerY" id="rg5-82-cc9"/>
+                            </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="9uf-k6-Kl8"/>
+                                </mask>
+                            </variation>
+                        </view>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="centerX" secondItem="mgw-TV-Hr5" secondAttribute="centerX" id="Cr3-mA-BZb"/>
+                        <constraint firstAttribute="centerX" secondItem="c5U-r2-enH" secondAttribute="centerX" id="Lb7-Am-x10"/>
+                        <constraint firstItem="mgw-TV-Hr5" firstAttribute="top" secondItem="c5U-r2-enH" secondAttribute="bottom" id="QHs-R5-Tfk"/>
+                        <constraint firstAttribute="centerY" secondItem="mgw-TV-Hr5" secondAttribute="centerY" id="QaC-cy-Ktt"/>
+                        <constraint firstItem="c5U-r2-enH" firstAttribute="top" secondItem="jEF-aq-0dA" secondAttribute="top" id="ksm-VZ-f9r"/>
+                        <constraint firstItem="c5U-r2-enH" firstAttribute="width" secondItem="jEF-aq-0dA" secondAttribute="width" id="v8M-h1-rzo"/>
+                        <constraint firstItem="mgw-TV-Hr5" firstAttribute="width" secondItem="jEF-aq-0dA" secondAttribute="width" multiplier="345:640" id="viY-tP-yhZ"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="yJk-ua-Thb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="1kV-BK-f5p"/>
+                <constraint firstItem="jEF-aq-0dA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2ib-tn-geH"/>
+                <constraint firstItem="jEF-aq-0dA" firstAttribute="leading" secondItem="yJk-ua-Thb" secondAttribute="trailing" id="7Z2-Ux-CdX"/>
+                <constraint firstItem="jEF-aq-0dA" firstAttribute="width" secondItem="yJk-ua-Thb" secondAttribute="width" id="KcW-VO-5o4"/>
+                <constraint firstAttribute="bottom" secondItem="C3E-RZ-m83" secondAttribute="bottom" id="NuV-fP-hBs"/>
+                <constraint firstItem="C3E-RZ-m83" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Zza-mV-1pa"/>
+                <constraint firstItem="By2-Wp-Ksm" firstAttribute="width" secondItem="74A-FE-VIW" secondAttribute="width" id="a0r-jS-JhQ"/>
+                <constraint firstAttribute="trailing" secondItem="jEF-aq-0dA" secondAttribute="trailing" id="bjD-KZ-xdR"/>
+                <constraint firstItem="yJk-ua-Thb" firstAttribute="leading" secondItem="C3E-RZ-m83" secondAttribute="trailing" id="ku9-Ej-KOd"/>
+                <constraint firstAttribute="bottom" secondItem="jEF-aq-0dA" secondAttribute="bottom" id="pcQ-30-uQC"/>
+                <constraint firstItem="C3E-RZ-m83" firstAttribute="width" secondItem="yJk-ua-Thb" secondAttribute="width" id="srT-Sx-X30"/>
+                <constraint firstItem="C3E-RZ-m83" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="tUA-xy-DU0"/>
+                <constraint firstAttribute="bottom" secondItem="yJk-ua-Thb" secondAttribute="bottom" id="zij-Q0-6Ht"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="button" destination="By2-Wp-Ksm" id="Cz5-Gt-pfi"/>
+                <outlet property="heading0" destination="DYL-PV-xrH" id="ntW-lX-etf"/>
+                <outlet property="heading1" destination="zoH-zr-gYm" id="sLm-za-wg9"/>
+                <outlet property="label0" destination="QHy-ZF-8rZ" id="0QR-OI-sCo"/>
+                <outlet property="label1" destination="74A-FE-VIW" id="DcS-py-5d2"/>
+            </connections>
+            <point key="canvasLocation" x="752" y="283"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="NewFeatureSleipnir" width="172" height="291"/>
+    </resources>
+</document>

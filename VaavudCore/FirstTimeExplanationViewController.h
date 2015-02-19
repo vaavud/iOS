@@ -12,10 +12,10 @@
 
 @protocol FirstTimeExplanationViewControllerDelegate <NSObject>
 
-- (void) topButtonPushedOnController:(FirstTimeExplanationViewController*)controller;
-- (void) bottomButtonPushedOnController:(FirstTimeExplanationViewController*)controller;
-- (void) tinyButtonPushedOnController:(FirstTimeExplanationViewController*)controller;
-- (void) continueFlowFromController:(FirstTimeExplanationViewController*)controller;
+- (void)topButtonPushedOnController:(FirstTimeExplanationViewController *)controller;
+- (void)bottomButtonPushedOnController:(FirstTimeExplanationViewController *)controller;
+- (void)tinyButtonPushedOnController:(FirstTimeExplanationViewController *)controller;
+- (void)continueFlowFromController:(FirstTimeExplanationViewController *)controller;
 
 @end
 
@@ -25,6 +25,7 @@
 
 @property (nonatomic) NSString *imageName;
 @property (nonatomic) NSString *topExplanationText;
+@property (nonatomic) UIColor *topExplanationColor;
 @property (nonatomic) NSString *explanationText;
 @property (nonatomic) NSString *topButtonText;
 @property (nonatomic) NSString *bottomButtonText;

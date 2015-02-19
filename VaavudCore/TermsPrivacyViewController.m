@@ -16,7 +16,7 @@
 
 @implementation TermsPrivacyViewController
 
-- (void)viewDidLoad{
+- (void)viewDidLoad {
     [super viewDidLoad];
 
     self.navigationItem.title = self.termsPrivacyTitle;
@@ -27,7 +27,7 @@
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];    
 }
 

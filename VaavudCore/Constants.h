@@ -9,6 +9,20 @@
 #define MACRO_NAME(f) #f
 #define MACRO_VALUE(f)  MACRO_NAME(f)
 
+#define LOG_INTRO NO
+#define LOG_NETWORK NO
+#define LOG_HISTORY NO
+#define LOG_AGRI_RESULT NO
+#define LOG_AGRI NO
+#define LOG_ACCOUNT NO
+#define LOG_GRAPH NO
+#define LOG_LOCATION NO
+#define LOG_HISTORY NO
+#define LOG_MODEL NO
+#define LOG_UPLOAD NO
+#define LOG_SLEIPNIR NO
+#define LOG_OTHER NO
+
 #define APP "Vaavud"
 
 #define preferedSampleFrequency 100 // actual is arround 63 
@@ -60,5 +74,5 @@ static double const FFT_PEAK_MAG_MIN_IPHONE6 = 2.5;
 static NSString * const GOOGLE_STATIC_MAPS_API_KEY = @"AIzaSyDrrZsMKRBkCw214SbJA6q2lO-cXbu7m0Y";
 static NSString * const OPEN_WEATHERMAP_APIID = @"ee85fc6e4832549dee0f2004453fb478";
 
-//static NSString * const vaavudAPIBaseURLString = @"http://10.121.1.62:8080/";
+//static NSString * const vaavudAPIBaseURLString = @"http://54.75.224.219/";
 static NSString * const vaavudAPIBaseURLString = @"https://mobile-api.vaavud.com/";

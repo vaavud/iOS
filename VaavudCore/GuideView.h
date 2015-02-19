@@ -19,6 +19,6 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topSpaceConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *labelVerticalSpaceConstraint;
 
-- (CGFloat) preferredHeight;
+- (CGFloat)preferredHeight;
 
 @end

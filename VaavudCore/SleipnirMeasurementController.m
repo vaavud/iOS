@@ -8,6 +8,7 @@
 
 #import "SleipnirMeasurementController.h"
 #import "SharedSingleton.h"
+#import "Constants.h"
 
 @interface SleipnirMeasurementController ()
 
@@ -26,7 +27,7 @@
 
 SHARED_INSTANCE
 
-- (id) init {
+- (id)init {
     self = [super init];
     
     if (self) {
@@ -40,8 +41,7 @@ SHARED_INSTANCE
     return self;
 }
 
-- (void) resetMeasurementData {
-
+- (void)resetMeasurementData {
     self.isStarted = NO;
     self.accumulatedSpeed = 0.0;
     self.maxSpeed = 0.0;
@@ -50,19 +50,18 @@ SHARED_INSTANCE
     self.direction = nil;
 }
 
-- (enum WindMeterDeviceType) windMeterDeviceType {
+- (enum WindMeterDeviceType)windMeterDeviceType {
     return SleipnirWindMeterDeviceType;
 }
 
-- (void) start {
-
+- (void)start {
     [self resetMeasurementData];
     self.isStarted = YES;
     self.startTime = [NSDate date];
     [[VEVaavudElectronicSDK sharedVaavudElectronic] start];
 }
 
-- (NSTimeInterval) stop {
+- (NSTimeInterval)stop {
     
     if (!self.isStarted) {
         // don't do anything if we're already stopped
@@ -75,56 +74,56 @@ SHARED_INSTANCE
     return durationSeconds;
 }
 
-
-
-- (void) sleipnirAvailabliltyChanged: (BOOL) available {
+- (void)sleipnirAvailabliltyChanged:(BOOL)available {
     self.isDeviceConnected = available;
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceAvailabilityChanged:andAvailability:)]) {
+    if ([self.delegate respondsToSelector:@selector(deviceAvailabilityChanged:andAvailability:)]) {
         [self.delegate deviceAvailabilityChanged:SleipnirWindMeterDeviceType andAvailability:available];
     }
     
-    if (available)
-        NSLog(@"[SleipnirMeasurementController] sleipnirAvailabliltyChanged - available");
-    else
-        NSLog(@"[SleipnirMeasurementController] sleipnirAvailabliltyChanged - Not available");
+    if (available) {
+        if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] sleipnirAvailabliltyChanged - available");
+    }
+    else {
+        if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] sleipnirAvailabliltyChanged - Not available");
+    }
 }
 
-
-- (void) deviceConnectedTypeSleipnir: (BOOL) sleipnir {
-    if (sleipnir)
-        NSLog(@"[SleipnirMeasurementController] deviceConnected - Sleipnir");
-    else
-        NSLog(@"[SleipnirMeasurementController] deviceConnected - Unknown");
+- (void)deviceConnectedTypeSleipnir:(BOOL)sleipnir {
+    if (sleipnir) {
+        if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] deviceConnected - Sleipnir");
+    }
+    else {
+        if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] deviceConnected - Unknown");
+    }
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceConnected:)]) {
-        enum WindMeterDeviceType deviceType = (sleipnir) ? SleipnirWindMeterDeviceType : UnknownWindMeterDeviceType;
+    if ([self.delegate respondsToSelector:@selector(deviceConnected:)]) {
+        enum WindMeterDeviceType deviceType = sleipnir ? SleipnirWindMeterDeviceType : UnknownWindMeterDeviceType;
         [self.delegate deviceConnected:deviceType];
     }
 }
 
 
-- (void) deviceDisconnectedTypeSleipnir: (BOOL) sleipnir {
-    if (sleipnir)
-        NSLog(@"[SleipnirMeasurementController] deviceDisconnected - Sleipnir");
-    else
-        NSLog(@"[SleipnirMeasurementController] deviceDisconnected - Unknown");
+- (void)deviceDisconnectedTypeSleipnir:(BOOL)sleipnir {
+    if (sleipnir) {
+        if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] deviceDisconnected - Sleipnir");
+    }
+    else {
+        if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] deviceDisconnected - Unknown");
+    }
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
+    if ([self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
         enum WindMeterDeviceType deviceType = (sleipnir) ? SleipnirWindMeterDeviceType : UnknownWindMeterDeviceType;
         [self.delegate deviceDisconnected:deviceType];
     }
-
 }
 
-- (void) deviceConnectedChecking {
-    NSLog(@"[SleipnirMeasurementController] devicePlugedInChecking");
+- (void)deviceConnectedChecking {
+    if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] devicePlugedInChecking");
 }
 
-
-- (void) newSpeed:(NSNumber*)speed {
-    
-    //NSLog(@"[SleipnirMeasurementController] newSpeed=%@", speed);
+- (void)newSpeed:(NSNumber *)speed {
+    //if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] newSpeed=%@", speed);
     
     // make sure we don't do anything with new data after the user has clicked stop
     if (self.isStarted && speed) {
@@ -140,24 +139,20 @@ SHARED_INSTANCE
     }
 }
 
-- (void) newWindDirection:(NSNumber*)windDirection {
-    
+- (void)newWindDirection:(NSNumber *)windDirection {
     // make sure we don't do anything with new data after the user has clicked stop
     if (self.isStarted && windDirection) {
-
         self.direction = windDirection;
         
-        if (self.delegate && [self.delegate respondsToSelector:@selector(updateDirection:)]) {
+        if ([self.delegate respondsToSelector:@selector(updateDirection:)]) {
             [self.delegate updateDirection:self.direction];
         }
     }
 }
 
-- (void) newWindAngleLocal:(NSNumber *)angle {
-    
+- (void)newWindAngleLocal:(NSNumber *)angle {
     if (self.isStarted && angle) {
-        
-        if (self.delegate && [self.delegate respondsToSelector:@selector(updateDirectionLocal:)]) {
+        if ([self.delegate respondsToSelector:@selector(updateDirectionLocal:)]) {
             [self.delegate updateDirectionLocal:angle];
         }
     }
