@@ -236,6 +236,7 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
         explanationViewController.pageIndex = 0;
         explanationViewController.pageId = 4;
         explanationViewController.mixpanelScreen = @"Intro Flow Buy Screen";
+        explanationViewController.topExplanationColor = [UIColor whiteColor];
         explanationViewController.topExplanationText = NSLocalizedString(@"INTRO_FLOW_WANT_TO_BUY", nil);
         explanationViewController.topButtonText = NSLocalizedString(@"BUTTON_YES", nil);
         explanationViewController.bottomButtonText = NSLocalizedString(@"INTRO_FLOW_BUTTON_LATER", nil);
@@ -334,6 +335,7 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
     explanationViewController.pageIndex = 0;
     explanationViewController.pageId = 3;
     explanationViewController.mixpanelScreen = @"Intro Flow Have Wind Meter Screen";
+    explanationViewController.topExplanationColor = [UIColor whiteColor];
     explanationViewController.topExplanationText = NSLocalizedString(@"INTRO_FLOW_HAVE_WIND_METER", nil);
     explanationViewController.topButtonText = NSLocalizedString(@"BUTTON_YES", nil);
     explanationViewController.bottomButtonText = NSLocalizedString(@"BUTTON_NO", nil);
