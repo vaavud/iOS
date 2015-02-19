@@ -465,11 +465,11 @@ BOOL isDoingLogout = NO;
     [Property setAsDate:[NSDate date] forKey:KEY_CREATION_TIME];
     [Property setAsString:nil forKey:KEY_USER_HAS_WIND_METER];
     [Property setAsString:nil forKey:KEY_MAP_HOURS];
-    [Property setAsBoolean:NO forKey:KEY_HAS_SEEN_INTRO_FLOW];
+//    [Property setAsBoolean:NO forKey:KEY_HAS_SEEN_INTRO_FLOW];
     [Property setAsBoolean:NO forKey:KEY_MAP_GUIDE_MARKER_SHOWN];
     [Property setAsBoolean:NO forKey:KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN];
     [Property setAsBoolean:NO forKey:KEY_MAP_GUIDE_ZOOM_SHOWN];
-    [Property setAsBoolean:YES forKey:KEY_ENABLE_SHARE_DIALOG];
+//    [Property setAsBoolean:YES forKey:KEY_ENABLE_SHARE_DIALOG];
     if ([self getAuthenticationState] != AuthenticationStateNeverLoggedIn) {
         [self setAuthenticationState:AuthenticationStateWasLoggedIn];
     }
