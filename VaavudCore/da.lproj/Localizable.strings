@@ -218,3 +218,6 @@
 "SUMMARY_MEASURE_WINDDIRECTION" = "Mål vindretningen";
 "SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "Med den nye Sleipnir-vindmåler kan du måle vindretningen!";
 "SUMMARY_UPSELL" = "Mål vindretningen med den nye Sleipnir!";
+
+"REGISTER_EXPLANATION" = "Du skal logge ind for at få fuldt udbytte af Vaavud appen";
+

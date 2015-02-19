@@ -12,6 +12,7 @@
 #import "AccountManager.h"
 #import "ServerUploadManager.h"
 #import "TabBarController.h"
+#import "UIColor+VaavudColors.h"
 
 @interface FirstTimeFlowController ()
 
@@ -125,6 +126,8 @@
             explanationViewController.pageIndex = index;
         }
         else {
+            explanationViewController.topExplanationColor = [UIColor vaavudDarkGreyColor];
+            explanationViewController.topExplanationText = NSLocalizedString(@"REGISTER_EXPLANATION", nil);
             explanationViewController.topButtonText = NSLocalizedString(@"REGISTER_TITLE_SIGNUP", nil);
             explanationViewController.bottomButtonText = NSLocalizedString(@"REGISTER_TITLE_LOGIN", nil);
             explanationViewController.tinyButtonText = NSLocalizedString(@"INTRO_FLOW_BUTTON_SKIP", nil);
@@ -182,6 +185,10 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
 
 - (void)topButtonPushedOnController:(FirstTimeExplanationViewController *)controller {
     if (controller.pageId == 2) {
+        if ([Property isMixpanelEnabled]) {
+            [[Mixpanel sharedInstance] track:@"[INTRO] Did press signup"];
+        }
+        
         UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
         RegisterNavigationController *newController = [loginStoryBoard instantiateInitialViewController];
         if ([newController isKindOfClass:[RegisterNavigationController class]]) {
@@ -208,6 +215,10 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
 
 - (void)bottomButtonPushedOnController:(FirstTimeExplanationViewController *)controller {
     if (controller.pageId == 2) {
+        if ([Property isMixpanelEnabled]) {
+            [[Mixpanel sharedInstance] track:@"[INTRO] Did press log in"];
+        }
+
         UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
         RegisterNavigationController *newController = (RegisterNavigationController*) [loginStoryBoard instantiateInitialViewController];
         if ([newController isKindOfClass:[RegisterNavigationController class]]) {
@@ -248,6 +259,10 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
 
 - (void)tinyButtonPushedOnController:(FirstTimeExplanationViewController *)controller {
     if (controller.pageId == 2) {
+        if ([Property isMixpanelEnabled]) {
+            [[Mixpanel sharedInstance] track:@"[INTRO] Did press skip"];
+        }
+
         [self gotoNewFlowScreenFrom:controller];
     }
     else if (controller.pageId == 8) {

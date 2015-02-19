@@ -25,6 +25,7 @@
 
 @property (nonatomic) NSString *imageName;
 @property (nonatomic) NSString *topExplanationText;
+@property (nonatomic) UIColor *topExplanationColor;
 @property (nonatomic) NSString *explanationText;
 @property (nonatomic) NSString *topButtonText;
 @property (nonatomic) NSString *bottomButtonText;

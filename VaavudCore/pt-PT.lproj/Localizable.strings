@@ -221,3 +221,6 @@
 "UNIT_MBAR" = "mbar"; // millibar, which is equal to hecto pascal
 "UNIT_ATM" = "atm"; // atmosphere as a unit of pressure
 "UNIT_MMHG" = "mmHg"; // millimetres mercury
+
+"REGISTER_EXPLANATION" = "Para ter acesso a todos os benefícios da app Vaavud tem de se registrar";
+

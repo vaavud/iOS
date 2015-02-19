@@ -27,6 +27,7 @@
     
     UIImage *image = [UIImage imageNamed:self.imageName];
     self.imageView.image = image;
+    self.topExplanationLabel.textColor = self.topExplanationColor;
     self.topExplanationLabel.text = self.topExplanationText;
     self.explanationLabel.text = self.explanationText;
     

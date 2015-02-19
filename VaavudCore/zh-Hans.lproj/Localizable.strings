@@ -197,32 +197,30 @@
 
 // New feb 2015
 
-// Should be converted
-
 "INTRO_UPGRADE_WHATS_NEW" = "新功能";
-"INTRO_UPGRADE_TEXT0" = "歷史顯示地理位置和，隨著新的Sleipnir風向儀，顯示風向！";
-"INTRO_UPGRADE_TEXT1" = "總結屏幕顯示您的關鍵測量數據，包括壓力、溫度等等";
-"INTRO_UPGRADE_CTA_BUY" = "現在購買新Sleipnir！";
+"INTRO_UPGRADE_TEXT0" = "历史显示地理位置和，随着新的Sl﻿eipnir风向仪，显示风向！";
+"INTRO_UPGRADE_TEXT1" = "总结屏幕显示您的关键测量数据，包括压力、温度等等";
+"INTRO_UPGRADE_CTA_BUY" = "现在购买新Sl﻿eipnir！";
 
-"MEASURE_AVG" = "平均";// Shorter form of the word 'Average'
-"SUMMARY_PRESSURE" = "壓力";
-"SUMMARY_TEMPERATURE" = "溫度";
-"SUMMARY_WIND_CHILL" = "風寒";// Basically a technical term
-"SUMMARY_GUSTINESS" = "狂風";// HOw gusty the wind is
-"GEOLOCATION_ERROR" = "無法加載位置";
-"GEOLOCATION_LOADING" = "加載位置中…";
+"MEASURE_AVG" = "平均";
+"SUMMARY_PRESSURE" = "压力";
+"SUMMARY_TEMPERATURE" = "温度";
+"SUMMARY_WIND_CHILL" = "风寒";
+"SUMMARY_GUSTINESS" = "狂风";
+"GEOLOCATION_ERROR" = "无法加载位置";
+"GEOLOCATION_LOADING" = "加载位置中…";
 "GEOLOCATION_UNKNOWN" = "位置未保存";
 
-"UNIT_FAHRENHEIT" = "華氏度";
-"INFO_NO_SIGNAL" = "無法監測出風向儀";
+"UNIT_FAHRENHEIT" = "华氏度";
+"INFO_NO_SIGNAL" = "无法监测出风向仪";
 
-"UNIT_MBAR" = "mbar"; // millibar, which is equal to hecto pascal
-"UNIT_ATM" = "atm"; // atmosphere as a unit of pressure
-"UNIT_MMHG" = "mmHg"; // millimetres mercury
+"UNIT_MBAR" = "mbar";
+"UNIT_ATM" = "atm";
+"UNIT_MMHG" = "mmHg";
 
-"SUMMARY_MEASURE_WINDDIRECTION" = "測試風向";
-"SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "有了全新的Sleipnir風向儀，您可以測試風向了！";
-"SUMMARY_UPSELL" = "用全新的Sleipnir測試方向吧！";
+"SUMMARY_MEASURE_WINDDIRECTION" = "测试风向";
+"SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "有了全新的Sl﻿eipnir风向仪，您可以测试风向了！";
+"SUMMARY_UPSELL" = "用全新的Sle﻿ipnir测试方向吧！";
 
-
+"REGISTER_EXPLANATION" = "您需要登陆才能充分使用Vaavud应用";
 

@@ -220,3 +220,5 @@
 "UNIT_ATM" = "atm"; // atmosphere as a unit of pressure
 "UNIT_MMHG" = "mmHg"; // millimetres mercury
 
+"REGISTER_EXPLANATION" = "You need to log in to get the full benefit of the Vaavud app";
+

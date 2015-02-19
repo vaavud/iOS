@@ -222,3 +222,6 @@
 "SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "新しいSleipnir風力計で風向を測定できます！";
 "SUMMARY_UPSELL" = "新しいSleipnirで風向を計りましょう！";
 
+"REGISTER_EXPLANATION" = "Vaavudアプリの全機能を使用するにはログインする必要があります";
+
+
