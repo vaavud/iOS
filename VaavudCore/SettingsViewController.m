@@ -119,9 +119,10 @@
         UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"AgriLoginViewController"];
         [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
 #elif CORE
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
-        [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
+        [self refreshLogoutButton];
+//        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+//        UIViewController *viewController = [storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
+//        [UIApplication sharedApplication].delegate.window.rootViewController = viewController;
 #endif
     }
 }
