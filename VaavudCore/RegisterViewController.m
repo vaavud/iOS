@@ -8,6 +8,7 @@
 
 #import "RegisterViewController.h"
 #import "RegisterNavigationController.h"
+#import "AccountManager.h"
 #import "Mixpanel.h"
 #import "Property+Util.h"
 
@@ -32,17 +33,15 @@
             
             if (!title || title.length == 0) {
                 self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
-
-                //NSLog(@"Navigation title view rect: (%f, %f, %f, %f)", self.navigationItem.titleView.frame.origin.x, self.navigationItem.titleView.frame.origin.y, self.navigationItem.titleView.frame.size.width, self.navigationItem.titleView.frame.size.height);
             }
             else {
                 self.navigationItem.title = [registerNavigationController.registerDelegate registerScreenTitle];
             }
             self.teaserLabel.text = [registerNavigationController.registerDelegate registerTeaserText];
         }
-        else {
-            self.teaserLabel.text = self.teaserLabelText;
-        }
+    }
+    else {
+        self.teaserLabel.text = self.teaserLabelText;
     }
     
     self.navigationItem.backBarButtonItem.title = NSLocalizedString(@"BUTTON_CANCEL", nil);
@@ -64,8 +63,16 @@
     }
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.destinationViewController conformsToProtocol:@protocol(AuthenticationDelegate)]) {
+        ((id<AuthenticationDelegate>)segue.destinationViewController).completion = self.completion;
+    }
+}
+
 -(NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
 @end
+
+

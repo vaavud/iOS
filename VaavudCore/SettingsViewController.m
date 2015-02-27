@@ -96,7 +96,6 @@
         [self presentViewController:alertController animated:YES completion:nil];
     }
     else {
-
         [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGOUT", nil)
                                     message:NSLocalizedString(@"DIALOG_CONFIRM", nil)
                                    delegate:self

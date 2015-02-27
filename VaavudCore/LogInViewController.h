@@ -12,4 +12,6 @@
 
 @interface LogInViewController : UIViewController <AuthenticationDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 
+@property (nonatomic, copy) void (^completion)(void);
+
 @end

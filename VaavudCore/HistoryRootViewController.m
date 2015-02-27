@@ -95,7 +95,7 @@
         UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
         newController = [loginStoryBoard instantiateInitialViewController];
         if ([newController isKindOfClass:[RegisterNavigationController class]]) {
-            ((RegisterNavigationController*) newController).registerDelegate = self;
+            ((RegisterNavigationController *)newController).registerDelegate = self;
         }
     }
     

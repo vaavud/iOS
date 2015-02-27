@@ -15,17 +15,21 @@ class CoreSettingsTableViewController: UITableViewController {
     @IBOutlet weak var directionUnitControl: UISegmentedControl!
     @IBOutlet weak var pressureUnitControl: UISegmentedControl!
     @IBOutlet weak var temperatureUnitControl: UISegmentedControl!
-    @IBOutlet weak var facebookControl: UISwitch!
+//    @IBOutlet weak var facebookControl: UISwitch!
     
     @IBOutlet weak var versionLabel: UILabel!
     
     override func viewDidLoad() {
         versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
-        facebookControl.on = Property.getAsBoolean("enableFacebookShareDialog", defaultValue: false)
-        refreshLogoutButton()
+//        facebookControl.on = Property.getAsBoolean("enableFacebookShareDialog", defaultValue: false)
         readUnits()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: "UnitChange", object: nil)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        refreshLogoutButton()
     }
     
     func refreshLogoutButton() {
@@ -62,6 +66,10 @@ class CoreSettingsTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func calibrationDone(segue: UIStoryboardSegue) {
+    
+    }
+    
     @IBAction func logInOutTapped(sender: AnyObject) {
         if AccountManager.sharedInstance().isLoggedIn() {
             VaavudInteractions().showLocalAlert("REGISTER_BUTTON_LOGOUT",
@@ -82,7 +90,9 @@ class CoreSettingsTableViewController: UITableViewController {
     }
     
     func registerUser() {
-        let register = UIStoryboard(name: "Register", bundle: nil).instantiateViewControllerWithIdentifier("RegisterViewController") as UIViewController
+        let register = UIStoryboard(name: "Register", bundle: nil).instantiateViewControllerWithIdentifier("RegisterViewController") as RegisterViewController
+        register.completion = { loggedIn in let _ = self.navigationController?.popToViewController(self, animated: true) }
+
         navigationController?.pushViewController(register, animated: true)
     }
     
@@ -128,9 +138,13 @@ class CoreSettingsTableViewController: UITableViewController {
                 webViewController.title = NSLocalizedString("SETTINGS_SHOP_LINK", comment: "")
             }
         }
-        if let firstTimeViewController = segue.destinationViewController as? FirstTimeFlowController {
+        else if let firstTimeViewController = segue.destinationViewController as? FirstTimeFlowController {
             firstTimeViewController.returnViaDismiss = true
         }
+//        else if let modal = segue.destinationViewController as? CalibrateSleipnirViewController {
+//            println("REMOVE TABBAR")
+//            tabBarController?.tabBar.hidden = true
+//        }
     }
 }
 
