@@ -205,7 +205,7 @@
 "MEASURE_AVG" = "Avg"; // Shorter form of the word 'Average'
 "SUMMARY_PRESSURE" = "Druck";
 "SUMMARY_TEMPERATURE" = "Temperatur";
-"SUMMARY_WIND_CHILL" = "Scheinbare"; // Basically a technical term
+"SUMMARY_WIND_CHILL" = "Gefühlte"; // Basically a technical term (corrected from Scheinbare)
 "SUMMARY_GUSTINESS" = "Böigkeit"; // HOw gusty the wind is
 "GEOLOCATION_ERROR" = "Couldn't load location";
 "GEOLOCATION_LOADING" = "Loading location...";
