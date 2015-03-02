@@ -19,5 +19,13 @@
 #import "AccountManager.h"
 #import "ServerUploadManager.h"
 #import "Mixpanel.h"
+#import "RegisterViewController.h"
+
+#import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
+
+#import "NSManagedObject+MagicalFinders.h"
+
+
+#import "FirstTimeFlowController.h" // FIXME: This class needs to be refactored
 
 #endif

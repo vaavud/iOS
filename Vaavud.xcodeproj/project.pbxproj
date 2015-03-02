@@ -16,6 +16,9 @@
 		2234D3681A7A6AB300F325EB /* SummaryImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3671A7A6AB300F325EB /* SummaryImages.xcassets */; };
 		2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
 		2255A63C1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
+		226116D31A9B87BB000145E1 /* CoreLoadingHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226116D21A9B87BB000145E1 /* CoreLoadingHistoryViewController.swift */; };
+		227DC0B21AA0D89E004B8E4B /* WindParticles.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 227DC0B01AA0D89E004B8E4B /* WindParticles.scnp */; };
+		227DC0B31AA0D89E004B8E4B /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 227DC0B11AA0D89E004B8E4B /* spark.png */; };
 		229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
 		229FF3141A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
 		229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3171A7EE3A0008A3226 /* VaavudViews.swift */; };
@@ -26,8 +29,11 @@
 		22AB2E6D1A70FC15008CAE46 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */; };
 		22AB2E6E1A70FC15008CAE46 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */; };
 		22AB2E701A70FD92008CAE46 /* CoreSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */; };
+		22ADAA941A9C911400C298E6 /* CoreEmptyHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA931A9C911400C298E6 /* CoreEmptyHistoryViewController.swift */; };
+		22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */; };
 		22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408B61A8A0E2E0062A2DD /* Extensions.swift */; };
 		22B408B81A8A0E2E0062A2DD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408B61A8A0E2E0062A2DD /* Extensions.swift */; };
+		22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */; };
 		22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
 		22FA6C521A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
 		A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A086025EA7704C458175CADF /* libPods.a */; };
@@ -639,13 +645,19 @@
 		2234D3651A7A597200F325EB /* HistoryImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = HistoryImages.xcassets; sourceTree = "<group>"; };
 		2234D3671A7A6AB300F325EB /* SummaryImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SummaryImages.xcassets; sourceTree = "<group>"; };
 		2255A63A1A818535006589D5 /* VaavudInteractions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudInteractions.swift; sourceTree = "<group>"; };
+		226116D21A9B87BB000145E1 /* CoreLoadingHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreLoadingHistoryViewController.swift; sourceTree = "<group>"; };
+		227DC0B01AA0D89E004B8E4B /* WindParticles.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = WindParticles.scnp; sourceTree = "<group>"; };
+		227DC0B11AA0D89E004B8E4B /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudFormatter.swift; sourceTree = "<group>"; };
 		229FF3171A7EE3A0008A3226 /* VaavudViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudViews.swift; sourceTree = "<group>"; };
 		22AB2E691A70FC15008CAE46 /* BebasNeue Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue Bold.otf"; sourceTree = "<group>"; };
 		22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSummaryViewController.swift; sourceTree = "<group>"; };
+		22ADAA931A9C911400C298E6 /* CoreEmptyHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreEmptyHistoryViewController.swift; sourceTree = "<group>"; };
+		22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalibrateSleipnirViewController.swift; sourceTree = "<group>"; };
 		22B408B61A8A0E2E0062A2DD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSettingsViewController.swift; sourceTree = "<group>"; };
 		22DB81A81A8389DF00DA67AC /* Model 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.xcdatamodel"; sourceTree = "<group>"; };
 		22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Bridging-Header.h"; sourceTree = "<group>"; };
 		22FA6C211A712D3C004DD868 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
@@ -1363,6 +1375,12 @@
 		D7A4F1D0173A8DDB00D1ACEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				227DC0B01AA0D89E004B8E4B /* WindParticles.scnp */,
+				227DC0B11AA0D89E004B8E4B /* spark.png */,
+				22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */,
+				22ADAA931A9C911400C298E6 /* CoreEmptyHistoryViewController.swift */,
+				226116D21A9B87BB000145E1 /* CoreLoadingHistoryViewController.swift */,
+				22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */,
 				22B408B61A8A0E2E0062A2DD /* Extensions.swift */,
 				2255A63A1A818535006589D5 /* VaavudInteractions.swift */,
 				229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */,
@@ -2395,6 +2413,7 @@
 				2234D3681A7A6AB300F325EB /* SummaryImages.xcassets in Resources */,
 				E93EED8219EE5C28004D8759 /* SettingsIcon@3x.png in Resources */,
 				E93EED5919EE5A0A004D8759 /* mapmarker_w_direction_N@3x.png in Resources */,
+				227DC0B31AA0D89E004B8E4B /* spark.png in Resources */,
 				E91D4213198BDFEA00106E15 /* 007_reading@2x.jpg in Resources */,
 				E9D9051419C9BB4A00ABA9F4 /* mapmarker_w_direction_SW@2x.png in Resources */,
 				E91535BD1806C2D20070BFB4 /* measure.png in Resources */,
@@ -2425,6 +2444,7 @@
 				E93EEDC119EE92E3004D8759 /* one-pixel-line@3x.png in Resources */,
 				E91535BE1806C2D20070BFB4 /* measure@2x.png in Resources */,
 				E9002DC419DE9AEA002D0132 /* Agri-Manual-Direction.png in Resources */,
+				227DC0B21AA0D89E004B8E4B /* WindParticles.scnp in Resources */,
 				E9D9050C19C9BB4A00ABA9F4 /* mapmarker_w_direction_NW@2x.png in Resources */,
 				E9D9051A19C9BB4A00ABA9F4 /* mapmarker_w_direction_WSW@2x.png in Resources */,
 				E9723800195993790003A9E4 /* logo@2x.png in Resources */,
@@ -2689,6 +2709,7 @@
 				D7A4F1D7173A8DDB00D1ACEE /* main.m in Sources */,
 				D7497E941A418E5F0092F045 /* SleipnirCalibrationViewController.m in Sources */,
 				D7A4F1DB173A8DDB00D1ACEE /* AppDelegate.m in Sources */,
+				22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */,
 				D7A4F1E7173A8DDB00D1ACEE /* MeasureViewController.m in Sources */,
 				D7A4F1F2173A8FAB00D1ACEE /* MjolnirMeasurementController.m in Sources */,
 				E948382B19B75320009595B0 /* EZAudioPlotGLKViewController.m in Sources */,
@@ -2742,6 +2763,7 @@
 				E9CD223C177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				E9C7798E19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */,
 				E948382719B75320009595B0 /* EZAudioPlot.m in Sources */,
+				22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */,
 				D7497EA91A41E8F60092F045 /* SleipnirCalibrationDismissSegue.m in Sources */,
 				E9FD000B17FD6A06001A8491 /* FormatUtil.m in Sources */,
 				E948383119B75320009595B0 /* EZPlot.m in Sources */,
@@ -2773,6 +2795,7 @@
 				E9CD2247177B2AEA0054ED3F /* NSManagedObjectContext+MagicalObserving.m in Sources */,
 				229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */,
 				22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */,
+				22ADAA941A9C911400C298E6 /* CoreEmptyHistoryViewController.swift in Sources */,
 				D7497EAD1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m in Sources */,
 				E9F33CCE18B4B3CB0033EDC7 /* AccountManager.m in Sources */,
 				E948382519B75320009595B0 /* EZAudioPlayer.m in Sources */,
@@ -2789,6 +2812,7 @@
 				E9CD224B177B2AEA0054ED3F /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				E9CD224C177B2AEA0054ED3F /* NSPersistentStore+MagicalRecord.m in Sources */,
 				E9002DBD19DD69CD002D0132 /* AgriResultViewController.m in Sources */,
+				226116D31A9B87BB000145E1 /* CoreLoadingHistoryViewController.swift in Sources */,
 				E9CD224D177B2AEA0054ED3F /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
 				E9B950E4195C587800E9EF02 /* FirstTimeFlowController.m in Sources */,
 				E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */,
@@ -3125,7 +3149,7 @@
 					"TESTFLIGHT_TOKEN=1b4310d3-6215-4ff5-a881-dd67a6d7ab91",
 				);
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3164,7 +3188,7 @@
 					"TESTFLIGHT_TOKEN=1b4310d3-6215-4ff5-a881-dd67a6d7ab91",
 				);
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

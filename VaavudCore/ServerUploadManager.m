@@ -446,6 +446,7 @@ SHARED_INSTANCE
             
             if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got status %@ registering user", status);
 
+            [self syncHistory:3 ignoreGracePeriod:YES success:nil failure:nil];
             success(status, responseObject);
         }
         else {
@@ -895,6 +896,8 @@ SHARED_INSTANCE
             if (success) {
                 success();
             }
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"HistorySynced" object:self];
         }];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

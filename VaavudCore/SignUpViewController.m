@@ -171,12 +171,13 @@ BOOL didShowFeedback;
         self.passwordTextField.delegate = nil;
         self.emailTextField.delegate = nil;
 
-        if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
-            RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
-            if (registerNavigationController.registerDelegate) {
-                [registerNavigationController.registerDelegate userAuthenticated:(response == AuthenticationResponseCreated) viewController:self];
-            }
-        }
+//        if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
+//            RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
+//            if (registerNavigationController.registerDelegate) {
+//                [registerNavigationController.registerDelegate userAuthenticated:(response == AuthenticationResponseCreated) viewController:self];
+//            }
+//        }
+        self.completion();
     } failure:^(enum AuthenticationResponseType response) {
         if ([Property isMixpanelEnabled]) {
             [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": [NSNumber numberWithInt:response], @"Screen": @"Signup", @"Method": @"Password"}];

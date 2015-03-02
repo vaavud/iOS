@@ -17,6 +17,7 @@
 
 @interface SettingsViewController ()
 
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) UIWebView *webView;
 @property (nonatomic, strong) UISwitch *facebookSharingSwitch;
@@ -95,7 +96,6 @@
         [self presentViewController:alertController animated:YES completion:nil];
     }
     else {
-
         [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGOUT", nil)
                                     message:NSLocalizedString(@"DIALOG_CONFIRM", nil)
                                    delegate:self

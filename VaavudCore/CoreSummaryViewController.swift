@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import MapKit
 
-class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertViewDelegate {
+class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet private weak var dateLabel: UILabel!
     @IBOutlet private weak var averageLabel: UILabel!
     @IBOutlet private weak var maximumLabel: UILabel!
@@ -95,7 +95,25 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
         
         setupMapView()
         setupUI()
-        setupLocalUI()
+        updateUI()
+        updateLocalUI()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: "UnitChange", object: nil)
+    }
+
+    func unitsChanged(note: NSNotification) {
+        if note.object as? CoreSummaryViewController != self {
+            updateUI()
+            updateMapView(session)
+        }
+    }
+
+    func postUnitChange() {
+        NSNotificationCenter.defaultCenter().postNotificationName("UnitChange", object: self)
+    }
+
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -164,10 +182,6 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     }
     
     private func setupUI() {
-        if let time = formatter.localizedTime(session.startTime) {
-            dateLabel.text = time.uppercaseString
-        }
-        
         if view.bounds.width > 375 {
             averageLabel.font = averageLabel.font.fontWithSize(85)
             maximumLabel.font = maximumLabel.font.fontWithSize(60)
@@ -176,7 +190,9 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
             averageLabel.font = averageLabel.font.fontWithSize(72)
             maximumLabel.font = maximumLabel.font.fontWithSize(50)
         }
-        
+    }
+    
+    private func updateUI() {
         setupGeoLocation(session)
         setupWindDirection(session)
         
@@ -201,7 +217,12 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
         }
     }
 
-    private func setupLocalUI() {
+    private func updateLocalUI() {
+        if let time = formatter.localizedTime(session.startTime) {
+            dateLabel.text = time.uppercaseString
+        }
+
+        // <--- To be removed when storyboard is localized
         northLabel.setTitle(formatter.localizedNorth, forState: .Normal)
         southLabel.setTitle(formatter.localizedSouth, forState: .Normal)
         eastLabel.setTitle(formatter.localizedEast, forState: .Normal)
@@ -216,6 +237,8 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
 
         maxHeadingLabel.text = NSLocalizedString("HEADING_MAX", comment: "").uppercaseString
         averageHeadingLabel.text = NSLocalizedString("HEADING_AVERAGE", comment: "").uppercaseString
+        
+        // To be removed when storyboard is localized --->
     }
     
     private func showSleipnir() {
@@ -233,9 +256,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     }
     
     @IBAction private func tappedCompass(sender: AnyObject) {
-        println("tapped compass")
         if isShowingDirection {
-            println("showing compass")
             if !hasActualDirection {
                 showAndHideSleipnir()
             }
@@ -244,7 +265,6 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
             }
         }
         else {
-            println("not showing compass")
             tappedSleipnir(sender)
         }
     }
@@ -258,35 +278,12 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     }
     
     @IBAction private func tappedSleipnir(sender: AnyObject) {
-        let title = NSLocalizedString("SUMMARY_MEASURE_WINDDIRECTION", comment: "")
-        let message = NSLocalizedString("SUMMARY_WITH_SLEIPNIR_WINDDIRECTION", comment: "")
-        let cancel = NSLocalizedString("BUTTON_CANCEL", comment: "")
-        let other = NSLocalizedString("INTRO_UPGRADE_CTA_BUY", comment: "")
-        showAlert(title, message: message, cancel: cancel, other: other)
+        VaavudInteractions().showLocalAlert("SUMMARY_MEASURE_WINDDIRECTION",
+            messageKey: "SUMMARY_WITH_SLEIPNIR_WINDDIRECTION",
+            otherKey: "INTRO_UPGRADE_CTA_BUY",
+            action: { VaavudInteractions.openBuySleipnir("Summary") },
+            on: self)
     }
-    
-    func showAlert(title: String, message: String, cancel: String, other: String) {
-        if objc_getClass("UIAlertController") == nil {
-            let alert = UIAlertView(title: title, message: message, delegate: self, cancelButtonTitle: cancel, otherButtonTitles: other)
-            alert.tag = 1
-            alert.show()
-        }
-        else {
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: cancel, style: .Cancel, handler: { (action) -> Void in }))
-            alert.addAction(UIAlertAction(title: other, style: .Default, handler: { (action) -> Void in VaavudInteractions.openBuySleipnir() }))
-            presentViewController(alert, animated: true, completion: nil)
-        }
-    }
-    
-    func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
-        if alertView.tag == 1 {
-            if buttonIndex == 1 {
-                VaavudInteractions.openBuySleipnir()
-            }
-        }
-    }
-    
     
 //    @IBAction func tappedShare(sender: AnyObject) {
 //        if let windSpeed = formatter.localizedWindspeed(session.windSpeedAvg?.floatValue) {
@@ -304,6 +301,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     @IBAction func tappedWindDirection(sender: AnyObject) {
         if let rotation = hasSomeDirection {
             formatter.directionUnit = formatter.directionUnit.next
+            postUnitChange()
             updateWindDirection(rotation)
         }
     }
@@ -314,6 +312,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
             snap(pressureItem, to: CGFloat(arc4random() % 100))
             
             formatter.pressureUnit = formatter.pressureUnit.next
+            postUnitChange()
             updatePressure(session)
         }
     }
@@ -325,6 +324,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
             snap(temperatureItem, to: CGFloat(arc4random() % 100))
             
             formatter.temperatureUnit = formatter.temperatureUnit.next
+            postUnitChange()
             updateTemperature(session)
         }
     }
@@ -336,6 +336,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
             snap(temperatureItem, to: CGFloat(arc4random() % 100))
 
             formatter.temperatureUnit = formatter.temperatureUnit.next
+            postUnitChange()
             updateTemperature(session)
         }
     }
@@ -343,6 +344,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate, UIAlertVie
     @IBAction func tappedWindSpeed(sender: AnyObject) {
         if hasWindSpeed {
             formatter.windSpeedUnit = formatter.windSpeedUnit.next
+            postUnitChange()
             updateWindSpeeds(session)
             updateMapView(session)
         }

@@ -14,20 +14,14 @@
 
 @implementation HistoryNavigationController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
-
-    if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-        self.navigationBar.tintColor = [UIColor blackColor];
-        self.navigationBar.barStyle = UIBarStyleBlack;
-    }
-
     self.navigationItem.title = NSLocalizedString(@"HISTORY_TITLE", nil);
 }
 
-- (void) historyLoaded {
+- (void)historyLoaded {
     if ([self.topViewController conformsToProtocol:@protocol(HistoryLoadedListener)]) {
-        id<HistoryLoadedListener> listener = (id<HistoryLoadedListener>)self.topViewController;
+        id<HistoryLoadedListener>listener = (id<HistoryLoadedListener>)self.topViewController;
         [listener historyLoaded];
     }
 }

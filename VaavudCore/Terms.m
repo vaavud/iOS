@@ -17,7 +17,7 @@
     NSString *aboutVaavud = [NSString stringWithFormat:NSLocalizedString(@"ABOUT_VAAVUD_TEXT", nil), appVersion];
     aboutVaavud = [aboutVaavud stringByReplacingOccurrencesOfString:@"\n" withString:@"<br/><br/>"];
     
-    NSString* html = [NSString stringWithFormat:
+    NSString *html = [NSString stringWithFormat:
     @"<html><head><style type='text/css'>"
     "a {color:#00aeef;text-decoration:none}\n"
     "body {background-color:#f8f8f8;}"

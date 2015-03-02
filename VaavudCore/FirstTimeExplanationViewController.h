@@ -36,8 +36,8 @@
 @property (nonatomic) NSUInteger pageIndex;
 @property (nonatomic) NSUInteger pageId;
 
-@property (nonatomic, weak) IBOutlet UIImageView *imageView;
-@property (nonatomic, weak) IBOutlet UILabel *explanationLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UILabel *explanationLabel;
 @property (weak, nonatomic) IBOutlet UILabel *topExplanationLabel;
 @property (weak, nonatomic) IBOutlet UIButton *topButton;
 @property (weak, nonatomic) IBOutlet UIButton *bottomButton;

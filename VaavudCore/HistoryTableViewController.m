@@ -19,6 +19,7 @@
 #import "ServerUploadManager.h"
 #import "UIColor+VaavudColors.h"
 #import "HistoryTableViewCell.h"
+#import "RegisterViewController.h"
 
 @import CoreLocation;
 
@@ -36,6 +37,8 @@
 
 @property (nonatomic) CLGeocoder *geocoder;
 
+@property (nonatomic) UIActivityIndicatorView *loader;
+
 @end
 
 @implementation HistoryTableViewController
@@ -43,7 +46,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self hideVolumeHUD];
-    
+        
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
     self.directionUnit = -1;
@@ -282,7 +285,7 @@
     return 25;
 }
 
-- (UIView *)tableView:(UITableView*)tableView viewForHeaderInSection:(NSInteger)section {
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     static NSString *HeaderIdentifier = @"HeaderIdentifier";
     
     UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HeaderIdentifier];
@@ -433,8 +436,10 @@
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    CoreSummaryViewController *destination = segue.destinationViewController;
-    destination.session = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
+    if ([segue.identifier isEqualToString:@"SummarySegue"]) {
+        CoreSummaryViewController *destination = segue.destinationViewController;
+        destination.session = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
+    }
 }
 
 @end

@@ -63,7 +63,7 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
         if Property.isMixpanelEnabled() {
             Mixpanel.sharedInstance().track("Upgade Sleipnir Flow - Buy Device")
         }
-        VaavudInteractions.openBuySleipnir()
+        VaavudInteractions.openBuySleipnir("Upgrade")
         laterButton.setTitle(NSLocalizedString("BUTTON_DONE", comment: ""), forState: .Normal)
     }
 

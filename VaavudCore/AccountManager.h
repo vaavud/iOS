@@ -44,6 +44,9 @@ enum AuthenticationResponseType : NSUInteger {
 @protocol AuthenticationDelegate <NSObject>
 - (void)facebookAuthenticationSuccess:(enum AuthenticationResponseType)response;
 - (void)facebookAuthenticationFailure:(enum AuthenticationResponseType)response message:(NSString *)message displayFeedback:(BOOL)displayFeedback;
+
+@property (nonatomic, copy) void (^completion)(void);
+
 @end
 
 @interface AccountManager : NSObject
