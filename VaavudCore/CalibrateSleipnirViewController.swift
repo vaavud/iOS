@@ -8,9 +8,15 @@
 
 import UIKit
 import AudioToolbox
+import SceneKit
+import CoreMotion
 
 class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDelegate {
     var done = false
+    
+    @IBOutlet weak var sceneView: SCNView!
+
+    let scene = SCNScene()
     
     var timer: NSTimer!
     
@@ -22,6 +28,9 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
     
     let sdk = VEVaavudElectronicSDK.sharedVaavudElectronic()
     
+    let particleSystem = SCNParticleSystem(named: "WindParticles", inDirectory: nil)
+    let manager = CMMotionManager()
+    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         sdk.addListener(self)
@@ -29,6 +38,23 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
     
     override  func viewDidLoad() {
         hideVolumeHUD()
+        
+        sceneView.scene = scene
+        sceneView.autoenablesDefaultLighting = true
+        sceneView.allowsCameraControl = true
+        
+        
+        let text = SCNText(string: "7.8", extrusionDepth: 0)
+        let textNode  = SCNNode(geometry: text)
+//        textNode.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5)
+        scene.rootNode.addChildNode(textNode)
+
+        particleSystem.emitterShape = text
+        particleSystem.birthLocation = .Surface
+        
+//        scene.addParticleSystem(particleSystem, withTransform: SCNMatrix4MakeTranslation(5, 5, 0))
+        scene.addParticleSystem(particleSystem, withTransform: SCNMatrix4Identity)
+        
         timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "showFirstText", userInfo: nil, repeats: false)
 
         sdk.startCalibration()
@@ -38,9 +64,31 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
 //        effectView.frame = view.bounds
 //        view.insertSubview(effectView, atIndex: 0)
 //        view.backgroundColor = UIColor.clearColor()
+        
+        
+        manager.gyroUpdateInterval = 0.1
+
+        
+        if manager.deviceMotionAvailable {
+            manager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue()) {
+                [weak self] (data: CMDeviceMotion!, error: NSError!) in
+                
+                let q = data.attitude.quaternion
+                
+                self?.particleSystem.emittingDirection = SCNVector3(x: Float(2*q.y), y: Float(2*q.z), z: Float(2*q.x))
+                
+                
+//                println("\(round(1000*q.x)) \(round(1000*q.y)) \(round(1000*q.z))")
+            }
+        }
+
+        
     }
     
     // Eftyeo,;45
+    
+    
+    
     
     func showFirstText() {
         timer.invalidate()

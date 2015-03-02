@@ -20,6 +20,7 @@ class CoreSettingsTableViewController: UITableViewController {
     @IBOutlet weak var versionLabel: UILabel!
     
     override func viewDidLoad() {
+        hideVolumeHUD()
         versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
 //        facebookControl.on = Property.getAsBoolean("enableFacebookShareDialog", defaultValue: false)
         readUnits()
