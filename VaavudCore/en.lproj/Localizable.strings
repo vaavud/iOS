@@ -222,3 +222,10 @@
 
 "REGISTER_EXPLANATION" = "You need to log in to get the full benefit of the Vaavud app";
 
+// Need translation for other languages:
+"CALIBRATION_STRING_FIRST" = "Go indoors and blow onto the wind meter until the circle changes color";
+"CALIBRATION_STRING_0" = "Blow again";
+"CALIBRATION_STRING_1" = "Let Sleipnir slow down";
+"CALIBRATION_STRING_DONE" = "Calibration complete!";
+
+

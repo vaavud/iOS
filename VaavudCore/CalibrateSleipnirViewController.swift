@@ -13,13 +13,12 @@ import CoreMotion
 
 class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDelegate {
     var done = false
-    
-    @IBOutlet weak var sceneView: SCNView!
 
-    let scene = SCNScene()
-    
     var timer: NSTimer!
     
+    var speed: CGFloat = 0
+    var progress: CGFloat = 0
+
     @IBOutlet weak var upperLabel: UILabel!
     
     @IBOutlet weak var cancelButton: UIButton!
@@ -39,22 +38,6 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
     override  func viewDidLoad() {
         hideVolumeHUD()
         
-        sceneView.scene = scene
-        sceneView.autoenablesDefaultLighting = true
-        sceneView.allowsCameraControl = true
-        
-        
-        let text = SCNText(string: "7.8", extrusionDepth: 0)
-        let textNode  = SCNNode(geometry: text)
-//        textNode.scale = SCNVector3(x: 0.5, y: 0.5, z: 0.5)
-        scene.rootNode.addChildNode(textNode)
-
-        particleSystem.emitterShape = text
-        particleSystem.birthLocation = .Surface
-        
-//        scene.addParticleSystem(particleSystem, withTransform: SCNMatrix4MakeTranslation(5, 5, 0))
-        scene.addParticleSystem(particleSystem, withTransform: SCNMatrix4Identity)
-        
         timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "showFirstText", userInfo: nil, repeats: false)
 
         sdk.startCalibration()
@@ -64,31 +47,7 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
 //        effectView.frame = view.bounds
 //        view.insertSubview(effectView, atIndex: 0)
 //        view.backgroundColor = UIColor.clearColor()
-        
-        
-        manager.gyroUpdateInterval = 0.1
-
-        
-        if manager.deviceMotionAvailable {
-            manager.startDeviceMotionUpdatesToQueue(NSOperationQueue.mainQueue()) {
-                [weak self] (data: CMDeviceMotion!, error: NSError!) in
-                
-                let q = data.attitude.quaternion
-                
-                self?.particleSystem.emittingDirection = SCNVector3(x: Float(2*q.y), y: Float(2*q.z), z: Float(2*q.x))
-                
-                
-//                println("\(round(1000*q.x)) \(round(1000*q.y)) \(round(1000*q.z))")
-            }
-        }
-
-        
     }
-    
-    // Eftyeo,;45
-    
-    
-    
     
     func showFirstText() {
         timer.invalidate()
@@ -101,46 +60,6 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
     
     override func viewDidAppear(animated: Bool) {
         calibrationCircle.launch()
-    }
-    
-    @IBAction func strengthChanged(sender: UISlider) {
-        if done {
-            return
-        }
-        let strength = CGFloat(sender.value)
-        let change = strength - calibrationCircle.strength
-        calibrationCircle.strength = strength
-        
-        if strength > 0.99 && calibrationCircle.blowing {
-            timer.invalidate()
-            calibrationCircle.blowing = false
-            changeMessage("CALIBRATION_STRING_1")
-            
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-        }
-        else if strength < 0.01 && !calibrationCircle.blowing {
-            calibrationCircle.blowing = true
-            changeMessage("CALIBRATION_STRING_0")
-            
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-        }
-        
-        if !calibrationCircle.blowing && change < 0 {
-            calibrationCircle.progress -= change/2.5
-        }
-        
-        if calibrationCircle.progress >= 1 {
-            done = true
-            calibrationCircle.done()
-            
-            changeMessage("CALIBRATION_STRING_DONE", color: UIColor.vaavudGreenColor())
-
-            UIView.animateWithDuration(0.5) {
-                self.cancelButton.alpha = 0
-            }
-            
-            var timer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "dismiss", userInfo: nil, repeats: false)
-        }
     }
     
     func changeMessage(key: String, color: UIColor = UIColor.vaavudBlueColor(), delay: Double = 0) {
@@ -165,12 +84,33 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
     
     // MARK: - VaavudElectronicWindDelegate
     
-    func newSpeed(speed: NSNumber!) {
-        let low = 2.9
-        let high = 7.4
+    func newSpeed(value: NSNumber!) {
+//        println(value.doubleValue)
+
+        if done {
+            return
+        }
         
-        let strength = max(min((speed.doubleValue - low)/(high - low), 1), 0)
-        calibrationCircle.strength = CGFloat(strength)
+        if timer.valid {
+            timer.invalidate()
+        }
+
+        let low: CGFloat = 2.9
+        let high: CGFloat = 7.4
+        
+        let newSpeed = CGFloat(value.doubleValue)
+        calibrationCircle.speed = max(min((newSpeed - low)/(high - low), 1), 0)
+        
+        if speed <= high && newSpeed > high {
+            changeMessage("CALIBRATION_STRING_1")
+            calibrationCircle.blowing = false
+        }
+        else if speed >= low && newSpeed < low {
+            changeMessage("CALIBRATION_STRING_0")
+            calibrationCircle.blowing = true
+        }
+        
+        speed = newSpeed
     }
     
     func calibrationPercentageComplete(percentage: NSNumber!) {
@@ -178,7 +118,15 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
             return
         }
         
-        calibrationCircle.progress = CGFloat(percentage.floatValue)
+        let newProgress = CGFloat(percentage.floatValue)
+        
+        println("=== \(round(1000*newProgress)) - \(round(1000*progress)) - \(round(1000*(newProgress - progress)))")
+
+        if round(1000*(newProgress - progress)) > 0 {
+            //            calibrationCircle.blowing = false
+            calibrationCircle.progress = newProgress
+        }
+        progress = newProgress
         
         if percentage.floatValue > 0.9999 {
             done = true
@@ -202,7 +150,7 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
     
     let lineWidth: CGFloat = 8
     
-    var strength: CGFloat = 0 { didSet { setStrength(strength) } }
+    var speed: CGFloat = 0 { didSet { setSpeed(speed) } }
     var progress: CGFloat = 0 { didSet { setProgress(progress) } }
     var blowing: Bool = true { didSet { setBlowing(blowing) } }
     
@@ -256,25 +204,21 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
         layer.addSublayer(checkLayer)
         
         progress = 0
-        strength = 0
+        speed = 0
         blowing = true
     }
     
-    func setStrength(strength: CGFloat, animated: Bool = false) {
-        CATransaction.setDisableActions(!animated)
-        
+    func setSpeed(strength: CGFloat, animated: Bool = false) {        
         let radius = max(0, strength + 4*lineWidth/bounds.width*(1 - strength))
         strengthLayer.transform = CATransform3DMakeScale(radius, radius, 1)
     }
     
-    func setProgress(progress: CGFloat, animated: Bool = true) {
+    func setProgress(progress: CGFloat) {
         progressLayer.removeAnimationForKey("progressStroke")
-        CATransaction.setDisableActions(!animated)
         progressLayer.strokeEnd = progress
     }
     
     func setBlowing(blowing: Bool) {
-        CATransaction.setDisableActions(false)
         CATransaction.setAnimationDuration(0.3)
         strengthLayer.fillColor = UIColor.vaavudBlueColor().colorWithAlpha(blowing ? 0.2 : 1).CGColor
     }
@@ -303,10 +247,10 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
         progressLayer.addAnimation(anim, forKey: "progressStroke")
         
         CATransaction.setCompletionBlock {
-            self.setStrength(0, animated: true)
+            self.setSpeed(0, animated: true)
         }
         
-        setStrength(1, animated: true)
+        setSpeed(1, animated: true)
     }
     
     func done() {
@@ -325,7 +269,7 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
             self.progressLayer.strokeColor = UIColor.vaavudGreenColor().CGColor
         }
         
-        setStrength(-1, animated: true)
+        setSpeed(-1, animated: true)
     }
 
 }

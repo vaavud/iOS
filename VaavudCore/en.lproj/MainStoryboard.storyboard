@@ -2117,39 +2117,22 @@
                                     <segue destination="bnN-NV-pC1" kind="unwind" unwindAction="calibrationDone:" id="lxG-bb-OtD"/>
                                 </connections>
                             </button>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="E1f-gp-YUm">
-                                <rect key="frame" x="23" y="483" width="274" height="31"/>
-                                <connections>
-                                    <action selector="strengthChanged:" destination="yKg-bJ-xOb" eventType="valueChanged" id="F3q-td-L0L"/>
-                                </connections>
-                            </slider>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calibrate your Sleipnir to get more accurate measurements" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEh-Ao-4Gg">
                                 <rect key="frame" x="30" y="70" width="260" height="85"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="24"/>
                                 <color key="textColor" red="0.0" green="0.63137257099999999" blue="0.88235294819999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <sceneKitView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" sceneName="" translatesAutoresizingMaskIntoConstraints="NO" id="D0p-TU-OzW">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </sceneKitView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="D0p-TU-OzW" firstAttribute="leading" secondItem="Ofg-NQ-kOm" secondAttribute="leading" id="5hB-Vk-aQB"/>
-                            <constraint firstAttribute="centerX" secondItem="E1f-gp-YUm" secondAttribute="centerX" id="5j1-s6-062"/>
                             <constraint firstAttribute="centerY" secondItem="msy-Aa-MtX" secondAttribute="centerY" id="DnD-Pp-59p"/>
                             <constraint firstItem="OEh-Ao-4Gg" firstAttribute="top" secondItem="7nh-UA-4zi" secondAttribute="bottom" constant="50" id="J0W-ss-pJm"/>
                             <constraint firstAttribute="width" secondItem="msy-Aa-MtX" secondAttribute="width" constant="120" id="R96-TE-sKe"/>
                             <constraint firstAttribute="centerX" secondItem="OEh-Ao-4Gg" secondAttribute="centerX" id="SHD-Xk-g5L"/>
-                            <constraint firstItem="4ya-e6-XmS" firstAttribute="top" secondItem="E1f-gp-YUm" secondAttribute="bottom" constant="55" id="Y2N-9V-fLU"/>
-                            <constraint firstItem="D0p-TU-OzW" firstAttribute="top" secondItem="7nh-UA-4zi" secondAttribute="bottom" id="YCp-3i-89O"/>
                             <constraint firstAttribute="centerX" secondItem="msy-Aa-MtX" secondAttribute="centerX" id="aku-Ph-qim"/>
-                            <constraint firstItem="4ya-e6-XmS" firstAttribute="top" secondItem="D0p-TU-OzW" secondAttribute="bottom" id="d9o-0R-5lY"/>
                             <constraint firstAttribute="centerX" secondItem="WMV-Cp-KyZ" secondAttribute="centerX" id="fTO-MG-nfI"/>
                             <constraint firstAttribute="width" secondItem="OEh-Ao-4Gg" secondAttribute="width" constant="60" id="hP4-xa-jgP"/>
-                            <constraint firstAttribute="trailing" secondItem="D0p-TU-OzW" secondAttribute="trailing" id="p1L-be-8yC"/>
-                            <constraint firstItem="E1f-gp-YUm" firstAttribute="width" secondItem="Ofg-NQ-kOm" secondAttribute="width" constant="-50" id="wk0-g3-fzX"/>
                             <constraint firstItem="4ya-e6-XmS" firstAttribute="top" secondItem="WMV-Cp-KyZ" secondAttribute="bottom" constant="20" id="yQD-dB-lqs"/>
                         </constraints>
                     </view>
@@ -2159,7 +2142,6 @@
                     <connections>
                         <outlet property="calibrationCircle" destination="msy-Aa-MtX" id="RwG-dd-ZMc"/>
                         <outlet property="cancelButton" destination="WMV-Cp-KyZ" id="996-Qv-4Yq"/>
-                        <outlet property="sceneView" destination="D0p-TU-OzW" id="aVi-Ts-6TN"/>
                         <outlet property="upperLabel" destination="OEh-Ao-4Gg" id="tII-pq-s60"/>
                     </connections>
                 </viewController>
