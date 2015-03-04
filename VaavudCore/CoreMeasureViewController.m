@@ -56,7 +56,7 @@
     //NSLog(@"[CoreMeasureViewController] bottomLayoutGuide=%f", self.bottomLayoutGuide.length);
     
     // note: hack for content view underlapping tab view when clicking on another tab and back
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") && (self.bottomLayoutGuideConstraint != nil)) {
+    if (self.bottomLayoutGuideConstraint != nil) {
         //self.edgesForExtendedLayout = UIRectEdgeNone;
         
         //NSLog(@"[CoreMeasureViewController] bottomLayoutGuide=%f", self.bottomLayoutGuide.length);
