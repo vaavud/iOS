@@ -326,7 +326,9 @@ SHARED_INSTANCE
                 CLPlacemark *first = [placemarks objectAtIndex:0];
                 NSString *text = first.thoroughfare ?: first.locality ?: first.country;
                 
-                session.geoLocationNameLocalized = text;
+                if ([[NSManagedObjectContext MR_defaultContext] existingObjectWithID:session.objectID error:NULL]) {
+                    session.geoLocationNameLocalized = text;
+                }
             }
             else {
                 if (error) { if (LOG_OTHER) NSLog(@"Geocode failed with error: %@", error); }

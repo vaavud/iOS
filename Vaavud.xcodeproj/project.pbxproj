@@ -361,7 +361,6 @@
 		E96FB55119A353B500CB7306 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098F18A52151004F1C12 /* SignUpViewController.m */; };
 		E96FB55319A353B500CB7306 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E904AC9917F0911000171F7F /* MapKit.framework */; };
 		E96FB55419A353B500CB7306 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8917DF5BA600DED985 /* libz.dylib */; };
-		E96FB55519A353B500CB7306 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9AF597A181826E6009A8221 /* libTestFlight.a */; };
 		E96FB55619A353B500CB7306 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B627CC1770930D004678D5 /* MobileCoreServices.framework */; };
 		E96FB55719A353B500CB7306 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B627CA177092EF004678D5 /* SystemConfiguration.framework */; };
 		E96FB55819A353B500CB7306 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9EE1FB8176A024B00D1F006 /* CoreData.framework */; };
@@ -451,7 +450,6 @@
 		E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */; };
 		E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */; };
 		E9AF2B9117F5B96500BDF6D9 /* MeasurementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9AF2B9017F5B96500BDF6D9 /* MeasurementTableViewCell.xib */; };
-		E9AF597E181826E6009A8221 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9AF597A181826E6009A8221 /* libTestFlight.a */; };
 		E9B47A031794217200E8A82E /* Terms.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A021794217200E8A82E /* Terms.m */; };
 		E9B47A0A1794315100E8A82E /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A091794315100E8A82E /* TermsViewController.m */; };
 		E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627AF17708E63004678D5 /* AFHTTPClient.m */; };
@@ -1036,10 +1034,6 @@
 		E9AF2B8D17F5B93800BDF6D9 /* MeasurementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementTableViewCell.h; sourceTree = "<group>"; };
 		E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementTableViewCell.m; sourceTree = "<group>"; };
 		E9AF2B9017F5B96500BDF6D9 /* MeasurementTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeasurementTableViewCell.xib; sourceTree = "<group>"; };
-		E9AF597A181826E6009A8221 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		E9AF597B181826E6009A8221 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
-		E9AF597C181826E6009A8221 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
-		E9AF597D181826E6009A8221 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
 		E9B47A011794217200E8A82E /* Terms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terms.h; sourceTree = "<group>"; };
 		E9B47A021794217200E8A82E /* Terms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terms.m; sourceTree = "<group>"; };
 		E9B47A081794315100E8A82E /* TermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
@@ -1226,7 +1220,6 @@
 				22A3405E1A5AE022006CE401 /* libVaavudElectronicSDK.a in Frameworks */,
 				E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */,
 				E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */,
-				E9AF597E181826E6009A8221 /* libTestFlight.a in Frameworks */,
 				E9B627CD1770930D004678D5 /* MobileCoreServices.framework in Frameworks */,
 				E9B627CB177092EF004678D5 /* SystemConfiguration.framework in Frameworks */,
 				E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */,
@@ -1250,7 +1243,6 @@
 				22A340661A5BDA21006CE401 /* libVaavudElectronicSDK.a in Frameworks */,
 				E96FB55319A353B500CB7306 /* MapKit.framework in Frameworks */,
 				E96FB55419A353B500CB7306 /* libz.dylib in Frameworks */,
-				E96FB55519A353B500CB7306 /* libTestFlight.a in Frameworks */,
 				E96FB55619A353B500CB7306 /* MobileCoreServices.framework in Frameworks */,
 				E96FB55719A353B500CB7306 /* SystemConfiguration.framework in Frameworks */,
 				E96FB55819A353B500CB7306 /* CoreData.framework in Frameworks */,
@@ -1942,17 +1934,6 @@
 			name = NFarinaCalloutView;
 			sourceTree = "<group>";
 		};
-		E9AF5979181826CF009A8221 /* TestFlight */ = {
-			isa = PBXGroup;
-			children = (
-				E9AF597A181826E6009A8221 /* libTestFlight.a */,
-				E9AF597B181826E6009A8221 /* TestFlight.h */,
-				E9AF597C181826E6009A8221 /* TestFlight+AsyncLogging.h */,
-				E9AF597D181826E6009A8221 /* TestFlight+ManualSessions.h */,
-			);
-			name = TestFlight;
-			sourceTree = "<group>";
-		};
 		E9B627AD17708E63004678D5 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -2152,7 +2133,6 @@
 			children = (
 				E948380319B75320009595B0 /* EZAudio */,
 				E9A4097118994000004F1C12 /* TMCache */,
-				E9AF5979181826CF009A8221 /* TestFlight */,
 				E9B627AD17708E63004678D5 /* AFNetworking */,
 				D702418A17478B16008954FD /* CorePlot */,
 				E9CD21FF177B2AEA0054ED3F /* MagicalRecord */,
@@ -3146,7 +3126,6 @@
 					"$(inherited)",
 					"COCOAPODS=1",
 					"CORE=1",
-					"TESTFLIGHT_TOKEN=1b4310d3-6215-4ff5-a881-dd67a6d7ab91",
 				);
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -3185,7 +3164,6 @@
 					"$(inherited)",
 					"COCOAPODS=1",
 					"CORE=1",
-					"TESTFLIGHT_TOKEN=1b4310d3-6215-4ff5-a881-dd67a6d7ab91",
 				);
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -3223,7 +3201,6 @@
 					"$(inherited)",
 					"COCOAPODS=1",
 					"AGRI=1",
-					"TESTFLIGHT_TOKEN=c86487ec-bff5-4c36-9865-fb44e7eabbe3",
 				);
 				INFOPLIST_FILE = "Agriculture-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
@@ -3262,7 +3239,6 @@
 					"$(inherited)",
 					"COCOAPODS=1",
 					"AGRI=1",
-					"TESTFLIGHT_TOKEN=c86487ec-bff5-4c36-9865-fb44e7eabbe3",
 				);
 				INFOPLIST_FILE = "Agriculture-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
