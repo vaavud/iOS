@@ -990,7 +990,7 @@
         <!--History-->
         <scene sceneID="ESh-LX-BZr">
             <objects>
-                <tableViewController id="dW6-mM-6nb" customClass="HistoryTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="HistoryViewController" id="dW6-mM-6nb" customClass="HistoryTableViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="6XY-Gm-7sX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1816,7 +1816,7 @@
         <!--History-->
         <scene sceneID="kOv-8B-dmy">
             <objects>
-                <viewController storyboardIdentifier="NoHistoryViewController" title="History" id="GaG-jr-7RN" customClass="CoreEmptyHistoryViewController" customModule="Vaavud" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EmptyHistoryViewController" title="History" id="GaG-jr-7RN" customClass="CoreEmptyHistoryViewController" customModule="Vaavud" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QIx-g1-WSC"/>
                         <viewControllerLayoutGuide type="bottom" id="J1H-wH-Uib"/>

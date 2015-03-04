@@ -26,6 +26,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+        
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(checkIfDone) userInfo:nil repeats:YES];
 }
 

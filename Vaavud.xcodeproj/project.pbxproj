@@ -16,6 +16,8 @@
 		2234D3681A7A6AB300F325EB /* SummaryImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3671A7A6AB300F325EB /* SummaryImages.xcassets */; };
 		2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
 		2255A63C1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
+		2256C19B1AA7450E00782314 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2256C19A1AA7450E00782314 /* Crashlytics.framework */; };
+		2256C19C1AA7450E00782314 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2256C19A1AA7450E00782314 /* Crashlytics.framework */; };
 		226116D31A9B87BB000145E1 /* CoreLoadingHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226116D21A9B87BB000145E1 /* CoreLoadingHistoryViewController.swift */; };
 		227DC0B21AA0D89E004B8E4B /* WindParticles.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 227DC0B01AA0D89E004B8E4B /* WindParticles.scnp */; };
 		227DC0B31AA0D89E004B8E4B /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 227DC0B11AA0D89E004B8E4B /* spark.png */; };
@@ -643,6 +645,7 @@
 		2234D3651A7A597200F325EB /* HistoryImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = HistoryImages.xcassets; sourceTree = "<group>"; };
 		2234D3671A7A6AB300F325EB /* SummaryImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SummaryImages.xcassets; sourceTree = "<group>"; };
 		2255A63A1A818535006589D5 /* VaavudInteractions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudInteractions.swift; sourceTree = "<group>"; };
+		2256C19A1AA7450E00782314 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		226116D21A9B87BB000145E1 /* CoreLoadingHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreLoadingHistoryViewController.swift; sourceTree = "<group>"; };
 		227DC0B01AA0D89E004B8E4B /* WindParticles.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = WindParticles.scnp; sourceTree = "<group>"; };
 		227DC0B11AA0D89E004B8E4B /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
@@ -1225,6 +1228,7 @@
 				E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */,
 				D7B5BD531757A23C0069F739 /* CoreLocation.framework in Frameworks */,
 				E9543DE919F7DA54005A01D7 /* FacebookSDK.framework in Frameworks */,
+				2256C19B1AA7450E00782314 /* Crashlytics.framework in Frameworks */,
 				D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */,
 				D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */,
 				D7A4F1F4173A9FC200D1ACEE /* CoreMotion.framework in Frameworks */,
@@ -1248,6 +1252,7 @@
 				E96FB55819A353B500CB7306 /* CoreData.framework in Frameworks */,
 				E96FB55919A353B500CB7306 /* CoreLocation.framework in Frameworks */,
 				E9543DEA19F7DA54005A01D7 /* FacebookSDK.framework in Frameworks */,
+				2256C19C1AA7450E00782314 /* Crashlytics.framework in Frameworks */,
 				E96FB55A19A353B500CB7306 /* Accelerate.framework in Frameworks */,
 				E96FB55B19A353B500CB7306 /* QuartzCore.framework in Frameworks */,
 				E96FB55C19A353B500CB7306 /* CoreMotion.framework in Frameworks */,
@@ -1344,6 +1349,7 @@
 		D7A4F1C9173A8DDB00D1ACEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2256C19A1AA7450E00782314 /* Crashlytics.framework */,
 				E9543DE819F7DA54005A01D7 /* FacebookSDK.framework */,
 				E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */,
 				E982DF2D18181152004DAB3E /* AdSupport.framework */,
@@ -2225,6 +2231,7 @@
 				D7A4F1C4173A8DDB00D1ACEE /* Frameworks */,
 				D7A4F1C5173A8DDB00D1ACEE /* Resources */,
 				B53D863A9E054A47A41840FD /* Copy Pods Resources */,
+				2235B0C41AA742520003C20B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2619,6 +2626,19 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		2235B0C41AA742520003C20B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 767b68b0d4b5e7c052c4de75ae8859beee5d9901 3aa3f790ccf0a071979a8907fd36db225eccd47a12a29a0b8bb191890d91175e";
+		};
 		261A82FADCA44D85B16D87F8 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

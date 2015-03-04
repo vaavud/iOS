@@ -164,6 +164,7 @@ SHARED_INSTANCE
     if (self.controller) {
         return [self.controller windMeterDeviceType];
     }
+    
     return UnknownWindMeterDeviceType;
 }
 
@@ -171,9 +172,8 @@ SHARED_INSTANCE
     if (self.measurementSessionUuid) {
         return [MeasurementSession MR_findFirstByAttribute:@"uuid" withValue:self.measurementSessionUuid];
     }
-    else {
-        return nil;
-    }
+
+    return nil;
 }
 
 #pragma mark WindMeasurementControllerDelegate methods
@@ -293,7 +293,7 @@ SHARED_INSTANCE
 #pragma mark Location methods
 
 - (void)updateMeasurementSessionLocation:(MeasurementSession *)measurementSession {
-    if (measurementSession && [measurementSession.measuring boolValue]) {
+    if (measurementSession && measurementSession.measuring.boolValue) {
 
         CLLocationCoordinate2D loc2d = [LocationManager sharedInstance].latestLocation;
         if ([LocationManager isCoordinateValid:loc2d]) {
@@ -323,7 +323,7 @@ SHARED_INSTANCE
     [self.geocoder reverseGeocodeLocation:location completionHandler: ^(NSArray *placemarks, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (placemarks.count > 0 && !error) {
-                CLPlacemark *first = [placemarks objectAtIndex:0];
+                CLPlacemark *first = placemarks[0];
                 NSString *text = first.thoroughfare ?: first.locality ?: first.country;
                 
                 if ([[NSManagedObjectContext MR_defaultContext] existingObjectWithID:session.objectID error:NULL]) {
@@ -349,13 +349,13 @@ SHARED_INSTANCE
     
     for (int i = 0; i < points.count; i++) {
         n = n + 1;
-        meanSum = meanSum + ((MeasurementPoint *)[points objectAtIndex:i]).windSpeed.floatValue;
+        meanSum = meanSum + ((MeasurementPoint *)points[i]).windSpeed.floatValue;
     }
     
     float mean = meanSum/(float)n;
     
     for (int i = 0; i < points.count; i++) {
-        float x = ((MeasurementPoint *)[points objectAtIndex:i]).windSpeed.floatValue;
+        float x = ((MeasurementPoint *)points[i]).windSpeed.floatValue;
         varianceSum = varianceSum + (x - mean)*(x - mean);
     }
     

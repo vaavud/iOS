@@ -42,7 +42,7 @@ class CoreLoadingHistoryViewController: UIViewController {
     }
     
     func showHistory() {
-        let id = MeasurementSession.MR_findFirst() == nil ? "EmptyHistoryTableViewController" : "HistoryTableViewController"
+        let id = MeasurementSession.MR_findFirst() == nil ? "EmptyHistoryViewController" : "HistoryViewController"
         let vc = storyboard?.instantiateViewControllerWithIdentifier(id) as UIViewController
         vc.navigationItem.hidesBackButton = true;
         navigationController?.pushViewController(vc, animated: false)
