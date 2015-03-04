@@ -85,8 +85,6 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
     // MARK: - VaavudElectronicWindDelegate
     
     func newSpeed(value: NSNumber!) {
-//        println(value.doubleValue)
-
         if done {
             return
         }
@@ -120,8 +118,6 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
         
         let newProgress = CGFloat(percentage.floatValue)
         
-        println("=== \(round(1000*newProgress)) - \(round(1000*progress)) - \(round(1000*(newProgress - progress)))")
-
         if round(1000*(newProgress - progress)) > 0 {
             //            calibrationCircle.blowing = false
             calibrationCircle.progress = newProgress
