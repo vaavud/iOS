@@ -13,7 +13,6 @@
 static NSSet *countriesUsingMph;
 static NSArray *directionNameStrings;
 static NSArray *directionImageStrings;
-static NSArray *mapDirectionImageStrings;
 
 + (void)initialize {
     countriesUsingMph = [NSSet setWithObjects:@"US", @"UM", @"GB", @"CA", @"VG", @"VI", nil];
@@ -26,8 +25,6 @@ static NSArray *mapDirectionImageStrings;
     // CORE VAAVUD APP
     directionImageStrings = @[@"windarrow_red_N.png", @"windarrow_red_NNE.png", @"windarrow_red_NE.png", @"windarrow_red_ENE.png", @"windarrow_red_E.png", @"windarrow_red_ESE.png", @"windarrow_red_SE.png", @"windarrow_red_SSE.png", @"windarrow_red_S.png", @"windarrow_red_SSW.png", @"windarrow_red_SW.png", @"windarrow_red_WSW.png", @"windarrow_red_W.png", @"windarrow_red_WNW.png", @"windarrow_red_NW.png", @"windarrow_red_NNW.png"];
 #endif
-    
-    mapDirectionImageStrings = @[@"mapmarker_w_direction_N.png", @"mapmarker_w_direction_NNE.png", @"mapmarker_w_direction_NE.png", @"mapmarker_w_direction_ENE.png", @"mapmarker_w_direction_E.png", @"mapmarker_w_direction_ESE.png", @"mapmarker_w_direction_SE.png", @"mapmarker_w_direction_SSE.png", @"mapmarker_w_direction_S.png", @"mapmarker_w_direction_SSW.png", @"mapmarker_w_direction_SW.png", @"mapmarker_w_direction_WSW.png", @"mapmarker_w_direction_W.png", @"mapmarker_w_direction_WNW.png", @"mapmarker_w_direction_NW.png", @"mapmarker_w_direction_NNW.png"];
 }
 
 + (WindSpeedUnit)nextWindSpeedUnit:(WindSpeedUnit)unit {
@@ -168,12 +165,9 @@ static NSArray *mapDirectionImageStrings;
     return directionImageStrings[index];
 }
 
-+ (NSString *)mapImageNameForDirection:(NSNumber *)direction {
-    if (!direction) {
-        return nil;
-    }
-    NSInteger index = [self directionIndex:[direction doubleValue]];
-    return mapDirectionImageStrings[index];
++ (CGAffineTransform)transformForDirection:(NSNumber *)direction {
+    CGFloat angle = M_PI*direction.floatValue/180;
+    return CGAffineTransformMakeRotation(angle);
 }
 
 + (NSInteger)directionIndex:(double)direction {

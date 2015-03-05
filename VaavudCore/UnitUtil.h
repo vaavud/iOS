@@ -31,7 +31,8 @@ typedef enum {
 
 + (NSString *)displayNameForDirection:(NSNumber *)direction;
 + (NSString *)imageNameForDirection:(NSNumber *)direction;
-+ (NSString *)mapImageNameForDirection:(NSNumber *)direction;
 + (NSString *)displayNameForDirectionUnit:(NSInteger)directionUnit;
+
++ (CGAffineTransform)transformForDirection:(NSNumber *)direction;
 
 @end

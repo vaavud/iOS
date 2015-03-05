@@ -177,7 +177,7 @@
                 self.directionLabel.text = [UnitUtil displayNameForDirection:self.measurementSession.windDirection];
             }
             else {
-                self.directionLabel.text = [NSString stringWithFormat:@"%@°", [NSNumber numberWithInt:(int)round([self.measurementSession.windDirection doubleValue])]];
+                self.directionLabel.text = [NSString stringWithFormat:@"%@°", @((int)round(self.measurementSession.windDirection.doubleValue))];
             }
         
             NSString *imageName = [UnitUtil imageNameForDirection:self.measurementSession.windDirection];

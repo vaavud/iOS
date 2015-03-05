@@ -131,7 +131,12 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
                 annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 annotationView.canShowCallout = false
                 annotationView.opaque = false
-                let label = UILabel(frame: CGRect(x: 0, y: 0, width: 38, height: 38))
+                
+                let imageView = UIImageView()
+                imageView.tag = 101
+                annotationView.addSubview(imageView)
+
+                let label = UILabel(frame: CGRect(x: 0, y: 0, width: 48, height: 48))
                 label.backgroundColor = UIColor.clearColor()
                 label.font = UIFont(name: "HelveticaNeue", size: 12)
                 label.textColor = UIColor.whiteColor()
@@ -141,16 +146,11 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
                 annotationView.addSubview(label)
                 annotationView.frame = label.frame
             
-                if session.windDirection != nil {
-                    annotationView.image = UIImage(named: UnitUtil.mapImageNameForDirection(session.windDirection))
-                }
-                else {
-                    annotationView.image = UIImage(named:"mapmarker_no_direction.png")
-                }
             }
             
             updateMapAnnotationLabel(annotationView)
-            
+            updateMapAnnotationImage(annotationView)
+
             return annotationView
         }
         
@@ -160,6 +160,21 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     private func updateMapAnnotationLabel(annotationView: MKAnnotationView) {
         if let label = annotationView.viewWithTag(42) as? UILabel {
             label.text = formatter.localizedWindspeed(session.windSpeedAvg?.floatValue, digits: 2)
+        }
+    }
+    
+    private func updateMapAnnotationImage(annotationView: MKAnnotationView) {
+        if let imageView = annotationView.viewWithTag(101) as? UIImageView {
+            if let direction = session.windDirection {
+                imageView.image = UIImage(named:"MapMarkerDirection")
+                imageView.sizeToFit()
+                imageView.transform = UnitUtil.transformForDirection(direction)
+            }
+            else {
+                imageView.image = UIImage(named:"MapMarker")
+                imageView.sizeToFit()
+                imageView.transform = CGAffineTransformIdentity
+            }
         }
     }
     

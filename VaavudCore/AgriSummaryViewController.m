@@ -168,8 +168,12 @@
             measureAnnotationView.canShowCallout = NO;
             measureAnnotationView.opaque = NO;
 
+            UIImageView *iv = [[UIImageView alloc] init];
+            iv.tag = 101;
+            [measureAnnotationView addSubview:iv];
+
             /*
-            UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 38, 38)];
+            UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 48, 48)];
             lbl.backgroundColor = [UIColor clearColor];
             lbl.font = [UIFont systemFontOfSize:12];
             lbl.textColor = [UIColor whiteColor];
@@ -183,19 +187,18 @@
             measureAnnotationView.annotation = annotation;
         }
         
-        UIImage *markerImage = nil;
+        UIImageView *iv = (UIImageView *)[measureAnnotationView viewWithTag:101];
         
         if (measurementAnnotation.windDirection) {
-            NSString *imageName = [UnitUtil mapImageNameForDirection:measurementAnnotation.windDirection];
-            if (imageName) {
-                markerImage = [UIImage imageNamed:imageName];
-            }
+            iv.image = [UIImage imageNamed:@"MapMarkerDirection"];
+            [iv sizeToFit];
+            iv.transform = [UnitUtil transformForDirection:measurementAnnotation.windDirection];
         }
-        if (!markerImage) {
-            markerImage = [UIImage imageNamed:@"mapmarker_no_direction.png"];
+        else {
+            iv.image = [UIImage imageNamed:@"MapMarker"];
+            [iv sizeToFit];
+            iv.transform = CGAffineTransformIdentity;
         }
-        
-        measureAnnotationView.image = markerImage;
         
         return measureAnnotationView;
     }
