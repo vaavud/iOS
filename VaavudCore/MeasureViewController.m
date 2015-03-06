@@ -249,7 +249,7 @@
     }
     
     NSNumber *directionUnitNumber = [Property getAsInteger:KEY_DIRECTION_UNIT];
-    NSInteger directionUnit = (directionUnitNumber) ? [directionUnitNumber doubleValue] : 0;
+    NSInteger directionUnit = (directionUnitNumber) ? directionUnitNumber.doubleValue : 0;
     if (self.directionUnit != directionUnit) {
         self.directionUnit = directionUnit;
         [self updateDirectionFromCurrentValue];
@@ -490,7 +490,7 @@
             Mixpanel *mixpanel = [Mixpanel sharedInstance];
             [MixpanelUtil updateMeasurementProperties:NO];
             
-            if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F)) {
+            if (self.averageLabelCurrentValue && (self.averageLabelCurrentValue.floatValue > 0.0F) && self.maxLabelCurrentValue && (self.maxLabelCurrentValue.floatValue > 0.0F)) {
                 [mixpanel track:@"Stop Measurement" properties:@{@"Action": action, @"Wind Meter": [controller mixpanelWindMeterName], @"Duration": [NSNumber numberWithInt:round(durationSecounds)], @"Avg Wind Speed": self.averageLabelCurrentValue, @"Max Wind Speed": self.maxLabelCurrentValue}];
             }
             else {
@@ -599,17 +599,46 @@
     }
 }
 
-- (void)deviceConnected:(enum WindMeterDeviceType)device {
-    if (device == SleipnirWindMeterDeviceType) {
-        if (!self.useSleipnir && !self.buttonShowsStart) {
-            // measurement with Mjolnir is in progress when Sleipnir is plugged in, so stop it
-            [self stopWithUITracking:NO action:@"Plug"];
-        }
+- (void)getMicrophonePermission {
+    NSLog(@"== Permission ==");
+
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:KEY_MICROPHONE_HAS_APPROVED]) {
+        NSLog(@"Permission not granted previously");
         
-        [self showNotification:NSLocalizedString(@"DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_CONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
+        [[VaavudInteractions new] showAlert:@"Permission" message:@"Give permission" cancel:@"Not now" other:@"OK" action:^{
+            NSLog(@"Wants to grant permission");
+
+            [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+                if (granted) {
+                    NSLog(@"Permission granted");
+                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:KEY_MICROPHONE_HAS_APPROVED];
+                }
+                else {
+                    NSLog(@"Permission denied");
+                }
+            }];
+        } on:self];
     }
-    else if (device == UnknownWindMeterDeviceType) {
-        [self showNotification:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
+}
+
+- (void)deviceConnected:(enum WindMeterDeviceType)deviceType {
+    switch (deviceType) {
+        case SleipnirWindMeterDeviceType:
+            if (!self.useSleipnir && !self.buttonShowsStart) {
+                // measurement with Mjolnir is in progress when Sleipnir is plugged in, so stop it
+                [self stopWithUITracking:NO action:@"Plug"];
+            }
+            
+//            [self showNotification:NSLocalizedString(@"DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_CONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
+            
+            [self getMicrophonePermission];
+            break;
+        case UnknownWindMeterDeviceType:
+            [self showNotification:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
+            break;
+            
+        default:
+            break;
     }
 }
 

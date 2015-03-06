@@ -65,6 +65,12 @@ static NSString * const KEY_HAS_SEEN_UPGRADE_FLOW = @"hasSeenUpgradeFlow";
 static NSString * const KEY_TEMPERATURE_UNIT = @"temperatureUnit";
 static NSString * const KEY_PRESSURE_UNIT = @"pressureUnit";
 
+static NSString * const KEY_MICROPHONE_HAS_ASKED = @"hasAskedForMicrophoneAccess";
+static NSString * const KEY_MICROPHONE_HAS_APPROVED = @"hasApprovedMicrophoneAccess";
+
+static NSString * const KEY_LOCATION_HAS_ASKED = @"hasAskedForLocationAccess";
+static NSString * const KEY_LOCATION_HAS_APPROVED = @"hasApprovedLocationAccess";
+
 @interface Property (Util)
 
 + (NSString *)getAsString:(NSString *)name;
