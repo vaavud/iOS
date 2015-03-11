@@ -48,6 +48,8 @@
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We use your location to indicate where you have taken a wind measurement on a map.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need access to the microphone in order to use the Sleipnir wind meter</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Arkitech Medium.ttf</string>
