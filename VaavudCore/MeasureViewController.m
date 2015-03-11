@@ -619,6 +619,9 @@
             }];
         } on:self];
     }
+    else {
+        NSLog(@"Already approved");
+    }
 }
 
 - (void)deviceConnected:(enum WindMeterDeviceType)deviceType {
@@ -629,9 +632,7 @@
                 [self stopWithUITracking:NO action:@"Plug"];
             }
             
-//            [self showNotification:NSLocalizedString(@"DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_CONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
-            
-            [self getMicrophonePermission];
+            [self showNotification:NSLocalizedString(@"DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_CONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
             break;
         case UnknownWindMeterDeviceType:
             [self showNotification:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
@@ -704,6 +705,8 @@
         }
     }
     
+    [self getMicrophonePermission];
+
     self.notificationTimer = nil;
 }
 

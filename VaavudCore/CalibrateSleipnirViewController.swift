@@ -27,7 +27,6 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
     
     let sdk = VEVaavudElectronicSDK.sharedVaavudElectronic()
     
-    let particleSystem = SCNParticleSystem(named: "WindParticles", inDirectory: nil)
     let manager = CMMotionManager()
     
     required init(coder aDecoder: NSCoder) {

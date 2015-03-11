@@ -390,15 +390,14 @@
         return nil;
     }
     else if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
-        static NSString *MeasureAnnotationIdentifier = @"MeasureAnnotationIdentifier";
+        static NSString *measureAnnotationIdentifier = @"MeasureAnnotationIdentifier";
         
-        MeasurementAnnotation *measurementAnnotation = (MeasurementAnnotation*) annotation;
+        MeasurementAnnotation *measurementAnnotation = (MeasurementAnnotation *)annotation;
         measurementAnnotation.windSpeedUnit = self.windSpeedUnit;
         
-        MKAnnotationView *measureAnnotationView =
-        [self.mapView dequeueReusableAnnotationViewWithIdentifier:MeasureAnnotationIdentifier];
+        MKAnnotationView *measureAnnotationView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:measureAnnotationIdentifier];
         if (measureAnnotationView == nil) {
-            measureAnnotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:MeasureAnnotationIdentifier];
+            measureAnnotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:measureAnnotationIdentifier];
             measureAnnotationView.canShowCallout = NO;
             measureAnnotationView.opaque = NO;
             

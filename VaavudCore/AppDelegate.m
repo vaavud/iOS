@@ -56,7 +56,7 @@
         }
     }
     
-[Crashlytics startWithAPIKey:@"767b68b0d4b5e7c052c4de75ae8859beee5d9901"];
+    [Crashlytics startWithAPIKey:@"767b68b0d4b5e7c052c4de75ae8859beee5d9901"];
     
     // Whenever a person opens the app, check for a cached session and refresh token
     if ([[AccountManager sharedInstance] isLoggedIn]) {
