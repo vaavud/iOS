@@ -49,22 +49,6 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet private weak var gustinessView: GustinessView!
     private var gustinessItem: DynamicReadingItem!
     
-    // <--- To be removed when storyboard is localized
-    
-    @IBOutlet weak var averageHeadingLabel: UILabel!
-    @IBOutlet weak var maxHeadingLabel: UILabel!
-    @IBOutlet weak var pressureHeadingLabel: UILabel!
-    @IBOutlet weak var temperatureHeadingLabel: UILabel!
-    @IBOutlet weak var windchillHeadingLabel: UILabel!
-    @IBOutlet weak var gustinessHeadingLabel: UILabel!
-    
-    @IBOutlet weak var northLabel: UIButton!
-    @IBOutlet weak var southLabel: UIButton!
-    @IBOutlet weak var eastLabel: UIButton!
-    @IBOutlet weak var westLabel: UIButton!
-    
-    // To be removed when storyboard is localized --->
-
     private var hasSomeDirection: Float? = nil
     private var hasActualDirection = false
     private var isShowingDirection = false
@@ -236,24 +220,6 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         if let time = formatter.localizedTime(session.startTime) {
             dateLabel.text = time.uppercaseString
         }
-
-        // <--- To be removed when storyboard is localized
-        northLabel.setTitle(formatter.localizedNorth, forState: .Normal)
-        southLabel.setTitle(formatter.localizedSouth, forState: .Normal)
-        eastLabel.setTitle(formatter.localizedEast, forState: .Normal)
-        westLabel.setTitle(formatter.localizedWest, forState: .Normal)
-
-        upsellLabel.text = NSLocalizedString("SUMMARY_UPSELL", comment: "")
-        
-        pressureHeadingLabel.text = NSLocalizedString("SUMMARY_PRESSURE", comment: "").uppercaseString
-        temperatureHeadingLabel.text = NSLocalizedString("SUMMARY_TEMPERATURE", comment: "").uppercaseString
-        windchillHeadingLabel.text = NSLocalizedString("SUMMARY_WIND_CHILL", comment: "").uppercaseString
-        gustinessHeadingLabel.text = NSLocalizedString("SUMMARY_GUSTINESS", comment: "").uppercaseString
-
-        maxHeadingLabel.text = NSLocalizedString("HEADING_MAX", comment: "").uppercaseString
-        averageHeadingLabel.text = NSLocalizedString("HEADING_AVERAGE", comment: "").uppercaseString
-        
-        // To be removed when storyboard is localized --->
     }
     
     private func showSleipnir() {

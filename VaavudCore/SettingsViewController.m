@@ -30,11 +30,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-        self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    }
-
     self.navigationItem.title = NSLocalizedString(@"SETTINGS_TITLE", nil);
     self.navigationItem.backBarButtonItem.title = NSLocalizedString(@"NAVIGATION_BACK", nil);
     

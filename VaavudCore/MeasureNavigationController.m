@@ -18,7 +18,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.tabBarItem.title = NSLocalizedString(@"TAB_MEASURE", nil);
+//    self.tabBarItem.title = NSLocalizedString(@"TAB_MEASURE", nil); // LOKALISERA_BORT sedan
 }
 
 - (void)viewDidLoad {

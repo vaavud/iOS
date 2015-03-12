@@ -16,6 +16,8 @@
 #import "LoadingHistoryViewController.h"
 #import "Mixpanel.h"
 
+// TABORT
+
 @interface HistoryRootViewController ()
 
 @property (nonatomic, weak) UIViewController *childViewController;
@@ -26,7 +28,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.tabBarItem.title = NSLocalizedString(@"TAB_HISTORY", nil);
+//    self.tabBarItem.title = NS-Localized-String(@"TAB_HISTORY", nil);
 }
 
 - (void)viewDidLoad {
@@ -57,11 +59,11 @@
 }
 
 - (NSString *)registerScreenTitle {
-    return NSLocalizedString(@"HISTORY_TITLE", nil);
+    return NSLocalizedString(@"HISTORY_TITLE", nil); // LOKALISERA_BORT sedan
 }
 
 - (NSString *)registerTeaserText {
-    return NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil);
+    return NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil); // LOKALISERA_BORT sedan
 }
 
 - (void)chooseContentController:(BOOL)ignoreGracePeriod {

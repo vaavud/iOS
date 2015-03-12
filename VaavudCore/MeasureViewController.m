@@ -14,7 +14,6 @@
 #import "SavingWindMeasurementController.h"
 #import "Property+Util.h"
 #import "UnitUtil.h"
-#import "TermsViewController.h"
 #import "UIColor+VaavudColors.h"
 #import "Mixpanel.h"
 #import "MeasurementSession+Util.h"
@@ -156,24 +155,6 @@
     self.maxLabelCurrentValue = nil;
     self.directionLabelCurrentValue = nil;
     
-    if (self.averageHeadingLabel) {
-        self.averageHeadingLabel.text = [NSLocalizedString(@"HEADING_AVERAGE", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    }
-    if (self.currentHeadingLabel) {
-        self.currentHeadingLabel.text = [NSLocalizedString(@"HEADING_CURRENT", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    }
-    if (self.maxHeadingLabel) {
-        self.maxHeadingLabel.text = [NSLocalizedString(@"HEADING_MAX", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    }
-    if (self.unitHeadingLabel) {
-        self.unitHeadingLabel.text = [NSLocalizedString(@"HEADING_UNIT", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    }
-    if (self.directionHeadingLabel) {
-        self.directionHeadingLabel.text = [NSLocalizedString(@"HEADING_WIND_DIRECTION", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    }
-    if (self.directionLabel) {
-        self.directionLabel.text = @"-";
-    }
     if (self.temperatureHeadingLabel) {
         self.temperatureHeadingLabel.text = [NSLocalizedString(@"HEADING_TEMPERATURE", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
         self.lookupTemperature = YES;
@@ -181,6 +162,7 @@
     else {
         self.lookupTemperature = NO;
     }
+    
     if (self.temperatureLabel) {
         self.temperatureLabel.text = @"-";
     }
@@ -211,7 +193,7 @@
     self.buttonShowsStart = YES;
     
     if (self.startStopButton) {
-        [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
+        [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal]; // Keep
         self.startStopButton.backgroundColor = vaavudUiColor;
         self.startStopButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
         self.startStopButton.layer.masksToBounds = YES;
@@ -334,7 +316,7 @@
 }
 
 - (NSString *)stopButtonTitle {
-    return NSLocalizedString(@"BUTTON_STOP", nil);
+    return NSLocalizedString(@"BUTTON_STOP", nil); // Keep
 }
 
 - (void)startWithUITracking:(BOOL)uiTracking {
@@ -449,7 +431,7 @@
     
     if (self.startStopButton) {
         self.startStopButton.backgroundColor = [UIColor vaavudColor];
-        [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
+        [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal]; // Keep
     }
     
     if (self.informationTextLabel) {

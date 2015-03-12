@@ -37,7 +37,7 @@
         }
         else {
             self.pageImages = @[@"001_basejumper.jpg", @"002_map.jpg", @"003_sign_up.jpg"];
-            self.pageTexts = @[NSLocalizedString(@"INTRO_FLOW_SCREEN_1", nil), NSLocalizedString(@"INTRO_FLOW_SCREEN_2", nil), @""];
+            self.pageTexts = @[NSLocalizedString(@"INTRO_FLOW_SCREEN_1", nil), NSLocalizedString(@"INTRO_FLOW_SCREEN_2", nil), @""]; // LOKALISERA_BORT senare
             self.pageMixpanelScreens = @[@"Intro Flow Screen 1", @"Intro Flow Screen 2", @"Intro Flow Register Screen"];
             self.pageIds = @[@0, @1, @2];
         }
@@ -126,15 +126,15 @@
         }
         else {
             explanationViewController.topExplanationColor = [UIColor vaavudDarkGreyColor];
-            explanationViewController.topExplanationText = NSLocalizedString(@"REGISTER_EXPLANATION", nil);
-            explanationViewController.topButtonText = NSLocalizedString(@"REGISTER_TITLE_SIGNUP", nil);
-            explanationViewController.bottomButtonText = NSLocalizedString(@"REGISTER_TITLE_LOGIN", nil);
-            explanationViewController.tinyButtonText = NSLocalizedString(@"INTRO_FLOW_BUTTON_SKIP", nil);
+            explanationViewController.topExplanationText = NSLocalizedString(@"REGISTER_EXPLANATION", nil); // LOKALISERA_BORT sedan
+            explanationViewController.topButtonText = NSLocalizedString(@"REGISTER_TITLE_SIGNUP", nil); // LOKALISERA_BORT sedan
+            explanationViewController.bottomButtonText = NSLocalizedString(@"REGISTER_TITLE_LOGIN", nil); // LOKALISERA_BORT sedan
+            explanationViewController.tinyButtonText = NSLocalizedString(@"INTRO_FLOW_BUTTON_SKIP", nil); // LOKALISERA_BORT sedan
         }
     }
     
     if (explanationViewController.pageId == 8) {
-        explanationViewController.tinyButtonText = NSLocalizedString(@"INTRO_FLOW_BUTTON_GOT_IT", nil);
+        explanationViewController.tinyButtonText = NSLocalizedString(@"INTRO_FLOW_BUTTON_GOT_IT", nil); // LOKALISERA_BORT sedan
         explanationViewController.tinyButtonIsSolid = YES;
     }
     
@@ -236,9 +236,9 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
         explanationViewController.pageId = 4;
         explanationViewController.mixpanelScreen = @"Intro Flow Buy Screen";
         explanationViewController.topExplanationColor = [UIColor whiteColor];
-        explanationViewController.topExplanationText = NSLocalizedString(@"INTRO_FLOW_WANT_TO_BUY", nil);
-        explanationViewController.topButtonText = NSLocalizedString(@"BUTTON_YES", nil);
-        explanationViewController.bottomButtonText = NSLocalizedString(@"INTRO_FLOW_BUTTON_LATER", nil);
+        explanationViewController.topExplanationText = NSLocalizedString(@"INTRO_FLOW_WANT_TO_BUY", nil); // LOKALISERA_BORT sedan
+        explanationViewController.topButtonText = NSLocalizedString(@"BUTTON_YES", nil); // LOKALISERA_BORT sedan
+        explanationViewController.bottomButtonText = NSLocalizedString(@"INTRO_FLOW_BUTTON_LATER", nil); // LOKALISERA_BORT sedan
         explanationViewController.bottomButtonIsTransparent = NO;
         
         if (self.useBorderlessBuyLaterButton) {
@@ -335,9 +335,9 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
     explanationViewController.pageId = 3;
     explanationViewController.mixpanelScreen = @"Intro Flow Have Wind Meter Screen";
     explanationViewController.topExplanationColor = [UIColor whiteColor];
-    explanationViewController.topExplanationText = NSLocalizedString(@"INTRO_FLOW_HAVE_WIND_METER", nil);
-    explanationViewController.topButtonText = NSLocalizedString(@"BUTTON_YES", nil);
-    explanationViewController.bottomButtonText = NSLocalizedString(@"BUTTON_NO", nil);
+    explanationViewController.topExplanationText = NSLocalizedString(@"INTRO_FLOW_HAVE_WIND_METER", nil); // LOKALISERA_BORT sedan
+    explanationViewController.topButtonText = NSLocalizedString(@"BUTTON_YES", nil); // LOKALISERA_BORT sedan
+    explanationViewController.bottomButtonText = NSLocalizedString(@"BUTTON_NO", nil); // LOKALISERA_BORT sedan
     explanationViewController.bottomButtonIsTransparent = NO;
     return explanationViewController;
 }
@@ -354,7 +354,7 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
 
 + (void)createInstructionFlowOn:(FirstTimeFlowController *)controller {
     controller.pageImages = @[@"005_paraglider.jpg", @"006_hold_top.jpg", @"006_open_space.jpg", @"007_reading.jpg"];
-    controller.pageTexts = @[NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_1", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_2", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_3", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_4", nil)];
+    controller.pageTexts = @[NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_1", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_2", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_3", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_4", nil)]; // LOKALISERA_BORT sedan
     controller.pageIds = @[@5, @6, @7, @8];
     controller.pageMixpanelScreens = @[@"Instruction Flow Screen 1", @"Instruction Flow Screen 2", @"Instruction Flow Screen 3", @"Instruction Flow Screen 4"];
 }

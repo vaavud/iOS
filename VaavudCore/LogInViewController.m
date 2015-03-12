@@ -17,6 +17,8 @@
 
 @interface LogInViewController ()
 
+// LOKALISERA_BORT sedan
+
 @property (nonatomic, weak) IBOutlet UIView *basicInputView;
 @property (nonatomic, weak) IBOutlet UIButton *facebookButton;
 @property (nonatomic, weak) IBOutlet UILabel *orLabel;
@@ -34,7 +36,7 @@ BOOL didShowFeedback;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
+    [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK", nil) forState:UIControlStateNormal]; 
     self.orLabel.text = NSLocalizedString(@"REGISTER_OR", nil);
     self.emailTextField.guideText = NSLocalizedString(@"REGISTER_FIELD_EMAIL", nil);
     self.emailTextField.delegate = self;

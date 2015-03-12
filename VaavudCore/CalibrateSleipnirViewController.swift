@@ -41,11 +41,6 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
 
         sdk.startCalibration()
         sdk.start()
-        
-//        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
-//        effectView.frame = view.bounds
-//        view.insertSubview(effectView, atIndex: 0)
-//        view.backgroundColor = UIColor.clearColor()
     }
     
     func showFirstText() {
@@ -62,12 +57,13 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
     }
     
     func changeMessage(key: String, color: UIColor = UIColor.vaavudBlueColor(), delay: Double = 0) {
-        upperLabel.text = NSLocalizedString(key, comment: "")
+        let text = NSLocalizedString(key, comment: "")
+        upperLabel.text = text
         
         UIView.animateWithDuration(0.7, delay: delay, options: nil, animations: {
             self.upperLabel.alpha = 0
             self.upperLabel.textColor = color
-            self.upperLabel.text = NSLocalizedString(key, comment: "")
+            self.upperLabel.text = text
             self.upperLabel.alpha = 1
             
             }, completion: nil)

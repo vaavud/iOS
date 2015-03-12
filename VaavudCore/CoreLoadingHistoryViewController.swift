@@ -30,7 +30,7 @@ class CoreLoadingHistoryViewController: UIViewController {
         else {
             let storyboard = UIStoryboard(name: "Register", bundle: nil)
             let vc = storyboard.instantiateViewControllerWithIdentifier("RegisterViewController") as RegisterViewController
-            vc.teaserLabelText = NSLocalizedString("HISTORY_REGISTER_TEASER", comment: "");
+            vc.teaserLabelText = NSLocalizedString("HISTORY_REGISTER_TEASER", comment: "") // LOKALISERA
             vc.completion = { let _ = self.navigationController?.popToViewController(self, animated: false) }
             navigationController?.pushViewController(vc, animated: false)
         }

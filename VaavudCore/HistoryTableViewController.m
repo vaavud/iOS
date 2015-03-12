@@ -50,7 +50,6 @@
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
     self.directionUnit = -1;
-    self.navigationItem.title = NSLocalizedString(@"HISTORY_TITLE", nil);
     self.isObservingModelChanges = NO;
     self.isTableUpdating = NO;
     self.isAppeared = NO;
@@ -186,7 +185,7 @@
         cell.mapImageView.image = self.placeholderImage;
     }
     
-    cell.maxHeadingLabel.text = [NSLocalizedString(@"HEADING_MAX", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+    cell.maxHeadingLabel.text = [NSLocalizedString(@"HEADING_MAX", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]; // LOKALISERA_BORT sedan
     
     if (session.windSpeedAvg != nil && !isnan([session.windSpeedAvg doubleValue])) {
         cell.avgLabel.text = [FormatUtil formatValueWithThreeDigits:[UnitUtil displayWindSpeedFromDouble:[session.windSpeedAvg doubleValue] unit:self.windSpeedUnit]];

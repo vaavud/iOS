@@ -177,8 +177,3 @@ extension String {
             stringByReplacingOccurrencesOfString("\n" , withString: "<br/><br/>", options: nil) + "</center></body></html>"
     }
 }
-
-
-
-
-

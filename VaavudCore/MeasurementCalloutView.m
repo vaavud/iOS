@@ -40,8 +40,8 @@ BOOL isTableInitialized = NO;
 -(void)setMeasurementAnnotation:(MeasurementAnnotation *)measurementAnnotation {
     _measurementAnnotation = measurementAnnotation;
     
-    self.maxHeadingLabel.text = [NSLocalizedString(@"HEADING_MAX", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    self.nearbyHeadingLabel.text = [NSLocalizedString(@"HEADING_NEARBY_MEASUREMENTS", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
+    self.maxHeadingLabel.text = [NSLocalizedString(@"HEADING_MAX", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]; // LOKALISERA_BORT sedan
+    self.nearbyHeadingLabel.text = [NSLocalizedString(@"HEADING_NEARBY_MEASUREMENTS", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]; // LOKALISERA_BORT sedan
     
     if (!isnan(self.measurementAnnotation.avgWindSpeed)) {
         self.avgLabel.text = [FormatUtil formatValueWithThreeDigits:[UnitUtil displayWindSpeedFromDouble:self.measurementAnnotation.avgWindSpeed unit:self.windSpeedUnit]];

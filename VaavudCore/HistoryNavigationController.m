@@ -14,11 +14,6 @@
 
 @implementation HistoryNavigationController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.navigationItem.title = NSLocalizedString(@"HISTORY_TITLE", nil);
-}
-
 - (void)historyLoaded {
     if ([self.topViewController conformsToProtocol:@protocol(HistoryLoadedListener)]) {
         id<HistoryLoadedListener>listener = (id<HistoryLoadedListener>)self.topViewController;

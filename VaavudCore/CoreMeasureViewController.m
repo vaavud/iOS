@@ -39,12 +39,6 @@
 
 @implementation CoreMeasureViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    //[self.settingsBarButtonItem setTitle:NSLocalizedString(@"SETTINGS_TITLE", nil)];
-}
-
 -(NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="uRK-QG-tAM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="uRK-QG-tAM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -283,10 +283,10 @@
             </objects>
             <point key="canvasLocation" x="90" y="-539"/>
         </scene>
-        <!--Measure-->
+        <!--Measure Navigation-->
         <scene sceneID="RnR-Kp-M0y">
             <objects>
-                <navigationController definesPresentationContext="YES" id="fQa-n1-y1j" customClass="MeasureNavigationController" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="fQa-n1-y1j" userLabel="Measure Navigation" customClass="MeasureNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Measure" image="measure.png" id="bEh-Uj-qCq"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hW7-ue-zqA">
                         <autoresizingMask key="autoresizingMask"/>
@@ -354,6 +354,12 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MKZ-Ce-DqL">
                                 <rect key="frame" x="40" y="234" width="240" height="100"/>
                                 <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTv-5v-GxF">
+                                        <rect key="frame" x="15" y="18" width="210" height="64"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5HR-by-QWH">
                                         <rect key="frame" x="0.0" y="15" width="240" height="21"/>
                                         <constraints>
@@ -364,23 +370,13 @@
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTv-5v-GxF">
-                                        <rect key="frame" x="15" y="36" width="210" height="64"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstItem="FTv-5v-GxF" firstAttribute="trailing" secondItem="5HR-by-QWH" secondAttribute="trailing" constant="-15" id="FvY-dG-foZ"/>
-                                    <constraint firstAttribute="bottom" secondItem="FTv-5v-GxF" secondAttribute="bottom" id="JY6-ay-VLZ"/>
                                     <constraint firstAttribute="centerX" secondItem="5HR-by-QWH" secondAttribute="centerX" id="P9I-3O-k1X"/>
-                                    <constraint firstItem="FTv-5v-GxF" firstAttribute="leading" secondItem="5HR-by-QWH" secondAttribute="leading" constant="15" id="SK6-7l-DNi"/>
                                     <constraint firstAttribute="height" constant="100" id="aF7-f7-rP5"/>
                                     <constraint firstItem="5HR-by-QWH" firstAttribute="top" secondItem="MKZ-Ce-DqL" secondAttribute="top" constant="15" id="dIl-08-6lR"/>
                                     <constraint firstAttribute="width" constant="240" id="eij-6F-UAk"/>
-                                    <constraint firstItem="FTv-5v-GxF" firstAttribute="top" secondItem="5HR-by-QWH" secondAttribute="top" constant="21" id="uMi-I9-d3A"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1035,10 +1031,10 @@
             </objects>
             <point key="canvasLocation" x="406" y="797"/>
         </scene>
-        <!--Title-->
+        <!--Summary-->
         <scene sceneID="Y1a-Mc-SzL">
             <objects>
-                <viewController id="8a4-bz-n0M" customClass="CoreSummaryViewController" customModule="Vaavud" sceneMemberID="viewController">
+                <viewController id="8a4-bz-n0M" userLabel="Summary" customClass="CoreSummaryViewController" customModule="Vaavud" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7wU-Bb-ZNs"/>
                         <viewControllerLayoutGuide type="bottom" id="wnc-wX-Vvf"/>
@@ -1561,36 +1557,26 @@
                     <navigationItem key="navigationItem" title="Title" id="9cq-Ve-6sS"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
-                        <outlet property="averageHeadingLabel" destination="BNl-iK-NzK" id="cpS-p7-9HB"/>
                         <outlet property="averageLabel" destination="Ha6-Kc-3pj" id="kci-1N-CU0"/>
                         <outlet property="averageUnitLabel" destination="OfN-lw-f2W" id="6MD-cb-fo2"/>
                         <outlet property="dateLabel" destination="3FB-IL-Zna" id="BXo-yI-SUa"/>
                         <outlet property="directionButton" destination="KWl-Zw-lzc" id="z0i-jb-XAg"/>
                         <outlet property="directionView" destination="C2h-JO-28H" id="cX6-p9-oE3"/>
-                        <outlet property="eastLabel" destination="Psy-tP-zmd" id="vJX-PC-xZ3"/>
-                        <outlet property="gustinessHeadingLabel" destination="7N2-He-qYY" id="1ok-6o-9uo"/>
                         <outlet property="gustinessLabel" destination="zww-I2-x89" id="dXU-Rj-bHh"/>
                         <outlet property="gustinessUnitLabel" destination="Wsv-hK-UUh" id="Pox-FH-ak6"/>
                         <outlet property="gustinessView" destination="c5D-lD-0ae" id="X0N-ko-bC1"/>
                         <outlet property="locationLabel" destination="ITn-VN-50V" id="hAm-EX-6TZ"/>
                         <outlet property="mapView" destination="tvr-It-KCF" id="djU-kd-wz2"/>
-                        <outlet property="maxHeadingLabel" destination="QYA-qT-P4j" id="aEB-SH-XSp"/>
                         <outlet property="maximumLabel" destination="BNx-Ty-Ux8" id="4KU-wZ-EL8"/>
                         <outlet property="maximumUnitLabel" destination="RdQ-dE-OhZ" id="TMd-52-tT9"/>
-                        <outlet property="northLabel" destination="S4V-DO-Sud" id="lz8-77-WlT"/>
-                        <outlet property="pressureHeadingLabel" destination="ja0-Wh-gSx" id="laH-YV-iut"/>
                         <outlet property="pressureLabel" destination="1Us-Rb-t2X" id="bKY-tu-0Bu"/>
                         <outlet property="pressureUnitLabel" destination="qgi-7c-kvP" id="y3x-e2-R1Q"/>
                         <outlet property="pressureView" destination="rPD-WL-dcc" id="m4N-FT-T2X"/>
                         <outlet property="sleipnirView" destination="MuP-rr-uMT" id="W9G-ZS-cqt"/>
-                        <outlet property="southLabel" destination="Rlf-av-xRp" id="QFX-p0-fZi"/>
-                        <outlet property="temperatureHeadingLabel" destination="SIQ-Ha-tfu" id="yiK-4X-cV5"/>
                         <outlet property="temperatureLabel" destination="oKY-WA-JW3" id="nzp-2V-Zan"/>
                         <outlet property="temperatureUnitLabel" destination="Nud-eU-mVJ" id="mQs-tu-Vsa"/>
                         <outlet property="temperatureView" destination="G6q-zr-koS" id="4px-7n-p1w"/>
                         <outlet property="upsellLabel" destination="crp-cu-8Rx" id="HYr-UQ-kV4"/>
-                        <outlet property="westLabel" destination="s3A-20-Bgq" id="rJt-0S-hcn"/>
-                        <outlet property="windchillHeadingLabel" destination="HR4-FD-hzb" id="BE9-gn-Q0i"/>
                         <outlet property="windchillLabel" destination="jk9-WO-7ca" id="jdp-XH-PEn"/>
                         <outlet property="windchillUnitLabel" destination="MsJ-Ld-ZZz" id="Pgu-mI-vnb"/>
                         <outlet property="windchillView" destination="sGX-vh-0Rt" id="Vva-UL-YE6"/>
@@ -1945,7 +1931,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="MnQ-EK-wGw"/>
+        <segue reference="4WK-Ha-uCh"/>
         <segue reference="s0f-qj-ZNz"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>

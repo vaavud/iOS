@@ -49,11 +49,6 @@
 
 @implementation MapViewController
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.tabBarItem.title = NSLocalizedString(@"TAB_MAP", nil);
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self hideVolumeHUD];

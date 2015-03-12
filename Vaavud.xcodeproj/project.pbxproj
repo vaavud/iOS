@@ -42,16 +42,6 @@
 		D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */; };
 		D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
 		D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* VaavudFFT.m */; };
-		D7497E941A418E5F0092F045 /* SleipnirCalibrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497E931A418E5F0092F045 /* SleipnirCalibrationViewController.m */; };
-		D7497E951A418E5F0092F045 /* SleipnirCalibrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497E931A418E5F0092F045 /* SleipnirCalibrationViewController.m */; };
-		D7497EA21A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EA11A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m */; };
-		D7497EA31A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EA11A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m */; };
-		D7497EA91A41E8F60092F045 /* SleipnirCalibrationDismissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EA81A41E8F60092F045 /* SleipnirCalibrationDismissSegue.m */; };
-		D7497EAA1A41E8F60092F045 /* SleipnirCalibrationDismissSegue.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EA81A41E8F60092F045 /* SleipnirCalibrationDismissSegue.m */; };
-		D7497EAD1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EAC1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m */; };
-		D7497EAE1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EAC1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m */; };
-		D7497EC11A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EC01A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m */; };
-		D7497EC21A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7497EC01A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m */; };
 		D7A4F1CB173A8DDB00D1ACEE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */; };
 		D7A4F1CD173A8DDB00D1ACEE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CC173A8DDB00D1ACEE /* Foundation.framework */; };
 		D7A4F1CF173A8DDB00D1ACEE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CE173A8DDB00D1ACEE /* CoreGraphics.framework */; };
@@ -127,8 +117,6 @@
 		E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */; };
 		E907093E193F4AFB0087F80F /* SettingsIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = E907093D193F4AFB0087F80F /* SettingsIcon.png */; };
 		E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F76CD1771EB2B00F51A4F /* ServerUploadManager.m */; };
-		E912793218BF5FF4009C7769 /* NoHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E912793118BF5FF4009C7769 /* NoHistoryViewController.m */; };
-		E912793518BF7893009C7769 /* NoHistoryArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = E912793418BF7893009C7769 /* NoHistoryArrowView.m */; };
 		E91535B91806C2D20070BFB4 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535AB1806C2D20070BFB4 /* map.png */; };
 		E91535BA1806C2D20070BFB4 /* map@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535AC1806C2D20070BFB4 /* map@2x.png */; };
 		E91535BD1806C2D20070BFB4 /* measure.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535AF1806C2D20070BFB4 /* measure.png */; };
@@ -224,7 +212,6 @@
 		E9543DFD19FFBF6C005A01D7 /* AgriHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9543DFB19FFBF6C005A01D7 /* AgriHistoryTableViewController.m */; };
 		E9543E0019FFCB2E005A01D7 /* AgriSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9543DFF19FFCB2E005A01D7 /* AgriSummaryViewController.m */; };
 		E9543E0119FFCB2E005A01D7 /* AgriSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9543DFF19FFCB2E005A01D7 /* AgriSummaryViewController.m */; };
-		E9575937193CAE3D00B5D0AE /* UnitSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9575936193CAE3D00B5D0AE /* UnitSelectionViewController.m */; };
 		E957593A193E222D00B5D0AE /* LoadingHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9575939193E222D00B5D0AE /* LoadingHistoryViewController.m */; };
 		E960260818575452009396B1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E960260A18575452009396B1 /* Localizable.strings */; };
 		E960260E18575E41009396B1 /* MeasurementCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E960261018575E41009396B1 /* MeasurementCalloutView.xib */; };
@@ -275,7 +262,6 @@
 		E96FB51A19A353B500CB7306 /* HistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FABFDD18929473009C4C46 /* HistoryTableViewController.m */; };
 		E96FB51B19A353B500CB7306 /* NSString+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD220F177B2AEA0054ED3F /* NSString+MagicalDataImport.m */; };
 		E96FB51C19A353B500CB7306 /* NSManagedObject+MagicalAggregation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2212177B2AEA0054ED3F /* NSManagedObject+MagicalAggregation.m */; };
-		E96FB51D19A353B500CB7306 /* UnitSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9575936193CAE3D00B5D0AE /* UnitSelectionViewController.m */; };
 		E96FB51E19A353B500CB7306 /* TermsPrivacyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */; };
 		E96FB51F19A353B500CB7306 /* NSManagedObject+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2214177B2AEA0054ED3F /* NSManagedObject+MagicalDataImport.m */; };
 		E96FB52019A353B500CB7306 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A409A718AB9B80004F1C12 /* LogInViewController.m */; };
@@ -289,11 +275,9 @@
 		E96FB52819A353B500CB7306 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F33CCD18B4B3CB0033EDC7 /* AccountManager.m */; };
 		E96FB52919A353B500CB7306 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099218A52E40004F1C12 /* RegisterViewController.m */; };
 		E96FB52B19A353B500CB7306 /* NSManagedObjectContext+MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD221F177B2AEA0054ED3F /* NSManagedObjectContext+MagicalRecord.m */; };
-		E96FB52C19A353B500CB7306 /* NoHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E912793118BF5FF4009C7769 /* NoHistoryViewController.m */; };
 		E96FB52D19A353B500CB7306 /* NSManagedObjectContext+MagicalSaves.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2221177B2AEA0054ED3F /* NSManagedObjectContext+MagicalSaves.m */; };
 		E96FB52E19A353B500CB7306 /* NSManagedObjectContext+MagicalThreading.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2223177B2AEA0054ED3F /* NSManagedObjectContext+MagicalThreading.m */; };
 		E96FB52F19A353B500CB7306 /* TMDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097518994000004F1C12 /* TMDiskCache.m */; };
-		E96FB53019A353B500CB7306 /* NoHistoryArrowView.m in Sources */ = {isa = PBXBuildFile; fileRef = E912793418BF7893009C7769 /* NoHistoryArrowView.m */; };
 		E96FB53119A353B500CB7306 /* NSManagedObjectModel+MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2225177B2AEA0054ED3F /* NSManagedObjectModel+MagicalRecord.m */; };
 		E96FB53219A353B500CB7306 /* NSPersistentStore+MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2227177B2AEA0054ED3F /* NSPersistentStore+MagicalRecord.m */; };
 		E96FB53319A353B500CB7306 /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2229177B2AEA0054ED3F /* NSPersistentStoreCoordinator+MagicalRecord.m */; };
@@ -324,8 +308,6 @@
 		E96FB54C19A353B500CB7306 /* HistoryRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098C18A50D11004F1C12 /* HistoryRootViewController.m */; };
 		E96FB54D19A353B500CB7306 /* TMMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097718994000004F1C12 /* TMMemoryCache.m */; };
 		E96FB54E19A353B500CB7306 /* UnitUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E99F8F70178EC5AD0090402C /* UnitUtil.m */; };
-		E96FB54F19A353B500CB7306 /* Terms.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A021794217200E8A82E /* Terms.m */; };
-		E96FB55019A353B500CB7306 /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A091794315100E8A82E /* TermsViewController.m */; };
 		E96FB55119A353B500CB7306 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098F18A52151004F1C12 /* SignUpViewController.m */; };
 		E96FB55319A353B500CB7306 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E904AC9917F0911000171F7F /* MapKit.framework */; };
 		E96FB55419A353B500CB7306 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8917DF5BA600DED985 /* libz.dylib */; };
@@ -418,8 +400,6 @@
 		E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */; };
 		E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */; };
 		E9AF2B9117F5B96500BDF6D9 /* MeasurementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9AF2B9017F5B96500BDF6D9 /* MeasurementTableViewCell.xib */; };
-		E9B47A031794217200E8A82E /* Terms.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A021794217200E8A82E /* Terms.m */; };
-		E9B47A0A1794315100E8A82E /* TermsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B47A091794315100E8A82E /* TermsViewController.m */; };
 		E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627AF17708E63004678D5 /* AFHTTPClient.m */; };
 		E9B627C217708E63004678D5 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B117708E63004678D5 /* AFHTTPRequestOperation.m */; };
 		E9B627C317708E63004678D5 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B317708E63004678D5 /* AFImageRequestOperation.m */; };
@@ -477,8 +457,6 @@
 		E9D9044E19C1971000ABA9F4 /* WindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */; };
 		E9D9045119C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9045019C1984D00ABA9F4 /* SavingWindMeasurementController.m */; };
 		E9D9045219C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9045019C1984D00ABA9F4 /* SavingWindMeasurementController.m */; };
-		E9D9045A19C1EA2C00ABA9F4 /* DirectionSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9045919C1EA2C00ABA9F4 /* DirectionSelectionTableViewController.m */; };
-		E9D9045B19C1EA2C00ABA9F4 /* DirectionSelectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9045919C1EA2C00ABA9F4 /* DirectionSelectionTableViewController.m */; };
 		E9D904BC19C325E100ABA9F4 /* SleipnirMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C9A5F19B9D9EE009428F3 /* SleipnirMeasurementController.m */; };
 		E9D904BD19C3262700ABA9F4 /* MixpanelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E984F26219B878BD004024C6 /* MixpanelUtil.m */; };
 		E9DE09BA192E4C84003877D9 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DE09B9192E4C84003877D9 /* SettingsViewController.m */; };
@@ -560,6 +538,7 @@
 		22B408B61A8A0E2E0062A2DD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSettingsViewController.swift; sourceTree = "<group>"; };
 		22DB81A81A8389DF00DA67AC /* Model 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.xcdatamodel"; sourceTree = "<group>"; };
+		22E204FE1AB19BEB00FA7E1D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Bridging-Header.h"; sourceTree = "<group>"; };
 		22FA6C501A727171004DD868 /* VaavudStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VaavudStyle.swift; path = Vaavud/StyleKit/VaavudStyle.swift; sourceTree = SOURCE_ROOT; };
 		A086025EA7704C458175CADF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -580,16 +559,6 @@
 		D72D7A1F1906BEE300DCEC72 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D72D7A201906BFBA00DCEC72 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		D72D7A211906C1F900DCEC72 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		D7497E921A418E5F0092F045 /* SleipnirCalibrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleipnirCalibrationViewController.h; sourceTree = "<group>"; };
-		D7497E931A418E5F0092F045 /* SleipnirCalibrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleipnirCalibrationViewController.m; sourceTree = "<group>"; };
-		D7497EA01A41BFC40092F045 /* SleipnirCalibrationIntroViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleipnirCalibrationIntroViewController.h; sourceTree = "<group>"; };
-		D7497EA11A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleipnirCalibrationIntroViewController.m; sourceTree = "<group>"; };
-		D7497EA71A41E8F60092F045 /* SleipnirCalibrationDismissSegue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleipnirCalibrationDismissSegue.h; sourceTree = "<group>"; };
-		D7497EA81A41E8F60092F045 /* SleipnirCalibrationDismissSegue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleipnirCalibrationDismissSegue.m; sourceTree = "<group>"; };
-		D7497EAB1A41EA500092F045 /* SleipnirCalibrationBlowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleipnirCalibrationBlowViewController.h; sourceTree = "<group>"; };
-		D7497EAC1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleipnirCalibrationBlowViewController.m; sourceTree = "<group>"; };
-		D7497EBF1A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleipnirCalibrationCompleteViewController.h; sourceTree = "<group>"; };
-		D7497EC01A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleipnirCalibrationCompleteViewController.m; sourceTree = "<group>"; };
 		D7A4F1C7173A8DDB00D1ACEE /* Vaavud.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vaavud.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D7A4F1CC173A8DDB00D1ACEE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -675,10 +644,6 @@
 		E907093D193F4AFB0087F80F /* SettingsIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SettingsIcon.png; sourceTree = "<group>"; };
 		E90F76CC1771EB2A00F51A4F /* ServerUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerUploadManager.h; sourceTree = "<group>"; };
 		E90F76CD1771EB2B00F51A4F /* ServerUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerUploadManager.m; sourceTree = "<group>"; };
-		E912793018BF5FF4009C7769 /* NoHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoHistoryViewController.h; sourceTree = "<group>"; };
-		E912793118BF5FF4009C7769 /* NoHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoHistoryViewController.m; sourceTree = "<group>"; };
-		E912793318BF7893009C7769 /* NoHistoryArrowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoHistoryArrowView.h; sourceTree = "<group>"; };
-		E912793418BF7893009C7769 /* NoHistoryArrowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoHistoryArrowView.m; sourceTree = "<group>"; };
 		E91535AB1806C2D20070BFB4 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
 		E91535AC1806C2D20070BFB4 /* map@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "map@2x.png"; sourceTree = "<group>"; };
 		E91535AF1806C2D20070BFB4 /* measure.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = measure.png; sourceTree = "<group>"; };
@@ -772,8 +737,6 @@
 		E9543DFB19FFBF6C005A01D7 /* AgriHistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriHistoryTableViewController.m; sourceTree = "<group>"; };
 		E9543DFE19FFCB2E005A01D7 /* AgriSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriSummaryViewController.h; sourceTree = "<group>"; };
 		E9543DFF19FFCB2E005A01D7 /* AgriSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriSummaryViewController.m; sourceTree = "<group>"; };
-		E9575935193CAE3D00B5D0AE /* UnitSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitSelectionViewController.h; sourceTree = "<group>"; };
-		E9575936193CAE3D00B5D0AE /* UnitSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitSelectionViewController.m; sourceTree = "<group>"; };
 		E9575938193E222D00B5D0AE /* LoadingHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingHistoryViewController.h; sourceTree = "<group>"; };
 		E9575939193E222D00B5D0AE /* LoadingHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingHistoryViewController.m; sourceTree = "<group>"; };
 		E96025FB18574DC0009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -919,10 +882,6 @@
 		E9AF2B8D17F5B93800BDF6D9 /* MeasurementTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementTableViewCell.h; sourceTree = "<group>"; };
 		E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementTableViewCell.m; sourceTree = "<group>"; };
 		E9AF2B9017F5B96500BDF6D9 /* MeasurementTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeasurementTableViewCell.xib; sourceTree = "<group>"; };
-		E9B47A011794217200E8A82E /* Terms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terms.h; sourceTree = "<group>"; };
-		E9B47A021794217200E8A82E /* Terms.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terms.m; sourceTree = "<group>"; };
-		E9B47A081794315100E8A82E /* TermsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsViewController.h; sourceTree = "<group>"; };
-		E9B47A091794315100E8A82E /* TermsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsViewController.m; sourceTree = "<group>"; };
 		E9B627AE17708E63004678D5 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		E9B627AF17708E63004678D5 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		E9B627B017708E63004678D5 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -1027,8 +986,6 @@
 		E9D9044F19C1984D00ABA9F4 /* SavingWindMeasurementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavingWindMeasurementController.h; sourceTree = "<group>"; };
 		E9D9045019C1984D00ABA9F4 /* SavingWindMeasurementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavingWindMeasurementController.m; sourceTree = "<group>"; };
 		E9D9045319C1D41D00ABA9F4 /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
-		E9D9045819C1EA2C00ABA9F4 /* DirectionSelectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectionSelectionTableViewController.h; sourceTree = "<group>"; };
-		E9D9045919C1EA2C00ABA9F4 /* DirectionSelectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectionSelectionTableViewController.m; sourceTree = "<group>"; };
 		E9DE09B8192E4C84003877D9 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		E9DE09B9192E4C84003877D9 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		E9DE09D11935E4D5003877D9 /* SettingsIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SettingsIcon@2x.png"; sourceTree = "<group>"; };
@@ -1149,23 +1106,6 @@
 			);
 			name = CorePlot;
 			path = ..;
-			sourceTree = "<group>";
-		};
-		D7497EB81A421A090092F045 /* SleipnirCalibration */ = {
-			isa = PBXGroup;
-			children = (
-				D7497E921A418E5F0092F045 /* SleipnirCalibrationViewController.h */,
-				D7497E931A418E5F0092F045 /* SleipnirCalibrationViewController.m */,
-				D7497EA01A41BFC40092F045 /* SleipnirCalibrationIntroViewController.h */,
-				D7497EA11A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m */,
-				D7497EA71A41E8F60092F045 /* SleipnirCalibrationDismissSegue.h */,
-				D7497EA81A41E8F60092F045 /* SleipnirCalibrationDismissSegue.m */,
-				D7497EAB1A41EA500092F045 /* SleipnirCalibrationBlowViewController.h */,
-				D7497EAC1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m */,
-				D7497EBF1A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.h */,
-				D7497EC01A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m */,
-			);
-			name = SleipnirCalibration;
 			sourceTree = "<group>";
 		};
 		D7A4F1BE173A8DDB00D1ACEE = {
@@ -1381,7 +1321,6 @@
 		E91E490A19AB5EEB00616887 /* Measure */ = {
 			isa = PBXGroup;
 			children = (
-				D7497EB81A421A090092F045 /* SleipnirCalibration */,
 				D7A4F1E5173A8DDB00D1ACEE /* MeasureViewController.h */,
 				D7A4F1E6173A8DDB00D1ACEE /* MeasureViewController.m */,
 				E91E490B19AB5F3D00616887 /* CoreMeasureViewController.h */,
@@ -1410,10 +1349,6 @@
 				E9FABFE61896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib */,
 				E9575938193E222D00B5D0AE /* LoadingHistoryViewController.h */,
 				E9575939193E222D00B5D0AE /* LoadingHistoryViewController.m */,
-				E912793318BF7893009C7769 /* NoHistoryArrowView.h */,
-				E912793418BF7893009C7769 /* NoHistoryArrowView.m */,
-				E912793018BF5FF4009C7769 /* NoHistoryViewController.h */,
-				E912793118BF5FF4009C7769 /* NoHistoryViewController.m */,
 			);
 			name = History;
 			sourceTree = "<group>";
@@ -1946,14 +1881,6 @@
 			children = (
 				E9DE09B8192E4C84003877D9 /* SettingsViewController.h */,
 				E9DE09B9192E4C84003877D9 /* SettingsViewController.m */,
-				E9B47A011794217200E8A82E /* Terms.h */,
-				E9B47A021794217200E8A82E /* Terms.m */,
-				E9B47A081794315100E8A82E /* TermsViewController.h */,
-				E9B47A091794315100E8A82E /* TermsViewController.m */,
-				E9575935193CAE3D00B5D0AE /* UnitSelectionViewController.h */,
-				E9575936193CAE3D00B5D0AE /* UnitSelectionViewController.m */,
-				E9D9045819C1EA2C00ABA9F4 /* DirectionSelectionTableViewController.h */,
-				E9D9045919C1EA2C00ABA9F4 /* DirectionSelectionTableViewController.m */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -2399,7 +2326,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7A4F1D7173A8DDB00D1ACEE /* main.m in Sources */,
-				D7497E941A418E5F0092F045 /* SleipnirCalibrationViewController.m in Sources */,
 				D7A4F1DB173A8DDB00D1ACEE /* AppDelegate.m in Sources */,
 				22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */,
 				D7A4F1E7173A8DDB00D1ACEE /* MeasureViewController.m in Sources */,
@@ -2428,7 +2354,6 @@
 				E91D4218198F7C8400106E15 /* GuideView.m in Sources */,
 				E9159CA51A03E09100742188 /* MeasurementSession.m in Sources */,
 				E9B627C517708E63004678D5 /* AFNetworkActivityIndicatorManager.m in Sources */,
-				D7497EC11A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m in Sources */,
 				E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */,
 				2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */,
 				E9A4097D18994570004F1C12 /* UIImageView+TMCache.m in Sources */,
@@ -2456,7 +2381,6 @@
 				E9C7798E19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */,
 				E948382719B75320009595B0 /* EZAudioPlot.m in Sources */,
 				22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */,
-				D7497EA91A41E8F60092F045 /* SleipnirCalibrationDismissSegue.m in Sources */,
 				E9FD000B17FD6A06001A8491 /* FormatUtil.m in Sources */,
 				E948383119B75320009595B0 /* EZPlot.m in Sources */,
 				E9CD223D177B2AEA0054ED3F /* NSEntityDescription+MagicalDataImport.m in Sources */,
@@ -2470,13 +2394,11 @@
 				E9FABFDE18929473009C4C46 /* HistoryTableViewController.m in Sources */,
 				E9CD2241177B2AEA0054ED3F /* NSString+MagicalDataImport.m in Sources */,
 				E9CD2242177B2AEA0054ED3F /* NSManagedObject+MagicalAggregation.m in Sources */,
-				E9575937193CAE3D00B5D0AE /* UnitSelectionViewController.m in Sources */,
 				E97AC6D018BCDE19004DEC65 /* TermsPrivacyNavigationController.m in Sources */,
 				E9CD2243177B2AEA0054ED3F /* NSManagedObject+MagicalDataImport.m in Sources */,
 				E9A409A818AB9B80004F1C12 /* LogInViewController.m in Sources */,
 				E9CD2244177B2AEA0054ED3F /* NSManagedObject+MagicalFinders.m in Sources */,
 				E9CD2245177B2AEA0054ED3F /* NSManagedObject+MagicalRecord.m in Sources */,
-				E9D9045A19C1EA2C00ABA9F4 /* DirectionSelectionTableViewController.m in Sources */,
 				E957593A193E222D00B5D0AE /* LoadingHistoryViewController.m in Sources */,
 				E948383319B75320009595B0 /* EZRecorder.m in Sources */,
 				E9AB11D919A60DF3000C6FB1 /* AgriLoginViewController.m in Sources */,
@@ -2488,19 +2410,15 @@
 				229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */,
 				22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */,
 				22ADAA941A9C911400C298E6 /* CoreEmptyHistoryViewController.swift in Sources */,
-				D7497EAD1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m in Sources */,
 				E9F33CCE18B4B3CB0033EDC7 /* AccountManager.m in Sources */,
 				E948382519B75320009595B0 /* EZAudioPlayer.m in Sources */,
 				E9A4099318A52E40004F1C12 /* RegisterViewController.m in Sources */,
 				E9CD2248177B2AEA0054ED3F /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				E9159CA91A078E5C00742188 /* AgriResultComputation.m in Sources */,
-				D7497EA21A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m in Sources */,
-				E912793218BF5FF4009C7769 /* NoHistoryViewController.m in Sources */,
 				E9CD2249177B2AEA0054ED3F /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				E9C7798A19AB7C09000A6921 /* AgriMeasureViewController.m in Sources */,
 				E9CD224A177B2AEA0054ED3F /* NSManagedObjectContext+MagicalThreading.m in Sources */,
 				E9A4097918994000004F1C12 /* TMDiskCache.m in Sources */,
-				E912793518BF7893009C7769 /* NoHistoryArrowView.m in Sources */,
 				E9CD224B177B2AEA0054ED3F /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				E9CD224C177B2AEA0054ED3F /* NSPersistentStore+MagicalRecord.m in Sources */,
 				E9002DBD19DD69CD002D0132 /* AgriResultViewController.m in Sources */,
@@ -2541,8 +2459,6 @@
 				E9A4098D18A50D11004F1C12 /* HistoryRootViewController.m in Sources */,
 				E9A4097A18994000004F1C12 /* TMMemoryCache.m in Sources */,
 				E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */,
-				E9B47A031794217200E8A82E /* Terms.m in Sources */,
-				E9B47A0A1794315100E8A82E /* TermsViewController.m in Sources */,
 				E9A4099018A52151004F1C12 /* SignUpViewController.m in Sources */,
 				22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */,
 			);
@@ -2553,7 +2469,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9D904BD19C3262700ABA9F4 /* MixpanelUtil.m in Sources */,
-				D7497E951A418E5F0092F045 /* SleipnirCalibrationViewController.m in Sources */,
 				E9D904BC19C325E100ABA9F4 /* SleipnirMeasurementController.m in Sources */,
 				E96FB4ED19A353B500CB7306 /* main.m in Sources */,
 				E96FB4EE19A353B500CB7306 /* AppDelegate.m in Sources */,
@@ -2582,7 +2497,6 @@
 				E948382219B75320009595B0 /* EZAudio.m in Sources */,
 				E9159CA61A03E09100742188 /* MeasurementSession.m in Sources */,
 				E96FB50119A353B500CB7306 /* GuideView.m in Sources */,
-				D7497EC21A422CCA0092F045 /* SleipnirCalibrationCompleteViewController.m in Sources */,
 				E96FB50219A353B500CB7306 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				E98C9A6419BF0E80009428F3 /* GraphView.m in Sources */,
 				E96FB50319A353B500CB7306 /* CustomSMCalloutDrawnBackgroundView.m in Sources */,
@@ -2608,7 +2522,6 @@
 				E96FB51319A353B500CB7306 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				E9C7798F19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */,
 				22B408B81A8A0E2E0062A2DD /* Extensions.swift in Sources */,
-				D7497EAA1A41E8F60092F045 /* SleipnirCalibrationDismissSegue.m in Sources */,
 				E948382819B75320009595B0 /* EZAudioPlot.m in Sources */,
 				E96FB51419A353B500CB7306 /* FormatUtil.m in Sources */,
 				E948383219B75320009595B0 /* EZPlot.m in Sources */,
@@ -2622,7 +2535,6 @@
 				E96FB51A19A353B500CB7306 /* HistoryTableViewController.m in Sources */,
 				E96FB51B19A353B500CB7306 /* NSString+MagicalDataImport.m in Sources */,
 				E96FB51C19A353B500CB7306 /* NSManagedObject+MagicalAggregation.m in Sources */,
-				E96FB51D19A353B500CB7306 /* UnitSelectionViewController.m in Sources */,
 				E96FB51E19A353B500CB7306 /* TermsPrivacyNavigationController.m in Sources */,
 				E96FB51F19A353B500CB7306 /* NSManagedObject+MagicalDataImport.m in Sources */,
 				E96FB52019A353B500CB7306 /* LogInViewController.m in Sources */,
@@ -2637,21 +2549,16 @@
 				E96FB52519A353B500CB7306 /* HistoryTableViewCell.m in Sources */,
 				E96FB52619A353B500CB7306 /* NSManagedObject+MagicalRequests.m in Sources */,
 				E96FB52719A353B500CB7306 /* NSManagedObjectContext+MagicalObserving.m in Sources */,
-				D7497EAE1A41EA500092F045 /* SleipnirCalibrationBlowViewController.m in Sources */,
 				E96FB52819A353B500CB7306 /* AccountManager.m in Sources */,
 				E948382619B75320009595B0 /* EZAudioPlayer.m in Sources */,
 				22FA6C521A727171004DD868 /* VaavudStyle.swift in Sources */,
 				E96FB52919A353B500CB7306 /* RegisterViewController.m in Sources */,
 				E96FB52B19A353B500CB7306 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				E9159CAA1A078E5C00742188 /* AgriResultComputation.m in Sources */,
-				D7497EA31A41BFC40092F045 /* SleipnirCalibrationIntroViewController.m in Sources */,
-				E96FB52C19A353B500CB7306 /* NoHistoryViewController.m in Sources */,
 				E96FB52D19A353B500CB7306 /* NSManagedObjectContext+MagicalSaves.m in Sources */,
 				E9C7798B19AB7C09000A6921 /* AgriMeasureViewController.m in Sources */,
 				E96FB52E19A353B500CB7306 /* NSManagedObjectContext+MagicalThreading.m in Sources */,
 				E96FB52F19A353B500CB7306 /* TMDiskCache.m in Sources */,
-				E9D9045B19C1EA2C00ABA9F4 /* DirectionSelectionTableViewController.m in Sources */,
-				E96FB53019A353B500CB7306 /* NoHistoryArrowView.m in Sources */,
 				E96FB53119A353B500CB7306 /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				E9002DBE19DD69CD002D0132 /* AgriResultViewController.m in Sources */,
 				E96FB53219A353B500CB7306 /* NSPersistentStore+MagicalRecord.m in Sources */,
@@ -2689,8 +2596,6 @@
 				E96FB54C19A353B500CB7306 /* HistoryRootViewController.m in Sources */,
 				E96FB54D19A353B500CB7306 /* TMMemoryCache.m in Sources */,
 				E96FB54E19A353B500CB7306 /* UnitUtil.m in Sources */,
-				E96FB54F19A353B500CB7306 /* Terms.m in Sources */,
-				E96FB55019A353B500CB7306 /* TermsViewController.m in Sources */,
 				E96FB55119A353B500CB7306 /* SignUpViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2726,6 +2631,7 @@
 			children = (
 				22AA5EEB1AB0874200170341 /* Base */,
 				22AA5EF81AB08A7A00170341 /* da */,
+				22E204FE1AB19BEB00FA7E1D /* es */,
 			);
 			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";

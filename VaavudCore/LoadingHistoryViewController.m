@@ -10,6 +10,8 @@
 #import "ServerUploadManager.h"
 #import "HistoryRootViewController.h"
 
+// TABORT
+
 @interface LoadingHistoryViewController ()
 
 @property (nonatomic, strong) NSTimer *timer;
@@ -21,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = NSLocalizedString(@"HISTORY_TITLE", nil);
+//    self.navigationItem.title = NSLocalizedString(@"HISTORY_TITLE", nil); // LOKALISERA_BORT sedan
 }
 
 - (void)viewDidAppear:(BOOL)animated {
