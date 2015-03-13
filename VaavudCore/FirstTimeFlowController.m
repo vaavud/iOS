@@ -219,7 +219,7 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
         }
 
         UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
-        RegisterNavigationController *newController = (RegisterNavigationController*) [loginStoryBoard instantiateInitialViewController];
+        RegisterNavigationController *newController = (RegisterNavigationController *)[loginStoryBoard instantiateInitialViewController];
         if ([newController isKindOfClass:[RegisterNavigationController class]]) {
             newController.registerDelegate = self;
             newController.startScreen = RegisterScreenTypeLogIn;
