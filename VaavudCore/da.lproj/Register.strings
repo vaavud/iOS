@@ -1,0 +1,42 @@
+
+/* Class = "UIButton"; normalTitle = "Log in with Facebook"; ObjectID = "8zw-Fe-e1h"; */
+"8zw-Fe-e1h.normalTitle" = "Log in with Facebook";
+
+/* Class = "UINavigationItem"; title = "Sign Up"; ObjectID = "Dvr-n0-rNN"; */
+"Dvr-n0-rNN.title" = "Sign Up";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "KAW-1F-BHd"; */
+"KAW-1F-BHd.text" = "Label";
+
+/* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "PDW-nY-SgY"; */
+"PDW-nY-SgY.title" = "Cancel";
+
+/* Class = "UILabel"; text = "and"; ObjectID = "RQC-sd-HT2"; */
+"RQC-sd-HT2.text" = "and";
+
+/* Class = "UIButton"; normalTitle = "Log In"; ObjectID = "RfU-7Y-inK"; */
+"RfU-7Y-inK.normalTitle" = "Log In";
+
+/* Class = "UILabel"; text = "Or"; ObjectID = "VHr-rp-yDL"; */
+"VHr-rp-yDL.text" = "Or";
+
+/* Class = "UINavigationItem"; title = "Log In"; ObjectID = "aEk-6K-pKn"; */
+"aEk-6K-pKn.title" = "Log In";
+
+/* Class = "UINavigationItem"; title = "Register"; ObjectID = "daQ-eU-lpY"; */
+"daQ-eU-lpY.title" = "Register";
+
+/* Class = "UIButton"; normalTitle = "Sign up with Facebook"; ObjectID = "gtn-PX-ilr"; */
+"gtn-PX-ilr.normalTitle" = "Sign up with Facebook";
+
+/* Class = "UIButton"; normalTitle = "Sign Up"; ObjectID = "kQi-uV-EHg"; */
+"kQi-uV-EHg.normalTitle" = "Sign Up";
+
+/* Class = "UIButton"; normalTitle = "Privacy Policy"; ObjectID = "kyW-K8-yJ0"; */
+"kyW-K8-yJ0.normalTitle" = "Privacy Policy";
+
+/* Class = "UIButton"; normalTitle = "Terms of Service"; ObjectID = "pSX-qf-plK"; */
+"pSX-qf-plK.normalTitle" = "Terms of Service";
+
+/* Class = "UILabel"; text = "Or"; ObjectID = "va4-sq-nkv"; */
+"va4-sq-nkv.text" = "Or";

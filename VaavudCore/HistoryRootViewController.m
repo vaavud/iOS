@@ -26,11 +26,6 @@
 
 @implementation HistoryRootViewController
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-//    self.tabBarItem.title = NS-Localized-String(@"TAB_HISTORY", nil);
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     

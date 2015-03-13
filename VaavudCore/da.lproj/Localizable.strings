@@ -195,10 +195,10 @@
 "AGRI_WORD_LIST" = "Ordliste";
 
 // New January 2015
-"INTRO_UPGRADE_WHATS_NEW" = "Hvad er nyt";
-"INTRO_UPGRADE_TEXT0" = "Historien viser geolocation og med Sleipnir vindmåleren, vindretning!";
-"INTRO_UPGRADE_TEXT1" = "Opsummeringsskærm der viser dine nøgle målepunkter inklusiv temperature og tryk osv.";
-"INTRO_UPGRADE_CTA_BUY" = "Køb den nye Sleipnir nu!";
+"INTRO_UPGRADE_WHATS_NEW" = "*Hvad er nyt";
+"INTRO_UPGRADE_TEXT0" = "*Historien viser geolocation og med Sleipnir vindmåleren, vindretning!";
+"INTRO_UPGRADE_TEXT1" = "*Opsummeringsskærm der viser dine nøgle målepunkter inklusiv temperature og tryk osv.";
+"INTRO_UPGRADE_CTA_BUY" = "*Køb den nye Sleipnir nu!";
 
 "MEASURE_AVG" = "Gns."; // Shorter form of the word 'Average'
 "SUMMARY_PRESSURE" = "Tryk";

@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */; };
 		2234D3561A77BFE400F325EB /* IntroFlowImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3551A77BFE400F325EB /* IntroFlowImages.xcassets */; };
-		2234D3581A78069F00F325EB /* UpgradingUserPagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3571A78069F00F325EB /* UpgradingUserPagesView.xib */; };
 		2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */; };
-		2234D3621A7A2D1400F325EB /* UpgradingUserPagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3611A7A2D1400F325EB /* UpgradingUserPagesView.swift */; };
 		2234D3661A7A597200F325EB /* HistoryImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3651A7A597200F325EB /* HistoryImages.xcassets */; };
 		2234D3681A7A6AB300F325EB /* SummaryImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3671A7A6AB300F325EB /* SummaryImages.xcassets */; };
 		2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
@@ -36,6 +34,9 @@
 		22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408B61A8A0E2E0062A2DD /* Extensions.swift */; };
 		22B408B81A8A0E2E0062A2DD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408B61A8A0E2E0062A2DD /* Extensions.swift */; };
 		22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */; };
+		22EAE5CF1AB1EA5C0037654E /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D21AB1EA5C0037654E /* Register.storyboard */; };
+		22EAE5D01AB1EA5C0037654E /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D21AB1EA5C0037654E /* Register.storyboard */; };
+		22EAE5D61AB1EBEA0037654E /* UpgradingUserPagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D81AB1EBEA0037654E /* UpgradingUserPagesView.xib */; };
 		22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
 		22FA6C521A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
 		A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A086025EA7704C458175CADF /* libPods.a */; };
@@ -342,7 +343,6 @@
 		E96FB57E19A353B500CB7306 /* 003_sign_up@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E91D4206198BDFEA00106E15 /* 003_sign_up@2x.jpg */; };
 		E96FB57F19A353B500CB7306 /* history.png in Resources */ = {isa = PBXBuildFile; fileRef = E9FABFD318929050009C4C46 /* history.png */; };
 		E96FB58019A353B500CB7306 /* history_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9FABFD218929050009C4C46 /* history_selected@2x.png */; };
-		E96FB58219A353B500CB7306 /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9A4098918A4DAE1004F1C12 /* Register.storyboard */; };
 		E96FB58619A353B500CB7306 /* HistoryTableViewSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9FABFE61896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib */; };
 		E96FB58919A353B500CB7306 /* 007_reading@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = E91D420B198BDFEA00106E15 /* 007_reading@2x.jpg */; };
 		E96FB58A19A353B500CB7306 /* measure.png in Resources */ = {isa = PBXBuildFile; fileRef = E91535AF1806C2D20070BFB4 /* measure.png */; };
@@ -381,7 +381,6 @@
 		E9A4097D18994570004F1C12 /* UIImageView+TMCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097C18994570004F1C12 /* UIImageView+TMCache.m */; };
 		E9A40980189BD29F004F1C12 /* MeasureNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097F189BD29F004F1C12 /* MeasureNavigationController.m */; };
 		E9A4098718A26FEB004F1C12 /* GuidedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098618A26FEB004F1C12 /* GuidedTextField.m */; };
-		E9A4098A18A4DAE1004F1C12 /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9A4098918A4DAE1004F1C12 /* Register.storyboard */; };
 		E9A4098D18A50D11004F1C12 /* HistoryRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098C18A50D11004F1C12 /* HistoryRootViewController.m */; };
 		E9A4099018A52151004F1C12 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098F18A52151004F1C12 /* SignUpViewController.m */; };
 		E9A4099318A52E40004F1C12 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099218A52E40004F1C12 /* RegisterViewController.m */; };
@@ -514,16 +513,15 @@
 /* Begin PBXFileReference section */
 		2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradingUserViewController.swift; sourceTree = "<group>"; };
 		2234D3551A77BFE400F325EB /* IntroFlowImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = IntroFlowImages.xcassets; sourceTree = "<group>"; };
-		2234D3571A78069F00F325EB /* UpgradingUserPagesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpgradingUserPagesView.xib; sourceTree = "<group>"; };
 		2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpgradingUserPhonePages.xib; sourceTree = "<group>"; };
 		2234D35F1A78F4F900F325EB /* Agriculture-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Agriculture-Bridging-Header.h"; sourceTree = "<group>"; };
-		2234D3611A7A2D1400F325EB /* UpgradingUserPagesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradingUserPagesView.swift; sourceTree = "<group>"; };
 		2234D3651A7A597200F325EB /* HistoryImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = HistoryImages.xcassets; sourceTree = "<group>"; };
 		2234D3671A7A6AB300F325EB /* SummaryImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SummaryImages.xcassets; sourceTree = "<group>"; };
 		2255A63A1A818535006589D5 /* VaavudInteractions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudInteractions.swift; sourceTree = "<group>"; };
 		2256C19A1AA7450E00782314 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		2256C19D1AA75BE400782314 /* MapMarkers.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MapMarkers.xcassets; sourceTree = "<group>"; };
 		226116D21A9B87BB000145E1 /* CoreLoadingHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreLoadingHistoryViewController.swift; sourceTree = "<group>"; };
+		22969D461AB2ED5800255A55 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudFormatter.swift; sourceTree = "<group>"; };
 		229FF3171A7EE3A0008A3226 /* VaavudViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudViews.swift; sourceTree = "<group>"; };
 		22AA5EEB1AB0874200170341 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
@@ -539,6 +537,9 @@
 		22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSettingsViewController.swift; sourceTree = "<group>"; };
 		22DB81A81A8389DF00DA67AC /* Model 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.xcdatamodel"; sourceTree = "<group>"; };
 		22E204FE1AB19BEB00FA7E1D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
+		22EAE5D51AB1EB200037654E /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Register.storyboard; sourceTree = "<group>"; };
+		22EAE5D71AB1EBEA0037654E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/UpgradingUserPagesView.xib; sourceTree = "<group>"; };
+		22EAE5DC1AB1ECD90037654E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Bridging-Header.h"; sourceTree = "<group>"; };
 		22FA6C501A727171004DD868 /* VaavudStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VaavudStyle.swift; path = Vaavud/StyleKit/VaavudStyle.swift; sourceTree = SOURCE_ROOT; };
 		A086025EA7704C458175CADF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -857,7 +858,6 @@
 		E9A4097F189BD29F004F1C12 /* MeasureNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasureNavigationController.m; sourceTree = "<group>"; };
 		E9A4098518A26FEB004F1C12 /* GuidedTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuidedTextField.h; sourceTree = "<group>"; };
 		E9A4098618A26FEB004F1C12 /* GuidedTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuidedTextField.m; sourceTree = "<group>"; };
-		E9A4098918A4DAE1004F1C12 /* Register.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Register.storyboard; sourceTree = "<group>"; };
 		E9A4098B18A50D11004F1C12 /* HistoryRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryRootViewController.h; sourceTree = "<group>"; };
 		E9A4098C18A50D11004F1C12 /* HistoryRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryRootViewController.m; sourceTree = "<group>"; };
 		E9A4098E18A52151004F1C12 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
@@ -1215,7 +1215,7 @@
 			isa = PBXGroup;
 			children = (
 				229FF3171A7EE3A0008A3226 /* VaavudViews.swift */,
-				2234D3571A78069F00F325EB /* UpgradingUserPagesView.xib */,
+				22EAE5D81AB1EBEA0037654E /* UpgradingUserPagesView.xib */,
 				22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */,
 				E90709411940AFAC0087F80F /* Components */,
 				E9B950DE195C584200E9EF02 /* FirstTime */,
@@ -1614,7 +1614,7 @@
 				E9A4098618A26FEB004F1C12 /* GuidedTextField.m */,
 				E9A409A618AB9B80004F1C12 /* LogInViewController.h */,
 				E9A409A718AB9B80004F1C12 /* LogInViewController.m */,
-				E9A4098918A4DAE1004F1C12 /* Register.storyboard */,
+				22EAE5D21AB1EA5C0037654E /* Register.storyboard */,
 				E9A4099D18AA75C6004F1C12 /* RegisterNavigationController.h */,
 				E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */,
 				E9A4099118A52E40004F1C12 /* RegisterViewController.h */,
@@ -1711,7 +1711,6 @@
 			isa = PBXGroup;
 			children = (
 				2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */,
-				2234D3611A7A2D1400F325EB /* UpgradingUserPagesView.swift */,
 				E9B950DF195C587800E9EF02 /* FirstTimeExplanationViewController.h */,
 				E9B950E0195C587800E9EF02 /* FirstTimeExplanationViewController.m */,
 				E9B950E1195C587800E9EF02 /* FirstTimeFlowController.h */,
@@ -2085,7 +2084,7 @@
 				E9AE301B19A36A25004A79C4 /* Agriculture.storyboard in Resources */,
 				E9FABFD718929050009C4C46 /* history.png in Resources */,
 				E9FABFD618929050009C4C46 /* history_selected@2x.png in Resources */,
-				E9A4098A18A4DAE1004F1C12 /* Register.storyboard in Resources */,
+				22EAE5CF1AB1EA5C0037654E /* Register.storyboard in Resources */,
 				E93EED7B19EE5B81004D8759 /* map@3x.png in Resources */,
 				E9FABFE71896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib in Resources */,
 				2234D3681A7A6AB300F325EB /* SummaryImages.xcassets in Resources */,
@@ -2123,7 +2122,7 @@
 				E91D4210198BDFEA00106E15 /* 005_paraglider@2x.jpg in Resources */,
 				E907093E193F4AFB0087F80F /* SettingsIcon.png in Resources */,
 				E93EED4019EE5976004D8759 /* history@3x.png in Resources */,
-				2234D3581A78069F00F325EB /* UpgradingUserPagesView.xib in Resources */,
+				22EAE5D61AB1EBEA0037654E /* UpgradingUserPagesView.xib in Resources */,
 				E9AB11DF19A631BF000C6FB1 /* agri-logo@2x.png in Resources */,
 				E91535CA180840D70070BFB4 /* map_selected@2x.png in Resources */,
 			);
@@ -2178,7 +2177,7 @@
 				E96FB57F19A353B500CB7306 /* history.png in Resources */,
 				E96FB58019A353B500CB7306 /* history_selected@2x.png in Resources */,
 				D7EE94A01A125F8D001979BE /* windarrow_green_S@2x.png in Resources */,
-				E96FB58219A353B500CB7306 /* Register.storyboard in Resources */,
+				22EAE5D01AB1EA5C0037654E /* Register.storyboard in Resources */,
 				D7EE94A81A125F8D001979BE /* windarrow_green_E@3x.png in Resources */,
 				E93EED7C19EE5B81004D8759 /* map@3x.png in Resources */,
 				D7EE94A31A125F8D001979BE /* windarrow_green_SSW@2x.png in Resources */,
@@ -2367,7 +2366,6 @@
 				E9B627C817708E63004678D5 /* AFXMLRequestOperation.m in Sources */,
 				E9B627C917708E63004678D5 /* UIImageView+AFNetworking.m in Sources */,
 				E9D9045119C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */,
-				2234D3621A7A2D1400F325EB /* UpgradingUserPagesView.swift in Sources */,
 				E9543DFC19FFBF6C005A01D7 /* AgriHistoryTableViewController.m in Sources */,
 				E9B627D1177096D6004678D5 /* VaavudAPIHTTPClient.m in Sources */,
 				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,
@@ -2616,6 +2614,24 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		22EAE5D21AB1EA5C0037654E /* Register.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				22EAE5D51AB1EB200037654E /* en */,
+			);
+			name = Register.storyboard;
+			sourceTree = "<group>";
+		};
+		22EAE5D81AB1EBEA0037654E /* UpgradingUserPagesView.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				22EAE5D71AB1EBEA0037654E /* Base */,
+				22EAE5DC1AB1ECD90037654E /* es */,
+				22969D461AB2ED5800255A55 /* da */,
+			);
+			name = UpgradingUserPagesView.xib;
+			sourceTree = "<group>";
+		};
 		D7A4F1D3173A8DDB00D1ACEE /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UpgradingUserViewController" customModule="Vaavud" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="UpgradingUserPagesView" customModule="Vaavud" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
             <rect key="frame" x="0.0" y="0.0" width="960" height="608"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -89,7 +88,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="tappedBuy" destination="iN0-l3-epB" eventType="touchUpInside" id="huh-XI-V03"/>
+                                        <action selector="openBuyDevice" destination="-1" eventType="touchUpInside" id="uVH-Cc-QHW"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -133,13 +132,6 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <connections>
-                <outlet property="button" destination="By2-Wp-Ksm" id="Cz5-Gt-pfi"/>
-                <outlet property="heading0" destination="DYL-PV-xrH" id="ntW-lX-etf"/>
-                <outlet property="heading1" destination="zoH-zr-gYm" id="sLm-za-wg9"/>
-                <outlet property="label0" destination="QHy-ZF-8rZ" id="0QR-OI-sCo"/>
-                <outlet property="label1" destination="74A-FE-VIW" id="DcS-py-5d2"/>
-            </connections>
             <point key="canvasLocation" x="752" y="283"/>
         </view>
     </objects>
