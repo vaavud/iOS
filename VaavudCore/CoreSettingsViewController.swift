@@ -140,12 +140,9 @@ class CoreSettingsTableViewController: UITableViewController {
             }
         }
         else if let firstTimeViewController = segue.destinationViewController as? FirstTimeFlowController {
+            FirstTimeFlowController.createInstructionFlowOn(firstTimeViewController)
             firstTimeViewController.returnViaDismiss = true
         }
-//        else if let modal = segue.destinationViewController as? CalibrateSleipnirViewController {
-//            println("REMOVE TABBAR")
-//            tabBarController?.tabBar.hidden = true
-//        }
     }
 }
 

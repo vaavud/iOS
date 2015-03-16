@@ -19,6 +19,7 @@
 
 @property (nonatomic) BOOL returnViaDismiss;
 
++ (void)createInstructionFlowOn:(FirstTimeFlowController *)controller;
 + (void)gotoInstructionFlowFrom:(UIViewController *)viewController returnViaDismiss:(BOOL)returnViaDismiss;
 
 @end

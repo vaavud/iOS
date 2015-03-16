@@ -342,7 +342,7 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
     return explanationViewController;
 }
 
-+ (void)gotoInstructionFlowFrom:(UIViewController*)viewController returnViaDismiss:(BOOL)returnViaDismiss {
++ (void)gotoInstructionFlowFrom:(UIViewController *)viewController returnViaDismiss:(BOOL)returnViaDismiss {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     FirstTimeFlowController *newViewController = [storyboard instantiateViewControllerWithIdentifier:@"FirstTimeFlowController"];
     [FirstTimeFlowController createInstructionFlowOn:newViewController];
