@@ -29,12 +29,7 @@
     self.delegate = self;
     self.currentController = nil;
     
-	if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-        self.tabBar.tintColor = [UIColor clearColor];
-    }
-    else {
-        self.tabBar.tintColor = [UIColor vaavudColor];
-    }
+    self.tabBar.tintColor = [UIColor vaavudColor];
     
     NSArray* topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"GuideView" owner:self options:nil];
     self.calloutGuideView = [topLevelObjects objectAtIndex:0];
@@ -59,17 +54,17 @@
     self.calloutView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 }
 
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController*)viewController {
-    if (viewController == self.currentController) {
-        return;
-    }
-    self.currentController = viewController;
-    
-    if (viewController && [viewController conformsToProtocol:@protocol(TabSelectedListener)]) {
-        id<TabSelectedListener> tabSelectedController = (id<TabSelectedListener>)viewController;
-        [tabSelectedController tabSelected];
-    }
-}
+//- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController*)viewController {
+//    if (viewController == self.currentController) {
+//        return;
+//    }
+//    self.currentController = viewController;
+//    
+//    if (viewController && [viewController conformsToProtocol:@protocol(TabSelectedListener)]) {
+//        id<TabSelectedListener> tabSelectedController = (id<TabSelectedListener>)viewController;
+//        [tabSelectedController tabSelected];
+//    }
+//}
 
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;

@@ -59,7 +59,7 @@
                     <connections>
                         <segue destination="fQa-n1-y1j" kind="relationship" relationship="viewControllers" id="cE2-i8-0r9"/>
                         <segue destination="awR-2s-6gy" kind="relationship" relationship="viewControllers" id="VnN-b8-sLX"/>
-                        <segue destination="Aeq-dx-zyt" kind="relationship" relationship="viewControllers" id="4FX-ci-dgI"/>
+                        <segue destination="aQi-np-koW" kind="relationship" relationship="viewControllers" id="Z9S-mr-Wug"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Grw-Gv-BfB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1029,7 +1029,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Iy-mw-zb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="406" y="797"/>
+            <point key="canvasLocation" x="325" y="771"/>
         </scene>
         <!--Summary-->
         <scene sceneID="Y1a-Mc-SzL">
@@ -1619,7 +1619,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="789" y="797"/>
+            <point key="canvasLocation" x="803" y="771"/>
         </scene>
         <!--Upgrading User View Controller-->
         <scene sceneID="E9Z-A7-ELX">
@@ -1762,7 +1762,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lbk-D4-Kdy" customClass="EmptyHistoryArrow" customModule="Vaavud">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lbk-D4-Kdy" customClass="EmptyHistoryArrow" customModule="Vaavud">
                                 <rect key="frame" x="0.0" y="198" width="320" height="321"/>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Go to Measure" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jd4-9A-Zve">
@@ -1799,26 +1799,6 @@
             </objects>
             <point key="canvasLocation" x="70" y="1617"/>
         </scene>
-        <!--History Navigation-->
-        <scene sceneID="V9R-ML-X2E">
-            <objects>
-                <navigationController storyboardIdentifier="HistoryNavigationController" definesPresentationContext="YES" id="Aeq-dx-zyt" userLabel="History Navigation" customClass="HistoryNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="History" image="history.png" id="3Op-1J-XEW">
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="history_selected.png"/>
-                        </userDefinedRuntimeAttributes>
-                    </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uJ9-Xb-xqC">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="vms-GY-Bns" kind="relationship" relationship="rootViewController" id="TYz-RJ-lVt"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="R6b-0s-ez5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-463" y="797"/>
-        </scene>
         <!--Loading-->
         <scene sceneID="SWG-rq-6Yv">
             <objects>
@@ -1845,13 +1825,11 @@
                     <navigationItem key="navigationItem" id="h06-iy-saE"/>
                     <connections>
                         <outlet property="loader" destination="uut-cS-6pc" id="lMc-Fc-kUe"/>
-                        <segue destination="dW6-mM-6nb" kind="push" identifier="HistorySegue" id="Ubg-qg-gl7"/>
-                        <segue destination="GaG-jr-7RN" kind="push" identifier="EmptyHistorySegue" id="dsy-yj-85y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZRi-UU-rkV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-20" y="797"/>
+            <point key="canvasLocation" x="-131" y="1253"/>
         </scene>
         <!--Calibrate Sleipnir View Controller-->
         <scene sceneID="Gw0-di-Clt">
@@ -1913,6 +1891,30 @@
                 <exit id="bnN-NV-pC1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1098" y="-1044"/>
+        </scene>
+        <!--History-->
+        <scene sceneID="qyy-p2-q3w">
+            <objects>
+                <navigationController storyboardIdentifier="HistoryNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="aQi-np-koW" customClass="HistoryNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="History" image="history.png" id="DWa-II-q3Q">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="history_selected.png"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7to-4D-5a8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="dW6-mM-6nb" kind="relationship" relationship="rootViewController" id="0GP-uU-ZFR"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fnM-Yc-OwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-468" y="771"/>
         </scene>
     </scenes>
     <resources>

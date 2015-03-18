@@ -17,7 +17,11 @@ class CoreLoadingHistoryViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        println("viewWillAppear")
+        update()
+    }
+    
+    func update() {
         if AccountManager.sharedInstance().isLoggedIn() {
             if ServerUploadManager.sharedInstance().isHistorySyncBusy {
                 NSNotificationCenter.defaultCenter().addObserver(self, selector: "historySynced:", name: "HistorySynced", object: nil)

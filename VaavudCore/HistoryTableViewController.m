@@ -43,6 +43,57 @@
 
 @implementation HistoryTableViewController
 
+/*
+func update() {
+    if AccountManager.sharedInstance().isLoggedIn() {
+        if ServerUploadManager.sharedInstance().isHistorySyncBusy {
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "historySynced:", name: "HistorySynced", object: nil)
+        }
+        else {
+            showHistory()
+            // ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: false, success: showHistory, failure: nil)
+        }
+    }
+    else {
+        let storyboard = UIStoryboard(name: "Register", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("RegisterViewController") as RegisterViewController
+        vc.teaserLabelText = NSLocalizedString("HISTORY_REGISTER_TEASER", comment: "") // LOKALISERA
+        vc.completion = { let _ = self.navigationController?.popToViewController(self, animated: false) }
+        navigationController?.pushViewController(vc, animated: false)
+    }
+}
+*/
+
+- (void)update {
+    if ([AccountManager sharedInstance].isLoggedIn) {
+        if ([ServerUploadManager sharedInstance].isHistorySyncBusy) {
+            NSLog(@"isHistorySyncBusy");
+
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historyLoaded) name:@"HistorySynced" object:nil];
+        }
+        else {
+            NSLog(@"show history");
+            [self.tableView reloadData];
+        }
+    }
+    else {
+        NSLog(@"Register");
+
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
+        RegisterViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
+        vc.teaserLabelText = NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil); // LOKALISERA
+//        vc.completion = ^{ [self.navigationController popToViewController:self animated:false]; };
+        vc.completion = ^{ [self.navigationController popToViewController:self animated:NO]; };
+        vc.navigationItem.hidesBackButton = YES;
+        
+        [self.navigationController pushViewController:vc animated:NO];
+        
+             //        [self.navigationController presentViewController:vc animated:NO completion:^{ NSLog(@"presented register"); }];
+             
+             
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self hideVolumeHUD];
@@ -97,6 +148,8 @@
     if (tableReloadRequired) {
         [self.tableView reloadData];
     }
+    
+    [self update];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
