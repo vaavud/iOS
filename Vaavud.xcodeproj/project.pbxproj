@@ -178,34 +178,6 @@
 		E93EEDC019EE92E3004D8759 /* one-pixel-line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E93EEDBD19EE92E3004D8759 /* one-pixel-line@2x.png */; };
 		E93EEDC119EE92E3004D8759 /* one-pixel-line@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E93EEDBE19EE92E3004D8759 /* one-pixel-line@3x.png */; };
 		E93EEDC219EE92E3004D8759 /* one-pixel-line@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = E93EEDBE19EE92E3004D8759 /* one-pixel-line@3x.png */; };
-		E948381F19B75320009595B0 /* AEFloatConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = E948380519B75320009595B0 /* AEFloatConverter.m */; };
-		E948382019B75320009595B0 /* AEFloatConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = E948380519B75320009595B0 /* AEFloatConverter.m */; };
-		E948382119B75320009595B0 /* EZAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = E948380719B75320009595B0 /* EZAudio.m */; };
-		E948382219B75320009595B0 /* EZAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = E948380719B75320009595B0 /* EZAudio.m */; };
-		E948382319B75320009595B0 /* EZAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = E948380919B75320009595B0 /* EZAudioFile.m */; };
-		E948382419B75320009595B0 /* EZAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = E948380919B75320009595B0 /* EZAudioFile.m */; };
-		E948382519B75320009595B0 /* EZAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E948380B19B75320009595B0 /* EZAudioPlayer.m */; };
-		E948382619B75320009595B0 /* EZAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = E948380B19B75320009595B0 /* EZAudioPlayer.m */; };
-		E948382719B75320009595B0 /* EZAudioPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E948380D19B75320009595B0 /* EZAudioPlot.m */; };
-		E948382819B75320009595B0 /* EZAudioPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E948380D19B75320009595B0 /* EZAudioPlot.m */; };
-		E948382919B75320009595B0 /* EZAudioPlotGL.m in Sources */ = {isa = PBXBuildFile; fileRef = E948380F19B75320009595B0 /* EZAudioPlotGL.m */; };
-		E948382A19B75320009595B0 /* EZAudioPlotGL.m in Sources */ = {isa = PBXBuildFile; fileRef = E948380F19B75320009595B0 /* EZAudioPlotGL.m */; };
-		E948382B19B75320009595B0 /* EZAudioPlotGLKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E948381119B75320009595B0 /* EZAudioPlotGLKViewController.m */; };
-		E948382C19B75320009595B0 /* EZAudioPlotGLKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E948381119B75320009595B0 /* EZAudioPlotGLKViewController.m */; };
-		E948382D19B75320009595B0 /* EZMicrophone.m in Sources */ = {isa = PBXBuildFile; fileRef = E948381319B75320009595B0 /* EZMicrophone.m */; };
-		E948382E19B75320009595B0 /* EZMicrophone.m in Sources */ = {isa = PBXBuildFile; fileRef = E948381319B75320009595B0 /* EZMicrophone.m */; };
-		E948382F19B75320009595B0 /* EZOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = E948381519B75320009595B0 /* EZOutput.m */; };
-		E948383019B75320009595B0 /* EZOutput.m in Sources */ = {isa = PBXBuildFile; fileRef = E948381519B75320009595B0 /* EZOutput.m */; };
-		E948383119B75320009595B0 /* EZPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E948381719B75320009595B0 /* EZPlot.m */; };
-		E948383219B75320009595B0 /* EZPlot.m in Sources */ = {isa = PBXBuildFile; fileRef = E948381719B75320009595B0 /* EZPlot.m */; };
-		E948383319B75320009595B0 /* EZRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E948381919B75320009595B0 /* EZRecorder.m */; };
-		E948383419B75320009595B0 /* EZRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = E948381919B75320009595B0 /* EZRecorder.m */; };
-		E948383519B75320009595B0 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = E948381A19B75320009595B0 /* TPCircularBuffer.c */; };
-		E948383619B75320009595B0 /* TPCircularBuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = E948381A19B75320009595B0 /* TPCircularBuffer.c */; };
-		E948383719B75320009595B0 /* CHANGELOG in Resources */ = {isa = PBXBuildFile; fileRef = E948381D19B75320009595B0 /* CHANGELOG */; };
-		E948383819B75320009595B0 /* CHANGELOG in Resources */ = {isa = PBXBuildFile; fileRef = E948381D19B75320009595B0 /* CHANGELOG */; };
-		E948383919B75320009595B0 /* VERSION in Resources */ = {isa = PBXBuildFile; fileRef = E948381E19B75320009595B0 /* VERSION */; };
-		E948383A19B75320009595B0 /* VERSION in Resources */ = {isa = PBXBuildFile; fileRef = E948381E19B75320009595B0 /* VERSION */; };
 		E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E94CBB5D177DB3050089D440 /* UUIDUtil.m */; };
 		E9543DE919F7DA54005A01D7 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9543DE819F7DA54005A01D7 /* FacebookSDK.framework */; };
 		E9543DEA19F7DA54005A01D7 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9543DE819F7DA54005A01D7 /* FacebookSDK.framework */; };
@@ -714,32 +686,6 @@
 		E93EEDBD19EE92E3004D8759 /* one-pixel-line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "one-pixel-line@2x.png"; sourceTree = "<group>"; };
 		E93EEDBE19EE92E3004D8759 /* one-pixel-line@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "one-pixel-line@3x.png"; sourceTree = "<group>"; };
 		E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VaavudElectronicSDK.xcodeproj; path = ../VaavudElectronicSDK/VaavudElectronicSDK.xcodeproj; sourceTree = "<group>"; };
-		E948380419B75320009595B0 /* AEFloatConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AEFloatConverter.h; sourceTree = "<group>"; };
-		E948380519B75320009595B0 /* AEFloatConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AEFloatConverter.m; sourceTree = "<group>"; };
-		E948380619B75320009595B0 /* EZAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudio.h; sourceTree = "<group>"; };
-		E948380719B75320009595B0 /* EZAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudio.m; sourceTree = "<group>"; };
-		E948380819B75320009595B0 /* EZAudioFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioFile.h; sourceTree = "<group>"; };
-		E948380919B75320009595B0 /* EZAudioFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioFile.m; sourceTree = "<group>"; };
-		E948380A19B75320009595B0 /* EZAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioPlayer.h; sourceTree = "<group>"; };
-		E948380B19B75320009595B0 /* EZAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioPlayer.m; sourceTree = "<group>"; };
-		E948380C19B75320009595B0 /* EZAudioPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioPlot.h; sourceTree = "<group>"; };
-		E948380D19B75320009595B0 /* EZAudioPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioPlot.m; sourceTree = "<group>"; };
-		E948380E19B75320009595B0 /* EZAudioPlotGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioPlotGL.h; sourceTree = "<group>"; };
-		E948380F19B75320009595B0 /* EZAudioPlotGL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioPlotGL.m; sourceTree = "<group>"; };
-		E948381019B75320009595B0 /* EZAudioPlotGLKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZAudioPlotGLKViewController.h; sourceTree = "<group>"; };
-		E948381119B75320009595B0 /* EZAudioPlotGLKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZAudioPlotGLKViewController.m; sourceTree = "<group>"; };
-		E948381219B75320009595B0 /* EZMicrophone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZMicrophone.h; sourceTree = "<group>"; };
-		E948381319B75320009595B0 /* EZMicrophone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZMicrophone.m; sourceTree = "<group>"; };
-		E948381419B75320009595B0 /* EZOutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZOutput.h; sourceTree = "<group>"; };
-		E948381519B75320009595B0 /* EZOutput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZOutput.m; sourceTree = "<group>"; };
-		E948381619B75320009595B0 /* EZPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZPlot.h; sourceTree = "<group>"; };
-		E948381719B75320009595B0 /* EZPlot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZPlot.m; sourceTree = "<group>"; };
-		E948381819B75320009595B0 /* EZRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EZRecorder.h; sourceTree = "<group>"; };
-		E948381919B75320009595B0 /* EZRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EZRecorder.m; sourceTree = "<group>"; };
-		E948381A19B75320009595B0 /* TPCircularBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = TPCircularBuffer.c; sourceTree = "<group>"; };
-		E948381B19B75320009595B0 /* TPCircularBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCircularBuffer.h; sourceTree = "<group>"; };
-		E948381D19B75320009595B0 /* CHANGELOG */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CHANGELOG; sourceTree = "<group>"; };
-		E948381E19B75320009595B0 /* VERSION */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = VERSION; sourceTree = "<group>"; };
 		E94CBB5C177DB3050089D440 /* UUIDUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUIDUtil.h; sourceTree = "<group>"; };
 		E94CBB5D177DB3050089D440 /* UUIDUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUIDUtil.m; sourceTree = "<group>"; };
 		E9543DE819F7DA54005A01D7 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
@@ -1379,47 +1325,6 @@
 			name = Map;
 			sourceTree = "<group>";
 		};
-		E948380319B75320009595B0 /* EZAudio */ = {
-			isa = PBXGroup;
-			children = (
-				E948380419B75320009595B0 /* AEFloatConverter.h */,
-				E948380519B75320009595B0 /* AEFloatConverter.m */,
-				E948380619B75320009595B0 /* EZAudio.h */,
-				E948380719B75320009595B0 /* EZAudio.m */,
-				E948380819B75320009595B0 /* EZAudioFile.h */,
-				E948380919B75320009595B0 /* EZAudioFile.m */,
-				E948380A19B75320009595B0 /* EZAudioPlayer.h */,
-				E948380B19B75320009595B0 /* EZAudioPlayer.m */,
-				E948380C19B75320009595B0 /* EZAudioPlot.h */,
-				E948380D19B75320009595B0 /* EZAudioPlot.m */,
-				E948380E19B75320009595B0 /* EZAudioPlotGL.h */,
-				E948380F19B75320009595B0 /* EZAudioPlotGL.m */,
-				E948381019B75320009595B0 /* EZAudioPlotGLKViewController.h */,
-				E948381119B75320009595B0 /* EZAudioPlotGLKViewController.m */,
-				E948381219B75320009595B0 /* EZMicrophone.h */,
-				E948381319B75320009595B0 /* EZMicrophone.m */,
-				E948381419B75320009595B0 /* EZOutput.h */,
-				E948381519B75320009595B0 /* EZOutput.m */,
-				E948381619B75320009595B0 /* EZPlot.h */,
-				E948381719B75320009595B0 /* EZPlot.m */,
-				E948381819B75320009595B0 /* EZRecorder.h */,
-				E948381919B75320009595B0 /* EZRecorder.m */,
-				E948381A19B75320009595B0 /* TPCircularBuffer.c */,
-				E948381B19B75320009595B0 /* TPCircularBuffer.h */,
-				E948381C19B75320009595B0 /* VERSION */,
-			);
-			path = EZAudio;
-			sourceTree = "<group>";
-		};
-		E948381C19B75320009595B0 /* VERSION */ = {
-			isa = PBXGroup;
-			children = (
-				E948381D19B75320009595B0 /* CHANGELOG */,
-				E948381E19B75320009595B0 /* VERSION */,
-			);
-			path = VERSION;
-			sourceTree = "<group>";
-		};
 		E9543DED19FFBE1D005A01D7 /* History */ = {
 			isa = PBXGroup;
 			children = (
@@ -1874,7 +1779,6 @@
 		E9DBD3BA17688E9C00CCDA57 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				E948380319B75320009595B0 /* EZAudio */,
 				E9A4097118994000004F1C12 /* TMCache */,
 				E9B627AD17708E63004678D5 /* AFNetworking */,
 				D702418A17478B16008954FD /* CorePlot */,
@@ -2103,12 +2007,10 @@
 				2234D3561A77BFE400F325EB /* IntroFlowImages.xcassets in Resources */,
 				22AB2E6E1A70FC15008CAE46 /* Roboto-Light.ttf in Resources */,
 				E93EEDBB19EE9039004D8759 /* one-pixel-line.png in Resources */,
-				E948383719B75320009595B0 /* CHANGELOG in Resources */,
 				E93EED3A19EE58F7004D8759 /* camera@3x.png in Resources */,
 				E93EED7F19EE5B81004D8759 /* measure@3x.png in Resources */,
 				E91535CC180840D70070BFB4 /* measure_selected@2x.png in Resources */,
 				E91D420C198BDFEA00106E15 /* 001_basejumper@2x.jpg in Resources */,
-				E948383919B75320009595B0 /* VERSION in Resources */,
 				22AB2E6C1A70FC15008CAE46 /* BebasNeue Bold.otf in Resources */,
 				E972407919DC1E4E008642E2 /* Images.xcassets in Resources */,
 				2256C19E1AA75BE400782314 /* MapMarkers.xcassets in Resources */,
@@ -2204,7 +2106,6 @@
 				D7EE94961A125F8D001979BE /* windarrow_green_WNW.png in Resources */,
 				D7EE94AA1A125F8D001979BE /* windarrow_green_ESE@3x.png in Resources */,
 				2256C19F1AA75BE400782314 /* MapMarkers.xcassets in Resources */,
-				E948383819B75320009595B0 /* CHANGELOG in Resources */,
 				D7EE94901A125F8D001979BE /* windarrow_green_S.png in Resources */,
 				E93EED3B19EE58F7004D8759 /* camera@3x.png in Resources */,
 				E93EED8019EE5B81004D8759 /* measure@3x.png in Resources */,
@@ -2213,7 +2114,6 @@
 				D7EE949F1A125F8D001979BE /* windarrow_green_NW@2x.png in Resources */,
 				D7EE94951A125F8D001979BE /* windarrow_green_W.png in Resources */,
 				D7EE94A11A125F8D001979BE /* windarrow_green_SE@2x.png in Resources */,
-				E948383A19B75320009595B0 /* VERSION in Resources */,
 				E972407619DC15BD008642E2 /* Images.xcassets in Resources */,
 				D7EE948A1A125F8D001979BE /* windarrow_green_ESE.png in Resources */,
 				E96FB58E19A353B500CB7306 /* map_placeholder@2x.png in Resources */,
@@ -2338,7 +2238,6 @@
 				22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */,
 				D7A4F1E7173A8DDB00D1ACEE /* MeasureViewController.m in Sources */,
 				D7A4F1F2173A8FAB00D1ACEE /* MjolnirMeasurementController.m in Sources */,
-				E948382B19B75320009595B0 /* EZAudioPlotGLKViewController.m in Sources */,
 				E9159CB91A0A505400742188 /* AgriWordListViewController.m in Sources */,
 				E9002DC119DE9755002D0132 /* AgriManualDirectionViewController.m in Sources */,
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
@@ -2358,7 +2257,6 @@
 				E9B627C217708E63004678D5 /* AFHTTPRequestOperation.m in Sources */,
 				E9B627C317708E63004678D5 /* AFImageRequestOperation.m in Sources */,
 				E9B627C417708E63004678D5 /* AFJSONRequestOperation.m in Sources */,
-				E948382119B75320009595B0 /* EZAudio.m in Sources */,
 				E91D4218198F7C8400106E15 /* GuideView.m in Sources */,
 				E9159CA51A03E09100742188 /* MeasurementSession.m in Sources */,
 				E9B627C517708E63004678D5 /* AFNetworkActivityIndicatorManager.m in Sources */,
@@ -2370,7 +2268,6 @@
 				E9B627C717708E63004678D5 /* AFURLConnectionOperation.m in Sources */,
 				E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */,
 				E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */,
-				E948383519B75320009595B0 /* TPCircularBuffer.c in Sources */,
 				E9A40980189BD29F004F1C12 /* MeasureNavigationController.m in Sources */,
 				E9B627C817708E63004678D5 /* AFXMLRequestOperation.m in Sources */,
 				E9B627C917708E63004678D5 /* UIImageView+AFNetworking.m in Sources */,
@@ -2386,14 +2283,10 @@
 				E984F26319B878BD004024C6 /* MixpanelUtil.m in Sources */,
 				E9CD223C177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				E9C7798E19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */,
-				E948382719B75320009595B0 /* EZAudioPlot.m in Sources */,
 				22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */,
 				E9FD000B17FD6A06001A8491 /* FormatUtil.m in Sources */,
-				E948383119B75320009595B0 /* EZPlot.m in Sources */,
 				E9CD223D177B2AEA0054ED3F /* NSEntityDescription+MagicalDataImport.m in Sources */,
-				E948382919B75320009595B0 /* EZAudioPlotGL.m in Sources */,
 				E9CD223E177B2AEA0054ED3F /* NSNumber+MagicalDataImport.m in Sources */,
-				E948381F19B75320009595B0 /* AEFloatConverter.m in Sources */,
 				E9CD223F177B2AEA0054ED3F /* NSObject+MagicalDataImport.m in Sources */,
 				2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */,
 				E9CD2240177B2AEA0054ED3F /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
@@ -2407,9 +2300,7 @@
 				E9CD2244177B2AEA0054ED3F /* NSManagedObject+MagicalFinders.m in Sources */,
 				E9CD2245177B2AEA0054ED3F /* NSManagedObject+MagicalRecord.m in Sources */,
 				E957593A193E222D00B5D0AE /* LoadingHistoryViewController.m in Sources */,
-				E948383319B75320009595B0 /* EZRecorder.m in Sources */,
 				E9AB11D919A60DF3000C6FB1 /* AgriLoginViewController.m in Sources */,
-				E948382319B75320009595B0 /* EZAudioFile.m in Sources */,
 				E9A4098718A26FEB004F1C12 /* GuidedTextField.m in Sources */,
 				E9FABFE1189294BD009C4C46 /* HistoryTableViewCell.m in Sources */,
 				E9CD2246177B2AEA0054ED3F /* NSManagedObject+MagicalRequests.m in Sources */,
@@ -2418,7 +2309,6 @@
 				22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */,
 				22ADAA941A9C911400C298E6 /* CoreEmptyHistoryViewController.swift in Sources */,
 				E9F33CCE18B4B3CB0033EDC7 /* AccountManager.m in Sources */,
-				E948382519B75320009595B0 /* EZAudioPlayer.m in Sources */,
 				E9A4099318A52E40004F1C12 /* RegisterViewController.m in Sources */,
 				E9CD2248177B2AEA0054ED3F /* NSManagedObjectContext+MagicalRecord.m in Sources */,
 				E9159CA91A078E5C00742188 /* AgriResultComputation.m in Sources */,
@@ -2435,7 +2325,6 @@
 				E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */,
 				E9CD224E177B2AEA0054ED3F /* MagicalRecord+Actions.m in Sources */,
 				E9CD224F177B2AEA0054ED3F /* MagicalRecord+ErrorHandling.m in Sources */,
-				E948382D19B75320009595B0 /* EZMicrophone.m in Sources */,
 				E9B950E3195C587800E9EF02 /* FirstTimeExplanationViewController.m in Sources */,
 				E9002DB919DD6993002D0132 /* AgriManualTemperatureViewController.m in Sources */,
 				E9CD2250177B2AEA0054ED3F /* MagicalRecord+iCloud.m in Sources */,
@@ -2450,7 +2339,6 @@
 				E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */,
 				E91E490D19AB5F3D00616887 /* CoreMeasureViewController.m in Sources */,
 				E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */,
-				E948382F19B75320009595B0 /* EZOutput.m in Sources */,
 				E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */,
 				E93C865A1781BE56005E4212 /* LocationManager.m in Sources */,
 				E93C86631781C764005E4212 /* Property+Util.m in Sources */,
@@ -2483,7 +2371,6 @@
 				E9159CBA1A0A505400742188 /* AgriWordListViewController.m in Sources */,
 				E9002DC219DE9755002D0132 /* AgriManualDirectionViewController.m in Sources */,
 				E96FB4F019A353B500CB7306 /* MjolnirMeasurementController.m in Sources */,
-				E948382C19B75320009595B0 /* EZAudioPlotGLKViewController.m in Sources */,
 				E96FB4F119A353B500CB7306 /* VaavudMagneticFieldDataManager.m in Sources */,
 				E9C7799419AB8DE4000A6921 /* AgriSettingsNavigationController.m in Sources */,
 				E96FB4F219A353B500CB7306 /* SMCalloutView.m in Sources */,
@@ -2501,7 +2388,6 @@
 				E96FB4FE19A353B500CB7306 /* AFHTTPRequestOperation.m in Sources */,
 				E96FB4FF19A353B500CB7306 /* AFImageRequestOperation.m in Sources */,
 				E96FB50019A353B500CB7306 /* AFJSONRequestOperation.m in Sources */,
-				E948382219B75320009595B0 /* EZAudio.m in Sources */,
 				E9159CA61A03E09100742188 /* MeasurementSession.m in Sources */,
 				E96FB50119A353B500CB7306 /* GuideView.m in Sources */,
 				E96FB50219A353B500CB7306 /* AFNetworkActivityIndicatorManager.m in Sources */,
@@ -2515,7 +2401,6 @@
 				229FF3141A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */,
 				E96FB50819A353B500CB7306 /* TermsPrivacyViewController.m in Sources */,
 				E96FB50919A353B500CB7306 /* MeasurementTableViewCell.m in Sources */,
-				E948383619B75320009595B0 /* TPCircularBuffer.c in Sources */,
 				E96FB50A19A353B500CB7306 /* MeasureNavigationController.m in Sources */,
 				E9543DFD19FFBF6C005A01D7 /* AgriHistoryTableViewController.m in Sources */,
 				E96FB50B19A353B500CB7306 /* AFXMLRequestOperation.m in Sources */,
@@ -2529,13 +2414,9 @@
 				E96FB51319A353B500CB7306 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				E9C7798F19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */,
 				22B408B81A8A0E2E0062A2DD /* Extensions.swift in Sources */,
-				E948382819B75320009595B0 /* EZAudioPlot.m in Sources */,
 				E96FB51419A353B500CB7306 /* FormatUtil.m in Sources */,
-				E948383219B75320009595B0 /* EZPlot.m in Sources */,
 				E96FB51519A353B500CB7306 /* NSEntityDescription+MagicalDataImport.m in Sources */,
-				E948382A19B75320009595B0 /* EZAudioPlotGL.m in Sources */,
 				E96FB51619A353B500CB7306 /* NSNumber+MagicalDataImport.m in Sources */,
-				E948382019B75320009595B0 /* AEFloatConverter.m in Sources */,
 				E96FB51719A353B500CB7306 /* NSObject+MagicalDataImport.m in Sources */,
 				E96FB51819A353B500CB7306 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
 				E96FB51919A353B500CB7306 /* ParentViewController.m in Sources */,
@@ -2548,16 +2429,13 @@
 				E96FB52119A353B500CB7306 /* NSManagedObject+MagicalFinders.m in Sources */,
 				E96FB52219A353B500CB7306 /* NSManagedObject+MagicalRecord.m in Sources */,
 				E96FB52319A353B500CB7306 /* LoadingHistoryViewController.m in Sources */,
-				E948383419B75320009595B0 /* EZRecorder.m in Sources */,
 				E9AB11DA19A60DF3000C6FB1 /* AgriLoginViewController.m in Sources */,
-				E948382419B75320009595B0 /* EZAudioFile.m in Sources */,
 				E96FB52419A353B500CB7306 /* GuidedTextField.m in Sources */,
 				229FF3191A7EE3A0008A3226 /* VaavudViews.swift in Sources */,
 				E96FB52519A353B500CB7306 /* HistoryTableViewCell.m in Sources */,
 				E96FB52619A353B500CB7306 /* NSManagedObject+MagicalRequests.m in Sources */,
 				E96FB52719A353B500CB7306 /* NSManagedObjectContext+MagicalObserving.m in Sources */,
 				E96FB52819A353B500CB7306 /* AccountManager.m in Sources */,
-				E948382619B75320009595B0 /* EZAudioPlayer.m in Sources */,
 				22FA6C521A727171004DD868 /* VaavudStyle.swift in Sources */,
 				E96FB52919A353B500CB7306 /* RegisterViewController.m in Sources */,
 				E96FB52B19A353B500CB7306 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
@@ -2574,7 +2452,6 @@
 				E96FB53519A353B500CB7306 /* MeasurementCalloutView.m in Sources */,
 				E96FB53619A353B500CB7306 /* MagicalRecord+Actions.m in Sources */,
 				E96FB53719A353B500CB7306 /* MagicalRecord+ErrorHandling.m in Sources */,
-				E948382E19B75320009595B0 /* EZMicrophone.m in Sources */,
 				E9002DBA19DD6993002D0132 /* AgriManualTemperatureViewController.m in Sources */,
 				E96FB53819A353B500CB7306 /* FirstTimeExplanationViewController.m in Sources */,
 				E96FB53919A353B500CB7306 /* MagicalRecord+iCloud.m in Sources */,
@@ -2588,7 +2465,6 @@
 				E96FB54019A353B500CB7306 /* DictionarySerializationUtil.m in Sources */,
 				E91E490E19AB5F3D00616887 /* CoreMeasureViewController.m in Sources */,
 				E96FB54119A353B500CB7306 /* MeasurementPoint.m in Sources */,
-				E948383019B75320009595B0 /* EZOutput.m in Sources */,
 				E96FB54219A353B500CB7306 /* UUIDUtil.m in Sources */,
 				E9D9045219C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */,
 				E96FB54319A353B500CB7306 /* LocationManager.m in Sources */,
