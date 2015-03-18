@@ -1,15 +1,15 @@
 
 /* Class = "UILabel"; text = "Opsummeringsskærm der viser dine nøgle målepunkter inklusiv temperature og tryk osv."; ObjectID = "74A-FE-VIW"; */
-"74A-FE-VIW.text" = "Opsummeringsskærm der viser dine nøgle målepunkter inklusiv temperature og tryk osv.";
+"74A-FE-VIW.text" = "Opsummeringsskærm der viser dine nøgle målepunkter inklusiv temperature og tryk osv."; // INTRO_UPGRADE_TEXT1
 
 /* Class = "UIButton"; normalTitle = "Køb den nye Sleipnir nu!"; ObjectID = "By2-Wp-Ksm"; */
-"By2-Wp-Ksm.normalTitle" = "Køb den nye Sleipnir nu!";
+"By2-Wp-Ksm.normalTitle" = "Køb den nye Sleipnir nu!"; // INTRO_UPGRADE_CTA_BUY
 
 /* Class = "UILabel"; text = "Hvad er nyt"; ObjectID = "DYL-PV-xrH"; */
-"DYL-PV-xrH.text" = "Hvad er nyt";
+"DYL-PV-xrH.text" = "Hvad er nyt"; // INTRO_UPGRADE_WHATS_NEW
 
 /* Class = "UILabel"; text = "Historien viser geolocation og med Sleipnir vindmåleren, vindretning!"; ObjectID = "QHy-ZF-8rZ"; */
-"QHy-ZF-8rZ.text" = "Historien viser geolocation og med Sleipnir vindmåleren, vindretning!";
+"QHy-ZF-8rZ.text" = "Historien viser geolocation og med Sleipnir vindmåleren, vindretning!"; // INTRO_UPGRADE_TEXT0
 
 /* Class = "UILabel"; text = "Hvad er nyt"; ObjectID = "zoH-zr-gYm"; */
-"zoH-zr-gYm.text" = "Hvad er nyt";
+"zoH-zr-gYm.text" = "Hvad er nyt"; // INTRO_UPGRADE_WHATS_NEW

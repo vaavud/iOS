@@ -248,6 +248,14 @@
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"Measure Screen"];
     }
+    
+    if ([SleipnirMeasurementController sharedInstance].isDeviceConnected) {
+        NSDate *then = [NSDate date];
+        for (int i = 0; i < 1000; i++) {
+            [self getMicrophonePermission];
+        }
+        NSLog(@"Time wasted: %.2f", [[NSDate date] timeIntervalSinceDate:then]);
+    }
 }
 
 - (void)tabSelected {
@@ -582,28 +590,18 @@
 }
 
 - (void)getMicrophonePermission {
-    NSLog(@"== Permission ==");
-
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:KEY_MICROPHONE_HAS_APPROVED]) {
-        NSLog(@"Permission not granted previously");
-        
-        [[VaavudInteractions new] showAlert:@"Permission" message:@"Give permission" cancel:@"Not now" other:@"OK" action:^{
-            NSLog(@"Wants to grant permission");
-
-            [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
-                if (granted) {
-                    NSLog(@"Permission granted");
-                    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:KEY_MICROPHONE_HAS_APPROVED];
-                }
-                else {
-                    NSLog(@"Permission denied");
-                }
-            }];
-        } on:self];
-    }
-    else {
-        NSLog(@"Already approved");
-    }
+    [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+        if (granted) {
+            NSLog(@"Permission granted");
+        }
+        else {
+            NSLog(@"Permission denied");
+            
+            [[VaavudInteractions new] showAlert:@"Permission" message:@"You have to give the Vaavud app permission to use the microphone. Go to the settings app." other:@"OK" action:^{
+            } on:self];
+            
+        }
+    }];
 }
 
 - (void)deviceConnected:(enum WindMeterDeviceType)deviceType {

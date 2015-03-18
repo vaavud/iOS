@@ -35,16 +35,30 @@ class VaavudInteractions: NSObject, UIAlertViewDelegate {
         Mixpanel.sharedInstance().track(source + " Clicked Buy")
         UIApplication.sharedApplication().openURL(buySleipnirUrl(source: source))
     }
-    
-    func showLocalAlert(titleKey: String, messageKey: String, cancelKey: String = "BUTTON_CANCEL", otherKey: String, action: () -> (), on source: UIViewController) {
+
+    func showLocalAlert(titleKey: String, messageKey: String, otherKey: String, action: () -> (), on source: UIViewController) {
+        showLocalAlert(titleKey, messageKey: messageKey, cancelKey: nil, otherKey: otherKey, action: action, on: source)
+    }
+
+    func showLocalAlert(titleKey: String, messageKey: String, cancelKey: String?, otherKey: String, action: () -> (), on source: UIViewController) {
         let title = NSLocalizedString(titleKey, comment: "")
         let message = NSLocalizedString(messageKey, comment: "")
-        let cancel = NSLocalizedString(cancelKey, comment: "")
         let other = NSLocalizedString(otherKey, comment: "")
-        showAlert(title, message: message, cancel: cancel, other: other, action: action, on: source)
+
+        if let cancelKey = cancelKey {
+            let cancel = NSLocalizedString(cancelKey, comment: "")
+            showAlert(title, message: message, cancel: cancel, other: other, action: action, on: source)
+        }
+        else {
+            showAlert(title, message: message, other: other, action: action, on: source)
+        }
     }
     
-    func showAlert(title: String, message: String, cancel: String, other: String, action: () -> (), on source: UIViewController) {
+    func showAlert(title: String, message: String, other: String, action: () -> (), on source: UIViewController) {
+        showAlert(title, message: message, cancel: nil, other: other, action: action, on: source)
+    }
+    
+    func showAlert(title: String, message: String, cancel: String?, other: String, action: () -> (), on source: UIViewController) {
         alertAction = action
         if objc_getClass("UIAlertController") == nil {
             let alert = UIAlertView(title: title, message: message, delegate: self, cancelButtonTitle: cancel, otherButtonTitles: other)
@@ -53,7 +67,9 @@ class VaavudInteractions: NSObject, UIAlertViewDelegate {
         }
         else {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: cancel, style: .Cancel, handler: { (action) -> Void in }))
+            if let cancel = cancel {
+                alert.addAction(UIAlertAction(title: cancel, style: .Cancel, handler: { (action) -> Void in }))
+            }
             alert.addAction(UIAlertAction(title: other, style: UIAlertActionStyle.Default, handler: { (action) -> Void in self.alertAction() }))
             source.presentViewController(alert, animated: true, completion: nil)
         }

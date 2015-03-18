@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "Summary screen showing your key measurement data, including pressure, temperature etc."; ObjectID = "74A-FE-VIW"; */
+"74A-FE-VIW.text" = "Summary screen showing your key measurement data, including pressure, temperature etc.";
+
+/* Class = "UIButton"; normalTitle = "Buy the new Sleipnir now!"; ObjectID = "By2-Wp-Ksm"; */
+"By2-Wp-Ksm.normalTitle" = "Buy the new Sleipnir now!";
+
+/* Class = "UILabel"; text = "What's new"; ObjectID = "DYL-PV-xrH"; */
+"DYL-PV-xrH.text" = "What's new";
+
+/* Class = "UILabel"; text = "History shows Geolocation and, with the new Sleipnir windmeter, wind direction!"; ObjectID = "QHy-ZF-8rZ"; */
+"QHy-ZF-8rZ.text" = "History shows Geolocation and, with the new Sleipnir windmeter, wind direction!";
+
+/* Class = "UILabel"; text = "What's new"; ObjectID = "zoH-zr-gYm"; */
+"zoH-zr-gYm.text" = "What's new";

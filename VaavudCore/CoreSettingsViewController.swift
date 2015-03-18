@@ -75,6 +75,7 @@ class CoreSettingsTableViewController: UITableViewController {
         if AccountManager.sharedInstance().isLoggedIn() {
             VaavudInteractions().showLocalAlert("REGISTER_BUTTON_LOGOUT",
                 messageKey: "DIALOG_CONFIRM",
+                cancelKey: "BUTTON_CANCEL",
                 otherKey: "BUTTON_OK",
                 action: { self.logoutConfirmed() },
                 on: self)
