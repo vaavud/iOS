@@ -252,7 +252,7 @@
     
     if ([SleipnirMeasurementController sharedInstance].isDeviceConnected) {
         NSDate *then = [NSDate date];
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 1; i++) {
             [self getMicrophonePermission];
         }
         NSLog(@"Time wasted: %.2f", [[NSDate date] timeIntervalSinceDate:then]);
