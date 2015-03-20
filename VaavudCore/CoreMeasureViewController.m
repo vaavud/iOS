@@ -9,6 +9,7 @@
 #import "CoreMeasureViewController.h"
 #import "Vaavud-Swift.h"
 #import "SavingWindMeasurementController.h"
+#import "ModelManager.h"
 
 @interface CoreMeasureViewController ()
 
@@ -42,6 +43,20 @@
 -(NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
+
+- (void)viewDidLoad {
+    if ([ModelManager isIPhone4]) {
+        // remove graph on iPhone4 for speed reasons.
+        [self.graphContainer removeFromSuperview];
+        self.graphContainer = nil;
+        
+        [self.directionImageView removeFromSuperview];
+        self.directionImageView = nil;
+    }
+
+    [super viewDidLoad];
+}
+
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
