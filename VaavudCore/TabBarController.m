@@ -10,6 +10,7 @@
 #import "UIColor+VaavudColors.h"
 #import "CustomSMCalloutDrawnBackgroundView.h"
 #import "GuideView.h"
+#import "RegisterViewController.h"
 
 @interface TabBarController ()
 
@@ -31,7 +32,7 @@
     
     self.tabBar.tintColor = [UIColor vaavudColor];
     
-    NSArray* topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"GuideView" owner:self options:nil];
+    NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"GuideView" owner:self options:nil];
     self.calloutGuideView = [topLevelObjects objectAtIndex:0];
     self.calloutGuideView.frame = CGRectMake(0, 0, CALLOUT_GUIDE_VIEW_WIDTH, [self.calloutGuideView preferredHeight]);
     self.calloutGuideView.backgroundColor = [UIColor clearColor];
@@ -53,6 +54,19 @@
     self.calloutView.translatesAutoresizingMaskIntoConstraints = YES;
     self.calloutView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 }
+
+//-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+//    if (tabBarController.selectedViewController == viewController) {
+//        if ([viewController isKindOfClass:[UINavigationController class]]) {
+//            UINavigationController *nc = (UINavigationController *)viewController;
+//            if ([nc.topViewController respondsToSelector:@selector(preventReselection)]) {
+//                return ![(id)nc.topViewController preventReselection];
+//            }
+//        }
+//    }
+//
+//    return YES;
+//}
 
 //- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController*)viewController {
 //    if (viewController == self.currentController) {

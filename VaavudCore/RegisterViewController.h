@@ -14,4 +14,6 @@
 
 @property (nonatomic, copy) void (^completion)(void);
 
+//-(BOOL)preventReselection;
+
 @end

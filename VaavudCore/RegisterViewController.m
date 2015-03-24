@@ -11,6 +11,7 @@
 #import "AccountManager.h"
 #import "Mixpanel.h"
 #import "Property+Util.h"
+#import "TabBarController.h"
 
 @interface RegisterViewController ()
 
@@ -28,7 +29,6 @@
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
         RegisterNavigationController *registerNavigationController = (RegisterNavigationController *)self.navigationController;
         if (registerNavigationController.registerDelegate) {
-            
             NSString *title = [registerNavigationController.registerDelegate registerScreenTitle];
             
             if (!title || title.length == 0) {
@@ -61,6 +61,10 @@
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"Signup/Login Selection Screen"];
     }
+}
+
+-(BOOL)preventReselection {
+    return YES;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {

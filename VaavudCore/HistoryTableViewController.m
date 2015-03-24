@@ -23,7 +23,7 @@
 
 @import CoreLocation;
 
-@interface HistoryTableViewController ()
+@interface HistoryTableViewController ()<RegisterNavigationControllerDelegate>
 
 @property (nonatomic, strong) UIImage *placeholderImage;
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
@@ -43,80 +43,8 @@
 
 @implementation HistoryTableViewController
 
-/*
-func update() {
-    if AccountManager.sharedInstance().isLoggedIn() {
-        if ServerUploadManager.sharedInstance().isHistorySyncBusy {
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "historySynced:", name: "HistorySynced", object: nil)
-        }
-        else {
-            showHistory()
-            // ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: false, success: showHistory, failure: nil)
-        }
-    }
-    else {
-        let storyboard = UIStoryboard(name: "Register", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("RegisterViewController") as RegisterViewController
-        vc.teaserLabelText = NSLocalizedString("HISTORY_REGISTER_TEASER", comment: "") // LOKALISERA
-        vc.completion = { let _ = self.navigationController?.popToViewController(self, animated: false) }
-        navigationController?.pushViewController(vc, animated: false)
-    }
-}
-*/
-
 - (void)update {
-    if ([AccountManager sharedInstance].isLoggedIn) {
-        if ([ServerUploadManager sharedInstance].isHistorySyncBusy) {
-            NSLog(@"isHistorySyncBusy");
-
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historyLoaded) name:@"HistorySynced" object:nil];
-        }
-        else {
-            NSLog(@"show history");
-            [self.tableView reloadData];
-        }
-    }
-    else {
-        NSLog(@"Register");
-
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
-        RegisterViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
-        vc.teaserLabelText = NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil); // LOKALISERA
-//        vc.completion = ^{ [self.navigationController popToViewController:self animated:false]; };
-        vc.completion = ^{ [self.navigationController popToViewController:self animated:NO]; };
-        vc.navigationItem.hidesBackButton = YES;
-        
-        [self.navigationController pushViewController:vc animated:NO];
-        
-             //        [self.navigationController presentViewController:vc animated:NO completion:^{ NSLog(@"presented register"); }];
-             
-             
-    }
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self hideVolumeHUD];
-        
-    self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
-    self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
-    self.directionUnit = -1;
-    self.isObservingModelChanges = NO;
-    self.isTableUpdating = NO;
-    self.isAppeared = NO;
-    self.geocoder = [[CLGeocoder alloc] init];
-    
-    self.dateFormatter = [[NSDateFormatter alloc] init];
-}
-
-- (void)viewDidUnload {
-    [super viewDidUnload];
-    self.fetchedResultsController = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-
+    NSLog(@"- show history");
     BOOL tableReloadRequired = NO;
     
     WindSpeedUnit newWindSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
@@ -132,28 +60,108 @@ func update() {
         self.directionUnit = directionUnit;
         tableReloadRequired = YES;
     }
-    
-    // if we're not observing model changes, refresh the whole table...
-    
-    if (!self.isObservingModelChanges) {
-        tableReloadRequired = YES;
-        
-        // if there is no history sync going on, turn on model observing...
-        
-        if (![ServerUploadManager sharedInstance].isHistorySyncBusy) {
-            self.isObservingModelChanges = YES;
+
+    if ([AccountManager sharedInstance].isLoggedIn) {
+        if ([ServerUploadManager sharedInstance].isHistorySyncBusy) {
+            NSLog(@"- show history - isHistorySyncBusy");
+            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historyLoaded) name:@"HistorySynced" object:nil];
+        }
+        else {
+            NSLog(@"- show history - show history");
+            [self historyLoaded];
+            
+            // if we're not observing model changes, refresh the whole table...
+            if (!self.isObservingModelChanges) {
+                tableReloadRequired = YES;
+                self.isObservingModelChanges = YES;
+                NSLog(@"- viewWillAppear -- !isObservingModelChanges -- !isHistorySyncBusy -- self.isObservingModelChanges = YES");
+            }
+            
+            [self.tableView reloadData];
+            NSLog(@"- viewWillAppear -- reloadData");
         }
     }
+    else {
+        NSLog(@"- show history - register");
 
-    if (tableReloadRequired) {
-        [self.tableView reloadData];
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
+        RegisterViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
+        vc.teaserLabelText = NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil);
+        UINavigationController *navigationController = self.navigationController;
+        vc.completion = ^{ navigationController.viewControllers = @[self]; [self update]; };
+        vc.navigationItem.hidesBackButton = YES;
+        self.navigationController.viewControllers = @[vc];
     }
+}
+
+- (void)userAuthenticated:(BOOL)isSignup viewController:(UIViewController *)viewController {
+    NSLog(@"userAuthenticated: %@", viewController);
+    [self dismissViewControllerAnimated:YES completion:^{
+        NSLog(@"dismissViewControllerAnimated");
+    }];
+}
+
+- (void)cancelled:(UIViewController *)viewController {
+    NSLog(@"cancelled: %@", viewController);
+}
+
+- (NSString *)registerScreenTitle {
+    return NSLocalizedString(@"REGISTER_TITLE_SIGNUP", nil);
+}
+
+- (NSString *)registerTeaserText {
+    return NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil);
+}
+
+- (void)historyLoaded {
+    if (YES || LOG_HISTORY) NSLog(@"[HistoryTableViewController] History loaded");
+    
+    if (self.isAppeared) {
+        if (!self.isObservingModelChanges) {
+            [self.tableView reloadData];
+            NSLog(@"- historyLoaded - isAppeared -- reloadData");
+        }
+        self.isObservingModelChanges = YES;
+        NSLog(@"- historyLoaded - isAppeared - self.isObservingModelChanges = YES");
+    }
+}
+
+- (void)viewDidLoad {
+    NSLog(@"- viewDidLoad");
+
+    [super viewDidLoad];
+    [self hideVolumeHUD];
+        
+    self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
+    self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
+    self.directionUnit = -1;
+    
+    self.isObservingModelChanges = NO;
+    self.isTableUpdating = NO;
+    self.isAppeared = NO;
+    
+    self.geocoder = [[CLGeocoder alloc] init];
+    
+    self.dateFormatter = [[NSDateFormatter alloc] init];
+}
+
+- (void)viewDidUnload {
+    [super viewDidUnload];
+    NSLog(@"- viewDidUnload");
+
+    self.fetchedResultsController = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    NSLog(@"- viewWillAppear");
     
     [self update];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    NSLog(@"- viewDidAppear");
     
     self.isAppeared = YES;
     
@@ -164,25 +172,17 @@ func update() {
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    NSLog(@"- viewDidDisappear");
     
     // don't update table while we're not being displayed
     self.isObservingModelChanges = NO;
     self.isAppeared = NO;
 }
 
-- (void)historyLoaded {
-    if (LOG_HISTORY) NSLog(@"[HistoryTableViewController] History loaded");
-    
-    if (self.isAppeared) {
-        if (!self.isObservingModelChanges) {
-            [self.tableView reloadData];
-        }
-        self.isObservingModelChanges = YES;
-    }
-}
-
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController) {
+        NSLog(@"- !_fetchedResultsController");
+
         _fetchedResultsController = [MeasurementSession MR_fetchAllGroupedBy:@"day" withPredicate:nil sortedBy:@"startTime" ascending:NO delegate:nil];
         _fetchedResultsController.delegate = self;
     }
@@ -192,6 +192,8 @@ func update() {
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    NSLog(@"- numberOfSectionsInTableView: %d", [[self.fetchedResultsController sections] count]);
+
     return [[self.fetchedResultsController sections] count];
 }
 
@@ -401,7 +403,11 @@ func update() {
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
+    NSLog(@"- controllerWillChangeContent");
+
     if (!self.isObservingModelChanges) {
+        NSLog(@"- controllerWillChangeContent - !self.isObservingModelChanges");
+
         return;
     }
     
@@ -472,14 +478,21 @@ func update() {
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
+    NSLog(@"- controllerDidChangeContent");
+
     if (!self.isObservingModelChanges) {
+        NSLog(@"- controllerDidChangeContent - !self.isObservingModelChanges");
+
         return;
     }
 
     //NSLog(@"[HistoryTableViewController] Controller changed content");
     if (self.isTableUpdating) {
+        NSLog(@"- controllerDidChangeContent - isTableUpdating");
+
         [self.tableView endUpdates];
         self.isTableUpdating = NO;
+        NSLog(@"- controllerDidChangeContent - isTableUpdating - self.isTableUpdating = NO");
     }
 }
 

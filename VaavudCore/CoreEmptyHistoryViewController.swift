@@ -31,6 +31,7 @@ class CoreEmptyHistoryViewController: UIViewController {
     
     override func prepareForInterfaceBuilder() {
         setup()
+        (layer as CAShapeLayer).strokeEnd = 1
     }
     
     override class func layerClass() -> AnyClass {
