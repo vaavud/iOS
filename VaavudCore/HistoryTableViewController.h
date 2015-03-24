@@ -15,5 +15,6 @@
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 - (void)configureCell:(HistoryTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)update;
 
 @end

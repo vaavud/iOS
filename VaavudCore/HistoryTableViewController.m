@@ -60,37 +60,24 @@
         self.directionUnit = directionUnit;
         tableReloadRequired = YES;
     }
-
-    if ([AccountManager sharedInstance].isLoggedIn) {
-        if ([ServerUploadManager sharedInstance].isHistorySyncBusy) {
-            NSLog(@"- show history - isHistorySyncBusy");
-            [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historyLoaded) name:@"HistorySynced" object:nil];
-        }
-        else {
-            NSLog(@"- show history - show history");
-            [self historyLoaded];
-            
-            // if we're not observing model changes, refresh the whole table...
-            if (!self.isObservingModelChanges) {
-                tableReloadRequired = YES;
-                self.isObservingModelChanges = YES;
-                NSLog(@"- viewWillAppear -- !isObservingModelChanges -- !isHistorySyncBusy -- self.isObservingModelChanges = YES");
-            }
-            
-            [self.tableView reloadData];
-            NSLog(@"- viewWillAppear -- reloadData");
-        }
+    
+    if ([ServerUploadManager sharedInstance].isHistorySyncBusy) {
+        NSLog(@"- show history - isHistorySyncBusy");
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historyLoaded) name:@"HistorySynced" object:nil];
     }
     else {
-        NSLog(@"- show history - register");
-
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
-        RegisterViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
-        vc.teaserLabelText = NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil);
-        UINavigationController *navigationController = self.navigationController;
-        vc.completion = ^{ navigationController.viewControllers = @[self]; [self update]; };
-        vc.navigationItem.hidesBackButton = YES;
-        self.navigationController.viewControllers = @[vc];
+        NSLog(@"- show history - show history");
+        [self historyLoaded];
+        
+        // if we're not observing model changes, refresh the whole table...
+        if (!self.isObservingModelChanges) {
+            tableReloadRequired = YES;
+            self.isObservingModelChanges = YES;
+            NSLog(@"- viewWillAppear -- !isObservingModelChanges -- !isHistorySyncBusy -- self.isObservingModelChanges = YES");
+        }
+        
+//        [self.tableView reloadData];
+//        NSLog(@"- viewWillAppear -- reloadData");
     }
 }
 
@@ -136,7 +123,9 @@
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
     self.directionUnit = -1;
     
-    self.isObservingModelChanges = NO;
+    self.isObservingModelChanges = YES;
+
+//    self.isObservingModelChanges = NO;
     self.isTableUpdating = NO;
     self.isAppeared = NO;
     
@@ -144,6 +133,8 @@
     
     self.dateFormatter = [[NSDateFormatter alloc] init];
 }
+
+// In closures with tuple input, $0 can be either a tuple or the first element of one, depending on if $1 etc are present! #swiftlang
 
 - (void)viewDidUnload {
     [super viewDidUnload];
@@ -175,13 +166,13 @@
     NSLog(@"- viewDidDisappear");
     
     // don't update table while we're not being displayed
-    self.isObservingModelChanges = NO;
+//    self.isObservingModelChanges = NO;
     self.isAppeared = NO;
 }
 
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController) {
-        NSLog(@"- !_fetchedResultsController");
+        NSLog(@"- create _fetchedResultsController");
 
         _fetchedResultsController = [MeasurementSession MR_fetchAllGroupedBy:@"day" withPredicate:nil sortedBy:@"startTime" ascending:NO delegate:nil];
         _fetchedResultsController.delegate = self;
@@ -471,8 +462,8 @@
             break;
             
         case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
 }
