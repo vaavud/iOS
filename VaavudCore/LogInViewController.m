@@ -153,11 +153,13 @@ BOOL didShowFeedback;
     [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
     
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
-        RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
+        RegisterNavigationController *registerNavigationController = (RegisterNavigationController *)self.navigationController;
         if (registerNavigationController.registerDelegate) {
             [registerNavigationController.registerDelegate userAuthenticated:(response == AuthenticationResponseCreated) viewController:self];
         }
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"" object:@""];
 }
 
 - (void)facebookAuthenticationFailure:(enum AuthenticationResponseType)response

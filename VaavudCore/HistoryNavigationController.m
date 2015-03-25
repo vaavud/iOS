@@ -51,7 +51,7 @@
 
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
         HistoryTableViewController *htvc = [storyboard instantiateViewControllerWithIdentifier:@"HistoryTableViewController"];
-//        [htvc update];
+        
         self.viewControllers = @[htvc];
     }
     else {
