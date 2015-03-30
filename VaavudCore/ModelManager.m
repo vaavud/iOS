@@ -180,4 +180,8 @@ SHARED_INSTANCE
     return [[[ModelManager getModel] substringToIndex:7] isEqualToString:@"iPhone3"];
 }
 
++ (BOOL)isIPhone4S {
+    return [[[ModelManager getModel] substringToIndex:7] isEqualToString:@"iPhone4"];
+}
+
 @end

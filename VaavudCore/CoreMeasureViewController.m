@@ -45,15 +45,15 @@
 }
 
 - (void)viewDidLoad {
-    if ([ModelManager isIPhone4]) {
-        // remove graph on iPhone4 for speed reasons.
-        [self.graphContainer removeFromSuperview];
-        self.graphContainer = nil;
-        
+    if ([ModelManager isIPhone4] || [ModelManager isIPhone4S]) {
+//        remove direction error on iPhone4 & 4s for speed reasons.
         [self.directionImageView removeFromSuperview];
         self.directionImageView = nil;
+        
+        //  graph sync speed is slowed down for iphone 4 see self.shiftGraphXTimer (CADisplayLink)
+        //        [self.graphContainer removeFromSuperview];
+        //        self.graphContainer = nil;
     }
-
     [super viewDidLoad];
 }
 

@@ -29,6 +29,7 @@
 #import <math.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <AVFoundation/AVFoundation.h>
+#import "ModelManager.h"
 
 @interface MeasureViewController ()
 
@@ -403,7 +404,13 @@
     
     if (self.graphView) {
         self.shiftGraphXTimer = [CADisplayLink displayLinkWithTarget:self.graphView selector:@selector(shiftGraphX)];
-        self.shiftGraphXTimer.frameInterval = 5;
+        if ([ModelManager isIPhone4]) {
+            // slower update frequency for iPhone 4
+            self.shiftGraphXTimer.frameInterval = 60;
+        }
+        else {
+            self.shiftGraphXTimer.frameInterval = 5;
+        }
         [self.shiftGraphXTimer addToRunLoop:[NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
     }
 
