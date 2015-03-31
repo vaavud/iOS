@@ -26,11 +26,24 @@ class CoreSettingsTableViewController: UITableViewController {
         readUnits()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: "UnitChange", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasLoggedInOut:", name: "DidLogInOut", object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         refreshLogoutButton()
+    }
+    
+    func wasLoggedInOut(note: NSNotification) {
+        refreshLogoutButton()
+        println("=#=#=#=#=#=#=#=#= set wasLoggedInOut =#=#=#=#=#=#=#=#=")
+        if AccountManager.sharedInstance().isLoggedIn() {
+            println("=#=#=#=#= \(self.navigationController)")
+            self.navigationController?.popToViewController(self, animated: false)
+        }
+        else {
+            println("=#=#=#=#=#=#=#=#= set not logged in =#=#=#=#=#=#=#=#=")
+        }
     }
     
     func refreshLogoutButton() {
@@ -93,8 +106,11 @@ class CoreSettingsTableViewController: UITableViewController {
     
     func registerUser() {
         let register = UIStoryboard(name: "Register", bundle: nil).instantiateViewControllerWithIdentifier("RegisterViewController") as RegisterViewController
-        register.completion = { loggedIn in let _ = self.navigationController?.popToViewController(self, animated: true) }
-
+        register.teaserLabelText = NSLocalizedString("HISTORY_REGISTER_TEASER", comment: "")
+        register.completion = { loggedIn in
+//            let _ = self.navigationController?.popToViewController(self, animated: true)
+        }
+        
         navigationController?.pushViewController(register, animated: true)
     }
     

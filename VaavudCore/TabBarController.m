@@ -55,19 +55,6 @@
     self.calloutView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 }
 
-//-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-//    if (tabBarController.selectedViewController == viewController) {
-//        if ([viewController isKindOfClass:[UINavigationController class]]) {
-//            UINavigationController *nc = (UINavigationController *)viewController;
-//            if ([nc.topViewController respondsToSelector:@selector(preventReselection)]) {
-//                return ![(id)nc.topViewController preventReselection];
-//            }
-//        }
-//    }
-//
-//    return YES;
-//}
-
 //- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController*)viewController {
 //    if (viewController == self.currentController) {
 //        return;
@@ -82,10 +69,6 @@
 
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
 }
 
 - (void)guideViewTap:(UITapGestureRecognizer *)recognizer {

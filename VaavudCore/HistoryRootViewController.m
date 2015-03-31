@@ -8,12 +8,10 @@
 
 #import "HistoryRootViewController.h"
 #import "Property+Util.h"
-#import "HistoryNavigationController.h"
 #import "RegisterNavigationController.h"
 #import "AccountManager.h"
 #import "MeasurementSession+Util.h"
 #import "ServerUploadManager.h"
-#import "LoadingHistoryViewController.h"
 #import "Mixpanel.h"
 
 // TABORT
@@ -83,9 +81,9 @@
             if (!measurementSession) {
                 newController = [self.storyboard instantiateViewControllerWithIdentifier:@"NoHistoryNavigationController"];
             }
-            else if (![self.childViewController isKindOfClass:[HistoryNavigationController class]]) {
-                newController = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryNavigationController"];
-            }
+//            else if (![self.childViewController isKindOfClass:[HistoryNavigationController class]]) {
+//                newController = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryNavigationController"];
+//            }
         }
     }
     else if (![self.childViewController isKindOfClass:[RegisterNavigationController class]]) {
@@ -122,8 +120,6 @@
 - (void)syncHistory:(BOOL)ignoreGracePeriod {
     if ([[AccountManager sharedInstance] isLoggedIn]) {
         [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:ignoreGracePeriod success:^{
-            //NSLog(@"[HistoryRootViewController] Got successful callback from history sync");
-            
             if ([self.childViewController conformsToProtocol:@protocol(HistoryLoadedListener)]) {
                 id<HistoryLoadedListener> listener = (id<HistoryLoadedListener>)self.childViewController;
                 [listener historyLoaded];
@@ -133,9 +129,9 @@
             }
         } failure:^(NSError *error) {
             //NSLog(@"[HistoryRootViewController] Got failure callback from history sync");
-            if ([self.childViewController isKindOfClass:[LoadingHistoryViewController class]]) {
-                [self chooseContentControllerWithNoHistorySync];
-            }
+//            if ([self.childViewController isKindOfClass:[LoadingHistoryViewController class]]) {
+//                [self chooseContentControllerWithNoHistorySync];
+//            }
         }];
     }
 }

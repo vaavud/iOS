@@ -28,10 +28,9 @@
 @property (nonatomic, strong) UIImage *placeholderImage;
 @property (nonatomic) WindSpeedUnit windSpeedUnit;
 @property (nonatomic) NSInteger directionUnit;
-@property (nonatomic) NSDate *latestLocalEndTime;
-@property (nonatomic) BOOL isObservingModelChanges;
-@property (nonatomic) BOOL isAppeared;
+
 @property (nonatomic) BOOL isTableUpdating;
+@property (nonatomic) BOOL isShowingLogin;
 
 @property (nonatomic) NSDateFormatter *dateFormatter;
 
@@ -47,34 +46,94 @@
     self = [super initWithCoder:aDecoder];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historyLoaded) name:@"HistorySynced" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLoginStatus) name:@"DidLogInOut" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnits) name:@"UnitChange" object:nil];
+
+        [self updateUnits];
     }
 
     return self;
 }
 
-- (void)update {
+- (void)updateUnits {
+    NSLog(@"======= updateUnits");
     WindSpeedUnit newWindSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
     if (newWindSpeedUnit != self.windSpeedUnit) {
         self.windSpeedUnit = newWindSpeedUnit;
     }
     
     NSNumber *directionUnitNumber = [Property getAsInteger:KEY_DIRECTION_UNIT];
-    NSInteger directionUnit = (directionUnitNumber) ? [directionUnitNumber doubleValue] : 0;
+    NSInteger directionUnit = (directionUnitNumber) ? directionUnitNumber.doubleValue : 0;
+    
     if (self.directionUnit != directionUnit) {
         self.directionUnit = directionUnit;
     }
+}
+
+- (void)update {
+    NSLog(@"======= UPDATE ===== logged in: %@", [AccountManager sharedInstance].isLoggedIn ? @"Yes" : @"No");
     
-    if ([ServerUploadManager sharedInstance].isHistorySyncBusy) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historyLoaded) name:@"HistorySynced" object:nil];
-    }
-    else {
-        [self historyLoaded];
+    if (![ServerUploadManager sharedInstance].isHistorySyncBusy) {
+        NSLog(@"======= not isHistorySyncBusy");
+
+        [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:NO success:^{
+            NSLog(@"======= synced history after update");
+
+            [self historyLoaded];
+        } failure:^(NSError *error) {
+            NSLog(@"======= FAILED synced history after update, %@", error);
+        }];
     }
 }
 
-- (void)historyLoaded {
-//    [self.tableView reloadData];
-    [self.fetchedResultsController performFetch:nil];
+- (void)updateLoginStatus {
+    BOOL loggedIn = [AccountManager sharedInstance].isLoggedIn;
+    
+    NSLog(@"======= updateLoginStatus - logged in: %d, showing: %d", loggedIn, self.isShowingLogin);
+    
+    if (!loggedIn && !self.isShowingLogin) {
+        [self showLogin];
+    }
+    else if (loggedIn && self.isShowingLogin) {
+        NSLog(@"======= was presenting: %@", self.presentedViewController);
+        [self dismissViewControllerAnimated:YES completion:^{
+            NSLog(@"======= dismissed");
+            self.isShowingLogin = NO;
+        }];
+    }
+}
+
+-(void)showLogin {
+    NSLog(@"======= showLogin");
+
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
+    RegisterViewController *registration = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
+    registration.teaserLabelText = NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil);
+    registration.completion = ^{
+        
+        NSLog(@"======= did login");
+
+//        [self dismissViewControllerAnimated:YES completion:^{
+//            self.isShowingLogin = NO;
+//
+//            NSLog(@"======= dismiss login screen after login");
+//
+//            [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:YES success:^{
+//                NSLog(@"======= synced history after login");
+//                
+//                [self historyLoaded];
+//            } failure:^(NSError *error) {
+//                NSLog(@"======= FAILED synced history after login, %@", error);
+//            }];
+//        
+//        }];
+    };
+    
+    UINavigationController *nav = [UINavigationController new];
+    nav.viewControllers = @[registration];
+    nav.modalPresentationStyle = UIModalPresentationCurrentContext;
+    self.isShowingLogin = YES;
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)viewDidLoad {
@@ -92,21 +151,15 @@
 - (void)viewDidUnload {
     [super viewDidUnload];
     NSLog(@"- viewDidUnload");
-    
-//    self.fetchedResultsController = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-    NSLog(@"- viewWillAppear");
-    
-    [self update];
+    self.fetchedResultsController = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     NSLog(@"- viewDidAppear");
     
+    [self updateLoginStatus];
+
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"History Screen"];
     }
@@ -119,11 +172,17 @@
     return _fetchedResultsController;
 }
 
+- (void)historyLoaded {
+    NSLog(@"- historyLoaded");
+    if ([AccountManager sharedInstance].isLoggedIn) {
+        NSLog(@"- historyLoaded - LOGGED IN");
+        [self.fetchedResultsController performFetch:nil];
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    NSLog(@"- numberOfSectionsInTableView: %lu", (unsigned long)self.fetchedResultsController.sections.count);
-    
     return self.fetchedResultsController.sections.count;
 }
 
@@ -140,14 +199,12 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
     HistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    [self configureCell:cell atIndexPath:indexPath];
+    [self configureCell:cell withSession: [self.fetchedResultsController objectAtIndexPath:indexPath]];
     
     return cell;
 }
 
-- (void)configureCell:(HistoryTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    MeasurementSession *session = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
+- (void)configureCell:(HistoryTableViewCell *)cell withSession:(MeasurementSession *)session {
     if (session.latitude && session.longitude && (session.latitude != 0) && (session.longitude != 0)) {
         NSString *iconUrl = @"http://vaavud.com/appgfx/SmallWindMarker.png";
         NSString *markers = [NSString stringWithFormat:@"icon:%@|shadow:false|%f,%f", iconUrl, [session.latitude doubleValue], [session.longitude doubleValue]];
@@ -265,6 +322,10 @@
     [[ServerUploadManager sharedInstance] triggerUpload];
 }
 
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 25;
 }
@@ -371,34 +432,32 @@
     
     if (LOG_HISTORY) NSLog(@"[HistoryTableViewController] Controller changed object");
     
-    UITableView *tableView = self.tableView;
-    
     switch (type) {
         case NSFetchedResultsChangeInsert:
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
         case NSFetchedResultsChangeDelete:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
-        case NSFetchedResultsChangeUpdate:
-            [self configureCell:(HistoryTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
-            break;
+        case NSFetchedResultsChangeUpdate: {
+            HistoryTableViewCell *cell = (HistoryTableViewCell *)[self.tableView cellForRowAtIndexPath:indexPath];
+            MeasurementSession *session = [self.fetchedResultsController objectAtIndexPath:indexPath];
+            [self configureCell:cell withSession:session];
             
+            break;
+        }
+    
         case NSFetchedResultsChangeMove:
-            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
             break;
     }
 }
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    NSLog(@"- controllerDidChangeContent");
-    
     if (self.isTableUpdating) {
-        NSLog(@"- controllerDidChangeContent - isTableUpdating");
-        
         [self.tableView endUpdates];
         self.isTableUpdating = NO;
     }

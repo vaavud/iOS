@@ -897,6 +897,7 @@ SHARED_INSTANCE
                 success();
             }
             
+            NSLog(@">>>>>>>> SENDING HistorySynced note");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"HistorySynced" object:self];
         }];
         

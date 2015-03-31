@@ -100,12 +100,12 @@ BOOL didShowFeedback;
         self.emailTextField.delegate = nil;
         
         if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
-            RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
+            RegisterNavigationController *registerNavigationController = (RegisterNavigationController *)self.navigationController;
             if (registerNavigationController.registerDelegate) {
                 [registerNavigationController.registerDelegate userAuthenticated:(response == AuthenticationResponseCreated) viewController:self];
             }
         }
-
+        
         if (self.completion) {
             self.completion();
         }
@@ -159,7 +159,7 @@ BOOL didShowFeedback;
         }
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"" object:@""];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLogInOut" object:@""];
 }
 
 - (void)facebookAuthenticationFailure:(enum AuthenticationResponseType)response
