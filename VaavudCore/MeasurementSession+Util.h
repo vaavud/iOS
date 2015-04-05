@@ -12,5 +12,6 @@
 
 -(NSDictionary *)toDictionary;
 -(NSString *)day;
+-(NSString *)sessionCSVFile;
 
 @end

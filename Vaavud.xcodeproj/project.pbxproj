@@ -43,6 +43,7 @@
 		D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */; };
 		D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
 		D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* VaavudFFT.m */; };
+		D721B47E1AD1EBD10045DC99 /* DataExport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D721B47D1AD1EBD10045DC99 /* DataExport.swift */; };
 		D7A4F1CB173A8DDB00D1ACEE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */; };
 		D7A4F1CD173A8DDB00D1ACEE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CC173A8DDB00D1ACEE /* Foundation.framework */; };
 		D7A4F1CF173A8DDB00D1ACEE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CE173A8DDB00D1ACEE /* CoreGraphics.framework */; };
@@ -530,6 +531,7 @@
 		D7092E891748FE9C00993235 /* VaavudDynamicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudDynamicsController.m; sourceTree = "<group>"; };
 		D71BE13517439AA000B38E34 /* VaavudFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudFFT.h; sourceTree = "<group>"; };
 		D71BE13617439AA000B38E34 /* VaavudFFT.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudFFT.m; sourceTree = "<group>"; };
+		D721B47D1AD1EBD10045DC99 /* DataExport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataExport.swift; sourceTree = "<group>"; };
 		D72D7A16190685BD00DCEC72 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D72D7A17190685BD00DCEC72 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D72D7A191906A04800DCEC72 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1130,6 +1132,7 @@
 				E9DBD3BA17688E9C00CCDA57 /* ThirdParty */,
 				E9EE1FAD1769F01800D1F006 /* Util */,
 				D7B5BD4E175775BA0069F739 /* View */,
+				D721B47D1AD1EBD10045DC99 /* DataExport.swift */,
 			);
 			name = Classes;
 			path = VaavudCore;
@@ -2324,6 +2327,7 @@
 				E9B950E4195C587800E9EF02 /* FirstTimeFlowController.m in Sources */,
 				E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */,
 				E9CD224E177B2AEA0054ED3F /* MagicalRecord+Actions.m in Sources */,
+				D721B47E1AD1EBD10045DC99 /* DataExport.swift in Sources */,
 				E9CD224F177B2AEA0054ED3F /* MagicalRecord+ErrorHandling.m in Sources */,
 				E9B950E3195C587800E9EF02 /* FirstTimeExplanationViewController.m in Sources */,
 				E9002DB919DD6993002D0132 /* AgriManualTemperatureViewController.m in Sources */,

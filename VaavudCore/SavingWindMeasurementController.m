@@ -155,6 +155,8 @@ SHARED_INSTANCE
                 [[ServerUploadManager sharedInstance] triggerUpload];
             }
         }];
+        
+        [measurementSession sessionCSVFile];
     }
     
     return durationSeconds;
