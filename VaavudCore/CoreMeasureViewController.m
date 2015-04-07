@@ -51,8 +51,8 @@
     [self.directionImageView addSubview:self.rotatingImageView];
     
     // temporaty implementation should be settings.
-    if (![[DataExport dropboxSession] isLinked]) {
-        [[DataExport dropboxSession] linkFromController:self];
+    if (![[DBSession sharedSession] isLinked]) {
+        [[DBSession sharedSession] linkFromController:self];
     }
 }
 
