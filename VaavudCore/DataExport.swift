@@ -22,6 +22,24 @@ class DataExport: NSObject, DBRestClientDelegate {
         DataExport.ActiveWrappers.wrappers.addObject(self)
     }
     
+    func restClient(client: DBRestClient!, uploadedFile destPath: String!, from srcPath: String!, metadata: DBMetadata!) {
+        var strongSelf:DataExport = self;
+        println("File uploaded successfully to path: %@", metadata.path)
+        strongSelf.cleanup()
+    }
+    
+    
+    func restClient(client: DBRestClient!, uploadFileFailedWithError error: NSError!) {
+        println("File upload failed with error: %@", error)
+        DataExport.ActiveWrappers.wrappers.removeObject(self)
+    }
+    
+    func cleanup() {
+        dispatch_async(dispatch_get_main_queue(),{
+            DataExport.ActiveWrappers.wrappers.removeObject(self)
+        })
+    }
+    
     class func dropboxSession() -> DBSession {
         if DBSession.sharedSession() == nil {
             DBSession.setSharedSession(DBSession(appKey: "zszsy52n0svxcv7", appSecret: "t39k1uzaxs7a0zj", root: kDBRootAppFolder))
@@ -38,6 +56,12 @@ class DataExport: NSObject, DBRestClientDelegate {
             dataExport.restClient.uploadFile(destinationFilename, toPath:uploadFolder, withParentRev:nil, fromPath:sessionLocation.path)
         }
         
+        if let pointsLocation:NSURL = DataExport.saveMeasurementPointsToLocalDisk(session) {
+            var dataExport = DataExport()
+            var uploadFolder = DataExport.uploadFolder(session.startTime, timezone: NSTimeZone(forSecondsFromGMT: session.timezoneOffset.integerValue))
+            var destinationFilename = DataExport.uploadFileName(session.startTime, timezone: NSTimeZone(forSecondsFromGMT: session.timezoneOffset.integerValue), ending: " points.csv")
+            dataExport.restClient.uploadFile(destinationFilename, toPath:uploadFolder, withParentRev:nil, fromPath:pointsLocation.path)
+        }
     }
     
     class func saveMeasurementSessionToLocalDisk(session: MeasurementSession) -> NSURL? {
@@ -122,6 +146,52 @@ class DataExport: NSObject, DBRestClientDelegate {
         return nil
     }
     
+    
+    class func saveMeasurementPointsToLocalDisk(session: MeasurementSession) -> NSURL? {
+        
+        var headerRow = [String]()
+        var dataRow = [String]()
+        
+        let notAvailable = "-"
+        
+        headerRow.append("time (s)")
+        headerRow.append("windspeed (m/s)")
+        headerRow.append("winddirection (deg)")
+        var csv = ",".join(headerRow)
+        csv += "\n"
+        
+        
+        session.points.enumerateObjectsUsingBlock { (elem, idx, stop) -> Void in
+            if let point = elem as? MeasurementPoint {
+                csv += point.time.timeIntervalSinceDate(session.startTime).description
+                csv += ","
+                csv += point.windSpeed.description
+                csv += ","
+                csv += point.windDirection != nil ? point.windDirection.description : notAvailable
+                csv += "\n"
+            }
+        }
+        
+        
+        
+        if let baseUrl:NSURL = baseDocumentURL() {
+            var fileURL = baseUrl.URLByAppendingPathComponent("points.csv")
+            let sucess = csv.writeToURL(fileURL, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
+            if (sucess) {
+                println("sucess writing file points")
+                return fileURL
+            }
+            else {
+                println("not so sucessfull writing points file")
+            }
+        }
+        else {
+            println("Could not get base directory")
+        }
+        
+        return nil
+    }
+    
     class func baseDocumentURL() -> NSURL? {
         let fileManager = NSFileManager.defaultManager()
         let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
@@ -148,18 +218,4 @@ class DataExport: NSObject, DBRestClientDelegate {
         formatter.timeZone = timezone;
         return formatter.stringFromDate(date);
     }
-    
-    
-    func restClient(client: DBRestClient!, uploadedFile destPath: String!, from srcPath: String!, metadata: DBMetadata!) {
-        println("File uploaded successfully to path: %@", metadata.path)
-        DataExport.ActiveWrappers.wrappers.removeObject(self)
-    }
-    
-    
-    func restClient(client: DBRestClient!, uploadFileFailedWithError error: NSError!) {
-        println("File upload failed with error: %@", error)
-        DataExport.ActiveWrappers.wrappers.removeObject(self)
-    }
-    
-    
 }
