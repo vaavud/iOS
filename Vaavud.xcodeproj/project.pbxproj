@@ -1123,6 +1123,7 @@
 				22B408B61A8A0E2E0062A2DD /* Extensions.swift */,
 				2255A63A1A818535006589D5 /* VaavudInteractions.swift */,
 				229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */,
+				D721B47D1AD1EBD10045DC99 /* DataExport.swift */,
 				E9AE301919A369EF004A79C4 /* Agriculture */,
 				D7A4F1D9173A8DDB00D1ACEE /* AppDelegate.h */,
 				D7A4F1DA173A8DDB00D1ACEE /* AppDelegate.m */,
@@ -1132,7 +1133,6 @@
 				E9DBD3BA17688E9C00CCDA57 /* ThirdParty */,
 				E9EE1FAD1769F01800D1F006 /* Util */,
 				D7B5BD4E175775BA0069F739 /* View */,
-				D721B47D1AD1EBD10045DC99 /* DataExport.swift */,
 			);
 			name = Classes;
 			path = VaavudCore;

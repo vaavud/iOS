@@ -23,6 +23,8 @@
 
 #import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
 
+#import <DropboxSDK/DropboxSDK.h>
+
 #import "NSManagedObject+MagicalFinders.h"
 
 

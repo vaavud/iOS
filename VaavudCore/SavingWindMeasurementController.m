@@ -16,6 +16,7 @@
 #import "UUIDUtil.h"
 #import "AppDelegate.h"
 #import "MeasurementPoint+Util.h"
+#import "Vaavud-Swift.h"
 
 @interface SavingWindMeasurementController ()
 
@@ -156,7 +157,7 @@ SHARED_INSTANCE
             }
         }];
         
-        [measurementSession sessionCSVFile];
+        [DataExport exportMeasurementSession:measurementSession];
     }
     
     return durationSeconds;

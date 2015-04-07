@@ -20,6 +20,7 @@
 #import "UnitUtil.h"
 #import "UIColor+VaavudColors.h"
 #import "MixpanelUtil.h"
+#import "Vaavud-Swift.h"
 
 @interface AppDelegate()
 
@@ -217,6 +218,13 @@
                 }
             }
         }
+    }
+    else if ([[DataExport dropboxSession] handleOpenURL:url]) {
+        if ([[DataExport dropboxSession] isLinked]) {
+            NSLog(@"Dropbox App linked successfully!");
+            // At this point you can start making API calls
+        }
+        return YES;
     }
     else {
         return [FBSession.activeSession handleOpenURL:url];
