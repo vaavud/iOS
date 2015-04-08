@@ -95,7 +95,6 @@ class CoreSettingsTableViewController: UITableViewController {
         }
         else {
             registerUser()
-            refreshLogoutButton()
         }
     }
     
@@ -105,13 +104,22 @@ class CoreSettingsTableViewController: UITableViewController {
     }
     
     func registerUser() {
-        let register = UIStoryboard(name: "Register", bundle: nil).instantiateViewControllerWithIdentifier("RegisterViewController") as RegisterViewController
-        register.teaserLabelText = NSLocalizedString("HISTORY_REGISTER_TEASER", comment: "")
-        register.completion = { loggedIn in
-//            let _ = self.navigationController?.popToViewController(self, animated: true)
-        }
+        let storyboard = UIStoryboard(name: "Register", bundle: nil)
+        let registration = storyboard.instantiateViewControllerWithIdentifier("RegisterViewController") as RegisterViewController
+        registration.teaserLabelText = NSLocalizedString("HISTORY_REGISTER_TEASER", comment: "")
+        registration.showCancelButton = true
+        registration.completion = {
+            ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: true, success: { }, failure: { _ in })
+
+            self.refreshLogoutButton()
+
+            self.dismissViewControllerAnimated(true, completion: {
+                println("did dismiss")
+            })
+        };
         
-        navigationController?.pushViewController(register, animated: true)
+        let navController = UINavigationController(rootViewController: registration)
+        presentViewController(navController, animated: true, completion: nil)
     }
     
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {

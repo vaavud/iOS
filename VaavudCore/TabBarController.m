@@ -11,6 +11,9 @@
 #import "CustomSMCalloutDrawnBackgroundView.h"
 #import "GuideView.h"
 #import "RegisterViewController.h"
+#import "HistoryTableViewController.h"
+#import "ServerUploadManager.h"
+#import "AccountManager.h"
 
 @interface TabBarController ()
 
@@ -54,6 +57,38 @@
     self.calloutView.translatesAutoresizingMaskIntoConstraints = YES;
     self.calloutView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 }
+
+-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    if (![AccountManager sharedInstance].isLoggedIn && viewController == self.childViewControllers[2]) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
+        RegisterViewController *registration = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
+        registration.teaserLabelText = NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil);
+        registration.showCancelButton = YES;
+        registration.completion = ^{
+            NSLog(@"======= did login");
+            [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:YES success:^{
+                NSLog(@"======= synced history after login");
+            } failure:^(NSError *error) {
+                NSLog(@"======= FAILED synced history after login, %@", error);
+            }];
+
+            self.selectedIndex = 2;
+
+            [self dismissViewControllerAnimated:YES completion:^{
+                NSLog(@"=== did dismiss");
+            }];
+        };
+        
+        UINavigationController *nav = [UINavigationController new];
+        nav.viewControllers = @[registration];
+        [self presentViewController:nav animated:YES completion:nil];
+        
+        return NO;
+    }
+    
+    return YES;
+}
+
 
 //- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController*)viewController {
 //    if (viewController == self.currentController) {

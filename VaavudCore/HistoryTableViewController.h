@@ -12,11 +12,10 @@
 @class HistoryTableViewCell;
 @class MeasurementSession;
 
-@interface HistoryTableViewController : UITableViewController<HistoryLoadedListener, NSFetchedResultsControllerDelegate>
+@interface HistoryTableViewController : UITableViewController<NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 - (void)configureCell:(HistoryTableViewCell *)cell withSession:(MeasurementSession *)session;
-- (void)update;
 
 @end

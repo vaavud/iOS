@@ -19,12 +19,16 @@
 @property (nonatomic, weak) IBOutlet UIButton *signUpButton;
 @property (nonatomic, weak) IBOutlet UIButton *logInButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
+
 @end
 
 @implementation RegisterViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.cancelButton.hidden = !self.showCancelButton;
     
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
         RegisterNavigationController *registerNavigationController = (RegisterNavigationController *)self.navigationController;
@@ -63,14 +67,14 @@
     }
 }
 
--(BOOL)preventReselection {
-    return YES;
-}
-
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.destinationViewController conformsToProtocol:@protocol(AuthenticationDelegate)]) {
         ((id<AuthenticationDelegate>)segue.destinationViewController).completion = self.completion;
     }
+}
+
+- (IBAction)cancelButton:(id)sender {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(NSUInteger)supportedInterfaceOrientations {

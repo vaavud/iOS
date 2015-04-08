@@ -30,13 +30,18 @@
 @property (nonatomic) NSInteger directionUnit;
 
 @property (nonatomic) BOOL isTableUpdating;
-@property (nonatomic) BOOL isShowingLogin;
 
 @property (nonatomic) NSDateFormatter *dateFormatter;
 
 @property (nonatomic) CLGeocoder *geocoder;
 
-@property (nonatomic) UIActivityIndicatorView *loader;
+@property (nonatomic) UIActivityIndicatorView *loaderIndicator;
+
+@property (nonatomic) EmptyHistoryArrow *emptyArrow;
+@property (nonatomic) UIView *emptyLabelView;
+@property (nonatomic) UIView *emptyView;
+
+@property (nonatomic) UIView *backgroundView;
 
 @end
 
@@ -44,122 +49,105 @@
 
 -(instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
-    if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historyLoaded) name:@"HistorySynced" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLoginStatus) name:@"DidLogInOut" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnits) name:@"UnitChange" object:nil];
+    
+    NSLog(@"initialized HTVC");
 
-        [self updateUnits];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historySynced) name:@"HistorySynced" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnits) name:@"UnitChange" object:nil];
+        
+        self.geocoder = [[CLGeocoder alloc] init];
+        self.dateFormatter = [[NSDateFormatter alloc] init];
+        self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
+        
+        self.loaderIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     }
 
     return self;
 }
 
-- (void)updateUnits {
-    NSLog(@"======= updateUnits");
-    WindSpeedUnit newWindSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
-    if (newWindSpeedUnit != self.windSpeedUnit) {
-        self.windSpeedUnit = newWindSpeedUnit;
-    }
-    
-    NSNumber *directionUnitNumber = [Property getAsInteger:KEY_DIRECTION_UNIT];
-    NSInteger directionUnit = (directionUnitNumber) ? directionUnitNumber.doubleValue : 0;
-    
-    if (self.directionUnit != directionUnit) {
-        self.directionUnit = directionUnit;
-    }
-}
-
-- (void)update {
-    NSLog(@"======= UPDATE ===== logged in: %@", [AccountManager sharedInstance].isLoggedIn ? @"Yes" : @"No");
-    
-    if (![ServerUploadManager sharedInstance].isHistorySyncBusy) {
-        NSLog(@"======= not isHistorySyncBusy");
-
-        [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:NO success:^{
-            NSLog(@"======= synced history after update");
-
-            [self historyLoaded];
-        } failure:^(NSError *error) {
-            NSLog(@"======= FAILED synced history after update, %@", error);
-        }];
-    }
-}
-
-- (void)updateLoginStatus {
-    BOOL loggedIn = [AccountManager sharedInstance].isLoggedIn;
-    
-    NSLog(@"======= updateLoginStatus - logged in: %d, showing: %d", loggedIn, self.isShowingLogin);
-    
-    if (!loggedIn && !self.isShowingLogin) {
-        [self showLogin];
-    }
-    else if (loggedIn && self.isShowingLogin) {
-        NSLog(@"======= was presenting: %@", self.presentedViewController);
-        [self dismissViewControllerAnimated:YES completion:^{
-            NSLog(@"======= dismissed");
-            self.isShowingLogin = NO;
-        }];
-    }
-}
-
--(void)showLogin {
-    NSLog(@"======= showLogin");
-
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
-    RegisterViewController *registration = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
-    registration.teaserLabelText = NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil);
-    registration.completion = ^{
-        
-        NSLog(@"======= did login");
-
-//        [self dismissViewControllerAnimated:YES completion:^{
-//            self.isShowingLogin = NO;
-//
-//            NSLog(@"======= dismiss login screen after login");
-//
-//            [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:YES success:^{
-//                NSLog(@"======= synced history after login");
-//                
-//                [self historyLoaded];
-//            } failure:^(NSError *error) {
-//                NSLog(@"======= FAILED synced history after login, %@", error);
-//            }];
-//        
-//        }];
-    };
-    
-    UINavigationController *nav = [UINavigationController new];
-    nav.viewControllers = @[registration];
-    nav.modalPresentationStyle = UIModalPresentationCurrentContext;
-    self.isShowingLogin = YES;
-    [self presentViewController:nav animated:YES completion:nil];
-}
-
 - (void)viewDidLoad {
+    NSLog(@"- viewDidLoad");
     [super viewDidLoad];
     [self hideVolumeHUD];
+    [self setupBackground];
+    [self updateUnits];
+}
+
+-(void)setupBackground {
+    self.backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
+    self.tableView.backgroundView = self.backgroundView;
     
-    self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
-    self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
-    self.directionUnit = -1;
+    self.loaderIndicator.center = CGPointMake(CGRectGetMidX(self.backgroundView.bounds), CGRectGetMidY(self.backgroundView.bounds));
+    [self.backgroundView addSubview:self.loaderIndicator];
+
+    self.emptyArrow = [[EmptyHistoryArrow alloc] init];
+    self.emptyView = [[UIView alloc] initWithFrame:self.view.bounds];
+    self.emptyView.alpha = 0;
     
-    self.geocoder = [[CLGeocoder alloc] init];
-    self.dateFormatter = [[NSDateFormatter alloc] init];
+    [self.backgroundView addSubview:self.emptyView];
+    [self.emptyView addSubview:self.emptyArrow];
+    
+    self.emptyLabelView = [[UIView alloc] init];
+    
+    [self.emptyView addSubview:self.emptyLabelView];
+    
+    UILabel *upper = [[UILabel alloc] init];
+    upper.font = [UIFont fontWithName:@"Helvetica" size:20];
+    upper.textColor = [UIColor vaavudColor];
+    upper.text = NSLocalizedString(@"HISTORY_NO_MEASUREMENTS", nil);
+    [upper sizeToFit];
+    [self.emptyLabelView addSubview:upper];
+    
+    UILabel *lower = [[UILabel alloc] init];
+    lower.font = [UIFont fontWithName:@"Helvetica" size:15];
+    lower.textColor = [UIColor darkGrayColor];
+    lower.text = NSLocalizedString(@"HISTORY_GO_TO_MEASURE", nil);
+    [lower sizeToFit];
+    [self.emptyLabelView addSubview:lower];
+    
+    self.emptyLabelView.frame = CGRectMake(0, 0, MAX(CGRectGetWidth(upper.bounds), CGRectGetWidth(lower.bounds)), 60);
+    upper.center = CGPointMake(CGRectGetMidX(self.emptyLabelView.bounds), 10);
+    lower.center = CGPointMake(CGRectGetMidX(self.emptyLabelView.bounds), 45);
+}
+
+-(void)layoutBackground {
+    CGFloat width = CGRectGetWidth(self.view.bounds);
+    CGFloat height = CGRectGetHeight(self.view.bounds);
+    CGFloat startY = 0.35*height;
+    
+    self.emptyArrow.frame = CGRectMake(0, startY, width, height - 60 - startY);
+    [self.emptyArrow forceSetup];
+    self.emptyLabelView.center = CGPointMake(width/2, startY - 40);
+}
+
+-(void)viewDidLayoutSubviews {
+    [self layoutBackground];
+    [self refreshEmptyState];
+}
+
+-(void)performSync {
+    [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:YES success:^{
+        NSLog(@"======= performSync - synced history");
+    } failure:^(NSError *error) {
+        NSLog(@"======= performSync - FAILED synced history, %@", error);
+    }];
 }
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-    NSLog(@"- viewDidUnload");
     self.fetchedResultsController = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.emptyArrow reset];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    NSLog(@"- viewDidAppear");
+    NSLog(@"======= viewDidAppear");
     
-    [self updateLoginStatus];
-
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"History Screen"];
     }
@@ -172,11 +160,54 @@
     return _fetchedResultsController;
 }
 
-- (void)historyLoaded {
-    NSLog(@"- historyLoaded");
+- (void)showLoader {
+    [self.loaderIndicator startAnimating];
+}
+
+- (void)hideLoader {
+    [self.loaderIndicator stopAnimating];
+}
+
+- (void)updateUnits {
+    self.windSpeedUnit = [Property getAsInteger:KEY_WIND_SPEED_UNIT].intValue;
+    self.directionUnit = [Property getAsInteger:KEY_DIRECTION_UNIT defaultValue:0].intValue;
+    
+    [self.tableView reloadData];
+}
+
+- (void)historySynced {
+    NSLog(@"- historySynced");
     if ([AccountManager sharedInstance].isLoggedIn) {
-        NSLog(@"- historyLoaded - LOGGED IN");
-        [self.fetchedResultsController performFetch:nil];
+        if ([self.fetchedResultsController performFetch:nil]) {
+            NSLog(@"- historySynced - Fetched: %ld", (unsigned long)self.fetchedResultsController.fetchedObjects.count);
+        }
+        [self hideLoader];
+        [self refreshEmptyState];
+    }
+}
+
+- (void)refreshEmptyState {
+    if ([ServerUploadManager sharedInstance].isHistorySyncBusy) {
+        [self showLoader];
+        
+        [UIView animateWithDuration:0.2 animations:^{
+            self.emptyView.alpha = 0;
+        }];
+    }
+    else {
+        [self hideLoader];
+
+        if (self.fetchedResultsController.sections.count == 0) {
+            [self.emptyArrow animate];
+            [UIView animateWithDuration:0.2 animations:^{
+                self.emptyView.alpha = 1;
+            }];
+        }
+        else {
+            [UIView animateWithDuration:0.2 animations:^{
+                self.emptyView.alpha = 0;
+            }];
+        }
     }
 }
 
@@ -323,6 +354,8 @@
 }
 
 -(void)dealloc {
+    NSLog(@"Dealloc HTVC");
+
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -461,6 +494,7 @@
         [self.tableView endUpdates];
         self.isTableUpdating = NO;
     }
+    [self refreshEmptyState];
 }
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
