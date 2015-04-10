@@ -26,3 +26,8 @@ enum RegisterScreenType : NSUInteger {
 @property (nonatomic) NSUInteger startScreen;
 
 @end
+
+
+@interface RotatableNavigationController : UINavigationController
+
+@end

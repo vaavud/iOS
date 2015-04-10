@@ -1,5 +1,5 @@
 //
-//  CoreEmptyHistoryViewController.swift
+//  EmptyHistoryArrow.swift
 //  Vaavud
 //
 //  Created by Gustaf Kugelberg on 24/02/15.
@@ -8,30 +8,12 @@
 
 import UIKit
 
-class CoreEmptyHistoryViewController: UIViewController {
-    @IBOutlet weak var arrow: EmptyHistoryArrow!
-    
-    override func viewDidLayoutSubviews() {
-        arrow.setup()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        arrow.animate()
-    }
-    
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        arrow.reset()
-    }
-}
-
 @IBDesignable class EmptyHistoryArrow: UIView {
     var isSetup = false
     
     override func prepareForInterfaceBuilder() {
         setup()
-        (layer as CAShapeLayer).strokeEnd = 1
+        (layer as! CAShapeLayer).strokeEnd = 1
     }
     
     override class func layerClass() -> AnyClass {
@@ -74,7 +56,7 @@ class CoreEmptyHistoryViewController: UIViewController {
             let t = CGAffineTransformMakeTranslation(x, 0)
             bezierPath.applyTransform(CGAffineTransformConcat(s, t))
             
-            let shapeLayer = layer as CAShapeLayer
+            let shapeLayer = layer as! CAShapeLayer
             shapeLayer.path = bezierPath.CGPath
             shapeLayer.strokeColor = UIColor.vaavudBlueColor().CGColor
             shapeLayer.lineWidth = 2
@@ -86,14 +68,14 @@ class CoreEmptyHistoryViewController: UIViewController {
     }
     
     func reset() {
-        let shapeLayer = layer as CAShapeLayer
+        let shapeLayer = layer as! CAShapeLayer
         CATransaction.setDisableActions(true)
         shapeLayer.strokeEnd = 0
         CATransaction.setDisableActions(false)
     }
     
     func animate() {
-        let shapeLayer = layer as CAShapeLayer
+        let shapeLayer = layer as! CAShapeLayer
         shapeLayer.removeAllAnimations()
         
         let anim = CABasicAnimation(keyPath: "strokeEnd")

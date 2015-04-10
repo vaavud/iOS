@@ -141,9 +141,9 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
     
     let lineWidth: CGFloat = 8
     
-    var speed: CGFloat = 0 { didSet { setSpeed(speed) } }
-    var progress: CGFloat = 0 { didSet { setProgress(progress) } }
-    var blowing: Bool = true { didSet { setBlowing(blowing) } }
+    var speed: CGFloat = 0 { didSet { setTheSpeed(speed) } }
+    var progress: CGFloat = 0 { didSet { setTheProgress(progress) } }
+    var blowing: Bool = true { didSet { setIsBlowing(blowing) } }
     
     var hasSetup = false
     
@@ -199,17 +199,17 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
         blowing = true
     }
     
-    func setSpeed(strength: CGFloat, animated: Bool = false) {        
+    func setTheSpeed(strength: CGFloat, animated: Bool = false) {
         let radius = max(0, strength + 4*lineWidth/bounds.width*(1 - strength))
         strengthLayer.transform = CATransform3DMakeScale(radius, radius, 1)
     }
     
-    func setProgress(progress: CGFloat) {
+    func setTheProgress(progress: CGFloat) {
         progressLayer.removeAnimationForKey("progressStroke")
         progressLayer.strokeEnd = progress
     }
     
-    func setBlowing(blowing: Bool) {
+    func setIsBlowing(blowing: Bool) {
         CATransaction.setAnimationDuration(0.3)
         strengthLayer.fillColor = UIColor.vaavudBlueColor().colorWithAlpha(blowing ? 0.2 : 1).CGColor
     }
@@ -238,10 +238,10 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
         progressLayer.addAnimation(anim, forKey: "progressStroke")
         
         CATransaction.setCompletionBlock {
-            self.setSpeed(0, animated: true)
+            self.setTheSpeed(0, animated: true)
         }
         
-        setSpeed(1, animated: true)
+        setTheSpeed(1, animated: true)
     }
     
     func done() {
@@ -260,7 +260,7 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
             self.progressLayer.strokeColor = UIColor.vaavudGreenColor().CGColor
         }
         
-        setSpeed(-1, animated: true)
+        setTheSpeed(-1, animated: true)
     }
 
 }

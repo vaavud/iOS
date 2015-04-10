@@ -28,7 +28,7 @@
 		22AB2E6D1A70FC15008CAE46 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */; };
 		22AB2E6E1A70FC15008CAE46 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */; };
 		22AB2E701A70FD92008CAE46 /* CoreSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */; };
-		22ADAA941A9C911400C298E6 /* CoreEmptyHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA931A9C911400C298E6 /* CoreEmptyHistoryViewController.swift */; };
+		22ADAA941A9C911400C298E6 /* EmptyHistoryArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA931A9C911400C298E6 /* EmptyHistoryArrow.swift */; };
 		22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */; };
 		22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408B61A8A0E2E0062A2DD /* Extensions.swift */; };
 		22B408B81A8A0E2E0062A2DD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408B61A8A0E2E0062A2DD /* Extensions.swift */; };
@@ -506,7 +506,7 @@
 		22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSummaryViewController.swift; sourceTree = "<group>"; };
-		22ADAA931A9C911400C298E6 /* CoreEmptyHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreEmptyHistoryViewController.swift; sourceTree = "<group>"; };
+		22ADAA931A9C911400C298E6 /* EmptyHistoryArrow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyHistoryArrow.swift; sourceTree = "<group>"; };
 		22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalibrateSleipnirViewController.swift; sourceTree = "<group>"; };
 		22B408B61A8A0E2E0062A2DD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSettingsViewController.swift; sourceTree = "<group>"; };
@@ -1105,7 +1105,7 @@
 			isa = PBXGroup;
 			children = (
 				22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */,
-				22ADAA931A9C911400C298E6 /* CoreEmptyHistoryViewController.swift */,
+				22ADAA931A9C911400C298E6 /* EmptyHistoryArrow.swift */,
 				22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */,
 				22B408B61A8A0E2E0062A2DD /* Extensions.swift */,
 				2255A63A1A818535006589D5 /* VaavudInteractions.swift */,
@@ -2290,7 +2290,7 @@
 				E9CD2247177B2AEA0054ED3F /* NSManagedObjectContext+MagicalObserving.m in Sources */,
 				229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */,
 				22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */,
-				22ADAA941A9C911400C298E6 /* CoreEmptyHistoryViewController.swift in Sources */,
+				22ADAA941A9C911400C298E6 /* EmptyHistoryArrow.swift in Sources */,
 				E9F33CCE18B4B3CB0033EDC7 /* AccountManager.m in Sources */,
 				E9A4099318A52E40004F1C12 /* RegisterViewController.m in Sources */,
 				E9CD2248177B2AEA0054ED3F /* NSManagedObjectContext+MagicalRecord.m in Sources */,

@@ -158,8 +158,9 @@ BOOL didShowFeedback;
             [registerNavigationController.registerDelegate userAuthenticated:(response == AuthenticationResponseCreated) viewController:self];
         }
     }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLogInOut" object:@""];
+    if (self.completion) {
+        self.completion();
+    }
 }
 
 - (void)facebookAuthenticationFailure:(enum AuthenticationResponseType)response
@@ -212,7 +213,6 @@ BOOL didShowFeedback;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-
     if (self.emailTextField.text.length > 0 && self.passwordTextField.text.length > 0) {
         [self doneButtonPushed];
     }

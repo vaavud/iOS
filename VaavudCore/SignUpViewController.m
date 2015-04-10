@@ -232,6 +232,10 @@ BOOL didShowFeedback;
             [registerNavigationController.registerDelegate userAuthenticated:(response == AuthenticationResponseCreated) viewController:self];
         }
     }
+    
+    if (self.completion) {
+        self.completion();
+    }
 }
 
 - (void)facebookAuthenticationFailure:(enum AuthenticationResponseType)response

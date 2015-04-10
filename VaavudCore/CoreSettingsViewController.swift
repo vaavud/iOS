@@ -36,14 +36,6 @@ class CoreSettingsTableViewController: UITableViewController {
     
     func wasLoggedInOut(note: NSNotification) {
         refreshLogoutButton()
-        println("=#=#=#=#=#=#=#=#= set wasLoggedInOut =#=#=#=#=#=#=#=#=")
-        if AccountManager.sharedInstance().isLoggedIn() {
-            println("=#=#=#=#= \(self.navigationController)")
-            self.navigationController?.popToViewController(self, animated: false)
-        }
-        else {
-            println("=#=#=#=#=#=#=#=#= set not logged in =#=#=#=#=#=#=#=#=")
-        }
     }
     
     func refreshLogoutButton() {
@@ -100,25 +92,22 @@ class CoreSettingsTableViewController: UITableViewController {
     
     func logoutConfirmed() {
         AccountManager.sharedInstance().logout()
-        refreshLogoutButton()
     }
     
     func registerUser() {
         let storyboard = UIStoryboard(name: "Register", bundle: nil)
-        let registration = storyboard.instantiateViewControllerWithIdentifier("RegisterViewController") as RegisterViewController
+        let registration = storyboard.instantiateViewControllerWithIdentifier("RegisterViewController") as! RegisterViewController
         registration.teaserLabelText = NSLocalizedString("HISTORY_REGISTER_TEASER", comment: "")
         registration.showCancelButton = true
         registration.completion = {
             ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: true, success: { }, failure: { _ in })
 
-            self.refreshLogoutButton()
-
             self.dismissViewControllerAnimated(true, completion: {
-                println("did dismiss")
+                println("================ did dismiss")
             })
         };
         
-        let navController = UINavigationController(rootViewController: registration)
+        let navController = RotatableNavigationController(rootViewController: registration)
         presentViewController(navController, animated: true, completion: nil)
     }
     

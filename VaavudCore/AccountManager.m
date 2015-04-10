@@ -41,7 +41,7 @@ BOOL isDoingLogout = NO;
     }
     
     NSString *passwordHash = [PasswordUtil createHash:password salt:email];
-    NSDictionary *metaInfo = @{@"metaMethod":@"registerWithPassword", @"metaAppAction":[self actionToString:action]};
+    NSDictionary *metaInfo = @{@"metaMethod" : @"registerWithPassword", @"metaAppAction" : [self actionToString:action]};
     
     [self registerUser:action
                  email:email
@@ -62,6 +62,7 @@ BOOL isDoingLogout = NO;
     // make sure delegate is not called
     facebookRegisterIdentifier++;
     hasCalledDelegateForCurrentFacebookRegisterIdentifier = YES;
+    
     [self doLogout];
 }
 
@@ -231,7 +232,8 @@ BOOL isDoingLogout = NO;
                      failure:(void(^)(enum AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {
     
     if (LOG_ACCOUNT) NSLog(@"[AccountManager] facebookUserLoggedIn");
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLogInOut" object:@""];
+
     // Check we got the permissions we need
     [FBRequestConnection startWithGraphPath:@"/me/permissions"
                           completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
@@ -433,6 +435,8 @@ BOOL isDoingLogout = NO;
             if (success) {
                 success(authResponse);
             }
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLogInOut" object:@""];
         }
         else {
             if (failure) {
@@ -495,6 +499,7 @@ BOOL isDoingLogout = NO;
     }];
 
     [[ServerUploadManager sharedInstance] registerDevice:3];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLogInOut" object:@""];
 }
 
 - (BOOL)isLoggedIn {

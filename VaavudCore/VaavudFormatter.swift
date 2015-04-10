@@ -147,7 +147,7 @@ class VaavudFormatter {
             let cardinalDirection = DirectionUnit.degreesToCardinal(degrees)
             return NSLocalizedString(directionKey(cardinalDirection), comment: "")
         case .Degrees:
-            return NSString(format: "%.0f°", degrees)
+            return NSString(format: "%.0f°", degrees) as String
         }
     }
     
@@ -253,7 +253,7 @@ class VaavudFormatter {
         if gustiness == nil || gustiness < 0.001 {
             return nil
         }
-        return NSString(format: "%.0f", 100*gustiness!)
+        return NSString(format: "%.0f", 100*gustiness!) as String
     }
     
     // MARK - Private
@@ -317,7 +317,7 @@ class VaavudFormatter {
         }
         
         let formatString = NSString(format: "%%.%df", actualDecimals)
-        return NSString(format: formatString, locale: NSLocale.currentLocale(), value)
+        return NSString(format: formatString, locale: NSLocale.currentLocale(), value) as String
     }
     
     private func failure(# valueLabel: UILabel, unitLabel: UILabel) -> Bool {

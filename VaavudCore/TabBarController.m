@@ -79,7 +79,7 @@
             }];
         };
         
-        UINavigationController *nav = [UINavigationController new];
+        RotatableNavigationController *nav = [RotatableNavigationController new];
         nav.viewControllers = @[registration];
         [self presentViewController:nav animated:YES completion:nil];
         

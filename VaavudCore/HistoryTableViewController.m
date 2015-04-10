@@ -50,8 +50,6 @@
 -(instancetype)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
     
-    NSLog(@"initialized HTVC");
-
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historySynced) name:@"HistorySynced" object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnits) name:@"UnitChange" object:nil];
@@ -67,7 +65,6 @@
 }
 
 - (void)viewDidLoad {
-    NSLog(@"- viewDidLoad");
     [super viewDidLoad];
     [self hideVolumeHUD];
     [self setupBackground];
@@ -146,7 +143,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    NSLog(@"======= viewDidAppear");
     
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"History Screen"];
@@ -176,7 +172,6 @@
 }
 
 - (void)historySynced {
-    NSLog(@"- historySynced");
     if ([AccountManager sharedInstance].isLoggedIn) {
         if ([self.fetchedResultsController performFetch:nil]) {
             NSLog(@"- historySynced - Fetched: %ld", (unsigned long)self.fetchedResultsController.fetchedObjects.count);
@@ -187,27 +182,30 @@
 }
 
 - (void)refreshEmptyState {
-    if ([ServerUploadManager sharedInstance].isHistorySyncBusy) {
-        [self showLoader];
-        
-        [UIView animateWithDuration:0.2 animations:^{
-            self.emptyView.alpha = 0;
-        }];
-    }
-    else {
-        [self hideLoader];
-
-        if (self.fetchedResultsController.sections.count == 0) {
-            [self.emptyArrow animate];
-            [UIView animateWithDuration:0.2 animations:^{
-                self.emptyView.alpha = 1;
-            }];
-        }
-        else {
+    if ([AccountManager sharedInstance].isLoggedIn) {
+        if ([ServerUploadManager sharedInstance].isHistorySyncBusy) {
+            [self showLoader];
             [UIView animateWithDuration:0.2 animations:^{
                 self.emptyView.alpha = 0;
             }];
         }
+        else {
+            [self hideLoader];
+            if (self.fetchedResultsController.sections.count == 0) {
+                [self.emptyArrow animate];
+                [UIView animateWithDuration:0.2 animations:^{
+                    self.emptyView.alpha = 1;
+                }];
+            }
+            else {
+                [UIView animateWithDuration:0.2 animations:^{
+                    self.emptyView.alpha = 0;
+                }];
+            }
+        }
+    }
+    else {
+        self.emptyView.alpha = 0;
     }
 }
 
