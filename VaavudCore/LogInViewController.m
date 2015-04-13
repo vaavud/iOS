@@ -100,12 +100,12 @@ BOOL didShowFeedback;
         self.emailTextField.delegate = nil;
         
         if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
-            RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
+            RegisterNavigationController *registerNavigationController = (RegisterNavigationController *)self.navigationController;
             if (registerNavigationController.registerDelegate) {
                 [registerNavigationController.registerDelegate userAuthenticated:(response == AuthenticationResponseCreated) viewController:self];
             }
         }
-
+        
         if (self.completion) {
             self.completion();
         }
@@ -153,10 +153,13 @@ BOOL didShowFeedback;
     [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGIN_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
     
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
-        RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
+        RegisterNavigationController *registerNavigationController = (RegisterNavigationController *)self.navigationController;
         if (registerNavigationController.registerDelegate) {
             [registerNavigationController.registerDelegate userAuthenticated:(response == AuthenticationResponseCreated) viewController:self];
         }
+    }
+    if (self.completion) {
+        self.completion();
     }
 }
 
@@ -210,7 +213,6 @@ BOOL didShowFeedback;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-
     if (self.emailTextField.text.length > 0 && self.passwordTextField.text.length > 0) {
         [self doneButtonPushed];
     }

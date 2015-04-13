@@ -306,7 +306,6 @@
     else if (indexPath.item == 6 ) {
         [self performSegueWithIdentifier:@"sleipnirCalibrationSegueFromSettings" sender:self];
     }
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

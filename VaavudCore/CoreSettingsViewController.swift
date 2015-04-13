@@ -26,10 +26,15 @@ class CoreSettingsTableViewController: UITableViewController {
         readUnits()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: "UnitChange", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasLoggedInOut:", name: "DidLogInOut", object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        refreshLogoutButton()
+    }
+    
+    func wasLoggedInOut(note: NSNotification) {
         refreshLogoutButton()
     }
     
@@ -82,20 +87,28 @@ class CoreSettingsTableViewController: UITableViewController {
         }
         else {
             registerUser()
-            refreshLogoutButton()
         }
     }
     
     func logoutConfirmed() {
         AccountManager.sharedInstance().logout()
-        refreshLogoutButton()
     }
     
     func registerUser() {
-        let register = UIStoryboard(name: "Register", bundle: nil).instantiateViewControllerWithIdentifier("RegisterViewController") as RegisterViewController
-        register.completion = { loggedIn in let _ = self.navigationController?.popToViewController(self, animated: true) }
+        let storyboard = UIStoryboard(name: "Register", bundle: nil)
+        let registration = storyboard.instantiateViewControllerWithIdentifier("RegisterViewController") as! RegisterViewController
+        registration.teaserLabelText = NSLocalizedString("HISTORY_REGISTER_TEASER", comment: "")
+        registration.showCancelButton = true
+        registration.completion = {
+            ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: true, success: { }, failure: { _ in })
 
-        navigationController?.pushViewController(register, animated: true)
+            self.dismissViewControllerAnimated(true, completion: {
+                println("================ did dismiss")
+            })
+        };
+        
+        let navController = RotatableNavigationController(rootViewController: registration)
+        presentViewController(navController, animated: true, completion: nil)
     }
     
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {

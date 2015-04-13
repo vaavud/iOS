@@ -93,7 +93,7 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func update() {
-        (layer as CAGradientLayer).colors = [startColor.CGColor, endColor.CGColor]
+        (layer as! CAGradientLayer).colors = [startColor.CGColor, endColor.CGColor]
     }
 }
 

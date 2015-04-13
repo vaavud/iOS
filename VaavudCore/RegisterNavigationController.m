@@ -30,3 +30,11 @@
 }
 
 @end
+
+@implementation RotatableNavigationController
+
+-(NSUInteger)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
+@end

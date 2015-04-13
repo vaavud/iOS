@@ -11,12 +11,15 @@
 #import "AccountManager.h"
 #import "Mixpanel.h"
 #import "Property+Util.h"
+#import "TabBarController.h"
 
 @interface RegisterViewController ()
 
 @property (nonatomic, weak) IBOutlet UILabel *teaserLabel;
 @property (nonatomic, weak) IBOutlet UIButton *signUpButton;
 @property (nonatomic, weak) IBOutlet UIButton *logInButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 
 @end
 
@@ -25,10 +28,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.cancelButton.hidden = !self.showCancelButton;
+    
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
         RegisterNavigationController *registerNavigationController = (RegisterNavigationController *)self.navigationController;
         if (registerNavigationController.registerDelegate) {
-            
             NSString *title = [registerNavigationController.registerDelegate registerScreenTitle];
             
             if (!title || title.length == 0) {
@@ -67,6 +71,10 @@
     if ([segue.destinationViewController conformsToProtocol:@protocol(AuthenticationDelegate)]) {
         ((id<AuthenticationDelegate>)segue.destinationViewController).completion = self.completion;
     }
+}
+
+- (IBAction)cancelButton:(id)sender {
+    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(NSUInteger)supportedInterfaceOrientations {
