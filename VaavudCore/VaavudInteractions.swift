@@ -11,6 +11,7 @@ import UIKit
 
 class VaavudInteractions: NSObject, UIAlertViewDelegate {
     var alertAction: () -> () = { }
+    var alertView: UIAlertView?
     
     class func termsUrl(source: String = "settings") -> NSURL {
         let url = "http://vaavud.com/legal/terms.php?source=" + source
@@ -61,9 +62,9 @@ class VaavudInteractions: NSObject, UIAlertViewDelegate {
     func showAlert(title: String, message: String, cancel: String?, other: String, action: () -> (), on source: UIViewController) {
         alertAction = action
         if objc_getClass("UIAlertController") == nil {
-            let alert = UIAlertView(title: title, message: message, delegate: self, cancelButtonTitle: cancel, otherButtonTitles: other)
-            alert.tag = 1
-            alert.show()
+            alertView = UIAlertView(title: title, message: message, delegate: self, cancelButtonTitle: cancel, otherButtonTitles: other)
+            alertView?.tag = 1
+            alertView?.show()
         }
         else {
             let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)

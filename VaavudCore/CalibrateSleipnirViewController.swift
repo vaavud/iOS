@@ -49,11 +49,18 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
     }
     
     override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         calibrationCircle.setup()
     }
     
     override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         calibrationCircle.launch()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        sdk.stop()
     }
     
     func changeMessage(key: String, color: UIColor = UIColor.vaavudBlueColor(), delay: Double = 0) {
