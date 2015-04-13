@@ -9,6 +9,8 @@
 import Foundation
 
 class CoreSettingsTableViewController: UITableViewController {
+    let interactions = VaavudInteractions()
+    
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     
     @IBOutlet weak var speedUnitControl: UISegmentedControl!
@@ -78,7 +80,7 @@ class CoreSettingsTableViewController: UITableViewController {
     
     @IBAction func logInOutTapped(sender: AnyObject) {
         if AccountManager.sharedInstance().isLoggedIn() {
-            VaavudInteractions().showLocalAlert("REGISTER_BUTTON_LOGOUT",
+            interactions.showLocalAlert("REGISTER_BUTTON_LOGOUT",
                 messageKey: "DIALOG_CONFIRM",
                 cancelKey: "BUTTON_CANCEL",
                 otherKey: "BUTTON_OK",

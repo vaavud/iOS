@@ -67,7 +67,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self hideVolumeHUD];
-    [self setupBackground];
+//    [self setupBackground];
     [self updateUnits];
 }
 
@@ -119,8 +119,8 @@
 }
 
 -(void)viewDidLayoutSubviews {
-    [self layoutBackground];
-    [self refreshEmptyState];
+//    [self layoutBackground];
+//    [self refreshEmptyState];
 }
 
 -(void)performSync {
@@ -348,6 +348,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     [[ServerUploadManager sharedInstance] triggerUpload];
 }
 

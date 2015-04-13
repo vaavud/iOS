@@ -63,6 +63,8 @@
 @property (nonatomic, strong) UIAlertController *notificationAlertViewController;
 @property (nonatomic, strong) NSTimer *notificationTimer;
 
+@property (nonatomic) VaavudInteractions *interactions;
+
 @end
 
 @implementation MeasureViewController
@@ -143,6 +145,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self hideVolumeHUD];
+    
+    self.interactions = [VaavudInteractions new];
     
     self.minimumNumberOfSeconds = SECONDS_REQUIRED;
 
@@ -594,7 +598,7 @@
         else {
             NSLog(@"Permission denied");
             
-            [[VaavudInteractions new] showAlert:@"Permission" message:@"You have to give the Vaavud app permission to use the microphone. Go to the settings app." other:@"OK" action:^{
+            [self.interactions showAlert:@"Permission" message:@"You have to give the Vaavud app permission to use the microphone. Go to the settings app." other:@"OK" action:^{
             } on:self];
         }
     }];
