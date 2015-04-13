@@ -136,7 +136,7 @@ extension MeasurementSession {
             if let point = elem as? MeasurementPoint {
                 csv += point.time.timeIntervalSinceDate(self.startTime).description
                 csv += ","
-                csv += point.windSpeed != nil ? point.windDirection.description : notAvailable
+                csv += point.windSpeed != nil ? point.windSpeed.description : notAvailable
                 csv += ","
                 csv += point.windDirection != nil ? point.windDirection.description : notAvailable
                 csv += "\n"
