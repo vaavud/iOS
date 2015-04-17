@@ -42,7 +42,7 @@
     self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
 
     self.windSpeedHeadingLabel.text = [NSLocalizedString(@"HEADING_WIND_SPEED", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    self.temperatureUnitLabel.text = NSLocalizedString(@"UNIT_CELCIUS", nil);
+    self.temperatureUnitLabel.text = NSLocalizedString(@"UNIT_CELSIUS", nil);
     self.directionHeadingLabel.text = [NSLocalizedString(@"HEADING_WIND_DIRECTION", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     self.temperatureHeadingLabel.text = [NSLocalizedString(@"HEADING_TEMPERATURE", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
 

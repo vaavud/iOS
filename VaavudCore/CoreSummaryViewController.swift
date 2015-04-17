@@ -61,7 +61,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     private var animator: UIDynamicAnimator!
     private var formatter = VaavudFormatter()
     var session: MeasurementSession!
-    
+        
     override func viewDidLoad() {
         hideVolumeHUD()
         

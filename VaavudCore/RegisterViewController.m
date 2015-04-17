@@ -19,17 +19,13 @@
 @property (nonatomic, weak) IBOutlet UIButton *signUpButton;
 @property (nonatomic, weak) IBOutlet UIButton *logInButton;
 
-@property (weak, nonatomic) IBOutlet UIButton *cancelButton;
-
 @end
 
 @implementation RegisterViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.cancelButton.hidden = !self.showCancelButton;
-    
+        
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
         RegisterNavigationController *registerNavigationController = (RegisterNavigationController *)self.navigationController;
         if (registerNavigationController.registerDelegate) {
@@ -48,15 +44,13 @@
         self.teaserLabel.text = self.teaserLabelText;
     }
     
-    self.navigationItem.backBarButtonItem.title = NSLocalizedString(@"BUTTON_CANCEL", nil);
+//    self.navigationItem.backBarButtonItem.title = NSLocalizedString(@"BUTTON_CANCEL", nil);
     
     self.signUpButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.signUpButton.layer.masksToBounds = YES;
-    [self.signUpButton setTitle:NSLocalizedString(@"REGISTER_TITLE_SIGNUP", nil) forState:UIControlStateNormal];
 
     self.logInButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
     self.logInButton.layer.masksToBounds = YES;
-    [self.logInButton setTitle:NSLocalizedString(@"REGISTER_TITLE_LOGIN", nil) forState:UIControlStateNormal];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

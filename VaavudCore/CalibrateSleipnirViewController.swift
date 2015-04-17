@@ -34,18 +34,14 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
         sdk.addListener(self)
     }
     
-    override  func viewDidLoad() {
+    override func viewDidLoad() {
+        super.viewDidLoad()
         hideVolumeHUD()
         
         timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "showFirstText", userInfo: nil, repeats: false)
 
         sdk.startCalibration()
         sdk.start()
-    }
-    
-    func showFirstText() {
-        timer.invalidate()
-        changeMessage("CALIBRATION_STRING_FIRST")
     }
     
     override func viewDidLayoutSubviews() {
@@ -63,6 +59,11 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
         sdk.stop()
     }
     
+    func showFirstText() {
+        timer.invalidate()
+        changeMessage("CALIBRATION_STRING_FIRST")
+    }
+    
     func changeMessage(key: String, color: UIColor = UIColor.vaavudBlueColor(), delay: Double = 0) {
         let text = NSLocalizedString(key, comment: "")
         upperLabel.text = text
@@ -76,6 +77,10 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
             }, completion: nil)
     }
     
+    @IBAction func pressedCancel(sender: AnyObject) {
+        sdk.resetCalibration()
+    }
+    
     func dismiss() {
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -84,7 +89,7 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
         return Int(UIInterfaceOrientationMask.All.rawValue)
     }
     
-    // MARK: - VaavudElectronicWindDelegate
+    // MARK: VaavudElectronicWindDelegate
     
     func newSpeed(value: NSNumber!) {
         if done {

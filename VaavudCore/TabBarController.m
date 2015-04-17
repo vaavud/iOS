@@ -63,7 +63,6 @@
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
         RegisterViewController *registration = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
         registration.teaserLabelText = NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil);
-        registration.showCancelButton = YES;
         registration.completion = ^{
             NSLog(@"======= did login");
             [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:YES success:^{

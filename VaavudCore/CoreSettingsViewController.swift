@@ -100,7 +100,6 @@ class CoreSettingsTableViewController: UITableViewController {
         let storyboard = UIStoryboard(name: "Register", bundle: nil)
         let registration = storyboard.instantiateViewControllerWithIdentifier("RegisterViewController") as! RegisterViewController
         registration.teaserLabelText = NSLocalizedString("HISTORY_REGISTER_TEASER", comment: "")
-        registration.showCancelButton = true
         registration.completion = {
             ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: true, success: { }, failure: { _ in })
 

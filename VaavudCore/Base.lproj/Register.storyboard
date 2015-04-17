@@ -19,7 +19,7 @@
             </objects>
             <point key="canvasLocation" x="-227" y="12"/>
         </scene>
-        <!--Register-->
+        <!--##Register##-->
         <scene sceneID="OFR-ua-TdD">
             <objects>
                 <viewController storyboardIdentifier="RegisterViewController" providesPresentationContextTransitionStyle="YES" id="Ejx-Uu-BTy" customClass="RegisterViewController" sceneMemberID="viewController">
@@ -39,7 +39,7 @@
                                     <constraint firstAttribute="width" constant="280" id="TP4-PY-qa5"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Sign Up">
+                                <state key="normal" title="##Sign Up">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
@@ -57,7 +57,7 @@
                                     <constraint firstAttribute="width" constant="280" id="oVg-9X-pJT"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Log In">
+                                <state key="normal" title="##Log In">
                                     <color key="titleColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -68,7 +68,7 @@
                                     <segue destination="b64-Qq-ZiB" kind="push" id="1lE-DU-NCW"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="KAW-1F-BHd">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="KAW-1F-BHd">
                                 <rect key="frame" x="20" y="64" width="280" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="280" id="VLh-EZ-DQL"/>
@@ -78,9 +78,9 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button hidden="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UW4-K5-F42">
-                                <rect key="frame" x="136" y="530" width="48" height="30"/>
-                                <state key="normal" title="Cancel"/>
+                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UW4-K5-F42">
+                                <rect key="frame" x="128" y="530" width="65" height="30"/>
+                                <state key="normal" title="##Cancel"/>
                                 <connections>
                                     <action selector="cancelButton:" destination="Ejx-Uu-BTy" eventType="touchUpInside" id="fPr-Qj-Pef"/>
                                 </connections>
@@ -98,11 +98,10 @@
                             <constraint firstAttribute="centerX" secondItem="kQi-uV-EHg" secondAttribute="centerX" id="ur0-Tp-V93"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Register" id="daQ-eU-lpY">
+                    <navigationItem key="navigationItem" title="##Register##" id="daQ-eU-lpY">
                         <barButtonItem key="backBarButtonItem" title="Cancel" id="PDW-nY-SgY"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="cancelButton" destination="UW4-K5-F42" id="qeF-H2-A03"/>
                         <outlet property="logInButton" destination="RfU-7Y-inK" id="esF-55-wcp"/>
                         <outlet property="signUpButton" destination="kQi-uV-EHg" id="Brv-N3-e9C"/>
                         <outlet property="teaserLabel" destination="KAW-1F-BHd" id="ARD-cL-NNY"/>
@@ -124,7 +123,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LT6-d3-5NW">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" directionalLockEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LT6-d3-5NW">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7fG-6X-2BP">
@@ -159,7 +158,8 @@
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ec3-BG-2T3" userLabel="Label - Disclaimer">
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ec3-BG-2T3" userLabel="Label - Disclaimer">
+                                                <rect key="frame" x="160" y="73" width="0.0" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -181,11 +181,14 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5yg-2Z-ESq" userLabel="Basic Input Container">
                                                 <rect key="frame" x="20" y="96" width="280" height="120"/>
                                                 <subviews>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ied-Dp-nK2" userLabel="First Name Text Field" customClass="GuidedTextField">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="First name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ied-Dp-nK2" userLabel="First Name Text Field">
                                                         <rect key="frame" x="10" y="10" width="127" height="21"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no"/>
+                                                        <connections>
+                                                            <action selector="textFieldDidChange:" destination="cRc-ui-CIx" eventType="editingChanged" id="TGU-Rb-1tF"/>
+                                                        </connections>
                                                     </textField>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Dk-WQ-L98" userLabel="First-Last Name Separator">
                                                         <rect key="frame" x="140" y="0.0" width="1" height="40"/>
@@ -195,7 +198,7 @@
                                                             <constraint firstAttribute="height" constant="40" id="a7s-hZ-XLy"/>
                                                         </constraints>
                                                     </view>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="peq-n5-3WK" userLabel="Last Name Text Field" customClass="GuidedTextField">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Last name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="peq-n5-3WK" userLabel="Last Name Text Field" customClass="GuidedTextField">
                                                         <rect key="frame" x="149" y="10" width="126" height="21"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
@@ -215,17 +218,23 @@
                                                             <constraint firstAttribute="height" constant="1" id="p2K-Od-csb"/>
                                                         </constraints>
                                                     </view>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tle-83-Bk5" userLabel="Email Text Field" customClass="GuidedTextField">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tle-83-Bk5" userLabel="Email Text Field">
                                                         <rect key="frame" x="10" y="51" width="265" height="21"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
+                                                        <connections>
+                                                            <action selector="textFieldDidChange:" destination="cRc-ui-CIx" eventType="editingChanged" id="nJH-Xg-dJH"/>
+                                                        </connections>
                                                     </textField>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EoC-9q-XHl" userLabel="Password Text Field" customClass="GuidedTextField">
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EoC-9q-XHl" userLabel="Password Text Field">
                                                         <rect key="frame" x="10" y="91" width="265" height="21"/>
                                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
+                                                        <connections>
+                                                            <action selector="textFieldDidChange:" destination="cRc-ui-CIx" eventType="editingChanged" id="xai-15-uWU"/>
+                                                        </connections>
                                                     </textField>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -347,7 +356,14 @@
                             <constraint firstItem="V25-ZS-FOh" firstAttribute="top" secondItem="LT6-d3-5NW" secondAttribute="bottom" id="blu-MK-eBz"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Sign Up" id="Dvr-n0-rNN"/>
+                    <navigationItem key="navigationItem" title="Sign Up" id="Dvr-n0-rNN">
+                        <barButtonItem key="backBarButtonItem" title="CancelSignup" id="oST-BO-mcV"/>
+                        <barButtonItem key="rightBarButtonItem" title="Create" id="BuJ-9R-IXt">
+                            <connections>
+                                <action selector="doneButtonPushed:" destination="cRc-ui-CIx" id="fMM-a0-RuZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="0nZ-Ct-GoP" id="fsc-tM-OEd"/>
                         <outlet property="andLabel" destination="RQC-sd-HT2" id="wcq-Fe-wff"/>
@@ -487,17 +503,23 @@
                                             <constraint firstAttribute="height" constant="1" id="Sdv-cO-07a"/>
                                         </constraints>
                                     </view>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R4J-yx-SGq" userLabel="Email Text Field" customClass="GuidedTextField">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R4J-yx-SGq" userLabel="Email Text Field">
                                         <rect key="frame" x="10" y="10" width="265" height="21"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
+                                        <connections>
+                                            <action selector="textFieldDidChange:" destination="b64-Qq-ZiB" eventType="editingChanged" id="KiT-Rb-n5T"/>
+                                        </connections>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SEa-1y-xCl" userLabel="Password Text Field" customClass="GuidedTextField">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SEa-1y-xCl" userLabel="Password Text Field">
                                         <rect key="frame" x="10" y="51" width="265" height="21"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
+                                        <connections>
+                                            <action selector="textFieldDidChange:" destination="b64-Qq-ZiB" eventType="editingChanged" id="sGg-a8-BIU"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -534,7 +556,14 @@
                             <constraint firstItem="8zw-Fe-e1h" firstAttribute="leading" secondItem="U0Z-De-U5K" secondAttribute="leading" id="w1H-VH-0oC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Log In" id="aEk-6K-pKn"/>
+                    <navigationItem key="navigationItem" title="Log In" id="aEk-6K-pKn">
+                        <barButtonItem key="backBarButtonItem" title="CancelLogin" id="6fd-GF-Mkj"/>
+                        <barButtonItem key="rightBarButtonItem" title="Log in" id="29a-Vt-7cs">
+                            <connections>
+                                <action selector="doneButtonPushed:" destination="b64-Qq-ZiB" id="oLU-bL-ulB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="weH-4W-b5r" id="LTc-oe-0JF"/>
                         <outlet property="basicInputView" destination="U0Z-De-U5K" id="DU5-oS-qwA"/>

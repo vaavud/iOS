@@ -128,7 +128,7 @@
 "HEADING_TEMPERATURE" = "Temperature";
 "HEADING_WIND_DIRECTION" = "Direction";
 "BUTTON_NEXT" = "Next";
-"UNIT_CELCIUS" = "°C";
+"UNIT_CELSIUS" = "°C";
 "DIRECTION_CARDINAL" = "Cardinal";
 "DIRECTION_DEGREES" = "Degrees";
 "DIRECTION_N" = "N";

@@ -7,10 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GuidedTextField.h"
 #import "AccountManager.h"
 
-@interface LogInViewController : UIViewController <AuthenticationDelegate, UITextFieldDelegate, UIAlertViewDelegate>
+@interface LogInViewController : UIViewController <AuthenticationDelegate>
 
 @property (nonatomic, copy) void (^completion)(void);
 

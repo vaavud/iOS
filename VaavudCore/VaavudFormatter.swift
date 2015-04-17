@@ -25,7 +25,7 @@ enum TemperatureUnit: Int, FloatUnit {
     var decimals: Int { return 1 }
     func fromBase(kelvinValue: Float) -> Float { return kelvinValue*ratio + constant}
     
-    private var key: String { return ["UNIT_CELCIUS", "UNIT_FAHRENHEIT"][rawValue] }
+    private var key: String { return ["UNIT_CELSIUS", "UNIT_FAHRENHEIT"][rawValue] }
     
     private var ratio: Float { return [1, 9/5][rawValue] }
     

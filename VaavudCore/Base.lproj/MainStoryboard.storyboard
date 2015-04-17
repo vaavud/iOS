@@ -998,9 +998,17 @@
                                                 <constraint firstAttribute="width" constant="18" id="aVI-iP-pUD"/>
                                             </constraints>
                                         </imageView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fmp-Iz-uYl" userLabel="Divider">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                            <color key="backgroundColor" white="0.82705787907268158" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="zQ4-VF-cwL"/>
+                                            </constraints>
+                                        </view>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="jsX-3b-fbh" firstAttribute="top" secondItem="EFv-Zf-cOp" secondAttribute="topMargin" constant="7" id="2nA-Kl-FZO"/>
+                                        <constraint firstItem="Fmp-Iz-uYl" firstAttribute="top" secondItem="EFv-Zf-cOp" secondAttribute="top" id="3PA-zP-MIs"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="5L0-HK-mXZ" secondAttribute="trailing" constant="7" id="Ahw-bb-Hxb"/>
                                         <constraint firstItem="pSz-Nf-UPz" firstAttribute="leading" secondItem="9Ik-6S-adR" secondAttribute="trailing" constant="10" id="Cwu-Ca-jGz"/>
                                         <constraint firstItem="pSz-Nf-UPz" firstAttribute="centerX" secondItem="jst-8C-YL2" secondAttribute="centerX" id="LB1-Do-mCY"/>
@@ -1008,8 +1016,10 @@
                                         <constraint firstItem="5L0-HK-mXZ" firstAttribute="trailing" secondItem="3tP-CV-yHq" secondAttribute="trailing" id="TWY-Jc-yGX"/>
                                         <constraint firstItem="pSz-Nf-UPz" firstAttribute="top" secondItem="jst-8C-YL2" secondAttribute="bottom" constant="3" id="Tuf-N0-Px8"/>
                                         <constraint firstItem="9Ik-6S-adR" firstAttribute="top" secondItem="jsX-3b-fbh" secondAttribute="bottom" id="XaJ-xI-oGg"/>
+                                        <constraint firstAttribute="trailing" secondItem="Fmp-Iz-uYl" secondAttribute="trailing" id="aMa-Pf-pcH"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="9Ik-6S-adR" secondAttribute="bottom" constant="1" id="aT4-1F-dPx"/>
                                         <constraint firstItem="jsX-3b-fbh" firstAttribute="leading" secondItem="EFv-Zf-cOp" secondAttribute="leadingMargin" constant="7" id="b2v-HE-rIe"/>
+                                        <constraint firstItem="Fmp-Iz-uYl" firstAttribute="leading" secondItem="EFv-Zf-cOp" secondAttribute="leading" id="lRO-0y-iw5"/>
                                         <constraint firstItem="5L0-HK-mXZ" firstAttribute="top" secondItem="3tP-CV-yHq" secondAttribute="bottom" id="lhv-Dx-UZ9"/>
                                         <constraint firstItem="9Ik-6S-adR" firstAttribute="baseline" secondItem="5L0-HK-mXZ" secondAttribute="baseline" id="rA9-ff-ozq"/>
                                         <constraint firstItem="5L0-HK-mXZ" firstAttribute="leading" secondItem="pSz-Nf-UPz" secondAttribute="trailing" constant="5" id="rRX-gT-6c9"/>
@@ -1638,7 +1648,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="124" y="819"/>
+            <point key="canvasLocation" x="4" y="819"/>
         </scene>
         <!--Upgrading User View Controller-->
         <scene sceneID="E9Z-A7-ELX">
@@ -1794,6 +1804,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
+                                    <action selector="pressedCancel:" destination="yKg-bJ-xOb" eventType="touchUpInside" id="db2-dg-Jja"/>
                                     <segue destination="bnN-NV-pC1" kind="unwind" unwindAction="calibrationDone:" id="lxG-bb-OtD"/>
                                 </connections>
                             </button>

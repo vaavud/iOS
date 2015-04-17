@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "GuidedTextField.h"
 #import "AccountManager.h"
 
 @interface SignUpViewController : UIViewController <AuthenticationDelegate, UITextFieldDelegate, UIAlertViewDelegate>

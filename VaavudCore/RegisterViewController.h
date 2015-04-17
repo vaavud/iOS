@@ -14,6 +14,4 @@
 
 @property (nonatomic, copy) void (^completion)(void);
 
-@property (nonatomic) BOOL showCancelButton;
-
 @end
