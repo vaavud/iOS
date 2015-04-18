@@ -1,15 +1,15 @@
 
-/* Class = "UILabel"; text = "Summary screen showing your key measurement data, including pressure, temperature etc."; ObjectID = "74A-FE-VIW"; */
-"74A-FE-VIW.text" = "Summary screen showing your key measurement data, including pressure, temperature etc.";
+/* Class = "UILabel"; text = "Opsummeringsskærm der viser dine nøgle målepunkter inklusiv temperature og tryk osv."; ObjectID = "74A-FE-VIW"; */
+"74A-FE-VIW.text" = "L’écran de synthèse affiche vos principales données de mesure, y compris la pression, la température, etc.";
 
-/* Class = "UIButton"; normalTitle = "Buy the new Sleipnir now!"; ObjectID = "By2-Wp-Ksm"; */
-"By2-Wp-Ksm.normalTitle" = "Buy the new Sleipnir now!";
+/* Class = "UIButton"; normalTitle = "Køb den nye Sleipnir nu!"; ObjectID = "By2-Wp-Ksm"; */
+"By2-Wp-Ksm.normalTitle" = "Acheter le nouveau Sleipnir maintenant!";
 
-/* Class = "UILabel"; text = "What's new"; ObjectID = "DYL-PV-xrH"; */
-"DYL-PV-xrH.text" = "What's new";
+/* Class = "UILabel"; text = "Hvad er nyt"; ObjectID = "DYL-PV-xrH"; */
+"DYL-PV-xrH.text" = "Quoi de neuf";
 
-/* Class = "UILabel"; text = "History shows Geolocation and, with the new Sleipnir windmeter, wind direction!"; ObjectID = "QHy-ZF-8rZ"; */
-"QHy-ZF-8rZ.text" = "History shows Geolocation and, with the new Sleipnir windmeter, wind direction!";
+/* Class = "UILabel"; text = "Historien viser geolocation og med Sleipnir vindmåleren, vindretning!"; ObjectID = "QHy-ZF-8rZ"; */
+"QHy-ZF-8rZ.text" = "L'historique contient désormais la géolocalisation et, avec le nouvel anémomètre Sleipnir, la direction du vent !";
 
-/* Class = "UILabel"; text = "What's new"; ObjectID = "zoH-zr-gYm"; */
-"zoH-zr-gYm.text" = "What's new";
+/* Class = "UILabel"; text = "Hvad er nyt"; ObjectID = "zoH-zr-gYm"; */
+"zoH-zr-gYm.text" = "Quoi de neuf";

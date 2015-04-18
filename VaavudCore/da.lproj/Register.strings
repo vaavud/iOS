@@ -1,75 +1,75 @@
 
 /* Class = "UIBarButtonItem"; title = "Log in"; ObjectID = "29a-Vt-7cs"; */
-"29a-Vt-7cs.title" = "Log in";
+"29a-Vt-7cs.title" = "Log ind";
 
 /* Class = "UIBarButtonItem"; title = "CancelLogin"; ObjectID = "6fd-GF-Mkj"; */
-"6fd-GF-Mkj.title" = "CancelLogin";
+"6fd-GF-Mkj.title" = "Annuller";
 
 /* Class = "UIButton"; normalTitle = "Log in with Facebook"; ObjectID = "8zw-Fe-e1h"; */
-"8zw-Fe-e1h.normalTitle" = "Log in with Facebook";
+"8zw-Fe-e1h.normalTitle" = "Log ind med Facebook";
 
 /* Class = "UIBarButtonItem"; title = "Create"; ObjectID = "BuJ-9R-IXt"; */
-"BuJ-9R-IXt.title" = "Create";
+"BuJ-9R-IXt.title" = "Opret";
 
 /* Class = "UINavigationItem"; title = "Sign Up"; ObjectID = "Dvr-n0-rNN"; */
-"Dvr-n0-rNN.title" = "Sign Up";
+"Dvr-n0-rNN.title" = "Opret profil";
 
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "EoC-9q-XHl"; */
-"EoC-9q-XHl.placeholder" = "Password";
+"EoC-9q-XHl.placeholder" = "Kodeord";
 
 /* Class = "UITextField"; placeholder = "First name"; ObjectID = "Ied-Dp-nK2"; */
-"Ied-Dp-nK2.placeholder" = "First name";
+"Ied-Dp-nK2.placeholder" = "Fornavn";
 
 /* Class = "UILabel"; text = "#Label"; ObjectID = "KAW-1F-BHd"; */
 "KAW-1F-BHd.text" = "#Label";
 
 /* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "PDW-nY-SgY"; */
-"PDW-nY-SgY.title" = "Cancel";
+"PDW-nY-SgY.title" = "Annuller";
 
 /* Class = "UITextField"; placeholder = "Email"; ObjectID = "R4J-yx-SGq"; */
 "R4J-yx-SGq.placeholder" = "Email";
 
 /* Class = "UILabel"; text = "and"; ObjectID = "RQC-sd-HT2"; */
-"RQC-sd-HT2.text" = "and";
+"RQC-sd-HT2.text" = "og";
 
 /* Class = "UIButton"; normalTitle = "##Log In"; ObjectID = "RfU-7Y-inK"; */
-"RfU-7Y-inK.normalTitle" = "##Log In";
+"RfU-7Y-inK.normalTitle" = "Log ind";
 
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "SEa-1y-xCl"; */
-"SEa-1y-xCl.placeholder" = "Password";
+"SEa-1y-xCl.placeholder" = "Kodeord";
 
 /* Class = "UITextField"; placeholder = "Email"; ObjectID = "Tle-83-Bk5"; */
 "Tle-83-Bk5.placeholder" = "Email";
 
 /* Class = "UIButton"; normalTitle = "##Cancel"; ObjectID = "UW4-K5-F42"; */
-"UW4-K5-F42.normalTitle" = "##Cancel";
+"UW4-K5-F42.normalTitle" = "Annuller";
 
 /* Class = "UILabel"; text = "Or"; ObjectID = "VHr-rp-yDL"; */
-"VHr-rp-yDL.text" = "Or";
+"VHr-rp-yDL.text" = "Eller";
 
 /* Class = "UINavigationItem"; title = "Log In"; ObjectID = "aEk-6K-pKn"; */
-"aEk-6K-pKn.title" = "Log In";
+"aEk-6K-pKn.title" = "Log ind";
 
 /* Class = "UINavigationItem"; title = "##Register##"; ObjectID = "daQ-eU-lpY"; */
-"daQ-eU-lpY.title" = "##Register##";
+"daQ-eU-lpY.title" = "";
 
 /* Class = "UIButton"; normalTitle = "Sign up with Facebook"; ObjectID = "gtn-PX-ilr"; */
-"gtn-PX-ilr.normalTitle" = "Sign up with Facebook";
+"gtn-PX-ilr.normalTitle" = "Registrer med Facebook";
 
 /* Class = "UIButton"; normalTitle = "##Sign Up"; ObjectID = "kQi-uV-EHg"; */
-"kQi-uV-EHg.normalTitle" = "##Sign Up";
+"kQi-uV-EHg.normalTitle" = "Opret";
 
 /* Class = "UIButton"; normalTitle = "Privacy Policy"; ObjectID = "kyW-K8-yJ0"; */
-"kyW-K8-yJ0.normalTitle" = "Privacy Policy";
+"kyW-K8-yJ0.normalTitle" = "Privatlivspolitik";
 
 /* Class = "UIBarButtonItem"; title = "CancelSignup"; ObjectID = "oST-BO-mcV"; */
-"oST-BO-mcV.title" = "CancelSignup";
+"oST-BO-mcV.title" = "Annuller";
 
 /* Class = "UIButton"; normalTitle = "Terms of Service"; ObjectID = "pSX-qf-plK"; */
-"pSX-qf-plK.normalTitle" = "Terms of Service";
+"pSX-qf-plK.normalTitle" = "Betingelser";
 
 /* Class = "UITextField"; placeholder = "Last name"; ObjectID = "peq-n5-3WK"; */
-"peq-n5-3WK.placeholder" = "Last name";
+"peq-n5-3WK.placeholder" = "Efternavn";
 
 /* Class = "UILabel"; text = "Or"; ObjectID = "va4-sq-nkv"; */
-"va4-sq-nkv.text" = "Or";
+"va4-sq-nkv.text" = "Eller";

@@ -19,7 +19,7 @@
             </objects>
             <point key="canvasLocation" x="-227" y="12"/>
         </scene>
-        <!--##Register##-->
+        <!--Register View Controller-->
         <scene sceneID="OFR-ua-TdD">
             <objects>
                 <viewController storyboardIdentifier="RegisterViewController" providesPresentationContextTransitionStyle="YES" id="Ejx-Uu-BTy" customClass="RegisterViewController" sceneMemberID="viewController">
@@ -98,7 +98,7 @@
                             <constraint firstAttribute="centerX" secondItem="kQi-uV-EHg" secondAttribute="centerX" id="ur0-Tp-V93"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="##Register##" id="daQ-eU-lpY">
+                    <navigationItem key="navigationItem" id="daQ-eU-lpY">
                         <barButtonItem key="backBarButtonItem" title="Cancel" id="PDW-nY-SgY"/>
                     </navigationItem>
                     <connections>
@@ -575,7 +575,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OuS-SW-kt8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="724" y="442"/>
+            <point key="canvasLocation" x="724" y="335"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

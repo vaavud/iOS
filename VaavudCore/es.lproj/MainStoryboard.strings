@@ -1,264 +1,1 @@
-
-/* Class = "IBUILabel"; text = "Privacy policy"; ObjectID = "0Wi-Mz-tR8"; */
-"0Wi-Mz-tR8.text" = "Privacy Policy";
-
-/* Class = "IBUINavigationItem"; title = "History"; ObjectID = "0yT-ND-9nv"; */
-"0yT-ND-9nv.title" = "History";
-
-/* Class = "IBUILabel"; text = "1033"; ObjectID = "1Us-Rb-t2X"; */
-"1Us-Rb-t2X.text" = "##1033##";
-
-/* Class = "IBUILabel"; text = "TUESDAY, JAN 16"; ObjectID = "3FB-IL-Zna"; */
-"3FB-IL-Zna.text" = "##TUESDAY, JAN 16##";
-
-/* Class = "IBUITabBarItem"; title = "History"; ObjectID = "3Op-1J-XEW"; */
-"3Op-1J-XEW.title" = "History";
-
-/* Class = "IBUILabel"; text = "CURRENT"; ObjectID = "3jS-Rr-IOD"; */
-"3jS-Rr-IOD.text" = "Current";
-
-/* Class = "IBUILabel"; text = "km/h"; ObjectID = "3tP-CV-yHq"; */
-"3tP-CV-yHq.text" = "##km/h##";
-
-/* Class = "IBUILabel"; text = "Speed"; ObjectID = "4EF-kb-Y1v"; */
-"4EF-kb-Y1v.text" = "Wind Speed";
-
-/* Class = "IBUISegmentedControl"; 4TJ-1M-haN.segmentTitles[0] = "°C"; ObjectID = "4TJ-1M-haN"; */
-"4TJ-1M-haN.segmentTitles[0]" = "##°C##";
-
-/* Class = "IBUISegmentedControl"; 4TJ-1M-haN.segmentTitles[1] = "°F"; ObjectID = "4TJ-1M-haN"; */
-"4TJ-1M-haN.segmentTitles[1]" = "##°F##";
-
-/* Class = "IBUILabel"; text = "28.8"; ObjectID = "5L0-HK-mXZ"; */
-"5L0-HK-mXZ.text" = "##28.8##";
-
-/* Class = "IBUILabel"; text = "GUSTINESS"; ObjectID = "7N2-He-qYY"; */
-"7N2-He-qYY.text" = "Gustiness";
-
-/* Class = "IBUILabel"; text = "Label"; ObjectID = "92M-qr-ece"; */
-"92M-qr-ece.text" = "##Label##";
-
-/* Class = "IBUILabel"; text = "Measuring tips"; ObjectID = "99v-5L-cgm"; */
-"99v-5L-cgm.text" = "Measuring tips";
-
-/* Class = "IBUILabel"; text = "Amager Strandpark"; ObjectID = "9Ik-6S-adR"; */
-"9Ik-6S-adR.text" = "##Amager Strandpark##";
-
-/* Class = "IBUINavigationItem"; title = "Title"; ObjectID = "9cq-Ve-6sS"; */
-"9cq-Ve-6sS.title" = "##Title##";
-
-/* Class = "IBUILabel"; text = "Temperature"; ObjectID = "9uf-in-4gP"; */
-"9uf-in-4gP.text" = "Temperature";
-
-/* Class = "IBUILabel"; text = "AVERAGE"; ObjectID = "BNl-iK-NzK"; */
-"BNl-iK-NzK.text" = "Average";
-
-/* Class = "IBUILabel"; text = "25.3"; ObjectID = "BNx-Ty-Ux8"; */
-"BNx-Ty-Ux8.text" = "##25.3##";
-
-/* Class = "IBUILabel"; text = "UNIT"; ObjectID = "BoF-HW-bXq"; */
-"BoF-HW-bXq.text" = "Unit";
-
-/* Class = "IBUITabBarItem"; title = "Map"; ObjectID = "CJd-r9-Fhf"; */
-"CJd-r9-Fhf.title" = "Map";
-
-/* Class = "IBUISegmentedControl"; Dvh-om-zIW.segmentTitles[0] = "km/h"; ObjectID = "Dvh-om-zIW"; */
-"Dvh-om-zIW.segmentTitles[0]" = "km/h";
-
-/* Class = "IBUISegmentedControl"; Dvh-om-zIW.segmentTitles[1] = "m/s"; ObjectID = "Dvh-om-zIW"; */
-"Dvh-om-zIW.segmentTitles[1]" = "m/s";
-
-/* Class = "IBUISegmentedControl"; Dvh-om-zIW.segmentTitles[2] = "mph"; ObjectID = "Dvh-om-zIW"; */
-"Dvh-om-zIW.segmentTitles[2]" = "mph";
-
-/* Class = "IBUISegmentedControl"; Dvh-om-zIW.segmentTitles[3] = "kt"; ObjectID = "Dvh-om-zIW"; */
-"Dvh-om-zIW.segmentTitles[3]" = "kt";
-
-/* Class = "IBUISegmentedControl"; Dvh-om-zIW.segmentTitles[4] = "bft"; ObjectID = "Dvh-om-zIW"; */
-"Dvh-om-zIW.segmentTitles[4]" = "bft";
-
-/* Class = "IBUILabel"; text = "-"; ObjectID = "E6z-xo-cgt"; */
-"E6z-xo-cgt.text" = "##-##";
-
-/* Class = "IBUIViewController"; title = "History"; ObjectID = "GaG-jr-7RN"; */
-"GaG-jr-7RN.title" = "##History##";
-
-/* Class = "IBUILabel"; text = "WINDCHILL"; ObjectID = "HR4-FD-hzb"; */
-"HR4-FD-hzb.text" = "Wind chill";
-
-/* Class = "IBUILabel"; text = "28.3"; ObjectID = "Ha6-Kc-3pj"; */
-"Ha6-Kc-3pj.text" = "##28.3##";
-
-/* Class = "IBUILabel"; text = "9.9.9"; ObjectID = "Hxy-12-BRt"; */
-"Hxy-12-BRt.text" = "##9.9.9##";
-
-/* Class = "IBUILabel"; text = "Amager Strandpark"; ObjectID = "ITn-VN-50V"; */
-"ITn-VN-50V.text" = "##Amager Strandpark##";
-
-/* Class = "IBUILabel"; text = "Go to Measure"; ObjectID = "Jd4-9A-Zve"; */
-"Jd4-9A-Zve.text" = "##Go to Measure##";
-
-/* Class = "IBUIButton"; normalTitle = "WSW"; ObjectID = "KWl-Zw-lzc"; */
-"KWl-Zw-lzc.normalTitle" = "##WSW##";
-
-/* Class = "IBUILabel"; text = "°C"; ObjectID = "MsJ-Ld-ZZz"; */
-"MsJ-Ld-ZZz.text" = "##°C##";
-
-/* Class = "IBUILabel"; text = "No measurements yet"; ObjectID = "NLq-rp-g7I"; */
-"NLq-rp-g7I.text" = "##No measurements yet##";
-
-/* Class = "IBUILabel"; text = "WNW"; ObjectID = "NPp-rW-tPa"; */
-"NPp-rW-tPa.text" = "##WNW##";
-
-/* Class = "IBUILabel"; text = "Calibrate Sleipnir wind meter"; ObjectID = "Ngi-TO-lyX"; */
-"Ngi-TO-lyX.text" = "Calibrate Sleipnir wind meter";
-
-/* Class = "IBUILabel"; text = "°C"; ObjectID = "Nud-eU-mVJ"; */
-"Nud-eU-mVJ.text" = "##°C##";
-
-/* Class = "IBUILabel"; text = "Calibrate your Sleipnir to get more accurate measurements"; ObjectID = "OEh-Ao-4Gg"; */
-"OEh-Ao-4Gg.text" = "Calibrate your Sleipnir to get more accurate measurements";
-
-/* Class = "IBUILabel"; text = "M/S"; ObjectID = "OfN-lw-f2W"; */
-"OfN-lw-f2W.text" = "##M/S##";
-
-/* Class = "IBUIButton"; normalTitle = "E"; ObjectID = "Psy-tP-zmd"; */
-"Psy-tP-zmd.normalTitle" = "E";
-
-/* Class = "IBUILabel"; text = "Label"; ObjectID = "Pvj-NR-cXf"; */
-"Pvj-NR-cXf.text" = "##Label##";
-
-/* Class = "IBUILabel"; text = "MAX"; ObjectID = "QYA-qT-P4j"; */
-"QYA-qT-P4j.text" = "Max";
-
-/* Class = "IBUILabel"; text = "M/S"; ObjectID = "RdQ-dE-OhZ"; */
-"RdQ-dE-OhZ.text" = "##M/S##";
-
-/* Class = "IBUILabel"; text = "AVERAGE"; ObjectID = "ReF-g7-EF0"; */
-"ReF-g7-EF0.text" = "Average";
-
-/* Class = "IBUIButton"; normalTitle = "S"; ObjectID = "Rlf-av-xRp"; */
-"Rlf-av-xRp.normalTitle" = "S";
-
-/* Class = "IBUIButton"; normalTitle = "N"; ObjectID = "S4V-DO-Sud"; */
-"S4V-DO-Sud.normalTitle" = "N";
-
-/* Class = "IBUILabel"; text = "TEMPERATURE"; ObjectID = "SIQ-Ha-tfu"; */
-"SIQ-Ha-tfu.text" = "Temperature";
-
-/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "SqB-58-y7j"; */
-"SqB-58-y7j.normalTitle" = "##Button##";
-
-/* Class = "IBUILabel"; text = "Vaavud"; ObjectID = "TO8-1o-vEL"; */
-"TO8-1o-vEL.text" = "##Vaavud##";
-
-/* Class = "IBUILabel"; text = "Direction"; ObjectID = "VFp-bi-bOg"; */
-"VFp-bi-bOg.text" = "Direction";
-
-/* Class = "IBUILabel"; text = "23"; ObjectID = "Vbb-Ps-UGv"; */
-"Vbb-Ps-UGv.text" = "##23##";
-
-/* Class = "IBUIButton"; normalTitle = "Cancel"; ObjectID = "WMV-Cp-KyZ"; */
-"WMV-Cp-KyZ.normalTitle" = "Cancel";
-
-/* Class = "IBUILabel"; text = "%"; ObjectID = "Wsv-hK-UUh"; */
-"Wsv-hK-UUh.text" = "##%##";
-
-/* Class = "IBUILabel"; text = "Pressure"; ObjectID = "XA6-Lw-37y"; */
-"XA6-Lw-37y.text" = "Pressure";
-
-/* Class = "IBUILabel"; text = "Buy windmeter"; ObjectID = "aCy-gS-PPe"; */
-"aCy-gS-PPe.text" = "Buy a wind meter";
-
-/* Class = "IBUILabel"; text = "-"; ObjectID = "aIb-lj-gMl"; */
-"aIb-lj-gMl.text" = "##-##";
-
-/* Class = "IBUITabBarItem"; title = "Measure"; ObjectID = "bEh-Uj-qCq"; */
-"bEh-Uj-qCq.title" = "Measure";
-
-/* Class = "IBUINavigationItem"; title = "About"; ObjectID = "bV5-Bh-coT"; */
-"bV5-Bh-coT.title" = "About";
-
-/* Class = "IBUISegmentedControl"; bcI-dI-OVQ.segmentTitles[0] = "Cardinal"; ObjectID = "bcI-dI-OVQ"; */
-"bcI-dI-OVQ.segmentTitles[0]" = "Cardinal";
-
-/* Class = "IBUISegmentedControl"; bcI-dI-OVQ.segmentTitles[1] = "Degrees"; ObjectID = "bcI-dI-OVQ"; */
-"bcI-dI-OVQ.segmentTitles[1]" = "Degrees";
-
-/* Class = "IBUINavigationItem"; title = "Settings"; ObjectID = "cSV-1z-9B0"; */
-"cSV-1z-9B0.title" = "Settings";
-
-/* Class = "IBUILabel"; text = "Measure direction with the new Sleipnir!"; ObjectID = "crp-cu-8Rx"; */
-"crp-cu-8Rx.text" = "Measure direction with the new Sleipnir!";
-
-/* Class = "IBUISegmentedControl"; d52-Tg-BU8.segmentTitles[0] = "mbar"; ObjectID = "d52-Tg-BU8"; */
-"d52-Tg-BU8.segmentTitles[0]" = "mbar";
-
-/* Class = "IBUISegmentedControl"; d52-Tg-BU8.segmentTitles[1] = "atm"; ObjectID = "d52-Tg-BU8"; */
-"d52-Tg-BU8.segmentTitles[1]" = "atm";
-
-/* Class = "IBUISegmentedControl"; d52-Tg-BU8.segmentTitles[2] = "mmHg"; ObjectID = "d52-Tg-BU8"; */
-"d52-Tg-BU8.segmentTitles[2]" = "mmHg";
-
-/* Class = "IBUITableViewSection"; headerTitle = "About"; ObjectID = "f2g-Zs-Vly"; */
-"f2g-Zs-Vly.headerTitle" = "About";
-
-/* Class = "IBUIButton"; normalTitle = "m/s"; ObjectID = "f71-hp-4cl"; */
-"f71-hp-4cl.normalTitle" = "##m/s##";
-
-/* Class = "IBUILabel"; text = "DIRECTION"; ObjectID = "f8n-QV-wk6"; */
-"f8n-QV-wk6.text" = "Direction";
-
-/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "fFs-jM-11l"; */
-"fFs-jM-11l.normalTitle" = "##Button##";
-
-/* Class = "IBUIButton"; normalTitle = "I'll get it later"; ObjectID = "iK5-Sz-W9x"; */
-"iK5-Sz-W9x.normalTitle" = "I'll get it later";
-
-/* Class = "IBUILabel"; text = "Version"; ObjectID = "jQ2-on-Nks"; */
-"jQ2-on-Nks.text" = "Version";
-
-/* Class = "IBUITableViewSection"; headerTitle = "Units"; ObjectID = "jX4-JS-E5g"; */
-"jX4-JS-E5g.headerTitle" = "Units";
-
-/* Class = "IBUILabel"; text = "PRESSURE"; ObjectID = "ja0-Wh-gSx"; */
-"ja0-Wh-gSx.text" = "Pressure";
-
-/* Class = "IBUILabel"; text = "26.1"; ObjectID = "jk9-WO-7ca"; */
-"jk9-WO-7ca.text" = "##26.1##";
-
-/* Class = "IBUILabel"; text = "4:45 PM"; ObjectID = "jsX-3b-fbh"; */
-"jsX-3b-fbh.text" = "##4:45 PM##";
-
-/* Class = "IBUIBarButtonItem"; title = "Log out"; ObjectID = "kic-mv-NUN"; */
-"kic-mv-NUN.title" = "Log out";
-
-/* Class = "IBUILabel"; text = "34"; ObjectID = "oKY-WA-JW3"; */
-"oKY-WA-JW3.text" = "##34##";
-
-/* Class = "IBUILabel"; text = "WSW"; ObjectID = "pSz-Nf-UPz"; */
-"pSz-Nf-UPz.text" = "##WSW##";
-
-/* Class = "IBUILabel"; text = "MAX"; ObjectID = "qBg-VY-wWc"; */
-"qBg-VY-wWc.text" = "Max";
-
-/* Class = "IBUILabel"; text = "mbar"; ObjectID = "qgi-7c-kvP"; */
-"qgi-7c-kvP.text" = "##mbar##";
-
-/* Class = "IBUITableViewSection"; headerTitle = "Support"; ObjectID = "qoN-37-dk6"; */
-"qoN-37-dk6.headerTitle" = "Support";
-
-/* Class = "IBUIButton"; normalTitle = "W"; ObjectID = "s3A-20-Bgq"; */
-"s3A-20-Bgq.normalTitle" = "W";
-
-/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "uuY-48-OP5"; */
-"uuY-48-OP5.normalTitle" = "##Button##";
-
-/* Class = "IBUILabel"; text = "Terms of service"; ObjectID = "vPu-Fu-XVO"; */
-"vPu-Fu-XVO.text" = "Terms of Service";
-
-/* Class = "IBUIViewController"; title = "Loading"; ObjectID = "vms-GY-Bns"; */
-"vms-GY-Bns.title" = "##Loading##";
-
-/* Class = "IBUILabel"; text = "34"; ObjectID = "zww-I2-x89"; */
-"zww-I2-x89.text" = "##34##";
+/* Class = "UILabel"; text = "Privacy policy"; ObjectID = "0Wi-Mz-tR8"; */"0Wi-Mz-tR8.text" = "Política de privacidad";/* Class = "UINavigationItem"; title = "History"; ObjectID = "0yT-ND-9nv"; */"0yT-ND-9nv.title" = "Historial";/* Class = "UILabel"; text = "1033"; ObjectID = "1Us-Rb-t2X"; */"1Us-Rb-t2X.text" = "1033";/* Class = "UILabel"; text = "TUESDAY, JAN 16"; ObjectID = "3FB-IL-Zna"; */"3FB-IL-Zna.text" = "TUESDAY, JAN 16";/* Class = "UILabel"; text = "CURRENT"; ObjectID = "3jS-Rr-IOD"; */"3jS-Rr-IOD.text" = "ACTUAL";/* Class = "UILabel"; text = "km/h"; ObjectID = "3tP-CV-yHq"; */"3tP-CV-yHq.text" = "km/h";/* Class = "UILabel"; text = "Windspeed"; ObjectID = "4EF-kb-Y1v"; */"4EF-kb-Y1v.text" = "Dirección del viento";/* Class = "UISegmentedControl"; 4TJ-1M-haN.segmentTitles[0] = "°C"; ObjectID = "4TJ-1M-haN"; */"4TJ-1M-haN.segmentTitles[0]" = "°C";/* Class = "UISegmentedControl"; 4TJ-1M-haN.segmentTitles[1] = "°F"; ObjectID = "4TJ-1M-haN"; */"4TJ-1M-haN.segmentTitles[1]" = "°F";/* Class = "UILabel"; text = "28.8"; ObjectID = "5L0-HK-mXZ"; */"5L0-HK-mXZ.text" = "28.8";/* Class = "UILabel"; text = "GUSTINESS"; ObjectID = "7N2-He-qYY"; */"7N2-He-qYY.text" = "RAFAGAS";/* Class = "UILabel"; text = "Label"; ObjectID = "92M-qr-ece"; */"92M-qr-ece.text" = "Label";/* Class = "UILabel"; text = "Measuring tips"; ObjectID = "99v-5L-cgm"; */"99v-5L-cgm.text" = "Consejos para medir";/* Class = "UILabel"; text = "Amager Strandpark"; ObjectID = "9Ik-6S-adR"; */"9Ik-6S-adR.text" = "Amager Strandpark";/* Class = "UINavigationItem"; title = "Title"; ObjectID = "9cq-Ve-6sS"; */"9cq-Ve-6sS.title" = "Title";/* Class = "UILabel"; text = "Temperature"; ObjectID = "9uf-in-4gP"; */"9uf-in-4gP.text" = "Temperatura";/* Class = "UILabel"; text = "AVERAGE"; ObjectID = "BNl-iK-NzK"; */"BNl-iK-NzK.text" = "MEDIA";/* Class = "UILabel"; text = "25.3"; ObjectID = "BNx-Ty-Ux8"; */"BNx-Ty-Ux8.text" = "25.3";/* Class = "UILabel"; text = "UNIT"; ObjectID = "BoF-HW-bXq"; */"BoF-HW-bXq.text" = "UNIDAD";/* Class = "UITabBarItem"; title = "Map"; ObjectID = "CJd-r9-Fhf"; */"CJd-r9-Fhf.title" = "Mapa";/* Class = "UITabBarItem"; title = "History"; ObjectID = "DWa-II-q3Q"; */"DWa-II-q3Q.title" = "Historial";/* Class = "UISegmentedControl"; Dvh-om-zIW.segmentTitles[0] = "km/h"; ObjectID = "Dvh-om-zIW"; */"Dvh-om-zIW.segmentTitles[0]" = "km/h";/* Class = "UISegmentedControl"; Dvh-om-zIW.segmentTitles[1] = "m/s"; ObjectID = "Dvh-om-zIW"; */"Dvh-om-zIW.segmentTitles[1]" = "m/s";/* Class = "UISegmentedControl"; Dvh-om-zIW.segmentTitles[2] = "mph"; ObjectID = "Dvh-om-zIW"; */"Dvh-om-zIW.segmentTitles[2]" = "mph";/* Class = "UISegmentedControl"; Dvh-om-zIW.segmentTitles[3] = "kt"; ObjectID = "Dvh-om-zIW"; */"Dvh-om-zIW.segmentTitles[3]" = "kt";/* Class = "UISegmentedControl"; Dvh-om-zIW.segmentTitles[4] = "bft"; ObjectID = "Dvh-om-zIW"; */"Dvh-om-zIW.segmentTitles[4]" = "bft";/* Class = "UILabel"; text = "-"; ObjectID = "E6z-xo-cgt"; */"E6z-xo-cgt.text" = "-";/* Class = "UILabel"; text = "WINDCHILL"; ObjectID = "HR4-FD-hzb"; */"HR4-FD-hzb.text" = "SENSACIÓN";/* Class = "UILabel"; text = "28.3"; ObjectID = "Ha6-Kc-3pj"; */"Ha6-Kc-3pj.text" = "28.3";/* Class = "UILabel"; text = "9.9.9"; ObjectID = "Hxy-12-BRt"; */"Hxy-12-BRt.text" = "9.9.9";/* Class = "UILabel"; text = "Amager Strandpark"; ObjectID = "ITn-VN-50V"; */"ITn-VN-50V.text" = "Amager Strandpark";/* Class = "UIButton"; normalTitle = "WSW"; ObjectID = "KWl-Zw-lzc"; */"KWl-Zw-lzc.normalTitle" = "WSW";/* Class = "UILabel"; text = "°C"; ObjectID = "MsJ-Ld-ZZz"; */"MsJ-Ld-ZZz.text" = "°C";/* Class = "UILabel"; text = "WNW"; ObjectID = "NPp-rW-tPa"; */"NPp-rW-tPa.text" = "WNW";/* Class = "UILabel"; text = "Calibrate Sleipnir wind meter"; ObjectID = "Ngi-TO-lyX"; */"Ngi-TO-lyX.text" = "Calibra el anemómetro Sleipnir";/* Class = "UILabel"; text = "°C"; ObjectID = "Nud-eU-mVJ"; */"Nud-eU-mVJ.text" = "°C";/* Class = "UILabel"; text = "Calibrate your Sleipnir to get more accurate measurements"; ObjectID = "OEh-Ao-4Gg"; */"OEh-Ao-4Gg.text" = "Calibra tu Sleipnir para obtener mediciones más precisas";/* Class = "UILabel"; text = "M/S"; ObjectID = "OfN-lw-f2W"; */"OfN-lw-f2W.text" = "M/S";/* Class = "UIButton"; normalTitle = "E"; ObjectID = "Psy-tP-zmd"; */"Psy-tP-zmd.normalTitle" = "E";/* Class = "UILabel"; text = "Label"; ObjectID = "Pvj-NR-cXf"; */"Pvj-NR-cXf.text" = "Label";/* Class = "UILabel"; text = "MAX"; ObjectID = "QYA-qT-P4j"; */"QYA-qT-P4j.text" = "MAX";/* Class = "UILabel"; text = "M/S"; ObjectID = "RdQ-dE-OhZ"; */"RdQ-dE-OhZ.text" = "M/S";/* Class = "UILabel"; text = "AVERAGE"; ObjectID = "ReF-g7-EF0"; */"ReF-g7-EF0.text" = "MEDIA";/* Class = "UIButton"; normalTitle = "S"; ObjectID = "Rlf-av-xRp"; */"Rlf-av-xRp.normalTitle" = "S";/* Class = "UIButton"; normalTitle = "N"; ObjectID = "S4V-DO-Sud"; */"S4V-DO-Sud.normalTitle" = "N";/* Class = "UILabel"; text = "TEMPERATURE"; ObjectID = "SIQ-Ha-tfu"; */"SIQ-Ha-tfu.text" = "TEMPERATURA";/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "SqB-58-y7j"; */"SqB-58-y7j.normalTitle" = "Button";/* Class = "UILabel"; text = "Vaavud"; ObjectID = "TO8-1o-vEL"; */"TO8-1o-vEL.text" = "Vaavud";/* Class = "UILabel"; text = "Direction"; ObjectID = "VFp-bi-bOg"; */"VFp-bi-bOg.text" = "Dirección";/* Class = "UILabel"; text = "23"; ObjectID = "Vbb-Ps-UGv"; */"Vbb-Ps-UGv.text" = "23";/* Class = "UIButton"; normalTitle = "Cancel"; ObjectID = "WMV-Cp-KyZ"; */"WMV-Cp-KyZ.normalTitle" = "Cancelar";/* Class = "UILabel"; text = "%"; ObjectID = "Wsv-hK-UUh"; */"Wsv-hK-UUh.text" = "%";/* Class = "UILabel"; text = "Pressure"; ObjectID = "XA6-Lw-37y"; */"XA6-Lw-37y.text" = "Presión";/* Class = "UILabel"; text = "Buy windmeter"; ObjectID = "aCy-gS-PPe"; */"aCy-gS-PPe.text" = "Comprar un anemómetro";/* Class = "UILabel"; text = "-"; ObjectID = "aIb-lj-gMl"; */"aIb-lj-gMl.text" = "-";/* Class = "UITabBarItem"; title = "Measure"; ObjectID = "bEh-Uj-qCq"; */"bEh-Uj-qCq.title" = "Medir";/* Class = "UINavigationItem"; title = "About"; ObjectID = "bV5-Bh-coT"; */"bV5-Bh-coT.title" = "Acerca";/* Class = "UISegmentedControl"; bcI-dI-OVQ.segmentTitles[0] = "Cardinal"; ObjectID = "bcI-dI-OVQ"; */"bcI-dI-OVQ.segmentTitles[0]" = "Cardinal";/* Class = "UISegmentedControl"; bcI-dI-OVQ.segmentTitles[1] = "Degrees"; ObjectID = "bcI-dI-OVQ"; */"bcI-dI-OVQ.segmentTitles[1]" = "Grados";/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "cSV-1z-9B0"; */"cSV-1z-9B0.title" = "Configuración";/* Class = "UILabel"; text = "Measure direction with the new Sleipnir!"; ObjectID = "crp-cu-8Rx"; */"crp-cu-8Rx.text" = "Mide la dirección del viento con el nuevo Sleipnir!";/* Class = "UISegmentedControl"; d52-Tg-BU8.segmentTitles[0] = "mbar"; ObjectID = "d52-Tg-BU8"; */"d52-Tg-BU8.segmentTitles[0]" = "mbar";/* Class = "UISegmentedControl"; d52-Tg-BU8.segmentTitles[1] = "atm"; ObjectID = "d52-Tg-BU8"; */"d52-Tg-BU8.segmentTitles[1]" = "atm";/* Class = "UISegmentedControl"; d52-Tg-BU8.segmentTitles[2] = "mmHg"; ObjectID = "d52-Tg-BU8"; */"d52-Tg-BU8.segmentTitles[2]" = "mmHg";/* Class = "UITableViewSection"; headerTitle = "About"; ObjectID = "f2g-Zs-Vly"; */"f2g-Zs-Vly.headerTitle" = "ACERCA";/* Class = "UIButton"; normalTitle = "m/s"; ObjectID = "f71-hp-4cl"; */"f71-hp-4cl.normalTitle" = "m/s";/* Class = "UILabel"; text = "DIRECTION"; ObjectID = "f8n-QV-wk6"; */"f8n-QV-wk6.text" = "DIRECCIÓN";/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "fFs-jM-11l"; */"fFs-jM-11l.normalTitle" = "Button";/* Class = "UIButton"; normalTitle = "I'll get it later"; ObjectID = "iK5-Sz-W9x"; */"iK5-Sz-W9x.normalTitle" = "Lo compraré más tarde";/* Class = "UILabel"; text = "Version"; ObjectID = "jQ2-on-Nks"; */"jQ2-on-Nks.text" = "Versión";/* Class = "UITableViewSection"; headerTitle = "Units"; ObjectID = "jX4-JS-E5g"; */"jX4-JS-E5g.headerTitle" = "UNIDADES";/* Class = "UILabel"; text = "PRESSURE"; ObjectID = "ja0-Wh-gSx"; */"ja0-Wh-gSx.text" = "PRESIÓN";/* Class = "UILabel"; text = "26.1"; ObjectID = "jk9-WO-7ca"; */"jk9-WO-7ca.text" = "26.1";/* Class = "UILabel"; text = "4:45 PM"; ObjectID = "jsX-3b-fbh"; */"jsX-3b-fbh.text" = "4:45 PM";/* Class = "UIBarButtonItem"; title = "Log out"; ObjectID = "kic-mv-NUN"; */"kic-mv-NUN.title" = "Cerrar sesión";/* Class = "UILabel"; text = "34"; ObjectID = "oKY-WA-JW3"; */"oKY-WA-JW3.text" = "34";/* Class = "UILabel"; text = "WSW"; ObjectID = "pSz-Nf-UPz"; */"pSz-Nf-UPz.text" = "WSW";/* Class = "UILabel"; text = "MAX"; ObjectID = "qBg-VY-wWc"; */"qBg-VY-wWc.text" = "MAX";/* Class = "UILabel"; text = "mbar"; ObjectID = "qgi-7c-kvP"; */"qgi-7c-kvP.text" = "mbar";/* Class = "UITableViewSection"; headerTitle = "Support"; ObjectID = "qoN-37-dk6"; */"qoN-37-dk6.headerTitle" = "SOPORTE";/* Class = "UIButton"; normalTitle = "W"; ObjectID = "s3A-20-Bgq"; */"s3A-20-Bgq.normalTitle" = "O";/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "uuY-48-OP5"; */"uuY-48-OP5.normalTitle" = "Button";/* Class = "UILabel"; text = "Terms of service"; ObjectID = "vPu-Fu-XVO"; */"vPu-Fu-XVO.text" = "Terminos de Servicio";/* Class = "UILabel"; text = "34"; ObjectID = "zww-I2-x89"; */"zww-I2-x89.text" = "34";/* Class = "IBUIButton"; normalTitle = "Button"; ObjectID = "uuY-48-OP5"; */"uuY-48-OP5.normalTitle" = "Button";/* Class = "IBUILabel"; text = "Terms of service"; ObjectID = "vPu-Fu-XVO"; */"vPu-Fu-XVO.text" = "Terminos de Servicio";/* Class = "IBUIViewController"; title = "Loading"; ObjectID = "vms-GY-Bns"; */"vms-GY-Bns.title" = "Loading";/* Class = "IBUILabel"; text = "34"; ObjectID = "zww-I2-x89"; */"zww-I2-x89.text" = "34";

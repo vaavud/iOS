@@ -1,75 +1,75 @@
 
 /* Class = "UIBarButtonItem"; title = "Log in"; ObjectID = "29a-Vt-7cs"; */
-"29a-Vt-7cs.title" = "Log-In";
+"29a-Vt-7cs.title" = "Iniciar sessió";
 
 /* Class = "UIBarButtonItem"; title = "CancelLogin"; ObjectID = "6fd-GF-Mkj"; */
-"6fd-GF-Mkj.title" = "Abbrechen";
+"6fd-GF-Mkj.title" = "Cancel·lar";
 
 /* Class = "UIButton"; normalTitle = "Log in with Facebook"; ObjectID = "8zw-Fe-e1h"; */
-"8zw-Fe-e1h.normalTitle" = "Mit Facebook einloggen";
+"8zw-Fe-e1h.normalTitle" = "Iniciar la sessió amb Facebook";
 
 /* Class = "UIBarButtonItem"; title = "Create"; ObjectID = "BuJ-9R-IXt"; */
-"BuJ-9R-IXt.title" = "Sign up";
+"BuJ-9R-IXt.title" = "Registra’t";
 
 /* Class = "UINavigationItem"; title = "Sign Up"; ObjectID = "Dvr-n0-rNN"; */
-"Dvr-n0-rNN.title" = "Anmeldung";
+"Dvr-n0-rNN.title" = "Enregistrar-se";
 
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "EoC-9q-XHl"; */
-"EoC-9q-XHl.placeholder" = "Passwort";
+"EoC-9q-XHl.placeholder" = "Paraula de pas";
 
 /* Class = "UITextField"; placeholder = "First name"; ObjectID = "Ied-Dp-nK2"; */
-"Ied-Dp-nK2.placeholder" = "Vorname";
+"Ied-Dp-nK2.placeholder" = "Nom";
 
 /* Class = "UILabel"; text = "#Label"; ObjectID = "KAW-1F-BHd"; */
 "KAW-1F-BHd.text" = "#Label";
 
 /* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "PDW-nY-SgY"; */
-"PDW-nY-SgY.title" = "Abbrechen";
+"PDW-nY-SgY.title" = "Cancel·lar";
 
 /* Class = "UITextField"; placeholder = "Email"; ObjectID = "R4J-yx-SGq"; */
-"R4J-yx-SGq.placeholder" = "E-Mail";
+"R4J-yx-SGq.placeholder" = "Email";
 
 /* Class = "UILabel"; text = "and"; ObjectID = "RQC-sd-HT2"; */
-"RQC-sd-HT2.text" = "und";
+"RQC-sd-HT2.text" = "i";
 
 /* Class = "UIButton"; normalTitle = "##Log In"; ObjectID = "RfU-7Y-inK"; */
-"RfU-7Y-inK.normalTitle" = "Log-In";
+"RfU-7Y-inK.normalTitle" = "Iniciar sessió";
 
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "SEa-1y-xCl"; */
-"SEa-1y-xCl.placeholder" = "Passwort";
+"SEa-1y-xCl.placeholder" = "Paraula de pas";
 
 /* Class = "UITextField"; placeholder = "Email"; ObjectID = "Tle-83-Bk5"; */
-"Tle-83-Bk5.placeholder" = "E-Mail";
+"Tle-83-Bk5.placeholder" = "Email";
 
 /* Class = "UIButton"; normalTitle = "##Cancel"; ObjectID = "UW4-K5-F42"; */
-"UW4-K5-F42.normalTitle" = "Abbrechen";
+"UW4-K5-F42.normalTitle" = "Cancel·lar";
 
 /* Class = "UILabel"; text = "Or"; ObjectID = "VHr-rp-yDL"; */
-"VHr-rp-yDL.text" = "Oder";
+"VHr-rp-yDL.text" = "O";
 
 /* Class = "UINavigationItem"; title = "Log In"; ObjectID = "aEk-6K-pKn"; */
-"aEk-6K-pKn.title" = "Log-In";
+"aEk-6K-pKn.title" = "Iniciar sessió";
 
 /* Class = "UINavigationItem"; title = "##Register##"; ObjectID = "daQ-eU-lpY"; */
 "daQ-eU-lpY.title" = "";
 
 /* Class = "UIButton"; normalTitle = "Sign up with Facebook"; ObjectID = "gtn-PX-ilr"; */
-"gtn-PX-ilr.normalTitle" = "Mit Facebook anmelden";
+"gtn-PX-ilr.normalTitle" = "Enregistrar-se amb Facebook";
 
 /* Class = "UIButton"; normalTitle = "##Sign Up"; ObjectID = "kQi-uV-EHg"; */
-"kQi-uV-EHg.normalTitle" = "Sign up";
+"kQi-uV-EHg.normalTitle" = "Registra’t";
 
 /* Class = "UIButton"; normalTitle = "Privacy Policy"; ObjectID = "kyW-K8-yJ0"; */
-"kyW-K8-yJ0.normalTitle" = "Datenschutzerklärung";
+"kyW-K8-yJ0.normalTitle" = "Política de privacitat";
 
 /* Class = "UIBarButtonItem"; title = "CancelSignup"; ObjectID = "oST-BO-mcV"; */
-"oST-BO-mcV.title" = "Abbrechen";
+"oST-BO-mcV.title" = "Cancel·lar";
 
 /* Class = "UIButton"; normalTitle = "Terms of Service"; ObjectID = "pSX-qf-plK"; */
-"pSX-qf-plK.normalTitle" = "Servicebedingungen";
+"pSX-qf-plK.normalTitle" = "Termes de Servei";
 
 /* Class = "UITextField"; placeholder = "Last name"; ObjectID = "peq-n5-3WK"; */
-"peq-n5-3WK.placeholder" = "Nachname";
+"peq-n5-3WK.placeholder" = "Cognoms";
 
 /* Class = "UILabel"; text = "Or"; ObjectID = "va4-sq-nkv"; */
-"va4-sq-nkv.text" = "Oder";
+"va4-sq-nkv.text" = "O";

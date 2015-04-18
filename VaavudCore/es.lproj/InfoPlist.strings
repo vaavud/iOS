@@ -1,4 +1,4 @@
 /* Localized versions of Info.plist keys */
 
-NSLocationWhenInUseUsageDescription = "Vi bruger din position..."; // TRANSLATE
-NSMicrophoneUsageDescription = "Vi blabla bla"; // TRANSLATE
+NSLocationWhenInUseUsageDescription = "Utilizamos su posición para poder mostrarte donde la medición fue tomada.";
+NSMicrophoneUsageDescription = "El anemómetro Sleipnir utiliza el conector de los auriculares para comunicarse con el teléfono";

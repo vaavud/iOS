@@ -25,7 +25,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
+    
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
+    
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
         RegisterNavigationController *registerNavigationController = (RegisterNavigationController *)self.navigationController;
         if (registerNavigationController.registerDelegate) {
