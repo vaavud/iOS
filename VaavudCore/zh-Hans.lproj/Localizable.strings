@@ -1,20 +1,13 @@
-/*
- Localizable.strings
- Vaavud
- */
 "TAB_MEASURE" = "测量";
 "TAB_MAP" = "地图";
 "TAB_HISTORY" = "历史";
 "TAB_ABOUT" = "关于";
-
 "NAVIGATION_BACK" = "后退";
-
 "UNIT_KMH" = "千米/小时";
 "UNIT_MS" = "米/秒";
 "UNIT_MPH" = "英里/小时";
 "UNIT_KN" = "海里每小时";
 "UNIT_BFT" = "蒲福";
-
 "REL_TIME_FUTURE" = "未来";
 "REL_TIME_NOW" = "刚才";
 "REL_TIME_1_MIN_AGO" = "1分钟前";
@@ -23,36 +16,30 @@
 "REL_TIME_X_HOURS_AGO" = "%d小时前";
 "REL_TIME_1_DAY_AGO" = "1天前";
 "REL_TIME_X_DAYS_AGO" = "%d 天前";
-
 "HEADING_AVERAGE" = "平均";
 "HEADING_CURRENT" = "当前";
 "HEADING_MAX" = "最大";
 "HEADING_UNIT" = "单位";
 "HEADING_NEARBY_MEASUREMENTS" = "邻近测量";
-
 "BUTTON_START" = "开始";
 "BUTTON_STOP" = "停止";
 "BUTTON_OK" = "确定";
 "BUTTON_CANCEL" = "取消";
 "BUTTON_DONE" = "完成";
-
 "INFO_MEASURING" = "测量中";
+"INFO_NO_SIGNAL" = "无法监测出风向仪";
 "INFO_KEEP_STEADY" = "保持垂直和稳定";
-
 "X_HOURS" = "%d 小时";
 "MAP_REFRESH_ERROR_TITLE" = "地图刷新错误";
 "MAP_REFRESH_ERROR_MESSAGE" = "请确保您有蜂窝数据或Wi - Fi连接。";
-
 "HISTORY_TITLE" = "历史";
 "HISTORY_REGISTER_TEASER" = "注册查看您的完整的测量历史";
 "HISTORY_NO_MEASUREMENTS" = "尚无测量";
 "HISTORY_GO_TO_MEASURE" = "前往测量，然后按开始，开始测量！";
-
 "ABOUT_TITLE" = "关于";
 "ABOUT_VAAVUD_TEXT" = "Vaavud是一家丹麦的创业科技企业。\n我们的使命是制作可用性、功能和第三方集成方面全球最棒的风量仪。\n要了解更多信息，并购买Vaavud风量仪，请访问 Vaavud.com\n &copy; Vaavud ApS 2015, 保留所有权利";
 "LINK_TERMS_OF_SERVICE" = "服务条款";
 "LINK_PRIVACY_POLICY" = "隐私政策";
-
 "REGISTER_TITLE_SIGNUP" = "注册";
 "REGISTER_TITLE_LOGIN" = "登录";
 "REGISTER_OR" = "或";
@@ -67,7 +54,6 @@
 "REGISTER_FIELD_LAST_NAME" = "姓";
 "REGISTER_FIELD_EMAIL" = "电子邮件";
 "REGISTER_FIELD_PASSWORD" = "密码";
-
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "输入您的姓名";
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "只要您的名字就行。";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "输入您的电子邮件";
@@ -86,22 +72,17 @@
 "REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "请确保您有蜂窝数据或Wi - Fi连接。";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "错误";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "请稍后再试。";
-
 "SETTINGS_TITLE" = "设置";
 "SETTINGS_SHOP_LINK" = "购买风力计";
-
 "DIALOG_CONFIRM" = "您确定吗？";
-
 "SHARE_TO_FACEBOOK_TITLE" = "分享至Facebook？";
 "SHARE_GUIDE" = "它是什么样的？";
-"SHARE_TAKE_PHOTO" = "拍照 ";
+"SHARE_TAKE_PHOTO" = "拍照";
 "SHARE_CHOOSE_EXISTING" = "选择现有的";
-
 "SETTINGS_SOCIAL_SHARING" = "启用Facebook分享";
 "SETTINGS_SOCIAL_SHARING_DETAILS" = "我们不会未经许可发布";
 "SETTINGS_MEASURING_TIPS" = "测量小贴士";
-
-"INTRO_FLOW_SCREEN_1" = " Vaavud风力计能够将您的手机变成一种高科技的气象工具。";
+"INTRO_FLOW_SCREEN_1" = "Vaavud风力计能够将您的手机变成一种高科技的气象工具。";
 "INTRO_FLOW_SCREEN_2" = "出行前，使用实时地图检查您最喜欢的地点的状况。";
 "INTRO_FLOW_HAVE_WIND_METER" = "您是否已经拥有一个Vaavud风力计？";
 "INTRO_FLOW_WANT_TO_BUY" = "您是否想要马上购买一个风力计？";
@@ -112,24 +93,19 @@
 "INTRO_FLOW_BUTTON_SKIP" = "暂时跳过";
 "INTRO_FLOW_BUTTON_LATER" = "以后再说";
 "INTRO_FLOW_BUTTON_GOT_IT" = "好的，明白！";
-
 "BUTTON_YES" = "是";
 "BUTTON_NO" = "否";
-
 "MAP_GUIDE_MARKER_TITLE" = "测量详情";
 "MAP_GUIDE_MARKER_EXPLANATION" = "点击测量结果查看更多详情。";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "更改时间间隔";
 "MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "点击文字更改时间间隔和测量单位。";
 "MAP_GUIDE_ZOOM_TITLE" = "快速缩放";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "点击地图缩略图缩放至准确的位置。";
-
-/* SHOULD BE TRANSLATED! */
-
 "HEADING_WIND_SPEED" = "Wind Speed";
 "HEADING_TEMPERATURE" = "Temperature";
 "HEADING_WIND_DIRECTION" = "Direction";
 "BUTTON_NEXT" = "Next";
-"UNIT_CELCIUS" = "°C";
+"UNIT_CELSIUS" = "°C";
 "DIRECTION_CARDINAL" = "Cardinal";
 "DIRECTION_DEGREES" = "Degrees";
 "DIRECTION_N" = "N";
@@ -161,7 +137,6 @@
 "YES" = "Yes";
 "NO" = "No";
 "REGISTER_BUTTON_SIGNUP" = "Sign up";
-
 "AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Measure for 60s";
 "AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "You must measure for at least 60s indicated by the bar becoming fully green.";
 "AGRI_ENTER_TEMPERATURE" = "Enter Temperature";
@@ -170,9 +145,9 @@
 "AGRI_MANUAL_DIRECTION_EXPLANATION" = "Disconnect your wind meter and hold up your phone against the wind. Press Next when you are doing that.";
 "AGRI_REDUCING_EQUIPMENT" = "Reducing Equipment";
 "AGRI_REDUCING_EQUIPMENT_NONE" = "None";
-"AGRI_REDUCING_EQUIPMENT_50" = "50 %";
-"AGRI_REDUCING_EQUIPMENT_75" = "75 %";
-"AGRI_REDUCING_EQUIPMENT_90" = "90 %";
+"AGRI_REDUCING_EQUIPMENT_50" = "0,5";
+"AGRI_REDUCING_EQUIPMENT_75" = "0,75";
+"AGRI_REDUCING_EQUIPMENT_90" = "0,9";
 "AGRI_DOSE" = "Dose";
 "AGRI_DOSE_QUARTER" = "Quarter";
 "AGRI_DOSE_HALF" = "Half";
@@ -194,14 +169,10 @@
 "AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "No Subscription";
 "AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "You don't have a valid subscription. Please contact Vaavud.";
 "AGRI_WORD_LIST" = "Word list";
-
-// New feb 2015
-
 "INTRO_UPGRADE_WHATS_NEW" = "新功能";
 "INTRO_UPGRADE_TEXT0" = "历史显示地理位置和，随着新的Sl﻿eipnir风向仪，显示风向！";
 "INTRO_UPGRADE_TEXT1" = "总结屏幕显示您的关键测量数据，包括压力、温度等等";
 "INTRO_UPGRADE_CTA_BUY" = "现在购买新Sl﻿eipnir！";
-
 "MEASURE_AVG" = "平均";
 "SUMMARY_PRESSURE" = "压力";
 "SUMMARY_TEMPERATURE" = "温度";
@@ -210,17 +181,24 @@
 "GEOLOCATION_ERROR" = "无法加载位置";
 "GEOLOCATION_LOADING" = "加载位置中…";
 "GEOLOCATION_UNKNOWN" = "位置未保存";
-
 "UNIT_FAHRENHEIT" = "华氏度";
-"INFO_NO_SIGNAL" = "无法监测出风向仪";
-
-"UNIT_MBAR" = "mbar";
-"UNIT_ATM" = "atm";
-"UNIT_MMHG" = "mmHg";
-
 "SUMMARY_MEASURE_WINDDIRECTION" = "测试风向";
 "SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "有了全新的Sl﻿eipnir风向仪，您可以测试风向了！";
 "SUMMARY_UPSELL" = "用全新的Sle﻿ipnir测试方向吧！";
-
+"UNIT_MBAR" = "mbar";
+"UNIT_ATM" = "atm";
+"UNIT_MMHG" = "mmHg";
 "REGISTER_EXPLANATION" = "您需要登陆才能充分使用Vaavud应用";
-
+"CALIBRATION_STRING_FIRST" = "去室內，用嘴吹風速計，直到圓環改變顏色";
+"CALIBRATION_STRING_0" = "再吹";
+"CALIBRATION_STRING_1" = "讓 Sleipnir 慢下來，直到停止";
+"CALIBRATION_STRING_DONE" = "校準完成！";
+"SETTINGS_CALIBRATE" = "校準 Sleipnir 風速計";
+"SETTINGS_CALIBRATE_SUB" = "校準 Sleipnir 風速計，以獲取更精確的測量結果";
+"SETTINGS_BUY_WINDMETER" = "購買一個風速計";
+"SETTINGS_VERSION" = "版本";
+"SETTINGS_UNITS" = "單位";
+"SETTINGS_SUPPORT" = "支持";
+"UPGRADE_GET_IT_LATER" = "我將在稍後再買";
+"NSLocationWhenInUseUsageDescription" = "我们使用您的位置，以便能够显示您每次进行测量的地点。";
+"NSMicrophoneUsageDescription" = "Sleipnir 风速计通过耳机接口与电话进行通讯";

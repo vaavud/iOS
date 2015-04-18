@@ -1,20 +1,13 @@
-/*
- Localizable.strings
- Vaavud
- */
 "TAB_MEASURE" = "Medir";
 "TAB_MAP" = "Mapa";
 "TAB_HISTORY" = "Historial";
 "TAB_ABOUT" = "Acerca";
-
 "NAVIGATION_BACK" = "Volver";
-
 "UNIT_KMH" = "km/h";
 "UNIT_MS" = "m/s";
 "UNIT_MPH" = "mph";
 "UNIT_KN" = "kt";
 "UNIT_BFT" = "bft";
-
 "REL_TIME_FUTURE" = "futuro";
 "REL_TIME_NOW" = "Ahora";
 "REL_TIME_1_MIN_AGO" = "hace 1 min";
@@ -23,37 +16,30 @@
 "REL_TIME_X_HOURS_AGO" = "hace %d horas";
 "REL_TIME_1_DAY_AGO" = "hace 1 día";
 "REL_TIME_X_DAYS_AGO" = "hace %d dias";
-
 "HEADING_AVERAGE" = "Media";
 "HEADING_CURRENT" = "Actual";
 "HEADING_MAX" = "Max";
 "HEADING_UNIT" = "Unidad";
 "HEADING_NEARBY_MEASUREMENTS" = "Mediciones cercanas";
-
 "BUTTON_START" = "Empezar";
 "BUTTON_STOP" = "Parar";
 "BUTTON_OK" = "OK";
 "BUTTON_CANCEL" = "Cancelar";
 "BUTTON_DONE" = "Hecho";
-
 "INFO_MEASURING" = "Medición en progreso";
 "INFO_NO_SIGNAL" = "No se puede detectar el anemómetro";
 "INFO_KEEP_STEADY" = "Mantenlo vertical y estable";
-
 "X_HOURS" = "%d hours";
 "MAP_REFRESH_ERROR_TITLE" = "Error de actualización del mapa";
 "MAP_REFRESH_ERROR_MESSAGE" = "Asegurate de que tienes conectividad de datos o WiFi.";
-
 "HISTORY_TITLE" = "Historial";
 "HISTORY_REGISTER_TEASER" = "Registrate para ver tu historial completo de mediciones";
 "HISTORY_NO_MEASUREMENTS" = "Sin mediciones";
 "HISTORY_GO_TO_MEASURE" = "Ve a Medir y presiona Empezar para iniciar!";
-
 "ABOUT_TITLE" = "Acerca";
 "ABOUT_VAAVUD_TEXT" = "Vaavud es una start-up tecnológica danesa.\n Nuestra misión es crear los mejores medidores de viento del planeta en términos de usabilidad, características, e integración con terceros.\n Para saber más y comprar un medidor de viento Vaavud, visita Vaavud.com\n &copy; Vaavud ApS 2015, Todos los derechos reservados";
 "LINK_TERMS_OF_SERVICE" = "Terminos de Servicio";
 "LINK_PRIVACY_POLICY" = "Política de privacidad";
-
 "REGISTER_TITLE_SIGNUP" = "Registrarse";
 "REGISTER_TITLE_LOGIN" = "Iniciar sesión";
 "REGISTER_OR" = "O";
@@ -68,7 +54,6 @@
 "REGISTER_FIELD_LAST_NAME" = "Apellidos";
 "REGISTER_FIELD_EMAIL" = "Email";
 "REGISTER_FIELD_PASSWORD" = "Contraseña";
-
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "Introduce tu nombre";
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "Con tu nombre bastará.";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Introduce tu email";
@@ -87,21 +72,16 @@
 "REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Asegurate de que tienes conectividad de datos o WiFi.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Error";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Por favor, intentalo más tarde.";
-
 "SETTINGS_TITLE" = "Configuración";
 "SETTINGS_SHOP_LINK" = "Compra un anemómetro";
-
 "DIALOG_CONFIRM" = "¿Estás seguro?";
-
 "SHARE_TO_FACEBOOK_TITLE" = "Compartir en Facebook?";
 "SHARE_GUIDE" = "¿Que sientes?";
 "SHARE_TAKE_PHOTO" = "Toma una foto";
 "SHARE_CHOOSE_EXISTING" = "Elige una existente";
-
 "SETTINGS_SOCIAL_SHARING" = "Habilitar compartición en Facebook";
 "SETTINGS_SOCIAL_SHARING_DETAILS" = "Nunca publicaremos sin preguntar";
 "SETTINGS_MEASURING_TIPS" = "Consejos para medir";
-
 "INTRO_FLOW_SCREEN_1" = "El anemómetro Vaavud convierte tu teléfono en una herramienta meteorológica de alta tecnología.";
 "INTRO_FLOW_SCREEN_2" = "Usa el mapa en tiempo real para comprobar las condiciones en sus lugares favoritos antes de ir.";
 "INTRO_FLOW_HAVE_WIND_METER" = "¿Ya tienes un medidor de viento Vaavud?";
@@ -113,22 +93,19 @@
 "INTRO_FLOW_BUTTON_SKIP" = "Omitir por ahora";
 "INTRO_FLOW_BUTTON_LATER" = "Más tarde";
 "INTRO_FLOW_BUTTON_GOT_IT" = "Entendido!";
-
 "BUTTON_YES" = "Si";
 "BUTTON_NO" = "No";
-
 "MAP_GUIDE_MARKER_TITLE" = "Detalles de la medición";
 "MAP_GUIDE_MARKER_EXPLANATION" = "Pulsa en una medición para ver más detalles.";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "Cambia el intervalo de tiempo";
 "MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Puedes cambiar el intervalo de tiempo y la unidad de medida pulsando sobre el texto.";
 "MAP_GUIDE_ZOOM_TITLE" = "Zoom rápido";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "Pulsa sobre el mapa en miniatura para ampliar la ubicación exacta.";
-
 "HEADING_WIND_SPEED" = "Dirección del viento";
 "HEADING_TEMPERATURE" = "Temperatura";
 "HEADING_WIND_DIRECTION" = "Dirección";
 "BUTTON_NEXT" = "Siguiente";
-"UNIT_CELCIUS" = "°C";
+"UNIT_CELSIUS" = "°C";
 "DIRECTION_CARDINAL" = "Cardinal";
 "DIRECTION_DEGREES" = "Grados";
 "DIRECTION_N" = "N";
@@ -160,21 +137,17 @@
 "YES" = "Si";
 "NO" = "No";
 "REGISTER_BUTTON_SIGNUP" = "Registrate";
-
 "AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Mide durante 60s";
 "AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "Debes media lameness durante 60s indicado cuando la barra se vuelve verde.";
 "AGRI_ENTER_TEMPERATURE" = "Introduce Temperatura";
-
-/* SHOULD BE TRANSLATED! << */
-
 "AGRI_ENTER_TEMPERATURE_EXPLANATION" = "The temperature could not be determined automatically. Please enter it manually:";
 "AGRI_MANUAL_DIRECTION" = "Wind Direction";
 "AGRI_MANUAL_DIRECTION_EXPLANATION" = "Disconnect your wind meter and hold up your phone against the wind. Press Next when you are doing that.";
 "AGRI_REDUCING_EQUIPMENT" = "Reducing Equipment";
 "AGRI_REDUCING_EQUIPMENT_NONE" = "None";
-"AGRI_REDUCING_EQUIPMENT_50" = "50 %";
-"AGRI_REDUCING_EQUIPMENT_75" = "75 %";
-"AGRI_REDUCING_EQUIPMENT_90" = "90 %";
+"AGRI_REDUCING_EQUIPMENT_50" = "0,5";
+"AGRI_REDUCING_EQUIPMENT_75" = "0,75";
+"AGRI_REDUCING_EQUIPMENT_90" = "0,9";
 "AGRI_DOSE" = "Dose";
 "AGRI_DOSE_QUARTER" = "Quarter";
 "AGRI_DOSE_HALF" = "Half";
@@ -196,33 +169,36 @@
 "AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "No Subscription";
 "AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "You don't have a valid subscription. Please contact Vaavud.";
 "AGRI_WORD_LIST" = "Word list";
-
-/* >> SHOULD BE TRANSLATED! */
-
 "INTRO_UPGRADE_WHATS_NEW" = "Novedades";
 "INTRO_UPGRADE_TEXT0" = "El historial muestra la geolocalización y, con el nuevo anemómetro Sleipnir, la dirección del viento!";
-"INTRO_UPGRADE_TEXT1" = "La pantalla de resumen muestra tus datos clave en la medición, incluyendo la presión, temperatura, etc. ";
+"INTRO_UPGRADE_TEXT1" = "La pantalla de resumen muestra tus datos clave en la medición, incluyendo la presión, temperatura, etc.";
 "INTRO_UPGRADE_CTA_BUY" = "Compra el nuevo Sleipnir ahora!";
-
-"MEASURE_AVG" = "Media"; // Shorter form of the word 'Average'
+"MEASURE_AVG" = "Media";
 "SUMMARY_PRESSURE" = "Presión";
 "SUMMARY_TEMPERATURE" = "Temperatura";
-"SUMMARY_WIND_CHILL" = "Sensación"; // Basically a technical term
-"SUMMARY_GUSTINESS" = "Rafagas"; // HOw gusty the wind is
+"SUMMARY_WIND_CHILL" = "Sensación";
+"SUMMARY_GUSTINESS" = "Rafagas";
 "GEOLOCATION_ERROR" = "Localización no disponible";
 "GEOLOCATION_LOADING" = "Cargando localización...";
 "GEOLOCATION_UNKNOWN" = "Localización desconocida";
-
 "UNIT_FAHRENHEIT" = "°F";
-
 "SUMMARY_MEASURE_WINDDIRECTION" = "Medir la dirección del viento";
 "SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "Con el nuevo anemómetro Sleipnir, la dirección del viento!";
 "SUMMARY_UPSELL" = "Mide la dirección del viento con el nuevo Sleipnir!";
-
-// Not crucial
-"UNIT_MBAR" = "mbar"; // millibar, which is equal to hecto pascal
-"UNIT_ATM" = "atm"; // atmosphere as a unit of pressure
-"UNIT_MMHG" = "mmHg"; // millimetres mercury
-
+"UNIT_MBAR" = "mbar";
+"UNIT_ATM" = "atm";
+"UNIT_MMHG" = "mmHg";
 "REGISTER_EXPLANATION" = "Necesitas registrarte para obtener todo el beneficio de la app Vaavud";
-
+"CALIBRATION_STRING_FIRST" = "Ve a una zona cubierta y sopla en el anemómetro hasta que el circulo cambie de color";
+"CALIBRATION_STRING_0" = "Sopla de nuevo";
+"CALIBRATION_STRING_1" = "Permite a Sleipnir frenar";
+"CALIBRATION_STRING_DONE" = "Calibración completada!";
+"SETTINGS_CALIBRATE" = "Calibra el anemómetro Sleipnir";
+"SETTINGS_CALIBRATE_SUB" = "Calibra tu Sleipnir para obtener mediciones más precisas";
+"SETTINGS_BUY_WINDMETER" = "Comprar un anemómetro";
+"SETTINGS_VERSION" = "Versión";
+"SETTINGS_UNITS" = "Unidades";
+"SETTINGS_SUPPORT" = "Soporte";
+"UPGRADE_GET_IT_LATER" = "Lo compraré más tarde";
+"NSLocationWhenInUseUsageDescription" = "Utilizamos su posición para poder mostrarte donde la medición fue tomada.";
+"NSMicrophoneUsageDescription" = "El anemómetro Sleipnir utiliza el conector de los auriculares para comunicarse con el teléfono";

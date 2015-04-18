@@ -195,10 +195,10 @@
 "AGRI_WORD_LIST" = "Word list";
 
 // New January 2015
-"INTRO_UPGRADE_WHATS_NEW" = "*What's new"; // REMOVE
-"INTRO_UPGRADE_TEXT0" = "*History shows geolocation and, with the new Sleipnir windmeter, wind direction!"; // REMOVE
-"INTRO_UPGRADE_TEXT1" = "*Summary screen showing your key measurement data, including pressure, temperature etc."; // REMOVE
-"INTRO_UPGRADE_CTA_BUY" = "*Buy the new Sleipnir now!"; // REMOVE
+"INTRO_UPGRADE_WHATS_NEW" = "What's new"; // REMOVE
+"INTRO_UPGRADE_TEXT0" = "History shows geolocation and, with the new Sleipnir windmeter, wind direction!"; // REMOVE
+"INTRO_UPGRADE_TEXT1" = "Summary screen showing your key measurement data, including pressure, temperature etc."; // REMOVE
+"INTRO_UPGRADE_CTA_BUY" = "Buy the new Sleipnir now!"; // REMOVE
 
 "MEASURE_AVG" = "Avg";
 "SUMMARY_PRESSURE" = "Pressure";

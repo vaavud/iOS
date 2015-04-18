@@ -1,20 +1,13 @@
-/*
- Localizable.strings
- Vaavud
- */
 "TAB_MEASURE" = "測定";
 "TAB_MAP" = "マップ";
 "TAB_HISTORY" = "履歴";
 "TAB_ABOUT" = "情報";
-
 "NAVIGATION_BACK" = "戻る";
-
 "UNIT_KMH" = "km/h";
 "UNIT_MS" = "m/s";
 "UNIT_MPH" = "mph";
 "UNIT_KN" = "kt";
 "UNIT_BFT" = "bft";
-
 "REL_TIME_FUTURE" = "未来";
 "REL_TIME_NOW" = "現在";
 "REL_TIME_1_MIN_AGO" = "1分前";
@@ -23,37 +16,30 @@
 "REL_TIME_X_HOURS_AGO" = "%d時間前";
 "REL_TIME_1_DAY_AGO" = "1日前";
 "REL_TIME_X_DAYS_AGO" = "%d日前";
-
 "HEADING_AVERAGE" = "平均";
 "HEADING_CURRENT" = "現在";
 "HEADING_MAX" = "最大";
 "HEADING_UNIT" = "単位";
 "HEADING_NEARBY_MEASUREMENTS" = "付近の測定結果";
-
 "BUTTON_START" = "開始";
 "BUTTON_STOP" = "停止";
 "BUTTON_OK" = "OK";
 "BUTTON_CANCEL" = "キャンセル";
 "BUTTON_DONE" = "終了";
-
 "INFO_MEASURING" = "計測中です";
 "INFO_NO_SIGNAL" = "風速計を検知できませんでした";
 "INFO_KEEP_STEADY" = "縦方向に保ち安定させてください";
-
 "X_HOURS" = "%d時間";
 "MAP_REFRESH_ERROR_TITLE" = "マップ更新エラー";
 "MAP_REFRESH_ERROR_MESSAGE" = "携帯データ通信またはWi-Fiに接続されていることを確認してください。";
-
 "HISTORY_TITLE" = "履歴";
 "HISTORY_REGISTER_TEASER" = "完全な測定履歴を表示するにはサインアップしてください";
 "HISTORY_NO_MEASUREMENTS" = "まだ測定結果がありません";
 "HISTORY_GO_TO_MEASURE" = "測定画面に移動し開始を押して利用を開始してください！";
-
 "ABOUT_TITLE" = "情報";
 "ABOUT_VAAVUD_TEXT" = "Vaavudはデンマークの新規参入企業です。\n当社のミッションは、有用性、機能、およびサードパーティー統合の面において世界一の風力計を製作することです。\n詳細情報やVaavudウィンドメーターのご購入はVaavud.comをご覧ください。\n &copy; Vaavud ApS 2015, all rights reserved";
 "LINK_TERMS_OF_SERVICE" = "サービス規約";
 "LINK_PRIVACY_POLICY" = "プライバシーポリシー";
-
 "REGISTER_TITLE_SIGNUP" = "サインアップ";
 "REGISTER_TITLE_LOGIN" = "ログイン";
 "REGISTER_OR" = "または";
@@ -68,7 +54,6 @@
 "REGISTER_FIELD_LAST_NAME" = "姓";
 "REGISTER_FIELD_EMAIL" = "メールアドレス";
 "REGISTER_FIELD_PASSWORD" = "パスワード";
-
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "名前を入力してください";
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "上のお名前だけで結構です。";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "メールアドレスを入力してください";
@@ -87,21 +72,16 @@
 "REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "携帯データ通信またはWi-Fiに接続されていることを確認してください。";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "エラー";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "後程再試行してください。";
-
 "SETTINGS_TITLE" = "設定";
 "SETTINGS_SHOP_LINK" = "ウィンドメーターを買う";
-
 "DIALOG_CONFIRM" = "本当にいいですか？";
-
 "SHARE_TO_FACEBOOK_TITLE" = "Facebookでシェアしますか？";
 "SHARE_GUIDE" = "これはどのようになるのですか？";
 "SHARE_TAKE_PHOTO" = "写真を撮影";
 "SHARE_CHOOSE_EXISTING" = "既存のものを選択";
-
 "SETTINGS_SOCIAL_SHARING" = "Facebookのシェアを有効にします";
 "SETTINGS_SOCIAL_SHARING_DETAILS" = "許可を得ずに投稿することはありません";
 "SETTINGS_MEASURING_TIPS" = "測定時のヒント";
-
 "INTRO_FLOW_SCREEN_1" = "Vaavud Wind Meterは携帯を風速計として使うようにするハイテクな気象用ツールです。";
 "INTRO_FLOW_SCREEN_2" = "ライブマップを使用し、お気に入りスポットに行く前に風速状況を確認しましょう。";
 "INTRO_FLOW_HAVE_WIND_METER" = "既にVaavud Wind Meterをお持ちですか？";
@@ -113,24 +93,19 @@
 "INTRO_FLOW_BUTTON_SKIP" = "今はスキップします";
 "INTRO_FLOW_BUTTON_LATER" = "後で行います";
 "INTRO_FLOW_BUTTON_GOT_IT" = "OK、了解しました！";
-
 "BUTTON_YES" = "はい";
 "BUTTON_NO" = "いいえ";
-
 "MAP_GUIDE_MARKER_TITLE" = "測定値の詳細";
 "MAP_GUIDE_MARKER_EXPLANATION" = "詳細を見るには測定値をタップしてください。";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "時間間隔を変更";
 "MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "時間間隔や測定単位を変更するにはテキストをタップしてください。";
 "MAP_GUIDE_ZOOM_TITLE" = "クイックズーム";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "的確な場所にズームするには地図のサムネイルをタップしてください。";
-
-/* SHOULD BE TRANSLATED! */
-
 "HEADING_WIND_SPEED" = "Wind Speed";
 "HEADING_TEMPERATURE" = "Temperature";
 "HEADING_WIND_DIRECTION" = "Direction";
 "BUTTON_NEXT" = "Next";
-"UNIT_CELCIUS" = "°C";
+"UNIT_CELSIUS" = "°C";
 "DIRECTION_CARDINAL" = "Cardinal";
 "DIRECTION_DEGREES" = "Degrees";
 "DIRECTION_N" = "N";
@@ -162,7 +137,6 @@
 "YES" = "Yes";
 "NO" = "No";
 "REGISTER_BUTTON_SIGNUP" = "Sign up";
-
 "AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Measure for 60s";
 "AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "You must measure for at least 60s indicated by the bar becoming fully green.";
 "AGRI_ENTER_TEMPERATURE" = "Enter Temperature";
@@ -171,9 +145,9 @@
 "AGRI_MANUAL_DIRECTION_EXPLANATION" = "Disconnect your wind meter and hold up your phone against the wind. Press Next when you are doing that.";
 "AGRI_REDUCING_EQUIPMENT" = "Reducing Equipment";
 "AGRI_REDUCING_EQUIPMENT_NONE" = "None";
-"AGRI_REDUCING_EQUIPMENT_50" = "50 %";
-"AGRI_REDUCING_EQUIPMENT_75" = "75 %";
-"AGRI_REDUCING_EQUIPMENT_90" = "90 %";
+"AGRI_REDUCING_EQUIPMENT_50" = "0,5";
+"AGRI_REDUCING_EQUIPMENT_75" = "0,75";
+"AGRI_REDUCING_EQUIPMENT_90" = "0,9";
 "AGRI_DOSE" = "Dose";
 "AGRI_DOSE_QUARTER" = "Quarter";
 "AGRI_DOSE_HALF" = "Half";
@@ -195,33 +169,36 @@
 "AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "No Subscription";
 "AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "You don't have a valid subscription. Please contact Vaavud.";
 "AGRI_WORD_LIST" = "Word list";
-
 "INTRO_UPGRADE_WHATS_NEW" = "新着情報";
 "INTRO_UPGRADE_TEXT0" = "履歴では地理的位置や新しいSlepnir風速計、風向きを表示！";
 "INTRO_UPGRADE_TEXT1" = "概要画面で温度や気圧など主要な測定データを表示。";
 "INTRO_UPGRADE_CTA_BUY" = "新しいSleipnirを今すぐ購入!";
-
-// New feb 2015
-
-"MEASURE_AVG" = "平均";// Shorter form of the word 'Average'
+"MEASURE_AVG" = "平均";
 "SUMMARY_PRESSURE" = "気圧";
 "SUMMARY_TEMPERATURE" = "気温";
-"SUMMARY_WIND_CHILL" = "風速冷却";// Basically a technical term
-"SUMMARY_GUSTINESS" = "突風";// HOw gusty the wind is
+"SUMMARY_WIND_CHILL" = "風速冷却";
+"SUMMARY_GUSTINESS" = "突風";
 "GEOLOCATION_ERROR" = "場所をロードできませんでした";
 "GEOLOCATION_LOADING" = "場所をロードしています…";
 "GEOLOCATION_UNKNOWN" = "場所が保存されませんでした";
-
 "UNIT_FAHRENHEIT" = "°F";
-
-"UNIT_MBAR" = "mbar"; // millibar, which is equal to hecto pascal
-"UNIT_ATM" = "atm"; // atmosphere as a unit of pressure
-"UNIT_MMHG" = "mmHg"; // millimetres mercury
-
 "SUMMARY_MEASURE_WINDDIRECTION" = "風向の測定";
 "SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "新しいSleipnir風力計で風向を測定できます！";
 "SUMMARY_UPSELL" = "新しいSleipnirで風向を計りましょう！";
-
+"UNIT_MBAR" = "mbar";
+"UNIT_ATM" = "atm";
+"UNIT_MMHG" = "mmHg";
 "REGISTER_EXPLANATION" = "Vaavudアプリの全機能を使用するにはログインする必要があります";
-
-
+"CALIBRATION_STRING_FIRST" = "室内に入り、円の色が変わるまで風を吹き込んでください";
+"CALIBRATION_STRING_0" = "もう一度吹き込む";
+"CALIBRATION_STRING_1" = "Sleipnirが停止するまで減速させてください";
+"CALIBRATION_STRING_DONE" = "校正の完了！";
+"SETTINGS_CALIBRATE" = "Sleipnir風速計を校正";
+"SETTINGS_CALIBRATE_SUB" = "正確な測定値を得るにはSleipnirを校正してください";
+"SETTINGS_BUY_WINDMETER" = "風速計を購入";
+"SETTINGS_VERSION" = "バージョン";
+"SETTINGS_UNITS" = "単位";
+"SETTINGS_SUPPORT" = "サポート";
+"UPGRADE_GET_IT_LATER" = "後で";
+"NSLocationWhenInUseUsageDescription" = "各測定がどの場所で行われたかを表示するため、ロケーションを使用します。";
+"NSMicrophoneUsageDescription" = "Sleipnir風速計は携帯と通信するためヘッドフォンジャックを使用します";
