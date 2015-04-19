@@ -277,11 +277,13 @@
                         <outlet property="unitButton" destination="f71-hp-4cl" id="4tl-wZ-MYD"/>
                         <outlet property="unitHeadingLabel" destination="BoF-HW-bXq" id="9hV-Ht-ZmL"/>
                         <segue destination="8a4-bz-n0M" kind="push" identifier="SummaryFromMeasureSegue" id="4WK-Ha-uCh"/>
+                        <segue destination="yKg-bJ-xOb" kind="modal" identifier="MandatoryCalibration" id="mhv-JI-fCG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
+                <exit id="JMm-Mh-ali" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="90" y="-539"/>
+            <point key="canvasLocation" x="90" y="-529"/>
         </scene>
         <!--Measure Navigation-->
         <scene sceneID="RnR-Kp-M0y">
@@ -818,7 +820,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5D-Mo-pgi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="701" y="-1349"/>
+            <point key="canvasLocation" x="1171" y="-1359"/>
         </scene>
         <!--First Time Explanation View Controller-->
         <scene sceneID="TZU-KX-npU">
@@ -1788,24 +1790,24 @@
                         <viewControllerLayoutGuide type="bottom" id="4ya-e6-XmS"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ofg-NQ-kOm">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="msy-Aa-MtX" customClass="CalibrationCircle" customModule="Vaavud">
-                                <rect key="frame" x="60" y="184" width="200" height="200"/>
+                                <rect key="frame" x="60" y="200" width="200" height="200"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="msy-Aa-MtX" secondAttribute="height" multiplier="1:1" id="1Jd-ta-yLb"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WMV-Cp-KyZ">
-                                <rect key="frame" x="138" y="518" width="45" height="30"/>
+                                <rect key="frame" x="138" y="430" width="45" height="30"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="pressedCancel:" destination="yKg-bJ-xOb" eventType="touchUpInside" id="db2-dg-Jja"/>
-                                    <segue destination="bnN-NV-pC1" kind="unwind" unwindAction="calibrationDone:" id="lxG-bb-OtD"/>
+                                    <segue destination="JMm-Mh-ali" kind="unwind" unwindAction="calibrationCancelled:" id="aEF-oG-38e"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calibrate your Sleipnir to get more accurate measurements" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEh-Ao-4Gg">
@@ -1817,7 +1819,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="msy-Aa-MtX" secondAttribute="centerY" id="DnD-Pp-59p"/>
+                            <constraint firstAttribute="centerY" secondItem="msy-Aa-MtX" secondAttribute="centerY" priority="900" id="DnD-Pp-59p"/>
+                            <constraint firstItem="msy-Aa-MtX" firstAttribute="top" relation="greaterThanOrEqual" secondItem="OEh-Ao-4Gg" secondAttribute="top" constant="130" id="Gg5-JK-aIV"/>
                             <constraint firstItem="OEh-Ao-4Gg" firstAttribute="top" secondItem="7nh-UA-4zi" secondAttribute="bottom" constant="50" id="J0W-ss-pJm"/>
                             <constraint firstAttribute="width" secondItem="msy-Aa-MtX" secondAttribute="width" constant="120" id="R96-TE-sKe"/>
                             <constraint firstAttribute="centerX" secondItem="OEh-Ao-4Gg" secondAttribute="centerX" id="SHD-Xk-g5L"/>
@@ -1829,7 +1832,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="CKw-Q2-bVv"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="568"/>
+                    <size key="freeformSize" width="320" height="480"/>
                     <connections>
                         <outlet property="calibrationCircle" destination="msy-Aa-MtX" id="RwG-dd-ZMc"/>
                         <outlet property="cancelButton" destination="WMV-Cp-KyZ" id="996-Qv-4Yq"/>
@@ -1837,9 +1840,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4BN-rM-CAw" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="bnN-NV-pC1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1098" y="-1044"/>
+            <point key="canvasLocation" x="701" y="-1315"/>
         </scene>
         <!--History-->
         <scene sceneID="qyy-p2-q3w">
@@ -1882,7 +1884,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="MnQ-EK-wGw"/>
+        <segue reference="mhv-JI-fCG"/>
+        <segue reference="4WK-Ha-uCh"/>
         <segue reference="s0f-qj-ZNz"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>

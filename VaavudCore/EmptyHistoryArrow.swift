@@ -8,7 +8,8 @@
 
 import UIKit
 
-@IBDesignable class EmptyHistoryArrow: UIView {
+//@IBDesignable
+class EmptyHistoryArrow: UIView {
     var isSetup = false
     
     override func prepareForInterfaceBuilder() {

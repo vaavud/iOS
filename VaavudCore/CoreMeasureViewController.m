@@ -35,6 +35,8 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsBarButtonItem;
 
+@property (nonatomic) BOOL hasShowsCalibrationScreen;
+
 @end
 
 @implementation CoreMeasureViewController
@@ -43,9 +45,18 @@
     return UIInterfaceOrientationMaskAll;
 }
 
+-(IBAction)calibrationCancelled:(UIStoryboardSegue *)segue {
+    NSLog(@"calibrationCancelled");
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    if (!self.hasShowsCalibrationScreen && ![Property getAsBoolean:KEY_HAS_CALIBRATED]) {
+        self.hasShowsCalibrationScreen = YES;
+        [self performSegueWithIdentifier:@"MandatoryCalibration" sender:self];
+    }
+
     //NSLog(@"[CoreMeasureViewController] topLayoutGuide=%f", self.topLayoutGuide.length);
     //NSLog(@"[CoreMeasureViewController] bottomLayoutGuide=%f", self.bottomLayoutGuide.length);
     
@@ -86,3 +97,7 @@
 }
 
 @end
+
+
+
+

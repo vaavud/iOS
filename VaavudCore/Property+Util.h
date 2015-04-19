@@ -67,6 +67,7 @@ static NSString * const KEY_PRESSURE_UNIT = @"pressureUnit";
 
 static NSString * const KEY_LOCATION_HAS_ASKED = @"hasAskedForLocationAccess";
 static NSString * const KEY_LOCATION_HAS_APPROVED = @"hasApprovedLocationAccess";
+static NSString * const KEY_HAS_CALIBRATED = @"hasCalibrated";
 
 @interface Property (Util)
 

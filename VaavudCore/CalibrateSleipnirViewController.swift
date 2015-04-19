@@ -137,6 +137,8 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
             
             changeMessage("CALIBRATION_STRING_DONE", color: UIColor.vaavudGreenColor())
             
+            Property.setAsBoolean(true, forKey: "hasCalibrated")
+            
             UIView.animateWithDuration(0.5) {
                 self.cancelButton.alpha = 0
             }
@@ -146,7 +148,8 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
     }
 }
 
-@IBDesignable class CalibrationCircle: UIView {
+//@IBDesignable
+class CalibrationCircle: UIView {
     let progressLayer = CAShapeLayer()
     let strengthLayer = CAShapeLayer()
     let checkLayer = CAShapeLayer()
