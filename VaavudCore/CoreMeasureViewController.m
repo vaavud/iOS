@@ -9,6 +9,7 @@
 #import "CoreMeasureViewController.h"
 #import "Vaavud-Swift.h"
 #import "SavingWindMeasurementController.h"
+#import "SleipnirMeasurementController.h"
 
 @interface CoreMeasureViewController ()
 
@@ -49,14 +50,19 @@
     NSLog(@"calibrationCancelled");
 }
 
+-(void)calibrateIfNeeded {
+    BOOL sleipnir = [SleipnirMeasurementController sharedInstance].isDeviceConnected;
+    
+    if (sleipnir && !self.hasShowsCalibrationScreen && ![Property getAsBoolean:KEY_HAS_CALIBRATED]) {
+        [self performSegueWithIdentifier:@"MandatoryCalibration" sender:self];
+        self.hasShowsCalibrationScreen = YES;
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    if (!self.hasShowsCalibrationScreen && ![Property getAsBoolean:KEY_HAS_CALIBRATED]) {
-        self.hasShowsCalibrationScreen = YES;
-        [self performSegueWithIdentifier:@"MandatoryCalibration" sender:self];
-    }
-
+    [self calibrateIfNeeded];
     //NSLog(@"[CoreMeasureViewController] topLayoutGuide=%f", self.topLayoutGuide.length);
     //NSLog(@"[CoreMeasureViewController] bottomLayoutGuide=%f", self.bottomLayoutGuide.length);
     

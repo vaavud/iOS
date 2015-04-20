@@ -16,6 +16,7 @@
 #import "UUIDUtil.h"
 #import "AppDelegate.h"
 #import "MeasurementPoint+Util.h"
+@import CoreMotion;
 
 @interface SavingWindMeasurementController ()
 
@@ -28,6 +29,7 @@
 @property (nonatomic, strong) NSNumber *currentDirection;
 @property (nonatomic, strong) NSDate *lastSaveTime;
 @property (nonatomic, strong) NSTimer *temperatureLookupTimer;
+@property (nonatomic) CMAltimeter *altimeter;
 
 @property (nonatomic) CLGeocoder *geocoder;
 
@@ -36,6 +38,14 @@
 @implementation SavingWindMeasurementController
 
 SHARED_INSTANCE
+
+-(instancetype)init {
+    self = [super init];
+    if ([CMAltimeter isRelativeAltitudeAvailable]) {
+        [self setupAltimeter];
+    }
+    return self;
+}
 
 - (void)setHardwareController:(WindMeasurementController *)controller {
     self.controller = controller;
@@ -48,6 +58,11 @@ SHARED_INSTANCE
 
 - (void)start {
     if (self.controller) {
+        
+        if ([CMAltimeter isRelativeAltitudeAvailable]) {
+            [self startUpdatingAltimeter];
+        }
+        
         if (!self.geocoder) { self.geocoder = [CLGeocoder new]; }
         
         self.hasBeenStopped = NO;
@@ -113,6 +128,8 @@ SHARED_INSTANCE
 }
 
 - (NSTimeInterval)stop {
+    [self.altimeter stopRelativeAltitudeUpdates];
+    
     if (self.hasBeenStopped) {
         return 0.0;
     }
@@ -396,6 +413,19 @@ SHARED_INSTANCE
 
 #pragma mark Temperature methods
 
+-(void)setupAltimeter {
+    self.altimeter = [[CMAltimeter alloc] init];
+}
+
+- (void)startUpdatingAltimeter {
+    [self.altimeter startRelativeAltitudeUpdatesToQueue:[NSOperationQueue mainQueue]
+                                            withHandler:^(CMAltitudeData *altitudeData, NSError *error) {
+                                                MeasurementSession *measurementSession = [self getLatestMeasurementSession];
+                                                measurementSession.pressure = @(10*altitudeData.pressure.doubleValue);
+                                                [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
+                                            }];
+}
+
 - (void)initiateTemperaturePressureLookup {
     if (LOG_OTHER) NSLog(@"[SavingWindMeasurementController] initiateTemperaturePressureLookup");
     
@@ -416,7 +446,7 @@ SHARED_INSTANCE
 
                     if (measurementSession) {
                         measurementSession.sourcedTemperature = temperature;
-                        measurementSession.pressure = pressure;
+                        measurementSession.sourcedPressureGroundLevel = pressure;
 
                         BOOL hasDirection = (measurementSession.windDirection && (measurementSession.windDirection != (id)[NSNull null]));
                         if (!hasDirection) {

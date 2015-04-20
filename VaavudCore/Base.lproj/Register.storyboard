@@ -39,7 +39,7 @@
                                     <constraint firstAttribute="width" constant="280" id="TP4-PY-qa5"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="##Sign Up">
+                                <state key="normal" title="Sign Up">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <state key="highlighted">
@@ -57,7 +57,7 @@
                                     <constraint firstAttribute="width" constant="280" id="oVg-9X-pJT"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="##Log In">
+                                <state key="normal" title="Log In">
                                     <color key="titleColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="deviceRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -78,9 +78,9 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UW4-K5-F42">
+                            <button contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UW4-K5-F42">
                                 <rect key="frame" x="128" y="530" width="65" height="30"/>
-                                <state key="normal" title="##Cancel"/>
+                                <state key="normal" title="Cancel"/>
                                 <connections>
                                     <action selector="cancelButton:" destination="Ejx-Uu-BTy" eventType="touchUpInside" id="fPr-Qj-Pef"/>
                                 </connections>
