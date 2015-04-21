@@ -182,7 +182,7 @@ class VaavudFormatter {
     
     func updatePressureLabels(session: MeasurementSession, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
         let value = session.pressure?.floatValue ?? session.sourcedPressureGroundLevel?.floatValue
-                
+        
         if let string = localizedPressure(value) {
             unitLabel.text = pressureUnit.localizedString
             valueLabel.text = string

@@ -1006,7 +1006,7 @@ SHARED_INSTANCE
         
         id main = [responseObject objectForKey:@"main"];
         NSNumber *temperature = (main) ? [main objectForKey:@"temp"] : nil;
-        NSNumber *pressure = (main) ? [main objectForKey:@"grnd_level"] : nil;
+        NSNumber *pressure = (main) ? [main objectForKey:@"pressure"] : nil;
         
         id wind = [responseObject objectForKey:@"wind"];
         NSNumber *direction = (wind) ? [wind objectForKey:@"deg"] : nil;        

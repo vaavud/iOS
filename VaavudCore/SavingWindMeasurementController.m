@@ -447,7 +447,10 @@ SHARED_INSTANCE
                     if (measurementSession) {
                         measurementSession.sourcedTemperature = temperature;
                         measurementSession.sourcedPressureGroundLevel = pressure;
-
+                        if (measurementSession.sourcedPressureGroundLevel == nil) {
+                            NSLog(@"Eroor sourcedPressureGroundLevel missing: %@", measurementSession);
+                        }
+                            
                         BOOL hasDirection = (measurementSession.windDirection && (measurementSession.windDirection != (id)[NSNull null]));
                         if (!hasDirection) {
                             measurementSession.sourcedWindDirection = direction;
