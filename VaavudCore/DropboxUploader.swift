@@ -48,7 +48,7 @@ class DropboxUploader: NSObject, DBRestClientDelegate {
     
     func save(string:String) -> NSURL? {
         let fileManager = NSFileManager.defaultManager()
-        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask) as [NSURL]
+        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask) as! [NSURL]
         
         if let baseUrl = urls.first {
             var fileURL = baseUrl.URLByAppendingPathComponent(NSUUID().UUIDString)
