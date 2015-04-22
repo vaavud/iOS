@@ -11,13 +11,13 @@
 #define STATUTE_MILE 1609.344 // m
 #define NAUTICAL_MILE 1852.0 // m
 
-typedef enum {
+typedef NS_ENUM(NSInteger, WindSpeedUnit) {
     WindSpeedUnitKMH     = 0,
     WindSpeedUnitMS      = 1,
     WindSpeedUnitMPH     = 2,
     WindSpeedUnitKN      = 3,
     WindSpeedUnitBFT     = 4
-} WindSpeedUnit;
+};
 
 @interface UnitUtil : NSObject
 
