@@ -70,4 +70,7 @@
 - (void)showNotification:(NSString *)title message:(NSString *)message dismissAfter:(NSTimeInterval)time;
 - (void)dismissNotification;
 
+@property (strong, nonatomic) UIImageView *rotatingImageView;
+
+
 @end

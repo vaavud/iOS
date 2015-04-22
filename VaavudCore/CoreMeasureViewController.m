@@ -9,6 +9,7 @@
 #import "CoreMeasureViewController.h"
 #import "Vaavud-Swift.h"
 #import "SavingWindMeasurementController.h"
+#import "ModelManager.h"
 
 @interface CoreMeasureViewController ()
 
@@ -48,6 +49,13 @@
 -(IBAction)calibrationCancelled:(UIStoryboardSegue *)segue {
     NSLog(@"calibrationCancelled");
 }
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.rotatingImageView = [[UIImageView alloc] initWithFrame:self.directionImageView.bounds];
+    [self.directionImageView addSubview:self.rotatingImageView];
+}
+
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];

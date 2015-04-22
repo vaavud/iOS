@@ -124,7 +124,7 @@ SHARED_INSTANCE
         if (LOG_MODEL) NSLog(@"[ModelManager] No Facebook disclaimer flag, randomly choosing: %@", enableFacebookDisclaimer ? @"YES" : @"NO");
         [Property setAsBoolean:enableFacebookDisclaimer forKey:KEY_ENABLE_FACEBOOK_DISCLAIMER];
     }
-    
+
     // make sure nothing else get executed until changes are written to the database
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
@@ -174,6 +174,14 @@ SHARED_INSTANCE
     
     // if no equal is found
     return sDeviceModel;
+}
+
++ (BOOL)isIPhone4 {
+    return [[[ModelManager getModel] substringToIndex:7] isEqualToString:@"iPhone3"];
+}
+
++ (BOOL)isIPhone4S {
+    return [[[ModelManager getModel] substringToIndex:7] isEqualToString:@"iPhone4"];
 }
 
 @end
