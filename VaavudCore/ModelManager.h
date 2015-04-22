@@ -13,6 +13,4 @@
 + (ModelManager *)sharedInstance;
 - (void)initializeModel;
 + (BOOL)isIPhone4;
-+ (BOOL)isIPhone4S;
-
 @end
