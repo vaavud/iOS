@@ -12,6 +12,7 @@
 #import "UIColor+VaavudColors.h"
 #import "LocationManager.h"
 #import "MeasurementSession.h"
+#import "MeasurementPoint.h"
 #import "UnitUtil.h"
 #import "Property+Util.h"
 #import "MeasurementAnnotation.h"
@@ -22,6 +23,8 @@
 #import "RegisterViewController.h"
 
 #import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
+
+#import <DropboxSDK/DropboxSDK.h>
 
 #import "NSManagedObject+MagicalFinders.h"
 

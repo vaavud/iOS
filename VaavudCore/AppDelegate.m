@@ -20,6 +20,7 @@
 #import "UnitUtil.h"
 #import "UIColor+VaavudColors.h"
 #import "MixpanelUtil.h"
+#import "Vaavud-Swift.h"
 
 @interface AppDelegate()
 
@@ -57,6 +58,9 @@
     }
     
     [Crashlytics startWithAPIKey:@"767b68b0d4b5e7c052c4de75ae8859beee5d9901"];
+    
+    //dropbox
+    [DBSession setSharedSession:[[DBSession alloc] initWithAppKey:@"zszsy52n0svxcv7" appSecret:@"t39k1uzaxs7a0zj" root:kDBRootAppFolder]];
     
     // Whenever a person opens the app, check for a cached session and refresh token
     if ([[AccountManager sharedInstance] isLoggedIn]) {
@@ -217,6 +221,13 @@
                 }
             }
         }
+    }
+    else if ([[DBSession sharedSession] handleOpenURL:url]) {
+        if ([[DBSession sharedSession] isLinked]) {
+            NSLog(@"Dropbox App linked successfully!");
+            // At this point you can start making API calls
+        }
+        return YES;
     }
     else {
         return [FBSession.activeSession handleOpenURL:url];

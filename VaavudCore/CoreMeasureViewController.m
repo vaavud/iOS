@@ -10,6 +10,7 @@
 #import "Vaavud-Swift.h"
 #import "SavingWindMeasurementController.h"
 #import "ModelManager.h"
+#import "Vaavud-Swift.h"
 
 @interface CoreMeasureViewController ()
 
@@ -54,6 +55,11 @@
     [super viewDidLoad];
     self.rotatingImageView = [[UIImageView alloc] initWithFrame:self.directionImageView.bounds];
     [self.directionImageView addSubview:self.rotatingImageView];
+    
+    // temporaty implementation should be settings.
+    if (![[DBSession sharedSession] isLinked]) {
+        [[DBSession sharedSession] linkFromController:self];
+    }
 }
 
 

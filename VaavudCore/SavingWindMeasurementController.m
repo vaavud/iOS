@@ -16,8 +16,9 @@
 #import "UUIDUtil.h"
 #import "AppDelegate.h"
 #import "MeasurementPoint+Util.h"
+#import "Vaavud-Swift.h"
 
-@interface SavingWindMeasurementController ()
+@interface SavingWindMeasurementController () <DBRestClientDelegate>
 
 @property (nonatomic) BOOL hasBeenStopped;
 @property (nonatomic) BOOL wasValid;
@@ -28,6 +29,7 @@
 @property (nonatomic, strong) NSNumber *currentDirection;
 @property (nonatomic, strong) NSDate *lastSaveTime;
 @property (nonatomic, strong) NSTimer *temperatureLookupTimer;
+@property (nonatomic, strong) DropboxUploader *dropboxUploader;
 
 @property (nonatomic) CLGeocoder *geocoder;
 
@@ -155,6 +157,9 @@ SHARED_INSTANCE
                 [[ServerUploadManager sharedInstance] triggerUpload];
             }
         }];
+        
+        self.dropboxUploader = [[DropboxUploader alloc] initWithDelegate:self];
+        [self.dropboxUploader uploadToDropbox:measurementSession];
     }
     
     return durationSeconds;
@@ -441,6 +446,15 @@ SHARED_INSTANCE
             }];
         }
     }
+}
+
+- (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath
+              from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
+    NSLog(@"File uploaded successfully to path: %@", metadata.path);
+}
+
+- (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
+    NSLog(@"File upload failed with error: %@", error);
 }
 
 @end
