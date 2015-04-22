@@ -60,26 +60,26 @@ SHARED_INSTANCE
         NSArray *measuringMeasurementSessions = [MeasurementSession MR_findByAttribute:@"measuring" withValue:[NSNumber numberWithBool:YES]];
         if (measuringMeasurementSessions && [measuringMeasurementSessions count] > 0) {
             for (MeasurementSession *measurementSession in measuringMeasurementSessions) {
-                measurementSession.measuring = [NSNumber numberWithBool:NO];
+                measurementSession.measuring = @NO;
             }
             [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
         }
         
         if (!self.privacy) {
-            self.privacy = [NSNumber numberWithInt:1];
+            self.privacy = @1;
         }
         
         // create new MeasurementSession and save it in the database
         MeasurementSession *measurementSession = [MeasurementSession MR_createEntity];
         measurementSession.uuid = [UUIDUtil generateUUID];
         measurementSession.device = [Property getAsString:KEY_DEVICE_UUID];
-        measurementSession.windMeter = [NSNumber numberWithInteger:[self.controller windMeterDeviceType]];
+        measurementSession.windMeter = @([self.controller windMeterDeviceType]);
         measurementSession.startTime = [NSDate date];
-        measurementSession.timezoneOffset = [NSNumber numberWithInt:(int) [[NSTimeZone localTimeZone] secondsFromGMTForDate:measurementSession.startTime]];
+        measurementSession.timezoneOffset = [NSNumber numberWithInt:(int)[[NSTimeZone localTimeZone] secondsFromGMTForDate:measurementSession.startTime]];
         measurementSession.endTime = measurementSession.startTime;
-        measurementSession.measuring = [NSNumber numberWithBool:YES];
-        measurementSession.uploaded = [NSNumber numberWithBool:NO];
-        measurementSession.startIndex = [NSNumber numberWithInt:0];
+        measurementSession.measuring = @YES;
+        measurementSession.uploaded = @NO;
+        measurementSession.startIndex = @0;
         measurementSession.privacy = self.privacy;
         [self updateMeasurementSessionLocation:measurementSession];
         
@@ -164,6 +164,7 @@ SHARED_INSTANCE
     if (self.controller) {
         return [self.controller windMeterDeviceType];
     }
+    
     return UnknownWindMeterDeviceType;
 }
 
@@ -171,9 +172,8 @@ SHARED_INSTANCE
     if (self.measurementSessionUuid) {
         return [MeasurementSession MR_findFirstByAttribute:@"uuid" withValue:self.measurementSessionUuid];
     }
-    else {
-        return nil;
-    }
+
+    return nil;
 }
 
 #pragma mark WindMeasurementControllerDelegate methods
@@ -293,7 +293,7 @@ SHARED_INSTANCE
 #pragma mark Location methods
 
 - (void)updateMeasurementSessionLocation:(MeasurementSession *)measurementSession {
-    if (measurementSession && [measurementSession.measuring boolValue]) {
+    if (measurementSession && measurementSession.measuring.boolValue) {
 
         CLLocationCoordinate2D loc2d = [LocationManager sharedInstance].latestLocation;
         if ([LocationManager isCoordinateValid:loc2d]) {
@@ -323,10 +323,12 @@ SHARED_INSTANCE
     [self.geocoder reverseGeocodeLocation:location completionHandler: ^(NSArray *placemarks, NSError *error) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if (placemarks.count > 0 && !error) {
-                CLPlacemark *first = [placemarks objectAtIndex:0];
+                CLPlacemark *first = placemarks[0];
                 NSString *text = first.thoroughfare ?: first.locality ?: first.country;
                 
-                session.geoLocationNameLocalized = text;
+                if ([[NSManagedObjectContext MR_defaultContext] existingObjectWithID:session.objectID error:NULL]) {
+                    session.geoLocationNameLocalized = text;
+                }
             }
             else {
                 if (error) { if (LOG_OTHER) NSLog(@"Geocode failed with error: %@", error); }
@@ -347,19 +349,19 @@ SHARED_INSTANCE
     
     for (int i = 0; i < points.count; i++) {
         n = n + 1;
-        meanSum = meanSum + ((MeasurementPoint *)[points objectAtIndex:i]).windSpeed.floatValue;
+        meanSum = meanSum + ((MeasurementPoint *)points[i]).windSpeed.floatValue;
     }
     
     float mean = meanSum/(float)n;
     
     for (int i = 0; i < points.count; i++) {
-        float x = ((MeasurementPoint *)[points objectAtIndex:i]).windSpeed.floatValue;
+        float x = ((MeasurementPoint *)points[i]).windSpeed.floatValue;
         varianceSum = varianceSum + (x - mean)*(x - mean);
     }
     
     float variance = varianceSum/(float)(n - 1);
     
-    return [NSNumber numberWithFloat:variance/mean];
+    return @(variance/mean);
 }
 
 - (NSNumber *)windchillForSession:(MeasurementSession *)session {

@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "Opsummeringsskærm der viser dine nøgle målepunkter inklusiv temperature og tryk osv."; ObjectID = "74A-FE-VIW"; */
+"74A-FE-VIW.text" = "总结屏幕显示您的关键测量数据，包括压力、温度等等";
+
+/* Class = "UIButton"; normalTitle = "Køb den nye Sleipnir nu!"; ObjectID = "By2-Wp-Ksm"; */
+"By2-Wp-Ksm.normalTitle" = "现在购买新Sl﻿eipnir！";
+
+/* Class = "UILabel"; text = "Hvad er nyt"; ObjectID = "DYL-PV-xrH"; */
+"DYL-PV-xrH.text" = "新功能";
+
+/* Class = "UILabel"; text = "Historien viser geolocation og med Sleipnir vindmåleren, vindretning!"; ObjectID = "QHy-ZF-8rZ"; */
+"QHy-ZF-8rZ.text" = "历史显示地理位置和，随着新的Sl﻿eipnir风向仪，显示风向！";
+
+/* Class = "UILabel"; text = "Hvad er nyt"; ObjectID = "zoH-zr-gYm"; */
+"zoH-zr-gYm.text" = "新功能";

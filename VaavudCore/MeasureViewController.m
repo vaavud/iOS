@@ -14,7 +14,6 @@
 #import "SavingWindMeasurementController.h"
 #import "Property+Util.h"
 #import "UnitUtil.h"
-#import "TermsViewController.h"
 #import "UIColor+VaavudColors.h"
 #import "Mixpanel.h"
 #import "MeasurementSession+Util.h"
@@ -29,6 +28,7 @@
 #import "LocationManager.h"
 #import <math.h>
 #import <FacebookSDK/FacebookSDK.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface MeasureViewController ()
 
@@ -62,6 +62,8 @@
 @property (nonatomic, strong) UIAlertView *notificationView;
 @property (nonatomic, strong) UIAlertController *notificationAlertViewController;
 @property (nonatomic, strong) NSTimer *notificationTimer;
+
+@property (nonatomic) VaavudInteractions *interactions;
 
 @end
 
@@ -144,6 +146,8 @@
     [super viewDidLoad];
     [self hideVolumeHUD];
     
+    self.interactions = [VaavudInteractions new];
+    
     self.minimumNumberOfSeconds = SECONDS_REQUIRED;
 
     self.windSpeedUnit = -1; // make sure windSpeedUnit is updated in viewWillAppear by setting it to an invalid value
@@ -156,24 +160,6 @@
     self.maxLabelCurrentValue = nil;
     self.directionLabelCurrentValue = nil;
     
-    if (self.averageHeadingLabel) {
-        self.averageHeadingLabel.text = [NSLocalizedString(@"HEADING_AVERAGE", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    }
-    if (self.currentHeadingLabel) {
-        self.currentHeadingLabel.text = [NSLocalizedString(@"HEADING_CURRENT", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    }
-    if (self.maxHeadingLabel) {
-        self.maxHeadingLabel.text = [NSLocalizedString(@"HEADING_MAX", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    }
-    if (self.unitHeadingLabel) {
-        self.unitHeadingLabel.text = [NSLocalizedString(@"HEADING_UNIT", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    }
-    if (self.directionHeadingLabel) {
-        self.directionHeadingLabel.text = [NSLocalizedString(@"HEADING_WIND_DIRECTION", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    }
-    if (self.directionLabel) {
-        self.directionLabel.text = @"-";
-    }
     if (self.temperatureHeadingLabel) {
         self.temperatureHeadingLabel.text = [NSLocalizedString(@"HEADING_TEMPERATURE", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
         self.lookupTemperature = YES;
@@ -181,6 +167,7 @@
     else {
         self.lookupTemperature = NO;
     }
+    
     if (self.temperatureLabel) {
         self.temperatureLabel.text = @"-";
     }
@@ -211,7 +198,7 @@
     self.buttonShowsStart = YES;
     
     if (self.startStopButton) {
-        [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
+        [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal]; // Keep
         self.startStopButton.backgroundColor = vaavudUiColor;
         self.startStopButton.layer.cornerRadius = BUTTON_CORNER_RADIUS;
         self.startStopButton.layer.masksToBounds = YES;
@@ -249,7 +236,7 @@
     }
     
     NSNumber *directionUnitNumber = [Property getAsInteger:KEY_DIRECTION_UNIT];
-    NSInteger directionUnit = (directionUnitNumber) ? [directionUnitNumber doubleValue] : 0;
+    NSInteger directionUnit = (directionUnitNumber) ? directionUnitNumber.doubleValue : 0;
     if (self.directionUnit != directionUnit) {
         self.directionUnit = directionUnit;
         [self updateDirectionFromCurrentValue];
@@ -265,6 +252,10 @@
 
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"Measure Screen"];
+    }
+    
+    if ([SleipnirMeasurementController sharedInstance].isDeviceConnected) {
+        [self getMicrophonePermission];
     }
 }
 
@@ -334,7 +325,7 @@
 }
 
 - (NSString *)stopButtonTitle {
-    return NSLocalizedString(@"BUTTON_STOP", nil);
+    return NSLocalizedString(@"BUTTON_STOP", nil); // Keep
 }
 
 - (void)startWithUITracking:(BOOL)uiTracking {
@@ -449,7 +440,7 @@
     
     if (self.startStopButton) {
         self.startStopButton.backgroundColor = [UIColor vaavudColor];
-        [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal];
+        [self.startStopButton setTitle:NSLocalizedString(@"BUTTON_START", nil) forState:UIControlStateNormal]; // Keep
     }
     
     if (self.informationTextLabel) {
@@ -490,7 +481,7 @@
             Mixpanel *mixpanel = [Mixpanel sharedInstance];
             [MixpanelUtil updateMeasurementProperties:NO];
             
-            if (self.averageLabelCurrentValue && ([self.averageLabelCurrentValue floatValue] > 0.0F) && self.maxLabelCurrentValue && ([self.maxLabelCurrentValue floatValue] > 0.0F)) {
+            if (self.averageLabelCurrentValue && (self.averageLabelCurrentValue.floatValue > 0.0F) && self.maxLabelCurrentValue && (self.maxLabelCurrentValue.floatValue > 0.0F)) {
                 [mixpanel track:@"Stop Measurement" properties:@{@"Action": action, @"Wind Meter": [controller mixpanelWindMeterName], @"Duration": [NSNumber numberWithInt:round(durationSecounds)], @"Avg Wind Speed": self.averageLabelCurrentValue, @"Max Wind Speed": self.maxLabelCurrentValue}];
             }
             else {
@@ -599,17 +590,36 @@
     }
 }
 
-- (void)deviceConnected:(enum WindMeterDeviceType)device {
-    if (device == SleipnirWindMeterDeviceType) {
-        if (!self.useSleipnir && !self.buttonShowsStart) {
-            // measurement with Mjolnir is in progress when Sleipnir is plugged in, so stop it
-            [self stopWithUITracking:NO action:@"Plug"];
+- (void)getMicrophonePermission {
+    [[AVAudioSession sharedInstance] requestRecordPermission:^(BOOL granted) {
+        if (granted) {
+            NSLog(@"Permission granted");
         }
-        
-        [self showNotification:NSLocalizedString(@"DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_CONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
-    }
-    else if (device == UnknownWindMeterDeviceType) {
-        [self showNotification:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
+        else {
+            NSLog(@"Permission denied");
+            
+            [self.interactions showAlert:@"Permission" message:@"You have to give the Vaavud app permission to use the microphone. Go to the settings app." other:@"OK" action:^{
+            } on:self];
+        }
+    }];
+}
+
+- (void)deviceConnected:(enum WindMeterDeviceType)deviceType {
+    switch (deviceType) {
+        case SleipnirWindMeterDeviceType:
+            if (!self.useSleipnir && !self.buttonShowsStart) {
+                // measurement with Mjolnir is in progress when Sleipnir is plugged in, so stop it
+                [self stopWithUITracking:NO action:@"Plug"];
+            }
+            
+            [self showNotification:NSLocalizedString(@"DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"DEVICE_CONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
+            break;
+        case UnknownWindMeterDeviceType:
+            [self showNotification:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_TITLE", nil) message:NSLocalizedString(@"UNKNOWN_DEVICE_CONNECTED_MESSAGE", nil) dismissAfter:DISMISS_NOTIFICATION_AFTER];
+            break;
+            
+        default:
+            break;
     }
 }
 
@@ -675,6 +685,8 @@
         }
     }
     
+    [self getMicrophonePermission];
+
     self.notificationTimer = nil;
 }
 

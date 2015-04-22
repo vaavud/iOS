@@ -1,59 +1,45 @@
-/*
- Localizable.strings
- Vaavud
- */
 "TAB_MEASURE" = "측정";
 "TAB_MAP" = "지도";
 "TAB_HISTORY" = "내역";
 "TAB_ABOUT" = "회사 소개";
-
 "NAVIGATION_BACK" = "뒤로";
-
 "UNIT_KMH" = "km/h";
 "UNIT_MS" = "m/s";
 "UNIT_MPH" = "mph";
 "UNIT_KN" = "kt";
 "UNIT_BFT" = "bft";
-
 "REL_TIME_FUTURE" = "미래";
-"REL_TIME_NOW" = "지금 ";
+"REL_TIME_NOW" = "지금";
 "REL_TIME_1_MIN_AGO" = "1분 전";
 "REL_TIME_X_MINS_AGO" = "%d분 전";
 "REL_TIME_1_HOUR_AGO" = "1시간 전";
 "REL_TIME_X_HOURS_AGO" = "%d시간 전";
 "REL_TIME_1_DAY_AGO" = "1일 전";
 "REL_TIME_X_DAYS_AGO" = "%d일 전";
-
 "HEADING_AVERAGE" = "평균";
 "HEADING_CURRENT" = "현재";
 "HEADING_MAX" = "최고";
 "HEADING_UNIT" = "단위";
 "HEADING_NEARBY_MEASUREMENTS" = "최근의 측정";
-
 "BUTTON_START" = "시작";
 "BUTTON_STOP" = "중지";
 "BUTTON_OK" = "확인";
 "BUTTON_CANCEL" = "취소";
 "BUTTON_DONE" = "완료";
-
 "INFO_MEASURING" = "측정 진행 중";
 "INFO_NO_SIGNAL" = "풍속계를 감지할 수 없음";
 "INFO_KEEP_STEADY" = "세로로 고정 상태를 유지하세요";
-
 "X_HOURS" = "%d 시간";
 "MAP_REFRESH_ERROR_TITLE" = "지도 새로고침 오류";
 "MAP_REFRESH_ERROR_MESSAGE" = "셀룰러 데이터가 켜져있는지, 또는 Wi-Fi가 연결되어 있는지 확인하세요 .";
-
 "HISTORY_TITLE" = "내역";
 "HISTORY_REGISTER_TEASER" = "측정 내역을 모두 보려면 등록하세요";
 "HISTORY_NO_MEASUREMENTS" = "아직 측정한 것이 없습니다";
 "HISTORY_GO_TO_MEASURE" = "측정으로 가서 시작을 누르고 계속하세요!";
-
 "ABOUT_TITLE" = "회사 소개";
-"ABOUT_VAAVUD_TEXT" = "Vaavud는 덴마크의 신생 테크놀로지 회사입니다.\n 당사의 사명은 유용성, 기능 및 제3자와의 통합 면에서 지구상 최고의 풍속계를 만드는 것입니다. \n  Vaavud 풍속계에 대한 상세 정보 및 구입 방법에 대해 아시고 싶으면 Vaavud.com을 찾아 주십시오. \n &copy; Vaavud ApS 2014, 무단 전재 금지\n 버전: %@";
+"ABOUT_VAAVUD_TEXT" = "Vaavud는 덴마크의 신생 테크놀로지 회사입니다.\n 당사의 사명은 유용성, 기능 및 제3자와의 통합 면에서 지구상 최고의 풍속계를 만드는 것입니다. \n  Vaavud 풍속계에 대한 상세 정보 및 구입 방법에 대해 아시고 싶으면 Vaavud.com을 찾아 주십시오. \n &copy; Vaavud ApS 2015, 무단 전재 금지";
 "LINK_TERMS_OF_SERVICE" = "서비스 약관";
 "LINK_PRIVACY_POLICY" = "개인정보 취급방침";
-
 "REGISTER_TITLE_SIGNUP" = "등록";
 "REGISTER_TITLE_LOGIN" = "로그인";
 "REGISTER_OR" = "또는";
@@ -68,7 +54,6 @@
 "REGISTER_FIELD_LAST_NAME" = "성";
 "REGISTER_FIELD_EMAIL" = "이메일";
 "REGISTER_FIELD_PASSWORD" = "암호";
-
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "이름을 입력하세요";
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "이름만 입력하면 됩니다.";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "이메일을 입력하세요";
@@ -87,21 +72,16 @@
 "REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "셀룰러 데이터가 켜져있는지, 또는 Wi-Fi가 연결되어 있는지 확인하세요.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "오류";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "나중에 다시 해보세요.";
-
 "SETTINGS_TITLE" = "설정";
 "SETTINGS_SHOP_LINK" = "바람 측정기 구매";
-
 "DIALOG_CONFIRM" = "계속하시겠습니까?";
-
 "SHARE_TO_FACEBOOK_TITLE" = "페이스 북에 공유?";
 "SHARE_GUIDE" = "그것은 어떻습니까?";
 "SHARE_TAKE_PHOTO" = "사진찍기";
 "SHARE_CHOOSE_EXISTING" = "기존에서 선택";
-
 "SETTINGS_SOCIAL_SHARING" = "페이스 북이 공유 활성화";
 "SETTINGS_SOCIAL_SHARING_DETAILS" = "우리는 요청하지 않고 게시하지 않습니다";
 "SETTINGS_MEASURING_TIPS" = "측정팁";
-
 "INTRO_FLOW_SCREEN_1" = "Vaavud 바람 미터는 당신의 전화를 첨단 기상 도구로 바꿉니다.";
 "INTRO_FLOW_SCREEN_2" = "당신이 마음에 드는 장소에 가기전에 그곳의 조건을 확인하기 위해 라이브 맵을 사용합니다.";
 "INTRO_FLOW_HAVE_WIND_METER" = "Vaavud 바람 미터를 이미 가지고 계십니까?";
@@ -113,24 +93,19 @@
 "INTRO_FLOW_BUTTON_SKIP" = "지금은 건너 뛰기";
 "INTRO_FLOW_BUTTON_LATER" = "나중에";
 "INTRO_FLOW_BUTTON_GOT_IT" = "네, 받았습니다!";
-
 "BUTTON_YES" = "네";
 "BUTTON_NO" = "아니오";
-
 "MAP_GUIDE_MARKER_TITLE" = "측정 세부사항";
 "MAP_GUIDE_MARKER_EXPLANATION" = "더 자세한 사항을 확인하기 위해 측정을 누릅니다.";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "변경 시간 간격";
 "MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "텍스트를 눌러서 시간 간격과 측정 단위 변경하기.";
 "MAP_GUIDE_ZOOM_TITLE" = "빠른 줌";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "정확한 위치 확인을 위해 지도의 축소판을 눌러 정확한 위치로 확대합니다.";
-
-/* SHOULD BE TRANSLATED! */
-
 "HEADING_WIND_SPEED" = "Wind Speed";
 "HEADING_TEMPERATURE" = "Temperature";
 "HEADING_WIND_DIRECTION" = "Direction";
 "BUTTON_NEXT" = "Next";
-"UNIT_CELCIUS" = "°C";
+"UNIT_CELSIUS" = "°C";
 "DIRECTION_CARDINAL" = "Cardinal";
 "DIRECTION_DEGREES" = "Degrees";
 "DIRECTION_N" = "N";
@@ -162,7 +137,6 @@
 "YES" = "Yes";
 "NO" = "No";
 "REGISTER_BUTTON_SIGNUP" = "Sign up";
-
 "AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Measure for 60s";
 "AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "You must measure for at least 60s indicated by the bar becoming fully green.";
 "AGRI_ENTER_TEMPERATURE" = "Enter Temperature";
@@ -171,9 +145,9 @@
 "AGRI_MANUAL_DIRECTION_EXPLANATION" = "Disconnect your wind meter and hold up your phone against the wind. Press Next when you are doing that.";
 "AGRI_REDUCING_EQUIPMENT" = "Reducing Equipment";
 "AGRI_REDUCING_EQUIPMENT_NONE" = "None";
-"AGRI_REDUCING_EQUIPMENT_50" = "50 %";
-"AGRI_REDUCING_EQUIPMENT_75" = "75 %";
-"AGRI_REDUCING_EQUIPMENT_90" = "90 %";
+"AGRI_REDUCING_EQUIPMENT_50" = "0,5";
+"AGRI_REDUCING_EQUIPMENT_75" = "0,75";
+"AGRI_REDUCING_EQUIPMENT_90" = "0,9";
 "AGRI_DOSE" = "Dose";
 "AGRI_DOSE_QUARTER" = "Quarter";
 "AGRI_DOSE_HALF" = "Half";
@@ -195,32 +169,36 @@
 "AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "No Subscription";
 "AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "You don't have a valid subscription. Please contact Vaavud.";
 "AGRI_WORD_LIST" = "Word list";
-
-// New feb 2015
-
 "INTRO_UPGRADE_WHATS_NEW" = "새로운 기능";
 "INTRO_UPGRADE_TEXT0" = "이력은 새 슬레이프니르 풍속계, 바람의 방향이 있는 지리적 위치를 표시합니다!";
 "INTRO_UPGRADE_TEXT1" = "기압, 온도 등을 포함하는 핵심 측정 데이터를 표시하는 요약 화면입니다.";
 "INTRO_UPGRADE_CTA_BUY" = "지금 새 슬레이프니르를 구매하십시오!";
-
-"MEASURE_AVG" = "평균"; // Shorter form of the word 'Average'
+"MEASURE_AVG" = "평균";
 "SUMMARY_PRESSURE" = "기압";
 "SUMMARY_TEMPERATURE" = "온도";
-"SUMMARY_WIND_CHILL" = "풍속 냉각"; // Basically a technical term
-"SUMMARY_GUSTINESS" = "돌풍성"; // HOw gusty the wind is
+"SUMMARY_WIND_CHILL" = "풍속 냉각";
+"SUMMARY_GUSTINESS" = "돌풍성";
 "GEOLOCATION_ERROR" = "위치를 로드할 수 없음";
 "GEOLOCATION_LOADING" = "위치 로드 중...";
 "GEOLOCATION_UNKNOWN" = "저장된 위치 없음";
-
 "UNIT_FAHRENHEIT" = "°F";
-
-"UNIT_MBAR" = "mbar"; // millibar, which is equal to hecto pascal
-"UNIT_ATM" = "atm"; // atmosphere as a unit of pressure
-"UNIT_MMHG" = "mmHg"; // millimetres mercury
-
 "SUMMARY_MEASURE_WINDDIRECTION" = "풍향 측정";
 "SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "새로운 Sleipnir 풍속계로 풍향을 측정할 수 있습니다!";
 "SUMMARY_UPSELL" = "새로운 Sleipnir로 방향 측정!";
-
+"UNIT_MBAR" = "mbar";
+"UNIT_ATM" = "atm";
+"UNIT_MMHG" = "mmHg";
 "REGISTER_EXPLANATION" = "Vaavud 앱의 모든 기능을 이용하려면 로그인하셔야 합니다";
-
+"CALIBRATION_STRING_FIRST" = "원이 색상을 변경할 때까지 실내로 이동하여 풍속계에서 불기";
+"CALIBRATION_STRING_0" = "다시 불기";
+"CALIBRATION_STRING_1" = "Sleipnir가 정지하도록 속도 늦추기";
+"CALIBRATION_STRING_DONE" = "보정이 완료되었습니다!";
+"SETTINGS_CALIBRATE" = "Sleipnir 풍속계 보정";
+"SETTINGS_CALIBRATE_SUB" = "Sleipnir를 보정하여 더 정확한 측정값 얻기";
+"SETTINGS_BUY_WINDMETER" = "풍속계 구매";
+"SETTINGS_VERSION" = "버전";
+"SETTINGS_UNITS" = "단위";
+"SETTINGS_SUPPORT" = "지원";
+"UPGRADE_GET_IT_LATER" = "나중에 구매하기";
+"NSLocationWhenInUseUsageDescription" = "각 측정값이 측정될 때마다 표시할 수 있는 위치를 사용합니다.";
+"NSMicrophoneUsageDescription" = "Sleipnir 풍속계는 헤드폰잭을 사용하여 휴대폰과 함께 커뮤니케이션";

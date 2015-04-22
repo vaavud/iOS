@@ -16,26 +16,13 @@
 
 @implementation MeasureNavigationController
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.tabBarItem.title = NSLocalizedString(@"TAB_MEASURE", nil);
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-        
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-
+    
 #ifdef CORE
         UIImage *selectedTabImage = [[UIImage imageNamed:@"measure_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         self.tabBarItem.selectedImage = selectedTabImage;
 #endif
-
-    }
-    else {
-        self.navigationBar.barStyle = UIBarStyleBlack;
-        self.navigationBar.tintColor = [UIColor blackColor];
-    }
 }
 
 - (void)tabSelected {

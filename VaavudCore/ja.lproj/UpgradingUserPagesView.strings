@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "Opsummeringsskærm der viser dine nøgle målepunkter inklusiv temperature og tryk osv."; ObjectID = "74A-FE-VIW"; */
+"74A-FE-VIW.text" = "概要画面で温度や気圧など主要な測定データを表示。";
+
+/* Class = "UIButton"; normalTitle = "Køb den nye Sleipnir nu!"; ObjectID = "By2-Wp-Ksm"; */
+"By2-Wp-Ksm.normalTitle" = "新しいSleipnirを今すぐ購入!";
+
+/* Class = "UILabel"; text = "Hvad er nyt"; ObjectID = "DYL-PV-xrH"; */
+"DYL-PV-xrH.text" = "新着情報";
+
+/* Class = "UILabel"; text = "Historien viser geolocation og med Sleipnir vindmåleren, vindretning!"; ObjectID = "QHy-ZF-8rZ"; */
+"QHy-ZF-8rZ.text" = "履歴では地理的位置や新しいSlepnir風速計、風向きを表示！";
+
+/* Class = "UILabel"; text = "Hvad er nyt"; ObjectID = "zoH-zr-gYm"; */
+"zoH-zr-gYm.text" = "新着情報";

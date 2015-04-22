@@ -44,19 +44,19 @@
 
 + (NSString *)formatValueWithTwoDigits:(float)value {
     if (round(value) >= 10) {
-        return [NSString localizedStringWithFormat: @"%.0f", value];
+        return [NSString localizedStringWithFormat:@"%.0f", value];
     }
     else {
-        return [NSString localizedStringWithFormat: @"%.1f", value];
+        return [NSString localizedStringWithFormat:@"%.1f", value];
     }
 }
 
 + (NSString *)formatValueWithThreeDigits:(double)value {
     if (round(value) >= 100.0) {
-        return [NSString localizedStringWithFormat: @"%.0f", value];
+        return [NSString localizedStringWithFormat:@"%.0f", value];
     }
     else {
-        return [NSString localizedStringWithFormat: @"%.1f", value];
+        return [NSString localizedStringWithFormat:@"%.1f", value];
     }
 }
 

@@ -1,0 +1,4 @@
+/* Localized versions of Info.plist keys */
+
+NSLocationWhenInUseUsageDescription = "Usiamo la tua posizione per essere in grado di mostrare dove è stata rilevata ogni misurazione.";
+NSMicrophoneUsageDescription = "L'anemometro Sleipnir utilizza il jack per le cuffie per comunicare con il telefono";

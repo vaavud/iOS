@@ -10,10 +10,12 @@
 #import "HistoryRootViewController.h"
 
 @class HistoryTableViewCell;
-@interface HistoryTableViewController : UITableViewController<HistoryLoadedListener, NSFetchedResultsControllerDelegate>
+@class MeasurementSession;
+
+@interface HistoryTableViewController : UITableViewController<NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
-- (void)configureCell:(HistoryTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)configureCell:(HistoryTableViewCell *)cell withSession:(MeasurementSession *)session;
 
 @end

@@ -10,6 +10,6 @@
 #import "RegisterNavigationController.h"
 #import "TabBarController.h"
 
-@interface MeasureNavigationController : RegisterNavigationController<TabSelectedListener>
+@interface MeasureNavigationController : UINavigationController<TabSelectedListener>
 
 @end

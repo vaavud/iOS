@@ -10,4 +10,8 @@
 
 @interface RegisterViewController : UIViewController
 
+@property (nonatomic) NSString *teaserLabelText;
+
+@property (nonatomic, copy) void (^completion)(void);
+
 @end

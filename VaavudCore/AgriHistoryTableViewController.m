@@ -18,9 +18,8 @@
 
 @implementation AgriHistoryTableViewController
 
-- (void)configureCell:(HistoryTableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    [super configureCell:cell atIndexPath:indexPath];
-    
+- (void)configureCell:(HistoryTableViewCell *)cell withSession:(MeasurementSession *)session {
+    [super configureCell:cell withSession:session];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 }
 

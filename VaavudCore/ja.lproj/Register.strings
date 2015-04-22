@@ -1,0 +1,75 @@
+
+/* Class = "UIBarButtonItem"; title = "Log in"; ObjectID = "29a-Vt-7cs"; */
+"29a-Vt-7cs.title" = "ログイン";
+
+/* Class = "UIBarButtonItem"; title = "CancelLogin"; ObjectID = "6fd-GF-Mkj"; */
+"6fd-GF-Mkj.title" = "キャンセル";
+
+/* Class = "UIButton"; normalTitle = "Log in with Facebook"; ObjectID = "8zw-Fe-e1h"; */
+"8zw-Fe-e1h.normalTitle" = "Facebookでログイン";
+
+/* Class = "UIBarButtonItem"; title = "Create"; ObjectID = "BuJ-9R-IXt"; */
+"BuJ-9R-IXt.title" = "Sign up";
+
+/* Class = "UINavigationItem"; title = "Sign Up"; ObjectID = "Dvr-n0-rNN"; */
+"Dvr-n0-rNN.title" = "サインアップ";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "EoC-9q-XHl"; */
+"EoC-9q-XHl.placeholder" = "パスワード";
+
+/* Class = "UITextField"; placeholder = "First name"; ObjectID = "Ied-Dp-nK2"; */
+"Ied-Dp-nK2.placeholder" = "名";
+
+/* Class = "UILabel"; text = "#Label"; ObjectID = "KAW-1F-BHd"; */
+"KAW-1F-BHd.text" = "#Label";
+
+/* Class = "UIBarButtonItem"; title = "Cancel"; ObjectID = "PDW-nY-SgY"; */
+"PDW-nY-SgY.title" = "キャンセル";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "R4J-yx-SGq"; */
+"R4J-yx-SGq.placeholder" = "メールアドレス";
+
+/* Class = "UILabel"; text = "and"; ObjectID = "RQC-sd-HT2"; */
+"RQC-sd-HT2.text" = "と";
+
+/* Class = "UIButton"; normalTitle = "##Log In"; ObjectID = "RfU-7Y-inK"; */
+"RfU-7Y-inK.normalTitle" = "ログイン";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "SEa-1y-xCl"; */
+"SEa-1y-xCl.placeholder" = "パスワード";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "Tle-83-Bk5"; */
+"Tle-83-Bk5.placeholder" = "メールアドレス";
+
+/* Class = "UIButton"; normalTitle = "##Cancel"; ObjectID = "UW4-K5-F42"; */
+"UW4-K5-F42.normalTitle" = "キャンセル";
+
+/* Class = "UILabel"; text = "Or"; ObjectID = "VHr-rp-yDL"; */
+"VHr-rp-yDL.text" = "または";
+
+/* Class = "UINavigationItem"; title = "Log In"; ObjectID = "aEk-6K-pKn"; */
+"aEk-6K-pKn.title" = "ログイン";
+
+/* Class = "UINavigationItem"; title = "##Register##"; ObjectID = "daQ-eU-lpY"; */
+"daQ-eU-lpY.title" = "";
+
+/* Class = "UIButton"; normalTitle = "Sign up with Facebook"; ObjectID = "gtn-PX-ilr"; */
+"gtn-PX-ilr.normalTitle" = "Facebookでサインアップ";
+
+/* Class = "UIButton"; normalTitle = "##Sign Up"; ObjectID = "kQi-uV-EHg"; */
+"kQi-uV-EHg.normalTitle" = "Sign up";
+
+/* Class = "UIButton"; normalTitle = "Privacy Policy"; ObjectID = "kyW-K8-yJ0"; */
+"kyW-K8-yJ0.normalTitle" = "プライバシーポリシー";
+
+/* Class = "UIBarButtonItem"; title = "CancelSignup"; ObjectID = "oST-BO-mcV"; */
+"oST-BO-mcV.title" = "キャンセル";
+
+/* Class = "UIButton"; normalTitle = "Terms of Service"; ObjectID = "pSX-qf-plK"; */
+"pSX-qf-plK.normalTitle" = "サービス規約";
+
+/* Class = "UITextField"; placeholder = "Last name"; ObjectID = "peq-n5-3WK"; */
+"peq-n5-3WK.placeholder" = "姓";
+
+/* Class = "UILabel"; text = "Or"; ObjectID = "va4-sq-nkv"; */
+"va4-sq-nkv.text" = "または";

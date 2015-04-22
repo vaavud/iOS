@@ -1,20 +1,13 @@
-/*
- Localizable.strings
- Vaavud
- */
 "TAB_MEASURE" = "Mesure";
 "TAB_MAP" = "Carte";
 "TAB_HISTORY" = "Historique";
 "TAB_ABOUT" = "À propos";
-
 "NAVIGATION_BACK" = "Retour";
-
 "UNIT_KMH" = "km/h";
 "UNIT_MS" = "m/s";
 "UNIT_MPH" = "mph";
 "UNIT_KN" = "kt";
 "UNIT_BFT" = "bft";
-
 "REL_TIME_FUTURE" = "futur";
 "REL_TIME_NOW" = "à l'instant";
 "REL_TIME_1_MIN_AGO" = "il y a 1 min";
@@ -23,37 +16,30 @@
 "REL_TIME_X_HOURS_AGO" = "il y a %d heures";
 "REL_TIME_1_DAY_AGO" = "il y a 1 jour";
 "REL_TIME_X_DAYS_AGO" = "il y a %d jours";
-
 "HEADING_AVERAGE" = "Moyenne";
 "HEADING_CURRENT" = "Actuelle";
 "HEADING_MAX" = "Max";
 "HEADING_UNIT" = "Unité";
 "HEADING_NEARBY_MEASUREMENTS" = "Mesures à proximité";
-
 "BUTTON_START" = "Marche";
 "BUTTON_STOP" = "Arrêt";
 "BUTTON_OK" = "OK";
 "BUTTON_CANCEL" = "Annuler";
 "BUTTON_DONE" = "Terminé";
-
 "INFO_MEASURING" = "Mesure en cours";
 "INFO_NO_SIGNAL" = "Impossible de détecter l'anémomètre";
 "INFO_KEEP_STEADY" = "Bien tenir en position verticale";
-
 "X_HOURS" = "%d heures";
 "MAP_REFRESH_ERROR_TITLE" = "Erreur d'actualisation de la carte";
 "MAP_REFRESH_ERROR_MESSAGE" = "Assurez-vous que vous avez une connexion mobile ou Wi-Fi.";
-
 "HISTORY_TITLE" = "Historique";
 "HISTORY_REGISTER_TEASER" = "Connectez-vous pour voir votre historique complet des mesures";
 "HISTORY_NO_MEASUREMENTS" = "Pas encore de mesures";
 "HISTORY_GO_TO_MEASURE" = "Assez sur Mesure et appuyez Démarrer pour commencer !";
-
 "ABOUT_TITLE" = "À propos";
-"ABOUT_VAAVUD_TEXT" = "Vaavud est une start-up technologique danoise.\n Notre mission consiste à produire les meilleurs anémomètres du monde en termes de facilité d'utilisation, de fonctionnalités et d'intégration de tierces parties.\n Pour en savoir plus et pour acheter un anémomètre Vaavud, visitez Vaavud.com\n &copy; Vaavud ApS 2014, tous droits réservés\n Version: %@";
+"ABOUT_VAAVUD_TEXT" = "Vaavud est une start-up technologique danoise.\n Notre mission consiste à produire les meilleurs anémomètres du monde en termes de facilité d'utilisation, de fonctionnalités et d'intégration de tierces parties.\n Pour en savoir plus et pour acheter un anémomètre Vaavud, visitez Vaavud.com\n &copy; Vaavud ApS 2015, tous droits réservés";
 "LINK_TERMS_OF_SERVICE" = "Conditions d'utilisation";
 "LINK_PRIVACY_POLICY" = "Politique de confidentialité";
-
 "REGISTER_TITLE_SIGNUP" = "Inscrivez-vous";
 "REGISTER_TITLE_LOGIN" = "Connexion";
 "REGISTER_OR" = "Ou";
@@ -68,7 +54,6 @@
 "REGISTER_FIELD_LAST_NAME" = "Nom";
 "REGISTER_FIELD_EMAIL" = "E-mail";
 "REGISTER_FIELD_PASSWORD" = "Mot de passe";
-
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "Saisissez votre nom";
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "Votre prénom est suffisant.";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Saisissez votre e-mail";
@@ -87,21 +72,16 @@
 "REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Assurez-vous que vous avez une connexion mobile ou Wi-Fi.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Erreur";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Veuillez réessayer ultérieurement.";
-
 "SETTINGS_TITLE" = "Paramètres";
 "SETTINGS_SHOP_LINK" = "Acheter l'anémomètre";
-
 "DIALOG_CONFIRM" = "Êtes-vous sûr?";
-
 "SHARE_TO_FACEBOOK_TITLE" = "Partager sur Facebook ?";
 "SHARE_GUIDE" = "À quoi cela ressemble ?";
 "SHARE_TAKE_PHOTO" = "Prendre une photo";
 "SHARE_CHOOSE_EXISTING" = "Choisir une photo existante";
-
 "SETTINGS_SOCIAL_SHARING" = "Activer le partage Facebook";
 "SETTINGS_SOCIAL_SHARING_DETAILS" = "Nous ne publierons pas sans vous demander";
 "SETTINGS_MEASURING_TIPS" = "Conseils de mesure";
-
 "INTRO_FLOW_SCREEN_1" = "L'anémomètre Vaavud transforme votre téléphone en un outil météorologique de haute technologie.";
 "INTRO_FLOW_SCREEN_2" = "Avant de partir, utilisez la carte pour vous informer en direct des conditions à vos endroits préférés.";
 "INTRO_FLOW_HAVE_WIND_METER" = "Possédez-vous déjà un anémomètre Vaavud?";
@@ -113,22 +93,19 @@
 "INTRO_FLOW_BUTTON_SKIP" = "Passer l’étape";
 "INTRO_FLOW_BUTTON_LATER" = "Plus tard";
 "INTRO_FLOW_BUTTON_GOT_IT" = "Ok, j’ai compris!";
-
 "BUTTON_YES" = "Oui";
 "BUTTON_NO" = "Non";
-
 "MAP_GUIDE_MARKER_TITLE" = "Détails de la mesure";
 "MAP_GUIDE_MARKER_EXPLANATION" = "Appuyez sur une mesure pour voir plus de détails.";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "Changer l'intervalle de temps";
 "MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Changer l'intervalle de temps et l'unité de mesure en appuyant sur le texte.";
 "MAP_GUIDE_ZOOM_TITLE" = "Zoom rapide";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "Appuyez sur la carte miniature pour zoomer sur l'emplacement exact.";
-
 "HEADING_WIND_SPEED" = "Vitesse du vent";
 "HEADING_TEMPERATURE" = "Température";
 "HEADING_WIND_DIRECTION" = "Direction";
 "BUTTON_NEXT" = "Suivant";
-"UNIT_CELCIUS" = "°C";
+"UNIT_CELSIUS" = "°C";
 "DIRECTION_CARDINAL" = "Cardinaux";
 "DIRECTION_DEGREES" = "Degrés";
 "DIRECTION_N" = "N";
@@ -160,7 +137,6 @@
 "YES" = "Oui";
 "NO" = "Non";
 "REGISTER_BUTTON_SIGNUP" = "Signer";
-
 "AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Measure for 60s";
 "AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "You must measure for at least 60s indicated by the bar becoming fully green.";
 "AGRI_ENTER_TEMPERATURE" = "Enter Temperature";
@@ -169,9 +145,9 @@
 "AGRI_MANUAL_DIRECTION_EXPLANATION" = "Disconnect your wind meter and hold up your phone against the wind. Press Next when you are doing that.";
 "AGRI_REDUCING_EQUIPMENT" = "Reducing Equipment";
 "AGRI_REDUCING_EQUIPMENT_NONE" = "None";
-"AGRI_REDUCING_EQUIPMENT_50" = "50 %";
-"AGRI_REDUCING_EQUIPMENT_75" = "75 %";
-"AGRI_REDUCING_EQUIPMENT_90" = "90 %";
+"AGRI_REDUCING_EQUIPMENT_50" = "0,5";
+"AGRI_REDUCING_EQUIPMENT_75" = "0,75";
+"AGRI_REDUCING_EQUIPMENT_90" = "0,9";
 "AGRI_DOSE" = "Dose";
 "AGRI_DOSE_QUARTER" = "Quarter";
 "AGRI_DOSE_HALF" = "Half";
@@ -193,32 +169,36 @@
 "AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "No Subscription";
 "AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "You don't have a valid subscription. Please contact Vaavud.";
 "AGRI_WORD_LIST" = "Word list";
-
 "INTRO_UPGRADE_WHATS_NEW" = "Quoi de neuf";
 "INTRO_UPGRADE_TEXT0" = "L'historique contient désormais la géolocalisation et, avec le nouvel anémomètre Sleipnir, la direction du vent !";
 "INTRO_UPGRADE_TEXT1" = "L’écran de synthèse affiche vos principales données de mesure, y compris la pression, la température, etc.";
 "INTRO_UPGRADE_CTA_BUY" = "Acheter le nouveau Sleipnir maintenant!";
-
-"MEASURE_AVG" = "Moy.";// Shorter form of the word 'Average'
+"MEASURE_AVG" = "Moy.";
 "SUMMARY_PRESSURE" = "Pression";
 "SUMMARY_TEMPERATURE" = "Température";
-"SUMMARY_WIND_CHILL" = "Température ressentie"; // Basically a technical term
-"SUMMARY_GUSTINESS" = "Rafales";// HOw gusty the wind is
+"SUMMARY_WIND_CHILL" = "Température ressentie";
+"SUMMARY_GUSTINESS" = "Rafales";
 "GEOLOCATION_ERROR" = "Impossible de charger la localisation";
 "GEOLOCATION_LOADING" = "Chargement de la localisation...";
 "GEOLOCATION_UNKNOWN" = "Localisation inconnue";
-
 "UNIT_FAHRENHEIT" = "°F";
-
 "SUMMARY_MEASURE_WINDDIRECTION" = "Mesurez la direction du vent";
 "SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "Avec le nouvel anémomètre Sleipnir, vous pouvez mesurer la direction du vent!";
 "SUMMARY_UPSELL" = "Mesurez la direction du vent avec le nouveau Sleipnir!";
-
-// Not crucial
-"UNIT_MBAR" = "mbar"; // millibar, which is equal to hecto pascal
-"UNIT_ATM" = "atm"; // atmosphere as a unit of pressure
-"UNIT_MMHG" = "mmHg"; // millimetres mercury
-
+"UNIT_MBAR" = "mbar";
+"UNIT_ATM" = "atm";
+"UNIT_MMHG" = "mmHg";
 "REGISTER_EXPLANATION" = "Vous devez vous connecter pour bénéficier pleinement de l'application Vaavud";
-
-
+"CALIBRATION_STRING_FIRST" = "Allez à l'intérieur et soufflez sur l'anémomètre jusqu'à ce que le cercle change de couleur";
+"CALIBRATION_STRING_0" = "Soufflez à nouveau";
+"CALIBRATION_STRING_1" = "Laissez Sleipnir ralentir et s'arrêter tout seul";
+"CALIBRATION_STRING_DONE" = "Calibrage terminé !";
+"SETTINGS_CALIBRATE" = "Calibrer l'anémomètre Sleipnir";
+"SETTINGS_CALIBRATE_SUB" = "Calibrez votre Sleipnir pour obtenir des mesures plus précises";
+"SETTINGS_BUY_WINDMETER" = "Acheter un anémomètre";
+"SETTINGS_VERSION" = "Version";
+"SETTINGS_UNITS" = "Unités";
+"SETTINGS_SUPPORT" = "Assistance";
+"UPGRADE_GET_IT_LATER" = "Plus tard";
+"NSLocationWhenInUseUsageDescription" = "Nous utilisons votre localisation pour vous montrer l'endroit où a été effectué chaque relevé.";
+"NSMicrophoneUsageDescription" = "L'anémomètre Sleipnir utilise la prise casque pour communiquer avec le téléphone";

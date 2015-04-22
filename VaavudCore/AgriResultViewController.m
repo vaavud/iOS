@@ -60,7 +60,7 @@
     UIColor *vaavudColor = [UIColor vaavudColor];
     
     self.windSpeedHeadingLabel.text = [NSLocalizedString(@"HEADING_WIND_SPEED", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    self.temperatureUnitLabel.text = NSLocalizedString(@"UNIT_CELCIUS", nil);
+    self.temperatureUnitLabel.text = NSLocalizedString(@"UNIT_CELSIUS", nil);
     self.directionHeadingLabel.text = [NSLocalizedString(@"HEADING_WIND_DIRECTION", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     self.temperatureHeadingLabel.text = [NSLocalizedString(@"HEADING_TEMPERATURE", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
     self.reducingEquipmentHeadingLabel.text = NSLocalizedString(@"AGRI_REDUCING_EQUIPMENT", nil);
@@ -177,7 +177,7 @@
                 self.directionLabel.text = [UnitUtil displayNameForDirection:self.measurementSession.windDirection];
             }
             else {
-                self.directionLabel.text = [NSString stringWithFormat:@"%@°", [NSNumber numberWithInt:(int)round([self.measurementSession.windDirection doubleValue])]];
+                self.directionLabel.text = [NSString stringWithFormat:@"%@°", @((int)round(self.measurementSession.windDirection.doubleValue))];
             }
         
             NSString *imageName = [UnitUtil imageNameForDirection:self.measurementSession.windDirection];
@@ -436,7 +436,7 @@
             if (summary.length > 0) {
                 [summary appendString:@"\n"];
             }
-            [summary appendFormat:@"%@: %@ %@", NSLocalizedString(@"HEADING_TEMPERATURE", nil), self.temperatureLabel.text, NSLocalizedString(@"UNIT_CELCIUS", nil)];
+            [summary appendFormat:@"%@: %@ %@", NSLocalizedString(@"HEADING_TEMPERATURE", nil), self.temperatureLabel.text, NSLocalizedString(@"UNIT_CELSIUS", nil)];
         }
         
         if (summary.length > 0) {

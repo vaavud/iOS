@@ -25,7 +25,7 @@ enum TemperatureUnit: Int, FloatUnit {
     var decimals: Int { return 1 }
     func fromBase(kelvinValue: Float) -> Float { return kelvinValue*ratio + constant}
     
-    private var key: String { return ["UNIT_CELCIUS", "UNIT_FAHRENHEIT"][rawValue] }
+    private var key: String { return ["UNIT_CELSIUS", "UNIT_FAHRENHEIT"][rawValue] }
     
     private var ratio: Float { return [1, 9/5][rawValue] }
     
@@ -147,7 +147,7 @@ class VaavudFormatter {
             let cardinalDirection = DirectionUnit.degreesToCardinal(degrees)
             return NSLocalizedString(directionKey(cardinalDirection), comment: "")
         case .Degrees:
-            return NSString(format: "%.0f°", degrees)
+            return NSString(format: "%.0f°", degrees) as String
         }
     }
     
@@ -253,7 +253,7 @@ class VaavudFormatter {
         if gustiness == nil || gustiness < 0.001 {
             return nil
         }
-        return NSString(format: "%.0f", 100*gustiness!)
+        return NSString(format: "%.0f", 100*gustiness!) as String
     }
     
     // MARK - Private
@@ -317,7 +317,7 @@ class VaavudFormatter {
         }
         
         let formatString = NSString(format: "%%.%df", actualDecimals)
-        return NSString(format: formatString, locale: NSLocale.currentLocale(), value)
+        return NSString(format: formatString, locale: NSLocale.currentLocale(), value) as String
     }
     
     private func failure(# valueLabel: UILabel, unitLabel: UILabel) -> Bool {

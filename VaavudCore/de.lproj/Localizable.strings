@@ -1,20 +1,13 @@
-/*
- Localizable.strings
- Vaavud
- */
 "TAB_MEASURE" = "Messung";
 "TAB_MAP" = "Karte";
 "TAB_HISTORY" = "Verlauf";
 "TAB_ABOUT" = "Über";
-
 "NAVIGATION_BACK" = "Zurück";
-
 "UNIT_KMH" = "km/h";
 "UNIT_MS" = "m/s";
 "UNIT_MPH" = "mph";
 "UNIT_KN" = "kt";
 "UNIT_BFT" = "bft";
-
 "REL_TIME_FUTURE" = "zukünftig";
 "REL_TIME_NOW" = "nur jetzt";
 "REL_TIME_1_MIN_AGO" = "vor 1 Min.";
@@ -23,36 +16,30 @@
 "REL_TIME_X_HOURS_AGO" = "vor %d Stunden";
 "REL_TIME_1_DAY_AGO" = "vor 1 Tag";
 "REL_TIME_X_DAYS_AGO" = "vor %d Tagen";
-
 "HEADING_AVERAGE" = "Durchschnitt";
 "HEADING_CURRENT" = "Aktuell";
 "HEADING_MAX" = "Max.";
 "HEADING_UNIT" = "Einheit";
 "HEADING_NEARBY_MEASUREMENTS" = "Messungen in der Nähe";
-
 "BUTTON_START" = "Starten";
 "BUTTON_STOP" = "Stoppen";
 "BUTTON_OK" = "OK";
 "BUTTON_CANCEL" = "Abbrechen";
 "BUTTON_DONE" = "Erledigt";
-
 "INFO_MEASURING" = "Laufende Messungen";
+"INFO_NO_SIGNAL" = "Cannot detect wind meter";
 "INFO_KEEP_STEADY" = "Vertikal & ruhig halten";
-
 "X_HOURS" = "%d Stunden";
 "MAP_REFRESH_ERROR_TITLE" = "Kartenaktualisierungs-Fehler";
 "MAP_REFRESH_ERROR_MESSAGE" = "Stellen Sie sicher, dass Sie eine Handy-Daten- oder WiFi-Verbindung haben.";
-
 "HISTORY_TITLE" = "Verlauf";
 "HISTORY_REGISTER_TEASER" = "Melden Sie sich an, um den vollständigen Messungsverlauf einzusehen";
 "HISTORY_NO_MEASUREMENTS" = "Noch keine Messungen";
 "HISTORY_GO_TO_MEASURE" = "Gehen Sie in 'Messung' und drücken Sie auf 'Start', um zu beginnen!";
-
 "ABOUT_TITLE" = "Über";
-"ABOUT_VAAVUD_TEXT" = "Vaavud ist eine dänisches Technologie-Startup.\n Unsere Mission besteht darin, die besten Windmesser der Welt in Bezug auf Nutzbarkeit, Funktionen und Dritt-Integration anzubieten.\n Um mehr zu erfahren und einen Vaavud-Windmesser zu kaufen, besuchen Sie bitte Vaavud.com\n &copy; Vaavud ApS 2014, alle Recht vorbehalten\n Version: %@";
+"ABOUT_VAAVUD_TEXT" = "Vaavud ist eine dänisches Technologie-Startup.\n Unsere Mission besteht darin, die besten Windmesser der Welt in Bezug auf Nutzbarkeit, Funktionen und Dritt-Integration anzubieten.\n Um mehr zu erfahren und einen Vaavud-Windmesser zu kaufen, besuchen Sie bitte Vaavud.com\n &copy; Vaavud ApS 2015, alle Recht vorbehalten";
 "LINK_TERMS_OF_SERVICE" = "Servicebedingungen";
 "LINK_PRIVACY_POLICY" = "Datenschutzerklärung";
-
 "REGISTER_TITLE_SIGNUP" = "Anmeldung";
 "REGISTER_TITLE_LOGIN" = "Log-In";
 "REGISTER_OR" = "Oder";
@@ -67,7 +54,6 @@
 "REGISTER_FIELD_LAST_NAME" = "Nachname";
 "REGISTER_FIELD_EMAIL" = "E-Mail";
 "REGISTER_FIELD_PASSWORD" = "Passwort";
-
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "Geben Sie Ihren Namen ein";
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "Ihr Vorname ist ausreichend.";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Geben Sie Ihre E-Mail-Adresse ein";
@@ -86,21 +72,16 @@
 "REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Stellen Sie sicher, dass Sie eine Handy-Daten- oder WiFi-Verbindung haben.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Fehler";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Bitte versuchen Sie es später erneut.";
-
 "SETTINGS_TITLE" = "Einstellungen";
 "SETTINGS_SHOP_LINK" = "Wind Meter Kaufen";
-
 "DIALOG_CONFIRM" = "Sind Sie sicher?";
-
 "SHARE_TO_FACEBOOK_TITLE" = "Auf Facebook teilen?";
 "SHARE_GUIDE" = "Wie fühlt es sich an?";
 "SHARE_TAKE_PHOTO" = "Foto aufnehmen";
 "SHARE_CHOOSE_EXISTING" = "Foto wählen";
-
 "SETTINGS_SOCIAL_SHARING" = "Teilen auf Facebook aktivieren";
 "SETTINGS_SOCIAL_SHARING_DETAILS" = "Wir posten nichts ohne Ihre Zustimmung";
 "SETTINGS_MEASURING_TIPS" = "Mess-Tipps";
-
 "INTRO_FLOW_SCREEN_1" = "Der Windmesser von Vaavud macht aus Ihrem Telefon ein meteorologisches High-Tech-Gerät.";
 "INTRO_FLOW_SCREEN_2" = "Sie können die Live-Karte verwenden, um die Wetterbedingungen an Ihren Lieblingsorten zu überprüfen, bevor Sie losgehen.";
 "INTRO_FLOW_HAVE_WIND_METER" = "Besitzen Sie bereits einen Windmesser von Vaavud?";
@@ -112,23 +93,20 @@
 "INTRO_FLOW_BUTTON_SKIP" = "Jetzt überspringen";
 "INTRO_FLOW_BUTTON_LATER" = "Später";
 "INTRO_FLOW_BUTTON_GOT_IT" = "Okay, ich hab's verstanden!";
-
 "BUTTON_YES" = "Ja";
 "BUTTON_NO" = "Nein";
-
 "MAP_GUIDE_MARKER_TITLE" = "Messdetails";
 "MAP_GUIDE_MARKER_EXPLANATION" = "Auf eine Messung drücken, um weitere Details einzublenden.";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "Zeitintervall ändern";
 "MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Wechseln Sie den Zeitintervall und die Maßeinheit, indem Sie den Text antippen.";
 "MAP_GUIDE_ZOOM_TITLE" = "Schnell-Zoom";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "Tippen Sie die Kartenminiatur an, um exakt auf den Ort hinein zu zoomen.";
-
 "HEADING_WIND_SPEED" = "Windgeschwindigkeit";
 "HEADING_TEMPERATURE" = "Temperatur";
 "HEADING_WIND_DIRECTION" = "Richtung";
 "BUTTON_NEXT" = "Nächste";
-"UNIT_CELCIUS" = "°C";
-"DIRECTION_CARDINAL" = "Himmelsrichtungen";
+"UNIT_CELSIUS" = "°C";
+"DIRECTION_CARDINAL" = "Himmelsricht.";
 "DIRECTION_DEGREES" = "Grad";
 "DIRECTION_N" = "N";
 "DIRECTION_NNE" = "NNO";
@@ -146,9 +124,6 @@
 "DIRECTION_WNW" = "WNW";
 "DIRECTION_NW" = "NW";
 "DIRECTION_NNW" = "NNW";
-
-/* SHOULD BE TRANSLATED! */
-
 "DEVICE_CONNECTED_TITLE" = "Device Connected";
 "DEVICE_CONNECTED_MESSAGE" = "Sleipnir wind meter connected";
 "DEVICE_DISCONNECTED_TITLE" = "Device Disconnected";
@@ -162,7 +137,6 @@
 "YES" = "Yes";
 "NO" = "No";
 "REGISTER_BUTTON_SIGNUP" = "Sign up";
-
 "AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Measure for 60s";
 "AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "You must measure for at least 60s indicated by the bar becoming fully green.";
 "AGRI_ENTER_TEMPERATURE" = "Enter Temperature";
@@ -171,9 +145,9 @@
 "AGRI_MANUAL_DIRECTION_EXPLANATION" = "Disconnect your wind meter and hold up your phone against the wind. Press Next when you are doing that.";
 "AGRI_REDUCING_EQUIPMENT" = "Reducing Equipment";
 "AGRI_REDUCING_EQUIPMENT_NONE" = "None";
-"AGRI_REDUCING_EQUIPMENT_50" = "50 %";
-"AGRI_REDUCING_EQUIPMENT_75" = "75 %";
-"AGRI_REDUCING_EQUIPMENT_90" = "90 %";
+"AGRI_REDUCING_EQUIPMENT_50" = "0,5";
+"AGRI_REDUCING_EQUIPMENT_75" = "0,75";
+"AGRI_REDUCING_EQUIPMENT_90" = "0,9";
 "AGRI_DOSE" = "Dose";
 "AGRI_DOSE_QUARTER" = "Quarter";
 "AGRI_DOSE_HALF" = "Half";
@@ -195,34 +169,36 @@
 "AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "No Subscription";
 "AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "You don't have a valid subscription. Please contact Vaavud.";
 "AGRI_WORD_LIST" = "Word list";
-
-// New January 2015
 "INTRO_UPGRADE_WHATS_NEW" = "What's new";
 "INTRO_UPGRADE_TEXT0" = "History shows geolocation and, with the new Sleipnir windmeter, wind direction!";
 "INTRO_UPGRADE_TEXT1" = "Summary screen showing your key measurement data, including pressure, temperature etc.";
 "INTRO_UPGRADE_CTA_BUY" = "Buy the new Sleipnir now!";
-
-"MEASURE_AVG" = "Avg"; // Shorter form of the word 'Average'
+"MEASURE_AVG" = "Avg";
 "SUMMARY_PRESSURE" = "Druck";
 "SUMMARY_TEMPERATURE" = "Temperatur";
-"SUMMARY_WIND_CHILL" = "Scheinbare"; // Basically a technical term
-"SUMMARY_GUSTINESS" = "Böigkeit"; // HOw gusty the wind is
+"SUMMARY_WIND_CHILL" = "Gefühlte";
+"SUMMARY_GUSTINESS" = "Böigkeit";
 "GEOLOCATION_ERROR" = "Couldn't load location";
 "GEOLOCATION_LOADING" = "Loading location...";
 "GEOLOCATION_UNKNOWN" = "Location not saved";
-
 "UNIT_FAHRENHEIT" = "°F";
-
-"INFO_NO_SIGNAL" = "Cannot detect wind meter";
-
 "SUMMARY_MEASURE_WINDDIRECTION" = "Windrichtung messen";
 "SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "Mit dem neuen Sleipnir Windmesser können Sie die Windrichtung messen!";
 "SUMMARY_UPSELL" = "Messen Sie die Richtung mit dem neuen Sleipnir!";
-
-"UNIT_MBAR" = "mbar"; // millibar, which is equal to hecto pascal
-"UNIT_ATM" = "atm"; // atmosphere as a unit of pressure
-"UNIT_MMHG" = "mmHg"; // millimetres mercury
-
+"UNIT_MBAR" = "mbar";
+"UNIT_ATM" = "atm";
+"UNIT_MMHG" = "mmHg";
 "REGISTER_EXPLANATION" = "Sie müssen sich anmelden, um die Vaavud App voll nutzen zu können";
-
-
+"CALIBRATION_STRING_FIRST" = "Gehen Sie ins Haus und blasen Sie auf den Windmesser, bis der Kreis die Farbe verändert";
+"CALIBRATION_STRING_0" = "Nochmals blasen";
+"CALIBRATION_STRING_1" = "Lass Sleipnir zur Ruhe kommen";
+"CALIBRATION_STRING_DONE" = "Kalibration abgeschlossen!";
+"SETTINGS_CALIBRATE" = "Kalibration des Sleipnir Windmessers";
+"SETTINGS_CALIBRATE_SUB" = "Kalibrieren Sie Ihren Sleipnir, um genauere Messungen zu erhalten";
+"SETTINGS_BUY_WINDMETER" = "Kaufen Sie einen Windmesser";
+"SETTINGS_VERSION" = "Version";
+"SETTINGS_UNITS" = "Einheiten";
+"SETTINGS_SUPPORT" = "Unterstützung";
+"UPGRADE_GET_IT_LATER" = "Kaufe ich später";
+"NSLocationWhenInUseUsageDescription" = "Wir zeigen Ihnen Ihre Position, sodass Sie sehen können, wo die Messungen stattgefunden haben.";
+"NSMicrophoneUsageDescription" = "Der Sleipnir-Windmesser braucht die Kopfhörerbuchse für die Verbindung zu Ihrem Telefon";

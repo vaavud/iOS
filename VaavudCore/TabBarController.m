@@ -10,6 +10,10 @@
 #import "UIColor+VaavudColors.h"
 #import "CustomSMCalloutDrawnBackgroundView.h"
 #import "GuideView.h"
+#import "RegisterViewController.h"
+#import "HistoryTableViewController.h"
+#import "ServerUploadManager.h"
+#import "AccountManager.h"
 
 @interface TabBarController ()
 
@@ -29,14 +33,9 @@
     self.delegate = self;
     self.currentController = nil;
     
-	if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-        self.tabBar.tintColor = [UIColor clearColor];
-    }
-    else {
-        self.tabBar.tintColor = [UIColor vaavudColor];
-    }
+    self.tabBar.tintColor = [UIColor vaavudColor];
     
-    NSArray* topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"GuideView" owner:self options:nil];
+    NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"GuideView" owner:self options:nil];
     self.calloutGuideView = [topLevelObjects objectAtIndex:0];
     self.calloutGuideView.frame = CGRectMake(0, 0, CALLOUT_GUIDE_VIEW_WIDTH, [self.calloutGuideView preferredHeight]);
     self.calloutGuideView.backgroundColor = [UIColor clearColor];
@@ -59,24 +58,50 @@
     self.calloutView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
 }
 
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController*)viewController {
-    if (viewController == self.currentController) {
-        return;
+-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    if (![AccountManager sharedInstance].isLoggedIn && viewController == self.childViewControllers[2]) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
+        RegisterViewController *registration = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
+        registration.teaserLabelText = NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil);
+        registration.completion = ^{
+            NSLog(@"======= did login");
+            [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:YES success:^{
+                NSLog(@"======= synced history after login");
+            } failure:^(NSError *error) {
+                NSLog(@"======= FAILED synced history after login, %@", error);
+            }];
+
+            self.selectedIndex = 2;
+
+            [self dismissViewControllerAnimated:YES completion:^{
+                NSLog(@"=== did dismiss");
+            }];
+        };
+        
+        RotatableNavigationController *nav = [RotatableNavigationController new];
+        nav.viewControllers = @[registration];
+        [self presentViewController:nav animated:YES completion:nil];
+        
+        return NO;
     }
-    self.currentController = viewController;
     
-    if (viewController && [viewController conformsToProtocol:@protocol(TabSelectedListener)]) {
-        id<TabSelectedListener> tabSelectedController = (id<TabSelectedListener>)viewController;
-        [tabSelectedController tabSelected];
-    }
+    return YES;
 }
+
+//- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController*)viewController {
+//    if (viewController == self.currentController) {
+//        return;
+//    }
+//    self.currentController = viewController;
+//    
+//    if (viewController && [viewController conformsToProtocol:@protocol(TabSelectedListener)]) {
+//        id<TabSelectedListener> tabSelectedController = (id<TabSelectedListener>)viewController;
+//        [tabSelectedController tabSelected];
+//    }
+//}
 
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
 }
 
 - (void)guideViewTap:(UITapGestureRecognizer *)recognizer {

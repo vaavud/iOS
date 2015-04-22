@@ -35,28 +35,33 @@
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *settingsBarButtonItem;
 
+@property (nonatomic) BOOL hasShowsCalibrationScreen;
+
 @end
 
 @implementation CoreMeasureViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    //[self.settingsBarButtonItem setTitle:NSLocalizedString(@"SETTINGS_TITLE", nil)];
-}
 
 -(NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 
+-(IBAction)calibrationCancelled:(UIStoryboardSegue *)segue {
+    NSLog(@"calibrationCancelled");
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    if (!self.hasShowsCalibrationScreen && ![Property getAsBoolean:KEY_HAS_CALIBRATED]) {
+        self.hasShowsCalibrationScreen = YES;
+        [self performSegueWithIdentifier:@"MandatoryCalibration" sender:self];
+    }
+
     //NSLog(@"[CoreMeasureViewController] topLayoutGuide=%f", self.topLayoutGuide.length);
     //NSLog(@"[CoreMeasureViewController] bottomLayoutGuide=%f", self.bottomLayoutGuide.length);
     
     // note: hack for content view underlapping tab view when clicking on another tab and back
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") && (self.bottomLayoutGuideConstraint != nil)) {
+    if (self.bottomLayoutGuideConstraint != nil) {
         //self.edgesForExtendedLayout = UIRectEdgeNone;
         
         //NSLog(@"[CoreMeasureViewController] bottomLayoutGuide=%f", self.bottomLayoutGuide.length);
@@ -92,3 +97,7 @@
 }
 
 @end
+
+
+
+

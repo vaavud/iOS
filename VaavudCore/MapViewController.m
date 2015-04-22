@@ -49,11 +49,6 @@
 
 @implementation MapViewController
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.tabBarItem.title = NSLocalizedString(@"TAB_MAP", nil);
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self hideVolumeHUD];
@@ -390,20 +385,22 @@
         return nil;
     }
     else if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
-        static NSString *MeasureAnnotationIdentifier = @"MeasureAnnotationIdentifier";
+        static NSString *measureAnnotationIdentifier = @"MeasureAnnotationIdentifier";
         
-        MeasurementAnnotation *measurementAnnotation = (MeasurementAnnotation*) annotation;
+        MeasurementAnnotation *measurementAnnotation = (MeasurementAnnotation *)annotation;
         measurementAnnotation.windSpeedUnit = self.windSpeedUnit;
         
-        MKAnnotationView *measureAnnotationView =
-        [self.mapView dequeueReusableAnnotationViewWithIdentifier:MeasureAnnotationIdentifier];
+        MKAnnotationView *measureAnnotationView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:measureAnnotationIdentifier];
         if (measureAnnotationView == nil) {
-            
-            measureAnnotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:MeasureAnnotationIdentifier];
+            measureAnnotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:measureAnnotationIdentifier];
             measureAnnotationView.canShowCallout = NO;
             measureAnnotationView.opaque = NO;
             
-            UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 38, 38)];
+            UIImageView *iv = [[UIImageView alloc] init];
+            iv.tag = 101;
+            [measureAnnotationView addSubview:iv];
+            
+            UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 48, 48)];
             lbl.backgroundColor = [UIColor clearColor];
             lbl.font = [UIFont systemFontOfSize:12];
             lbl.textColor = [UIColor whiteColor];
@@ -415,22 +412,22 @@
         else {
             measureAnnotationView.annotation = annotation;
         }
-
-        UIImage *markerImage = nil;
-
-        if (measurementAnnotation.windDirection) {
-            NSString *imageName = [UnitUtil mapImageNameForDirection:measurementAnnotation.windDirection];
-            if (imageName) {
-                markerImage = [UIImage imageNamed:imageName];
+        
+        UIImageView *iv = (UIImageView *)[measureAnnotationView viewWithTag:101];
+        if (iv) {
+            if (measurementAnnotation.windDirection) {
+                iv.image = [UIImage imageNamed:@"MapMarkerDirection"];
+                [iv sizeToFit];
+                iv.transform = [UnitUtil transformForDirection:measurementAnnotation.windDirection];
+            }
+            else {
+                iv.image = [UIImage imageNamed:@"MapMarker"];
+                [iv sizeToFit];
+                iv.transform = CGAffineTransformIdentity;
             }
         }
-        if (!markerImage) {
-            markerImage = [UIImage imageNamed:@"mapmarker_no_direction.png"];
-        }
         
-        measureAnnotationView.image = markerImage;
-        
-        UILabel *lbl = (UILabel*) [measureAnnotationView viewWithTag:42];
+        UILabel *lbl = (UILabel *)[measureAnnotationView viewWithTag:42];
         lbl.text = [FormatUtil formatValueWithTwoDigits:[UnitUtil displayWindSpeedFromDouble:measurementAnnotation.avgWindSpeed unit:self.windSpeedUnit]];
         
         return measureAnnotationView;

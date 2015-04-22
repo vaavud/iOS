@@ -28,27 +28,9 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
         }
         
         let nibName = "UpgradingUserPagesView"
-        if let content = NSBundle.mainBundle().loadNibNamed(nibName, owner: nil, options: nil).first as? UpgradingUserPagesView {
-            content.owner = self
-            content.localize()
+        if let content = NSBundle.mainBundle().loadNibNamed(nibName, owner: self, options: nil).first as? UIView {
             content.frame.size = scrollView.contentSize
             scrollView.addSubview(content)
-            
-            if view.bounds.height < 568 {
-                println("--- iphone 4")
-            }
-            else if view.bounds.width < 375 {
-                println("--- iphone 5")
-            }
-            else if view.bounds.width < 414 {
-                println("--- iphone 6")
-            }
-            else if view.bounds.width < 768 {
-                println("--- iphone 6+")
-            }
-            else {
-                println("--- ipad")
-            }
         }
         
         phoneScrollView.contentSize = CGSize(width: 2*phoneScrollView.bounds.width, height: phoneScrollView.bounds.height)
@@ -59,11 +41,11 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func openBuyDevice() {
+    @IBAction func openBuyDevice() {
         if Property.isMixpanelEnabled() {
             Mixpanel.sharedInstance().track("Upgade Sleipnir Flow - Buy Device")
         }
-        VaavudInteractions.openBuySleipnir()
+        VaavudInteractions.openBuySleipnir("Upgrade")
         laterButton.setTitle(NSLocalizedString("BUTTON_DONE", comment: ""), forState: .Normal)
     }
 
@@ -102,7 +84,8 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
     }
 }
 
-@IBDesignable class GradientView: UIView {
+//@IBDesignable 
+class GradientView: UIView {
     @IBInspectable var startColor: UIColor = UIColor.clearColor() { didSet { update() } }
     @IBInspectable var endColor: UIColor = UIColor.vaavudLightGreyColor() { didSet { update() } }
     
@@ -111,7 +94,7 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func update() {
-        (layer as CAGradientLayer).colors = [startColor.CGColor, endColor.CGColor]
+        (layer as! CAGradientLayer).colors = [startColor.CGColor, endColor.CGColor]
     }
 }
 

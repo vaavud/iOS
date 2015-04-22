@@ -83,43 +83,17 @@ SHARED_INSTANCE
     
     if (available) {
         if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] sleipnirAvailabliltyChanged - available");
+        
+        if ([self.delegate respondsToSelector:@selector(deviceConnected:)]) {
+            [self.delegate deviceConnected:SleipnirWindMeterDeviceType];
+        }
     }
     else {
         if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] sleipnirAvailabliltyChanged - Not available");
+        if ([self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
+            [self.delegate deviceDisconnected:SleipnirWindMeterDeviceType];
+        }
     }
-}
-
-- (void)deviceConnectedTypeSleipnir:(BOOL)sleipnir {
-    if (sleipnir) {
-        if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] deviceConnected - Sleipnir");
-    }
-    else {
-        if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] deviceConnected - Unknown");
-    }
-    
-    if ([self.delegate respondsToSelector:@selector(deviceConnected:)]) {
-        enum WindMeterDeviceType deviceType = sleipnir ? SleipnirWindMeterDeviceType : UnknownWindMeterDeviceType;
-        [self.delegate deviceConnected:deviceType];
-    }
-}
-
-
-- (void)deviceDisconnectedTypeSleipnir:(BOOL)sleipnir {
-    if (sleipnir) {
-        if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] deviceDisconnected - Sleipnir");
-    }
-    else {
-        if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] deviceDisconnected - Unknown");
-    }
-    
-    if ([self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
-        enum WindMeterDeviceType deviceType = (sleipnir) ? SleipnirWindMeterDeviceType : UnknownWindMeterDeviceType;
-        [self.delegate deviceDisconnected:deviceType];
-    }
-}
-
-- (void)deviceConnectedChecking {
-    if (LOG_SLEIPNIR) NSLog(@"[SleipnirMeasurementController] devicePlugedInChecking");
 }
 
 - (void)newSpeed:(NSNumber *)speed {

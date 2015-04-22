@@ -1,0 +1,4 @@
+/* Localized versions of Info.plist keys */
+
+NSLocationWhenInUseUsageDescription = "我们使用您的位置，以便能够显示您每次进行测量的地点。";
+NSMicrophoneUsageDescription = "Sleipnir 风速计通过耳机接口与电话进行通讯";

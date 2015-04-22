@@ -6,15 +6,12 @@
 "TAB_MAP" = "Mapa";
 "TAB_HISTORY" = "Historial";
 "TAB_ABOUT" = "Sobre";
-
 "NAVIGATION_BACK" = "Tornar";
-
 "UNIT_KMH" = "km/h";
 "UNIT_MS" = "m/s";
 "UNIT_MPH" = "mph";
 "UNIT_KN" = "kt";
 "UNIT_BFT" = "bft";
-
 "REL_TIME_FUTURE" = "futur";
 "REL_TIME_NOW" = "Ara";
 "REL_TIME_1_MIN_AGO" = "fa 1 min";
@@ -23,37 +20,30 @@
 "REL_TIME_X_HOURS_AGO" = "fa %d hores";
 "REL_TIME_1_DAY_AGO" = "fa 1 dia";
 "REL_TIME_X_DAYS_AGO" = "fa %d dies";
-
 "HEADING_AVERAGE" = "Mitjana";
 "HEADING_CURRENT" = "Actual";
 "HEADING_MAX" = "Max";
 "HEADING_UNIT" = "Unitat";
 "HEADING_NEARBY_MEASUREMENTS" = "Mesuraments propers";
-
 "BUTTON_START" = "Començar";
 "BUTTON_STOP" = "Aturar";
 "BUTTON_OK" = "Ok";
 "BUTTON_CANCEL" = "Cancel·lar";
 "BUTTON_DONE" = "Fet";
-
 "INFO_MEASURING" = "Mesurament en progrés";
 "INFO_NO_SIGNAL" = "No es pot detectar el anemòmetre";
 "INFO_KEEP_STEADY" = "Mantingues-ho vertical i estable";
-
 "X_HOURS" = "%d hours";
 "MAP_REFRESH_ERROR_TITLE" = "Error d'actualizació del mapa";
 "MAP_REFRESH_ERROR_MESSAGE" = "Assegura't que tens connectivitat de dades o WiFi.";
-
 "HISTORY_TITLE" = "Historial";
 "HISTORY_REGISTER_TEASER" = "Enregistra’t per veure el teu historial complet de mesuraments";
 "HISTORY_NO_MEASUREMENTS" = "Sense mesuraments";
 "HISTORY_GO_TO_MEASURE" = "Vés a Mesurar i prem Començar per iniciar!";
-
 "ABOUT_TITLE" = "Sobre";
-"ABOUT_VAAVUD_TEXT" = "Vaavud és una start-up tecnològica danesa.\n La nostra missió és crear els millors mesuradors de vent del planeta en termes d'usabilitat, característiques, i integració amb terceres parts.\n Per saber-ne més i comprar un mesurador de vent Vaavud, visita Vaavud.com\n &copy; Vaavud ApS 2014, Tots els drets reservats\n Versió: %@";
+"ABOUT_VAAVUD_TEXT" = "Vaavud és una start-up tecnològica danesa.\n La nostra missió és crear els millors mesuradors de vent del planeta en termes d'usabilitat, característiques, i integració amb terceres parts.\n Per saber-ne més i comprar un mesurador de vent Vaavud, visita Vaavud.com\n &copy; Vaavud ApS 2015, Tots els drets reservats";
 "LINK_TERMS_OF_SERVICE" = "Termes de Servei";
 "LINK_PRIVACY_POLICY" = "Política de privacitat";
-
 "REGISTER_TITLE_SIGNUP" = "Enregistrar-se";
 "REGISTER_TITLE_LOGIN" = "Iniciar sessió";
 "REGISTER_OR" = "O";
@@ -68,7 +58,6 @@
 "REGISTER_FIELD_LAST_NAME" = "Cognoms";
 "REGISTER_FIELD_EMAIL" = "Email";
 "REGISTER_FIELD_PASSWORD" = "Paraula de pas";
-
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "Introdueix el teu nom";
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "Amb el teu nom serà suficient.";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Introdueix el teu email";
@@ -87,25 +76,20 @@
 "REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Assegura't que tens connectivitat de dades o WiFi.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Error";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Si us plau, intenta-ho més tard.";
-
 "SETTINGS_TITLE" = "Configuració";
-"SETTINGS_SHOP_LINK" =" Compra un anemómetre";
-
+"SETTINGS_SHOP_LINK" = "Compra un anemómetre";
 "DIALOG_CONFIRM" = "¿N'estàs segur?";
-
 "SHARE_TO_FACEBOOK_TITLE" = "Comparteix a Facebook?";
 "SHARE_GUIDE" = "Què sents?";
 "SHARE_TAKE_PHOTO" = "Pren una foto";
 "SHARE_CHOOSE_EXISTING" = "Tria una existent";
-
 "SETTINGS_SOCIAL_SHARING" = "Habilitar la compartició a Facebook";
 "SETTINGS_SOCIAL_SHARING_DETAILS" = "Mai publicarem sense preguntar";
 "SETTINGS_MEASURING_TIPS" = "Consells per mesurar";
-
 "INTRO_FLOW_SCREEN_1" = "L'anemòmetre Vaavud converteix el teu telèfon en una eina meteorològica d'alta tecnologia.";
 "INTRO_FLOW_SCREEN_2" = "Utilitza el mapa en temps real per comprovar les condicions en els seus llocs favorits abans d'anar.";
 "INTRO_FLOW_HAVE_WIND_METER" = "Ja tens un mesurador de vent Vaavud?";
-"INTRO_FLOW_WANT_TO_BUY" = "Vols comprar un mesurador de vent ara? ";
+"INTRO_FLOW_WANT_TO_BUY" = "Vols comprar un mesurador de vent ara?";
 "INSTRUCTION_FLOW_SCREEN_1" = "Aquí tens alguns consells per fer bones mesures de vent.";
 "INSTRUCTION_FLOW_SCREEN_2" = "Per obtenir la màxima precisió situa el telèfon estable i vertical pel damunt del teu cap.";
 "INSTRUCTION_FLOW_SCREEN_3" = "No romanguis darrere de la vegetació, l'equip, roques, etc.";
@@ -113,22 +97,19 @@
 "INTRO_FLOW_BUTTON_SKIP" = "Ometre per ara";
 "INTRO_FLOW_BUTTON_LATER" = "Més tard";
 "INTRO_FLOW_BUTTON_GOT_IT" = "Ok, Entès!";
-
 "BUTTON_YES" = "Si";
 "BUTTON_NO" = "No";
-
 "MAP_GUIDE_MARKER_TITLE" = "Detalls del mesurament";
 "MAP_GUIDE_MARKER_EXPLANATION" = "Prem en un mesurament per veure més detalls.";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "Canvia l'interval de temps";
 "MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Pots canviar l'interval de temps i la unitat de mesura prement sobre el text.";
 "MAP_GUIDE_ZOOM_TITLE" = "Zoom ràpid";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "Prem al mapa en miniatura per ampliar la ubicació exacta.";
-
 "HEADING_WIND_SPEED" = "Direcció del vent";
 "HEADING_TEMPERATURE" = "Temperatura";
 "HEADING_WIND_DIRECTION" = "Direcció";
 "BUTTON_NEXT" = "Següent";
-"UNIT_CELCIUS" = "°C";
+"UNIT_CELSIUS" = "°C";
 "DIRECTION_CARDINAL" = "Cardinal";
 "DIRECTION_DEGREES" = "Graus";
 "DIRECTION_N" = "N";
@@ -160,21 +141,17 @@
 "YES" = "Si";
 "NO" = "No";
 "REGISTER_BUTTON_SIGNUP" = "Registra’t";
-
 "AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Mide durante 60s";
 "AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "Debes media lameness durante 60s indicado cuando la barra se vuelve verde.";
 "AGRI_ENTER_TEMPERATURE" = "Introduce Temperatura";
-
-/* SHOULD BE TRANSLATED! */
-
 "AGRI_ENTER_TEMPERATURE_EXPLANATION" = "The temperature could not be determined automatically. Please enter it manually:";
 "AGRI_MANUAL_DIRECTION" = "Wind Direction";
 "AGRI_MANUAL_DIRECTION_EXPLANATION" = "Disconnect your wind meter and hold up your phone against the wind. Press Next when you are doing that.";
 "AGRI_REDUCING_EQUIPMENT" = "Reducing Equipment";
 "AGRI_REDUCING_EQUIPMENT_NONE" = "None";
-"AGRI_REDUCING_EQUIPMENT_50" = "50 %";
-"AGRI_REDUCING_EQUIPMENT_75" = "75 %";
-"AGRI_REDUCING_EQUIPMENT_90" = "90 %";
+"AGRI_REDUCING_EQUIPMENT_50" = "0,5";
+"AGRI_REDUCING_EQUIPMENT_75" = "0,75";
+"AGRI_REDUCING_EQUIPMENT_90" = "0,9";
 "AGRI_DOSE" = "Dose";
 "AGRI_DOSE_QUARTER" = "Quarter";
 "AGRI_DOSE_HALF" = "Half";
@@ -196,31 +173,36 @@
 "AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "No Subscription";
 "AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "You don't have a valid subscription. Please contact Vaavud.";
 "AGRI_WORD_LIST" = "Word list";
-
 "INTRO_UPGRADE_WHATS_NEW" = "Novetats";
 "INTRO_UPGRADE_TEXT0" = "L'historial mostra la geolocalització i, amb el nou anemòmetre Sleipnir, la direcció del vent!";
 "INTRO_UPGRADE_TEXT1" = "La pantalla de resum mostra les teves dades clau en el mesurament, incloent la pressió, temperatura, etc.";
 "INTRO_UPGRADE_CTA_BUY" = "Compra el nou Sleipnir ara!";
-
-"MEASURE_AVG" = "Mitjana"; // Shorter form of the word 'Average'
+"MEASURE_AVG" = "Mitjana";
 "SUMMARY_PRESSURE" = "Pressió";
 "SUMMARY_TEMPERATURE" = "Temperatura";
-"SUMMARY_WIND_CHILL" = "Sensació"; // Basically a technical term
-"SUMMARY_GUSTINESS" = "Ràfegues"; // HOw gusty the wind is
+"SUMMARY_WIND_CHILL" = "Sensació";
+"SUMMARY_GUSTINESS" = "Ràfegues";
 "GEOLOCATION_ERROR" = "Ubicació no disponible";
 "GEOLOCATION_LOADING" = "Carregant ubicació...";
 "GEOLOCATION_UNKNOWN" = "Ubicació desconeguda";
-
 "UNIT_FAHRENHEIT" = "°F";
-
 "SUMMARY_MEASURE_WINDDIRECTION" = "Mesurar la direcció del vent";
 "SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "Amb el nou anemòmetre Sleipnir, la direcció del vent!";
 "SUMMARY_UPSELL" = "Mesura la direcció del vent amb el nou Sleipnir!";
-
-// Not crucial
-"UNIT_MBAR" = "mbar"; // millibar, which is equal to hecto pascal
-"UNIT_ATM" = "atm"; // atmosphere as a unit of pressure
-"UNIT_MMHG" = "mmHg"; // millimetres mercury
-
+"UNIT_MBAR" = "mbar";
+"UNIT_ATM" = "atm";
+"UNIT_MMHG" = "mmHg";
 "REGISTER_EXPLANATION" = "Necessites enregistrar-te per obtenir tot el benefici de la app Vaavud";
-
+"CALIBRATION_STRING_FIRST" = "Vés a una zona coberta i bufa en l'anemòmetre fins que el cercle canviï de color";
+"CALIBRATION_STRING_0" = "Bufa una altre vegada";
+"CALIBRATION_STRING_1" = "Permet a Sleipnir frenar";
+"CALIBRATION_STRING_DONE" = "Calibratge completat!";
+"SETTINGS_CALIBRATE" = "Calibra el anemòmetre Sleipnir";
+"SETTINGS_CALIBRATE_SUB" = "Calibra el teu Sleipnir para obtenir mesuraments més precisos";
+"SETTINGS_BUY_WINDMETER" = "Comprar un anemòmetre";
+"SETTINGS_VERSION" = "Versió";
+"SETTINGS_UNITS" = "Unitats";
+"SETTINGS_SUPPORT" = "Suport";
+"UPGRADE_GET_IT_LATER" = "El compraré més endavant";
+"NSLocationWhenInUseUsageDescription" = "Utilitzem la seva posició per poder mostrar on el mesurament va ser realitzat.";
+"NSMicrophoneUsageDescription" = "L'anemòmetre Sleipnir utilitza el connector dels auriculars per comunicar-se amb el telèfon";

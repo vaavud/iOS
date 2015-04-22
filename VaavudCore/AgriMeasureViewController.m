@@ -48,7 +48,7 @@
     self.shareToFacebook = NO;
     self.privacy = [NSNumber numberWithInt:0];
     self.windSpeedHeadingLabel.text = [NSLocalizedString(@"HEADING_WIND_SPEED", nil) uppercaseStringWithLocale:[NSLocale currentLocale]];
-    self.temperatureUnitLabel.text = NSLocalizedString(@"UNIT_CELCIUS", nil);
+    self.temperatureUnitLabel.text = NSLocalizedString(@"UNIT_CELSIUS", nil);
     
     [self.nextButton setTitle:NSLocalizedString(@"BUTTON_NEXT", nil) forState:UIControlStateNormal];
     self.navigationItem.backBarButtonItem.title = NSLocalizedString(@"BUTTON_CANCEL", nil);

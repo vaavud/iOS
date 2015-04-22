@@ -2,12 +2,12 @@
   Localizable.strings
   Vaavud
 */
-"TAB_MEASURE" = "Measure";
-"TAB_MAP" = "Map";
-"TAB_HISTORY" = "History";
-"TAB_ABOUT" = "About";
+"TAB_MEASURE" = "Measure"; // REMOVE
+"TAB_MAP" = "Map"; // REMOVE
+"TAB_HISTORY" = "History"; // REMOVE
+"TAB_ABOUT" = "About"; // REMOVE
 
-"NAVIGATION_BACK" = "Back";
+"NAVIGATION_BACK" = "Back"; // LATER
 
 "UNIT_KMH" = "km/h";
 "UNIT_MS" = "m/s";
@@ -24,11 +24,11 @@
 "REL_TIME_1_DAY_AGO" = "1 day ago";
 "REL_TIME_X_DAYS_AGO" = "%d days ago";
 
-"HEADING_AVERAGE" = "Average";
-"HEADING_CURRENT" = "Current";
-"HEADING_MAX" = "Max";
-"HEADING_UNIT" = "Unit";
-"HEADING_NEARBY_MEASUREMENTS" = "Nearby Measurements";
+"HEADING_AVERAGE" = "Average"; // REMOVE
+"HEADING_CURRENT" = "Current"; // REMOVE
+"HEADING_MAX" = "Max"; // LATER
+"HEADING_UNIT" = "Unit"; // REMOVE
+"HEADING_NEARBY_MEASUREMENTS" = "Nearby Measurements"; // LATER
 
 "BUTTON_START" = "Start";
 "BUTTON_STOP" = "Stop";
@@ -44,13 +44,13 @@
 "MAP_REFRESH_ERROR_TITLE" = "Map Refresh Error";
 "MAP_REFRESH_ERROR_MESSAGE" = "Make sure you have cellular data or Wi-Fi connectivity.";
 
-"HISTORY_TITLE" = "History";
+"HISTORY_TITLE" = "History"; // LATER
 "HISTORY_REGISTER_TEASER" = "Sign up to see your full measurement history";
-"HISTORY_NO_MEASUREMENTS" = "No measurements yet";
-"HISTORY_GO_TO_MEASURE" = "Go to Measure and press Start to get going!";
+"HISTORY_NO_MEASUREMENTS" = "No measurements yet"; // LATER
+"HISTORY_GO_TO_MEASURE" = "Go to Measure and press Start to get going!"; // LATER
 
-"ABOUT_TITLE" = "About";
-"ABOUT_VAAVUD_TEXT" = "Vaavud is a Danish technology start-up.\n Our mission is to make the best wind meters on the planet in terms of usability, features, and third party integration.\n To learn more and to purchase a Vaavud wind meter visit Vaavud.com\n &copy; Vaavud ApS 2014, all rights reserved\n Version: %@";
+"ABOUT_TITLE" = "About"; // LATER
+"ABOUT_VAAVUD_TEXT" = "Vaavud is a Danish technology start-up.\n Our mission is to make the best wind meters on the planet in terms of usability, features, and third party integration.\n To learn more and to purchase a Vaavud wind meter visit Vaavud.com\n &copy; Vaavud ApS 2015, all rights reserved";
 "LINK_TERMS_OF_SERVICE" = "Terms of Service";
 "LINK_PRIVACY_POLICY" = "Privacy Policy";
 
@@ -88,7 +88,7 @@
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Error";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Please try again later.";
 
-"SETTINGS_TITLE" = "Settings";
+"SETTINGS_TITLE" = "Settings"; // LATER
 "SETTINGS_SHOP_LINK" = "Buy wind meter";
 
 "DIALOG_CONFIRM" = "Are you sure?";
@@ -128,7 +128,7 @@
 "HEADING_TEMPERATURE" = "Temperature";
 "HEADING_WIND_DIRECTION" = "Direction";
 "BUTTON_NEXT" = "Next";
-"UNIT_CELCIUS" = "°C";
+"UNIT_CELSIUS" = "°C";
 "DIRECTION_CARDINAL" = "Cardinal";
 "DIRECTION_DEGREES" = "Degrees";
 "DIRECTION_N" = "N";
@@ -195,16 +195,16 @@
 "AGRI_WORD_LIST" = "Word list";
 
 // New January 2015
-"INTRO_UPGRADE_WHATS_NEW" = "What's new";
-"INTRO_UPGRADE_TEXT0" = "History shows geolocation and, with the new Sleipnir windmeter, wind direction!";
-"INTRO_UPGRADE_TEXT1" = "Summary screen showing your key measurement data, including pressure, temperature etc.";
-"INTRO_UPGRADE_CTA_BUY" = "Buy the new Sleipnir now!";
+"INTRO_UPGRADE_WHATS_NEW" = "What's new"; // REMOVE
+"INTRO_UPGRADE_TEXT0" = "History shows geolocation and, with the new Sleipnir windmeter, wind direction!"; // REMOVE
+"INTRO_UPGRADE_TEXT1" = "Summary screen showing your key measurement data, including pressure, temperature etc."; // REMOVE
+"INTRO_UPGRADE_CTA_BUY" = "Buy the new Sleipnir now!"; // REMOVE
 
-"MEASURE_AVG" = "Avg"; // Shorter form of the word 'Average'
+"MEASURE_AVG" = "Avg";
 "SUMMARY_PRESSURE" = "Pressure";
 "SUMMARY_TEMPERATURE" = "Temperature";
-"SUMMARY_WIND_CHILL" = "Wind chill"; // Basically a technical term
-"SUMMARY_GUSTINESS" = "Gustiness"; // HOw gusty the wind is
+"SUMMARY_WIND_CHILL" = "Wind chill";
+"SUMMARY_GUSTINESS" = "Gustiness";
 "GEOLOCATION_ERROR" = "Couldn't load location";
 "GEOLOCATION_LOADING" = "Loading location...";
 "GEOLOCATION_UNKNOWN" = "Location not saved";
@@ -221,4 +221,11 @@
 "UNIT_MMHG" = "mmHg"; // millimetres mercury
 
 "REGISTER_EXPLANATION" = "You need to log in to get the full benefit of the Vaavud app";
+
+// Need translation for other languages:
+"CALIBRATION_STRING_FIRST" = "Go indoors and blow onto the wind meter until the circle changes color";
+"CALIBRATION_STRING_0" = "Blow again";
+"CALIBRATION_STRING_1" = "Let Sleipnir slow down";
+"CALIBRATION_STRING_DONE" = "Calibration complete!";
+
 

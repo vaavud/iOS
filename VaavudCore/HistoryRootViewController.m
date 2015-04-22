@@ -8,13 +8,13 @@
 
 #import "HistoryRootViewController.h"
 #import "Property+Util.h"
-#import "HistoryNavigationController.h"
 #import "RegisterNavigationController.h"
 #import "AccountManager.h"
 #import "MeasurementSession+Util.h"
 #import "ServerUploadManager.h"
-#import "LoadingHistoryViewController.h"
 #import "Mixpanel.h"
+
+// TABORT
 
 @interface HistoryRootViewController ()
 
@@ -24,22 +24,13 @@
 
 @implementation HistoryRootViewController
 
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    self.tabBarItem.title = NSLocalizedString(@"TAB_HISTORY", nil);
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        
 #ifdef CORE
         UIImage *selectedTabImage = [[UIImage imageNamed:@"history_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
         self.tabBarItem.selectedImage = selectedTabImage;
 #endif
-        
-    }
 }
 
 - (void)tabSelected {
@@ -61,11 +52,11 @@
 }
 
 - (NSString *)registerScreenTitle {
-    return NSLocalizedString(@"HISTORY_TITLE", nil);
+    return NSLocalizedString(@"HISTORY_TITLE", nil); // LOKALISERA_BORT sedan
 }
 
 - (NSString *)registerTeaserText {
-    return NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil);
+    return NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil); // LOKALISERA_BORT sedan
 }
 
 - (void)chooseContentController:(BOOL)ignoreGracePeriod {
@@ -90,16 +81,16 @@
             if (!measurementSession) {
                 newController = [self.storyboard instantiateViewControllerWithIdentifier:@"NoHistoryNavigationController"];
             }
-            else if (![self.childViewController isKindOfClass:[HistoryNavigationController class]]) {
-                newController = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryNavigationController"];
-            }
+//            else if (![self.childViewController isKindOfClass:[HistoryNavigationController class]]) {
+//                newController = [self.storyboard instantiateViewControllerWithIdentifier:@"HistoryNavigationController"];
+//            }
         }
     }
     else if (![self.childViewController isKindOfClass:[RegisterNavigationController class]]) {
         UIStoryboard *loginStoryBoard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
         newController = [loginStoryBoard instantiateInitialViewController];
         if ([newController isKindOfClass:[RegisterNavigationController class]]) {
-            ((RegisterNavigationController*) newController).registerDelegate = self;
+            ((RegisterNavigationController *)newController).registerDelegate = self;
         }
     }
     
@@ -129,8 +120,6 @@
 - (void)syncHistory:(BOOL)ignoreGracePeriod {
     if ([[AccountManager sharedInstance] isLoggedIn]) {
         [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:ignoreGracePeriod success:^{
-            //NSLog(@"[HistoryRootViewController] Got successful callback from history sync");
-            
             if ([self.childViewController conformsToProtocol:@protocol(HistoryLoadedListener)]) {
                 id<HistoryLoadedListener> listener = (id<HistoryLoadedListener>)self.childViewController;
                 [listener historyLoaded];
@@ -140,9 +129,9 @@
             }
         } failure:^(NSError *error) {
             //NSLog(@"[HistoryRootViewController] Got failure callback from history sync");
-            if ([self.childViewController isKindOfClass:[LoadingHistoryViewController class]]) {
-                [self chooseContentControllerWithNoHistorySync];
-            }
+//            if ([self.childViewController isKindOfClass:[LoadingHistoryViewController class]]) {
+//                [self chooseContentControllerWithNoHistorySync];
+//            }
         }];
     }
 }

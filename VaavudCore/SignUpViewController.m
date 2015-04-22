@@ -28,10 +28,12 @@
 @property (nonatomic, weak) IBOutlet UILabel *disclaimerLabel;
 @property (nonatomic, weak) IBOutlet UILabel *orLabel;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, weak) IBOutlet GuidedTextField *firstNameTextField;
-@property (nonatomic, weak) IBOutlet GuidedTextField *lastNameTextField;
-@property (nonatomic, weak) IBOutlet GuidedTextField *emailTextField;
-@property (nonatomic, weak) IBOutlet GuidedTextField *passwordTextField;
+
+@property (nonatomic, weak) IBOutlet UITextField *firstNameTextField;
+@property (nonatomic, weak) IBOutlet UITextField *lastNameTextField;
+@property (nonatomic, weak) IBOutlet UITextField *emailTextField;
+@property (nonatomic, weak) IBOutlet UITextField *passwordTextField;
+
 @property (nonatomic, weak) IBOutlet UIView *termsPrivacyView;
 @property (nonatomic, weak) IBOutlet UIButton *termsButton;
 @property (nonatomic, weak) IBOutlet UIButton *privacyButton;
@@ -50,22 +52,11 @@ BOOL didShowFeedback;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
-    self.orLabel.text = NSLocalizedString(@"REGISTER_OR", nil);
-    self.firstNameTextField.guideText = NSLocalizedString(@"REGISTER_FIELD_FIRST_NAME", nil);
     self.firstNameTextField.delegate = self;
-    self.lastNameTextField.guideText = NSLocalizedString(@"REGISTER_FIELD_LAST_NAME", nil);
     self.lastNameTextField.delegate = self;
-    self.emailTextField.guideText = NSLocalizedString(@"REGISTER_FIELD_EMAIL", nil);
     self.emailTextField.delegate = self;
-    self.passwordTextField.guideText = NSLocalizedString(@"REGISTER_FIELD_PASSWORD", nil);
     self.passwordTextField.delegate = self;
-    [self.termsButton setTitle:NSLocalizedString(@"LINK_TERMS_OF_SERVICE", nil) forState:UIControlStateNormal];
-    [self.privacyButton setTitle:NSLocalizedString(@"LINK_PRIVACY_POLICY", nil) forState:UIControlStateNormal];
-    self.andLabel.text = NSLocalizedString(@"REGISTER_TERMS_AND", nil);
-    
-    self.navigationItem.title = NSLocalizedString(@"REGISTER_TITLE_SIGNUP", nil);
-    [self createRegisterButton];
+    [self refreshSignupButton];
 
     self.basicInputView.layer.cornerRadius = FORM_CORNER_RADIUS;
     self.basicInputView.layer.masksToBounds = YES;
@@ -91,7 +82,7 @@ BOOL didShowFeedback;
 
 - (void)crossButtonPushed {
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
-        RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
+        RegisterNavigationController *registerNavigationController = (RegisterNavigationController *)self.navigationController;
         if (registerNavigationController.registerDelegate) {
             [registerNavigationController.registerDelegate cancelled:self];
         }
@@ -136,11 +127,19 @@ BOOL didShowFeedback;
     [AccountManager sharedInstance].delegate = nil;
 }
 
-- (void)createRegisterButton {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_CREATE", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPushed)];
+- (IBAction)textFieldDidChange:(UITextField *)sender {
+    [self refreshSignupButton];
 }
 
-- (void)doneButtonPushed {
+- (void)refreshSignupButton {
+    self.navigationItem.rightBarButtonItem.enabled = self.firstNameTextField.text.length > 0 && self.emailTextField.text.length > 0 && self.passwordTextField.text.length > 0;
+}
+
+- (IBAction)doneButtonPushed:(UIBarButtonItem *)sender {
+    [self done];
+}
+
+- (void)done {
     if (!self.firstNameTextField.text || self.firstNameTextField.text.length == 0) {
         [self.firstNameTextField becomeFirstResponder];
         [self showMessage:NSLocalizedString(@"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE", nil)];
@@ -172,17 +171,21 @@ BOOL didShowFeedback;
         self.emailTextField.delegate = nil;
 
         if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
-            RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
+            RegisterNavigationController *registerNavigationController = (RegisterNavigationController *)self.navigationController;
             if (registerNavigationController.registerDelegate) {
                 [registerNavigationController.registerDelegate userAuthenticated:(response == AuthenticationResponseCreated) viewController:self];
             }
         }
+
+        if (self.completion) {
+            self.completion();
+        }
     } failure:^(enum AuthenticationResponseType response) {
         if ([Property isMixpanelEnabled]) {
-            [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": [NSNumber numberWithInt:response], @"Screen": @"Signup", @"Method": @"Password"}];
+            [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": @(response), @"Screen": @"Signup", @"Method": @"Password"}];
         }
         
-        [self createRegisterButton];
+        [self refreshSignupButton];
 
         if (response == AuthenticationResponseInvalidCredentials) {
             [self showMessage:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_MESSAGE", nil) withTitle:NSLocalizedString(@"REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE", nil)];
@@ -210,7 +213,7 @@ BOOL didShowFeedback;
 
 - (void)facebookButtonPushed:(id)sender password:(NSString *)password {
     [self.activityIndicator startAnimating];
-    [self.facebookButton setTitle:@"" forState:UIControlStateNormal];
+    self.facebookButton.titleLabel.hidden = YES;
 
     didShowFeedback = NO;
     AccountManager *accountManager = [AccountManager sharedInstance];
@@ -220,24 +223,28 @@ BOOL didShowFeedback;
 
 - (void)facebookAuthenticationSuccess:(enum AuthenticationResponseType)response {
     [self.activityIndicator stopAnimating];
-    [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
-    
+    self.facebookButton.titleLabel.hidden = NO;
+
     if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
         RegisterNavigationController *registerNavigationController = (RegisterNavigationController*) self.navigationController;
         if (registerNavigationController.registerDelegate) {
             [registerNavigationController.registerDelegate userAuthenticated:(response == AuthenticationResponseCreated) viewController:self];
         }
     }
+    
+    if (self.completion) {
+        self.completion();
+    }
 }
 
 - (void)facebookAuthenticationFailure:(enum AuthenticationResponseType)response
                               message:(NSString *)message
                       displayFeedback:(BOOL)displayFeedback {
-    if (LOG_OTHER) NSLog(@"[SignUpViewController] error registering user, response=%lu, message=%@, displayFeedback=%@", response, message, (displayFeedback ? @"YES" : @"NO"));
+    if (LOG_OTHER) NSLog(@"[SignUpViewController] error registering user, response=%d, message=%@, displayFeedback=%@", response, message, (displayFeedback ? @"YES" : @"NO"));
     
     [self.activityIndicator stopAnimating];
-    [self.facebookButton setTitle:NSLocalizedString(@"REGISTER_BUTTON_SIGNUP_WITH_FACEBOOK", nil) forState:UIControlStateNormal];
-    
+    self.facebookButton.titleLabel.hidden = NO;
+
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": [NSNumber numberWithInt:response], @"Screen": @"Signup", @"Method": @"Facebook"}];
     }
@@ -288,7 +295,7 @@ BOOL didShowFeedback;
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     if (self.firstNameTextField.text.length > 0 && self.emailTextField.text.length > 0 && self.passwordTextField.text.length > 0) {
-        [self doneButtonPushed];
+        [self done];
     }
     else if (textField == self.firstNameTextField) {
         [self.lastNameTextField becomeFirstResponder];
@@ -300,7 +307,7 @@ BOOL didShowFeedback;
         [self.passwordTextField becomeFirstResponder];
     }
     else if (textField == self.passwordTextField) {
-        [self doneButtonPushed];
+        [self done];
     }
     return YES;
 }
@@ -365,7 +372,7 @@ BOOL didShowFeedback;
 
 - (IBAction)termsButtonPushed:(id)sender {
     UINavigationController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"TermsPrivacyNavigationController"];
-    TermsPrivacyViewController *termsPrivacyController = (TermsPrivacyViewController*) controller.topViewController;
+    TermsPrivacyViewController *termsPrivacyController = (TermsPrivacyViewController *)controller.topViewController;
     termsPrivacyController.screenName = @"Signup Terms Screen";
     termsPrivacyController.termsPrivacyTitle = NSLocalizedString(@"LINK_TERMS_OF_SERVICE", nil);
     termsPrivacyController.termsPrivacyURL = @"http://vaavud.com/legal/terms.php?source=app";
@@ -381,55 +388,23 @@ BOOL didShowFeedback;
     [self presentViewController:controller animated:YES completion:nil];
 }
 
--(void)keyboardWillShow:(NSNotification*)aNotification {
+-(void)keyboardWillShow:(NSNotification *)aNotification {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        NSDictionary* info = [aNotification userInfo];
-        CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-        
-        self.scrollView.contentInset = UIEdgeInsetsMake(self.scrollView.contentInset.top, 0.0, kbSize.height - TAB_BAR_HEIGHT, 0.0);
-        self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(self.scrollView.scrollIndicatorInsets.top, 0.0, kbSize.height - TAB_BAR_HEIGHT, 0.0);
-        
+        NSDictionary *info = [aNotification userInfo];
+        CGFloat kbHeight = [info[UIKeyboardFrameBeginUserInfoKey] CGRectValue].size.height;
+        self.scrollView.contentInset = UIEdgeInsetsMake(self.scrollView.contentInset.top, 0.0, kbHeight + 20, 0.0);
         [self.scrollView scrollRectToVisible:self.termsPrivacyView.frame animated:YES];
     }
 }
 
--(void)keyboardWillHide:(NSNotification*)aNotification {
+-(void)keyboardWillHide:(NSNotification *)aNotification {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        CGFloat bottomInset = SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? self.bottomLayoutGuide.length : 0.0;
-        
-        self.scrollView.contentInset = UIEdgeInsetsMake(self.scrollView.contentInset.top, 0.0, bottomInset, 0.0);
-        self.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(self.scrollView.scrollIndicatorInsets.top, 0.0, bottomInset, 0.0);
+        self.scrollView.contentInset = UIEdgeInsetsMake(self.scrollView.contentInset.top, 0.0, self.bottomLayoutGuide.length, 0.0);
     }
 }
 
 -(NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    GuidedTextField *guidedTextField = (GuidedTextField *)textField;
-    
-    NSRange textFieldRange = NSMakeRange(0, [textField.text length]);
-    if ((NSEqualRanges(range, textFieldRange) && [string length] == 0) || (textField.secureTextEntry && guidedTextField.isFirstEdit && range.location > 0 && range.length == 1 && string.length == 0)) {
-        if (guidedTextField.label.hidden) {
-            guidedTextField.label.hidden = NO;
-        }
-    }
-    else {
-        if (!guidedTextField.label.hidden) {
-            guidedTextField.label.hidden = YES;
-        }
-    }
-    
-    guidedTextField.isFirstEdit = NO;
-    
-    return YES;
-}
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    GuidedTextField *guidedTextField = (GuidedTextField *) textField;
-    guidedTextField.isFirstEdit = YES;
-    return YES;
 }
 
 @end

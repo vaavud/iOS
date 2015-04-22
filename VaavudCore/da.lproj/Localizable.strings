@@ -1,20 +1,13 @@
-/* 
-  Localizable.strings
-  Vaavud
-*/
 "TAB_MEASURE" = "Måling";
 "TAB_MAP" = "Kort";
 "TAB_HISTORY" = "Historik";
 "TAB_ABOUT" = "Om";
-
 "NAVIGATION_BACK" = "Tilbage";
-
 "UNIT_KMH" = "km/t";
 "UNIT_MS" = "m/s";
 "UNIT_MPH" = "mph";
 "UNIT_KN" = "knob";
 "UNIT_BFT" = "bft";
-
 "REL_TIME_FUTURE" = "fremtid";
 "REL_TIME_NOW" = "lige nu";
 "REL_TIME_1_MIN_AGO" = "1 min siden";
@@ -23,37 +16,30 @@
 "REL_TIME_X_HOURS_AGO" = "%d timer siden";
 "REL_TIME_1_DAY_AGO" = "1 dag siden";
 "REL_TIME_X_DAYS_AGO" = "%d dage siden";
-
 "HEADING_AVERAGE" = "Middel";
 "HEADING_CURRENT" = "Nuværende";
 "HEADING_MAX" = "Maks";
 "HEADING_UNIT" = "Enhed";
 "HEADING_NEARBY_MEASUREMENTS" = "Nærliggende målinger";
-
 "BUTTON_START" = "Start";
 "BUTTON_STOP" = "Stop";
 "BUTTON_OK" = "OK";
 "BUTTON_CANCEL" = "Annuller";
 "BUTTON_DONE" = "Færdig";
-
 "INFO_MEASURING" = "Måling i gang";
 "INFO_NO_SIGNAL" = "Kan ikke detektere vindmåler";
 "INFO_KEEP_STEADY" = "Hold lodret og roligt";
-
 "X_HOURS" = "%d timer";
 "MAP_REFRESH_ERROR_TITLE" = "Kortopdateringsfejl";
 "MAP_REFRESH_ERROR_MESSAGE" = "Sørg for at du har mobildata eller Wi-Fi forbindelse.";
-
 "HISTORY_TITLE" = "Historik";
 "HISTORY_REGISTER_TEASER" = "Registrer dig for at se hele din målehistorik";
 "HISTORY_NO_MEASUREMENTS" = "Ingen målinger endnu";
 "HISTORY_GO_TO_MEASURE" = "Gå til Mål og tryk Start for at komme i gang!";
-
 "ABOUT_TITLE" = "Om Vaavud";
-"ABOUT_VAAVUD_TEXT" = "Vaavud er en dansk teknologi start-up.\n Vores mål er at lave de bedste vindmålere i verden ifht brugervenlighed, funktioner og integration med andre produkter.\n For at læse mere og købe en Vaavud vindmåler, så besøg Vaavud.com\n &copy; Vaavud ApS 2014, all rights reserved\n Version: %@";
+"ABOUT_VAAVUD_TEXT" = "Vaavud er en dansk teknologi start-up.\n Vores mål er at lave de bedste vindmålere i verden ifht brugervenlighed, funktioner og integration med andre produkter.\n For at læse mere og købe en Vaavud vindmåler, så besøg Vaavud.com\n &copy; Vaavud ApS 2015, all rights reserved";
 "LINK_TERMS_OF_SERVICE" = "Betingelser";
 "LINK_PRIVACY_POLICY" = "Privatlivspolitik";
-
 "REGISTER_TITLE_SIGNUP" = "Opret profil";
 "REGISTER_TITLE_LOGIN" = "Log ind";
 "REGISTER_OR" = "Eller";
@@ -68,7 +54,6 @@
 "REGISTER_FIELD_LAST_NAME" = "Efternavn";
 "REGISTER_FIELD_EMAIL" = "Email";
 "REGISTER_FIELD_PASSWORD" = "Kodeord";
-
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "Indtast dit name";
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "Blot dit fornavn er nok.";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Indtast din email";
@@ -87,21 +72,16 @@
 "REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Sørg for at du har mobildata eller Wi-Fi forbindelse.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Fejl";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Prøv venligst senere.";
-
 "SETTINGS_TITLE" = "Indstillinger";
 "SETTINGS_SHOP_LINK" = "Køb vindmåler";
-
 "DIALOG_CONFIRM" = "Er du sikker?";
-
 "SHARE_TO_FACEBOOK_TITLE" = "Del på Facebook?";
 "SHARE_GUIDE" = "Hvordan er det?";
 "SHARE_TAKE_PHOTO" = "Tag foto";
 "SHARE_CHOOSE_EXISTING" = "Vælg eksisterende";
-
 "SETTINGS_SOCIAL_SHARING" = "Facebook deling";
 "SETTINGS_SOCIAL_SHARING_DETAILS" = "Vi deler ikke uden at spørge";
 "SETTINGS_MEASURING_TIPS" = "Vindmålingstips";
-
 "INTRO_FLOW_SCREEN_1" = "En Vaavud vindmåler gør din telefon til et high-tech meteorologisk værktøj.";
 "INTRO_FLOW_SCREEN_2" = "Brug kortet med live vindmålinger til at checke forholdene på dit favoritsted før du tager derud.";
 "INTRO_FLOW_HAVE_WIND_METER" = "Har du allerede en Vaavud vindmåler?";
@@ -113,22 +93,19 @@
 "INTRO_FLOW_BUTTON_SKIP" = "Videre";
 "INTRO_FLOW_BUTTON_LATER" = "Senere";
 "INTRO_FLOW_BUTTON_GOT_IT" = "OK!";
-
 "BUTTON_YES" = "Ja";
 "BUTTON_NO" = "Nej";
-
 "MAP_GUIDE_MARKER_TITLE" = "Vindmålingsdetaljer";
 "MAP_GUIDE_MARKER_EXPLANATION" = "Tryk på en vindmåling for at se flere detaljer.";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "Ændre tidsinterval";
 "MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Du kan ændre tidsinterval og enhed ved at trykke på teksten.";
 "MAP_GUIDE_ZOOM_TITLE" = "Hurtig-zoom";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "Tryk på det lille kort for at zoome ind til det sted målingen er taget.";
-
 "HEADING_WIND_SPEED" = "Vindhastighed";
 "HEADING_TEMPERATURE" = "Temperatur";
 "HEADING_WIND_DIRECTION" = "Retning";
 "BUTTON_NEXT" = "Næste";
-"UNIT_CELCIUS" = "°C";
+"UNIT_CELSIUS" = "°C";
 "DIRECTION_CARDINAL" = "Kardinal";
 "DIRECTION_DEGREES" = "Grader";
 "DIRECTION_N" = "N";
@@ -160,7 +137,6 @@
 "YES" = "Ja";
 "NO" = "Nej";
 "REGISTER_BUTTON_SIGNUP" = "Opret";
-
 "AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Mål i 60s";
 "AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "Du skal måle i mindst 60s, indikeret af at baren bliver helt grøn.";
 "AGRI_ENTER_TEMPERATURE" = "Indtast temperatur";
@@ -169,9 +145,9 @@
 "AGRI_MANUAL_DIRECTION_EXPLANATION" = "Tag din vindmåler ud og hold telefonen op mod vinden. Tryk Næste når du gør det.";
 "AGRI_REDUCING_EQUIPMENT" = "Reducerende udstyr";
 "AGRI_REDUCING_EQUIPMENT_NONE" = "Intet";
-"AGRI_REDUCING_EQUIPMENT_50" = "50 %";
-"AGRI_REDUCING_EQUIPMENT_75" = "75 %";
-"AGRI_REDUCING_EQUIPMENT_90" = "90 %";
+"AGRI_REDUCING_EQUIPMENT_50" = "0,5";
+"AGRI_REDUCING_EQUIPMENT_75" = "0,75";
+"AGRI_REDUCING_EQUIPMENT_90" = "0,9";
 "AGRI_DOSE" = "Dose";
 "AGRI_DOSE_QUARTER" = "Kvart";
 "AGRI_DOSE_HALF" = "Halv";
@@ -193,31 +169,36 @@
 "AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "Intet Abonnement";
 "AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "Du har ikke et aktivt abonnement. Kontakt venligst Vaavud.";
 "AGRI_WORD_LIST" = "Ordliste";
-
-// New January 2015
-"INTRO_UPGRADE_WHATS_NEW" = "Hvad er nyt";
-"INTRO_UPGRADE_TEXT0" = "Historien viser geolocation og med Sleipnir vindmåleren, vindretning!";
-"INTRO_UPGRADE_TEXT1" = "Opsummeringsskærm der viser dine nøgle målepunkter inklusiv temperature og tryk osv.";
-"INTRO_UPGRADE_CTA_BUY" = "Køb den nye Sleipnir nu!";
-
-"MEASURE_AVG" = "Gns."; // Shorter form of the word 'Average'
+"INTRO_UPGRADE_WHATS_NEW" = "*Hvad er nyt";
+"INTRO_UPGRADE_TEXT0" = "*Historien viser geolocation og med Sleipnir vindmåleren, vindretning!";
+"INTRO_UPGRADE_TEXT1" = "*Opsummeringsskærm der viser dine nøgle målepunkter inklusiv temperature og tryk osv.";
+"INTRO_UPGRADE_CTA_BUY" = "*Køb den nye Sleipnir nu!";
+"MEASURE_AVG" = "Gns.";
 "SUMMARY_PRESSURE" = "Tryk";
 "SUMMARY_TEMPERATURE" = "Temperatur";
-"SUMMARY_WIND_CHILL" = "Kuldeindeks"; // Basically a technical term
-"SUMMARY_GUSTINESS" = "Turbulens"; // HOw gusty the wind is
+"SUMMARY_WIND_CHILL" = "Kuldeindeks";
+"SUMMARY_GUSTINESS" = "Turbulens";
 "GEOLOCATION_ERROR" = "Kan ikke hente lokation";
 "GEOLOCATION_LOADING" = "Finder lokation…";
 "GEOLOCATION_UNKNOWN" = "Lokation ikke gemt";
-
 "UNIT_FAHRENHEIT" = "°F";
-
-"UNIT_MBAR" = "mbar"; // millibar, which is equal to hecto pascal
-"UNIT_ATM" = "atm"; // atmosphere as a unit of pressure
-"UNIT_MMHG" = "mmHg"; // millimetres mercury
-
 "SUMMARY_MEASURE_WINDDIRECTION" = "Mål vindretningen";
 "SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "Med den nye Sleipnir-vindmåler kan du måle vindretningen!";
 "SUMMARY_UPSELL" = "Mål vindretningen med den nye Sleipnir!";
-
+"UNIT_MBAR" = "mbar";
+"UNIT_ATM" = "atm";
+"UNIT_MMHG" = "mmHg";
 "REGISTER_EXPLANATION" = "Du skal logge ind for at få fuldt udbytte af Vaavud appen";
-
+"CALIBRATION_STRING_FIRST" = "Gå indenfor og pust på vindmåleren indtil cirklen skifter farve";
+"CALIBRATION_STRING_0" = "Pust igen";
+"CALIBRATION_STRING_1" = "Lad Slepnir bremse";
+"CALIBRATION_STRING_DONE" = "Kalibrering færdig!";
+"SETTINGS_CALIBRATE" = "Kalibrer Sleipnir vind måler";
+"SETTINGS_CALIBRATE_SUB" = "Kalibrer din Sleipnir for at få mere precise vindmålinger";
+"SETTINGS_BUY_WINDMETER" = "Køb en vindmåler";
+"SETTINGS_VERSION" = "Version";
+"SETTINGS_UNITS" = "Enheder";
+"SETTINGS_SUPPORT" = "Hjælp";
+"UPGRADE_GET_IT_LATER" = "Jeg vil købe den senere";
+"NSLocationWhenInUseUsageDescription" = "Vi vil benytte din position for at vise dig hvor din måling var taget.";
+"NSMicrophoneUsageDescription" = "Sleipnir vindmåleren bruger hovedtelefonsstikket til at kommunikerer med telefonen.";

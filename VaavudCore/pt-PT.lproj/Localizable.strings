@@ -1,20 +1,13 @@
-/*
- Localizable.strings
- Vaavud
- */
 "TAB_MEASURE" = "Medir";
 "TAB_MAP" = "Mapa";
 "TAB_HISTORY" = "Histórico";
 "TAB_ABOUT" = "Sobre";
-
 "NAVIGATION_BACK" = "Voltar";
-
 "UNIT_KMH" = "km/h";
 "UNIT_MS" = "m/s";
 "UNIT_MPH" = "mph";
 "UNIT_KN" = "kt";
 "UNIT_BFT" = "bft";
-
 "REL_TIME_FUTURE" = "futuro";
 "REL_TIME_NOW" = "agora mesmo";
 "REL_TIME_1_MIN_AGO" = "1 min. atrás";
@@ -23,37 +16,30 @@
 "REL_TIME_X_HOURS_AGO" = "%d horas atrás";
 "REL_TIME_1_DAY_AGO" = "1 dia atrás";
 "REL_TIME_X_DAYS_AGO" = "%d dias atrás";
-
 "HEADING_AVERAGE" = "Média";
 "HEADING_CURRENT" = "Atual";
 "HEADING_MAX" = "Máx.";
 "HEADING_UNIT" = "Unidade";
 "HEADING_NEARBY_MEASUREMENTS" = "Medidas Próximas";
-
 "BUTTON_START" = "Iniciar";
 "BUTTON_STOP" = "Parar";
 "BUTTON_OK" = "OK";
 "BUTTON_CANCEL" = "Cancelar";
 "BUTTON_DONE" = "Feito";
-
 "INFO_MEASURING" = "Medição em progresso";
 "INFO_NO_SIGNAL" = "Medidor de vento nao detectado";
 "INFO_KEEP_STEADY" = "Mantenha estável e na vertical";
-
 "X_HOURS" = "%d horas";
 "MAP_REFRESH_ERROR_TITLE" = "Erro na Atualização do Mapa";
 "MAP_REFRESH_ERROR_MESSAGE" = "Certifique-se de que tem ligação por dados, por pacotes ou por Wi-Fi.";
-
 "HISTORY_TITLE" = "Histórico";
 "HISTORY_REGISTER_TEASER" = "Inscreva-se para ver todo o seu histórico de medições";
 "HISTORY_NO_MEASUREMENTS" = "Ainda sem medições";
 "HISTORY_GO_TO_MEASURE" = "Vá até \"Medir\" e prima \"Iniciar\" para começar!";
-
 "ABOUT_TITLE" = "Sobre";
-"ABOUT_VAAVUD_TEXT" = "A Vaavud è uma start-up tecnológica dinamarquesa.\n O nosso objetivo è o de produzir os melhores medidores de vento do planeta no que diz respeito a utilidade, funcionalidades e integraçāo em produtos terceiros.\n Para saber mais e para comprar um medidor de vento Vaavud, visite Vaavud.com\n &copy; Vaavud ApS 2014, todos os direitos reservados\n Versāo: %@";
+"ABOUT_VAAVUD_TEXT" = "A Vaavud è uma start-up tecnológica dinamarquesa.\n O nosso objetivo è o de produzir os melhores medidores de vento do planeta no que diz respeito a utilidade, funcionalidades e integraçāo em produtos terceiros.\n Para saber mais e para comprar um medidor de vento Vaavud, visite Vaavud.com\n &copy; Vaavud ApS 2015, todos os direitos reservados";
 "LINK_TERMS_OF_SERVICE" = "Termos do Serviço";
 "LINK_PRIVACY_POLICY" = "Política de Privacidade";
-
 "REGISTER_TITLE_SIGNUP" = "Inscriçāo";
 "REGISTER_TITLE_LOGIN" = "Inicio de Sessāo";
 "REGISTER_OR" = "Ou";
@@ -68,7 +54,6 @@
 "REGISTER_FIELD_LAST_NAME" = "Apelido";
 "REGISTER_FIELD_EMAIL" = "E-mail";
 "REGISTER_FIELD_PASSWORD" = "Palavra-passe";
-
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_TITLE" = "Introduza o seu nome";
 "REGISTER_CREATE_FEEDBACK_FIRST_NAME_EMPTY_MESSAGE" = "Basta o seu primeiro nome.";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Introduza o seu e-mail";
@@ -87,21 +72,16 @@
 "REGISTER_FEEDBACK_NO_REACHABILITY_MESSAGE" = "Certifique-se de que tem ligaçāo por dados, por pacotes ou por Wi-Fi.";
 "REGISTER_FEEDBACK_ERROR_TITLE" = "Erro";
 "REGISTER_FEEDBACK_ERROR_MESSAGE" = "Por favor, tente novamente mais tarde.";
-
 "SETTINGS_TITLE" = "Definições";
 "SETTINGS_SHOP_LINK" = "Comprar um medidor de vento";
-
 "DIALOG_CONFIRM" = "Tem a certeza?";
-
 "SHARE_TO_FACEBOOK_TITLE" = "Partilhar no Facebook?";
 "SHARE_GUIDE" = "Como é que se está aqui?";
 "SHARE_TAKE_PHOTO" = "Tirar fotografia";
 "SHARE_CHOOSE_EXISTING" = "Escolher da galeria";
-
 "SETTINGS_SOCIAL_SHARING" = "Activar partilha no facebook";
 "SETTINGS_SOCIAL_SHARING_DETAILS" = "Não postamos sem perguntar primeiro";
 "SETTINGS_MEASURING_TIPS" = "Dicas para medir o vento";
-
 "INTRO_FLOW_SCREEN_1" = "O medidor de vento Vaavud torna o teu telefone numa ferramenta meteorológica de alta tecnologia.";
 "INTRO_FLOW_SCREEN_2" = "Utilize o mapa para verificar as condições em tempo real do seu local favorito antes de sair.";
 "INTRO_FLOW_HAVE_WIND_METER" = "Já tem um medidor de vento Vaavud?";
@@ -113,24 +93,19 @@
 "INTRO_FLOW_BUTTON_SKIP" = "Saltar por agora";
 "INTRO_FLOW_BUTTON_LATER" = "Mais tarde";
 "INTRO_FLOW_BUTTON_GOT_IT" = "Ok, já percebi!";
-
 "BUTTON_YES" = "Sim";
 "BUTTON_NO" = "Não";
-
 "MAP_GUIDE_MARKER_TITLE" = "Detalhes da medição";
 "MAP_GUIDE_MARKER_EXPLANATION" = "Toque numa medição para ver mais detalhes.";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "Alterar intervalo de tempo";
 "MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Altere o intervalo de tempo e as unidade de medida tocando no texto.";
 "MAP_GUIDE_ZOOM_TITLE" = "Zoom rápido";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "Toque na miniatura do mapa para fazer zoom até á localização exacta.";
-
-/* SHOULD BE TRANSLATED! */
-
 "HEADING_WIND_SPEED" = "Velocidade do vento";
 "HEADING_TEMPERATURE" = "Temperatura";
 "HEADING_WIND_DIRECTION" = "Direcção";
 "BUTTON_NEXT" = "Seguinte";
-"UNIT_CELCIUS" = "°C";
+"UNIT_CELSIUS" = "°C";
 "DIRECTION_CARDINAL" = "Cardinal";
 "DIRECTION_DEGREES" = "Graus";
 "DIRECTION_N" = "N";
@@ -162,7 +137,6 @@
 "YES" = "Sim";
 "NO" = "Não";
 "REGISTER_BUTTON_SIGNUP" = "Registar";
-
 "AGRI_MIN_TIME_NOT_REACHED_TITLE" = "Measure for 60s";
 "AGRI_MIN_TIME_NOT_REACHED_MESSAGE" = "You must measure for at least 60s indicated by the bar becoming fully green.";
 "AGRI_ENTER_TEMPERATURE" = "Enter Temperature";
@@ -171,9 +145,9 @@
 "AGRI_MANUAL_DIRECTION_EXPLANATION" = "Disconnect your wind meter and hold up your phone against the wind. Press Next when you are doing that.";
 "AGRI_REDUCING_EQUIPMENT" = "Reducing Equipment";
 "AGRI_REDUCING_EQUIPMENT_NONE" = "None";
-"AGRI_REDUCING_EQUIPMENT_50" = "50 %";
-"AGRI_REDUCING_EQUIPMENT_75" = "75 %";
-"AGRI_REDUCING_EQUIPMENT_90" = "90 %";
+"AGRI_REDUCING_EQUIPMENT_50" = "0,5";
+"AGRI_REDUCING_EQUIPMENT_75" = "0,75";
+"AGRI_REDUCING_EQUIPMENT_90" = "0,9";
 "AGRI_DOSE" = "Dose";
 "AGRI_DOSE_QUARTER" = "Quarter";
 "AGRI_DOSE_HALF" = "Half";
@@ -195,32 +169,36 @@
 "AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "No Subscription";
 "AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "You don't have a valid subscription. Please contact Vaavud.";
 "AGRI_WORD_LIST" = "Word list";
-
-// New feb 2015
-
 "INTRO_UPGRADE_WHATS_NEW" = "Novidades";
 "INTRO_UPGRADE_TEXT0" = "Histórico com localização e, com o novo medidor de vento Sleipnir, a direcção do vento";
 "INTRO_UPGRADE_TEXT1" = "Novo ecrã com os valores relevantes da medição, incluindo pressão, temperatura, etc.";
 "INTRO_UPGRADE_CTA_BUY" = "Comprar o novo Sleipnir!";
-
-"MEASURE_AVG" = "Média"; // Shorter form of the word 'Average'
+"MEASURE_AVG" = "Média";
 "SUMMARY_PRESSURE" = "Pressão";
 "SUMMARY_TEMPERATURE" = "Temperatura";
-"SUMMARY_WIND_CHILL" = "Sensação"; // Basically a technical term
-"SUMMARY_GUSTINESS" = "Rajadas"; // How gusty the wind is
+"SUMMARY_WIND_CHILL" = "Sensação";
+"SUMMARY_GUSTINESS" = "Rajadas";
 "GEOLOCATION_ERROR" = "Localização desconhecida";
 "GEOLOCATION_LOADING" = "A carregar localização...";
 "GEOLOCATION_UNKNOWN" = "Sem localização";
-
 "UNIT_FAHRENHEIT" = "°F";
-
 "SUMMARY_MEASURE_WINDDIRECTION" = "Mede a direcção do vento";
 "SUMMARY_WITH_SLEIPNIR_WINDDIRECTION" = "Com o novo medidor de vento Sleipnir podes medir a direcção do vento!";
 "SUMMARY_UPSELL" = "Mede a direcção do vento com o novo Sleipnir!";
-
-"UNIT_MBAR" = "mbar"; // millibar, which is equal to hecto pascal
-"UNIT_ATM" = "atm"; // atmosphere as a unit of pressure
-"UNIT_MMHG" = "mmHg"; // millimetres mercury
-
+"UNIT_MBAR" = "mbar";
+"UNIT_ATM" = "atm";
+"UNIT_MMHG" = "mmHg";
 "REGISTER_EXPLANATION" = "Para ter acesso a todos os benefícios da app Vaavud tem de se registrar";
-
+"CALIBRATION_STRING_FIRST" = "Vá para o interior e sopre no medidor de vento ate que o circulo mude de cor";
+"CALIBRATION_STRING_0" = "Sopre novamente";
+"CALIBRATION_STRING_1" = "Deixe-o parar";
+"CALIBRATION_STRING_DONE" = "Calibração completa!";
+"SETTINGS_CALIBRATE" = "Calibrar o medidor de vento Sleipnir";
+"SETTINGS_CALIBRATE_SUB" = "Calibra o teu Sleipnir para medições precisas";
+"SETTINGS_BUY_WINDMETER" = "Comprar um medidor de vento";
+"SETTINGS_VERSION" = "Versão";
+"SETTINGS_UNITS" = "Unidades";
+"SETTINGS_SUPPORT" = "Suporte";
+"UPGRADE_GET_IT_LATER" = "Comprar mais tarde";
+"NSLocationWhenInUseUsageDescription" = "Usamos a sua posição para podermos mostrar-lhe onde cada medição foi feita.";
+"NSMicrophoneUsageDescription" = "O medidor de vento Sleipnir usa o headphone jack para comunicar com o telefone";

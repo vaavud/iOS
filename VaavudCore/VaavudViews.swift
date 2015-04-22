@@ -24,25 +24,29 @@ class ReadingView: UIView {
     @IBInspectable var reading: CGFloat = 0.0 { didSet { setNeedsDisplay() } }
 }
 
-@IBDesignable class TemperatureView: ReadingView {
+//@IBDesignable
+class TemperatureView: ReadingView {
     override func drawRect(rect: CGRect) {
         VaavudStyle.drawVaavudTemperature(height: bounds.height, reading: reading)
     }
 }
 
-@IBDesignable class PressureView: ReadingView {
+//@IBDesignable 
+class PressureView: ReadingView {
     override func drawRect(rect: CGRect) {
         VaavudStyle.drawVaavudPressure(height: bounds.height, reading: reading)
     }
 }
 
-@IBDesignable class WindchillView: ReadingView {
+//@IBDesignable 
+class WindchillView: ReadingView {
     override func drawRect(rect: CGRect) {
         VaavudStyle.drawVaavudWindchill(height: bounds.height, reading: reading)
     }
 }
 
-@IBDesignable class GustinessView: ReadingView {
+//@IBDesignable 
+class GustinessView: ReadingView {
     override func drawRect(rect: CGRect) {
         VaavudStyle.drawVaavudGustiness(height: bounds.height, reading: reading)
     }
@@ -60,7 +64,8 @@ class DynamicOffsetItem: NSObject, UIDynamicItem {
     }
 }
 
-@IBDesignable class ArrowView: UIView {
+//@IBDesignable 
+class ArrowView: UIView {
     @IBInspectable var strokeWidth: CGFloat = 3.0 { didSet { setNeedsDisplay() } }
     @IBInspectable var strokeColor: UIColor = UIColor.blackColor() { didSet { setNeedsDisplay() } }
     
@@ -70,7 +75,8 @@ class DynamicOffsetItem: NSObject, UIDynamicItem {
     }
 }
 
-@IBDesignable class SleipnirView: UIView {
+//@IBDesignable 
+class SleipnirView: UIView {
     @IBInspectable var strokeWidth: CGFloat = 3.0 { didSet { setNeedsDisplay() } }
     @IBInspectable var detailStrokeWidth: CGFloat = 1.0 { didSet { setNeedsDisplay() } }
     @IBInspectable var strokeColor: UIColor = UIColor.blackColor() { didSet { setNeedsDisplay() } }

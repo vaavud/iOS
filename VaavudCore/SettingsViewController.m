@@ -17,6 +17,7 @@
 
 @interface SettingsViewController ()
 
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) UIWebView *webView;
 @property (nonatomic, strong) UISwitch *facebookSharingSwitch;
@@ -29,11 +30,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (SYSTEM_VERSION_LESS_THAN(@"7.0")) {
-        self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-        self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    }
-
     self.navigationItem.title = NSLocalizedString(@"SETTINGS_TITLE", nil);
     self.navigationItem.backBarButtonItem.title = NSLocalizedString(@"NAVIGATION_BACK", nil);
     
@@ -95,7 +91,6 @@
         [self presentViewController:alertController animated:YES completion:nil];
     }
     else {
-
         [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"REGISTER_BUTTON_LOGOUT", nil)
                                     message:NSLocalizedString(@"DIALOG_CONFIRM", nil)
                                    delegate:self
@@ -311,7 +306,6 @@
     else if (indexPath.item == 6 ) {
         [self performSegueWithIdentifier:@"sleipnirCalibrationSegueFromSettings" sender:self];
     }
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

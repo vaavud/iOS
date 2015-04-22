@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "TestFlight.h"
+#import <Crashlytics/Crashlytics.h>
 #import "ModelManager.h"
 #import "ServerUploadManager.h"
 #import "LocationManager.h"
@@ -33,13 +33,11 @@
 
     //NSLog(@"[AppDelegate] didFinishLaunchingWithOptions");
     
-    [TestFlight takeOff:[[NSString alloc] initWithCString:MACRO_VALUE(TESTFLIGHT_TOKEN) encoding:NSASCIIStringEncoding]];
-
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
     
     TMCache *cache = [TMCache sharedCache];
-    cache.diskCache.ageLimit = 24.0 * 3600.0;
+    cache.diskCache.ageLimit = 24.0*3600.0;
     
     [MagicalRecord setupAutoMigratingCoreDataStack];
     [[ModelManager sharedInstance] initializeModel];
@@ -57,7 +55,9 @@
             [[Mixpanel sharedInstance] identify:[Property getAsString:KEY_USER_ID]];
         }
     }
-
+    
+    [Crashlytics startWithAPIKey:@"767b68b0d4b5e7c052c4de75ae8859beee5d9901"];
+    
     // Whenever a person opens the app, check for a cached session and refresh token
     if ([[AccountManager sharedInstance] isLoggedIn]) {
         [[AccountManager sharedInstance] registerWithFacebook:nil action:AuthenticationActionRefresh];
