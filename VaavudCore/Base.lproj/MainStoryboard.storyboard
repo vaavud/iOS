@@ -420,7 +420,7 @@
             <objects>
                 <tableViewController id="AVc-0U-FEU" customClass="CoreSettingsTableViewController" customModule="Vaavud" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ZpY-xL-uhp">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="860"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
@@ -719,6 +719,39 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="##Feature" id="D3K-ro-EqD">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SwitchSettingsCell" id="yC2-d0-OOF">
+                                        <rect key="frame" x="0.0" y="119" width="320" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yC2-d0-OOF" id="1qf-AY-7k5">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tfd-ss-0px">
+                                                    <rect key="frame" x="263" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="changedDropboxSetting:" destination="AVc-0U-FEU" eventType="valueChanged" id="7lz-EA-RqT"/>
+                                                    </connections>
+                                                </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="##Dropbox Export" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bNi-dU-vJ9">
+                                                    <rect key="frame" x="18" y="11" width="141" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="bNi-dU-vJ9" firstAttribute="leading" secondItem="1qf-AY-7k5" secondAttribute="leading" constant="15" id="2BJ-1x-y5g"/>
+                                                <constraint firstAttribute="centerY" secondItem="Tfd-ss-0px" secondAttribute="centerY" id="9Hq-6F-IAS"/>
+                                                <constraint firstAttribute="centerY" secondItem="bNi-dU-vJ9" secondAttribute="centerY" id="aeA-ym-B9m"/>
+                                                <constraint firstItem="Tfd-ss-0px" firstAttribute="trailing" secondItem="1qf-AY-7k5" secondAttribute="trailingMargin" id="kS3-FC-6GJ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="AVc-0U-FEU" id="blq-gi-BOd"/>
@@ -733,9 +766,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="860"/>
+                    <size key="freeformSize" width="320" height="1000"/>
                     <connections>
                         <outlet property="directionUnitControl" destination="bcI-dI-OVQ" id="j1d-pU-vXj"/>
+                        <outlet property="dropboxControl" destination="Tfd-ss-0px" id="IRt-k2-cLO"/>
                         <outlet property="logoutButton" destination="kic-mv-NUN" id="ZFS-dj-OWp"/>
                         <outlet property="pressureUnitControl" destination="d52-Tg-BU8" id="emI-aV-Hwf"/>
                         <outlet property="speedUnitControl" destination="Dvh-om-zIW" id="aW3-Fp-pdv"/>
@@ -756,11 +790,11 @@
                         <viewControllerLayoutGuide type="bottom" id="s33-Yz-j5i"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dqR-PF-P71">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="860"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ZH-nH-cic">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="860"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </webView>
                         </subviews>
@@ -1884,9 +1918,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="mhv-JI-fCG"/>
         <segue reference="4WK-Ha-uCh"/>
         <segue reference="s0f-qj-ZNz"/>
+        <segue reference="TEo-Jg-X1i"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
 </document>
