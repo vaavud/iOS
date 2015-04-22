@@ -91,7 +91,7 @@ BOOL didShowFeedback;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
     [activityIndicator startAnimating];
 
-    [[AccountManager sharedInstance] registerWithPassword:self.passwordTextField.text email:self.emailTextField.text firstName:nil lastName:nil action:AuthenticationActionLogin success:^(enum AuthenticationResponseType response) {
+    [[AccountManager sharedInstance] registerWithPassword:self.passwordTextField.text email:self.emailTextField.text firstName:nil lastName:nil action:AuthenticationActionLogin success:^(AuthenticationResponseType response) {
 
         [self.passwordTextField resignFirstResponder];
         [self.emailTextField resignFirstResponder];
@@ -108,7 +108,7 @@ BOOL didShowFeedback;
         if (self.completion) {
             self.completion();
         }
-    } failure:^(enum AuthenticationResponseType response) {
+    } failure:^(AuthenticationResponseType response) {
         if ([Property isMixpanelEnabled]) {
             [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": [NSNumber numberWithInt:response], @"Screen": @"Login", @"Method": @"Password"}];
         }
@@ -147,7 +147,7 @@ BOOL didShowFeedback;
     [accountManager registerWithFacebook:password action:AuthenticationActionLogin];
 }
 
-- (void)facebookAuthenticationSuccess:(enum AuthenticationResponseType)response {
+- (void)facebookAuthenticationSuccess:(AuthenticationResponseType)response {
     [self.activityIndicator stopAnimating];
     self.facebookButton.titleLabel.hidden = NO;
 
@@ -162,7 +162,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (void)facebookAuthenticationFailure:(enum AuthenticationResponseType)response
+- (void)facebookAuthenticationFailure:(AuthenticationResponseType)response
                               message:(NSString *)message
                       displayFeedback:(BOOL)displayFeedback {
 

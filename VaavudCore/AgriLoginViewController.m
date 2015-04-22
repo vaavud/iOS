@@ -95,9 +95,9 @@
     //[self.passwordTextField resignFirstResponder];
     [self.activityIndicator startAnimating];
     
-    enum AuthenticationActionType action = (sender && sender == self.loginButton) ? AuthenticationActionLogin : AuthenticationActionSignup;
+    AuthenticationActionType action = (sender && sender == self.loginButton) ? AuthenticationActionLogin : AuthenticationActionSignup;
     
-    [[AccountManager sharedInstance] registerWithPassword:self.passwordTextField.text email:self.emailTextField.text firstName:nil lastName:nil action:action success:^(enum AuthenticationResponseType response) {
+    [[AccountManager sharedInstance] registerWithPassword:self.passwordTextField.text email:self.emailTextField.text firstName:nil lastName:nil action:action success:^(AuthenticationResponseType response) {
         
         [self.activityIndicator stopAnimating];
 
@@ -131,7 +131,7 @@
             [self showMessage:NSLocalizedString(@"AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE", nil) withTitle:NSLocalizedString(@"AGRI_REGISTER_NO_SUBSCRIPTION_TITLE", nil)];
             [[AccountManager sharedInstance] logout];
         }
-    } failure:^(enum AuthenticationResponseType response) {
+    } failure:^(AuthenticationResponseType response) {
 
         [self.activityIndicator stopAnimating];
 

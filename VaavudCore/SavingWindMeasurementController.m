@@ -177,7 +177,7 @@ SHARED_INSTANCE
     return durationSeconds;
 }
 
-- (enum WindMeterDeviceType)windMeterDeviceType {
+- (WindMeterDeviceType)windMeterDeviceType {
     if (self.controller) {
         return [self.controller windMeterDeviceType];
     }
@@ -283,19 +283,19 @@ SHARED_INSTANCE
     }
 }
 
-- (void)deviceAvailabilityChanged:(enum WindMeterDeviceType)device andAvailability:(BOOL)available {
+- (void)deviceAvailabilityChanged:(WindMeterDeviceType)device andAvailability:(BOOL)available {
     if ([self.delegate respondsToSelector:@selector(deviceAvailabilityChanged:andAvailability:)]) {
         [self.delegate deviceAvailabilityChanged:device andAvailability:available];
     }
 }
 
-- (void)deviceConnected:(enum WindMeterDeviceType)device {
+- (void)deviceConnected:(WindMeterDeviceType)device {
     if ([self.delegate respondsToSelector:@selector(deviceConnected:)]) {
         [self.delegate deviceConnected:device];
     }
 }
 
-- (void)deviceDisconnected:(enum WindMeterDeviceType)device {
+- (void)deviceDisconnected:(WindMeterDeviceType)device {
     if ([self.delegate respondsToSelector:@selector(deviceDisconnected:)]) {
         [self.delegate deviceDisconnected:device];
     }

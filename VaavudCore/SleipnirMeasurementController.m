@@ -50,7 +50,7 @@ SHARED_INSTANCE
     self.direction = nil;
 }
 
-- (enum WindMeterDeviceType)windMeterDeviceType {
+- (WindMeterDeviceType)windMeterDeviceType {
     return SleipnirWindMeterDeviceType;
 }
 

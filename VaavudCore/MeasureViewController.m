@@ -584,7 +584,7 @@
 
 /**** Sleipnir Measurement ****/
 
-- (void)deviceAvailabilityChanged:(enum WindMeterDeviceType)device andAvailability:(BOOL)available {
+- (void)deviceAvailabilityChanged:(WindMeterDeviceType)device andAvailability:(BOOL)available {
     if (device == SleipnirWindMeterDeviceType) {
         self.useSleipnir = available;
     }
@@ -604,7 +604,7 @@
     }];
 }
 
-- (void)deviceConnected:(enum WindMeterDeviceType)deviceType {
+- (void)deviceConnected:(WindMeterDeviceType)deviceType {
     switch (deviceType) {
         case SleipnirWindMeterDeviceType:
             if (!self.useSleipnir && !self.buttonShowsStart) {
@@ -623,7 +623,7 @@
     }
 }
 
-- (void)deviceDisconnected:(enum WindMeterDeviceType)device {
+- (void)deviceDisconnected:(WindMeterDeviceType)device {
     if (device == SleipnirWindMeterDeviceType) {
         if (!self.buttonShowsStart) {
             [self stopWithUITracking:YES action:@"Unplug"];

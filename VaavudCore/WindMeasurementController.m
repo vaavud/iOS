@@ -17,7 +17,7 @@
     return 0.0;
 }
 
-- (enum WindMeterDeviceType)windMeterDeviceType {
+- (WindMeterDeviceType)windMeterDeviceType {
     return 0;
 }
 

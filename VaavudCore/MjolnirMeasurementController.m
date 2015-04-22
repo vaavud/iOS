@@ -73,7 +73,7 @@
     return self;
 }
 
-- (enum WindMeterDeviceType)windMeterDeviceType {
+- (WindMeterDeviceType)windMeterDeviceType {
     return MjolnirWindMeterDeviceType;
 }
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-enum WindMeterDeviceType : NSUInteger {
+typedef NS_ENUM(NSInteger, WindMeterDeviceType) {
     UnknownWindMeterDeviceType = 0,
     MjolnirWindMeterDeviceType = 1,
     SleipnirWindMeterDeviceType = 2
@@ -24,9 +24,9 @@ enum WindMeterDeviceType : NSUInteger {
 - (void)updateLocation:(NSNumber *)latitude longitude:(NSNumber *)longitude;
 - (void)updateTemperature:(NSNumber *)temperature;
 - (void)changedValidity:(BOOL)isValid dynamicsIsValid:(BOOL)dynamicsIsValid;
-- (void)deviceAvailabilityChanged:(enum WindMeterDeviceType) device andAvailability:(BOOL)available;
-- (void)deviceConnected:(enum WindMeterDeviceType)device;
-- (void)deviceDisconnected:(enum WindMeterDeviceType)device;
+- (void)deviceAvailabilityChanged:(WindMeterDeviceType) device andAvailability:(BOOL)available;
+- (void)deviceConnected:(WindMeterDeviceType)device;
+- (void)deviceDisconnected:(WindMeterDeviceType)device;
 - (void)measuringStoppedByModel;
 
 @end
@@ -37,7 +37,7 @@ enum WindMeterDeviceType : NSUInteger {
 
 - (void)start;
 - (NSTimeInterval)stop;
-- (enum WindMeterDeviceType)windMeterDeviceType;
+- (WindMeterDeviceType)windMeterDeviceType;
 - (NSString *)mixpanelWindMeterName;
 
 @end

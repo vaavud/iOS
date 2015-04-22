@@ -29,9 +29,9 @@ BOOL isDoingLogout = NO;
                        email:(NSString *)email
                    firstName:(NSString *)firstName
                     lastName:(NSString*)lastName
-                      action:(enum AuthenticationActionType)action
-                     success:(void(^)(enum AuthenticationResponseType response))success
-                     failure:(void(^)(enum AuthenticationResponseType response))failure {
+                      action:(AuthenticationActionType)action
+                     success:(void(^)(AuthenticationResponseType response))success
+                     failure:(void(^)(AuthenticationResponseType response))failure {
 
     isDoingLogout = NO;
     
@@ -66,11 +66,11 @@ BOOL isDoingLogout = NO;
     [self doLogout];
 }
 
-- (void)registerWithFacebook:(NSString *)password action:(enum AuthenticationActionType)action {
+- (void)registerWithFacebook:(NSString *)password action:(AuthenticationActionType)action {
     [self registerWithFacebook:password action:action isRecursive:NO];
 }
 
-- (void)registerWithFacebook:(NSString*)password action:(enum AuthenticationActionType)action isRecursive:(BOOL)isRecursive {
+- (void)registerWithFacebook:(NSString*)password action:(AuthenticationActionType)action isRecursive:(BOOL)isRecursive {
     int fbRegId = facebookRegisterIdentifier++;
     hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
     isDoingLogout = NO;
@@ -89,7 +89,7 @@ BOOL isDoingLogout = NO;
                                                                           state:state error:error
                                                                        password:password action:action
                                                                         success:nil
-                                                                        failure:^(enum AuthenticationResponseType response, NSString *message, BOOL displayFeedback) {
+                                                                        failure:^(AuthenticationResponseType response, NSString *message, BOOL displayFeedback) {
                                                   
                                                   if (LOG_ACCOUNT) NSLog(@"[AccountManager] Failure refreshing Facebook session");
                                                   
@@ -108,7 +108,7 @@ BOOL isDoingLogout = NO;
             return;
         }
         
-        void(^success)(enum AuthenticationResponseType response) = ^(enum AuthenticationResponseType response) {
+        void(^success)(AuthenticationResponseType response) = ^(AuthenticationResponseType response) {
             if (LOG_ACCOUNT) NSLog(@"[AccountManager] Delegate success, fbRegId=%u", fbRegId);
             hasCalledDelegateForCurrentFacebookRegisterIdentifier = YES;
             if (self.delegate) {
@@ -116,7 +116,7 @@ BOOL isDoingLogout = NO;
             }
         };
         
-        void(^failure)(enum AuthenticationResponseType response, NSString *message, BOOL displayFeedback) = ^(enum AuthenticationResponseType response, NSString *message, BOOL displayFeedback) {
+        void(^failure)(AuthenticationResponseType response, NSString *message, BOOL displayFeedback) = ^(AuthenticationResponseType response, NSString *message, BOOL displayFeedback) {
             // We only want to notify about failures if it is related to the newest Facebook register call.
             // If it is related to an older call, we assume that the newer call will either succeed or fail
             // with a more current error notification.
@@ -172,9 +172,9 @@ BOOL isDoingLogout = NO;
                               state:(FBSessionState)state
                               error:(NSError *)error
                            password:(NSString *)password
-                             action:(enum AuthenticationActionType)action
-                            success:(void(^)(enum AuthenticationResponseType response))success
-                            failure:(void(^)(enum AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {
+                             action:(AuthenticationActionType)action
+                            success:(void(^)(AuthenticationResponseType response))success
+                            failure:(void(^)(AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {
     if (!error && state == FBSessionStateOpen) {
         // If the session was opened successfully
         if (LOG_ACCOUNT) NSLog(@"[AccountManager] Facebook session opened");
@@ -226,10 +226,10 @@ BOOL isDoingLogout = NO;
     }
 }
 
-- (void)facebookUserLoggedIn:(enum AuthenticationActionType)action
+- (void)facebookUserLoggedIn:(AuthenticationActionType)action
                     password:(NSString*)password isRecursive:(BOOL)isRecursive
-                     success:(void(^)(enum AuthenticationResponseType response))success
-                     failure:(void(^)(enum AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {
+                     success:(void(^)(AuthenticationResponseType response))success
+                     failure:(void(^)(AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {
     
     if (LOG_ACCOUNT) NSLog(@"[AccountManager] facebookUserLoggedIn");
     [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLogInOut" object:@""];
@@ -297,10 +297,10 @@ BOOL isDoingLogout = NO;
                           }];
 }
 
-- (void)facebookUserFetchInfo:(enum AuthenticationActionType)action
+- (void)facebookUserFetchInfo:(AuthenticationActionType)action
                      password:(NSString*)password metaInfo:(NSDictionary*)metaInfo
-                      success:(void(^)(enum AuthenticationResponseType response))success
-                      failure:(void(^)(enum AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {
+                      success:(void(^)(AuthenticationResponseType response))success
+                      failure:(void(^)(AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {
     [FBRequestConnection startForMeWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
         if (!error) {
             
@@ -337,7 +337,7 @@ BOOL isDoingLogout = NO;
                       verified:verified
                       metaInfo:metaInfo
                        success:success
-                       failure:^(enum AuthenticationResponseType response) {
+                       failure:^(AuthenticationResponseType response) {
                            if (failure) {
                                failure(response, nil, YES);
                            }
@@ -352,7 +352,7 @@ BOOL isDoingLogout = NO;
     }];
 }
 
-- (void)registerUser:(enum AuthenticationActionType)action
+- (void)registerUser:(AuthenticationActionType)action
                email:(NSString *)email
         passwordHash:(NSString *)passwordHash
           facebookId:(NSString *)facebookId
@@ -362,13 +362,13 @@ BOOL isDoingLogout = NO;
               gender:(NSNumber *)gender
             verified:(NSNumber *)verified
             metaInfo:(NSDictionary *)metaInfo
-             success:(void(^)(enum AuthenticationResponseType response))success
-             failure:(void(^)(enum AuthenticationResponseType response))failure {
+             success:(void(^)(AuthenticationResponseType response))success
+             failure:(void(^)(AuthenticationResponseType response))failure {
     NSString *serverAction = [self actionToString:(action == AuthenticationActionRefresh) ? AuthenticationActionLogin : action];
     
     [[ServerUploadManager sharedInstance] registerUser:serverAction email:email passwordHash:passwordHash facebookId:facebookId facebookAccessToken:facebookAccessToken firstName:firstName lastName:lastName gender:gender verified:verified metaInfo:metaInfo retry:3 success:^(NSString *status, id responseObject) {
         
-        enum AuthenticationResponseType authResponse = [self stringToAuthenticationResponse:status];
+        AuthenticationResponseType authResponse = [self stringToAuthenticationResponse:status];
         
         if (authResponse == AuthenticationResponsePaired || authResponse == AuthenticationResponseCreated) {
             [self setAuthenticationState:AuthenticationStateLoggedIn];
@@ -506,11 +506,11 @@ BOOL isDoingLogout = NO;
     return [self getAuthenticationState] == AuthenticationStateLoggedIn;
 }
 
-- (void)setAuthenticationState:(enum AuthenticationStateType)state {
+- (void)setAuthenticationState:(AuthenticationStateType)state {
     [Property setAsInteger:[NSNumber numberWithInt:state] forKey:KEY_AUTHENTICATION_STATE];
 }
 
-- (enum AuthenticationStateType)getAuthenticationState {
+- (AuthenticationStateType)getAuthenticationState {
     NSNumber *authState = [Property getAsInteger:KEY_AUTHENTICATION_STATE];
     if (!authState) {
         return AuthenticationStateNeverLoggedIn;
@@ -520,7 +520,7 @@ BOOL isDoingLogout = NO;
     }
 }
 
-- (NSString *)actionToString:(enum AuthenticationActionType)action {
+- (NSString *)actionToString:(AuthenticationActionType)action {
     switch (action) {
         case AuthenticationActionLogin:
             return @"LOGIN";
@@ -531,7 +531,7 @@ BOOL isDoingLogout = NO;
     }
 }
 
-- (enum AuthenticationResponseType)stringToAuthenticationResponse:(NSString *)response {
+- (AuthenticationResponseType)stringToAuthenticationResponse:(NSString *)response {
     if ([@"CREATED" isEqualToString:response]) {
         return AuthenticationResponseCreated;
     }

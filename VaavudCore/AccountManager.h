@@ -9,19 +9,19 @@
 #import <Foundation/Foundation.h>
 //#import <FacebookSDK/FacebookSDK.h>
 
-enum AuthenticationActionType : NSUInteger {
+typedef NS_ENUM(NSInteger, AuthenticationActionType) {
     AuthenticationActionLogin = 1,
     AuthenticationActionSignup = 2,
     AuthenticationActionRefresh = 3
 };
 
-enum AuthenticationStateType : NSUInteger {
+typedef NS_ENUM(NSInteger, AuthenticationStateType) {
     AuthenticationStateNeverLoggedIn = 1,
     AuthenticationStateLoggedIn = 2,
     AuthenticationStateWasLoggedIn = 3
 };
 
-enum AuthenticationResponseType : NSUInteger {
+typedef NS_ENUM(NSInteger, AuthenticationResponseType) {
     AuthenticationResponseCreated = 1,
     AuthenticationResponsePaired = 2,
     AuthenticationResponseGenericError = 3,
@@ -42,8 +42,8 @@ enum AuthenticationResponseType : NSUInteger {
 // that we don't end up calling a deallocated closure we use a delegate as indirection
 
 @protocol AuthenticationDelegate <NSObject>
-- (void)facebookAuthenticationSuccess:(enum AuthenticationResponseType)response;
-- (void)facebookAuthenticationFailure:(enum AuthenticationResponseType)response message:(NSString *)message displayFeedback:(BOOL)displayFeedback;
+- (void)facebookAuthenticationSuccess:(AuthenticationResponseType)response;
+- (void)facebookAuthenticationFailure:(AuthenticationResponseType)response message:(NSString *)message displayFeedback:(BOOL)displayFeedback;
 
 @property (nonatomic, copy) void (^completion)(void);
 
@@ -59,13 +59,13 @@ enum AuthenticationResponseType : NSUInteger {
                       email:(NSString *)email
                   firstName:(NSString *)firstName
                    lastName:(NSString *)lastName
-                     action:(enum AuthenticationActionType)action
-                    success:(void(^)(enum AuthenticationResponseType response))success
-                    failure:(void(^)(enum AuthenticationResponseType response))failure;
+                     action:(AuthenticationActionType)action
+                    success:(void(^)(AuthenticationResponseType response))success
+                    failure:(void(^)(AuthenticationResponseType response))failure;
 
-- (void)registerWithFacebook:(NSString *)password action:(enum AuthenticationActionType)action;
+- (void)registerWithFacebook:(NSString *)password action:(AuthenticationActionType)action;
 
-- (enum AuthenticationStateType)getAuthenticationState;
+- (AuthenticationStateType)getAuthenticationState;
 
 - (void)logout;
 

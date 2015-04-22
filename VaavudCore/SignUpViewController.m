@@ -163,7 +163,7 @@ BOOL didShowFeedback;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
     [activityIndicator startAnimating];
 
-    [[AccountManager sharedInstance] registerWithPassword:self.passwordTextField.text email:self.emailTextField.text firstName:self.firstNameTextField.text lastName:self.lastNameTextField.text action:AuthenticationActionSignup success:^(enum AuthenticationResponseType response) {
+    [[AccountManager sharedInstance] registerWithPassword:self.passwordTextField.text email:self.emailTextField.text firstName:self.firstNameTextField.text lastName:self.lastNameTextField.text action:AuthenticationActionSignup success:^(AuthenticationResponseType response) {
         
         [self.passwordTextField resignFirstResponder];
         [self.emailTextField resignFirstResponder];
@@ -180,7 +180,7 @@ BOOL didShowFeedback;
         if (self.completion) {
             self.completion();
         }
-    } failure:^(enum AuthenticationResponseType response) {
+    } failure:^(AuthenticationResponseType response) {
         if ([Property isMixpanelEnabled]) {
             [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": @(response), @"Screen": @"Signup", @"Method": @"Password"}];
         }
@@ -221,7 +221,7 @@ BOOL didShowFeedback;
     [accountManager registerWithFacebook:password action:AuthenticationActionSignup];
 }
 
-- (void)facebookAuthenticationSuccess:(enum AuthenticationResponseType)response {
+- (void)facebookAuthenticationSuccess:(AuthenticationResponseType)response {
     [self.activityIndicator stopAnimating];
     self.facebookButton.titleLabel.hidden = NO;
 
@@ -237,7 +237,7 @@ BOOL didShowFeedback;
     }
 }
 
-- (void)facebookAuthenticationFailure:(enum AuthenticationResponseType)response
+- (void)facebookAuthenticationFailure:(AuthenticationResponseType)response
                               message:(NSString *)message
                       displayFeedback:(BOOL)displayFeedback {
     if (LOG_OTHER) NSLog(@"[SignUpViewController] error registering user, response=%d, message=%@, displayFeedback=%@", response, message, (displayFeedback ? @"YES" : @"NO"));
