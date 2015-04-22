@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import <FacebookSDK/FacebookSDK.h>
+#import <FacebookSDK/FacebookSDK.h>
 #import "RegisterNavigationController.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate, RegisterNavigationControllerDelegate>

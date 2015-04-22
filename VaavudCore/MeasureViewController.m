@@ -27,7 +27,7 @@
 #import "AppDelegate.h"
 #import "LocationManager.h"
 #import <math.h>
-//#import <FacebookSDK/FacebookSDK.h>
+#import <FacebookSDK/FacebookSDK.h>
 #import <AVFoundation/AVFoundation.h>
 
 @interface MeasureViewController ()

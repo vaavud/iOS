@@ -13,7 +13,7 @@
 #import "RegisterNavigationController.h"
 #import "AccountManager.h"
 #import "Mixpanel.h"
-//#import <FacebookSDK/FacebookSDK.h>
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface LogInViewController ()<UITextFieldDelegate, UIAlertViewDelegate>
 

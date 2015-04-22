@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import <FacebookSDK/FacebookSDK.h>
+#import <FacebookSDK/FacebookSDK.h>
 
 typedef NS_ENUM(NSInteger, AuthenticationActionType) {
     AuthenticationActionLogin = 1,

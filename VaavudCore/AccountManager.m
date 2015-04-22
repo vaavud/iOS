@@ -15,7 +15,7 @@
 #import "PasswordUtil.h"
 #import "Mixpanel.h"
 #import "MixpanelUtil.h"
-//#import <FacebookSDK/FacebookSDK.h>
+#import <FacebookSDK/FacebookSDK.h>
 
 @implementation AccountManager
 
@@ -28,7 +28,7 @@ BOOL isDoingLogout = NO;
 - (void)registerWithPassword:(NSString *)password
                        email:(NSString *)email
                    firstName:(NSString *)firstName
-                    lastName:(NSString*)lastName
+                    lastName:(NSString *)lastName
                       action:(AuthenticationActionType)action
                      success:(void(^)(AuthenticationResponseType response))success
                      failure:(void(^)(AuthenticationResponseType response))failure {

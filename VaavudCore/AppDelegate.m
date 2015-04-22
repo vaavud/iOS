@@ -20,7 +20,6 @@
 #import "UnitUtil.h"
 #import "UIColor+VaavudColors.h"
 #import "MixpanelUtil.h"
-#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface AppDelegate()
 
@@ -128,8 +127,7 @@
     self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];
 
-    return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                    didFinishLaunchingWithOptions:launchOptions];
+    return YES;
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -142,9 +140,7 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-//    [FBAppCall handleDidBecomeActive];
-    
-    [FBSDKAppEvents activateApp];
+    [FBAppCall handleDidBecomeActive];
     
     if ([Property isMixpanelEnabled]) {
         
@@ -207,14 +203,14 @@
         
         self.xCallbackSuccess = nil;
         
-        if ([@"x-callback-url" compare:[url host]] == NSOrderedSame && [@"/measure" compare:[url path]] == NSOrderedSame) {
-            NSString* xSuccess = [dict objectForKey:@"x-success"];
-            if (xSuccess && xSuccess != nil && xSuccess != (id)[NSNull null] && [xSuccess length] > 0) {
+        if ([@"x-callback-url" compare:url.host] == NSOrderedSame && [@"/measure" compare:url.path] == NSOrderedSame) {
+            NSString *xSuccess = [dict objectForKey:@"x-success"];
+            if (xSuccess && xSuccess != nil && xSuccess != (id)[NSNull null] && xSuccess.length > 0) {
                 NSLog(@"[VaavudAppDelegate] opened with x-callback-url, setting x-success to %@", xSuccess);
                 self.xCallbackSuccess = xSuccess;
 
                 if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
-                    TabBarController *tabBarController = (TabBarController*) self.window.rootViewController;
+                    TabBarController *tabBarController = (TabBarController *)self.window.rootViewController;
                     if (tabBarController && tabBarController != nil && tabBarController.isViewLoaded) {
                         tabBarController.selectedIndex = 0;
                     }
@@ -222,14 +218,11 @@
             }
         }
     }
-//    else {
-    //        return [FBSession.activeSession handleOpenURL:url];
-    //    }
+    else {
+        return [FBSession.activeSession handleOpenURL:url];
+    }
     
-    return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                          openURL:url
-                                                sourceApplication:sourceApplication
-                                                       annotation:annotation];
+    return YES;
 }
 
 - (void)userAuthenticated:(BOOL)isSignup viewController:(UIViewController *)viewController {
