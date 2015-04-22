@@ -15,7 +15,7 @@
 #import "PasswordUtil.h"
 #import "Mixpanel.h"
 #import "MixpanelUtil.h"
-#import <FacebookSDK/FacebookSDK.h>
+//#import <FacebookSDK/FacebookSDK.h>
 
 @implementation AccountManager
 

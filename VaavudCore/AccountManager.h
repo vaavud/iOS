@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <FacebookSDK/FacebookSDK.h>
+//#import <FacebookSDK/FacebookSDK.h>
 
 enum AuthenticationActionType : NSUInteger {
     AuthenticationActionLogin = 1,

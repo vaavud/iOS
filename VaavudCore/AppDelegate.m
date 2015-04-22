@@ -20,6 +20,7 @@
 #import "UnitUtil.h"
 #import "UIColor+VaavudColors.h"
 #import "MixpanelUtil.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @interface AppDelegate()
 
@@ -127,7 +128,8 @@
     self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];
 
-    return YES;
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                    didFinishLaunchingWithOptions:launchOptions];
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -140,7 +142,9 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [FBAppCall handleDidBecomeActive];
+//    [FBAppCall handleDidBecomeActive];
+    
+    [FBSDKAppEvents activateApp];
     
     if ([Property isMixpanelEnabled]) {
         
@@ -218,11 +222,14 @@
             }
         }
     }
-    else {
-        return [FBSession.activeSession handleOpenURL:url];
-    }
+//    else {
+    //        return [FBSession.activeSession handleOpenURL:url];
+    //    }
     
-    return YES;
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                          openURL:url
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation];
 }
 
 - (void)userAuthenticated:(BOOL)isSignup viewController:(UIViewController *)viewController {

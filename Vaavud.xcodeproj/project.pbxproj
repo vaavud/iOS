@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22265FF11AE68F9000B10648 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22265FF01AE68F9000B10648 /* FBSDKCoreKit.framework */; };
 		2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */; };
 		2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */; };
 		2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
@@ -151,8 +152,6 @@
 		E93EEDB819EE664B004D8759 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E93EEDB719EE664B004D8759 /* LaunchScreen.xib */; };
 		E93EEDB919EE664B004D8759 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E93EEDB719EE664B004D8759 /* LaunchScreen.xib */; };
 		E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E94CBB5D177DB3050089D440 /* UUIDUtil.m */; };
-		E9543DE919F7DA54005A01D7 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9543DE819F7DA54005A01D7 /* FacebookSDK.framework */; };
-		E9543DEA19F7DA54005A01D7 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9543DE819F7DA54005A01D7 /* FacebookSDK.framework */; };
 		E9543DFC19FFBF6C005A01D7 /* AgriHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9543DFB19FFBF6C005A01D7 /* AgriHistoryTableViewController.m */; };
 		E9543DFD19FFBF6C005A01D7 /* AgriHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9543DFB19FFBF6C005A01D7 /* AgriHistoryTableViewController.m */; };
 		E9543E0019FFCB2E005A01D7 /* AgriSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9543DFF19FFCB2E005A01D7 /* AgriSummaryViewController.m */; };
@@ -429,6 +428,7 @@
 		221E30EA1AE2EF4C00503FE1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Register.strings; sourceTree = "<group>"; };
 		221E30EC1AE2EF5100503FE1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Register.strings"; sourceTree = "<group>"; };
 		221E30EE1AE2EF5600503FE1 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Register.strings"; sourceTree = "<group>"; };
+		22265FF01AE68F9000B10648 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradingUserViewController.swift; sourceTree = "<group>"; };
 		2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpgradingUserPhonePages.xib; sourceTree = "<group>"; };
 		2234D35F1A78F4F900F325EB /* Agriculture-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Agriculture-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -622,7 +622,6 @@
 		E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VaavudElectronicSDK.xcodeproj; path = ../VaavudElectronicSDK/VaavudElectronicSDK.xcodeproj; sourceTree = "<group>"; };
 		E94CBB5C177DB3050089D440 /* UUIDUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUIDUtil.h; sourceTree = "<group>"; };
 		E94CBB5D177DB3050089D440 /* UUIDUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUIDUtil.m; sourceTree = "<group>"; };
-		E9543DE819F7DA54005A01D7 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		E9543DFA19FFBF6C005A01D7 /* AgriHistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriHistoryTableViewController.h; sourceTree = "<group>"; };
 		E9543DFB19FFBF6C005A01D7 /* AgriHistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriHistoryTableViewController.m; sourceTree = "<group>"; };
 		E9543DFE19FFCB2E005A01D7 /* AgriSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriSummaryViewController.h; sourceTree = "<group>"; };
@@ -899,12 +898,12 @@
 			files = (
 				22A3405E1A5AE022006CE401 /* libVaavudElectronicSDK.a in Frameworks */,
 				E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */,
+				22265FF11AE68F9000B10648 /* FBSDKCoreKit.framework in Frameworks */,
 				E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */,
 				E9B627CD1770930D004678D5 /* MobileCoreServices.framework in Frameworks */,
 				E9B627CB177092EF004678D5 /* SystemConfiguration.framework in Frameworks */,
 				E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */,
 				D7B5BD531757A23C0069F739 /* CoreLocation.framework in Frameworks */,
-				E9543DE919F7DA54005A01D7 /* FacebookSDK.framework in Frameworks */,
 				2256C19B1AA7450E00782314 /* Crashlytics.framework in Frameworks */,
 				D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */,
 				D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */,
@@ -928,7 +927,6 @@
 				E96FB55719A353B500CB7306 /* SystemConfiguration.framework in Frameworks */,
 				E96FB55819A353B500CB7306 /* CoreData.framework in Frameworks */,
 				E96FB55919A353B500CB7306 /* CoreLocation.framework in Frameworks */,
-				E9543DEA19F7DA54005A01D7 /* FacebookSDK.framework in Frameworks */,
 				2256C19C1AA7450E00782314 /* Crashlytics.framework in Frameworks */,
 				E96FB55A19A353B500CB7306 /* Accelerate.framework in Frameworks */,
 				E96FB55B19A353B500CB7306 /* QuartzCore.framework in Frameworks */,
@@ -1009,8 +1007,8 @@
 		D7A4F1C9173A8DDB00D1ACEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				22265FF01AE68F9000B10648 /* FBSDKCoreKit.framework */,
 				2256C19A1AA7450E00782314 /* Crashlytics.framework */,
-				E9543DE819F7DA54005A01D7 /* FacebookSDK.framework */,
 				E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */,
 				E982DF2D18181152004DAB3E /* AdSupport.framework */,
 				E904AC9917F0911000171F7F /* MapKit.framework */,
@@ -2478,6 +2476,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2485,6 +2484,7 @@
 					"$(inherited)",
 					.,
 					"$(PROJECT_DIR)",
+					/Users/kugel/Documents/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
@@ -2516,6 +2516,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Vaavud ApS (X5DMTGX3GW)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -2523,6 +2524,7 @@
 					"$(inherited)",
 					.,
 					"$(PROJECT_DIR)",
+					/Users/kugel/Documents/FacebookSDK,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
