@@ -143,7 +143,6 @@
     [FBAppCall handleDidBecomeActive];
     
     if ([Property isMixpanelEnabled]) {
-        
         [MixpanelUtil registerUserAsMixpanelProfile];
         [MixpanelUtil updateMeasurementProperties:YES];
 
