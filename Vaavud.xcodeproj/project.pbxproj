@@ -1702,11 +1702,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../FacebookSDK",
 					"$(inherited)",
 					.,
 					"$(PROJECT_DIR)",
-					/Users/kugel/Documents/FacebookSDK,
-					"/Users/kugel/Developer/+Vaavud/FacebookSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
@@ -1743,11 +1742,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Vaavud ApS (X5DMTGX3GW)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../FacebookSDK",
 					"$(inherited)",
 					.,
 					"$(PROJECT_DIR)",
-					/Users/kugel/Documents/FacebookSDK,
-					"/Users/kugel/Developer/+Vaavud/FacebookSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";

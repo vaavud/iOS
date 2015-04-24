@@ -27,8 +27,9 @@ class CoreSettingsTableViewController: UITableViewController {
         hideVolumeHUD()
         versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
 //        facebookControl.on = Property.getAsBoolean("enableFacebookShareDialog", defaultValue: false)
-        dropboxControl.on = DBSession.sharedSession().isLinked()
-        sleipnirClipControl.on = Property.getAsBoolean("sleipnirClipSideScreen", defaultValue: false)
+                
+//        dropboxControl.on = DBSession.sharedSession().isLinked()
+//        sleipnirClipControl.on = Property.getAsBoolean("sleipnirClipSideScreen", defaultValue: false)
         readUnits()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: "UnitChange", object: nil)
