@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		221B305A1AE7F78C00B0E137 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 221B30591AE7F78C00B0E137 /* FacebookSDK.framework */; };
 		2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */; };
 		2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */; };
 		2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
 		2256C19B1AA7450E00782314 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2256C19A1AA7450E00782314 /* Crashlytics.framework */; };
+		228500881AEA8E0200E1E7C2 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228500871AEA8E0200E1E7C2 /* FacebookSDK.framework */; };
 		229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
 		229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3171A7EE3A0008A3226 /* VaavudViews.swift */; };
 		22A3405E1A5AE022006CE401 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */; };
@@ -191,7 +191,6 @@
 		22199C011AE286710008CADA /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		22199C031AE286760008CADA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainStoryboard.strings"; sourceTree = "<group>"; };
 		22199C051AE2867D0008CADA /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/MainStoryboard.strings"; sourceTree = "<group>"; };
-		221B30591AE7F78C00B0E137 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		221E30DE1AE2EF2E00503FE1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Register.strings; sourceTree = "<group>"; };
 		221E30E01AE2EF3400503FE1 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Register.strings; sourceTree = "<group>"; };
 		221E30E21AE2EF3900503FE1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Register.strings; sourceTree = "<group>"; };
@@ -207,6 +206,7 @@
 		225572CA1AE2851900153F03 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		2255A63A1A818535006589D5 /* VaavudInteractions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudInteractions.swift; sourceTree = "<group>"; };
 		2256C19A1AA7450E00782314 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		228500871AEA8E0200E1E7C2 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		228A7BB01ADD190E00EB72CC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		228A7BB31ADD190E00EB72CC /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		228A7BB41ADD190F00EB72CC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -593,7 +593,7 @@
 				E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */,
 				D7B5BD531757A23C0069F739 /* CoreLocation.framework in Frameworks */,
 				2256C19B1AA7450E00782314 /* Crashlytics.framework in Frameworks */,
-				221B305A1AE7F78C00B0E137 /* FacebookSDK.framework in Frameworks */,
+				228500881AEA8E0200E1E7C2 /* FacebookSDK.framework in Frameworks */,
 				D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */,
 				D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */,
 				D7A4F1F4173A9FC200D1ACEE /* CoreMotion.framework in Frameworks */,
@@ -671,7 +671,7 @@
 		D7A4F1C9173A8DDB00D1ACEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				221B30591AE7F78C00B0E137 /* FacebookSDK.framework */,
+				228500871AEA8E0200E1E7C2 /* FacebookSDK.framework */,
 				2256C19A1AA7450E00782314 /* Crashlytics.framework */,
 				E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */,
 				E982DF2D18181152004DAB3E /* AdSupport.framework */,
@@ -1702,6 +1702,7 @@
 					.,
 					"$(PROJECT_DIR)",
 					/Users/kugel/Documents/FacebookSDK,
+					"/Users/kugel/Developer/+Vaavud/FacebookSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
@@ -1742,6 +1743,7 @@
 					.,
 					"$(PROJECT_DIR)",
 					/Users/kugel/Documents/FacebookSDK,
+					"/Users/kugel/Developer/+Vaavud/FacebookSDK",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
