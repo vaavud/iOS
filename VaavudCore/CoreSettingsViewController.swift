@@ -19,6 +19,7 @@ class CoreSettingsTableViewController: UITableViewController {
     @IBOutlet weak var temperatureUnitControl: UISegmentedControl!
 //    @IBOutlet weak var facebookControl: UISwitch!
     @IBOutlet weak var dropboxControl: UISwitch!
+    @IBOutlet weak var sleipnirClipControl: UISwitch!
     
     @IBOutlet weak var versionLabel: UILabel!
     
@@ -27,6 +28,7 @@ class CoreSettingsTableViewController: UITableViewController {
         versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
 //        facebookControl.on = Property.getAsBoolean("enableFacebookShareDialog", defaultValue: false)
         dropboxControl.on = DBSession.sharedSession().isLinked()
+        sleipnirClipControl.on = Property.getAsBoolean("sleipnirClipSideScreen", defaultValue: false)
         readUnits()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: "UnitChange", object: nil)
@@ -151,6 +153,10 @@ class CoreSettingsTableViewController: UITableViewController {
         } else {
             DBSession.sharedSession().unlinkAll()
         }
+    }
+    
+    @IBAction func changedSleipnirClipSetting(sender: UISwitch) {
+        Property.setAsBoolean(sender.on, forKey: "sleipnirClipSideScreen")
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

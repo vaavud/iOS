@@ -9,6 +9,7 @@
 #import "SleipnirMeasurementController.h"
 #import "SharedSingleton.h"
 #import "Constants.h"
+#import "Property+Util.h"
 
 @interface SleipnirMeasurementController ()
 
@@ -58,7 +59,7 @@ SHARED_INSTANCE
     [self resetMeasurementData];
     self.isStarted = YES;
     self.startTime = [NSDate date];
-    [[VEVaavudElectronicSDK sharedVaavudElectronic] start];
+    [[VEVaavudElectronicSDK sharedVaavudElectronic] startWithClipFacingScreen: [Property getAsBoolean:KEY_SLEIPNIR_CLIP_SIDE_SCREEN defaultValue:NO]];
 }
 
 - (NSTimeInterval)stop {
