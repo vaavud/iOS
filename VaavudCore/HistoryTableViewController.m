@@ -119,8 +119,8 @@
 }
 
 -(void)viewDidLayoutSubviews {
-//    [self layoutBackground];
-//    [self refreshEmptyState];
+    [self layoutBackground];
+    [self refreshEmptyState];
 }
 
 -(void)performSync {
