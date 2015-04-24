@@ -157,9 +157,10 @@ SHARED_INSTANCE
                 [[ServerUploadManager sharedInstance] triggerUpload];
             }
         }];
-        
-        self.dropboxUploader = [[DropboxUploader alloc] initWithDelegate:self];
-        [self.dropboxUploader uploadToDropbox:measurementSession];
+        if ([[DBSession sharedSession] isLinked]) {
+            self.dropboxUploader = [[DropboxUploader alloc] initWithDelegate:self];
+            [self.dropboxUploader uploadToDropbox:measurementSession];
+        }
     }
     
     return durationSeconds;
@@ -450,7 +451,14 @@ SHARED_INSTANCE
 
 - (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath
               from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
-    NSLog(@"File uploaded successfully to path: %@", metadata.path);
+    
+    NSError *error = nil;
+    [[NSFileManager defaultManager] removeItemAtPath:srcPath error:&error];
+    if (!error) {
+        NSLog(@"File uploaded and deleted successfully to path: %@", metadata.path);
+    } else {
+        NSLog(@"File uploaded successfully, but not deleted to path: %@, error: %@", metadata.path, error.localizedDescription);
+    }
 }
 
 - (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {

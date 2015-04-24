@@ -14,6 +14,7 @@ class DropboxUploader: NSObject, DBRestClientDelegate {
     
     let i = 0
     
+    // delegate should take care of deleting uploaded files.
     init(delegate: DBRestClientDelegate) {
         super.init()
         restClient.delegate = delegate
@@ -47,11 +48,8 @@ class DropboxUploader: NSObject, DBRestClientDelegate {
     }
     
     func save(string:String) -> NSURL? {
-        let fileManager = NSFileManager.defaultManager()
-        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask) as! [NSURL]
-        
-        if let baseUrl = urls.first {
-            var fileURL = baseUrl.URLByAppendingPathComponent(NSUUID().UUIDString)
+        if let tempBase = NSURL.fileURLWithPath(NSTemporaryDirectory(), isDirectory: true) {
+            var fileURL = tempBase.URLByAppendingPathComponent(NSProcessInfo.processInfo().globallyUniqueString)
             let success = string.writeToURL(fileURL, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
             if (success) {
                 println("sucess writing file %@", fileURL.path)
@@ -61,7 +59,7 @@ class DropboxUploader: NSObject, DBRestClientDelegate {
                 println("not so sucessfull writing file %@", fileURL.path)
             }
         }
-        println("Could not get base directory")
+        println("Could not get tmp directory")
         return nil
     }
 }

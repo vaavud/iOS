@@ -55,11 +55,6 @@
     [super viewDidLoad];
     self.rotatingImageView = [[UIImageView alloc] initWithFrame:self.directionImageView.bounds];
     [self.directionImageView addSubview:self.rotatingImageView];
-    
-    // temporaty implementation should be settings.
-    if (![[DBSession sharedSession] isLinked]) {
-        [[DBSession sharedSession] linkFromController:self];
-    }
 }
 
 

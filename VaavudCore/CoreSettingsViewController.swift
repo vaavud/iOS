@@ -18,6 +18,8 @@ class CoreSettingsTableViewController: UITableViewController {
     @IBOutlet weak var pressureUnitControl: UISegmentedControl!
     @IBOutlet weak var temperatureUnitControl: UISegmentedControl!
 //    @IBOutlet weak var facebookControl: UISwitch!
+    @IBOutlet weak var dropboxControl: UISwitch!
+    @IBOutlet weak var sleipnirClipControl: UISwitch!
     
     @IBOutlet weak var versionLabel: UILabel!
     
@@ -25,10 +27,13 @@ class CoreSettingsTableViewController: UITableViewController {
         hideVolumeHUD()
         versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
 //        facebookControl.on = Property.getAsBoolean("enableFacebookShareDialog", defaultValue: false)
+        dropboxControl.on = DBSession.sharedSession().isLinked()
+        sleipnirClipControl.on = Property.getAsBoolean("sleipnirClipSideScreen", defaultValue: false)
         readUnits()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: "UnitChange", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasLoggedInOut:", name: "DidLogInOut", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: "isDropboxLinked", object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -48,6 +53,12 @@ class CoreSettingsTableViewController: UITableViewController {
     func unitsChanged(note: NSNotification) {
         if note.object as? CoreSettingsTableViewController != self {
             readUnits()
+        }
+    }
+    
+    func dropboxLinkedStatus(note: NSNotification) {
+        if let isDropboxLinked = note.object as? NSNumber.BooleanLiteralType {
+            dropboxControl.on = isDropboxLinked
         }
     }
     
@@ -134,6 +145,18 @@ class CoreSettingsTableViewController: UITableViewController {
     
     @IBAction func changedFacebookSetting(sender: UISwitch) {
         Property.setAsBoolean(sender.on, forKey: "enableFacebookShareDialog")
+    }
+    
+    @IBAction func changedDropboxSetting(sender: UISwitch) {
+        if sender.on {
+            DBSession.sharedSession().linkFromController(self)
+        } else {
+            DBSession.sharedSession().unlinkAll()
+        }
+    }
+    
+    @IBAction func changedSleipnirClipSetting(sender: UISwitch) {
+        Property.setAsBoolean(sender.on, forKey: "sleipnirClipSideScreen")
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

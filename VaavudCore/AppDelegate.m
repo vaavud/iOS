@@ -223,10 +223,9 @@
         }
     }
     else if ([[DBSession sharedSession] handleOpenURL:url]) {
-        if ([[DBSession sharedSession] isLinked]) {
-            NSLog(@"Dropbox App linked successfully!");
-            // At this point you can start making API calls
-        }
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"isDropboxLinked"
+         object:[NSNumber numberWithBool:[[DBSession sharedSession] isLinked]]];
         return YES;
     }
     else {
