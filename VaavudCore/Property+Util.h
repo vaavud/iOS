@@ -39,6 +39,7 @@ static NSString * const KEY_HAS_SEEN_INTRO_FLOW = @"hasSeenIntroFlow";
 static NSString * const KEY_MAP_GUIDE_MARKER_SHOWN = @"mapGuideMarkerShown";
 static NSString * const KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN = @"mapGuideTimeIntervalShown";
 static NSString * const KEY_MAP_GUIDE_ZOOM_SHOWN = @"mapGuideZoomShown";
+static NSString * const KEY_SLEIPNIR_CLIP_SIDE_SCREEN = @"sleipnirClipSideScreen";
 
 // User-related properties
 static NSString * const KEY_EMAIL = @"email";
@@ -51,7 +52,6 @@ static NSString * const KEY_AUTHENTICATION_STATE = @"authenticationState";
 static NSString * const KEY_USER_HAS_WIND_METER = @"userHasWindMeter";
 
 // Agri-related properties
-
 static NSString * const KEY_AGRI_VALID_SUBSCRIPTION = @"agriValidSubscription";
 static NSString * const KEY_AGRI_DEFAULT_REDUCING_EQUIPMENT = @"agriDefaultReducingEquipment";
 static NSString * const KEY_AGRI_DEFAULT_DOSE = @"agriDefaultDose";

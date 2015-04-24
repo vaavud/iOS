@@ -144,15 +144,29 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
+    self.fetchedResultsController.delegate = self;
+    NSLog(@"==== Appear");
+    
+    [self.fetchedResultsController performFetch:nil];
+    
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"History Screen"];
         [[Mixpanel sharedInstance] track:@"History Tab"]; // REMOVEME
     }
 }
 
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    self.fetchedResultsController.delegate = nil;
+    NSLog(@"==== Disappear");
+}
+
+
+
+
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController) {
-        _fetchedResultsController = [MeasurementSession MR_fetchAllGroupedBy:@"day" withPredicate:nil sortedBy:@"startTime" ascending:NO delegate:self];
+        _fetchedResultsController = [MeasurementSession MR_fetchAllGroupedBy:@"day" withPredicate:nil sortedBy:@"startTime" ascending:NO delegate:nil];
     }
     return _fetchedResultsController;
 }

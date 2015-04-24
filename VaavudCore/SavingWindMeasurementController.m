@@ -16,9 +16,10 @@
 #import "UUIDUtil.h"
 #import "AppDelegate.h"
 #import "MeasurementPoint+Util.h"
+#import "Vaavud-Swift.h"
 @import CoreMotion;
 
-@interface SavingWindMeasurementController ()
+@interface SavingWindMeasurementController () <DBRestClientDelegate>
 
 @property (nonatomic) BOOL hasBeenStopped;
 @property (nonatomic) BOOL wasValid;
@@ -29,6 +30,7 @@
 @property (nonatomic, strong) NSNumber *currentDirection;
 @property (nonatomic, strong) NSDate *lastSaveTime;
 @property (nonatomic, strong) NSTimer *temperatureLookupTimer;
+@property (nonatomic, strong) DropboxUploader *dropboxUploader;
 @property (nonatomic) CMAltimeter *altimeter;
 
 @property (nonatomic) CLGeocoder *geocoder;
@@ -172,6 +174,10 @@ SHARED_INSTANCE
                 [[ServerUploadManager sharedInstance] triggerUpload];
             }
         }];
+        if ([[DBSession sharedSession] isLinked]) {
+            self.dropboxUploader = [[DropboxUploader alloc] initWithDelegate:self];
+            [self.dropboxUploader uploadToDropbox:measurementSession];
+        }
     }
     
     return durationSeconds;
@@ -474,6 +480,22 @@ SHARED_INSTANCE
             }];
         }
     }
+}
+
+- (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath
+              from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
+    
+    NSError *error = nil;
+    [[NSFileManager defaultManager] removeItemAtPath:srcPath error:&error];
+    if (!error) {
+        NSLog(@"File uploaded and deleted successfully to path: %@", metadata.path);
+    } else {
+        NSLog(@"File uploaded successfully, but not deleted to path: %@, error: %@", metadata.path, error.localizedDescription);
+    }
+}
+
+- (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
+    NSLog(@"File upload failed with error: %@", error);
 }
 
 @end

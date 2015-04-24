@@ -11,7 +11,6 @@
 @interface ModelManager : NSObject
 
 + (ModelManager *)sharedInstance;
-
 - (void)initializeModel;
-
++ (BOOL)isIPhone4;
 @end

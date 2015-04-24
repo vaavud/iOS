@@ -29,6 +29,7 @@
 #import <math.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <AVFoundation/AVFoundation.h>
+#import "ModelManager.h"
 
 @interface MeasureViewController ()
 
@@ -398,7 +399,13 @@
     
     if (self.graphView) {
         self.shiftGraphXTimer = [CADisplayLink displayLinkWithTarget:self.graphView selector:@selector(shiftGraphX)];
-        self.shiftGraphXTimer.frameInterval = 5;
+        if ([ModelManager isIPhone4]) {
+            // slower update frequency for iPhone 4
+            self.shiftGraphXTimer.frameInterval = 30;
+        }
+        else {
+            self.shiftGraphXTimer.frameInterval = 5;
+        }
         [self.shiftGraphXTimer addToRunLoop:[NSRunLoop currentRunLoop] forMode:[[NSRunLoop currentRunLoop] currentMode]];
     }
 
@@ -767,14 +774,11 @@
         }
         
         if (self.directionImageView) {
-            self.directionImageView.image = [UIImage imageNamed:@"wind_arrow.png"];
-            if (self.directionImageView.image) {
-                self.directionImageView.transform = CGAffineTransformMakeRotation([self.directionLabelCurrentValue doubleValue]/180 * M_PI);
-                self.directionImageView.hidden = NO;
+            if (!self.rotatingImageView.image) {
+                self.rotatingImageView.image = [UIImage imageNamed:@"wind_arrow.png"];
             }
-            else {
-                self.directionImageView.hidden = YES;
-            }
+            self.rotatingImageView.layer.transform = CATransform3DMakeRotation(self.directionLabelCurrentValue.doubleValue/180*M_PI, 0, 0, 1);
+            self.directionImageView.hidden = NO;
         }
     }
     else {

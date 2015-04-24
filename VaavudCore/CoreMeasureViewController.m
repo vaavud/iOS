@@ -10,6 +10,8 @@
 #import "Vaavud-Swift.h"
 #import "SavingWindMeasurementController.h"
 #import "SleipnirMeasurementController.h"
+#import "ModelManager.h"
+#import "Vaavud-Swift.h"
 
 @interface CoreMeasureViewController ()
 
@@ -50,10 +52,15 @@
     NSLog(@"calibrationCancelled");
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.rotatingImageView = [[UIImageView alloc] initWithFrame:self.directionImageView.bounds];
+    [self.directionImageView addSubview:self.rotatingImageView];
+}
+
 -(void)calibrateIfNeeded {
     BOOL sleipnir = [SleipnirMeasurementController sharedInstance].isDeviceConnected;
-    
-    if (sleipnir && !self.hasShowsCalibrationScreen && ![Property getAsBoolean:KEY_HAS_CALIBRATED]) {
+	if (sleipnir && !self.hasShowsCalibrationScreen && ![Property getAsBoolean:KEY_HAS_CALIBRATED]) {
         [self performSegueWithIdentifier:@"MandatoryCalibration" sender:self];
         self.hasShowsCalibrationScreen = YES;
     }
@@ -61,9 +68,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    
-    
+        
     [self calibrateIfNeeded];
     //NSLog(@"[CoreMeasureViewController] topLayoutGuide=%f", self.topLayoutGuide.length);
     //NSLog(@"[CoreMeasureViewController] bottomLayoutGuide=%f", self.bottomLayoutGuide.length);

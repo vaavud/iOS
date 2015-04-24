@@ -212,6 +212,8 @@ SHARED_INSTANCE
 
                 NSDictionary *parameters = [measurementSession toDictionary];
                 
+                //NSLog(@"[ServerUploadManager] parameters: %@", [parameters description]);
+                
                 [[VaavudAPIHTTPClient sharedInstance] postPath:@"/api/measure" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
                     
                     if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got successful response uploading");
