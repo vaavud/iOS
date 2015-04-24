@@ -24,7 +24,7 @@ typedef NS_ENUM(NSInteger, WindMeterDeviceType) {
 - (void)updateLocation:(NSNumber *)latitude longitude:(NSNumber *)longitude;
 - (void)updateTemperature:(NSNumber *)temperature;
 - (void)changedValidity:(BOOL)isValid dynamicsIsValid:(BOOL)dynamicsIsValid;
-- (void)deviceAvailabilityChanged:(WindMeterDeviceType) device andAvailability:(BOOL)available;
+- (void)deviceAvailabilityChanged:(WindMeterDeviceType)device andAvailability:(BOOL)available;
 - (void)deviceConnected:(WindMeterDeviceType)device;
 - (void)deviceDisconnected:(WindMeterDeviceType)device;
 - (void)measuringStoppedByModel;

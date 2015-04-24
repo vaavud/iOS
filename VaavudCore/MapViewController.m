@@ -77,21 +77,12 @@
         }
     }
     
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-
-#ifdef CORE
-        UIImage *selectedTabImage = [[UIImage imageNamed:@"map_selected.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-        self.tabBarItem.selectedImage = selectedTabImage;
-#endif
-
-    }
-
 	self.mapView.delegate = self;
     
     self.mapView.calloutView = [SMCalloutView new];
     self.mapView.calloutView.delegate = self;
     self.mapView.calloutView.presentAnimation = SMCalloutAnimationStretch;
-    self.windSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
+    self.windSpeedUnit = [Property getAsInteger:KEY_WIND_SPEED_UNIT].intValue;
     self.directionUnit = -1;
     
     [self refreshHours];
@@ -101,14 +92,13 @@
     self.feedbackView.layer.borderWidth = 0.5;
     self.feedbackView.layer.borderColor = [UIColor colorWithRed: 0.1 green: 0.1 blue: 0.1 alpha: 1].CGColor;
     self.feedbackView.hidden = YES;
-
+    
     self.feedbackTextView.editable = YES;
     self.feedbackTextView.font = [UIFont systemFontOfSize:14];
     self.feedbackTextView.textColor = [UIColor darkGrayColor];
     self.feedbackTextView.textAlignment = NSTextAlignmentCenter;
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
-        self.feedbackTextView.selectable = NO;
-    }
+    self.feedbackTextView.selectable = NO;
+    
     self.feedbackTextView.editable = NO;
     
     self.activityIndicator.hidden = YES;
@@ -139,12 +129,6 @@
     //NSLog(@"[MapViewController] appWillTerminate");
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
-}
-
-- (void)tabSelected {
-    if ([Property isMixpanelEnabled]) {
-        [[Mixpanel sharedInstance] track:@"Map Tab"];
-    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -193,7 +177,7 @@
     [super viewDidAppear:animated];
     
     // note: hack for content view underlapping tab view when clicking on another tab and back
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") && (self.hoursBottomLayoutGuideConstraint != nil)) {
+    if (self.hoursBottomLayoutGuideConstraint != nil) {
         [self.view removeConstraint:self.hoursBottomLayoutGuideConstraint];
         self.hoursBottomLayoutGuideConstraint = nil;
         NSLayoutConstraint *bottomSpaceConstraint = [NSLayoutConstraint constraintWithItem:self.view
@@ -205,7 +189,7 @@
                                                                                   constant:49.0 + 5.0];
         [self.view addConstraint:bottomSpaceConstraint];
     }
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") && (self.unitBottomLayoutGuideConstraint != nil)) {
+    if (self.unitBottomLayoutGuideConstraint != nil) {
         [self.view removeConstraint:self.unitBottomLayoutGuideConstraint];
         self.unitBottomLayoutGuideConstraint = nil;
         NSLayoutConstraint *bottomSpaceConstraint = [NSLayoutConstraint constraintWithItem:self.view
@@ -226,6 +210,7 @@
 
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"Map Screen"];
+        [[Mixpanel sharedInstance] track:@"Map Tab"]; // REMOVEME
     }
     
     self.viewAppearedTime = [NSDate date];

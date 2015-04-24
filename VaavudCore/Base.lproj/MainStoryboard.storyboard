@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="uRK-QG-tAM">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -283,13 +284,17 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
                 <exit id="JMm-Mh-ali" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="90" y="-529"/>
+            <point key="canvasLocation" x="99" y="-470"/>
         </scene>
         <!--Measure Navigation-->
         <scene sceneID="RnR-Kp-M0y">
             <objects>
-                <navigationController definesPresentationContext="YES" id="fQa-n1-y1j" userLabel="Measure Navigation" customClass="MeasureNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Measure" image="measure.png" id="bEh-Uj-qCq"/>
+                <navigationController definesPresentationContext="YES" id="fQa-n1-y1j" userLabel="Measure Navigation" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Measure" image="measure.png" id="bEh-Uj-qCq">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="measure_selected"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hW7-ue-zqA">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -398,7 +403,11 @@
                             <constraint firstItem="tbg-Zl-YRw" firstAttribute="leading" secondItem="vqh-9G-hns" secondAttribute="leading" id="wTd-9r-8bp"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" image="map.png" id="CJd-r9-Fhf"/>
+                    <tabBarItem key="tabBarItem" title="Map" image="map.png" id="CJd-r9-Fhf">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="map_selected"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
                     <connections>
                         <outlet property="activityIndicator" destination="1nG-yb-qca" id="bu9-c8-J60"/>
                         <outlet property="feedbackTextView" destination="FTv-5v-GxF" id="Dou-US-dcS"/>
@@ -1392,7 +1401,7 @@
                                     <outletCollection property="gestureRecognizers" destination="8LZ-L7-QT4" appends="YES" id="R2F-fU-CHm"/>
                                 </connections>
                             </view>
-                            <view alpha="0.49999999999999961" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="C2h-JO-28H" customClass="ArrowView" customModule="Agriculture" customModuleProvider="target">
+                            <view alpha="0.49999999999999961" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="C2h-JO-28H" customClass="ArrowView" customModule="Vaavud" customModuleProvider="target">
                                 <rect key="frame" x="182" y="135" width="94" height="94"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
@@ -1865,7 +1874,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fnM-Yc-OwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-813" y="819"/>
+            <point key="canvasLocation" x="-814" y="819"/>
         </scene>
     </scenes>
     <resources>
@@ -1876,7 +1885,9 @@
         <image name="history_selected.png" width="26" height="26"/>
         <image name="iPhone6Black" width="217" height="444"/>
         <image name="map.png" width="26" height="26"/>
+        <image name="map_selected" width="26" height="26"/>
         <image name="measure.png" width="26" height="26"/>
+        <image name="measure_selected" width="26" height="26"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

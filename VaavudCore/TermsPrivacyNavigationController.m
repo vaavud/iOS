@@ -8,15 +8,7 @@
 
 #import "TermsPrivacyNavigationController.h"
 
-@interface TermsPrivacyNavigationController ()
-
-@end
-
 @implementation TermsPrivacyNavigationController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-}
 
 -(NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;

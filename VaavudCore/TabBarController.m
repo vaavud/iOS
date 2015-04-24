@@ -14,14 +14,14 @@
 #import "HistoryTableViewController.h"
 #import "ServerUploadManager.h"
 #import "AccountManager.h"
+#import "RegisterNavigationController.h"
 
-@interface TabBarController ()
+@interface TabBarController ()<UITabBarControllerDelegate>
 
 @property (nonatomic) GuideView *calloutGuideView;
 @property (nonatomic) SMCalloutView *calloutView;
 @property (nonatomic) DismissOnTouchUIView *overlayDimmingView;
 @property (nonatomic) BOOL isCalloutGuideViewShown;
-@property (nonatomic) UIViewController *currentController;
 
 @end
 
@@ -31,7 +31,6 @@
     [super viewDidLoad];
     
     self.delegate = self;
-    self.currentController = nil;
     
     self.tabBar.tintColor = [UIColor vaavudColor];
     
@@ -87,18 +86,6 @@
     
     return YES;
 }
-
-//- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController*)viewController {
-//    if (viewController == self.currentController) {
-//        return;
-//    }
-//    self.currentController = viewController;
-//    
-//    if (viewController && [viewController conformsToProtocol:@protocol(TabSelectedListener)]) {
-//        id<TabSelectedListener> tabSelectedController = (id<TabSelectedListener>)viewController;
-//        [tabSelectedController tabSelected];
-//    }
-//}
 
 - (NSUInteger)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;

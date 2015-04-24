@@ -11,15 +11,10 @@
 		2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */; };
 		2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */; };
 		2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
-		2255A63C1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
 		2256C19B1AA7450E00782314 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2256C19A1AA7450E00782314 /* Crashlytics.framework */; };
-		2256C19C1AA7450E00782314 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2256C19A1AA7450E00782314 /* Crashlytics.framework */; };
 		229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
-		229FF3141A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
 		229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3171A7EE3A0008A3226 /* VaavudViews.swift */; };
-		229FF3191A7EE3A0008A3226 /* VaavudViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3171A7EE3A0008A3226 /* VaavudViews.swift */; };
 		22A3405E1A5AE022006CE401 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */; };
-		22A340661A5BDA21006CE401 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */; };
 		22AB2E6C1A70FC15008CAE46 /* BebasNeue Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E691A70FC15008CAE46 /* BebasNeue Bold.otf */; };
 		22AB2E6D1A70FC15008CAE46 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */; };
 		22AB2E6E1A70FC15008CAE46 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */; };
@@ -27,32 +22,20 @@
 		22ADAA941A9C911400C298E6 /* EmptyHistoryArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA931A9C911400C298E6 /* EmptyHistoryArrow.swift */; };
 		22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */; };
 		22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408B61A8A0E2E0062A2DD /* Extensions.swift */; };
-		22B408B81A8A0E2E0062A2DD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408B61A8A0E2E0062A2DD /* Extensions.swift */; };
 		22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */; };
 		22E59A3A1ADD6F7000B1BC88 /* HistoryScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A301ADD6F7000B1BC88 /* HistoryScreen.xcassets */; };
-		22E59A3B1ADD6F7000B1BC88 /* HistoryScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A301ADD6F7000B1BC88 /* HistoryScreen.xcassets */; };
 		22E59A3C1ADD6F7000B1BC88 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A311ADD6F7000B1BC88 /* Icons.xcassets */; };
-		22E59A3D1ADD6F7000B1BC88 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A311ADD6F7000B1BC88 /* Icons.xcassets */; };
 		22E59A3E1ADD6F7000B1BC88 /* InterfaceElements.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A321ADD6F7000B1BC88 /* InterfaceElements.xcassets */; };
-		22E59A3F1ADD6F7000B1BC88 /* InterfaceElements.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A321ADD6F7000B1BC88 /* InterfaceElements.xcassets */; };
 		22E59A401ADD6F7000B1BC88 /* IntroFlow.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A331ADD6F7000B1BC88 /* IntroFlow.xcassets */; };
 		22E59A421ADD6F7000B1BC88 /* Logo.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A341ADD6F7000B1BC88 /* Logo.xcassets */; };
-		22E59A431ADD6F7000B1BC88 /* Logo.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A341ADD6F7000B1BC88 /* Logo.xcassets */; };
 		22E59A441ADD6F7000B1BC88 /* MapMarkers.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A351ADD6F7000B1BC88 /* MapMarkers.xcassets */; };
-		22E59A451ADD6F7000B1BC88 /* MapMarkers.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A351ADD6F7000B1BC88 /* MapMarkers.xcassets */; };
 		22E59A461ADD6F7000B1BC88 /* MapPlaceholder.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A361ADD6F7000B1BC88 /* MapPlaceholder.xcassets */; };
-		22E59A471ADD6F7000B1BC88 /* MapPlaceholder.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A361ADD6F7000B1BC88 /* MapPlaceholder.xcassets */; };
 		22E59A481ADD6F7000B1BC88 /* SummaryScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A371ADD6F7000B1BC88 /* SummaryScreen.xcassets */; };
-		22E59A491ADD6F7000B1BC88 /* SummaryScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A371ADD6F7000B1BC88 /* SummaryScreen.xcassets */; };
 		22E59A4A1ADD6F7000B1BC88 /* TabBar.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A381ADD6F7000B1BC88 /* TabBar.xcassets */; };
-		22E59A4B1ADD6F7000B1BC88 /* TabBar.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A381ADD6F7000B1BC88 /* TabBar.xcassets */; };
 		22E59A4C1ADD6F7000B1BC88 /* UpgradeFlow.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A391ADD6F7000B1BC88 /* UpgradeFlow.xcassets */; };
-		22E59A4D1ADD6F7000B1BC88 /* UpgradeFlow.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A391ADD6F7000B1BC88 /* UpgradeFlow.xcassets */; };
 		22EAE5CF1AB1EA5C0037654E /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D21AB1EA5C0037654E /* Register.storyboard */; };
-		22EAE5D01AB1EA5C0037654E /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D21AB1EA5C0037654E /* Register.storyboard */; };
 		22EAE5D61AB1EBEA0037654E /* UpgradingUserPagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D81AB1EBEA0037654E /* UpgradingUserPagesView.xib */; };
 		22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
-		22FA6C521A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
 		A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A086025EA7704C458175CADF /* libPods.a */; };
 		D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */; };
 		D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
@@ -71,77 +54,15 @@
 		D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C860ED173AD08F005E9946 /* QuartzCore.framework */; };
 		D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */; };
 		D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DA72401743C1CD00DFE962 /* Accelerate.framework */; };
-		D7EE94881A125F8D001979BE /* windarrow_green_E.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94561A125F8D001979BE /* windarrow_green_E.png */; };
-		D7EE94891A125F8D001979BE /* windarrow_green_ENE.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94571A125F8D001979BE /* windarrow_green_ENE.png */; };
-		D7EE948A1A125F8D001979BE /* windarrow_green_ESE.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94581A125F8D001979BE /* windarrow_green_ESE.png */; };
-		D7EE948B1A125F8D001979BE /* windarrow_green_N.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94591A125F8D001979BE /* windarrow_green_N.png */; };
-		D7EE948C1A125F8D001979BE /* windarrow_green_NE.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE945A1A125F8D001979BE /* windarrow_green_NE.png */; };
-		D7EE948D1A125F8D001979BE /* windarrow_green_NNE.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE945B1A125F8D001979BE /* windarrow_green_NNE.png */; };
-		D7EE948E1A125F8D001979BE /* windarrow_green_NNW.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE945C1A125F8D001979BE /* windarrow_green_NNW.png */; };
-		D7EE948F1A125F8D001979BE /* windarrow_green_NW.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE945D1A125F8D001979BE /* windarrow_green_NW.png */; };
-		D7EE94901A125F8D001979BE /* windarrow_green_S.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE945E1A125F8D001979BE /* windarrow_green_S.png */; };
-		D7EE94911A125F8D001979BE /* windarrow_green_SE.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE945F1A125F8D001979BE /* windarrow_green_SE.png */; };
-		D7EE94921A125F8D001979BE /* windarrow_green_SSE.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94601A125F8D001979BE /* windarrow_green_SSE.png */; };
-		D7EE94931A125F8D001979BE /* windarrow_green_SSW.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94611A125F8D001979BE /* windarrow_green_SSW.png */; };
-		D7EE94941A125F8D001979BE /* windarrow_green_SW.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94621A125F8D001979BE /* windarrow_green_SW.png */; };
-		D7EE94951A125F8D001979BE /* windarrow_green_W.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94631A125F8D001979BE /* windarrow_green_W.png */; };
-		D7EE94961A125F8D001979BE /* windarrow_green_WNW.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94641A125F8D001979BE /* windarrow_green_WNW.png */; };
-		D7EE94971A125F8D001979BE /* windarrow_green_WSW.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94651A125F8D001979BE /* windarrow_green_WSW.png */; };
-		D7EE94981A125F8D001979BE /* windarrow_green_E@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94671A125F8D001979BE /* windarrow_green_E@2x.png */; };
-		D7EE94991A125F8D001979BE /* windarrow_green_ENE@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94681A125F8D001979BE /* windarrow_green_ENE@2x.png */; };
-		D7EE949A1A125F8D001979BE /* windarrow_green_ESE@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94691A125F8D001979BE /* windarrow_green_ESE@2x.png */; };
-		D7EE949B1A125F8D001979BE /* windarrow_green_N@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE946A1A125F8D001979BE /* windarrow_green_N@2x.png */; };
-		D7EE949C1A125F8D001979BE /* windarrow_green_NE@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE946B1A125F8D001979BE /* windarrow_green_NE@2x.png */; };
-		D7EE949D1A125F8D001979BE /* windarrow_green_NNE@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE946C1A125F8D001979BE /* windarrow_green_NNE@2x.png */; };
-		D7EE949E1A125F8D001979BE /* windarrow_green_NNW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE946D1A125F8D001979BE /* windarrow_green_NNW@2x.png */; };
-		D7EE949F1A125F8D001979BE /* windarrow_green_NW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE946E1A125F8D001979BE /* windarrow_green_NW@2x.png */; };
-		D7EE94A01A125F8D001979BE /* windarrow_green_S@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE946F1A125F8D001979BE /* windarrow_green_S@2x.png */; };
-		D7EE94A11A125F8D001979BE /* windarrow_green_SE@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94701A125F8D001979BE /* windarrow_green_SE@2x.png */; };
-		D7EE94A21A125F8D001979BE /* windarrow_green_SSE@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94711A125F8D001979BE /* windarrow_green_SSE@2x.png */; };
-		D7EE94A31A125F8D001979BE /* windarrow_green_SSW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94721A125F8D001979BE /* windarrow_green_SSW@2x.png */; };
-		D7EE94A41A125F8D001979BE /* windarrow_green_SW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94731A125F8D001979BE /* windarrow_green_SW@2x.png */; };
-		D7EE94A51A125F8D001979BE /* windarrow_green_W@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94741A125F8D001979BE /* windarrow_green_W@2x.png */; };
-		D7EE94A61A125F8D001979BE /* windarrow_green_WNW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94751A125F8D001979BE /* windarrow_green_WNW@2x.png */; };
-		D7EE94A71A125F8D001979BE /* windarrow_green_WSW@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94761A125F8D001979BE /* windarrow_green_WSW@2x.png */; };
-		D7EE94A81A125F8D001979BE /* windarrow_green_E@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94781A125F8D001979BE /* windarrow_green_E@3x.png */; };
-		D7EE94A91A125F8D001979BE /* windarrow_green_ENE@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94791A125F8D001979BE /* windarrow_green_ENE@3x.png */; };
-		D7EE94AA1A125F8D001979BE /* windarrow_green_ESE@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE947A1A125F8D001979BE /* windarrow_green_ESE@3x.png */; };
-		D7EE94AB1A125F8D001979BE /* windarrow_green_N@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE947B1A125F8D001979BE /* windarrow_green_N@3x.png */; };
-		D7EE94AC1A125F8D001979BE /* windarrow_green_NE@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE947C1A125F8D001979BE /* windarrow_green_NE@3x.png */; };
-		D7EE94AD1A125F8D001979BE /* windarrow_green_NNE@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE947D1A125F8D001979BE /* windarrow_green_NNE@3x.png */; };
-		D7EE94AE1A125F8D001979BE /* windarrow_green_NNW@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE947E1A125F8D001979BE /* windarrow_green_NNW@3x.png */; };
-		D7EE94AF1A125F8D001979BE /* windarrow_green_NW@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE947F1A125F8D001979BE /* windarrow_green_NW@3x.png */; };
-		D7EE94B01A125F8D001979BE /* windarrow_green_S@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94801A125F8D001979BE /* windarrow_green_S@3x.png */; };
-		D7EE94B11A125F8D001979BE /* windarrow_green_SE@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94811A125F8D001979BE /* windarrow_green_SE@3x.png */; };
-		D7EE94B21A125F8D001979BE /* windarrow_green_SSE@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94821A125F8D001979BE /* windarrow_green_SSE@3x.png */; };
-		D7EE94B31A125F8D001979BE /* windarrow_green_SSW@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94831A125F8D001979BE /* windarrow_green_SSW@3x.png */; };
-		D7EE94B41A125F8D001979BE /* windarrow_green_SW@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94841A125F8D001979BE /* windarrow_green_SW@3x.png */; };
-		D7EE94B51A125F8D001979BE /* windarrow_green_W@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94851A125F8D001979BE /* windarrow_green_W@3x.png */; };
-		D7EE94B61A125F8D001979BE /* windarrow_green_WNW@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94861A125F8D001979BE /* windarrow_green_WNW@3x.png */; };
-		D7EE94B71A125F8D001979BE /* windarrow_green_WSW@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7EE94871A125F8D001979BE /* windarrow_green_WSW@3x.png */; };
-		E9002DB919DD6993002D0132 /* AgriManualTemperatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9002DB819DD6993002D0132 /* AgriManualTemperatureViewController.m */; };
-		E9002DBA19DD6993002D0132 /* AgriManualTemperatureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9002DB819DD6993002D0132 /* AgriManualTemperatureViewController.m */; };
-		E9002DBD19DD69CD002D0132 /* AgriResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9002DBC19DD69CD002D0132 /* AgriResultViewController.m */; };
-		E9002DBE19DD69CD002D0132 /* AgriResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9002DBC19DD69CD002D0132 /* AgriResultViewController.m */; };
-		E9002DC119DE9755002D0132 /* AgriManualDirectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9002DC019DE9755002D0132 /* AgriManualDirectionViewController.m */; };
-		E9002DC219DE9755002D0132 /* AgriManualDirectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9002DC019DE9755002D0132 /* AgriManualDirectionViewController.m */; };
-		E9002DC419DE9AEA002D0132 /* Agri-Manual-Direction.png in Resources */ = {isa = PBXBuildFile; fileRef = E9002DC319DE9AEA002D0132 /* Agri-Manual-Direction.png */; };
-		E9002DC519DE9AEA002D0132 /* Agri-Manual-Direction.png in Resources */ = {isa = PBXBuildFile; fileRef = E9002DC319DE9AEA002D0132 /* Agri-Manual-Direction.png */; };
 		E904AC9817F08F6E00171F7F /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9717F08F6E00171F7F /* MapViewController.m */; };
 		E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E904AC9917F0911000171F7F /* MapKit.framework */; };
 		E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */; };
 		E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F76CD1771EB2B00F51A4F /* ServerUploadManager.m */; };
 		E9159CA51A03E09100742188 /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E9159CA41A03E09100742188 /* MeasurementSession.m */; };
-		E9159CA61A03E09100742188 /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E9159CA41A03E09100742188 /* MeasurementSession.m */; };
-		E9159CA91A078E5C00742188 /* AgriResultComputation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9159CA81A078E5C00742188 /* AgriResultComputation.m */; };
-		E9159CAA1A078E5C00742188 /* AgriResultComputation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9159CA81A078E5C00742188 /* AgriResultComputation.m */; };
-		E9159CB91A0A505400742188 /* AgriWordListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9159CB81A0A505400742188 /* AgriWordListViewController.m */; };
-		E9159CBA1A0A505400742188 /* AgriWordListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9159CB81A0A505400742188 /* AgriWordListViewController.m */; };
 		E91D4215198F7A9800106E15 /* GuideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E91D4214198F7A9800106E15 /* GuideView.xib */; };
 		E91D4218198F7C8400106E15 /* GuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91D4217198F7C8400106E15 /* GuideView.m */; };
 		E91D421B198F7E4900106E15 /* DismissOnTouchUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91D421A198F7E4900106E15 /* DismissOnTouchUIView.m */; };
 		E91E490D19AB5F3D00616887 /* CoreMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E91E490C19AB5F3D00616887 /* CoreMeasureViewController.m */; };
-		E91E490E19AB5F3D00616887 /* CoreMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E91E490C19AB5F3D00616887 /* CoreMeasureViewController.m */; };
 		E93338F7178C561B006E2314 /* ModelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E93338F6178C561B006E2314 /* ModelManager.m */; };
 		E93C5C3717EC826800E84D3C /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C5C3617EC826800E84D3C /* TabBarController.m */; };
 		E93C865A1781BE56005E4212 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86591781BE56005E4212 /* LocationManager.m */; };
@@ -150,129 +71,9 @@
 		E93C866F1781D69A005E4212 /* MeasurementSession+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */; };
 		E93C86721781D727005E4212 /* MeasurementPoint+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86711781D727005E4212 /* MeasurementPoint+Util.m */; };
 		E93EEDB819EE664B004D8759 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E93EEDB719EE664B004D8759 /* LaunchScreen.xib */; };
-		E93EEDB919EE664B004D8759 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E93EEDB719EE664B004D8759 /* LaunchScreen.xib */; };
 		E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E94CBB5D177DB3050089D440 /* UUIDUtil.m */; };
-		E9543DFC19FFBF6C005A01D7 /* AgriHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9543DFB19FFBF6C005A01D7 /* AgriHistoryTableViewController.m */; };
-		E9543DFD19FFBF6C005A01D7 /* AgriHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9543DFB19FFBF6C005A01D7 /* AgriHistoryTableViewController.m */; };
-		E9543E0019FFCB2E005A01D7 /* AgriSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9543DFF19FFCB2E005A01D7 /* AgriSummaryViewController.m */; };
-		E9543E0119FFCB2E005A01D7 /* AgriSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9543DFF19FFCB2E005A01D7 /* AgriSummaryViewController.m */; };
 		E960260818575452009396B1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E960260A18575452009396B1 /* Localizable.strings */; };
 		E960260E18575E41009396B1 /* MeasurementCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E960261018575E41009396B1 /* MeasurementCalloutView.xib */; };
-		E96FB4ED19A353B500CB7306 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1D6173A8DDB00D1ACEE /* main.m */; };
-		E96FB4EE19A353B500CB7306 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1DA173A8DDB00D1ACEE /* AppDelegate.m */; };
-		E96FB4EF19A353B500CB7306 /* MeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1E6173A8DDB00D1ACEE /* MeasureViewController.m */; };
-		E96FB4F019A353B500CB7306 /* MjolnirMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* MjolnirMeasurementController.m */; };
-		E96FB4F119A353B500CB7306 /* VaavudMagneticFieldDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */; };
-		E96FB4F219A353B500CB7306 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */; };
-		E96FB4F319A353B500CB7306 /* VaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* VaavudFFT.m */; };
-		E96FB4F419A353B500CB7306 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950CB195B1DCE00E9EF02 /* ImageUtil.m */; };
-		E96FB4F519A353B500CB7306 /* DismissOnTouchUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91D421A198F7E4900106E15 /* DismissOnTouchUIView.m */; };
-		E96FB4F619A353B500CB7306 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
-		E96FB4F819A353B500CB7306 /* RegisterNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */; };
-		E96FB4F919A353B500CB7306 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */; };
-		E96FB4FA19A353B500CB7306 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DE09B9192E4C84003877D9 /* SettingsViewController.m */; };
-		E96FB4FB19A353B500CB7306 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627AF17708E63004678D5 /* AFHTTPClient.m */; };
-		E96FB4FC19A353B500CB7306 /* TMCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097318994000004F1C12 /* TMCache.m */; };
-		E96FB4FD19A353B500CB7306 /* PasswordUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099B18AA501D004F1C12 /* PasswordUtil.m */; };
-		E96FB4FE19A353B500CB7306 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B117708E63004678D5 /* AFHTTPRequestOperation.m */; };
-		E96FB4FF19A353B500CB7306 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B317708E63004678D5 /* AFImageRequestOperation.m */; };
-		E96FB50019A353B500CB7306 /* AFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B517708E63004678D5 /* AFJSONRequestOperation.m */; };
-		E96FB50119A353B500CB7306 /* GuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91D4217198F7C8400106E15 /* GuideView.m */; };
-		E96FB50219A353B500CB7306 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627B717708E63004678D5 /* AFNetworkActivityIndicatorManager.m */; };
-		E96FB50319A353B500CB7306 /* CustomSMCalloutDrawnBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */; };
-		E96FB50419A353B500CB7306 /* UIImageView+TMCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097C18994570004F1C12 /* UIImageView+TMCache.m */; };
-		E96FB50619A353B500CB7306 /* AFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627BA17708E63004678D5 /* AFPropertyListRequestOperation.m */; };
-		E96FB50719A353B500CB7306 /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627BC17708E63004678D5 /* AFURLConnectionOperation.m */; };
-		E96FB50819A353B500CB7306 /* TermsPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */; };
-		E96FB50919A353B500CB7306 /* MeasurementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */; };
-		E96FB50A19A353B500CB7306 /* MeasureNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097F189BD29F004F1C12 /* MeasureNavigationController.m */; };
-		E96FB50B19A353B500CB7306 /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627BE17708E63004678D5 /* AFXMLRequestOperation.m */; };
-		E96FB50C19A353B500CB7306 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627C017708E63004678D5 /* UIImageView+AFNetworking.m */; };
-		E96FB50D19A353B500CB7306 /* VaavudAPIHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627D0177096D6004678D5 /* VaavudAPIHTTPClient.m */; };
-		E96FB50E19A353B500CB7306 /* MeasurementAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */; };
-		E96FB50F19A353B500CB7306 /* ServerUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F76CD1771EB2B00F51A4F /* ServerUploadManager.m */; };
-		E96FB51019A353B500CB7306 /* HistoryTableViewSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FABFE91896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m */; };
-		E96FB51119A353B500CB7306 /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2203177B2AEA0054ED3F /* MagicalImportFunctions.m */; };
-		E96FB51219A353B500CB7306 /* UIColor+VaavudColors.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F33CCA18B4AFBF0033EDC7 /* UIColor+VaavudColors.m */; };
-		E96FB51319A353B500CB7306 /* NSAttributeDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2205177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m */; };
-		E96FB51419A353B500CB7306 /* FormatUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FD000A17FD6A06001A8491 /* FormatUtil.m */; };
-		E96FB51519A353B500CB7306 /* NSEntityDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2207177B2AEA0054ED3F /* NSEntityDescription+MagicalDataImport.m */; };
-		E96FB51619A353B500CB7306 /* NSNumber+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2209177B2AEA0054ED3F /* NSNumber+MagicalDataImport.m */; };
-		E96FB51719A353B500CB7306 /* NSObject+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD220B177B2AEA0054ED3F /* NSObject+MagicalDataImport.m */; };
-		E96FB51819A353B500CB7306 /* NSRelationshipDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD220D177B2AEA0054ED3F /* NSRelationshipDescription+MagicalDataImport.m */; };
-		E96FB51919A353B500CB7306 /* ParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9793A84196C411C00E3823E /* ParentViewController.m */; };
-		E96FB51A19A353B500CB7306 /* HistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FABFDD18929473009C4C46 /* HistoryTableViewController.m */; };
-		E96FB51B19A353B500CB7306 /* NSString+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD220F177B2AEA0054ED3F /* NSString+MagicalDataImport.m */; };
-		E96FB51C19A353B500CB7306 /* NSManagedObject+MagicalAggregation.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2212177B2AEA0054ED3F /* NSManagedObject+MagicalAggregation.m */; };
-		E96FB51E19A353B500CB7306 /* TermsPrivacyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */; };
-		E96FB51F19A353B500CB7306 /* NSManagedObject+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2214177B2AEA0054ED3F /* NSManagedObject+MagicalDataImport.m */; };
-		E96FB52019A353B500CB7306 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A409A718AB9B80004F1C12 /* LogInViewController.m */; };
-		E96FB52119A353B500CB7306 /* NSManagedObject+MagicalFinders.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2216177B2AEA0054ED3F /* NSManagedObject+MagicalFinders.m */; };
-		E96FB52219A353B500CB7306 /* NSManagedObject+MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2218177B2AEA0054ED3F /* NSManagedObject+MagicalRecord.m */; };
-		E96FB52419A353B500CB7306 /* GuidedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098618A26FEB004F1C12 /* GuidedTextField.m */; };
-		E96FB52519A353B500CB7306 /* HistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FABFE0189294BD009C4C46 /* HistoryTableViewCell.m */; };
-		E96FB52619A353B500CB7306 /* NSManagedObject+MagicalRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD221A177B2AEA0054ED3F /* NSManagedObject+MagicalRequests.m */; };
-		E96FB52719A353B500CB7306 /* NSManagedObjectContext+MagicalObserving.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD221D177B2AEA0054ED3F /* NSManagedObjectContext+MagicalObserving.m */; };
-		E96FB52819A353B500CB7306 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F33CCD18B4B3CB0033EDC7 /* AccountManager.m */; };
-		E96FB52919A353B500CB7306 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099218A52E40004F1C12 /* RegisterViewController.m */; };
-		E96FB52B19A353B500CB7306 /* NSManagedObjectContext+MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD221F177B2AEA0054ED3F /* NSManagedObjectContext+MagicalRecord.m */; };
-		E96FB52D19A353B500CB7306 /* NSManagedObjectContext+MagicalSaves.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2221177B2AEA0054ED3F /* NSManagedObjectContext+MagicalSaves.m */; };
-		E96FB52E19A353B500CB7306 /* NSManagedObjectContext+MagicalThreading.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2223177B2AEA0054ED3F /* NSManagedObjectContext+MagicalThreading.m */; };
-		E96FB52F19A353B500CB7306 /* TMDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097518994000004F1C12 /* TMDiskCache.m */; };
-		E96FB53119A353B500CB7306 /* NSManagedObjectModel+MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2225177B2AEA0054ED3F /* NSManagedObjectModel+MagicalRecord.m */; };
-		E96FB53219A353B500CB7306 /* NSPersistentStore+MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2227177B2AEA0054ED3F /* NSPersistentStore+MagicalRecord.m */; };
-		E96FB53319A353B500CB7306 /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2229177B2AEA0054ED3F /* NSPersistentStoreCoordinator+MagicalRecord.m */; };
-		E96FB53419A353B500CB7306 /* FirstTimeFlowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950E2195C587800E9EF02 /* FirstTimeFlowController.m */; };
-		E96FB53519A353B500CB7306 /* MeasurementCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */; };
-		E96FB53619A353B500CB7306 /* MagicalRecord+Actions.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD222C177B2AEA0054ED3F /* MagicalRecord+Actions.m */; };
-		E96FB53719A353B500CB7306 /* MagicalRecord+ErrorHandling.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD222E177B2AEA0054ED3F /* MagicalRecord+ErrorHandling.m */; };
-		E96FB53819A353B500CB7306 /* FirstTimeExplanationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950E0195C587800E9EF02 /* FirstTimeExplanationViewController.m */; };
-		E96FB53919A353B500CB7306 /* MagicalRecord+iCloud.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2230177B2AEA0054ED3F /* MagicalRecord+iCloud.m */; };
-		E96FB53A19A353B500CB7306 /* MagicalRecord+Options.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2232177B2AEA0054ED3F /* MagicalRecord+Options.m */; };
-		E96FB53B19A353B500CB7306 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C5C3617EC826800E84D3C /* TabBarController.m */; };
-		E96FB53C19A353B500CB7306 /* MagicalRecord+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2234177B2AEA0054ED3F /* MagicalRecord+Setup.m */; };
-		E96FB53D19A353B500CB7306 /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2236177B2AEA0054ED3F /* MagicalRecord+ShorthandSupport.m */; };
-		E96FB53E19A353B500CB7306 /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2238177B2AEA0054ED3F /* MagicalRecord.m */; };
-		E96FB53F19A353B500CB7306 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9717F08F6E00171F7F /* MapViewController.m */; };
-		E96FB54019A353B500CB7306 /* DictionarySerializationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */; };
-		E96FB54119A353B500CB7306 /* MeasurementPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */; };
-		E96FB54219A353B500CB7306 /* UUIDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E94CBB5D177DB3050089D440 /* UUIDUtil.m */; };
-		E96FB54319A353B500CB7306 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86591781BE56005E4212 /* LocationManager.m */; };
-		E96FB54419A353B500CB7306 /* Property+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86621781C764005E4212 /* Property+Util.m */; };
-		E96FB54519A353B500CB7306 /* AlgorithmConstantsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */; };
-		E96FB54619A353B500CB7306 /* Property.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86681781C88B005E4212 /* Property.m */; };
-		E96FB54719A353B500CB7306 /* MeasurementSession+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */; };
-		E96FB54819A353B500CB7306 /* ShareDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950E91961A21500E9EF02 /* ShareDialog.m */; };
-		E96FB54919A353B500CB7306 /* MeasurementPoint+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86711781D727005E4212 /* MeasurementPoint+Util.m */; };
-		E96FB54A19A353B500CB7306 /* ModelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E93338F6178C561B006E2314 /* ModelManager.m */; };
-		E96FB54B19A353B500CB7306 /* QueryStringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */; };
-		E96FB54C19A353B500CB7306 /* HistoryRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098C18A50D11004F1C12 /* HistoryRootViewController.m */; };
-		E96FB54D19A353B500CB7306 /* TMMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097718994000004F1C12 /* TMMemoryCache.m */; };
-		E96FB54E19A353B500CB7306 /* UnitUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E99F8F70178EC5AD0090402C /* UnitUtil.m */; };
-		E96FB55119A353B500CB7306 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098F18A52151004F1C12 /* SignUpViewController.m */; };
-		E96FB55319A353B500CB7306 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E904AC9917F0911000171F7F /* MapKit.framework */; };
-		E96FB55419A353B500CB7306 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8917DF5BA600DED985 /* libz.dylib */; };
-		E96FB55619A353B500CB7306 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B627CC1770930D004678D5 /* MobileCoreServices.framework */; };
-		E96FB55719A353B500CB7306 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B627CA177092EF004678D5 /* SystemConfiguration.framework */; };
-		E96FB55819A353B500CB7306 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9EE1FB8176A024B00D1F006 /* CoreData.framework */; };
-		E96FB55919A353B500CB7306 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B5BD521757A23C0069F739 /* CoreLocation.framework */; };
-		E96FB55A19A353B500CB7306 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7DA72401743C1CD00DFE962 /* Accelerate.framework */; };
-		E96FB55B19A353B500CB7306 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C860ED173AD08F005E9946 /* QuartzCore.framework */; };
-		E96FB55C19A353B500CB7306 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */; };
-		E96FB55D19A353B500CB7306 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */; };
-		E96FB55E19A353B500CB7306 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CC173A8DDB00D1ACEE /* Foundation.framework */; };
-		E96FB55F19A353B500CB7306 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1CE173A8DDB00D1ACEE /* CoreGraphics.framework */; };
-		E96FB56119A353B500CB7306 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */; };
-		E96FB56219A353B500CB7306 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A086025EA7704C458175CADF /* libPods.a */; };
-		E96FB56419A353B500CB7306 /* MeasurementCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E960261018575E41009396B1 /* MeasurementCalloutView.xib */; };
-		E96FB56C19A353B500CB7306 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1D3173A8DDB00D1ACEE /* InfoPlist.strings */; };
-		E96FB56D19A353B500CB7306 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */; };
-		E96FB56F19A353B500CB7306 /* GuideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E91D4214198F7A9800106E15 /* GuideView.xib */; };
-		E96FB57819A353B500CB7306 /* ShareDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B950E619619F7300E9EF02 /* ShareDialog.xib */; };
-		E96FB58619A353B500CB7306 /* HistoryTableViewSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9FABFE61896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib */; };
-		E96FB58F19A353B500CB7306 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E960260A18575452009396B1 /* Localizable.strings */; };
-		E96FB59919A353B500CB7306 /* MeasurementTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9AF2B9017F5B96500BDF6D9 /* MeasurementTableViewCell.xib */; };
-		E972407619DC15BD008642E2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E972407319DAAB54008642E2 /* Images.xcassets */; };
 		E972407919DC1E4E008642E2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E972407319DAAB54008642E2 /* Images.xcassets */; };
 		E9793A85196C411C00E3823E /* ParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9793A84196C411C00E3823E /* ParentViewController.m */; };
 		E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */; };
@@ -280,7 +81,6 @@
 		E984F26319B878BD004024C6 /* MixpanelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E984F26219B878BD004024C6 /* MixpanelUtil.m */; };
 		E98C9A6019B9D9EE009428F3 /* SleipnirMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C9A5F19B9D9EE009428F3 /* SleipnirMeasurementController.m */; };
 		E98C9A6319BF0E80009428F3 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C9A6219BF0E80009428F3 /* GraphView.m */; };
-		E98C9A6419BF0E80009428F3 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C9A6219BF0E80009428F3 /* GraphView.m */; };
 		E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */; };
 		E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */; };
 		E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8917DF5BA600DED985 /* libz.dylib */; };
@@ -289,22 +89,12 @@
 		E9A4097918994000004F1C12 /* TMDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097518994000004F1C12 /* TMDiskCache.m */; };
 		E9A4097A18994000004F1C12 /* TMMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097718994000004F1C12 /* TMMemoryCache.m */; };
 		E9A4097D18994570004F1C12 /* UIImageView+TMCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097C18994570004F1C12 /* UIImageView+TMCache.m */; };
-		E9A40980189BD29F004F1C12 /* MeasureNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097F189BD29F004F1C12 /* MeasureNavigationController.m */; };
 		E9A4098718A26FEB004F1C12 /* GuidedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098618A26FEB004F1C12 /* GuidedTextField.m */; };
-		E9A4098D18A50D11004F1C12 /* HistoryRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098C18A50D11004F1C12 /* HistoryRootViewController.m */; };
 		E9A4099018A52151004F1C12 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098F18A52151004F1C12 /* SignUpViewController.m */; };
 		E9A4099318A52E40004F1C12 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099218A52E40004F1C12 /* RegisterViewController.m */; };
 		E9A4099C18AA501D004F1C12 /* PasswordUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099B18AA501D004F1C12 /* PasswordUtil.m */; };
 		E9A4099F18AA75C6004F1C12 /* RegisterNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */; };
 		E9A409A818AB9B80004F1C12 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A409A718AB9B80004F1C12 /* LogInViewController.m */; };
-		E9AB11D919A60DF3000C6FB1 /* AgriLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AB11D819A60DF3000C6FB1 /* AgriLoginViewController.m */; };
-		E9AB11DA19A60DF3000C6FB1 /* AgriLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AB11D819A60DF3000C6FB1 /* AgriLoginViewController.m */; };
-		E9AB11DC19A615B4000C6FB1 /* Agri-Login-Logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9AB11DB19A615B4000C6FB1 /* Agri-Login-Logo@2x.png */; };
-		E9AB11DD19A615B4000C6FB1 /* Agri-Login-Logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9AB11DB19A615B4000C6FB1 /* Agri-Login-Logo@2x.png */; };
-		E9AB11DF19A631BF000C6FB1 /* agri-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9AB11DE19A631BF000C6FB1 /* agri-logo@2x.png */; };
-		E9AB11E019A631BF000C6FB1 /* agri-logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E9AB11DE19A631BF000C6FB1 /* agri-logo@2x.png */; };
-		E9AE301B19A36A25004A79C4 /* Agriculture.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9AE301A19A36A25004A79C4 /* Agriculture.storyboard */; };
-		E9AE301C19A36A25004A79C4 /* Agriculture.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9AE301A19A36A25004A79C4 /* Agriculture.storyboard */; };
 		E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */; };
 		E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */; };
 		E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */; };
@@ -327,12 +117,6 @@
 		E9B950E719619F7300E9EF02 /* ShareDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B950E619619F7300E9EF02 /* ShareDialog.xib */; };
 		E9B950EA1961A21500E9EF02 /* ShareDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950E91961A21500E9EF02 /* ShareDialog.m */; };
 		E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */; };
-		E9C7798A19AB7C09000A6921 /* AgriMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C7798919AB7C09000A6921 /* AgriMeasureViewController.m */; };
-		E9C7798B19AB7C09000A6921 /* AgriMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C7798919AB7C09000A6921 /* AgriMeasureViewController.m */; };
-		E9C7798E19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C7798D19AB87D1000A6921 /* AgriMeasureNavigationController.m */; };
-		E9C7798F19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C7798D19AB87D1000A6921 /* AgriMeasureNavigationController.m */; };
-		E9C7799319AB8DE4000A6921 /* AgriSettingsNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C7799219AB8DE4000A6921 /* AgriSettingsNavigationController.m */; };
-		E9C7799419AB8DE4000A6921 /* AgriSettingsNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9C7799219AB8DE4000A6921 /* AgriSettingsNavigationController.m */; };
 		E9CD223B177B2AEA0054ED3F /* MagicalImportFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2203177B2AEA0054ED3F /* MagicalImportFunctions.m */; };
 		E9CD223C177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2205177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m */; };
 		E9CD223D177B2AEA0054ED3F /* NSEntityDescription+MagicalDataImport.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2207177B2AEA0054ED3F /* NSEntityDescription+MagicalDataImport.m */; };
@@ -361,12 +145,7 @@
 		E9CD2254177B2AEA0054ED3F /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = E9CD2238177B2AEA0054ED3F /* MagicalRecord.m */; };
 		E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */; };
 		E9D9044D19C1971000ABA9F4 /* WindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */; };
-		E9D9044E19C1971000ABA9F4 /* WindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */; };
 		E9D9045119C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9045019C1984D00ABA9F4 /* SavingWindMeasurementController.m */; };
-		E9D9045219C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9045019C1984D00ABA9F4 /* SavingWindMeasurementController.m */; };
-		E9D904BC19C325E100ABA9F4 /* SleipnirMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C9A5F19B9D9EE009428F3 /* SleipnirMeasurementController.m */; };
-		E9D904BD19C3262700ABA9F4 /* MixpanelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E984F26219B878BD004024C6 /* MixpanelUtil.m */; };
-		E9DE09BA192E4C84003877D9 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9DE09B9192E4C84003877D9 /* SettingsViewController.m */; };
 		E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */; };
 		E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */; };
 		E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9EE1FB8176A024B00D1F006 /* CoreData.framework */; };
@@ -401,13 +180,6 @@
 			remoteGlobalIDString = D7D9996819B3AD3B0099FB8F;
 			remoteInfo = VaavudElectronicSDK;
 		};
-		22A340621A5BDA17006CE401 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D7D9996819B3AD3B0099FB8F;
-			remoteInfo = VaavudElectronicSDK;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -431,7 +203,6 @@
 		221E30EE1AE2EF5600503FE1 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Register.strings"; sourceTree = "<group>"; };
 		2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradingUserViewController.swift; sourceTree = "<group>"; };
 		2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpgradingUserPhonePages.xib; sourceTree = "<group>"; };
-		2234D35F1A78F4F900F325EB /* Agriculture-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Agriculture-Bridging-Header.h"; sourceTree = "<group>"; };
 		224D260C1AE11AA3006F5C23 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Register.strings; sourceTree = "<group>"; };
 		225572CA1AE2851900153F03 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		2255A63A1A818535006589D5 /* VaavudInteractions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudInteractions.swift; sourceTree = "<group>"; };
@@ -525,62 +296,7 @@
 		D7C860F8173B061E005E9946 /* VaavudMagneticFieldDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudMagneticFieldDataManager.h; sourceTree = "<group>"; };
 		D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudMagneticFieldDataManager.m; sourceTree = "<group>"; };
 		D7DA72401743C1CD00DFE962 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		D7EE94561A125F8D001979BE /* windarrow_green_E.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windarrow_green_E.png; sourceTree = "<group>"; };
-		D7EE94571A125F8D001979BE /* windarrow_green_ENE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windarrow_green_ENE.png; sourceTree = "<group>"; };
-		D7EE94581A125F8D001979BE /* windarrow_green_ESE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windarrow_green_ESE.png; sourceTree = "<group>"; };
-		D7EE94591A125F8D001979BE /* windarrow_green_N.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windarrow_green_N.png; sourceTree = "<group>"; };
-		D7EE945A1A125F8D001979BE /* windarrow_green_NE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windarrow_green_NE.png; sourceTree = "<group>"; };
-		D7EE945B1A125F8D001979BE /* windarrow_green_NNE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windarrow_green_NNE.png; sourceTree = "<group>"; };
-		D7EE945C1A125F8D001979BE /* windarrow_green_NNW.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windarrow_green_NNW.png; sourceTree = "<group>"; };
-		D7EE945D1A125F8D001979BE /* windarrow_green_NW.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windarrow_green_NW.png; sourceTree = "<group>"; };
-		D7EE945E1A125F8D001979BE /* windarrow_green_S.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windarrow_green_S.png; sourceTree = "<group>"; };
-		D7EE945F1A125F8D001979BE /* windarrow_green_SE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windarrow_green_SE.png; sourceTree = "<group>"; };
-		D7EE94601A125F8D001979BE /* windarrow_green_SSE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windarrow_green_SSE.png; sourceTree = "<group>"; };
-		D7EE94611A125F8D001979BE /* windarrow_green_SSW.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windarrow_green_SSW.png; sourceTree = "<group>"; };
-		D7EE94621A125F8D001979BE /* windarrow_green_SW.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windarrow_green_SW.png; sourceTree = "<group>"; };
-		D7EE94631A125F8D001979BE /* windarrow_green_W.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windarrow_green_W.png; sourceTree = "<group>"; };
-		D7EE94641A125F8D001979BE /* windarrow_green_WNW.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windarrow_green_WNW.png; sourceTree = "<group>"; };
-		D7EE94651A125F8D001979BE /* windarrow_green_WSW.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = windarrow_green_WSW.png; sourceTree = "<group>"; };
-		D7EE94671A125F8D001979BE /* windarrow_green_E@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_E@2x.png"; sourceTree = "<group>"; };
-		D7EE94681A125F8D001979BE /* windarrow_green_ENE@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_ENE@2x.png"; sourceTree = "<group>"; };
-		D7EE94691A125F8D001979BE /* windarrow_green_ESE@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_ESE@2x.png"; sourceTree = "<group>"; };
-		D7EE946A1A125F8D001979BE /* windarrow_green_N@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_N@2x.png"; sourceTree = "<group>"; };
-		D7EE946B1A125F8D001979BE /* windarrow_green_NE@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_NE@2x.png"; sourceTree = "<group>"; };
-		D7EE946C1A125F8D001979BE /* windarrow_green_NNE@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_NNE@2x.png"; sourceTree = "<group>"; };
-		D7EE946D1A125F8D001979BE /* windarrow_green_NNW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_NNW@2x.png"; sourceTree = "<group>"; };
-		D7EE946E1A125F8D001979BE /* windarrow_green_NW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_NW@2x.png"; sourceTree = "<group>"; };
-		D7EE946F1A125F8D001979BE /* windarrow_green_S@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_S@2x.png"; sourceTree = "<group>"; };
-		D7EE94701A125F8D001979BE /* windarrow_green_SE@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_SE@2x.png"; sourceTree = "<group>"; };
-		D7EE94711A125F8D001979BE /* windarrow_green_SSE@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_SSE@2x.png"; sourceTree = "<group>"; };
-		D7EE94721A125F8D001979BE /* windarrow_green_SSW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_SSW@2x.png"; sourceTree = "<group>"; };
-		D7EE94731A125F8D001979BE /* windarrow_green_SW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_SW@2x.png"; sourceTree = "<group>"; };
-		D7EE94741A125F8D001979BE /* windarrow_green_W@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_W@2x.png"; sourceTree = "<group>"; };
-		D7EE94751A125F8D001979BE /* windarrow_green_WNW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_WNW@2x.png"; sourceTree = "<group>"; };
-		D7EE94761A125F8D001979BE /* windarrow_green_WSW@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_WSW@2x.png"; sourceTree = "<group>"; };
-		D7EE94781A125F8D001979BE /* windarrow_green_E@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_E@3x.png"; sourceTree = "<group>"; };
-		D7EE94791A125F8D001979BE /* windarrow_green_ENE@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_ENE@3x.png"; sourceTree = "<group>"; };
-		D7EE947A1A125F8D001979BE /* windarrow_green_ESE@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_ESE@3x.png"; sourceTree = "<group>"; };
-		D7EE947B1A125F8D001979BE /* windarrow_green_N@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_N@3x.png"; sourceTree = "<group>"; };
-		D7EE947C1A125F8D001979BE /* windarrow_green_NE@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_NE@3x.png"; sourceTree = "<group>"; };
-		D7EE947D1A125F8D001979BE /* windarrow_green_NNE@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_NNE@3x.png"; sourceTree = "<group>"; };
-		D7EE947E1A125F8D001979BE /* windarrow_green_NNW@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_NNW@3x.png"; sourceTree = "<group>"; };
-		D7EE947F1A125F8D001979BE /* windarrow_green_NW@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_NW@3x.png"; sourceTree = "<group>"; };
-		D7EE94801A125F8D001979BE /* windarrow_green_S@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_S@3x.png"; sourceTree = "<group>"; };
-		D7EE94811A125F8D001979BE /* windarrow_green_SE@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_SE@3x.png"; sourceTree = "<group>"; };
-		D7EE94821A125F8D001979BE /* windarrow_green_SSE@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_SSE@3x.png"; sourceTree = "<group>"; };
-		D7EE94831A125F8D001979BE /* windarrow_green_SSW@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_SSW@3x.png"; sourceTree = "<group>"; };
-		D7EE94841A125F8D001979BE /* windarrow_green_SW@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_SW@3x.png"; sourceTree = "<group>"; };
-		D7EE94851A125F8D001979BE /* windarrow_green_W@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_W@3x.png"; sourceTree = "<group>"; };
-		D7EE94861A125F8D001979BE /* windarrow_green_WNW@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_WNW@3x.png"; sourceTree = "<group>"; };
-		D7EE94871A125F8D001979BE /* windarrow_green_WSW@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "windarrow_green_WSW@3x.png"; sourceTree = "<group>"; };
 		D99B754D5D7EF24DCE1202B3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		E9002DB719DD6993002D0132 /* AgriManualTemperatureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriManualTemperatureViewController.h; sourceTree = "<group>"; };
-		E9002DB819DD6993002D0132 /* AgriManualTemperatureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriManualTemperatureViewController.m; sourceTree = "<group>"; };
-		E9002DBB19DD69CD002D0132 /* AgriResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriResultViewController.h; sourceTree = "<group>"; };
-		E9002DBC19DD69CD002D0132 /* AgriResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriResultViewController.m; sourceTree = "<group>"; };
-		E9002DBF19DE9755002D0132 /* AgriManualDirectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriManualDirectionViewController.h; sourceTree = "<group>"; };
-		E9002DC019DE9755002D0132 /* AgriManualDirectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriManualDirectionViewController.m; sourceTree = "<group>"; };
-		E9002DC319DE9AEA002D0132 /* Agri-Manual-Direction.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Agri-Manual-Direction.png"; sourceTree = "<group>"; };
 		E904AC9617F08F6E00171F7F /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		E904AC9717F08F6E00171F7F /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		E904AC9917F0911000171F7F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -592,10 +308,6 @@
 		E9159CA21A03E04A00742188 /* Model 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.xcdatamodel"; sourceTree = "<group>"; };
 		E9159CA31A03E09100742188 /* MeasurementSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSession.h; sourceTree = "<group>"; };
 		E9159CA41A03E09100742188 /* MeasurementSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSession.m; sourceTree = "<group>"; };
-		E9159CA71A078E5C00742188 /* AgriResultComputation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriResultComputation.h; sourceTree = "<group>"; };
-		E9159CA81A078E5C00742188 /* AgriResultComputation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriResultComputation.m; sourceTree = "<group>"; };
-		E9159CB71A0A505400742188 /* AgriWordListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriWordListViewController.h; sourceTree = "<group>"; };
-		E9159CB81A0A505400742188 /* AgriWordListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriWordListViewController.m; sourceTree = "<group>"; };
 		E91D4214198F7A9800106E15 /* GuideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuideView.xib; sourceTree = "<group>"; };
 		E91D4216198F7C8400106E15 /* GuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideView.h; sourceTree = "<group>"; };
 		E91D4217198F7C8400106E15 /* GuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideView.m; sourceTree = "<group>"; };
@@ -622,15 +334,9 @@
 		E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VaavudElectronicSDK.xcodeproj; path = ../VaavudElectronicSDK/VaavudElectronicSDK.xcodeproj; sourceTree = "<group>"; };
 		E94CBB5C177DB3050089D440 /* UUIDUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUIDUtil.h; sourceTree = "<group>"; };
 		E94CBB5D177DB3050089D440 /* UUIDUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUIDUtil.m; sourceTree = "<group>"; };
-		E9543DFA19FFBF6C005A01D7 /* AgriHistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriHistoryTableViewController.h; sourceTree = "<group>"; };
-		E9543DFB19FFBF6C005A01D7 /* AgriHistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriHistoryTableViewController.m; sourceTree = "<group>"; };
-		E9543DFE19FFCB2E005A01D7 /* AgriSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriSummaryViewController.h; sourceTree = "<group>"; };
-		E9543DFF19FFCB2E005A01D7 /* AgriSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriSummaryViewController.m; sourceTree = "<group>"; };
 		E96025FB18574DC0009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E960260B18575461009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E960260D18575473009396B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E96FB5AC19A353B500CB7306 /* Agriculture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Agriculture.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		E96FB5AD19A353B500CB7306 /* Agriculture-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Agriculture-Info.plist"; sourceTree = SOURCE_ROOT; };
 		E972407319DAAB54008642E2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Vaavud/Images.xcassets; sourceTree = "<group>"; };
 		E9793A83196C411C00E3823E /* ParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentViewController.h; sourceTree = "<group>"; };
 		E9793A84196C411C00E3823E /* ParentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentViewController.m; sourceTree = "<group>"; };
@@ -738,12 +444,8 @@
 		E9A4097718994000004F1C12 /* TMMemoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMMemoryCache.m; sourceTree = "<group>"; };
 		E9A4097B18994570004F1C12 /* UIImageView+TMCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+TMCache.h"; sourceTree = "<group>"; };
 		E9A4097C18994570004F1C12 /* UIImageView+TMCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+TMCache.m"; sourceTree = "<group>"; };
-		E9A4097E189BD29F004F1C12 /* MeasureNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasureNavigationController.h; sourceTree = "<group>"; };
-		E9A4097F189BD29F004F1C12 /* MeasureNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasureNavigationController.m; sourceTree = "<group>"; };
 		E9A4098518A26FEB004F1C12 /* GuidedTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuidedTextField.h; sourceTree = "<group>"; };
 		E9A4098618A26FEB004F1C12 /* GuidedTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuidedTextField.m; sourceTree = "<group>"; };
-		E9A4098B18A50D11004F1C12 /* HistoryRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryRootViewController.h; sourceTree = "<group>"; };
-		E9A4098C18A50D11004F1C12 /* HistoryRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryRootViewController.m; sourceTree = "<group>"; };
 		E9A4098E18A52151004F1C12 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
 		E9A4098F18A52151004F1C12 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
 		E9A4099118A52E40004F1C12 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
@@ -754,11 +456,6 @@
 		E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterNavigationController.m; sourceTree = "<group>"; };
 		E9A409A618AB9B80004F1C12 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
 		E9A409A718AB9B80004F1C12 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
-		E9AB11D719A60DF3000C6FB1 /* AgriLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriLoginViewController.h; sourceTree = "<group>"; };
-		E9AB11D819A60DF3000C6FB1 /* AgriLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriLoginViewController.m; sourceTree = "<group>"; };
-		E9AB11DB19A615B4000C6FB1 /* Agri-Login-Logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Agri-Login-Logo@2x.png"; sourceTree = SOURCE_ROOT; };
-		E9AB11DE19A631BF000C6FB1 /* agri-logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "agri-logo@2x.png"; sourceTree = SOURCE_ROOT; };
-		E9AE301A19A36A25004A79C4 /* Agriculture.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Agriculture.storyboard; sourceTree = "<group>"; };
 		E9AF2B8017F32A9800BDF6D9 /* SMCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCalloutView.h; sourceTree = "<group>"; };
 		E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMCalloutView.m; sourceTree = "<group>"; };
 		E9AF2B8317F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSMCalloutDrawnBackgroundView.h; sourceTree = "<group>"; };
@@ -800,12 +497,6 @@
 		E9B950E91961A21500E9EF02 /* ShareDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDialog.m; sourceTree = "<group>"; };
 		E9BB7A0B178DE2D9002E746F /* QueryStringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryStringUtil.h; sourceTree = "<group>"; };
 		E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryStringUtil.m; sourceTree = "<group>"; };
-		E9C7798819AB7C09000A6921 /* AgriMeasureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriMeasureViewController.h; sourceTree = "<group>"; };
-		E9C7798919AB7C09000A6921 /* AgriMeasureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriMeasureViewController.m; sourceTree = "<group>"; };
-		E9C7798C19AB87D1000A6921 /* AgriMeasureNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriMeasureNavigationController.h; sourceTree = "<group>"; };
-		E9C7798D19AB87D1000A6921 /* AgriMeasureNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriMeasureNavigationController.m; sourceTree = "<group>"; };
-		E9C7799119AB8DE4000A6921 /* AgriSettingsNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgriSettingsNavigationController.h; sourceTree = "<group>"; };
-		E9C7799219AB8DE4000A6921 /* AgriSettingsNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgriSettingsNavigationController.m; sourceTree = "<group>"; };
 		E9C7799519ACADB1000A6921 /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
 		E9CD2202177B2AEA0054ED3F /* MagicalImportFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalImportFunctions.h; sourceTree = "<group>"; };
 		E9CD2203177B2AEA0054ED3F /* MagicalImportFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicalImportFunctions.m; sourceTree = "<group>"; };
@@ -868,8 +559,6 @@
 		E9D9044F19C1984D00ABA9F4 /* SavingWindMeasurementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavingWindMeasurementController.h; sourceTree = "<group>"; };
 		E9D9045019C1984D00ABA9F4 /* SavingWindMeasurementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavingWindMeasurementController.m; sourceTree = "<group>"; };
 		E9D9045319C1D41D00ABA9F4 /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
-		E9DE09B8192E4C84003877D9 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		E9DE09B9192E4C84003877D9 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		E9EB5E8F17E84E4D00B02CE1 /* AlgorithmConstantsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlgorithmConstantsUtil.h; sourceTree = "<group>"; };
 		E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlgorithmConstantsUtil.m; sourceTree = "<group>"; };
 		E9EBB98F17E33C660086BE01 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -913,29 +602,6 @@
 				D7A4F1CF173A8DDB00D1ACEE /* CoreGraphics.framework in Frameworks */,
 				D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */,
 				A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E96FB55219A353B500CB7306 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22A340661A5BDA21006CE401 /* libVaavudElectronicSDK.a in Frameworks */,
-				E96FB55319A353B500CB7306 /* MapKit.framework in Frameworks */,
-				E96FB55419A353B500CB7306 /* libz.dylib in Frameworks */,
-				E96FB55619A353B500CB7306 /* MobileCoreServices.framework in Frameworks */,
-				E96FB55719A353B500CB7306 /* SystemConfiguration.framework in Frameworks */,
-				E96FB55819A353B500CB7306 /* CoreData.framework in Frameworks */,
-				E96FB55919A353B500CB7306 /* CoreLocation.framework in Frameworks */,
-				2256C19C1AA7450E00782314 /* Crashlytics.framework in Frameworks */,
-				E96FB55A19A353B500CB7306 /* Accelerate.framework in Frameworks */,
-				E96FB55B19A353B500CB7306 /* QuartzCore.framework in Frameworks */,
-				E96FB55C19A353B500CB7306 /* CoreMotion.framework in Frameworks */,
-				E96FB55D19A353B500CB7306 /* UIKit.framework in Frameworks */,
-				E96FB55E19A353B500CB7306 /* Foundation.framework in Frameworks */,
-				E96FB55F19A353B500CB7306 /* CoreGraphics.framework in Frameworks */,
-				E96FB56119A353B500CB7306 /* libCorePlot-CocoaTouch.a in Frameworks */,
-				E96FB56219A353B500CB7306 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -990,7 +656,6 @@
 				E98853C7176868BE00F78128 /* Images */,
 				D7A4F1C8173A8DDB00D1ACEE /* Products */,
 				D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */,
-				E96FB5AD19A353B500CB7306 /* Agriculture-Info.plist */,
 				1C5D3B125E8B2D533BB89200 /* Pods */,
 			);
 			sourceTree = "<group>";
@@ -999,7 +664,6 @@
 			isa = PBXGroup;
 			children = (
 				D7A4F1C7173A8DDB00D1ACEE /* Vaavud.app */,
-				E96FB5AC19A353B500CB7306 /* Agriculture.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1037,7 +701,6 @@
 				22B408B61A8A0E2E0062A2DD /* Extensions.swift */,
 				2255A63A1A818535006589D5 /* VaavudInteractions.swift */,
 				229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */,
-				E9AE301919A369EF004A79C4 /* Agriculture */,
 				D7A4F1D9173A8DDB00D1ACEE /* AppDelegate.h */,
 				D7A4F1DA173A8DDB00D1ACEE /* AppDelegate.m */,
 				D7A4F1EF173A8F4600D1ACEE /* Hardware */,
@@ -1055,7 +718,6 @@
 			isa = PBXGroup;
 			children = (
 				22FA6C501A727171004DD868 /* VaavudStyle.swift */,
-				2234D35F1A78F4F900F325EB /* Agriculture-Bridging-Header.h */,
 				22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */,
 				22AB2E681A70FC00008CAE46 /* Fonts */,
 				D7A4F1F5173AA16700D1ACEE /* Constants.h */,
@@ -1096,79 +758,9 @@
 				D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */,
 				E91E491019AB641F00616887 /* Map */,
 				E91E490A19AB5EEB00616887 /* Measure */,
-				E9DE09B7192E4C6A003877D9 /* Settings */,
 				E9B950E519619F5C00E9EF02 /* Share */,
 			);
 			name = View;
-			sourceTree = "<group>";
-		};
-		D7EE94551A125F8D001979BE /* windarrow */ = {
-			isa = PBXGroup;
-			children = (
-				D7EE94561A125F8D001979BE /* windarrow_green_E.png */,
-				D7EE94571A125F8D001979BE /* windarrow_green_ENE.png */,
-				D7EE94581A125F8D001979BE /* windarrow_green_ESE.png */,
-				D7EE94591A125F8D001979BE /* windarrow_green_N.png */,
-				D7EE945A1A125F8D001979BE /* windarrow_green_NE.png */,
-				D7EE945B1A125F8D001979BE /* windarrow_green_NNE.png */,
-				D7EE945C1A125F8D001979BE /* windarrow_green_NNW.png */,
-				D7EE945D1A125F8D001979BE /* windarrow_green_NW.png */,
-				D7EE945E1A125F8D001979BE /* windarrow_green_S.png */,
-				D7EE945F1A125F8D001979BE /* windarrow_green_SE.png */,
-				D7EE94601A125F8D001979BE /* windarrow_green_SSE.png */,
-				D7EE94611A125F8D001979BE /* windarrow_green_SSW.png */,
-				D7EE94621A125F8D001979BE /* windarrow_green_SW.png */,
-				D7EE94631A125F8D001979BE /* windarrow_green_W.png */,
-				D7EE94641A125F8D001979BE /* windarrow_green_WNW.png */,
-				D7EE94651A125F8D001979BE /* windarrow_green_WSW.png */,
-			);
-			path = windarrow;
-			sourceTree = "<group>";
-		};
-		D7EE94661A125F8D001979BE /* windarrow@2x */ = {
-			isa = PBXGroup;
-			children = (
-				D7EE94671A125F8D001979BE /* windarrow_green_E@2x.png */,
-				D7EE94681A125F8D001979BE /* windarrow_green_ENE@2x.png */,
-				D7EE94691A125F8D001979BE /* windarrow_green_ESE@2x.png */,
-				D7EE946A1A125F8D001979BE /* windarrow_green_N@2x.png */,
-				D7EE946B1A125F8D001979BE /* windarrow_green_NE@2x.png */,
-				D7EE946C1A125F8D001979BE /* windarrow_green_NNE@2x.png */,
-				D7EE946D1A125F8D001979BE /* windarrow_green_NNW@2x.png */,
-				D7EE946E1A125F8D001979BE /* windarrow_green_NW@2x.png */,
-				D7EE946F1A125F8D001979BE /* windarrow_green_S@2x.png */,
-				D7EE94701A125F8D001979BE /* windarrow_green_SE@2x.png */,
-				D7EE94711A125F8D001979BE /* windarrow_green_SSE@2x.png */,
-				D7EE94721A125F8D001979BE /* windarrow_green_SSW@2x.png */,
-				D7EE94731A125F8D001979BE /* windarrow_green_SW@2x.png */,
-				D7EE94741A125F8D001979BE /* windarrow_green_W@2x.png */,
-				D7EE94751A125F8D001979BE /* windarrow_green_WNW@2x.png */,
-				D7EE94761A125F8D001979BE /* windarrow_green_WSW@2x.png */,
-			);
-			path = "windarrow@2x";
-			sourceTree = "<group>";
-		};
-		D7EE94771A125F8D001979BE /* windarrow@3x */ = {
-			isa = PBXGroup;
-			children = (
-				D7EE94781A125F8D001979BE /* windarrow_green_E@3x.png */,
-				D7EE94791A125F8D001979BE /* windarrow_green_ENE@3x.png */,
-				D7EE947A1A125F8D001979BE /* windarrow_green_ESE@3x.png */,
-				D7EE947B1A125F8D001979BE /* windarrow_green_N@3x.png */,
-				D7EE947C1A125F8D001979BE /* windarrow_green_NE@3x.png */,
-				D7EE947D1A125F8D001979BE /* windarrow_green_NNE@3x.png */,
-				D7EE947E1A125F8D001979BE /* windarrow_green_NNW@3x.png */,
-				D7EE947F1A125F8D001979BE /* windarrow_green_NW@3x.png */,
-				D7EE94801A125F8D001979BE /* windarrow_green_S@3x.png */,
-				D7EE94811A125F8D001979BE /* windarrow_green_SE@3x.png */,
-				D7EE94821A125F8D001979BE /* windarrow_green_SSE@3x.png */,
-				D7EE94831A125F8D001979BE /* windarrow_green_SSW@3x.png */,
-				D7EE94841A125F8D001979BE /* windarrow_green_SW@3x.png */,
-				D7EE94851A125F8D001979BE /* windarrow_green_W@3x.png */,
-				D7EE94861A125F8D001979BE /* windarrow_green_WNW@3x.png */,
-				D7EE94871A125F8D001979BE /* windarrow_green_WSW@3x.png */,
-			);
-			path = "windarrow@3x";
 			sourceTree = "<group>";
 		};
 		E90709411940AFAC0087F80F /* Components */ = {
@@ -1198,8 +790,6 @@
 				E91E490C19AB5F3D00616887 /* CoreMeasureViewController.m */,
 				E98C9A6119BF0E80009428F3 /* GraphView.h */,
 				E98C9A6219BF0E80009428F3 /* GraphView.m */,
-				E9A4097E189BD29F004F1C12 /* MeasureNavigationController.h */,
-				E9A4097F189BD29F004F1C12 /* MeasureNavigationController.m */,
 			);
 			name = Measure;
 			sourceTree = "<group>";
@@ -1207,8 +797,6 @@
 		E91E490F19AB5FA600616887 /* History */ = {
 			isa = PBXGroup;
 			children = (
-				E9A4098B18A50D11004F1C12 /* HistoryRootViewController.h */,
-				E9A4098C18A50D11004F1C12 /* HistoryRootViewController.m */,
 				E9FABFDF189294BD009C4C46 /* HistoryTableViewCell.h */,
 				E9FABFE0189294BD009C4C46 /* HistoryTableViewCell.m */,
 				E9FABFDC18929473009C4C46 /* HistoryTableViewController.h */,
@@ -1237,17 +825,6 @@
 			name = Map;
 			sourceTree = "<group>";
 		};
-		E9543DED19FFBE1D005A01D7 /* History */ = {
-			isa = PBXGroup;
-			children = (
-				E9543DFA19FFBF6C005A01D7 /* AgriHistoryTableViewController.h */,
-				E9543DFB19FFBF6C005A01D7 /* AgriHistoryTableViewController.m */,
-				E9543DFE19FFCB2E005A01D7 /* AgriSummaryViewController.h */,
-				E9543DFF19FFCB2E005A01D7 /* AgriSummaryViewController.m */,
-			);
-			name = History;
-			sourceTree = "<group>";
-		};
 		E98853C7176868BE00F78128 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -1263,18 +840,6 @@
 				22E59A391ADD6F7000B1BC88 /* UpgradeFlow.xcassets */,
 			);
 			name = Images;
-			sourceTree = "<group>";
-		};
-		E98C9A5B19B9D80F009428F3 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				E9AE301A19A36A25004A79C4 /* Agriculture.storyboard */,
-				E9543DED19FFBE1D005A01D7 /* History */,
-				E9AB11D619A60D68000C6FB1 /* Login */,
-				E9C7798719AB7BD2000A6921 /* Measure */,
-				E9C7799019AB8DC1000A6921 /* Settings */,
-			);
-			name = View;
 			sourceTree = "<group>";
 		};
 		E98C9A5C19B9D91F009428F3 /* Mjolnir */ = {
@@ -1421,37 +986,6 @@
 			name = Login;
 			sourceTree = "<group>";
 		};
-		E9AB11D319A60B7E000C6FB1 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				D7EE94551A125F8D001979BE /* windarrow */,
-				D7EE94661A125F8D001979BE /* windarrow@2x */,
-				D7EE94771A125F8D001979BE /* windarrow@3x */,
-				E9002DC319DE9AEA002D0132 /* Agri-Manual-Direction.png */,
-				E9AB11DE19A631BF000C6FB1 /* agri-logo@2x.png */,
-				E9AB11DB19A615B4000C6FB1 /* Agri-Login-Logo@2x.png */,
-			);
-			name = Images;
-			sourceTree = "<group>";
-		};
-		E9AB11D619A60D68000C6FB1 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				E9AB11D719A60DF3000C6FB1 /* AgriLoginViewController.h */,
-				E9AB11D819A60DF3000C6FB1 /* AgriLoginViewController.m */,
-			);
-			name = Login;
-			sourceTree = "<group>";
-		};
-		E9AE301919A369EF004A79C4 /* Agriculture */ = {
-			isa = PBXGroup;
-			children = (
-				E98C9A5B19B9D80F009428F3 /* View */,
-				E9AB11D319A60B7E000C6FB1 /* Images */,
-			);
-			name = Agriculture;
-			sourceTree = "<group>";
-		};
 		E9AF2B7F17F32A5900BDF6D9 /* NFarinaCalloutView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1520,36 +1054,6 @@
 				E9B950E91961A21500E9EF02 /* ShareDialog.m */,
 			);
 			name = Share;
-			sourceTree = "<group>";
-		};
-		E9C7798719AB7BD2000A6921 /* Measure */ = {
-			isa = PBXGroup;
-			children = (
-				E9002DBF19DE9755002D0132 /* AgriManualDirectionViewController.h */,
-				E9002DC019DE9755002D0132 /* AgriManualDirectionViewController.m */,
-				E9002DB719DD6993002D0132 /* AgriManualTemperatureViewController.h */,
-				E9002DB819DD6993002D0132 /* AgriManualTemperatureViewController.m */,
-				E9C7798C19AB87D1000A6921 /* AgriMeasureNavigationController.h */,
-				E9C7798D19AB87D1000A6921 /* AgriMeasureNavigationController.m */,
-				E9C7798819AB7C09000A6921 /* AgriMeasureViewController.h */,
-				E9C7798919AB7C09000A6921 /* AgriMeasureViewController.m */,
-				E9002DBB19DD69CD002D0132 /* AgriResultViewController.h */,
-				E9002DBC19DD69CD002D0132 /* AgriResultViewController.m */,
-				E9159CA71A078E5C00742188 /* AgriResultComputation.h */,
-				E9159CA81A078E5C00742188 /* AgriResultComputation.m */,
-			);
-			name = Measure;
-			sourceTree = "<group>";
-		};
-		E9C7799019AB8DC1000A6921 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				E9C7799119AB8DE4000A6921 /* AgriSettingsNavigationController.h */,
-				E9C7799219AB8DE4000A6921 /* AgriSettingsNavigationController.m */,
-				E9159CB71A0A505400742188 /* AgriWordListViewController.h */,
-				E9159CB81A0A505400742188 /* AgriWordListViewController.m */,
-			);
-			name = Settings;
 			sourceTree = "<group>";
 		};
 		E9CD21FF177B2AEA0054ED3F /* MagicalRecord */ = {
@@ -1666,15 +1170,6 @@
 			name = ThirdParty;
 			sourceTree = "<group>";
 		};
-		E9DE09B7192E4C6A003877D9 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				E9DE09B8192E4C84003877D9 /* SettingsViewController.h */,
-				E9DE09B9192E4C84003877D9 /* SettingsViewController.m */,
-			);
-			name = Settings;
-			sourceTree = "<group>";
-		};
 		E9EE1FA51769EC7F00D1F006 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1754,26 +1249,6 @@
 			productReference = D7A4F1C7173A8DDB00D1ACEE /* Vaavud.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E96FB4EA19A353B500CB7306 /* Agriculture */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E96FB5A919A353B500CB7306 /* Build configuration list for PBXNativeTarget "Agriculture" */;
-			buildPhases = (
-				E96FB4EB19A353B500CB7306 /* Check Pods Manifest.lock */,
-				E96FB4EC19A353B500CB7306 /* Sources */,
-				E96FB55219A353B500CB7306 /* Frameworks */,
-				E96FB56319A353B500CB7306 /* Resources */,
-				E96FB5A819A353B500CB7306 /* Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				22A340631A5BDA17006CE401 /* PBXTargetDependency */,
-			);
-			name = Agriculture;
-			productName = VaavudCore;
-			productReference = E96FB5AC19A353B500CB7306 /* Agriculture.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -1785,9 +1260,6 @@
 				ORGANIZATIONNAME = "Andreas Okholm";
 				TargetAttributes = {
 					D7A4F1C6173A8DDB00D1ACEE = {
-						DevelopmentTeam = X5DMTGX3GW;
-					};
-					E96FB4EA19A353B500CB7306 = {
 						DevelopmentTeam = X5DMTGX3GW;
 					};
 				};
@@ -1823,7 +1295,6 @@
 			projectRoot = "";
 			targets = (
 				D7A4F1C6173A8DDB00D1ACEE /* Vaavud */,
-				E96FB4EA19A353B500CB7306 /* Agriculture */,
 			);
 		};
 /* End PBXProject section */
@@ -1858,9 +1329,7 @@
 				D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */,
 				22E59A421ADD6F7000B1BC88 /* Logo.xcassets in Resources */,
 				E91D4215198F7A9800106E15 /* GuideView.xib in Resources */,
-				E9AB11DC19A615B4000C6FB1 /* Agri-Login-Logo@2x.png in Resources */,
 				E9B950E719619F7300E9EF02 /* ShareDialog.xib in Resources */,
-				E9AE301B19A36A25004A79C4 /* Agriculture.storyboard in Resources */,
 				22EAE5CF1AB1EA5C0037654E /* Register.storyboard in Resources */,
 				22E59A3E1ADD6F7000B1BC88 /* InterfaceElements.xcassets in Resources */,
 				22E59A401ADD6F7000B1BC88 /* IntroFlow.xcassets in Resources */,
@@ -1872,93 +1341,12 @@
 				E960260818575452009396B1 /* Localizable.strings in Resources */,
 				22E59A441ADD6F7000B1BC88 /* MapMarkers.xcassets in Resources */,
 				2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */,
-				E9002DC419DE9AEA002D0132 /* Agri-Manual-Direction.png in Resources */,
 				E93EEDB819EE664B004D8759 /* LaunchScreen.xib in Resources */,
 				22E59A4A1ADD6F7000B1BC88 /* TabBar.xcassets in Resources */,
 				E9AF2B9117F5B96500BDF6D9 /* MeasurementTableViewCell.xib in Resources */,
 				22E59A461ADD6F7000B1BC88 /* MapPlaceholder.xcassets in Resources */,
 				22AB2E6D1A70FC15008CAE46 /* Roboto-Bold.ttf in Resources */,
 				22EAE5D61AB1EBEA0037654E /* UpgradingUserPagesView.xib in Resources */,
-				E9AB11DF19A631BF000C6FB1 /* agri-logo@2x.png in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E96FB56319A353B500CB7306 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				22E59A471ADD6F7000B1BC88 /* MapPlaceholder.xcassets in Resources */,
-				22E59A3F1ADD6F7000B1BC88 /* InterfaceElements.xcassets in Resources */,
-				E96FB56419A353B500CB7306 /* MeasurementCalloutView.xib in Resources */,
-				D7EE94B01A125F8D001979BE /* windarrow_green_S@3x.png in Resources */,
-				D7EE94881A125F8D001979BE /* windarrow_green_E.png in Resources */,
-				D7EE948D1A125F8D001979BE /* windarrow_green_NNE.png in Resources */,
-				22E59A3B1ADD6F7000B1BC88 /* HistoryScreen.xcassets in Resources */,
-				D7EE94B51A125F8D001979BE /* windarrow_green_W@3x.png in Resources */,
-				E96FB56C19A353B500CB7306 /* InfoPlist.strings in Resources */,
-				D7EE94A21A125F8D001979BE /* windarrow_green_SSE@2x.png in Resources */,
-				E96FB56D19A353B500CB7306 /* MainStoryboard.storyboard in Resources */,
-				E96FB56F19A353B500CB7306 /* GuideView.xib in Resources */,
-				22E59A4D1ADD6F7000B1BC88 /* UpgradeFlow.xcassets in Resources */,
-				D7EE94AD1A125F8D001979BE /* windarrow_green_NNE@3x.png in Resources */,
-				E9AB11DD19A615B4000C6FB1 /* Agri-Login-Logo@2x.png in Resources */,
-				D7EE948E1A125F8D001979BE /* windarrow_green_NNW.png in Resources */,
-				D7EE948F1A125F8D001979BE /* windarrow_green_NW.png in Resources */,
-				D7EE94A61A125F8D001979BE /* windarrow_green_WNW@2x.png in Resources */,
-				D7EE949C1A125F8D001979BE /* windarrow_green_NE@2x.png in Resources */,
-				22E59A491ADD6F7000B1BC88 /* SummaryScreen.xcassets in Resources */,
-				D7EE94AB1A125F8D001979BE /* windarrow_green_N@3x.png in Resources */,
-				22E59A431ADD6F7000B1BC88 /* Logo.xcassets in Resources */,
-				D7EE94921A125F8D001979BE /* windarrow_green_SSE.png in Resources */,
-				D7EE94941A125F8D001979BE /* windarrow_green_SW.png in Resources */,
-				22E59A4B1ADD6F7000B1BC88 /* TabBar.xcassets in Resources */,
-				E96FB57819A353B500CB7306 /* ShareDialog.xib in Resources */,
-				D7EE94B41A125F8D001979BE /* windarrow_green_SW@3x.png in Resources */,
-				D7EE94981A125F8D001979BE /* windarrow_green_E@2x.png in Resources */,
-				D7EE94931A125F8D001979BE /* windarrow_green_SSW.png in Resources */,
-				D7EE94971A125F8D001979BE /* windarrow_green_WSW.png in Resources */,
-				D7EE94911A125F8D001979BE /* windarrow_green_SE.png in Resources */,
-				D7EE949D1A125F8D001979BE /* windarrow_green_NNE@2x.png in Resources */,
-				D7EE94AE1A125F8D001979BE /* windarrow_green_NNW@3x.png in Resources */,
-				E9AE301C19A36A25004A79C4 /* Agriculture.storyboard in Resources */,
-				D7EE94A01A125F8D001979BE /* windarrow_green_S@2x.png in Resources */,
-				22EAE5D01AB1EA5C0037654E /* Register.storyboard in Resources */,
-				D7EE94A81A125F8D001979BE /* windarrow_green_E@3x.png in Resources */,
-				D7EE94A31A125F8D001979BE /* windarrow_green_SSW@2x.png in Resources */,
-				D7EE94B11A125F8D001979BE /* windarrow_green_SE@3x.png in Resources */,
-				D7EE94891A125F8D001979BE /* windarrow_green_ENE.png in Resources */,
-				D7EE94B21A125F8D001979BE /* windarrow_green_SSE@3x.png in Resources */,
-				E96FB58619A353B500CB7306 /* HistoryTableViewSectionHeaderView.xib in Resources */,
-				D7EE949E1A125F8D001979BE /* windarrow_green_NNW@2x.png in Resources */,
-				D7EE94B31A125F8D001979BE /* windarrow_green_SSW@3x.png in Resources */,
-				D7EE948B1A125F8D001979BE /* windarrow_green_N.png in Resources */,
-				D7EE94961A125F8D001979BE /* windarrow_green_WNW.png in Resources */,
-				D7EE94AA1A125F8D001979BE /* windarrow_green_ESE@3x.png in Resources */,
-				D7EE94901A125F8D001979BE /* windarrow_green_S.png in Resources */,
-				D7EE949F1A125F8D001979BE /* windarrow_green_NW@2x.png in Resources */,
-				D7EE94951A125F8D001979BE /* windarrow_green_W.png in Resources */,
-				D7EE94A11A125F8D001979BE /* windarrow_green_SE@2x.png in Resources */,
-				E972407619DC15BD008642E2 /* Images.xcassets in Resources */,
-				D7EE948A1A125F8D001979BE /* windarrow_green_ESE.png in Resources */,
-				E96FB58F19A353B500CB7306 /* Localizable.strings in Resources */,
-				D7EE94A91A125F8D001979BE /* windarrow_green_ENE@3x.png in Resources */,
-				D7EE948C1A125F8D001979BE /* windarrow_green_NE.png in Resources */,
-				22E59A451ADD6F7000B1BC88 /* MapMarkers.xcassets in Resources */,
-				D7EE949B1A125F8D001979BE /* windarrow_green_N@2x.png in Resources */,
-				E9002DC519DE9AEA002D0132 /* Agri-Manual-Direction.png in Resources */,
-				D7EE94A71A125F8D001979BE /* windarrow_green_WSW@2x.png in Resources */,
-				D7EE94B71A125F8D001979BE /* windarrow_green_WSW@3x.png in Resources */,
-				E93EEDB919EE664B004D8759 /* LaunchScreen.xib in Resources */,
-				E96FB59919A353B500CB7306 /* MeasurementTableViewCell.xib in Resources */,
-				D7EE94A51A125F8D001979BE /* windarrow_green_W@2x.png in Resources */,
-				D7EE94991A125F8D001979BE /* windarrow_green_ENE@2x.png in Resources */,
-				D7EE94AC1A125F8D001979BE /* windarrow_green_NE@3x.png in Resources */,
-				22E59A3D1ADD6F7000B1BC88 /* Icons.xcassets in Resources */,
-				D7EE94B61A125F8D001979BE /* windarrow_green_WNW@3x.png in Resources */,
-				D7EE94A41A125F8D001979BE /* windarrow_green_SW@2x.png in Resources */,
-				D7EE949A1A125F8D001979BE /* windarrow_green_ESE@2x.png in Resources */,
-				D7EE94AF1A125F8D001979BE /* windarrow_green_NW@3x.png in Resources */,
-				E9AB11E019A631BF000C6FB1 /* agri-logo@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2008,36 +1396,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E96FB4EB19A353B500CB7306 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		E96FB5A819A353B500CB7306 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -2050,10 +1408,7 @@
 				22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */,
 				D7A4F1E7173A8DDB00D1ACEE /* MeasureViewController.m in Sources */,
 				D7A4F1F2173A8FAB00D1ACEE /* MjolnirMeasurementController.m in Sources */,
-				E9159CB91A0A505400742188 /* AgriWordListViewController.m in Sources */,
-				E9002DC119DE9755002D0132 /* AgriManualDirectionViewController.m in Sources */,
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
-				E9C7799319AB8DE4000A6921 /* AgriSettingsNavigationController.m in Sources */,
 				E9D9044D19C1971000ABA9F4 /* WindMeasurementController.m in Sources */,
 				E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */,
 				D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */,
@@ -2062,7 +1417,6 @@
 				D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */,
 				E9A4099F18AA75C6004F1C12 /* RegisterNavigationController.m in Sources */,
 				E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */,
-				E9DE09BA192E4C84003877D9 /* SettingsViewController.m in Sources */,
 				E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */,
 				E9A4097818994000004F1C12 /* TMCache.m in Sources */,
 				E9A4099C18AA501D004F1C12 /* PasswordUtil.m in Sources */,
@@ -2079,11 +1433,9 @@
 				E9B627C717708E63004678D5 /* AFURLConnectionOperation.m in Sources */,
 				E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */,
 				E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */,
-				E9A40980189BD29F004F1C12 /* MeasureNavigationController.m in Sources */,
 				E9B627C817708E63004678D5 /* AFXMLRequestOperation.m in Sources */,
 				E9B627C917708E63004678D5 /* UIImageView+AFNetworking.m in Sources */,
 				E9D9045119C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */,
-				E9543DFC19FFBF6C005A01D7 /* AgriHistoryTableViewController.m in Sources */,
 				E9B627D1177096D6004678D5 /* VaavudAPIHTTPClient.m in Sources */,
 				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,
 				E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */,
@@ -2093,7 +1445,6 @@
 				E9F33CCB18B4AFBF0033EDC7 /* UIColor+VaavudColors.m in Sources */,
 				E984F26319B878BD004024C6 /* MixpanelUtil.m in Sources */,
 				E9CD223C177B2AEA0054ED3F /* NSAttributeDescription+MagicalDataImport.m in Sources */,
-				E9C7798E19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */,
 				22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */,
 				E9FD000B17FD6A06001A8491 /* FormatUtil.m in Sources */,
 				E9CD223D177B2AEA0054ED3F /* NSEntityDescription+MagicalDataImport.m in Sources */,
@@ -2110,7 +1461,6 @@
 				E9A409A818AB9B80004F1C12 /* LogInViewController.m in Sources */,
 				E9CD2244177B2AEA0054ED3F /* NSManagedObject+MagicalFinders.m in Sources */,
 				E9CD2245177B2AEA0054ED3F /* NSManagedObject+MagicalRecord.m in Sources */,
-				E9AB11D919A60DF3000C6FB1 /* AgriLoginViewController.m in Sources */,
 				E9A4098718A26FEB004F1C12 /* GuidedTextField.m in Sources */,
 				E9FABFE1189294BD009C4C46 /* HistoryTableViewCell.m in Sources */,
 				E9CD2246177B2AEA0054ED3F /* NSManagedObject+MagicalRequests.m in Sources */,
@@ -2121,26 +1471,21 @@
 				E9F33CCE18B4B3CB0033EDC7 /* AccountManager.m in Sources */,
 				E9A4099318A52E40004F1C12 /* RegisterViewController.m in Sources */,
 				E9CD2248177B2AEA0054ED3F /* NSManagedObjectContext+MagicalRecord.m in Sources */,
-				E9159CA91A078E5C00742188 /* AgriResultComputation.m in Sources */,
 				E9CD2249177B2AEA0054ED3F /* NSManagedObjectContext+MagicalSaves.m in Sources */,
-				E9C7798A19AB7C09000A6921 /* AgriMeasureViewController.m in Sources */,
 				E9CD224A177B2AEA0054ED3F /* NSManagedObjectContext+MagicalThreading.m in Sources */,
 				E9A4097918994000004F1C12 /* TMDiskCache.m in Sources */,
 				E9CD224B177B2AEA0054ED3F /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				E9CD224C177B2AEA0054ED3F /* NSPersistentStore+MagicalRecord.m in Sources */,
-				E9002DBD19DD69CD002D0132 /* AgriResultViewController.m in Sources */,
 				E9CD224D177B2AEA0054ED3F /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
 				E9B950E4195C587800E9EF02 /* FirstTimeFlowController.m in Sources */,
 				E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */,
 				E9CD224E177B2AEA0054ED3F /* MagicalRecord+Actions.m in Sources */,
 				E9CD224F177B2AEA0054ED3F /* MagicalRecord+ErrorHandling.m in Sources */,
 				E9B950E3195C587800E9EF02 /* FirstTimeExplanationViewController.m in Sources */,
-				E9002DB919DD6993002D0132 /* AgriManualTemperatureViewController.m in Sources */,
 				E9CD2250177B2AEA0054ED3F /* MagicalRecord+iCloud.m in Sources */,
 				E9CD2251177B2AEA0054ED3F /* MagicalRecord+Options.m in Sources */,
 				E93C5C3717EC826800E84D3C /* TabBarController.m in Sources */,
 				E9CD2252177B2AEA0054ED3F /* MagicalRecord+Setup.m in Sources */,
-				E9543E0019FFCB2E005A01D7 /* AgriSummaryViewController.m in Sources */,
 				E9CD2253177B2AEA0054ED3F /* MagicalRecord+ShorthandSupport.m in Sources */,
 				E9CD2254177B2AEA0054ED3F /* MagicalRecord.m in Sources */,
 				E98C9A6319BF0E80009428F3 /* GraphView.m in Sources */,
@@ -2160,133 +1505,10 @@
 				E93338F7178C561B006E2314 /* ModelManager.m in Sources */,
 				22AB2E701A70FD92008CAE46 /* CoreSummaryViewController.swift in Sources */,
 				E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */,
-				E9A4098D18A50D11004F1C12 /* HistoryRootViewController.m in Sources */,
 				E9A4097A18994000004F1C12 /* TMMemoryCache.m in Sources */,
 				E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */,
 				E9A4099018A52151004F1C12 /* SignUpViewController.m in Sources */,
 				22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E96FB4EC19A353B500CB7306 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E9D904BD19C3262700ABA9F4 /* MixpanelUtil.m in Sources */,
-				E9D904BC19C325E100ABA9F4 /* SleipnirMeasurementController.m in Sources */,
-				E96FB4ED19A353B500CB7306 /* main.m in Sources */,
-				E96FB4EE19A353B500CB7306 /* AppDelegate.m in Sources */,
-				E96FB4EF19A353B500CB7306 /* MeasureViewController.m in Sources */,
-				E9159CBA1A0A505400742188 /* AgriWordListViewController.m in Sources */,
-				E9002DC219DE9755002D0132 /* AgriManualDirectionViewController.m in Sources */,
-				E96FB4F019A353B500CB7306 /* MjolnirMeasurementController.m in Sources */,
-				E96FB4F119A353B500CB7306 /* VaavudMagneticFieldDataManager.m in Sources */,
-				E9C7799419AB8DE4000A6921 /* AgriSettingsNavigationController.m in Sources */,
-				E96FB4F219A353B500CB7306 /* SMCalloutView.m in Sources */,
-				E96FB4F319A353B500CB7306 /* VaavudFFT.m in Sources */,
-				E96FB4F419A353B500CB7306 /* ImageUtil.m in Sources */,
-				E96FB4F519A353B500CB7306 /* DismissOnTouchUIView.m in Sources */,
-				E96FB4F619A353B500CB7306 /* VaavudDynamicsController.m in Sources */,
-				E96FB4F819A353B500CB7306 /* RegisterNavigationController.m in Sources */,
-				E96FB4F919A353B500CB7306 /* Model.xcdatamodeld in Sources */,
-				E96FB4FA19A353B500CB7306 /* SettingsViewController.m in Sources */,
-				E96FB4FB19A353B500CB7306 /* AFHTTPClient.m in Sources */,
-				2255A63C1A818535006589D5 /* VaavudInteractions.swift in Sources */,
-				E96FB4FC19A353B500CB7306 /* TMCache.m in Sources */,
-				E96FB4FD19A353B500CB7306 /* PasswordUtil.m in Sources */,
-				E96FB4FE19A353B500CB7306 /* AFHTTPRequestOperation.m in Sources */,
-				E96FB4FF19A353B500CB7306 /* AFImageRequestOperation.m in Sources */,
-				E96FB50019A353B500CB7306 /* AFJSONRequestOperation.m in Sources */,
-				E9159CA61A03E09100742188 /* MeasurementSession.m in Sources */,
-				E96FB50119A353B500CB7306 /* GuideView.m in Sources */,
-				E96FB50219A353B500CB7306 /* AFNetworkActivityIndicatorManager.m in Sources */,
-				E98C9A6419BF0E80009428F3 /* GraphView.m in Sources */,
-				E96FB50319A353B500CB7306 /* CustomSMCalloutDrawnBackgroundView.m in Sources */,
-				E96FB50419A353B500CB7306 /* UIImageView+TMCache.m in Sources */,
-				E96FB50619A353B500CB7306 /* AFPropertyListRequestOperation.m in Sources */,
-				E96FB50719A353B500CB7306 /* AFURLConnectionOperation.m in Sources */,
-				E9D9044E19C1971000ABA9F4 /* WindMeasurementController.m in Sources */,
-				229FF3141A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */,
-				E96FB50819A353B500CB7306 /* TermsPrivacyViewController.m in Sources */,
-				E96FB50919A353B500CB7306 /* MeasurementTableViewCell.m in Sources */,
-				E96FB50A19A353B500CB7306 /* MeasureNavigationController.m in Sources */,
-				E9543DFD19FFBF6C005A01D7 /* AgriHistoryTableViewController.m in Sources */,
-				E96FB50B19A353B500CB7306 /* AFXMLRequestOperation.m in Sources */,
-				E96FB50C19A353B500CB7306 /* UIImageView+AFNetworking.m in Sources */,
-				E96FB50D19A353B500CB7306 /* VaavudAPIHTTPClient.m in Sources */,
-				E96FB50E19A353B500CB7306 /* MeasurementAnnotation.m in Sources */,
-				E96FB50F19A353B500CB7306 /* ServerUploadManager.m in Sources */,
-				E96FB51019A353B500CB7306 /* HistoryTableViewSectionHeaderView.m in Sources */,
-				E96FB51119A353B500CB7306 /* MagicalImportFunctions.m in Sources */,
-				E96FB51219A353B500CB7306 /* UIColor+VaavudColors.m in Sources */,
-				E96FB51319A353B500CB7306 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
-				E9C7798F19AB87D1000A6921 /* AgriMeasureNavigationController.m in Sources */,
-				22B408B81A8A0E2E0062A2DD /* Extensions.swift in Sources */,
-				E96FB51419A353B500CB7306 /* FormatUtil.m in Sources */,
-				E96FB51519A353B500CB7306 /* NSEntityDescription+MagicalDataImport.m in Sources */,
-				E96FB51619A353B500CB7306 /* NSNumber+MagicalDataImport.m in Sources */,
-				E96FB51719A353B500CB7306 /* NSObject+MagicalDataImport.m in Sources */,
-				E96FB51819A353B500CB7306 /* NSRelationshipDescription+MagicalDataImport.m in Sources */,
-				E96FB51919A353B500CB7306 /* ParentViewController.m in Sources */,
-				E96FB51A19A353B500CB7306 /* HistoryTableViewController.m in Sources */,
-				E96FB51B19A353B500CB7306 /* NSString+MagicalDataImport.m in Sources */,
-				E96FB51C19A353B500CB7306 /* NSManagedObject+MagicalAggregation.m in Sources */,
-				E96FB51E19A353B500CB7306 /* TermsPrivacyNavigationController.m in Sources */,
-				E96FB51F19A353B500CB7306 /* NSManagedObject+MagicalDataImport.m in Sources */,
-				E96FB52019A353B500CB7306 /* LogInViewController.m in Sources */,
-				E96FB52119A353B500CB7306 /* NSManagedObject+MagicalFinders.m in Sources */,
-				E96FB52219A353B500CB7306 /* NSManagedObject+MagicalRecord.m in Sources */,
-				E9AB11DA19A60DF3000C6FB1 /* AgriLoginViewController.m in Sources */,
-				E96FB52419A353B500CB7306 /* GuidedTextField.m in Sources */,
-				229FF3191A7EE3A0008A3226 /* VaavudViews.swift in Sources */,
-				E96FB52519A353B500CB7306 /* HistoryTableViewCell.m in Sources */,
-				E96FB52619A353B500CB7306 /* NSManagedObject+MagicalRequests.m in Sources */,
-				E96FB52719A353B500CB7306 /* NSManagedObjectContext+MagicalObserving.m in Sources */,
-				E96FB52819A353B500CB7306 /* AccountManager.m in Sources */,
-				22FA6C521A727171004DD868 /* VaavudStyle.swift in Sources */,
-				E96FB52919A353B500CB7306 /* RegisterViewController.m in Sources */,
-				E96FB52B19A353B500CB7306 /* NSManagedObjectContext+MagicalRecord.m in Sources */,
-				E9159CAA1A078E5C00742188 /* AgriResultComputation.m in Sources */,
-				E96FB52D19A353B500CB7306 /* NSManagedObjectContext+MagicalSaves.m in Sources */,
-				E9C7798B19AB7C09000A6921 /* AgriMeasureViewController.m in Sources */,
-				E96FB52E19A353B500CB7306 /* NSManagedObjectContext+MagicalThreading.m in Sources */,
-				E96FB52F19A353B500CB7306 /* TMDiskCache.m in Sources */,
-				E96FB53119A353B500CB7306 /* NSManagedObjectModel+MagicalRecord.m in Sources */,
-				E9002DBE19DD69CD002D0132 /* AgriResultViewController.m in Sources */,
-				E96FB53219A353B500CB7306 /* NSPersistentStore+MagicalRecord.m in Sources */,
-				E96FB53319A353B500CB7306 /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
-				E96FB53419A353B500CB7306 /* FirstTimeFlowController.m in Sources */,
-				E96FB53519A353B500CB7306 /* MeasurementCalloutView.m in Sources */,
-				E96FB53619A353B500CB7306 /* MagicalRecord+Actions.m in Sources */,
-				E96FB53719A353B500CB7306 /* MagicalRecord+ErrorHandling.m in Sources */,
-				E9002DBA19DD6993002D0132 /* AgriManualTemperatureViewController.m in Sources */,
-				E96FB53819A353B500CB7306 /* FirstTimeExplanationViewController.m in Sources */,
-				E96FB53919A353B500CB7306 /* MagicalRecord+iCloud.m in Sources */,
-				E96FB53A19A353B500CB7306 /* MagicalRecord+Options.m in Sources */,
-				E96FB53B19A353B500CB7306 /* TabBarController.m in Sources */,
-				E9543E0119FFCB2E005A01D7 /* AgriSummaryViewController.m in Sources */,
-				E96FB53C19A353B500CB7306 /* MagicalRecord+Setup.m in Sources */,
-				E96FB53D19A353B500CB7306 /* MagicalRecord+ShorthandSupport.m in Sources */,
-				E96FB53E19A353B500CB7306 /* MagicalRecord.m in Sources */,
-				E96FB53F19A353B500CB7306 /* MapViewController.m in Sources */,
-				E96FB54019A353B500CB7306 /* DictionarySerializationUtil.m in Sources */,
-				E91E490E19AB5F3D00616887 /* CoreMeasureViewController.m in Sources */,
-				E96FB54119A353B500CB7306 /* MeasurementPoint.m in Sources */,
-				E96FB54219A353B500CB7306 /* UUIDUtil.m in Sources */,
-				E9D9045219C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */,
-				E96FB54319A353B500CB7306 /* LocationManager.m in Sources */,
-				E96FB54419A353B500CB7306 /* Property+Util.m in Sources */,
-				E96FB54519A353B500CB7306 /* AlgorithmConstantsUtil.m in Sources */,
-				E96FB54619A353B500CB7306 /* Property.m in Sources */,
-				E96FB54719A353B500CB7306 /* MeasurementSession+Util.m in Sources */,
-				E96FB54819A353B500CB7306 /* ShareDialog.m in Sources */,
-				E96FB54919A353B500CB7306 /* MeasurementPoint+Util.m in Sources */,
-				E96FB54A19A353B500CB7306 /* ModelManager.m in Sources */,
-				E96FB54B19A353B500CB7306 /* QueryStringUtil.m in Sources */,
-				E96FB54C19A353B500CB7306 /* HistoryRootViewController.m in Sources */,
-				E96FB54D19A353B500CB7306 /* TMMemoryCache.m in Sources */,
-				E96FB54E19A353B500CB7306 /* UnitUtil.m in Sources */,
-				E96FB55119A353B500CB7306 /* SignUpViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2297,11 +1519,6 @@
 			isa = PBXTargetDependency;
 			name = VaavudElectronicSDK;
 			targetProxy = 22A340581A5ADC12006CE401 /* PBXContainerItemProxy */;
-		};
-		22A340631A5BDA17006CE401 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = VaavudElectronicSDK;
-			targetProxy = 22A340621A5BDA17006CE401 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2549,81 +1766,6 @@
 			};
 			name = Release;
 		};
-		E96FB5AA19A353B500CB7306 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D99B754D5D7EF24DCE1202B3 /* Pods.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconAgriculture;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					.,
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"AGRI=1",
-				);
-				INFOPLIST_FILE = "Agriculture-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/VaavudCore\"",
-				);
-				PRODUCT_NAME = Agriculture;
-				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "VaavudCore/Agriculture-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		E96FB5AB19A353B500CB7306 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = CDE6761506C86D4075981625 /* Pods.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconAgriculture;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					.,
-					"$(PROJECT_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "VaavudCore/Vaavud-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"$(inherited)",
-					"COCOAPODS=1",
-					"AGRI=1",
-				);
-				INFOPLIST_FILE = "Agriculture-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/VaavudCore\"",
-				);
-				PRODUCT_NAME = Agriculture;
-				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "VaavudCore/Agriculture-Bridging-Header.h";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -2641,15 +1783,6 @@
 			buildConfigurations = (
 				D7A4F1EB173A8DDB00D1ACEE /* Debug */,
 				D7A4F1EC173A8DDB00D1ACEE /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E96FB5A919A353B500CB7306 /* Build configuration list for PBXNativeTarget "Agriculture" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E96FB5AA19A353B500CB7306 /* Debug */,
-				E96FB5AB19A353B500CB7306 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

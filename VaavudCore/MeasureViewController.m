@@ -252,16 +252,11 @@
 
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"Measure Screen"];
+        [[Mixpanel sharedInstance] track:@"Measure Tab"]; // REMOVEME
     }
     
     if ([SleipnirMeasurementController sharedInstance].isDeviceConnected) {
         [self getMicrophonePermission];
-    }
-}
-
-- (void)tabSelected {
-    if ([Property isMixpanelEnabled]) {
-        [[Mixpanel sharedInstance] track:@"Measure Tab"];
     }
 }
 

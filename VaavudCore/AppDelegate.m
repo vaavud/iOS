@@ -71,27 +71,6 @@
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     UIViewController *viewController = nil;
     
-#ifdef AGRI
-    
-    // AGRICULTURE APP
-    
-    if ([self.window respondsToSelector:@selector(setTintColor:)]) {
-        UIColor *vaavudColor = [UIColor vaavudColor];
-        self.window.tintColor = vaavudColor;
-        [[UINavigationBar appearance] setTintColor:vaavudColor];
-    }
-    
-    if ([[AccountManager sharedInstance] isLoggedIn]) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Agriculture" bundle:nil];
-        viewController = [storyboard instantiateViewControllerWithIdentifier:@"AgriTabBarController"];
-    }
-    else {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Agriculture" bundle:nil];
-        viewController = [storyboard instantiateViewControllerWithIdentifier:@"AgriLoginViewController"];
-    }
-
-#elif CORE
-    
     // CORE VAAVUD APP
     NSString *vcName;
     
@@ -121,8 +100,6 @@
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     viewController = [storyboard instantiateViewControllerWithIdentifier:vcName];
-
-#endif
     
     self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];

@@ -12,8 +12,6 @@
 #define LOG_INTRO NO
 #define LOG_NETWORK NO
 #define LOG_HISTORY NO
-#define LOG_AGRI_RESULT NO
-#define LOG_AGRI NO
 #define LOG_ACCOUNT NO
 #define LOG_GRAPH NO
 #define LOG_LOCATION NO
