@@ -143,11 +143,13 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
+    if (LOG_HISTORY) NSLog(@"[HistoryTableViewController viewDidAppear]");
+
     self.fetchedResultsController.delegate = self;
-    NSLog(@"==== Appear");
-    
-    [self.fetchedResultsController performFetch:nil];
+    if ([self.fetchedResultsController performFetch:nil]) {
+        NSLog(@"FETCH WORKED");
+        [self.tableView reloadData];
+    };
     
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"History Screen"];
@@ -157,12 +159,10 @@
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    if (LOG_HISTORY) NSLog(@"[HistoryTableViewController viewDidDisappear]");
+    
     self.fetchedResultsController.delegate = nil;
-    NSLog(@"==== Disappear");
 }
-
-
-
 
 - (NSFetchedResultsController *)fetchedResultsController {
     if (!_fetchedResultsController) {
@@ -189,7 +189,7 @@
 - (void)historySynced {
     if ([AccountManager sharedInstance].isLoggedIn) {
         if ([self.fetchedResultsController performFetch:nil]) {
-            NSLog(@"- historySynced - Fetched: %ld", (unsigned long)self.fetchedResultsController.fetchedObjects.count);
+            if (LOG_HISTORY) NSLog(@"[HistoryTableViewController historySynced] - Fetched: %ld", (unsigned long)self.fetchedResultsController.fetchedObjects.count);
         }
         [self hideLoader];
         [self refreshEmptyState];
@@ -198,21 +198,31 @@
 
 - (void)refreshEmptyState {
     if ([AccountManager sharedInstance].isLoggedIn) {
+        if (LOG_HISTORY) NSLog(@"[HistoryTableViewController refreshEmptyState] Logged in");
+
         if ([ServerUploadManager sharedInstance].isHistorySyncBusy) {
+            if (LOG_HISTORY) NSLog(@"[HistoryTableViewController refreshEmptyState] Sync busy");
+
             [self showLoader];
             [UIView animateWithDuration:0.2 animations:^{
                 self.emptyView.alpha = 0;
             }];
         }
         else {
+            if (LOG_HISTORY) NSLog(@"[HistoryTableViewController refreshEmptyState] Sync not busy");
+
             [self hideLoader];
             if (self.fetchedResultsController.sections.count == 0) {
+                if (LOG_HISTORY) NSLog(@"[HistoryTableViewController refreshEmptyState] Empty");
+
                 [self.emptyArrow animate];
                 [UIView animateWithDuration:0.2 animations:^{
                     self.emptyView.alpha = 1;
                 }];
             }
             else {
+                if (LOG_HISTORY) NSLog(@"[HistoryTableViewController refreshEmptyState] Not empty");
+
                 [UIView animateWithDuration:0.2 animations:^{
                     self.emptyView.alpha = 0;
                 }];
@@ -220,6 +230,8 @@
         }
     }
     else {
+        if (LOG_HISTORY) NSLog(@"[HistoryTableViewController refreshEmptyState] Not logged in");
+
         self.emptyView.alpha = 0;
     }
 }
@@ -477,7 +489,7 @@
      forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath {
     
-    if (LOG_HISTORY) NSLog(@"[HistoryTableViewController] Controller changed object");
+    if (LOG_HISTORY) NSLog(@"[HistoryTableViewController] Controller changed object: %d", type);
     
     switch (type) {
         case NSFetchedResultsChangeInsert:

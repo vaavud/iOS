@@ -80,8 +80,6 @@ BOOL didShowFeedback;
 }
 
 - (void)refreshLoginButton {
-    NSLog(@"refresh: %d:%d", self.emailTextField.text.length, self.passwordTextField.text.length);
-
     self.navigationItem.rightBarButtonItem.enabled = self.emailTextField.text.length > 0 && self.passwordTextField.text.length > 0;
 }
 

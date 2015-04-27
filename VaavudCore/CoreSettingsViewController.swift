@@ -85,11 +85,7 @@ class CoreSettingsTableViewController: UITableViewController {
             temperatureUnitControl.selectedSegmentIndex = temperatureUnit
         }
     }
-    
-    @IBAction func calibrationDone(segue: UIStoryboardSegue) {
-    
-    }
-    
+        
     @IBAction func logInOutTapped(sender: AnyObject) {
         if AccountManager.sharedInstance().isLoggedIn() {
             interactions.showLocalAlert("REGISTER_BUTTON_LOGOUT",
@@ -116,7 +112,7 @@ class CoreSettingsTableViewController: UITableViewController {
             ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: true, success: { }, failure: { _ in })
 
             self.dismissViewControllerAnimated(true, completion: {
-                println("================ did dismiss")
+                println("========settings did dismiss")
             })
         };
         

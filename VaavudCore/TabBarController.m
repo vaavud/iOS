@@ -73,7 +73,7 @@
             self.selectedIndex = 2;
 
             [self dismissViewControllerAnimated:YES completion:^{
-                NSLog(@"=== did dismiss");
+                NSLog(@"=== login did dismiss");
             }];
         };
         

@@ -12,19 +12,10 @@
 
 static NSSet *countriesUsingMph;
 static NSArray *directionNameStrings;
-static NSArray *directionImageStrings;
 
 + (void)initialize {
     countriesUsingMph = [NSSet setWithObjects:@"US", @"UM", @"GB", @"CA", @"VG", @"VI", nil];
     directionNameStrings = @[@"DIRECTION_N", @"DIRECTION_NNE", @"DIRECTION_NE", @"DIRECTION_ENE", @"DIRECTION_E", @"DIRECTION_ESE", @"DIRECTION_SE", @"DIRECTION_SSE", @"DIRECTION_S", @"DIRECTION_SSW", @"DIRECTION_SW", @"DIRECTION_WSW", @"DIRECTION_W", @"DIRECTION_WNW", @"DIRECTION_NW", @"DIRECTION_NNW"];
-    
-#ifdef AGRI
-    // AGRICULTURE APP
-    directionImageStrings = @[@"windarrow_green_N.png", @"windarrow_green_NNE.png", @"windarrow_green_NE.png", @"windarrow_green_ENE.png", @"windarrow_green_E.png", @"windarrow_green_ESE.png", @"windarrow_green_SE.png", @"windarrow_green_SSE.png", @"windarrow_green_S.png", @"windarrow_green_SSW.png", @"windarrow_green_SW.png", @"windarrow_green_WSW.png", @"windarrow_green_W.png", @"windarrow_green_WNW.png", @"windarrow_green_NW.png", @"windarrow_green_NNW.png"];
-#elif CORE
-    // CORE VAAVUD APP
-    directionImageStrings = @[@"windarrow_red_N.png", @"windarrow_red_NNE.png", @"windarrow_red_NE.png", @"windarrow_red_ENE.png", @"windarrow_red_E.png", @"windarrow_red_ESE.png", @"windarrow_red_SE.png", @"windarrow_red_SSE.png", @"windarrow_red_S.png", @"windarrow_red_SSW.png", @"windarrow_red_SW.png", @"windarrow_red_WSW.png", @"windarrow_red_W.png", @"windarrow_red_WNW.png", @"windarrow_red_NW.png", @"windarrow_red_NNW.png"];
-#endif
 }
 
 + (WindSpeedUnit)nextWindSpeedUnit:(WindSpeedUnit)unit {
@@ -155,14 +146,6 @@ static NSArray *directionImageStrings;
     }
     NSInteger index = [self directionIndex:[direction doubleValue]];
     return NSLocalizedString(directionNameStrings[index], nil);
-}
-
-+ (NSString *)imageNameForDirection:(NSNumber *)direction {
-    if (!direction) {
-        return nil;
-    }
-    NSInteger index = [self directionIndex:[direction doubleValue]];
-    return directionImageStrings[index];
 }
 
 + (CGAffineTransform)transformForDirection:(NSNumber *)direction {

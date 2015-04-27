@@ -302,10 +302,6 @@
         [self start];
     }
     else {
-#ifdef AGRI
-        self.deleteSession = YES;
-#endif
-
         [self stop];
     }
 }
@@ -522,12 +518,10 @@
         }
         else {
             // potentially popup Facebook share dialog...
-#ifdef CORE
             self.concludedSession = [[SavingWindMeasurementController sharedInstance] getLatestMeasurementSession];
             if (self.concludedSession.windSpeedAvg) {
                 [self performSegueWithIdentifier:@"SummaryFromMeasureSegue" sender:self];
             }
-#endif
         }
     }
 }

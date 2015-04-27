@@ -48,10 +48,6 @@
     return UIInterfaceOrientationMaskAll;
 }
 
--(IBAction)calibrationCancelled:(UIStoryboardSegue *)segue {
-    NSLog(@"calibrationCancelled");
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.rotatingImageView = [[UIImageView alloc] initWithFrame:self.directionImageView.bounds];
@@ -60,10 +56,17 @@
 
 -(void)calibrateIfNeeded {
     BOOL sleipnir = [SleipnirMeasurementController sharedInstance].isDeviceConnected;
-	if (sleipnir && !self.hasShowsCalibrationScreen && ![Property getAsBoolean:KEY_HAS_CALIBRATED]) {
+    NSLog(@"**** presenting %d - sleipnir %d - hasShown: %d - hasCalibrated: %d ", !self.presentedViewController, sleipnir, !self.hasShowsCalibrationScreen, ![Property getAsBoolean:KEY_HAS_CALIBRATED]);
+    
+	if (sleipnir && !self.presentedViewController && !self.hasShowsCalibrationScreen && ![Property getAsBoolean:KEY_HAS_CALIBRATED]) {
         [self performSegueWithIdentifier:@"MandatoryCalibration" sender:self];
         self.hasShowsCalibrationScreen = YES;
     }
+}
+
+-(void)deviceConnected:(WindMeterDeviceType)device {
+    [super deviceConnected:device];
+    [self calibrateIfNeeded];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

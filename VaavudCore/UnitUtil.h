@@ -30,7 +30,6 @@ typedef NS_ENUM(NSInteger, WindSpeedUnit) {
 + (NSString *)englishDisplayNameForWindSpeedUnit:(WindSpeedUnit)unit;
 
 + (NSString *)displayNameForDirection:(NSNumber *)direction;
-+ (NSString *)imageNameForDirection:(NSNumber *)direction;
 + (NSString *)displayNameForDirectionUnit:(NSInteger)directionUnit;
 
 + (CGAffineTransform)transformForDirection:(NSNumber *)direction;

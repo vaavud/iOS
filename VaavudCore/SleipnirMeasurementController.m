@@ -59,11 +59,10 @@ SHARED_INSTANCE
     [self resetMeasurementData];
     self.isStarted = YES;
     self.startTime = [NSDate date];
-    [[VEVaavudElectronicSDK sharedVaavudElectronic] startWithClipFacingScreen: [Property getAsBoolean:KEY_SLEIPNIR_CLIP_SIDE_SCREEN defaultValue:NO]];
+    [[VEVaavudElectronicSDK sharedVaavudElectronic] startWithClipFacingScreen:[Property getAsBoolean:KEY_SLEIPNIR_CLIP_SIDE_SCREEN defaultValue:NO]];
 }
 
 - (NSTimeInterval)stop {
-    
     if (!self.isStarted) {
         // don't do anything if we're already stopped
         return 0.0;
@@ -105,7 +104,7 @@ SHARED_INSTANCE
         double currentSpeed = [speed doubleValue];
         self.accumulatedSpeed += currentSpeed;
         self.numberOfSpeedSamples++;
-        self.averageSpeed = [NSNumber numberWithDouble:(self.accumulatedSpeed / self.numberOfSpeedSamples)];
+        self.averageSpeed = [NSNumber numberWithDouble:(self.accumulatedSpeed/self.numberOfSpeedSamples)];
         self.maxSpeed = MAX(self.maxSpeed, currentSpeed);
         
         if (self.delegate) {

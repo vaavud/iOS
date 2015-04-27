@@ -47,12 +47,7 @@
         [self.cancelButton setTitle:NSLocalizedString(@"BUTTON_CANCEL", nil) forState:UIControlStateNormal];
         
         self.textView.delegate = self;
-        
-#ifdef AGRI
-        [self.okButton setTitleColor:[UIColor vaavudColor] forState:UIControlStateNormal];
-        [self.cancelButton setTitleColor:[UIColor vaavudColor] forState:UIControlStateNormal];
-#endif
-        
+                
     }
 
     [super layoutSubviews];

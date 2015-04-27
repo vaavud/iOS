@@ -36,11 +36,7 @@
 
 
 + (UIColor *)vaavudColor {
-#ifdef AGRI
-    return [UIColor vaavudGreenColor];
-#elif CORE
     return [UIColor vaavudBlueColor];
-#endif
 }
 
 @end
