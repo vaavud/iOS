@@ -52,6 +52,12 @@
     [super viewDidLoad];
     self.rotatingImageView = [[UIImageView alloc] initWithFrame:self.directionImageView.bounds];
     [self.directionImageView addSubview:self.rotatingImageView];
+    
+//    MjolnirSpinner *spinner = [[MjolnirSpinner alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+//    [self.view addSubview:spinner];
+//    spinner.backgroundColor = [UIColor grayColor];
+    
+//    [spinner show];
 }
 
 -(void)calibrateIfNeeded {

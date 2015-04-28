@@ -12,6 +12,8 @@
 		2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
 		2256C19B1AA7450E00782314 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2256C19A1AA7450E00782314 /* Crashlytics.framework */; };
 		228500881AEA8E0200E1E7C2 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228500871AEA8E0200E1E7C2 /* FacebookSDK.framework */; };
+		22900BB31AEE7616009D9C8F /* MjolnirSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22900BB21AEE7616009D9C8F /* MjolnirSpinner.swift */; };
+		22900BB71AEE77C1009D9C8F /* MjolnirSpinner.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22900BB61AEE77C1009D9C8F /* MjolnirSpinner.xcassets */; };
 		229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
 		229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3171A7EE3A0008A3226 /* VaavudViews.swift */; };
 		22A3405E1A5AE022006CE401 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */; };
@@ -217,6 +219,9 @@
 		228A7BB81ADD191400EB72CC /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		228A7BB91ADD191400EB72CC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		228A7BBA1ADD191600EB72CC /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		22900BB21AEE7616009D9C8F /* MjolnirSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MjolnirSpinner.swift; sourceTree = "<group>"; };
+		22900BB61AEE77C1009D9C8F /* MjolnirSpinner.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = MjolnirSpinner.xcassets; path = VaavudCore/MjolnirSpinner.xcassets; sourceTree = "<group>"; };
+		22900BBC1AEF840B009D9C8F /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		22969D461AB2ED5800255A55 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		2297D9091AB877B300ED914A /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		2297D90B1AB877B500ED914A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
@@ -257,7 +262,6 @@
 		22EAE5DC1AB1ECD90037654E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Bridging-Header.h"; sourceTree = "<group>"; };
 		22FA6C501A727171004DD868 /* VaavudStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VaavudStyle.swift; path = Vaavud/StyleKit/VaavudStyle.swift; sourceTree = SOURCE_ROOT; };
-		22FBE51F1AE19DA900F7276A /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		A086025EA7704C458175CADF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDE6761506C86D4075981625 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
@@ -697,6 +701,7 @@
 		D7A4F1D0173A8DDB00D1ACEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				22900BB21AEE7616009D9C8F /* MjolnirSpinner.swift */,
 				22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */,
 				22ADAA931A9C911400C298E6 /* EmptyHistoryArrow.swift */,
 				22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */,
@@ -841,6 +846,7 @@
 				22E59A371ADD6F7000B1BC88 /* SummaryScreen.xcassets */,
 				22E59A381ADD6F7000B1BC88 /* TabBar.xcassets */,
 				22E59A391ADD6F7000B1BC88 /* UpgradeFlow.xcassets */,
+				22900BB61AEE77C1009D9C8F /* MjolnirSpinner.xcassets */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1339,6 +1345,7 @@
 				E9FABFE71896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib in Resources */,
 				22E59A3C1ADD6F7000B1BC88 /* Icons.xcassets in Resources */,
 				22AB2E6E1A70FC15008CAE46 /* Roboto-Light.ttf in Resources */,
+				22900BB71AEE77C1009D9C8F /* MjolnirSpinner.xcassets in Resources */,
 				22AB2E6C1A70FC15008CAE46 /* BebasNeue Bold.otf in Resources */,
 				E972407919DC1E4E008642E2 /* Images.xcassets in Resources */,
 				E960260818575452009396B1 /* Localizable.strings in Resources */,
@@ -1459,6 +1466,7 @@
 				E9FABFDE18929473009C4C46 /* HistoryTableViewController.m in Sources */,
 				E9CD2241177B2AEA0054ED3F /* NSString+MagicalDataImport.m in Sources */,
 				E9CD2242177B2AEA0054ED3F /* NSManagedObject+MagicalAggregation.m in Sources */,
+				22900BB31AEE7616009D9C8F /* MjolnirSpinner.swift in Sources */,
 				E97AC6D018BCDE19004DEC65 /* TermsPrivacyNavigationController.m in Sources */,
 				E9CD2243177B2AEA0054ED3F /* NSManagedObject+MagicalDataImport.m in Sources */,
 				E9A409A818AB9B80004F1C12 /* LogInViewController.m in Sources */,
@@ -1589,7 +1597,6 @@
 			children = (
 				22AA5EEB1AB0874200170341 /* Base */,
 				22E204FE1AB19BEB00FA7E1D /* es */,
-				22FBE51F1AE19DA900F7276A /* da */,
 				225572CA1AE2851900153F03 /* ca */,
 				22199BF71AE286400008CADA /* fr */,
 				22199BF91AE2864D0008CADA /* de */,
@@ -1599,6 +1606,7 @@
 				22199C011AE286710008CADA /* ko */,
 				22199C031AE286760008CADA /* zh-Hans */,
 				22199C051AE2867D0008CADA /* pt-PT */,
+				22900BBC1AEF840B009D9C8F /* da */,
 			);
 			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";
