@@ -41,6 +41,7 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
         timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "showFirstText", userInfo: nil, repeats: false)
 
         sdk.startCalibration()
+        sdk.start()
     }
     
     override func viewDidLayoutSubviews() {

@@ -429,13 +429,13 @@
             <objects>
                 <tableViewController id="AVc-0U-FEU" customClass="CoreSettingsTableViewController" customModule="Vaavud" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="ZpY-xL-uhp">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection headerTitle="Units" id="jX4-JS-E5g">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UnitSettingsCell" rowHeight="79" id="w0J-Li-Ocv" userLabel="UnitSettingsCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UnitSettingsCell" rowHeight="80" id="w0J-Li-Ocv" userLabel="UnitSettingsCell">
                                         <rect key="frame" x="0.0" y="119" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w0J-Li-Ocv" id="Kui-b1-YMA">
@@ -449,7 +449,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="Dvh-om-zIW">
-                                                    <rect key="frame" x="15" y="40" width="297" height="29"/>
+                                                    <rect key="frame" x="15" y="41" width="290" height="29"/>
                                                     <segments>
                                                         <segment title="km/h"/>
                                                         <segment title="m/s"/>
@@ -463,7 +463,7 @@
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Dvh-om-zIW" firstAttribute="trailing" secondItem="Kui-b1-YMA" secondAttribute="trailingMargin" id="Huu-Xe-pvD"/>
+                                                <constraint firstAttribute="trailing" secondItem="Dvh-om-zIW" secondAttribute="trailing" constant="15" id="Huu-Xe-pvD"/>
                                                 <constraint firstAttribute="bottom" secondItem="Dvh-om-zIW" secondAttribute="bottom" constant="10" id="PDC-hc-47g"/>
                                                 <constraint firstItem="4EF-kb-Y1v" firstAttribute="top" secondItem="Kui-b1-YMA" secondAttribute="top" constant="10" id="X28-76-V6E"/>
                                                 <constraint firstItem="4EF-kb-Y1v" firstAttribute="leading" secondItem="Kui-b1-YMA" secondAttribute="leading" constant="15" id="Yye-ZC-wIC"/>
@@ -486,7 +486,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="bcI-dI-OVQ">
-                                                    <rect key="frame" x="183" y="10" width="129" height="29"/>
+                                                    <rect key="frame" x="176" y="10" width="129" height="29"/>
                                                     <segments>
                                                         <segment title="Cardinal"/>
                                                         <segment title="Degrees"/>
@@ -498,7 +498,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="centerY" secondItem="VFp-bi-bOg" secondAttribute="centerY" id="8oT-1t-NzL"/>
-                                                <constraint firstItem="bcI-dI-OVQ" firstAttribute="trailing" secondItem="gTu-MH-HAU" secondAttribute="trailingMargin" id="Hzc-bD-ohk"/>
+                                                <constraint firstAttribute="trailing" secondItem="bcI-dI-OVQ" secondAttribute="trailing" constant="15" id="Hzc-bD-ohk"/>
                                                 <constraint firstItem="bcI-dI-OVQ" firstAttribute="top" secondItem="gTu-MH-HAU" secondAttribute="top" constant="10" id="eFL-9p-Yzs"/>
                                                 <constraint firstItem="VFp-bi-bOg" firstAttribute="leading" secondItem="gTu-MH-HAU" secondAttribute="leading" constant="15" id="gmF-Ge-CJ8"/>
                                             </constraints>
@@ -519,7 +519,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="d52-Tg-BU8">
-                                                    <rect key="frame" x="148" y="10" width="164" height="29"/>
+                                                    <rect key="frame" x="141" y="10" width="164" height="29"/>
                                                     <segments>
                                                         <segment title="mbar"/>
                                                         <segment title="atm"/>
@@ -534,7 +534,7 @@
                                                 <constraint firstAttribute="centerY" secondItem="XA6-Lw-37y" secondAttribute="centerY" id="0Ah-9Q-fqo"/>
                                                 <constraint firstItem="XA6-Lw-37y" firstAttribute="leading" secondItem="eW0-Zg-DBb" secondAttribute="leading" constant="15" id="D4h-k7-JPK"/>
                                                 <constraint firstItem="d52-Tg-BU8" firstAttribute="top" secondItem="eW0-Zg-DBb" secondAttribute="top" constant="10" id="hHW-aK-Lh4"/>
-                                                <constraint firstItem="d52-Tg-BU8" firstAttribute="trailing" secondItem="eW0-Zg-DBb" secondAttribute="trailingMargin" id="sMu-Sf-RcU"/>
+                                                <constraint firstAttribute="trailing" secondItem="d52-Tg-BU8" secondAttribute="trailing" constant="15" id="sMu-Sf-RcU"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -553,7 +553,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="4TJ-1M-haN">
-                                                    <rect key="frame" x="212" y="10" width="100" height="29"/>
+                                                    <rect key="frame" x="205" y="10" width="100" height="29"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="100" id="isL-qe-dlh"/>
                                                     </constraints>
@@ -570,7 +570,7 @@
                                                 <constraint firstItem="4TJ-1M-haN" firstAttribute="top" secondItem="JZv-OI-7K8" secondAttribute="top" constant="10" id="16t-vR-SL4"/>
                                                 <constraint firstAttribute="centerY" secondItem="9uf-in-4gP" secondAttribute="centerY" id="Kbs-FT-d0H"/>
                                                 <constraint firstItem="9uf-in-4gP" firstAttribute="leading" secondItem="JZv-OI-7K8" secondAttribute="leading" constant="15" id="TJ1-jq-Uc7"/>
-                                                <constraint firstItem="4TJ-1M-haN" firstAttribute="trailing" secondItem="JZv-OI-7K8" secondAttribute="trailingMargin" id="tqJ-HN-EAi"/>
+                                                <constraint firstAttribute="trailing" secondItem="4TJ-1M-haN" secondAttribute="trailing" constant="15" id="tqJ-HN-EAi"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -744,7 +744,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="qmh-QA-fjN">
-                                                    <rect key="frame" x="263" y="6" width="51" height="31"/>
+                                                    <rect key="frame" x="256" y="6" width="51" height="31"/>
                                                     <connections>
                                                         <action selector="changedDropboxSetting:" destination="AVc-0U-FEU" eventType="valueChanged" id="dBx-LW-Kwr"/>
                                                     </connections>
@@ -754,36 +754,46 @@
                                                 <constraint firstAttribute="centerY" secondItem="qmh-QA-fjN" secondAttribute="centerY" id="CVX-CW-KJk"/>
                                                 <constraint firstAttribute="centerY" secondItem="2kF-DA-YJJ" secondAttribute="centerY" id="Ujh-H4-bxm"/>
                                                 <constraint firstItem="2kF-DA-YJJ" firstAttribute="leading" secondItem="Coy-Gz-hRS" secondAttribute="leading" constant="15" id="V4v-lv-dWi"/>
-                                                <constraint firstItem="qmh-QA-fjN" firstAttribute="trailing" secondItem="Coy-Gz-hRS" secondAttribute="trailingMargin" id="cv4-Bo-w8b"/>
+                                                <constraint firstAttribute="trailing" secondItem="qmh-QA-fjN" secondAttribute="trailing" constant="15" id="cv4-Bo-w8b"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BuyWindmeterSettingsCell" id="gOc-FV-8Mm" userLabel="Dropbox">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BuyWindmeterSettingsCell" rowHeight="153" id="gOc-FV-8Mm" userLabel="SleipnirClip">
                                         <rect key="frame" x="0.0" y="119" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gOc-FV-8Mm" id="3Eo-fd-cj8">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" horizontalCompressionResistancePriority="749" text="Use Sleipnir with the clip on phone front" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="3mt-GD-SGh">
-                                                    <rect key="frame" x="15" y="11" width="248" height="21"/>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" horizontalCompressionResistancePriority="749" text="Sleipnir placement" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="3mt-GD-SGh">
+                                                    <rect key="frame" x="15" y="10" width="290" height="24"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ZnJ-EK-FvR">
-                                                    <rect key="frame" x="263" y="6" width="51" height="31"/>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gKH-dm-y5J">
+                                                    <rect key="frame" x="15" y="44" width="290" height="99"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="98" id="sSj-6y-Ral"/>
+                                                    </constraints>
+                                                    <segments>
+                                                        <segment title="" image="SleipnirSettingsBack"/>
+                                                        <segment title="" image="SleipnirSettingsFront"/>
+                                                    </segments>
                                                     <connections>
-                                                        <action selector="changedSleipnirClipSetting:" destination="AVc-0U-FEU" eventType="valueChanged" id="KIp-aZ-iME"/>
+                                                        <action selector="changeSleipnirPlacement:" destination="AVc-0U-FEU" eventType="valueChanged" id="P9h-kw-I1J"/>
                                                     </connections>
-                                                </switch>
+                                                </segmentedControl>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="ZnJ-EK-FvR" firstAttribute="leading" secondItem="3mt-GD-SGh" secondAttribute="trailing" id="MqM-HV-4vm"/>
-                                                <constraint firstAttribute="centerY" secondItem="3mt-GD-SGh" secondAttribute="centerY" id="QCa-cD-wRv"/>
-                                                <constraint firstAttribute="centerY" secondItem="ZnJ-EK-FvR" secondAttribute="centerY" id="a3w-0L-djv"/>
-                                                <constraint firstItem="ZnJ-EK-FvR" firstAttribute="trailing" secondItem="3Eo-fd-cj8" secondAttribute="trailingMargin" id="iBF-8X-Vlf"/>
+                                                <constraint firstAttribute="bottom" secondItem="gKH-dm-y5J" secondAttribute="bottom" constant="10" id="8x8-Ut-gdK"/>
+                                                <constraint firstAttribute="trailing" secondItem="3mt-GD-SGh" secondAttribute="trailing" constant="15" id="EZz-q9-Y5K"/>
+                                                <constraint firstItem="gKH-dm-y5J" firstAttribute="leading" secondItem="3Eo-fd-cj8" secondAttribute="leading" constant="15" id="Krj-1M-Mwo"/>
+                                                <constraint firstItem="gKH-dm-y5J" firstAttribute="top" secondItem="3mt-GD-SGh" secondAttribute="bottom" constant="10" id="N7a-bA-155"/>
+                                                <constraint firstAttribute="trailing" secondItem="gKH-dm-y5J" secondAttribute="trailing" constant="15" id="O2q-fc-e0t"/>
+                                                <constraint firstItem="3mt-GD-SGh" firstAttribute="top" secondItem="3Eo-fd-cj8" secondAttribute="top" constant="10" id="YP2-xG-gxu"/>
+                                                <constraint firstAttribute="centerX" secondItem="gKH-dm-y5J" secondAttribute="centerX" id="eva-Sb-wdx"/>
                                                 <constraint firstItem="3mt-GD-SGh" firstAttribute="leading" secondItem="3Eo-fd-cj8" secondAttribute="leading" constant="15" id="npV-mv-Hqf"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -805,13 +815,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="1000"/>
+                    <size key="freeformSize" width="320" height="1200"/>
                     <connections>
                         <outlet property="directionUnitControl" destination="bcI-dI-OVQ" id="j1d-pU-vXj"/>
                         <outlet property="dropboxControl" destination="qmh-QA-fjN" id="NTK-l8-qTs"/>
                         <outlet property="logoutButton" destination="kic-mv-NUN" id="ZFS-dj-OWp"/>
                         <outlet property="pressureUnitControl" destination="d52-Tg-BU8" id="emI-aV-Hwf"/>
-                        <outlet property="sleipnirClipControl" destination="ZnJ-EK-FvR" id="wK6-T4-kmT"/>
+                        <outlet property="sleipnirClipControl" destination="gKH-dm-y5J" id="rxb-6x-dR6"/>
                         <outlet property="speedUnitControl" destination="Dvh-om-zIW" id="aW3-Fp-pdv"/>
                         <outlet property="temperatureUnitControl" destination="4TJ-1M-haN" id="Z5O-Xt-ZoP"/>
                         <outlet property="versionLabel" destination="Hxy-12-BRt" id="2CT-gG-sH5"/>
@@ -819,7 +829,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PCy-mP-AgH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="701" y="-559"/>
+            <point key="canvasLocation" x="701" y="-366"/>
         </scene>
         <!--Terms View Controller-->
         <scene sceneID="96f-Ql-xhN">
@@ -830,11 +840,11 @@
                         <viewControllerLayoutGuide type="bottom" id="s33-Yz-j5i"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dqR-PF-P71">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1200"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <webView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ZH-nH-cic">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="1200"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </webView>
                         </subviews>
@@ -853,7 +863,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nt3-0L-LC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1476" y="-559"/>
+            <point key="canvasLocation" x="1238" y="-382"/>
         </scene>
         <!--First Time Flow Controller-->
         <scene sceneID="iog-Qb-A03">
@@ -1946,6 +1956,8 @@
         <image name="HistoryDirectionArrow" width="27" height="27"/>
         <image name="NewFeaturesBackground" width="213" height="378"/>
         <image name="SettingsIcon.png" width="24" height="24"/>
+        <image name="SleipnirSettingsBack" width="100" height="97"/>
+        <image name="SleipnirSettingsFront" width="100" height="97"/>
         <image name="history.png" width="26" height="26"/>
         <image name="history_selected.png" width="26" height="26"/>
         <image name="iPhone6Black" width="217" height="444"/>

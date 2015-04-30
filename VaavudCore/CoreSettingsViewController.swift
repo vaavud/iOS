@@ -17,9 +17,9 @@ class CoreSettingsTableViewController: UITableViewController {
     @IBOutlet weak var directionUnitControl: UISegmentedControl!
     @IBOutlet weak var pressureUnitControl: UISegmentedControl!
     @IBOutlet weak var temperatureUnitControl: UISegmentedControl!
-//    @IBOutlet weak var facebookControl: UISwitch!
+    //    @IBOutlet weak var facebookControl: UISwitch!
     @IBOutlet weak var dropboxControl: UISwitch!
-    @IBOutlet weak var sleipnirClipControl: UISwitch!
+    @IBOutlet weak var sleipnirClipControl: UISegmentedControl!
     
     @IBOutlet weak var versionLabel: UILabel!
     
@@ -29,7 +29,9 @@ class CoreSettingsTableViewController: UITableViewController {
 //        facebookControl.on = Property.getAsBoolean("enableFacebookShareDialog", defaultValue: false)
                 
         dropboxControl.on = DBSession.sharedSession().isLinked()
-        sleipnirClipControl.on = Property.getAsBoolean("sleipnirClipSideScreen", defaultValue: false)
+        
+        let sleipnirOnFront = Property.getAsBoolean("sleipnirClipSideScreen", defaultValue: false)
+        sleipnirClipControl.selectedSegmentIndex = sleipnirOnFront ? 1 : 0
         readUnits()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: "UnitChange", object: nil)
@@ -142,6 +144,10 @@ class CoreSettingsTableViewController: UITableViewController {
     
     @IBAction func changedFacebookSetting(sender: UISwitch) {
         Property.setAsBoolean(sender.on, forKey: "enableFacebookShareDialog")
+    }
+    
+    @IBAction func changeSleipnirPlacement(sender: UISegmentedControl) {
+        Property.setAsBoolean(sleipnirClipControl.selectedSegmentIndex == 1, forKey: "sleipnirClipSideScreen")
     }
     
     @IBAction func changedDropboxSetting(sender: UISwitch) {
