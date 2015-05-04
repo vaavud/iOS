@@ -59,6 +59,7 @@
         self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
         
         self.spinner = [[MjolnirSpinner alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
+        self.spinner.alpha = 0.4;
     }
     
     return self;
