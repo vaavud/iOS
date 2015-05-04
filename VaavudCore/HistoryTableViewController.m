@@ -383,7 +383,6 @@
 
 -(void)dealloc {
     NSLog(@"Dealloc HTVC");
-
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
