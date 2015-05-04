@@ -58,6 +58,12 @@
 }
 
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    // REMOVE
+    if (viewController == self.childViewControllers[2]) {
+        [self performSegueWithIdentifier:@"MeasureSegue" sender:self];
+        return YES;
+    }
+    
     if (![AccountManager sharedInstance].isLoggedIn && viewController == self.childViewControllers[2]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
         RegisterViewController *registration = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
