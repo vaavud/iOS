@@ -151,8 +151,8 @@ class CoreSettingsTableViewController: UITableViewController {
     @IBAction func changeSleipnirPlacement(sender: UISegmentedControl) {
         let frontPlaced = sleipnirClipControl.selectedSegmentIndex == 1
         Property.setAsBoolean(frontPlaced, forKey: "sleipnirClipSideScreen")
-        let value = frontPlaced ? "yes" : "no"
-        if Property.isMixpanelEnabled() { Mixpanel.sharedInstance().track("SleipnirClip", properties: ["Front Facing Setting" : value]) }
+        let value = frontPlaced ? "front" : "back"
+        if Property.isMixpanelEnabled() { Mixpanel.sharedInstance().track("SleipnirClip", properties: ["Clip Side Setting" : value]) }
     }
     
     @IBAction func changedDropboxSetting(sender: UISwitch) {
