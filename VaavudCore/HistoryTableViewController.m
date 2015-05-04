@@ -358,10 +358,12 @@
                 if (placemarks.count > 0 && !error) {
                     CLPlacemark *first = [placemarks objectAtIndex:0];
                     NSString *text = first.thoroughfare ?: first.locality ?: first.country;
-                    
-                    session.geoLocationNameLocalized = text;
                     cell.locationLabel.text = text;
-                    session.uploaded = @NO;
+
+                    if (session.managedObjectContext != nil) {
+                        session.geoLocationNameLocalized = text;
+                        session.uploaded = @NO;
+                    }
                 }
                 else {
                     if (error) { if (LOG_HISTORY) NSLog(@"[HistoryTableViewController] Geocode failed with error: %@", error); }
