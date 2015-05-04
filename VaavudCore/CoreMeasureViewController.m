@@ -52,17 +52,10 @@
     [super viewDidLoad];
     self.rotatingImageView = [[UIImageView alloc] initWithFrame:self.directionImageView.bounds];
     [self.directionImageView addSubview:self.rotatingImageView];
-    
-//    MjolnirSpinner *spinner = [[MjolnirSpinner alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
-//    [self.view addSubview:spinner];
-//    spinner.backgroundColor = [UIColor grayColor];
-    
-//    [spinner show];
 }
 
 -(void)calibrateIfNeeded {
     BOOL sleipnir = [SleipnirMeasurementController sharedInstance].isDeviceConnected;
-    NSLog(@"**** presenting %d - sleipnir %d - hasShown: %d - hasCalibrated: %d ", !self.presentedViewController, sleipnir, !self.hasShowsCalibrationScreen, ![Property getAsBoolean:KEY_HAS_CALIBRATED]);
     
 	if (sleipnir && !self.presentedViewController && !self.hasShowsCalibrationScreen && ![Property getAsBoolean:KEY_HAS_CALIBRATED]) {
         [self performSegueWithIdentifier:@"MandatoryCalibration" sender:self];

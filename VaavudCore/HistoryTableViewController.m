@@ -35,7 +35,7 @@
 
 @property (nonatomic) CLGeocoder *geocoder;
 
-@property (nonatomic) UIActivityIndicatorView *loaderIndicator;
+@property (nonatomic) MjolnirSpinner *spinner;
 
 @property (nonatomic) EmptyHistoryArrow *emptyArrow;
 @property (nonatomic) UIView *emptyLabelView;
@@ -58,9 +58,9 @@
         self.dateFormatter = [[NSDateFormatter alloc] init];
         self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
         
-        self.loaderIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        self.spinner = [[MjolnirSpinner alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
     }
-
+    
     return self;
 }
 
@@ -75,8 +75,8 @@
     self.backgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
     self.tableView.backgroundView = self.backgroundView;
     
-    self.loaderIndicator.center = CGPointMake(CGRectGetMidX(self.backgroundView.bounds), CGRectGetMidY(self.backgroundView.bounds));
-    [self.backgroundView addSubview:self.loaderIndicator];
+    self.spinner.center = CGPointMake(CGRectGetMidX(self.backgroundView.bounds), CGRectGetMidY(self.backgroundView.bounds));
+    [self.backgroundView addSubview:self.spinner];
 
     self.emptyArrow = [[EmptyHistoryArrow alloc] init];
     self.emptyView = [[UIView alloc] initWithFrame:self.view.bounds];
@@ -147,7 +147,6 @@
 
     self.fetchedResultsController.delegate = self;
     if ([self.fetchedResultsController performFetch:nil]) {
-        NSLog(@"FETCH WORKED");
         [self.tableView reloadData];
     };
     
@@ -171,14 +170,6 @@
     return _fetchedResultsController;
 }
 
-- (void)showLoader {
-    [self.loaderIndicator startAnimating];
-}
-
-- (void)hideLoader {
-    [self.loaderIndicator stopAnimating];
-}
-
 - (void)updateUnits {
     self.windSpeedUnit = [Property getAsInteger:KEY_WIND_SPEED_UNIT].intValue;
     self.directionUnit = [Property getAsInteger:KEY_DIRECTION_UNIT defaultValue:0].intValue;
@@ -191,7 +182,7 @@
         if ([self.fetchedResultsController performFetch:nil]) {
             if (LOG_HISTORY) NSLog(@"[HistoryTableViewController historySynced] - Fetched: %ld", (unsigned long)self.fetchedResultsController.fetchedObjects.count);
         }
-        [self hideLoader];
+        [self.spinner hide];
         [self refreshEmptyState];
     }
 }
@@ -203,7 +194,7 @@
         if ([ServerUploadManager sharedInstance].isHistorySyncBusy) {
             if (LOG_HISTORY) NSLog(@"[HistoryTableViewController refreshEmptyState] Sync busy");
 
-            [self showLoader];
+            [self.spinner show];
             [UIView animateWithDuration:0.2 animations:^{
                 self.emptyView.alpha = 0;
             }];
@@ -211,7 +202,7 @@
         else {
             if (LOG_HISTORY) NSLog(@"[HistoryTableViewController refreshEmptyState] Sync not busy");
 
-            [self hideLoader];
+            [self.spinner hide];
             if (self.fetchedResultsController.sections.count == 0) {
                 if (LOG_HISTORY) NSLog(@"[HistoryTableViewController refreshEmptyState] Empty");
 
@@ -359,8 +350,8 @@
                     CLPlacemark *first = [placemarks objectAtIndex:0];
                     NSString *text = first.thoroughfare ?: first.locality ?: first.country;
                     cell.locationLabel.text = text;
-
-                    if (session.managedObjectContext != nil) {
+                    
+                    if ([[NSManagedObjectContext MR_defaultContext] existingObjectWithID:session.objectID error:NULL]) {
                         session.geoLocationNameLocalized = text;
                         session.uploaded = @NO;
                     }
