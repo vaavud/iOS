@@ -414,8 +414,9 @@
     
     if (uiTracking) {
         if ([Property isMixpanelEnabled]) {
-            Mixpanel *mixpanel = [Mixpanel sharedInstance];
-            [mixpanel track:@"Start Measurement" properties:@{@"Wind Meter": [controller mixpanelWindMeterName]}];
+            NSNumber *frontFacing = @([Property getAsBoolean:KEY_SLEIPNIR_CLIP_SIDE_SCREEN]);
+            NSDictionary *properties = @{@"Wind Meter": [controller mixpanelWindMeterName], @"Clip on front" : frontFacing};
+            [[Mixpanel sharedInstance] track:@"Start Measurement" properties:properties];
         }
     }
     

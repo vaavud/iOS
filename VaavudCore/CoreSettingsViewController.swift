@@ -152,7 +152,7 @@ class CoreSettingsTableViewController: UITableViewController {
         let frontPlaced = sleipnirClipControl.selectedSegmentIndex == 1
         Property.setAsBoolean(frontPlaced, forKey: "sleipnirClipSideScreen")
         let value = frontPlaced ? "yes" : "no"
-        if Property.isMixpanelEnabled() { Mixpanel.sharedInstance().track("Dropbox", properties: ["front" : value]) }
+        if Property.isMixpanelEnabled() { Mixpanel.sharedInstance().track("SleipnirClip", properties: ["Front Facing Setting" : value]) }
     }
     
     @IBAction func changedDropboxSetting(sender: UISwitch) {
@@ -163,7 +163,7 @@ class CoreSettingsTableViewController: UITableViewController {
         }
         else {
             DBSession.sharedSession().unlinkAll()
-            value = "unlink"
+            value = "unlinked"
         }
         if Property.isMixpanelEnabled() { Mixpanel.sharedInstance().track("Dropbox", properties: ["action" : value]) }
     }
