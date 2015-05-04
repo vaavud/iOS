@@ -65,9 +65,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         hideVolumeHUD()
         
-        if Property.isMixpanelEnabled() {
-            Mixpanel.sharedInstance().track("Summary Screen")
-        }
+        Mixpanel.sharedInstance().track("Summary Screen")
         
         animator = UIDynamicAnimator(referenceView: view)
         pressureItem = DynamicReadingItem(readingView: pressureView)
@@ -101,9 +99,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     override func viewDidDisappear(animated: Bool) {
-        if Property.isMixpanelEnabled() {
-            Mixpanel.sharedInstance().track("Summary Screen - Disappear")
-        }
+        Mixpanel.sharedInstance().track("Summary Screen - Disappear")
     }
     
     func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {

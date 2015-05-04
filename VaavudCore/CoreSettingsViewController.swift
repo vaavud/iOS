@@ -62,8 +62,8 @@ class CoreSettingsTableViewController: UITableViewController {
     func dropboxLinkedStatus(note: NSNotification) {
         if let isDropboxLinked = note.object as? NSNumber.BooleanLiteralType {
             dropboxControl.on = isDropboxLinked
-            let value = isDropboxLinked ? "link succeeded" : "link failed"
-            if Property.isMixpanelEnabled() { Mixpanel.sharedInstance().track("Dropbox", properties: ["action" : value]) }
+            let value = isDropboxLinked ? "Linking succeeded" : "Linking failed"
+            Mixpanel.sharedInstance().track("Dropbox", properties: ["Action" : value])
         }
     }
     
@@ -151,21 +151,19 @@ class CoreSettingsTableViewController: UITableViewController {
     @IBAction func changeSleipnirPlacement(sender: UISegmentedControl) {
         let frontPlaced = sleipnirClipControl.selectedSegmentIndex == 1
         Property.setAsBoolean(frontPlaced, forKey: "sleipnirClipSideScreen")
-        let value = frontPlaced ? "front" : "back"
-        if Property.isMixpanelEnabled() { Mixpanel.sharedInstance().track("SleipnirClip", properties: ["Clip Side Setting" : value]) }
     }
     
     @IBAction func changedDropboxSetting(sender: UISwitch) {
         let value: String
         if sender.on {
             DBSession.sharedSession().linkFromController(self)
-            value = "try link"
+            value = "Try link"
         }
         else {
             DBSession.sharedSession().unlinkAll()
-            value = "unlinked"
+            value = "Unlinked"
         }
-        if Property.isMixpanelEnabled() { Mixpanel.sharedInstance().track("Dropbox", properties: ["action" : value]) }
+        Mixpanel.sharedInstance().track("Dropbox", properties: ["Action" : value])
     }
     
     @IBAction func changedSleipnirClipSetting(sender: UISwitch) {

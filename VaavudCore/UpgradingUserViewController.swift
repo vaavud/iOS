@@ -23,9 +23,7 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
         super.viewDidAppear(animated)
         scrollView.contentSize = CGSize(width: CGFloat(pager.numberOfPages)*scrollView.bounds.width, height: scrollView.bounds.height)
         
-        if Property.isMixpanelEnabled() {
-            Mixpanel.sharedInstance().track("Upgade Sleipnir Flow")
-        }
+        Mixpanel.sharedInstance().track("Upgade Sleipnir Flow")
         
         let nibName = "UpgradingUserPagesView"
         if let content = NSBundle.mainBundle().loadNibNamed(nibName, owner: self, options: nil).first as? UIView {
@@ -42,19 +40,14 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func openBuyDevice() {
-        if Property.isMixpanelEnabled() {
-            Mixpanel.sharedInstance().track("Upgade Sleipnir Flow - Buy Device")
-        }
+        Mixpanel.sharedInstance().track("Upgade Sleipnir Flow - Buy Device")
         VaavudInteractions.openBuySleipnir("Upgrade")
         laterButton.setTitle(NSLocalizedString("BUTTON_DONE", comment: ""), forState: .Normal)
     }
 
     @IBAction func tappedDismiss() {
         Property.setAsBoolean(true, forKey:"hasSeenUpgradeFlow");
-        
-        if Property.isMixpanelEnabled() {
-            Mixpanel.sharedInstance().track("Upgade Sleipnir Flow - Dismiss")
-        }
+        Mixpanel.sharedInstance().track("Upgade Sleipnir Flow - Dismiss")
         
         if let tabBarController = storyboard?.instantiateViewControllerWithIdentifier("TabBarController") as? TabBarController {
             if let window = UIApplication.sharedApplication().delegate?.window {
