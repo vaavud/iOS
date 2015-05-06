@@ -17,8 +17,8 @@
 /* Class = "UILabel"; text = "CURRENT"; ObjectID = "3jS-Rr-IOD"; */
 "3jS-Rr-IOD.text" = "NUVÆRENDE";
 
-/* Class = "UILabel"; text = "Use Sleipnir with the clip on phone front"; ObjectID = "3mt-GD-SGh"; */
-"3mt-GD-SGh.text" = "Brug Sleipnir med klippen på forsiden af telefonen";
+/* Class = "UILabel"; text = "Sleipnir placement"; ObjectID = "3mt-GD-SGh"; */
+"3mt-GD-SGh.text" = "Sleipnirs placering";
 
 /* Class = "UILabel"; text = "km/h"; ObjectID = "3tP-CV-yHq"; */
 "3tP-CV-yHq.text" = "##km/h";

@@ -177,7 +177,6 @@
 
 + (NSDictionary *)getDeviceDictionary {
     NSNumber *timezoneOffsetMillis = [NSNumber numberWithLong:([[NSTimeZone localTimeZone] secondsFromGMT] * 1000L)];
-    
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                 [Property getAsString:KEY_DEVICE_UUID], @"uuid",
                                 @"Apple", @"vendor",
