@@ -134,21 +134,25 @@ class VaavudFormatter {
     
     // Direction
     
-    var localizedNorth: String { return NSLocalizedString(directionKey(0), comment: "") }
-    var localizedEast: String { return NSLocalizedString(directionKey(4), comment: "") }
-    var localizedSouth: String { return NSLocalizedString(directionKey(8), comment: "") }
-    var localizedWest: String { return NSLocalizedString(directionKey(12), comment: "") }
+    static var localizedNorth: String { return NSLocalizedString(directionKey(0), comment: "") }
+    static var localizedEast: String { return NSLocalizedString(directionKey(4), comment: "") }
+    static var localizedSouth: String { return NSLocalizedString(directionKey(8), comment: "") }
+    static var localizedWest: String { return NSLocalizedString(directionKey(12), comment: "") }
     
     func localizedDirection(degrees: Float) -> String {
         readUnits()
         
         switch directionUnit {
         case .Cardinal:
-            let cardinalDirection = DirectionUnit.degreesToCardinal(degrees)
-            return NSLocalizedString(directionKey(cardinalDirection), comment: "")
+            return VaavudFormatter.localizedCardinal(degrees)
         case .Degrees:
             return NSString(format: "%.0f°", degrees) as String
         }
+    }
+    
+    static func localizedCardinal(degrees: Float) -> String {
+        let cardinalDirection = DirectionUnit.degreesToCardinal(degrees)
+        return NSLocalizedString(directionKey(cardinalDirection), comment: "")
     }
     
     // Speed
@@ -285,11 +289,11 @@ class VaavudFormatter {
 
     // Direction
     
-    private func directionKey(cardinal: Int) -> String {
+    private static func directionKey(cardinal: Int) -> String {
         return "DIRECTION_" + directionNames[cardinal]
     }
     
-    private var directionNames: [String] { return ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"] }
+    private static var directionNames: [String] { return ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"] }
     
     // Convenience
     

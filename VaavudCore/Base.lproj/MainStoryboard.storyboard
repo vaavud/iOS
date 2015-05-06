@@ -8,7 +8,7 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
-        <mutableArray key="BebasNeue Bold.otf">
+        <mutableArray key="BebasNeue_Bold.otf">
             <string>BebasNeueBold</string>
             <string>BebasNeueBold</string>
             <string>BebasNeueBold</string>
@@ -300,21 +300,52 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ueh-p1-Jwy" userLabel="Ruler" customClass="Ruler" customModule="Vaavud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="20" width="320" height="100"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="80"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="odM-g4-Me4"/>
+                                    <constraint firstAttribute="height" constant="80" id="odM-g4-Me4"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BN9-Pt-JeF" customClass="TimeGauge" customModule="Vaavud" customModuleProvider="target">
+                                <rect key="frame" x="10" y="150" width="300" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="BN9-Pt-JeF" secondAttribute="height" id="hrE-eE-uNV"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6fs-vB-bqq">
+                                <rect key="frame" x="137" y="538" width="46" height="30"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismiss" destination="W8S-ut-2zQ" eventType="touchUpInside" id="luV-y1-QEk"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xck-VX-oqj">
+                                <rect key="frame" x="140" y="479" width="40" height="35"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.92462601817042589" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="6fs-vB-bqq" firstAttribute="top" secondItem="Xck-VX-oqj" secondAttribute="bottom" constant="24" id="15j-gk-FaX"/>
+                            <constraint firstItem="BN9-Pt-JeF" firstAttribute="leading" secondItem="f2h-Mp-hfk" secondAttribute="leading" constant="10" id="8TI-7T-vXa"/>
                             <constraint firstItem="Ueh-p1-Jwy" firstAttribute="top" secondItem="9CE-E6-4Eu" secondAttribute="bottom" id="HAq-hh-kF3"/>
                             <constraint firstItem="Ueh-p1-Jwy" firstAttribute="leading" secondItem="f2h-Mp-hfk" secondAttribute="leading" id="J38-Bd-aVu"/>
+                            <constraint firstAttribute="centerX" secondItem="6fs-vB-bqq" secondAttribute="centerX" id="Kgb-64-hDr"/>
+                            <constraint firstAttribute="trailing" secondItem="BN9-Pt-JeF" secondAttribute="trailing" constant="10" id="WBW-Da-0uf"/>
+                            <constraint firstItem="aDE-G6-Ec1" firstAttribute="top" secondItem="6fs-vB-bqq" secondAttribute="bottom" id="Ys7-1n-NcT"/>
                             <constraint firstAttribute="trailing" secondItem="Ueh-p1-Jwy" secondAttribute="trailing" id="ZFq-ld-6mu"/>
+                            <constraint firstItem="Xck-VX-oqj" firstAttribute="centerX" secondItem="6fs-vB-bqq" secondAttribute="centerX" id="eO1-N2-cyi"/>
+                            <constraint firstItem="BN9-Pt-JeF" firstAttribute="top" secondItem="Ueh-p1-Jwy" secondAttribute="bottom" constant="50" id="iDa-kA-Qzk"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="gauge" destination="BN9-Pt-JeF" id="r5d-gc-Zt2"/>
+                        <outlet property="label" destination="Xck-VX-oqj" id="jsh-dY-yZy"/>
                         <outlet property="ruler" destination="Ueh-p1-Jwy" id="kpI-e8-yi3"/>
                     </connections>
                 </viewController>
@@ -1206,7 +1237,7 @@
                                                 <color key="textColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f7B-yT-SzL" userLabel="Gustiness Holder">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f7B-yT-SzL" userLabel="Pressure Holder">
                                                 <rect key="frame" x="10" y="22" width="88" height="26"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rPD-WL-dcc" customClass="PressureView" customModule="Vaavud">
@@ -1602,14 +1633,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25.3" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BNx-Ty-Ux8">
-                                <rect key="frame" x="50" y="231" width="55" height="40"/>
+                                <rect key="frame" x="51" y="231" width="55" height="40"/>
                                 <gestureRecognizers/>
                                 <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="40"/>
                                 <color key="textColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="M/S" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RdQ-dE-OhZ">
-                                <rect key="frame" x="107" y="231" width="19" height="12"/>
+                                <rect key="frame" x="108" y="231" width="19" height="12"/>
                                 <gestureRecognizers/>
                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="10"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -1624,7 +1655,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Adf-ox-ljT" userLabel="Windspeed Tap Area">
-                                <rect key="frame" x="50" y="231" width="76" height="40"/>
+                                <rect key="frame" x="51" y="231" width="76" height="40"/>
                                 <color key="backgroundColor" red="0.1843137255" green="0.28235294119999998" blue="0.3803921569" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -2008,7 +2039,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="4WK-Ha-uCh"/>
+        <segue reference="MnQ-EK-wGw"/>
         <segue reference="mhv-JI-fCG"/>
         <segue reference="s0f-qj-ZNz"/>
     </inferredMetricsTieBreakers>
