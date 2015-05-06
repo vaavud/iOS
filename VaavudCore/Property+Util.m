@@ -9,6 +9,8 @@
 #import "Property+Util.h"
 #import "UnitUtil.h"
 #import "MeasurementSession+Util.h"
+#import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
+#import <VaavudElectronicSDK/VEVaavudElectronicSDK+Analysis.h>
 
 @implementation Property (Util)
 
@@ -188,6 +190,8 @@
                                 [Property getAsString:KEY_LANGUAGE], @"language",
                                 timezoneOffsetMillis, @"timezoneOffset",
                                 [UnitUtil jsonNameForWindSpeedUnit:[[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue]], @"windSpeedUnit",
+                                @([[VEVaavudElectronicSDK sharedVaavudElectronic] getVolume]), @"sleipnirVolume",
+                                [[VEVaavudElectronicSDK sharedVaavudElectronic] getEncoderCoefficients], @"sleipnirEncoderCoefficients",
                                 nil];
     
     return dictionary;
