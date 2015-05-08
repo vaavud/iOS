@@ -59,6 +59,35 @@ class Ruler : UIView {
         UIColor.vaavudDarkGreyColor().setStroke()
         path.lineWidth = tickWidth
         path.stroke()
+        
+        drawNeedle(pointsPerTick*(windDirection - compassDirection) + halfWidth - padding)
+    }
+    
+    func drawNeedle(var x: CGFloat) {
+        let base: CGFloat = 20
+        let height: CGFloat = 35
+        
+        let outside = x - base/2 < 0 || x + base/2 > bounds.width
+        
+        if outside {
+            x = min(max(x, base/2), bounds.width - base/2)
+        }
+        
+        let path = UIBezierPath()
+        path.moveToPoint(CGPoint(x: x, y: height))
+        path.addLineToPoint(CGPoint(x: x - base/2, y: 0))
+        path.addLineToPoint(CGPoint(x: x + base/2, y: 0))
+        path.closePath()
+        
+        if outside {
+            UIColor.vaavudRedColor().setStroke()
+            path.lineWidth = 2
+            path.stroke()
+        }
+        else {
+            UIColor.vaavudRedColor().setFill()
+            path.fill()
+        }
     }
     
     func drawLabel(string: String, at p: CGPoint, isDegree: Bool = false, red: Bool = false, small: Bool = false) {
@@ -77,13 +106,71 @@ class Ruler : UIView {
     }
 }
 
+class Graph : UIView {
+    var lowY: CGFloat = 0
+    var highY: CGFloat = 50
+    var n = 100
+
+    var readings = [CGFloat()]
+    var reading: CGFloat = 0 { didSet { addReading(reading) } }
+    
+    let lineWidth: CGFloat = 5
+    let lineColor = UIColor.vaavudBlueColor()
+    let upperColor = UIColor(red: CGFloat(153)/255, green: CGFloat(217)/255, blue: CGFloat(243)/255, alpha: 1)
+    let lowerColor = UIColor(red: CGFloat(242)/255, green: CGFloat(250)/255, blue: CGFloat(253)/255, alpha: 1)
+    
+    func addReading(value: CGFloat) {
+        readings.append(value)
+        setNeedsDisplay()
+    }
+    
+    override func drawRect(rect: CGRect) {
+        func yValue(reading: CGFloat) -> CGFloat {
+            return bounds.height*(highY - reading)/(highY - lowY) - lineWidth/2
+        }
+        
+        func xValue(i: Int) -> CGFloat {
+            return bounds.width*CGFloat(i + n - readings.count)/CGFloat(n - 1)
+        }
+        
+        lineColor.setStroke()
+        let path = UIBezierPath()
+        path.lineWidth = lineWidth
+        
+        let iEnd = readings.count
+        let iStart = max(iEnd - n, 0)
+
+        path.moveToPoint(CGPoint(x: 0, y: yValue(readings[iStart])))
+        
+        for i in (iStart + 1)..<iEnd {
+            path.addLineToPoint(CGPoint(x: xValue(i), y: yValue(readings[i])))
+        }
+        path.stroke()
+        
+//        let clippingPath = path.copy() as! UIBezierPath
+//        clippingPath.addLineToPoint(CGPoint(x: bounds.maxX, y: bounds.maxY))
+//        clippingPath.addLineToPoint(CGPoint(x: bounds.minX, y: bounds.maxY))
+//        clippingPath.closePath()
+//        clippingPath.addClip()
+//        
+//        let context = UIGraphicsGetCurrentContext()
+//        let colors = [lowerColor.CGColor, upperColor.CGColor]
+//        let colorSpace = CGColorSpaceCreateDeviceRGB()
+//        let colorLocations: [CGFloat] = [0, 1]
+//        let gradient = CGGradientCreateWithColors(colorSpace, colors, colorLocations)
+//        let startPoint = CGPoint(x:0, y:bounds.height)
+//        let endPoint = CGPoint()
+//        CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0)
+    }
+}
+
 class TimeGauge : UIView {
-    var complete: CGFloat = 0.5
-    var backColor = UIColor.vaavudLightGreyColor().colorWithAlpha(0.2)
+    var complete: CGFloat = 0.0 { didSet { setNeedsDisplay() } }
+    var backColor = UIColor(red: CGFloat(228)/255, green: CGFloat(231)/255, blue: CGFloat(232)/255, alpha: 1)
     var completeColor = UIColor.vaavudBlueColor()
     
     private var border: CGFloat = 14
-    private var width: CGFloat = 8
+    private var width: CGFloat = 15
     
     override func drawRect(rect: CGRect) {
         let outline = CGRectInset(bounds, border + width/2, border + width/2)
@@ -105,9 +192,16 @@ class TimeGauge : UIView {
 class MeasurementViewController : UIViewController, VaavudElectronicWindDelegate {
     @IBOutlet weak var ruler: Ruler!
     @IBOutlet weak var gauge: TimeGauge!
+    @IBOutlet weak var graph: Graph!
+    
+    @IBOutlet weak var speedLabel: UILabel!
     
     private var displayLink: CADisplayLink!
     private var latestHeading: CGFloat = 0
+    private var latestWindDirection: CGFloat = 0
+    private var latestSpeed: CGFloat = 0
+    
+    var interval: CGFloat = 30
     
     var weight: CGFloat = 0.1
     
@@ -118,18 +212,14 @@ class MeasurementViewController : UIViewController, VaavudElectronicWindDelegate
         displayLink = CADisplayLink(target: self, selector: Selector("tick:"))
         displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
 
-        for fam in UIFont.familyNames() as! [String] {
-            println("====" + fam + "===")
-            let names = UIFont.fontNamesForFamilyName(fam) as! [String]
-            for name in names {
-                println(name)
-            }
-        }
-        
-        ruler.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "changeOffset:"))
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "changeOffset:"))
 
         sdk.addListener(self)
         sdk.start()
+    }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return Int(UIInterfaceOrientationMask.All.rawValue)
     }
     
     deinit {
@@ -143,32 +233,67 @@ class MeasurementViewController : UIViewController, VaavudElectronicWindDelegate
     
     func tick(link: CADisplayLink) {
         ruler.compassDirection = weight*latestHeading + (1 - weight)*ruler.compassDirection
+        ruler.windDirection = weight*latestWindDirection + (1 - weight)*ruler.windDirection
+        graph.reading = weight*latestSpeed + (1 - weight)*graph.reading
+        
+        gauge.complete += CGFloat(link.duration)/interval
+    }
+    
+    func slowTick() {
+        
+    }
+    
+    // MARK: SDK Callbacks
+    func newWindDirection(windDirection: NSNumber!) {
+        latestWindDirection = closestOnCircle(CGFloat(windDirection.floatValue), to:latestWindDirection)
+    }
+    
+    func newSpeed(speed: NSNumber!) {
+        speedLabel.text = NSString(format: "%.1f", speed.floatValue) as String
+        latestSpeed = CGFloat(speed.floatValue)
     }
     
     func newHeading(heading: NSNumber!) {
-        var newHeading = CGFloat(heading.floatValue)
-
-        while newHeading - latestHeading < -180 {
-            newHeading += 360
-        }
-        while newHeading - latestHeading > 180 {
-            newHeading -= 360
-        }
-        
-        latestHeading = newHeading
+        latestHeading = closestOnCircle(CGFloat(heading.floatValue), to:latestHeading)
     }
     
     @IBOutlet weak var label: UILabel!
     
     func changeOffset(sender: UIPanGestureRecognizer) {
-        weight += sender.translationInView(ruler).x/1000
-        label.text = NSString(format: "%.2f", weight) as String
-        sender.setTranslation(CGPoint(), inView: ruler)
+        let y = sender.locationInView(view).y
+        let x = view.bounds.midX - sender.locationInView(view).x
+        
+        if y < 100 {
+            newHeading(x)
+            label.text = NSString(format: "%.0f", x) as String
+        }
+        else if y < 200 {
+            newWindDirection(-x)
+            label.text = NSString(format: "%.0f", -x) as String
+        }
+        else {
+            newSpeed(max(0, y - 250)/10)
+            weight = max(0.01, weight + sender.translationInView(view).x/1000)
+            label.text = NSString(format: "%.2f", weight) as String
+        }
+        
+        sender.setTranslation(CGPoint(), inView: view)
     }
     
     @IBAction func dismiss() {
         dismissViewControllerAnimated(true, completion: nil)
     }
+}
+
+func closestOnCircle(var value: CGFloat, to previous: CGFloat) -> CGFloat {
+    while value - previous < -180 {
+        value += 360
+    }
+    while value - previous > 180 {
+        value -= 360
+    }
+    
+    return value
 }
 
 

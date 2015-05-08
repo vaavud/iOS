@@ -3,12 +3,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <customFonts key="customFonts">
         <mutableArray key="BebasNeue_Bold.otf">
+            <string>BebasNeueBold</string>
             <string>BebasNeueBold</string>
             <string>BebasNeueBold</string>
             <string>BebasNeueBold</string>
@@ -306,14 +308,28 @@
                                     <constraint firstAttribute="height" constant="80" id="odM-g4-Me4"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BN9-Pt-JeF" customClass="TimeGauge" customModule="Vaavud" customModuleProvider="target">
-                                <rect key="frame" x="10" y="150" width="300" height="300"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C3W-H7-9d4" userLabel="Graph" customClass="Graph" customModule="Vaavud" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="150" width="320" height="418"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BN9-Pt-JeF" customClass="TimeGauge" customModule="Vaavud" customModuleProvider="target">
+                                <rect key="frame" x="10" y="150" width="300" height="300"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcC-rD-yh4">
+                                        <rect key="frame" x="40" y="86" width="220" height="160"/>
+                                        <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="160"/>
+                                        <color key="textColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="tintColor" red="0.59999999999999998" green="0.85098039215686272" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="gcC-rD-yh4" secondAttribute="centerX" id="AIm-kU-JV0"/>
                                     <constraint firstAttribute="width" secondItem="BN9-Pt-JeF" secondAttribute="height" id="hrE-eE-uNV"/>
+                                    <constraint firstAttribute="centerY" secondItem="gcC-rD-yh4" secondAttribute="top" constant="64" id="uku-AF-Z1f"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6fs-vB-bqq">
+                            <button opaque="NO" alpha="0.34999999999999964" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6fs-vB-bqq">
                                 <rect key="frame" x="137" y="538" width="46" height="30"/>
                                 <state key="normal" title="Button">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -325,14 +341,17 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xck-VX-oqj">
                                 <rect key="frame" x="140" y="479" width="40" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="29"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="0.35000000000000003" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" white="0.92462601817042589" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="6fs-vB-bqq" firstAttribute="top" secondItem="Xck-VX-oqj" secondAttribute="bottom" constant="24" id="15j-gk-FaX"/>
+                            <constraint firstAttribute="trailing" secondItem="C3W-H7-9d4" secondAttribute="trailing" id="5sg-M4-sAN"/>
                             <constraint firstItem="BN9-Pt-JeF" firstAttribute="leading" secondItem="f2h-Mp-hfk" secondAttribute="leading" constant="10" id="8TI-7T-vXa"/>
+                            <constraint firstItem="aDE-G6-Ec1" firstAttribute="top" secondItem="C3W-H7-9d4" secondAttribute="bottom" id="DJH-1r-0N6"/>
+                            <constraint firstItem="C3W-H7-9d4" firstAttribute="leading" secondItem="f2h-Mp-hfk" secondAttribute="leading" id="FUe-RK-nJi"/>
                             <constraint firstItem="Ueh-p1-Jwy" firstAttribute="top" secondItem="9CE-E6-4Eu" secondAttribute="bottom" id="HAq-hh-kF3"/>
                             <constraint firstItem="Ueh-p1-Jwy" firstAttribute="leading" secondItem="f2h-Mp-hfk" secondAttribute="leading" id="J38-Bd-aVu"/>
                             <constraint firstAttribute="centerX" secondItem="6fs-vB-bqq" secondAttribute="centerX" id="Kgb-64-hDr"/>
@@ -341,12 +360,15 @@
                             <constraint firstAttribute="trailing" secondItem="Ueh-p1-Jwy" secondAttribute="trailing" id="ZFq-ld-6mu"/>
                             <constraint firstItem="Xck-VX-oqj" firstAttribute="centerX" secondItem="6fs-vB-bqq" secondAttribute="centerX" id="eO1-N2-cyi"/>
                             <constraint firstItem="BN9-Pt-JeF" firstAttribute="top" secondItem="Ueh-p1-Jwy" secondAttribute="bottom" constant="50" id="iDa-kA-Qzk"/>
+                            <constraint firstItem="BN9-Pt-JeF" firstAttribute="top" secondItem="C3W-H7-9d4" secondAttribute="top" id="jMY-zS-dm8"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="gauge" destination="BN9-Pt-JeF" id="r5d-gc-Zt2"/>
+                        <outlet property="graph" destination="C3W-H7-9d4" id="oyV-OU-d37"/>
                         <outlet property="label" destination="Xck-VX-oqj" id="jsh-dY-yZy"/>
                         <outlet property="ruler" destination="Ueh-p1-Jwy" id="kpI-e8-yi3"/>
+                        <outlet property="speedLabel" destination="gcC-rD-yh4" id="4qk-mU-Cf0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HDp-5B-DjK" userLabel="First Responder" sceneMemberID="firstResponder"/>
