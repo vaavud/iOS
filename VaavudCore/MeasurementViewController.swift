@@ -110,7 +110,7 @@ class Graph : UIView {
     var lowY: CGFloat = 0
     var highY: CGFloat = 50
     var n = 100
-
+    
     var readings = [CGFloat()]
     var reading: CGFloat = 0 { didSet { addReading(reading) } }
     
@@ -119,12 +119,26 @@ class Graph : UIView {
     let upperColor = UIColor(red: CGFloat(153)/255, green: CGFloat(217)/255, blue: CGFloat(243)/255, alpha: 1)
     let lowerColor = UIColor(red: CGFloat(242)/255, green: CGFloat(250)/255, blue: CGFloat(253)/255, alpha: 1)
     
+    let gradient = CAGradientLayer()
+    let shape = CAShapeLayer()
+    let mask = CAShapeLayer()
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        gradient.colors = [upperColor.CGColor, lowerColor.CGColor]
+        layer.addSublayer(gradient)
+        gradient.mask = mask
+        
+        shape.lineWidth = lineWidth
+        shape.strokeColor = lineColor.CGColor
+        shape.fillColor = nil
+        
+        layer.addSublayer(shape)
+    }
+
     func addReading(value: CGFloat) {
         readings.append(value)
-        setNeedsDisplay()
-    }
-    
-    override func drawRect(rect: CGRect) {
+
         func yValue(reading: CGFloat) -> CGFloat {
             return bounds.height*(highY - reading)/(highY - lowY) - lineWidth/2
         }
@@ -133,34 +147,31 @@ class Graph : UIView {
             return bounds.width*CGFloat(i + n - readings.count)/CGFloat(n - 1)
         }
         
-        lineColor.setStroke()
         let path = UIBezierPath()
-        path.lineWidth = lineWidth
         
         let iEnd = readings.count
         let iStart = max(iEnd - n, 0)
-
+        
         path.moveToPoint(CGPoint(x: 0, y: yValue(readings[iStart])))
         
         for i in (iStart + 1)..<iEnd {
             path.addLineToPoint(CGPoint(x: xValue(i), y: yValue(readings[i])))
         }
-        path.stroke()
         
-//        let clippingPath = path.copy() as! UIBezierPath
-//        clippingPath.addLineToPoint(CGPoint(x: bounds.maxX, y: bounds.maxY))
-//        clippingPath.addLineToPoint(CGPoint(x: bounds.minX, y: bounds.maxY))
-//        clippingPath.closePath()
-//        clippingPath.addClip()
-//        
-//        let context = UIGraphicsGetCurrentContext()
-//        let colors = [lowerColor.CGColor, upperColor.CGColor]
-//        let colorSpace = CGColorSpaceCreateDeviceRGB()
-//        let colorLocations: [CGFloat] = [0, 1]
-//        let gradient = CGGradientCreateWithColors(colorSpace, colors, colorLocations)
-//        let startPoint = CGPoint(x:0, y:bounds.height)
-//        let endPoint = CGPoint()
-//        CGContextDrawLinearGradient(context, gradient, startPoint, endPoint, 0)
+        shape.path = path.CGPath
+        
+        let clippingPath = path.copy() as! UIBezierPath
+        clippingPath.addLineToPoint(CGPoint(x: bounds.maxX, y: bounds.maxY))
+        clippingPath.addLineToPoint(CGPoint(x: bounds.minX, y: bounds.maxY))
+        clippingPath.closePath()
+
+        mask.path = clippingPath.CGPath
+    }
+    
+    override func layoutSubviews() {
+        gradient.frame = bounds
+        shape.frame = bounds
+        mask.frame = bounds
     }
 }
 
