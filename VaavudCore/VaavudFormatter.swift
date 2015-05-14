@@ -155,6 +155,10 @@ class VaavudFormatter {
         return NSLocalizedString(directionKey(cardinalDirection), comment: "")
     }
     
+    static func localizedCardinal(direction: Int) -> String {
+        return NSLocalizedString(directionKey(direction), comment: "")
+    }
+    
     // Speed
     
     func updateAverageWindspeedLabels(session: MeasurementSession, valueLabel: UILabel, unitLabel: UILabel) -> Bool {

@@ -8,25 +8,52 @@
 
 import UIKit
 
+enum NeedleState {
+    case Left
+    case Inside
+    case Right
+}
+
 class Ruler : UIView {
     var compassDirection: CGFloat = 0 { didSet { setNeedsDisplay() } }
     var windDirection: CGFloat = 0 { didSet { setNeedsDisplay() } }
     var pointsPerTick: CGFloat = 15
     
-    private let shortTickLength: CGFloat = 18
-    private let longTickLength: CGFloat = 36
+    private let shortTickLength: CGFloat = 0.3
+    private let longTickLength: CGFloat = 0.6
     
     private let longTickPeriod = 10
-
+    
     private let cardinalPeriod = 45
     private let cardinalMajorPeriod = 90
+    
+    private let tickWidth: CGFloat = 2
+    
+    private let needle = UIImageView()
+    private let needleState = NeedleState.Inside
+    
+    private var font: UIFont!
+    private var smallFont: UIFont!
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        needle.image = UIImage(named: "Needle")
 
-    private let tickWidth: CGFloat = 1
+        let fontSize = frame.size.height*0.33
+        font = UIFont(name: "BebasNeueRegular", size: frame.size.height*0.33)!
+        smallFont = UIFont(name: "BebasNeueRegular", size: frame.size.height*0.20)!
 
+        let height: CGFloat = frame.size.height*longTickLength
+        if let w = needle.image?.size.width, h = needle.image?.size.height {
+            needle.frame.size = CGSize(width: height*w/h, height: height)
+        }
+        addSubview(needle)
+    }
+    
     override func drawRect(rect: CGRect) {
         let padding: CGFloat = 30
         let halfWidth = bounds.width/2 + padding
-
+        
         let fromTick = Int(ceil(compassDirection - halfWidth/pointsPerTick))
         let toTick = Int(floor(compassDirection + halfWidth/pointsPerTick))
         
@@ -35,19 +62,19 @@ class Ruler : UIView {
         for halfTick in 2*fromTick...2*toTick {
             let tick = (halfTick/2 % 360 + 360) % 360
             let x = pointsPerTick*(CGFloat(halfTick)/2 - compassDirection) + halfWidth - padding
-
+            
             let isTick = halfTick % 2 == 0
             let isLongTick = halfTick % longTickPeriod == 0
             let isMajorCardinal = halfTick % cardinalMajorPeriod == 0
             
-            let y = isLongTick ? longTickLength : shortTickLength
+            let y = bounds.height*(isLongTick ? longTickLength : shortTickLength)
             
             if isTick {
                 path.moveToPoint(CGPoint(x: x, y: 0))
                 path.addLineToPoint(CGPoint(x: x, y: y))
             }
             
-            let p = CGPoint(x: x, y: y + 10)
+            let p = CGPoint(x: x, y: y + 7)
             if halfTick % cardinalPeriod == 0 {
                 drawLabel(VaavudFormatter.localizedCardinal(Float(tick)), at: p, red: tick == 0, small: !isMajorCardinal)
             }
@@ -60,49 +87,46 @@ class Ruler : UIView {
         path.lineWidth = tickWidth
         path.stroke()
         
-        drawNeedle(pointsPerTick*(windDirection - compassDirection) + halfWidth - padding)
+        let needleDirection = compassDirection + distanceOnCircle(from: compassDirection, to: windDirection)
+        moveNeedle(pointsPerTick*needleDirection + halfWidth - padding)
     }
     
-    func drawNeedle(var x: CGFloat) {
+    func moveNeedle(var x: CGFloat) {
         let base: CGFloat = 20
         let height: CGFloat = 35
         
-        let outside = x - base/2 < 0 || x + base/2 > bounds.width
+        switch x {
+        case CGFloat.min..<0:
+            println("left")
+        case bounds.width..<CGFloat.max:
+            println("right")
+        default:
+            println("in")
+        }
+        
+        let outside = x < 0 || x > bounds.width
         
         if outside {
-            x = min(max(x, base/2), bounds.width - base/2)
+            x = min(max(x, 0), bounds.width)
         }
         
-        let path = UIBezierPath()
-        path.moveToPoint(CGPoint(x: x, y: height))
-        path.addLineToPoint(CGPoint(x: x - base/2, y: 0))
-        path.addLineToPoint(CGPoint(x: x + base/2, y: 0))
-        path.closePath()
-        
-        if outside {
-            UIColor.vaavudRedColor().setStroke()
-            path.lineWidth = 2
-            path.stroke()
-        }
-        else {
-            UIColor.vaavudRedColor().setFill()
-            path.fill()
-        }
+        needle.frame.origin.y = 0
+        needle.center.x = x
     }
     
     func drawLabel(string: String, at p: CGPoint, isDegree: Bool = false, red: Bool = false, small: Bool = false) {
-        let s: NSString = string
-        let alignmentString = isDegree ? s.substringWithRange(NSRange(location: 0, length: s.length - 1)) : s
+        let text: NSString = string
+        let alignmentString = isDegree ? text.substringWithRange(NSRange(location: 0, length: text.length - 1)) : text
         
         let fieldColor = red ? UIColor.vaavudRedColor() : UIColor.darkGrayColor()
-        
-        let fieldFont = UIFont(name: "BebasNeueRegular", size: small ? 20 : 33)!
+        let fieldFont = small ? smallFont : font
         let attributes = [NSForegroundColorAttributeName : fieldColor, NSFontAttributeName : fieldFont]
-        let offset = alignmentString.sizeWithAttributes(attributes).width/2
-        let size = s.sizeWithAttributes(attributes)
-        let origin = CGPoint(x: p.x - offset, y: p.y)
 
-        s.drawInRect(CGRect(origin: origin, size: size), withAttributes: attributes)
+        let offset = alignmentString.sizeWithAttributes(attributes).width/2
+        let size = text.sizeWithAttributes(attributes)
+        let origin = CGPoint(x: p.x - offset, y: p.y)
+        
+        text.drawInRect(CGRect(origin: origin, size: size), withAttributes: attributes)
     }
 }
 
@@ -114,7 +138,7 @@ class Graph : UIView {
     var readings = [CGFloat()]
     var reading: CGFloat = 0 { didSet { addReading(reading) } }
     
-    let lineWidth: CGFloat = 5
+    let lineWidth: CGFloat = 6
     let lineColor = UIColor.vaavudBlueColor()
     let upperColor = UIColor(red: CGFloat(153)/255, green: CGFloat(217)/255, blue: CGFloat(243)/255, alpha: 1)
     let lowerColor = UIColor(red: CGFloat(242)/255, green: CGFloat(250)/255, blue: CGFloat(253)/255, alpha: 1)
@@ -132,6 +156,7 @@ class Graph : UIView {
         shape.lineWidth = lineWidth
         shape.strokeColor = lineColor.CGColor
         shape.fillColor = nil
+        shape.lineJoin = kCALineJoinRound
         
         layer.addSublayer(shape)
     }
@@ -256,7 +281,7 @@ class MeasurementViewController : UIViewController, VaavudElectronicWindDelegate
     
     // MARK: SDK Callbacks
     func newWindDirection(windDirection: NSNumber!) {
-        latestWindDirection = closestOnCircle(CGFloat(windDirection.floatValue), to:latestWindDirection)
+        latestWindDirection += distanceOnCircle(from: latestWindDirection, to: CGFloat(windDirection.floatValue))
     }
     
     func newSpeed(speed: NSNumber!) {
@@ -265,7 +290,7 @@ class MeasurementViewController : UIViewController, VaavudElectronicWindDelegate
     }
     
     func newHeading(heading: NSNumber!) {
-        latestHeading = closestOnCircle(CGFloat(heading.floatValue), to:latestHeading)
+        latestHeading += distanceOnCircle(from: latestHeading, to: CGFloat(heading.floatValue))
     }
     
     @IBOutlet weak var label: UILabel!
@@ -273,17 +298,18 @@ class MeasurementViewController : UIViewController, VaavudElectronicWindDelegate
     func changeOffset(sender: UIPanGestureRecognizer) {
         let y = sender.locationInView(view).y
         let x = view.bounds.midX - sender.locationInView(view).x
-        
-        if y < 100 {
-            newHeading(x)
-            label.text = NSString(format: "%.0f", x) as String
+        let dx = sender.translationInView(view).x/3
+
+        if y < 120 {
+            newHeading(latestHeading - dx)
+            label.text = NSString(format: "%.0f", latestHeading) as String
         }
-        else if y < 200 {
-            newWindDirection(-x)
-            label.text = NSString(format: "%.0f", -x) as String
+        else if y < 240 {
+            newWindDirection(latestWindDirection + dx)
+            label.text = NSString(format: "%.0f", latestWindDirection) as String
         }
         else {
-            newSpeed(max(0, y - 250)/10)
+            newSpeed(max(0, y - 260)/10)
             weight = max(0.01, weight + sender.translationInView(view).x/1000)
             label.text = NSString(format: "%.2f", weight) as String
         }
@@ -296,15 +322,20 @@ class MeasurementViewController : UIViewController, VaavudElectronicWindDelegate
     }
 }
 
-func closestOnCircle(var value: CGFloat, to previous: CGFloat) -> CGFloat {
-    while value - previous < -180 {
-        value += 360
-    }
-    while value - previous > 180 {
-        value -= 360
-    }
-    
-    return value
+func testDist(a: CGFloat, b: CGFloat) {
+    println("from: \(a) to \(b): \(distanceOnCircle(from: a, to: b))")
 }
 
+func distanceOnCircle(from angle: CGFloat, to otherAngle: CGFloat) -> CGFloat {
+    let dist = (otherAngle - angle) % 360
+    
+    if dist <= -180 {
+        return dist + 360
+    }
+    if dist > 180 {
+        return dist - 360
+    }
+    
+    return dist
+}
 
