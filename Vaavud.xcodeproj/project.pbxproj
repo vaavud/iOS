@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		221285B21B04A6F500D4C008 /* FlatMeasurementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221285B11B04A6F500D4C008 /* FlatMeasurementController.swift */; };
 		2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */; };
 		2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */; };
 		2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
@@ -191,6 +192,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		221285B11B04A6F500D4C008 /* FlatMeasurementController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatMeasurementController.swift; sourceTree = "<group>"; };
 		22199BF71AE286400008CADA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		22199BF91AE2864D0008CADA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		22199BFB1AE286570008CADA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/MainStoryboard.strings"; sourceTree = "<group>"; };
@@ -255,7 +257,7 @@
 		22B99AC41ADFD8C600E1A27B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Register.strings; sourceTree = "<group>"; };
 		22CECB171AF22CE300148045 /* SettingsSleipnirClip.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SettingsSleipnirClip.xcassets; path = ImageAssets/SettingsSleipnirClip.xcassets; sourceTree = "<group>"; };
 		22DB81A81A8389DF00DA67AC /* Model 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.xcdatamodel"; sourceTree = "<group>"; };
-		22DCCED31B02399800D65265 /* SemiCircleMeasurementScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SemiCircleMeasurementScreen.swift; path = VaavudCore/SemiCircleMeasurementScreen.swift; sourceTree = "<group>"; };
+		22DCCED31B02399800D65265 /* SemiCircleMeasurementScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemiCircleMeasurementScreen.swift; sourceTree = "<group>"; };
 		22E204FE1AB19BEB00FA7E1D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		22E59A301ADD6F7000B1BC88 /* HistoryScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = HistoryScreen.xcassets; path = ImageAssets/HistoryScreen.xcassets; sourceTree = "<group>"; };
 		22E59A311ADD6F7000B1BC88 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Icons.xcassets; path = ImageAssets/Icons.xcassets; sourceTree = "<group>"; };
@@ -666,7 +668,6 @@
 		D7A4F1BE173A8DDB00D1ACEE = {
 			isa = PBXGroup;
 			children = (
-				22DCCED31B02399800D65265 /* SemiCircleMeasurementScreen.swift */,
 				E972407319DAAB54008642E2 /* Images.xcassets */,
 				E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */,
 				D7A4F1D0173A8DDB00D1ACEE /* Classes */,
@@ -713,6 +714,8 @@
 		D7A4F1D0173A8DDB00D1ACEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				22DCCED31B02399800D65265 /* SemiCircleMeasurementScreen.swift */,
+				221285B11B04A6F500D4C008 /* FlatMeasurementController.swift */,
 				228227511AF7ABF100822CE2 /* MeasurementViewController.swift */,
 				22900BB21AEE7616009D9C8F /* MjolnirSpinner.swift */,
 				22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */,
@@ -1469,6 +1472,7 @@
 				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,
 				E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */,
 				E9FABFEA1896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m in Sources */,
+				221285B21B04A6F500D4C008 /* FlatMeasurementController.swift in Sources */,
 				229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */,
 				E9CD223B177B2AEA0054ED3F /* MagicalImportFunctions.m in Sources */,
 				E9F33CCB18B4AFBF0033EDC7 /* UIColor+VaavudColors.m in Sources */,

@@ -192,10 +192,22 @@ class GaugeMeasurementViewController : UIViewController, VaavudElectronicWindDel
     }
     
     func newHeading(heading: NSNumber!) {
-        latestHeading += distanceOnCircle(from: latestHeading, to: CGFloat(heading.floatValue))
+        if !lockNorth {
+            latestHeading += distanceOnCircle(from: latestHeading, to: CGFloat(heading.floatValue))
+        }
     }
     
     @IBOutlet weak var label: UILabel!
+    
+    var lockNorth = false
+    
+    @IBAction func lockNorthChanged(sender: UISwitch) {
+        lockNorth = sender.on
+        
+        if lockNorth {
+            latestHeading = 0
+        }
+    }
     
     func changeOffset(sender: UIPanGestureRecognizer) {
         let y = sender.locationInView(view).y

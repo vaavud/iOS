@@ -60,7 +60,7 @@
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     // REMOVE
     if (viewController == self.childViewControllers[1]) {
-        [self performSegueWithIdentifier:@"MeasureSegue" sender:self];
+        [self performSegueWithIdentifier:@"FlatMeasureSegue" sender:self];
         return YES;
     }
     
