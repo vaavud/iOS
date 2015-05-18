@@ -53,8 +53,9 @@ class FlatMeasurementViewController : UIViewController, VaavudElectronicWindDele
     func tick(link: CADisplayLink) {
         ruler.compassDirection = weight*latestHeading + (1 - weight)*ruler.compassDirection
         ruler.windDirection = weight*latestWindDirection + (1 - weight)*ruler.windDirection
-        graph.reading = weight*latestSpeed + (1 - weight)*graph.reading
+        ruler.tick()
         
+        graph.reading = weight*latestSpeed + (1 - weight)*graph.reading
         gauge.complete += CGFloat(link.duration)/interval
     }
     
@@ -85,14 +86,14 @@ class FlatMeasurementViewController : UIViewController, VaavudElectronicWindDele
         
         if y < 120 {
             newHeading(latestHeading - dx)
-            label.text = NSString(format: "%.0f", latestHeading) as String
+            label.text = NSString(format: "Heading: %.0f\nWind: %.0f", latestHeading, latestWindDirection) as String
         }
         else if y < 240 {
             newWindDirection(latestWindDirection + dx)
-            label.text = NSString(format: "%.0f", latestWindDirection) as String
+            label.text = NSString(format: "Heading: %.0f\nWind: %.0f", latestHeading, latestWindDirection) as String
         }
         else {
-            newSpeed(max(0, y - 260)/10)
+            newSpeed(max(0, y - 260)/5)
             weight = max(0.01, weight + sender.translationInView(view).x/1000)
             label.text = NSString(format: "%.2f", weight) as String
         }
@@ -105,125 +106,193 @@ class FlatMeasurementViewController : UIViewController, VaavudElectronicWindDele
     }
 }
 
-class FlatRuler : UIView {
-    var compassDirection: CGFloat = 0 { didSet { setNeedsDisplay() } }
-    var windDirection: CGFloat = 0 { didSet { setNeedsDisplay() } }
-    var windSpeed: CGFloat = 0 { didSet { setNeedsDisplay() } }
-    
-    private let tickLength: CGFloat = 20
-    private let tickWidth: CGFloat = 2
-    private var visibleMarkers = 150
-    
-    private let cardinalDirections = 16
-    
-    private var font = UIFont(name: "BebasNeueRegular", size: 20)!
-    private var markers = [Polar]()
-    
-    //    required init(coder aDecoder: NSCoder) {
-    //        super.init(coder: aDecoder)
-    //    }
-    
-    override func drawRect(rect: CGRect) {
-        let padding = 20
-        
-        let cardinalAngle = 360/CGFloat(cardinalDirections)
-        
-        //        let fromCardinal = Int(ceil((compassDirection - 180)/cardinalAngle))
-        //        let toCardinal = Int(floor((compassDirection + 180)/cardinalAngle))
-        
-        let fromCardinal = 0
-        let toCardinal = cardinalDirections - 1
-        
-        let path = UIBezierPath()
-        
-        let innerRadius: CGFloat = 100
-        let origin = CGPoint(x: bounds.midX, y: bounds.midY)
-        
-        for cardinal in fromCardinal...toCardinal {
-            let phi = (CGFloat(cardinal)*cardinalAngle - compassDirection - 90).radians
-            
-            path.moveToPoint(origin + CGPoint(r: innerRadius, phi: phi))
-            path.addLineToPoint(origin + CGPoint(r: innerRadius + tickLength, phi: phi))
-            
-            let direction = mod(cardinal, cardinalDirections)
-            let text = VaavudFormatter.localizedCardinal(direction)
-            let p = origin + CGPoint(r: innerRadius + 2*tickLength, phi: phi)
-            drawLabel(text, at: p, black: direction % 4 == 0)
-        }
-        
-        UIColor.darkGrayColor().setStroke()
-        path.lineWidth = tickWidth
-        path.stroke()
-        
-        newMarker(Polar(r: windSpeed, phi: windDirection.radians))
-        drawMarkers(markers, rotation: compassDirection.radians)
-    }
-    
-    func newMarker(polar: Polar) {
-        markers.append(polar)
-        if markers.count > visibleMarkers {
-            markers.removeAtIndex(0)
-        }
-    }
-    
-    func drawMarkers(ms: [Polar], rotation: CGFloat) {
-        let radius: CGFloat = 3
-        let origin = CGPoint(x: bounds.midX, y: bounds.midY)
-        let offset = CGPoint(x: -radius, y: -radius)
-        let size = CGSize(width: 2*radius, height: 2*radius)
-        
-        let contextRef = UIGraphicsGetCurrentContext()
-        
-        for (i, m) in enumerate(ms) {
-            let age = 1 - CGFloat(i)/CGFloat(visibleMarkers)
-            let gray = 0.5 + 0.5*age
-            CGContextSetRGBFillColor(contextRef, gray, gray, gray, 1);
-            
-            let corner = origin + CGPoint(r: 10*m.r, phi: m.phi - rotation) + offset
-            let rect = CGRect(origin: corner, size: size)
-            CGContextFillEllipseInRect(contextRef, CGRect(origin: corner, size: size))
-        }
-        
-        if let m = ms.last {
-            CGContextSetRGBFillColor(contextRef, 1, 0, 0, 1);
-            
-            let corner = origin + CGPoint(r: 10*m.r, phi: m.phi - rotation) + offset
-            let rect = CGRect(origin: corner, size: size)
-            CGContextFillEllipseInRect(contextRef, CGRect(origin: corner, size: size))
-        }
-    }
-    
-    func drawLabel(string: String, at p: CGPoint, black: Bool = false) {
-        let text: NSString = string
-        
-        let fieldColor = black ? UIColor.blackColor() : UIColor.darkGrayColor()
-        let attributes = [NSForegroundColorAttributeName : fieldColor, NSFontAttributeName : font]
-        
-        let size = text.sizeWithAttributes(attributes)
-        let origin = CGPoint(x: p.x - size.width/2, y: p.y - size.height/2)
-        
-        text.drawInRect(CGRect(origin: origin, size: size), withAttributes: attributes)
-    }
-}
-
 class FlatTimeGauge : UIView {
     var complete: CGFloat = 0.0 { didSet { setNeedsDisplay() } }
     var completeColor = UIColor.vaavudBlueColor()
     
-    private var border: CGFloat = 14
-    private var width: CGFloat = 15
-    
     override func drawRect(rect: CGRect) {
-        let outline = CGRectInset(bounds, border + width/2, border + width/2)
-        let mid = CGPoint(x: outline.midX, y: outline.midY)
-                
-        completeColor.setStroke()
-        let completePath = UIBezierPath(arcCenter: mid, radius: outline.width/2, startAngle: -π/2, endAngle: 2*π*complete - π/2, clockwise: true)
-        completePath.lineWidth = width
-        completePath.lineCapStyle = kCGLineCapRound
-        completePath.stroke()
+        let start = CGPoint(x: bounds.midX, y: 0)
+        
+        completeColor.setFill()
+        
+        let path = UIBezierPath()
+        path.addArcWithCenter(bounds.center, radius: bounds.width/2, startAngle: -π/2, endAngle: 2*π*complete - π/2, clockwise: false)
+        path.addLineToPoint(bounds.center)
+        path.closePath()
+        path.fill()
     }
 }
+
+enum ArrowPosition: Int {
+    case Left = -1
+    case Inside = 0
+    case Right = 1
+}
+
+class FlatRuler : UIView {
+    var compassDirection: CGFloat = 0
+    var windDirection: CGFloat = 0
+    let arrow = FlatDirectionArrow(frame: CGRect(x: 0, y: 0, width: 50, height: 80))
+    let padding: CGFloat = 10
+    
+    var angleSpan: CGFloat = 30
+    
+    let rate: CGFloat = 0.25
+    
+//    private var font = UIFont(name: "BebasNeueRegular", size: 20)!
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    func tick() {
+        let angleDelta = moveArrow(windDirection - compassDirection)
+
+        let targetAngle: CGFloat
+        
+        if angleDelta > 0 {
+            targetAngle = -π/2
+        }
+        else if angleDelta < 0 {
+            targetAngle = π/2
+        }
+        else {
+            targetAngle = 0
+        }
+
+        arrow.angle = (1 - rate)*arrow.angle + rate*targetAngle
+        arrow.blinkSpeed = 100/(99 + 3*abs(angleDelta))
+        arrow.tick()
+    }
+    
+    func setup() {
+        addSubview(arrow)
+        arrow.frame.origin.y = padding
+    }
+    
+    func moveArrow(angle: CGFloat) -> CGFloat {
+        let newCenter = bounds.midX + angle*bounds.width/angleSpan
+        let margin = padding + max(arrow.bounds.height, arrow.bounds.width)/2
+        let adjustedCenter = min(bounds.width - margin, max(margin, newCenter))
+        
+        arrow.center.x = adjustedCenter
+        
+        return newCenter - adjustedCenter
+    }
+}
+
+class FlatDirectionArrow : UIView {
+    var angle: CGFloat = 0 { didSet { transform = Affine.rotation(angle) } }
+    var blinkSpeed: CGFloat = 0
+    private var alphaIncreasing = false
+    
+    override class func layerClass() -> AnyClass {
+        return CAShapeLayer.self
+    }
+
+    var shape: CAShapeLayer { return layer as! CAShapeLayer }
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    func setup() {
+        shape.fillColor = UIColor.vaavudGreenColor().CGColor
+        let path = UIBezierPath()
+        path.moveToPoint(bounds.upperLeft)
+        path.addLineToPoint(bounds.upperRight)
+        path.addLineToPoint(bounds.lowerMid)
+        path.closePath()
+        
+        shape.path = path.CGPath
+    }
+    
+    func tick() {
+        if alpha < 0.95 || blinkSpeed < 1 {
+            let rate = max(blinkSpeed/2, 0.2)
+            alpha = (1 - rate)*alpha + rate*(alphaIncreasing ? 1 : 0)
+            
+            if alpha < 0.01 {
+                alphaIncreasing = true
+            }
+            else if alpha > 0.99 {
+                alphaIncreasing = false
+            }
+        }
+    }
+}
+
+class FlatDirectionArrowMorph: UIView {
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+//    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+//    }
+    
+    var shape: CAShapeLayer { return layer as! CAShapeLayer }
+    
+    func setup() {
+        shape.fillColor = UIColor.vaavudGreyColor().CGColor
+        shape.path = UIBezierPath(ovalInRect: bounds).CGPath
+    }
+    
+    func showLeftArrow() {
+        let path = UIBezierPath()
+        path.moveToPoint(CGPoint(x: bounds.maxX, y: bounds.midY))
+        path.addLineToPoint(CGPoint(x: bounds.maxX, y: bounds.maxY))
+        path.addLineToPoint(CGPoint(x: bounds.minX, y: bounds.midY))
+        path.addLineToPoint(CGPoint(x: bounds.maxX, y: bounds.minY))
+        path.closePath()
+        
+        let anim = CABasicAnimation(keyPath: "path")
+        anim.toValue = path
+        shape.addAnimation(anim, forKey: "PathAnim")
+        
+        shape.path = path.CGPath
+    }
+    
+    func showRightArrow() {
+        let path = UIBezierPath()
+        path.moveToPoint(CGPoint(x: bounds.maxX, y: bounds.midY))
+        path.addLineToPoint(CGPoint(x: bounds.minX, y: bounds.maxY))
+        path.addLineToPoint(CGPoint(x: bounds.minX, y: bounds.midY))
+        path.addLineToPoint(CGPoint(x: bounds.minX, y: bounds.minY))
+        path.closePath()
+        
+        let anim = CABasicAnimation(keyPath: "path")
+        anim.toValue = path
+        shape.addAnimation(anim, forKey: "PathAnim")
+        
+        shape.path = path.CGPath
+    }
+    
+    func showCentered() {
+        let path = UIBezierPath(ovalInRect: bounds)
+        
+        let anim = CABasicAnimation(keyPath: "path")
+        anim.toValue = path
+        
+        println(path.currentPoint)
+        
+        shape.addAnimation(anim, forKey: "PathAnim")
+        
+        shape.path = path.CGPath
+    }
+    
+    override class func layerClass() -> AnyClass {
+        return CAShapeLayer.self
+    }
+}
+
 
 class FlatGraph : UIView {
     var lowY: CGFloat = 0

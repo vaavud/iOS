@@ -15,6 +15,69 @@ extension UIViewController {
     }
 }
 
+// MARK: CGAffineTransform
+
+typealias Affine = CGAffineTransform
+
+extension CGAffineTransform {
+    static var id: CGAffineTransform { return CGAffineTransformIdentity }
+    
+    init() {
+        self = CGAffineTransform.id
+    }
+    
+    func translate(x: CGFloat, _ y: CGFloat) -> CGAffineTransform {
+        return CGAffineTransformTranslate(self, x, y)
+    }
+    
+    func rotate(angle: CGFloat) -> CGAffineTransform {
+        return CGAffineTransformRotate(self, angle)
+    }
+    
+    func scale(x: CGFloat, _ y: CGFloat) -> CGAffineTransform {
+        return CGAffineTransformScale(self, x, y)
+    }
+    
+    func scale(r: CGFloat) -> CGAffineTransform {
+        return scale(r, r)
+    }
+    
+    func apply(rect: CGRect) -> CGRect {
+        return CGRectApplyAffineTransform(rect, self)
+    }
+    
+    func apply(point: CGPoint) -> CGPoint {
+        return CGPointApplyAffineTransform(point, self)
+    }
+    
+    var inverse: CGAffineTransform {
+        return CGAffineTransformInvert(self)
+    }
+
+    static func translation(x: CGFloat, _ y: CGFloat) -> CGAffineTransform {
+        return CGAffineTransformMakeTranslation(x, y)
+    }
+    
+    static func rotation(angle: CGFloat) -> CGAffineTransform {
+        return CGAffineTransformMakeRotation(angle)
+    }
+    
+    static func scaling(sx: CGFloat, _ sy: CGFloat) -> CGAffineTransform {
+        return CGAffineTransformMakeScale(sx, sy)
+    }
+    
+    static func scaling(r: CGFloat) -> CGAffineTransform {
+        return self.scaling(r, r)
+    }
+}
+
+func *(lhs: Affine, rhs: Affine) -> Affine {
+    return CGAffineTransformConcat(lhs, rhs)
+}
+
+
+// MARK: Points
+
 func + (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
     return CGPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
 }
@@ -74,7 +137,50 @@ func mod(i: CGFloat, n: CGFloat) -> CGFloat {
 }
 
 extension CGRect {
-    var mid: CGPoint {
+    func grow(delta: CGFloat) -> CGRect {
+        let dw = delta*width
+        let dh = delta*height
+        
+        return CGRect(x: origin.x - dw, y: origin.y - dh, width: width + 2*dw, height: height + 2*dh)
+    }
+    
+    var center: CGPoint {
         return CGPoint(x: midX, y: midY)
+    }
+    
+    var lowerRight: CGPoint {
+        return CGPoint(x: maxX, y: maxY)
+    }
+    
+    var lowerMid: CGPoint {
+        return CGPoint(x: midX, y: maxY)
+    }
+    
+    var lowerLeft: CGPoint {
+        return CGPoint(x: minX, y: maxY)
+    }
+    
+    var upperRight: CGPoint {
+        return CGPoint(x: maxX, y: minY)
+    }
+    
+    var upperMid: CGPoint {
+        return CGPoint(x: midX, y: minY)
+    }
+
+    var upperLeft: CGPoint {
+        return CGPoint(x: minX, y: minY)
+    }
+    
+    func insetX(dx: CGFloat) -> CGRect {
+        return CGRect(x: origin.x + dx, y: origin.y, width: width - 2*dx, height: height)
+    }
+    
+    func insetY(dy: CGFloat) -> CGRect {
+        return CGRect(x: origin.x, y: origin.y + dy, width: width, height: height - 2*dy)
+    }
+    
+    func move(dr: CGPoint) -> CGRect {
+        return CGRect(origin: origin + dr, size: size)
     }
 }
