@@ -8,6 +8,105 @@
 
 import UIKit
 
+class MeasurementViewController : UIViewController, VaavudElectronicWindDelegate {
+    @IBOutlet weak var ruler: Ruler!
+    @IBOutlet weak var gauge: TimeGauge!
+    @IBOutlet weak var graph: Graph!
+    
+    @IBOutlet weak var speedLabel: UILabel!
+    
+    private var displayLink: CADisplayLink!
+    private var latestHeading: CGFloat = 0
+    private var latestWindDirection: CGFloat = 0
+    private var latestSpeed: CGFloat = 0
+    
+    var interval: CGFloat = 30
+    
+    var weight: CGFloat = 0.1
+    
+    let sdk = VEVaavudElectronicSDK.sharedVaavudElectronic()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        displayLink = CADisplayLink(target: self, selector: Selector("tick:"))
+        displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
+        
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "changeOffset:"))
+        
+        sdk.addListener(self)
+        sdk.start()
+    }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return Int(UIInterfaceOrientationMask.All.rawValue)
+    }
+    
+    deinit {
+        sdk.stop()
+        displayLink.invalidate()
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
+    func tick(link: CADisplayLink) {
+        ruler.compassDirection = weight*latestHeading + (1 - weight)*ruler.compassDirection
+        ruler.windDirection = weight*latestWindDirection + (1 - weight)*ruler.windDirection
+        graph.reading = weight*latestSpeed + (1 - weight)*graph.reading
+        
+        gauge.complete += CGFloat(link.duration)/interval
+    }
+    
+    func slowTick() {
+        
+    }
+    
+    // MARK: SDK Callbacks
+    func newWindDirection(windDirection: NSNumber!) {
+        latestWindDirection += distanceOnCircle(from: latestWindDirection, to: CGFloat(windDirection.floatValue))
+    }
+    
+    func newSpeed(speed: NSNumber!) {
+        speedLabel.text = NSString(format: "%.1f", speed.floatValue) as String
+        latestSpeed = CGFloat(speed.floatValue)
+    }
+    
+    func newHeading(heading: NSNumber!) {
+        latestHeading += distanceOnCircle(from: latestHeading, to: CGFloat(heading.floatValue))
+    }
+    
+    @IBOutlet weak var label: UILabel!
+    
+    func changeOffset(sender: UIPanGestureRecognizer) {
+        let y = sender.locationInView(view).y
+        let x = view.bounds.midX - sender.locationInView(view).x
+        let dx = sender.translationInView(view).x/3
+        
+        if y < 120 {
+            newHeading(latestHeading - dx)
+            label.text = NSString(format: "%.0f", latestHeading) as String
+        }
+        else if y < 240 {
+            newWindDirection(latestWindDirection + dx)
+            label.text = NSString(format: "%.0f", latestWindDirection) as String
+        }
+        else {
+            ruler.pointsPerTick = max(ruler.pointsPerTick + sender.translationInView(view).x/10, 1)
+            label.text = NSString(format: "%.2f", ruler.pointsPerTick) as String
+            
+            newSpeed(max(0, y - 260)/10)
+            //            weight = max(0.01, weight + sender.translationInView(view).x/1000)
+        }
+        
+        sender.setTranslation(CGPoint(), inView: view)
+    }
+    
+    @IBAction func dismiss() {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
 enum NeedleState {
     case Left
     case Inside
@@ -70,18 +169,42 @@ class Ruler : UIView {
             let y = bounds.height*(isLongTick ? longTickLength : shortTickLength)
             
             if isTick {
-                path.moveToPoint(CGPoint(x: x, y: 0))
-                path.addLineToPoint(CGPoint(x: x, y: y))
+                if pointsPerTick > 5 || isLongTick {
+                    path.moveToPoint(CGPoint(x: x, y: 0))
+                    path.addLineToPoint(CGPoint(x: x, y: y))
+                }
             }
             
             let p = CGPoint(x: x, y: y + 7)
             if halfTick % cardinalPeriod == 0 {
-                drawLabel(VaavudFormatter.localizedCardinal(Float(tick)), at: p, red: tick == 0, small: !isMajorCardinal)
+                let isMainCardinal = halfTick % (2*cardinalMajorPeriod) == 0
+                
+                if pointsPerTick > 12 || (pointsPerTick > 11 && isMajorCardinal) || isMainCardinal {
+                    drawLabel(VaavudFormatter.localizedCardinal(Float(tick)), at: p, red: tick == 0, small: !isMajorCardinal)
+                }
             }
             else if isLongTick {
-                drawLabel(NSString(format: "%d°", tick) as String, at: p, isDegree: true)
+                let doDraw: Bool
+                
+                if pointsPerTick < 2 {
+                    doDraw = false
+                }
+                else if pointsPerTick < 6 {
+                    doDraw = tick % 30 == 0
+                }
+                else if pointsPerTick < 12 {
+                    doDraw = tick % 10 == 0
+                }
+                else {
+                    doDraw = true
+                }
+                if doDraw {
+                    drawLabel(NSString(format: "%d°", tick) as String, at: p, isDegree: true)
+                }
             }
         }
+        
+        println()
         
         UIColor.vaavudDarkGreyColor().setStroke()
         path.lineWidth = tickWidth
@@ -95,14 +218,14 @@ class Ruler : UIView {
         let base: CGFloat = 20
         let height: CGFloat = 35
         
-        switch x {
-        case CGFloat.min..<0:
-            println("left")
-        case bounds.width..<CGFloat.max:
-            println("right")
-        default:
-            println("in")
-        }
+//        switch x {
+//        case CGFloat.min..<0:
+//            println("left")
+//        case bounds.width..<CGFloat.max:
+//            println("right")
+//        default:
+//            println("in")
+//        }
         
         let outside = x < 0 || x > bounds.width
         
@@ -222,103 +345,6 @@ class TimeGauge : UIView {
         completePath.lineWidth = width
         completePath.lineCapStyle = kCGLineCapRound
         completePath.stroke()
-    }
-}
-
-class MeasurementViewController : UIViewController, VaavudElectronicWindDelegate {
-    @IBOutlet weak var ruler: Ruler!
-    @IBOutlet weak var gauge: TimeGauge!
-    @IBOutlet weak var graph: Graph!
-    
-    @IBOutlet weak var speedLabel: UILabel!
-    
-    private var displayLink: CADisplayLink!
-    private var latestHeading: CGFloat = 0
-    private var latestWindDirection: CGFloat = 0
-    private var latestSpeed: CGFloat = 0
-    
-    var interval: CGFloat = 30
-    
-    var weight: CGFloat = 0.1
-    
-    let sdk = VEVaavudElectronicSDK.sharedVaavudElectronic()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        displayLink = CADisplayLink(target: self, selector: Selector("tick:"))
-        displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
-
-        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "changeOffset:"))
-
-        sdk.addListener(self)
-        sdk.start()
-    }
-    
-    override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.All.rawValue)
-    }
-    
-    deinit {
-        sdk.stop()
-        displayLink.invalidate()
-    }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-    
-    func tick(link: CADisplayLink) {
-        ruler.compassDirection = weight*latestHeading + (1 - weight)*ruler.compassDirection
-        ruler.windDirection = weight*latestWindDirection + (1 - weight)*ruler.windDirection
-        graph.reading = weight*latestSpeed + (1 - weight)*graph.reading
-        
-        gauge.complete += CGFloat(link.duration)/interval
-    }
-    
-    func slowTick() {
-        
-    }
-    
-    // MARK: SDK Callbacks
-    func newWindDirection(windDirection: NSNumber!) {
-        latestWindDirection += distanceOnCircle(from: latestWindDirection, to: CGFloat(windDirection.floatValue))
-    }
-    
-    func newSpeed(speed: NSNumber!) {
-        speedLabel.text = NSString(format: "%.1f", speed.floatValue) as String
-        latestSpeed = CGFloat(speed.floatValue)
-    }
-    
-    func newHeading(heading: NSNumber!) {
-        latestHeading += distanceOnCircle(from: latestHeading, to: CGFloat(heading.floatValue))
-    }
-    
-    @IBOutlet weak var label: UILabel!
-    
-    func changeOffset(sender: UIPanGestureRecognizer) {
-        let y = sender.locationInView(view).y
-        let x = view.bounds.midX - sender.locationInView(view).x
-        let dx = sender.translationInView(view).x/3
-
-        if y < 120 {
-            newHeading(latestHeading - dx)
-            label.text = NSString(format: "%.0f", latestHeading) as String
-        }
-        else if y < 240 {
-            newWindDirection(latestWindDirection + dx)
-            label.text = NSString(format: "%.0f", latestWindDirection) as String
-        }
-        else {
-            newSpeed(max(0, y - 260)/10)
-            weight = max(0.01, weight + sender.translationInView(view).x/1000)
-            label.text = NSString(format: "%.2f", weight) as String
-        }
-        
-        sender.setTranslation(CGPoint(), inView: view)
-    }
-    
-    @IBAction func dismiss() {
-        dismissViewControllerAnimated(true, completion: nil)
     }
 }
 

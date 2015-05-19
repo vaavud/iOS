@@ -59,10 +59,6 @@ class FlatMeasurementViewController : UIViewController, VaavudElectronicWindDele
         gauge.complete += CGFloat(link.duration)/interval
     }
     
-    func slowTick() {
-        
-    }
-    
     // MARK: SDK Callbacks
     func newWindDirection(windDirection: NSNumber!) {
         latestWindDirection += distanceOnCircle(from: latestWindDirection, to: CGFloat(windDirection.floatValue))
@@ -94,8 +90,8 @@ class FlatMeasurementViewController : UIViewController, VaavudElectronicWindDele
         }
         else {
             newSpeed(max(0, y - 260)/5)
-            weight = max(0.01, weight + sender.translationInView(view).x/1000)
-            label.text = NSString(format: "%.2f", weight) as String
+            ruler.angleSpan += sender.translationInView(view).x/10
+            label.text = NSString(format: "%.0f", ruler.angleSpan) as String
         }
         
         sender.setTranslation(CGPoint(), inView: view)

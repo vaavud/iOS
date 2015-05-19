@@ -10,6 +10,7 @@
 		221285B21B04A6F500D4C008 /* FlatMeasurementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221285B11B04A6F500D4C008 /* FlatMeasurementController.swift */; };
 		2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */; };
 		2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */; };
+		223DA7B41B0B696E00298A6E /* MapMeasurementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223DA7B31B0B696E00298A6E /* MapMeasurementViewController.swift */; };
 		2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
 		2256C19B1AA7450E00782314 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2256C19A1AA7450E00782314 /* Crashlytics.framework */; };
 		225DB9FF1AFA5C3100B2E8D0 /* BebasNeue_Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 225DB9FD1AFA5C3100B2E8D0 /* BebasNeue_Bold.otf */; };
@@ -212,6 +213,7 @@
 		221E30EE1AE2EF5600503FE1 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Register.strings"; sourceTree = "<group>"; };
 		2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradingUserViewController.swift; sourceTree = "<group>"; };
 		2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpgradingUserPhonePages.xib; sourceTree = "<group>"; };
+		223DA7B31B0B696E00298A6E /* MapMeasurementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapMeasurementViewController.swift; path = VaavudCore/MapMeasurementViewController.swift; sourceTree = "<group>"; };
 		224D260C1AE11AA3006F5C23 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Register.strings; sourceTree = "<group>"; };
 		225572CA1AE2851900153F03 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		2255A63A1A818535006589D5 /* VaavudInteractions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudInteractions.swift; sourceTree = "<group>"; };
@@ -668,6 +670,7 @@
 		D7A4F1BE173A8DDB00D1ACEE = {
 			isa = PBXGroup;
 			children = (
+				223DA7B31B0B696E00298A6E /* MapMeasurementViewController.swift */,
 				E972407319DAAB54008642E2 /* Images.xcassets */,
 				E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */,
 				D7A4F1D0173A8DDB00D1ACEE /* Classes */,
@@ -1530,6 +1533,7 @@
 				E91E490D19AB5F3D00616887 /* CoreMeasureViewController.m in Sources */,
 				E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */,
 				E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */,
+				223DA7B41B0B696E00298A6E /* MapMeasurementViewController.swift in Sources */,
 				E93C865A1781BE56005E4212 /* LocationManager.m in Sources */,
 				E93C86631781C764005E4212 /* Property+Util.m in Sources */,
 				E98C9A6019B9D9EE009428F3 /* SleipnirMeasurementController.m in Sources */,
