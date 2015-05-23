@@ -177,7 +177,11 @@ SHARED_INSTANCE
 }
 
 + (BOOL)isIPhone4 {
-    return [[[ModelManager getModel] substringToIndex:7] isEqualToString:@"iPhone3"];
+    
+    if ([ModelManager getModel].length >= 7) {
+        return [[[ModelManager getModel] substringToIndex:7] isEqualToString:@"iPhone3"];
+    }
+    return false;
 }
 
 @end
