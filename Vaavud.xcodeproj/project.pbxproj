@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		221285B21B04A6F500D4C008 /* FlatMeasurementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221285B11B04A6F500D4C008 /* FlatMeasurementController.swift */; };
+		2231A0A41B19BECE003DADDB /* MeasureRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */; };
 		2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */; };
 		2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */; };
 		223DA7B41B0B696E00298A6E /* MapMeasurementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223DA7B31B0B696E00298A6E /* MapMeasurementViewController.swift */; };
@@ -20,6 +21,7 @@
 		228500881AEA8E0200E1E7C2 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228500871AEA8E0200E1E7C2 /* FacebookSDK.framework */; };
 		22900BB31AEE7616009D9C8F /* MjolnirSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22900BB21AEE7616009D9C8F /* MjolnirSpinner.swift */; };
 		22900BB71AEE77C1009D9C8F /* MjolnirSpinner.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22900BB61AEE77C1009D9C8F /* MjolnirSpinner.xcassets */; };
+		229533511B1F3F8A00DAEA62 /* MeasureCancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229533501B1F3F8A00DAEA62 /* MeasureCancelButton.swift */; };
 		229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
 		229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3171A7EE3A0008A3226 /* VaavudViews.swift */; };
 		22A3405E1A5AE022006CE401 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */; };
@@ -211,6 +213,7 @@
 		221E30EA1AE2EF4C00503FE1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Register.strings; sourceTree = "<group>"; };
 		221E30EC1AE2EF5100503FE1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Register.strings"; sourceTree = "<group>"; };
 		221E30EE1AE2EF5600503FE1 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Register.strings"; sourceTree = "<group>"; };
+		2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasureRootViewController.swift; sourceTree = "<group>"; };
 		2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradingUserViewController.swift; sourceTree = "<group>"; };
 		2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpgradingUserPhonePages.xib; sourceTree = "<group>"; };
 		223DA7B31B0B696E00298A6E /* MapMeasurementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapMeasurementViewController.swift; path = VaavudCore/MapMeasurementViewController.swift; sourceTree = "<group>"; };
@@ -235,6 +238,7 @@
 		228A7BBA1ADD191600EB72CC /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		22900BB21AEE7616009D9C8F /* MjolnirSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MjolnirSpinner.swift; sourceTree = "<group>"; };
 		22900BB61AEE77C1009D9C8F /* MjolnirSpinner.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = MjolnirSpinner.xcassets; path = VaavudCore/MjolnirSpinner.xcassets; sourceTree = "<group>"; };
+		229533501B1F3F8A00DAEA62 /* MeasureCancelButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasureCancelButton.swift; sourceTree = "<group>"; };
 		22969D461AB2ED5800255A55 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		2297D9091AB877B300ED914A /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		2297D90B1AB877B500ED914A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
@@ -717,6 +721,8 @@
 		D7A4F1D0173A8DDB00D1ACEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				229533501B1F3F8A00DAEA62 /* MeasureCancelButton.swift */,
+				2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */,
 				22DCCED31B02399800D65265 /* SemiCircleMeasurementScreen.swift */,
 				221285B11B04A6F500D4C008 /* FlatMeasurementController.swift */,
 				228227511AF7ABF100822CE2 /* MeasurementViewController.swift */,
@@ -1453,11 +1459,13 @@
 				E9A4099F18AA75C6004F1C12 /* RegisterNavigationController.m in Sources */,
 				E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */,
 				E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */,
+				229533511B1F3F8A00DAEA62 /* MeasureCancelButton.swift in Sources */,
 				E9A4097818994000004F1C12 /* TMCache.m in Sources */,
 				E9A4099C18AA501D004F1C12 /* PasswordUtil.m in Sources */,
 				E9B627C217708E63004678D5 /* AFHTTPRequestOperation.m in Sources */,
 				E9B627C317708E63004678D5 /* AFImageRequestOperation.m in Sources */,
 				E9B627C417708E63004678D5 /* AFJSONRequestOperation.m in Sources */,
+				2231A0A41B19BECE003DADDB /* MeasureRootViewController.swift in Sources */,
 				E91D4218198F7C8400106E15 /* GuideView.m in Sources */,
 				E9159CA51A03E09100742188 /* MeasurementSession.m in Sources */,
 				E9B627C517708E63004678D5 /* AFNetworkActivityIndicatorManager.m in Sources */,

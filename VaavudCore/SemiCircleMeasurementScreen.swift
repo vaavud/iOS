@@ -34,7 +34,7 @@ class CircularMeasurementViewController : UIViewController, VaavudElectronicWind
         displayLink = CADisplayLink(target: self, selector: Selector("tick:"))
         displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
         
-        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "changeOffset:"))
+//        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "changeOffset:"))
         
         sdk.addListener(self)
         sdk.start()

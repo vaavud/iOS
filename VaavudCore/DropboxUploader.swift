@@ -52,11 +52,11 @@ class DropboxUploader: NSObject, DBRestClientDelegate {
             var fileURL = tempBase.URLByAppendingPathComponent(NSProcessInfo.processInfo().globallyUniqueString)
             let success = string.writeToURL(fileURL, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
             if (success) {
-                println("sucess writing file %@", fileURL.path)
+                println("success writing file %@", fileURL.path)
                 return fileURL
             }
             else {
-                println("not so sucessfull writing file %@", fileURL.path)
+                println("not so successfull writing file %@", fileURL.path)
             }
         }
         println("Could not get tmp directory")
