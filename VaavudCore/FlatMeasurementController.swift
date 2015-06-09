@@ -10,7 +10,6 @@ import UIKit
 
 class FlatMeasurementViewController : UIViewController, VaavudElectronicWindDelegate {
     @IBOutlet weak var ruler: FlatRuler!
-    @IBOutlet weak var gauge: FlatTimeGauge!
     @IBOutlet weak var graph: FlatGraph!
     
     @IBOutlet weak var speedLabel: UILabel!
@@ -56,7 +55,7 @@ class FlatMeasurementViewController : UIViewController, VaavudElectronicWindDele
         ruler.tick()
         
         graph.reading = weight*latestSpeed + (1 - weight)*graph.reading
-        gauge.complete += CGFloat(link.duration)/interval
+//        gauge.complete += CGFloat(link.duration)/interval
     }
     
     // MARK: SDK Callbacks
@@ -95,27 +94,6 @@ class FlatMeasurementViewController : UIViewController, VaavudElectronicWindDele
         }
         
         sender.setTranslation(CGPoint(), inView: view)
-    }
-    
-    @IBAction func dismiss() {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-}
-
-class FlatTimeGauge : UIView {
-    var complete: CGFloat = 0.0 { didSet { setNeedsDisplay() } }
-    var completeColor = UIColor.vaavudBlueColor()
-    
-    override func drawRect(rect: CGRect) {
-        let start = CGPoint(x: bounds.midX, y: 0)
-        
-        completeColor.setFill()
-        
-        let path = UIBezierPath()
-        path.addArcWithCenter(bounds.center, radius: bounds.width/2, startAngle: -π/2, endAngle: 2*π*complete - π/2, clockwise: false)
-        path.addLineToPoint(bounds.center)
-        path.closePath()
-        path.fill()
     }
 }
 
@@ -203,6 +181,7 @@ class FlatDirectionArrow : UIView {
         shape.fillColor = UIColor.vaavudGreenColor().CGColor
         let path = UIBezierPath()
         path.moveToPoint(bounds.upperLeft)
+        path.addLineToPoint(bounds.upperMid.approach(bounds.lowerMid, by: 0.2))
         path.addLineToPoint(bounds.upperRight)
         path.addLineToPoint(bounds.lowerMid)
         path.closePath()

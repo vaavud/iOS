@@ -9,6 +9,47 @@
 import Foundation
 import MediaPlayer
 
+class Plot: UIView {
+    let f: CGFloat -> CGFloat
+    let n: Int
+    let range: (CGFloat, CGFloat)
+    let color = UIColor.darkGrayColor()
+    
+    init(frame: CGRect, f: CGFloat -> CGFloat, range: (CGFloat, CGFloat) = (0, 1), n: Int = 10) {
+        self.f = f
+        self.range = range
+        self.n = n
+        super.init(frame: frame)
+        backgroundColor = UIColor.lightGrayColor()
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func drawRect(rect: CGRect) {
+        color.setFill()
+        
+        let path = UIBezierPath()
+        path.moveToPoint(bounds.lowerLeft)
+        for i in 0...n {
+            let x = range.0 + (CGFloat(i)/CGFloat(n))*(range.1 - range.0)
+            path.addLineToPoint(CGPoint(x: bounds.minX + x*bounds.width, y: bounds.maxY - f(x)*bounds.height))
+        }
+        path.addLineToPoint(bounds.lowerRight)
+        path.closePath()
+        path.fill()
+    }
+}
+
+func sigmoid(x: CGFloat) -> CGFloat {
+    return 1/(1 + exp(-x))
+}
+
+func ease(x: CGFloat) -> CGFloat {
+    return x < 0.5 ? 4*pow(x, 3) : pow(2*x - 2, 3)/2 + 1
+}
+
 extension UIViewController {
     func hideVolumeHUD() {
         view.addSubview(MPVolumeView(frame: CGRect(x: -1000, y: -1000, width: 100, height: 100)))
@@ -82,12 +123,20 @@ func + (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
     return CGPoint(x: lhs.x + rhs.x, y: lhs.y + rhs.y)
 }
 
+func * (lhs: CGFloat, rhs: CGPoint) -> CGPoint {
+    return CGPoint(x: lhs*rhs.x, y: lhs*rhs.y)
+}
+
 func - (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
     return CGPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
 }
 
 func + (lhs: Polar, rhs: Polar) -> Polar {
     return Polar(r: lhs.r + rhs.r, phi: lhs.phi + rhs.phi)
+}
+
+func dist(p: CGPoint, q: CGPoint) -> CGFloat {
+    return (p - q).length
 }
 
 struct Polar {
@@ -125,6 +174,10 @@ extension CGPoint {
     
     init(r: CGFloat, phi: CGFloat) {
         self.init(polar: Polar(r: r, phi: phi))
+    }
+    
+    func approach(goal: CGPoint, by factor: CGFloat) -> CGPoint {
+        return (1 - factor)*self + factor*goal
     }
 }
 

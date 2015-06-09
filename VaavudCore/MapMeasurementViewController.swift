@@ -53,10 +53,6 @@ class MapMeasurementViewController:UIViewController, VaavudElectronicWindDelegat
         displayLink.invalidate()
     }
     
-    @IBAction func tappedDismiss(sender: UIButton) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
-
     @IBOutlet weak var label: UILabel!
     
     func changeOffset(sender: UIPanGestureRecognizer) {

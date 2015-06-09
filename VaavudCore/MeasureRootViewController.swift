@@ -15,7 +15,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var displayLink: CADisplayLink!
 
     @IBOutlet weak var cancelButton: MeasureCancelButton!
-    var state = MeasureState.CountingDown(5)
+    var state = MeasureState.CountingDown(5, true)
     var timeLeft: CGFloat = 5
     
     override func viewDidLoad() {
@@ -24,7 +24,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         pageController = storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as? UIPageViewController
         pageController.dataSource = self
         pageController.view.frame = view.bounds
-        println(pageController.view.frame)
         
         let vcsNames = ["FlatMeasureViewController", "RoundMeasureViewController", "MapMeasureViewController"]
         viewControllers = vcsNames.map { self.storyboard!.instantiateViewControllerWithIdentifier($0) as! UIViewController }
@@ -42,12 +41,21 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
     }
     
+    @IBAction func tappedCancel(sender: MeasureCancelButton) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     func tick(link: CADisplayLink) {
         switch state {
-        case .CountingDown:
+        case let .CountingDown(_, stoppable):
             if timeLeft < 0 {
-                state = .Cancellable(30)
-                timeLeft = 30
+                if stoppable {
+                    state = .Stoppable
+                }
+                else {
+                    state = .Cancellable(30)
+                    timeLeft = 30
+                }
             }
             else {
                 timeLeft -= CGFloat(link.duration)
