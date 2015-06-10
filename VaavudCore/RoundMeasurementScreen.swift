@@ -8,20 +8,14 @@
 
 import UIKit
 
-class CircularMeasurementViewController : UIViewController, VaavudElectronicWindDelegate {
-    @IBOutlet weak var ruler: CircularRuler!
+class RoundMeasurementViewController : UIViewController, VaavudElectronicWindDelegate {
+    @IBOutlet weak var ruler: RoundRuler!
     @IBOutlet weak var speedLabel: UILabel!
     
     private var displayLink: CADisplayLink!
     private var latestHeading: CGFloat = 0
     private var latestWindDirection: CGFloat = 0
     private var latestSpeed: CGFloat = 0
-    
-    @IBOutlet weak var debugLabel: UILabel!
-    
-    func updateDebugLabel() {
-        debugLabel.text = NSString(format: "Heading: %.1f\nLocal: %.1f", latestHeading, latestWindDirection - latestHeading) as String
-    }
     
     var interval: CGFloat = 30
     
@@ -57,15 +51,11 @@ class CircularMeasurementViewController : UIViewController, VaavudElectronicWind
         ruler.compassDirection = weight*latestHeading + (1 - weight)*ruler.compassDirection
         ruler.windDirection = weight*latestWindDirection + (1 - weight)*ruler.windDirection
         ruler.windSpeed = weight*latestSpeed + (1 - weight)*ruler.windSpeed
-        //
-        //        gauge.complete += CGFloat(link.duration)/interval
     }
     
     // MARK: SDK Callbacks
     func newWindDirection(windDirection: NSNumber!) {
         latestWindDirection += distanceOnCircle(from: latestWindDirection, to: CGFloat(windDirection.floatValue))
-        
-        updateDebugLabel()
     }
     
     func newSpeed(speed: NSNumber!) {
@@ -77,11 +67,7 @@ class CircularMeasurementViewController : UIViewController, VaavudElectronicWind
         if !lockNorth {
             latestHeading += distanceOnCircle(from: latestHeading, to: CGFloat(heading.floatValue))
         }
-        
-        updateDebugLabel()
     }
-    
-    @IBOutlet weak var label: UILabel!
     
     var lockNorth = false
     
@@ -101,27 +87,20 @@ class CircularMeasurementViewController : UIViewController, VaavudElectronicWind
         
         if y < 20 {
             weight = max(0.01, weight + sender.translationInView(view).x/1000)
-            label.text = NSString(format: "%.2f", weight) as String
         }
         else if y < 120 {
             newHeading(latestHeading - dx)
-            label.text = NSString(format: "%.0f", latestHeading) as String
         }
         else {
             newWindDirection(latestWindDirection + dx)
-            label.text = NSString(format: "%.0f", latestWindDirection) as String
             newSpeed(max(0, latestSpeed - dy/10))
         }
         
         sender.setTranslation(CGPoint(), inView: view)
     }
-    
-    @IBAction func dismiss() {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
 }
 
-class CircularRuler : UIView {
+class RoundRuler : UIView {
     var compassDirection: CGFloat = 0 { didSet { setNeedsDisplay() } }
     var windDirection: CGFloat = 0 { didSet { setNeedsDisplay() } }
     var windSpeed: CGFloat = 0 { didSet { setNeedsDisplay() } }
@@ -140,28 +119,22 @@ class CircularRuler : UIView {
 //    }
     
     override func drawRect(rect: CGRect) {
+        drawCircles(bounds, scaling: 1)
+        
         let cardinalAngle = 360/CGFloat(cardinalDirections)
         
-//        let fromCardinal = Int(ceil((compassDirection - 180)/cardinalAngle))
-//        let toCardinal = Int(floor((compassDirection + 180)/cardinalAngle))
-
-        let fromCardinal = 0
         let toCardinal = cardinalDirections - 1
 
         let path = UIBezierPath()
-        
         let innerRadius: CGFloat = 70
         let origin = bounds.center
         
-        for cardinal in fromCardinal...toCardinal {
+        for cardinal in 0...toCardinal {
             if cardinal % 2 != 0 {
                 continue
             }
             
             let phi = (CGFloat(cardinal)*cardinalAngle - compassDirection - 90).radians
-            
-//            path.moveToPoint(origin + CGPoint(r: innerRadius, phi: phi))
-//            path.addLineToPoint(origin + CGPoint(r: innerRadius + tickLength, phi: phi))
             
             let direction = mod(cardinal, cardinalDirections)
             let text = VaavudFormatter.localizedCardinal(direction)
@@ -173,10 +146,6 @@ class CircularRuler : UIView {
             drawLabel(text, at: p, color: color)
         }
         
-//        UIColor.darkGrayColor().setStroke()
-//        path.lineWidth = tickWidth
-//        path.stroke()
-        
         let contextRef = UIGraphicsGetCurrentContext()
         CGContextSetRGBFillColor(contextRef, 0, 0, 0, 1);
         let rect = CGRect(center: origin, size: CGSize(width: 2, height: 2))
@@ -184,6 +153,17 @@ class CircularRuler : UIView {
 
         newMarker(Polar(r: windSpeed, phi: windDirection.radians))
         drawMarkers(markers, rotation: compassDirection.radians)
+    }
+    
+    let bandWidth: CGFloat = 52
+    
+    func drawCircles(rect: CGRect, scaling: CGFloat) {
+        for i in 0...10 {
+            UIColor(white: CGFloat(30 + i)/40, alpha: 1).setFill()
+            
+            let r = CGFloat(12 - i)*bandWidth
+            UIBezierPath(ovalInRect: CGRect(center: rect.center, size: CGSize(width: r, height: r))).fill()
+        }
     }
     
     func newMarker(polar: Polar) {
@@ -229,31 +209,6 @@ class CircularRuler : UIView {
         let origin = CGPoint(x: p.x - size.width/2, y: p.y - size.height/2)
         
         text.drawInRect(CGRect(origin: origin, size: size), withAttributes: attributes)
-    }
-}
-
-class TimeGauge2 : UIView {
-    var complete: CGFloat = 0.0 { didSet { setNeedsDisplay() } }
-    var backColor = UIColor(red: CGFloat(228)/255, green: CGFloat(231)/255, blue: CGFloat(232)/255, alpha: 1)
-    var completeColor = UIColor.vaavudBlueColor()
-    
-    private var border: CGFloat = 14
-    private var width: CGFloat = 15
-    
-    override func drawRect(rect: CGRect) {
-        let outline = CGRectInset(bounds, border + width/2, border + width/2)
-        let mid = CGPoint(x: outline.midX, y: outline.midY)
-        
-        backColor.setStroke()
-        let backPath = UIBezierPath(ovalInRect: outline)
-        backPath.lineWidth = width
-        backPath.stroke()
-        
-        completeColor.setStroke()
-        let completePath = UIBezierPath(arcCenter: mid, radius: outline.width/2, startAngle: -π/2, endAngle: 2*π*complete - π/2, clockwise: true)
-        completePath.lineWidth = width
-        completePath.lineCapStyle = kCGLineCapRound
-        completePath.stroke()
     }
 }
 

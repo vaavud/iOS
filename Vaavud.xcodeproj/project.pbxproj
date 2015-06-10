@@ -33,7 +33,7 @@
 		22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408B61A8A0E2E0062A2DD /* Extensions.swift */; };
 		22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */; };
 		22CECB181AF22CE300148045 /* SettingsSleipnirClip.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22CECB171AF22CE300148045 /* SettingsSleipnirClip.xcassets */; };
-		22DCCED41B02399800D65265 /* SemiCircleMeasurementScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DCCED31B02399800D65265 /* SemiCircleMeasurementScreen.swift */; };
+		22DCCED41B02399800D65265 /* RoundMeasurementScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DCCED31B02399800D65265 /* RoundMeasurementScreen.swift */; };
 		22E59A3A1ADD6F7000B1BC88 /* HistoryScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A301ADD6F7000B1BC88 /* HistoryScreen.xcassets */; };
 		22E59A3C1ADD6F7000B1BC88 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A311ADD6F7000B1BC88 /* Icons.xcassets */; };
 		22E59A3E1ADD6F7000B1BC88 /* InterfaceElements.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A321ADD6F7000B1BC88 /* InterfaceElements.xcassets */; };
@@ -263,7 +263,7 @@
 		22B99AC41ADFD8C600E1A27B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Register.strings; sourceTree = "<group>"; };
 		22CECB171AF22CE300148045 /* SettingsSleipnirClip.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SettingsSleipnirClip.xcassets; path = ImageAssets/SettingsSleipnirClip.xcassets; sourceTree = "<group>"; };
 		22DB81A81A8389DF00DA67AC /* Model 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.xcdatamodel"; sourceTree = "<group>"; };
-		22DCCED31B02399800D65265 /* SemiCircleMeasurementScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SemiCircleMeasurementScreen.swift; sourceTree = "<group>"; };
+		22DCCED31B02399800D65265 /* RoundMeasurementScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundMeasurementScreen.swift; sourceTree = "<group>"; };
 		22E204FE1AB19BEB00FA7E1D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		22E59A301ADD6F7000B1BC88 /* HistoryScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = HistoryScreen.xcassets; path = ImageAssets/HistoryScreen.xcassets; sourceTree = "<group>"; };
 		22E59A311ADD6F7000B1BC88 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Icons.xcassets; path = ImageAssets/Icons.xcassets; sourceTree = "<group>"; };
@@ -723,7 +723,7 @@
 			children = (
 				229533501B1F3F8A00DAEA62 /* MeasureCancelButton.swift */,
 				2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */,
-				22DCCED31B02399800D65265 /* SemiCircleMeasurementScreen.swift */,
+				22DCCED31B02399800D65265 /* RoundMeasurementScreen.swift */,
 				221285B11B04A6F500D4C008 /* FlatMeasurementController.swift */,
 				228227511AF7ABF100822CE2 /* MeasurementViewController.swift */,
 				22900BB21AEE7616009D9C8F /* MjolnirSpinner.swift */,
@@ -1451,7 +1451,7 @@
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
 				E9D9044D19C1971000ABA9F4 /* WindMeasurementController.m in Sources */,
 				E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */,
-				22DCCED41B02399800D65265 /* SemiCircleMeasurementScreen.swift in Sources */,
+				22DCCED41B02399800D65265 /* RoundMeasurementScreen.swift in Sources */,
 				D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */,
 				E9B950CC195B1DCE00E9EF02 /* ImageUtil.m in Sources */,
 				E91D421B198F7E4900106E15 /* DismissOnTouchUIView.m in Sources */,

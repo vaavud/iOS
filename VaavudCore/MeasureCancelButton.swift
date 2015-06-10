@@ -37,6 +37,8 @@ class MeasureCancelButton: UIButton {
     
     override func layoutSubviews() {
         pieView.frame = bounds
+        
+        println(pieView.bounds)
     }
     
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
@@ -106,7 +108,7 @@ class PieView: UIView {
     let highlightedStrokeColor = UIColor.vaavudBlueColor().colorWithAlpha(0.3)
 
     override func drawRect(rect: CGRect) {
-        UIColor.whiteColor().setFill()
+        UIColor.vaavudBlueColor().colorWithAlpha(0.1).setFill()
         let backPath = UIBezierPath(ovalInRect: bounds)
         backPath.fill()
         
