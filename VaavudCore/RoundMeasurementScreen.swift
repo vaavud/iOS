@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RoundMeasurementViewController : UIViewController, VaavudElectronicWindDelegate {
+class RoundMeasurementViewController : UIViewController {
     @IBOutlet weak var ruler: RoundRuler!
     @IBOutlet weak var speedLabel: UILabel!
     
@@ -54,12 +54,12 @@ class RoundMeasurementViewController : UIViewController, VaavudElectronicWindDel
     }
     
     // MARK: SDK Callbacks
-    func newWindDirection(windDirection: NSNumber!) {
-        latestWindDirection += distanceOnCircle(from: latestWindDirection, to: CGFloat(windDirection.floatValue))
+    func newWindDirection(windDirection: Float) {
+        latestWindDirection += distanceOnCircle(from: latestWindDirection, to: CGFloat(windDirection))
     }
     
     func newSpeed(speed: NSNumber!) {
-        speedLabel.text = NSString(format: "%.1f", speed.floatValue) as String
+        speedLabel.text = String(format: "%.1f", speed.floatValue)
         latestSpeed = CGFloat(speed.floatValue)
     }
     
@@ -105,13 +105,15 @@ class RoundRuler : UIView {
     var windDirection: CGFloat = 0 { didSet { setNeedsDisplay() } }
     var windSpeed: CGFloat = 0 { didSet { setNeedsDisplay() } }
 
-    private let tickLength: CGFloat = 20
-    private let tickWidth: CGFloat = 2
+    var scaling: CGFloat = 1 { didSet { setNeedsDisplay() } }
+    
     private var visibleMarkers = 150
     
     private let cardinalDirections = 16
     
-    private var font = UIFont(name: "BebasNeueRegular", size: 20)!
+    private var font = UIFont(name: "Roboto", size: 20)!
+    private var smallFont = UIFont(name: "Roboto", size: 12)!
+    
     private var markers = [Polar]()
     
 //    required init(coder aDecoder: NSCoder) {
@@ -119,14 +121,14 @@ class RoundRuler : UIView {
 //    }
     
     override func drawRect(rect: CGRect) {
-        drawCircles(bounds, scaling: 1)
+        drawCircles(bounds, scaling: scaling)
         
         let cardinalAngle = 360/CGFloat(cardinalDirections)
         
         let toCardinal = cardinalDirections - 1
 
         let path = UIBezierPath()
-        let innerRadius: CGFloat = 70
+        let innerRadius = bounds.width/2 - 20
         let origin = bounds.center
         
         for cardinal in 0...toCardinal {
@@ -138,12 +140,12 @@ class RoundRuler : UIView {
             
             let direction = mod(cardinal, cardinalDirections)
             let text = VaavudFormatter.localizedCardinal(direction)
-            let p = origin + CGPoint(r: innerRadius + 2*tickLength, phi: phi)
+            let p = origin + CGPoint(r: innerRadius, phi: phi)
 
-            let blackColor = direction % 4 == 0 ? UIColor.blackColor() : UIColor.lightGrayColor()
+            let blackColor = direction % 4 == 0 ? UIColor.blackColor() : UIColor.darkGrayColor()
             let color = direction == 0 ? UIColor.redColor() : blackColor
             
-            drawLabel(text, at: p, color: color)
+            drawLabel(text, at: p, color: color, small: direction % 4 != 0)
         }
         
         let contextRef = UIGraphicsGetCurrentContext()
@@ -155,14 +157,27 @@ class RoundRuler : UIView {
         drawMarkers(markers, rotation: compassDirection.radians)
     }
     
-    let bandWidth: CGFloat = 52
+    let bandWidth: CGFloat = 25
+    let bandDarkening: CGFloat = 0.02
     
     func drawCircles(rect: CGRect, scaling: CGFloat) {
-        for i in 0...10 {
-            UIColor(white: CGFloat(30 + i)/40, alpha: 1).setFill()
+        let width = scaling*bandWidth
+        let diagonal = dist(bounds.center, bounds.upperRight)
+        let diagonalDirection = (1/diagonal)*(bounds.upperRight - bounds.center)
+        let n = Int(floor(diagonal/width))
+        
+        let textColor = UIColor.lightGrayColor()
+        
+        for i in 0...n - 2 {
+            let band = n - i
+            let blackness = CGFloat(band)*bandDarkening
             
-            let r = CGFloat(12 - i)*bandWidth
-            UIBezierPath(ovalInRect: CGRect(center: rect.center, size: CGSize(width: r, height: r))).fill()
+            UIColor(white: 1 - blackness, alpha: 1).setFill()
+            
+            let r = CGFloat(band)*width
+            UIBezierPath(ovalInRect: CGRect(center: rect.center, size: CGSize(width: 2*r, height: 2*r))).fill()
+            
+            drawLabel("\(band)", at:bounds.center + r*diagonalDirection, color: textColor, small: true)
         }
     }
     
@@ -200,10 +215,10 @@ class RoundRuler : UIView {
         }
     }
     
-    func drawLabel(string: String, at p: CGPoint, color: UIColor) {
+    func drawLabel(string: String, at p: CGPoint, color: UIColor, small: Bool) {
         let text: NSString = string
         
-        let attributes = [NSForegroundColorAttributeName : color, NSFontAttributeName : font]
+        let attributes = [NSForegroundColorAttributeName : color, NSFontAttributeName : small ? smallFont : font]
         
         let size = text.sizeWithAttributes(attributes)
         let origin = CGPoint(x: p.x - size.width/2, y: p.y - size.height/2)

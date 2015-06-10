@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol MeasurementConsumer {
+    
+}
+
 class MeasureRootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     var pageController: UIPageViewController!
     var viewControllers: [UIViewController]!
@@ -25,7 +29,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let vcsNames = ["FlatMeasureViewController", "RoundMeasureViewController", "MapMeasurementViewController"]
+        let vcsNames = ["RoundMeasureViewController", "FlatMeasureViewController", "MapMeasurementViewController"]
         viewControllers = vcsNames.map { self.storyboard!.instantiateViewControllerWithIdentifier($0) as! UIViewController }
 
         pager.numberOfPages = viewControllers.count

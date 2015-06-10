@@ -404,21 +404,10 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b5d-Rb-5Fd">
-                                <rect key="frame" x="136" y="531" width="48" height="30"/>
-                                <state key="normal" title="Cancel">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="tappedDismiss:" destination="5Ui-Xb-VGz" eventType="touchUpInside" id="ymD-bR-J0i"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="b5d-Rb-5Fd" secondAttribute="centerX" id="1e6-h0-kh1"/>
                             <constraint firstItem="D8D-HM-3gE" firstAttribute="top" secondItem="8Y8-mi-WRO" secondAttribute="bottom" constant="16" id="T9f-wX-7kS"/>
-                            <constraint firstItem="D8D-HM-3gE" firstAttribute="top" secondItem="b5d-Rb-5Fd" secondAttribute="bottom" constant="7" id="aJs-5K-2RY"/>
                             <constraint firstItem="D8D-HM-3gE" firstAttribute="top" secondItem="M2A-0X-mwX" secondAttribute="bottom" id="djR-HY-4zm"/>
                             <constraint firstAttribute="centerX" secondItem="o6K-B4-b7x" secondAttribute="centerX" id="eii-Th-YdV"/>
                             <constraint firstItem="M2A-0X-mwX" firstAttribute="top" secondItem="mCu-4A-9zi" secondAttribute="bottom" id="fjb-he-q19"/>
@@ -463,7 +452,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u73-Bb-XqL" userLabel="Ruler" customClass="FlatRuler" customModule="Vaavud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                                <rect key="frame" x="0.0" y="30" width="320" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="1TN-4d-L4V"/>
                                 </constraints>
@@ -485,7 +474,7 @@
                             <constraint firstItem="u73-Bb-XqL" firstAttribute="leading" secondItem="Ae2-Zo-eEX" secondAttribute="leading" id="qxU-dR-9Hb"/>
                             <constraint firstAttribute="centerX" secondItem="vj0-gw-b8b" secondAttribute="centerX" id="tEH-ak-6Zw"/>
                             <constraint firstItem="qej-FD-0Bf" firstAttribute="top" secondItem="Fnx-uI-M7p" secondAttribute="bottom" id="yNf-HZ-fbK"/>
-                            <constraint firstItem="u73-Bb-XqL" firstAttribute="top" secondItem="xf2-57-nuP" secondAttribute="bottom" id="zUD-9t-MQa"/>
+                            <constraint firstItem="u73-Bb-XqL" firstAttribute="top" secondItem="xf2-57-nuP" secondAttribute="bottom" constant="30" id="zUD-9t-MQa"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>

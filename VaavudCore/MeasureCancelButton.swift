@@ -37,8 +37,6 @@ class MeasureCancelButton: UIButton {
     
     override func layoutSubviews() {
         pieView.frame = bounds
-        
-        println(pieView.bounds)
     }
     
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
@@ -61,7 +59,7 @@ class MeasureCancelButton: UIButton {
             let digit = Int(ceil(timeLeft))
             if timerDigit != digit && digit > 0 {
                 timerDigit = digit
-                label.text = String(format: "%d", timerDigit)
+                label.text = "\(timerDigit)" //String(format: "%d", timerDigit)
                 label.sizeToFit()
                 label.frame.size.width = bounds.width
                 label.center = bounds.center + CGPoint(x: 0, y: 5)
