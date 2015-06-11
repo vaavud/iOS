@@ -8,11 +8,11 @@
 
 import UIKit
 
-class RoundMeasurementViewController : UIViewController {
+class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
+    @IBOutlet weak var background: RoundBackground!
     @IBOutlet weak var ruler: RoundRuler!
     @IBOutlet weak var speedLabel: UILabel!
     
-    private var displayLink: CADisplayLink!
     private var latestHeading: CGFloat = 0
     private var latestWindDirection: CGFloat = 0
     private var latestSpeed: CGFloat = 0
@@ -21,51 +21,29 @@ class RoundMeasurementViewController : UIViewController {
     
     var weight: CGFloat = 0.1
     
-    let sdk = VEVaavudElectronicSDK.sharedVaavudElectronic()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        displayLink = CADisplayLink(target: self, selector: Selector("tick:"))
-        displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
-        
-//        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "changeOffset:"))
-        
-        sdk.addListener(self)
-        sdk.start()
     }
     
-    override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.All.rawValue)
-    }
-    
-    deinit {
-        sdk.stop()
-        displayLink.invalidate()
-    }
-    
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
-    
-    func tick(link: CADisplayLink) {
+    func tick() {
         ruler.compassDirection = weight*latestHeading + (1 - weight)*ruler.compassDirection
         ruler.windDirection = weight*latestWindDirection + (1 - weight)*ruler.windDirection
         ruler.windSpeed = weight*latestSpeed + (1 - weight)*ruler.windSpeed
     }
     
-    // MARK: SDK Callbacks
-    func newWindDirection(windDirection: Float) {
+    // MARK: New readings from root
+    func newWindDirection(windDirection: CGFloat) {
         latestWindDirection += distanceOnCircle(from: latestWindDirection, to: CGFloat(windDirection))
     }
     
-    func newSpeed(speed: NSNumber!) {
-        speedLabel.text = String(format: "%.1f", speed.floatValue)
-        latestSpeed = CGFloat(speed.floatValue)
+    func newSpeed(speed: CGFloat) {
+        speedLabel.text = String(format: "%.1f", speed)
+        latestSpeed = speed
     }
     
-    func newHeading(heading: NSNumber!) {
+    func newHeading(heading: CGFloat) {
         if !lockNorth {
-            latestHeading += distanceOnCircle(from: latestHeading, to: CGFloat(heading.floatValue))
+            latestHeading += distanceOnCircle(from: latestHeading, to: heading)
         }
     }
     
@@ -78,25 +56,40 @@ class RoundMeasurementViewController : UIViewController {
             latestHeading = 0
         }
     }
+}
+
+class RoundBackground : UIView {
+    var scaling: CGFloat = 1 { didSet { setNeedsDisplay() } }
     
-    func changeOffset(sender: UIPanGestureRecognizer) {
-        let y = sender.locationInView(view).y
-        let x = view.bounds.midX - sender.locationInView(view).x
-        let dx = sender.translationInView(view).x/3
-        let dy = sender.translationInView(view).y/2
+    let bandWidth: CGFloat = 25
+    let bandDarkening: CGFloat = 0.02
+    
+    override func drawRect(rect: CGRect) {
+        println("REDRAW CIRCLES")
+
+        let width = scaling*bandWidth
+        let diagonal = dist(bounds.center, bounds.upperRight)
+        let diagonalDirection = (1/diagonal)*(bounds.upperRight - bounds.center)
+        let n = Int(floor(diagonal/width))
         
-        if y < 20 {
-            weight = max(0.01, weight + sender.translationInView(view).x/1000)
-        }
-        else if y < 120 {
-            newHeading(latestHeading - dx)
-        }
-        else {
-            newWindDirection(latestWindDirection + dx)
-            newSpeed(max(0, latestSpeed - dy/10))
-        }
+        let textColor = UIColor.lightGrayColor()
         
-        sender.setTranslation(CGPoint(), inView: view)
+        for i in 0...n - 2 {
+            let band = n - i
+            let blackness = CGFloat(band)*bandDarkening
+            
+//            CGContextSetRGBFillColor(contextRef, 0.3, 0.3, 0.3, 1 - gray);
+//            let corner = origin + CGPoint(r: 10*m.r, phi: m.phi - rotation - π/2) + offset
+//            let rect = CGRect(origin: corner, size: size)
+//            CGContextFillEllipseInRect(contextRef, CGRect(origin: corner, size: size))
+
+            UIColor(white: 1 - blackness, alpha: 1).setFill()
+            
+            let r = CGFloat(band)*width
+            UIBezierPath(ovalInRect: CGRect(center: rect.center, size: CGSize(width: 2*r, height: 2*r))).fill()
+            
+//            drawLabel("\(band)", at:bounds.center + r*diagonalDirection, color: textColor, small: true)
+        }
     }
 }
 
@@ -116,13 +109,12 @@ class RoundRuler : UIView {
     
     private var markers = [Polar]()
     
-//    required init(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//    }
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        backgroundColor = UIColor.clearColor()
+    }
     
     override func drawRect(rect: CGRect) {
-        drawCircles(bounds, scaling: scaling)
-        
         let cardinalAngle = 360/CGFloat(cardinalDirections)
         
         let toCardinal = cardinalDirections - 1
@@ -148,37 +140,8 @@ class RoundRuler : UIView {
             drawLabel(text, at: p, color: color, small: direction % 4 != 0)
         }
         
-        let contextRef = UIGraphicsGetCurrentContext()
-        CGContextSetRGBFillColor(contextRef, 0, 0, 0, 1);
-        let rect = CGRect(center: origin, size: CGSize(width: 2, height: 2))
-        CGContextFillEllipseInRect(contextRef, rect)
-
         newMarker(Polar(r: windSpeed, phi: windDirection.radians))
         drawMarkers(markers, rotation: compassDirection.radians)
-    }
-    
-    let bandWidth: CGFloat = 25
-    let bandDarkening: CGFloat = 0.02
-    
-    func drawCircles(rect: CGRect, scaling: CGFloat) {
-        let width = scaling*bandWidth
-        let diagonal = dist(bounds.center, bounds.upperRight)
-        let diagonalDirection = (1/diagonal)*(bounds.upperRight - bounds.center)
-        let n = Int(floor(diagonal/width))
-        
-        let textColor = UIColor.lightGrayColor()
-        
-        for i in 0...n - 2 {
-            let band = n - i
-            let blackness = CGFloat(band)*bandDarkening
-            
-            UIColor(white: 1 - blackness, alpha: 1).setFill()
-            
-            let r = CGFloat(band)*width
-            UIBezierPath(ovalInRect: CGRect(center: rect.center, size: CGSize(width: 2*r, height: 2*r))).fill()
-            
-            drawLabel("\(band)", at:bounds.center + r*diagonalDirection, color: textColor, small: true)
-        }
     }
     
     func newMarker(polar: Polar) {
@@ -188,6 +151,8 @@ class RoundRuler : UIView {
         }
     }
     
+    var previousPoint = CGPoint()
+    
     func drawMarkers(ms: [Polar], rotation: CGFloat) {
         let radius: CGFloat = 3
         let origin = CGPoint(x: bounds.midX, y: bounds.midY)
@@ -196,15 +161,38 @@ class RoundRuler : UIView {
         
         let contextRef = UIGraphicsGetCurrentContext()
         
+//        let r = CAReplicatorLayer()
+//        r.bounds = CGRect(x: 0.0, y: 0.0, width: 60.0, height: 60.0)
+//        r.position = bounds.center
+//        r.backgroundColor = UIColor.lightGrayColor().CGColor
+//        layer.addSublayer(r)
+
+        
         for (i, m) in enumerate(ms) {
             let age = 1 - CGFloat(i)/CGFloat(visibleMarkers)
             let gray = 0.5 + 0.5*age
-            CGContextSetRGBFillColor(contextRef, gray, gray, gray, 1);
+            
+            UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1 - gray).setStroke()
+            
+            CGContextSetRGBFillColor(contextRef, 0.3, 0.3, 0.3, 1 - gray);
 
             let corner = origin + CGPoint(r: 10*m.r, phi: m.phi - rotation - π/2) + offset
+
+            //            let newPoint = origin + CGPoint(r: 10*m.r, phi: m.phi - rotation - π/2)
+//
+//            let path = UIBezierPath()
+//            path.lineWidth = 3
+//            path.lineCapStyle = kCGLineCapRound
+//            path.moveToPoint(previousPoint)
+//            path.addLineToPoint(newPoint)
+//            path.stroke()
+
             let rect = CGRect(origin: corner, size: size)
             CGContextFillEllipseInRect(contextRef, CGRect(origin: corner, size: size))
+            
+//            previousPoint = newPoint
         }
+        
         
         if let m = ms.last {
             CGContextSetRGBFillColor(contextRef, 1, 0, 0, 1);

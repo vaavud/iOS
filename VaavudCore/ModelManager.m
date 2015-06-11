@@ -177,7 +177,7 @@ SHARED_INSTANCE
 }
 
 + (BOOL)isIPhone4 {
-    return [[[ModelManager getModel] substringToIndex:7] isEqualToString:@"iPhone3"];
+    return [[ModelManager getModel] hasPrefix:@"iPhone3"];
 }
 
 @end

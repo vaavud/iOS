@@ -412,13 +412,13 @@
 
     // Mixpanel tracking...
     
-    if (uiTracking) {
-        if ([Property isMixpanelEnabled]) {
-            NSNumber *frontFacing = @([Property getAsBoolean:KEY_SLEIPNIR_CLIP_SIDE_SCREEN]);
-            NSDictionary *properties = @{@"Wind Meter": [controller mixpanelWindMeterName], @"Clip on front" : frontFacing};
-            [[Mixpanel sharedInstance] track:@"Start Measurement" properties:properties];
-        }
-    }
+//    if (uiTracking) {
+//        if ([Property isMixpanelEnabled]) {
+//            NSNumber *frontFacing = @([Property getAsBoolean:KEY_SLEIPNIR_CLIP_SIDE_SCREEN]);
+//            NSDictionary *properties = @{@"Wind Meter": [controller mixpanelWindMeterName], @"Clip on front" : frontFacing};
+//            [[Mixpanel sharedInstance] track:@"Start Measurement" properties:properties];
+//        }
+//    }
     
     [self measurementStarted];
 }

@@ -149,7 +149,7 @@
                                     <constraint firstAttribute="height" constant="1" id="sqj-qH-pdq"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jop-HL-F0a" userLabel="Graph Container">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jop-HL-F0a" userLabel="Graph Container">
                                 <rect key="frame" x="10" y="208" width="284" height="227"/>
                                 <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
@@ -175,7 +175,7 @@
                                 <color key="progressTintColor" red="0.062745101749897003" green="0.68627452850341797" blue="0.93725496530532837" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </progressView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ej-kg-OB6" userLabel="InformationText">
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ej-kg-OB6" userLabel="InformationText">
                                 <rect key="frame" x="40" y="435" width="240" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="19" id="SgK-UX-8lM"/>
@@ -213,6 +213,7 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="eo3-LL-srp" firstAttribute="top" secondItem="bS1-jk-rNp" secondAttribute="bottom" constant="15" id="08g-fh-cXs"/>
                             <constraint firstItem="f8n-QV-wk6" firstAttribute="trailing" secondItem="ReF-g7-EF0" secondAttribute="trailing" id="2Cl-o4-0ji"/>
@@ -259,6 +260,9 @@
                             <constraint firstAttribute="centerX" secondItem="BoF-HW-bXq" secondAttribute="centerX" id="vj9-e7-vSj"/>
                             <constraint firstItem="3jS-Rr-IOD" firstAttribute="top" secondItem="r2L-o3-FqL" secondAttribute="bottom" constant="8" id="xtR-XM-8fR"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="19j-2R-9aK" appends="YES" id="0Do-mP-cdk"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="bjd-2e-nY3">
                         <barButtonItem key="rightBarButtonItem" image="SettingsIcon.png" id="lKw-nu-ICq">
@@ -291,6 +295,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
                 <exit id="JMm-Mh-ali" userLabel="Exit" sceneMemberID="exit"/>
+                <panGestureRecognizer minimumNumberOfTouches="2" id="19j-2R-9aK">
+                    <connections>
+                        <action selector="debugDoublePanned:" destination="2" id="OiT-Sr-Zr4"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-9" y="-748"/>
         </scene>
@@ -309,6 +318,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IoB-pv-cEi" customClass="MeasureCancelButton" customModule="Vaavud" customModuleProvider="target">
                                 <rect key="frame" x="115" y="453" width="90" height="90"/>
                                 <color key="backgroundColor" red="0.68291823308270672" green="0.81828594919999997" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="Owh-kG-2nQ"/>
                                     <constraint firstAttribute="height" constant="90" id="Qdq-bP-iNt"/>
@@ -318,6 +328,7 @@
                                 </state>
                                 <connections>
                                     <action selector="tappedCancel:" destination="lka-3y-5RY" eventType="touchUpInside" id="Vee-t8-2TM"/>
+                                    <outletCollection property="gestureRecognizers" destination="KcH-Dn-8qM" appends="YES" id="nyL-Sl-r4k"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tNh-kF-1Td">
@@ -364,6 +375,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DyU-4L-8I5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="KcH-Dn-8qM">
+                    <connections>
+                        <action selector="debugPanned:" destination="lka-3y-5RY" id="Q82-Xw-vQz"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1224" y="1609"/>
         </scene>
@@ -2240,12 +2256,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcw-1h-0EJ" userLabel="Ruler" customClass="RoundRuler" customModule="Vaavud" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lcu-hO-cgE" userLabel="Background" customClass="RoundBackground" customModule="Vaavud" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" red="0.59999999999999998" green="0.85098039219999999" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcw-1h-0EJ" userLabel="Ruler" customClass="RoundRuler" customModule="Vaavud" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90g-5T-Ctv">
-                                <rect key="frame" x="126" y="265" width="69" height="50"/>
+                                <rect key="frame" x="0.0" y="265" width="320" height="50"/>
                                 <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="50"/>
                                 <color key="textColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -2254,15 +2273,22 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="fcw-1h-0EJ" firstAttribute="top" secondItem="9SH-hg-PPK" secondAttribute="bottom" id="4IE-dM-Wio"/>
+                            <constraint firstItem="Lcu-hO-cgE" firstAttribute="leading" secondItem="MG3-1a-A1c" secondAttribute="leading" id="7X1-Mx-ZwA"/>
                             <constraint firstAttribute="centerY" secondItem="90g-5T-Ctv" secondAttribute="centerY" constant="-6" id="BFl-3T-m6k"/>
+                            <constraint firstAttribute="trailing" secondItem="90g-5T-Ctv" secondAttribute="trailing" id="DDd-vl-Qry"/>
                             <constraint firstItem="xei-Zj-RpI" firstAttribute="top" secondItem="fcw-1h-0EJ" secondAttribute="bottom" id="JrF-m8-vmS"/>
+                            <constraint firstItem="90g-5T-Ctv" firstAttribute="leading" secondItem="MG3-1a-A1c" secondAttribute="leading" id="Kub-YW-xjr"/>
                             <constraint firstItem="fcw-1h-0EJ" firstAttribute="leading" secondItem="MG3-1a-A1c" secondAttribute="leading" id="aet-pv-AsG"/>
+                            <constraint firstItem="Lcu-hO-cgE" firstAttribute="top" secondItem="9SH-hg-PPK" secondAttribute="bottom" id="avT-b7-Beh"/>
+                            <constraint firstAttribute="trailing" secondItem="Lcu-hO-cgE" secondAttribute="trailing" id="c0b-a5-JHn"/>
+                            <constraint firstAttribute="trailing" secondItem="90g-5T-Ctv" secondAttribute="trailing" id="lEZ-mW-3kW"/>
                             <constraint firstAttribute="trailing" secondItem="fcw-1h-0EJ" secondAttribute="trailing" id="rKU-GF-gO7"/>
-                            <constraint firstAttribute="centerX" secondItem="90g-5T-Ctv" secondAttribute="centerX" id="xVw-Sv-NJm"/>
+                            <constraint firstItem="xei-Zj-RpI" firstAttribute="top" secondItem="Lcu-hO-cgE" secondAttribute="bottom" id="sKx-z4-RAQ"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="background" destination="Lcu-hO-cgE" id="wwx-zD-ppU"/>
                         <outlet property="ruler" destination="fcw-1h-0EJ" id="AVh-nH-nTr"/>
                         <outlet property="speedLabel" destination="90g-5T-Ctv" id="UPP-yD-hKC"/>
                     </connections>
@@ -2292,7 +2318,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="MnQ-EK-wGw"/>
+        <segue reference="4WK-Ha-uCh"/>
         <segue reference="mhv-JI-fCG"/>
         <segue reference="s0f-qj-ZNz"/>
     </inferredMetricsTieBreakers>

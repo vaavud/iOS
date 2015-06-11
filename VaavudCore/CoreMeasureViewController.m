@@ -40,6 +40,16 @@
 
 @property (nonatomic) BOOL hasShowsCalibrationScreen;
 
+
+@property (nonatomic) float latestSpeed;
+@property (nonatomic) float latestDirection;
+
+@property (nonatomic) float currentSpeed;
+@property (nonatomic) float averageSpeed;
+@property (nonatomic) float maxSpeed;
+
+@property (nonatomic) float currentDirection;
+
 @end
 
 @implementation CoreMeasureViewController
@@ -48,10 +58,32 @@
     return UIInterfaceOrientationMaskAll;
 }
 
+- (IBAction)debugDoublePanned:(UIPanGestureRecognizer *)sender {
+    self.latestSpeed = MAX(0, self.latestSpeed - [sender translationInView:self.view].y/20);
+    self.latestDirection = MIN(360, MAX(0, self.latestDirection + [sender translationInView:self.view].x/2));
+    
+    [sender setTranslation:CGPointZero inView:self.view];
+}
+
+-(void)update:(CADisplayLink *)link {
+    float s = 0.05;
+    
+    self.currentSpeed = s*self.latestSpeed + (1 - s)*self.currentSpeed;
+    float r = 0.01;
+    self.averageSpeed = r*self.currentSpeed + (1 - r)*self.averageSpeed;
+    self.maxSpeed = MAX(self.maxSpeed, self.currentSpeed);
+    [self addSpeedMeasurement:@(self.currentSpeed) avgSpeed:@(self.averageSpeed) maxSpeed:@(self.maxSpeed)];
+    
+    self.currentDirection = s*self.latestDirection + (1 - s)*self.currentDirection;
+    [self updateDirection:@(self.currentDirection)];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.rotatingImageView = [[UIImageView alloc] initWithFrame:self.directionImageView.bounds];
     [self.directionImageView addSubview:self.rotatingImageView];
+    
+    [[CADisplayLink displayLinkWithTarget:self selector:@selector(update:)] addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
 }
 
 -(void)calibrateIfNeeded {

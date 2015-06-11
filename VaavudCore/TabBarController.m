@@ -64,19 +64,6 @@
         [self performSegueWithIdentifier:@"ShowMeasureScreen" sender:self];
         return YES;
     }
-//    else if (viewController == self.childViewControllers[1]) {
-//        NSString *identifier = (arc4random() % 2 == 0) ? @"MeasureSegue" : @"MapMeasureSegue";
-//        identifier = @"MeasureSegue";
-//        
-//        [self performSegueWithIdentifier:identifier sender:self];
-//        return YES;
-//    }
-//    else if (viewController == self.childViewControllers[2]) {
-//        [self performSegueWithIdentifier:@"CircleMeasureSegue" sender:self];
-//        return YES;
-//    }
-//    
-    
     
     if (![AccountManager sharedInstance].isLoggedIn && viewController == self.childViewControllers[2]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
