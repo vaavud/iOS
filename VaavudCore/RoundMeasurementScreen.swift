@@ -21,6 +21,15 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
     
     var weight: CGFloat = 0.1
     
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        println("Created Round")
+    }
+    
+    deinit {
+        println("Removed Round")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -29,6 +38,7 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         ruler.compassDirection = weight*latestHeading + (1 - weight)*ruler.compassDirection
         ruler.windDirection = weight*latestWindDirection + (1 - weight)*ruler.windDirection
         ruler.windSpeed = weight*latestSpeed + (1 - weight)*ruler.windSpeed
+        ruler.newDot()
     }
     
     // MARK: New readings from root
@@ -65,8 +75,6 @@ class RoundBackground : UIView {
     let bandDarkening: CGFloat = 0.02
     
     override func drawRect(rect: CGRect) {
-        println("REDRAW CIRCLES")
-
         let width = scaling*bandWidth
         let diagonal = dist(bounds.center, bounds.upperRight)
         let diagonalDirection = (1/diagonal)*(bounds.upperRight - bounds.center)
@@ -94,64 +102,107 @@ class RoundBackground : UIView {
 }
 
 class RoundRuler : UIView {
-    var compassDirection: CGFloat = 0 { didSet { setNeedsDisplay() } }
-    var windDirection: CGFloat = 0 { didSet { setNeedsDisplay() } }
-    var windSpeed: CGFloat = 0 { didSet { setNeedsDisplay() } }
+    var compassDirection: CGFloat = 0
+    var windDirection: CGFloat = 0
+    var windSpeed: CGFloat = 0
 
-    var scaling: CGFloat = 1 { didSet { setNeedsDisplay() } }
+    var scaling: CGFloat = 1
     
-    private var visibleMarkers = 150
+//    var compassDirection: CGFloat = 0 { didSet { setNeedsDisplay() } }
+//    var windDirection: CGFloat = 0 { didSet { setNeedsDisplay() } }
+//    var windSpeed: CGFloat = 0 { didSet { setNeedsDisplay() } }
+//    
+//    var scaling: CGFloat = 1 { didSet { setNeedsDisplay() } }
+
+    
+    private var dotCount = 300
+    private var markers = [Polar]()
+    private var dots = [CAShapeLayer]()
     
     private let cardinalDirections = 16
     
     private var font = UIFont(name: "Roboto", size: 20)!
     private var smallFont = UIFont(name: "Roboto", size: 12)!
     
-    private var markers = [Polar]()
-    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         backgroundColor = UIColor.clearColor()
+        
+        for i in 0..<dotCount {
+            let dot = CAShapeLayer()
+            let hue = CGFloat(i)/CGFloat(dotCount)
+            dot.fillColor = UIColor(hue: hue, saturation: 1, brightness: 1, alpha: 1).CGColor
+            dot.strokeColor = nil
+            dot.bounds.size = CGSize(width: 5, height: 5)
+            dot.path = UIBezierPath(ovalInRect: dot.bounds).CGPath
+            layer.addSublayer(dot)
+            dots.append(dot)
+        }
     }
     
-    override func drawRect(rect: CGRect) {
-        let cardinalAngle = 360/CGFloat(cardinalDirections)
+    func newDot() {
+        let p = Polar(r: windSpeed, phi: windDirection.radians)
+        newMarker(p)
         
-        let toCardinal = cardinalDirections - 1
-
-        let path = UIBezierPath()
-        let innerRadius = bounds.width/2 - 20
-        let origin = bounds.center
+        let start = max(0, markers.count - dotCount)
         
-        for cardinal in 0...toCardinal {
-            if cardinal % 2 != 0 {
-                continue
-            }
-            
-            let phi = (CGFloat(cardinal)*cardinalAngle - compassDirection - 90).radians
-            
-            let direction = mod(cardinal, cardinalDirections)
-            let text = VaavudFormatter.localizedCardinal(direction)
-            let p = origin + CGPoint(r: innerRadius, phi: phi)
-
-            let blackColor = direction % 4 == 0 ? UIColor.blackColor() : UIColor.darkGrayColor()
-            let color = direction == 0 ? UIColor.redColor() : blackColor
-            
-            drawLabel(text, at: p, color: color, small: direction % 4 != 0)
+        CATransaction.setDisableActions(true)
+        for i in start..<markers.count {
+            let m = markers[i]
+            dots[i - start].position = bounds.center + CGPoint(r: 10*m.r, phi: m.phi - compassDirection.radians - π/2)
         }
         
-        newMarker(Polar(r: windSpeed, phi: windDirection.radians))
-        drawMarkers(markers, rotation: compassDirection.radians)
+//        for (i, m) in enumerate(markers) {
+//            dots[i].position = bounds.center + CGPoint(r: 10*m.r, phi: m.phi - compassDirection.radians - π/2)
+//        }
     }
     
     func newMarker(polar: Polar) {
         markers.append(polar)
-        if markers.count > visibleMarkers {
-            markers.removeAtIndex(0)
-        }
+//        if markers.count > dotCount {
+//            markers.removeAtIndex(0)
+//        }
     }
     
-    var previousPoint = CGPoint()
+    
+    //        println("========================")
+    //        for m in markers { print(String(format: "%.1f ", m.r)) }
+    //        println()
+    //
+    //        newMarker(p)
+    //        for m in markers { print(String(format: "%.1f ", m.r)) }
+    //        println()
+
+    
+//    override func drawRect(rect: CGRect) {
+//        let cardinalAngle = 360/CGFloat(cardinalDirections)
+//        
+//        let toCardinal = cardinalDirections - 1
+//
+//        let path = UIBezierPath()
+//        let innerRadius = bounds.width/2 - 20
+//        let origin = bounds.center
+//        
+//        for cardinal in 0...toCardinal {
+//            if cardinal % 2 != 0 {
+//                continue
+//            }
+//            
+//            let phi = (CGFloat(cardinal)*cardinalAngle - compassDirection - 90).radians
+//            
+//            let direction = mod(cardinal, cardinalDirections)
+//            let text = VaavudFormatter.localizedCardinal(direction)
+//            let p = origin + CGPoint(r: innerRadius, phi: phi)
+//
+//            let blackColor = direction % 4 == 0 ? UIColor.blackColor() : UIColor.darkGrayColor()
+//            let color = direction == 0 ? UIColor.redColor() : blackColor
+//            
+//            drawLabel(text, at: p, color: color, small: direction % 4 != 0)
+//        }
+////        newMarker(Polar(r: windSpeed, phi: windDirection.radians))
+//
+////        drawMarkers(markers, rotation: compassDirection.radians)
+//    }
     
     func drawMarkers(ms: [Polar], rotation: CGFloat) {
         let radius: CGFloat = 3
@@ -161,15 +212,8 @@ class RoundRuler : UIView {
         
         let contextRef = UIGraphicsGetCurrentContext()
         
-//        let r = CAReplicatorLayer()
-//        r.bounds = CGRect(x: 0.0, y: 0.0, width: 60.0, height: 60.0)
-//        r.position = bounds.center
-//        r.backgroundColor = UIColor.lightGrayColor().CGColor
-//        layer.addSublayer(r)
-
-        
         for (i, m) in enumerate(ms) {
-            let age = 1 - CGFloat(i)/CGFloat(visibleMarkers)
+            let age = 1 - CGFloat(i)/CGFloat(dotCount)
             let gray = 0.5 + 0.5*age
             
             UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1 - gray).setStroke()
@@ -178,19 +222,8 @@ class RoundRuler : UIView {
 
             let corner = origin + CGPoint(r: 10*m.r, phi: m.phi - rotation - π/2) + offset
 
-            //            let newPoint = origin + CGPoint(r: 10*m.r, phi: m.phi - rotation - π/2)
-//
-//            let path = UIBezierPath()
-//            path.lineWidth = 3
-//            path.lineCapStyle = kCGLineCapRound
-//            path.moveToPoint(previousPoint)
-//            path.addLineToPoint(newPoint)
-//            path.stroke()
-
             let rect = CGRect(origin: corner, size: size)
             CGContextFillEllipseInRect(contextRef, CGRect(origin: corner, size: size))
-            
-//            previousPoint = newPoint
         }
         
         

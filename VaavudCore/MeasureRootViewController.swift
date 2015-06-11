@@ -33,7 +33,13 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     var state = MeasureState.CountingDown(5, true)
     var timeLeft: CGFloat = 5
     
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        println("CREATED ROOT")
+    }
+
     deinit {
+        println("REMOVED ROOT")
         sdk.stop()
         displayLink.invalidate()
     }
@@ -73,6 +79,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     @IBAction func tappedCancel(sender: MeasureCancelButton) {
+        sdk.removeListener(self)
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -117,7 +124,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func newHeading(heading: NSNumber!) {
-        CGFloat(heading.floatValue)
+        currentConsumer.newHeading(CGFloat(heading.floatValue))
     }
     
     override func prefersStatusBarHidden() -> Bool {
