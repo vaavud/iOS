@@ -8,6 +8,23 @@
 
 import UIKit
 
+class DynamicItem: NSObject, UIDynamicItem {
+    var bounds: CGRect { return CGRect(x: 0, y: 0, width: 5000, height: 5000) }
+    var center = CGPoint() { didSet { centerCallback(center) } }
+    var transform = CGAffineTransformIdentity { didSet { transformCallback(transform) } }
+    
+    var animating = false
+    
+    let centerCallback: CGPoint -> ()
+    let transformCallback: CGAffineTransform -> ()
+    
+    init(centerCallback: CGPoint -> (), transformCallback: CGAffineTransform -> () = { x in }) {
+        self.centerCallback = centerCallback
+        self.transformCallback = transformCallback
+        super.init()
+    }
+}
+
 class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
     @IBOutlet weak var background: RoundBackground!
     @IBOutlet weak var ruler: RoundRuler!
@@ -21,6 +38,13 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
     
     var weight: CGFloat = 0.1
     
+    var scale: CGFloat = 20 { didSet { ruler.scale = scale; background.scale = scale } }
+    var targetScale: CGFloat = 20
+    var animatingScale = false
+    
+    var animator: UIDynamicAnimator!
+    var scaleItem: DynamicItem!
+
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         println("Created Round")
@@ -32,13 +56,41 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        animator = UIDynamicAnimator(referenceView: view)
+        scaleItem = DynamicItem(centerCallback: {
+            self.scale = $0.y/100
+        })
+        
+        scaleItem.center = CGPoint(x: 0, y: scale*100)
     }
     
     func tick() {
+        println("\(targetScale)  -  \(scale)")
+        
+        if abs(targetScale - scale) < 0.1 {
+            animatingScale = false
+            animator.removeAllBehaviors()
+        }
+        
+        if !animatingScale {
+            if ruler.windSpeed > ruler.bounds.width/(2*scale) {
+                animateScale(scale/2)
+            }
+            else if ruler.windSpeed < 0.2*ruler.bounds.width/(2*scale) {
+                animateScale(scale*2)
+            }
+        }
+        
         ruler.compassDirection = weight*latestHeading + (1 - weight)*ruler.compassDirection
         ruler.windDirection = weight*latestWindDirection + (1 - weight)*ruler.windDirection
         ruler.windSpeed = weight*latestSpeed + (1 - weight)*ruler.windSpeed
-        ruler.newDot()
+        ruler.update()
+    }
+    
+    func animateScale(newScale: CGFloat) {
+        targetScale = newScale
+        animatingScale = true
+        animator.addBehavior(UISnapBehavior(item: scaleItem, snapToPoint: CGPoint(x: 0, y: newScale*100)))
     }
     
     // MARK: New readings from root
@@ -69,35 +121,46 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
 }
 
 class RoundBackground : UIView {
-    var scaling: CGFloat = 1 { didSet { setNeedsDisplay() } }
+    var scale: CGFloat = 0 { didSet { if scale != oldValue { setNeedsDisplay() } } }
     
-    let bandWidth: CGFloat = 25
+    let bandWidth: CGFloat = 1
     let bandDarkening: CGFloat = 0.02
     
+    private let smallFont = UIFont(name: "Roboto", size: 12)!
+    private let textColor = UIColor.lightGrayColor()
+
     override func drawRect(rect: CGRect) {
-        let width = scaling*bandWidth
+        let width = scale*bandWidth
         let diagonal = dist(bounds.center, bounds.upperRight)
         let diagonalDirection = (1/diagonal)*(bounds.upperRight - bounds.center)
-        let n = Int(floor(diagonal/width))
-        
-        let textColor = UIColor.lightGrayColor()
+        let n = Int(ceil(diagonal/width))
         
         for i in 0...n - 2 {
             let band = n - i
             let blackness = CGFloat(band)*bandDarkening
-            
-//            CGContextSetRGBFillColor(contextRef, 0.3, 0.3, 0.3, 1 - gray);
-//            let corner = origin + CGPoint(r: 10*m.r, phi: m.phi - rotation - π/2) + offset
-//            let rect = CGRect(origin: corner, size: size)
-//            CGContextFillEllipseInRect(contextRef, CGRect(origin: corner, size: size))
 
-            UIColor(white: 1 - blackness, alpha: 1).setFill()
-            
+            let contextRef = UIGraphicsGetCurrentContext()
+//            CGContextSetRGBFillColor(contextRef, 1 - blackness, 1 - blackness, 1 - blackness, 1)
             let r = CGFloat(band)*width
-            UIBezierPath(ovalInRect: CGRect(center: rect.center, size: CGSize(width: 2*r, height: 2*r))).fill()
+            let rect = CGRect(center: rect.center, size: CGSize(width: 2*r, height: 2*r))
+//            CGContextFillEllipseInRect(contextRef, rect)
             
-//            drawLabel("\(band)", at:bounds.center + r*diagonalDirection, color: textColor, small: true)
+            CGContextSetRGBStrokeColor(contextRef, 1 - blackness, 1 - blackness, 1 - blackness, 1)
+            CGContextSetLineWidth(contextRef, 2)
+            CGContextStrokeEllipseInRect(contextRef, rect)
+            //            drawLabel("\(band)", at:bounds.center + r*diagonalDirection, color: textColor)
         }
+    }
+    
+    func drawLabel(string: String, at p: CGPoint, color: UIColor) {
+        let text: NSString = string
+        
+        let attributes = [NSForegroundColorAttributeName : color, NSFontAttributeName : smallFont]
+        
+        let size = text.sizeWithAttributes(attributes)
+        let origin = CGPoint(x: p.x - size.width/2, y: p.y - size.height/2)
+        
+        text.drawInRect(CGRect(origin: origin, size: size), withAttributes: attributes)
     }
 }
 
@@ -106,23 +169,18 @@ class RoundRuler : UIView {
     var windDirection: CGFloat = 0
     var windSpeed: CGFloat = 0
 
-    var scaling: CGFloat = 1
+    var scale: CGFloat = 0
     
-//    var compassDirection: CGFloat = 0 { didSet { setNeedsDisplay() } }
-//    var windDirection: CGFloat = 0 { didSet { setNeedsDisplay() } }
-//    var windSpeed: CGFloat = 0 { didSet { setNeedsDisplay() } }
-//    
-//    var scaling: CGFloat = 1 { didSet { setNeedsDisplay() } }
-
-    
-    private var dotCount = 300
-    private var markers = [Polar]()
+    private let dotCount = 400
+    private var dotPositions = [Polar]()
     private var dots = [CAShapeLayer]()
     
     private let cardinalDirections = 16
+    private var cardinalPositions = [Polar]()
+    private var cardinalLabels = [UILabel]()
     
-    private var font = UIFont(name: "Roboto", size: 20)!
-    private var smallFont = UIFont(name: "Roboto", size: 12)!
+    private let font = UIFont(name: "Roboto", size: 20)!
+    private let smallFont = UIFont(name: "Roboto", size: 12)!
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -130,121 +188,74 @@ class RoundRuler : UIView {
         
         for i in 0..<dotCount {
             let dot = CAShapeLayer()
-            let hue = CGFloat(i)/CGFloat(dotCount)
-            dot.fillColor = UIColor(hue: hue, saturation: 1, brightness: 1, alpha: 1).CGColor
             dot.strokeColor = nil
-            dot.bounds.size = CGSize(width: 5, height: 5)
+            if i == dotCount - 1 {
+                dot.fillColor = UIColor.vaavudBlueColor().CGColor
+                dot.bounds.size = CGSize(width: 10, height: 10)
+            }
+            else {
+                let size = 7*ease(CGFloat(i)/CGFloat(dotCount))
+                dot.bounds.size = CGSize(width: size, height: size)
+                dot.fillColor = UIColor.vaavudDarkGreyColor().CGColor
+            }
             dot.path = UIBezierPath(ovalInRect: dot.bounds).CGPath
+            newDotPosition(bounds.center.polar)
+            
             layer.addSublayer(dot)
             dots.append(dot)
         }
+        
+        let r = bounds.width/2 - 28
+        
+        for cardinal in 0..<cardinalDirections {
+            if cardinal % 2 != 0 {
+                continue
+            }
+            
+            let phi = (360*CGFloat(cardinal)/CGFloat(cardinalDirections) - 90).radians
+            cardinalPositions.append(Polar(r: r, phi: phi))
+
+            let label = UILabel()
+            label.text = VaavudFormatter.localizedCardinal(mod(cardinal, cardinalDirections))
+            label.font = cardinal % 4 == 0 ? font : smallFont
+            label.textColor = colorForCardinal(cardinal)
+            label.sizeToFit()
+            
+            cardinalLabels.append(label)
+            addSubview(label)
+        }
     }
     
-    func newDot() {
-        let p = Polar(r: windSpeed, phi: windDirection.radians)
-        newMarker(p)
-        
-        let start = max(0, markers.count - dotCount)
+    func colorForCardinal(cardinal: Int) -> UIColor {
+        if cardinal == 0 {
+            return UIColor.vaavudRedColor()
+        }
+        else if cardinal % 4 == 0 {
+            return UIColor.vaavudDarkGreyColor()
+        }
+
+        return UIColor.vaavudLightGreyColor()
+    }
+    
+    func update() {
+        newDotPosition(Polar(r: windSpeed, phi: windDirection.radians))
         
         CATransaction.setDisableActions(true)
-        for i in start..<markers.count {
-            let m = markers[i]
-            dots[i - start].position = bounds.center + CGPoint(r: 10*m.r, phi: m.phi - compassDirection.radians - π/2)
+        
+        for (dot, p) in Zip2(dots, dotPositions) {
+            dot.position = (p*Polar(r: scale, phi: -compassDirection.radians - π/2)).cartesian(bounds.center)
         }
-        
-//        for (i, m) in enumerate(markers) {
-//            dots[i].position = bounds.center + CGPoint(r: 10*m.r, phi: m.phi - compassDirection.radians - π/2)
-//        }
-    }
-    
-    func newMarker(polar: Polar) {
-        markers.append(polar)
-//        if markers.count > dotCount {
-//            markers.removeAtIndex(0)
-//        }
-    }
-    
-    
-    //        println("========================")
-    //        for m in markers { print(String(format: "%.1f ", m.r)) }
-    //        println()
-    //
-    //        newMarker(p)
-    //        for m in markers { print(String(format: "%.1f ", m.r)) }
-    //        println()
 
-    
-//    override func drawRect(rect: CGRect) {
-//        let cardinalAngle = 360/CGFloat(cardinalDirections)
-//        
-//        let toCardinal = cardinalDirections - 1
-//
-//        let path = UIBezierPath()
-//        let innerRadius = bounds.width/2 - 20
-//        let origin = bounds.center
-//        
-//        for cardinal in 0...toCardinal {
-//            if cardinal % 2 != 0 {
-//                continue
-//            }
-//            
-//            let phi = (CGFloat(cardinal)*cardinalAngle - compassDirection - 90).radians
-//            
-//            let direction = mod(cardinal, cardinalDirections)
-//            let text = VaavudFormatter.localizedCardinal(direction)
-//            let p = origin + CGPoint(r: innerRadius, phi: phi)
-//
-//            let blackColor = direction % 4 == 0 ? UIColor.blackColor() : UIColor.darkGrayColor()
-//            let color = direction == 0 ? UIColor.redColor() : blackColor
-//            
-//            drawLabel(text, at: p, color: color, small: direction % 4 != 0)
-//        }
-////        newMarker(Polar(r: windSpeed, phi: windDirection.radians))
-//
-////        drawMarkers(markers, rotation: compassDirection.radians)
-//    }
-    
-    func drawMarkers(ms: [Polar], rotation: CGFloat) {
-        let radius: CGFloat = 3
-        let origin = CGPoint(x: bounds.midX, y: bounds.midY)
-        let offset = CGPoint(x: -radius, y: -radius)
-        let size = CGSize(width: 2*radius, height: 2*radius)
-        
-        let contextRef = UIGraphicsGetCurrentContext()
-        
-        for (i, m) in enumerate(ms) {
-            let age = 1 - CGFloat(i)/CGFloat(dotCount)
-            let gray = 0.5 + 0.5*age
-            
-            UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1 - gray).setStroke()
-            
-            CGContextSetRGBFillColor(contextRef, 0.3, 0.3, 0.3, 1 - gray);
-
-            let corner = origin + CGPoint(r: 10*m.r, phi: m.phi - rotation - π/2) + offset
-
-            let rect = CGRect(origin: corner, size: size)
-            CGContextFillEllipseInRect(contextRef, CGRect(origin: corner, size: size))
-        }
-        
-        
-        if let m = ms.last {
-            CGContextSetRGBFillColor(contextRef, 1, 0, 0, 1);
-        
-            let corner = origin + CGPoint(r: 10*m.r, phi: m.phi - rotation - π/2) + offset
-            let rect = CGRect(origin: corner, size: size)
-            CGContextFillEllipseInRect(contextRef, CGRect(origin: corner, size: size))
+        for (label, p) in Zip2(cardinalLabels, cardinalPositions) {
+            label.center = p.rotated(-compassDirection.radians).cartesian(bounds.center)
         }
     }
     
-    func drawLabel(string: String, at p: CGPoint, color: UIColor, small: Bool) {
-        let text: NSString = string
-        
-        let attributes = [NSForegroundColorAttributeName : color, NSFontAttributeName : small ? smallFont : font]
-        
-        let size = text.sizeWithAttributes(attributes)
-        let origin = CGPoint(x: p.x - size.width/2, y: p.y - size.height/2)
-        
-        text.drawInRect(CGRect(origin: origin, size: size), withAttributes: attributes)
+    func newDotPosition(polar: Polar) {
+        dotPositions.append(polar)
+        if dotPositions.count > dotCount {
+            dotPositions.removeAtIndex(0)
+        }
     }
 }
 

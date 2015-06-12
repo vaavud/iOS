@@ -131,8 +131,8 @@ func - (lhs: CGPoint, rhs: CGPoint) -> CGPoint {
     return CGPoint(x: lhs.x - rhs.x, y: lhs.y - rhs.y)
 }
 
-func + (lhs: Polar, rhs: Polar) -> Polar {
-    return Polar(r: lhs.r + rhs.r, phi: lhs.phi + rhs.phi)
+func * (lhs: Polar, rhs: Polar) -> Polar {
+    return Polar(r: lhs.r*rhs.r, phi: lhs.phi + rhs.phi)
 }
 
 func dist(p: CGPoint, q: CGPoint) -> CGFloat {
@@ -146,6 +146,18 @@ struct Polar {
     var cartesian: CGPoint {
         return CGPoint(x: r*cos(phi), y: r*sin(phi))
     }
+    
+    func cartesian(center: CGPoint) -> CGPoint {
+        return CGPoint(x: center.x + r*cos(phi), y: center.y + r*sin(phi))
+    }
+
+    func rotated(phi: CGFloat) -> Polar {
+        return self*Polar(r: 1, phi: phi)
+    }
+}
+
+func rotate(phi: CGFloat)(p: Polar) -> Polar {
+    return p*Polar(r: 1, phi: phi)
 }
 
 extension CGFloat {
