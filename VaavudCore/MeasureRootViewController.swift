@@ -176,7 +176,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     private var latestHeading: CGFloat = 0
     private var latestWindDirection: CGFloat = 0
-    private var latestSpeed: CGFloat = 0
+    private var latestSpeed: CGFloat = 2
     
     @IBAction func debugPanned(sender: UIPanGestureRecognizer) {
         let y = sender.locationInView(view).y

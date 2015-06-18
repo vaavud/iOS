@@ -9,7 +9,7 @@
 import UIKit
 
 class DynamicItem: NSObject, UIDynamicItem {
-    var bounds: CGRect { return CGRect(x: 0, y: 0, width: 5000, height: 5000) }
+    var bounds: CGRect { return CGRect(x: 0, y: 0, width: 10000, height: 10000) }
     var center = CGPoint() { didSet { centerCallback(center) } }
     var transform = CGAffineTransformIdentity { didSet { transformCallback(transform) } }
     
@@ -32,19 +32,23 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
     
     private var latestHeading: CGFloat = 0
     private var latestWindDirection: CGFloat = 0
-    private var latestSpeed: CGFloat = 0
+    private var latestSpeed: CGFloat = 3
     
     var interval: CGFloat = 30
     
     var weight: CGFloat = 0.1
     
-    var scale: CGFloat = 20 { didSet { ruler.scale = scale; background.scale = scale } }
-    var targetScale: CGFloat = 20
+    let bandWidth: CGFloat = 30
+    var logScale: CGFloat = 0 { didSet { changedScale() } }
+    
+    var targetLogScale: CGFloat = 0
     var animatingScale = false
     
     var animator: UIDynamicAnimator!
     var scaleItem: DynamicItem!
 
+    var hasLaidOutSubviews = false
+    
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         println("Created Round")
@@ -58,26 +62,39 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         super.viewDidLoad()
         animator = UIDynamicAnimator(referenceView: view)
         scaleItem = DynamicItem(centerCallback: {
-            self.scale = $0.y/100
+            self.logScale = $0.y/20000
         })
         
-        scaleItem.center = CGPoint(x: 0, y: scale*100)
+        scaleItem.center = CGPoint(x: 0, y: logScale*20000)
+        
+        background.setup()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if !hasLaidOutSubviews {
+            hasLaidOutSubviews = true
+            background.layout()
+            background.changedScale()
+            
+            ruler.layout()
+        }
     }
     
     func tick() {
-        println("\(targetScale)  -  \(scale)")
-        
-        if abs(targetScale - scale) < 0.1 {
+        let scale = bandWidth/pow(2, logScale)
+        let widthFactor = 2*scale*ruler.windSpeed/ruler.bounds.width
+
+        if abs(targetLogScale - logScale) < 0.1 {
             animatingScale = false
             animator.removeAllBehaviors()
         }
         
         if !animatingScale {
-            if ruler.windSpeed > ruler.bounds.width/(2*scale) {
-                animateScale(scale/2)
+            if widthFactor > 1 {
+                animateLogScale(logScale + 1)
             }
-            else if ruler.windSpeed < 0.2*ruler.bounds.width/(2*scale) {
-                animateScale(scale*2)
+            else if widthFactor < 0.2 && logScale >= 1 {
+                animateLogScale(logScale - 1)
             }
         }
         
@@ -87,10 +104,19 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         ruler.update()
     }
     
-    func animateScale(newScale: CGFloat) {
-        targetScale = newScale
+    func animateLogScale(newLogScale: CGFloat) {
+        targetLogScale = newLogScale
         animatingScale = true
-        animator.addBehavior(UISnapBehavior(item: scaleItem, snapToPoint: CGPoint(x: 0, y: newScale*100)))
+        animator.addBehavior(UISnapBehavior(item: scaleItem, snapToPoint: CGPoint(x: 0, y: newLogScale*20000)))
+    }
+    
+    func changedScale() {
+        if logScale < 0 {
+            logScale = 0
+        }
+        
+        ruler.scale = bandWidth/pow(2, logScale)
+        background.logScale = logScale
     }
     
     // MARK: New readings from root
@@ -121,35 +147,41 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
 }
 
 class RoundBackground : UIView {
-    var scale: CGFloat = 0 { didSet { if scale != oldValue { setNeedsDisplay() } } }
-    
-    let bandWidth: CGFloat = 1
-    let bandDarkening: CGFloat = 0.02
+    var logScale: CGFloat = 0 { didSet { if logScale != oldValue { changedScale() } } }
+    let bandWidth: CGFloat = 30
     
     private let smallFont = UIFont(name: "Roboto", size: 12)!
     private let textColor = UIColor.lightGrayColor()
 
-    override func drawRect(rect: CGRect) {
-        let width = scale*bandWidth
-        let diagonal = dist(bounds.center, bounds.upperRight)
-        let diagonalDirection = (1/diagonal)*(bounds.upperRight - bounds.center)
-        let n = Int(ceil(diagonal/width))
+    private let banded1 = BandedView()
+    private let banded2 = BandedView()
+    
+    func setup() {
+        banded1.bandWidth = bandWidth
+        banded1.layer.shouldRasterize = true
+        addSubview(banded1)
         
-        for i in 0...n - 2 {
-            let band = n - i
-            let blackness = CGFloat(band)*bandDarkening
-
-            let contextRef = UIGraphicsGetCurrentContext()
-//            CGContextSetRGBFillColor(contextRef, 1 - blackness, 1 - blackness, 1 - blackness, 1)
-            let r = CGFloat(band)*width
-            let rect = CGRect(center: rect.center, size: CGSize(width: 2*r, height: 2*r))
-//            CGContextFillEllipseInRect(contextRef, rect)
-            
-            CGContextSetRGBStrokeColor(contextRef, 1 - blackness, 1 - blackness, 1 - blackness, 1)
-            CGContextSetLineWidth(contextRef, 2)
-            CGContextStrokeEllipseInRect(contextRef, rect)
-            //            drawLabel("\(band)", at:bounds.center + r*diagonalDirection, color: textColor)
-        }
+        banded2.bandWidth = 2*bandWidth
+        banded2.layer.shouldRasterize = true
+        addSubview(banded2)
+        
+        clipsToBounds = true
+    }
+    
+    func layout() {
+        println("BK layout")
+        banded1.frame = CGRect(center: bounds.center, size: 2*bounds.size)
+        banded2.frame = CGRect(center: bounds.center, size: 2*bounds.size)
+    }
+    
+    func changedScale() {
+        let modScale = logScale % 1
+        
+        banded2.alpha = modScale
+        
+        let t = Affine.scaling(1/(1 + modScale))
+        banded1.transform = t
+        banded2.transform = t
     }
     
     func drawLabel(string: String, at p: CGPoint, color: UIColor) {
@@ -165,26 +197,23 @@ class RoundBackground : UIView {
 }
 
 class BandedView: UIView {
+    var bandWidth: CGFloat = 0
+    let bandDarkening: CGFloat = 0.035
+    
     override func drawRect(rect: CGRect) {
-        let width = scale*bandWidth
         let diagonal = dist(bounds.center, bounds.upperRight)
         let diagonalDirection = (1/diagonal)*(bounds.upperRight - bounds.center)
-        let n = Int(ceil(diagonal/width))
+        let n = Int(ceil(diagonal/bandWidth))
         
         for i in 0...n - 2 {
             let band = n - i
-            let blackness = CGFloat(band)*bandDarkening
+            let black = CGFloat(band)*bandDarkening
             
             let contextRef = UIGraphicsGetCurrentContext()
-            //            CGContextSetRGBFillColor(contextRef, 1 - blackness, 1 - blackness, 1 - blackness, 1)
-            let r = CGFloat(band)*width
+            let r = CGFloat(band)*bandWidth
             let rect = CGRect(center: rect.center, size: CGSize(width: 2*r, height: 2*r))
-            //            CGContextFillEllipseInRect(contextRef, rect)
-            
-            CGContextSetRGBStrokeColor(contextRef, 1 - blackness, 1 - blackness, 1 - blackness, 1)
-            CGContextSetLineWidth(contextRef, 2)
-            CGContextStrokeEllipseInRect(contextRef, rect)
-            //            drawLabel("\(band)", at:bounds.center + r*diagonalDirection, color: textColor)
+            CGContextSetRGBFillColor(contextRef, 1 - black, 1 - black, 1 - black, 1)
+            CGContextFillEllipseInRect(contextRef, rect)
         }
     }
 }
@@ -229,7 +258,9 @@ class RoundRuler : UIView {
             layer.addSublayer(dot)
             dots.append(dot)
         }
-        
+    }
+    
+    func layout() {
         let r = bounds.width/2 - 28
         
         for cardinal in 0..<cardinalDirections {
@@ -239,7 +270,7 @@ class RoundRuler : UIView {
             
             let phi = (360*CGFloat(cardinal)/CGFloat(cardinalDirections) - 90).radians
             cardinalPositions.append(Polar(r: r, phi: phi))
-
+            
             let label = UILabel()
             label.text = VaavudFormatter.localizedCardinal(mod(cardinal, cardinalDirections))
             label.font = cardinal % 4 == 0 ? font : smallFont

@@ -139,6 +139,12 @@ func dist(p: CGPoint, q: CGPoint) -> CGFloat {
     return (p - q).length
 }
 
+// CGSize
+
+func * (lhs: CGFloat, rhs: CGSize) -> CGSize {
+    return CGSize(width: lhs*rhs.width, height: lhs*rhs.height)
+}
+
 struct Polar {
     var r: CGFloat
     var phi: CGFloat
