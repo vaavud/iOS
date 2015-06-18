@@ -164,6 +164,31 @@ class RoundBackground : UIView {
     }
 }
 
+class BandedView: UIView {
+    override func drawRect(rect: CGRect) {
+        let width = scale*bandWidth
+        let diagonal = dist(bounds.center, bounds.upperRight)
+        let diagonalDirection = (1/diagonal)*(bounds.upperRight - bounds.center)
+        let n = Int(ceil(diagonal/width))
+        
+        for i in 0...n - 2 {
+            let band = n - i
+            let blackness = CGFloat(band)*bandDarkening
+            
+            let contextRef = UIGraphicsGetCurrentContext()
+            //            CGContextSetRGBFillColor(contextRef, 1 - blackness, 1 - blackness, 1 - blackness, 1)
+            let r = CGFloat(band)*width
+            let rect = CGRect(center: rect.center, size: CGSize(width: 2*r, height: 2*r))
+            //            CGContextFillEllipseInRect(contextRef, rect)
+            
+            CGContextSetRGBStrokeColor(contextRef, 1 - blackness, 1 - blackness, 1 - blackness, 1)
+            CGContextSetLineWidth(contextRef, 2)
+            CGContextStrokeEllipseInRect(contextRef, rect)
+            //            drawLabel("\(band)", at:bounds.center + r*diagonalDirection, color: textColor)
+        }
+    }
+}
+
 class RoundRuler : UIView {
     var compassDirection: CGFloat = 0
     var windDirection: CGFloat = 0
