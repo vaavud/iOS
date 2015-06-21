@@ -66,27 +66,31 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         })
         
         scaleItem.center = CGPoint(x: 0, y: logScale*20000)
-        
         background.setup()
     }
     
     override func viewDidLayoutSubviews() {
         if !hasLaidOutSubviews {
             hasLaidOutSubviews = true
-            background.layout()
-            background.changedScale()
-            
-            ruler.layout()
+            setupLayoutRelated()
         }
+    }
+    
+    func setupLayoutRelated() {
+        background.layout()
+        background.changedScale()
+        
+        ruler.layout()
     }
     
     func tick() {
         let scale = bandWidth/pow(2, logScale)
         let widthFactor = 2*scale*ruler.windSpeed/ruler.bounds.width
 
-        if abs(targetLogScale - logScale) < 0.1 {
+        if abs(targetLogScale - logScale) < 0.01 {
             animatingScale = false
             animator.removeAllBehaviors()
+            logScale = targetLogScale
         }
         
         if !animatingScale {
@@ -150,11 +154,13 @@ class RoundBackground : UIView {
     var logScale: CGFloat = 0 { didSet { if logScale != oldValue { changedScale() } } }
     let bandWidth: CGFloat = 30
     
-    private let smallFont = UIFont(name: "Roboto", size: 12)!
     private let textColor = UIColor.lightGrayColor()
 
     private let banded1 = BandedView()
     private let banded2 = BandedView()
+    
+    private var labels = [UILabel]()
+    private var labelLogScale = -1
     
     func setup() {
         banded1.bandWidth = bandWidth
@@ -169,9 +175,23 @@ class RoundBackground : UIView {
     }
     
     func layout() {
-        println("BK layout")
-        banded1.frame = CGRect(center: bounds.center, size: 2*bounds.size)
-        banded2.frame = CGRect(center: bounds.center, size: 2*bounds.size)
+        let frame = CGRect(center: bounds.center, size: 2*bounds.size)
+        banded1.frame = frame
+        banded2.frame = frame
+        
+        let diagonal = dist(frame.center, frame.upperRight)
+        banded1.n = Int(ceil(diagonal/banded1.bandWidth))
+        banded2.n = Int(ceil(diagonal/banded2.bandWidth))
+        
+        for i in 2..<banded1.n {
+            let label = UILabel()
+            label.font = UIFont(name: "Roboto", size: 22)
+            label.textAlignment = .Center
+            label.text = "9999"
+            label.sizeToFit()
+            addSubview(label)
+            labels.append(label)
+        }
     }
     
     func changedScale() {
@@ -179,32 +199,38 @@ class RoundBackground : UIView {
         
         banded2.alpha = modScale
         
-        let t = Affine.scaling(1/(1 + modScale))
+        let scale = 1/(1 + modScale)
+        let t = Affine.scaling(scale)
         banded1.transform = t
         banded2.transform = t
-    }
-    
-    func drawLabel(string: String, at p: CGPoint, color: UIColor) {
-        let text: NSString = string
         
-        let attributes = [NSForegroundColorAttributeName : color, NSFontAttributeName : smallFont]
+        let diagonal = (bounds.upperRight - bounds.center).unit
+
+        for (i, label) in enumerate(labels) {
+            label.center = bounds.center + CGFloat(i + 2)*scale*bandWidth*diagonal
+            label.alpha = ((i + 2) % 2 == 0 && i != 0) ? 1 : 1 - modScale
+        }
         
-        let size = text.sizeWithAttributes(attributes)
-        let origin = CGPoint(x: p.x - size.width/2, y: p.y - size.height/2)
-        
-        text.drawInRect(CGRect(origin: origin, size: size), withAttributes: attributes)
+        let intScale = Int(floor(logScale))
+
+        if labelLogScale != intScale {
+            labelLogScale = intScale
+            
+            for (i, label) in enumerate(labels) {
+                let j = (i + 2)*Int(pow(2, Float(labelLogScale)))
+                label.text = String(j)
+            }
+        }
     }
 }
 
 class BandedView: UIView {
+    var n = 0
     var bandWidth: CGFloat = 0
-    let bandDarkening: CGFloat = 0.035
+    
+    private let bandDarkening: CGFloat = 0.04
     
     override func drawRect(rect: CGRect) {
-        let diagonal = dist(bounds.center, bounds.upperRight)
-        let diagonalDirection = (1/diagonal)*(bounds.upperRight - bounds.center)
-        let n = Int(ceil(diagonal/bandWidth))
-        
         for i in 0...n - 2 {
             let band = n - i
             let black = CGFloat(band)*bandDarkening
@@ -298,8 +324,11 @@ class RoundRuler : UIView {
         
         CATransaction.setDisableActions(true)
         
+        let easing = ease(1.5*scale, 2*scale)
+        
         for (dot, p) in Zip2(dots, dotPositions) {
             dot.position = (p*Polar(r: scale, phi: -compassDirection.radians - π/2)).cartesian(bounds.center)
+            dot.opacity = Float(easing(x: dist(dot.position, bounds.center)))
         }
 
         for (label, p) in Zip2(cardinalLabels, cardinalPositions) {

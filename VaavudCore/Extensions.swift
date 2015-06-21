@@ -50,6 +50,21 @@ func ease(x: CGFloat) -> CGFloat {
     return x < 0.5 ? 4*pow(x, 3) : pow(2*x - 2, 3)/2 + 1
 }
 
+func ease(from: CGFloat, to: CGFloat)(x: CGFloat) -> CGFloat {
+    return ease(clamp((x - from)/(to - from)))
+}
+
+func clamp(x: CGFloat) -> CGFloat {
+    if x < 0 {
+        return 0
+    }
+    else if x > 1 {
+        return 1
+    }
+    
+    return x
+}
+
 extension UIViewController {
     func hideVolumeHUD() {
         view.addSubview(MPVolumeView(frame: CGRect(x: -1000, y: -1000, width: 100, height: 100)))
@@ -181,6 +196,10 @@ extension CGPoint {
         return sqrt(x*x + y*y)
     }
     
+    var unit: CGPoint {
+        return (1/length)*self
+    }
+
     var polar: Polar {
         return Polar(r: length, phi: atan2(y, x))
     }
