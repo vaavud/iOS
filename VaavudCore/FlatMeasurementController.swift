@@ -48,6 +48,13 @@ class FlatMeasurementViewController : UIViewController, MeasurementConsumer {
         latestHeading += distanceOnCircle(from: latestHeading, to: heading)
     }
     
+    func newReading(reading: String) {
+        
+    }
+
+    func updateSpeeddUnit(unit: WindSpeedUnit) {
+    }
+    
     @IBOutlet weak var label: UILabel!
 }
 

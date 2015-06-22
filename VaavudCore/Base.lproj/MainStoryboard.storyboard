@@ -338,6 +338,9 @@
                                     <color key="titleColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="tappedUnit:" destination="lka-3y-5RY" eventType="touchUpInside" id="qbC-ot-lde"/>
+                                </connections>
                             </button>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="9ff-Gx-kJm">
                                 <rect key="frame" x="141" y="0.0" width="39" height="37"/>
@@ -2262,6 +2265,21 @@
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcw-1h-0EJ" userLabel="Ruler" customClass="RoundRuler" customModule="Vaavud" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <button opaque="NO" alpha="0.49999999999999961" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csb-Id-zNX">
+                                        <rect key="frame" x="145" y="109" width="30" height="30"/>
+                                        <state key="normal" title="⬇︎">
+                                            <color key="titleColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="lockNorthChanged:" destination="Rx8-eR-iwn" eventType="touchUpInside" id="nce-Tc-Sws"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="csb-Id-zNX" secondAttribute="centerX" id="dXw-lO-2di"/>
+                                </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90g-5T-Ctv">
                                 <rect key="frame" x="0.0" y="265" width="320" height="50"/>
@@ -2284,11 +2302,13 @@
                             <constraint firstAttribute="trailing" secondItem="90g-5T-Ctv" secondAttribute="trailing" id="lEZ-mW-3kW"/>
                             <constraint firstAttribute="trailing" secondItem="fcw-1h-0EJ" secondAttribute="trailing" id="rKU-GF-gO7"/>
                             <constraint firstItem="xei-Zj-RpI" firstAttribute="top" secondItem="Lcu-hO-cgE" secondAttribute="bottom" id="sKx-z4-RAQ"/>
+                            <constraint firstItem="90g-5T-Ctv" firstAttribute="centerY" secondItem="csb-Id-zNX" secondAttribute="centerY" constant="166" id="u4G-eB-WkA"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="background" destination="Lcu-hO-cgE" id="wwx-zD-ppU"/>
+                        <outlet property="lockNorthDistance" destination="u4G-eB-WkA" id="R9c-mJ-HAP"/>
                         <outlet property="ruler" destination="fcw-1h-0EJ" id="AVh-nH-nTr"/>
                         <outlet property="speedLabel" destination="90g-5T-Ctv" id="UPP-yD-hKC"/>
                     </connections>

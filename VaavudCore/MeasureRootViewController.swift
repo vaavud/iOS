@@ -13,6 +13,10 @@ protocol MeasurementConsumer {
     func newWindDirection(windDirection: CGFloat)
     func newSpeed(speed: CGFloat)
     func newHeading(heading: CGFloat)
+
+    func newReading(reading: String)
+
+    func updateSpeeddUnit(unit: WindSpeedUnit)
 }
 
 class MeasureRootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, VaavudElectronicWindDelegate {
@@ -21,6 +25,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var displayLink: CADisplayLink!
 
     private let sdk = VEVaavudElectronicSDK.sharedVaavudElectronic()
+
+    private var formatter = VaavudFormatter()
 
     @IBOutlet weak var pager: UIPageControl!
     
@@ -76,6 +82,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         displayLink = CADisplayLink(target: self, selector: Selector("tick:"))
         displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
+    }
+    
+    @IBAction func tappedUnit(sender: UIButton) {
+        
     }
     
     @IBAction func tappedCancel(sender: MeasureCancelButton) {

@@ -30,16 +30,17 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
     @IBOutlet weak var ruler: RoundRuler!
     @IBOutlet weak var speedLabel: UILabel!
     
+    @IBOutlet weak var lockNorthDistance: NSLayoutConstraint!
+
     private var latestHeading: CGFloat = 0
     private var latestWindDirection: CGFloat = 0
     private var latestSpeed: CGFloat = 3
-    
-    var interval: CGFloat = 30
     
     var weight: CGFloat = 0.1
     
     let bandWidth: CGFloat = 30
     var logScale: CGFloat = 0 { didSet { changedScale() } }
+    var logScaleOffset: CGFloat = 0
     
     var targetLogScale: CGFloat = 0
     var animatingScale = false
@@ -76,7 +77,24 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         }
     }
     
+    func updateSpeeddUnit(unit: WindSpeedUnit) {
+        switch unit {
+        case .MS:
+            logScaleOffset = 0
+        case .KMH:
+            logScaleOffset = 2
+        case .MPH:
+            logScaleOffset = 1
+        case .BFT:
+            logScaleOffset = 0
+        case .KN:
+            logScaleOffset = 1
+        }
+    }
+    
     func setupLayoutRelated() {
+        lockNorthDistance.constant = view.bounds.width/2 + 20
+        
         background.layout()
         background.changedScale()
         
@@ -140,10 +158,17 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         }
     }
     
+    func newReading(reading: String) {
+        
+    }
+    
     var lockNorth = false
     
-    @IBAction func lockNorthChanged(sender: UISwitch) {
-        lockNorth = sender.on
+    @IBAction func lockNorthChanged(sender: UIButton) {
+        lockNorth = !lockNorth
+                
+//        sender.titleLabel?.textColor = lockNorth ? UIColor.vaavudRedColor() : UIColor.vaavudLightGreyColor()
+        sender.alpha = lockNorth ? 1 : 0.5
         
         if lockNorth {
             latestHeading = 0

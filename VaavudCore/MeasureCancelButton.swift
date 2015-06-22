@@ -59,7 +59,7 @@ class MeasureCancelButton: UIButton {
             let digit = Int(ceil(timeLeft))
             if timerDigit != digit && digit > 0 {
                 timerDigit = digit
-                label.text = "\(timerDigit)" //String(format: "%d", timerDigit)
+                label.text = String(timerDigit)
                 label.sizeToFit()
                 label.frame.size.width = bounds.width
                 label.center = bounds.center + CGPoint(x: 0, y: 5)
