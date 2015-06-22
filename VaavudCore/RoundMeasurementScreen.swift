@@ -66,7 +66,7 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         })
         
         scaleItem.center = CGPoint(x: 0, y: logScale*20000)
-        background.setup()
+        background.setup(bandWidth)
     }
     
     override func viewDidLayoutSubviews() {
@@ -80,6 +80,7 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         background.layout()
         background.changedScale()
         
+        ruler.setup(bandWidth)
         ruler.layout()
     }
     
@@ -152,9 +153,9 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
 
 class RoundBackground : UIView {
     var logScale: CGFloat = 0 { didSet { if logScale != oldValue { changedScale() } } }
-    let bandWidth: CGFloat = 30
+    var bandWidth: CGFloat!
     
-    private let textColor = UIColor.lightGrayColor()
+    private let textColor = UIColor.darkGrayColor().colorWithAlpha(0.5)
 
     private let banded1 = BandedView()
     private let banded2 = BandedView()
@@ -162,7 +163,9 @@ class RoundBackground : UIView {
     private var labels = [UILabel]()
     private var labelLogScale = -1
     
-    func setup() {
+    func setup(bandWidth: CGFloat) {
+        self.bandWidth = bandWidth
+        
         banded1.bandWidth = bandWidth
         banded1.layer.shouldRasterize = true
         addSubview(banded1)
@@ -185,9 +188,10 @@ class RoundBackground : UIView {
         
         for i in 2..<banded1.n {
             let label = UILabel()
-            label.font = UIFont(name: "Roboto", size: 22)
+            label.font = UIFont(name: "Roboto", size: 14)
             label.textAlignment = .Center
             label.text = "9999"
+            label.textColor = textColor
             label.sizeToFit()
             addSubview(label)
             labels.append(label)
@@ -207,7 +211,7 @@ class RoundBackground : UIView {
         let diagonal = (bounds.upperRight - bounds.center).unit
 
         for (i, label) in enumerate(labels) {
-            label.center = bounds.center + CGFloat(i + 2)*scale*bandWidth*diagonal
+            label.center = bounds.center + (CGFloat(i + 2)*scale*bandWidth - 10)*diagonal
             label.alpha = ((i + 2) % 2 == 0 && i != 0) ? 1 : 1 - modScale
         }
         
@@ -250,6 +254,7 @@ class RoundRuler : UIView {
     var windSpeed: CGFloat = 0
 
     var scale: CGFloat = 0
+    var bandWidth: CGFloat = 0
     
     private let dotCount = 400
     private var dotPositions = [Polar]()
@@ -274,9 +279,9 @@ class RoundRuler : UIView {
                 dot.bounds.size = CGSize(width: 10, height: 10)
             }
             else {
-                let size = 7*ease(CGFloat(i)/CGFloat(dotCount))
+                let size = 6*ease(CGFloat(i)/CGFloat(dotCount))
                 dot.bounds.size = CGSize(width: size, height: size)
-                dot.fillColor = UIColor.vaavudDarkGreyColor().CGColor
+                dot.fillColor = UIColor.grayColor().CGColor
             }
             dot.path = UIBezierPath(ovalInRect: dot.bounds).CGPath
             newDotPosition(bounds.center.polar)
@@ -286,14 +291,17 @@ class RoundRuler : UIView {
         }
     }
     
+    func setup(bandWidth: CGFloat) {
+        self.bandWidth = bandWidth
+    }
+    
     func layout() {
-        let r = bounds.width/2 - 28
-        
         for cardinal in 0..<cardinalDirections {
             if cardinal % 2 != 0 {
                 continue
             }
             
+            let r = bandWidth*(floor(0.5*bounds.width/bandWidth) - 0.5)
             let phi = (360*CGFloat(cardinal)/CGFloat(cardinalDirections) - 90).radians
             cardinalPositions.append(Polar(r: r, phi: phi))
             
@@ -316,7 +324,7 @@ class RoundRuler : UIView {
             return UIColor.vaavudDarkGreyColor()
         }
 
-        return UIColor.vaavudLightGreyColor()
+        return UIColor.vaavudDarkGreyColor().colorWithAlpha(0.5)
     }
     
     func update() {
@@ -324,12 +332,14 @@ class RoundRuler : UIView {
         
         CATransaction.setDisableActions(true)
         
-        let easing = ease(1.5*scale, 2*scale)
+        let easing = ease(1.2*scale, 3.0*scale)
         
         for (dot, p) in Zip2(dots, dotPositions) {
             dot.position = (p*Polar(r: scale, phi: -compassDirection.radians - π/2)).cartesian(bounds.center)
             dot.opacity = Float(easing(x: dist(dot.position, bounds.center)))
         }
+        
+        dots[dots.count - 1].opacity = 0.7*dots[dots.count - 1].opacity + 0.3
 
         for (label, p) in Zip2(cardinalLabels, cardinalPositions) {
             label.center = p.rotated(-compassDirection.radians).cartesian(bounds.center)
