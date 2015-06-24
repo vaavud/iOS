@@ -146,7 +146,7 @@ class VaavudFormatter {
         case .Cardinal:
             return VaavudFormatter.localizedCardinal(degrees)
         case .Degrees:
-            return NSString(format: "%.0f°", degrees) as String
+            return String(format: "%.0f°", degrees)
         }
     }
     
@@ -258,10 +258,11 @@ class VaavudFormatter {
     }
     
     func formattedGustiness(gustiness: Float?) -> String? {
-        if gustiness == nil || gustiness < 0.001 {
-            return nil
+        if let gustiness = gustiness where gustiness > 0.001 {
+            return String(format: "%.0f", 100*gustiness)
         }
-        return NSString(format: "%.0f", 100*gustiness!) as String
+        
+        return nil
     }
     
     // Units
@@ -319,13 +320,13 @@ class VaavudFormatter {
     
     private func localizedDecimalString(value: Float, decimals: Int, digits: Int? = nil) -> String {
         var actualDecimals = decimals
-        if let digits = digits {
+        if value > 0, let digits = digits {
             let digitsBeforePoint = max(Int(floor(log10(value)) + 1), 1)
             actualDecimals = min(max(digits - digitsBeforePoint, 0), decimals)
         }
         
-        let formatString = NSString(format: "%%.%df", actualDecimals)
-        return NSString(format: formatString, locale: NSLocale.currentLocale(), value) as String
+        let formatString = String(format: "%%.%df", actualDecimals)
+        return String(format: formatString, locale: NSLocale.currentLocale(), value)
     }
     
     private func failure(# valueLabel: UILabel, unitLabel: UILabel) -> Bool {

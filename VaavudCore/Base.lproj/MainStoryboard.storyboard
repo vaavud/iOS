@@ -464,12 +464,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0.1" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d4p-1N-ExK">
-                                <rect key="frame" x="15" y="510" width="34" height="43"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" white="0.33333333329999998" alpha="0.34999999999999998" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u73-Bb-XqL" userLabel="Ruler" customClass="FlatRuler" customModule="Vaavud" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="30" width="320" height="100"/>
                                 <constraints>
@@ -499,7 +493,6 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="graph" destination="Fnx-uI-M7p" id="mWX-Z5-O8Y"/>
-                        <outlet property="label" destination="d4p-1N-ExK" id="Tgq-sd-XiA"/>
                         <outlet property="ruler" destination="u73-Bb-XqL" id="8pm-GS-HgK"/>
                         <outlet property="speedLabel" destination="vj0-gw-b8b" id="CAT-4o-1D2"/>
                     </connections>

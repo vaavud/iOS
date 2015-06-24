@@ -14,6 +14,8 @@ class FlatMeasurementViewController : UIViewController, MeasurementConsumer {
     
     @IBOutlet weak var speedLabel: UILabel!
     
+    let formatter = VaavudFormatter()
+
     private var latestHeading: CGFloat = 0
     private var latestWindDirection: CGFloat = 0
     private var latestSpeed: CGFloat = 0
@@ -25,7 +27,11 @@ class FlatMeasurementViewController : UIViewController, MeasurementConsumer {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-        
+    
+    var scaledSpeed: CGFloat {
+        return CGFloat(formatter.windSpeedUnit.fromBase(Float(latestSpeed)))
+    }
+
     func tick() {
         ruler.compassDirection = weight*latestHeading + (1 - weight)*ruler.compassDirection
         ruler.windDirection = weight*latestWindDirection + (1 - weight)*ruler.windDirection
@@ -40,22 +46,17 @@ class FlatMeasurementViewController : UIViewController, MeasurementConsumer {
     }
     
     func newSpeed(speed: CGFloat) {
-        speedLabel.text = NSString(format: "%.1f", speed) as String
         latestSpeed = speed
+        speedLabel.text = formatter.localizedWindspeed(Float(speed), digits: 3)
     }
     
     func newHeading(heading: CGFloat) {
         latestHeading += distanceOnCircle(from: latestHeading, to: heading)
     }
     
-    func newReading(reading: String) {
-        
-    }
-
     func changedSpeedUnit(unit: SpeedUnit) {
+        newSpeed(latestSpeed)
     }
-    
-    @IBOutlet weak var label: UILabel!
 }
 
 enum ArrowPosition: Int {

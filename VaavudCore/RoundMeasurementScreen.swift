@@ -104,7 +104,7 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
     
     var insideFactor: CGFloat {
         let scale = bandWidth/pow(2, logScale)
-        return 2*scale*scaledSpeed/ruler.bounds.width
+        return 2*scale*scaledSpeed/ruler.bounds.height
     }
     
     func tick() {

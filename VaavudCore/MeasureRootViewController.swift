@@ -34,6 +34,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     var currentConsumer: MeasurementConsumer!
     
+    private var latestHeading: CGFloat = 0
+    private var latestWindDirection: CGFloat = 0
+    private var latestSpeed: CGFloat = 0
+
     var state = MeasureState.CountingDown(5, true)
     var timeLeft: CGFloat = 5
     
@@ -80,6 +84,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         displayLink = CADisplayLink(target: self, selector: Selector("tick:"))
         displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
+        
+        unitButton.setTitle(formatter.windSpeedUnit.localizedString, forState: .Normal)
     }
     
     @IBAction func tappedUnit(sender: UIButton) {
@@ -126,15 +132,18 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
     // MARK: SDK Callbacks
     func newWindDirection(windDirection: NSNumber!) {
-        CGFloat(windDirection.floatValue)
+        latestWindDirection = CGFloat(windDirection.floatValue)
+        currentConsumer.newWindDirection(latestWindDirection)
     }
     
     func newSpeed(speed: NSNumber!) {
-        CGFloat(speed.floatValue)
+        latestSpeed = CGFloat(speed.floatValue)
+        currentConsumer.newSpeed(latestSpeed)
     }
     
     func newHeading(heading: NSNumber!) {
-        currentConsumer.newHeading(CGFloat(heading.floatValue))
+        latestHeading = CGFloat(heading.floatValue)
+        currentConsumer.newHeading(latestHeading)
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -151,8 +160,11 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             if let current = find(viewControllers, vc) {
                 pager.currentPage = current
             }
-
+            
             currentConsumer = mc
+            currentConsumer.newSpeed(latestSpeed)
+            currentConsumer.newWindDirection(latestWindDirection)
+            currentConsumer.newHeading(latestHeading)
             
             let alpha: CGFloat = vc is MapMeasurementViewController ? 0 : 1
             UIView.animateWithDuration(0.3) {
@@ -163,9 +175,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+        
         if let current = find(viewControllers, viewController) {
             let next = mod(current + 1, viewControllers.count)
-            
             return viewControllers[next]
         }
         
@@ -184,21 +196,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     // MARK: Debug
     
-    private var latestHeading: CGFloat = 0
-    private var latestWindDirection: CGFloat = 0
-    private var latestSpeed: CGFloat = 2
-    
     @IBAction func debugPanned(sender: UIPanGestureRecognizer) {
         let y = sender.locationInView(view).y
         let x = view.bounds.midX - sender.locationInView(view).x
         let dx = sender.translationInView(view).x/2
         let dy = sender.translationInView(view).y/20
         
-        latestWindDirection += dx
-        currentConsumer.newWindDirection(latestWindDirection)
-            
-        latestSpeed -= dy
-        currentConsumer.newSpeed(max(0, latestSpeed))
+        newWindDirection(latestWindDirection + dx)
+        newSpeed(max(0, latestSpeed - dy))
         
         sender.setTranslation(CGPoint(), inView: view)
     }
