@@ -36,6 +36,8 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
     private var latestWindDirection: CGFloat = 0
     private var latestSpeed: CGFloat = 3
     
+    let formatter = VaavudFormatter()
+    
     var weight: CGFloat = 0.1
     
     let bandWidth: CGFloat = 30
@@ -77,18 +79,12 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         }
     }
     
-    func updateSpeeddUnit(unit: WindSpeedUnit) {
-        switch unit {
-        case .MS:
-            logScaleOffset = 0
-        case .KMH:
-            logScaleOffset = 2
-        case .MPH:
-            logScaleOffset = 1
-        case .BFT:
-            logScaleOffset = 0
-        case .KN:
-            logScaleOffset = 1
+    func changedSpeedUnit(unit: SpeedUnit) {
+        formatter.readUnits()
+        newSpeed(latestSpeed)
+        
+        if formatter.windSpeedUnit == .Bft {
+            animateLogScale(0)
         }
     }
     
@@ -102,32 +98,39 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         ruler.layout()
     }
     
-    func tick() {
+    var scaledSpeed: CGFloat {
+        return CGFloat(formatter.windSpeedUnit.fromBase(Float(latestSpeed)))
+    }
+    
+    var insideFactor: CGFloat {
         let scale = bandWidth/pow(2, logScale)
-        let widthFactor = 2*scale*ruler.windSpeed/ruler.bounds.width
-
+        return 2*scale*scaledSpeed/ruler.bounds.width
+    }
+    
+    func tick() {
         if abs(targetLogScale - logScale) < 0.01 {
             animatingScale = false
             animator.removeAllBehaviors()
             logScale = targetLogScale
         }
         
-        if !animatingScale {
-            if widthFactor > 1 {
+        if !animatingScale && formatter.windSpeedUnit != .Bft {
+            if insideFactor > 1 {
                 animateLogScale(logScale + 1)
             }
-            else if widthFactor < 0.2 && logScale >= 1 {
+            else if insideFactor < 0.2 && logScale >= 1 {
                 animateLogScale(logScale - 1)
             }
         }
         
         ruler.compassDirection = weight*latestHeading + (1 - weight)*ruler.compassDirection
         ruler.windDirection = weight*latestWindDirection + (1 - weight)*ruler.windDirection
-        ruler.windSpeed = weight*latestSpeed + (1 - weight)*ruler.windSpeed
+        ruler.windSpeed = weight*scaledSpeed + (1 - weight)*ruler.windSpeed
         ruler.update()
     }
     
     func animateLogScale(newLogScale: CGFloat) {
+        animator.removeAllBehaviors()
         targetLogScale = newLogScale
         animatingScale = true
         animator.addBehavior(UISnapBehavior(item: scaleItem, snapToPoint: CGPoint(x: 0, y: newLogScale*20000)))
@@ -148,18 +151,14 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
     }
     
     func newSpeed(speed: CGFloat) {
-        speedLabel.text = String(format: "%.1f", speed)
         latestSpeed = speed
+        speedLabel.text = formatter.localizedWindspeed(Float(speed), digits: 3)
     }
     
     func newHeading(heading: CGFloat) {
         if !lockNorth {
             latestHeading += distanceOnCircle(from: latestHeading, to: heading)
         }
-    }
-    
-    func newReading(reading: String) {
-        
     }
     
     var lockNorth = false

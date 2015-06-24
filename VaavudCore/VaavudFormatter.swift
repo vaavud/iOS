@@ -264,11 +264,9 @@ class VaavudFormatter {
         return NSString(format: "%.0f", 100*gustiness!) as String
     }
     
-    // MARK - Private
-    
     // Units
     
-    private func readUnits() {
+    func readUnits() {
         if let storedWindspeedInt = Property.getAsInteger("windSpeedUnit")?.integerValue {
             windSpeedUnit = SpeedUnit(rawValue:storedWindspeedInt)!
         }
@@ -286,10 +284,12 @@ class VaavudFormatter {
         }
     }
     
-    func writeWindSpeedUnit() { Property.setAsInteger(windSpeedUnit.rawValue, forKey: "windSpeedUnit") }
-    func writeDirectionUnit() { Property.setAsInteger(directionUnit.rawValue, forKey: "directionUnit") }
-    func writePressureUnit() { Property.setAsInteger(pressureUnit.rawValue, forKey: "pressureUnit") }
-    func writeTemperatureUnit() { Property.setAsInteger(temperatureUnit.rawValue, forKey: "temperatureUnit") }
+    // MARK - Private
+    
+    private func writeWindSpeedUnit() { Property.setAsInteger(windSpeedUnit.rawValue, forKey: "windSpeedUnit") }
+    private func writeDirectionUnit() { Property.setAsInteger(directionUnit.rawValue, forKey: "directionUnit") }
+    private func writePressureUnit() { Property.setAsInteger(pressureUnit.rawValue, forKey: "pressureUnit") }
+    private func writeTemperatureUnit() { Property.setAsInteger(temperatureUnit.rawValue, forKey: "temperatureUnit") }
 
     // Direction
     

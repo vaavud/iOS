@@ -14,9 +14,7 @@ protocol MeasurementConsumer {
     func newSpeed(speed: CGFloat)
     func newHeading(heading: CGFloat)
 
-    func newReading(reading: String)
-
-    func updateSpeeddUnit(unit: WindSpeedUnit)
+    func changedSpeedUnit(unit: SpeedUnit)
 }
 
 class MeasureRootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, VaavudElectronicWindDelegate {
@@ -85,7 +83,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     @IBAction func tappedUnit(sender: UIButton) {
-        
+        formatter.windSpeedUnit = formatter.windSpeedUnit.next
+        unitButton.setTitle(formatter.windSpeedUnit.localizedString, forState: .Normal)
+        currentConsumer.changedSpeedUnit(formatter.windSpeedUnit)
     }
     
     @IBAction func tappedCancel(sender: MeasureCancelButton) {

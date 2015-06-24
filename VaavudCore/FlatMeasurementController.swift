@@ -52,7 +52,7 @@ class FlatMeasurementViewController : UIViewController, MeasurementConsumer {
         
     }
 
-    func updateSpeeddUnit(unit: WindSpeedUnit) {
+    func changedSpeedUnit(unit: SpeedUnit) {
     }
     
     @IBOutlet weak var label: UILabel!
