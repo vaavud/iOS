@@ -15,6 +15,8 @@ protocol MeasurementConsumer {
     func newHeading(heading: CGFloat)
 
     func changedSpeedUnit(unit: SpeedUnit)
+//    func screenAppeared()
+//    func screenDisappeared()
 }
 
 class MeasureRootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, VaavudElectronicWindDelegate {
@@ -154,17 +156,27 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         return Int(UIInterfaceOrientationMask.All.rawValue)
     }
     
+    func changeConsumer(mc: MeasurementConsumer) {
+        currentConsumer = mc
+        currentConsumer.newSpeed(latestSpeed)
+        currentConsumer.newWindDirection(latestWindDirection)
+        currentConsumer.newHeading(latestHeading)
+    }
+    
+    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [AnyObject]) {
+        
+        if let vc = pendingViewControllers.last as? UIViewController, mc = vc as? MeasurementConsumer {
+            changeConsumer(mc)
+        }
+    }
+    
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [AnyObject], transitionCompleted completed: Bool) {
         
         if let vc = pageViewController.viewControllers.last as? UIViewController, mc = vc as? MeasurementConsumer {
             if let current = find(viewControllers, vc) {
                 pager.currentPage = current
             }
-            
-            currentConsumer = mc
-            currentConsumer.newSpeed(latestSpeed)
-            currentConsumer.newWindDirection(latestWindDirection)
-            currentConsumer.newHeading(latestHeading)
+            changeConsumer(mc)
             
             let alpha: CGFloat = vc is MapMeasurementViewController ? 0 : 1
             UIView.animateWithDuration(0.3) {
