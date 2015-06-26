@@ -8,14 +8,14 @@
 
 import UIKit
 
-class MeasurementViewController : UIViewController, VaavudElectronicWindDelegate {
+class MeasurementViewController : UIViewController, MeasurementConsumer {
     @IBOutlet weak var ruler: Ruler!
-    @IBOutlet weak var gauge: TimeGauge!
     @IBOutlet weak var graph: Graph!
     
     @IBOutlet weak var speedLabel: UILabel!
     
-    private var displayLink: CADisplayLink!
+    let formatter = VaavudFormatter()
+    
     private var latestHeading: CGFloat = 0
     private var latestWindDirection: CGFloat = 0
     private var latestSpeed: CGFloat = 0
@@ -24,17 +24,8 @@ class MeasurementViewController : UIViewController, VaavudElectronicWindDelegate
     
     var weight: CGFloat = 0.1
     
-    let sdk = VEVaavudElectronicSDK.sharedVaavudElectronic()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        displayLink = CADisplayLink(target: self, selector: Selector("tick:"))
-        displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
-        
-        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: "changeOffset:"))
-        
-        sdk.addListener(self)
-        sdk.start()
     }
     
     override func supportedInterfaceOrientations() -> Int {
@@ -42,70 +33,37 @@ class MeasurementViewController : UIViewController, VaavudElectronicWindDelegate
     }
     
     deinit {
-        sdk.stop()
-        displayLink.invalidate()
     }
     
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
+    // MARK: Callbacks
     
-    func tick(link: CADisplayLink) {
+    func tick() {
         ruler.compassDirection = weight*latestHeading + (1 - weight)*ruler.compassDirection
         ruler.windDirection = weight*latestWindDirection + (1 - weight)*ruler.windDirection
         graph.reading = weight*latestSpeed + (1 - weight)*graph.reading
-        
-        gauge.complete += CGFloat(link.duration)/interval
     }
     
-    func slowTick() {
-        
+    func newWindDirection(windDirection: CGFloat) {
+        latestWindDirection += distanceOnCircle(from: latestWindDirection, to: windDirection)
     }
     
-    // MARK: SDK Callbacks
-    func newWindDirection(windDirection: NSNumber!) {
-        latestWindDirection += distanceOnCircle(from: latestWindDirection, to: CGFloat(windDirection.floatValue))
+    func newSpeed(speed: CGFloat) {
+        speedLabel.text = formatter.localizedWindspeed(Float(speed), digits: 3)
+        latestSpeed = speed
     }
     
-    func newSpeed(speed: NSNumber!) {
-        speedLabel.text = NSString(format: "%.1f", speed.floatValue) as String
-        latestSpeed = CGFloat(speed.floatValue)
+    func newHeading(heading: CGFloat) {
+        latestHeading += distanceOnCircle(from: latestHeading, to: heading)
     }
     
-    func newHeading(heading: NSNumber!) {
-        latestHeading += distanceOnCircle(from: latestHeading, to: CGFloat(heading.floatValue))
+    func changedSpeedUnit(unit: SpeedUnit) {
+        formatter.readUnits()
     }
-    
+
     @IBOutlet weak var label: UILabel!
-    
-    func changeOffset(sender: UIPanGestureRecognizer) {
-        let y = sender.locationInView(view).y
-        let x = view.bounds.midX - sender.locationInView(view).x
-        let dx = sender.translationInView(view).x/3
-        
-        if y < 120 {
-            newHeading(latestHeading - dx)
-            label.text = NSString(format: "%.0f", latestHeading) as String
-        }
-        else if y < 240 {
-            newWindDirection(latestWindDirection + dx)
-            label.text = NSString(format: "%.0f", latestWindDirection) as String
-        }
-        else {
-            ruler.pointsPerTick = max(ruler.pointsPerTick + sender.translationInView(view).x/10, 1)
-            label.text = NSString(format: "%.2f", ruler.pointsPerTick) as String
-            
-            newSpeed(max(0, y - 260)/10)
-            //            weight = max(0.01, weight + sender.translationInView(view).x/1000)
-        }
-        
-        sender.setTranslation(CGPoint(), inView: view)
-    }
-    
-    @IBAction func dismiss() {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
 }
+
+
 
 enum NeedleState {
     case Left

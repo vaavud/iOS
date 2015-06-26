@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -2169,7 +2168,7 @@
         <!--Measurement View Controller-->
         <scene sceneID="6ID-Ca-YdN">
             <objects>
-                <viewController id="KQl-gQ-b1L" customClass="MeasurementViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MeasurementViewController" id="KQl-gQ-b1L" customClass="MeasurementViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="vtO-pK-EU7"/>
                         <viewControllerLayoutGuide type="bottom" id="mXL-WV-CyL"/>
@@ -2189,23 +2188,12 @@
                                 <rect key="frame" x="0.0" y="130" width="320" height="438"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eyU-MS-pBi" customClass="TimeGauge" customModule="Vaavud" customModuleProvider="target">
-                                <rect key="frame" x="10" y="130" width="300" height="300"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqs-jM-Lrx">
-                                        <rect key="frame" x="40" y="86" width="220" height="160"/>
-                                        <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="160"/>
-                                        <color key="textColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="tintColor" red="0.59999999999999998" green="0.85098039219999999" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="centerY" secondItem="wqs-jM-Lrx" secondAttribute="top" constant="64" id="MgQ-Qa-cZ4"/>
-                                    <constraint firstAttribute="width" secondItem="eyU-MS-pBi" secondAttribute="height" id="mpp-Yj-oNO"/>
-                                    <constraint firstAttribute="centerX" secondItem="wqs-jM-Lrx" secondAttribute="centerX" id="wfA-f4-SVk"/>
-                                </constraints>
-                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqs-jM-Lrx">
+                                <rect key="frame" x="50" y="204" width="220" height="160"/>
+                                <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="160"/>
+                                <color key="textColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0.1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wI8-fA-q2t">
                                 <rect key="frame" x="140" y="479" width="40" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="29"/>
@@ -2215,21 +2203,19 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="eyU-MS-pBi" firstAttribute="top" secondItem="hW1-We-WcI" secondAttribute="bottom" constant="10" id="0hF-K0-XeT"/>
                             <constraint firstItem="mXL-WV-CyL" firstAttribute="top" secondItem="yY6-1a-D0X" secondAttribute="bottom" id="3XH-02-XfS"/>
                             <constraint firstAttribute="trailing" secondItem="yY6-1a-D0X" secondAttribute="trailing" id="91G-0g-LVA"/>
-                            <constraint firstItem="eyU-MS-pBi" firstAttribute="leading" secondItem="vf9-bC-JqC" secondAttribute="leading" constant="10" id="Hj1-Kx-zY1"/>
+                            <constraint firstAttribute="centerY" secondItem="wqs-jM-Lrx" secondAttribute="centerY" id="EVu-cj-EO3"/>
+                            <constraint firstItem="yY6-1a-D0X" firstAttribute="top" secondItem="vtO-pK-EU7" secondAttribute="bottom" constant="130" id="aWg-kd-yf4"/>
                             <constraint firstItem="hW1-We-WcI" firstAttribute="top" secondItem="vtO-pK-EU7" secondAttribute="bottom" id="dbj-52-Puf"/>
                             <constraint firstAttribute="trailing" secondItem="hW1-We-WcI" secondAttribute="trailing" id="fYf-yj-v50"/>
                             <constraint firstItem="yY6-1a-D0X" firstAttribute="leading" secondItem="vf9-bC-JqC" secondAttribute="leading" id="irN-VN-luA"/>
                             <constraint firstItem="hW1-We-WcI" firstAttribute="leading" secondItem="vf9-bC-JqC" secondAttribute="leading" id="jBx-MW-WXm"/>
-                            <constraint firstAttribute="trailing" secondItem="eyU-MS-pBi" secondAttribute="trailing" constant="10" id="pci-Ns-wpR"/>
-                            <constraint firstItem="eyU-MS-pBi" firstAttribute="top" secondItem="yY6-1a-D0X" secondAttribute="top" id="zk7-Q2-lJU"/>
+                            <constraint firstAttribute="centerX" secondItem="wqs-jM-Lrx" secondAttribute="centerX" id="yde-Qr-Uyy"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="gauge" destination="eyU-MS-pBi" id="6Wx-OM-Dbu"/>
                         <outlet property="graph" destination="yY6-1a-D0X" id="9FR-Mg-K9u"/>
                         <outlet property="label" destination="wI8-fA-q2t" id="UXa-qG-aah"/>
                         <outlet property="ruler" destination="hW1-We-WcI" id="b6K-pd-jHf"/>

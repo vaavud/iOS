@@ -10,13 +10,12 @@ import UIKit
 
 protocol MeasurementConsumer {
     func tick()
+    
     func newWindDirection(windDirection: CGFloat)
     func newSpeed(speed: CGFloat)
     func newHeading(heading: CGFloat)
 
     func changedSpeedUnit(unit: SpeedUnit)
-//    func screenAppeared()
-//    func screenDisappeared()
 }
 
 class MeasureRootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, VaavudElectronicWindDelegate {
@@ -61,7 +60,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         sdk.addListener(self)
         sdk.start()
         
-        let vcsNames = ["RoundMeasureViewController", "FlatMeasureViewController"]
+        let vcsNames = ["RoundMeasureViewController", "FlatMeasureViewController", "MeasurementViewController"]
         viewControllers = vcsNames.map { self.storyboard!.instantiateViewControllerWithIdentifier($0) as! UIViewController }
         currentConsumer = viewControllers.first as! MeasurementConsumer
         
