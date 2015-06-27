@@ -60,7 +60,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         sdk.addListener(self)
         sdk.start()
         
-        let vcsNames = ["RoundMeasureViewController", "FlatMeasureViewController", "MeasurementViewController"]
+        let vcsNames = ["RoundMeasureViewController", "FlatMeasureViewController", "OldMeasureViewController"]
         viewControllers = vcsNames.map { self.storyboard!.instantiateViewControllerWithIdentifier($0) as! UIViewController }
         currentConsumer = viewControllers.first as! MeasurementConsumer
         
@@ -160,6 +160,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         currentConsumer.newSpeed(latestSpeed)
         currentConsumer.newWindDirection(latestWindDirection)
         currentConsumer.newHeading(latestHeading)
+        currentConsumer.changedSpeedUnit(formatter.windSpeedUnit)
     }
     
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [AnyObject]) {

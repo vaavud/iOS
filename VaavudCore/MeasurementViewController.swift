@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 Andreas Okholm. All rights reserved.
 //
 
-import UIKit
-
 class MeasurementViewController : UIViewController, MeasurementConsumer {
     @IBOutlet weak var ruler: Ruler!
     @IBOutlet weak var graph: Graph!

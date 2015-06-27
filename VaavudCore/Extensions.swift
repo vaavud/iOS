@@ -238,34 +238,24 @@ extension CGRect {
         return CGRect(x: origin.x - dw, y: origin.y - dh, width: width + 2*dw, height: height + 2*dh)
     }
     
-    var center: CGPoint {
-        return CGPoint(x: midX, y: midY)
-    }
+    var center: CGPoint { return CGPoint(x: midX, y: midY) }
     
-    var lowerRight: CGPoint {
-        return CGPoint(x: maxX, y: maxY)
-    }
+    var lowerRight: CGPoint { return CGPoint(x: maxX, y: maxY) }
     
-    var lowerMid: CGPoint {
-        return CGPoint(x: midX, y: maxY)
-    }
+    var lowerMid: CGPoint { return CGPoint(x: midX, y: maxY) }
     
-    var lowerLeft: CGPoint {
-        return CGPoint(x: minX, y: maxY)
-    }
+    var lowerLeft: CGPoint { return CGPoint(x: minX, y: maxY) }
     
-    var upperRight: CGPoint {
-        return CGPoint(x: maxX, y: minY)
-    }
+    var midLeft: CGPoint { return CGPoint(x: minX, y: midY) }
     
-    var upperMid: CGPoint {
-        return CGPoint(x: midX, y: minY)
-    }
+    var upperRight: CGPoint { return CGPoint(x: maxX, y: minY) }
+    
+    var upperMid: CGPoint { return CGPoint(x: midX, y: minY) }
 
-    var upperLeft: CGPoint {
-        return CGPoint(x: minX, y: minY)
-    }
+    var upperLeft: CGPoint { return CGPoint(x: minX, y: minY) }
     
+    var midRight: CGPoint { return CGPoint(x: maxX, y: midY) }
+
     func insetX(dx: CGFloat) -> CGRect {
         return CGRect(x: origin.x + dx, y: origin.y, width: width - 2*dx, height: height)
     }

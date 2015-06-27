@@ -20,6 +20,11 @@
             <string>BebasNeueBold</string>
             <string>BebasNeueBold</string>
             <string>BebasNeueBold</string>
+            <string>BebasNeueBold</string>
+            <string>BebasNeueBold</string>
+            <string>BebasNeueBold</string>
+            <string>BebasNeueBold</string>
+            <string>BebasNeueBold</string>
         </mutableArray>
         <mutableArray key="Roboto-Bold.ttf">
             <string>Roboto-Bold</string>
@@ -33,6 +38,11 @@
             <string>Roboto-Bold</string>
         </mutableArray>
         <mutableArray key="Roboto-Light.ttf">
+            <string>Roboto-Light</string>
+            <string>Roboto-Light</string>
+            <string>Roboto-Light</string>
+            <string>Roboto-Light</string>
+            <string>Roboto-Light</string>
             <string>Roboto-Light</string>
             <string>Roboto-Light</string>
             <string>Roboto-Light</string>
@@ -445,7 +455,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="utU-e1-N73" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="757" y="1615"/>
+            <point key="canvasLocation" x="425" y="2514"/>
         </scene>
         <!--Flat Measurement View Controller-->
         <scene sceneID="V5p-wX-8F8">
@@ -2188,30 +2198,30 @@
                                 <rect key="frame" x="0.0" y="130" width="320" height="438"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqs-jM-Lrx">
-                                <rect key="frame" x="50" y="204" width="220" height="160"/>
-                                <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="160"/>
-                                <color key="textColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0.1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wI8-fA-q2t">
                                 <rect key="frame" x="140" y="479" width="40" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="29"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="0.34999999999999998" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wqs-jM-Lrx">
+                                <rect key="frame" x="50" y="204" width="220" height="160"/>
+                                <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="160"/>
+                                <color key="textColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="mXL-WV-CyL" firstAttribute="top" secondItem="yY6-1a-D0X" secondAttribute="bottom" id="3XH-02-XfS"/>
+                            <constraint firstAttribute="centerX" secondItem="wqs-jM-Lrx" secondAttribute="centerX" id="5ls-jo-UYB"/>
                             <constraint firstAttribute="trailing" secondItem="yY6-1a-D0X" secondAttribute="trailing" id="91G-0g-LVA"/>
-                            <constraint firstAttribute="centerY" secondItem="wqs-jM-Lrx" secondAttribute="centerY" id="EVu-cj-EO3"/>
                             <constraint firstItem="yY6-1a-D0X" firstAttribute="top" secondItem="vtO-pK-EU7" secondAttribute="bottom" constant="130" id="aWg-kd-yf4"/>
                             <constraint firstItem="hW1-We-WcI" firstAttribute="top" secondItem="vtO-pK-EU7" secondAttribute="bottom" id="dbj-52-Puf"/>
                             <constraint firstAttribute="trailing" secondItem="hW1-We-WcI" secondAttribute="trailing" id="fYf-yj-v50"/>
                             <constraint firstItem="yY6-1a-D0X" firstAttribute="leading" secondItem="vf9-bC-JqC" secondAttribute="leading" id="irN-VN-luA"/>
                             <constraint firstItem="hW1-We-WcI" firstAttribute="leading" secondItem="vf9-bC-JqC" secondAttribute="leading" id="jBx-MW-WXm"/>
-                            <constraint firstAttribute="centerX" secondItem="wqs-jM-Lrx" secondAttribute="centerX" id="yde-Qr-Uyy"/>
+                            <constraint firstAttribute="centerY" secondItem="wqs-jM-Lrx" secondAttribute="centerY" id="tYQ-8s-aWA"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -2224,7 +2234,159 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TpN-kQ-A1a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-37" y="1615"/>
+            <point key="canvasLocation" x="-45" y="2508"/>
+        </scene>
+        <!--Old Measure View Controller-->
+        <scene sceneID="tqf-oE-szR">
+            <objects>
+                <viewController storyboardIdentifier="OldMeasureViewController" id="GGF-WA-AwZ" customClass="OldMeasureViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qKd-1E-Nps"/>
+                        <viewControllerLayoutGuide type="bottom" id="FHy-CF-0xs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HDR-bn-Ib5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AOJ-3J-J6G">
+                                <rect key="frame" x="26" y="40" width="268" height="170"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AVERAGE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lQO-Dr-r4L">
+                                        <rect key="frame" x="21" y="0.0" width="65" height="18"/>
+                                        <gestureRecognizers/>
+                                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
+                                        <color key="textColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DIRECTION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XYT-rz-Uvk">
+                                        <rect key="frame" x="176" y="0.0" width="76" height="18"/>
+                                        <gestureRecognizers/>
+                                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
+                                        <color key="textColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WNW" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuQ-J1-F6C">
+                                        <rect key="frame" x="161" y="23" width="107" height="60"/>
+                                        <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="60"/>
+                                        <color key="textColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8.9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cAG-Bd-HkV">
+                                        <rect key="frame" x="0.0" y="120" width="81" height="50"/>
+                                        <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="50"/>
+                                        <color key="textColor" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zqe-HO-QHe">
+                                        <rect key="frame" x="188" y="120" width="80" height="50"/>
+                                        <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="50"/>
+                                        <color key="textColor" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BFw-SM-4f3">
+                                        <rect key="frame" x="0.0" y="23" width="107" height="60"/>
+                                        <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="60"/>
+                                        <color key="textColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CURRENT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XU1-f3-vtm">
+                                        <rect key="frame" x="7" y="97" width="67" height="18"/>
+                                        <gestureRecognizers/>
+                                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
+                                        <color key="textColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UNIT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4z-KF-F00">
+                                        <rect key="frame" x="118" y="97" width="34" height="18"/>
+                                        <gestureRecognizers/>
+                                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
+                                        <color key="textColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MAX" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5kJ-ee-Brn">
+                                        <rect key="frame" x="212" y="97" width="32" height="18"/>
+                                        <gestureRecognizers/>
+                                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
+                                        <color key="textColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cni-h5-fK1">
+                                        <rect key="frame" x="104" y="18" width="60" height="60"/>
+                                        <color key="backgroundColor" cyan="0.0" magenta="0.0" yellow="0.022556390977443604" black="0.0" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="J1G-Kr-ZGq"/>
+                                            <constraint firstAttribute="height" constant="60" id="TgQ-uk-EWC"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="KM/H" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YFM-dB-XrL">
+                                        <rect key="frame" x="90" y="120" width="89" height="50"/>
+                                        <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="50"/>
+                                        <color key="textColor" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" cyan="0.022693720079043612" magenta="0.0" yellow="0.0" black="0.0" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="5kJ-ee-Brn" firstAttribute="centerX" secondItem="Zqe-HO-QHe" secondAttribute="centerX" id="1y4-Es-DMe"/>
+                                    <constraint firstItem="BFw-SM-4f3" firstAttribute="top" secondItem="lQO-Dr-r4L" secondAttribute="bottom" constant="5" id="3O6-YZ-ZW0"/>
+                                    <constraint firstAttribute="trailing" secondItem="Zqe-HO-QHe" secondAttribute="trailing" id="5Fv-nC-ZpV"/>
+                                    <constraint firstItem="wuQ-J1-F6C" firstAttribute="width" secondItem="AOJ-3J-J6G" secondAttribute="width" multiplier="0.4" id="75m-Lw-0xc"/>
+                                    <constraint firstItem="cAG-Bd-HkV" firstAttribute="centerY" secondItem="YFM-dB-XrL" secondAttribute="centerY" id="7g2-i5-Yy4"/>
+                                    <constraint firstItem="XYT-rz-Uvk" firstAttribute="centerX" secondItem="wuQ-J1-F6C" secondAttribute="centerX" id="7wY-RR-ddR"/>
+                                    <constraint firstItem="YFM-dB-XrL" firstAttribute="centerY" secondItem="Zqe-HO-QHe" secondAttribute="centerY" id="8Ev-PT-NiT"/>
+                                    <constraint firstItem="BFw-SM-4f3" firstAttribute="leading" secondItem="AOJ-3J-J6G" secondAttribute="leading" id="ARL-YY-9OI"/>
+                                    <constraint firstItem="cAG-Bd-HkV" firstAttribute="centerX" secondItem="XU1-f3-vtm" secondAttribute="centerX" id="EcY-YZ-T6g"/>
+                                    <constraint firstAttribute="trailing" secondItem="wuQ-J1-F6C" secondAttribute="trailing" id="G85-yJ-ydZ"/>
+                                    <constraint firstItem="Zqe-HO-QHe" firstAttribute="width" secondItem="AOJ-3J-J6G" secondAttribute="width" multiplier="0.3" id="IR5-Wp-1jE"/>
+                                    <constraint firstItem="Zqe-HO-QHe" firstAttribute="top" secondItem="5kJ-ee-Brn" secondAttribute="bottom" constant="5" id="Jx8-W4-3Tp"/>
+                                    <constraint firstItem="wuQ-J1-F6C" firstAttribute="top" secondItem="XYT-rz-Uvk" secondAttribute="bottom" constant="5" id="KpV-gL-QUg"/>
+                                    <constraint firstAttribute="bottom" secondItem="YFM-dB-XrL" secondAttribute="bottom" id="M0N-wY-vYz"/>
+                                    <constraint firstItem="Cni-h5-fK1" firstAttribute="centerY" secondItem="BFw-SM-4f3" secondAttribute="centerY" constant="-5" id="MJt-mq-9VI"/>
+                                    <constraint firstItem="YFM-dB-XrL" firstAttribute="centerX" secondItem="Cni-h5-fK1" secondAttribute="centerX" id="QB6-kC-pCU"/>
+                                    <constraint firstItem="YFM-dB-XrL" firstAttribute="top" secondItem="L4z-KF-F00" secondAttribute="bottom" constant="5" id="ZlW-Fz-M3Z"/>
+                                    <constraint firstAttribute="height" constant="170" id="apL-4p-Ug3"/>
+                                    <constraint firstItem="cAG-Bd-HkV" firstAttribute="leading" secondItem="AOJ-3J-J6G" secondAttribute="leading" id="bdg-nW-D2c"/>
+                                    <constraint firstItem="lQO-Dr-r4L" firstAttribute="top" secondItem="AOJ-3J-J6G" secondAttribute="top" id="gFO-ZS-eLD"/>
+                                    <constraint firstItem="wuQ-J1-F6C" firstAttribute="centerY" secondItem="BFw-SM-4f3" secondAttribute="centerY" id="i5a-8G-WeO"/>
+                                    <constraint firstItem="BFw-SM-4f3" firstAttribute="centerX" secondItem="lQO-Dr-r4L" secondAttribute="centerX" id="iAh-br-BRO"/>
+                                    <constraint firstItem="cAG-Bd-HkV" firstAttribute="top" secondItem="XU1-f3-vtm" secondAttribute="bottom" constant="5" id="jOo-at-pcH"/>
+                                    <constraint firstItem="cAG-Bd-HkV" firstAttribute="width" secondItem="AOJ-3J-J6G" secondAttribute="width" multiplier="0.3" id="rIX-eF-z9J"/>
+                                    <constraint firstAttribute="centerX" secondItem="Cni-h5-fK1" secondAttribute="centerX" id="sfj-YO-nub"/>
+                                    <constraint firstItem="BFw-SM-4f3" firstAttribute="width" secondItem="AOJ-3J-J6G" secondAttribute="width" multiplier="0.4" id="xy9-Ng-j0q"/>
+                                    <constraint firstItem="YFM-dB-XrL" firstAttribute="centerX" secondItem="L4z-KF-F00" secondAttribute="centerX" id="z4b-oI-zms"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BnD-h6-JGE" userLabel="Graph" customClass="OldGraph" customModule="Vaavud" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="220" width="320" height="191"/>
+                                <color key="backgroundColor" cyan="0.0001373291015625" magenta="0.042960374875176219" yellow="0.0" black="0.0" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="191" id="MPH-nO-VjF"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="BnD-h6-JGE" firstAttribute="leading" secondItem="HDR-bn-Ib5" secondAttribute="leading" id="4OD-8F-kMi"/>
+                            <constraint firstItem="AOJ-3J-J6G" firstAttribute="leading" secondItem="HDR-bn-Ib5" secondAttribute="leadingMargin" constant="10" id="5Hj-9W-7iT"/>
+                            <constraint firstAttribute="trailing" secondItem="BnD-h6-JGE" secondAttribute="trailing" id="BK8-Eb-dyC"/>
+                            <constraint firstItem="AOJ-3J-J6G" firstAttribute="top" secondItem="qKd-1E-Nps" secondAttribute="bottom" constant="40" id="L8I-4i-w3Z"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="AOJ-3J-J6G" secondAttribute="trailing" constant="10" id="NnP-sM-ojv"/>
+                            <constraint firstItem="BnD-h6-JGE" firstAttribute="top" secondItem="AOJ-3J-J6G" secondAttribute="bottom" constant="10" id="fdN-dD-hdB"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="avgSpeedLabel" destination="BFw-SM-4f3" id="AGf-Py-Znd"/>
+                        <outlet property="directionLabel" destination="wuQ-J1-F6C" id="mwx-Bw-l7u"/>
+                        <outlet property="graph" destination="BnD-h6-JGE" id="EBM-u6-HbZ"/>
+                        <outlet property="maxSpeedLabel" destination="Zqe-HO-QHe" id="vg7-6k-nJf"/>
+                        <outlet property="speedLabel" destination="cAG-Bd-HkV" id="Xq3-c1-yPv"/>
+                        <outlet property="speedUnitLabel" destination="YFM-dB-XrL" id="BTt-js-Vkk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hvb-sh-4vK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-14" y="1609"/>
         </scene>
         <!--Round Measurement View Controller-->
         <scene sceneID="AIs-KZ-NK1">
@@ -2295,6 +2457,23 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g2U-Ok-Gzk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="351" y="1613"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="D7x-nn-Q0x">
+            <objects>
+                <viewController id="umU-i9-cfX" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2Bd-tk-GqP"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZCQ-Pu-QxQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="AWx-th-YEi">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fM1-2R-Avh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
     <resources>

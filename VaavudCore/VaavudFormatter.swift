@@ -295,7 +295,10 @@ class VaavudFormatter {
     // Direction
     
     private static func directionKey(cardinal: Int) -> String {
-        return "DIRECTION_" + directionNames[cardinal]
+        println(cardinal)
+        
+        let n = mod(cardinal, directionNames.count - 1)
+        return "DIRECTION_" + directionNames[n]
     }
     
     private static var directionNames: [String] { return ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"] }
@@ -310,7 +313,7 @@ class VaavudFormatter {
         return localizedDecimalString(value!, decimals: decimals)
     }
 
-    private func localizedConvertedString(value: Float?, unit: FloatUnit, min: Float = 0.1, decimals: Int? = nil, digits: Int? = nil) -> String? {
+    private func localizedConvertedString(value: Float?, unit: FloatUnit, min: Float = 0.0, decimals: Int? = nil, digits: Int? = nil) -> String? {
         if value == nil || value < min {
             return nil
         }
