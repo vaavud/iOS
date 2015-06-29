@@ -295,8 +295,6 @@ class VaavudFormatter {
     // Direction
     
     private static func directionKey(cardinal: Int) -> String {
-        println(cardinal)
-        
         let n = mod(cardinal, directionNames.count - 1)
         return "DIRECTION_" + directionNames[n]
     }

@@ -11,6 +11,8 @@ import UIKit
 class OldMeasureViewController : UIViewController, MeasurementConsumer {
     @IBOutlet weak var graph: OldGraph!
     
+    @IBOutlet weak var arrowView: UIImageView!
+    
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var speedUnitLabel: UILabel!
     @IBOutlet weak var directionLabel: UILabel!
@@ -20,7 +22,9 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     let formatter = VaavudFormatter()
     
     private var latestHeading: CGFloat = 0
-    private var latestWindDirection: CGFloat = 0
+    private var latestDirection: CGFloat = 0
+    private var smoothDirection: CGFloat = 0
+    
     private var latestSpeed: CGFloat = 0
     private var smoothSpeed: CGFloat = 0
 
@@ -42,23 +46,25 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     func tick() {
         smoothSpeed = weight*latestSpeed + (1 - weight)*smoothSpeed
         graph.reading = smoothSpeed
-        
+        maxSpeed = max(smoothSpeed, maxSpeed)
+        maxSpeedLabel.text = formatter.localizedWindspeed(Float(maxSpeed), digits: 3)
+
+        smoothDirection = weight*latestDirection + (1 - weight)*smoothDirection
+        arrowView.transform = Affine.rotation(smoothDirection.radians)
+        directionLabel.text = formatter.localizedDirection(Float(smoothDirection))
+
         avgSpeed = avgWeight*latestSpeed + (1 - avgWeight)*avgSpeed
         graph.average = avgSpeed
         avgSpeedLabel.text = formatter.localizedWindspeed(Float(avgSpeed), digits: 3)
     }
     
     func newWindDirection(windDirection: CGFloat) {
-        latestWindDirection += distanceOnCircle(from: latestWindDirection, to: windDirection)
-        directionLabel.text = formatter.localizedDirection(Float(latestWindDirection))
+        latestDirection += distanceOnCircle(from: latestDirection, to: windDirection)
     }
     
     func newSpeed(speed: CGFloat) {
         latestSpeed = speed
         speedLabel.text = formatter.localizedWindspeed(Float(speed), digits: 3)
-        
-        maxSpeed = max(latestSpeed, maxSpeed)
-        maxSpeedLabel.text = formatter.localizedWindspeed(Float(maxSpeed), digits: 3)
     }
     
     func newHeading(heading: CGFloat) {

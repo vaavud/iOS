@@ -2312,6 +2312,11 @@
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cni-h5-fK1">
                                         <rect key="frame" x="104" y="18" width="60" height="60"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="wind_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="Tmd-jo-926">
+                                                <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                            </imageView>
+                                        </subviews>
                                         <color key="backgroundColor" cyan="0.0" magenta="0.0" yellow="0.022556390977443604" black="0.0" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="60" id="J1G-Kr-ZGq"/>
@@ -2376,6 +2381,7 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
+                        <outlet property="arrowView" destination="Tmd-jo-926" id="O3z-dZ-l1X"/>
                         <outlet property="avgSpeedLabel" destination="BFw-SM-4f3" id="AGf-Py-Znd"/>
                         <outlet property="directionLabel" destination="wuQ-J1-F6C" id="mwx-Bw-l7u"/>
                         <outlet property="graph" destination="BnD-h6-JGE" id="EBM-u6-HbZ"/>
@@ -2489,6 +2495,7 @@
         <image name="map_selected" width="26" height="26"/>
         <image name="measure.png" width="26" height="26"/>
         <image name="measure_selected" width="26" height="26"/>
+        <image name="wind_arrow" width="36" height="36"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
