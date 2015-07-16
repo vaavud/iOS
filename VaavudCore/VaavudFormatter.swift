@@ -13,6 +13,7 @@ let π = CGFloat(M_PI)
 
 protocol FloatUnit {
     func fromBase(Float) -> Float
+    func fromBase(CGFloat) -> CGFloat
     var decimals: Int { get }
 }
 
@@ -24,6 +25,7 @@ enum TemperatureUnit: Int, FloatUnit {
     var next: TemperatureUnit { return TemperatureUnit(rawValue: (rawValue + 1) % 2)! }
     var decimals: Int { return 1 }
     func fromBase(kelvinValue: Float) -> Float { return kelvinValue*ratio + constant}
+    func fromBase(kelvinValue: CGFloat) -> CGFloat { return CGFloat(fromBase(Float(kelvinValue))) }
     
     private var key: String { return ["UNIT_CELSIUS", "UNIT_FAHRENHEIT"][rawValue] }
     
@@ -41,6 +43,7 @@ enum PressureUnit: Int, FloatUnit {
     var next: PressureUnit { return PressureUnit(rawValue: (rawValue + 1) % 3)! }
     var decimals: Int { return [0, 3, 0][rawValue] }
     func fromBase(mbarValue: Float) -> Float { return mbarValue*ratio }
+    func fromBase(mbarValue: CGFloat) -> CGFloat { return CGFloat(fromBase(Float(mbarValue))) }
     
     private var ratio: Float { return [1, 0.000986923267, 0.75006375541921][rawValue] }
     
@@ -80,6 +83,7 @@ enum SpeedUnit: Int, FloatUnit {
             return msValue*ratio
         }
     }
+    func fromBase(msValue: CGFloat) -> CGFloat { return CGFloat(fromBase(Float(msValue))) }
     
     private var key: String { return ["UNIT_KMH", "UNIT_MS", "UNIT_MPH", "UNIT_KN", "UNIT_BFT"][rawValue] }
     private var ratio: Float { return [3.6, 1, 3600/1609.344, 3600/1852.0, 0][rawValue] }

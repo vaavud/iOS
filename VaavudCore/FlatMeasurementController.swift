@@ -29,7 +29,7 @@ class FlatMeasurementViewController : UIViewController, MeasurementConsumer {
     }
     
     var scaledSpeed: CGFloat {
-        return CGFloat(formatter.windSpeedUnit.fromBase(Float(latestSpeed)))
+        return formatter.windSpeedUnit.fromBase(latestSpeed)
     }
 
     func tick() {

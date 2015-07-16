@@ -34,7 +34,7 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
 
     private var latestHeading: CGFloat = 0
     private var latestWindDirection: CGFloat = 0
-    private var latestSpeed: CGFloat = 3
+    private var latestSpeed: CGFloat = 0
     
     let formatter = VaavudFormatter()
     
@@ -99,7 +99,7 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
     }
     
     var scaledSpeed: CGFloat {
-        return CGFloat(formatter.windSpeedUnit.fromBase(Float(latestSpeed)))
+        return formatter.windSpeedUnit.fromBase(latestSpeed)
     }
     
     var insideFactor: CGFloat {

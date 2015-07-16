@@ -11,11 +11,11 @@
 @implementation UIColor (VaavudColors)
 
 + (UIColor *)vaavudBlueColor {
-    return [UIColor colorWithRed:(0.0/255.0) green:(174.0/255.0) blue:(239.0/255.0) alpha:1.0];
+    return [UIColor colorWithRed:(0.0/255.0) green:(161.0/255.0) blue:(225.0/255.0) alpha:1.0];
 }
 
 + (UIColor *)vaavudRedColor {
-    return [UIColor colorWithRed:(210.0/255.0) green:(37.0/255.0) blue:(45.0/255.0) alpha:1.0];
+    return [UIColor colorWithRed:(209.0/255.0) green:(42.0/255.0) blue:(47.0/255.0) alpha:1.0];
 }
 
 + (UIColor *)vaavudGreenColor {
