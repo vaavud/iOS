@@ -58,7 +58,11 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         
         let large, small: CGFloat
         
-        if view.frame.width > 375 {
+        if view.frame.width > 500 {
+            large = 120
+            small = 80
+        }
+        else if view.frame.width > 375 {
             large = 75
             small = 50
         }
@@ -73,7 +77,8 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         
         let largeFont = UIFont(name: "BebasNeueBold", size: large)
         let smallFont = UIFont(name: "BebasNeueRegular", size: small)
-
+        arrowScale = 1.5*large/100
+        
         avgSpeedLabel.font = largeFont
         directionLabel.font = largeFont
         
@@ -101,7 +106,7 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         maxSpeedLabel.text = formatter.localizedWindspeed(Float(maxSpeed), digits: 3)
 
         smoothDirection = weight*latestDirection + (1 - weight)*smoothDirection
-        arrowView.transform = Affine.rotation(smoothDirection.radians).scale(0.5)
+        arrowView.transform = Affine.rotation(smoothDirection.radians).scale(arrowScale)
         directionLabel.text = formatter.localizedDirection(Float(smoothDirection))
 
         avgSpeed = avgWeight*latestSpeed + (1 - avgWeight)*avgSpeed
@@ -246,7 +251,13 @@ class OldGraph : UIView {
     }
     
     func yValue(reading: CGFloat) -> CGFloat {
-        return bounds.height*(highY - reading/factor)/(highY - lowY) - lineWidth/2
+        let y = (highY - reading/factor)/(highY - lowY)
+//        if y < 0 {
+//            println("y: \(y)  out: \(-ease(0, -0.2)(x: y))")
+//            return -bounds.height*ease(0, -0.2)(x: y)
+//        }
+//        
+        return max(bounds.height*y - lineWidth/2, 0)
     }
     
     func xValue(i: Int) -> CGFloat {

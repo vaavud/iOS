@@ -138,7 +138,7 @@ class FlatDirectionArrow : UIView {
     }
     
     func setup() {
-        shape.fillColor = UIColor.vaavudGreenColor().CGColor
+        shape.fillColor = UIColor.vaavudBlueColor().CGColor
         let path = UIBezierPath()
         path.moveToPoint(bounds.upperLeft)
         path.addLineToPoint(bounds.upperMid.approach(bounds.lowerMid, by: 0.2))

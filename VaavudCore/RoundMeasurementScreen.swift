@@ -102,30 +102,28 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         return formatter.windSpeedUnit.fromBase(latestSpeed)
     }
     
-    var insideFactor: CGFloat {
-        let scale = bandWidth/pow(2, logScale)
-        return 2*scale*scaledSpeed/ruler.bounds.height
-    }
-    
     func tick() {
+        ruler.compassDirection = weight*latestHeading + (1 - weight)*ruler.compassDirection
+        ruler.windDirection = weight*latestWindDirection + (1 - weight)*ruler.windDirection
+        ruler.windSpeed = weight*scaledSpeed + (1 - weight)*ruler.windSpeed
+
         if abs(targetLogScale - logScale) < 0.01 {
             animatingScale = false
             animator.removeAllBehaviors()
             logScale = targetLogScale
         }
         
+        let inside = ruler.insideFactor
+        
         if !animatingScale && formatter.windSpeedUnit != .Bft {
-            if insideFactor > 1 {
+            if inside > 0.95 {
                 animateLogScale(logScale + 1)
             }
-            else if insideFactor < 0.2 && logScale >= 1 {
+            else if inside < 0.2 && logScale >= 1 {
                 animateLogScale(logScale - 1)
             }
         }
         
-        ruler.compassDirection = weight*latestHeading + (1 - weight)*ruler.compassDirection
-        ruler.windDirection = weight*latestWindDirection + (1 - weight)*ruler.windDirection
-        ruler.windSpeed = weight*scaledSpeed + (1 - weight)*ruler.windSpeed
         ruler.update()
     }
     
@@ -375,6 +373,13 @@ class RoundRuler : UIView {
         if dotPositions.count > dotCount {
             dotPositions.removeAtIndex(0)
         }
+    }
+    
+    var insideFactor: CGFloat {
+        let radially = 2*windSpeed*scale/frame.height
+        let horizontally = abs(CGPoint(r: 2*windSpeed*scale/frame.width, phi: windDirection.radians - π/2).x)
+        
+        return radially > 0.5 ? max(radially, horizontally) : min(radially, horizontally)
     }
 }
 
