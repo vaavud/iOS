@@ -94,7 +94,7 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         background.layout()
         background.changedScale()
         
-        ruler.setup(bandWidth)
+        ruler.setup(view.bounds.width > 500 ? 2*bandWidth : bandWidth)
         ruler.layout()
     }
     
@@ -163,8 +163,8 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
     
     @IBAction func lockNorthChanged(sender: UIButton) {
         lockNorth = !lockNorth
-                
-//        sender.titleLabel?.textColor = lockNorth ? UIColor.vaavudRedColor() : UIColor.vaavudLightGreyColor()
+        
+//        sender.tintColor = lockNorth ? UIColor.vaavudBlueColor() : UIColor.vaavudLightGreyColor()
         sender.alpha = lockNorth ? 1 : 0.5
         
         if lockNorth {
@@ -259,13 +259,16 @@ class BandedView: UIView {
     override func drawRect(rect: CGRect) {
         for i in 0...n - 2 {
             let band = n - i
-            let black = CGFloat(band)*bandDarkening
+            let r = CGFloat(band)*bandWidth
+
+            let w = 1 - CGFloat(band - 2)*bandDarkening
             
             let contextRef = UIGraphicsGetCurrentContext()
-            let r = CGFloat(band)*bandWidth
             let rect = CGRect(center: rect.center, size: CGSize(width: 2*r, height: 2*r))
-            CGContextSetRGBFillColor(contextRef, 1 - black, 1 - black, 1 - black, 1)
+            CGContextSetRGBFillColor(contextRef, w, w == 1 ? 0 : w, w == 1 ? 0 : w, 1)
             CGContextFillEllipseInRect(contextRef, rect)
+            
+            println("i: \(i) band: \(band) r: \(r) w: \(w)")
         }
     }
 }
@@ -286,8 +289,8 @@ class RoundRuler : UIView {
     private var cardinalPositions = [Polar]()
     private var cardinalLabels = [UILabel]()
     
-    private let font = UIFont(name: "Roboto", size: 20)!
-    private let smallFont = UIFont(name: "Roboto", size: 12)!
+    private let font = UIFont(name: "Roboto-Bold", size: 21)!
+    private let smallFont = UIFont(name: "Roboto-Bold", size: 12)!
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

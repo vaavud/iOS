@@ -2412,9 +2412,9 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fcw-1h-0EJ" userLabel="Ruler" customClass="RoundRuler" customModule="Vaavud" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
-                                    <button opaque="NO" alpha="0.49999999999999961" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csb-Id-zNX">
-                                        <rect key="frame" x="145" y="109" width="30" height="30"/>
-                                        <state key="normal" title="⬇︎">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csb-Id-zNX">
+                                        <rect key="frame" x="150" y="113" width="20" height="22"/>
+                                        <state key="normal" image="CompassArrow">
                                             <color key="titleColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -2427,10 +2427,10 @@
                                     <constraint firstAttribute="centerX" secondItem="csb-Id-zNX" secondAttribute="centerX" id="dXw-lO-2di"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90g-5T-Ctv">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90g-5T-Ctv">
                                 <rect key="frame" x="0.0" y="265" width="320" height="50"/>
                                 <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="50"/>
-                                <color key="textColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.80784313725490198" green="0.16470588235294117" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -2465,6 +2465,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="CompassArrow" width="20" height="20"/>
         <image name="HistoryDirectionArrow" width="27" height="27"/>
         <image name="NewFeaturesBackground" width="213" height="378"/>
         <image name="SettingsIcon.png" width="24" height="24"/>
