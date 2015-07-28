@@ -32,6 +32,8 @@
     
     self.delegate = self;
     
+    [self setSelectedIndex:1];
+    
     self.tabBar.tintColor = [UIColor vaavudColor];
     
     NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"GuideView" owner:self options:nil];
@@ -58,14 +60,15 @@
 }
 
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    // REMOVE
-
-    if (viewController == self.childViewControllers[0]) {
+    
+    // Measure screen
+    if (viewController == self.childViewControllers[2]) {
         [self performSegueWithIdentifier:@"ShowMeasureScreen" sender:self];
-        return YES;
+        return NO;
     }
     
-    if (![AccountManager sharedInstance].isLoggedIn && viewController == self.childViewControllers[2]) {
+    // History screen
+    if (![AccountManager sharedInstance].isLoggedIn && viewController == self.childViewControllers[3]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Register" bundle:nil];
         RegisterViewController *registration = [storyboard instantiateViewControllerWithIdentifier:@"RegisterViewController"];
         registration.teaserLabelText = NSLocalizedString(@"HISTORY_REGISTER_TEASER", nil);
@@ -88,6 +91,12 @@
         nav.viewControllers = @[registration];
         [self presentViewController:nav animated:YES completion:nil];
         
+        return NO;
+    }
+    
+    // Settings screen
+    if (viewController == self.childViewControllers[4]) {
+        [self performSegueWithIdentifier:@"ShowSettings" sender:self];
         return NO;
     }
     

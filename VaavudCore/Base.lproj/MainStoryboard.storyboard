@@ -67,6 +67,7 @@
         <scene sceneID="jS3-cD-ygh">
             <objects>
                 <tabBarController storyboardIdentifier="TabBarController" definesPresentationContext="YES" id="uRK-QG-tAM" customClass="TabBarController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Jnf-oh-4Lm"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="h0W-x4-9bm">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
@@ -74,15 +75,18 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
+                        <segue destination="lka-3y-5RY" kind="modal" identifier="ShowMeasureScreen" id="m99-7f-kcZ"/>
                         <segue destination="fQa-n1-y1j" kind="relationship" relationship="viewControllers" id="cE2-i8-0r9"/>
                         <segue destination="awR-2s-6gy" kind="relationship" relationship="viewControllers" id="VnN-b8-sLX"/>
+                        <segue destination="lka-3y-5RY" kind="relationship" relationship="viewControllers" id="Ssw-Fs-Fxw"/>
                         <segue destination="aQi-np-koW" kind="relationship" relationship="viewControllers" id="Z9S-mr-Wug"/>
-                        <segue destination="lka-3y-5RY" kind="modal" identifier="ShowMeasureScreen" id="v6a-en-jLW"/>
+                        <segue destination="yAP-as-dFe" kind="relationship" relationship="viewControllers" id="3mf-g0-btB"/>
+                        <segue destination="yAP-as-dFe" kind="modal" identifier="ShowSettings" id="BN2-d4-BCS"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Grw-Gv-BfB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1217" y="233"/>
+            <point key="canvasLocation" x="-1163" y="657"/>
         </scene>
         <!--Core Measure View Controller-->
         <scene sceneID="5">
@@ -95,49 +99,49 @@
                     <view key="view" contentMode="scaleToFill" id="3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="CURRENT" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3jS-Rr-IOD">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="CURRENT" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3jS-Rr-IOD">
                                 <rect key="frame" x="40" y="72" width="59" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="AVERAGE" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReF-g7-EF0">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="AVERAGE" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReF-g7-EF0">
                                 <rect key="frame" x="222" y="146" width="58" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIb-lj-gMl" userLabel="averageLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIb-lj-gMl" userLabel="averageLabel">
                                 <rect key="frame" x="273" y="158" width="7" height="39"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
                                 <color key="textColor" red="0.82352941176470584" green="0.14509803921568626" blue="0.1764705882352941" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DIRECTION" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f8n-QV-wk6">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="DIRECTION" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f8n-QV-wk6">
                                 <rect key="frame" x="214" y="72" width="66" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="23" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vbb-Ps-UGv" userLabel="CurrentLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="23" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vbb-Ps-UGv" userLabel="CurrentLabel">
                                 <rect key="frame" x="40" y="84" width="50" height="52"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="40"/>
                                 <color key="textColor" red="0.0" green="0.68235294117647061" blue="0.93725490196078431" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="MAX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBg-VY-wWc">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="MAX" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBg-VY-wWc">
                                 <rect key="frame" x="40" y="146" width="27" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="UNIT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BoF-HW-bXq">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="UNIT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BoF-HW-bXq">
                                 <rect key="frame" x="146" y="146" width="28" height="14"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f71-hp-4cl">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f71-hp-4cl">
                                 <rect key="frame" x="134" y="152" width="52" height="51"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
                                 <state key="normal" title="m/s">
@@ -151,18 +155,18 @@
                                     <action selector="unitButtonPushed:" destination="2" eventType="touchUpInside" id="JuS-v6-as5"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q8l-hq-NLG" userLabel="Data Separator View">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q8l-hq-NLG" userLabel="Data Separator View">
                                 <rect key="frame" x="30" y="202" width="260" height="1"/>
                                 <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="sqj-qH-pdq"/>
                                 </constraints>
                             </view>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jop-HL-F0a" userLabel="Graph Container">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jop-HL-F0a" userLabel="Graph Container">
                                 <rect key="frame" x="10" y="208" width="284" height="227"/>
                                 <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bS1-jk-rNp" userLabel="Start/Stop Button">
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bS1-jk-rNp" userLabel="Start/Stop Button">
                                 <rect key="frame" x="40" y="469" width="240" height="35"/>
                                 <color key="backgroundColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -179,12 +183,12 @@
                                     <action selector="startStopButtonPushed:" destination="2" eventType="touchUpInside" id="W4K-DI-d9E"/>
                                 </connections>
                             </button>
-                            <progressView opaque="NO" contentMode="scaleToFill" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="eB6-ZR-G0T">
+                            <progressView opaque="NO" contentMode="scaleToFill" misplaced="YES" progressViewStyle="bar" translatesAutoresizingMaskIntoConstraints="NO" id="eB6-ZR-G0T">
                                 <rect key="frame" x="40" y="459" width="240" height="3"/>
                                 <color key="progressTintColor" red="0.062745101749897003" green="0.68627452850341797" blue="0.93725496530532837" alpha="1" colorSpace="deviceRGB"/>
                                 <color key="trackTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </progressView>
-                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ej-kg-OB6" userLabel="InformationText">
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Ej-kg-OB6" userLabel="InformationText">
                                 <rect key="frame" x="40" y="435" width="240" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="19" id="SgK-UX-8lM"/>
@@ -194,27 +198,27 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WHz-L1-QCZ" userLabel="Graph Separator View">
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WHz-L1-QCZ" userLabel="Graph Separator View">
                                 <rect key="frame" x="30" y="436" width="260" height="1"/>
                                 <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="fD5-SW-hgl"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WNW" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="NPp-rW-tPa" userLabel="directionLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="WNW" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="30" translatesAutoresizingMaskIntoConstraints="NO" id="NPp-rW-tPa" userLabel="directionLabel">
                                 <rect key="frame" x="186" y="84" width="94" height="52"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="40"/>
                                 <color key="textColor" red="0.82352941180000006" green="0.1450980392" blue="0.1764705882" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OIg-vV-fBD">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OIg-vV-fBD">
                                 <rect key="frame" x="142" y="92" width="36" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="e4A-NV-zY0"/>
                                     <constraint firstAttribute="width" constant="36" id="yVI-bk-GNe"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6z-xo-cgt" userLabel="maxLabel">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E6z-xo-cgt" userLabel="maxLabel">
                                 <rect key="frame" x="40" y="158" width="7" height="39"/>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="30"/>
                                 <color key="textColor" red="0.0" green="0.68404995437956206" blue="0.93725490196078431" alpha="1" colorSpace="deviceRGB"/>
@@ -274,11 +278,7 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="bjd-2e-nY3">
-                        <barButtonItem key="rightBarButtonItem" image="SettingsIcon.png" id="lKw-nu-ICq">
-                            <connections>
-                                <segue destination="AVc-0U-FEU" kind="push" identifier="settingsSegue" id="8il-3u-QOP"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="SettingsIcon.png" id="lKw-nu-ICq"/>
                     </navigationItem>
                     <connections>
                         <outlet property="actualLabel" destination="Vbb-Ps-UGv" id="rcD-IZ-eUR"/>
@@ -298,8 +298,6 @@
                         <outlet property="statusBar" destination="eB6-ZR-G0T" id="ATj-t0-lgp"/>
                         <outlet property="unitButton" destination="f71-hp-4cl" id="4tl-wZ-MYD"/>
                         <outlet property="unitHeadingLabel" destination="BoF-HW-bXq" id="9hV-Ht-ZmL"/>
-                        <segue destination="8a4-bz-n0M" kind="push" identifier="SummaryFromMeasureSegue" id="4WK-Ha-uCh"/>
-                        <segue destination="yKg-bJ-xOb" kind="modal" identifier="MandatoryCalibration" id="mhv-JI-fCG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
@@ -310,7 +308,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-9" y="-748"/>
+            <point key="canvasLocation" x="-1833" y="140"/>
         </scene>
         <!--MeasureRoot-->
         <scene sceneID="I1N-va-i6A">
@@ -378,7 +376,7 @@
                             <constraint firstItem="tNh-kF-1Td" firstAttribute="centerY" secondItem="IoB-pv-cEi" secondAttribute="centerY" id="vrl-6K-A21"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Uq5-7K-NFu"/>
+                    <tabBarItem key="tabBarItem" title="Measure" id="Uq5-7K-NFu"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="cancelButton" destination="IoB-pv-cEi" id="ZhU-h0-fq3"/>
@@ -394,7 +392,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1224" y="1609"/>
+            <point key="canvasLocation" x="-648" y="657"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="M8A-pm-MAh">
@@ -404,7 +402,7 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fbC-OC-vuu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-838" y="1609"/>
+            <point key="canvasLocation" x="-234" y="625"/>
         </scene>
         <!--Map Measurement View Controller-->
         <scene sceneID="yI8-W4-IRh">
@@ -456,7 +454,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="utU-e1-N73" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="425" y="2514"/>
+            <point key="canvasLocation" x="1357" y="677"/>
         </scene>
         <!--Flat Measurement View Controller-->
         <scene sceneID="V5p-wX-8F8">
@@ -509,27 +507,20 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cFu-lc-39i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-400" y="1609"/>
+            <point key="canvasLocation" x="576" y="677"/>
         </scene>
         <!--Measure Navigation-->
         <scene sceneID="RnR-Kp-M0y">
             <objects>
-                <navigationController definesPresentationContext="YES" id="fQa-n1-y1j" userLabel="Measure Navigation" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Measure" image="measure.png" id="bEh-Uj-qCq">
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="measure_selected"/>
-                        </userDefinedRuntimeAttributes>
-                    </tabBarItem>
+                <navigationController definesPresentationContext="YES" navigationBarHidden="YES" id="fQa-n1-y1j" userLabel="Measure Navigation" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Coming soon" image="ActivityTab" id="bEh-Uj-qCq"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hW7-ue-zqA">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
-                    <connections>
-                        <segue destination="2" kind="relationship" relationship="rootViewController" id="NvT-o3-dsf"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wim-9u-nEV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-394" y="-748"/>
+            <point key="canvasLocation" x="-665" y="-832"/>
         </scene>
         <!--Map-->
         <scene sceneID="1B3-6E-RY6">
@@ -628,11 +619,7 @@
                             <constraint firstItem="tbg-Zl-YRw" firstAttribute="leading" secondItem="vqh-9G-hns" secondAttribute="leading" id="wTd-9r-8bp"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Map" image="map.png" id="CJd-r9-Fhf">
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="map_selected"/>
-                        </userDefinedRuntimeAttributes>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="Map" image="MapTab" id="CJd-r9-Fhf"/>
                     <connections>
                         <outlet property="activityIndicator" destination="1nG-yb-qca" id="bu9-c8-J60"/>
                         <outlet property="feedbackTextView" destination="FTv-5v-GxF" id="Dou-US-dcS"/>
@@ -647,7 +634,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X7E-Jf-KyM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-438" y="233"/>
+            <point key="canvasLocation" x="-674" y="-93"/>
         </scene>
         <!--Settings-->
         <scene sceneID="4fo-7s-UWd">
@@ -1033,6 +1020,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Settings" id="cSV-1z-9B0">
+                        <barButtonItem key="leftBarButtonItem" title="Done" id="9Lp-3Q-WeP">
+                            <connections>
+                                <action selector="tappedDone:" destination="AVc-0U-FEU" id="SHz-oU-gxK"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Log out" id="kic-mv-NUN">
                             <connections>
                                 <action selector="logInOutTapped:" destination="AVc-0U-FEU" id="Wzw-2y-edt"/>
@@ -1054,7 +1046,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PCy-mP-AgH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="701" y="-366"/>
+            <point key="canvasLocation" x="-178" y="2336"/>
         </scene>
         <!--Terms View Controller-->
         <scene sceneID="96f-Ql-xhN">
@@ -1088,7 +1080,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nt3-0L-LC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1238" y="-382"/>
+            <point key="canvasLocation" x="263" y="2336"/>
         </scene>
         <!--First Time Flow Controller-->
         <scene sceneID="iog-Qb-A03">
@@ -1129,7 +1121,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5D-Mo-pgi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1171" y="-1359"/>
+            <point key="canvasLocation" x="-133" y="3409"/>
         </scene>
         <!--First Time Explanation View Controller-->
         <scene sceneID="TZU-KX-npU">
@@ -1247,7 +1239,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4P3-tL-tBb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-882" y="-682"/>
+            <point key="canvasLocation" x="-1318" y="-1043"/>
         </scene>
         <!--History-->
         <scene sceneID="ESh-LX-BZr">
@@ -1369,7 +1361,7 @@
                     </constraints>
                 </view>
             </objects>
-            <point key="canvasLocation" x="-400" y="957"/>
+            <point key="canvasLocation" x="-178" y="1337"/>
         </scene>
         <!--Summary-->
         <scene sceneID="Y1a-Mc-SzL">
@@ -1959,7 +1951,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="74" y="957"/>
+            <point key="canvasLocation" x="190" y="1353"/>
         </scene>
         <!--Upgrading User View Controller-->
         <scene sceneID="E9Z-A7-ELX">
@@ -2088,7 +2080,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ow3-3G-Odu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1242" y="-691"/>
+            <point key="canvasLocation" x="-1678" y="-1043"/>
         </scene>
         <!--Calibrate Sleipnir View Controller-->
         <scene sceneID="Gw0-di-Clt">
@@ -2150,17 +2142,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4BN-rM-CAw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="701" y="-1315"/>
+            <point key="canvasLocation" x="-1170" y="2157"/>
         </scene>
         <!--History-->
         <scene sceneID="qyy-p2-q3w">
             <objects>
                 <navigationController storyboardIdentifier="HistoryNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="aQi-np-koW" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="History" image="history.png" id="DWa-II-q3Q">
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="history_selected.png"/>
-                        </userDefinedRuntimeAttributes>
-                    </tabBarItem>
+                    <tabBarItem key="tabBarItem" title="History" image="HistoryTab" id="DWa-II-q3Q"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7to-4D-5a8">
@@ -2174,7 +2162,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fnM-Yc-OwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-838" y="949"/>
+            <point key="canvasLocation" x="-665" y="1337"/>
         </scene>
         <!--Measurement View Controller-->
         <scene sceneID="6ID-Ca-YdN">
@@ -2235,7 +2223,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TpN-kQ-A1a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-45" y="2508"/>
+            <point key="canvasLocation" x="1730" y="677"/>
         </scene>
         <!--Old Measure View Controller-->
         <scene sceneID="tqf-oE-szR">
@@ -2391,7 +2379,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hvb-sh-4vK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-14" y="1609"/>
+            <point key="canvasLocation" x="142" y="665"/>
         </scene>
         <!--Round Measurement View Controller-->
         <scene sceneID="AIs-KZ-NK1">
@@ -2462,24 +2450,41 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g2U-Ok-Gzk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="351" y="1613"/>
+            <point key="canvasLocation" x="987" y="677"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="ydh-tk-7P3">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yAP-as-dFe" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Settings" image="SettingsTab" id="pXe-sE-Y2N"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="BAz-Jz-auJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="AVc-0U-FEU" kind="relationship" relationship="rootViewController" id="Q0I-FT-GGA"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YEC-YC-7pi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-674" y="2032"/>
         </scene>
     </scenes>
     <resources>
+        <image name="ActivityTab" width="23" height="15"/>
         <image name="CompassArrow" width="20" height="20"/>
         <image name="HistoryDirectionArrow" width="27" height="27"/>
+        <image name="HistoryTab" width="23" height="23"/>
+        <image name="MapTab" width="23" height="23"/>
         <image name="NewFeaturesBackground" width="213" height="378"/>
         <image name="SettingsIcon.png" width="24" height="24"/>
+        <image name="SettingsTab" width="23" height="23"/>
         <image name="SleipnirSettingsBack" width="100" height="97"/>
         <image name="SleipnirSettingsFront" width="100" height="97"/>
         <image name="WindArrow" width="100" height="100"/>
-        <image name="history.png" width="26" height="26"/>
-        <image name="history_selected.png" width="26" height="26"/>
         <image name="iPhone6Black" width="217" height="444"/>
-        <image name="map.png" width="26" height="26"/>
-        <image name="map_selected" width="26" height="26"/>
-        <image name="measure.png" width="26" height="26"/>
-        <image name="measure_selected" width="26" height="26"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -2487,9 +2492,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="4WK-Ha-uCh"/>
-        <segue reference="mhv-JI-fCG"/>
-        <segue reference="s0f-qj-ZNz"/>
+        <segue reference="m99-7f-kcZ"/>
+        <segue reference="3mf-g0-btB"/>
+        <segue reference="rHX-aP-7gX"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
 </document>
