@@ -31,11 +31,15 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
     @IBOutlet weak var speedLabel: UILabel!
     
     @IBOutlet weak var lockNorthDistance: NSLayoutConstraint!
+    
+    @IBOutlet weak var lockNorthButton: UIButton!
 
     private var latestHeading: CGFloat = 0
     private var latestWindDirection: CGFloat = 0
     private var latestSpeed: CGFloat = 0
     
+    private var lockNorth = false
+
     let formatter = VaavudFormatter()
     
     var weight: CGFloat = 0.1
@@ -70,6 +74,10 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         
         scaleItem.center = CGPoint(x: 0, y: logScale*20000)
         background.setup(bandWidth)
+        
+        let image = UIImage(named: "CompassArrowGrey")
+        lockNorthButton.setImage(image, forState: .Highlighted)
+        lockNorthButton.setImage(image, forState: .Selected)
     }
     
     override func viewDidLayoutSubviews() {
@@ -159,13 +167,9 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         }
     }
     
-    var lockNorth = false
-    
     @IBAction func lockNorthChanged(sender: UIButton) {
         lockNorth = !lockNorth
-        
-//        sender.tintColor = lockNorth ? UIColor.vaavudBlueColor() : UIColor.vaavudLightGreyColor()
-        sender.alpha = lockNorth ? 1 : 0.5
+        sender.selected = lockNorth
         
         if lockNorth {
             latestHeading = 0
@@ -225,7 +229,7 @@ class RoundBackground : UIView {
         
         banded2.alpha = modScale
         
-        let scale = 1/(1 + modScale)
+        let scale = 1 - modScale/2
         let t = Affine.scaling(scale)
         banded1.transform = t
         banded2.transform = t
@@ -260,12 +264,11 @@ class BandedView: UIView {
         for i in 0...n - 2 {
             let band = n - i
             let r = CGFloat(band)*bandWidth
-
             let w = 1 - CGFloat(band - 2)*bandDarkening
             
             let contextRef = UIGraphicsGetCurrentContext()
             let rect = CGRect(center: rect.center, size: CGSize(width: 2*r, height: 2*r))
-            CGContextSetRGBFillColor(contextRef, w, w == 1 ? 0 : w, w == 1 ? 0 : w, 1)
+            CGContextSetRGBFillColor(contextRef, w, w, w, 1)
             CGContextFillEllipseInRect(contextRef, rect)
             
             println("i: \(i) band: \(band) r: \(r) w: \(w)")

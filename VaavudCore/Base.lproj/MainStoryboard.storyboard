@@ -2413,7 +2413,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csb-Id-zNX">
-                                        <rect key="frame" x="150" y="113" width="20" height="22"/>
+                                        <rect key="frame" x="150" y="114" width="20" height="22"/>
                                         <state key="normal" image="CompassArrow">
                                             <color key="titleColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2428,8 +2428,8 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90g-5T-Ctv">
-                                <rect key="frame" x="0.0" y="265" width="320" height="50"/>
-                                <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="50"/>
+                                <rect key="frame" x="0.0" y="254" width="320" height="75"/>
+                                <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="75"/>
                                 <color key="textColor" red="0.80784313725490198" green="0.16470588235294117" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -2438,7 +2438,7 @@
                         <constraints>
                             <constraint firstItem="fcw-1h-0EJ" firstAttribute="top" secondItem="9SH-hg-PPK" secondAttribute="bottom" id="4IE-dM-Wio"/>
                             <constraint firstItem="Lcu-hO-cgE" firstAttribute="leading" secondItem="MG3-1a-A1c" secondAttribute="leading" id="7X1-Mx-ZwA"/>
-                            <constraint firstAttribute="centerY" secondItem="90g-5T-Ctv" secondAttribute="centerY" constant="-6" id="BFl-3T-m6k"/>
+                            <constraint firstAttribute="centerY" secondItem="90g-5T-Ctv" secondAttribute="centerY" constant="-7" id="BFl-3T-m6k"/>
                             <constraint firstAttribute="trailing" secondItem="90g-5T-Ctv" secondAttribute="trailing" id="DDd-vl-Qry"/>
                             <constraint firstItem="xei-Zj-RpI" firstAttribute="top" secondItem="fcw-1h-0EJ" secondAttribute="bottom" id="JrF-m8-vmS"/>
                             <constraint firstItem="90g-5T-Ctv" firstAttribute="leading" secondItem="MG3-1a-A1c" secondAttribute="leading" id="Kub-YW-xjr"/>
@@ -2454,6 +2454,7 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="background" destination="Lcu-hO-cgE" id="wwx-zD-ppU"/>
+                        <outlet property="lockNorthButton" destination="csb-Id-zNX" id="AUx-Mr-2Zg"/>
                         <outlet property="lockNorthDistance" destination="u4G-eB-WkA" id="R9c-mJ-HAP"/>
                         <outlet property="ruler" destination="fcw-1h-0EJ" id="AVh-nH-nTr"/>
                         <outlet property="speedLabel" destination="90g-5T-Ctv" id="UPP-yD-hKC"/>

@@ -107,7 +107,7 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
 
         smoothDirection = weight*latestDirection + (1 - weight)*smoothDirection
         arrowView.transform = Affine.rotation(smoothDirection.radians).scale(arrowScale)
-        directionLabel.text = formatter.localizedDirection(Float(smoothDirection))
+        directionLabel.text = formatter.localizedDirection(Float(mod(smoothDirection, 360)))
 
         avgSpeed = avgWeight*latestSpeed + (1 - avgWeight)*avgSpeed
         
@@ -252,11 +252,6 @@ class OldGraph : UIView {
     
     func yValue(reading: CGFloat) -> CGFloat {
         let y = (highY - reading/factor)/(highY - lowY)
-//        if y < 0 {
-//            println("y: \(y)  out: \(-ease(0, -0.2)(x: y))")
-//            return -bounds.height*ease(0, -0.2)(x: y)
-//        }
-//        
         return max(bounds.height*y - lineWidth/2, 0)
     }
     
