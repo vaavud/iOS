@@ -34,6 +34,9 @@
     return [UIColor colorWithRed:(48.0/255.0) green:(62.0/255.0) blue:(72.0/255.0) alpha:1.0];
 }
 
++ (UIColor *)vaavudTabbarSelectedColor {
+    return [UIColor colorWithRed:(241.0/255.0) green:(242.0/255.0) blue:(243.0/255.0) alpha:1.0];
+}
 
 + (UIColor *)vaavudColor {
     return [UIColor vaavudBlueColor];

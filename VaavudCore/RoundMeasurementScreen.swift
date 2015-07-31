@@ -75,7 +75,7 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         scaleItem.center = CGPoint(x: 0, y: logScale*20000)
         background.setup(bandWidth)
         
-        let image = UIImage(named: "CompassArrowGrey")
+        let image = UIImage(named: "CompassArrow")
         lockNorthButton.setImage(image, forState: .Highlighted)
         lockNorthButton.setImage(image, forState: .Selected)
     }
@@ -172,6 +172,7 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         sender.selected = lockNorth
         
         if lockNorth {
+            ruler.compassDirection = distanceOnCircle(from: 0, to: latestHeading)
             latestHeading = 0
         }
     }
@@ -271,7 +272,7 @@ class BandedView: UIView {
             CGContextSetRGBFillColor(contextRef, w, w, w, 1)
             CGContextFillEllipseInRect(contextRef, rect)
             
-            println("i: \(i) band: \(band) r: \(r) w: \(w)")
+//            println("i: \(i) band: \(band) r: \(r) w: \(w)")
         }
     }
 }

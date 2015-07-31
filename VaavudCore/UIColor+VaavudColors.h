@@ -19,4 +19,6 @@
 + (UIColor *)vaavudLightGreyColor;
 + (UIColor *)vaavudDarkGreyColor;
 
++ (UIColor *)vaavudTabbarSelectedColor;
+
 @end

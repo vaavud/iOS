@@ -44,9 +44,9 @@ class CoreSettingsTableViewController: UITableViewController {
         refreshLogoutButton()
     }
     
-    @IBAction func tappedDone(sender: UIBarButtonItem) {
-        presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-    }
+//    @IBAction func tappedDone(sender: UIBarButtonItem) {
+//        presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+//    }
     
     func wasLoggedInOut(note: NSNotification) {
         refreshLogoutButton()

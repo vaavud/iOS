@@ -15,6 +15,8 @@
 #import "ServerUploadManager.h"
 #import "AccountManager.h"
 #import "RegisterNavigationController.h"
+#import "UIImage+Vaavud.h"
+
 
 @interface TabBarController ()<UITabBarControllerDelegate>
 
@@ -22,19 +24,32 @@
 @property (nonatomic) SMCalloutView *calloutView;
 @property (nonatomic) DismissOnTouchUIView *overlayDimmingView;
 @property (nonatomic) BOOL isCalloutGuideViewShown;
+@property (nonatomic) UIButton *measureButton;
 
 @end
 
 @implementation TabBarController
 
-- (void) viewDidLoad {
+- (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    CGRect frame = self.tabBar.bounds;
+    frame.size.width = 70;
+//    frame.origin.x = self.tabBar.bounds.size.width/2 - frame.size.width/2;
+    button.frame = frame;
+    button.layer.zPosition = 100;
+    [button setImage:[UIImage imageNamed:@"MeasureButton"] forState:UIControlStateNormal];
+    
+    [self.tabBar addSubview:button];
+    
+    self.measureButton = button;
     
     self.delegate = self;
     
     [self setSelectedIndex:1];
     
-    self.tabBar.tintColor = [UIColor vaavudColor];
+    self.tabBar.tintColor = [UIColor vaavudBlueColor];
     
     NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"GuideView" owner:self options:nil];
     self.calloutGuideView = [topLevelObjects objectAtIndex:0];
@@ -57,10 +72,25 @@
     self.calloutView.presentAnimation = SMCalloutAnimationStretch;
     self.calloutView.translatesAutoresizingMaskIntoConstraints = YES;
     self.calloutView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+    
+    for (UITabBarItem *item in self.tabBar.items) {
+        item.imageInsets = UIEdgeInsetsMake(6.0, 0.0, -6.0, 0.0);
+    }
+}
+
+-(void)viewDidLayoutSubviews {
+    NSLog(@"===== Tabbar did layout: %.2f", self.tabBar.bounds.size.height);
+    CGFloat width = self.tabBar.bounds.size.width/self.tabBar.items.count;
+    CGFloat height = self.tabBar.bounds.size.height;
+
+    self.tabBar.selectionIndicatorImage = [UIImage imageWithColor:[UIColor vaavudTabbarSelectedColor] forSize:CGSizeMake(width, height)];
+    
+    CGRect frame = self.measureButton.frame;
+    frame.origin.x = self.tabBar.bounds.size.width/2 - frame.size.width/2;
+    self.measureButton.frame = frame;
 }
 
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    
     // Measure screen
     if (viewController == self.childViewControllers[2]) {
         [self performSegueWithIdentifier:@"ShowMeasureScreen" sender:self];
@@ -76,11 +106,11 @@
             NSLog(@"======= did login");
             [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:YES success:^{
                 NSLog(@"======= synced history after login");
+                
             } failure:^(NSError *error) {
                 NSLog(@"======= FAILED synced history after login, %@", error);
             }];
-
-            self.selectedIndex = 2;
+            self.selectedIndex = 3;
 
             [self dismissViewControllerAnimated:YES completion:^{
                 NSLog(@"=== login did dismiss");
@@ -94,11 +124,11 @@
         return NO;
     }
     
-    // Settings screen
-    if (viewController == self.childViewControllers[4]) {
-        [self performSegueWithIdentifier:@"ShowSettings" sender:self];
-        return NO;
-    }
+//    // Settings screen
+//    if (viewController == self.childViewControllers[4]) {
+//        [self performSegueWithIdentifier:@"ShowSettings" sender:self];
+//        return NO;
+//    }
     
     return YES;
 }

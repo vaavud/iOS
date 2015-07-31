@@ -55,12 +55,13 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
     override func viewDidLoad() {
         super.viewDidLoad()
+                
         hideVolumeHUD()
 
         sdk.addListener(self)
         sdk.start()
         
-        let vcsNames = ["RoundMeasureViewController", "FlatMeasureViewController", "OldMeasureViewController"]
+        let vcsNames = ["OldMeasureViewController", "RoundMeasureViewController", "FlatMeasureViewController"]
         viewControllers = vcsNames.map { self.storyboard!.instantiateViewControllerWithIdentifier($0) as! UIViewController }
         currentConsumer = viewControllers.first as! MeasurementConsumer
         
@@ -220,11 +221,3 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         sender.setTranslation(CGPoint(), inView: view)
     }
 }
-
-
-
-
-
-
-
-
