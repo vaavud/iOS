@@ -186,7 +186,7 @@
                                                                                     toItem:self.hoursButton
                                                                                  attribute:NSLayoutAttributeBottom
                                                                                 multiplier:1.0
-                                                                                  constant:49.0 + 5.0];
+                                                                                  constant:5.0];
         [self.view addConstraint:bottomSpaceConstraint];
     }
     if (self.unitBottomLayoutGuideConstraint != nil) {
@@ -198,7 +198,7 @@
                                                                                     toItem:self.unitButton
                                                                                  attribute:NSLayoutAttributeBottom
                                                                                 multiplier:1.0
-                                                                                  constant:49.0 + 5.0];
+                                                                                  constant:5.0];
         [self.view addConstraint:bottomSpaceConstraint];
     }
 

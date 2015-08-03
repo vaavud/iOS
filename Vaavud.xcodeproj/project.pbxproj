@@ -47,6 +47,7 @@
 		22E59A481ADD6F7000B1BC88 /* SummaryScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A371ADD6F7000B1BC88 /* SummaryScreen.xcassets */; };
 		22E59A4A1ADD6F7000B1BC88 /* TabBar.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A381ADD6F7000B1BC88 /* TabBar.xcassets */; };
 		22E59A4C1ADD6F7000B1BC88 /* UpgradeFlow.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A391ADD6F7000B1BC88 /* UpgradeFlow.xcassets */; };
+		22E602471B6F67C600B706E0 /* ActivityFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E602461B6F67C600B706E0 /* ActivityFlowViewController.swift */; };
 		22EAE5CF1AB1EA5C0037654E /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D21AB1EA5C0037654E /* Register.storyboard */; };
 		22EAE5D61AB1EBEA0037654E /* UpgradingUserPagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D81AB1EBEA0037654E /* UpgradingUserPagesView.xib */; };
 		22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
@@ -283,6 +284,7 @@
 		22E59A381ADD6F7000B1BC88 /* TabBar.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = TabBar.xcassets; path = ImageAssets/TabBar.xcassets; sourceTree = "<group>"; };
 		22E59A391ADD6F7000B1BC88 /* UpgradeFlow.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = UpgradeFlow.xcassets; path = ImageAssets/UpgradeFlow.xcassets; sourceTree = "<group>"; };
 		22E59A4F1ADE917C00B1BC88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Register.storyboard; sourceTree = "<group>"; };
+		22E602461B6F67C600B706E0 /* ActivityFlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityFlowViewController.swift; sourceTree = "<group>"; };
 		22EAE5D71AB1EBEA0037654E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/UpgradingUserPagesView.xib; sourceTree = "<group>"; };
 		22EAE5DC1AB1ECD90037654E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -731,6 +733,7 @@
 		D7A4F1D0173A8DDB00D1ACEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				22E602461B6F67C600B706E0 /* ActivityFlowViewController.swift */,
 				22AC73F51B3D93CC008631E8 /* OldMeasureViewController.swift */,
 				229533501B1F3F8A00DAEA62 /* MeasureCancelButton.swift */,
 				2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */,
@@ -1533,6 +1536,7 @@
 				E9A4097918994000004F1C12 /* TMDiskCache.m in Sources */,
 				E9CD224B177B2AEA0054ED3F /* NSManagedObjectModel+MagicalRecord.m in Sources */,
 				E9CD224C177B2AEA0054ED3F /* NSPersistentStore+MagicalRecord.m in Sources */,
+				22E602471B6F67C600B706E0 /* ActivityFlowViewController.swift in Sources */,
 				E9CD224D177B2AEA0054ED3F /* NSPersistentStoreCoordinator+MagicalRecord.m in Sources */,
 				E9B950E4195C587800E9EF02 /* FirstTimeFlowController.m in Sources */,
 				E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */,
