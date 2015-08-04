@@ -16,6 +16,8 @@
 #import "AccountManager.h"
 #import "RegisterNavigationController.h"
 #import "UIImage+Vaavud.h"
+#import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
+#import "Property+Util.h"
 
 
 @interface TabBarController ()<UITabBarControllerDelegate>
@@ -36,7 +38,6 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     CGRect frame = self.tabBar.bounds;
     frame.size.width = 70;
-//    frame.origin.x = self.tabBar.bounds.size.width/2 - frame.size.width/2;
     button.frame = frame;
     button.layer.zPosition = 100;
     [button setImage:[UIImage imageNamed:@"MeasureButton"] forState:UIControlStateNormal];
@@ -78,11 +79,10 @@
     }
 }
 
--(void)viewDidLayoutSubviews {
-    NSLog(@"===== Tabbar did layout: %.2f", self.tabBar.bounds.size.height);
+-(void)viewWillLayoutSubviews {
     CGFloat width = self.tabBar.bounds.size.width/self.tabBar.items.count;
     CGFloat height = self.tabBar.bounds.size.height;
-
+    
     self.tabBar.selectionIndicatorImage = [UIImage imageWithColor:[UIColor vaavudTabbarSelectedColor] forSize:CGSizeMake(width, height)];
     
     CGRect frame = self.measureButton.frame;
@@ -93,6 +93,13 @@
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     // Measure screen
     if (viewController == self.childViewControllers[2]) {
+        VEVaavudElectronicSDK *sdk = [VEVaavudElectronicSDK sharedVaavudElectronic];
+        
+        if ([Property getAsBoolean:KEY_USES_SLEIPNIR] && !sdk.sleipnirAvailable) {
+            // Show error message
+            NSLog(@"###### ERROR NO SLEIPNIR ######");
+        }
+
         [self performSegueWithIdentifier:@"ShowMeasureScreen" sender:self];
         return NO;
     }
@@ -123,12 +130,6 @@
         
         return NO;
     }
-    
-//    // Settings screen
-//    if (viewController == self.childViewControllers[4]) {
-//        [self performSegueWithIdentifier:@"ShowSettings" sender:self];
-//        return NO;
-//    }
     
     return YES;
 }

@@ -49,8 +49,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
     deinit {
         println("REMOVED ROOT")
-        sdk.stop()
-        displayLink.invalidate()
+//        sdk.stop()
+//        displayLink.invalidate()
     }
 
     override func viewDidLoad() {
@@ -98,7 +98,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     @IBAction func tappedCancel(sender: MeasureCancelButton) {
         sdk.removeListener(self)
-        dismissViewControllerAnimated(true, completion: nil)
+        dismissViewControllerAnimated(true) {
+//            self.pageController.view.removeFromSuperview()
+//            self.pageController.removeFromParentViewController()
+            self.viewControllers = []
+            self.sdk.stop()
+            self.displayLink.invalidate()
+            self.currentConsumer = nil
+        }
     }
     
     func tick(link: CADisplayLink) {
@@ -153,7 +160,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
 
     override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.All.rawValue)
+        return Int(UIInterfaceOrientationMask.Portrait.rawValue) | Int(UIInterfaceOrientationMask.PortraitUpsideDown.rawValue)
     }
     
     func changeConsumer(mc: MeasurementConsumer) {

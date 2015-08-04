@@ -68,6 +68,25 @@
         </mutableArray>
     </customFonts>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="VaU-am-cVV">
+            <objects>
+                <viewController id="Qec-7p-mYZ" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bnm-sb-N8x"/>
+                        <viewControllerLayoutGuide type="bottom" id="6A7-Z4-r0w"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nzA-Uy-E53">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" id="7pU-4C-JSB"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lyf-rp-Hcx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1039" y="278"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="jS3-cD-ygh">
             <objects>
@@ -85,7 +104,7 @@
                         <segue destination="lka-3y-5RY" kind="modal" identifier="ShowMeasureScreen" id="m99-7f-kcZ"/>
                         <segue destination="fQa-n1-y1j" kind="relationship" relationship="viewControllers" id="cE2-i8-0r9"/>
                         <segue destination="awR-2s-6gy" kind="relationship" relationship="viewControllers" id="VnN-b8-sLX"/>
-                        <segue destination="lka-3y-5RY" kind="relationship" relationship="viewControllers" id="Ssw-Fs-Fxw"/>
+                        <segue destination="Qec-7p-mYZ" kind="relationship" relationship="viewControllers" id="zZk-Yz-m9H"/>
                         <segue destination="aQi-np-koW" kind="relationship" relationship="viewControllers" id="Z9S-mr-Wug"/>
                         <segue destination="yAP-as-dFe" kind="relationship" relationship="viewControllers" id="3mf-g0-btB"/>
                     </connections>
@@ -325,11 +344,11 @@
                         <viewControllerLayoutGuide type="bottom" id="i8l-OH-Jin"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mO8-Ug-8ai">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IoB-pv-cEi" customClass="MeasureCancelButton" customModule="Vaavud" customModuleProvider="target">
-                                <rect key="frame" x="115" y="404" width="90" height="90"/>
+                                <rect key="frame" x="115" y="453" width="90" height="90"/>
                                 <color key="backgroundColor" red="0.68291823308270672" green="0.81828594919999997" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -345,7 +364,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tNh-kF-1Td">
-                                <rect key="frame" x="205" y="434" width="115" height="30"/>
+                                <rect key="frame" x="205" y="483" width="115" height="30"/>
                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
                                 <state key="normal" title="km/h">
                                     <color key="titleColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
@@ -361,7 +380,7 @@
                                 <color key="currentPageIndicatorTintColor" red="0.18823529410000001" green="0.24313725489999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                             </pageControl>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DSq-7L-7me">
-                                <rect key="frame" x="0.0" y="434" width="115" height="30"/>
+                                <rect key="frame" x="0.0" y="483" width="115" height="30"/>
                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
                                 <state key="normal" title="Average">
                                     <color key="titleColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
@@ -556,8 +575,8 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EUH-qA-fz7">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lorem ipsum bla bla bla" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E5P-mT-dE7">
-                                                <rect key="frame" x="71" y="277" width="178" height="20"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="See who's at the spot, what they think about the conditions and much more!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E5P-mT-dE7">
+                                                <rect key="frame" x="30" y="277" width="260" height="60"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="17"/>
                                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
@@ -576,10 +595,11 @@
                                             </label>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="centerX" secondItem="E5P-mT-dE7" secondAttribute="centerX" id="V8G-xx-ktI"/>
+                                            <constraint firstItem="E5P-mT-dE7" firstAttribute="leading" secondItem="EUH-qA-fz7" secondAttribute="leading" constant="30" id="OYM-RV-kNa"/>
                                             <constraint firstItem="E5P-mT-dE7" firstAttribute="top" secondItem="9PM-0U-LBR" secondAttribute="bottom" constant="16" id="YKK-lu-L16"/>
                                             <constraint firstAttribute="centerX" secondItem="9PM-0U-LBR" secondAttribute="centerX" id="eGq-3P-x3N"/>
                                             <constraint firstAttribute="centerX" secondItem="chA-l0-S0X" secondAttribute="centerX" id="ehf-ET-ckn"/>
+                                            <constraint firstAttribute="trailing" secondItem="E5P-mT-dE7" secondAttribute="trailing" constant="30" id="ftt-Zt-bOy"/>
                                             <constraint firstItem="chA-l0-S0X" firstAttribute="top" secondItem="EUH-qA-fz7" secondAttribute="top" constant="100" id="iAZ-pm-qnI"/>
                                             <constraint firstItem="9PM-0U-LBR" firstAttribute="top" secondItem="chA-l0-S0X" secondAttribute="bottom" constant="18" id="oKX-Pm-w8y"/>
                                         </constraints>
@@ -743,22 +763,66 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="Units" id="jX4-JS-E5g">
+                            <tableViewSection headerTitle="GENERAL" id="92M-s7-gsA">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UnitSettingsCell" rowHeight="80" id="w0J-Li-Ocv" userLabel="UnitSettingsCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BuyWindmeterSettingsCell" rowHeight="153" id="aK5-Bw-Jpx" userLabel="SleipnirClip">
                                         <rect key="frame" x="0.0" y="119" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w0J-Li-Ocv" id="Kui-b1-YMA">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aK5-Bw-Jpx" id="ASj-xf-H5Z">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Windspeed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4EF-kb-Y1v">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" horizontalCompressionResistancePriority="749" text="Wind meter model" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Pai-Zh-agx">
+                                                    <rect key="frame" x="15" y="10" width="290" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="nUj-8S-nBn">
+                                                    <rect key="frame" x="15" y="44" width="290" height="99"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="98" id="g3x-Kn-H7P"/>
+                                                    </constraints>
+                                                    <segments>
+                                                        <segment title="" image="MjolnirSettingsSelect"/>
+                                                        <segment title="" image="SleipnirSettingsSelect"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="changedMeterModel:" destination="AVc-0U-FEU" eventType="valueChanged" id="Fn6-HT-sBd"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerX" secondItem="nUj-8S-nBn" secondAttribute="centerX" id="4VK-q8-pYg"/>
+                                                <constraint firstAttribute="bottom" secondItem="nUj-8S-nBn" secondAttribute="bottom" constant="10" id="HJP-in-IzI"/>
+                                                <constraint firstAttribute="trailing" secondItem="nUj-8S-nBn" secondAttribute="trailing" constant="15" id="Rfn-Xq-3Ku"/>
+                                                <constraint firstItem="nUj-8S-nBn" firstAttribute="leading" secondItem="ASj-xf-H5Z" secondAttribute="leading" constant="15" id="XIJ-He-zB6"/>
+                                                <constraint firstAttribute="trailing" secondItem="Pai-Zh-agx" secondAttribute="trailing" constant="15" id="aI2-hz-jUb"/>
+                                                <constraint firstItem="Pai-Zh-agx" firstAttribute="leading" secondItem="ASj-xf-H5Z" secondAttribute="leading" constant="15" id="feW-FT-16v"/>
+                                                <constraint firstItem="Pai-Zh-agx" firstAttribute="top" secondItem="ASj-xf-H5Z" secondAttribute="top" constant="10" id="qWC-CA-DON"/>
+                                                <constraint firstItem="nUj-8S-nBn" firstAttribute="top" secondItem="Pai-Zh-agx" secondAttribute="bottom" constant="10" id="udq-DX-tq2"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Units" id="h51-Q4-NFd">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UnitSettingsCell" rowHeight="80" id="KJP-fs-BPQ" userLabel="UnitSettingsCell">
+                                        <rect key="frame" x="0.0" y="119" width="320" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KJP-fs-BPQ" id="QBj-Ia-W0G">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Windspeed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85O-bX-Ign">
                                                     <rect key="frame" x="15" y="10" width="87" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="Dvh-om-zIW">
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="T8E-sQ-REe">
                                                     <rect key="frame" x="15" y="41" width="290" height="29"/>
                                                     <segments>
                                                         <segment title="km/h"/>
@@ -768,67 +832,67 @@
                                                         <segment title="bft"/>
                                                     </segments>
                                                     <connections>
-                                                        <action selector="changedSpeedUnit:" destination="AVc-0U-FEU" eventType="valueChanged" id="87z-9P-Ce9"/>
+                                                        <action selector="changedSpeedUnit:" destination="AVc-0U-FEU" eventType="valueChanged" id="MWv-fj-qVb"/>
                                                     </connections>
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="Dvh-om-zIW" secondAttribute="trailing" constant="15" id="Huu-Xe-pvD"/>
-                                                <constraint firstAttribute="bottom" secondItem="Dvh-om-zIW" secondAttribute="bottom" constant="10" id="PDC-hc-47g"/>
-                                                <constraint firstItem="4EF-kb-Y1v" firstAttribute="top" secondItem="Kui-b1-YMA" secondAttribute="top" constant="10" id="X28-76-V6E"/>
-                                                <constraint firstItem="4EF-kb-Y1v" firstAttribute="leading" secondItem="Kui-b1-YMA" secondAttribute="leading" constant="15" id="Yye-ZC-wIC"/>
-                                                <constraint firstItem="Dvh-om-zIW" firstAttribute="leading" secondItem="Kui-b1-YMA" secondAttribute="leading" constant="15" id="e2y-pl-qhh"/>
+                                                <constraint firstItem="85O-bX-Ign" firstAttribute="top" secondItem="QBj-Ia-W0G" secondAttribute="top" constant="10" id="0Tm-uN-caS"/>
+                                                <constraint firstItem="85O-bX-Ign" firstAttribute="leading" secondItem="QBj-Ia-W0G" secondAttribute="leading" constant="15" id="6k1-9n-SXY"/>
+                                                <constraint firstAttribute="trailing" secondItem="T8E-sQ-REe" secondAttribute="trailing" constant="15" id="SgY-Mn-0Si"/>
+                                                <constraint firstAttribute="bottom" secondItem="T8E-sQ-REe" secondAttribute="bottom" constant="10" id="aAq-Qp-iPa"/>
+                                                <constraint firstItem="T8E-sQ-REe" firstAttribute="leading" secondItem="QBj-Ia-W0G" secondAttribute="leading" constant="15" id="zEh-v9-rle"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UnitSettingsCell" rowHeight="50" id="SIM-tw-coP" userLabel="UnitSettingsCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UnitSettingsCell" rowHeight="50" id="FI7-dB-b70" userLabel="UnitSettingsCell">
                                         <rect key="frame" x="0.0" y="119" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SIM-tw-coP" id="gTu-MH-HAU">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FI7-dB-b70" id="bcL-xa-4JY">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Direction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VFp-bi-bOg">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Direction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YfA-P9-6FG">
                                                     <rect key="frame" x="15" y="14" width="69" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="bcI-dI-OVQ">
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="ji9-uF-jwg">
                                                     <rect key="frame" x="176" y="10" width="129" height="29"/>
                                                     <segments>
                                                         <segment title="Cardinal"/>
                                                         <segment title="Degrees"/>
                                                     </segments>
                                                     <connections>
-                                                        <action selector="changedDirectionUnit:" destination="AVc-0U-FEU" eventType="valueChanged" id="9Y3-ua-Ep1"/>
+                                                        <action selector="changedDirectionUnit:" destination="AVc-0U-FEU" eventType="valueChanged" id="QvI-V0-Z0h"/>
                                                     </connections>
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="VFp-bi-bOg" secondAttribute="centerY" id="8oT-1t-NzL"/>
-                                                <constraint firstAttribute="trailing" secondItem="bcI-dI-OVQ" secondAttribute="trailing" constant="15" id="Hzc-bD-ohk"/>
-                                                <constraint firstItem="bcI-dI-OVQ" firstAttribute="top" secondItem="gTu-MH-HAU" secondAttribute="top" constant="10" id="eFL-9p-Yzs"/>
-                                                <constraint firstItem="VFp-bi-bOg" firstAttribute="leading" secondItem="gTu-MH-HAU" secondAttribute="leading" constant="15" id="gmF-Ge-CJ8"/>
+                                                <constraint firstAttribute="trailing" secondItem="ji9-uF-jwg" secondAttribute="trailing" constant="15" id="46P-eA-Ocw"/>
+                                                <constraint firstItem="ji9-uF-jwg" firstAttribute="top" secondItem="bcL-xa-4JY" secondAttribute="top" constant="10" id="Q59-yC-e3A"/>
+                                                <constraint firstAttribute="centerY" secondItem="YfA-P9-6FG" secondAttribute="centerY" id="TB4-rA-s0z"/>
+                                                <constraint firstItem="YfA-P9-6FG" firstAttribute="leading" secondItem="bcL-xa-4JY" secondAttribute="leading" constant="15" id="Tln-dR-WtB"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UnitSettingsCell" rowHeight="50" id="aea-kX-G7s" userLabel="UnitSettingsCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UnitSettingsCell" rowHeight="50" id="xZb-A2-G9z" userLabel="UnitSettingsCell">
                                         <rect key="frame" x="0.0" y="119" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aea-kX-G7s" id="eW0-Zg-DBb">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xZb-A2-G9z" id="Xej-DS-v7P">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Pressure" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XA6-Lw-37y">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Pressure" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Hy-cZ-JPv">
                                                     <rect key="frame" x="15" y="14" width="67" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="d52-Tg-BU8">
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="vbf-j9-pxe">
                                                     <rect key="frame" x="141" y="10" width="164" height="29"/>
                                                     <segments>
                                                         <segment title="mbar"/>
@@ -836,51 +900,51 @@
                                                         <segment title="mmHg"/>
                                                     </segments>
                                                     <connections>
-                                                        <action selector="changedPressureUnit:" destination="AVc-0U-FEU" eventType="valueChanged" id="XKx-mu-4Fr"/>
+                                                        <action selector="changedPressureUnit:" destination="AVc-0U-FEU" eventType="valueChanged" id="ofz-lb-Vie"/>
                                                     </connections>
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="XA6-Lw-37y" secondAttribute="centerY" id="0Ah-9Q-fqo"/>
-                                                <constraint firstItem="XA6-Lw-37y" firstAttribute="leading" secondItem="eW0-Zg-DBb" secondAttribute="leading" constant="15" id="D4h-k7-JPK"/>
-                                                <constraint firstItem="d52-Tg-BU8" firstAttribute="top" secondItem="eW0-Zg-DBb" secondAttribute="top" constant="10" id="hHW-aK-Lh4"/>
-                                                <constraint firstAttribute="trailing" secondItem="d52-Tg-BU8" secondAttribute="trailing" constant="15" id="sMu-Sf-RcU"/>
+                                                <constraint firstAttribute="centerY" secondItem="3Hy-cZ-JPv" secondAttribute="centerY" id="TYs-GW-aD9"/>
+                                                <constraint firstItem="vbf-j9-pxe" firstAttribute="top" secondItem="Xej-DS-v7P" secondAttribute="top" constant="10" id="fic-Tn-tPf"/>
+                                                <constraint firstItem="3Hy-cZ-JPv" firstAttribute="leading" secondItem="Xej-DS-v7P" secondAttribute="leading" constant="15" id="jp7-3R-0Wx"/>
+                                                <constraint firstAttribute="trailing" secondItem="vbf-j9-pxe" secondAttribute="trailing" constant="15" id="xP1-Yb-tFc"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UnitSettingsCell" rowHeight="50" id="ITy-WD-1Se" userLabel="UnitSettingsCell">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UnitSettingsCell" rowHeight="50" id="Rbr-lr-gAk" userLabel="UnitSettingsCell">
                                         <rect key="frame" x="0.0" y="119" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ITy-WD-1Se" id="JZv-OI-7K8">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rbr-lr-gAk" id="0m2-GM-wMC">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Temperature" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uf-in-4gP">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Temperature" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7f-Ql-CgB">
                                                     <rect key="frame" x="15" y="14" width="96" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="4TJ-1M-haN">
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="vNr-0e-Tfs">
                                                     <rect key="frame" x="205" y="10" width="100" height="29"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="100" id="isL-qe-dlh"/>
+                                                        <constraint firstAttribute="width" constant="100" id="V8d-NT-2Jn"/>
                                                     </constraints>
                                                     <segments>
                                                         <segment title="°C"/>
                                                         <segment title="°F"/>
                                                     </segments>
                                                     <connections>
-                                                        <action selector="changedTemperatureUnit:" destination="AVc-0U-FEU" eventType="valueChanged" id="8xk-Aq-zyK"/>
+                                                        <action selector="changedTemperatureUnit:" destination="AVc-0U-FEU" eventType="valueChanged" id="GKk-Qf-Yci"/>
                                                     </connections>
                                                 </segmentedControl>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="4TJ-1M-haN" firstAttribute="top" secondItem="JZv-OI-7K8" secondAttribute="top" constant="10" id="16t-vR-SL4"/>
-                                                <constraint firstAttribute="centerY" secondItem="9uf-in-4gP" secondAttribute="centerY" id="Kbs-FT-d0H"/>
-                                                <constraint firstItem="9uf-in-4gP" firstAttribute="leading" secondItem="JZv-OI-7K8" secondAttribute="leading" constant="15" id="TJ1-jq-Uc7"/>
-                                                <constraint firstAttribute="trailing" secondItem="4TJ-1M-haN" secondAttribute="trailing" constant="15" id="tqJ-HN-EAi"/>
+                                                <constraint firstItem="V7f-Ql-CgB" firstAttribute="leading" secondItem="0m2-GM-wMC" secondAttribute="leading" constant="15" id="9gQ-h0-fO6"/>
+                                                <constraint firstItem="vNr-0e-Tfs" firstAttribute="top" secondItem="0m2-GM-wMC" secondAttribute="top" constant="10" id="QTT-vN-tQx"/>
+                                                <constraint firstAttribute="centerY" secondItem="V7f-Ql-CgB" secondAttribute="centerY" id="Rzv-3c-K6w"/>
+                                                <constraint firstAttribute="trailing" secondItem="vNr-0e-Tfs" secondAttribute="trailing" constant="15" id="hkg-gd-6YR"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -1092,7 +1156,7 @@
                                                         <segment title="" image="SleipnirSettingsFront"/>
                                                     </segments>
                                                     <connections>
-                                                        <action selector="changeSleipnirPlacement:" destination="AVc-0U-FEU" eventType="valueChanged" id="P9h-kw-I1J"/>
+                                                        <action selector="changedSleipnirPlacement:" destination="AVc-0U-FEU" eventType="valueChanged" id="baU-fn-SQa"/>
                                                     </connections>
                                                 </segmentedControl>
                                             </subviews>
@@ -1127,13 +1191,14 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="1200"/>
                     <connections>
-                        <outlet property="directionUnitControl" destination="bcI-dI-OVQ" id="j1d-pU-vXj"/>
+                        <outlet property="directionUnitControl" destination="ji9-uF-jwg" id="dOG-gT-pgN"/>
                         <outlet property="dropboxControl" destination="qmh-QA-fjN" id="NTK-l8-qTs"/>
                         <outlet property="logoutButton" destination="kic-mv-NUN" id="ZFS-dj-OWp"/>
-                        <outlet property="pressureUnitControl" destination="d52-Tg-BU8" id="emI-aV-Hwf"/>
+                        <outlet property="meterTypeControl" destination="nUj-8S-nBn" id="1jg-57-rog"/>
+                        <outlet property="pressureUnitControl" destination="vbf-j9-pxe" id="3Az-Eh-onD"/>
                         <outlet property="sleipnirClipControl" destination="gKH-dm-y5J" id="rxb-6x-dR6"/>
-                        <outlet property="speedUnitControl" destination="Dvh-om-zIW" id="aW3-Fp-pdv"/>
-                        <outlet property="temperatureUnitControl" destination="4TJ-1M-haN" id="Z5O-Xt-ZoP"/>
+                        <outlet property="speedUnitControl" destination="T8E-sQ-REe" id="Y05-0L-1Yu"/>
+                        <outlet property="temperatureUnitControl" destination="vNr-0e-Tfs" id="4Yw-5P-qGU"/>
                         <outlet property="versionLabel" destination="Hxy-12-BRt" id="2CT-gG-sH5"/>
                     </connections>
                 </tableViewController>
@@ -2572,11 +2637,13 @@
         <image name="HistoryDirectionArrow" width="27" height="27"/>
         <image name="HistoryTab" width="23" height="23"/>
         <image name="MapTab" width="23" height="23"/>
+        <image name="MjolnirSettingsSelect" width="140" height="97"/>
         <image name="NewFeaturesBackground" width="213" height="378"/>
         <image name="SettingsIcon.png" width="24" height="24"/>
         <image name="SettingsTab" width="23" height="23"/>
         <image name="SleipnirSettingsBack" width="100" height="97"/>
         <image name="SleipnirSettingsFront" width="100" height="97"/>
+        <image name="SleipnirSettingsSelect" width="140" height="97"/>
         <image name="WindArrow" width="100" height="100"/>
         <image name="iPhone6Black" width="217" height="444"/>
     </resources>
@@ -2586,7 +2653,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Ssw-Fs-Fxw"/>
         <segue reference="rHX-aP-7gX"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>

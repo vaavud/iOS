@@ -20,6 +20,7 @@ class CoreSettingsTableViewController: UITableViewController {
     //    @IBOutlet weak var facebookControl: UISwitch!
     @IBOutlet weak var dropboxControl: UISwitch!
     @IBOutlet weak var sleipnirClipControl: UISegmentedControl!
+    @IBOutlet weak var meterTypeControl: UISegmentedControl!
     
     @IBOutlet weak var versionLabel: UILabel!
     
@@ -30,8 +31,13 @@ class CoreSettingsTableViewController: UITableViewController {
                 
         dropboxControl.on = DBSession.sharedSession().isLinked()
         
+        let usesSleipnir = Property.getAsBoolean("usesSleipnir", defaultValue: false)
+        meterTypeControl.selectedSegmentIndex = usesSleipnir ? 1 : 0
+        
         let sleipnirOnFront = Property.getAsBoolean("sleipnirClipSideScreen", defaultValue: false)
         sleipnirClipControl.selectedSegmentIndex = sleipnirOnFront ? 1 : 0
+        sleipnirClipControl.enabled = usesSleipnir
+        
         readUnits()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: "UnitChange", object: nil)
@@ -43,10 +49,6 @@ class CoreSettingsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         refreshLogoutButton()
     }
-    
-//    @IBAction func tappedDone(sender: UIBarButtonItem) {
-//        presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
-//    }
     
     func wasLoggedInOut(note: NSNotification) {
         refreshLogoutButton()
@@ -148,13 +150,19 @@ class CoreSettingsTableViewController: UITableViewController {
         postUnitChange()
     }
     
-    @IBAction func changedFacebookSetting(sender: UISwitch) {
-        Property.setAsBoolean(sender.on, forKey: "enableFacebookShareDialog")
+//    @IBAction func changedFacebookSetting(sender: UISwitch) {
+//        Property.setAsBoolean(sender.on, forKey: "enableFacebookShareDialog")
+//    }
+    
+    @IBAction func changedSleipnirPlacement(sender: UISegmentedControl) {
+        let frontPlaced = sender.selectedSegmentIndex == 1
+        Property.setAsBoolean(frontPlaced, forKey: "sleipnirClipSideScreen")
     }
     
-    @IBAction func changeSleipnirPlacement(sender: UISegmentedControl) {
-        let frontPlaced = sleipnirClipControl.selectedSegmentIndex == 1
-        Property.setAsBoolean(frontPlaced, forKey: "sleipnirClipSideScreen")
+    @IBAction func changedMeterModel(sender: UISegmentedControl) {
+        let usesSleipnir = sender.selectedSegmentIndex == 1
+        Property.setAsBoolean(usesSleipnir, forKey: "usesSleipnir")
+        sleipnirClipControl.enabled = usesSleipnir
     }
     
     @IBAction func changedDropboxSetting(sender: UISwitch) {
@@ -168,10 +176,6 @@ class CoreSettingsTableViewController: UITableViewController {
             value = "Unlinked"
         }
         Mixpanel.sharedInstance().track("Dropbox", properties: ["Action" : value])
-    }
-    
-    @IBAction func changedSleipnirClipSetting(sender: UISwitch) {
-        Property.setAsBoolean(sender.on, forKey: "sleipnirClipSideScreen")
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

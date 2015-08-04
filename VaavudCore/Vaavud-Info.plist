@@ -63,8 +63,6 @@
 		<string>BebasNeue_Bold.otf</string>
 		<string>BebasNeue_Regular.otf</string>
 	</array>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>

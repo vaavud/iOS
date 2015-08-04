@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		220A30EC1B6F77250011DDA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 220A30EB1B6F77250011DDA9 /* Images.xcassets */; };
 		220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */; };
 		221285B21B04A6F500D4C008 /* FlatMeasurementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221285B11B04A6F500D4C008 /* FlatMeasurementController.swift */; };
 		2231A0A41B19BECE003DADDB /* MeasureRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */; };
@@ -35,7 +36,7 @@
 		22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */; };
 		22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408B61A8A0E2E0062A2DD /* Extensions.swift */; };
 		22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */; };
-		22CECB181AF22CE300148045 /* SettingsSleipnirClip.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22CECB171AF22CE300148045 /* SettingsSleipnirClip.xcassets */; };
+		22CECB181AF22CE300148045 /* Settings.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22CECB171AF22CE300148045 /* Settings.xcassets */; };
 		22DCCED41B02399800D65265 /* RoundMeasurementScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DCCED31B02399800D65265 /* RoundMeasurementScreen.swift */; };
 		22E59A3A1ADD6F7000B1BC88 /* HistoryScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A301ADD6F7000B1BC88 /* HistoryScreen.xcassets */; };
 		22E59A3C1ADD6F7000B1BC88 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A311ADD6F7000B1BC88 /* Icons.xcassets */; };
@@ -86,11 +87,9 @@
 		E93C86691781C88B005E4212 /* Property.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86681781C88B005E4212 /* Property.m */; };
 		E93C866F1781D69A005E4212 /* MeasurementSession+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */; };
 		E93C86721781D727005E4212 /* MeasurementPoint+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86711781D727005E4212 /* MeasurementPoint+Util.m */; };
-		E93EEDB819EE664B004D8759 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = E93EEDB719EE664B004D8759 /* LaunchScreen.xib */; };
 		E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E94CBB5D177DB3050089D440 /* UUIDUtil.m */; };
 		E960260818575452009396B1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E960260A18575452009396B1 /* Localizable.strings */; };
 		E960260E18575E41009396B1 /* MeasurementCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E960261018575E41009396B1 /* MeasurementCalloutView.xib */; };
-		E972407919DC1E4E008642E2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E972407319DAAB54008642E2 /* Images.xcassets */; };
 		E9793A85196C411C00E3823E /* ParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9793A84196C411C00E3823E /* ParentViewController.m */; };
 		E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */; };
 		E97AC6D018BCDE19004DEC65 /* TermsPrivacyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */; };
@@ -199,6 +198,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		220A30EB1B6F77250011DDA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Al Fresco Bold.otf"; sourceTree = "<group>"; };
 		221285B11B04A6F500D4C008 /* FlatMeasurementController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatMeasurementController.swift; sourceTree = "<group>"; };
 		22199BF71AE286400008CADA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
@@ -269,7 +269,7 @@
 		22B408B61A8A0E2E0062A2DD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSettingsViewController.swift; sourceTree = "<group>"; };
 		22B99AC41ADFD8C600E1A27B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Register.strings; sourceTree = "<group>"; };
-		22CECB171AF22CE300148045 /* SettingsSleipnirClip.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SettingsSleipnirClip.xcassets; path = ImageAssets/SettingsSleipnirClip.xcassets; sourceTree = "<group>"; };
+		22CECB171AF22CE300148045 /* Settings.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Settings.xcassets; path = ImageAssets/Settings.xcassets; sourceTree = "<group>"; };
 		22DB81A81A8389DF00DA67AC /* Model 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.xcdatamodel"; sourceTree = "<group>"; };
 		22DCCED31B02399800D65265 /* RoundMeasurementScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundMeasurementScreen.swift; sourceTree = "<group>"; };
 		22E204FE1AB19BEB00FA7E1D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
@@ -363,14 +363,12 @@
 		E93C86701781D727005E4212 /* MeasurementPoint+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MeasurementPoint+Util.h"; sourceTree = "<group>"; };
 		E93C86711781D727005E4212 /* MeasurementPoint+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MeasurementPoint+Util.m"; sourceTree = "<group>"; };
 		E93EED3219DED9FA004D8759 /* Model 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 5.xcdatamodel"; sourceTree = "<group>"; };
-		E93EEDB719EE664B004D8759 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VaavudElectronicSDK.xcodeproj; path = ../VaavudElectronicSDK/VaavudElectronicSDK.xcodeproj; sourceTree = "<group>"; };
 		E94CBB5C177DB3050089D440 /* UUIDUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUIDUtil.h; sourceTree = "<group>"; };
 		E94CBB5D177DB3050089D440 /* UUIDUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUIDUtil.m; sourceTree = "<group>"; };
 		E96025FB18574DC0009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E960260B18575461009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E960260D18575473009396B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E972407319DAAB54008642E2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Vaavud/Images.xcassets; sourceTree = "<group>"; };
 		E9793A83196C411C00E3823E /* ParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentViewController.h; sourceTree = "<group>"; };
 		E9793A84196C411C00E3823E /* ParentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentViewController.m; sourceTree = "<group>"; };
 		E97AC6C818BCC66A004DEC65 /* TermsPrivacyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsPrivacyViewController.h; sourceTree = "<group>"; };
@@ -687,7 +685,6 @@
 				22728BEC1B6BA30200AFE634 /* UIImage+Vaavud.h */,
 				22728BED1B6BA30200AFE634 /* UIImage+Vaavud.m */,
 				223DA7B31B0B696E00298A6E /* MapMeasurementViewController.swift */,
-				E972407319DAAB54008642E2 /* Images.xcassets */,
 				E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */,
 				D7A4F1D0173A8DDB00D1ACEE /* Classes */,
 				D7A4F1C9173A8DDB00D1ACEE /* Frameworks */,
@@ -800,7 +797,6 @@
 				E90709411940AFAC0087F80F /* Components */,
 				E9B950DE195C584200E9EF02 /* FirstTime */,
 				E91E490F19AB5FA600616887 /* History */,
-				E93EEDB719EE664B004D8759 /* LaunchScreen.xib */,
 				E9A4098818A4DA9E004F1C12 /* Login */,
 				D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */,
 				E91E491019AB641F00616887 /* Map */,
@@ -875,6 +871,7 @@
 		E98853C7176868BE00F78128 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				220A30EB1B6F77250011DDA9 /* Images.xcassets */,
 				22E59A301ADD6F7000B1BC88 /* HistoryScreen.xcassets */,
 				22E59A311ADD6F7000B1BC88 /* Icons.xcassets */,
 				22E59A321ADD6F7000B1BC88 /* InterfaceElements.xcassets */,
@@ -886,7 +883,7 @@
 				22E59A381ADD6F7000B1BC88 /* TabBar.xcassets */,
 				22E59A391ADD6F7000B1BC88 /* UpgradeFlow.xcassets */,
 				22900BB61AEE77C1009D9C8F /* MjolnirSpinner.xcassets */,
-				22CECB171AF22CE300148045 /* SettingsSleipnirClip.xcassets */,
+				22CECB171AF22CE300148045 /* Settings.xcassets */,
 				22787C3A1B5D8C8200AB6150 /* MeasureScreens.xcassets */,
 			);
 			name = Images;
@@ -1391,12 +1388,11 @@
 				22AB2E6E1A70FC15008CAE46 /* Roboto-Light.ttf in Resources */,
 				220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */,
 				22900BB71AEE77C1009D9C8F /* MjolnirSpinner.xcassets in Resources */,
-				22CECB181AF22CE300148045 /* SettingsSleipnirClip.xcassets in Resources */,
-				E972407919DC1E4E008642E2 /* Images.xcassets in Resources */,
+				22CECB181AF22CE300148045 /* Settings.xcassets in Resources */,
+				220A30EC1B6F77250011DDA9 /* Images.xcassets in Resources */,
 				E960260818575452009396B1 /* Localizable.strings in Resources */,
 				22E59A441ADD6F7000B1BC88 /* MapMarkers.xcassets in Resources */,
 				2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */,
-				E93EEDB819EE664B004D8759 /* LaunchScreen.xib in Resources */,
 				22E59A4A1ADD6F7000B1BC88 /* TabBar.xcassets in Resources */,
 				E9AF2B9117F5B96500BDF6D9 /* MeasurementTableViewCell.xib in Resources */,
 				22E59A461ADD6F7000B1BC88 /* MapPlaceholder.xcassets in Resources */,
@@ -1699,6 +1695,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1731,6 +1729,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;

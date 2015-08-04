@@ -69,6 +69,9 @@ static NSString * const KEY_LOCATION_HAS_ASKED = @"hasAskedForLocationAccess";
 static NSString * const KEY_LOCATION_HAS_APPROVED = @"hasApprovedLocationAccess";
 static NSString * const KEY_HAS_CALIBRATED = @"hasCalibrated";
 
+static NSString * const KEY_USES_SLEIPNIR = @"usesSleipnir";
+static NSString * const KEY_SLEIPNIR_ON_FRONT = @"sleipnirClipSideScreen";
+
 @interface Property (Util)
 
 + (NSString *)getAsString:(NSString *)name;
