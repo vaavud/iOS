@@ -136,12 +136,12 @@ SHARED_INSTANCE
 }
 
 - (void)checkForUnUploadedData {
-    //NSLog(@"[ServerUploadManager, %@] checkForUnUploadedData", [NSThread currentThread]);
-    
+    if (LOG_UPLOAD) NSLog(@"[ServerUploadManager, %@] checkForUnUploadedData", [NSThread currentThread]);
+
     if (!self.hasReachability) {
         return;
     }
-    
+
     if (self.consecutiveNetworkErrors >= consecutiveNetworkErrorBackOffThreshold) {
         self.backoffWaitCount++;
         if (self.backoffWaitCount % networkErrorBackOff != 0) {
@@ -156,25 +156,24 @@ SHARED_INSTANCE
         return;
     }
     
-    NSArray *unuploadedMeasurementSessions = [MeasurementSession MR_findByAttribute:@"uploaded" withValue:[NSNumber numberWithBool:NO]];
+    NSArray *unuploadedMeasurementSessions = [MeasurementSession MR_findByAttribute:@"uploaded" withValue:@NO];
 
     if (unuploadedMeasurementSessions && [unuploadedMeasurementSessions count] > 0) {
         
-        //NSLog(@"[ServerUploadManager] Found %d un-uploaded MeasurementSessions", [unuploadedMeasurementSessions count]);
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Found %d un-uploaded MeasurementSessions", [unuploadedMeasurementSessions count]);
         
         for (MeasurementSession *measurementSession in unuploadedMeasurementSessions) {
             NSNumber *pointCount = [NSNumber numberWithUnsignedInteger:[measurementSession.points count]];
 
             //NSLog(@"[ServerUploadManager] Found non-uploaded MeasurementSession with uuid=%@, startTime=%@, startIndex=%@, endIndex=%@, pointCount=%@", measurementSession.uuid, measurementSession.startTime, measurementSession.startIndex, measurementSession.endIndex, pointCount);
 
-            if ([measurementSession.measuring boolValue] == YES) {
-                
+            if (measurementSession.measuring.boolValue) {
                 // if an unuploaded 
                 NSTimeInterval howRecent = [measurementSession.endTime timeIntervalSinceNow];
                 if (abs(howRecent) > 60.0 * 10.0) {
-                    //NSLog(@"[ServerUploadManager] Found old MeasurementSession (%@) that is still measuring - setting it to not measuring", measurementSession.uuid);
+                    if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Found old MeasurementSession (%@) that is still measuring - setting it to not measuring", measurementSession.uuid);
                     // TODO: we ought to force the controller to stop if it is still in started mode. Or should we remove this altogether?
-                    measurementSession.measuring = [NSNumber numberWithBool:NO];
+                    measurementSession.measuring = @NO;
                     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
                 }
             }
@@ -182,19 +181,19 @@ SHARED_INSTANCE
             BOOL isFinishedButUploadAdditionalData = NO;
             BOOL doUpload = YES;
             
-            if ([measurementSession.startIndex intValue] == [pointCount intValue] && ([pointCount intValue] > 0 || [measurementSession.measuring boolValue] == NO)) {
+            if (measurementSession.startIndex.intValue == pointCount.intValue && (pointCount.intValue > 0 || measurementSession.measuring.boolValue == NO)) {
 
                 doUpload = NO;
                 
-                if ([measurementSession.measuring boolValue] == NO) {
-                    if ((measurementSession.dose && [measurementSession.dose floatValue] > 0.0F) || (measurementSession.boomHeight && [measurementSession.boomHeight intValue] > 0) || (measurementSession.sprayQuality && [measurementSession.sprayQuality intValue] > 0)) {
+                if (measurementSession.measuring.boolValue == NO) {
+                    if ((measurementSession.dose && measurementSession.dose.floatValue > 0.0F) || (measurementSession.boomHeight && measurementSession.boomHeight.intValue > 0) || (measurementSession.sprayQuality && measurementSession.sprayQuality.intValue > 0)) {
                         
                         isFinishedButUploadAdditionalData = YES;
                         doUpload = YES;
                     }
                     else {
                         //NSLog(@"[ServerUploadManager] Found MeasurementSession (%@) that is not measuring and has no new points, so setting it as uploaded", measurementSession.uuid);
-                        measurementSession.uploaded = [NSNumber numberWithBool:YES];
+                        measurementSession.uploaded = @YES;
                         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:nil];
                     }
                 }

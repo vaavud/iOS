@@ -27,6 +27,7 @@
 @property (nonatomic) DismissOnTouchUIView *overlayDimmingView;
 @property (nonatomic) BOOL isCalloutGuideViewShown;
 @property (nonatomic) UIButton *measureButton;
+@property (nonatomic) CGFloat laidOutWidth;
 
 @end
 
@@ -77,30 +78,37 @@
     for (UITabBarItem *item in self.tabBar.items) {
         item.imageInsets = UIEdgeInsetsMake(6.0, 0.0, -6.0, 0.0);
     }
+    
+    [VEVaavudElectronicSDK sharedVaavudElectronic];
 }
 
 -(void)viewWillLayoutSubviews {
     CGFloat width = self.tabBar.bounds.size.width/self.tabBar.items.count;
     CGFloat height = self.tabBar.bounds.size.height;
     
+    if (width == self.laidOutWidth) { return; }
+    
     self.tabBar.selectionIndicatorImage = [UIImage imageWithColor:[UIColor vaavudTabbarSelectedColor] forSize:CGSizeMake(width, height)];
     
     CGRect frame = self.measureButton.frame;
     frame.origin.x = self.tabBar.bounds.size.width/2 - frame.size.width/2;
     self.measureButton.frame = frame;
+    
+    self.laidOutWidth = width;
 }
 
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    // Measure screen
-    if (viewController == self.childViewControllers[2]) {
-        VEVaavudElectronicSDK *sdk = [VEVaavudElectronicSDK sharedVaavudElectronic];
-        
-        if ([Property getAsBoolean:KEY_USES_SLEIPNIR] && !sdk.sleipnirAvailable) {
-            // Show error message
-            NSLog(@"###### ERROR NO SLEIPNIR ######");
-        }
 
-        [self performSegueWithIdentifier:@"ShowMeasureScreen" sender:self];
+    if (viewController == self.childViewControllers[2]) {
+//        VEVaavudElectronicSDK *sdk = [VEVaavudElectronicSDK sharedVaavudElectronic];
+//        if ([Property getAsBoolean:KEY_USES_SLEIPNIR] && !sdk.sleipnirAvailable) {
+//            // Show error message
+//            NSLog(@"Tabbar: ###### ERROR NO SLEIPNIR ######");
+//        }
+//        else {
+            [self performSegueWithIdentifier:@"ShowMeasureScreen" sender:self];
+//        }
+        
         return NO;
     }
     

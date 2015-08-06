@@ -290,14 +290,13 @@
         }
         
         for (NSArray *measurement in measurements) {
-            
             if (measurement.count >= 5) {
-                double latitude = [((NSString *)[measurement objectAtIndex:0]) doubleValue];
-                double longitude = [((NSString *)[measurement objectAtIndex:1]) doubleValue];
-                NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:([((NSString*)[measurement objectAtIndex:2]) doubleValue] / 1000.0)];
-                float windSpeedAvg = ([measurement objectAtIndex:3] == nil) ? 0.0 : [((NSString*)[measurement objectAtIndex:3]) floatValue];
-                float windSpeedMax = ([measurement objectAtIndex:4] == nil) ? 0.0 : [((NSString*)[measurement objectAtIndex:4]) floatValue];
-                
+                double latitude = ((NSString *)measurement[0]).doubleValue;
+                double longitude = ((NSString *)measurement[1]).doubleValue;
+                NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:((NSString *)measurement[2]).doubleValue/1000.0];
+                float windSpeedAvg = measurement[3] == [NSNull null] ? 0.0 : ((NSString *)measurement[3]).floatValue;
+                float windSpeedMax = measurement[4] == [NSNull null] ? 0.0 : ((NSString *)measurement[4]).floatValue;
+
                 NSNumber *windDirection = nil;
                 if (measurement.count >= 6) {
                     NSNumber *value = measurement[5];

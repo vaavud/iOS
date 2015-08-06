@@ -31,25 +31,24 @@ class CoreSettingsTableViewController: UITableViewController {
                 
         dropboxControl.on = DBSession.sharedSession().isLinked()
         
-        let usesSleipnir = Property.getAsBoolean("usesSleipnir", defaultValue: false)
-        meterTypeControl.selectedSegmentIndex = usesSleipnir ? 1 : 0
-        
-        let sleipnirOnFront = Property.getAsBoolean("sleipnirClipSideScreen", defaultValue: false)
-        sleipnirClipControl.selectedSegmentIndex = sleipnirOnFront ? 1 : 0
-        sleipnirClipControl.enabled = usesSleipnir
-        
         readUnits()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: "UnitChange", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasLoggedInOut:", name: "DidLogInOut", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: "isDropboxLinked", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "windmeterModelChanged:", name: "WindmeterModelChange", object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         refreshLogoutButton()
+        refreshWindmeterModel()
     }
-    
+
+    func windmeterModelChanged(note: NSNotification) {
+        refreshWindmeterModel()
+    }
+
     func wasLoggedInOut(note: NSNotification) {
         refreshLogoutButton()
     }
@@ -57,6 +56,15 @@ class CoreSettingsTableViewController: UITableViewController {
     func refreshLogoutButton() {
         let titleKey = AccountManager.sharedInstance().isLoggedIn() ? "REGISTER_BUTTON_LOGOUT" : "REGISTER_BUTTON_LOGIN"
         logoutButton.title = NSLocalizedString(titleKey, comment: "")
+    }
+    
+    func refreshWindmeterModel() {
+        let usesSleipnir = Property.getAsBoolean("usesSleipnir", defaultValue: false)
+        meterTypeControl.selectedSegmentIndex = usesSleipnir ? 1 : 0
+        
+        let sleipnirOnFront = Property.getAsBoolean("sleipnirClipSideScreen", defaultValue: false)
+        sleipnirClipControl.selectedSegmentIndex = sleipnirOnFront ? 1 : 0
+        sleipnirClipControl.enabled = usesSleipnir
     }
     
     func unitsChanged(note: NSNotification) {

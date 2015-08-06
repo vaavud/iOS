@@ -74,7 +74,7 @@ SHARED_INSTANCE
         self.currentMaxSpeed = nil;
         self.currentDirection = nil;
 
-        NSArray *measuringMeasurementSessions = [MeasurementSession MR_findByAttribute:@"measuring" withValue:[NSNumber numberWithBool:YES]];
+        NSArray *measuringMeasurementSessions = [MeasurementSession MR_findByAttribute:@"measuring" withValue:@YES];
         if (measuringMeasurementSessions && [measuringMeasurementSessions count] > 0) {
             for (MeasurementSession *measurementSession in measuringMeasurementSessions) {
                 measurementSession.measuring = @NO;
@@ -113,7 +113,7 @@ SHARED_INSTANCE
         else {
             measurementSession.source = @"vaavud";
         }
-        
+                
         self.measurementSessionUuid = measurementSession.uuid;
         [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreWithCompletion:^(BOOL success, NSError *error) {
             if (success) {
@@ -174,6 +174,7 @@ SHARED_INSTANCE
                 [[ServerUploadManager sharedInstance] triggerUpload];
             }
         }];
+        
         if ([[DBSession sharedSession] isLinked]) {
             self.dropboxUploader = [[DropboxUploader alloc] initWithDelegate:self];
             [self.dropboxUploader uploadToDropbox:measurementSession];

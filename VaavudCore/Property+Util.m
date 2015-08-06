@@ -10,6 +10,70 @@
 #import "UnitUtil.h"
 #import "MeasurementSession+Util.h"
 
+NSString * const KEY_CREATION_TIME = @"creationTime";
+NSString * const KEY_DEVICE_UUID = @"deviceUuid";
+NSString * const KEY_AUTH_TOKEN = @"authToken";
+NSString * const KEY_APP = @"app";
+NSString * const KEY_APP_VERSION = @"appVersion";
+NSString * const KEY_APP_BUILD = @"appBuild";
+NSString * const KEY_OS = @"os";
+NSString * const KEY_OS_VERSION = @"osVersion";
+NSString * const KEY_MODEL = @"model";
+NSString * const KEY_COUNTRY = @"country";
+NSString * const KEY_LANGUAGE = @"language";
+NSString * const KEY_WIND_SPEED_UNIT = @"windSpeedUnit";
+NSString * const KEY_DIRECTION_UNIT = @"directionUnit";
+NSString * const KEY_MAP_HOURS = @"mapHours";
+NSString * const KEY_HAS_PROMPTED_FOR_LOCATION = @"hasPromptedForLocation";
+NSString * const KEY_FREQUENCY_START = @"frequencyStart";
+NSString * const KEY_FREQUENCY_FACTOR = @"frequencyFactor";
+NSString * const KEY_FFT_LENGTH = @"fftLength";
+NSString * const KEY_FFT_DATA_LENGTH = @"fftDataLength";
+NSString * const KEY_FFT_MAG_MIN = @"fftMagMin";
+NSString * const KEY_ALGORITHM = @"algorithm";
+NSString * const KEY_ANALYTICS_GRID_DEGREE = @"analyticsGridDegree";
+NSString * const KEY_HOUR_OPTIONS = @"hourOptions";
+NSString * const KEY_ENABLE_MIXPANEL = @"enableMixPanel";
+NSString * const KEY_ENABLE_MIXPANEL_PEOPLE = @"enableMixPanelPeople";
+NSString * const KEY_ENABLE_FACEBOOK_DISCLAIMER = @"enableFacebookDisclaimer";
+NSString * const KEY_ENABLE_SHARE_DIALOG = @"enableFacebookShareDialog";
+NSString * const KEY_HAS_SEEN_INTRO_FLOW = @"hasSeenIntroFlow";
+NSString * const KEY_MAP_GUIDE_MARKER_SHOWN = @"mapGuideMarkerShown";
+NSString * const KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN = @"mapGuideTimeIntervalShown";
+NSString * const KEY_MAP_GUIDE_ZOOM_SHOWN = @"mapGuideZoomShown";
+NSString * const KEY_SLEIPNIR_CLIP_SIDE_SCREEN = @"sleipnirClipSideScreen";
+
+// User-related properties
+NSString * const KEY_EMAIL = @"email";
+NSString * const KEY_FACEBOOK_USER_ID = @"facebookUserId";
+NSString * const KEY_FACEBOOK_ACCESS_TOKEN = @"facebookAccessToken";
+NSString * const KEY_USER_ID = @"userId";
+NSString * const KEY_FIRST_NAME = @"firstName";
+NSString * const KEY_LAST_NAME = @"lastName";
+NSString * const KEY_AUTHENTICATION_STATE = @"authenticationState";
+NSString * const KEY_USER_HAS_WIND_METER = @"userHasWindMeter";
+
+// Agri-related properties
+NSString * const KEY_AGRI_VALID_SUBSCRIPTION = @"agriValidSubscription";
+NSString * const KEY_AGRI_DEFAULT_REDUCING_EQUIPMENT = @"agriDefaultReducingEquipment";
+NSString * const KEY_AGRI_DEFAULT_DOSE = @"agriDefaultDose";
+NSString * const KEY_AGRI_DEFAULT_BOOM_HEIGHT = @"agriDefaultBoomHeight";
+NSString * const KEY_AGRI_DEFAULT_SPRAY_QUALITY = @"agriDefaultSprayQuality";
+
+// This is new
+NSString * const KEY_AGRI_TEST_MODE = @"testMode";
+NSString * const KEY_HAS_SEEN_UPGRADE_FLOW = @"hasSeenUpgradeFlow";
+
+NSString * const KEY_TEMPERATURE_UNIT = @"temperatureUnit";
+NSString * const KEY_PRESSURE_UNIT = @"pressureUnit";
+
+NSString * const KEY_LOCATION_HAS_ASKED = @"hasAskedForLocationAccess";
+NSString * const KEY_LOCATION_HAS_APPROVED = @"hasApprovedLocationAccess";
+NSString * const KEY_HAS_CALIBRATED = @"hasCalibrated";
+
+NSString * const KEY_USES_SLEIPNIR = @"usesSleipnir";
+NSString * const KEY_SLEIPNIR_ON_FRONT = @"sleipnirClipSideScreen";
+
 @implementation Property (Util)
 
 + (NSString *)getAsString:(NSString *)name {

@@ -446,7 +446,7 @@
 }
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller {
-    NSLog(@"- controllerWillChangeContent");
+    if (LOG_HISTORY) NSLog(@"[HistoryTableViewController] - controllerWillChangeContent");
     
     [self.tableView beginUpdates];
     self.isTableUpdating = YES;
@@ -459,6 +459,8 @@
     
     switch (type) {
         case NSFetchedResultsChangeInsert:
+            NSLog(@"[HistoryTableViewController] - INSERTED at %lu", sectionIndex);
+
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
@@ -482,7 +484,7 @@
      forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath {
     
-    if (LOG_HISTORY) NSLog(@"[HistoryTableViewController] Controller changed object: %d", type);
+    if (LOG_HISTORY) NSLog(@"[HistoryTableViewController] Controller changed object: %lu", (unsigned long)type);
     
     switch (type) {
         case NSFetchedResultsChangeInsert:

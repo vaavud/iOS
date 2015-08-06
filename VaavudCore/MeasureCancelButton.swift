@@ -10,8 +10,16 @@ import UIKit
 
 enum MeasureState {
     case CountingDown(Int, Bool)
-    case Cancellable(Int)
-    case Stoppable
+    case Limited(Int)
+    case Unlimited
+    case Done
+    
+    var running: Bool {
+        switch self {
+        case .Limited, .Unlimited: return true
+        default: return false
+        }
+    }
 }
 
 class MeasureCancelButton: UIButton {
@@ -68,18 +76,21 @@ class MeasureCancelButton: UIButton {
             label.alpha = min(4*(timeLeft % 1), 1)
             label.transform = Affine.scaling(max(min(2*(1 - (timeLeft % 1)), 1), 0.01))
             
-        case let .Cancellable(period):
+        case let .Limited(period):
             pieView.start = 1 - timeLeft/CGFloat(period)
             pieView.end = 1
             label.alpha = 0
             showCross = 1
             showSquare = 0
-        case .Stoppable:
+        case .Unlimited:
             pieView.start = 0
             pieView.end = 1
             label.alpha = 0
             showCross = 0
             showSquare = 1
+        case .Done:
+            showCross = pieView.showCross
+            showSquare = pieView.showSquare
         }
         
         pieView.showCross = min(pieView.showCross + 0.05, showCross)

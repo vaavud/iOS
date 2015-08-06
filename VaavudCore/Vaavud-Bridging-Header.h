@@ -26,7 +26,14 @@
 
 #import <DropboxSDK/DropboxSDK.h>
 
+#import "MagicalRecord.h"
+#import "MagicalRecord+Actions.h"
+#import "MagicalRecordShorthand.h"
+#import "NSManagedObject+MagicalRecord.h"
 #import "NSManagedObject+MagicalFinders.h"
+#import "NSManagedObjectContext+MagicalRecord.h"
+#import "NSManagedObjectContext+MagicalSaves.h"
+#import "UUIDUtil.h"
 
 
 #import "FirstTimeFlowController.h" // FIXME: This class needs to be refactored

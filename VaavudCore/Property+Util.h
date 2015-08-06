@@ -8,69 +8,69 @@
 
 #import "Property.h"
 
-static NSString * const KEY_CREATION_TIME = @"creationTime";
-static NSString * const KEY_DEVICE_UUID = @"deviceUuid";
-static NSString * const KEY_AUTH_TOKEN = @"authToken";
-static NSString * const KEY_APP = @"app";
-static NSString * const KEY_APP_VERSION = @"appVersion";
-static NSString * const KEY_APP_BUILD = @"appBuild";
-static NSString * const KEY_OS = @"os";
-static NSString * const KEY_OS_VERSION = @"osVersion";
-static NSString * const KEY_MODEL = @"model";
-static NSString * const KEY_COUNTRY = @"country";
-static NSString * const KEY_LANGUAGE = @"language";
-static NSString * const KEY_WIND_SPEED_UNIT = @"windSpeedUnit";
-static NSString * const KEY_DIRECTION_UNIT = @"directionUnit";
-static NSString * const KEY_MAP_HOURS = @"mapHours";
-static NSString * const KEY_HAS_PROMPTED_FOR_LOCATION = @"hasPromptedForLocation";
-static NSString * const KEY_FREQUENCY_START = @"frequencyStart";
-static NSString * const KEY_FREQUENCY_FACTOR = @"frequencyFactor";
-static NSString * const KEY_FFT_LENGTH = @"fftLength";
-static NSString * const KEY_FFT_DATA_LENGTH = @"fftDataLength";
-static NSString * const KEY_FFT_MAG_MIN = @"fftMagMin";
-static NSString * const KEY_ALGORITHM = @"algorithm";
-static NSString * const KEY_ANALYTICS_GRID_DEGREE = @"analyticsGridDegree";
-static NSString * const KEY_HOUR_OPTIONS = @"hourOptions";
-static NSString * const KEY_ENABLE_MIXPANEL = @"enableMixPanel";
-static NSString * const KEY_ENABLE_MIXPANEL_PEOPLE = @"enableMixPanelPeople";
-static NSString * const KEY_ENABLE_FACEBOOK_DISCLAIMER = @"enableFacebookDisclaimer";
-static NSString * const KEY_ENABLE_SHARE_DIALOG = @"enableFacebookShareDialog";
-static NSString * const KEY_HAS_SEEN_INTRO_FLOW = @"hasSeenIntroFlow";
-static NSString * const KEY_MAP_GUIDE_MARKER_SHOWN = @"mapGuideMarkerShown";
-static NSString * const KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN = @"mapGuideTimeIntervalShown";
-static NSString * const KEY_MAP_GUIDE_ZOOM_SHOWN = @"mapGuideZoomShown";
-static NSString * const KEY_SLEIPNIR_CLIP_SIDE_SCREEN = @"sleipnirClipSideScreen";
+extern NSString * const KEY_CREATION_TIME;
+extern NSString * const KEY_DEVICE_UUID;
+extern NSString * const KEY_AUTH_TOKEN;
+extern NSString * const KEY_APP;
+extern NSString * const KEY_APP_VERSION;
+extern NSString * const KEY_APP_BUILD;
+extern NSString * const KEY_OS;
+extern NSString * const KEY_OS_VERSION;
+extern NSString * const KEY_MODEL;
+extern NSString * const KEY_COUNTRY;
+extern NSString * const KEY_LANGUAGE;
+extern NSString * const KEY_WIND_SPEED_UNIT;
+extern NSString * const KEY_DIRECTION_UNIT;
+extern NSString * const KEY_MAP_HOURS;
+extern NSString * const KEY_HAS_PROMPTED_FOR_LOCATION;
+extern NSString * const KEY_FREQUENCY_START;
+extern NSString * const KEY_FREQUENCY_FACTOR;
+extern NSString * const KEY_FFT_LENGTH;
+extern NSString * const KEY_FFT_DATA_LENGTH;
+extern NSString * const KEY_FFT_MAG_MIN;
+extern NSString * const KEY_ALGORITHM;
+extern NSString * const KEY_ANALYTICS_GRID_DEGREE;
+extern NSString * const KEY_HOUR_OPTIONS;
+extern NSString * const KEY_ENABLE_MIXPANEL;
+extern NSString * const KEY_ENABLE_MIXPANEL_PEOPLE;
+extern NSString * const KEY_ENABLE_FACEBOOK_DISCLAIMER;
+extern NSString * const KEY_ENABLE_SHARE_DIALOG;
+extern NSString * const KEY_HAS_SEEN_INTRO_FLOW;
+extern NSString * const KEY_MAP_GUIDE_MARKER_SHOWN;
+extern NSString * const KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN;
+extern NSString * const KEY_MAP_GUIDE_ZOOM_SHOWN;
+extern NSString * const KEY_SLEIPNIR_CLIP_SIDE_SCREEN;
 
 // User-related properties
-static NSString * const KEY_EMAIL = @"email";
-static NSString * const KEY_FACEBOOK_USER_ID = @"facebookUserId";
-static NSString * const KEY_FACEBOOK_ACCESS_TOKEN = @"facebookAccessToken";
-static NSString * const KEY_USER_ID = @"userId";
-static NSString * const KEY_FIRST_NAME = @"firstName";
-static NSString * const KEY_LAST_NAME = @"lastName";
-static NSString * const KEY_AUTHENTICATION_STATE = @"authenticationState";
-static NSString * const KEY_USER_HAS_WIND_METER = @"userHasWindMeter";
+extern NSString * const KEY_EMAIL;
+extern NSString * const KEY_FACEBOOK_USER_ID;
+extern NSString * const KEY_FACEBOOK_ACCESS_TOKEN;
+extern NSString * const KEY_USER_ID;
+extern NSString * const KEY_FIRST_NAME;
+extern NSString * const KEY_LAST_NAME;
+extern NSString * const KEY_AUTHENTICATION_STATE;
+extern NSString * const KEY_USER_HAS_WIND_METER;
 
 // Agri-related properties
-static NSString * const KEY_AGRI_VALID_SUBSCRIPTION = @"agriValidSubscription";
-static NSString * const KEY_AGRI_DEFAULT_REDUCING_EQUIPMENT = @"agriDefaultReducingEquipment";
-static NSString * const KEY_AGRI_DEFAULT_DOSE = @"agriDefaultDose";
-static NSString * const KEY_AGRI_DEFAULT_BOOM_HEIGHT = @"agriDefaultBoomHeight";
-static NSString * const KEY_AGRI_DEFAULT_SPRAY_QUALITY = @"agriDefaultSprayQuality";
+extern NSString * const KEY_AGRI_VALID_SUBSCRIPTION;
+extern NSString * const KEY_AGRI_DEFAULT_REDUCING_EQUIPMENT;
+extern NSString * const KEY_AGRI_DEFAULT_DOSE;
+extern NSString * const KEY_AGRI_DEFAULT_BOOM_HEIGHT;
+extern NSString * const KEY_AGRI_DEFAULT_SPRAY_QUALITY;
 
 // This is new
-static NSString * const KEY_AGRI_TEST_MODE = @"testMode";
-static NSString * const KEY_HAS_SEEN_UPGRADE_FLOW = @"hasSeenUpgradeFlow";
+extern NSString * const KEY_AGRI_TEST_MODE;
+extern NSString * const KEY_HAS_SEEN_UPGRADE_FLOW;
 
-static NSString * const KEY_TEMPERATURE_UNIT = @"temperatureUnit";
-static NSString * const KEY_PRESSURE_UNIT = @"pressureUnit";
+extern NSString * const KEY_TEMPERATURE_UNIT;
+extern NSString * const KEY_PRESSURE_UNIT;
 
-static NSString * const KEY_LOCATION_HAS_ASKED = @"hasAskedForLocationAccess";
-static NSString * const KEY_LOCATION_HAS_APPROVED = @"hasApprovedLocationAccess";
-static NSString * const KEY_HAS_CALIBRATED = @"hasCalibrated";
+extern NSString * const KEY_LOCATION_HAS_ASKED;
+extern NSString * const KEY_LOCATION_HAS_APPROVED;
+extern NSString * const KEY_HAS_CALIBRATED;
 
-static NSString * const KEY_USES_SLEIPNIR = @"usesSleipnir";
-static NSString * const KEY_SLEIPNIR_ON_FRONT = @"sleipnirClipSideScreen";
+extern NSString * const KEY_USES_SLEIPNIR;
+extern NSString * const KEY_SLEIPNIR_ON_FRONT;
 
 @interface Property (Util)
 

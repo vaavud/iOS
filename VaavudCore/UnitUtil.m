@@ -156,6 +156,7 @@ static NSArray *directionNameStrings;
 + (NSInteger)directionIndex:(double)direction {
     if (direction < 0.0 || direction >= 360.0) {
         direction = fmod(direction, 360.0);
+        direction = fmod(direction + 360.0, 360.0);
     }
     NSInteger index = round((direction / 360.0) * 16.0);
     if (index == 16) {
