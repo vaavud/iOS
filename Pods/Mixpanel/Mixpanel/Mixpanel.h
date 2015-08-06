@@ -212,7 +212,7 @@
  */
 @property (atomic, weak) id<MixpanelDelegate> delegate; // allows fine grain control over uploading (optional)
 
-#pragma mark Methods
+#pragma mark Tracking
 
 /*!
  @method
@@ -543,6 +543,23 @@
 
 /*!
  @method
+ 
+ @abstract
+ Calls flush, then optionally archives and calls a handler when finished.
+ 
+ @discussion
+ When calling <code>flush</code> manually, it is sometimes important to verify
+ that the flush has finished before before further action is taken. This is
+ especially important when the app is in the background and could be suspended
+ at any time if protocol is not followed. Delegate methods like
+ <code>application:didReceiveRemoteNotification:fetchCompletionHandler:</code>
+ are called when an app is brought to the background and require a handler to
+ be called when it finishes.
+ */
+- (void)flushWithCompletion:(void (^)())handler;
+
+/*!
+ @method
 
  @abstract
  Writes current project info, including distinct ID, super properties and pending event
@@ -556,6 +573,42 @@
  though, for example, if you'd like to track app crashes from main.m.
  */
 - (void)archive;
+
+/*!
+ @method
+
+ @abstract
+ Creates a distinct_id alias from alias to original id.
+
+ @discussion
+ This method is used to map an identifer called an alias to the existing Mixpanel
+ distinct id. This causes all events and people requests sent with the alias to be
+ mapped back to the original distinct id. The recommended usage pattern is to call
+ both createAlias: and identify: when the user signs up, and only identify: (with
+ their new user ID) when they log in. This will keep your signup funnels working
+ correctly.
+
+ <pre>
+ // This makes the current ID (an auto-generated GUID)
+ // and 'Alias' interchangeable distinct ids.
+ [mixpanel createAlias:@"Alias"
+    forDistinctID:mixpanel.distinctId];
+
+ // You must call identify if you haven't already
+ // (e.g., when your app launches).
+ [mixpanel identify:mixpanel.distinctId];
+</pre>
+
+@param alias 		the new distinct_id that should represent original
+@param distinctID 	the old distinct_id that alias will be mapped to
+ */
+- (void)createAlias:(NSString *)alias forDistinctID:(NSString *)distinctID;
+
+- (NSString *)libVersion;
+
+
+#if !defined(MIXPANEL_APP_EXTENSION)
+#pragma mark - Mixpanel Surveys
 
 /*!
  @method
@@ -583,6 +636,7 @@
  */
 - (void)showSurvey;
 
+#pragma mark - Mixpanel Notifications
 
 /*!
  @method
@@ -620,6 +674,8 @@
  */
 - (void)showNotification;
 
+#pragma mark - Mixpanel A/B Testing
+
 /*!
  @method
 
@@ -637,20 +693,17 @@
 
 /*!
  @method
- 
+
  @abstract
  Join any experiments (A/B tests) that are available for the current user.
- 
+
  @discussion
  Same as joinExperiments but will fire the given callback after all experiments
  have been loaded and applied.
  */
 - (void)joinExperimentsWithCallback:(void(^)())experimentsLoadedCallback;
 
-- (void)createAlias:(NSString *)alias forDistinctID:(NSString *)distinctID;
-
-
-- (NSString *)libVersion;
+#endif
 
 @end
 

@@ -237,6 +237,19 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         session.startIndex = 0
         //        session.privacy =
         
+//        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion {
+//            success, error in
+//            if success {
+//                println("ROOT: updateSession - Saved while measuring")
+//            }
+//            else if error != nil {
+//                println("ROOT: updateSession - Failed to save session while measuring with error: \(error.localizedDescription)")
+//            }
+//            else {
+//                println("ROOT: updateSession - Failed to save session while measuring with no error message")
+//            }
+//        }
+
         // Temperature lookup
         // Altimeter
         // Geocoder

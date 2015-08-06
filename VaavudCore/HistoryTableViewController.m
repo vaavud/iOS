@@ -324,24 +324,24 @@
     
     cell.testModeLabel.hidden = !(cell.testModeLabel && session.testMode.boolValue);
     
-//    BOOL hasPosition = session.latitude && session.longitude;
-//    BOOL hasGeoLocality = session.geoLocationNameLocalized != nil;
-//    
-//    if (!hasPosition) {
-//        cell.locationLabel.alpha = 0.3;
-//        cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_UNKNOWN", nil);
-//    }
-//    else if (!hasGeoLocality) {
-//        cell.locationLabel.alpha = 0.3;
-//        cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_LOADING", nil);
-//        
-//        CLLocation *location = [[CLLocation alloc] initWithLatitude:session.latitude.doubleValue longitude:session.longitude.doubleValue];
-//        [self geocodeLocation:location forCell:cell session:session];
-//    }
-//    else {
+    BOOL hasPosition = session.latitude && session.longitude;
+    BOOL hasGeoLocality = session.geoLocationNameLocalized != nil;
+    
+    if (!hasPosition) {
+        cell.locationLabel.alpha = 0.3;
+        cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_UNKNOWN", nil);
+    }
+    else if (!hasGeoLocality) {
+        cell.locationLabel.alpha = 0.3;
+        cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_LOADING", nil);
+        
+        CLLocation *location = [[CLLocation alloc] initWithLatitude:session.latitude.doubleValue longitude:session.longitude.doubleValue];
+        [self geocodeLocation:location forCell:cell session:session];
+    }
+    else {
         cell.locationLabel.alpha = 1.0;
         cell.locationLabel.text = session.geoLocationNameLocalized;
-//    }
+    }
 }
 
 - (void)geocodeLocation:(CLLocation *)location forCell:(HistoryTableViewCell *)cell session:(MeasurementSession *)session {

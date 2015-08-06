@@ -1,15 +1,18 @@
 PODS:
   - Dropbox-iOS-SDK (1.3.13)
-  - Mixpanel (2.7.3):
-    - Mixpanel/MPCategoryHelpers (= 2.7.3)
-  - Mixpanel/MPCategoryHelpers (2.7.3)
+  - MagicalRecord (2.3.0)
+  - Mixpanel (2.8.2):
+    - Mixpanel/Mixpanel (= 2.8.2)
+  - Mixpanel/Mixpanel (2.8.2)
 
 DEPENDENCIES:
   - Dropbox-iOS-SDK
+  - MagicalRecord
   - Mixpanel
 
 SPEC CHECKSUMS:
   Dropbox-iOS-SDK: e0c9b08d1604b39cb78c1d0333251de0f6bdec60
-  Mixpanel: 1d387d76800e07e953958c62c97fea27f13632dd
+  MagicalRecord: 89eb7d7ead39fb37f01c3d010665ee94d17f8dba
+  Mixpanel: f4d71ac2a306e7cda6ad03d4a2be249a0fd7a967
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.36.4

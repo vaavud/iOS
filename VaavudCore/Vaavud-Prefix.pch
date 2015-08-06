@@ -9,12 +9,12 @@
 #endif
 
 #ifdef __OBJC__
-    #import <UIKit/UIKit.h>
-    #import <Foundation/Foundation.h>
-    #import <SystemConfiguration/SystemConfiguration.h>
-    #import <MobileCoreServices/MobileCoreServices.h>
-    #import "Constants.h"
-    #define MR_SHORTHAND 1
-    #define MR_ENABLE_ACTIVE_RECORD_LOGGING 0
-    #import "CoreData+MagicalRecord.h"
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <MobileCoreServices/MobileCoreServices.h>
+#import "Constants.h"
+//#define MR_SHORTHAND 1
+//#define MR_ENABLE_ACTIVE_RECORD_LOGGING 0
+#import <MagicalRecord/MagicalRecord.h>
 #endif

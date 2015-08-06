@@ -28,7 +28,6 @@
 
 #import "MagicalRecord.h"
 #import "MagicalRecord+Actions.h"
-#import "MagicalRecordShorthand.h"
 #import "NSManagedObject+MagicalRecord.h"
 #import "NSManagedObject+MagicalFinders.h"
 #import "NSManagedObjectContext+MagicalRecord.h"
