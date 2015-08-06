@@ -153,14 +153,15 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         switch state {
         case .CountingDown:
             println("ROOT: tappedCancel(CountingDown)")
-            stop()
+            stop(true)
         case .Limited:
             println("ROOT: tappedCancel(Limited)")
-            stop()
+            stop(true)
             save(true)
         case .Unlimited:
+            // Possibly check how long the measurement is before saving
             println("ROOT: tappedCancel(Unlimited)")
-            stop()
+            stop(false)
             save(false)
         case .Done:
             println("ROOT: tappedCancel(Done)")
@@ -202,7 +203,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 timeLeft = 0
                 state = .Done
                 
-                stop()
+                stop(false)
                 save(false)
             }
             else {
@@ -291,13 +292,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             //            session.gustiness =
             //            session.windChill =
             
-            let duration = session.endTime.timeIntervalSinceDate(session.startTime)
-            if duration < minimumDuration || cancelled { session.MR_deleteEntity() }
-
+            if cancelled {
+                session.MR_deleteEntity()
+            }
+        
             println("ROOT: save: saved session with id: \(session.uuid)")
-            session.latitude = 1
-            session.longitude = 1
-            session.geoLocationNameLocalized = session.uuid
+//            session.latitude = 1
+//            session.longitude = 1
+//            session.geoLocationNameLocalized = session.uuid
             
             NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion {
                 success, error in
@@ -312,6 +314,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 else {
                     println("ROOT: save - Failed to save session after measuring with no error message")
                 }
+                
+                if !cancelled {
+                    NSNotificationCenter.defaultCenter().postNotificationName("OpenLatestSummary", object: self, userInfo: ["uuid" : session.uuid])
+                }
             }
         
             if DBSession.sharedSession().isLinked() {
@@ -324,8 +330,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
     }
     
-    func stop() {
+    func stop(cancelled: Bool) {
         println("ROOT: stop")
+        
+//        if !cancelled {
+//            println("tabBarController \(tabBarController)")
+//            tabBarController?.selectedIndex = 3
+//            NSNotificationCenter.defaultCenter().postNotificationName("OpenLatestSummary", object: self, userInfo: ["uuid" : currentSessionUuid])
+//        }
         
         state = .Done
         

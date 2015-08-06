@@ -43,6 +43,8 @@
 
 @property (nonatomic) UIView *backgroundView;
 
+@property (nonatomic) NSUUID *uuidToOpen;
+
 @end
 
 @implementation HistoryTableViewController
@@ -60,6 +62,8 @@
         
         self.spinner = [[MjolnirSpinner alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
         self.spinner.alpha = 0.4;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openSummary:) name:@"OpenLatestSummary" object:nil];
     }
     
     return self;
@@ -247,7 +251,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"Cell";
     HistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    [self configureCell:cell withSession: [self.fetchedResultsController objectAtIndexPath:indexPath]];
+    [self configureCell:cell withSession:[self.fetchedResultsController objectAtIndexPath:indexPath]];
     
     return cell;
 }
@@ -320,24 +324,24 @@
     
     cell.testModeLabel.hidden = !(cell.testModeLabel && session.testMode.boolValue);
     
-    BOOL hasPosition = session.latitude && session.longitude;
-    BOOL hasGeoLocality = session.geoLocationNameLocalized != nil;
-    
-    if (!hasPosition) {
-        cell.locationLabel.alpha = 0.3;
-        cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_UNKNOWN", nil);
-    }
-    else if (!hasGeoLocality) {
-        cell.locationLabel.alpha = 0.3;
-        cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_LOADING", nil);
-        
-        CLLocation *location = [[CLLocation alloc] initWithLatitude:session.latitude.doubleValue longitude:session.longitude.doubleValue];
-        [self geocodeLocation:location forCell:cell session:session];
-    }
-    else {
+//    BOOL hasPosition = session.latitude && session.longitude;
+//    BOOL hasGeoLocality = session.geoLocationNameLocalized != nil;
+//    
+//    if (!hasPosition) {
+//        cell.locationLabel.alpha = 0.3;
+//        cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_UNKNOWN", nil);
+//    }
+//    else if (!hasGeoLocality) {
+//        cell.locationLabel.alpha = 0.3;
+//        cell.locationLabel.text = NSLocalizedString(@"GEOLOCATION_LOADING", nil);
+//        
+//        CLLocation *location = [[CLLocation alloc] initWithLatitude:session.latitude.doubleValue longitude:session.longitude.doubleValue];
+//        [self geocodeLocation:location forCell:cell session:session];
+//    }
+//    else {
         cell.locationLabel.alpha = 1.0;
         cell.locationLabel.text = session.geoLocationNameLocalized;
-    }
+//    }
 }
 
 - (void)geocodeLocation:(CLLocation *)location forCell:(HistoryTableViewCell *)cell session:(MeasurementSession *)session {
@@ -459,8 +463,6 @@
     
     switch (type) {
         case NSFetchedResultsChangeInsert:
-            NSLog(@"[HistoryTableViewController] - INSERTED at %lu", sectionIndex);
-
             [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
             break;
             
@@ -518,14 +520,33 @@
     [self refreshEmptyState];
 }
 
+
+-(void)openSummary:(NSNotification *)notification {
+    NSLog(@"openSummary: %@", self.uuidToOpen);
+
+    self.uuidToOpen = notification.userInfo[@"uuid"];
+    [self performSegueWithIdentifier:@"SummarySegue" sender:self];
+    
+//    NSIndexPath *indexPath = [self.fetchedResultsController indexPathForObject:session];
+//    NSLog(@"openSummary: %@ - %@ - %@", session.uuid, session.geoLocationNameLocalized, indexPath);
+//    [self.tableView selectRowAtIndexPath:indexPath animated:@YES scrollPosition:UITableViewScrollPositionMiddle];
+}
+
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
-    return [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow] != nil;
+    return [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow] != nil || self.uuidToOpen != nil;
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"SummarySegue"]) {
         CoreSummaryViewController *destination = segue.destinationViewController;
-        destination.session = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
+        MeasurementSession *selectedSession = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
+        
+        if (selectedSession == nil) {
+            destination.session = [MeasurementSession MR_findFirstByAttribute:@"uuid" withValue:self.uuidToOpen];
+        }
+        else {
+            destination.session = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
+        }
     }
 }
 

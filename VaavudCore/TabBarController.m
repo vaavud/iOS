@@ -80,6 +80,16 @@
     }
     
     [VEVaavudElectronicSDK sharedVaavudElectronic];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openLatestSummary:) name:@"OpenLatestSummary" object:nil];
+}
+
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(void)openLatestSummary:(NSNotification *)notification {
+    self.selectedIndex = 3;
 }
 
 -(void)viewWillLayoutSubviews {
