@@ -71,9 +71,9 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         println("I (\(self)) have a formatter: \(formatter)") // tabort
 
         animator = UIDynamicAnimator(referenceView: view)
-        scaleItem = DynamicItem(centerCallback: {
+        scaleItem = DynamicItem(centerCallback: { [unowned self] in
             self.logScale = $0.y/20000
-        })
+            })
         
         scaleItem.center = CGPoint(x: 0, y: logScale*20000)
         background.setup(bandWidth)

@@ -763,80 +763,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="GENERAL" id="92M-s7-gsA">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BuyWindmeterSettingsCell" rowHeight="153" id="aK5-Bw-Jpx" userLabel="UsesSleipnir">
-                                        <rect key="frame" x="0.0" y="119" width="320" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aK5-Bw-Jpx" id="ASj-xf-H5Z">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" horizontalCompressionResistancePriority="749" text="Wind meter model" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Pai-Zh-agx">
-                                                    <rect key="frame" x="15" y="10" width="290" height="24"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="nUj-8S-nBn">
-                                                    <rect key="frame" x="15" y="44" width="290" height="99"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="98" id="g3x-Kn-H7P"/>
-                                                    </constraints>
-                                                    <segments>
-                                                        <segment title="" image="MjolnirSettingsSelect"/>
-                                                        <segment title="" image="SleipnirSettingsSelect"/>
-                                                    </segments>
-                                                    <connections>
-                                                        <action selector="changedMeterModel:" destination="AVc-0U-FEU" eventType="valueChanged" id="Fn6-HT-sBd"/>
-                                                    </connections>
-                                                </segmentedControl>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="centerX" secondItem="nUj-8S-nBn" secondAttribute="centerX" id="4VK-q8-pYg"/>
-                                                <constraint firstAttribute="bottom" secondItem="nUj-8S-nBn" secondAttribute="bottom" constant="10" id="HJP-in-IzI"/>
-                                                <constraint firstAttribute="trailing" secondItem="nUj-8S-nBn" secondAttribute="trailing" constant="15" id="Rfn-Xq-3Ku"/>
-                                                <constraint firstItem="nUj-8S-nBn" firstAttribute="leading" secondItem="ASj-xf-H5Z" secondAttribute="leading" constant="15" id="XIJ-He-zB6"/>
-                                                <constraint firstAttribute="trailing" secondItem="Pai-Zh-agx" secondAttribute="trailing" constant="15" id="aI2-hz-jUb"/>
-                                                <constraint firstItem="Pai-Zh-agx" firstAttribute="leading" secondItem="ASj-xf-H5Z" secondAttribute="leading" constant="15" id="feW-FT-16v"/>
-                                                <constraint firstItem="Pai-Zh-agx" firstAttribute="top" secondItem="ASj-xf-H5Z" secondAttribute="top" constant="10" id="qWC-CA-DON"/>
-                                                <constraint firstItem="nUj-8S-nBn" firstAttribute="top" secondItem="Pai-Zh-agx" secondAttribute="bottom" constant="10" id="udq-DX-tq2"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BuyWindmeterSettingsCell" id="Yre-vp-syN" userLabel="TimeLimit">
-                                        <rect key="frame" x="0.0" y="119" width="320" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yre-vp-syN" id="zR7-jj-eaa">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" horizontalCompressionResistancePriority="749" text="Limit measurement time to 30 s" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="mj4-mC-et3">
-                                                    <rect key="frame" x="15" y="11" width="233" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="O8N-nV-7JD">
-                                                    <rect key="frame" x="256" y="6" width="51" height="31"/>
-                                                    <connections>
-                                                        <action selector="changedLimitSwitch:" destination="AVc-0U-FEU" eventType="valueChanged" id="VRS-38-K5u"/>
-                                                    </connections>
-                                                </switch>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="O8N-nV-7JD" secondAttribute="centerY" id="EUL-9M-2hW"/>
-                                                <constraint firstItem="O8N-nV-7JD" firstAttribute="leading" secondItem="mj4-mC-et3" secondAttribute="trailing" constant="8" id="MTb-XE-Xx2"/>
-                                                <constraint firstAttribute="trailing" secondItem="O8N-nV-7JD" secondAttribute="trailing" constant="15" id="ZP7-3l-cbQ"/>
-                                                <constraint firstAttribute="centerY" secondItem="mj4-mC-et3" secondAttribute="centerY" id="qKH-gU-YVH"/>
-                                                <constraint firstItem="mj4-mC-et3" firstAttribute="leading" secondItem="zR7-jj-eaa" secondAttribute="leading" constant="15" id="sXk-S0-qCQ"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection headerTitle="Units" id="h51-Q4-NFd">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UnitSettingsCell" rowHeight="80" id="KJP-fs-BPQ" userLabel="UnitSettingsCell">
@@ -1129,6 +1055,80 @@
                                         <connections>
                                             <segue destination="0LI-1s-lFS" kind="push" identifier="PrivacySegue" id="Psa-Uo-MaR"/>
                                         </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Miscellaneous" id="92M-s7-gsA" userLabel="Misc">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BuyWindmeterSettingsCell" rowHeight="153" id="aK5-Bw-Jpx" userLabel="UsesSleipnir">
+                                        <rect key="frame" x="0.0" y="119" width="320" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aK5-Bw-Jpx" id="ASj-xf-H5Z">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" horizontalCompressionResistancePriority="749" text="Wind meter model" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="Pai-Zh-agx">
+                                                    <rect key="frame" x="15" y="10" width="290" height="24"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="nUj-8S-nBn">
+                                                    <rect key="frame" x="15" y="44" width="290" height="99"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="98" id="g3x-Kn-H7P"/>
+                                                    </constraints>
+                                                    <segments>
+                                                        <segment title="" image="MjolnirSettingsSelect"/>
+                                                        <segment title="" image="SleipnirSettingsSelect"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="changedMeterModel:" destination="AVc-0U-FEU" eventType="valueChanged" id="Fn6-HT-sBd"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerX" secondItem="nUj-8S-nBn" secondAttribute="centerX" id="4VK-q8-pYg"/>
+                                                <constraint firstAttribute="bottom" secondItem="nUj-8S-nBn" secondAttribute="bottom" constant="10" id="HJP-in-IzI"/>
+                                                <constraint firstAttribute="trailing" secondItem="nUj-8S-nBn" secondAttribute="trailing" constant="15" id="Rfn-Xq-3Ku"/>
+                                                <constraint firstItem="nUj-8S-nBn" firstAttribute="leading" secondItem="ASj-xf-H5Z" secondAttribute="leading" constant="15" id="XIJ-He-zB6"/>
+                                                <constraint firstAttribute="trailing" secondItem="Pai-Zh-agx" secondAttribute="trailing" constant="15" id="aI2-hz-jUb"/>
+                                                <constraint firstItem="Pai-Zh-agx" firstAttribute="leading" secondItem="ASj-xf-H5Z" secondAttribute="leading" constant="15" id="feW-FT-16v"/>
+                                                <constraint firstItem="Pai-Zh-agx" firstAttribute="top" secondItem="ASj-xf-H5Z" secondAttribute="top" constant="10" id="qWC-CA-DON"/>
+                                                <constraint firstItem="nUj-8S-nBn" firstAttribute="top" secondItem="Pai-Zh-agx" secondAttribute="bottom" constant="10" id="udq-DX-tq2"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BuyWindmeterSettingsCell" id="Yre-vp-syN" userLabel="TimeLimit">
+                                        <rect key="frame" x="0.0" y="119" width="320" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yre-vp-syN" id="zR7-jj-eaa">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" horizontalCompressionResistancePriority="749" text="Limit measurement time to 30 s" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="mj4-mC-et3">
+                                                    <rect key="frame" x="15" y="11" width="233" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="O8N-nV-7JD">
+                                                    <rect key="frame" x="256" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="changedLimitSwitch:" destination="AVc-0U-FEU" eventType="valueChanged" id="VRS-38-K5u"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="O8N-nV-7JD" secondAttribute="centerY" id="EUL-9M-2hW"/>
+                                                <constraint firstItem="O8N-nV-7JD" firstAttribute="leading" secondItem="mj4-mC-et3" secondAttribute="trailing" constant="8" id="MTb-XE-Xx2"/>
+                                                <constraint firstAttribute="trailing" secondItem="O8N-nV-7JD" secondAttribute="trailing" constant="15" id="ZP7-3l-cbQ"/>
+                                                <constraint firstAttribute="centerY" secondItem="mj4-mC-et3" secondAttribute="centerY" id="qKH-gU-YVH"/>
+                                                <constraint firstItem="mj4-mC-et3" firstAttribute="leading" secondItem="zR7-jj-eaa" secondAttribute="leading" constant="15" id="sXk-S0-qCQ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>

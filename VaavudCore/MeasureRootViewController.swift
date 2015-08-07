@@ -206,7 +206,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             if timeLeft < 0 {
                 timeLeft = 0
                 state = .Done
-                
                 stop(false)
                 save(false)
             }
@@ -255,7 +254,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             // Update location
             
             session.endTime = now
-//            session.windSpeedMax = maxSpeed
+            session.windSpeedMax = maxSpeed
             session.windSpeedAvg = avgSpeed
             session.windDirection = mod(latestWindDirection, 360)
 
@@ -277,11 +276,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         if let session = currentSession where session.measuring.boolValue {
             session.measuring = false
             session.endTime = NSDate()
-//            session.windSpeedMax = maxSpeed
-
-            session.latitude = 55
-            session.longitude = 12
-            
+            session.windSpeedMax = maxSpeed
             session.windSpeedAvg = avgSpeed
             session.windDirection = mod(latestWindDirection, 360)
             //            session.gustiness =
@@ -372,7 +367,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     func newSpeed(speed: NSNumber!) {
         latestSpeed = CGFloat(speed.floatValue)
         currentConsumer?.newSpeed(latestSpeed)
-//        if latestSpeed > maxSpeed { maxSpeed = latestSpeed }
+        if latestSpeed > maxSpeed { maxSpeed = latestSpeed }
     }
     
     func newHeading(heading: NSNumber!) {

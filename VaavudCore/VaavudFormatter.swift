@@ -291,7 +291,7 @@ class VaavudFormatter: NSObject {
     // Units
     
     func readUnits() {
-        println("================ Read Units (\(self))")
+        println("================ Read Units (\(self))") // tabort
 
         if let storedWindspeedInt = Property.getAsInteger(KEY_WIND_SPEED_UNIT)?.integerValue {
             windSpeedUnit = SpeedUnit(rawValue:storedWindspeedInt)!
@@ -319,7 +319,7 @@ class VaavudFormatter: NSObject {
 
     private func writeIfChanged(unit: Unit, key: String) {
         if unit.rawValue != Property.getAsInteger(key) {
-            println("postUnitChange: \(self)")
+            println("postUnitChange: \(self)") // tabort
             Property.setAsInteger(unit.rawValue, forKey: key)
             NSNotificationCenter.defaultCenter().postNotificationName(KEY_UNIT_CHANGED, object: self)
         }

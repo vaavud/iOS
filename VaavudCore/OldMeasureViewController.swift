@@ -59,7 +59,7 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         speedUnitLabel.text = formatter.windSpeedUnit.localizedString
         
         animator = UIDynamicAnimator(referenceView: view)
-        scaleItem = DynamicItem(centerCallback: {
+        scaleItem = DynamicItem(centerCallback: { [unowned self] in
             self.graph.logScale = $0.y/10000
         })
         
