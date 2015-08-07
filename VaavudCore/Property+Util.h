@@ -64,6 +64,7 @@ extern NSString * const KEY_HAS_SEEN_UPGRADE_FLOW;
 
 extern NSString * const KEY_TEMPERATURE_UNIT;
 extern NSString * const KEY_PRESSURE_UNIT;
+extern NSString * const KEY_UNIT_CHANGED;
 
 extern NSString * const KEY_LOCATION_HAS_ASKED;
 extern NSString * const KEY_LOCATION_HAS_APPROVED;
@@ -71,6 +72,12 @@ extern NSString * const KEY_HAS_CALIBRATED;
 
 extern NSString * const KEY_USES_SLEIPNIR;
 extern NSString * const KEY_SLEIPNIR_ON_FRONT;
+
+extern NSString * const KEY_DID_LOGINOUT;
+extern NSString * const KEY_IS_DROPBOXLINKED;
+extern NSString * const KEY_WINDMETERMODEL_CHANGED;
+extern NSString * const KEY_HISTORY_SYNCED;
+extern NSString * const KEY_OPEN_LATEST_SUMMARY;
 
 @interface Property (Util)
 

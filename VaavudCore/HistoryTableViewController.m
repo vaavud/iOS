@@ -53,8 +53,9 @@
     self = [super initWithCoder:aDecoder];
     
     if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historySynced) name:@"HistorySynced" object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnits) name:@"UnitChange" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historySynced) name:KEY_HISTORY_SYNCED object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnits) name:KEY_UNIT_CHANGED object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openSummary:) name:KEY_OPEN_LATEST_SUMMARY object:nil];
         
         self.geocoder = [[CLGeocoder alloc] init];
         self.dateFormatter = [[NSDateFormatter alloc] init];
@@ -62,8 +63,6 @@
         
         self.spinner = [[MjolnirSpinner alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
         self.spinner.alpha = 0.4;
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openSummary:) name:@"OpenLatestSummary" object:nil];
     }
     
     return self;
@@ -176,6 +175,7 @@
 }
 
 - (void)updateUnits {
+    NSLog(@"updateUnits (History)"); // tabort
     self.windSpeedUnit = [Property getAsInteger:KEY_WIND_SPEED_UNIT].intValue;
     self.directionUnit = [Property getAsInteger:KEY_DIRECTION_UNIT defaultValue:0].intValue;
     
@@ -520,16 +520,14 @@
     [self refreshEmptyState];
 }
 
-
 -(void)openSummary:(NSNotification *)notification {
-    NSLog(@"openSummary: %@", self.uuidToOpen);
+    [self.navigationController popToRootViewControllerAnimated:NO];
 
-    self.uuidToOpen = notification.userInfo[@"uuid"];
-    [self performSegueWithIdentifier:@"SummarySegue" sender:self];
+    NSUUID *uuid = notification.userInfo[@"uuid"];
+    CoreSummaryViewController *summary = [self.storyboard instantiateViewControllerWithIdentifier:@"SummaryViewController"];
+    summary.session = [MeasurementSession MR_findFirstByAttribute:@"uuid" withValue:uuid];
     
-//    NSIndexPath *indexPath = [self.fetchedResultsController indexPathForObject:session];
-//    NSLog(@"openSummary: %@ - %@ - %@", session.uuid, session.geoLocationNameLocalized, indexPath);
-//    [self.tableView selectRowAtIndexPath:indexPath animated:@YES scrollPosition:UITableViewScrollPositionMiddle];
+    [self.navigationController pushViewController:summary animated:NO];
 }
 
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
@@ -539,14 +537,7 @@
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"SummarySegue"]) {
         CoreSummaryViewController *destination = segue.destinationViewController;
-        MeasurementSession *selectedSession = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
-        
-        if (selectedSession == nil) {
-            destination.session = [MeasurementSession MR_findFirstByAttribute:@"uuid" withValue:self.uuidToOpen];
-        }
-        else {
-            destination.session = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
-        }
+        destination.session = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
     }
 }
 

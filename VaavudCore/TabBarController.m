@@ -81,7 +81,7 @@
     
     [VEVaavudElectronicSDK sharedVaavudElectronic];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openLatestSummary:) name:@"OpenLatestSummary" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openLatestSummary:) name:KEY_OPEN_LATEST_SUMMARY object:nil];
 }
 
 -(void)dealloc {

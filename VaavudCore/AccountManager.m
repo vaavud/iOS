@@ -232,7 +232,7 @@ BOOL isDoingLogout = NO;
                      failure:(void(^)(AuthenticationResponseType response, NSString* message, BOOL displayFeedback))failure {
     
     if (LOG_ACCOUNT) NSLog(@"[AccountManager] facebookUserLoggedIn");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLogInOut" object:@""];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KEY_DID_LOGINOUT object:@""];
 
     // Check we got the permissions we need
     [FBRequestConnection startWithGraphPath:@"/me/permissions"
@@ -436,7 +436,7 @@ BOOL isDoingLogout = NO;
                 success(authResponse);
             }
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLogInOut" object:@""];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KEY_DID_LOGINOUT object:@""];
         }
         else {
             if (failure) {
@@ -499,7 +499,7 @@ BOOL isDoingLogout = NO;
     }];
 
     [[ServerUploadManager sharedInstance] registerDevice:3];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"DidLogInOut" object:@""];
+    [[NSNotificationCenter defaultCenter] postNotificationName:KEY_DID_LOGINOUT object:@""];
 }
 
 - (BOOL)isLoggedIn {

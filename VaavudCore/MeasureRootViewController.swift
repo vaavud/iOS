@@ -39,7 +39,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private let sdk = VEVaavudElectronicSDK.sharedVaavudElectronic()
     private let currentSessionUuid = UUIDUtil.generateUUID()
     private var currentSession: MeasurementSession? {
-        return MeasurementSession.MR_findFirstByAttribute("uuid", withValue: currentSessionUuid) as? MeasurementSession
+        return MeasurementSession.MR_findFirstByAttribute("uuid", withValue: currentSessionUuid)
     }
     
     let isSleipnirSession: Bool
@@ -74,16 +74,16 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         super.init(coder: aDecoder)
         
-        let usesSleipnir = Property.getAsBoolean("usesSleipnir")
+        let usesSleipnir = Property.getAsBoolean(KEY_USES_SLEIPNIR)
         println("CREATED ROOT (wants sleipnir : \(usesSleipnir), has sleipnir: \(isSleipnirSession))")
         
         if usesSleipnir != isSleipnirSession {
-            NSNotificationCenter.defaultCenter().postNotificationName("WindmeterModelChange", object: self)
+            NSNotificationCenter.defaultCenter().postNotificationName(KEY_WINDMETERMODEL_CHANGED, object: self)
         }
 
         if isSleipnirSession {
             println("#### Sleipnir session")
-            Property.setAsBoolean(true, forKey: "usesSleipnir")
+            Property.setAsBoolean(true, forKey: KEY_USES_SLEIPNIR)
             sdk.addListener(self)
             sdk.start()
         }
@@ -225,7 +225,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         let model: WindMeterModel = isSleipnirSession ? .Sleipnir : .Mjolnir
         
-        let session = MeasurementSession.MR_createEntity() as! MeasurementSession
+        let session = MeasurementSession.MR_createEntity()
         session.uuid = currentSessionUuid
         session.device = Property.getAsString(KEY_DEVICE_UUID)
         session.windMeter = model.rawValue
@@ -268,7 +268,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             session.windSpeedAvg = avgSpeed
             session.windDirection = mod(latestWindDirection, 360)
 
-            let point = MeasurementPoint.MR_createEntity() as! MeasurementPoint
+            let point = MeasurementPoint.MR_createEntity()
             point.session = session
             point.time = now
             point.windSpeed = latestSpeed
@@ -329,7 +329,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 }
                 
                 if !cancelled {
-                    NSNotificationCenter.defaultCenter().postNotificationName("OpenLatestSummary", object: self, userInfo: ["uuid" : session.uuid])
+                    NSNotificationCenter.defaultCenter().postNotificationName(KEY_OPEN_LATEST_SUMMARY, object: self, userInfo: ["uuid" : session.uuid])
                 }
             }
         
@@ -345,13 +345,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     func stop(cancelled: Bool) {
         println("ROOT: stop")
-        
-//        if !cancelled {
-//            println("tabBarController \(tabBarController)")
-//            tabBarController?.selectedIndex = 3
-//            NSNotificationCenter.defaultCenter().postNotificationName("OpenLatestSummary", object: self, userInfo: ["uuid" : currentSessionUuid])
-//        }
-        
+                
         state = .Done
         
         if self.isSleipnirSession {

@@ -33,10 +33,10 @@ class CoreSettingsTableViewController: UITableViewController {
         
         readUnits()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: "UnitChange", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasLoggedInOut:", name: "DidLogInOut", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: "isDropboxLinked", object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "windmeterModelChanged:", name: "WindmeterModelChange", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasLoggedInOut:", name: KEY_DID_LOGINOUT, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: KEY_IS_DROPBOXLINKED, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "modelChanged:", name: KEY_WINDMETERMODEL_CHANGED, object: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -45,7 +45,7 @@ class CoreSettingsTableViewController: UITableViewController {
         refreshWindmeterModel()
     }
 
-    func windmeterModelChanged(note: NSNotification) {
+    func modelChanged(note: NSNotification) {
         refreshWindmeterModel()
     }
 
@@ -59,17 +59,21 @@ class CoreSettingsTableViewController: UITableViewController {
     }
     
     func refreshWindmeterModel() {
-        let usesSleipnir = Property.getAsBoolean("usesSleipnir", defaultValue: false)
+        let usesSleipnir = Property.getAsBoolean(KEY_USES_SLEIPNIR, defaultValue: false)
         meterTypeControl.selectedSegmentIndex = usesSleipnir ? 1 : 0
         
-        let sleipnirOnFront = Property.getAsBoolean("sleipnirClipSideScreen", defaultValue: false)
+        let sleipnirOnFront = Property.getAsBoolean(KEY_SLEIPNIR_ON_FRONT, defaultValue: false)
         sleipnirClipControl.selectedSegmentIndex = sleipnirOnFront ? 1 : 0
         sleipnirClipControl.enabled = usesSleipnir
     }
     
     func unitsChanged(note: NSNotification) {
         if note.object as? CoreSettingsTableViewController != self {
+            println("Units changed: \(note.object) me: \(self)") // tabort
             readUnits()
+        }
+        else { // tabort
+            println("Units changed here: \(self)")
         }
     }
     
@@ -82,7 +86,8 @@ class CoreSettingsTableViewController: UITableViewController {
     }
     
     func postUnitChange() {
-        NSNotificationCenter.defaultCenter().postNotificationName("UnitChange", object: self)
+        println("postUnitChange: \(self)") // tabort
+        NSNotificationCenter.defaultCenter().postNotificationName(KEY_UNIT_CHANGED, object: self)
     }
     
     deinit {
@@ -90,16 +95,16 @@ class CoreSettingsTableViewController: UITableViewController {
     }
     
     func readUnits() {
-        if let speedUnit = Property.getAsInteger("windSpeedUnit")?.integerValue {
+        if let speedUnit = Property.getAsInteger(KEY_WIND_SPEED_UNIT)?.integerValue {
             speedUnitControl.selectedSegmentIndex = speedUnit
         }
-        if let directionUnit = Property.getAsInteger("directionUnit")?.integerValue {
+        if let directionUnit = Property.getAsInteger(KEY_DIRECTION_UNIT)?.integerValue {
             directionUnitControl.selectedSegmentIndex = directionUnit
         }
-        if let pressureUnit = Property.getAsInteger("pressureUnit")?.integerValue {
+        if let pressureUnit = Property.getAsInteger(KEY_PRESSURE_UNIT)?.integerValue {
             pressureUnitControl.selectedSegmentIndex = pressureUnit
         }
-        if let temperatureUnit = Property.getAsInteger("temperatureUnit")?.integerValue {
+        if let temperatureUnit = Property.getAsInteger(KEY_TEMPERATURE_UNIT)?.integerValue {
             temperatureUnitControl.selectedSegmentIndex = temperatureUnit
         }
     }
@@ -139,22 +144,22 @@ class CoreSettingsTableViewController: UITableViewController {
     }
     
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {
-        Property.setAsInteger(sender.selectedSegmentIndex, forKey: "windSpeedUnit")
+        Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_WIND_SPEED_UNIT)
         postUnitChange()
     }
     
     @IBAction func changedDirectionUnit(sender: UISegmentedControl) {
-        Property.setAsInteger(sender.selectedSegmentIndex, forKey: "directionUnit")
+        Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_DIRECTION_UNIT)
         postUnitChange()
     }
     
     @IBAction func changedPressureUnit(sender: UISegmentedControl) {
-        Property.setAsInteger(sender.selectedSegmentIndex, forKey: "pressureUnit")
+        Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_PRESSURE_UNIT)
         postUnitChange()
     }
     
     @IBAction func changedTemperatureUnit(sender: UISegmentedControl) {
-        Property.setAsInteger(sender.selectedSegmentIndex, forKey: "temperatureUnit")
+        Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_TEMPERATURE_UNIT)
         postUnitChange()
     }
     
@@ -164,12 +169,12 @@ class CoreSettingsTableViewController: UITableViewController {
     
     @IBAction func changedSleipnirPlacement(sender: UISegmentedControl) {
         let frontPlaced = sender.selectedSegmentIndex == 1
-        Property.setAsBoolean(frontPlaced, forKey: "sleipnirClipSideScreen")
+        Property.setAsBoolean(frontPlaced, forKey: KEY_SLEIPNIR_ON_FRONT)
     }
     
     @IBAction func changedMeterModel(sender: UISegmentedControl) {
         let usesSleipnir = sender.selectedSegmentIndex == 1
-        Property.setAsBoolean(usesSleipnir, forKey: "usesSleipnir")
+        Property.setAsBoolean(usesSleipnir, forKey: KEY_USES_SLEIPNIR)
         sleipnirClipControl.enabled = usesSleipnir
     }
     

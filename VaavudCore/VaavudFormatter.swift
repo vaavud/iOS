@@ -11,10 +11,14 @@ import UIKit
 
 let π = CGFloat(M_PI)
 
-protocol FloatUnit {
+protocol FloatUnit: Unit {
     func fromBase(Float) -> Float
     func fromBase(CGFloat) -> CGFloat
     var decimals: Int { get }
+}
+
+protocol Unit {
+    var rawValue: Int { get }
 }
 
 enum TemperatureUnit: Int, FloatUnit {
@@ -50,7 +54,7 @@ enum PressureUnit: Int, FloatUnit {
     private var key: String { return ["UNIT_MBAR", "UNIT_ATM", "UNIT_MMHG"][rawValue] }
 }
 
-enum DirectionUnit: Int {
+enum DirectionUnit: Int, Unit {
     case Cardinal = 0
     case Degrees = 1
     
@@ -100,7 +104,7 @@ enum SpeedUnit: Int, FloatUnit {
     }
 }
 
-class VaavudFormatter {
+class VaavudFormatter: NSObject {
     var windSpeedUnit: SpeedUnit = .Knots { didSet { writeWindSpeedUnit() } }
     var directionUnit: DirectionUnit = .Cardinal { didSet { writeDirectionUnit() } }
     var pressureUnit: PressureUnit = .Mbar { didSet { writePressureUnit() } }
@@ -110,11 +114,27 @@ class VaavudFormatter {
     
     //    let standardWindspeedUnits: [String : SpeedUnit] = ["US" : .Knots, "UM" : .Knots, "GB" : .Knots, "CA" : .Knots, "VG" : .Knots, "VI" : .Knots]
     
-    init() {
+    override init() {
         dateFormatter.locale = NSLocale.currentLocale()
+        super.init()
         readUnits()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
     }
     
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func unitsChanged(note: NSNotification) {
+        if note.object as? VaavudFormatter != self {
+            println("Units changed: \(note.object) me: \(self)") // tabort
+            readUnits()
+        }
+        else {
+            println("Units changed (here): \(self)")
+        }
+    }
+
     // MARK - Public
     
     var missingValue = "-"
@@ -144,8 +164,6 @@ class VaavudFormatter {
     static var localizedWest: String { return NSLocalizedString(directionKey(12), comment: "") }
     
     func localizedDirection(degrees: Float) -> String {
-        readUnits()
-        
         switch directionUnit {
         case .Cardinal:
             return VaavudFormatter.localizedCardinal(degrees)
@@ -159,7 +177,7 @@ class VaavudFormatter {
         return NSLocalizedString(directionKey(cardinalDirection), comment: "")
     }
     
-    static func localizedCardinal(direction: Int) -> String {
+    static func localizedCardinalFromDirection(direction: Int) -> String {
         return NSLocalizedString(directionKey(direction), comment: "")
     }
     
@@ -186,7 +204,6 @@ class VaavudFormatter {
     }
 
     func localizedWindspeed(msSpeed: Float?, digits: Int? = nil) -> String? {
-        readUnits()
         return localizedConvertedString(msSpeed, unit: windSpeedUnit, digits: digits)
     }
     
@@ -205,7 +222,6 @@ class VaavudFormatter {
     }
 
     func localizedPressure(mbarPressure: Float?) -> String? {
-        readUnits()
         return localizedConvertedString(mbarPressure, unit: pressureUnit)
     }
     
@@ -224,7 +240,6 @@ class VaavudFormatter {
     }
 
     func localizedTemperature(kelvinTemperature: Float?) -> String? {
-        readUnits()
         return localizedConvertedString(kelvinTemperature, unit: temperatureUnit)
     }
     
@@ -243,7 +258,6 @@ class VaavudFormatter {
     }
 
     func localizedWindchill(kelvinTemperature: Float?) -> String? {
-        readUnits()
         return localizedConvertedString(kelvinTemperature, unit: temperatureUnit, decimals: 0)
     }
 
@@ -272,30 +286,40 @@ class VaavudFormatter {
     // Units
     
     func readUnits() {
-        if let storedWindspeedInt = Property.getAsInteger("windSpeedUnit")?.integerValue {
+        println("================ Read Units (\(self))")
+
+        if let storedWindspeedInt = Property.getAsInteger(KEY_WIND_SPEED_UNIT)?.integerValue {
             windSpeedUnit = SpeedUnit(rawValue:storedWindspeedInt)!
         }
         
-        if let storedDirectionInt = Property.getAsInteger("directionUnit")?.integerValue {
+        if let storedDirectionInt = Property.getAsInteger(KEY_DIRECTION_UNIT)?.integerValue {
             directionUnit = DirectionUnit(rawValue:storedDirectionInt)!
         }
         
-        if let storedPressureInt = Property.getAsInteger("pressureUnit")?.integerValue {
+        if let storedPressureInt = Property.getAsInteger(KEY_PRESSURE_UNIT)?.integerValue {
             pressureUnit = PressureUnit(rawValue:storedPressureInt)!
         }
         
-        if let storedTemperatureInt = Property.getAsInteger("temperatureUnit")?.integerValue {
+        if let storedTemperatureInt = Property.getAsInteger(KEY_TEMPERATURE_UNIT)?.integerValue {
             temperatureUnit = TemperatureUnit(rawValue:storedTemperatureInt)!
         }
     }
     
     // MARK - Private
     
-    private func writeWindSpeedUnit() { Property.setAsInteger(windSpeedUnit.rawValue, forKey: "windSpeedUnit") }
-    private func writeDirectionUnit() { Property.setAsInteger(directionUnit.rawValue, forKey: "directionUnit") }
-    private func writePressureUnit() { Property.setAsInteger(pressureUnit.rawValue, forKey: "pressureUnit") }
-    private func writeTemperatureUnit() { Property.setAsInteger(temperatureUnit.rawValue, forKey: "temperatureUnit") }
+    private func writeWindSpeedUnit() { writeIfChanged(windSpeedUnit, key: KEY_WIND_SPEED_UNIT) }
+    private func writeDirectionUnit() { writeIfChanged(directionUnit, key: KEY_DIRECTION_UNIT) }
+    private func writePressureUnit() { writeIfChanged(pressureUnit, key: KEY_PRESSURE_UNIT) }
+    private func writeTemperatureUnit() { writeIfChanged(temperatureUnit, key: KEY_TEMPERATURE_UNIT) }
 
+    private func writeIfChanged(unit: Unit, key: String) {
+        if unit.rawValue != Property.getAsInteger(key) {
+            println("postUnitChange: \(self)")
+            Property.setAsInteger(unit.rawValue, forKey: key)
+            NSNotificationCenter.defaultCenter().postNotificationName(KEY_UNIT_CHANGED, object: self)
+        }
+    }
+    
     // Direction
     
     private static func directionKey(cardinal: Int) -> String {

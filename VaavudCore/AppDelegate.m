@@ -197,8 +197,8 @@
     }
     else if ([[DBSession sharedSession] handleOpenURL:url]) {
         [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"isDropboxLinked"
-         object:[NSNumber numberWithBool:[[DBSession sharedSession] isLinked]]];
+         postNotificationName:KEY_IS_DROPBOXLINKED
+         object:@([[DBSession sharedSession] isLinked])];
         return YES;
     }
     else {

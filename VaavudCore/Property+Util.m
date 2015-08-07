@@ -67,12 +67,20 @@ NSString * const KEY_HAS_SEEN_UPGRADE_FLOW = @"hasSeenUpgradeFlow";
 NSString * const KEY_TEMPERATURE_UNIT = @"temperatureUnit";
 NSString * const KEY_PRESSURE_UNIT = @"pressureUnit";
 
+NSString * const KEY_UNIT_CHANGED = @"unitChanged";
+
 NSString * const KEY_LOCATION_HAS_ASKED = @"hasAskedForLocationAccess";
 NSString * const KEY_LOCATION_HAS_APPROVED = @"hasApprovedLocationAccess";
 NSString * const KEY_HAS_CALIBRATED = @"hasCalibrated";
 
 NSString * const KEY_USES_SLEIPNIR = @"usesSleipnir";
 NSString * const KEY_SLEIPNIR_ON_FRONT = @"sleipnirClipSideScreen";
+
+NSString * const KEY_DID_LOGINOUT = @"DidLogInOut";
+NSString * const KEY_IS_DROPBOXLINKED = @"isDropboxLinked";
+NSString * const KEY_WINDMETERMODEL_CHANGED = @"WindmeterModelChange";
+NSString * const KEY_HISTORY_SYNCED = @"HistorySynced";
+NSString * const KEY_OPEN_LATEST_SUMMARY = @"OpenLatestSummary";
 
 @implementation Property (Util)
 

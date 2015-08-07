@@ -46,7 +46,7 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
     }
 
     @IBAction func tappedDismiss() {
-        Property.setAsBoolean(true, forKey:"hasSeenUpgradeFlow");
+        Property.setAsBoolean(true, forKey: KEY_HAS_SEEN_UPGRADE_FLOW);
         Mixpanel.sharedInstance().track("Upgade Sleipnir Flow - Dismiss")
         
         if let tabBarController = storyboard?.instantiateViewControllerWithIdentifier("TabBarController") as? TabBarController {
@@ -57,7 +57,7 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
                     ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: true, success: nil, failure: nil)
                 }
                 
-                if !Property.getAsBoolean("userHasWindMeter", defaultValue: false) {
+                if !Property.getAsBoolean(KEY_USER_HAS_WIND_METER, defaultValue: false) {
                     tabBarController.selectedIndex = 1
                 }
             }

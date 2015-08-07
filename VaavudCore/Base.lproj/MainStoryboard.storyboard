@@ -1524,7 +1524,7 @@
         <!--Summary-->
         <scene sceneID="Y1a-Mc-SzL">
             <objects>
-                <viewController id="8a4-bz-n0M" userLabel="Summary" customClass="CoreSummaryViewController" customModule="Vaavud" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SummaryViewController" id="8a4-bz-n0M" userLabel="Summary" customClass="CoreSummaryViewController" customModule="Vaavud" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7wU-Bb-ZNs"/>
                         <viewControllerLayoutGuide type="bottom" id="wnc-wX-Vvf"/>

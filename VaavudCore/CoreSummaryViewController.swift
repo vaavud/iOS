@@ -80,18 +80,23 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         updateUI()
         updateLocalUI()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: "UnitChange", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
     }
 
     func unitsChanged(note: NSNotification) {
         if note.object as? CoreSummaryViewController != self {
+            println("Units changed: \(note.object) me: \(self)") // tabort
             updateUI()
             updateMapView(session)
+        }
+        else {
+            println("Units changed (here): \(self)")
         }
     }
 
     func postUnitChange() {
-        NSNotificationCenter.defaultCenter().postNotificationName("UnitChange", object: self)
+        println("postUnitChange: \(self)")
+        NSNotificationCenter.defaultCenter().postNotificationName(KEY_UNIT_CHANGED, object: self)
     }
 
     deinit {

@@ -899,7 +899,7 @@ SHARED_INSTANCE
             }
             
             NSLog(@">>>>>>>> SENDING HistorySynced note");
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"HistorySynced" object:self];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KEY_HISTORY_SYNCED object:self];
         }];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
