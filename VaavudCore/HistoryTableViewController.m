@@ -72,6 +72,8 @@
     [super viewDidLoad];
     [self hideVolumeHUD];
     [self setupBackground];
+    NSLog(@"HISTORY viewDidLoad"); // tabort
+
     [self updateUnits];
 }
 
@@ -175,7 +177,7 @@
 }
 
 - (void)updateUnits {
-    NSLog(@"updateUnits (History)"); // tabort
+    NSLog(@"HISTORY updateUnits"); // tabort
     self.windSpeedUnit = [Property getAsInteger:KEY_WIND_SPEED_UNIT].intValue;
     self.directionUnit = [Property getAsInteger:KEY_DIRECTION_UNIT defaultValue:0].intValue;
     

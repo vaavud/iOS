@@ -31,12 +31,12 @@ class CoreSettingsTableViewController: UITableViewController {
                 
         dropboxControl.on = DBSession.sharedSession().isLinked()
         
-        readUnits()
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasLoggedInOut:", name: KEY_DID_LOGINOUT, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: KEY_IS_DROPBOXLINKED, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "modelChanged:", name: KEY_WINDMETERMODEL_CHANGED, object: nil)
+        
+        readUnits()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -135,7 +135,7 @@ class CoreSettingsTableViewController: UITableViewController {
             ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: true, success: { }, failure: { _ in })
 
             self.dismissViewControllerAnimated(true, completion: {
-                println("========settings did dismiss")
+                println("========settings did dismiss") // tabort
             })
         };
         

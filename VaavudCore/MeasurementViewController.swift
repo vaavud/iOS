@@ -24,6 +24,8 @@ class MeasurementViewController : UIViewController, MeasurementConsumer {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        println("I (\(self)) have a formatter: \(formatter)") // tabort
     }
     
     override func supportedInterfaceOrientations() -> Int {

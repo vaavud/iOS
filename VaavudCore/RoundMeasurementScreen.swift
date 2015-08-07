@@ -58,15 +58,18 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        println("Created Round")
+        println("MVC init (\(self))") // tabort
     }
     
     deinit {
-        println("Removed Round")
+        println("MVC deinit (\(self))") // tabort
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        println("I (\(self)) have a formatter: \(formatter)") // tabort
+
         animator = UIDynamicAnimator(referenceView: view)
         scaleItem = DynamicItem(centerCallback: {
             self.logScale = $0.y/20000
@@ -88,7 +91,7 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
     }
     
     func changedSpeedUnit(unit: SpeedUnit) {
-        formatter.readUnits()
+//        formatter.readUnits() // tabort
         newSpeed(latestSpeed)
         
         if formatter.windSpeedUnit == .Bft {

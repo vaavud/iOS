@@ -42,8 +42,19 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     var weight: CGFloat = 0.1
     var avgWeight: CGFloat = 0.01
     
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        println("MVC init (\(self))") // tabort
+    }
+    
+    deinit {
+        println("MVC deinit (\(self))") // tabort
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        println("I (\(self)) have a formatter: \(formatter)") // tabort
         
         speedUnitLabel.text = formatter.windSpeedUnit.localizedString
         
@@ -87,9 +98,6 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         speedLabel.font = smallFont
         speedUnitLabel.font = smallFont
         maxSpeedLabel.font = smallFont
-    }
-    
-    deinit {
     }
     
     func animateLogScale(newLogScale: CGFloat) {
@@ -146,7 +154,7 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     }
     
     func changedSpeedUnit(unit: SpeedUnit) {
-        formatter.readUnits()
+//        formatter.readUnits()
         speedUnitLabel.text = formatter.windSpeedUnit.localizedString
         newSpeed(latestSpeed)
     }

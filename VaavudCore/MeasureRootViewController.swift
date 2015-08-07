@@ -104,14 +104,16 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
         NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion(nil)
     }
-
+    
     deinit {
-        println("REMOVED ROOT")
+        println("ROOT deinit (\(self))") // tabort
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
+        println("I (\(self)) have a formatter: \(formatter)") // tabort
+        
         hideVolumeHUD()
         
         let vcsNames = ["OldMeasureViewController", "RoundMeasureViewController", "FlatMeasureViewController"]
@@ -159,7 +161,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             stop(true)
             save(true)
         case .Unlimited:
-            // Possibly check how long the measurement is before saving
+            // TODO: Possibly check how long the measurement is before saving
             println("ROOT: tappedCancel(Unlimited)")
             stop(false)
             save(false)
@@ -237,19 +239,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         session.startIndex = 0
         //        session.privacy =
         
-//        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion {
-//            success, error in
-//            if success {
-//                println("ROOT: updateSession - Saved while measuring")
-//            }
-//            else if error != nil {
-//                println("ROOT: updateSession - Failed to save session while measuring with error: \(error.localizedDescription)")
-//            }
-//            else {
-//                println("ROOT: updateSession - Failed to save session while measuring with no error message")
-//            }
-//        }
-
         // Temperature lookup
         // Altimeter
         // Geocoder
@@ -273,19 +262,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             point.time = now
             point.windSpeed = latestSpeed
             point.windDirection = mod(latestWindDirection, 360)
-            
-//            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion {
-//                success, error in
-//                if success {
-//                    println("ROOT: updateSession - Saved while measuring")
-//                }
-//                else if error != nil {
-//                    println("ROOT: updateSession - Failed to save session while measuring with error: \(error.localizedDescription)")
-//                }
-//                else {
-//                    println("ROOT: updateSession - Failed to save session while measuring with no error message")
-//                }
-//            }
         }
         else {
             println("ROOT: updateSession - ERROR: No current session")
@@ -358,11 +334,26 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         // Geocoder
         
         dismissViewControllerAnimated(true) {
+            println("## self.pageController.view.removeFromSuperview()") // tabort
             self.pageController.view.removeFromSuperview()
+            
+            println("## self.pageController.removeFromParentViewController()")
             self.pageController.removeFromParentViewController()
+            
+            println("## self.viewControllers.map { $0.view.removeFromSuperview() }")
+            self.viewControllers.map { $0.view.removeFromSuperview() }
+            
+            println("## self.viewControllers.map { $0.removeFromParentViewController() }")
+            self.viewControllers.map { $0.removeFromParentViewController() }
+            
+            println("## self.viewControllers = []")
             self.viewControllers = []
-            self.displayLink.invalidate()
+            
+            println("## self.currentConsumer = nil")
             self.currentConsumer = nil
+
+            println("## self.displayLink.invalidate()")
+            self.displayLink.invalidate()
         }
     }
 

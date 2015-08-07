@@ -117,11 +117,16 @@ class VaavudFormatter: NSObject {
     override init() {
         dateFormatter.locale = NSLocale.currentLocale()
         super.init()
+        
+        println("I am a formatter: \(self)") // tabort
+
         readUnits()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
     }
     
     deinit {
+        println(" >>> I was a formatter: \(self)") // tabort
+
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     

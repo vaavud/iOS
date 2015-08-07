@@ -81,6 +81,8 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         updateLocalUI()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
+        
+        println("I (\(self)) have a formatter: \(formatter)") // tabort        
     }
 
     func unitsChanged(note: NSNotification) {
@@ -92,11 +94,6 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         else {
             println("Units changed (here): \(self)")
         }
-    }
-
-    func postUnitChange() {
-        println("postUnitChange: \(self)")
-        NSNotificationCenter.defaultCenter().postNotificationName(KEY_UNIT_CHANGED, object: self)
     }
 
     deinit {
@@ -284,7 +281,6 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     @IBAction func tappedWindDirection(sender: AnyObject) {
         if let rotation = hasSomeDirection {
             formatter.directionUnit = formatter.directionUnit.next
-            postUnitChange()
             updateWindDirection(rotation)
         }
     }
@@ -295,7 +291,6 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
             snap(pressureItem, to: CGFloat(arc4random() % 100))
             
             formatter.pressureUnit = formatter.pressureUnit.next
-            postUnitChange()
             updatePressure(session)
         }
     }
@@ -307,7 +302,6 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
             snap(temperatureItem, to: CGFloat(arc4random() % 100))
             
             formatter.temperatureUnit = formatter.temperatureUnit.next
-            postUnitChange()
             updateTemperature(session)
         }
     }
@@ -319,7 +313,6 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
             snap(temperatureItem, to: CGFloat(arc4random() % 100))
 
             formatter.temperatureUnit = formatter.temperatureUnit.next
-            postUnitChange()
             updateTemperature(session)
         }
     }
@@ -327,7 +320,6 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     @IBAction func tappedWindSpeed(sender: AnyObject) {
         if hasWindSpeed {
             formatter.windSpeedUnit = formatter.windSpeedUnit.next
-            postUnitChange()
             updateWindSpeeds(session)
             updateMapView(session)
         }
