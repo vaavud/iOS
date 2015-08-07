@@ -9,8 +9,8 @@
 import UIKit
 
 let updatePeriod = 1.0
-let countdownInterval: CGFloat = 3
-let limitedInterval: CGFloat = 7
+let countdownInterval = 3
+let limitedInterval = 7
 let minimumDuration = 3.0
 
 enum WindMeterModel: Int {
@@ -66,13 +66,15 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     private var elapsedSinceUpdate = 0.0
     
-    var state = MeasureState.CountingDown(Int(countdownInterval), false)
-    var timeLeft = countdownInterval
+    var state = MeasureState.Done
+    var timeLeft = CGFloat(countdownInterval)
     
     required init(coder aDecoder: NSCoder) {
         isSleipnirSession = sdk.sleipnirAvailable()
         
         super.init(coder: aDecoder)
+        
+        state = MeasureState.CountingDown(countdownInterval, Property.getAsBoolean(KEY_MEASUREMENT_TIME_LIMITED))
         
         let usesSleipnir = Property.getAsBoolean(KEY_USES_SLEIPNIR)
         println("CREATED ROOT (wants sleipnir : \(usesSleipnir), has sleipnir: \(isSleipnirSession))")
@@ -186,14 +188,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
         
         switch state {
-        case let .CountingDown(_, unlimited):
+        case let .CountingDown(_, limited):
             if timeLeft < 0 {
-                if unlimited {
-                    state = .Unlimited
+                if limited {
+                    state = .Limited(limitedInterval)
+                    timeLeft = CGFloat(limitedInterval)
                 }
                 else {
-                    state = .Limited(Int(limitedInterval))
-                    timeLeft = limitedInterval
+                    state = .Unlimited
                 }
                 start()
             }
@@ -253,7 +255,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             // Update location
             
             session.endTime = now
-            session.windSpeedMax = maxSpeed
+//            session.windSpeedMax = maxSpeed
             session.windSpeedAvg = avgSpeed
             session.windDirection = mod(latestWindDirection, 360)
 
@@ -275,7 +277,11 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         if let session = currentSession where session.measuring.boolValue {
             session.measuring = false
             session.endTime = NSDate()
-            session.windSpeedMax = maxSpeed
+//            session.windSpeedMax = maxSpeed
+
+            session.latitude = 55
+            session.longitude = 12
+            
             session.windSpeedAvg = avgSpeed
             session.windDirection = mod(latestWindDirection, 360)
             //            session.gustiness =
@@ -366,7 +372,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     func newSpeed(speed: NSNumber!) {
         latestSpeed = CGFloat(speed.floatValue)
         currentConsumer?.newSpeed(latestSpeed)
-        if latestSpeed > maxSpeed { maxSpeed = latestSpeed }
+//        if latestSpeed > maxSpeed { maxSpeed = latestSpeed }
     }
     
     func newHeading(heading: NSNumber!) {

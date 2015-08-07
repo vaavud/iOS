@@ -82,6 +82,8 @@ NSString * const KEY_WINDMETERMODEL_CHANGED = @"WindmeterModelChange";
 NSString * const KEY_HISTORY_SYNCED = @"HistorySynced";
 NSString * const KEY_OPEN_LATEST_SUMMARY = @"OpenLatestSummary";
 
+NSString * const KEY_MEASUREMENT_TIME_LIMITED = @"TimeLimited";
+
 @implementation Property (Util)
 
 + (NSString *)getAsString:(NSString *)name {

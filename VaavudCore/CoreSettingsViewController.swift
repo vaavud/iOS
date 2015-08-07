@@ -13,6 +13,9 @@ class CoreSettingsTableViewController: UITableViewController {
     
     @IBOutlet weak var logoutButton: UIBarButtonItem!
     
+    @IBOutlet weak var limitSwitch: UISwitch!
+    @IBOutlet weak var meterTypeControl: UISegmentedControl!
+    
     @IBOutlet weak var speedUnitControl: UISegmentedControl!
     @IBOutlet weak var directionUnitControl: UISegmentedControl!
     @IBOutlet weak var pressureUnitControl: UISegmentedControl!
@@ -20,12 +23,14 @@ class CoreSettingsTableViewController: UITableViewController {
     //    @IBOutlet weak var facebookControl: UISwitch!
     @IBOutlet weak var dropboxControl: UISwitch!
     @IBOutlet weak var sleipnirClipControl: UISegmentedControl!
-    @IBOutlet weak var meterTypeControl: UISegmentedControl!
     
     @IBOutlet weak var versionLabel: UILabel!
     
     override func viewDidLoad() {
         hideVolumeHUD()
+        
+        limitSwitch.on = Property.getAsBoolean(KEY_MEASUREMENT_TIME_LIMITED)
+        
         versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
 //        facebookControl.on = Property.getAsBoolean("enableFacebookShareDialog", defaultValue: false)
                 
@@ -176,6 +181,10 @@ class CoreSettingsTableViewController: UITableViewController {
         let usesSleipnir = sender.selectedSegmentIndex == 1
         Property.setAsBoolean(usesSleipnir, forKey: KEY_USES_SLEIPNIR)
         sleipnirClipControl.enabled = usesSleipnir
+    }
+    
+    @IBAction func changedLimitSwitch(sender: UISwitch) {
+        Property.setAsBoolean(limitSwitch.on, forKey: KEY_MEASUREMENT_TIME_LIMITED)
     }
     
     @IBAction func changedDropboxSetting(sender: UISwitch) {

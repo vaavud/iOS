@@ -765,7 +765,7 @@
                         <sections>
                             <tableViewSection headerTitle="GENERAL" id="92M-s7-gsA">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BuyWindmeterSettingsCell" rowHeight="153" id="aK5-Bw-Jpx" userLabel="SleipnirClip">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BuyWindmeterSettingsCell" rowHeight="153" id="aK5-Bw-Jpx" userLabel="UsesSleipnir">
                                         <rect key="frame" x="0.0" y="119" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aK5-Bw-Jpx" id="ASj-xf-H5Z">
@@ -801,6 +801,36 @@
                                                 <constraint firstItem="Pai-Zh-agx" firstAttribute="leading" secondItem="ASj-xf-H5Z" secondAttribute="leading" constant="15" id="feW-FT-16v"/>
                                                 <constraint firstItem="Pai-Zh-agx" firstAttribute="top" secondItem="ASj-xf-H5Z" secondAttribute="top" constant="10" id="qWC-CA-DON"/>
                                                 <constraint firstItem="nUj-8S-nBn" firstAttribute="top" secondItem="Pai-Zh-agx" secondAttribute="bottom" constant="10" id="udq-DX-tq2"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BuyWindmeterSettingsCell" id="Yre-vp-syN" userLabel="TimeLimit">
+                                        <rect key="frame" x="0.0" y="119" width="320" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yre-vp-syN" id="zR7-jj-eaa">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="49"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" horizontalCompressionResistancePriority="749" text="Limit measurement time to 30 s" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="mj4-mC-et3">
+                                                    <rect key="frame" x="15" y="11" width="233" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="O8N-nV-7JD">
+                                                    <rect key="frame" x="256" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="changedLimitSwitch:" destination="AVc-0U-FEU" eventType="valueChanged" id="VRS-38-K5u"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="O8N-nV-7JD" secondAttribute="centerY" id="EUL-9M-2hW"/>
+                                                <constraint firstItem="O8N-nV-7JD" firstAttribute="leading" secondItem="mj4-mC-et3" secondAttribute="trailing" constant="8" id="MTb-XE-Xx2"/>
+                                                <constraint firstAttribute="trailing" secondItem="O8N-nV-7JD" secondAttribute="trailing" constant="15" id="ZP7-3l-cbQ"/>
+                                                <constraint firstAttribute="centerY" secondItem="mj4-mC-et3" secondAttribute="centerY" id="qKH-gU-YVH"/>
+                                                <constraint firstItem="mj4-mC-et3" firstAttribute="leading" secondItem="zR7-jj-eaa" secondAttribute="leading" constant="15" id="sXk-S0-qCQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -1133,7 +1163,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BuyWindmeterSettingsCell" rowHeight="153" id="gOc-FV-8Mm" userLabel="SleipnirClip">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BuyWindmeterSettingsCell" rowHeight="153" id="gOc-FV-8Mm" userLabel="SleipnirClipPlacement">
                                         <rect key="frame" x="0.0" y="119" width="320" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gOc-FV-8Mm" id="3Eo-fd-cj8">
@@ -1193,6 +1223,7 @@
                     <connections>
                         <outlet property="directionUnitControl" destination="ji9-uF-jwg" id="dOG-gT-pgN"/>
                         <outlet property="dropboxControl" destination="qmh-QA-fjN" id="NTK-l8-qTs"/>
+                        <outlet property="limitSwitch" destination="O8N-nV-7JD" id="s2P-nZ-Lq9"/>
                         <outlet property="logoutButton" destination="kic-mv-NUN" id="ZFS-dj-OWp"/>
                         <outlet property="meterTypeControl" destination="nUj-8S-nBn" id="1jg-57-rog"/>
                         <outlet property="pressureUnitControl" destination="vbf-j9-pxe" id="3Az-Eh-onD"/>
