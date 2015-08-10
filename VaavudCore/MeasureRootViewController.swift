@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreMotion
 
 let updatePeriod = 1.0
 let countdownInterval = 3
@@ -35,6 +36,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var viewControllers: [UIViewController]!
     private var displayLink: CADisplayLink!
 
+    private let geocoder = CLGeocoder()
+    
     private var dropboxUploader: DropboxUploader?
     
     private let sdk = VEVaavudElectronicSDK.sharedVaavudElectronic()
@@ -149,6 +152,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
         
         unitButton.setTitle(formatter.windSpeedUnit.localizedString, forState: .Normal)
+        
+        LocationManager.sharedInstance().start()
     }
     
     @IBAction func tappedUnit(sender: UIButton) {
@@ -225,6 +230,37 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         cancelButton.update(timeLeft, state: state)
     }
 
+    func updateWithLocation(session: MeasurementSession) {
+        let loc = LocationManager.sharedInstance().latestLocation
+        
+        println("==== loc: \(loc.latitude), \(loc.longitude)")
+        
+        let location = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
+        
+        println("==== location: \(location)")
+
+        if LocationManager.isCoordinateValid(loc) {
+            (session.latitude, session.longitude) = (loc.latitude, loc.longitude)
+            
+            geocoder.reverseGeocodeLocation(location) { placemarks, error in
+                dispatch_async(dispatch_get_main_queue()) {
+                    println("==== geocoder returned: \(error) - \(placemarks)")
+        
+                    if error == nil {
+                        if let first = placemarks.first as? CLPlacemark,
+                            let s = NSManagedObjectContext.MR_defaultContext().existingObjectWithID(session.objectID, error: nil) as? MeasurementSession {
+                                s.geoLocationNameLocalized = first.thoroughfare ?? first.locality ?? first.country
+                                println("Geocode succeeded: \(s.geoLocationNameLocalized)")
+                        }
+                    }
+                    else {
+                        println("Geocode failed with error: \(error)")
+                    }
+                }
+            }
+        }
+    }
+    
     func start() {
         println("ROOT: start")
 
@@ -242,6 +278,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         session.measuring = true
         session.uploaded = false
         session.startIndex = 0
+        
+        updateWithLocation(session)
+        
+        
         //        session.privacy =
         
         // Temperature lookup
@@ -256,7 +296,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         println("ROOT: updateSession")
         
         if let session = currentSession where session.measuring.boolValue {
-            // Update location
+            updateWithLocation(session)
             
             session.endTime = now
             session.windSpeedMax = maxSpeed
@@ -291,10 +331,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 session.MR_deleteEntity()
             }
         
-            println("ROOT: save: saved session with id: \(session.uuid)")
-//            session.latitude = 1
-//            session.longitude = 1
-//            session.geoLocationNameLocalized = session.uuid
+            updateWithLocation(session)
             
             NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion {
                 success, error in
