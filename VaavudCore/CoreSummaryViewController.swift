@@ -81,15 +81,29 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         updateLocalUI()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "sessionUpdated:", name: KEY_SESSION_UPDATED, object: nil)
     }
-
+    
+    func sessionUpdated(note: NSNotification) {
+        if let objectId = note.userInfo?["objectID"] as? NSManagedObjectID where objectId == session.objectID {
+            setupGeoLocation(session)
+        }
+        
+        if let objectId = note.userInfo?["objectID"] as? NSManagedObjectID {
+            println("session.objectID: \(session.objectID) - objectId: \(objectId)")
+        }
+        else {
+            println("sessionUpdated ???")
+        }
+    }
+    
     func unitsChanged(note: NSNotification) {
         if note.object as? CoreSummaryViewController != self {
             updateUI()
             updateMapView(session)
         }
     }
-
+    
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }

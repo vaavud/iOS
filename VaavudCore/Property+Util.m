@@ -84,6 +84,8 @@ NSString * const KEY_OPEN_LATEST_SUMMARY = @"OpenLatestSummary";
 
 NSString * const KEY_MEASUREMENT_TIME_LIMITED = @"TimeLimited";
 
+NSString * const KEY_SESSION_UPDATED = @"SessionUpdate";
+
 @implementation Property (Util)
 
 + (NSString *)getAsString:(NSString *)name {

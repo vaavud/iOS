@@ -230,27 +230,31 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         cancelButton.update(timeLeft, state: state)
     }
 
+    func hasValidLocation(session: MeasurementSession) -> Bool {
+        if let lat = session.latitude?.doubleValue, long = session.longitude?.doubleValue {
+            return LocationManager.isCoordinateValid(CLLocationCoordinate2D(latitude: lat, longitude: long))
+        }
+        
+        return false
+    }
+    
     func updateWithLocation(session: MeasurementSession) {
         let loc = LocationManager.sharedInstance().latestLocation
         
-        println("==== loc: \(loc.latitude), \(loc.longitude)")
-        
-        let location = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
-        
-        println("==== location: \(location)")
-
         if LocationManager.isCoordinateValid(loc) {
             (session.latitude, session.longitude) = (loc.latitude, loc.longitude)
-            
-            geocoder.reverseGeocodeLocation(location) { placemarks, error in
+        }
+    }
+
+    func updateWithGeocode(session: MeasurementSession) {
+        if let lat = session.latitude?.doubleValue, long = session.longitude?.doubleValue {
+            geocoder.reverseGeocodeLocation(CLLocation(latitude: lat, longitude: long)) { placemarks, error in
                 dispatch_async(dispatch_get_main_queue()) {
-                    println("==== geocoder returned: \(error) - \(placemarks)")
-        
                     if error == nil {
                         if let first = placemarks.first as? CLPlacemark,
                             let s = NSManagedObjectContext.MR_defaultContext().existingObjectWithID(session.objectID, error: nil) as? MeasurementSession {
                                 s.geoLocationNameLocalized = first.thoroughfare ?? first.locality ?? first.country
-                                println("Geocode succeeded: \(s.geoLocationNameLocalized)")
+                                NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: ["objectID" : s.objectID])
                         }
                     }
                     else {
@@ -280,8 +284,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         session.startIndex = 0
         
         updateWithLocation(session)
-        
-        
+
         //        session.privacy =
         
         // Temperature lookup
@@ -332,6 +335,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
         
             updateWithLocation(session)
+            updateWithGeocode(session)
             
             NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion {
                 success, error in
