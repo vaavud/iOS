@@ -23,6 +23,7 @@
 #import "RegisterViewController.h"
 
 #import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
+#import "MjolnirMeasurementController.h"
 
 #import <DropboxSDK/DropboxSDK.h>
 
@@ -33,7 +34,6 @@
 #import "NSManagedObjectContext+MagicalRecord.h"
 #import "NSManagedObjectContext+MagicalSaves.h"
 #import "UUIDUtil.h"
-
 
 #import "FirstTimeFlowController.h" // FIXME: This class needs to be refactored
 

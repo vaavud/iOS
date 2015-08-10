@@ -55,21 +55,10 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
     var scaleItem: DynamicItem!
 
     var hasLaidOutSubviews = false
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        println("MVC init (\(self))") // tabort
-    }
-    
-    deinit {
-        println("MVC deinit (\(self))") // tabort
-    }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        println("I (\(self)) have a formatter: \(formatter)") // tabort
-
         animator = UIDynamicAnimator(referenceView: view)
         scaleItem = DynamicItem(centerCallback: { [unowned self] in
             self.logScale = $0.y/20000
@@ -91,7 +80,6 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
     }
     
     func changedSpeedUnit(unit: SpeedUnit) {
-//        formatter.readUnits() // tabort
         newSpeed(latestSpeed)
         
         if formatter.windSpeedUnit == .Bft {
@@ -155,6 +143,9 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
     }
     
     // MARK: New readings from root
+    func useMjolnir() {
+    }
+
     func newWindDirection(windDirection: CGFloat) {
         latestWindDirection += distanceOnCircle(from: latestWindDirection, to: CGFloat(windDirection))
     }
@@ -274,8 +265,6 @@ class BandedView: UIView {
             let rect = CGRect(center: rect.center, size: CGSize(width: 2*r, height: 2*r))
             CGContextSetRGBFillColor(contextRef, w, w, w, 1)
             CGContextFillEllipseInRect(contextRef, rect)
-            
-//            println("i: \(i) band: \(band) r: \(r) w: \(w)")
         }
     }
 }

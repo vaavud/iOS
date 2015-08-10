@@ -81,18 +81,12 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         updateLocalUI()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
-        
-        println("I (\(self)) have a formatter: \(formatter)") // tabort        
     }
 
     func unitsChanged(note: NSNotification) {
         if note.object as? CoreSummaryViewController != self {
-            println("Units changed: \(note.object) me: \(self)") // tabort
             updateUI()
             updateMapView(session)
-        }
-        else {
-            println("Units changed (here): \(self)")
         }
     }
 
@@ -127,7 +121,6 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
             
                 annotationView.addSubview(label)
                 annotationView.frame = label.frame
-            
             }
             
             updateMapAnnotationLabel(annotationView)
@@ -349,30 +342,30 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     private func setupWindDirection(ms: MeasurementSession) {
         hasActualDirection = session.windDirection != nil
 
-        hasSomeDirection = (session.windDirection ?? session.sourcedWindDirection)?.floatValue
+//        hasSomeDirection = (session.windDirection ?? session.sourcedWindDirection)?.floatValue
         hasSomeDirection = session.windDirection?.floatValue // FIXME: Temporary, will remove when we start sourcing directions
         
         if let rotation = hasSomeDirection {
-            switch UIDevice.currentDevice().systemVersion.compare("8.0.0", options: NSStringCompareOptions.NumericSearch) {
-            case .OrderedSame, .OrderedDescending:
+//            switch UIDevice.currentDevice().systemVersion.compare("8.0.0", options: NSStringCompareOptions.NumericSearch) {
+//            case .OrderedSame, .OrderedDescending:
                 let t = CGAffineTransformMakeRotation(π*CGFloat(1 + rotation/180))
                 UIView.animateWithDuration(0.3, delay: 0.2, options: nil, animations: { self.directionView.transform = t }, completion: { (done) -> Void in
                     self.animateAll()
                 })
-            case .OrderedAscending:
-                let tt = CATransform3DMakeRotation(π*CGFloat(1 + rotation/180), 0, 0, 1)
-                
-                let anim = CABasicAnimation(keyPath: "transform")
-                anim.duration = 0.5
-                anim.removedOnCompletion = false
-                anim.fillMode = kCAFillModeForwards
-                CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut))
-                
-                CATransaction.setCompletionBlock{ self.animateAll() }
-                anim.fromValue = NSValue(CATransform3D:CATransform3DIdentity)
-                anim.toValue = NSValue(CATransform3D:tt)
-                directionView.layer.addAnimation(anim, forKey: "")
-            }
+//            case .OrderedAscending:
+//                let tt = CATransform3DMakeRotation(π*CGFloat(1 + rotation/180), 0, 0, 1)
+//                
+//                let anim = CABasicAnimation(keyPath: "transform")
+//                anim.duration = 0.5
+//                anim.removedOnCompletion = false
+//                anim.fillMode = kCAFillModeForwards
+//                CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut))
+//                
+//                CATransaction.setCompletionBlock{ self.animateAll() }
+//                anim.fromValue = NSValue(CATransform3D:CATransform3DIdentity)
+//                anim.toValue = NSValue(CATransform3D:tt)
+//                directionView.layer.addAnimation(anim, forKey: "")
+//            }
             
             updateWindDirection(rotation)
             

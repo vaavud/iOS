@@ -27,9 +27,10 @@ protocol MeasurementConsumer {
     func newHeading(heading: CGFloat)
 
     func changedSpeedUnit(unit: SpeedUnit)
+    func useMjolnir()
 }
 
-class MeasureRootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, VaavudElectronicWindDelegate, DBRestClientDelegate {
+class MeasureRootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WindMeasurementControllerDelegate, VaavudElectronicWindDelegate, DBRestClientDelegate {
     private var pageController: UIPageViewController!
     private var viewControllers: [UIViewController]!
     private var displayLink: CADisplayLink!
@@ -37,6 +38,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var dropboxUploader: DropboxUploader?
     
     private let sdk = VEVaavudElectronicSDK.sharedVaavudElectronic()
+    
+    private var mjolnir: MjolnirMeasurementController?
+    
     private let currentSessionUuid = UUIDUtil.generateUUID()
     private var currentSession: MeasurementSession? {
         return MeasurementSession.MR_findFirstByAttribute("uuid", withValue: currentSessionUuid)
@@ -93,12 +97,15 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             // Expected Sleipnir, but it doesn't work or exist.
             println("#### Expected Sleipnir, but it doesn't work or exist")
             // Show error message and return
+            stop(true)
             return
         }
         else {
             println("#### Mjolnir session")
-
-            // Mjolnir
+            let mjolnirController = MjolnirMeasurementController()
+            mjolnirController.delegate = self
+            mjolnirController.start()
+            mjolnir = mjolnirController
         }
         
         if let sessions = MeasurementSession.MR_findByAttribute("measuring", withValue: true) as? [MeasurementSession] {
@@ -107,20 +114,17 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion(nil)
     }
     
-    deinit {
-        println("ROOT deinit (\(self))") // tabort
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        println("I (\(self)) have a formatter: \(formatter)") // tabort
-        
         hideVolumeHUD()
         
-        let vcsNames = ["OldMeasureViewController", "RoundMeasureViewController", "FlatMeasureViewController"]
+        let (old, flat, round) = ("OldMeasureViewController", "FlatMeasureViewController", "RoundMeasureViewController")
+        let vcsNames = isSleipnirSession ? [old, flat, round] : [old, flat]
         viewControllers = vcsNames.map { self.storyboard!.instantiateViewControllerWithIdentifier($0) as! UIViewController }
         currentConsumer = (viewControllers.first as! MeasurementConsumer)
+
+        if !isSleipnirSession { viewControllers.map { ($0 as! MeasurementConsumer).useMjolnir() } }
         
         pager.numberOfPages = viewControllers.count
         
@@ -242,6 +246,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         // Temperature lookup
         // Altimeter
+        // Location
         // Geocoder
     }
     
@@ -256,13 +261,13 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             session.endTime = now
             session.windSpeedMax = maxSpeed
             session.windSpeedAvg = avgSpeed
-            session.windDirection = mod(latestWindDirection, 360)
+            if isSleipnirSession { session.windDirection = mod(latestWindDirection, 360) }
 
             let point = MeasurementPoint.MR_createEntity()
             point.session = session
             point.time = now
             point.windSpeed = latestSpeed
-            point.windDirection = mod(latestWindDirection, 360)
+            if isSleipnirSession { point.windDirection = mod(latestWindDirection, 360) }
         }
         else {
             println("ROOT: updateSession - ERROR: No current session")
@@ -278,7 +283,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             session.endTime = NSDate()
             session.windSpeedMax = maxSpeed
             session.windSpeedAvg = avgSpeed
-            session.windDirection = mod(latestWindDirection, 360)
+            if isSleipnirSession { session.windDirection = mod(latestWindDirection, 360) }
             //            session.gustiness =
             //            session.windChill =
             
@@ -325,9 +330,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 
         state = .Done
         
-        if self.isSleipnirSession {
-            self.sdk.removeListener(self)
-            self.sdk.stop()
+        if isSleipnirSession {
+            sdk.removeListener(self)
+            sdk.stop()
+        }
+        else if let mjolnir = mjolnir {
+            mjolnir.stop()
         }
 
         // Temperature lookup
@@ -335,29 +343,21 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         // Geocoder
         
         dismissViewControllerAnimated(true) {
-            println("## self.pageController.view.removeFromSuperview()") // tabort
             self.pageController.view.removeFromSuperview()
-            
-            println("## self.pageController.removeFromParentViewController()")
             self.pageController.removeFromParentViewController()
-            
-            println("## self.viewControllers.map { $0.view.removeFromSuperview() }")
             self.viewControllers.map { $0.view.removeFromSuperview() }
-            
-            println("## self.viewControllers.map { $0.removeFromParentViewController() }")
             self.viewControllers.map { $0.removeFromParentViewController() }
-            
-            println("## self.viewControllers = []")
             self.viewControllers = []
-            
-            println("## self.currentConsumer = nil")
             self.currentConsumer = nil
-
-            println("## self.displayLink.invalidate()")
             self.displayLink.invalidate()
         }
     }
 
+    // MARK: Mjolnir Callback
+    func addSpeedMeasurement(currentSpeed: NSNumber!, avgSpeed: NSNumber!, maxSpeed: NSNumber!) {
+        newSpeed(currentSpeed)
+    }
+    
     // MARK: SDK Callbacks
     func newWindDirection(windDirection: NSNumber!) {
         latestWindDirection = CGFloat(windDirection.floatValue)
@@ -404,9 +404,11 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     func changeConsumer(mc: MeasurementConsumer) {
         mc.newSpeed(latestSpeed)
-        mc.newWindDirection(latestWindDirection)
-        mc.newHeading(latestHeading)
         mc.changedSpeedUnit(formatter.windSpeedUnit)
+        if isSleipnirSession {
+            mc.newWindDirection(latestWindDirection)
+            mc.newHeading(latestHeading)
+        }
         currentConsumer = mc
     }
     
@@ -450,6 +452,16 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
         
         return nil
+    }
+    
+    // MARK: Functions
+    
+    func gustiness() -> Double {
+        return 0
+    }
+    
+    func windchill() -> Double {
+        return 0
     }
     
     // MARK: Debug

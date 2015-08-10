@@ -78,6 +78,7 @@
 }
 
 - (void)start {
+    NSLog(@"MJOLNIR - Start");
     self.dynamicsIsValid = NO;
     self.isValidPercent = 50; // start at 50% valid
     self.isValidCurrentStatus = NO;
@@ -108,6 +109,8 @@
 }
 
 - (NSTimeInterval)stop {
+    NSLog(@"MJOLNIR - Stop");
+
     if (self.measuringTimer) {
         [self.measuringTimer invalidate];
         self.measuringTimer = nil;
@@ -120,8 +123,11 @@
 }
 
 - (void)pushValuesToDelegate {
-    if (self.delegate && self.isValidCurrentStatus) {
-        
+    NSLog(@"MJOLNIR - Push");
+
+    //    if (self.delegate && self.isValidCurrentStatus) {
+    
+    if (self.delegate && self.isValidCurrentStatus && self.windSpeed.count > 0) {
         NSNumber *currentSpeed = [self.windSpeed lastObject];
         NSNumber *avgSpeed = [self getAverage];
         NSNumber *maxSpeed = [self getMax];
@@ -140,7 +146,8 @@
         self.isValidPercent = 0;
     }
     
-    if (self.FFTisValid && self.dynamicsIsValid) {
+//    if (self.FFTisValid && self.dynamicsIsValid) {
+    if (self.FFTisValid) {
         self.isValidPercent += 8;
     } else {
         self.isValidPercent -= 8;

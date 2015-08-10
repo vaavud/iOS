@@ -730,11 +730,6 @@
 /**** Common Measurement Values Update ****/
 
 - (void)updateLabelsFromCurrentValues {
-//    self.actualLabelCurrentValue = @12.2;
-//    self.averageLabelCurrentValue = @32.2;
-//    self.maxLabelCurrentValue = @42.2;
-//    self.directionLabelCurrentValue = @345;    
-    
     if (self.actualLabel && self.actualLabelCurrentValue && !isnan([self.actualLabelCurrentValue doubleValue])) {
         self.actualLabel.text = [self formatValue:[UnitUtil displayWindSpeedFromDouble:[self.actualLabelCurrentValue doubleValue] unit:self.windSpeedUnit]];
     }

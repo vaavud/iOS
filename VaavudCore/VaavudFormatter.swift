@@ -118,25 +118,17 @@ class VaavudFormatter: NSObject {
         dateFormatter.locale = NSLocale.currentLocale()
         super.init()
         
-        println("I am a formatter: \(self)") // tabort
-
         readUnits()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
     }
     
     deinit {
-        println(" >>> I was a formatter: \(self)") // tabort
-
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func unitsChanged(note: NSNotification) {
         if note.object as? VaavudFormatter != self {
-            println("Units changed: \(note.object) me: \(self)") // tabort
             readUnits()
-        }
-        else {
-            println("Units changed (here): \(self)")
         }
     }
 
@@ -291,8 +283,6 @@ class VaavudFormatter: NSObject {
     // Units
     
     func readUnits() {
-        println("================ Read Units (\(self))") // tabort
-
         if let storedWindspeedInt = Property.getAsInteger(KEY_WIND_SPEED_UNIT)?.integerValue {
             windSpeedUnit = SpeedUnit(rawValue:storedWindspeedInt)!
         }
@@ -319,7 +309,6 @@ class VaavudFormatter: NSObject {
 
     private func writeIfChanged(unit: Unit, key: String) {
         if unit.rawValue != Property.getAsInteger(key) {
-            println("postUnitChange: \(self)") // tabort
             Property.setAsInteger(unit.rawValue, forKey: key)
             NSNotificationCenter.defaultCenter().postNotificationName(KEY_UNIT_CHANGED, object: self)
         }

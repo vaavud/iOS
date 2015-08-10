@@ -74,11 +74,7 @@ class CoreSettingsTableViewController: UITableViewController {
     
     func unitsChanged(note: NSNotification) {
         if note.object as? CoreSettingsTableViewController != self {
-            println("Units changed: \(note.object) me: \(self)") // tabort
             readUnits()
-        }
-        else { // tabort
-            println("Units changed here: \(self)")
         }
     }
     
@@ -91,7 +87,6 @@ class CoreSettingsTableViewController: UITableViewController {
     }
     
     func postUnitChange() {
-        println("postUnitChange: \(self)") // tabort
         NSNotificationCenter.defaultCenter().postNotificationName(KEY_UNIT_CHANGED, object: self)
     }
     

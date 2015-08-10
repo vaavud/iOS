@@ -39,22 +39,13 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     private var targetLogScale: CGFloat = 0
     private var animatingScale = false
     
+    private var usesMjolnir = false
+    
     var weight: CGFloat = 0.1
     var avgWeight: CGFloat = 0.01
     
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        println("MVC init (\(self))") // tabort
-    }
-    
-    deinit {
-        println("MVC deinit (\(self))") // tabort
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        println("I (\(self)) have a formatter: \(formatter)") // tabort
         
         speedUnitLabel.text = formatter.windSpeedUnit.localizedString
         
@@ -64,6 +55,11 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         })
         
         scaleItem.center = CGPoint(x: 0, y: graph.logScale*10000)
+        
+        if usesMjolnir {
+            arrowView.hidden = true
+            directionLabel.text = "-"
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -117,8 +113,11 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
 
         smoothDirection = weight*latestDirection + (1 - weight)*smoothDirection
         arrowView.transform = Affine.rotation(smoothDirection.radians).scale(arrowScale)
-        directionLabel.text = formatter.localizedDirection(Float(mod(smoothDirection, 360)))
 
+        if !usesMjolnir {
+            directionLabel.text = formatter.localizedDirection(Float(mod(smoothDirection, 360)))
+        }
+        
         avgSpeed = avgWeight*latestSpeed + (1 - avgWeight)*avgSpeed
         
         graph.average = formatter.windSpeedUnit.fromBase(avgSpeed)
@@ -139,7 +138,11 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
             }
         }
     }
-    
+
+    func useMjolnir() {
+        usesMjolnir = true
+    }
+
     func newWindDirection(windDirection: CGFloat) {
         latestDirection += distanceOnCircle(from: latestDirection, to: windDirection)
     }
@@ -154,7 +157,6 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     }
     
     func changedSpeedUnit(unit: SpeedUnit) {
-//        formatter.readUnits()
         speedUnitLabel.text = formatter.windSpeedUnit.localizedString
         newSpeed(latestSpeed)
     }

@@ -20,23 +20,18 @@ class FlatMeasurementViewController : UIViewController, MeasurementConsumer {
     private var latestWindDirection: CGFloat = 0
     private var latestSpeed: CGFloat = 0
     
+    private var usesMjolnir = false
+    
     var interval: CGFloat = 30
     
     var weight: CGFloat = 0.1
     
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        println("MVC init (\(self))") // tabort
-    }
     
-    deinit {
-        println("MVC deinit (\(self))") // tabort
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        println("I (\(self)) have a formatter: \(formatter)") // tabort
+        if usesMjolnir {
+            ruler.hidden = true
+        }
     }
     
     var scaledSpeed: CGFloat {
@@ -52,6 +47,10 @@ class FlatMeasurementViewController : UIViewController, MeasurementConsumer {
     }
     
     // MARK: SDK Callbacks
+    func useMjolnir() {
+        usesMjolnir = true
+    }
+
     func newWindDirection(windDirection: CGFloat) {
         latestWindDirection += distanceOnCircle(from: latestWindDirection, to: windDirection)
     }

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Andreas Okholm. All rights reserved.
 //
 
-class MeasurementViewController : UIViewController, MeasurementConsumer {
+class MeasurementViewController : UIViewController { // tabort
     @IBOutlet weak var ruler: Ruler!
     @IBOutlet weak var graph: Graph!
     
@@ -22,19 +22,10 @@ class MeasurementViewController : UIViewController, MeasurementConsumer {
     
     var weight: CGFloat = 0.1
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        println("I (\(self)) have a formatter: \(formatter)") // tabort
-    }
-    
     override func supportedInterfaceOrientations() -> Int {
         return Int(UIInterfaceOrientationMask.All.rawValue)
     }
-    
-    deinit {
-    }
-    
+        
     // MARK: Callbacks
     
     func tick() {
@@ -62,8 +53,6 @@ class MeasurementViewController : UIViewController, MeasurementConsumer {
 
     @IBOutlet weak var label: UILabel!
 }
-
-
 
 enum NeedleState {
     case Left
