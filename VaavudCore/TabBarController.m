@@ -7,6 +7,7 @@
 //
 
 #import "TabBarController.h"
+#import "Vaavud-Swift.h"
 #import "UIColor+VaavudColors.h"
 #import "CustomSMCalloutDrawnBackgroundView.h"
 #import "GuideView.h"
@@ -29,6 +30,8 @@
 @property (nonatomic) UIButton *measureButton;
 @property (nonatomic) CGFloat laidOutWidth;
 
+@property (nonatomic) VaavudInteractions *interactions;
+
 @end
 
 @implementation TabBarController
@@ -45,6 +48,8 @@
     
     [self.tabBar addSubview:button];
     
+    self.interactions = [VaavudInteractions new];
+
     self.measureButton = button;
     
     self.delegate = self;
@@ -108,16 +113,18 @@
 }
 
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-
     if (viewController == self.childViewControllers[2]) {
-//        VEVaavudElectronicSDK *sdk = [VEVaavudElectronicSDK sharedVaavudElectronic];
-//        if ([Property getAsBoolean:KEY_USES_SLEIPNIR] && !sdk.sleipnirAvailable) {
-//            // Show error message
-//            NSLog(@"Tabbar: ###### ERROR NO SLEIPNIR ######");
-//        }
-//        else {
+        VEVaavudElectronicSDK *sdk = [VEVaavudElectronicSDK sharedVaavudElectronic];
+        if ([Property getAsBoolean:KEY_USES_SLEIPNIR] && !sdk.sleipnirAvailable) {
+            [self.interactions showLocalAlert:@"No Sleipnir" messageKey:@"You have no sleipnir" cancelKey:@"Cancel" otherKey:@"Switch" action:^{ // needstranslation
+                [Property setAsBoolean:NO forKey:KEY_USES_SLEIPNIR];
+                [[NSNotificationCenter defaultCenter] postNotificationName:KEY_WINDMETERMODEL_CHANGED  object:self];
+                [self performSegueWithIdentifier:@"ShowMeasureScreen" sender:self];
+            } on:self];
+        }
+        else {
             [self performSegueWithIdentifier:@"ShowMeasureScreen" sender:self];
-//        }
+        }
         
         return NO;
     }

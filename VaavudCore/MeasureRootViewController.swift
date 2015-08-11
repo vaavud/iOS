@@ -89,7 +89,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         let usesSleipnir = Property.getAsBoolean(KEY_USES_SLEIPNIR)
         println("CREATED ROOT (wants sleipnir : \(usesSleipnir), has sleipnir: \(isSleipnirSession))")
         
-        if usesSleipnir != isSleipnirSession {
+        if isSleipnirSession && !usesSleipnir {
             NSNotificationCenter.defaultCenter().postNotificationName(KEY_WINDMETERMODEL_CHANGED, object: self)
         }
 
@@ -98,13 +98,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             Property.setAsBoolean(true, forKey: KEY_USES_SLEIPNIR)
             sdk.addListener(self)
             sdk.start()
-        }
-        else if usesSleipnir {
-            // Expected Sleipnir, but it doesn't work or exist.
-            println("#### Expected Sleipnir, but it doesn't work or exist")
-            // Show error message and return
-            state = .Done
-            return
         }
         else {
             println("#### Mjolnir session")
