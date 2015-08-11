@@ -79,7 +79,7 @@ extern NSString * const KEY_WINDMETERMODEL_CHANGED;
 extern NSString * const KEY_HISTORY_SYNCED;
 extern NSString * const KEY_OPEN_LATEST_SUMMARY;
 
-extern NSString * const KEY_MEASUREMENT_TIME_LIMITED;
+extern NSString * const KEY_MEASUREMENT_TIME_UNLIMITED;
 
 extern NSString * const KEY_SESSION_UPDATED;
 

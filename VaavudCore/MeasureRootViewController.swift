@@ -84,7 +84,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         super.init(coder: aDecoder)
         
-        state = MeasureState.CountingDown(countdownInterval, Property.getAsBoolean(KEY_MEASUREMENT_TIME_LIMITED))
+        state = MeasureState.CountingDown(countdownInterval, Property.getAsBoolean(KEY_MEASUREMENT_TIME_UNLIMITED))
         
         let usesSleipnir = Property.getAsBoolean(KEY_USES_SLEIPNIR)
         println("CREATED ROOT (wants sleipnir : \(usesSleipnir), has sleipnir: \(isSleipnirSession))")
@@ -214,14 +214,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
         
         switch state {
-        case let .CountingDown(_, limited):
+        case let .CountingDown(_, unlimited):
             if timeLeft < 0 {
-                if limited {
-                    state = .Limited(limitedInterval)
-                    timeLeft = CGFloat(limitedInterval)
+                if unlimited {
+                    state = .Unlimited
                 }
                 else {
-                    state = .Unlimited
+                    state = .Limited(limitedInterval)
+                    timeLeft = CGFloat(limitedInterval)
                 }
                 start()
             }

@@ -11,9 +11,9 @@ import Foundation
 class CoreSettingsTableViewController: UITableViewController {
     let interactions = VaavudInteractions()
     
-    @IBOutlet weak var logoutButton: UIBarButtonItem!
+    @IBOutlet weak var limitControl: UISegmentedControl!
     
-    @IBOutlet weak var limitSwitch: UISwitch!
+    @IBOutlet weak var logoutButton: UIBarButtonItem!
     @IBOutlet weak var meterTypeControl: UISegmentedControl!
     
     @IBOutlet weak var speedUnitControl: UISegmentedControl!
@@ -24,12 +24,16 @@ class CoreSettingsTableViewController: UITableViewController {
     @IBOutlet weak var dropboxControl: UISwitch!
     @IBOutlet weak var sleipnirClipControl: UISegmentedControl!
     
+    @IBOutlet weak var sleipnirClipCell: UITableViewCell!
+    
+    @IBOutlet weak var sleipnirClipView: UIView!
+    
     @IBOutlet weak var versionLabel: UILabel!
     
     override func viewDidLoad() {
         hideVolumeHUD()
         
-        limitSwitch.on = Property.getAsBoolean(KEY_MEASUREMENT_TIME_LIMITED)
+        limitControl.selectedSegmentIndex = Property.getAsBoolean(KEY_MEASUREMENT_TIME_UNLIMITED) ? 1 : 0
         
         versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
 //        facebookControl.on = Property.getAsBoolean("enableFacebookShareDialog", defaultValue: false)
@@ -69,7 +73,9 @@ class CoreSettingsTableViewController: UITableViewController {
         
         let sleipnirOnFront = Property.getAsBoolean(KEY_SLEIPNIR_ON_FRONT, defaultValue: false)
         sleipnirClipControl.selectedSegmentIndex = sleipnirOnFront ? 1 : 0
-        sleipnirClipControl.enabled = usesSleipnir
+        UIView.animateWithDuration(0.2) {
+            self.sleipnirClipView.alpha = usesSleipnir ? 1 : 0
+        }
     }
     
     func unitsChanged(note: NSNotification) {
@@ -143,6 +149,10 @@ class CoreSettingsTableViewController: UITableViewController {
         presentViewController(navController, animated: true, completion: nil)
     }
     
+    @IBAction func changedLimitToggle(sender: UISegmentedControl) {
+        Property.setAsBoolean(sender.selectedSegmentIndex == 1, forKey: KEY_MEASUREMENT_TIME_UNLIMITED)
+    }
+
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {
         Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_WIND_SPEED_UNIT)
         postUnitChange()
@@ -167,21 +177,14 @@ class CoreSettingsTableViewController: UITableViewController {
 //        Property.setAsBoolean(sender.on, forKey: "enableFacebookShareDialog")
 //    }
     
-    @IBAction func changedSleipnirPlacement(sender: UISegmentedControl) {
-        let frontPlaced = sender.selectedSegmentIndex == 1
-        Property.setAsBoolean(frontPlaced, forKey: KEY_SLEIPNIR_ON_FRONT)
-    }
-    
     @IBAction func changedMeterModel(sender: UISegmentedControl) {
         let usesSleipnir = sender.selectedSegmentIndex == 1
         Property.setAsBoolean(usesSleipnir, forKey: KEY_USES_SLEIPNIR)
         sleipnirClipControl.enabled = usesSleipnir
+        
+        refreshWindmeterModel()
     }
-    
-    @IBAction func changedLimitSwitch(sender: UISwitch) {
-        Property.setAsBoolean(limitSwitch.on, forKey: KEY_MEASUREMENT_TIME_LIMITED)
-    }
-    
+
     @IBAction func changedDropboxSetting(sender: UISwitch) {
         let value: String
         if sender.on {
@@ -193,6 +196,11 @@ class CoreSettingsTableViewController: UITableViewController {
             value = "Unlinked"
         }
         Mixpanel.sharedInstance().track("Dropbox", properties: ["Action" : value])
+    }
+
+    @IBAction func changedSleipnirPlacement(sender: UISegmentedControl) {
+        let frontPlaced = sender.selectedSegmentIndex == 1
+        Property.setAsBoolean(frontPlaced, forKey: KEY_SLEIPNIR_ON_FRONT)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

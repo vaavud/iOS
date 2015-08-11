@@ -9,7 +9,7 @@
 import UIKit
 
 enum MeasureState {
-    case CountingDown(Int, Bool)
+    case CountingDown(Int, Bool) // true = unlimited
     case Limited(Int)
     case Unlimited
     case Done

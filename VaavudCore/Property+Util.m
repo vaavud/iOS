@@ -82,7 +82,7 @@ NSString * const KEY_WINDMETERMODEL_CHANGED = @"WindmeterModelChange";
 NSString * const KEY_HISTORY_SYNCED = @"HistorySynced";
 NSString * const KEY_OPEN_LATEST_SUMMARY = @"OpenLatestSummary";
 
-NSString * const KEY_MEASUREMENT_TIME_LIMITED = @"TimeLimited";
+NSString * const KEY_MEASUREMENT_TIME_UNLIMITED = @"TimeUnlimited";
 
 NSString * const KEY_SESSION_UPDATED = @"SessionUpdate";
 
