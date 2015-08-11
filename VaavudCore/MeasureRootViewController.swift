@@ -103,7 +103,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             // Expected Sleipnir, but it doesn't work or exist.
             println("#### Expected Sleipnir, but it doesn't work or exist")
             // Show error message and return
-            stop(true)
+            state = .Done
             return
         }
         else {
@@ -182,19 +182,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     @IBAction func tappedCancel(sender: MeasureCancelButton) {
         switch state {
         case .CountingDown:
-            println("ROOT: tappedCancel(CountingDown)")
             stop(true)
         case .Limited:
-            println("ROOT: tappedCancel(Limited)")
             stop(true)
             save(true)
         case .Unlimited:
-            // TODO: Possibly check how long the measurement is before saving
-            println("ROOT: tappedCancel(Unlimited)")
             stop(false)
             save(false)
         case .Done:
-            println("ROOT: tappedCancel(Done)")
             break
         }
     }

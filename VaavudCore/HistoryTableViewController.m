@@ -117,6 +117,8 @@
     CGFloat height = CGRectGetHeight(self.view.bounds);
     CGFloat startY = 0.35*height;
     
+    self.emptyView.frame = self.view.bounds;
+    
     self.emptyArrow.frame = CGRectMake(0, startY, width, height - 60 - startY);
     [self.emptyArrow forceSetup];
     self.emptyLabelView.center = CGPointMake(width/2, startY - 40);
@@ -156,7 +158,6 @@
     
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"History Screen"];
-        [[Mixpanel sharedInstance] track:@"History Tab"]; // REMOVEME
     }
 }
 

@@ -14,7 +14,7 @@
 #define LOG_ACCOUNT NO
 #define LOG_GRAPH NO
 #define LOG_LOCATION NO
-#define LOG_HISTORY NO
+#define LOG_HISTORY YES
 #define LOG_MODEL NO
 #define LOG_UPLOAD NO
 #define LOG_SLEIPNIR NO

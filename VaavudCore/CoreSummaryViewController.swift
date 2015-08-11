@@ -80,8 +80,11 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         updateUI()
         updateLocalUI()
         
+        navigationItem.hidesBackButton = !AccountManager.sharedInstance().isLoggedIn()
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "sessionUpdated:", name: KEY_SESSION_UPDATED, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didLoginOut:", name: KEY_DID_LOGINOUT, object: nil)
     }
     
     func sessionUpdated(note: NSNotification) {
@@ -96,6 +99,11 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         else {
             println("sessionUpdated ???")
         }
+    }
+
+    func didLoginOut(note: NSNotification) {
+        println("SUMMARY: didLoginOut")
+        navigationItem.hidesBackButton = !AccountManager.sharedInstance().isLoggedIn()
     }
     
     func unitsChanged(note: NSNotification) {

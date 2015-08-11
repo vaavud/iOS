@@ -1315,7 +1315,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5D-Mo-pgi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-133" y="3409"/>
+            <point key="canvasLocation" x="-547" y="3539"/>
         </scene>
         <!--First Time Explanation View Controller-->
         <scene sceneID="TZU-KX-npU">
@@ -1555,7 +1555,7 @@
                     </constraints>
                 </view>
             </objects>
-            <point key="canvasLocation" x="-178" y="1337"/>
+            <point key="canvasLocation" x="-210" y="1337"/>
         </scene>
         <!--Summary-->
         <scene sceneID="Y1a-Mc-SzL">
@@ -2336,7 +2336,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4BN-rM-CAw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1170" y="2157"/>
+            <point key="canvasLocation" x="-914" y="3495"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qyy-p2-q3w">

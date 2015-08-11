@@ -78,7 +78,6 @@
 }
 
 - (void)start {
-    NSLog(@"MJOLNIR - Start");
     self.dynamicsIsValid = NO;
     self.isValidPercent = 50; // start at 50% valid
     self.isValidCurrentStatus = NO;
@@ -109,8 +108,6 @@
 }
 
 - (NSTimeInterval)stop {
-    NSLog(@"MJOLNIR - Stop");
-
     if (self.measuringTimer) {
         [self.measuringTimer invalidate];
         self.measuringTimer = nil;
