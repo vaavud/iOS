@@ -86,7 +86,8 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     
     func sessionUpdated(note: NSNotification) {
         if let objectId = note.userInfo?["objectID"] as? NSManagedObjectID where objectId == session.objectID {
-            setupGeoLocation(session)
+            updateUI()
+            println("SUMMARY: Updated \(note.userInfo)")
         }
         
         if let objectId = note.userInfo?["objectID"] as? NSManagedObjectID {

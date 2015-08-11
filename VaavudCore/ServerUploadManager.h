@@ -24,6 +24,6 @@
 - (void)syncHistory:(int)retryCount ignoreGracePeriod:(BOOL)ignoreGracePeriod success:(void (^)())success failure:(void (^)(NSError *error))failure;
 - (void)deleteMeasurementSession:(NSString *)measurementSessionUuid retry:(int)retryCount success:(void(^)())success failure:(void(^)(NSError *error))failure;
 
-- (void)lookupForLocation:(double)latitude longitude:(double)longitude success:(void(^)(NSNumber *temperature, NSNumber *direction, NSNumber *pressure))success failure:(void(^)(NSError *error))failure;
+- (void)lookupForLat:(double)latitude long:(double)longitude success:(void(^)(NSNumber *temp, NSNumber *dir, NSNumber *press))success failure:(void(^)(NSError *error))failure;
 
 @end

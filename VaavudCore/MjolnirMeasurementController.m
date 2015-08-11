@@ -123,8 +123,6 @@
 }
 
 - (void)pushValuesToDelegate {
-    NSLog(@"MJOLNIR - Push");
-
     //    if (self.delegate && self.isValidCurrentStatus) {
     
     if (self.delegate && self.isValidCurrentStatus && self.windSpeed.count > 0) {

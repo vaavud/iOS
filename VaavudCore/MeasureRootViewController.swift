@@ -40,11 +40,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     private var dropboxUploader: DropboxUploader?
     
+    private var altimeter: CMAltimeter?
+    
     private let sdk = VEVaavudElectronicSDK.sharedVaavudElectronic()
     
     private var mjolnir: MjolnirMeasurementController?
     
     private let currentSessionUuid = UUIDUtil.generateUUID()
+    
     private var currentSession: MeasurementSession? {
         return MeasurementSession.MR_findFirstByAttribute("uuid", withValue: currentSessionUuid)
     }
@@ -114,7 +117,13 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         if let sessions = MeasurementSession.MR_findByAttribute("measuring", withValue: true) as? [MeasurementSession] {
             sessions.map { $0.measuring = false }
         }
+        
         NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion(nil)
+        
+        if CMAltimeter.isRelativeAltitudeAvailable() {
+            altimeter = CMAltimeter()
+            updateWithPressure(currentSessionUuid)
+        }
     }
     
     override func viewDidLoad() {
@@ -230,12 +239,15 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         cancelButton.update(timeLeft, state: state)
     }
 
-    func hasValidLocation(session: MeasurementSession) -> Bool {
+    func hasValidLocation(session: MeasurementSession) -> CLLocationCoordinate2D? {
         if let lat = session.latitude?.doubleValue, long = session.longitude?.doubleValue {
-            return LocationManager.isCoordinateValid(CLLocationCoordinate2D(latitude: lat, longitude: long))
+            let loc = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            if LocationManager.isCoordinateValid(loc) {
+                return loc
+            }
         }
         
-        return false
+        return nil
     }
     
     func updateWithLocation(session: MeasurementSession) {
@@ -254,12 +266,45 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                         if let first = placemarks.first as? CLPlacemark,
                             let s = NSManagedObjectContext.MR_defaultContext().existingObjectWithID(session.objectID, error: nil) as? MeasurementSession {
                                 s.geoLocationNameLocalized = first.thoroughfare ?? first.locality ?? first.country
-                                NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: ["objectID" : s.objectID])
+                                let userInfo = ["objectID" : s.objectID, "geoLocationNameLocalized" : true]
+                                NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
+                                    NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
+                                }
                         }
                     }
                     else {
                         println("Geocode failed with error: \(error)")
                     }
+                }
+            }
+        }
+    }
+    
+    func updateWithSourcedData(session: MeasurementSession) {
+        let objectId = session.objectID
+        let loc = hasValidLocation(session) ?? LocationManager.sharedInstance().latestLocation
+        ServerUploadManager.sharedInstance().lookupForLat(loc.latitude, long: loc.longitude, success: { t, d, p in
+            if let session = NSManagedObjectContext.MR_defaultContext().existingObjectWithID(objectId, error: nil) as? MeasurementSession {
+                session.sourcedTemperature = t ?? nil
+                session.sourcedPressureGroundLevel = p ?? nil // tabort
+                session.sourcedWindDirection = d ?? nil
+                
+                let userInfo = ["objectID" : objectId, "sourcedTemperature" : t != nil, "sourcedPressureGroundLevel" : p != nil, "sourcedWindDirection" : d != nil]
+
+                NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
+                    NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
+                }
+            }
+            }, failure: { error in println("<<<<SOURCED LOOKUP>>>> FAILED \(error)") })
+    }
+    
+    func updateWithPressure(uuid: String) {
+        altimeter?.startRelativeAltitudeUpdatesToQueue(NSOperationQueue.mainQueue()) {
+            altitudeData, error in
+            if let session = MeasurementSession.MR_findFirstByAttribute("uuid", withValue: uuid) {
+                let userInfo = ["objectId" : session.objectID, "pressure" : true]
+                NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
+                    NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
                 }
             }
         }
@@ -282,21 +327,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         session.measuring = true
         session.uploaded = false
         session.startIndex = 0
+        session.privacy = 1
         
         updateWithLocation(session)
-
-        //        session.privacy =
-        
-        // Temperature lookup
-        // Altimeter
-        // Location
-        // Geocoder
+        updateWithSourcedData(session)
     }
     
     func updateSession() {
         let now = NSDate()
-        
-        println("ROOT: updateSession")
         
         if let session = currentSession where session.measuring.boolValue {
             updateWithLocation(session)
@@ -327,12 +365,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             session.windSpeedMax = maxSpeed
             session.windSpeedAvg = avgSpeed
             if isSleipnirSession { session.windDirection = mod(latestWindDirection, 360) }
-            //            session.gustiness =
-            //            session.windChill =
             
-            if cancelled {
-                session.MR_deleteEntity()
-            }
+            if let pts = session.points where pts.count > 2 { session.gustiness = gustiness(pts) }
+            
+            if cancelled { session.MR_deleteEntity() }
         
             updateWithLocation(session)
             updateWithGeocode(session)
@@ -380,8 +416,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
 
         // Temperature lookup
-        // Altimeter
-        // Geocoder
+
+        altimeter?.stopRelativeAltitudeUpdates()
         
         dismissViewControllerAnimated(true) {
             self.pageController.view.removeFromSuperview()
@@ -495,16 +531,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         return nil
     }
     
-    // MARK: Functions
-    
-    func gustiness() -> Double {
-        return 0
-    }
-    
-    func windchill() -> Double {
-        return 0
-    }
-    
     // MARK: Debug
     
     @IBAction func debugPanned(sender: UIPanGestureRecognizer) {
@@ -519,3 +545,24 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         sender.setTranslation(CGPoint(), inView: view)
     }
 }
+
+func windchill() {
+    
+}
+
+func gustiness(points: NSOrderedSet) -> Float {
+    var speeds = [Float]()
+    
+    for p in points {
+        if let p = p as? MeasurementPoint, s = p.windSpeed?.floatValue {
+            speeds.append(s)
+        }
+    }
+
+    let n = Float(speeds.count)
+    let mean = speeds.reduce(0, combine: +)/n
+    let variance = speeds.reduce(0) { $0 + ($1 - mean)*($1 - mean) }/(n - 1)
+    
+    return variance/mean
+}
+

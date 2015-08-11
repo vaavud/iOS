@@ -25,6 +25,8 @@
 #import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
 #import "MjolnirMeasurementController.h"
 
+#import "SavingWindMeasurementController.h" // tabort
+
 #import <DropboxSDK/DropboxSDK.h>
 
 #import "MagicalRecord.h"

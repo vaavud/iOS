@@ -437,7 +437,9 @@ SHARED_INSTANCE
     if (LOG_OTHER) NSLog(@"[SavingWindMeasurementController] initiateTemperaturePressureLookup");
     
     MeasurementSession *measurementSession = [self getLatestMeasurementSession];
+    
     if (measurementSession && [measurementSession.measuring boolValue]) {
+        
         CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
         if ([LocationManager isCoordinateValid:latestLocation]) {
             if (self.temperatureLookupTimer) {
@@ -445,7 +447,7 @@ SHARED_INSTANCE
                 self.temperatureLookupTimer = nil;
             }
         
-            [[ServerUploadManager sharedInstance] lookupForLocation:latestLocation.latitude longitude:latestLocation.longitude success:^(NSNumber *temperature, NSNumber *direction, NSNumber *pressure) {
+            [[ServerUploadManager sharedInstance] lookupForLat:latestLocation.latitude long:latestLocation.longitude success:^(NSNumber *temperature, NSNumber *direction, NSNumber *pressure) {
                 if (temperature) {
                     BOOL updatedDirection = NO;
                     
@@ -454,11 +456,13 @@ SHARED_INSTANCE
                     if (measurementSession) {
                         measurementSession.sourcedTemperature = temperature;
                         measurementSession.sourcedPressureGroundLevel = pressure;
+                        
                         if (measurementSession.sourcedPressureGroundLevel == nil) {
                             NSLog(@"Eroor sourcedPressureGroundLevel missing: %@", measurementSession);
                         }
                             
                         BOOL hasDirection = (measurementSession.windDirection && (measurementSession.windDirection != (id)[NSNull null]));
+
                         if (!hasDirection) {
                             measurementSession.sourcedWindDirection = direction;
 //                            self.currentDirection = direction;

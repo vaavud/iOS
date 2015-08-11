@@ -1120,6 +1120,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = vaavud;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Andreas Okholm";
 				TargetAttributes = {

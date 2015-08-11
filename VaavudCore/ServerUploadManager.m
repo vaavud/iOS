@@ -982,7 +982,7 @@ SHARED_INSTANCE
     }];
 }
 
-- (void)lookupForLocation:(double)latitude longitude:(double)longitude success:(void(^)(NSNumber *temperature, NSNumber *direction, NSNumber *pressure))success failure:(void(^)(NSError *error))failure {
+- (void)lookupForLat:(double)latitude long:(double)longitude success:(void(^)(NSNumber *temperature, NSNumber *direction, NSNumber *pressure))success failure:(void(^)(NSError *error))failure {
     if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Lookup temperature for location (%f, %f)", latitude, longitude);
     
     if (isnan(latitude) || isnan(longitude) || (latitude == 0.0 && longitude == 0.0)) {
