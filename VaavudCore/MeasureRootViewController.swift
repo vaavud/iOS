@@ -118,6 +118,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             sessions.map { $0.measuring = false }
         }
         
+//        if let sessions = MeasurementSession.MR_findAll() as? [MeasurementSession] {
+//            for session in sessions {
+//                if let kelvin = session.sourcedTemperature, ms = session.windSpeedAvg ?? session.sourcedWindSpeedAvg, chill = windchill(kelvin.floatValue, ms.floatValue) {
+//                    println("WINDCHILL: calc \(chill) - save: \(session.windChill)")
+//                }
+//            }
+//        }
+        
         NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion(nil)
         
         if CMAltimeter.isRelativeAltitudeAvailable() {
@@ -280,17 +288,30 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
     }
     
+    func updateWithWindchill(session: MeasurementSession) {
+        if let kelvin = session.sourcedTemperature, ms = session.windSpeedAvg ?? session.sourcedWindSpeedAvg, chill = windchill(kelvin.floatValue, ms.floatValue) {
+            session.windChill = chill
+            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
+                let userInfo = ["objectID" : session.objectID, "windChill" : true]
+                NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
+            }
+        }
+        else {
+            println("WINDCHILL ERROR: \(session.sourcedTemperature, session.windSpeedAvg, session.sourcedWindSpeedAvg)")
+        }
+    }
+    
     func updateWithSourcedData(session: MeasurementSession) {
         let objectId = session.objectID
         let loc = hasValidLocation(session) ?? LocationManager.sharedInstance().latestLocation
         ServerUploadManager.sharedInstance().lookupForLat(loc.latitude, long: loc.longitude, success: { t, d, p in
             if let session = NSManagedObjectContext.MR_defaultContext().existingObjectWithID(objectId, error: nil) as? MeasurementSession {
                 session.sourcedTemperature = t ?? nil
-                session.sourcedPressureGroundLevel = p ?? nil // tabort
+                session.sourcedPressureGroundLevel = p ?? nil
                 session.sourcedWindDirection = d ?? nil
                 
                 let userInfo = ["objectID" : objectId, "sourcedTemperature" : t != nil, "sourcedPressureGroundLevel" : p != nil, "sourcedWindDirection" : d != nil]
-
+                
                 NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
                     NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
                 }
@@ -366,12 +387,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             session.windSpeedAvg = avgSpeed
             if isSleipnirSession { session.windDirection = mod(latestWindDirection, 360) }
             
-            if let pts = session.points where pts.count > 2 { session.gustiness = gustiness(pts) }
+            let windspeeds = speeds(session)
+            if windspeeds.count > 5 { session.gustiness = gustiness(windspeeds) }
             
             if cancelled { session.MR_deleteEntity() }
         
             updateWithLocation(session)
             updateWithGeocode(session)
+            updateWithWindchill(session)
             
             NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion {
                 success, error in
@@ -546,19 +569,38 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
 }
 
-func windchill() {
-    
-}
-
-func gustiness(points: NSOrderedSet) -> Float {
+func speeds(session: MeasurementSession) -> [Float] {
     var speeds = [Float]()
     
-    for p in points {
-        if let p = p as? MeasurementPoint, s = p.windSpeed?.floatValue {
-            speeds.append(s)
+    if let points = session.points {
+        for p in points {
+            if let p = p as? MeasurementPoint, s = p.windSpeed?.floatValue {
+                speeds.append(s)
+            }
         }
     }
 
+    return speeds
+}
+
+func windchill(temp: Float, windspeed: Float) -> Float? {
+    let celsius = temp - 273.15
+    let kmh = windspeed*3.6
+    
+    if celsius > 10 || kmh < 4.8 {
+        return nil
+    }
+
+    let k: Float = 13.12
+    let a: Float = 0.6215
+    let b: Float = -11.37
+    let c: Float = 0.3965
+    let d: Float = 0.16
+
+    return 273.15 + k + a*celsius + b*pow(kmh, d) + c*celsius*pow(kmh, d)
+}
+
+func gustiness(speeds: [Float]) -> Float {
     let n = Float(speeds.count)
     let mean = speeds.reduce(0, combine: +)/n
     let variance = speeds.reduce(0) { $0 + ($1 - mean)*($1 - mean) }/(n - 1)
