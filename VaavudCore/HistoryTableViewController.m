@@ -45,6 +45,8 @@
 
 @property (nonatomic) NSUUID *uuidToOpen;
 
+@property (nonatomic) CGRect previousFrame;
+
 @end
 
 @implementation HistoryTableViewController
@@ -116,17 +118,19 @@
     CGFloat width = CGRectGetWidth(self.view.bounds);
     CGFloat height = CGRectGetHeight(self.view.bounds);
     CGFloat startY = 0.35*height;
-    
-    self.emptyView.frame = self.view.bounds;
-    
+        
     self.emptyArrow.frame = CGRectMake(0, startY, width, height - 60 - startY);
     [self.emptyArrow forceSetup];
     self.emptyLabelView.center = CGPointMake(width/2, startY - 40);
 }
 
 -(void)viewDidLayoutSubviews {
-    [self layoutBackground];
-    [self refreshEmptyState];
+    [super viewDidLayoutSubviews];
+    if (!CGRectEqualToRect(self.view.frame, self.previousFrame)) {
+        self.previousFrame = self.view.frame;
+        [self layoutBackground];
+        [self refreshEmptyState];
+    }
 }
 
 -(void)performSync {
@@ -151,6 +155,8 @@
     [super viewDidAppear:animated];
     if (LOG_HISTORY) NSLog(@"[HistoryTableViewController viewDidAppear]");
 
+    self.previousFrame = CGRectZero;
+    
     self.fetchedResultsController.delegate = self;
     if ([self.fetchedResultsController performFetch:nil]) {
         [self.tableView reloadData];
@@ -212,6 +218,7 @@
                 if (LOG_HISTORY) NSLog(@"[HistoryTableViewController refreshEmptyState] Empty");
 
                 [self.emptyArrow animate];
+                
                 [UIView animateWithDuration:0.2 animations:^{
                     self.emptyView.alpha = 1;
                 }];
@@ -227,7 +234,6 @@
     }
     else {
         if (LOG_HISTORY) NSLog(@"[HistoryTableViewController refreshEmptyState] Not logged in");
-
         self.emptyView.alpha = 0;
     }
 }

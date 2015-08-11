@@ -17,6 +17,5 @@
 
 -(void)openSummary:(NSUUID *)uuid;
 
-//- (void)configureCell:(HistoryTableViewCell *)cell withSession:(MeasurementSession *)session;
 
 @end

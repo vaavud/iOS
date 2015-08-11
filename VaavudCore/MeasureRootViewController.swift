@@ -86,21 +86,18 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         state = MeasureState.CountingDown(countdownInterval, Property.getAsBoolean(KEY_MEASUREMENT_TIME_UNLIMITED))
         
-        let usesSleipnir = Property.getAsBoolean(KEY_USES_SLEIPNIR)
-        println("CREATED ROOT (wants sleipnir : \(usesSleipnir), has sleipnir: \(isSleipnirSession))")
+        let wantsSleipnir = Property.getAsBoolean(KEY_USES_SLEIPNIR)
         
-        if isSleipnirSession && !usesSleipnir {
+        if isSleipnirSession && !wantsSleipnir {
             NSNotificationCenter.defaultCenter().postNotificationName(KEY_WINDMETERMODEL_CHANGED, object: self)
         }
 
         if isSleipnirSession {
-            println("#### Sleipnir session")
             Property.setAsBoolean(true, forKey: KEY_USES_SLEIPNIR)
             sdk.addListener(self)
             sdk.start()
         }
         else {
-            println("#### Mjolnir session")
             let mjolnirController = MjolnirMeasurementController()
             mjolnirController.delegate = self
             mjolnirController.start()

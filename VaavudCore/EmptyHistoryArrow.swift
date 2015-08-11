@@ -27,7 +27,7 @@ class EmptyHistoryArrow: UIView {
     }
     
     func setup() {
-        var x: CGFloat
+        let x: CGFloat
         
         if frame.width < 760 {
             x = 0
@@ -44,11 +44,14 @@ class EmptyHistoryArrow: UIView {
         if !isSetup {
             let arrowWidth: CGFloat = 20*100/width
             let arrowHeight: CGFloat = 20*100/frame.height
-            let arrowEndPoint = CGPoint(x: 16, y: 100)
+//            let arrowEndPoint = CGPoint(x: 16, y: 100)
+            let arrowEndPoint = CGPoint(x: 50, y: 100)
             
             var bezierPath = UIBezierPath()
             bezierPath.moveToPoint(CGPointMake(50, 3.5))
-            bezierPath.addCurveToPoint(arrowEndPoint, controlPoint1: CGPointMake(24.29, 5.86), controlPoint2: arrowEndPoint + CGPoint(x: 0, y: -50))
+            bezierPath.addCurveToPoint(arrowEndPoint, controlPoint1: CGPointMake(50, 5.86), controlPoint2: arrowEndPoint + CGPoint(x: 0, y: -50))
+
+//            bezierPath.addCurveToPoint(arrowEndPoint, controlPoint1: CGPointMake(24.29, 5.86), controlPoint2: arrowEndPoint + CGPoint(x: 0, y: -50))
             bezierPath.moveToPoint(arrowEndPoint + CGPoint(x: -arrowWidth, y: -arrowHeight))
             bezierPath.addLineToPoint(arrowEndPoint)
             bezierPath.moveToPoint(arrowEndPoint + CGPoint(x: arrowWidth, y: -arrowHeight))
