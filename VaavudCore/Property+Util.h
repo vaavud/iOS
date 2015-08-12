@@ -83,6 +83,8 @@ extern NSString * const KEY_MEASUREMENT_TIME_UNLIMITED;
 
 extern NSString * const KEY_SESSION_UPDATED;
 
+extern NSString * const KEY_HAS_SEEN_TRISCREEN_FLOW;
+
 
 @interface Property (Util)
 

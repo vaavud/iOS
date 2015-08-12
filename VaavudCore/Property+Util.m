@@ -86,6 +86,9 @@ NSString * const KEY_MEASUREMENT_TIME_UNLIMITED = @"TimeUnlimited";
 
 NSString * const KEY_SESSION_UPDATED = @"SessionUpdate";
 
+NSString * const KEY_HAS_SEEN_TRISCREEN_FLOW = @"HasSeenTriScreenFlow";
+
+
 @implementation Property (Util)
 
 + (NSString *)getAsString:(NSString *)name {

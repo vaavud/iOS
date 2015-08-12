@@ -75,18 +75,33 @@
     // CORE VAAVUD APP
     NSString *vcName;
     
+//    if (![Property getAsBoolean:KEY_HAS_SEEN_TRISCREEN_FLOW defaultValue:NO]) {
+//        if (LOG_INTRO) NSLog(@"not KEY_HAS_SEEN_UPGRADE_FLOW");
+//        vcName = @"UpgradingUserViewController";
+//    }
+//    else if (![Property getAsBoolean:KEY_HAS_SEEN_INTRO_FLOW defaultValue:NO]) {
+//        if (LOG_INTRO) NSLog(@"not KEY_HAS_SEEN_INTRO_FLOW");
+//        [Property setAsBoolean:YES forKey:KEY_HAS_SEEN_UPGRADE_FLOW];
+//        vcName = @"FirstTimeFlowController";
+//    }
+//    else {
+//        if (LOG_INTRO) NSLog(@"APPD Has seen intro and upgrade");
+//        vcName = @"TabBarController";
+//    }
+
+
     if ([Property getAsBoolean:KEY_HAS_SEEN_INTRO_FLOW defaultValue:NO]) {
         // Not a new user
         if (LOG_INTRO) NSLog(@"KEY_HAS_SEEN_INTRO_FLOW");
 
-        if ([Property getAsBoolean:KEY_HAS_SEEN_UPGRADE_FLOW defaultValue:NO]) {
+        if ([Property getAsBoolean:KEY_HAS_SEEN_TRISCREEN_FLOW defaultValue:NO]) {
             // Has seen upgrade flow
-            if (LOG_INTRO) NSLog(@"KEY_HAS_SEEN_UPGRADE_FLOW");
+            if (LOG_INTRO) NSLog(@"KEY_HAS_SEEN_TRISCREEN_FLOW");
             vcName = @"TabBarController";
         }
         else {
             // Has not seen upgrade flow
-            if (LOG_INTRO) NSLog(@"not KEY_HAS_SEEN_UPGRADE_FLOW");
+            if (LOG_INTRO) NSLog(@"NOT KEY_HAS_SEEN_TRISCREEN_FLOW");
             vcName = @"UpgradingUserViewController";
         }
     }
@@ -94,11 +109,9 @@
         // Has not seen intro flow so we will show it now
         if (LOG_INTRO) NSLog(@"not KEY_HAS_SEEN_INTRO_FLOW");
 
-        // No need to ever show upgrade flow
-        [Property setAsBoolean:YES forKey:KEY_HAS_SEEN_UPGRADE_FLOW];
         vcName = @"FirstTimeFlowController";
     }
-    
+
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     viewController = [storyboard instantiateViewControllerWithIdentifier:vcName];
     

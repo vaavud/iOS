@@ -15,39 +15,34 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var phoneOffset: NSLayoutConstraint!
     @IBOutlet weak var phoneScrollView: UIScrollView!
     
-    @IBOutlet weak var laterButton: UIButton!
-    
-    @IBOutlet weak var laterButtonConstraint: NSLayoutConstraint!
-    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        pager.transform = Affine.scaling(0.5)
+
         scrollView.contentSize = CGSize(width: CGFloat(pager.numberOfPages)*scrollView.bounds.width, height: scrollView.bounds.height)
         
         Mixpanel.sharedInstance().track("Upgade Sleipnir Flow")
         
         let nibName = "UpgradingUserPagesView"
         if let content = NSBundle.mainBundle().loadNibNamed(nibName, owner: self, options: nil).first as? UIView {
+            content.frame.origin = CGPoint()
             content.frame.size = scrollView.contentSize
             scrollView.addSubview(content)
         }
         
-        phoneScrollView.contentSize = CGSize(width: 2*phoneScrollView.bounds.width, height: phoneScrollView.bounds.height)
+        phoneScrollView.contentSize = CGSize(width: 3*phoneScrollView.bounds.width, height: phoneScrollView.bounds.height)
 
         if let content = NSBundle.mainBundle().loadNibNamed("UpgradingUserPhonePages", owner: nil, options: nil).first as? UIView {
             content.frame.size = phoneScrollView.contentSize
+            content.frame.origin = CGPoint()
             phoneScrollView.addSubview(content)
         }
     }
     
-    @IBAction func openBuyDevice() {
-        Mixpanel.sharedInstance().track("Upgade Sleipnir Flow - Buy Device")
-        VaavudInteractions.openBuySleipnir("Upgrade")
-        laterButton.setTitle(NSLocalizedString("BUTTON_DONE", comment: ""), forState: .Normal)
-    }
-
-    @IBAction func tappedDismiss() {
-        Property.setAsBoolean(true, forKey: KEY_HAS_SEEN_UPGRADE_FLOW);
-        Mixpanel.sharedInstance().track("Upgade Sleipnir Flow - Dismiss")
+    @IBAction func openBuyDevice() { // Close
+        Property.setAsBoolean(true, forKey: KEY_HAS_SEEN_TRISCREEN_FLOW);
+        
+        Mixpanel.sharedInstance().track("Triscreen Flow - Dismiss")
         
         if let tabBarController = storyboard?.instantiateViewControllerWithIdentifier("TabBarController") as? TabBarController {
             if let window = UIApplication.sharedApplication().delegate?.window {
@@ -67,13 +62,7 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let page = scrollView.contentOffset.x/scrollView.bounds.width
         pager.currentPage = Int(round(page))
-        
-        phoneScrollView.contentOffset.x = min(page, 1)*phoneScrollView.bounds.width
-        
-        let cappedOffset = max(scrollView.contentOffset.x, scrollView.bounds.width)
-        
-        phoneOffset.constant = scrollView.bounds.width - cappedOffset
-        laterButtonConstraint.constant = cappedOffset - 2*scrollView.bounds.width
+        phoneScrollView.contentOffset.x = page*phoneScrollView.bounds.width
     }
 }
 
