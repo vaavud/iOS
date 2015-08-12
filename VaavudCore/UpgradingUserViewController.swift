@@ -64,6 +64,10 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
         pager.currentPage = Int(round(page))
         phoneScrollView.contentOffset.x = page*phoneScrollView.bounds.width
     }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true;
+    }
 }
 
 //@IBDesignable 

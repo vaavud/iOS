@@ -26,7 +26,6 @@ class FlatMeasurementViewController : UIViewController, MeasurementConsumer {
     
     var weight: CGFloat = 0.1
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if usesMjolnir {
@@ -91,8 +90,7 @@ class FlatRuler : UIView {
     }
     
     func tick() {
-        let angleDelta = moveArrow(windDirection - compassDirection)
-
+        let angleDelta = moveArrow(distanceOnCircle(from: compassDirection, to: windDirection))
         let targetAngle: CGFloat
         
         if angleDelta > 0 {
