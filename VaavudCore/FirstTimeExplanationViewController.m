@@ -79,6 +79,10 @@
     }
 }
 
+-(BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (void)appDidBecomeActive:(NSNotification *)notification {
     //NSLog(@"appDidBecomeActive, hasClickedBuy=%@, currentPageId=%u", self.hasClickedBuy ? @"YES" : @"NO", self.pageId);
     if (self.hasClickedBuy && self.pageId == 4) {

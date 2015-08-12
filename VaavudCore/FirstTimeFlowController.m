@@ -174,6 +174,10 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
     }
 }
 
+-(BOOL)prefersStatusBarHidden {
+    return YES;
+}
+
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleDefault;
 }

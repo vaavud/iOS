@@ -102,7 +102,6 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     }
 
     func didLoginOut(note: NSNotification) {
-        println("SUMMARY: didLoginOut")
         navigationItem.hidesBackButton = !AccountManager.sharedInstance().isLoggedIn()
     }
     

@@ -90,6 +90,15 @@ SHARED_INSTANCE
         [Property setAsInteger:directionUnit forKey:KEY_DIRECTION_UNIT];
     }
 
+    if ([Property getAsInteger:KEY_PRESSURE_UNIT] == nil) {
+        [Property setAsInteger:@0 forKey:KEY_PRESSURE_UNIT];
+    }
+
+    if ([Property getAsInteger:KEY_TEMPERATURE_UNIT] == nil) {
+        [Property setAsInteger:@0 forKey:KEY_TEMPERATURE_UNIT];
+    }
+
+    
     if ([Property getAsDouble:KEY_FREQUENCY_START] == nil) {
         // this must be the first time, since frequency start (and related properties) are not set
         [Property setAsDouble:[AlgorithmConstantsUtil getFrequencyStart:model osVersion:osVersion] forKey:KEY_FREQUENCY_START];

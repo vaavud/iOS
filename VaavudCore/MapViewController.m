@@ -274,7 +274,7 @@
     }
     
     [[ServerUploadManager sharedInstance] readMeasurements:self.hoursAgo retry:3 success:^(NSArray *measurements) {
-        //NSLog(@"[MapViewController] read measurements");
+//        NSLog(@"[MapViewController] read measurements");
 
         self.lastMeasurementsRead = [NSDate date];
 
@@ -310,9 +310,9 @@
             }
         }
     } failure:^(NSError *error) {
-        //NSLog(@"[MapViewController] Error reading measurements");
+//        NSLog(@"[MapViewController] Error reading measurements: %@", error);
         [self clearActivityIndicator];
-        [self showNoDataFeedbackMessage];
+//        [self showNoDataFeedbackMessage];
     }];
 }
 

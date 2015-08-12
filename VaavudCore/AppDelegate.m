@@ -30,7 +30,7 @@
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
     
@@ -43,6 +43,13 @@
     [[LocationManager sharedInstance] startIfEnabled];
     //[FBSettings setLoggingBehavior:[NSSet setWithObjects:FBLoggingBehaviorFBRequests, FBLoggingBehaviorInformational, nil]];
     
+    NSNumber *su = [Property getAsInteger:KEY_WIND_SPEED_UNIT];
+    NSNumber *du = [Property getAsInteger:KEY_DIRECTION_UNIT];
+    NSNumber *pu = [Property getAsInteger:KEY_PRESSURE_UNIT];
+    NSNumber *tu = [Property getAsInteger:KEY_TEMPERATURE_UNIT];
+    
+    NSLog(@"UNITS: s: %@, d: %@, p: %@, t: %@", su, du, pu, tu);
+        
     self.xCallbackSuccess = nil;
 
     if ([Property isMixpanelEnabled]) {
@@ -88,8 +95,7 @@
 //        if (LOG_INTRO) NSLog(@"APPD Has seen intro and upgrade");
 //        vcName = @"TabBarController";
 //    }
-
-
+    
     if ([Property getAsBoolean:KEY_HAS_SEEN_INTRO_FLOW defaultValue:NO]) {
         // Not a new user
         if (LOG_INTRO) NSLog(@"KEY_HAS_SEEN_INTRO_FLOW");

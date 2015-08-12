@@ -15,6 +15,7 @@ static NSArray *directionNameStrings;
 
 + (void)initialize {
     countriesUsingMph = [NSSet setWithObjects:@"US", @"UM", @"GB", @"CA", @"VG", @"VI", nil];
+    
     directionNameStrings = @[@"DIRECTION_N", @"DIRECTION_NNE", @"DIRECTION_NE", @"DIRECTION_ENE", @"DIRECTION_E", @"DIRECTION_ESE", @"DIRECTION_SE", @"DIRECTION_SSE", @"DIRECTION_S", @"DIRECTION_SSW", @"DIRECTION_SW", @"DIRECTION_WSW", @"DIRECTION_W", @"DIRECTION_WNW", @"DIRECTION_NW", @"DIRECTION_NNW"];
 }
 
