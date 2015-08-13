@@ -98,7 +98,6 @@ SHARED_INSTANCE
         [Property setAsInteger:@0 forKey:KEY_TEMPERATURE_UNIT];
     }
 
-    
     if ([Property getAsDouble:KEY_FREQUENCY_START] == nil) {
         // this must be the first time, since frequency start (and related properties) are not set
         [Property setAsDouble:[AlgorithmConstantsUtil getFrequencyStart:model osVersion:osVersion] forKey:KEY_FREQUENCY_START];

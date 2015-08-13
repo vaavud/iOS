@@ -56,6 +56,10 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         
         scaleItem.center = CGPoint(x: 0, y: graph.logScale*10000)
         
+        speedLabel.text = "-"
+        maxSpeedLabel.text = "-"
+        avgSpeedLabel.text = "-"
+        
         if usesMjolnir {
             arrowView.hidden = true
             directionLabel.text = "-"

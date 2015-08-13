@@ -23,7 +23,6 @@
 
 @property (nonatomic) BOOL dynamicsIsValid;
 @property (nonatomic) BOOL FFTisValid;
-@property (nonatomic) BOOL isValidCurrentStatus;
 
 @property (nonatomic, strong) VaavudMagneticFieldDataManager *sharedMagneticFieldDataManager;
 @property (nonatomic, strong) VaavudDynamicsController *vaavudDynamicsController;
@@ -141,8 +140,8 @@
         self.isValidPercent = 0;
     }
     
-//    if (self.FFTisValid && self.dynamicsIsValid) {
-    if (self.FFTisValid) {
+    if (self.FFTisValid && self.dynamicsIsValid) {
+//    if (self.FFTisValid) {
         self.isValidPercent += 8;
     } else {
         self.isValidPercent -= 8;
@@ -158,7 +157,7 @@
         self.isValidCurrentStatus = NO;
     }
     
-    [self.isValid addObject:[NSNumber numberWithBool:self.isValidCurrentStatus]];
+    [self.isValid addObject:@(self.isValidCurrentStatus)];
 
     if (wasValid != self.isValidCurrentStatus) {
         if (self.delegate && [self.delegate respondsToSelector:@selector(changedValidity:dynamicsIsValid:)]) {

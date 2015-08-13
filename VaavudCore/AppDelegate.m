@@ -42,14 +42,7 @@
     [[ServerUploadManager sharedInstance] start];
     [[LocationManager sharedInstance] startIfEnabled];
     //[FBSettings setLoggingBehavior:[NSSet setWithObjects:FBLoggingBehaviorFBRequests, FBLoggingBehaviorInformational, nil]];
-    
-    NSNumber *su = [Property getAsInteger:KEY_WIND_SPEED_UNIT];
-    NSNumber *du = [Property getAsInteger:KEY_DIRECTION_UNIT];
-    NSNumber *pu = [Property getAsInteger:KEY_PRESSURE_UNIT];
-    NSNumber *tu = [Property getAsInteger:KEY_TEMPERATURE_UNIT];
-    
-    NSLog(@"UNITS: s: %@, d: %@, p: %@, t: %@", su, du, pu, tu);
-        
+            
     self.xCallbackSuccess = nil;
 
     if ([Property isMixpanelEnabled]) {

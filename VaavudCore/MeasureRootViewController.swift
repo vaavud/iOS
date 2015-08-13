@@ -11,8 +11,7 @@ import CoreMotion
 
 let updatePeriod = 1.0
 let countdownInterval = 3
-let limitedInterval = 7
-let minimumDuration = 3.0
+let limitedInterval = 30
 
 enum WindMeterModel: Int {
     case Unknown = 0
@@ -62,6 +61,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     @IBOutlet weak var readingTypeButton: UIButton!
     @IBOutlet weak var cancelButton: MeasureCancelButton!
     
+    @IBOutlet weak var errorMessageLabel: UILabel!
+    
+    @IBOutlet weak var errorOverlayBackground: UIView!
+    
     var currentConsumer: MeasurementConsumer?
     
     private var latestHeading: CGFloat = 0
@@ -99,7 +102,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
         else {
             let mjolnirController = MjolnirMeasurementController()
-            mjolnirController.delegate = self
             mjolnirController.start()
             mjolnir = mjolnirController
         }
@@ -151,6 +153,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         view.bringSubviewToFront(pager)
         view.bringSubviewToFront(unitButton)
         view.bringSubviewToFront(readingTypeButton)
+        view.bringSubviewToFront(errorOverlayBackground)
         view.bringSubviewToFront(cancelButton)
         
         cancelButton.setup()
@@ -316,12 +319,28 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
     }
     
+    func changedValidity(isValid: Bool, dynamicsIsValid: Bool) {
+        println("ROOT: changedValidity: \(isValid) - \(dynamicsIsValid)")
+        
+        if !isValid {
+            latestSpeed = 0
+        }
+        
+        UIView.animateWithDuration(0.2) {
+            self.errorOverlayBackground.alpha = isValid ? 0 : 1
+        }
+    }
+    
     func start() {
         println("ROOT: start")
 
         elapsedSinceUpdate = 0
         
         let model: WindMeterModel = isSleipnirSession ? .Sleipnir : .Mjolnir
+        
+        if let mjolnir = mjolnir {
+            mjolnir.delegate = self
+        }
         
         let session = MeasurementSession.MR_createEntity()
         session.uuid = currentSessionUuid
@@ -341,6 +360,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     func updateSession() {
         let now = NSDate()
+        
+        if let mjolnir = mjolnir {
+            println("ROOT: isValidCurrentStatus: \(mjolnir.isValidCurrentStatus)")
+        }
+
+        if let mjolnir = mjolnir where !mjolnir.isValidCurrentStatus {
+            return
+        }
         
         if let session = currentSession where session.measuring.boolValue {
             updateWithLocation(session)
