@@ -320,7 +320,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func changedValidity(isValid: Bool, dynamicsIsValid: Bool) {
-        println("ROOT: changedValidity: \(isValid) - \(dynamicsIsValid)")
+//        println("ROOT: changedValidity: \(isValid) - \(dynamicsIsValid)")
         
         if !isValid {
             latestSpeed = 0
@@ -332,7 +332,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func start() {
-        println("ROOT: start")
+//        println("ROOT: start")
 
         elapsedSinceUpdate = 0
         
@@ -361,9 +361,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     func updateSession() {
         let now = NSDate()
         
-        if let mjolnir = mjolnir {
-            println("ROOT: isValidCurrentStatus: \(mjolnir.isValidCurrentStatus)")
-        }
+//        if let mjolnir = mjolnir {
+//            println("ROOT: isValidCurrentStatus: \(mjolnir.isValidCurrentStatus)")
+//        }
 
         if let mjolnir = mjolnir where !mjolnir.isValidCurrentStatus {
             return

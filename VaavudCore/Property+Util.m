@@ -88,6 +88,9 @@ NSString * const KEY_SESSION_UPDATED = @"SessionUpdate";
 
 NSString * const KEY_HAS_SEEN_TRISCREEN_FLOW = @"HasSeenTriScreenFlow";
 
+NSString * const KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN = @"mapGuideMeasureButtonShown";
+
+
 
 @implementation Property (Util)
 

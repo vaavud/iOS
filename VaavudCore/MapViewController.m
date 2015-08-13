@@ -173,7 +173,7 @@
     [self loadMeasurements:forceReload showActivityIndicator:NO];
 }
 
-- (void) viewDidAppear:(BOOL)animated {
+- (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     // note: hack for content view underlapping tab view when clicking on another tab and back
@@ -210,7 +210,6 @@
 
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"Map Screen"];
-        [[Mixpanel sharedInstance] track:@"Map Tab"]; // REMOVEME
     }
     
     self.viewAppearedTime = [NSDate date];
@@ -226,10 +225,21 @@
 }
 
 - (void)showGuideIfNeeded {
-    if (![Property getAsBoolean:KEY_MAP_GUIDE_MARKER_SHOWN defaultValue:NO]) {
-        [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MARKER_SHOWN];
+    [Property setAsBoolean:NO forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN]; // tabort
+
+    TabBarController *tabBarController = (TabBarController *)self.tabBarController;
+    
+    if (![Property getAsBoolean:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN defaultValue:NO]) {
+        [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN];
         
-        TabBarController *tabBarController = (TabBarController*) self.tabBarController;
+        [tabBarController showCalloutGuideView:NSLocalizedString(@"KEY_MAP_GUIDE_MEASURE_BUTTON_TITLE", nil)
+                               explanationText:NSLocalizedString(@"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION", nil)
+                                customPosition:CGRectMake(self.view.bounds.size.width / 2.0F, self.view.bounds.size.height - 10.0F, 1.0F, 1.0F)
+                                     withArrow:YES
+                                        inView:nil];
+    }
+    else if (![Property getAsBoolean:KEY_MAP_GUIDE_MARKER_SHOWN defaultValue:NO]) {
+        [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MARKER_SHOWN];
         [tabBarController showCalloutGuideView:NSLocalizedString(@"MAP_GUIDE_MARKER_TITLE", nil)
                                explanationText:NSLocalizedString(@"MAP_GUIDE_MARKER_EXPLANATION", nil)
                                 customPosition:CGRectMake(self.view.bounds.size.width / 2.0F, self.view.bounds.size.height / 2.0F, 1.0F, 1.0F)
@@ -241,7 +251,6 @@
         
         CGRect rect = CGRectMake(self.hoursButton.frame.origin.x, self.tabBarController.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height - self.hoursButton.frame.size.height,  self.hoursButton.frame.size.width, self.hoursButton.frame.size.height);
         
-        TabBarController *tabBarController = (TabBarController *)self.tabBarController;
         [tabBarController showCalloutGuideView:NSLocalizedString(@"MAP_GUIDE_TIME_INTERVAL_TITLE", nil)
                                explanationText:NSLocalizedString(@"MAP_GUIDE_TIME_INTERVAL_EXPLANATION", nil)
                                 customPosition:rect
