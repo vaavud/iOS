@@ -225,7 +225,7 @@
 }
 
 - (void)showGuideIfNeeded {
-    [Property setAsBoolean:NO forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN]; // tabort
+//    [Property setAsBoolean:NO forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN]; // tabort
 
     TabBarController *tabBarController = (TabBarController *)self.tabBarController;
     
