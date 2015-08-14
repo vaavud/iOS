@@ -21,7 +21,6 @@
 @property (nonatomic, strong) NSMutableArray *windSpeedTime;
 @property (nonatomic, strong) NSDate *startTime;
 
-@property (nonatomic) BOOL dynamicsIsValid;
 @property (nonatomic) BOOL FFTisValid;
 
 @property (nonatomic, strong) VaavudMagneticFieldDataManager *sharedMagneticFieldDataManager;

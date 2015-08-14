@@ -22,9 +22,10 @@
 #import "MixpanelUtil.h"
 #import "Vaavud-Swift.h"
 
-@interface AppDelegate()
+@interface AppDelegate() <DBRestClientDelegate>
 
 @property (nonatomic, strong) NSDate *lastAppActive;
+@property (nonatomic) DropboxUploader *dropboxUploader;
 
 @end
 
@@ -218,6 +219,33 @@
     }
     
     return YES;
+}
+
+#pragma mark - Dropbox
+
+-(void)uploadToDropbox:(MeasurementSession *)session {
+    if (!self.dropboxUploader) {
+        self.dropboxUploader = [[DropboxUploader alloc] initWithDelegate:self];
+    }
+    
+    [self.dropboxUploader uploadToDropbox:session];
+}
+
+- (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath
+              from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
+    
+    NSError *error = nil;
+    [[NSFileManager defaultManager] removeItemAtPath:srcPath error:&error];
+    if (!error) {
+        NSLog(@"File uploaded and deleted successfully to path: %@", metadata.path);
+    }
+    else {
+        NSLog(@"File uploaded successfully, but not deleted to path: %@, error: %@", metadata.path, error.localizedDescription);
+    }
+}
+
+- (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
+    NSLog(@"File upload failed with error: %@", error);
 }
 
 - (void)userAuthenticated:(BOOL)isSignup viewController:(UIViewController *)viewController {

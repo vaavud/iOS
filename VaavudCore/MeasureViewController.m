@@ -594,9 +594,7 @@
         }
         else {
             NSLog(@"Permission denied");
-            
-            [self.interactions showAlert:@"Permission" message:@"You have to give the Vaavud app permission to use the microphone. Go to the settings app." other:@"OK" action:^{
-            } on:self];
+            [self.interactions showLocalAlert:@"MICROPHONE_PERMISSION_REASON_TITLE" messageKey:@"MICROPHONE_PERMISSION_REASON_TEXT" otherKey:@"BUTTON_OK" action:^{} on:self];
         }
     }];
 }

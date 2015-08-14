@@ -202,7 +202,6 @@
 		2256C19A1AA7450E00782314 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		225DB9FD1AFA5C3100B2E8D0 /* BebasNeue_Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BebasNeue_Bold.otf; sourceTree = "<group>"; };
 		225DB9FE1AFA5C3100B2E8D0 /* BebasNeue_Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BebasNeue_Regular.otf; sourceTree = "<group>"; };
-		225DBA021AFA5ED500B2E8D0 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		22728BEC1B6BA30200AFE634 /* UIImage+Vaavud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Vaavud.h"; sourceTree = "<group>"; };
 		22728BED1B6BA30200AFE634 /* UIImage+Vaavud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Vaavud.m"; sourceTree = "<group>"; };
 		22787C3A1B5D8C8200AB6150 /* MeasureScreens.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = MeasureScreens.xcassets; path = ImageAssets/MeasureScreens.xcassets; sourceTree = "<group>"; };
@@ -220,7 +219,6 @@
 		22900BB21AEE7616009D9C8F /* MjolnirSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MjolnirSpinner.swift; sourceTree = "<group>"; };
 		22900BB61AEE77C1009D9C8F /* MjolnirSpinner.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = MjolnirSpinner.xcassets; path = VaavudCore/MjolnirSpinner.xcassets; sourceTree = "<group>"; };
 		229533501B1F3F8A00DAEA62 /* MeasureCancelButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasureCancelButton.swift; sourceTree = "<group>"; };
-		22969D461AB2ED5800255A55 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		2297D9091AB877B300ED914A /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		2297D90B1AB877B500ED914A /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		2297D90D1AB877B900ED914A /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
@@ -243,6 +241,8 @@
 		22B408B61A8A0E2E0062A2DD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSettingsViewController.swift; sourceTree = "<group>"; };
 		22B99AC41ADFD8C600E1A27B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Register.strings; sourceTree = "<group>"; };
+		22C9B02E1B7CDC17004A2902 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
+		22C9B0301B7CDF5E004A2902 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		22CECB171AF22CE300148045 /* Settings.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Settings.xcassets; path = ImageAssets/Settings.xcassets; sourceTree = "<group>"; };
 		22DB81A81A8389DF00DA67AC /* Model 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.xcdatamodel"; sourceTree = "<group>"; };
 		22DCCED31B02399800D65265 /* RoundMeasurementScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundMeasurementScreen.swift; sourceTree = "<group>"; };
@@ -1401,7 +1401,6 @@
 			children = (
 				22EAE5D71AB1EBEA0037654E /* Base */,
 				22EAE5DC1AB1ECD90037654E /* es */,
-				22969D461AB2ED5800255A55 /* da */,
 				2297D9091AB877B300ED914A /* ca */,
 				2297D90B1AB877B500ED914A /* fr */,
 				2297D90D1AB877B900ED914A /* de */,
@@ -1411,6 +1410,7 @@
 				2297D9151AB877BE00ED914A /* ko */,
 				2297D9171AB877C000ED914A /* zh-Hans */,
 				2297D9191AB877C200ED914A /* pt-PT */,
+				22C9B0301B7CDF5E004A2902 /* da */,
 			);
 			name = UpgradingUserPagesView.xib;
 			sourceTree = "<group>";
@@ -1448,7 +1448,7 @@
 				22199C011AE286710008CADA /* ko */,
 				22199C031AE286760008CADA /* zh-Hans */,
 				22199C051AE2867D0008CADA /* pt-PT */,
-				225DBA021AFA5ED500B2E8D0 /* da */,
+				22C9B02E1B7CDC17004A2902 /* da */,
 			);
 			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";

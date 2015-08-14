@@ -14,5 +14,6 @@
 @interface MjolnirMeasurementController : WindMeasurementController <VaavudMagneticFieldDataManagerDelegate, VaavudDynamicsControllerDelegate>
 
 @property (nonatomic) BOOL isValidCurrentStatus;
+@property (nonatomic) BOOL dynamicsIsValid;
 
 @end

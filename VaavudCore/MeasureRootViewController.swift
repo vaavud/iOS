@@ -37,7 +37,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
     private let geocoder = CLGeocoder()
     
-    private var dropboxUploader: DropboxUploader?
+//    private var dropboxUploader: DropboxUploader?
     
     private var altimeter: CMAltimeter?
     
@@ -112,9 +112,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
 //        if let sessions = MeasurementSession.MR_findAll() as? [MeasurementSession] {
 //            for session in sessions {
-//                if let kelvin = session.sourcedTemperature, ms = session.windSpeedAvg ?? session.sourcedWindSpeedAvg, chill = windchill(kelvin.floatValue, ms.floatValue) {
-//                    println("WINDCHILL: calc \(chill) - save: \(session.windChill)")
-//                }
 //            }
 //        }
         
@@ -164,6 +161,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         unitButton.setTitle(formatter.windSpeedUnit.localizedString, forState: .Normal)
         
         LocationManager.sharedInstance().start()
+        
+        if let mjolnir = mjolnir {
+            mjolnir.delegate = self
+        }
     }
     
     @IBAction func tappedUnit(sender: UIButton) {
@@ -320,27 +321,19 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func changedValidity(isValid: Bool, dynamicsIsValid: Bool) {
-//        println("ROOT: changedValidity: \(isValid) - \(dynamicsIsValid)")
-        
         if !isValid {
-            latestSpeed = 0
+            currentConsumer?.newSpeed(0)
         }
         
         UIView.animateWithDuration(0.2) {
-            self.errorOverlayBackground.alpha = isValid ? 0 : 1
+            self.errorOverlayBackground.alpha = dynamicsIsValid ? 0 : 1
         }
     }
     
     func start() {
-//        println("ROOT: start")
-
         elapsedSinceUpdate = 0
         
         let model: WindMeterModel = isSleipnirSession ? .Sleipnir : .Mjolnir
-        
-        if let mjolnir = mjolnir {
-            mjolnir.delegate = self
-        }
         
         let session = MeasurementSession.MR_createEntity()
         session.uuid = currentSessionUuid
@@ -361,10 +354,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     func updateSession() {
         let now = NSDate()
         
-//        if let mjolnir = mjolnir {
-//            println("ROOT: isValidCurrentStatus: \(mjolnir.isValidCurrentStatus)")
-//        }
-
         if let mjolnir = mjolnir where !mjolnir.isValidCurrentStatus {
             return
         }
@@ -385,7 +374,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
         else {
             println("ROOT: updateSession - ERROR: No current session")
-            // Stopped by model, tell delegate?
+            // Stopped by model, stop?
         }
     }
     
@@ -427,12 +416,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 }
             }
         
-            if DBSession.sharedSession().isLinked() {
+            if !cancelled && DBSession.sharedSession().isLinked(), let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
                 println("ROOT: save - dropbox was linked, uploading")
-
-                let uploader = DropboxUploader(delegate: self)
-                uploader.uploadToDropbox(session)
-                dropboxUploader = uploader
+                appDelegate.uploadToDropbox(session)
             }
         }
     }
@@ -450,9 +436,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             mjolnir.stop()
         }
 
-        // Temperature lookup
-
         altimeter?.stopRelativeAltitudeUpdates()
+        
+        reportToUrlSchemeCaller()
         
         dismissViewControllerAnimated(true) {
             self.pageController.view.removeFromSuperview()
@@ -462,6 +448,28 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             self.viewControllers = []
             self.currentConsumer = nil
             self.displayLink.invalidate()
+        }
+    }
+    
+    func reportToUrlSchemeCaller() {
+        if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate,
+            let x = appDelegate.xCallbackSuccess where count(x) > 0 {
+                println("=== There is a pending x-callback: \(x)")
+                
+                if let url = NSURL(string:x + "?windSpeedAvg=\(avgSpeed)&windSpeedMax=\(maxSpeed)") {
+                    appDelegate.xCallbackSuccess = nil
+                    
+                    println("=== Trying to open: \(url)")
+                    
+                    let success = UIApplication.sharedApplication().openURL(url)
+                    
+                    if !success {
+                        println("=== Failed to open callback url")
+                    }
+                    else {
+                        println("=== Managed to open callback url")
+                    }
+                }
         }
     }
 
@@ -477,6 +485,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func newSpeed(speed: NSNumber!) {
+        println(speed.floatValue)
+        
         latestSpeed = CGFloat(speed.floatValue)
         currentConsumer?.newSpeed(latestSpeed)
         if latestSpeed > maxSpeed { maxSpeed = latestSpeed }
@@ -489,22 +499,22 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     // MARK: Dropbox Callbacks
 
-    func restClient(client: DBRestClient!, uploadFileFailedWithError error: NSError!) {
-        println("File upload failed with error: \(error)");
-    }
-    
-    func restClient(client: DBRestClient!, uploadedFile destPath: String!, from srcPath: String!, metadata: DBMetadata!) {
-        var error: NSError?
-        if NSFileManager.defaultManager().removeItemAtPath(srcPath, error: &error) {
-            println("File uploaded and deleted successfully to path: \(metadata.path)")
-        }
-        else if let error = error {
-            println("File uploaded successfully, but not deleted to path: \(metadata.path), error: \(error.localizedDescription)")
-        }
-        else {
-            println("File uploaded successfully, but not deleted to path: \(metadata.path), no error message")
-        }
-    }
+//    func restClient(client: DBRestClient!, uploadFileFailedWithError error: NSError!) {
+//        println("File upload failed with error: \(error)");
+//    }
+//    
+//    func restClient(client: DBRestClient!, uploadedFile destPath: String!, from srcPath: String!, metadata: DBMetadata!) {
+//        var error: NSError?
+//        if NSFileManager.defaultManager().removeItemAtPath(srcPath, error: &error) {
+//            println("File uploaded and deleted successfully to path: \(metadata.path)")
+//        }
+//        else if let error = error {
+//            println("File uploaded successfully, but not deleted to path: \(metadata.path), error: \(error.localizedDescription)")
+//        }
+//        else {
+//            println("File uploaded successfully, but not deleted to path: \(metadata.path), no error message")
+//        }
+//    }
     
     override func prefersStatusBarHidden() -> Bool {
         return true

@@ -24,7 +24,7 @@ class FlatMeasurementViewController : UIViewController, MeasurementConsumer {
     
     var interval: CGFloat = 30
     
-    var weight: CGFloat = 0.1
+    var weight: CGFloat = 0.1 // todo: change
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -201,10 +201,10 @@
 - (void)refreshEmptyState {
     if ([AccountManager sharedInstance].isLoggedIn) {
         if (LOG_HISTORY) NSLog(@"[HistoryTableViewController refreshEmptyState] Logged in");
-
+        
         if ([ServerUploadManager sharedInstance].isHistorySyncBusy) {
             if (LOG_HISTORY) NSLog(@"[HistoryTableViewController refreshEmptyState] Sync busy");
-
+            
             [self.spinner show];
             [UIView animateWithDuration:0.2 animations:^{
                 self.emptyView.alpha = 0;

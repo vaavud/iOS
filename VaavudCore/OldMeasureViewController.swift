@@ -41,7 +41,7 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     
     private var usesMjolnir = false
     
-    var weight: CGFloat = 0.1
+    var weight: CGFloat = 0.05 // todo: change
     var avgWeight: CGFloat = 0.01
     
     override func viewDidLoad() {
