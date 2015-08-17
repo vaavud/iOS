@@ -1,15 +1,20 @@
+/* Class = "UILabel"; text = "Visualise the wind speed and direction on our innovative radar like screen!"; ObjectID = "454-5p-7vV"; */
+"454-5p-7vV.text" = "革新的なレーダーのような画面で風速と風向を表示!";
 
-/* Class = "UILabel"; text = "Opsummeringsskærm der viser dine nøgle målepunkter inklusiv temperature og tryk osv."; ObjectID = "74A-FE-VIW"; */
-"74A-FE-VIW.text" = "概要画面で温度や気圧など主要な測定データを表示。";
+/* Class = "UILabel"; text = "Quickly find the wind direction in this elegant minimalist view."; ObjectID = "74A-FE-VIW"; */
+"74A-FE-VIW.text" = "エレガントなミニマリストビューで風向がすぐに分かります。";
 
-/* Class = "UIButton"; normalTitle = "Køb den nye Sleipnir nu!"; ObjectID = "By2-Wp-Ksm"; */
-"By2-Wp-Ksm.normalTitle" = "新しいSleipnirを今すぐ購入!";
+/* Class = "UIButton"; normalTitle = "OK, cool!"; ObjectID = "By2-Wp-Ksm"; */
+"By2-Wp-Ksm.normalTitle" = "OK、すごいです!";
 
-/* Class = "UILabel"; text = "Hvad er nyt"; ObjectID = "DYL-PV-xrH"; */
-"DYL-PV-xrH.text" = "新着情報";
+/* Class = "UILabel"; text = "New and improved!"; ObjectID = "DYL-PV-xrH"; */
+"DYL-PV-xrH.text" = "新しくなって改善されました!";
 
-/* Class = "UILabel"; text = "Historien viser geolocation og med Sleipnir vindmåleren, vindretning!"; ObjectID = "QHy-ZF-8rZ"; */
-"QHy-ZF-8rZ.text" = "履歴では地理的位置や新しいSlepnir風速計、風向きを表示！";
+/* Class = "UILabel"; text = "We made our familiar wind view better, and created two new exciting ways to see the weather. Swipe to learn more!"; ObjectID = "QHy-ZF-8rZ"; */
+"QHy-ZF-8rZ.text" = "これまでの風の表示を改善し、天気の様子が分かるエキサイティングな方法を新たに2つ作成しました。スワイプして詳細をご覧ください!";
 
-/* Class = "UILabel"; text = "Hvad er nyt"; ObjectID = "zoH-zr-gYm"; */
-"zoH-zr-gYm.text" = "新着情報";
+/* Class = "UILabel"; text = "Radar"; ObjectID = "kfr-KI-mR5"; */
+"kfr-KI-mR5.text" = "レーダー!";
+
+/* Class = "UILabel"; text = "Directions!"; ObjectID = "zoH-zr-gYm"; */
+"zoH-zr-gYm.text" = "方向!";

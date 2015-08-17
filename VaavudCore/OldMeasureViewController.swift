@@ -9,6 +9,7 @@
 import UIKit
 
 class OldMeasureViewController : UIViewController, MeasurementConsumer {
+    var name: String { return "Old" }
     @IBOutlet weak var graph: OldGraph!
     
     @IBOutlet weak var arrowView: UIImageView!

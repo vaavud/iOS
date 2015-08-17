@@ -9,6 +9,8 @@
 import UIKit
 
 class FlatMeasurementViewController : UIViewController, MeasurementConsumer {
+    var name: String { return "Flat" }
+
     @IBOutlet weak var ruler: FlatRuler!
     @IBOutlet weak var graph: FlatGraph!
     

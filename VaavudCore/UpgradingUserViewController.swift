@@ -15,9 +15,18 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var phoneOffset: NSLayoutConstraint!
     @IBOutlet weak var phoneScrollView: UIScrollView!
     
+    @IBOutlet weak var topPhoneOffset: NSLayoutConstraint!
+    
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         pager.transform = Affine.scaling(0.5)
+        
+        if view.frame.height < 500 {
+            topPhoneOffset.constant = 40
+        }
+        else if view.frame.height > 1000 {
+            topPhoneOffset.constant = -180
+        }
 
         scrollView.contentSize = CGSize(width: CGFloat(pager.numberOfPages)*scrollView.bounds.width, height: scrollView.bounds.height)
         
@@ -37,6 +46,10 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
             content.frame.origin = CGPoint()
             phoneScrollView.addSubview(content)
         }
+    }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return Int(UIInterfaceOrientationMask.Portrait.rawValue) | Int(UIInterfaceOrientationMask.PortraitUpsideDown.rawValue)
     }
     
     @IBAction func openBuyDevice() { // Close

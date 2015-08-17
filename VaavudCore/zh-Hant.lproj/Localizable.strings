@@ -202,3 +202,10 @@
 "UPGRADE_GET_IT_LATER" = "我將在稍後再買";
 "NSLocationWhenInUseUsageDescription" = "我们使用您的位置，以便能够显示您每次进行测量的地点。";
 "NSMicrophoneUsageDescription" = "Sleipnir 风速计通过耳机接口与电话进行通讯";
+"MICROPHONE_PERMISSION_REASON_TITLE" = "權限";
+"MICROPHONE_PERMISSION_REASON_TEXT" = "必須賦予 Vaavud 應用使用麥克風的權限。去設置應用。";
+"KEY_MAP_GUIDE_MEASURE_BUTTON_TITLE" = "行一次測量！";
+"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION" = "這裡使用您的 Mjolnir 或 Sleipnir 風力計進行一次測量。";
+"SLEIPNIR_PROBLEM_TITLE" = "Sleipnir 不可用";
+"SLEIPNIR_PROBLEM_MESSAGE" = "開始進行測量之前，請插入您的 Sleipnir 風力計。";
+"SLEIPNIR_PROBLEM_SWITCH" = "使用Mjolnir";

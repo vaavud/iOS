@@ -1,15 +1,21 @@
 
-/* Class = "UILabel"; text = "Opsummeringsskærm der viser dine nøgle målepunkter inklusiv temperature og tryk osv."; ObjectID = "74A-FE-VIW"; */
-"74A-FE-VIW.text" = "Summary screen showing your key measurement data, including pressure, temperature etc.";
+/* Class = "UILabel"; text = "Visualise the wind speed and direction on our innovative radar like screen!"; ObjectID = "454-5p-7vV"; */
+"454-5p-7vV.text" = "Visualise the wind speed and direction on our innovative radar like screen!";
 
-/* Class = "UIButton"; normalTitle = "Køb den nye Sleipnir nu!"; ObjectID = "By2-Wp-Ksm"; */
-"By2-Wp-Ksm.normalTitle" = "Buy the new Sleipnir now!";
+/* Class = "UILabel"; text = "Quickly find the wind direction in this elegant minimalist view."; ObjectID = "74A-FE-VIW"; */
+"74A-FE-VIW.text" = "Quickly find the wind direction in this elegant minimalist view.";
 
-/* Class = "UILabel"; text = "Hvad er nyt"; ObjectID = "DYL-PV-xrH"; */
-"DYL-PV-xrH.text" = "What's new";
+/* Class = "UIButton"; normalTitle = "OK, cool!"; ObjectID = "By2-Wp-Ksm"; */
+"By2-Wp-Ksm.normalTitle" = "OK, cool!";
 
-/* Class = "UILabel"; text = "Historien viser geolocation og med Sleipnir vindmåleren, vindretning!"; ObjectID = "QHy-ZF-8rZ"; */
-"QHy-ZF-8rZ.text" = "History shows geolocation and, with the new Sleipnir windmeter, wind direction!";
+/* Class = "UILabel"; text = "New and improved!"; ObjectID = "DYL-PV-xrH"; */
+"DYL-PV-xrH.text" = "New and improved!";
 
-/* Class = "UILabel"; text = "Hvad er nyt"; ObjectID = "zoH-zr-gYm"; */
-"zoH-zr-gYm.text" = "What's new";
+/* Class = "UILabel"; text = "We made our familiar wind view better, and created two new exciting ways to see the weather. Swipe to learn more!"; ObjectID = "QHy-ZF-8rZ"; */
+"QHy-ZF-8rZ.text" = "We made our familiar wind view better, and created two new exciting ways to see the weather. Swipe to learn more!";
+
+/* Class = "UILabel"; text = "Radar"; ObjectID = "kfr-KI-mR5"; */
+"kfr-KI-mR5.text" = "Radar!";
+
+/* Class = "UILabel"; text = "Directions!"; ObjectID = "zoH-zr-gYm"; */
+"zoH-zr-gYm.text" = "Directions!";

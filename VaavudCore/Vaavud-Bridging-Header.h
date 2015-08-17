@@ -21,12 +21,11 @@
 #import "AccountManager.h"
 #import "ServerUploadManager.h"
 #import "Mixpanel.h"
+#import "MixpanelUtil.h"
 #import "RegisterViewController.h"
 
 #import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
 #import "MjolnirMeasurementController.h"
-
-#import "SavingWindMeasurementController.h" // tabort
 
 #import <DropboxSDK/DropboxSDK.h>
 

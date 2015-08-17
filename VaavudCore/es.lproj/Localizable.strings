@@ -202,3 +202,12 @@
 "UPGRADE_GET_IT_LATER" = "Lo compraré más tarde";
 "NSLocationWhenInUseUsageDescription" = "Utilizamos su posición para poder mostrarte donde la medición fue tomada.";
 "NSMicrophoneUsageDescription" = "El anemómetro Sleipnir utiliza el conector de los auriculares para comunicarse con el teléfono";
+"MICROPHONE_PERMISSION_REASON_TITLE" = "Permisos";
+"MICROPHONE_PERMISSION_REASON_TEXT" = "Tienes que dar a la aplicación Vaavud permiso para utilizar el micrófono. Ve a las opciones de la aplicación.";
+"KEY_MAP_GUIDE_MEASURE_BUTTON_TITLE" = "¡Toma una medición!";
+"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION" = "¡Presiona aquí para tomar una medición con tu anemómetro Mjolnir o Sleipnir!";
+"SLEIPNIR_PROBLEM_TITLE" = "Sleipnir no disponible";
+"SLEIPNIR_PROBLEM_MESSAGE" = "Por favor, inserta tu anemómetro Sleipnir antes de empezar.";
+"SLEIPNIR_PROBLEM_SWITCH" = "Uso Mjolnir";
+
+

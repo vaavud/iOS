@@ -202,3 +202,10 @@
 "UPGRADE_GET_IT_LATER" = "Plus tard";
 "NSLocationWhenInUseUsageDescription" = "Nous utilisons votre localisation pour vous montrer l'endroit où a été effectué chaque relevé.";
 "NSMicrophoneUsageDescription" = "L'anémomètre Sleipnir utilise la prise casque pour communiquer avec le téléphone";
+"MICROPHONE_PERMISSION_REASON_TITLE" = "Autorisation ";
+"MICROPHONE_PERMISSION_REASON_TEXT" = "Vous devez donner l’autorisation à l’application Vaavud d’utiliser le microphone. Accédez y via les paramètres de l’application. ";
+"KEY_MAP_GUIDE_MEASURE_BUTTON_TITLE" = "Prenez une mesure!";
+"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION" = "Appuyez ici pour effectuer une mesure avec votre anémomètre Mjolnir ou Sleipnir!";
+"SLEIPNIR_PROBLEM_TITLE" = "Sleipnir non disponible";
+"SLEIPNIR_PROBLEM_MESSAGE" = "Veuillez insérer votre anémomètre Sleipnir avant de prendre une mesure";
+"SLEIPNIR_PROBLEM_SWITCH" = "Utilisez Mjolnir";

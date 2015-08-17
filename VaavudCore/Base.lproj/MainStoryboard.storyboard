@@ -348,7 +348,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wim-9u-nEV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-665" y="-832"/>
+            <point key="canvasLocation" x="-674" y="-832"/>
         </scene>
         <!--Activity Flow View Controller-->
         <scene sceneID="WQI-7S-3cY">
@@ -436,7 +436,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j2t-jG-9Eg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-276" y="-832"/>
+            <point key="canvasLocation" x="-234" y="-832"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="1B3-6E-RY6">
@@ -2060,6 +2060,7 @@
                         <outlet property="phoneOffset" destination="Q1P-qM-FTN" id="cbN-xI-mfa"/>
                         <outlet property="phoneScrollView" destination="bFL-kk-Jc0" id="71a-Ri-nlk"/>
                         <outlet property="scrollView" destination="3NS-XV-KaA" id="HKr-mC-5l1"/>
+                        <outlet property="topPhoneOffset" destination="jbo-QI-5PL" id="QBx-tN-lYD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ow3-3G-Odu" userLabel="First Responder" sceneMemberID="firstResponder"/>

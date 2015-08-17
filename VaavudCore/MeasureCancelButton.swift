@@ -20,6 +20,13 @@ enum MeasureState {
         default: return false
         }
     }
+    
+    var timed: Bool {
+        switch self {
+        case .Limited: return true
+        default: return false
+        }
+    }
 }
 
 class MeasureCancelButton: UIButton {

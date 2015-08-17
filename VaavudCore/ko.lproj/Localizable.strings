@@ -202,3 +202,10 @@
 "UPGRADE_GET_IT_LATER" = "나중에 구매하기";
 "NSLocationWhenInUseUsageDescription" = "각 측정값이 측정될 때마다 표시할 수 있는 위치를 사용합니다.";
 "NSMicrophoneUsageDescription" = "Sleipnir 풍속계는 헤드폰잭을 사용하여 휴대폰과 함께 커뮤니케이션";
+"MICROPHONE_PERMISSION_REASON_TITLE" = "허락";
+"MICROPHONE_PERMISSION_REASON_TEXT" = "마이크를 쓰려면 Vaavud 앱에 허락을 해주어야 합니다. 앱 설정으로 가주세요.";
+"KEY_MAP_GUIDE_MEASURE_BUTTON_TITLE" = "측정을 만드세요!";
+"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION" = "측정 바람이 Mjolnir 또는 Sleipnir 풍력계로 나오게 하려면 여기를 누르세요!";
+"SLEIPNIR_PROBLEM_TITLE" = "Sleipnir 없음";
+"SLEIPNIR_PROBLEM_MESSAGE" = "측정을 시작하기 전에 Sleipnir 풍력계를 삽입해주세요.";
+"SLEIPNIR_PROBLEM_SWITCH" = "사용 Mjolnir";

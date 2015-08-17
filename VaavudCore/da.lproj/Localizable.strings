@@ -202,3 +202,14 @@
 "UPGRADE_GET_IT_LATER" = "Jeg vil købe den senere";
 "NSLocationWhenInUseUsageDescription" = "Vi vil benytte din position for at vise dig hvor din måling var taget.";
 "NSMicrophoneUsageDescription" = "Sleipnir vindmåleren bruger hovedtelefonsstikket til at kommunikerer med telefonen.";
+"MICROPHONE_PERMISSION_REASON_TITLE" = "Tilladelse";
+"MICROPHONE_PERMISSION_REASON_TEXT" = "Du skal give Vaavud appen tilladelse til at bruge mikrofonen. Ændre i indstillinger appen.";
+"KEY_MAP_GUIDE_MEASURE_BUTTON_TITLE" = "Tag en måling!";
+"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION" = "Tryk her for at tage en måling med din Mjolnir eller Sleipnir vindmåler!";
+"SLEIPNIR_PROBLEM_TITLE" = "Sleipnir ikke tilgængelig";
+"SLEIPNIR_PROBLEM_MESSAGE" = "Indsæt din Sleipnir vindmåler før du starter en måling.";
+"SLEIPNIR_PROBLEM_SWITCH" = "Brug Mjølner";
+
+
+
+

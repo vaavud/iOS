@@ -202,3 +202,10 @@
 "UPGRADE_GET_IT_LATER" = "後で";
 "NSLocationWhenInUseUsageDescription" = "各測定がどの場所で行われたかを表示するため、ロケーションを使用します。";
 "NSMicrophoneUsageDescription" = "Sleipnir風速計は携帯と通信するためヘッドフォンジャックを使用します";
+"MICROPHONE_PERMISSION_REASON_TITLE" = "許可";
+"MICROPHONE_PERMISSION_REASON_TEXT" = "Vaavudアプリにマイクの使用許可を与える必要があります。 設定アプリを開いてください。";
+"KEY_MAP_GUIDE_MEASURE_BUTTON_TITLE" = "測定!";
+"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION" = "ここを押してMjolnirまたはSleipnirの風速計で測定してください!";
+"SLEIPNIR_PROBLEM_TITLE" = "Sleipnirをご利用できません";
+"SLEIPNIR_PROBLEM_MESSAGE" = "測定を開始する前にSleipnir風速計を差し込んでください。";
+"SLEIPNIR_PROBLEM_SWITCH" = "Mjolnir使用";

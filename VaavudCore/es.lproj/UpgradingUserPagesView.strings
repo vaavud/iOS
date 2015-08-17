@@ -1,15 +1,20 @@
+/* Class = "UILabel"; text = "Visualise the wind speed and direction on our innovative radar like screen!"; ObjectID = "454-5p-7vV"; */
+"454-5p-7vV.text" = "¡Visualiza la velocidad y dirección del viento con nuestra innovativa pantalla radar!";
 
-/* Class = "UILabel"; text = "Opsummeringsskærm der viser dine nøgle målepunkter inklusiv temperature og tryk osv."; ObjectID = "74A-FE-VIW"; */
-"74A-FE-VIW.text" = "La pantalla de resumen muestra tus datos clave en la medición, incluyendo la presión, temperatura, etc.";
+/* Class = "UILabel"; text = "Quickly find the wind direction in this elegant minimalist view."; ObjectID = "74A-FE-VIW"; */
+"74A-FE-VIW.text" = "Encuentra fácilmente la dirección del viento con esta elegante y minimalista pantalla.";
 
-/* Class = "UIButton"; normalTitle = "Køb den nye Sleipnir nu!"; ObjectID = "By2-Wp-Ksm"; */
-"By2-Wp-Ksm.normalTitle" = "Compra el nuevo Sleipnir ahora!";
+/* Class = "UIButton"; normalTitle = "OK, cool!"; ObjectID = "By2-Wp-Ksm"; */
+"By2-Wp-Ksm.normalTitle" = "OK, ¡genial!";
 
-/* Class = "UILabel"; text = "Hvad er nyt"; ObjectID = "DYL-PV-xrH"; */
-"DYL-PV-xrH.text" = "Novedades";
+/* Class = "UILabel"; text = "New and improved!"; ObjectID = "DYL-PV-xrH"; */
+"DYL-PV-xrH.text" = "¡Nueva y mejorada!";
 
-/* Class = "UILabel"; text = "Historien viser geolocation og med Sleipnir vindmåleren, vindretning!"; ObjectID = "QHy-ZF-8rZ"; */
-"QHy-ZF-8rZ.text" = "El historial muestra la geolocalización y, con el nuevo anemómetro Sleipnir, la dirección del viento!";
+/* Class = "UILabel"; text = "We made our familiar wind view better, and created two new exciting ways to see the weather. Swipe to learn more!"; ObjectID = "QHy-ZF-8rZ"; */
+"QHy-ZF-8rZ.text" = "Hemos mejorado nuestra pantalla de medición, y hemos creado dos nuevas maneras de mostrarla. ¡Desliza para aprender más!";
 
-/* Class = "UILabel"; text = "Hvad er nyt"; ObjectID = "zoH-zr-gYm"; */
-"zoH-zr-gYm.text" = "Novedades";
+/* Class = "UILabel"; text = "Radar"; ObjectID = "kfr-KI-mR5"; */
+"kfr-KI-mR5.text" = "¡Radar!";
+
+/* Class = "UILabel"; text = "Directions!"; ObjectID = "zoH-zr-gYm"; */
+"zoH-zr-gYm.text" = "¡Direcciones!";

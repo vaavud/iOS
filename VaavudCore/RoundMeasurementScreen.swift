@@ -26,6 +26,8 @@ class DynamicItem: NSObject, UIDynamicItem {
 }
 
 class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
+    var name: String { return "Radar" }
+
     @IBOutlet weak var background: RoundBackground!
     @IBOutlet weak var ruler: RoundRuler!
     @IBOutlet weak var speedLabel: UILabel!

@@ -28,6 +28,8 @@ protocol MeasurementConsumer {
 
     func changedSpeedUnit(unit: SpeedUnit)
     func useMjolnir()
+    
+    var name: String { get }
 }
 
 class MeasureRootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WindMeasurementControllerDelegate, VaavudElectronicWindDelegate, DBRestClientDelegate {
@@ -36,8 +38,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var displayLink: CADisplayLink!
 
     private let geocoder = CLGeocoder()
-    
-//    private var dropboxUploader: DropboxUploader?
     
     private var altimeter: CMAltimeter?
     
@@ -162,6 +162,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         LocationManager.sharedInstance().start()
         
+        Mixpanel.sharedInstance().track("Measure Screen")
+
         if let mjolnir = mjolnir {
             mjolnir.delegate = self
         }
@@ -180,9 +182,11 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         case .Limited:
             stop(true)
             save(true)
+            mixpanelSend("Cancelled")
         case .Unlimited:
             stop(false)
             save(false)
+            mixpanelSend("Stopped")
         case .Done:
             break
         }
@@ -223,6 +227,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 state = .Done
                 stop(false)
                 save(false)
+                mixpanelSend("Ended")
             }
             else {
                 timeLeft -= CGFloat(link.duration)
@@ -423,10 +428,32 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
     }
     
+    func mixpanelSend(action: String) {
+        if Property.isMixpanelEnabled(), let session = currentSession {
+            MixpanelUtil.updateMeasurementProperties(false)
+            
+            let model = isSleipnirSession ? "Sleipnir" : "Mjolnir"
+            var properties: [NSObject : AnyObject] = ["Action" : action, "Wind Meter" : model]
+            
+            if let start = session.startTime, let duration = session.endTime?.timeIntervalSinceDate(start) {
+                properties["Duration"] = duration
+            }
+            
+            if let avg = session.windSpeedAvg?.floatValue, let max = session.windSpeedMax?.floatValue {
+                properties["Avg Wind Speed"] = avg
+                properties["Max Wind Speed"] = max
+            }
+            
+            if let name = currentConsumer?.name {
+                properties["Measure Screen Type"] = name
+            }
+            
+            Mixpanel.sharedInstance().track("Stop Measurement", properties: properties)
+        }
+    }
+    
     func stop(cancelled: Bool) {
         println("ROOT: stop")
-                
-        state = .Done
         
         if isSleipnirSession {
             sdk.removeListener(self)
@@ -439,6 +466,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         altimeter?.stopRelativeAltitudeUpdates()
         
         reportToUrlSchemeCaller()
+
         
         dismissViewControllerAnimated(true) {
             self.pageController.view.removeFromSuperview()
@@ -485,8 +513,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func newSpeed(speed: NSNumber!) {
-        println(speed.floatValue)
-        
         latestSpeed = CGFloat(speed.floatValue)
         currentConsumer?.newSpeed(latestSpeed)
         if latestSpeed > maxSpeed { maxSpeed = latestSpeed }
