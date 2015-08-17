@@ -268,3 +268,17 @@ extension CGRect {
         return CGRect(origin: origin + dr, size: size)
     }
 }
+
+func distanceOnCircle(from angle: CGFloat, to otherAngle: CGFloat) -> CGFloat {
+    let dist = (otherAngle - angle) % 360
+    
+    if dist <= -180 {
+        return dist + 360
+    }
+    if dist > 180 {
+        return dist - 360
+    }
+    
+    return dist
+}
+

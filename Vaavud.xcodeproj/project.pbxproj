@@ -30,7 +30,6 @@
 		22AB2E6D1A70FC15008CAE46 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */; };
 		22AB2E6E1A70FC15008CAE46 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */; };
 		22AB2E701A70FD92008CAE46 /* CoreSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */; };
-		22AC73F41B3D8D64008631E8 /* MeasurementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228227511AF7ABF100822CE2 /* MeasurementViewController.swift */; };
 		22AC73F61B3D93CC008631E8 /* OldMeasureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AC73F51B3D93CC008631E8 /* OldMeasureViewController.swift */; };
 		22ADAA941A9C911400C298E6 /* EmptyHistoryArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA931A9C911400C298E6 /* EmptyHistoryArrow.swift */; };
 		22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */; };
@@ -206,7 +205,6 @@
 		22728BEC1B6BA30200AFE634 /* UIImage+Vaavud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Vaavud.h"; sourceTree = "<group>"; };
 		22728BED1B6BA30200AFE634 /* UIImage+Vaavud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Vaavud.m"; sourceTree = "<group>"; };
 		22787C3A1B5D8C8200AB6150 /* MeasureScreens.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = MeasureScreens.xcassets; path = ImageAssets/MeasureScreens.xcassets; sourceTree = "<group>"; };
-		228227511AF7ABF100822CE2 /* MeasurementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurementViewController.swift; sourceTree = "<group>"; };
 		228500871AEA8E0200E1E7C2 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		228A7BB01ADD190E00EB72CC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		228A7BB31ADD190E00EB72CC /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -656,7 +654,6 @@
 				2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */,
 				22DCCED31B02399800D65265 /* RoundMeasurementScreen.swift */,
 				221285B11B04A6F500D4C008 /* FlatMeasurementController.swift */,
-				228227511AF7ABF100822CE2 /* MeasurementViewController.swift */,
 				22900BB21AEE7616009D9C8F /* MjolnirSpinner.swift */,
 				22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */,
 				22ADAA931A9C911400C298E6 /* EmptyHistoryArrow.swift */,
@@ -1343,7 +1340,6 @@
 				E904AC9817F08F6E00171F7F /* MapViewController.m in Sources */,
 				E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */,
 				E91E490D19AB5F3D00616887 /* CoreMeasureViewController.m in Sources */,
-				22AC73F41B3D8D64008631E8 /* MeasurementViewController.swift in Sources */,
 				E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */,
 				E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */,
 				223DA7B41B0B696E00298A6E /* MapMeasurementViewController.swift in Sources */,
