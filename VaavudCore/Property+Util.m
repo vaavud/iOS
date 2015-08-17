@@ -9,6 +9,8 @@
 #import "Property+Util.h"
 #import "UnitUtil.h"
 #import "MeasurementSession+Util.h"
+#import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
+#import <VaavudElectronicSDK/VEVaavudElectronicSDK+Analysis.h>
 
 NSString * const KEY_CREATION_TIME = @"creationTime";
 NSString * const KEY_DEVICE_UUID = @"deviceUuid";
@@ -257,7 +259,6 @@ NSString * const KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN = @"mapGuideMeasureButtonSho
 
 + (NSDictionary *)getDeviceDictionary {
     NSNumber *timezoneOffsetMillis = [NSNumber numberWithLong:([[NSTimeZone localTimeZone] secondsFromGMT] * 1000L)];
-    
     NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
                                 [Property getAsString:KEY_DEVICE_UUID], @"uuid",
                                 @"Apple", @"vendor",
@@ -270,6 +271,8 @@ NSString * const KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN = @"mapGuideMeasureButtonSho
                                 [Property getAsString:KEY_LANGUAGE], @"language",
                                 timezoneOffsetMillis, @"timezoneOffset",
                                 [UnitUtil jsonNameForWindSpeedUnit:[[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue]], @"windSpeedUnit",
+                                @([[VEVaavudElectronicSDK sharedVaavudElectronic] getVolume]), @"sleipnirVolume",
+                                [[VEVaavudElectronicSDK sharedVaavudElectronic] getEncoderCoefficients], @"sleipnirEncoderCoefficients",
                                 nil];
     
     return dictionary;
