@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import MapKit
+import Social
 
 class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet private weak var dateLabel: UILabel!
@@ -280,18 +281,30 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
             on: self)
     }
     
-//    @IBAction func tappedShare(sender: AnyObject) {
-//        if let windSpeed = formatter.localizedWindspeed(session.windSpeedAvg?.floatValue) {
-//            let textToShare = "I just measured " + windSpeed + " " + formatter.windSpeedUnit.localizedString
-//            if let myWebsite = NSURL(string: "http://www.vaavud.com/") {
-//                let objectsToShare = [textToShare, myWebsite]
-//                let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-//                activityVC.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList]
-//                
-//                self.presentViewController(activityVC, animated: true, completion: nil)
-//            }
-//        }
-//    }
+    @IBAction func tappedShare(sender: UIButton) {
+        let insets = UIEdgeInsetsMake(-topLayoutGuide.length, 0, tabBarController?.tabBar.frame.height ?? 0, 0)
+        let frame = UIEdgeInsetsInsetRect(view.bounds, insets)
+        
+        UIGraphicsBeginImageContext(frame.size)
+        view.drawViewHierarchyInRect(frame, afterScreenUpdates: true)
+        let snap = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        if let windSpeed = formatter.localizedWindspeed(session.windSpeedAvg?.floatValue) {
+            var text = NSLocalizedString("I just measured ", comment: "")
+            text += windSpeed + " " + formatter.windSpeedUnit.localizedString
+            if let place = session?.geoLocationNameLocalized {
+                text += NSLocalizedString(" at ", comment: "Location preposition") + place
+            }
+            text += NSLocalizedString(" with my Vaavud windmeter! #VaavudWeather\n", comment: "")
+            
+            let website = NSURL(string: "http://www.vaavud.com/")!
+            
+            let activityVC = UIActivityViewController(activityItems: [snap, text, website], applicationActivities: nil)
+            activityVC.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList]
+            presentViewController(activityVC, animated: true, completion: nil)
+        }
+    }
     
     @IBAction func tappedWindDirection(sender: AnyObject) {
         if let rotation = hasSomeDirection {

@@ -1879,7 +1879,13 @@
                             <constraint firstItem="C2h-JO-28H" firstAttribute="centerX" secondItem="MuP-rr-uMT" secondAttribute="centerX" id="zS3-ML-LEn"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="9cq-Ve-6sS"/>
+                    <navigationItem key="navigationItem" title="Title" id="9cq-Ve-6sS">
+                        <barButtonItem key="rightBarButtonItem" title="Share" id="8fJ-0O-hSq">
+                            <connections>
+                                <action selector="tappedShare:" destination="8a4-bz-n0M" id="djj-oF-QZy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="averageLabel" destination="Ha6-Kc-3pj" id="kci-1N-CU0"/>
