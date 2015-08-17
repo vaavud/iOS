@@ -23,6 +23,9 @@
 		228500881AEA8E0200E1E7C2 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228500871AEA8E0200E1E7C2 /* FacebookSDK.framework */; };
 		22900BB31AEE7616009D9C8F /* MjolnirSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22900BB21AEE7616009D9C8F /* MjolnirSpinner.swift */; };
 		22900BB71AEE77C1009D9C8F /* MjolnirSpinner.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22900BB61AEE77C1009D9C8F /* MjolnirSpinner.xcassets */; };
+		229124981B81E87100DC6867 /* MjolnirMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* MjolnirMeasurementController.m */; };
+		229124991B81E8B100DC6867 /* WindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */; };
+		2291249A1B81E8DB00DC6867 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C5C3617EC826800E84D3C /* TabBarController.m */; };
 		229533511B1F3F8A00DAEA62 /* MeasureCancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229533501B1F3F8A00DAEA62 /* MeasureCancelButton.swift */; };
 		229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
 		229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3171A7EE3A0008A3226 /* VaavudViews.swift */; };
@@ -52,7 +55,6 @@
 		22EAE5D61AB1EBEA0037654E /* UpgradingUserPagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D81AB1EBEA0037654E /* UpgradingUserPagesView.xib */; };
 		22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
 		A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A086025EA7704C458175CADF /* libPods.a */; };
-		D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */; };
 		D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
 		D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* VaavudFFT.m */; };
 		D721B47E1AD1EBD10045DC99 /* DropboxUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D721B47D1AD1EBD10045DC99 /* DropboxUploader.swift */; };
@@ -63,8 +65,6 @@
 		D7A4F1D7173A8DDB00D1ACEE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1D6173A8DDB00D1ACEE /* main.m */; };
 		D7A4F1DB173A8DDB00D1ACEE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1DA173A8DDB00D1ACEE /* AppDelegate.m */; };
 		D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */; };
-		D7A4F1E7173A8DDB00D1ACEE /* MeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1E6173A8DDB00D1ACEE /* MeasureViewController.m */; };
-		D7A4F1F2173A8FAB00D1ACEE /* MjolnirMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* MjolnirMeasurementController.m */; };
 		D7A4F1F4173A9FC200D1ACEE /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */; };
 		D7B5BD531757A23C0069F739 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7B5BD521757A23C0069F739 /* CoreLocation.framework */; };
 		D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7C860ED173AD08F005E9946 /* QuartzCore.framework */; };
@@ -78,9 +78,7 @@
 		E91D4215198F7A9800106E15 /* GuideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E91D4214198F7A9800106E15 /* GuideView.xib */; };
 		E91D4218198F7C8400106E15 /* GuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91D4217198F7C8400106E15 /* GuideView.m */; };
 		E91D421B198F7E4900106E15 /* DismissOnTouchUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91D421A198F7E4900106E15 /* DismissOnTouchUIView.m */; };
-		E91E490D19AB5F3D00616887 /* CoreMeasureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E91E490C19AB5F3D00616887 /* CoreMeasureViewController.m */; };
 		E93338F7178C561B006E2314 /* ModelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E93338F6178C561B006E2314 /* ModelManager.m */; };
-		E93C5C3717EC826800E84D3C /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C5C3617EC826800E84D3C /* TabBarController.m */; };
 		E93C865A1781BE56005E4212 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86591781BE56005E4212 /* LocationManager.m */; };
 		E93C86631781C764005E4212 /* Property+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86621781C764005E4212 /* Property+Util.m */; };
 		E93C86691781C88B005E4212 /* Property.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86681781C88B005E4212 /* Property.m */; };
@@ -89,12 +87,10 @@
 		E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E94CBB5D177DB3050089D440 /* UUIDUtil.m */; };
 		E960260818575452009396B1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E960260A18575452009396B1 /* Localizable.strings */; };
 		E960260E18575E41009396B1 /* MeasurementCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E960261018575E41009396B1 /* MeasurementCalloutView.xib */; };
-		E9793A85196C411C00E3823E /* ParentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9793A84196C411C00E3823E /* ParentViewController.m */; };
 		E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */; };
 		E97AC6D018BCDE19004DEC65 /* TermsPrivacyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */; };
 		E984F26319B878BD004024C6 /* MixpanelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E984F26219B878BD004024C6 /* MixpanelUtil.m */; };
 		E98C9A6019B9D9EE009428F3 /* SleipnirMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C9A5F19B9D9EE009428F3 /* SleipnirMeasurementController.m */; };
-		E98C9A6319BF0E80009428F3 /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C9A6219BF0E80009428F3 /* GraphView.m */; };
 		E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */; };
 		E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */; };
 		E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8917DF5BA600DED985 /* libz.dylib */; };
@@ -128,12 +124,8 @@
 		E9B950CC195B1DCE00E9EF02 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950CB195B1DCE00E9EF02 /* ImageUtil.m */; };
 		E9B950E3195C587800E9EF02 /* FirstTimeExplanationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950E0195C587800E9EF02 /* FirstTimeExplanationViewController.m */; };
 		E9B950E4195C587800E9EF02 /* FirstTimeFlowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950E2195C587800E9EF02 /* FirstTimeFlowController.m */; };
-		E9B950E719619F7300E9EF02 /* ShareDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9B950E619619F7300E9EF02 /* ShareDialog.xib */; };
-		E9B950EA1961A21500E9EF02 /* ShareDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950E91961A21500E9EF02 /* ShareDialog.m */; };
 		E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */; };
 		E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */; };
-		E9D9044D19C1971000ABA9F4 /* WindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */; };
-		E9D9045119C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9045019C1984D00ABA9F4 /* SavingWindMeasurementController.m */; };
 		E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */; };
 		E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */; };
 		E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9EE1FB8176A024B00D1F006 /* CoreData.framework */; };
@@ -263,7 +255,6 @@
 		22FA6C501A727171004DD868 /* VaavudStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VaavudStyle.swift; path = Vaavud/StyleKit/VaavudStyle.swift; sourceTree = SOURCE_ROOT; };
 		A086025EA7704C458175CADF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDE6761506C86D4075981625 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = "libCorePlot-CocoaTouch.a"; sourceTree = "<group>"; };
 		D7092E881748FE9C00993235 /* VaavudDynamicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudDynamicsController.h; sourceTree = "<group>"; };
 		D7092E891748FE9C00993235 /* VaavudDynamicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudDynamicsController.m; sourceTree = "<group>"; };
 		D71BE13517439AA000B38E34 /* VaavudFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudFFT.h; sourceTree = "<group>"; };
@@ -290,8 +281,6 @@
 		D7A4F1D8173A8DDB00D1ACEE /* Vaavud-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Prefix.pch"; sourceTree = "<group>"; };
 		D7A4F1D9173A8DDB00D1ACEE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D7A4F1DA173A8DDB00D1ACEE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D7A4F1E5173A8DDB00D1ACEE /* MeasureViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MeasureViewController.h; sourceTree = "<group>"; };
-		D7A4F1E6173A8DDB00D1ACEE /* MeasureViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MeasureViewController.m; sourceTree = "<group>"; };
 		D7A4F1F0173A8FAB00D1ACEE /* MjolnirMeasurementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MjolnirMeasurementController.h; sourceTree = "<group>"; };
 		D7A4F1F1173A8FAB00D1ACEE /* MjolnirMeasurementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MjolnirMeasurementController.m; sourceTree = "<group>"; };
 		D7A4F1F3173A9FC200D1ACEE /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -318,8 +307,6 @@
 		E91D4217198F7C8400106E15 /* GuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideView.m; sourceTree = "<group>"; };
 		E91D4219198F7E4900106E15 /* DismissOnTouchUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DismissOnTouchUIView.h; sourceTree = "<group>"; };
 		E91D421A198F7E4900106E15 /* DismissOnTouchUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DismissOnTouchUIView.m; sourceTree = "<group>"; };
-		E91E490B19AB5F3D00616887 /* CoreMeasureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreMeasureViewController.h; sourceTree = "<group>"; };
-		E91E490C19AB5F3D00616887 /* CoreMeasureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreMeasureViewController.m; sourceTree = "<group>"; };
 		E93338F5178C561B006E2314 /* ModelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelManager.h; sourceTree = "<group>"; };
 		E93338F6178C561B006E2314 /* ModelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelManager.m; sourceTree = "<group>"; };
 		E93C5C3517EC826800E84D3C /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
@@ -352,86 +339,6 @@
 		E984F26219B878BD004024C6 /* MixpanelUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixpanelUtil.m; sourceTree = "<group>"; };
 		E98C9A5E19B9D9EE009428F3 /* SleipnirMeasurementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleipnirMeasurementController.h; sourceTree = "<group>"; };
 		E98C9A5F19B9D9EE009428F3 /* SleipnirMeasurementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleipnirMeasurementController.m; sourceTree = "<group>"; };
-		E98C9A6119BF0E80009428F3 /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
-		E98C9A6219BF0E80009428F3 /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
-		E98C9A6619BF1307009428F3 /* CorePlot-CocoaTouch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CorePlot-CocoaTouch.h"; sourceTree = "<group>"; };
-		E98C9A6719BF1307009428F3 /* CPTAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAnimation.h; sourceTree = "<group>"; };
-		E98C9A6819BF1307009428F3 /* CPTAnimationOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAnimationOperation.h; sourceTree = "<group>"; };
-		E98C9A6919BF1307009428F3 /* CPTAnimationPeriod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAnimationPeriod.h; sourceTree = "<group>"; };
-		E98C9A6A19BF1307009428F3 /* CPTAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAnnotation.h; sourceTree = "<group>"; };
-		E98C9A6B19BF1307009428F3 /* CPTAnnotationHostLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAnnotationHostLayer.h; sourceTree = "<group>"; };
-		E98C9A6C19BF1307009428F3 /* CPTAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAxis.h; sourceTree = "<group>"; };
-		E98C9A6D19BF1307009428F3 /* CPTAxisLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAxisLabel.h; sourceTree = "<group>"; };
-		E98C9A6E19BF1307009428F3 /* CPTAxisLabelGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAxisLabelGroup.h; sourceTree = "<group>"; };
-		E98C9A6F19BF1307009428F3 /* CPTAxisSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAxisSet.h; sourceTree = "<group>"; };
-		E98C9A7019BF1307009428F3 /* CPTAxisTitle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTAxisTitle.h; sourceTree = "<group>"; };
-		E98C9A7119BF1307009428F3 /* CPTBarPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTBarPlot.h; sourceTree = "<group>"; };
-		E98C9A7219BF1307009428F3 /* CPTBorderedLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTBorderedLayer.h; sourceTree = "<group>"; };
-		E98C9A7319BF1307009428F3 /* CPTCalendarFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTCalendarFormatter.h; sourceTree = "<group>"; };
-		E98C9A7419BF1307009428F3 /* CPTColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTColor.h; sourceTree = "<group>"; };
-		E98C9A7519BF1307009428F3 /* CPTColorSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTColorSpace.h; sourceTree = "<group>"; };
-		E98C9A7619BF1307009428F3 /* CPTConstraints.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTConstraints.h; sourceTree = "<group>"; };
-		E98C9A7719BF1307009428F3 /* CPTDataSourceTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTDataSourceTestCase.h; sourceTree = "<group>"; };
-		E98C9A7819BF1307009428F3 /* CPTDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTDefinitions.h; sourceTree = "<group>"; };
-		E98C9A7919BF1307009428F3 /* CPTDerivedXYGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTDerivedXYGraph.h; sourceTree = "<group>"; };
-		E98C9A7A19BF1307009428F3 /* CPTExceptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTExceptions.h; sourceTree = "<group>"; };
-		E98C9A7B19BF1307009428F3 /* CPTFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTFill.h; sourceTree = "<group>"; };
-		E98C9A7C19BF1307009428F3 /* CPTFunctionDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTFunctionDataSource.h; sourceTree = "<group>"; };
-		E98C9A7D19BF1307009428F3 /* CPTGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTGradient.h; sourceTree = "<group>"; };
-		E98C9A7E19BF1307009428F3 /* CPTGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTGraph.h; sourceTree = "<group>"; };
-		E98C9A7F19BF1307009428F3 /* CPTGraphHostingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTGraphHostingView.h; sourceTree = "<group>"; };
-		E98C9A8019BF1307009428F3 /* CPTGridLineGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTGridLineGroup.h; sourceTree = "<group>"; };
-		E98C9A8119BF1307009428F3 /* CPTGridLines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTGridLines.h; sourceTree = "<group>"; };
-		E98C9A8219BF1307009428F3 /* CPTImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTImage.h; sourceTree = "<group>"; };
-		E98C9A8319BF1307009428F3 /* CPTLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTLayer.h; sourceTree = "<group>"; };
-		E98C9A8419BF1307009428F3 /* CPTLayerAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTLayerAnnotation.h; sourceTree = "<group>"; };
-		E98C9A8519BF1307009428F3 /* CPTLegend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTLegend.h; sourceTree = "<group>"; };
-		E98C9A8619BF1307009428F3 /* CPTLegendEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTLegendEntry.h; sourceTree = "<group>"; };
-		E98C9A8719BF1307009428F3 /* CPTLimitBand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTLimitBand.h; sourceTree = "<group>"; };
-		E98C9A8819BF1307009428F3 /* CPTLineCap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTLineCap.h; sourceTree = "<group>"; };
-		E98C9A8919BF1307009428F3 /* CPTLineStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTLineStyle.h; sourceTree = "<group>"; };
-		E98C9A8A19BF1307009428F3 /* CPTMutableLineStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTMutableLineStyle.h; sourceTree = "<group>"; };
-		E98C9A8B19BF1307009428F3 /* CPTMutableNumericData+TypeConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPTMutableNumericData+TypeConversion.h"; sourceTree = "<group>"; };
-		E98C9A8C19BF1307009428F3 /* CPTMutableNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTMutableNumericData.h; sourceTree = "<group>"; };
-		E98C9A8D19BF1307009428F3 /* CPTMutablePlotRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTMutablePlotRange.h; sourceTree = "<group>"; };
-		E98C9A8E19BF1307009428F3 /* CPTMutableShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTMutableShadow.h; sourceTree = "<group>"; };
-		E98C9A8F19BF1307009428F3 /* CPTMutableTextStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTMutableTextStyle.h; sourceTree = "<group>"; };
-		E98C9A9019BF1307009428F3 /* CPTNumericData+TypeConversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CPTNumericData+TypeConversion.h"; sourceTree = "<group>"; };
-		E98C9A9119BF1307009428F3 /* CPTNumericData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTNumericData.h; sourceTree = "<group>"; };
-		E98C9A9219BF1307009428F3 /* CPTNumericDataType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTNumericDataType.h; sourceTree = "<group>"; };
-		E98C9A9319BF1307009428F3 /* CPTPathExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPathExtensions.h; sourceTree = "<group>"; };
-		E98C9A9419BF1307009428F3 /* CPTPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPieChart.h; sourceTree = "<group>"; };
-		E98C9A9519BF1307009428F3 /* CPTPlatformSpecificCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlatformSpecificCategories.h; sourceTree = "<group>"; };
-		E98C9A9619BF1307009428F3 /* CPTPlatformSpecificDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlatformSpecificDefines.h; sourceTree = "<group>"; };
-		E98C9A9719BF1307009428F3 /* CPTPlatformSpecificFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlatformSpecificFunctions.h; sourceTree = "<group>"; };
-		E98C9A9819BF1307009428F3 /* CPTPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlot.h; sourceTree = "<group>"; };
-		E98C9A9919BF1307009428F3 /* CPTPlotArea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlotArea.h; sourceTree = "<group>"; };
-		E98C9A9A19BF1307009428F3 /* CPTPlotAreaFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlotAreaFrame.h; sourceTree = "<group>"; };
-		E98C9A9B19BF1307009428F3 /* CPTPlotGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlotGroup.h; sourceTree = "<group>"; };
-		E98C9A9C19BF1307009428F3 /* CPTPlotRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlotRange.h; sourceTree = "<group>"; };
-		E98C9A9D19BF1307009428F3 /* CPTPlotSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlotSpace.h; sourceTree = "<group>"; };
-		E98C9A9E19BF1307009428F3 /* CPTPlotSpaceAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlotSpaceAnnotation.h; sourceTree = "<group>"; };
-		E98C9A9F19BF1307009428F3 /* CPTPlotSymbol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTPlotSymbol.h; sourceTree = "<group>"; };
-		E98C9AA019BF1307009428F3 /* CPTRangePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTRangePlot.h; sourceTree = "<group>"; };
-		E98C9AA119BF1307009428F3 /* CPTResponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTResponder.h; sourceTree = "<group>"; };
-		E98C9AA219BF1307009428F3 /* CPTScatterPlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTScatterPlot.h; sourceTree = "<group>"; };
-		E98C9AA319BF1307009428F3 /* CPTShadow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTShadow.h; sourceTree = "<group>"; };
-		E98C9AA419BF1307009428F3 /* CPTTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTTestCase.h; sourceTree = "<group>"; };
-		E98C9AA519BF1307009428F3 /* CPTTextLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTTextLayer.h; sourceTree = "<group>"; };
-		E98C9AA619BF1307009428F3 /* CPTTextStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTTextStyle.h; sourceTree = "<group>"; };
-		E98C9AA719BF1307009428F3 /* CPTTextStylePlatformSpecific.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTTextStylePlatformSpecific.h; sourceTree = "<group>"; };
-		E98C9AA819BF1307009428F3 /* CPTTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTTheme.h; sourceTree = "<group>"; };
-		E98C9AA919BF1307009428F3 /* CPTTimeFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTTimeFormatter.h; sourceTree = "<group>"; };
-		E98C9AAA19BF1307009428F3 /* CPTTradingRangePlot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTTradingRangePlot.h; sourceTree = "<group>"; };
-		E98C9AAB19BF1307009428F3 /* CPTUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTUtilities.h; sourceTree = "<group>"; };
-		E98C9AAC19BF1307009428F3 /* CPTXYAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTXYAxis.h; sourceTree = "<group>"; };
-		E98C9AAD19BF1307009428F3 /* CPTXYAxisSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTXYAxisSet.h; sourceTree = "<group>"; };
-		E98C9AAE19BF1307009428F3 /* CPTXYGraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTXYGraph.h; sourceTree = "<group>"; };
-		E98C9AAF19BF1307009428F3 /* CPTXYPlotSpace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPTXYPlotSpace.h; sourceTree = "<group>"; };
-		E98C9AB019BF1307009428F3 /* mainpage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mainpage.h; sourceTree = "<group>"; };
-		E98C9AB119BF1307009428F3 /* NSCoderExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSCoderExtensions.h; sourceTree = "<group>"; };
-		E98C9AB219BF1307009428F3 /* NSDecimalNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDecimalNumberExtensions.h; sourceTree = "<group>"; };
-		E98C9AB319BF1307009428F3 /* NSNumberExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNumberExtensions.h; sourceTree = "<group>"; };
 		E995F0B0177C55A80011BF07 /* DictionarySerializationUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionarySerializationUtil.h; sourceTree = "<group>"; };
 		E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionarySerializationUtil.m; sourceTree = "<group>"; };
 		E995F0B6177C7A2A0011BF07 /* MeasurementPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementPoint.h; sourceTree = "<group>"; };
@@ -495,9 +402,6 @@
 		E9B950E0195C587800E9EF02 /* FirstTimeExplanationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTimeExplanationViewController.m; sourceTree = "<group>"; };
 		E9B950E1195C587800E9EF02 /* FirstTimeFlowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstTimeFlowController.h; sourceTree = "<group>"; };
 		E9B950E2195C587800E9EF02 /* FirstTimeFlowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTimeFlowController.m; sourceTree = "<group>"; };
-		E9B950E619619F7300E9EF02 /* ShareDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShareDialog.xib; sourceTree = "<group>"; };
-		E9B950E81961A21500E9EF02 /* ShareDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareDialog.h; sourceTree = "<group>"; };
-		E9B950E91961A21500E9EF02 /* ShareDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareDialog.m; sourceTree = "<group>"; };
 		E9BB7A0B178DE2D9002E746F /* QueryStringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryStringUtil.h; sourceTree = "<group>"; };
 		E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryStringUtil.m; sourceTree = "<group>"; };
 		E9C7799519ACADB1000A6921 /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
@@ -505,8 +409,6 @@
 		E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementCalloutView.m; sourceTree = "<group>"; };
 		E9D9044B19C1971000ABA9F4 /* WindMeasurementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindMeasurementController.h; sourceTree = "<group>"; };
 		E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindMeasurementController.m; sourceTree = "<group>"; };
-		E9D9044F19C1984D00ABA9F4 /* SavingWindMeasurementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavingWindMeasurementController.h; sourceTree = "<group>"; };
-		E9D9045019C1984D00ABA9F4 /* SavingWindMeasurementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavingWindMeasurementController.m; sourceTree = "<group>"; };
 		E9D9045319C1D41D00ABA9F4 /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
 		E9EB5E8F17E84E4D00B02CE1 /* AlgorithmConstantsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlgorithmConstantsUtil.h; sourceTree = "<group>"; };
 		E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlgorithmConstantsUtil.m; sourceTree = "<group>"; };
@@ -549,7 +451,6 @@
 				D7A4F1CB173A8DDB00D1ACEE /* UIKit.framework in Frameworks */,
 				D7A4F1CD173A8DDB00D1ACEE /* Foundation.framework in Frameworks */,
 				D7A4F1CF173A8DDB00D1ACEE /* CoreGraphics.framework in Frameworks */,
-				D70241DA17478B7A008954FD /* libCorePlot-CocoaTouch.a in Frameworks */,
 				A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -564,6 +465,14 @@
 				CDE6761506C86D4075981625 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		2291249B1B81E8E700DC6867 /* Removable */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Removable;
+			path = VaavudCore;
 			sourceTree = "<group>";
 		};
 		22A3404D1A5ADB1D006CE401 /* Products */ = {
@@ -587,20 +496,11 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
-		D702418A17478B16008954FD /* CorePlot */ = {
-			isa = PBXGroup;
-			children = (
-				E98C9A6519BF1307009428F3 /* CorePlotHeaders */,
-				D70241D917478B7A008954FD /* libCorePlot-CocoaTouch.a */,
-			);
-			name = CorePlot;
-			path = ..;
-			sourceTree = "<group>";
-		};
 		D7A4F1BE173A8DDB00D1ACEE = {
 			isa = PBXGroup;
 			children = (
 				E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */,
+				2291249B1B81E8E700DC6867 /* Removable */,
 				D7A4F1D0173A8DDB00D1ACEE /* Classes */,
 				D7A4F1C9173A8DDB00D1ACEE /* Frameworks */,
 				E98853C7176868BE00F78128 /* Images */,
@@ -696,8 +596,6 @@
 			isa = PBXGroup;
 			children = (
 				E98C9A5C19B9D91F009428F3 /* Mjolnir */,
-				E9D9044F19C1984D00ABA9F4 /* SavingWindMeasurementController.h */,
-				E9D9045019C1984D00ABA9F4 /* SavingWindMeasurementController.m */,
 				E98C9A5D19B9D936009428F3 /* Sleipnir */,
 				E9D9044B19C1971000ABA9F4 /* WindMeasurementController.h */,
 				E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */,
@@ -717,8 +615,6 @@
 				E9A4098818A4DA9E004F1C12 /* Login */,
 				D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */,
 				E91E491019AB641F00616887 /* Map */,
-				E91E490A19AB5EEB00616887 /* Measure */,
-				E9B950E519619F5C00E9EF02 /* Share */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -739,19 +635,6 @@
 				E93C5C3617EC826800E84D3C /* TabBarController.m */,
 			);
 			name = Components;
-			sourceTree = "<group>";
-		};
-		E91E490A19AB5EEB00616887 /* Measure */ = {
-			isa = PBXGroup;
-			children = (
-				D7A4F1E5173A8DDB00D1ACEE /* MeasureViewController.h */,
-				D7A4F1E6173A8DDB00D1ACEE /* MeasureViewController.m */,
-				E91E490B19AB5F3D00616887 /* CoreMeasureViewController.h */,
-				E91E490C19AB5F3D00616887 /* CoreMeasureViewController.m */,
-				E98C9A6119BF0E80009428F3 /* GraphView.h */,
-				E98C9A6219BF0E80009428F3 /* GraphView.m */,
-			);
-			name = Measure;
 			sourceTree = "<group>";
 		};
 		E91E490F19AB5FA600616887 /* History */ = {
@@ -828,91 +711,6 @@
 				E98C9A5F19B9D9EE009428F3 /* SleipnirMeasurementController.m */,
 			);
 			name = Sleipnir;
-			sourceTree = "<group>";
-		};
-		E98C9A6519BF1307009428F3 /* CorePlotHeaders */ = {
-			isa = PBXGroup;
-			children = (
-				E98C9A6619BF1307009428F3 /* CorePlot-CocoaTouch.h */,
-				E98C9A6719BF1307009428F3 /* CPTAnimation.h */,
-				E98C9A6819BF1307009428F3 /* CPTAnimationOperation.h */,
-				E98C9A6919BF1307009428F3 /* CPTAnimationPeriod.h */,
-				E98C9A6A19BF1307009428F3 /* CPTAnnotation.h */,
-				E98C9A6B19BF1307009428F3 /* CPTAnnotationHostLayer.h */,
-				E98C9A6C19BF1307009428F3 /* CPTAxis.h */,
-				E98C9A6D19BF1307009428F3 /* CPTAxisLabel.h */,
-				E98C9A6E19BF1307009428F3 /* CPTAxisLabelGroup.h */,
-				E98C9A6F19BF1307009428F3 /* CPTAxisSet.h */,
-				E98C9A7019BF1307009428F3 /* CPTAxisTitle.h */,
-				E98C9A7119BF1307009428F3 /* CPTBarPlot.h */,
-				E98C9A7219BF1307009428F3 /* CPTBorderedLayer.h */,
-				E98C9A7319BF1307009428F3 /* CPTCalendarFormatter.h */,
-				E98C9A7419BF1307009428F3 /* CPTColor.h */,
-				E98C9A7519BF1307009428F3 /* CPTColorSpace.h */,
-				E98C9A7619BF1307009428F3 /* CPTConstraints.h */,
-				E98C9A7719BF1307009428F3 /* CPTDataSourceTestCase.h */,
-				E98C9A7819BF1307009428F3 /* CPTDefinitions.h */,
-				E98C9A7919BF1307009428F3 /* CPTDerivedXYGraph.h */,
-				E98C9A7A19BF1307009428F3 /* CPTExceptions.h */,
-				E98C9A7B19BF1307009428F3 /* CPTFill.h */,
-				E98C9A7C19BF1307009428F3 /* CPTFunctionDataSource.h */,
-				E98C9A7D19BF1307009428F3 /* CPTGradient.h */,
-				E98C9A7E19BF1307009428F3 /* CPTGraph.h */,
-				E98C9A7F19BF1307009428F3 /* CPTGraphHostingView.h */,
-				E98C9A8019BF1307009428F3 /* CPTGridLineGroup.h */,
-				E98C9A8119BF1307009428F3 /* CPTGridLines.h */,
-				E98C9A8219BF1307009428F3 /* CPTImage.h */,
-				E98C9A8319BF1307009428F3 /* CPTLayer.h */,
-				E98C9A8419BF1307009428F3 /* CPTLayerAnnotation.h */,
-				E98C9A8519BF1307009428F3 /* CPTLegend.h */,
-				E98C9A8619BF1307009428F3 /* CPTLegendEntry.h */,
-				E98C9A8719BF1307009428F3 /* CPTLimitBand.h */,
-				E98C9A8819BF1307009428F3 /* CPTLineCap.h */,
-				E98C9A8919BF1307009428F3 /* CPTLineStyle.h */,
-				E98C9A8A19BF1307009428F3 /* CPTMutableLineStyle.h */,
-				E98C9A8B19BF1307009428F3 /* CPTMutableNumericData+TypeConversion.h */,
-				E98C9A8C19BF1307009428F3 /* CPTMutableNumericData.h */,
-				E98C9A8D19BF1307009428F3 /* CPTMutablePlotRange.h */,
-				E98C9A8E19BF1307009428F3 /* CPTMutableShadow.h */,
-				E98C9A8F19BF1307009428F3 /* CPTMutableTextStyle.h */,
-				E98C9A9019BF1307009428F3 /* CPTNumericData+TypeConversion.h */,
-				E98C9A9119BF1307009428F3 /* CPTNumericData.h */,
-				E98C9A9219BF1307009428F3 /* CPTNumericDataType.h */,
-				E98C9A9319BF1307009428F3 /* CPTPathExtensions.h */,
-				E98C9A9419BF1307009428F3 /* CPTPieChart.h */,
-				E98C9A9519BF1307009428F3 /* CPTPlatformSpecificCategories.h */,
-				E98C9A9619BF1307009428F3 /* CPTPlatformSpecificDefines.h */,
-				E98C9A9719BF1307009428F3 /* CPTPlatformSpecificFunctions.h */,
-				E98C9A9819BF1307009428F3 /* CPTPlot.h */,
-				E98C9A9919BF1307009428F3 /* CPTPlotArea.h */,
-				E98C9A9A19BF1307009428F3 /* CPTPlotAreaFrame.h */,
-				E98C9A9B19BF1307009428F3 /* CPTPlotGroup.h */,
-				E98C9A9C19BF1307009428F3 /* CPTPlotRange.h */,
-				E98C9A9D19BF1307009428F3 /* CPTPlotSpace.h */,
-				E98C9A9E19BF1307009428F3 /* CPTPlotSpaceAnnotation.h */,
-				E98C9A9F19BF1307009428F3 /* CPTPlotSymbol.h */,
-				E98C9AA019BF1307009428F3 /* CPTRangePlot.h */,
-				E98C9AA119BF1307009428F3 /* CPTResponder.h */,
-				E98C9AA219BF1307009428F3 /* CPTScatterPlot.h */,
-				E98C9AA319BF1307009428F3 /* CPTShadow.h */,
-				E98C9AA419BF1307009428F3 /* CPTTestCase.h */,
-				E98C9AA519BF1307009428F3 /* CPTTextLayer.h */,
-				E98C9AA619BF1307009428F3 /* CPTTextStyle.h */,
-				E98C9AA719BF1307009428F3 /* CPTTextStylePlatformSpecific.h */,
-				E98C9AA819BF1307009428F3 /* CPTTheme.h */,
-				E98C9AA919BF1307009428F3 /* CPTTimeFormatter.h */,
-				E98C9AAA19BF1307009428F3 /* CPTTradingRangePlot.h */,
-				E98C9AAB19BF1307009428F3 /* CPTUtilities.h */,
-				E98C9AAC19BF1307009428F3 /* CPTXYAxis.h */,
-				E98C9AAD19BF1307009428F3 /* CPTXYAxisSet.h */,
-				E98C9AAE19BF1307009428F3 /* CPTXYGraph.h */,
-				E98C9AAF19BF1307009428F3 /* CPTXYPlotSpace.h */,
-				E98C9AB019BF1307009428F3 /* mainpage.h */,
-				E98C9AB119BF1307009428F3 /* NSCoderExtensions.h */,
-				E98C9AB219BF1307009428F3 /* NSDecimalNumberExtensions.h */,
-				E98C9AB319BF1307009428F3 /* NSNumberExtensions.h */,
-			);
-			path = CorePlotHeaders;
 			sourceTree = "<group>";
 		};
 		E9A4097118994000004F1C12 /* TMCache */ = {
@@ -1010,22 +808,11 @@
 			name = FirstTime;
 			sourceTree = "<group>";
 		};
-		E9B950E519619F5C00E9EF02 /* Share */ = {
-			isa = PBXGroup;
-			children = (
-				E9B950E619619F7300E9EF02 /* ShareDialog.xib */,
-				E9B950E81961A21500E9EF02 /* ShareDialog.h */,
-				E9B950E91961A21500E9EF02 /* ShareDialog.m */,
-			);
-			name = Share;
-			sourceTree = "<group>";
-		};
 		E9DBD3BA17688E9C00CCDA57 /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
 				E9A4097118994000004F1C12 /* TMCache */,
 				E9B627AD17708E63004678D5 /* AFNetworking */,
-				D702418A17478B16008954FD /* CorePlot */,
 				E9AF2B7F17F32A5900BDF6D9 /* NFarinaCalloutView */,
 			);
 			name = ThirdParty;
@@ -1194,7 +981,6 @@
 				D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */,
 				22E59A421ADD6F7000B1BC88 /* Logo.xcassets in Resources */,
 				E91D4215198F7A9800106E15 /* GuideView.xib in Resources */,
-				E9B950E719619F7300E9EF02 /* ShareDialog.xib in Resources */,
 				22EAE5CF1AB1EA5C0037654E /* Register.storyboard in Resources */,
 				22E59A3E1ADD6F7000B1BC88 /* InterfaceElements.xcassets in Resources */,
 				22E59A401ADD6F7000B1BC88 /* IntroFlow.xcassets in Resources */,
@@ -1272,10 +1058,7 @@
 				D7A4F1D7173A8DDB00D1ACEE /* main.m in Sources */,
 				D7A4F1DB173A8DDB00D1ACEE /* AppDelegate.m in Sources */,
 				22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */,
-				D7A4F1E7173A8DDB00D1ACEE /* MeasureViewController.m in Sources */,
-				D7A4F1F2173A8FAB00D1ACEE /* MjolnirMeasurementController.m in Sources */,
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
-				E9D9044D19C1971000ABA9F4 /* WindMeasurementController.m in Sources */,
 				E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */,
 				22DCCED41B02399800D65265 /* RoundMeasurementScreen.swift in Sources */,
 				D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */,
@@ -1293,6 +1076,7 @@
 				E9B627C417708E63004678D5 /* AFJSONRequestOperation.m in Sources */,
 				2231A0A41B19BECE003DADDB /* MeasureRootViewController.swift in Sources */,
 				E91D4218198F7C8400106E15 /* GuideView.m in Sources */,
+				229124981B81E87100DC6867 /* MjolnirMeasurementController.m in Sources */,
 				E9159CA51A03E09100742188 /* MeasurementSession.m in Sources */,
 				E9B627C517708E63004678D5 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */,
@@ -1304,7 +1088,6 @@
 				E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */,
 				E9B627C817708E63004678D5 /* AFXMLRequestOperation.m in Sources */,
 				E9B627C917708E63004678D5 /* UIImageView+AFNetworking.m in Sources */,
-				E9D9045119C1984D00ABA9F4 /* SavingWindMeasurementController.m in Sources */,
 				E9B627D1177096D6004678D5 /* VaavudAPIHTTPClient.m in Sources */,
 				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,
 				E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */,
@@ -1316,7 +1099,6 @@
 				22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */,
 				E9FD000B17FD6A06001A8491 /* FormatUtil.m in Sources */,
 				2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */,
-				E9793A85196C411C00E3823E /* ParentViewController.m in Sources */,
 				E9FABFDE18929473009C4C46 /* HistoryTableViewController.m in Sources */,
 				22900BB31AEE7616009D9C8F /* MjolnirSpinner.swift in Sources */,
 				E97AC6D018BCDE19004DEC65 /* TermsPrivacyNavigationController.m in Sources */,
@@ -1331,15 +1113,13 @@
 				E9A4097918994000004F1C12 /* TMDiskCache.m in Sources */,
 				22E602471B6F67C600B706E0 /* ActivityFlowViewController.swift in Sources */,
 				E9B950E4195C587800E9EF02 /* FirstTimeFlowController.m in Sources */,
+				229124991B81E8B100DC6867 /* WindMeasurementController.m in Sources */,
 				E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */,
 				22728BEE1B6BA30200AFE634 /* UIImage+Vaavud.m in Sources */,
 				D721B47E1AD1EBD10045DC99 /* DropboxUploader.swift in Sources */,
 				E9B950E3195C587800E9EF02 /* FirstTimeExplanationViewController.m in Sources */,
-				E93C5C3717EC826800E84D3C /* TabBarController.m in Sources */,
-				E98C9A6319BF0E80009428F3 /* GraphView.m in Sources */,
 				E904AC9817F08F6E00171F7F /* MapViewController.m in Sources */,
 				E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */,
-				E91E490D19AB5F3D00616887 /* CoreMeasureViewController.m in Sources */,
 				E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */,
 				E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */,
 				223DA7B41B0B696E00298A6E /* MapMeasurementViewController.swift in Sources */,
@@ -1350,13 +1130,13 @@
 				E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */,
 				E93C86691781C88B005E4212 /* Property.m in Sources */,
 				E93C866F1781D69A005E4212 /* MeasurementSession+Util.m in Sources */,
-				E9B950EA1961A21500E9EF02 /* ShareDialog.m in Sources */,
 				E93C86721781D727005E4212 /* MeasurementPoint+Util.m in Sources */,
 				E93338F7178C561B006E2314 /* ModelManager.m in Sources */,
 				22AB2E701A70FD92008CAE46 /* CoreSummaryViewController.swift in Sources */,
 				E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */,
 				E9A4097A18994000004F1C12 /* TMMemoryCache.m in Sources */,
 				E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */,
+				2291249A1B81E8DB00DC6867 /* TabBarController.m in Sources */,
 				E9A4099018A52151004F1C12 /* SignUpViewController.m in Sources */,
 				22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */,
 			);
