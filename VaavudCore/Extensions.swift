@@ -218,6 +218,16 @@ extension CGPoint {
     }
 }
 
+extension CGSize {
+    func expandX(value: CGFloat) -> CGSize {
+        return CGSize(width: width + value, height: height)
+    }
+
+    func expandY(value: CGFloat) -> CGSize {
+        return CGSize(width: width, height: height + value)
+    }
+}
+
 func mod(i: Int, n: Int) -> Int {
     return ((i % n) + n) % n
 }
@@ -266,6 +276,14 @@ extension CGRect {
     
     func move(dr: CGPoint) -> CGRect {
         return CGRect(origin: origin + dr, size: size)
+    }
+    
+    func moveX(value: CGFloat) -> CGRect {
+        return CGRect(origin: origin + CGPoint(x: value, y: 0), size: size)
+    }
+
+    func moveY(value: CGFloat) -> CGRect {
+        return CGRect(origin: origin + CGPoint(x: 0, y: value), size: size)
     }
 }
 

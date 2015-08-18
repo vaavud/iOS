@@ -282,8 +282,8 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func tappedShare(sender: UIButton) {
-        let frame = view.bounds.move(CGPoint(x: 0, y: -topLayoutGuide.length))
-        UIGraphicsBeginImageContextWithOptions(CGSize(width: view.bounds.width, height: view.bounds.height - topLayoutGuide.length), true, 0)
+        let frame = view.bounds.moveY(-topLayoutGuide.length)
+        UIGraphicsBeginImageContextWithOptions( view.bounds.size.expandY(-topLayoutGuide.length), true, 0)
         
         view.drawViewHierarchyInRect(frame, afterScreenUpdates: true)
         let snap = UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext())
