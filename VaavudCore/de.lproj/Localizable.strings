@@ -202,10 +202,11 @@
 "UPGRADE_GET_IT_LATER" = "Kaufe ich später";
 "NSLocationWhenInUseUsageDescription" = "Wir zeigen Ihnen Ihre Position, sodass Sie sehen können, wo die Messungen stattgefunden haben.";
 "NSMicrophoneUsageDescription" = "Der Sleipnir-Windmesser braucht die Kopfhörerbuchse für die Verbindung zu Ihrem Telefon";
-"MICROPHONE_PERMISSION_REASON_TITLE" = "Permission";
-"MICROPHONE_PERMISSION_REASON_TEXT" = "You have to give the Vaavud app permission to use the microphone. Go to the settings app.";
-"KEY_MAP_GUIDE_MEASURE_BUTTON_TITLE" = "Make a measurement!";
-"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION" = "Press here to take a measurement wind your Mjolnir or Sleipnir wind meter!";
-"SLEIPNIR_PROBLEM_TITLE" = "Sleipnir not available";
-"SLEIPNIR_PROBLEM_MESSAGE" = "Please insert your Sleipnir wind meter before starting taking a measurement.";
-"SLEIPNIR_PROBLEM_SWITCH" = "Use Mjolnir";
+
+"MICROPHONE_PERMISSION_REASON_TITLE" = "Genehmigung";
+"MICROPHONE_PERMISSION_REASON_TEXT" = "Sie müssen der Vaavud-App die Genehmigung für die Benutzung des Mikrofones erteilen. Gehen Sie zu den Einstellungen. ";
+"KEY_MAP_GUIDE_MEASURE_BUTTON_TITLE" = "Nehmen Sie eine Messung vor! ";
+"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION" = "Drücken Sie hier und nehmen Sie eine Messung mit Ihrem Mjolnir- oder Sleipnir-Windmesser vor! ";
+"SLEIPNIR_PROBLEM_TITLE" = "Sleipnir nicht verfügbar";
+"SLEIPNIR_PROBLEM_MESSAGE" = "Stecken Sie bitte zuerst Ihr Sleipnir-Windmesser ein, befor Sie mit dem Messen beginnen. ";
+"SLEIPNIR_PROBLEM_SWITCH" = "Mjolnir benutzen";

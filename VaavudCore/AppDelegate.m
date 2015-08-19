@@ -188,21 +188,21 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    
     if ([url.scheme isEqualToString:@"vaavud"]) {
-        NSDictionary *dict = [QueryStringUtil parseQueryString:[url query]];
+        NSDictionary *dict = [QueryStringUtil parseQueryString:url.query];
         
         self.xCallbackSuccess = nil;
         
-        if ([@"x-callback-url" compare:url.host] == NSOrderedSame && [@"/measure" compare:url.path] == NSOrderedSame) {
-            NSString *xSuccess = [dict objectForKey:@"x-success"];
-            if (xSuccess && xSuccess != nil && xSuccess != (id)[NSNull null] && xSuccess.length > 0) {
-                NSLog(@"[VaavudAppDelegate] opened with x-callback-url, setting x-success to %@", xSuccess);
-                self.xCallbackSuccess = xSuccess;
+        if ([url.host isEqualToString:@"x-callback-url"]) {
+            if ([url.path isEqualToString:@"/measure"]) {
+                [VEVaavudElectronicSDK sharedVaavudElectronic];
+                self.xCallbackSuccess = [dict objectForKey:@"x-success"];
                 
                 if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
                     TabBarController *tabBarController = (TabBarController *)self.window.rootViewController;
                     if (tabBarController != nil && tabBarController.isViewLoaded) {
-                        [tabBarController performSegueWithIdentifier:@"ShowMeasureScreen" sender:self];
+                        [tabBarController takeMeasurementFromUrlScheme];
                     }
                 }
             }

@@ -465,8 +465,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
         altimeter?.stopRelativeAltitudeUpdates()
         
-        reportToUrlSchemeCaller()
-
+        reportToUrlSchemeCaller(cancelled)
         
         dismissViewControllerAnimated(true) {
             self.pageController.view.removeFromSuperview()
@@ -479,24 +478,17 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
     }
     
-    func reportToUrlSchemeCaller() {
+    func reportToUrlSchemeCaller(cancelled: Bool) {
         if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate,
-            let x = appDelegate.xCallbackSuccess where count(x) > 0 {
-                println("=== There is a pending x-callback: \(x)")
-                
-                if let url = NSURL(string:x + "?windSpeedAvg=\(avgSpeed)&windSpeedMax=\(maxSpeed)") {
-                    appDelegate.xCallbackSuccess = nil
-                    
-                    println("=== Trying to open: \(url)")
-                    
-                    let success = UIApplication.sharedApplication().openURL(url)
-                    
-                    if !success {
-                        println("=== Failed to open callback url")
-                    }
-                    else {
-                        println("=== Managed to open callback url")
-                    }
+            x = appDelegate.xCallbackSuccess,
+            encoded = x.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding) {
+                appDelegate.xCallbackSuccess = nil
+
+                if cancelled, let url = NSURL(string:encoded + "?x-source=Vaavud&x-cancelled") {
+                    UIApplication.sharedApplication().openURL(url)
+                }
+                else if let url = NSURL(string:encoded + "?x-source=Vaavud&windSpeedAvg=\(avgSpeed)&windSpeedMax=\(maxSpeed)") {
+                    UIApplication.sharedApplication().openURL(url)
                 }
         }
     }

@@ -18,6 +18,8 @@
 
 @interface TabBarController : UITabBarController <SMCalloutViewDelegate, DismissOnTouchUIViewDelegate>
 
+- (void)takeMeasurementFromUrlScheme;
 - (BOOL)isShowingGuideView;
 - (void)showCalloutGuideView:(NSString *)headingText explanationText:(NSString *)explanationText customPosition:(CGRect)rect withArrow:(BOOL)withArrow inView:(UIView *)inView;
+
 @end

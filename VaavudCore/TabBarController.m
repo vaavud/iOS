@@ -30,6 +30,8 @@
 @property (nonatomic) UIButton *measureButton;
 @property (nonatomic) CGFloat laidOutWidth;
 
+@property (nonatomic) int sleipnirFromCallbackAttempts;
+
 @property (nonatomic) VaavudInteractions *interactions;
 
 @end
@@ -38,6 +40,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.sleipnirFromCallbackAttempts = 0;
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     CGRect frame = self.tabBar.bounds;
@@ -112,20 +116,36 @@
     self.laidOutWidth = width;
 }
 
--(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    if (viewController == self.childViewControllers[2]) {
-        VEVaavudElectronicSDK *sdk = [VEVaavudElectronicSDK sharedVaavudElectronic];
-        if ([Property getAsBoolean:KEY_USES_SLEIPNIR] && !sdk.sleipnirAvailable) {
-            [self.interactions showLocalAlert:@"SLEIPNIR_PROBLEM_TITLE" messageKey:@"SLEIPNIR_PROBLEM_MESSAGE" cancelKey:@"BUTTON_OK" otherKey:@"SLEIPNIR_PROBLEM_SWITCH" action:^{
-                [Property setAsBoolean:NO forKey:KEY_USES_SLEIPNIR];
-                [[NSNotificationCenter defaultCenter] postNotificationName:KEY_WINDMETERMODEL_CHANGED object:self];
-                [self performSegueWithIdentifier:@"ShowMeasureScreen" sender:self];
-            } on:self];
-        }
-        else {
-            [self performSegueWithIdentifier:@"ShowMeasureScreen" sender:self];
+- (void)takeMeasurementFromUrlScheme {
+    [self takeMeasurement:YES];
+}
+
+- (void)takeMeasurement:(BOOL)fromUrlScheme {
+    VEVaavudElectronicSDK *sdk = [VEVaavudElectronicSDK sharedVaavudElectronic];
+    
+    if ([Property getAsBoolean:KEY_USES_SLEIPNIR] && !sdk.sleipnirAvailable) {
+        if (fromUrlScheme && self.sleipnirFromCallbackAttempts < 10) {
+            self.sleipnirFromCallbackAttempts++;
+            [self performSelector:@selector(takeMeasurementFromUrlScheme) withObject:nil afterDelay:0.1];
+            return;
         }
         
+        [self.interactions showLocalAlert:@"SLEIPNIR_PROBLEM_TITLE" messageKey:@"SLEIPNIR_PROBLEM_MESSAGE" cancelKey:@"BUTTON_OK" otherKey:@"SLEIPNIR_PROBLEM_SWITCH" action:^{
+            [Property setAsBoolean:NO forKey:KEY_USES_SLEIPNIR];
+            [[NSNotificationCenter defaultCenter] postNotificationName:KEY_WINDMETERMODEL_CHANGED object:self];
+            [self performSegueWithIdentifier:@"ShowMeasureScreen" sender:self];
+        } on:self];
+    }
+    else {
+        [self performSegueWithIdentifier:@"ShowMeasureScreen" sender:self];
+    }
+    
+    self.sleipnirFromCallbackAttempts = 0;
+}
+
+-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    if (viewController == self.childViewControllers[2]) {
+        [self takeMeasurement: NO];
         return NO;
     }
     

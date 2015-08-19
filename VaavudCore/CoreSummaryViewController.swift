@@ -281,7 +281,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
             on: self)
     }
     
-    @IBAction func tappedShare(sender: UIButton) {
+    @IBAction func tappedshare(sender: UIBarButtonItem) {
         let frame = view.bounds.moveY(-topLayoutGuide.length)
         UIGraphicsBeginImageContextWithOptions( view.bounds.size.expandY(-topLayoutGuide.length), true, 0)
         
