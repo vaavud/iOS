@@ -384,8 +384,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func save(cancelled: Bool) {
-        println("ROOT: save(cancelled: \(cancelled))")
-        
         if let session = currentSession where session.measuring.boolValue {
             session.measuring = false
             session.endTime = NSDate()
@@ -453,8 +451,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func stop(cancelled: Bool) {
-        println("ROOT: stop")
-        
         if isSleipnirSession {
             sdk.removeListener(self)
             sdk.stop()
