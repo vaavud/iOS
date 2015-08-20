@@ -145,7 +145,8 @@
 
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     if (viewController == self.childViewControllers[2]) {
-        [self takeMeasurement: NO];
+        [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN];
+        [self takeMeasurement:NO];
         return NO;
     }
     

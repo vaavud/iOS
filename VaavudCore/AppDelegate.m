@@ -69,7 +69,9 @@
     if (![Property getAsString:KEY_USER_HAS_WIND_METER]) {
         [Property refreshHasWindMeter];
     }
-
+    
+    [Property setAsBoolean:[Property getAsBoolean:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN] forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY];
+    
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     UIViewController *viewController = nil;
     

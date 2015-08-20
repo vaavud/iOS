@@ -86,6 +86,7 @@ extern NSString * const KEY_SESSION_UPDATED;
 extern NSString * const KEY_HAS_SEEN_TRISCREEN_FLOW;
 
 extern NSString * const KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN;
+extern NSString * const KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY;
 
 @interface Property (Util)
 

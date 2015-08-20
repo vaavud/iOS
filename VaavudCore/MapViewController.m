@@ -227,9 +227,10 @@
 - (void)showGuideIfNeeded {
     TabBarController *tabBarController = (TabBarController *)self.tabBarController;
     
-    if (![Property getAsBoolean:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN defaultValue:NO]) {
-        [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN];
-        
+    BOOL hasDevice = [Property getAsBoolean:KEY_USER_HAS_WIND_METER];
+    
+    if (hasDevice && ![Property getAsBoolean:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY defaultValue:NO]) {
+        [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY];
         [tabBarController showCalloutGuideView:NSLocalizedString(@"KEY_MAP_GUIDE_MEASURE_BUTTON_TITLE", nil)
                                explanationText:NSLocalizedString(@"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION", nil)
                                 customPosition:CGRectMake(self.view.bounds.size.width / 2.0F, self.view.bounds.size.height - 10.0F, 1.0F, 1.0F)

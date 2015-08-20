@@ -484,7 +484,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             encoded = x.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding) {
                 appDelegate.xCallbackSuccess = nil
 
-                if cancelled, let url = NSURL(string:encoded + "?x-source=Vaavud&x-cancelled") {
+                if cancelled, let url = NSURL(string:encoded + "?x-source=Vaavud&x-cancelled=cancel") {
                     UIApplication.sharedApplication().openURL(url)
                 }
                 else if let url = NSURL(string:encoded + "?x-source=Vaavud&windSpeedAvg=\(avgSpeed)&windSpeedMax=\(maxSpeed)") {
