@@ -25,7 +25,7 @@
             NSString *lastName = [Property getAsString:KEY_LAST_NAME];
             NSString *mixpanelId = [Mixpanel sharedInstance].distinctId;
             
-            NSLog(@"[MixpanelUtil] Register Mixpanel People profile: email=%@, created=%@, first_name=%@, last_name=%@", email, creationTime, firstName, lastName);
+//            NSLog(@"[MixpanelUtil] Register Mixpanel People profile: email=%@, created=%@, first_name=%@, last_name=%@", email, creationTime, firstName, lastName);
 
             [[Mixpanel sharedInstance].people set:@{
                                    @"$email": email,

@@ -510,26 +510,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         latestHeading = CGFloat(heading.floatValue)
         currentConsumer?.newHeading(latestHeading)
     }
-    
-    // MARK: Dropbox Callbacks
-
-//    func restClient(client: DBRestClient!, uploadFileFailedWithError error: NSError!) {
-//        println("File upload failed with error: \(error)");
-//    }
-//    
-//    func restClient(client: DBRestClient!, uploadedFile destPath: String!, from srcPath: String!, metadata: DBMetadata!) {
-//        var error: NSError?
-//        if NSFileManager.defaultManager().removeItemAtPath(srcPath, error: &error) {
-//            println("File uploaded and deleted successfully to path: \(metadata.path)")
-//        }
-//        else if let error = error {
-//            println("File uploaded successfully, but not deleted to path: \(metadata.path), error: \(error.localizedDescription)")
-//        }
-//        else {
-//            println("File uploaded successfully, but not deleted to path: \(metadata.path), no error message")
-//        }
-//    }
-    
+        
     override func prefersStatusBarHidden() -> Bool {
         return true
     }

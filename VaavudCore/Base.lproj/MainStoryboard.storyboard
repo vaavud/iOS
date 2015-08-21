@@ -1880,7 +1880,8 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="9cq-Ve-6sS">
-                        <barButtonItem key="rightBarButtonItem" title="Share" id="A6A-dS-AyM">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="A6A-dS-AyM">
+                            <color key="tintColor" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="tappedshare:" destination="8a4-bz-n0M" id="F8n-jV-iP4"/>
                             </connections>
@@ -2143,6 +2144,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="7to-4D-5a8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
