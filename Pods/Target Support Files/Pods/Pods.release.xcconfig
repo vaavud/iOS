@@ -1,7 +1,9 @@
-FRAMEWORK_SEARCH_PATHS = "${PODS_ROOT}/Dropbox-iOS-SDK/dropbox-ios-sdk-1.3.13"
+FRAMEWORK_SEARCH_PATHS = "$PODS_FRAMEWORK_BUILD_PATH"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Dropbox-iOS-SDK" "${PODS_ROOT}/Headers/Public/MagicalRecord" "${PODS_ROOT}/Headers/Public/MagicalRecord/MagicalRecord" "${PODS_ROOT}/Headers/Public/Mixpanel"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Dropbox-iOS-SDK" -isystem "${PODS_ROOT}/Headers/Public/MagicalRecord" -isystem "${PODS_ROOT}/Headers/Public/MagicalRecord/MagicalRecord" -isystem "${PODS_ROOT}/Headers/Public/Mixpanel"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"Pods-Dropbox-iOS-SDK" -l"Pods-MagicalRecord" -l"Pods-Mixpanel" -l"icucore" -framework "Accelerate" -framework "CoreData" -framework "CoreGraphics" -framework "CoreTelephony" -framework "DropboxSDK" -framework "Foundation" -framework "QuartzCore" -framework "Security" -framework "SystemConfiguration" -framework "UIKit"
+LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
+OTHER_CFLAGS = $(inherited) -iquote "$PODS_FRAMEWORK_BUILD_PATH/Dropbox_iOS_SDK.framework/Headers" -iquote "$PODS_FRAMEWORK_BUILD_PATH/MagicalRecord.framework/Headers" -iquote "$PODS_FRAMEWORK_BUILD_PATH/Mixpanel.framework/Headers" -iquote "$PODS_FRAMEWORK_BUILD_PATH/Vaavud.framework/Headers"
+OTHER_LDFLAGS = $(inherited) -ObjC -framework "Dropbox_iOS_SDK" -framework "MagicalRecord" -framework "Mixpanel" -framework "Vaavud"
 OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
+OTHER_SWIFT_FLAGS = $(inherited) "-D" "COCOAPODS"
+PODS_FRAMEWORK_BUILD_PATH = $(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/Pods
 PODS_ROOT = ${SRCROOT}/Pods

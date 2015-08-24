@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreMotion
+import Vaavud
 
 let updatePeriod = 1.0
 let countdownInterval = 3
@@ -42,6 +43,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var altimeter: CMAltimeter?
     
     private let sdk = VEVaavudElectronicSDK.sharedVaavudElectronic()
+    
+    lazy var vaavudSDK: VaavudSDK = VaavudSDK(delegate: self)
     
     private var mjolnir: MjolnirMeasurementController?
     
@@ -86,7 +89,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         isSleipnirSession = sdk.sleipnirAvailable()
         
         super.init(coder: aDecoder)
-        
+                
         state = MeasureState.CountingDown(countdownInterval, Property.getAsBoolean(KEY_MEASUREMENT_TIME_UNLIMITED))
         
         let wantsSleipnir = Property.getAsBoolean(KEY_USES_SLEIPNIR)

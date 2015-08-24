@@ -30,3 +30,9 @@
 #define COCOAPODS_VERSION_MINOR_Mixpanel_Mixpanel 8
 #define COCOAPODS_VERSION_PATCH_Mixpanel_Mixpanel 2
 
+// Vaavud
+#define COCOAPODS_POD_AVAILABLE_Vaavud
+#define COCOAPODS_VERSION_MAJOR_Vaavud 0
+#define COCOAPODS_VERSION_MINOR_Vaavud 0
+#define COCOAPODS_VERSION_PATCH_Vaavud 5
+

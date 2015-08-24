@@ -20,7 +20,7 @@
 #import "TabBarController.h"
 #import "AccountManager.h"
 #import "ServerUploadManager.h"
-#import "Mixpanel.h"
+//#import "Mixpanel.h"
 #import "MixpanelUtil.h"
 #import "RegisterViewController.h"
 
