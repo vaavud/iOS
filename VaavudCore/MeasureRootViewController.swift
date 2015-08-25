@@ -43,6 +43,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     private let sdk = VEVaavudElectronicSDK.sharedVaavudElectronic()
     
+    
     private var mjolnir: MjolnirMeasurementController?
     
     private let currentSessionUuid = UUIDUtil.generateUUID()
