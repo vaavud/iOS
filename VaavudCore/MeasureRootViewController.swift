@@ -555,11 +555,11 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
             changeConsumer(mc)
             
-            let alpha: CGFloat = vc is MapMeasurementViewController ? 0 : 1
-            UIView.animateWithDuration(0.3) {
-                self.readingTypeButton.alpha = alpha
-                self.unitButton.alpha = alpha
-            }
+//            let alpha: CGFloat = vc is MapMeasurementViewController ? 0 : 1
+//            UIView.animateWithDuration(0.3) {
+//                self.readingTypeButton.alpha = alpha
+//                self.unitButton.alpha = alpha
+//            }
         }
     }
     

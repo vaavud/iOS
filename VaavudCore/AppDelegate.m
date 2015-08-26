@@ -198,7 +198,6 @@
         
         if ([url.host isEqualToString:@"x-callback-url"]) {
             if ([url.path isEqualToString:@"/measure"]) {
-                [VEVaavudElectronicSDK sharedVaavudElectronic];
                 self.xCallbackSuccess = [dict objectForKey:@"x-success"];
                 
                 if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {

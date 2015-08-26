@@ -8,6 +8,8 @@
 
 import UIKit
 
+/*
+
 class MapMeasurementViewController: UIViewController, VaavudElectronicWindDelegate, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var speedLabel: UILabel!
@@ -102,3 +104,5 @@ class MapMeasurementViewController: UIViewController, VaavudElectronicWindDelega
     }
 
 }
+
+*/

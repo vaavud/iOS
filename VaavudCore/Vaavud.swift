@@ -8,6 +8,12 @@
 
 import Foundation
 
+public class VaavudSleipnirAvailability: NSObject {
+    public class func available() -> Bool {
+        return VaavudSDK().sleipnirAvailable()
+    }
+}
+
 public class VaavudSDK: WindListener, TemperatureListener, LocationListener {
     private var windController = WindController()
     private var locationController = LocationController()
@@ -20,7 +26,8 @@ public class VaavudSDK: WindListener, TemperatureListener, LocationListener {
     public var headingCallback: (Result<HeadingEvent> -> Void)?
 
     public var debugPlotCallback: ([[CGFloat]] -> Void)?
-    public var calibrationCallback: (Double -> Void)? // Will be removed by September 5th, guaranteed
+
+    private var calibrationCallback: (Double -> Void)? // Will be removed by September 5th, guaranteed
     
     init() {
         windController.addListener(self)

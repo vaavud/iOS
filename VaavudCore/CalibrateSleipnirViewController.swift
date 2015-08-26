@@ -11,7 +11,7 @@ import AudioToolbox
 import SceneKit
 import CoreMotion
 
-class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDelegate {
+class CalibrateSleipnirViewController: UIViewController {
     var done = false
 
     var timer: NSTimer!
@@ -25,13 +25,12 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
     
     @IBOutlet weak var calibrationCircle: CalibrationCircle!
     
-    let sdk = VEVaavudElectronicSDK.sharedVaavudElectronic()
+    let sdk = VaavudSDK()
     
     let manager = CMMotionManager()
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        sdk.addListener(self)
     }
     
     override func viewDidLoad() {
@@ -40,7 +39,8 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
         
         timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "showFirstText", userInfo: nil, repeats: false)
 
-        sdk.startCalibration()
+        sdk.windSpeedCallback = newWindSpeed
+        sdk.startCalibration(calibrationPercentageComplete)
         sdk.start()
     }
     
@@ -79,7 +79,6 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
     
     @IBAction func pressedCancel(sender: AnyObject) {
         sdk.stop()
-        sdk.resetCalibration()
         dismiss()
     }
     
@@ -93,39 +92,41 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
     
     // MARK: VaavudElectronicWindDelegate
     
-    func newSpeed(value: NSNumber!) {
-        if done {
-            return
+    func newWindSpeed(result: Result<WindSpeedEvent>) {
+        if let newSpeedDouble = result.value?.speed {
+            if done {
+                return
+            }
+            
+            if timer.valid {
+                timer.invalidate()
+            }
+            
+            let low: CGFloat = 2.9
+            let high: CGFloat = 7.4
+            
+            let newSpeed = CGFloat(newSpeedDouble)
+            calibrationCircle.speed = max(min((newSpeed - low)/(high - low), 1), 0)
+            
+            if speed <= high && newSpeed > high {
+                changeMessage("CALIBRATION_STRING_1")
+                calibrationCircle.blowing = false
+            }
+            else if speed >= low && newSpeed < low {
+                changeMessage("CALIBRATION_STRING_0")
+                calibrationCircle.blowing = true
+            }
+            
+            speed = newSpeed
         }
-        
-        if timer.valid {
-            timer.invalidate()
-        }
-
-        let low: CGFloat = 2.9
-        let high: CGFloat = 7.4
-        
-        let newSpeed = CGFloat(value.doubleValue)
-        calibrationCircle.speed = max(min((newSpeed - low)/(high - low), 1), 0)
-        
-        if speed <= high && newSpeed > high {
-            changeMessage("CALIBRATION_STRING_1")
-            calibrationCircle.blowing = false
-        }
-        else if speed >= low && newSpeed < low {
-            changeMessage("CALIBRATION_STRING_0")
-            calibrationCircle.blowing = true
-        }
-        
-        speed = newSpeed
     }
     
-    func calibrationPercentageComplete(percentage: NSNumber!) {
+    func calibrationPercentageComplete(value: Double) {
+        let newProgress = CGFloat(value/100)
+        
         if done {
             return
         }
-        
-        let newProgress = CGFloat(percentage.floatValue)
         
         if round(1000*(newProgress - progress)) > 0 {
             //            calibrationCircle.blowing = false
@@ -133,7 +134,7 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
         }
         progress = newProgress
         
-        if percentage.floatValue > 0.9999 {
+        if newProgress > 0.9999 {
             done = true
             calibrationCircle.done()
             
@@ -145,7 +146,7 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
                 self.cancelButton.alpha = 0
             }
             
-            var timer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "dismiss", userInfo: nil, repeats: false)
+            let timer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "dismiss", userInfo: nil, repeats: false)
         }
     }
 }

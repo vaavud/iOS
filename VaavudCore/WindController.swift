@@ -194,13 +194,13 @@ class WindController: NSObject, LocationListener {
         }
         
         if calibrationMode {
+            dispatch_async(dispatch_get_main_queue()) {
+                self.listeners.map { $0.calibrationProgress(self.rotationProcessor.calibrationPercentage) }
+            }
+
             if rotationProcessor.calibrationPercentage > 100 {
                 stop()
                 rotationProcessor.saveCalibration()
-            }
-            
-            dispatch_async(dispatch_get_main_queue()) {
-                self.listeners.map { $0.calibrationProgress(self.rotationProcessor.calibrationPercentage) }
             }
         }
 

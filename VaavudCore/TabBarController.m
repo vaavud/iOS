@@ -17,7 +17,6 @@
 #import "AccountManager.h"
 #import "RegisterNavigationController.h"
 #import "UIImage+Vaavud.h"
-#import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
 #import "Property+Util.h"
 
 
@@ -88,8 +87,6 @@
         item.imageInsets = UIEdgeInsetsMake(6.0, 0.0, -6.0, 0.0);
     }
     
-    [VEVaavudElectronicSDK sharedVaavudElectronic];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openLatestSummary:) name:KEY_OPEN_LATEST_SUMMARY object:nil];
 }
 
@@ -121,9 +118,7 @@
 }
 
 - (void)takeMeasurement:(BOOL)fromUrlScheme {
-    VEVaavudElectronicSDK *sdk = [VEVaavudElectronicSDK sharedVaavudElectronic];
-    
-    if ([Property getAsBoolean:KEY_USES_SLEIPNIR] && !sdk.sleipnirAvailable) {
+    if ([Property getAsBoolean:KEY_USES_SLEIPNIR] && !VaavudSleipnirAvailability.available) {
         if (fromUrlScheme && self.sleipnirFromCallbackAttempts < 10) {
             self.sleipnirFromCallbackAttempts++;
             [self performSelector:@selector(takeMeasurementFromUrlScheme) withObject:nil afterDelay:0.1];

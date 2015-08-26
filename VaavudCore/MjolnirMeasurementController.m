@@ -192,7 +192,6 @@
             else {
                 runAnalysis = NO;
             }
-                
         }
         else {
             if (self.magneticFieldUpdatesCounter % 3 == 0) {
