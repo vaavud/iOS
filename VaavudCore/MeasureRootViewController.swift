@@ -87,7 +87,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         super.init(coder: aDecoder)
         
-        state = MeasureState.CountingDown(countdownInterval, Property.getAsBoolean(KEY_MEASUREMENT_TIME_UNLIMITED))
+        state = .CountingDown(countdownInterval, Property.getAsBoolean(KEY_MEASUREMENT_TIME_UNLIMITED))
         
         let wantsSleipnir = Property.getAsBoolean(KEY_USES_SLEIPNIR)
         
@@ -97,6 +97,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
         if isSleipnirSession {
             Property.setAsBoolean(true, forKey: KEY_USES_SLEIPNIR)
+            sdk.windSpeedCallback = newWindSpeedResult
+            sdk.windDirectionCallback = newWindDirectionResult
+            sdk.headingCallback = newHeadingResult
             sdk.start()
         }
         else {
@@ -489,41 +492,37 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
     // MARK: Mjolnir Callback
     func addSpeedMeasurement(currentSpeed: NSNumber!, avgSpeed: NSNumber!, maxSpeed: NSNumber!) {
-        newSpeed(CGFloat(currentSpeed.floatValue))
-    }
-    
-    // Old
-    func newHeading(heading: NSNumber!) {
-        latestHeading = CGFloat(heading.floatValue)
-        currentConsumer?.newHeading(latestHeading)
+        newWindSpeedResult(Result(WindSpeedEvent(time: NSDate(), speed: currentSpeed.doubleValue)))
     }
     
     // MARK: SDK Callbacks
     
-    func newWindSpeed(result: Failable<WindSpeedEvent>) {
+    func newHeadingResult(result: Result<HeadingEvent>) {
         if let event = result.value {
-            newSpeed(CGFloat(event.speed))
+            latestHeading = CGFloat(event.heading)
+            currentConsumer?.newHeading(latestHeading)
+        }
+    }
+
+    func newWindSpeedResult(result: Result<WindSpeedEvent>) {
+        if let event = result.value {
+            latestSpeed = CGFloat(event.speed)
+            currentConsumer?.newSpeed(latestSpeed)
+            if latestSpeed > maxSpeed { maxSpeed = latestSpeed }
         }
     }
     
-    func newSpeed(speed: CGFloat) {
-        latestSpeed = speed
-        currentConsumer?.newSpeed(latestSpeed)
-        if latestSpeed > maxSpeed { maxSpeed = latestSpeed }
-    }
-    
-    func newWindDirection(result: Failable<WindDirectionEvent>) {
+    func newWindDirectionResult(result: Result<WindDirectionEvent>) {
         if let event = result.value {
+            println("MRVC: WindDirection: \(event.direction)")
+
             latestWindDirection = CGFloat(event.direction)
             currentConsumer?.newWindDirection(latestWindDirection)
         }
     }
     
-    func calibrationProgress(Double) {}
-    func debugPlot([[CGFloat]]) {}
-    func newTemperature(Failable<TemperatureEvent>) {}
+//    func newTemperatureResult(result: Result<TemperatureEvent>) {}
 
-    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
@@ -593,7 +592,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         let dy = sender.translationInView(view).y/20
         
 //        newWindDirection(latestWindDirection + dx)
-        newSpeed(max(0, latestSpeed - dy))
+//        newSpeed(max(0, latestSpeed - dy))
         
         sender.setTranslation(CGPoint(), inView: view)
     }

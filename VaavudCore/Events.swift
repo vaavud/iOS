@@ -16,7 +16,7 @@ public class Box<T> {
     }
 }
 
-public enum Failable<T> {
+public enum Result<T> {
     case Value(Box<T>)
     case Error(ErrorEvent)
     
@@ -71,6 +71,15 @@ public struct TemperatureEvent: Event, Dictionarifiable {
     }
 }
 
+public struct HeadingEvent: Event, Dictionarifiable {
+    public let time = NSDate()
+    public let heading: Double
+    
+    var dict: [String : AnyObject] {
+        return ["time" : time.timeIntervalSince1970, "heading" : heading]
+    }
+}
+
 public struct ErrorEvent: Event, Dictionarifiable {
     public let time = NSDate()
     public let technicalDescription: String
@@ -79,6 +88,8 @@ public struct ErrorEvent: Event, Dictionarifiable {
     init(_ technical: String, user: String) {
         self.technicalDescription = technical
         self.userDescription = user
+        
+        println(user)
     }
     
     init(_ error: String) {
@@ -93,13 +104,19 @@ public struct ErrorEvent: Event, Dictionarifiable {
 //public protocol VaavudListener: WindListener, TemperatureListener { }
 
 protocol WindListener: class {
-    func newWindSpeed(Failable<WindSpeedEvent>)
-    func newWindDirection(Failable<WindDirectionEvent>)
-
+    func newWindSpeed(Result<WindSpeedEvent>)
+    func newWindDirection(Result<WindDirectionEvent>)
+    
     func calibrationProgress(Double)
     func debugPlot([[CGFloat]])
 }
 
-protocol TemperatureListener: class {
-    func newTemperature(Failable<TemperatureEvent>)
+protocol LocationListener: class {
+    func newHeading(Result<HeadingEvent>)
 }
+
+protocol TemperatureListener: class {
+    func newTemperature(Result<TemperatureEvent>)
+}
+
+

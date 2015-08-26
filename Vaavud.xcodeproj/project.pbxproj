@@ -47,6 +47,7 @@
 		22E4DF9B1B8CAF100013D4BA /* TickTimeProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E4DF941B8CAF100013D4BA /* TickTimeProcessor.swift */; };
 		22E4DF9C1B8CAF100013D4BA /* Vaavud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E4DF951B8CAF100013D4BA /* Vaavud.swift */; };
 		22E4DF9D1B8CAF100013D4BA /* WindController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E4DF961B8CAF100013D4BA /* WindController.swift */; };
+		22E4DFBC1B8DDDA20013D4BA /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E4DFBB1B8DDDA20013D4BA /* LocationController.swift */; };
 		22E59A3A1ADD6F7000B1BC88 /* HistoryScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A301ADD6F7000B1BC88 /* HistoryScreen.xcassets */; };
 		22E59A3C1ADD6F7000B1BC88 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A311ADD6F7000B1BC88 /* Icons.xcassets */; };
 		22E59A3E1ADD6F7000B1BC88 /* InterfaceElements.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A321ADD6F7000B1BC88 /* InterfaceElements.xcassets */; };
@@ -251,6 +252,7 @@
 		22E4DF941B8CAF100013D4BA /* TickTimeProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickTimeProcessor.swift; sourceTree = "<group>"; };
 		22E4DF951B8CAF100013D4BA /* Vaavud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vaavud.swift; sourceTree = "<group>"; };
 		22E4DF961B8CAF100013D4BA /* WindController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindController.swift; sourceTree = "<group>"; };
+		22E4DFBB1B8DDDA20013D4BA /* LocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		22E59A301ADD6F7000B1BC88 /* HistoryScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = HistoryScreen.xcassets; path = ImageAssets/HistoryScreen.xcassets; sourceTree = "<group>"; };
 		22E59A311ADD6F7000B1BC88 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Icons.xcassets; path = ImageAssets/Icons.xcassets; sourceTree = "<group>"; };
 		22E59A321ADD6F7000B1BC88 /* InterfaceElements.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = InterfaceElements.xcassets; path = ImageAssets/InterfaceElements.xcassets; sourceTree = "<group>"; };
@@ -484,6 +486,7 @@
 		2291249B1B81E8E700DC6867 /* NewSDK */ = {
 			isa = PBXGroup;
 			children = (
+				22E4DFBB1B8DDDA20013D4BA /* LocationController.swift */,
 				22E4DF901B8CAF100013D4BA /* AudioSampleProcessor.swift */,
 				22E4DF911B8CAF100013D4BA /* AudioVolume.swift */,
 				22E4DF921B8CAF100013D4BA /* Events.swift */,
@@ -1124,6 +1127,7 @@
 				E984F26319B878BD004024C6 /* MixpanelUtil.m in Sources */,
 				22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */,
 				E9FD000B17FD6A06001A8491 /* FormatUtil.m in Sources */,
+				22E4DFBC1B8DDDA20013D4BA /* LocationController.swift in Sources */,
 				2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */,
 				E9FABFDE18929473009C4C46 /* HistoryTableViewController.m in Sources */,
 				22900BB31AEE7616009D9C8F /* MjolnirSpinner.swift in Sources */,

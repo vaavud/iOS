@@ -12,47 +12,61 @@ import UIKit
 import MediaPlayer
 import CoreLocation
 
-class WindController: NSObject, CLLocationManagerDelegate {
-    weak var delegate: WindListener!
-    var audioEngine = AVAudioEngine()
-    var player = AVAudioPlayerNode()
+class WindController: NSObject, LocationListener {
+    private var listeners = [WindListener]()
+    private var audioEngine = AVAudioEngine()
+    private var player = AVAudioPlayerNode()
     
-    let outputBuffer : AVAudioPCMBuffer
+    private let outputBuffer : AVAudioPCMBuffer
     
-    let locationManager = CLLocationManager()
-    var heading: Float? // Since this variable is going to be accesed from multiple threads we will use a float, which we can assume will be writen and read in one instruction and thefore will not cause problems
+    private let locationManager = CLLocationManager()
+    private var heading: Float? // Floats are thread safe
     
     // there is a memory management bug / leak for these input/output formats. fix later.
-    let inputFormat = AVAudioFormat(commonFormat: AVAudioCommonFormat.PCMFormatInt16, sampleRate: 44100.0, channels: 1, interleaved: false)
-    let outputFormat = AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 2)
+    private let inputFormat = AVAudioFormat(commonFormat: AVAudioCommonFormat.PCMFormatInt16, sampleRate: 44100.0, channels: 1, interleaved: false)
+    private let outputFormat = AVAudioFormat(standardFormatWithSampleRate: 44100.0, channels: 2)
     
-    var sampleTimeLast = AVAudioFramePosition(0)
-    var sampleTimeStart = AVAudioFramePosition(-1)
-    var startTime : NSDate!
-    var data = [Int16](count: 16537, repeatedValue: 0)
-    var audioSampleProcessor = AudioSampleProcessor()
-    var tickTimeProcessor = TickTimeProcessor()
-    var rotationProcessor = RotationProcessor()
-    var vol = Volume()
-    
-    var calibrationMode = false
-    
-    var observers = [NSObjectProtocol]()
+    private var data = [Int16](count: 16537, repeatedValue: 0)
 
-    init(delegate: WindListener) {
+    private var sampleTimeLast = AVAudioFramePosition(0)
+    private var sampleTimeStart = AVAudioFramePosition(-1)
+    private var startTime : NSDate!
+    private var audioSampleProcessor = AudioSampleProcessor()
+    private var tickTimeProcessor = TickTimeProcessor()
+    private var rotationProcessor = RotationProcessor()
+    private var vol = Volume()
+    
+    private var calibrationMode = false
+    
+    private var observers = [NSObjectProtocol]()
+
+    override init() {
         // initialize remaining variables
-        self.delegate = delegate
         outputBuffer = WindController.createBuffer(AVAudioFormat(standardFormatWithSampleRate: 44100, channels: 2))
         super.init()
         createEngineAttachNodesConnect()
     }
+
+    func addListener(listener: WindListener) {
+        listeners.append(listener)
+    }
     
-    func resetAudio() {
+    private func reset() {
+        heading = nil
+        sampleTimeLast = AVAudioFramePosition(0)
+        sampleTimeStart = AVAudioFramePosition(-1)
+        audioSampleProcessor = AudioSampleProcessor()
+        tickTimeProcessor = TickTimeProcessor()
+        rotationProcessor = RotationProcessor()
+        vol = Volume()
+    }
+    
+    private func resetAudio() {
         audioEngine = AVAudioEngine()
         player = AVAudioPlayerNode()
     }
     
-    func createEngineAttachNodesConnect() {
+    private func createEngineAttachNodesConnect() {
         audioEngine.attachNode(player)
         audioEngine.connect(player, to: audioEngine.mainMixerNode, format: outputBuffer.format)
         
@@ -65,7 +79,7 @@ class WindController: NSObject, CLLocationManagerDelegate {
         }
     }
 
-    func start() -> ErrorEvent? {
+    func start(locationController: LocationController) -> ErrorEvent? {
         // setup volume
         audioEngine.mainMixerNode.outputVolume = vol.getVolume()
         setVolumeToMax()
@@ -84,7 +98,7 @@ class WindController: NSObject, CLLocationManagerDelegate {
             return startEngineError
         }
         
-        if let startLocationError = startLocationService() {
+        if let startLocationError = locationController.start() {
             stop()
             return startLocationError
         }
@@ -94,18 +108,19 @@ class WindController: NSObject, CLLocationManagerDelegate {
         return nil
     }
     
-    func startCalibration() -> ErrorEvent? {
+    func startCalibration(locationController: LocationController) -> ErrorEvent? {
         calibrationMode = true
-        return start()
+        return start(locationController)
     }
     
     func stop() {
         observers.map(NSNotificationCenter.defaultCenter().removeObserver) // TODO: check
         vol.saveVolume()
         audioEngine.pause() // the other options (stop/reset) does ocationally cause a BAD_ACCESS CAStreamBasicDescription
+        reset()
     }
     
-    func startEngine() -> ErrorEvent? {
+    private func startEngine() -> ErrorEvent? {
         // start the engine and play
         
         /*  startAndReturnError: calls prepare if it has not already been called since stop.
@@ -130,37 +145,12 @@ class WindController: NSObject, CLLocationManagerDelegate {
         return nil
     }
     
-    func startLocationService() -> ErrorEvent? {
-        if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Denied {
-            return ErrorEvent("Can not start since the app is not authorized to use location services, Denied", user: "Can not start since the app is not authorized to use location services, change phone settings!")
-        }
-        
-        if CLLocationManager.authorizationStatus() == CLAuthorizationStatus.Restricted {
-            return ErrorEvent("Can not start since the app is not authorized to use location services, Restricted", user: "Can not start since the app is not authorized to use location services")
-        }
-        
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.delegate = self
-        locationManager.distanceFilter = 10
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.startUpdatingLocation()
-        
-        locationManager.headingFilter = 5
-        
-        if UIDevice.currentDevice().orientation == UIDeviceOrientation.PortraitUpsideDown {
-            locationManager.headingOrientation = CLDeviceOrientation.PortraitUpsideDown
-        }
-        locationManager.startUpdatingHeading()
-        
-        return nil
-    }
-    
-    func startOutput() {
+    private func startOutput() {
         player.play()
         player.scheduleBuffer(outputBuffer, atTime: nil, options: .Loops, completionHandler: nil)
     }
     
-    func inputHandler(buffer: AVAudioPCMBuffer!, time: AVAudioTime!) {
+    private func inputHandler(buffer: AVAudioPCMBuffer!, time: AVAudioTime!) {
         let sampleTimeBufferStart = time.sampleTime - Int64(buffer.frameLength)
         updateTime(sampleTimeBufferStart, bufferLength: buffer.frameLength)
         copyData(buffer)
@@ -185,22 +175,22 @@ class WindController: NSObject, CLLocationManagerDelegate {
             for rotation in rotations {
                 let measurementTime = self.sampleTimeToUnixTime(rotation.sampleTime)
                 let windspeed = WindController.rotationFrequencyToWindspeed(44100/Double(rotation.timeOneRotaion))
-                self.delegate.newWindSpeed(Failable(WindSpeedEvent(time: measurementTime, speed: windspeed)))
+                let result = Result(WindSpeedEvent(time: measurementTime, speed: windspeed))
+                self.listeners.map { $0.newWindSpeed(result) }
             }
             
             for direction in directions {
                 let measurementTime = self.sampleTimeToUnixTime(direction.sampleTime)
-                self.delegate.newWindDirection(Failable(WindDirectionEvent(time: measurementTime, direction: direction.direction)))
+                let result = Result(WindDirectionEvent(time: measurementTime, direction: direction.direction))
+                self.listeners.map { $0.newWindDirection(result) }
             }
             
-//            self.delegate.debugPlot([plotData])
+            let plotData = [ self.rotationProcessor.calCoef.map { CGFloat($0) },
+                self.rotationProcessor.relVelocitiesSteadyLP.map { CGFloat($0) },
+                //                self.rotationProcessor.relVelocitiesSDSP.map({CGFloat($0)}),
+                map(zip(self.rotationProcessor.relVelocitiesSteadyLP, self.rotationProcessor.calCoef)) { CGFloat($0 - $1) }]
             
-            self.delegate.debugPlot([
-                self.rotationProcessor.calCoef.map {CGFloat($0)},
-                self.rotationProcessor.relVelocitiesSteadyLP.map {CGFloat($0)},
-//                self.rotationProcessor.relVelocitiesSDSP.map({CGFloat($0)}),
-                map(zip(self.rotationProcessor.relVelocitiesSteadyLP, self.rotationProcessor.calCoef)) {CGFloat($0-$1)}
-                ])
+            self.listeners.map { $0.debugPlot(plotData) }
         }
         
         if calibrationMode {
@@ -210,14 +200,14 @@ class WindController: NSObject, CLLocationManagerDelegate {
             }
             
             dispatch_async(dispatch_get_main_queue()) {
-                self.delegate.calibrationProgress(self.rotationProcessor.calibrationPercentage)
+                self.listeners.map { $0.calibrationProgress(self.rotationProcessor.calibrationPercentage) }
             }
         }
 
         //  plot(rotationProcessor.relVelocitiesSteadyLP.map({CGFloat($0)}))
     }
     
-    func setVolumeToMax() {
+    private func setVolumeToMax() {
         let volView = MPVolumeView()
         
         for view in volView.subviews {
@@ -229,7 +219,7 @@ class WindController: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    func updateTime(sampleTime: AVAudioFramePosition, bufferLength: AVAudioFrameCount) {
+    private func updateTime(sampleTime: AVAudioFramePosition, bufferLength: AVAudioFrameCount) {
         if sampleTimeStart == -1 {
             sampleTimeStart = sampleTime
             startTime = NSDate()
@@ -242,14 +232,14 @@ class WindController: NSObject, CLLocationManagerDelegate {
         sampleTimeLast = sampleTime
     }
     
-    func copyData(buffer: AVAudioPCMBuffer) {
+    private func copyData(buffer: AVAudioPCMBuffer) {
         var channel = buffer.int16ChannelData[0]
         for i in 0..<Int(buffer.frameLength) {
             data[i] = channel[i]
         }
     }
     
-    class func createBuffer(outputFormat: AVAudioFormat) -> AVAudioPCMBuffer {
+    private class func createBuffer(outputFormat: AVAudioFormat) -> AVAudioPCMBuffer {
         var buffer = AVAudioPCMBuffer(PCMFormat: outputFormat, frameCapacity: 99)
         buffer.frameLength = 99 // should end in 3
         
@@ -263,11 +253,11 @@ class WindController: NSObject, CLLocationManagerDelegate {
         return buffer
     }
     
-    func sampleTimeToUnixTime(sampleTime: Int64) -> NSDate {
+    private func sampleTimeToUnixTime(sampleTime: Int64) -> NSDate {
         return startTime.dateByAddingTimeInterval(Double(sampleTime - sampleTimeStart)/44100)
     }
     
-    func noiseEstimator(samples: [Int16]) -> (diff20: Int, sN: Double) {
+    private func noiseEstimator(samples: [Int16]) -> (diff20: Int, sN: Double) {
         let skipSamples = 10000
         let nSamples = 100
         let percentile = 19
@@ -293,7 +283,7 @@ class WindController: NSObject, CLLocationManagerDelegate {
         return (diffValues[19], sN)
     }
     
-    func checkCurrentRoute() -> ErrorEvent? {
+    private func checkCurrentRoute() -> ErrorEvent? {
         // Configure the audio session
         let sessionInstance = AVAudioSession.sharedInstance()
         let currentRoute = sessionInstance.currentRoute
@@ -320,7 +310,7 @@ class WindController: NSObject, CLLocationManagerDelegate {
         return ErrorEvent("Could not start measuring since Sleipnir measurement is not avialable since Headset and headsetmic not available: Current route \(currentRoute)", user: "Could not start measuring since the Sleipnir wind meter is not pluged into the audio jack")
     }
     
-    func initAVAudioSession() -> ErrorEvent? {
+    private func initAVAudioSession() -> ErrorEvent? {
         // For complete details regarding the use of AVAudioSession see the AVAudioSession Programming Guide
         // https://developer.apple.com/library/ios/documentation/Audio/Conceptual/AudioSessionProgrammingGuide/Introduction/Introduction.html
         
@@ -363,8 +353,9 @@ class WindController: NSObject, CLLocationManagerDelegate {
                     // stop sleipnir on all interuptions
                     self.stop()
                     let error = ErrorEvent("Audio interuption has stopped the measurement")
-                    self.delegate.newWindDirection(Failable(error))
-                    self.delegate.newWindSpeed(Failable(error))
+                    self.listeners.map { $0.newWindDirection(Result(error)) }
+                    self.listeners.map { $0.newWindSpeed(Result(error)) }
+
                     println("began interuption, stoped the audio system ")
                 case .Ended:
                     // interruption ended
@@ -403,9 +394,8 @@ class WindController: NSObject, CLLocationManagerDelegate {
             // stop algorithm on all route changes
             self.stop()
             let error = ErrorEvent("Audio route has changed and the measurement has been stopped")
-            self.delegate.newWindDirection(Failable(error))
-            self.delegate.newWindSpeed(Failable(error))
-
+            self.listeners.map { $0.newWindDirection(Result(error)) }
+            self.listeners.map { $0.newWindSpeed(Result(error)) }
         }
         observers.append(routeObserver)
     
@@ -426,24 +416,11 @@ class WindController: NSObject, CLLocationManagerDelegate {
         return nil
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        if let locations = locations as? [CLLocation] {
-            locations.map { loc in
-                println("latitude: \(loc.coordinate.latitude) and longitude: \(loc.coordinate.longitude)")
-            }
-        }
+    func newHeading(result: Result<HeadingEvent>) {
+        if let event = result.value { heading = Float(event.heading) }
     }
     
-    func locationManager(manager: CLLocationManager!, didUpdateHeading newHeading: CLHeading!) {
-        heading = Float(newHeading.trueHeading)
-//        println("heading: \(newHeading.trueHeading) heading accuracy: \(newHeading.headingAccuracy)")
-    }
-    
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        println(error.debugDescription)
-    }
-    
-    static func rotationFrequencyToWindspeed(freq: Double) -> Double {
+    private static func rotationFrequencyToWindspeed(freq: Double) -> Double {
         return freq > 0.0 ? freq*0.325 + 0.2 : 0.0
     }
     
