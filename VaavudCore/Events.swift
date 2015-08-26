@@ -90,9 +90,9 @@ public struct ErrorEvent: Event, Dictionarifiable {
     }
 }
 
-public protocol Listener: WindListener, TemperatureListener { }
+//public protocol VaavudListener: WindListener, TemperatureListener { }
 
-public protocol WindListener: class {
+protocol WindListener: class {
     func newWindSpeed(Failable<WindSpeedEvent>)
     func newWindDirection(Failable<WindDirectionEvent>)
 
@@ -100,6 +100,6 @@ public protocol WindListener: class {
     func debugPlot([[CGFloat]])
 }
 
-public protocol TemperatureListener: class {
+protocol TemperatureListener: class {
     func newTemperature(Failable<TemperatureEvent>)
 }

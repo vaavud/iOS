@@ -113,7 +113,7 @@ class WindController: NSObject, CLLocationManagerDelegate {
         Starts the audio hardware via the AVAudioInputNode and/or AVAudioOutputNode instances in
         the engine. Audio begins flowing through the engine.
         
-        This method will return YES for sucess.
+        This method will return nil for success.
         
         Reasons for potential failure include:
         
@@ -125,7 +125,7 @@ class WindController: NSObject, CLLocationManagerDelegate {
         var error: NSError?
         
         if !audioEngine.startAndReturnError(&error) {
-            return ErrorEvent("couldn't start engine, " + error!.localizedDescription, user: "Internal sound system error! Engine Start")
+            return ErrorEvent("Could not start engine, " + error!.localizedDescription, user: "Internal sound system error! Engine Start")
         }
         return nil
     }

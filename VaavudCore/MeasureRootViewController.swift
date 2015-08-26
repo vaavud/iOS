@@ -32,7 +32,7 @@ protocol MeasurementConsumer {
     var name: String { get }
 }
 
-class MeasureRootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WindMeasurementControllerDelegate, VaavudElectronicWindDelegate, DBRestClientDelegate {
+class MeasureRootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WindMeasurementControllerDelegate, DBRestClientDelegate {
     private var pageController: UIPageViewController!
     private var viewControllers: [UIViewController]!
     private var displayLink: CADisplayLink!
@@ -41,8 +41,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     private var altimeter: CMAltimeter?
     
-    private let sdk = VEVaavudElectronicSDK.sharedVaavudElectronic()
-    
+    private let sdk = VaavudSDK()
     
     private var mjolnir: MjolnirMeasurementController?
     
@@ -98,7 +97,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
         if isSleipnirSession {
             Property.setAsBoolean(true, forKey: KEY_USES_SLEIPNIR)
-            sdk.addListener(self)
             sdk.start()
         }
         else {
@@ -453,7 +451,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     func stop(cancelled: Bool) {
         if isSleipnirSession {
-            sdk.removeListener(self)
             sdk.stop()
         }
         else if let mjolnir = mjolnir {
@@ -492,26 +489,41 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
     // MARK: Mjolnir Callback
     func addSpeedMeasurement(currentSpeed: NSNumber!, avgSpeed: NSNumber!, maxSpeed: NSNumber!) {
-        newSpeed(currentSpeed)
+        newSpeed(CGFloat(currentSpeed.floatValue))
     }
     
-    // MARK: SDK Callbacks
-    func newWindDirection(windDirection: NSNumber!) {
-        latestWindDirection = CGFloat(windDirection.floatValue)
-        currentConsumer?.newWindDirection(latestWindDirection)
-    }
-    
-    func newSpeed(speed: NSNumber!) {
-        latestSpeed = CGFloat(speed.floatValue)
-        currentConsumer?.newSpeed(latestSpeed)
-        if latestSpeed > maxSpeed { maxSpeed = latestSpeed }
-    }
-    
+    // Old
     func newHeading(heading: NSNumber!) {
         latestHeading = CGFloat(heading.floatValue)
         currentConsumer?.newHeading(latestHeading)
     }
-        
+    
+    // MARK: SDK Callbacks
+    
+    func newWindSpeed(result: Failable<WindSpeedEvent>) {
+        if let event = result.value {
+            newSpeed(CGFloat(event.speed))
+        }
+    }
+    
+    func newSpeed(speed: CGFloat) {
+        latestSpeed = speed
+        currentConsumer?.newSpeed(latestSpeed)
+        if latestSpeed > maxSpeed { maxSpeed = latestSpeed }
+    }
+    
+    func newWindDirection(result: Failable<WindDirectionEvent>) {
+        if let event = result.value {
+            latestWindDirection = CGFloat(event.direction)
+            currentConsumer?.newWindDirection(latestWindDirection)
+        }
+    }
+    
+    func calibrationProgress(Double) {}
+    func debugPlot([[CGFloat]]) {}
+    func newTemperature(Failable<TemperatureEvent>) {}
+
+    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
@@ -580,7 +592,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         let dx = sender.translationInView(view).x/2
         let dy = sender.translationInView(view).y/20
         
-        newWindDirection(latestWindDirection + dx)
+//        newWindDirection(latestWindDirection + dx)
         newSpeed(max(0, latestSpeed - dy))
         
         sender.setTranslation(CGPoint(), inView: view)

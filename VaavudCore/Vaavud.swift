@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class VaavudSDK: WindListener {
+public class VaavudSDK: WindListener, TemperatureListener {
     var windController: WindController!
     
     var calibrationProgression: (Double -> Void)! // Will be removed by September 5th, guaranteed
@@ -17,10 +17,20 @@ public class VaavudSDK: WindListener {
     
     public var session = VaavudSession()
     
-    weak var delegate: Listener!
+    public var windSpeedCallback: (Failable<WindSpeedEvent> -> ())?
+    public var windDirectionCallback: (Failable<WindDirectionEvent> -> ())?
+    public var temperatureCallback: (Failable<TemperatureEvent> -> ())?
     
-    public init(delegate: Listener) {
-        self.delegate = delegate
+    func sleipnirAvailable() -> Bool {
+        self.windController = WindController(delegate: self)
+
+        if windController.start() == nil {
+            return true
+        }
+        
+        windController.stop()
+        
+        return false
     }
     
     func reset() {
@@ -43,35 +53,43 @@ public class VaavudSDK: WindListener {
     public func stop() {
         windController.stop()
     }
-   
-    public func calibrationProgress(progress: Double) {
-        calibrationProgression(progress)
+    
+    // Temperature listener
+    
+    func newTemperature(event: Failable<TemperatureEvent>) {
+        temperatureCallback?(event)
     }
     
-    public func newWindSpeed(event: Failable<WindSpeedEvent>) {
-        delegate.newWindSpeed(event)
-
+    // Wind listener
+    
+    func newWindSpeed(event: Failable<WindSpeedEvent>) {
+        windSpeedCallback?(event)
+        
         if let event = event.value {
             session.addWindSpeed(event)
         }
     }
     
-    public func newWindDirection(event: Failable<WindDirectionEvent>) {
-        delegate.newWindDirection(event)
-
+    func newWindDirection(event: Failable<WindDirectionEvent>) {
+        windDirectionCallback?(event)
+        
         if let event = event.value {
             session.addWindDirection(event)
         }
     }
     
-    public func debugPlot(valuess: [[CGFloat]]) {
+    func calibrationProgress(progress: Double) {
+        calibrationProgression(progress)
+    }
+    
+    func debugPlot(valuess: [[CGFloat]]) {
         if let debugPlot = debugPlotFunc {
             debugPlot(valuess)
         }
     }
 }
 
-public class VaavudSession {
+public struct VaavudSession {
     public let time = NSDate()
     public var meanSpeed: Double { return windSpeedSum/Double(windSpeeds.count) }
     
@@ -79,15 +97,15 @@ public class VaavudSession {
     public private(set) var windSpeeds = [WindSpeedEvent]()
     public private(set) var windDirections = [WindDirectionEvent]()
     
-    var windSpeedSum: Double = 0
+    private var windSpeedSum: Double = 0
 
-    func addWindSpeed(event: WindSpeedEvent) {
+    mutating func addWindSpeed(event: WindSpeedEvent) {
         windSpeeds.append(event)
         windSpeedSum += event.speed
         // update frequency should be concidered! (sum should be speed*timeDelta)
     }
     
-    func addWindDirection(event: WindDirectionEvent) {
+    mutating func addWindDirection(event: WindDirectionEvent) {
         windDirections.append(event)
     }
     
