@@ -215,6 +215,8 @@
     self.viewAppearedTime = [NSDate date];
     
     [self showGuideIfNeeded];
+    
+    [self performSegueWithIdentifier:@"ForecastSegue" sender:self];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

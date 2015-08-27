@@ -38,6 +38,7 @@
 		22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */; };
 		22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408B61A8A0E2E0062A2DD /* Extensions.swift */; };
 		22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */; };
+		22C8AB3E1B8F33340064DB8B /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8AB3D1B8F33340064DB8B /* ForecastViewController.swift */; };
 		22CECB181AF22CE300148045 /* Settings.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22CECB171AF22CE300148045 /* Settings.xcassets */; };
 		22DCCED41B02399800D65265 /* RoundMeasurementScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DCCED31B02399800D65265 /* RoundMeasurementScreen.swift */; };
 		22E59A3A1ADD6F7000B1BC88 /* HistoryScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A301ADD6F7000B1BC88 /* HistoryScreen.xcassets */; };
@@ -232,6 +233,7 @@
 		22B408B61A8A0E2E0062A2DD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSettingsViewController.swift; sourceTree = "<group>"; };
 		22B99AC41ADFD8C600E1A27B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Register.strings; sourceTree = "<group>"; };
+		22C8AB3D1B8F33340064DB8B /* ForecastViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
 		22C9B0301B7CDF5E004A2902 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		22CECB171AF22CE300148045 /* Settings.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Settings.xcassets; path = ImageAssets/Settings.xcassets; sourceTree = "<group>"; };
 		22DB81A81A8389DF00DA67AC /* Model 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.xcdatamodel"; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 		D7A4F1D0173A8DDB00D1ACEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				22C8AB3D1B8F33340064DB8B /* ForecastViewController.swift */,
 				223DA7B31B0B696E00298A6E /* MapMeasurementViewController.swift */,
 				22728BEC1B6BA30200AFE634 /* UIImage+Vaavud.h */,
 				22728BED1B6BA30200AFE634 /* UIImage+Vaavud.m */,
@@ -1092,6 +1095,7 @@
 				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,
 				E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */,
 				E9FABFEA1896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m in Sources */,
+				22C8AB3E1B8F33340064DB8B /* ForecastViewController.swift in Sources */,
 				221285B21B04A6F500D4C008 /* FlatMeasurementController.swift in Sources */,
 				229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */,
 				E9F33CCB18B4AFBF0033EDC7 /* UIColor+VaavudColors.m in Sources */,

@@ -102,7 +102,7 @@
                     <connections>
                         <segue destination="lka-3y-5RY" kind="modal" identifier="ShowMeasureScreen" id="m99-7f-kcZ"/>
                         <segue destination="fQa-n1-y1j" kind="relationship" relationship="viewControllers" id="cE2-i8-0r9"/>
-                        <segue destination="awR-2s-6gy" kind="relationship" relationship="viewControllers" id="VnN-b8-sLX"/>
+                        <segue destination="c4u-wK-KC3" kind="relationship" relationship="viewControllers" id="VnN-b8-sLX"/>
                         <segue destination="Qec-7p-mYZ" kind="relationship" relationship="viewControllers" id="zZk-Yz-m9H"/>
                         <segue destination="aQi-np-koW" kind="relationship" relationship="viewControllers" id="Z9S-mr-Wug"/>
                         <segue destination="yAP-as-dFe" kind="relationship" relationship="viewControllers" id="3mf-g0-btB"/>
@@ -536,7 +536,7 @@
                             <constraint firstItem="tbg-Zl-YRw" firstAttribute="leading" secondItem="vqh-9G-hns" secondAttribute="leading" id="wTd-9r-8bp"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="MapTab" id="CJd-r9-Fhf"/>
+                    <navigationItem key="navigationItem" id="lKA-ea-t96"/>
                     <connections>
                         <outlet property="activityIndicator" destination="1nG-yb-qca" id="bu9-c8-J60"/>
                         <outlet property="feedbackTextView" destination="FTv-5v-GxF" id="Dou-US-dcS"/>
@@ -547,11 +547,55 @@
                         <outlet property="mapView" destination="tbg-Zl-YRw" id="OhK-hv-ypw"/>
                         <outlet property="unitBottomLayoutGuideConstraint" destination="LuP-vq-l8q" id="hVd-C6-N6C"/>
                         <outlet property="unitButton" destination="QH2-zG-NA0" id="9Vi-ce-5Pw"/>
+                        <segue destination="hdO-SU-WTz" kind="push" identifier="ForecastSegue" id="avU-tg-uh2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X7E-Jf-KyM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-674" y="-93"/>
+            <point key="canvasLocation" x="-282" y="-98"/>
+        </scene>
+        <!--Forecast View Controller-->
+        <scene sceneID="mbF-gQ-dmx">
+            <objects>
+                <viewController id="hdO-SU-WTz" customClass="ForecastViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Xt8-4k-DY4"/>
+                        <viewControllerLayoutGuide type="bottom" id="cVX-ts-sGn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zzJ-DL-blw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Gd9-4s-5FW">
+                                <rect key="frame" x="0.0" y="64" width="320" height="208"/>
+                            </mapView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iao-NE-mvF">
+                                <rect key="frame" x="0.0" y="272" width="320" height="247"/>
+                                <connections>
+                                    <outlet property="delegate" destination="hdO-SU-WTz" id="HZ8-O8-703"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Gd9-4s-5FW" firstAttribute="leading" secondItem="zzJ-DL-blw" secondAttribute="leading" id="01q-4d-3NJ"/>
+                            <constraint firstItem="Gd9-4s-5FW" firstAttribute="top" secondItem="Xt8-4k-DY4" secondAttribute="bottom" id="Cgo-bR-zuR"/>
+                            <constraint firstItem="Iao-NE-mvF" firstAttribute="top" secondItem="Gd9-4s-5FW" secondAttribute="bottom" id="DI5-9Q-Uvp"/>
+                            <constraint firstItem="cVX-ts-sGn" firstAttribute="top" secondItem="Iao-NE-mvF" secondAttribute="bottom" id="O9n-gq-IBe"/>
+                            <constraint firstItem="Iao-NE-mvF" firstAttribute="leading" secondItem="zzJ-DL-blw" secondAttribute="leading" id="VpH-bg-Aky"/>
+                            <constraint firstAttribute="trailing" secondItem="Gd9-4s-5FW" secondAttribute="trailing" id="g48-Ns-6hx"/>
+                            <constraint firstAttribute="trailing" secondItem="Iao-NE-mvF" secondAttribute="trailing" id="ox5-JZ-gGg"/>
+                            <constraint firstItem="Gd9-4s-5FW" firstAttribute="height" secondItem="zzJ-DL-blw" secondAttribute="height" multiplier="0.4" id="tqg-bm-6Ek"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="SyG-iz-VMF"/>
+                    <connections>
+                        <outlet property="mapView" destination="Gd9-4s-5FW" id="zr3-WV-1gV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OXa-hn-nCW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="142" y="-98"/>
         </scene>
         <!--Settings-->
         <scene sceneID="4fo-7s-UWd">
@@ -2403,6 +2447,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YEC-YC-7pi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-674" y="2020"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="7V6-QP-RYV">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="c4u-wK-KC3" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="MapTab" id="CJd-r9-Fhf"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nqv-YC-7hm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="awR-2s-6gy" kind="relationship" relationship="rootViewController" id="3sd-LG-8L0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jzX-iN-1wa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-674" y="-93"/>
         </scene>
     </scenes>
     <resources>
