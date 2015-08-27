@@ -514,8 +514,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     func newWindDirectionResult(result: Result<WindDirectionEvent>) {
         if let event = result.value {
-            println("MRVC: WindDirection: \(event.direction)")
-
             latestWindDirection = CGFloat(event.direction)
             currentConsumer?.newWindDirection(latestWindDirection)
         }
