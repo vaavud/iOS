@@ -569,8 +569,9 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Gd9-4s-5FW">
                                 <rect key="frame" x="0.0" y="64" width="320" height="208"/>
                             </mapView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Iao-NE-mvF">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iao-NE-mvF">
                                 <rect key="frame" x="0.0" y="272" width="320" height="247"/>
+                                <color key="backgroundColor" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="hdO-SU-WTz" id="HZ8-O8-703"/>
                                 </connections>
@@ -591,6 +592,7 @@
                     <navigationItem key="navigationItem" id="SyG-iz-VMF"/>
                     <connections>
                         <outlet property="mapView" destination="Gd9-4s-5FW" id="zr3-WV-1gV"/>
+                        <outlet property="scrollView" destination="Iao-NE-mvF" id="qbV-vV-Bso"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OXa-hn-nCW" userLabel="First Responder" sceneMemberID="firstResponder"/>
