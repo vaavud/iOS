@@ -84,7 +84,7 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
 }
 
 //@IBDesignable 
-class GradientView: UIView {
+class SimpleGradientView: UIView {
     @IBInspectable var startColor: UIColor = UIColor.clearColor() { didSet { update() } }
     @IBInspectable var endColor: UIColor = UIColor.vaavudLightGreyColor() { didSet { update() } }
     

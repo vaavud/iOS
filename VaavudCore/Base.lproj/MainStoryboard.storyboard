@@ -570,21 +570,45 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="208"/>
                             </mapView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iao-NE-mvF">
-                                <rect key="frame" x="0.0" y="272" width="320" height="247"/>
-                                <color key="backgroundColor" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="deviceRGB"/>
+                                <rect key="frame" x="30" y="272" width="290" height="247"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="hdO-SU-WTz" id="HZ8-O8-703"/>
                                 </connections>
                             </scrollView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBu-J4-fDi" customClass="GradientView" customModule="Vaavud" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="272" width="35" height="247"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="35" id="QFS-JQ-4ei"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="start">
+                                        <real key="value" value="0.80000000000000004"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="horizontal" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="end">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="startColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="endColor">
+                                        <color key="value" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Gd9-4s-5FW" firstAttribute="leading" secondItem="zzJ-DL-blw" secondAttribute="leading" id="01q-4d-3NJ"/>
+                            <constraint firstItem="Iao-NE-mvF" firstAttribute="leading" secondItem="LBu-J4-fDi" secondAttribute="trailing" constant="-5" id="3PB-rY-U2P"/>
                             <constraint firstItem="Gd9-4s-5FW" firstAttribute="top" secondItem="Xt8-4k-DY4" secondAttribute="bottom" id="Cgo-bR-zuR"/>
                             <constraint firstItem="Iao-NE-mvF" firstAttribute="top" secondItem="Gd9-4s-5FW" secondAttribute="bottom" id="DI5-9Q-Uvp"/>
+                            <constraint firstItem="LBu-J4-fDi" firstAttribute="leading" secondItem="zzJ-DL-blw" secondAttribute="leading" id="DXL-Ob-ouD"/>
                             <constraint firstItem="cVX-ts-sGn" firstAttribute="top" secondItem="Iao-NE-mvF" secondAttribute="bottom" id="O9n-gq-IBe"/>
-                            <constraint firstItem="Iao-NE-mvF" firstAttribute="leading" secondItem="zzJ-DL-blw" secondAttribute="leading" id="VpH-bg-Aky"/>
+                            <constraint firstItem="cVX-ts-sGn" firstAttribute="top" secondItem="LBu-J4-fDi" secondAttribute="bottom" id="eDy-Pw-2e5"/>
                             <constraint firstAttribute="trailing" secondItem="Gd9-4s-5FW" secondAttribute="trailing" id="g48-Ns-6hx"/>
+                            <constraint firstItem="LBu-J4-fDi" firstAttribute="top" secondItem="Gd9-4s-5FW" secondAttribute="bottom" id="nIV-tr-iC8"/>
                             <constraint firstAttribute="trailing" secondItem="Iao-NE-mvF" secondAttribute="trailing" id="ox5-JZ-gGg"/>
                             <constraint firstItem="Gd9-4s-5FW" firstAttribute="height" secondItem="zzJ-DL-blw" secondAttribute="height" multiplier="0.4" id="tqg-bm-6Ek"/>
                         </constraints>
@@ -593,6 +617,8 @@
                     <connections>
                         <outlet property="mapView" destination="Gd9-4s-5FW" id="zr3-WV-1gV"/>
                         <outlet property="scrollView" destination="Iao-NE-mvF" id="qbV-vV-Bso"/>
+                        <outlet property="sidebar" destination="LBu-J4-fDi" id="jmo-jQ-fPZ"/>
+                        <outlet property="sidebarWidth" destination="QFS-JQ-4ei" id="Chg-9Q-3jF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OXa-hn-nCW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2060,7 +2086,7 @@
                                     <constraint firstAttribute="trailing" secondItem="DTv-Mh-6VR" secondAttribute="trailing" id="u6b-Ds-vkz"/>
                                 </constraints>
                             </view>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dfD-mT-TcN" userLabel="Gradient" customClass="GradientView" customModule="Vaavud">
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dfD-mT-TcN" userLabel="Gradient" customClass="SimpleGradientView" customModule="Vaavud">
                                 <rect key="frame" x="0.0" y="473" width="320" height="95"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="endColor">
