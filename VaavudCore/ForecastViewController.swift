@@ -8,6 +8,19 @@
 
 import UIKit
 
+let forecastScaleMax = 20
+let forecastScaleSpacing = 5
+
+let forecastTemperatureHeight: CGFloat = 15
+let forecastHourHeight: CGFloat = 15
+let forecastVerticalPadding: CGFloat = 5
+let forecastHorizontalPadding: CGFloat = 10
+let forecastLegendPadding: CGFloat = 10
+let forecastBorder: CGFloat = 20
+
+let forecastFontSizeSmall: CGFloat = 12
+let forecastFontSizeLarge: CGFloat = 15
+
 extension Array {
     func divide(n: Int) -> [[T]] {
         var out = [[T]]()
@@ -35,58 +48,6 @@ extension Array {
         }
         
         return out
-    }
-}
-
-class ForecastViewController: UIViewController, UIScrollViewDelegate {
-    @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var scrollView: UIScrollView!
-    
-    @IBOutlet weak var sidebar: GradientView!
-    @IBOutlet weak var sidebarWidth: NSLayoutConstraint!
-    
-    var legendView: ForecastLegendView!
-    var forecastView: ForecastView!
-    
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        if forecastView == nil {
-            func randomDataPoint(hour: Int) -> ForecastDataPoint {
-                let temp = CGFloat(arc4random() % 20) + 10
-                let state: WeatherState = [.Cloudy, .Sunny,][Int(arc4random() % 2)]
-                let windDirection = CGFloat(arc4random() % 360)
-                let windSpeed = CGFloat(arc4random() % 12)
-                
-                return ForecastDataPoint(temp: temp, state: state, windDirection: windDirection, windSpeed: windSpeed, hour: hour)
-            }
-            
-            forecastView = ForecastView(frame: scrollView.bounds, data: (0..<53).map { randomDataPoint(1 + ($0 % 24)) })
-            
-            legendView = ForecastLegendView(frame: sidebar.bounds.insetY(10).insetX(5), maxSpeed: 20, barY: forecastView.barY)
-            
-            sidebar.addSubview(legendView)
-
-            scrollView.contentSize = forecastView.bounds.size
-            scrollView.addSubview(forecastView)
-        }
-    }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        let dv = forecastView.dayViews[1]
-        let offset = scrollView.contentOffset.x - dv.frame.origin.x
-        
-        if offset < 0 && offset < dv.dayLegend.frame.width {
-            dv.dayLegend.frame.origin.x = scrollView.contentOffset.x - dv.frame.origin.x
-        }
     }
 }
 
@@ -136,8 +97,68 @@ struct ForecastDataPoint {
     let hour: Int
 }
 
+class ForecastViewController: UIViewController, UIScrollViewDelegate {
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    @IBOutlet weak var sidebar: GradientView!
+    @IBOutlet weak var sidebarWidth: NSLayoutConstraint!
+    
+    var legendView: ForecastLegendView!
+    var forecastView: ForecastView!
+    
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if forecastView == nil {
+            func randomDataPoint(hour: Int) -> ForecastDataPoint {
+                let temp = CGFloat(arc4random() % 20) + 10
+                let state: WeatherState = [.Cloudy, .Sunny,][Int(arc4random() % 2)]
+                let windDirection = CGFloat(arc4random() % 360)
+                let windSpeed = 0.1 + CGFloat(arc4random() % 12)
+                
+                return ForecastDataPoint(temp: temp, state: state, windDirection: windDirection, windSpeed: windSpeed, hour: hour)
+            }
+            
+            forecastView = ForecastView(frame: scrollView.bounds, data: (0..<53).map { randomDataPoint(1 + ($0 % 24)) })
+            
+            legendView = ForecastLegendView(frame: sidebar.bounds, maxSpeed: 20, barFrame: forecastView.barFrame, hourY: forecastView.hourY)
+            
+            sidebar.addSubview(legendView)
+
+            scrollView.contentSize = forecastView.bounds.size
+            scrollView.contentInset.left = sidebarWidth.constant
+            scrollView.contentOffset.x = -scrollView.contentInset.left
+            scrollView.addSubview(forecastView)
+        }
+    }
+    
+    var animating = false
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let offset = scrollView.contentInset.left + scrollView.contentOffset.x
+        forecastView.dayViews.map { dv in
+            dv.dayLegend.frame.origin.x = min(max(0, offset - dv.frame.origin.x), dv.frame.width - dv.dayLegend.frame.width + 5)
+        }
+        
+        if offset > 20 && !animating {
+            forecastView.animate()
+            animating = true
+        }
+    }
+}
+
 class ForecastView: UIView {
-    let barY: (CGFloat, CGFloat)
+    let barFrame: CGRect
+    let hourY: CGFloat
     let dayViews: [ForecastDayView]
     
     required init(coder aDecoder: NSCoder) {
@@ -146,157 +167,242 @@ class ForecastView: UIView {
 
     init(frame: CGRect, data: [ForecastDataPoint]) {
         let maxSpeed = data.reduce(0) { max($0, $1.windSpeed) }
-        let davViewFrame = CGRect(x: 0, y: 10, width: 0, height: frame.height - 20)
+        let dayViewFrame = CGRect(x: 0, y: 0, width: 0, height: frame.height)
         
-        dayViews = data.divide(24, first: 0).map { ForecastDayView(frame: davViewFrame, data: $0, date: NSDate()) }
-        barY = dayViews[0].barY
-
+        dayViews = data.divide(24, first: 0).map { ForecastDayView(frame: dayViewFrame, data: $0, date: NSDate()) }
+        barFrame = dayViews[0].barFrame
+        hourY = dayViews[0].hourY
         super.init(frame: frame)
         
         dayViews.map(addSubview)
         
-        self.frame.size.width = stackHorizontally(left: 5, margin: 15, dayViews) + 10
+        self.frame.size.width = stackHorizontally(left: 0, margin: 25, dayViews) + forecastBorder
+    }
+    
+    func animate() {
+        dayViews.map { $0.animate() }
     }
 }
 
 class ForecastLegendView: UIView {
-    // uilabels
-    let barY: (CGFloat, CGFloat)
+    let barFrame: CGRect
+    let hourY: CGFloat
+    
+    let unitLabel = UILabel()
+    let scaleLabels: [UILabel]
+    let hourLabel = UILabel()
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(frame: CGRect, maxSpeed: CGFloat, barY: (CGFloat, CGFloat)) {
-        self.barY = barY
+    init(frame: CGRect, maxSpeed: CGFloat, barFrame: CGRect, hourY: CGFloat) {
+        self.barFrame = barFrame
+        self.hourY = hourY
+        
+        let font = UIFont(name: "Roboto-Light", size: forecastFontSizeSmall)
+        let fontColor = UIColor.lightGrayColor()
+        
+        unitLabel.text = "m/s"
+        unitLabel.textAlignment = .Right
+        unitLabel.font = font
+        unitLabel.textColor = fontColor
+        unitLabel.sizeToFit()
+        unitLabel.frame.size.width = frame.width - forecastLegendPadding
+        
+        scaleLabels = (1...forecastScaleMax/forecastScaleSpacing).map { i in
+            let value = i*forecastScaleSpacing
+            let label = UILabel()
+            label.text = String(value)
+            label.textAlignment = .Right
+            label.font = font
+            label.textColor = fontColor
+            label.sizeToFit()
+            label.frame.size.width = frame.width - forecastLegendPadding
+            label.center.y = barFrame.maxY - barFrame.height*CGFloat(value)/CGFloat(forecastScaleMax)
+            
+            return label
+        }
+        
+        unitLabel.frame.origin.y = scaleLabels.last!.frame.minY - unitLabel.frame.height - 3
+        
+        hourLabel.text = "hour"
+        hourLabel.textAlignment = .Right
+        hourLabel.font = font
+        hourLabel.textColor = fontColor
+        hourLabel.sizeToFit()
+        hourLabel.frame.size.width = frame.width - forecastLegendPadding
+        hourLabel.center.y = hourY
+        
         super.init(frame: frame)
         
-        let v = UIView(frame: CGRect(x: 5, y: barY.0, width: frame.width - 10, height: barY.1 - barY.0))
-        v.backgroundColor = UIColor.greenColor()
-        addSubview(v)
-        
-        backgroundColor = UIColor.purpleColor().colorWithAlpha(0.3)
-        layer.borderColor = UIColor.blackColor().CGColor
-        layer.borderWidth = 1
+        addSubview(unitLabel)
+        scaleLabels.map(addSubview)
+        addSubview(hourLabel)
     }
 }
 
 class ForecastDayView: UIView {
     let dayLegend = UILabel()
-    let barY: (CGFloat, CGFloat)
+    let barFrame: CGRect
+    let hourY: CGFloat
     
     private let hourViews: [ForecastHourView]
     private let lineView: ForecastLineView
 
+    func animate() {
+        lineView.animate()
+        hourViews.map { $0.animate() }
+    }
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     init(frame: CGRect, data: [ForecastDataPoint], date: NSDate) {
+        let adjustedBorder = forecastBorder - 10
+        
+        dayLegend.font = UIFont(name: "Roboto-Bold", size: forecastFontSizeSmall)
+        dayLegend.textColor = UIColor.lightGrayColor()
         dayLegend.text = "December 21"
         dayLegend.sizeToFit()
-        dayLegend.frame.origin.y = frame.height - dayLegend.frame.height
-        dayLegend.backgroundColor = UIColor.blueColor().colorWithAlpha(0.3)
-
-        let size = CGSize(width: 27, height: frame.height - dayLegend.frame.height - 5)
+        dayLegend.textAlignment = .Center
+        dayLegend.frame.size.width += 10
+        dayLegend.frame.origin.y = frame.height - dayLegend.frame.height - adjustedBorder
+        
+        let size = CGSize(width: 27, height: frame.height - dayLegend.frame.height - adjustedBorder - 5)
         hourViews = data.map { ForecastHourView(frame: CGRect(origin: CGPoint(), size: size), dataPoint: $0) }
-        let width = stackHorizontally(margin: 5, hourViews)
-        barY = hourViews[0].barY
-
-        let lineFrame = CGRect(x: 0, y: barY.0, width: width, height: barY.1 - barY.0)
+        let width = stackHorizontally(margin: forecastHorizontalPadding, hourViews)
+        barFrame = hourViews[0].barFrame
+        hourY = hourViews[0].hourLabel.center.y
+        
+        let lineFrame = barFrame.width(width)
         lineView = ForecastLineView(frame: lineFrame)
-        lineView.backgroundColor = UIColor.blueColor().colorWithAlpha(0.3)
         
         super.init(frame: frame)
         
-        layer.borderColor = UIColor.blackColor().CGColor
-        layer.borderWidth = 1
-
         addSubview(lineView)
         addSubview(dayLegend)
         hourViews.map(addSubview)
         
         self.frame.size.width = width
     }
-    
-    // lines = custom
 }
 
 class ForecastLineView: ShapeView {
-    var maxValue = 20
-    var spacing = 5
-    
-    func update() {
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+     
+        shapeLayer.lineWidth = 1
+        shapeLayer.lineCap = kCALineCapRound
+        shapeLayer.strokeColor = UIColor.lightGrayColor().CGColor
+        shapeLayer.fillColor = nil
+        shapeLayer.lineDashPattern = [10, 7]
+        shapeLayer.strokeEnd = 0
         
+        let path = UIBezierPath()
+        
+        for i in 0...forecastScaleMax/forecastScaleSpacing {
+            let y = frame.height*(1 - CGFloat(i*forecastScaleSpacing)/CGFloat(forecastScaleMax))
+            path.moveToPoint(CGPoint(x: 0, y: y))
+            path.addLineToPoint(CGPoint(x: frame.width, y: y))
+        }
+
+        shapeLayer.path = path.CGPath
+    }
+    
+    func animate() {
+        let anim = CABasicAnimation(keyPath: "strokeEnd")
+        anim.duration = 1
+        anim.fromValue = 0
+        anim.toValue = 1
+        
+        shapeLayer.addAnimation(anim, forKey: "StrokeAnim")
+        shapeLayer.strokeEnd = 1
     }
 }
 
 class ForecastHourView: UIView {
+    private let fontColor = UIColor.lightGrayColor()
+
     private let temperatureLabel = UILabel()
-    private let stateImage = UIImageView()
+    private let stateView = UIImageView()
     private let directionView = UIView()
     private let barView = ShapeView()
     private let hourLabel = UILabel()
     
-    private let barMargin: CGFloat = 10
+    private let barMargin: CGFloat = 5
     
-    var barY: (start: CGFloat, end: CGFloat) { return (barView.frame.maxY - barMargin, barView.frame.minY + barMargin) }
+    var barFrame: CGRect { return barView.frame.insetY(barMargin) }
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     init(frame: CGRect, dataPoint: ForecastDataPoint) {
-        super.init(frame: frame)
-        
         var views = [UIView]()
         
-        temperatureLabel.text = String(Int(round(dataPoint.temp)))
+        let stateImage = asset(dataPoint.state)
+        let width = stateImage.size.width
+        
+        temperatureLabel.frame.size = CGSize(width: width, height: forecastTemperatureHeight)
+        temperatureLabel.font = UIFont(name: "Roboto", size: forecastFontSizeLarge)
+        temperatureLabel.textColor = fontColor
         temperatureLabel.textAlignment = .Center
-        temperatureLabel.sizeToFit()
-        temperatureLabel.frame.size.width = frame.width
-        temperatureLabel.backgroundColor = UIColor.redColor().colorWithAlpha(0.2)
+        temperatureLabel.text = String(Int(round(dataPoint.temp)))
         views.append(temperatureLabel)
         
-        stateImage.backgroundColor = UIColor.blueColor().colorWithAlpha(0.2)
-        stateImage.image = asset(dataPoint.state)
-        stateImage.sizeToFit()
-        views.append(stateImage)
+        stateView.image = stateImage
+        stateView.sizeToFit()
+        views.append(stateView)
 
-        directionView.frame.size.width = frame.width
-        directionView.frame.size.height = frame.width
-        directionView.backgroundColor = UIColor.purpleColor().colorWithAlpha(0.2)
+        directionView.frame.size = CGSize(width: width, height: width)
         views.append(directionView)
 
-        barView.frame.size.width = frame.width
+        barView.frame.size.width = width
         barView.shapeLayer.lineWidth = 10
         barView.shapeLayer.lineCap = kCALineCapRound
-        barView.shapeLayer.strokeColor = UIColor.orangeColor().colorWithAlpha(0.5).CGColor
+        barView.shapeLayer.strokeColor = UIColor.vaavudLightGreyColor().colorWithAlpha(0.4).CGColor
         barView.shapeLayer.fillColor = nil
-        barView.shapeLayer.strokeEnd = dataPoint.windSpeed/20
+        barView.shapeLayer.strokeEnd = 0
         views.append(barView)
-        barView.backgroundColor = UIColor.brownColor().colorWithAlpha(0.5)
 
-        barView.layer.borderColor = UIColor.blackColor().CGColor
-        barView.layer.borderWidth = 1
-        
-        hourLabel.text = String(dataPoint.hour)
-        hourLabel.sizeToFit()
-        hourLabel.frame.size.width = frame.width
+        hourLabel.frame.size = CGSize(width: width, height: forecastHourHeight)
+        hourLabel.font = UIFont(name: "Roboto-Light", size: forecastFontSizeLarge)
+        hourLabel.textColor = fontColor
         hourLabel.textAlignment = .Center
-        hourLabel.backgroundColor = UIColor.greenColor().colorWithAlpha(0.2)
+        hourLabel.text = String(dataPoint.hour)
         views.append(hourLabel)
 
-        barView.frame.size.height = frame.height - [temperatureLabel, stateImage, directionView, hourLabel].reduce(0) { $0 + $1.frame.height }
+        let heightOfOthers = [temperatureLabel, stateView, directionView, hourLabel].reduce(0) { $0 + $1.frame.height }
+        barView.frame.size.height = frame.height - heightOfOthers - 4*forecastVerticalPadding - forecastBorder
+        
         let path = UIBezierPath()
-        path.moveToPoint(barView.bounds.lowerMid - CGPoint(x: 0, y: barMargin))
-        path.addLineToPoint(barView.bounds.upperMid + CGPoint(x: 0, y: barMargin))
+        let start = barView.bounds.lowerMid - CGPoint(x: 0, y: barMargin)
+        let end = barView.bounds.upperMid + CGPoint(x: 0, y: barMargin)
+        path.moveToPoint(start)
+        path.addLineToPoint(start + (dataPoint.windSpeed/20)*(end - start))
         barView.shapeLayer.path = path.CGPath
 
-        views.map(addSubview)
-        stackVertically(top: 0, margin: 0, views)
+        stackVertically(top: forecastBorder, margin: forecastVerticalPadding, views) + forecastBorder
         
-        backgroundColor = UIColor.darkGrayColor().colorWithAlpha(0.3)
+        super.init(frame: frame.width(width))
+
+        views.map(addSubview)
+    }
+    
+    func animate() {
+        let anim = CABasicAnimation(keyPath: "strokeEnd")
+        anim.duration = 0.30
+        anim.fromValue = 0
+        anim.toValue = 1
+        
+        barView.shapeLayer.addAnimation(anim, forKey: "StrokeAnim")
+        barView.shapeLayer.strokeEnd = 1
     }
 }
 

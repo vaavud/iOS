@@ -285,6 +285,14 @@ extension CGRect {
     func moveY(value: CGFloat) -> CGRect {
         return CGRect(origin: origin + CGPoint(x: 0, y: value), size: size)
     }
+    
+    func width(value: CGFloat) -> CGRect {
+        return CGRect(origin: origin, size: CGSize(width: value, height: height))
+    }
+    
+    func height(value: CGFloat) -> CGRect {
+        return CGRect(origin: origin, size: CGSize(width: width, height: value))
+    }
 }
 
 func distanceOnCircle(from angle: CGFloat, to otherAngle: CGFloat) -> CGFloat {

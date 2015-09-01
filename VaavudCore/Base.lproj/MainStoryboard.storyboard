@@ -570,16 +570,17 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="208"/>
                             </mapView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iao-NE-mvF">
-                                <rect key="frame" x="30" y="272" width="290" height="247"/>
+                                <rect key="frame" x="0.0" y="272" width="320" height="247"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="hdO-SU-WTz" id="HZ8-O8-703"/>
                                 </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBu-J4-fDi" customClass="GradientView" customModule="Vaavud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="272" width="35" height="247"/>
+                                <rect key="frame" x="0.0" y="272" width="45" height="247"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="35" id="QFS-JQ-4ei"/>
+                                    <constraint firstAttribute="width" constant="45" id="QFS-JQ-4ei"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="start">
@@ -590,10 +591,10 @@
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="startColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                        <color key="value" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="value" red="1" green="1" blue="1" alpha="0.0" colorSpace="deviceRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -601,7 +602,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Gd9-4s-5FW" firstAttribute="leading" secondItem="zzJ-DL-blw" secondAttribute="leading" id="01q-4d-3NJ"/>
-                            <constraint firstItem="Iao-NE-mvF" firstAttribute="leading" secondItem="LBu-J4-fDi" secondAttribute="trailing" constant="-5" id="3PB-rY-U2P"/>
+                            <constraint firstItem="Iao-NE-mvF" firstAttribute="leading" secondItem="zzJ-DL-blw" secondAttribute="leading" id="5E1-Z2-gbP"/>
                             <constraint firstItem="Gd9-4s-5FW" firstAttribute="top" secondItem="Xt8-4k-DY4" secondAttribute="bottom" id="Cgo-bR-zuR"/>
                             <constraint firstItem="Iao-NE-mvF" firstAttribute="top" secondItem="Gd9-4s-5FW" secondAttribute="bottom" id="DI5-9Q-Uvp"/>
                             <constraint firstItem="LBu-J4-fDi" firstAttribute="leading" secondItem="zzJ-DL-blw" secondAttribute="leading" id="DXL-Ob-ouD"/>
