@@ -105,12 +105,17 @@ enum SpeedUnit: Int, FloatUnit {
 }
 
 class VaavudFormatter: NSObject {
+    static let shared = VaavudFormatter()
+//    private init() {} //This prevents others from using the default '()' initializer for this class.
+
     var windSpeedUnit: SpeedUnit = .Knots { didSet { writeWindSpeedUnit() } }
     var directionUnit: DirectionUnit = .Cardinal { didSet { writeDirectionUnit() } }
     var pressureUnit: PressureUnit = .Mbar { didSet { writePressureUnit() } }
     var temperatureUnit: TemperatureUnit = .Celsius { didSet { writeTemperatureUnit() } }
     
     let dateFormatter = NSDateFormatter()
+    
+    let missingValue = "-"
     
     //    let standardWindspeedUnits: [String : SpeedUnit] = ["US" : .Knots, "UM" : .Knots, "GB" : .Knots, "CA" : .Knots, "VG" : .Knots, "VI" : .Knots]
     
@@ -131,10 +136,14 @@ class VaavudFormatter: NSObject {
             readUnits()
         }
     }
-
+    
     // MARK - Public
     
-    var missingValue = "-"
+    func shortDate(date: NSDate) -> String {
+        dateFormatter.timeStyle = .NoStyle
+        dateFormatter.dateStyle = .ShortStyle
+        return dateFormatter.stringFromDate(date)
+    }
     
     func localizedTitleDate(date: NSDate?) -> String? {
         if let date = date {

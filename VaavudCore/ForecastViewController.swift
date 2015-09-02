@@ -8,8 +8,9 @@
 
 import UIKit
 
-let forecastScaleMax = 20
+let forecastMaxSteps = 5
 let forecastScaleSpacing = 5
+let forecastScaleSpacingBft = 3
 
 let forecastTemperatureHeight: CGFloat = 15
 let forecastHourHeight: CGFloat = 15
@@ -128,9 +129,30 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
                 return ForecastDataPoint(temp: temp, state: state, windDirection: windDirection, windSpeed: windSpeed, hour: hour)
             }
             
-            forecastView = ForecastView(frame: scrollView.bounds, data: (0..<53).map { randomDataPoint(1 + ($0 % 24)) })
             
-            legendView = ForecastLegendView(frame: sidebar.bounds, maxSpeed: 20, barFrame: forecastView.barFrame, hourY: forecastView.hourY)
+            let unit = VaavudFormatter.shared.windSpeedUnit
+            let maxSpeed = CGFloat(20)
+            let unitMax = unit.fromBase(maxSpeed)
+            
+            let spacing: Int
+            
+            if unit == .Bft {
+                spacing = forecastScaleSpacingBft
+            }
+            else {
+                let calculateSteps = { (space: Int) in Int(ceil(unitMax/CGFloat(space))) }
+                var space = forecastScaleSpacing
+                while calculateSteps(space) > forecastMaxSteps { space *= 2 }
+                spacing = space
+            }
+            
+            let scaleStepCount = Int(ceil(unitMax/CGFloat(spacing)))
+            let scaleMax = CGFloat(scaleStepCount*spacing)
+            let steps = Array(0...scaleStepCount).map { $0*spacing }
+            
+            forecastView = ForecastView(frame: scrollView.bounds, data: (0..<53).map { randomDataPoint(1 + ($0 % 24)) }, steps: steps)
+            
+            legendView = ForecastLegendView(frame: sidebar.bounds, steps: steps, barFrame: forecastView.barFrame, hourY: forecastView.hourY)
             
             sidebar.addSubview(legendView)
 
@@ -165,11 +187,11 @@ class ForecastView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(frame: CGRect, data: [ForecastDataPoint]) {
+    init(frame: CGRect, data: [ForecastDataPoint], steps: [Int]) {
         let maxSpeed = data.reduce(0) { max($0, $1.windSpeed) }
-        let dayViewFrame = CGRect(x: 0, y: 0, width: 0, height: frame.height)
+        let dvFrame = CGRect(x: 0, y: 0, width: 0, height: frame.height)
         
-        dayViews = data.divide(24, first: 0).map { ForecastDayView(frame: dayViewFrame, data: $0, date: NSDate()) }
+        dayViews = data.divide(24, first: 0).map { ForecastDayView(frame: dvFrame, data: $0, steps: steps, date: NSDate()) }
         barFrame = dayViews[0].barFrame
         hourY = dayViews[0].hourY
         super.init(frame: frame)
@@ -184,6 +206,10 @@ class ForecastView: UIView {
     }
 }
 
+func doublingsNeeded(from base: CGFloat, to num: CGFloat) -> CGFloat {
+    return num > base ? ceil(log2(num/base)) : 0
+}
+
 class ForecastLegendView: UIView {
     let barFrame: CGRect
     let hourY: CGFloat
@@ -196,22 +222,23 @@ class ForecastLegendView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(frame: CGRect, maxSpeed: CGFloat, barFrame: CGRect, hourY: CGFloat) {
+    init(frame: CGRect, steps: [Int], barFrame: CGRect, hourY: CGFloat) {
         self.barFrame = barFrame
         self.hourY = hourY
         
         let font = UIFont(name: "Roboto-Light", size: forecastFontSizeSmall)
         let fontColor = UIColor.lightGrayColor()
         
-        unitLabel.text = "m/s"
+        let unit = VaavudFormatter.shared.windSpeedUnit
+        
+        unitLabel.text = unit.localizedString
         unitLabel.textAlignment = .Right
         unitLabel.font = font
         unitLabel.textColor = fontColor
         unitLabel.sizeToFit()
         unitLabel.frame.size.width = frame.width - forecastLegendPadding
         
-        scaleLabels = (1...forecastScaleMax/forecastScaleSpacing).map { i in
-            let value = i*forecastScaleSpacing
+        scaleLabels = steps.map { value in
             let label = UILabel()
             label.text = String(value)
             label.textAlignment = .Right
@@ -219,14 +246,14 @@ class ForecastLegendView: UIView {
             label.textColor = fontColor
             label.sizeToFit()
             label.frame.size.width = frame.width - forecastLegendPadding
-            label.center.y = barFrame.maxY - barFrame.height*CGFloat(value)/CGFloat(forecastScaleMax)
+            label.center.y = barFrame.maxY - barFrame.height*CGFloat(value)/CGFloat(steps.last!)
             
             return label
         }
         
         unitLabel.frame.origin.y = scaleLabels.last!.frame.minY - unitLabel.frame.height - 3
         
-        hourLabel.text = "hour"
+        hourLabel.text = NSLocalizedString("HOUR", comment: "hour as in watch time") // LOKALT
         hourLabel.textAlignment = .Right
         hourLabel.font = font
         hourLabel.textColor = fontColor
@@ -259,25 +286,25 @@ class ForecastDayView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(frame: CGRect, data: [ForecastDataPoint], date: NSDate) {
+    init(frame: CGRect, data: [ForecastDataPoint], steps: [Int], date: NSDate) {
         let adjustedBorder = forecastBorder - 10
         
         dayLegend.font = UIFont(name: "Roboto-Bold", size: forecastFontSizeSmall)
         dayLegend.textColor = UIColor.lightGrayColor()
-        dayLegend.text = "December 21"
+        dayLegend.text = VaavudFormatter.shared.shortDate(date)
         dayLegend.sizeToFit()
         dayLegend.textAlignment = .Center
         dayLegend.frame.size.width += 10
         dayLegend.frame.origin.y = frame.height - dayLegend.frame.height - adjustedBorder
         
         let size = CGSize(width: 27, height: frame.height - dayLegend.frame.height - adjustedBorder - 5)
-        hourViews = data.map { ForecastHourView(frame: CGRect(origin: CGPoint(), size: size), dataPoint: $0) }
+        hourViews = data.map { ForecastHourView(frame: CGRect(origin: CGPoint(), size: size), dataPoint: $0, steps: steps) }
         let width = stackHorizontally(margin: forecastHorizontalPadding, hourViews)
         barFrame = hourViews[0].barFrame
         hourY = hourViews[0].hourLabel.center.y
         
         let lineFrame = barFrame.width(width)
-        lineView = ForecastLineView(frame: lineFrame)
+        lineView = ForecastLineView(frame: lineFrame, steps: steps)
         
         super.init(frame: frame)
         
@@ -294,7 +321,7 @@ class ForecastLineView: ShapeView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override init(frame: CGRect) {
+    init(frame: CGRect, steps: [Int]) {
         super.init(frame: frame)
      
         shapeLayer.lineWidth = 1
@@ -306,8 +333,8 @@ class ForecastLineView: ShapeView {
         
         let path = UIBezierPath()
         
-        for i in 0...forecastScaleMax/forecastScaleSpacing {
-            let y = frame.height*(1 - CGFloat(i*forecastScaleSpacing)/CGFloat(forecastScaleMax))
+        for i in steps {
+            let y = frame.height*(1 - CGFloat(i)/CGFloat(steps.last!))
             path.moveToPoint(CGPoint(x: 0, y: y))
             path.addLineToPoint(CGPoint(x: frame.width, y: y))
         }
@@ -343,7 +370,7 @@ class ForecastHourView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(frame: CGRect, dataPoint: ForecastDataPoint) {
+    init(frame: CGRect, dataPoint: ForecastDataPoint, steps: [Int]) {
         var views = [UIView]()
         
         let stateImage = asset(dataPoint.state)
@@ -432,7 +459,6 @@ class GradientView: UIView {
         gradientLayer.colors = [startColor.CGColor, endColor.CGColor]
     }
 }
-
 
 
 
