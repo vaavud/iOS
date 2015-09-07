@@ -124,14 +124,16 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
                 let temp = CGFloat(arc4random() % 20) + 10
                 let state: WeatherState = [.Cloudy, .Sunny,][Int(arc4random() % 2)]
                 let windDirection = CGFloat(arc4random() % 360)
-                let windSpeed = 0.1 + CGFloat(arc4random() % 12)
+                let windSpeed = 10 + 10*sin(CGFloat(hour) - 1)
                 
                 return ForecastDataPoint(temp: temp, state: state, windDirection: windDirection, windSpeed: windSpeed, hour: hour)
             }
             
+            let data = (0..<53).map { randomDataPoint(1 + ($0 % 24)) }
             
+            let maxSpeed = data.reduce(0) { max($0, $1.windSpeed) }
+
             let unit = VaavudFormatter.shared.windSpeedUnit
-            let maxSpeed = CGFloat(20)
             let unitMax = unit.fromBase(maxSpeed)
             
             let spacing: Int
@@ -150,7 +152,7 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
             let scaleMax = CGFloat(scaleStepCount*spacing)
             let steps = Array(0...scaleStepCount).map { $0*spacing }
             
-            forecastView = ForecastView(frame: scrollView.bounds, data: (0..<53).map { randomDataPoint(1 + ($0 % 24)) }, steps: steps)
+            forecastView = ForecastView(frame: scrollView.bounds, data: data, steps: steps)
             
             legendView = ForecastLegendView(frame: sidebar.bounds, steps: steps, barFrame: forecastView.barFrame, hourY: forecastView.hourY)
             
@@ -167,8 +169,12 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let offset = scrollView.contentInset.left + scrollView.contentOffset.x
-        forecastView.dayViews.map { dv in
+        let adjustment = scrollView.frame.width - scrollView.contentInset.left
+        
+        for dv in forecastView.dayViews {
             dv.dayLegend.frame.origin.x = min(max(0, offset - dv.frame.origin.x), dv.frame.width - dv.dayLegend.frame.width + 5)
+            let n = Int(ceil((offset + adjustment - dv.barFrame.width/2)/(dv.barFrame.width + forecastHorizontalPadding)))
+            dv.show(n)
         }
         
         if offset > 20 && !animating {
@@ -188,21 +194,25 @@ class ForecastView: UIView {
     }
 
     init(frame: CGRect, data: [ForecastDataPoint], steps: [Int]) {
-        let maxSpeed = data.reduce(0) { max($0, $1.windSpeed) }
         let dvFrame = CGRect(x: 0, y: 0, width: 0, height: frame.height)
         
         dayViews = data.divide(24, first: 0).map { ForecastDayView(frame: dvFrame, data: $0, steps: steps, date: NSDate()) }
         barFrame = dayViews[0].barFrame
         hourY = dayViews[0].hourY
+
+        for (i, dayView) in enumerate(dayViews) {
+            dayView.show(0, animated: false)
+        }
+        dayViews[0].show(12, animated: false)
+        
         super.init(frame: frame)
         
         dayViews.map(addSubview)
-        
         self.frame.size.width = stackHorizontally(left: 0, margin: 25, dayViews) + forecastBorder
     }
     
     func animate() {
-        dayViews.map { $0.animate() }
+//        dayViews.map { $0.show(10) }
     }
 }
 
@@ -276,12 +286,39 @@ class ForecastDayView: UIView {
     
     private let hourViews: [ForecastHourView]
     private let lineView: ForecastLineView
+    private let graphView: ShapeView
+    
+    private let ys: [CGFloat]
+    private var showing = 0
 
     func animate() {
         lineView.animate()
-        hourViews.map { $0.animate() }
     }
     
+    func show(hours: Int, animated: Bool = true) {
+        if hours <= showing {
+            return
+        }
+        
+        let newPath = curveUntil(hours, ys, barFrame).CGPath
+        
+        if animated {
+            let anim = CABasicAnimation(keyPath: "path")
+            anim.duration = 0.6
+            anim.toValue = newPath
+//            anim.removedOnCompletion = false
+//            anim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            anim.fillMode = kCAFillModeForwards
+        
+            graphView.shapeLayer.addAnimation(anim, forKey: "Show hours")
+        }
+        else {
+            graphView.shapeLayer.path = newPath
+        }
+        
+        showing = hours
+    }
+
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -305,15 +342,39 @@ class ForecastDayView: UIView {
         
         let lineFrame = barFrame.width(width)
         lineView = ForecastLineView(frame: lineFrame, steps: steps)
+
+        let height = barFrame.height
+        let unit = VaavudFormatter.shared.windSpeedUnit
+        ys = data.map { height*(1 - unit.fromBase($0.windSpeed)/CGFloat(steps.last!)) }
+
+        graphView = ShapeView(frame: lineFrame)
+        graphView.shapeLayer.strokeColor = UIColor.vaavudRedColor().CGColor
+        graphView.shapeLayer.fillColor = nil
+        graphView.shapeLayer.lineWidth = 3
+        graphView.shapeLayer.lineCap = kCALineCapRound
+        graphView.shapeLayer.lineJoin = kCALineJoinRound
         
         super.init(frame: frame)
         
         addSubview(lineView)
         addSubview(dayLegend)
         hourViews.map(addSubview)
+        addSubview(graphView)
         
         self.frame.size.width = width
     }
+}
+
+func curveUntil(n: Int, ys: [CGFloat], barFrame: CGRect) -> UIBezierPath {
+    let path = UIBezierPath()
+    for (i, y) in enumerate(ys) {
+        let x = barFrame.width/2 + CGFloat(i)*(barFrame.width + forecastHorizontalPadding)
+        let p  = CGPoint(x: x, y: i < n ? y : barFrame.height)
+        if i == 0 { path.moveToPoint(p) }
+        else { path.addLineToPoint(p) }
+    }
+
+    return path
 }
 
 class ForecastLineView: ShapeView {
@@ -408,11 +469,13 @@ class ForecastHourView: UIView {
         let heightOfOthers = [temperatureLabel, stateView, directionView, hourLabel].reduce(0) { $0 + $1.frame.height }
         barView.frame.size.height = frame.height - heightOfOthers - 4*forecastVerticalPadding - forecastBorder
         
+        let unitValue = VaavudFormatter.shared.windSpeedUnit.fromBase(dataPoint.windSpeed)
+        
         let path = UIBezierPath()
         let start = barView.bounds.lowerMid - CGPoint(x: 0, y: barMargin)
         let end = barView.bounds.upperMid + CGPoint(x: 0, y: barMargin)
         path.moveToPoint(start)
-        path.addLineToPoint(start + (dataPoint.windSpeed/20)*(end - start))
+        path.addLineToPoint(start + (unitValue/CGFloat(steps.last!))*(end - start))
         barView.shapeLayer.path = path.CGPath
 
         stackVertically(top: forecastBorder, margin: forecastVerticalPadding, views) + forecastBorder

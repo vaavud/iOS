@@ -115,12 +115,16 @@ class VaavudFormatter: NSObject {
     
     let dateFormatter = NSDateFormatter()
     
+    let shortDateFormat: String
+    
     let missingValue = "-"
     
     //    let standardWindspeedUnits: [String : SpeedUnit] = ["US" : .Knots, "UM" : .Knots, "GB" : .Knots, "CA" : .Knots, "VG" : .Knots, "VI" : .Knots]
     
     override init() {
         dateFormatter.locale = NSLocale.currentLocale()
+        shortDateFormat = NSDateFormatter.dateFormatFromTemplate("MMMMd", options: 0, locale: dateFormatter.locale)!
+            
         super.init()
         
         readUnits()
@@ -140,8 +144,7 @@ class VaavudFormatter: NSObject {
     // MARK - Public
     
     func shortDate(date: NSDate) -> String {
-        dateFormatter.timeStyle = .NoStyle
-        dateFormatter.dateStyle = .ShortStyle
+        dateFormatter.dateFormat = shortDateFormat
         return dateFormatter.stringFromDate(date)
     }
     
