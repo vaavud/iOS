@@ -121,7 +121,7 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
         
         if forecastView == nil {
             func randomDataPoint(hour: Int) -> ForecastDataPoint {
-                let temp = CGFloat(arc4random() % 20) + 10
+                let temp = CGFloat(arc4random() % 20) + 283
                 let state: WeatherState = [.Cloudy, .Sunny,][Int(arc4random() % 2)]
                 let windDirection = CGFloat(arc4random() % 360)
                 let windSpeed = 10 + 10*sin(CGFloat(hour) - 1)
@@ -165,21 +165,20 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    var animating = false
-    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let offset = scrollView.contentInset.left + scrollView.contentOffset.x
         let adjustment = scrollView.frame.width - scrollView.contentInset.left
         
         for dv in forecastView.dayViews {
             dv.dayLegend.frame.origin.x = min(max(0, offset - dv.frame.origin.x), dv.frame.width - dv.dayLegend.frame.width + 5)
-            let n = Int(ceil((offset + adjustment - dv.barFrame.width/2)/(dv.barFrame.width + forecastHorizontalPadding)))
-            dv.show(n)
-        }
-        
-        if offset > 20 && !animating {
-            forecastView.animate()
-            animating = true
+            
+            let x = max(0, scrollView.contentOffset.x + scrollView.frame.width - dv.frame.origin.x)
+            let n = Int(ceil(x/(dv.barFrame.width + forecastHorizontalPadding)))
+
+            if n > 0 {
+                dv.revealLines()
+                dv.revealGraph()
+            }
         }
     }
 }
@@ -199,20 +198,13 @@ class ForecastView: UIView {
         dayViews = data.divide(24, first: 0).map { ForecastDayView(frame: dvFrame, data: $0, steps: steps, date: NSDate()) }
         barFrame = dayViews[0].barFrame
         hourY = dayViews[0].hourY
-
-        for (i, dayView) in enumerate(dayViews) {
-            dayView.show(0, animated: false)
-        }
-        dayViews[0].show(12, animated: false)
+        
+        dayViews.map { $0.reveal(0, animated: false) }
         
         super.init(frame: frame)
         
         dayViews.map(addSubview)
         self.frame.size.width = stackHorizontally(left: 0, margin: 25, dayViews) + forecastBorder
-    }
-    
-    func animate() {
-//        dayViews.map { $0.show(10) }
     }
 }
 
@@ -224,6 +216,7 @@ class ForecastLegendView: UIView {
     let barFrame: CGRect
     let hourY: CGFloat
     
+    let temperatureUnitLabel = UILabel()
     let unitLabel = UILabel()
     let scaleLabels: [UILabel]
     let hourLabel = UILabel()
@@ -239,8 +232,16 @@ class ForecastLegendView: UIView {
         let font = UIFont(name: "Roboto-Light", size: forecastFontSizeSmall)
         let fontColor = UIColor.lightGrayColor()
         
-        let unit = VaavudFormatter.shared.windSpeedUnit
+        let temperatureUnit = VaavudFormatter.shared.temperatureUnit
+        temperatureUnitLabel.text = temperatureUnit.localizedString
+        temperatureUnitLabel.textAlignment = .Right
+        temperatureUnitLabel.font = font
+        temperatureUnitLabel.textColor = fontColor
+        temperatureUnitLabel.sizeToFit()
+        temperatureUnitLabel.frame.size.width = frame.width - forecastLegendPadding
+        temperatureUnitLabel.frame.origin.y = forecastBorder
         
+        let unit = VaavudFormatter.shared.windSpeedUnit
         unitLabel.text = unit.localizedString
         unitLabel.textAlignment = .Right
         unitLabel.font = font
@@ -273,6 +274,7 @@ class ForecastLegendView: UIView {
         
         super.init(frame: frame)
         
+        addSubview(temperatureUnitLabel)
         addSubview(unitLabel)
         scaleLabels.map(addSubview)
         addSubview(hourLabel)
@@ -289,13 +291,17 @@ class ForecastDayView: UIView {
     private let graphView: ShapeView
     
     private let ys: [CGFloat]
-    private var showing = 0
+    private var showing: Int?
 
-    func animate() {
-        lineView.animate()
+    func revealLines() {
+        lineView.reveal()
     }
     
-    func show(hours: Int, animated: Bool = true) {
+    func revealGraph() {
+        reveal(hourViews.count)
+    }
+
+    func reveal(hours: Int, animated: Bool = true) {
         if hours <= showing {
             return
         }
@@ -306,8 +312,8 @@ class ForecastDayView: UIView {
             let anim = CABasicAnimation(keyPath: "path")
             anim.duration = 0.6
             anim.toValue = newPath
-//            anim.removedOnCompletion = false
-//            anim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            anim.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+            anim.removedOnCompletion = false
             anim.fillMode = kCAFillModeForwards
         
             graphView.shapeLayer.addAnimation(anim, forKey: "Show hours")
@@ -370,6 +376,7 @@ func curveUntil(n: Int, ys: [CGFloat], barFrame: CGRect) -> UIBezierPath {
     for (i, y) in enumerate(ys) {
         let x = barFrame.width/2 + CGFloat(i)*(barFrame.width + forecastHorizontalPadding)
         let p  = CGPoint(x: x, y: i < n ? y : barFrame.height)
+        
         if i == 0 { path.moveToPoint(p) }
         else { path.addLineToPoint(p) }
     }
@@ -378,6 +385,8 @@ func curveUntil(n: Int, ys: [CGFloat], barFrame: CGRect) -> UIBezierPath {
 }
 
 class ForecastLineView: ShapeView {
+    var revealed = false
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -403,9 +412,13 @@ class ForecastLineView: ShapeView {
         shapeLayer.path = path.CGPath
     }
     
-    func animate() {
+    func reveal() {
+        if revealed { return }
+        
+        revealed = true
+        
         let anim = CABasicAnimation(keyPath: "strokeEnd")
-        anim.duration = 1
+        anim.duration = 0.5
         anim.fromValue = 0
         anim.toValue = 1
         
@@ -419,7 +432,7 @@ class ForecastHourView: UIView {
 
     private let temperatureLabel = UILabel()
     private let stateView = UIImageView()
-    private let directionView = UIView()
+    private let directionView = UIImageView()
     private let barView = ShapeView()
     private let hourLabel = UILabel()
     
@@ -437,18 +450,24 @@ class ForecastHourView: UIView {
         let stateImage = asset(dataPoint.state)
         let width = stateImage.size.width
         
-        temperatureLabel.frame.size = CGSize(width: width, height: forecastTemperatureHeight)
+        let temperatureUnit = VaavudFormatter.shared.temperatureUnit
         temperatureLabel.font = UIFont(name: "Roboto", size: forecastFontSizeLarge)
         temperatureLabel.textColor = fontColor
         temperatureLabel.textAlignment = .Center
-        temperatureLabel.text = String(Int(round(dataPoint.temp)))
+        temperatureLabel.adjustsFontSizeToFitWidth = true
+        temperatureLabel.numberOfLines = 1
+        temperatureLabel.minimumScaleFactor = 0.5
+        temperatureLabel.baselineAdjustment = .AlignCenters
+        temperatureLabel.text = String(Int(round(temperatureUnit.fromBase(dataPoint.temp)))) + "°"
+        temperatureLabel.frame.size.height = forecastTemperatureHeight
         views.append(temperatureLabel)
         
         stateView.image = stateImage
         stateView.sizeToFit()
         views.append(stateView)
-
+        
         directionView.frame.size = CGSize(width: width, height: width)
+        directionView.image = UIImage(named: "ForecastWindArrow")
         views.append(directionView)
 
         barView.frame.size.width = width
@@ -480,19 +499,16 @@ class ForecastHourView: UIView {
 
         stackVertically(top: forecastBorder, margin: forecastVerticalPadding, views) + forecastBorder
         
+        directionView.transform = Affine.rotation(dataPoint.windDirection.radians)
+
         super.init(frame: frame.width(width))
 
         views.map(addSubview)
     }
     
-    func animate() {
-        let anim = CABasicAnimation(keyPath: "strokeEnd")
-        anim.duration = 0.30
-        anim.fromValue = 0
-        anim.toValue = 1
-        
-        barView.shapeLayer.addAnimation(anim, forKey: "StrokeAnim")
-        barView.shapeLayer.strokeEnd = 1
+    override func didMoveToWindow() {
+        temperatureLabel.frame.size.width = frame.width + forecastHorizontalPadding - 2
+        temperatureLabel.frame.origin.x = (frame.width - temperatureLabel.frame.size.width)/2
     }
 }
 
