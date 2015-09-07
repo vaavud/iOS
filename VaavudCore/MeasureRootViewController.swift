@@ -163,7 +163,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         LocationManager.sharedInstance().start()
         
         Mixpanel.sharedInstance().track("Measure Screen")
-
+        
         if let mjolnir = mjolnir {
             mjolnir.delegate = self
         }
@@ -354,6 +354,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         updateWithLocation(session)
         updateWithSourcedData(session)
+        
+        mixpanelSend("Started")
     }
     
     func updateSession() {
@@ -427,27 +429,31 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func mixpanelSend(action: String) {
-        if Property.isMixpanelEnabled(), let session = currentSession {
-            MixpanelUtil.updateMeasurementProperties(false)
+        if !Property.isMixpanelEnabled() { return }
+        
+        MixpanelUtil.updateMeasurementProperties(false)
+        
+        let model = isSleipnirSession ? "Sleipnir" : "Mjolnir"
+        var properties: [NSObject : AnyObject] = ["Action" : action, "Wind Meter" : model]
+        
+        let event: String
+        
+        if action == "Started" {
+            event = "Start Measurement"
+        }
+        else {
+            event = "Stop Measurement"
             
-            let model = isSleipnirSession ? "Sleipnir" : "Mjolnir"
-            var properties: [NSObject : AnyObject] = ["Action" : action, "Wind Meter" : model]
-            
-            if let start = session.startTime, let duration = session.endTime?.timeIntervalSinceDate(start) {
+            if let start = currentSession?.startTime, let duration = currentSession?.endTime?.timeIntervalSinceDate(start) {
                 properties["Duration"] = duration
             }
             
-            if let avg = session.windSpeedAvg?.floatValue, let max = session.windSpeedMax?.floatValue {
-                properties["Avg Wind Speed"] = avg
-                properties["Max Wind Speed"] = max
-            }
-            
-            if let name = currentConsumer?.name {
-                properties["Measure Screen Type"] = name
-            }
-            
-            Mixpanel.sharedInstance().track("Stop Measurement", properties: properties)
+            properties["Avg Wind Speed"] = currentSession?.windSpeedAvg?.floatValue
+            properties["Max Wind Speed"] = currentSession?.windSpeedMax?.floatValue
+            properties["Measure Screen Type"] = currentConsumer?.name
         }
+        
+        Mixpanel.sharedInstance().track(event, properties: properties)
     }
     
     func stop(cancelled: Bool) {

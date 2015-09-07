@@ -281,7 +281,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
             on: self)
     }
     
-    @IBAction func tappedshare(sender: UIBarButtonItem) {
+    @IBAction func tappedShare(sender: UIBarButtonItem) {
         let frame = view.bounds.moveY(-topLayoutGuide.length)
         UIGraphicsBeginImageContextWithOptions( view.bounds.size.expandY(-topLayoutGuide.length), true, 0)
         
@@ -301,7 +301,17 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
             
             let activityVC = UIActivityViewController(activityItems: [snap, text, website], applicationActivities: nil)
             activityVC.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList]
-            presentViewController(activityVC, animated: true, completion: nil)
+            activityVC.completionWithItemsHandler = { (type, completed, returnedItems, error) in
+                var properties: [NSObject : AnyObject] = ["Completed" : completed]
+                
+                if let type = type { properties["Activity"] = type }
+                if let error = error { properties["Error"] = error }
+                
+                Mixpanel.sharedInstance().track("User shared", properties: properties)
+            }
+            presentViewController(activityVC, animated: true) {
+                Mixpanel.sharedInstance().track("Showed share sheet")
+            }
         }
     }
     
