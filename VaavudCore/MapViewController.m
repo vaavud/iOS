@@ -104,6 +104,7 @@
     self.activityIndicator.hidden = YES;
     
     CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
+    
     if ([LocationManager isCoordinateValid:latestLocation]) {
         [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(latestLocation, 200000, 200000) animated:YES];
     }
@@ -217,6 +218,14 @@
     [self showGuideIfNeeded];
     
     [self performSegueWithIdentifier:@"ForecastSegue" sender:self];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ForecastSegue"]) {
+        ForecastViewController *fvc = segue.destinationViewController;
+        fvc.location = [LocationManager sharedInstance].latestLocation;
+        fvc.location = CLLocationCoordinate2DMake(59.361481, 17.531733);
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {

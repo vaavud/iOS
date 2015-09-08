@@ -39,6 +39,8 @@
     cache.diskCache.ageLimit = 24.0*3600.0;
     
     [MagicalRecord setupAutoMigratingCoreDataStack];
+    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelOff];
+    
     [[ModelManager sharedInstance] initializeModel];
     [[ServerUploadManager sharedInstance] start];
     [[LocationManager sharedInstance] startIfEnabled];

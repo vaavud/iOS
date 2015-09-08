@@ -8,7 +8,7 @@
 
 import UIKit
 
-let forecastMaxSteps = 5
+let forecastMaxSteps = 4
 let forecastScaleSpacing = 5
 let forecastScaleSpacingBft = 3
 
@@ -98,15 +98,64 @@ struct ForecastDataPoint {
     let hour: Int
 }
 
+class ForecastLoader {
+    static let shared = ForecastLoader()
+    
+    let apiKey = "cb4bab2c67a85ffb3ffcd90abfaaba7f"
+    var baseURL: NSURL { return NSURL(string: "https://api.forecast.io/forecast/\(apiKey)/")! }
+    
+    private init() { }
+    
+    func makeRequest(location: CLLocationCoordinate2D, callback: [ForecastDataPoint] -> ()) {
+        println("makeRequest loc: \(location.longitude), \(location.latitude)")
+
+        let forecastUrl = NSURL(string: "\(location.latitude),\(location.longitude)", relativeToURL:baseURL)!
+        let sharedSession = NSURLSession.sharedSession()
+        
+        let downloadTask: NSURLSessionDownloadTask = sharedSession.downloadTaskWithURL(forecastUrl) {
+            (location: NSURL!, response: NSURLResponse!, error: NSError!) -> Void in
+            println("makeRequest Done! loc: \(location)")
+
+            if (error == nil) {
+                
+                let dataObject = NSData(contentsOfURL: location)
+                let dict = NSJSONSerialization.JSONObjectWithData(dataObject!, options: nil, error: nil) as! NSDictionary
+                
+                let hourlyData = dict["hourly"]!["data"]! as! [AnyObject]
+                
+                println("makeRequest Done! \(hourlyData[0]))")
+                
+                func randomDataPoint(hour: Int) -> ForecastDataPoint {
+                    let temp = CGFloat(arc4random() % 20) + 283
+                    let state: WeatherState = [.Cloudy, .Sunny,][Int(arc4random() % 2)]
+                    let windDirection = CGFloat(arc4random() % 360)
+                    let windSpeed = 10 + 10*sin(CGFloat(hour) - 1)
+                    
+                    return ForecastDataPoint(temp: temp, state: state, windDirection: windDirection, windSpeed: windSpeed, hour: hour)
+                }
+                
+                let data = (0..<53).map { randomDataPoint(1 + ($0 % 24)) }
+                dispatch_async(dispatch_get_main_queue(), {
+                    callback(data)
+                })
+            }
+        }
+        
+        downloadTask.resume()
+    }
+}
+
 class ForecastViewController: UIViewController, UIScrollViewDelegate {
+    var location = CLLocationCoordinate2D()
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var sidebar: GradientView!
     @IBOutlet weak var sidebarWidth: NSLayoutConstraint!
     
-    var legendView: ForecastLegendView!
-    var forecastView: ForecastView!
+    private var legendView: ForecastLegendView!
+    private var forecastView: ForecastView!
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -114,55 +163,55 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup(location)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+    }
+
+    func setup(location: CLLocationCoordinate2D) {
+        mapView.centerCoordinate = location
+        mapView.region = MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
         
-        if forecastView == nil {
-            func randomDataPoint(hour: Int) -> ForecastDataPoint {
-                let temp = CGFloat(arc4random() % 20) + 283
-                let state: WeatherState = [.Cloudy, .Sunny,][Int(arc4random() % 2)]
-                let windDirection = CGFloat(arc4random() % 360)
-                let windSpeed = 10 + 10*sin(CGFloat(hour) - 1)
-                
-                return ForecastDataPoint(temp: temp, state: state, windDirection: windDirection, windSpeed: windSpeed, hour: hour)
-            }
-            
-            let data = (0..<53).map { randomDataPoint(1 + ($0 % 24)) }
-            
-            let maxSpeed = data.reduce(0) { max($0, $1.windSpeed) }
-
-            let unit = VaavudFormatter.shared.windSpeedUnit
-            let unitMax = unit.fromBase(maxSpeed)
-            
-            let spacing: Int
-            
-            if unit == .Bft {
-                spacing = forecastScaleSpacingBft
-            }
-            else {
-                let calculateSteps = { (space: Int) in Int(ceil(unitMax/CGFloat(space))) }
-                var space = forecastScaleSpacing
-                while calculateSteps(space) > forecastMaxSteps { space *= 2 }
-                spacing = space
-            }
-            
-            let scaleStepCount = Int(ceil(unitMax/CGFloat(spacing)))
-            let scaleMax = CGFloat(scaleStepCount*spacing)
-            let steps = Array(0...scaleStepCount).map { $0*spacing }
-            
-            forecastView = ForecastView(frame: scrollView.bounds, data: data, steps: steps)
-            
-            legendView = ForecastLegendView(frame: sidebar.bounds, steps: steps, barFrame: forecastView.barFrame, hourY: forecastView.hourY)
-            
-            sidebar.addSubview(legendView)
-
-            scrollView.contentSize = forecastView.bounds.size
-            scrollView.contentInset.left = sidebarWidth.constant
-            scrollView.contentOffset.x = -scrollView.contentInset.left
-            scrollView.addSubview(forecastView)
+        ForecastLoader.shared.makeRequest(location, callback: setup)
+    }
+    
+    func setup(data: [ForecastDataPoint]) {
+        println("Setup with data")
+        
+        let maxSpeed = data.reduce(0) { max($0, $1.windSpeed) }
+        
+        let unit = VaavudFormatter.shared.windSpeedUnit
+        let unitMax = unit.fromBase(maxSpeed)
+        
+        let spacing: Int
+        
+        if unit == .Bft {
+            spacing = forecastScaleSpacingBft
         }
+        else {
+            let calculateSteps = { (space: Int) in Int(ceil(unitMax/CGFloat(space))) }
+            var space = forecastScaleSpacing
+            while calculateSteps(space) > forecastMaxSteps { space *= 2 }
+            spacing = space
+        }
+        
+        let scaleStepCount = Int(ceil(unitMax/CGFloat(spacing)))
+        let scaleMax = CGFloat(scaleStepCount*spacing)
+        let steps = Array(0...scaleStepCount).map { $0*spacing }
+        
+        forecastView = ForecastView(frame: scrollView.bounds, data: data, steps: steps)
+        
+        legendView = ForecastLegendView(frame: sidebar.bounds, steps: steps, barFrame: forecastView.barFrame, hourY: forecastView.hourY)
+        
+        sidebar.addSubview(legendView)
+        
+        scrollView.scrollEnabled = true
+        scrollView.contentSize = forecastView.bounds.size
+        scrollView.contentInset.left = sidebarWidth.constant
+        scrollView.contentOffset.x = -scrollView.contentInset.left
+        scrollView.addSubview(forecastView)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -436,7 +485,7 @@ class ForecastHourView: UIView {
     private let barView = ShapeView()
     private let hourLabel = UILabel()
     
-    private let barMargin: CGFloat = 5
+    private let barMargin: CGFloat = 10
     
     var barFrame: CGRect { return barView.frame.insetY(barMargin) }
     

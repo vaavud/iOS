@@ -1028,6 +1028,46 @@ SHARED_INSTANCE
     }];
 }
 
+- (void)forecastForLat:(double)latitude long:(double)longitude success:(void(^)(id response))success failure:(void(^)(NSError *error))failure {
+    if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Lookup forecast for location (%f, %f)", latitude, longitude);
+    
+    if (isnan(latitude) || isnan(longitude) || (latitude == 0.0 && longitude == 0.0)) {
+        if (failure) {
+            failure(nil);
+        }
+        return;
+    }
+    
+    if (!self.hasReachability) {
+        if (failure) {
+            failure(nil);
+        }
+        return;
+    }
+    
+    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:OPEN_WEATHERMAP_APIID, @"APIID", [NSNumber numberWithDouble:latitude], @"lat", [NSNumber numberWithDouble:longitude], @"lon", nil];
+    
+    if (YES || LOG_UPLOAD) NSLog(@"[ServerUploadManager] Calling OpenWeatherMap");
+    
+    [[VaavudAPIHTTPClient sharedInstance] getPath:@"http://api.openweathermap.org/data/2.5/weather" parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        if (YES || LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got successful response looking up forecast");
+        
+        if (success) {
+            success(responseObject);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        long statusCode = (long)operation.response.statusCode;
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Got error status code %ld looking up temperature: %@", statusCode, error);
+        
+        self.hasRegisteredDevice = NO;
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
 -(NSNumber *)doubleValue:(id)responseObject forKey:(NSString *)key {
     NSString *value = [responseObject objectForKey:key];
     if (value && value != (id)[NSNull null] && ([value length] > 0)) {
