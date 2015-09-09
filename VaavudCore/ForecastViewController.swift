@@ -87,6 +87,12 @@ enum WeatherState: String, AssetState {
     case Cloudy = "Cloud"
     case Sunny = "SunCloud"
     
+//    clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night
+    
+    init(icon: String) {
+        self = [.Cloudy, .Sunny][Int(arc4random() % 2)]
+    }
+    
     var prefix: String { return "Forecast" }
 }
 
@@ -95,53 +101,54 @@ struct ForecastDataPoint {
     let state: WeatherState
     let windDirection: CGFloat
     let windSpeed: CGFloat
-    let hour: Int
+    let date: NSDate
 }
 
 class ForecastLoader {
     static let shared = ForecastLoader()
     
-    let apiKey = "cb4bab2c67a85ffb3ffcd90abfaaba7f"
-    var baseURL: NSURL { return NSURL(string: "https://api.forecast.io/forecast/\(apiKey)/")! }
-    
+    private let apiKey = "cb4bab2c67a85ffb3ffcd90abfaaba7f"
+    private var baseURL: NSURL { return NSURL(string: "https://api.forecast.io/forecast/\(apiKey)/")! }
     private init() { }
     
     func makeRequest(location: CLLocationCoordinate2D, callback: [ForecastDataPoint] -> ()) {
-        println("makeRequest loc: \(location.longitude), \(location.latitude)")
-
         let forecastUrl = NSURL(string: "\(location.latitude),\(location.longitude)", relativeToURL:baseURL)!
         let sharedSession = NSURLSession.sharedSession()
         
         let downloadTask: NSURLSessionDownloadTask = sharedSession.downloadTaskWithURL(forecastUrl) {
-            (location: NSURL!, response: NSURLResponse!, error: NSError!) -> Void in
-            println("makeRequest Done! loc: \(location)")
+            (location: NSURL!, response: NSURLResponse!, error: NSError!) in
 
-            if (error == nil) {
-                
-                let dataObject = NSData(contentsOfURL: location)
-                let dict = NSJSONSerialization.JSONObjectWithData(dataObject!, options: nil, error: nil) as! NSDictionary
-                
-                let hourlyData = dict["hourly"]!["data"]! as! [AnyObject]
-                
-                println("makeRequest Done! \(hourlyData[0]))")
-                
-                func randomDataPoint(hour: Int) -> ForecastDataPoint {
-                    let temp = CGFloat(arc4random() % 20) + 283
-                    let state: WeatherState = [.Cloudy, .Sunny,][Int(arc4random() % 2)]
-                    let windDirection = CGFloat(arc4random() % 360)
-                    let windSpeed = 10 + 10*sin(CGFloat(hour) - 1)
-                    
-                    return ForecastDataPoint(temp: temp, state: state, windDirection: windDirection, windSpeed: windSpeed, hour: hour)
-                }
-                
-                let data = (0..<53).map { randomDataPoint(1 + ($0 % 24)) }
-                dispatch_async(dispatch_get_main_queue(), {
-                    callback(data)
-                })
+            if error != nil { return }
+            
+            if let dataObject = NSData(contentsOfURL: location),
+                let dict = NSJSONSerialization.JSONObjectWithData(dataObject, options: nil, error: nil) as? NSDictionary,
+                let hourly = dict["hourly"] as? [String : AnyObject],
+                let data = self.parseHourly(hourly) {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        callback(data)
+                    }
             }
         }
         
         downloadTask.resume()
+    }
+    
+    func parseHourly(dict: [String : AnyObject]) -> [ForecastDataPoint]? {
+        if let data = dict["data"] as? [[String : AnyObject]] {
+            let dataPoints = data.map { (dataHour: [String : AnyObject]) -> ForecastDataPoint in
+                let temp = (CGFloat(dataHour["temperature"] as! Double) + 459.67)*5/9
+                let state = WeatherState(icon: dataHour["icon"] as! String)
+                let windDirection = CGFloat(dataHour["windBearing"] as! Int)
+                let windSpeed = CGFloat(dataHour["windSpeed"] as! Double)*0.44704
+                let date = NSDate(timeIntervalSince1970: NSTimeInterval(dataHour["time"] as! Int))
+                
+                return ForecastDataPoint(temp: temp, state: state, windDirection: windDirection, windSpeed: windSpeed, date: date)
+            }
+
+            return dataPoints
+        }
+        
+        return nil
     }
 }
 
@@ -178,8 +185,6 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setup(data: [ForecastDataPoint]) {
-        println("Setup with data")
-        
         let maxSpeed = data.reduce(0) { max($0, $1.windSpeed) }
         
         let unit = VaavudFormatter.shared.windSpeedUnit
@@ -232,6 +237,23 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
     }
 }
 
+func divide<T>(data: [T], condition: T -> Bool) -> [[T]] {
+    var out = [[T]]()
+    var latest = [T]()
+    
+    for dataPoint in data {
+        if condition(dataPoint) {
+            if !latest.isEmpty { out.append(latest) }
+            latest = [T]()
+        }
+        
+        latest.append(dataPoint)
+    }
+    out.append(latest)
+
+    return out
+}
+
 class ForecastView: UIView {
     let barFrame: CGRect
     let hourY: CGFloat
@@ -244,7 +266,8 @@ class ForecastView: UIView {
     init(frame: CGRect, data: [ForecastDataPoint], steps: [Int]) {
         let dvFrame = CGRect(x: 0, y: 0, width: 0, height: frame.height)
         
-        dayViews = data.divide(24, first: 0).map { ForecastDayView(frame: dvFrame, data: $0, steps: steps, date: NSDate()) }
+        dayViews = divide(data) { VaavudFormatter.shared.hourValue($0.date) == 0 }.map { ForecastDayView(frame: dvFrame, data: $0, steps: steps) }
+        
         barFrame = dayViews[0].barFrame
         hourY = dayViews[0].hourY
         
@@ -378,12 +401,12 @@ class ForecastDayView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(frame: CGRect, data: [ForecastDataPoint], steps: [Int], date: NSDate) {
+    init(frame: CGRect, data: [ForecastDataPoint], steps: [Int]) {
         let adjustedBorder = forecastBorder - 10
         
         dayLegend.font = UIFont(name: "Roboto-Bold", size: forecastFontSizeSmall)
         dayLegend.textColor = UIColor.lightGrayColor()
-        dayLegend.text = VaavudFormatter.shared.shortDate(date)
+        dayLegend.text = VaavudFormatter.shared.shortDate(data[0].date)
         dayLegend.sizeToFit()
         dayLegend.textAlignment = .Center
         dayLegend.frame.size.width += 10
@@ -426,7 +449,8 @@ func curveUntil(n: Int, ys: [CGFloat], barFrame: CGRect) -> UIBezierPath {
         let x = barFrame.width/2 + CGFloat(i)*(barFrame.width + forecastHorizontalPadding)
         let p  = CGPoint(x: x, y: i < n ? y : barFrame.height)
         
-        if i == 0 { path.moveToPoint(p) }
+        if ys.count == 1 { path.moveToPoint(p + CGPoint(x: -3, y: 0)); path.addLineToPoint(p + CGPoint(x: 3, y: 0)) }
+        else if i == 0 { path.moveToPoint(p) }
         else { path.addLineToPoint(p) }
     }
 
@@ -531,7 +555,7 @@ class ForecastHourView: UIView {
         hourLabel.font = UIFont(name: "Roboto-Light", size: forecastFontSizeLarge)
         hourLabel.textColor = fontColor
         hourLabel.textAlignment = .Center
-        hourLabel.text = String(dataPoint.hour)
+        hourLabel.text = String(VaavudFormatter.shared.hourValue(dataPoint.date))
         views.append(hourLabel)
 
         let heightOfOthers = [temperatureLabel, stateView, directionView, hourLabel].reduce(0) { $0 + $1.frame.height }

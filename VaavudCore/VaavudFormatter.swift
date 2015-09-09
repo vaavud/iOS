@@ -113,9 +113,9 @@ class VaavudFormatter: NSObject {
     var pressureUnit: PressureUnit = .Mbar { didSet { writePressureUnit() } }
     var temperatureUnit: TemperatureUnit = .Celsius { didSet { writeTemperatureUnit() } }
     
-    let dateFormatter = NSDateFormatter()
-    
-    let shortDateFormat: String
+    private let dateFormatter = NSDateFormatter()
+    private let shortDateFormat: String
+    private let calendar = NSCalendar.currentCalendar()
     
     let missingValue = "-"
     
@@ -142,6 +142,10 @@ class VaavudFormatter: NSObject {
     }
     
     // MARK - Public
+    
+    func hourValue(date: NSDate) -> Int {
+        return calendar.components(.CalendarUnitHour, fromDate: date).hour
+    }
     
     func shortDate(date: NSDate) -> String {
         dateFormatter.dateFormat = shortDateFormat
