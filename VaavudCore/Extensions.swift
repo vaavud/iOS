@@ -42,6 +42,75 @@ class Plot: UIView {
     }
 }
 
+extension Array {
+    func divide(n: Int) -> [[T]] {
+        var out = [[T]]()
+        let days = count/n + (count % n > 0 ? 1 : 0)
+        for i in 0..<days { out.append(Array(self[i*n..<min((i + 1)*n, count)])) }
+        
+        return out
+    }
+    
+    func divide(n: Int, first: Int) -> [[T]] {
+        precondition(first < n, "First must be smaller than n")
+        
+        var out = [[T]]()
+        let offset = min(first, count)
+        if offset > 0 {
+            out.append(Array(self[0..<offset]))
+        }
+        
+        let countLeft = count - offset
+        
+        let daysLeft = countLeft/n + (countLeft % n > 0 ? 1 : 0)
+        
+        for i in 0..<daysLeft {
+            out.append(Array(self[offset + i*n..<min(offset + (i + 1)*n, count)]))
+        }
+        
+        return out
+    }
+}
+
+func divide<T>(data: [T], condition: T -> Bool) -> [[T]] {
+    var out = [[T]]()
+    var latest = [T]()
+    
+    for dataPoint in data {
+        if condition(dataPoint) {
+            if !latest.isEmpty { out.append(latest) }
+            latest = [T]()
+        }
+        
+        latest.append(dataPoint)
+    }
+    out.append(latest)
+    
+    return out
+}
+
+func stackHorizontally(left: CGFloat = 0, margin: CGFloat = 0, views: [UIView]) -> CGFloat {
+    var x = left
+    
+    for view in views {
+        view.frame.origin.x = x
+        x += view.frame.width + margin
+    }
+    
+    return x - margin
+}
+
+func stackVertically(top: CGFloat = 0, margin: CGFloat = 0, views: [UIView]) -> CGFloat {
+    var y = top
+    
+    for view in views {
+        view.frame.origin.y = y
+        y += view.frame.height + margin
+    }
+    
+    return y - margin
+}
+
 func sigmoid(x: CGFloat) -> CGFloat {
     return 1/(1 + exp(-x))
 }

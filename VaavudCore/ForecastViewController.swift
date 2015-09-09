@@ -22,58 +22,6 @@ let forecastBorder: CGFloat = 20
 let forecastFontSizeSmall: CGFloat = 12
 let forecastFontSizeLarge: CGFloat = 15
 
-extension Array {
-    func divide(n: Int) -> [[T]] {
-        var out = [[T]]()
-        let days = count/n + (count % n > 0 ? 1 : 0)
-        for i in 0..<days { out.append(Array(self[i*n..<min((i + 1)*n, count)])) }
-        
-        return out
-    }
-    
-    func divide(n: Int, first: Int) -> [[T]] {
-        precondition(first < n, "First must be smaller than n")
-        
-        var out = [[T]]()
-        let offset = min(first, count)
-        if offset > 0 {
-            out.append(Array(self[0..<offset]))
-        }
-        
-        let countLeft = count - offset
-        
-        let daysLeft = countLeft/n + (countLeft % n > 0 ? 1 : 0)
-        
-        for i in 0..<daysLeft {
-            out.append(Array(self[offset + i*n..<min(offset + (i + 1)*n, count)]))
-        }
-        
-        return out
-    }
-}
-
-func stackHorizontally(left: CGFloat = 0, margin: CGFloat = 0, views: [UIView]) -> CGFloat {
-    var x = left
-    
-    for view in views {
-        view.frame.origin.x = x
-        x += view.frame.width + margin
-    }
-    
-    return x - margin
-}
-
-func stackVertically(top: CGFloat = 0, margin: CGFloat = 0, views: [UIView]) -> CGFloat {
-    var y = top
-    
-    for view in views {
-        view.frame.origin.y = y
-        y += view.frame.height + margin
-    }
-    
-    return y - margin
-}
-
 protocol AssetState {
     var prefix: String { get }
     var rawValue: String { get }
@@ -154,6 +102,7 @@ class ForecastLoader {
 
 class ForecastViewController: UIViewController, UIScrollViewDelegate {
     var location = CLLocationCoordinate2D()
+    var data: [ForecastDataPoint]?
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -166,25 +115,49 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        println("viewDidLoad")
+
         setup(location)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
 
+    func unitsChanged(note: NSNotification) {
+        println("reload")
+        if let data = data {
+            setup(data)
+        }
+        else {
+            ForecastLoader.shared.makeRequest(location, callback: setup)
+        }
+    }
+    
     func setup(location: CLLocationCoordinate2D) {
+        println("setup(location)")
+
+        self.location = location
         mapView.centerCoordinate = location
-        mapView.region = MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
+        mapView.region = MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
         
         ForecastLoader.shared.makeRequest(location, callback: setup)
     }
     
     func setup(data: [ForecastDataPoint]) {
+        println("setup(data) \(data.count)")
+
+        self.data = data
+        forecastView?.removeFromSuperview()
+        legendView?.removeFromSuperview()
+        
         let maxSpeed = data.reduce(0) { max($0, $1.windSpeed) }
         
         let unit = VaavudFormatter.shared.windSpeedUnit
@@ -206,6 +179,7 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
         let scaleMax = CGFloat(scaleStepCount*spacing)
         let steps = Array(0...scaleStepCount).map { $0*spacing }
         
+        scrollView.bounds.origin = CGPoint()
         forecastView = ForecastView(frame: scrollView.bounds, data: data, steps: steps)
         
         legendView = ForecastLegendView(frame: sidebar.bounds, steps: steps, barFrame: forecastView.barFrame, hourY: forecastView.hourY)
@@ -235,23 +209,6 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
             }
         }
     }
-}
-
-func divide<T>(data: [T], condition: T -> Bool) -> [[T]] {
-    var out = [[T]]()
-    var latest = [T]()
-    
-    for dataPoint in data {
-        if condition(dataPoint) {
-            if !latest.isEmpty { out.append(latest) }
-            latest = [T]()
-        }
-        
-        latest.append(dataPoint)
-    }
-    out.append(latest)
-
-    return out
 }
 
 class ForecastView: UIView {
