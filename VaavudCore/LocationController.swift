@@ -7,15 +7,18 @@
 //
 
 import Foundation
+import CoreLocation
 
 
 class LocationController: NSObject, CLLocationManagerDelegate {
     private let locationManager = CLLocationManager()
+	
+    private weak var listener1: LocationListener?
+    private weak var listener2: LocationListener?
+    private var listeners: [LocationListener] { return [listener1, listener2].reduce([LocationListener]()) { if let l = $1 { return $0 + [l] } else { return $0 } } }
 
-    private var listeners = [LocationListener]()
-    
     func addListener(listener: LocationListener) {
-        listeners.append(listener)
+        if listener1 == nil { listener1 = listener } else { listener2 = listener }
     }
     
     func start() -> ErrorEvent? {
@@ -41,7 +44,11 @@ class LocationController: NSObject, CLLocationManagerDelegate {
         
         return nil
     }
-
+    
+    func stop() {
+        locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingHeading()
+    }
     
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         if let locations = locations as? [CLLocation] {
@@ -58,6 +65,11 @@ class LocationController: NSObject, CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
         println(error.debugDescription)
+    }
+    
+    deinit {
+        // perform the deinitialization
+        println("DEINIT Location Controller")
     }
 }
 

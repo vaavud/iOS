@@ -39,14 +39,6 @@
 		22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */; };
 		22CECB181AF22CE300148045 /* Settings.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22CECB171AF22CE300148045 /* Settings.xcassets */; };
 		22DCCED41B02399800D65265 /* RoundMeasurementScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DCCED31B02399800D65265 /* RoundMeasurementScreen.swift */; };
-		22E4DF971B8CAF100013D4BA /* AudioSampleProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E4DF901B8CAF100013D4BA /* AudioSampleProcessor.swift */; };
-		22E4DF981B8CAF100013D4BA /* AudioVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E4DF911B8CAF100013D4BA /* AudioVolume.swift */; };
-		22E4DF991B8CAF100013D4BA /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E4DF921B8CAF100013D4BA /* Events.swift */; };
-		22E4DF9A1B8CAF100013D4BA /* RotationProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E4DF931B8CAF100013D4BA /* RotationProcessor.swift */; };
-		22E4DF9B1B8CAF100013D4BA /* TickTimeProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E4DF941B8CAF100013D4BA /* TickTimeProcessor.swift */; };
-		22E4DF9C1B8CAF100013D4BA /* Vaavud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E4DF951B8CAF100013D4BA /* Vaavud.swift */; };
-		22E4DF9D1B8CAF100013D4BA /* WindController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E4DF961B8CAF100013D4BA /* WindController.swift */; };
-		22E4DFBC1B8DDDA20013D4BA /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E4DFBB1B8DDDA20013D4BA /* LocationController.swift */; };
 		22E59A3A1ADD6F7000B1BC88 /* HistoryScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A301ADD6F7000B1BC88 /* HistoryScreen.xcassets */; };
 		22E59A3C1ADD6F7000B1BC88 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A311ADD6F7000B1BC88 /* Icons.xcassets */; };
 		22E59A3E1ADD6F7000B1BC88 /* InterfaceElements.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A321ADD6F7000B1BC88 /* InterfaceElements.xcassets */; };
@@ -61,6 +53,14 @@
 		22EAE5CF1AB1EA5C0037654E /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D21AB1EA5C0037654E /* Register.storyboard */; };
 		22EAE5D61AB1EBEA0037654E /* UpgradingUserPagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D81AB1EBEA0037654E /* UpgradingUserPagesView.xib */; };
 		22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
+		9FC1AC2C1BA23567002A5AB7 /* AudioSampleProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC1AC241BA23567002A5AB7 /* AudioSampleProcessor.swift */; };
+		9FC1AC2D1BA23567002A5AB7 /* AudioVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC1AC251BA23567002A5AB7 /* AudioVolume.swift */; };
+		9FC1AC2E1BA23567002A5AB7 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC1AC261BA23567002A5AB7 /* Events.swift */; };
+		9FC1AC2F1BA23567002A5AB7 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC1AC271BA23567002A5AB7 /* LocationController.swift */; };
+		9FC1AC301BA23567002A5AB7 /* RotationProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC1AC281BA23567002A5AB7 /* RotationProcessor.swift */; };
+		9FC1AC311BA23567002A5AB7 /* TickTimeProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC1AC291BA23567002A5AB7 /* TickTimeProcessor.swift */; };
+		9FC1AC321BA23567002A5AB7 /* Vaavud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC1AC2A1BA23567002A5AB7 /* Vaavud.swift */; };
+		9FC1AC331BA23567002A5AB7 /* WindController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC1AC2B1BA23567002A5AB7 /* WindController.swift */; };
 		A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A086025EA7704C458175CADF /* libPods.a */; };
 		D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
 		D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* VaavudFFT.m */; };
@@ -219,14 +219,6 @@
 		22DB81A81A8389DF00DA67AC /* Model 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.xcdatamodel"; sourceTree = "<group>"; };
 		22DCCED31B02399800D65265 /* RoundMeasurementScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundMeasurementScreen.swift; sourceTree = "<group>"; };
 		22E204FE1AB19BEB00FA7E1D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
-		22E4DF901B8CAF100013D4BA /* AudioSampleProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSampleProcessor.swift; sourceTree = "<group>"; };
-		22E4DF911B8CAF100013D4BA /* AudioVolume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioVolume.swift; sourceTree = "<group>"; };
-		22E4DF921B8CAF100013D4BA /* Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
-		22E4DF931B8CAF100013D4BA /* RotationProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationProcessor.swift; sourceTree = "<group>"; };
-		22E4DF941B8CAF100013D4BA /* TickTimeProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickTimeProcessor.swift; sourceTree = "<group>"; };
-		22E4DF951B8CAF100013D4BA /* Vaavud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vaavud.swift; sourceTree = "<group>"; };
-		22E4DF961B8CAF100013D4BA /* WindController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindController.swift; sourceTree = "<group>"; };
-		22E4DFBB1B8DDDA20013D4BA /* LocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
 		22E59A301ADD6F7000B1BC88 /* HistoryScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = HistoryScreen.xcassets; path = ImageAssets/HistoryScreen.xcassets; sourceTree = "<group>"; };
 		22E59A311ADD6F7000B1BC88 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Icons.xcassets; path = ImageAssets/Icons.xcassets; sourceTree = "<group>"; };
 		22E59A321ADD6F7000B1BC88 /* InterfaceElements.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = InterfaceElements.xcassets; path = ImageAssets/InterfaceElements.xcassets; sourceTree = "<group>"; };
@@ -243,6 +235,14 @@
 		22EAE5DC1AB1ECD90037654E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Bridging-Header.h"; sourceTree = "<group>"; };
 		22FA6C501A727171004DD868 /* VaavudStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VaavudStyle.swift; path = Vaavud/StyleKit/VaavudStyle.swift; sourceTree = SOURCE_ROOT; };
+		9FC1AC241BA23567002A5AB7 /* AudioSampleProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSampleProcessor.swift; sourceTree = "<group>"; };
+		9FC1AC251BA23567002A5AB7 /* AudioVolume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioVolume.swift; sourceTree = "<group>"; };
+		9FC1AC261BA23567002A5AB7 /* Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
+		9FC1AC271BA23567002A5AB7 /* LocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
+		9FC1AC281BA23567002A5AB7 /* RotationProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationProcessor.swift; sourceTree = "<group>"; };
+		9FC1AC291BA23567002A5AB7 /* TickTimeProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickTimeProcessor.swift; sourceTree = "<group>"; };
+		9FC1AC2A1BA23567002A5AB7 /* Vaavud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vaavud.swift; sourceTree = "<group>"; };
+		9FC1AC2B1BA23567002A5AB7 /* WindController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindController.swift; sourceTree = "<group>"; };
 		A086025EA7704C458175CADF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDE6761506C86D4075981625 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D7092E881748FE9C00993235 /* VaavudDynamicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudDynamicsController.h; sourceTree = "<group>"; };
@@ -456,14 +456,14 @@
 		2291249B1B81E8E700DC6867 /* NewSDK */ = {
 			isa = PBXGroup;
 			children = (
-				22E4DFBB1B8DDDA20013D4BA /* LocationController.swift */,
-				22E4DF901B8CAF100013D4BA /* AudioSampleProcessor.swift */,
-				22E4DF911B8CAF100013D4BA /* AudioVolume.swift */,
-				22E4DF921B8CAF100013D4BA /* Events.swift */,
-				22E4DF931B8CAF100013D4BA /* RotationProcessor.swift */,
-				22E4DF941B8CAF100013D4BA /* TickTimeProcessor.swift */,
-				22E4DF951B8CAF100013D4BA /* Vaavud.swift */,
-				22E4DF961B8CAF100013D4BA /* WindController.swift */,
+				9FC1AC241BA23567002A5AB7 /* AudioSampleProcessor.swift */,
+				9FC1AC251BA23567002A5AB7 /* AudioVolume.swift */,
+				9FC1AC261BA23567002A5AB7 /* Events.swift */,
+				9FC1AC271BA23567002A5AB7 /* LocationController.swift */,
+				9FC1AC281BA23567002A5AB7 /* RotationProcessor.swift */,
+				9FC1AC291BA23567002A5AB7 /* TickTimeProcessor.swift */,
+				9FC1AC2A1BA23567002A5AB7 /* Vaavud.swift */,
+				9FC1AC2B1BA23567002A5AB7 /* WindController.swift */,
 			);
 			name = NewSDK;
 			path = VaavudCore;
@@ -1009,32 +1009,32 @@
 				D7A4F1DB173A8DDB00D1ACEE /* AppDelegate.m in Sources */,
 				22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */,
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
+				9FC1AC2E1BA23567002A5AB7 /* Events.swift in Sources */,
+				9FC1AC311BA23567002A5AB7 /* TickTimeProcessor.swift in Sources */,
 				E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */,
-				22E4DF9B1B8CAF100013D4BA /* TickTimeProcessor.swift in Sources */,
 				22DCCED41B02399800D65265 /* RoundMeasurementScreen.swift in Sources */,
 				D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */,
 				E9B950CC195B1DCE00E9EF02 /* ImageUtil.m in Sources */,
 				E91D421B198F7E4900106E15 /* DismissOnTouchUIView.m in Sources */,
+				9FC1AC301BA23567002A5AB7 /* RotationProcessor.swift in Sources */,
 				D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */,
-				22E4DF9A1B8CAF100013D4BA /* RotationProcessor.swift in Sources */,
 				E9A4099F18AA75C6004F1C12 /* RegisterNavigationController.m in Sources */,
 				E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */,
+				9FC1AC331BA23567002A5AB7 /* WindController.swift in Sources */,
 				E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */,
-				22E4DF9D1B8CAF100013D4BA /* WindController.swift in Sources */,
 				229533511B1F3F8A00DAEA62 /* MeasureCancelButton.swift in Sources */,
 				E9A4097818994000004F1C12 /* TMCache.m in Sources */,
 				E9A4099C18AA501D004F1C12 /* PasswordUtil.m in Sources */,
 				E9B627C217708E63004678D5 /* AFHTTPRequestOperation.m in Sources */,
-				22E4DF971B8CAF100013D4BA /* AudioSampleProcessor.swift in Sources */,
 				E9B627C317708E63004678D5 /* AFImageRequestOperation.m in Sources */,
 				E9B627C417708E63004678D5 /* AFJSONRequestOperation.m in Sources */,
 				2231A0A41B19BECE003DADDB /* MeasureRootViewController.swift in Sources */,
 				E91D4218198F7C8400106E15 /* GuideView.m in Sources */,
 				229124981B81E87100DC6867 /* MjolnirMeasurementController.m in Sources */,
 				E9159CA51A03E09100742188 /* MeasurementSession.m in Sources */,
-				22E4DF991B8CAF100013D4BA /* Events.swift in Sources */,
 				E9B627C517708E63004678D5 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */,
+				9FC1AC2C1BA23567002A5AB7 /* AudioSampleProcessor.swift in Sources */,
 				2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */,
 				E9A4097D18994570004F1C12 /* UIImageView+TMCache.m in Sources */,
 				E9B627C617708E63004678D5 /* AFPropertyListRequestOperation.m in Sources */,
@@ -1042,6 +1042,7 @@
 				E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */,
 				E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */,
 				E9B627C817708E63004678D5 /* AFXMLRequestOperation.m in Sources */,
+				9FC1AC2F1BA23567002A5AB7 /* LocationController.swift in Sources */,
 				E9B627C917708E63004678D5 /* UIImageView+AFNetworking.m in Sources */,
 				E9B627D1177096D6004678D5 /* VaavudAPIHTTPClient.m in Sources */,
 				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,
@@ -1053,7 +1054,6 @@
 				E984F26319B878BD004024C6 /* MixpanelUtil.m in Sources */,
 				22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */,
 				E9FD000B17FD6A06001A8491 /* FormatUtil.m in Sources */,
-				22E4DFBC1B8DDDA20013D4BA /* LocationController.swift in Sources */,
 				2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */,
 				E9FABFDE18929473009C4C46 /* HistoryTableViewController.m in Sources */,
 				22900BB31AEE7616009D9C8F /* MjolnirSpinner.swift in Sources */,
@@ -1064,16 +1064,16 @@
 				229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */,
 				22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */,
 				22ADAA941A9C911400C298E6 /* EmptyHistoryArrow.swift in Sources */,
+				9FC1AC321BA23567002A5AB7 /* Vaavud.swift in Sources */,
 				E9F33CCE18B4B3CB0033EDC7 /* AccountManager.m in Sources */,
-				22E4DF9C1B8CAF100013D4BA /* Vaavud.swift in Sources */,
 				E9A4099318A52E40004F1C12 /* RegisterViewController.m in Sources */,
 				E9A4097918994000004F1C12 /* TMDiskCache.m in Sources */,
+				9FC1AC2D1BA23567002A5AB7 /* AudioVolume.swift in Sources */,
 				22E602471B6F67C600B706E0 /* ActivityFlowViewController.swift in Sources */,
 				E9B950E4195C587800E9EF02 /* FirstTimeFlowController.m in Sources */,
 				229124991B81E8B100DC6867 /* WindMeasurementController.m in Sources */,
 				E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */,
 				22728BEE1B6BA30200AFE634 /* UIImage+Vaavud.m in Sources */,
-				22E4DF981B8CAF100013D4BA /* AudioVolume.swift in Sources */,
 				D721B47E1AD1EBD10045DC99 /* DropboxUploader.swift in Sources */,
 				E9B950E3195C587800E9EF02 /* FirstTimeExplanationViewController.m in Sources */,
 				E904AC9817F08F6E00171F7F /* MapViewController.m in Sources */,

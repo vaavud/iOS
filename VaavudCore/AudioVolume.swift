@@ -67,7 +67,6 @@ struct VolumeTest{
     func testDictionary() -> [String: AnyObject] {
         return ["sN" : sN, "diff20": diff20]
     }
-    
 }
 
 
@@ -76,7 +75,6 @@ struct Volume{
     let noiseThreshold = 1100
     var volume = Int(volSteps/2)
     var sN = [Double](count: volSteps, repeatedValue: 0.0)
-    //    var testVolume = 0
     var counter = 0
     
     var volState = searchType.Diff

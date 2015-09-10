@@ -28,7 +28,7 @@ public enum Result<T> {
         self = .Error(error)
     }
 
-    var value: T? {
+    public var value: T? {
         switch self {
         case let .Value(val): return val.unbox
         case .Error: return nil
@@ -55,10 +55,10 @@ public struct WindSpeedEvent: Event, Dictionarifiable {
 
 public struct WindDirectionEvent: Event, Dictionarifiable {
     public let time: NSDate
-    public let direction: Double
+    public let globalDirection: Double
 
     var dict: [String : AnyObject] {
-        return ["time" : time.timeIntervalSince1970, "direction" : direction]
+        return ["time" : time.timeIntervalSince1970, "globalDirection" : globalDirection]
     }
 }
 
@@ -89,7 +89,7 @@ public struct ErrorEvent: Event, Dictionarifiable {
         self.technicalDescription = technical
         self.userDescription = user
         
-        println(user)
+        println(technical)
     }
     
     init(_ error: String) {
@@ -107,7 +107,6 @@ protocol WindListener: class {
     func newWindSpeed(Result<WindSpeedEvent>)
     func newWindDirection(Result<WindDirectionEvent>)
     
-    func calibrationProgress(Double)
     func debugPlot([[CGFloat]])
 }
 
@@ -118,5 +117,3 @@ protocol LocationListener: class {
 protocol TemperatureListener: class {
     func newTemperature(Result<TemperatureEvent>)
 }
-
-

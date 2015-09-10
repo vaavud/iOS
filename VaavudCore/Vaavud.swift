@@ -14,6 +14,7 @@ public class VaavudSleipnirAvailability: NSObject {
     }
 }
 
+
 public class VaavudSDK: WindListener, TemperatureListener, LocationListener {
     private var windController = WindController()
     private var locationController = LocationController()
@@ -27,23 +28,21 @@ public class VaavudSDK: WindListener, TemperatureListener, LocationListener {
 
     public var debugPlotCallback: ([[CGFloat]] -> Void)?
 
-    private var calibrationCallback: (Double -> Void)? // Will be removed by September 5th, guaranteed
-    
-    init() {
+    public init() {
         windController.addListener(self)
         
         locationController.addListener(windController)
         locationController.addListener(self)
     }
     
-    func sleipnirAvailable() -> Bool {
-        if windController.start(locationController) == nil {
-            return true
-        }
+    public func sleipnirAvailable() -> Bool {
+        var error = false
+        if locationController.start() == nil { error = true }
+        locationController.stop()
         
+        if windController.start() == nil { error = true }
         windController.stop()
-        
-        return false
+        return error
     }
     
     func reset() {
@@ -52,16 +51,12 @@ public class VaavudSDK: WindListener, TemperatureListener, LocationListener {
     
     public func start() -> ErrorEvent? {
         reset()
-        return windController.start(locationController)
+        if let startLocationError = locationController.start() {
+            return startLocationError
+        }
+        return windController.start()
     }
 
-    public func startCalibration(callback: Double -> Void) -> ErrorEvent? {
-        calibrationCallback = callback
-        reset()
-        
-        return windController.startCalibration(locationController)
-    }
-    
     public func stop() {
         windController.stop()
     }
@@ -94,12 +89,13 @@ public class VaavudSDK: WindListener, TemperatureListener, LocationListener {
         if let event = result.value { session.addWindDirection(event) }
     }
     
-    func calibrationProgress(progress: Double) {
-        calibrationCallback?(progress)
-    }
-    
     func debugPlot(valuess: [[CGFloat]]) {
         debugPlotCallback?(valuess)
+    }
+    
+    deinit {
+        // perform the deinitialization
+        println("DEINIT VaavudSDK")
     }
 }
 

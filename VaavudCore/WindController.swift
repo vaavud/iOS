@@ -13,13 +13,14 @@ import MediaPlayer
 import CoreLocation
 
 class WindController: NSObject, LocationListener {
-    private var listeners = [WindListener]()
+    weak var listener: WindListener?
+    private var listeners: [WindListener] { return [listener].reduce([WindListener]()) { if let l = $1 { return $0 + [l] } else { return $0 } } }
+
     private var audioEngine = AVAudioEngine()
     private var player = AVAudioPlayerNode()
     
     private let outputBuffer : AVAudioPCMBuffer
     
-    private let locationManager = CLLocationManager()
     private var heading: Float? // Floats are thread safe
     
     // there is a memory management bug / leak for these input/output formats. fix later.
@@ -36,8 +37,6 @@ class WindController: NSObject, LocationListener {
     private var rotationProcessor = RotationProcessor()
     private var vol = Volume()
     
-    private var calibrationMode = false
-    
     private var observers = [NSObjectProtocol]()
 
     override init() {
@@ -48,7 +47,7 @@ class WindController: NSObject, LocationListener {
     }
 
     func addListener(listener: WindListener) {
-        listeners.append(listener)
+        self.listener = listener
     }
     
     private func reset() {
@@ -59,6 +58,7 @@ class WindController: NSObject, LocationListener {
         tickTimeProcessor = TickTimeProcessor()
         rotationProcessor = RotationProcessor()
         vol = Volume()
+        observers = [NSObjectProtocol]()
     }
     
     private func resetAudio() {
@@ -79,7 +79,11 @@ class WindController: NSObject, LocationListener {
         }
     }
 
-    func start(locationController: LocationController) -> ErrorEvent? {
+    func start() -> ErrorEvent? {
+        if audioEngine.running {
+            return ErrorEvent("Seriously! SDK is already started..", user: "Woops the programmer did a mistake, sorry!")
+        }
+        
         // setup volume
         audioEngine.mainMixerNode.outputVolume = vol.getVolume()
         setVolumeToMax()
@@ -98,19 +102,9 @@ class WindController: NSObject, LocationListener {
             return startEngineError
         }
         
-        if let startLocationError = locationController.start() {
-            stop()
-            return startLocationError
-        }
-        
         startOutput()
         
         return nil
-    }
-    
-    func startCalibration(locationController: LocationController) -> ErrorEvent? {
-        calibrationMode = true
-        return start(locationController)
     }
     
     func stop() {
@@ -164,47 +158,31 @@ class WindController: NSObject, LocationListener {
         let resp = AudioResponse(diff20: noise.diff20, rotations: rotations.count, detectionErrors: detectionErrors, sN: noise.sN)
         audioEngine.mainMixerNode.outputVolume = vol.newVolume(resp)
         
-//        var plotData = [CGFloat](count: 256, repeatedValue: 0)
-//        for i in 0..<plotData.count {
-//            plotData[i] = CGFloat(data[i])
-//        }
-        
-//        let un = Array(data[0..<256].map {CGFloat($0)})
-        
         dispatch_async(dispatch_get_main_queue()) {
+            
             for rotation in rotations {
                 let measurementTime = self.sampleTimeToUnixTime(rotation.sampleTime)
                 let windspeed = WindController.rotationFrequencyToWindspeed(44100/Double(rotation.timeOneRotaion))
                 let result = Result(WindSpeedEvent(time: measurementTime, speed: windspeed))
                 self.listeners.map { $0.newWindSpeed(result) }
             }
-            
             for direction in directions {
                 let measurementTime = self.sampleTimeToUnixTime(direction.sampleTime)
-                let result = Result(WindDirectionEvent(time: measurementTime, direction: direction.direction))
+                let result = Result(WindDirectionEvent(time: measurementTime, globalDirection: Double(direction.globalDirection)))
                 self.listeners.map { $0.newWindDirection(result) }
             }
             
-            let plotData = [ self.rotationProcessor.calCoef.map { CGFloat($0) },
-                self.rotationProcessor.relVelocitiesSteadyLP.map { CGFloat($0) },
-                //                self.rotationProcessor.relVelocitiesSDSP.map({CGFloat($0)}),
-                map(zip(self.rotationProcessor.relVelocitiesSteadyLP, self.rotationProcessor.calCoef)) { CGFloat($0 - $1) }]
+//            let plotData = [(0..<256).map { CGFloat(self.data[$0]) }]
+//            let plotData = [ self.rotationProcessor.t15.map { CGFloat($0) }]
+//            let plotData = rotations.map {rotation in rotation.relVelocities.map {CGFloat($0)}}
+//            let plotData = self.rotationProcessor.relVelsStore.filter { $0[0] != 0 }.map { relVels in relVels.map { CGFloat($0) } }
+            let plotData = [self.rotationProcessor.debugLastDirectionAverage.map { CGFloat($0) },
+                map(zip(self.rotationProcessor.debugLastDirectionAverage, self.rotationProcessor.t15)) { CGFloat($0-$1) },
+                self.rotationProcessor.t15.map { CGFloat($0) },
+                self.rotationProcessor.fitcurveForAngle(-self.rotationProcessor.debugLastLocalAngle).map { CGFloat($0) }]
             
             self.listeners.map { $0.debugPlot(plotData) }
         }
-        
-        if calibrationMode {
-            dispatch_async(dispatch_get_main_queue()) {
-                self.listeners.map { $0.calibrationProgress(self.rotationProcessor.calibrationPercentage) }
-            }
-
-            if rotationProcessor.calibrationPercentage > 100 {
-                stop()
-                rotationProcessor.saveCalibration()
-            }
-        }
-
-        //  plot(rotationProcessor.relVelocitiesSteadyLP.map({CGFloat($0)}))
     }
     
     private func setVolumeToMax() {
@@ -426,6 +404,7 @@ class WindController: NSObject, LocationListener {
     
     deinit {
         // perform the deinitialization
-        println("DEINIT AudioIO")
+        stop() // remove observers if accedentially deinitialize before calling stop
+        println("DEINIT WindController")
     }
 }

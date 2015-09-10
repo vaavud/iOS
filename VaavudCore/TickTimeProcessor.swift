@@ -17,7 +17,7 @@ public struct Rotation {
     public let timeOneRotaion: Int
     public let relRotaionTime: Double
     public let heading: Float?
-    public let relVelocities: [Double]
+    public let relVelocities: [Float]
 }
 
 public struct TickTimeProcessor {
@@ -64,13 +64,13 @@ public struct TickTimeProcessor {
         // for the speed of one rotation to be a good average
         var processIndex = 6
         var times = [Int](count: TPR, repeatedValue: 0)
-        var relVelocities = [Double](count: TPR, repeatedValue: 0)
+        var relVelocities = [Float](count: TPR, repeatedValue: 0)
         
         var timeOneRotation = 0
         var timeOneRotationLast = 0
         
-        var velocity = 0.0
-        var velocityLast = 0.0
+        var velocity: Float = 0.0
+        var velocityLast: Float = 0.0
         
         mutating func updateProperties(time: Int) {
             velocityLast = velocity
@@ -85,12 +85,12 @@ public struct TickTimeProcessor {
             timeOneRotation += times[index];
             velocity = velocity(index)
             
-            var avgVelocity = 360/Double(timeOneRotation)
+            var avgVelocity = 360/Float(timeOneRotation)
             relVelocities[processIndex] = velocity(processIndex)/avgVelocity-1
         }
         
-        func velocity(i:Int) -> Double {
-            return TickTimeProcessor.teethSize[i]/Double(times[i])
+        func velocity(i:Int) -> Float {
+            return TickTimeProcessor.teethSize[i]/Float(times[i])
         }
         
         func velocityInRange() -> Bool {
@@ -110,7 +110,7 @@ public struct TickTimeProcessor {
     var nextOutputSample: Int64 = 0
     var outputInterval: Int64 = 0
     
-    static let teethSize = (1...TPR).map({$0 < TPR ? 23.5 : 31})
+    static let teethSize: [Float] = (1...TPR).map({$0 < TPR ? 23.5 : 31})
     
     //    mutating func checkIfOutput(sampleTime: Int64) -> Bool {
     //        if sampleTime > nextOutputSample {

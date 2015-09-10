@@ -40,7 +40,8 @@ class CalibrateSleipnirViewController: UIViewController {
         timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "showFirstText", userInfo: nil, repeats: false)
 
         sdk.windSpeedCallback = newWindSpeed
-        sdk.startCalibration(calibrationPercentageComplete)
+        ///!!!! NOT NEEDED ANYMORE
+//        sdk.startCalibration(calibrationPercentageComplete)
         sdk.start()
     }
     
