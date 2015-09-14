@@ -116,9 +116,12 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windSpeedUnitChanged) name:KEY_UNIT_CHANGED object:nil];
     
     self.view.autoresizesSubviews = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    
+    [self addLongPress];
 }
 
 - (void)appDidBecomeActive:(NSNotification *)notification {
@@ -128,11 +131,11 @@
 
 -(void)appWillTerminate:(NSNotification *) notification {
     //NSLog(@"[MapViewController] appWillTerminate");
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationWillTerminateNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
 
     BOOL forceReload = NO;
@@ -177,31 +180,31 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    // note: hack for content view underlapping tab view when clicking on another tab and back
-    if (self.hoursBottomLayoutGuideConstraint != nil) {
-        [self.view removeConstraint:self.hoursBottomLayoutGuideConstraint];
-        self.hoursBottomLayoutGuideConstraint = nil;
-        NSLayoutConstraint *bottomSpaceConstraint = [NSLayoutConstraint constraintWithItem:self.view
-                                                                                 attribute:NSLayoutAttributeBottom
-                                                                                 relatedBy:NSLayoutRelationEqual
-                                                                                    toItem:self.hoursButton
-                                                                                 attribute:NSLayoutAttributeBottom
-                                                                                multiplier:1.0
-                                                                                  constant:5.0];
-        [self.view addConstraint:bottomSpaceConstraint];
-    }
-    if (self.unitBottomLayoutGuideConstraint != nil) {
-        [self.view removeConstraint:self.unitBottomLayoutGuideConstraint];
-        self.unitBottomLayoutGuideConstraint = nil;
-        NSLayoutConstraint *bottomSpaceConstraint = [NSLayoutConstraint constraintWithItem:self.view
-                                                                                 attribute:NSLayoutAttributeBottom
-                                                                                 relatedBy:NSLayoutRelationEqual
-                                                                                    toItem:self.unitButton
-                                                                                 attribute:NSLayoutAttributeBottom
-                                                                                multiplier:1.0
-                                                                                  constant:5.0];
-        [self.view addConstraint:bottomSpaceConstraint];
-    }
+//    // note: hack for content view underlapping tab view when clicking on another tab and back
+//    if (self.hoursBottomLayoutGuideConstraint != nil) {
+//        [self.view removeConstraint:self.hoursBottomLayoutGuideConstraint];
+//        self.hoursBottomLayoutGuideConstraint = nil;
+//        NSLayoutConstraint *bottomSpaceConstraint = [NSLayoutConstraint constraintWithItem:self.view
+//                                                                                 attribute:NSLayoutAttributeBottom
+//                                                                                 relatedBy:NSLayoutRelationEqual
+//                                                                                    toItem:self.hoursButton
+//                                                                                 attribute:NSLayoutAttributeBottom
+//                                                                                multiplier:1.0
+//                                                                                  constant:5.0];
+//        [self.view addConstraint:bottomSpaceConstraint];
+//    }
+//    if (self.unitBottomLayoutGuideConstraint != nil) {
+//        [self.view removeConstraint:self.unitBottomLayoutGuideConstraint];
+//        self.unitBottomLayoutGuideConstraint = nil;
+//        NSLayoutConstraint *bottomSpaceConstraint = [NSLayoutConstraint constraintWithItem:self.view
+//                                                                                 attribute:NSLayoutAttributeBottom
+//                                                                                 relatedBy:NSLayoutRelationEqual
+//                                                                                    toItem:self.unitButton
+//                                                                                 attribute:NSLayoutAttributeBottom
+//                                                                                multiplier:1.0
+//                                                                                  constant:5.0];
+//        [self.view addConstraint:bottomSpaceConstraint];
+//    }
 
     self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:graceTimeBetweenMeasurementsRead
                                                          target:self
@@ -216,19 +219,22 @@
     self.viewAppearedTime = [NSDate date];
     
     [self showGuideIfNeeded];
-    
-    [self performSegueWithIdentifier:@"ForecastSegue" sender:self];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ForecastSegue"]) {
-        ForecastViewController *fvc = segue.destinationViewController;
-        fvc.location = [LocationManager sharedInstance].latestLocation;
-        fvc.location = CLLocationCoordinate2DMake(59.361481, 17.531733);
+        if ([sender isKindOfClass:[ForecastAnnotation class]]) {
+            ForecastAnnotation *annotation = sender;
+            
+            ForecastViewController *fvc = segue.destinationViewController;
+            [fvc setup:annotation];
+        }
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+
     [super viewWillDisappear:animated];
     if (self.refreshTimer && self.refreshTimer != nil) {
         [self.refreshTimer invalidate];
@@ -269,6 +275,24 @@
     }
 }
 
+- (void)addLongPress {
+    [self.mapView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(addPinToMap:)]];
+}
+
+- (void)addPinToMap:(UIGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer.state != UIGestureRecognizerStateBegan) {
+        return;
+    }
+    
+    CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
+    CLLocationCoordinate2D loc = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+    
+    ForecastAnnotation *annotation = [[ForecastAnnotation alloc] initWithLocation:loc];
+    [[ForecastLoader shared] setup:annotation mapView:self.mapView];
+ 
+    [self.mapView addAnnotation:annotation];
+}
+
 - (void)refreshMap {
     [self loadMeasurements:YES showActivityIndicator:NO];
 }
@@ -300,13 +324,16 @@
         [self refreshHours];
         [self clearActivityIndicator];
 
-        if (self.mapView.selectedAnnotations.count > 0) {
-            [self.mapView deselectAnnotation:self.mapView.selectedAnnotations[0] animated:NO];
+        NSMutableArray *measureAnnotations = [NSMutableArray array];
+        
+        for (id annotation in self.mapView.annotations) {
+            if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
+                [measureAnnotations addObject:annotation];
+                [self.mapView deselectAnnotation:annotation animated:NO];
+            }
         }
-
-        if ([self.mapView.annotations count] > 0) {
-            [self.mapView removeAnnotations:self.mapView.annotations];
-        }
+        
+        [self.mapView removeAnnotations:measureAnnotations];
         
         for (NSArray *measurement in measurements) {
             if (measurement.count >= 5) {
@@ -348,7 +375,7 @@
     }
 }
 
--(void)showFeedbackMessage:(NSString*)title message:(NSString*)message {
+-(void)showFeedbackMessage:(NSString*)title message:(NSString *)message {
     if (self.feedbackView.hidden == NO) {
         return;
     }
@@ -368,24 +395,50 @@
 
 -(void)windSpeedUnitChanged {
     NSArray *annotations = self.mapView.annotations;
-    if ([annotations count] > 0) {
-        if (self.mapView.selectedAnnotations.count > 0) {
-            [self.mapView deselectAnnotation:self.mapView.selectedAnnotations[0] animated:NO];
-        }
-        
-        [self.mapView removeAnnotations:annotations];
-        [self.mapView addAnnotations:annotations];
-    }
+    [self.mapView removeAnnotations:annotations];
+    [self.mapView addAnnotations:annotations];
 }
 
--(UIStatusBarStyle)preferredStatusBarStyle{
+-(UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
+}
+
+-(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
+    if (control.enabled) {
+        [self performSegueWithIdentifier:@"ForecastSegue" sender:view.annotation];
+    }
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     // If it's the user location, just return nil.
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
         return nil;
+    }
+    else if ([annotation isKindOfClass:[ForecastAnnotation class]]) {
+        MKPinAnnotationView *pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:@"annotation1"];
+        if (pinView == nil) {
+            pinView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"annotation1"];
+            pinView.pinColor = MKPinAnnotationColorRed;
+            pinView.animatesDrop = YES;
+            pinView.canShowCallout = YES;
+            [pinView setSelected:YES animated:YES];
+            
+            UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+            [rightButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+            [rightButton setImage:[UIImage imageNamed:@"Map-disclosure"] forState:UIControlStateNormal];
+            rightButton.enabled = NO;
+            pinView.rightCalloutAccessoryView = rightButton;
+            pinView.leftCalloutAccessoryView = [[ForecastCalloutView alloc] initWithFrame:CGRectMake(0, 0, 100, 70)];
+        }
+        
+        ForecastAnnotation *fa = (ForecastAnnotation *)annotation;
+        ForecastCalloutView *fc = (ForecastCalloutView *)pinView.leftCalloutAccessoryView;
+        [fc setup:fa];
+
+        UIButton *rc = (UIButton *)pinView.rightCalloutAccessoryView;
+        rc.enabled = [fa hasData];
+        
+        return pinView;
     }
     else if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
         static NSString *measureAnnotationIdentifier = @"MeasureAnnotationIdentifier";
@@ -579,7 +632,15 @@
     
     //NSLog(@"center.x=%f, center.y=%f, pointsPerMeter=%f, nearbyPoints=%f, mapRect.origin.x=%f, mapRect.origin.y=%f, mapRect.size.width=%f, mapRect.size.height=%f", center.x, center.y, pointsPerMeter, nearbyPoints, mapRect.origin.x, mapRect.origin.y, mapRect.size.width, mapRect.size.height);
     
-    NSSet *set = [self.mapView annotationsInMapRect:mapRect];
+//    NSSet *set = [self.mapView annotationsInMapRect:mapRect];
+    
+    NSMutableSet *set = [NSMutableSet set];
+    
+    for (id annotation in [self.mapView annotationsInMapRect:mapRect]) {
+        if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
+            [set addObject:annotation];
+        }
+    }
     
     if (set.count == 0) {
         return [NSArray array];
@@ -631,10 +692,10 @@
 }
 
 - (IBAction)unitButtonPushed {
-    self.windSpeedUnit = [UnitUtil nextWindSpeedUnit:self.windSpeedUnit];
-    [Property setAsInteger:[NSNumber numberWithInt:self.windSpeedUnit] forKey:KEY_WIND_SPEED_UNIT];
-    
-    [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
+//    self.windSpeedUnit = [UnitUtil nextWindSpeedUnit:self.windSpeedUnit];
+//    [Property setAsInteger:[NSNumber numberWithInt:self.windSpeedUnit] forKey:KEY_WIND_SPEED_UNIT];
+//    
+//    [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
     [self windSpeedUnitChanged];
 }
 

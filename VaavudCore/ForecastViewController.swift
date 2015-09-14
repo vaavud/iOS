@@ -22,42 +22,149 @@ let forecastBorder: CGFloat = 20
 let forecastFontSizeSmall: CGFloat = 12
 let forecastFontSizeLarge: CGFloat = 15
 
-protocol AssetState {
-    var prefix: String { get }
-    var rawValue: String { get }
-}
-
-func asset(state: AssetState) -> UIImage {
-    return UIImage(named: state.prefix + state.rawValue)!
-}
-
-enum WeatherState: String, AssetState {
-    case Cloudy = "Cloud"
-    case Sunny = "SunCloud"
+class ForecastAnnotation: NSObject, MKAnnotation {
+    let coordinate: CLLocationCoordinate2D
+    var data: [ForecastDataPoint]?
     
-//    clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night
-    
-    init(icon: String) {
-        self = [.Cloudy, .Sunny][Int(arc4random() % 2)]
+    var hasData: Bool { return data != nil }
+
+    init(location: CLLocationCoordinate2D) {
+        coordinate = location
     }
     
-    var prefix: String { return "Forecast" }
+    func setup(data: [ForecastDataPoint]) {
+        self.data = data
+    }
+    
+    var title: String {
+        let ahead = Property.getAsInteger(KEY_MAP_FORECAST_HOURS, defaultValue: 2).integerValue
+
+        let hourDelta: CGFloat = 0.07
+        
+        if let data = data where data.count > ahead {
+            let future = data[ahead].windSpeed
+            let current = data[0].windSpeed
+            
+            if future > current*(1 + CGFloat(ahead)*hourDelta) {
+                return "Rising wind" // lokalisera
+            }
+            else if future < current*(1 - CGFloat(ahead)*hourDelta) {
+                return "Falling wind" // lokalisera
+            }
+            else {
+                return "Stable wind" // lokalisera
+            }
+        }
+        
+        return "Loading..."
+    }
+
+    var subtitle: String {
+        if data == nil {
+            return ""
+        }
+        
+        let ahead = Property.getAsInteger(KEY_MAP_FORECAST_HOURS, defaultValue: 2).integerValue
+        return "Next " + (ahead == 1 ? "hour" : String(ahead) + " hours") // lokalisera
+    }
 }
 
-struct ForecastDataPoint {
-    let temp: CGFloat
-    let state: WeatherState
-    let windDirection: CGFloat
-    let windSpeed: CGFloat
-    let date: NSDate
+let forecastCalloutDirectionSize: CGFloat = 30
+
+class ForecastCalloutView: UIView {
+    let icon = UIImageView()
+    let empty = UIView()
+    let arrowView = UIImageView()
+    let label = UILabel()
+    var data: [ForecastDataPoint]?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        backgroundColor = UIColor.vaavudBlueColor()
+        
+        icon.frame.size = CGSize(width: 44, height: 44)
+        icon.frame.origin = CGPoint(x: 4, y: 4)
+        addSubview(icon)
+        
+        empty.frame.size = CGSize(width: forecastCalloutDirectionSize, height: forecastCalloutDirectionSize)
+        empty.frame.origin.x = icon.frame.maxX + 10
+        empty.frame.origin.y = icon.frame.minY
+        addSubview(empty)
+        
+        arrowView.image = UIImage(named: "Map-arrow")
+        arrowView.sizeToFit()
+        arrowView.center = empty.bounds.center
+        arrowView.alpha = 0
+        empty.addSubview(arrowView)
+        
+        label.textColor = UIColor.whiteColor()
+        label.font = UIFont.systemFontOfSize(12)
+        label.textAlignment = .Center
+        label.frame.size = CGSize(width: forecastCalloutDirectionSize + 10, height: 44 - forecastCalloutDirectionSize)
+        label.frame.origin.x = icon.frame.maxX + 5
+        label.frame.origin.y = icon.frame.maxY - label.frame.height
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.8
+        addSubview(label)
+
+//        icon.backgroundColor = UIColor.greenColor()
+//        empty.backgroundColor = UIColor.yellowColor()
+//        label.backgroundColor = UIColor.redColor().colorWithAlpha(0.2)
+//        arrowView.backgroundColor = UIColor.blackColor().colorWithAlpha(0.2)
+    }
+    
+    func setup(annotation: ForecastAnnotation) {
+        let ahead = Property.getAsInteger(KEY_MAP_FORECAST_HOURS, defaultValue: 2).integerValue
+
+        if let data = annotation.data where data.count > ahead {
+            let unit = VaavudFormatter.shared.windSpeedUnit
+            let dataPoint = data[ahead]
+            label.text = String(Int(round(unit.fromBase(dataPoint.windSpeed)))) + " " + unit.localizedString
+            arrowView.transform = Affine.rotation(dataPoint.windSpeed.radians)
+            arrowView.alpha = 1
+            icon.image = asset(dataPoint.state, "Map-")
+            icon.alpha = 1
+        }
+        else {
+            arrowView.alpha = 0
+            label.text = nil
+            icon.alpha = 0
+        }
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
-class ForecastLoader {
+class ForecastLoader: NSObject {
     static let shared = ForecastLoader()
     
     private let apiKey = "cb4bab2c67a85ffb3ffcd90abfaaba7f"
     private var baseURL: NSURL { return NSURL(string: "https://api.forecast.io/forecast/\(apiKey)/")! }
-    private init() { }
+    private override init() { super.init() }
+    
+    func setup(annotation: ForecastAnnotation, mapView: MKMapView) {
+        makeRequest(annotation.coordinate) {
+            annotation.setup($0)
+            if let pv = mapView.viewForAnnotation(annotation) as? MKPinAnnotationView,
+                callout = pv.leftCalloutAccessoryView as? ForecastCalloutView,
+                button = pv.rightCalloutAccessoryView as? UIButton,
+                data = annotation.data {
+                    mapView.removeAnnotation(annotation)
+                    pv.animatesDrop = false
+                    mapView.addAnnotation(annotation)
+                    
+                    callout.setup(annotation)
+                    
+                    mapView.selectAnnotation(annotation, animated: true)
+                    
+                    button.enabled = true
+                    pv.animatesDrop = true
+            }
+        }
+    }
     
     func makeRequest(location: CLLocationCoordinate2D, callback: [ForecastDataPoint] -> ()) {
         let forecastUrl = NSURL(string: "\(location.latitude),\(location.longitude)", relativeToURL:baseURL)!
@@ -65,7 +172,7 @@ class ForecastLoader {
         
         let downloadTask: NSURLSessionDownloadTask = sharedSession.downloadTaskWithURL(forecastUrl) {
             (location: NSURL!, response: NSURLResponse!, error: NSError!) in
-
+            
             if error != nil { return }
             
             if let dataObject = NSData(contentsOfURL: location),
@@ -92,12 +199,53 @@ class ForecastLoader {
                 
                 return ForecastDataPoint(temp: temp, state: state, windDirection: windDirection, windSpeed: windSpeed, date: date)
             }
-
+            
             return dataPoints
         }
         
         return nil
     }
+}
+
+protocol AssetState {
+    var prefix: String { get }
+    var rawValue: String { get }
+}
+
+func asset(state: AssetState) -> UIImage {
+    return UIImage(named: state.prefix + state.rawValue)!
+}
+
+func asset(state: AssetState, prefix: String) -> UIImage {
+    return UIImage(named: prefix + state.rawValue)!
+}
+
+enum WeatherState: String, AssetState {
+    case ClearDay = "clear-day"
+    case ClearNight = "clear-night"
+    case Rain = "rain"
+    case Snow = "snow"
+    case Sleet = "sleet"
+    case Wind = "wind"
+    case Fog = "fog"
+    case Cloudy = "cloudy"
+    case PartlyCloudyDay = "partly-cloudy-day"
+    case PartlyCloudyNight = "partly-cloudy-night"
+    case Unknown = "unknown"
+    
+    init(icon: String) {
+        self = WeatherState(rawValue: icon) ?? .Unknown
+    }
+    
+    var prefix: String { return "Forecast-" }
+}
+
+struct ForecastDataPoint {
+    let temp: CGFloat
+    let state: WeatherState
+    let windDirection: CGFloat
+    let windSpeed: CGFloat
+    let date: NSDate
 }
 
 class ForecastViewController: UIViewController, UIScrollViewDelegate {
@@ -112,10 +260,11 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
     
     private var legendView: ForecastLegendView!
     private var forecastView: ForecastView!
+
+    private var didSetup = false
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
     }
     
@@ -123,74 +272,70 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        println("viewDidLoad")
-
-        setup(location)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        if didSetup { return }
+        
+        didSetup = true
+        setupMap()
+        setupForecast()
     }
     
-
     func unitsChanged(note: NSNotification) {
-        println("reload")
-        if let data = data {
-            setup(data)
-        }
-        else {
-            ForecastLoader.shared.makeRequest(location, callback: setup)
+        setupForecast()
+    }
+    
+    func setup(annotation: ForecastAnnotation) {
+        if let annotationData = annotation.data {
+            location = annotation.coordinate
+            data = annotationData
         }
     }
     
-    func setup(location: CLLocationCoordinate2D) {
-        println("setup(location)")
-
-        self.location = location
+    func setupMap() {
         mapView.centerCoordinate = location
         mapView.region = MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
-        
-        ForecastLoader.shared.makeRequest(location, callback: setup)
     }
     
-    func setup(data: [ForecastDataPoint]) {
-        println("setup(data) \(data.count)")
-
-        self.data = data
+    func setupForecast() {
         forecastView?.removeFromSuperview()
         legendView?.removeFromSuperview()
         
-        let maxSpeed = data.reduce(0) { max($0, $1.windSpeed) }
-        
-        let unit = VaavudFormatter.shared.windSpeedUnit
-        let unitMax = unit.fromBase(maxSpeed)
-        
-        let spacing: Int
-        
-        if unit == .Bft {
-            spacing = forecastScaleSpacingBft
+        if let data = data {
+            let maxSpeed = data.reduce(0) { max($0, $1.windSpeed) }
+            
+            let unit = VaavudFormatter.shared.windSpeedUnit
+            let unitMax = unit.fromBase(maxSpeed)
+            
+            let spacing: Int
+            
+            if unit == .Bft {
+                spacing = forecastScaleSpacingBft
+            }
+            else {
+                let calculateSteps = { (space: Int) in Int(ceil(unitMax/CGFloat(space))) }
+                var space = forecastScaleSpacing
+                while calculateSteps(space) > forecastMaxSteps { space *= 2 }
+                spacing = space
+            }
+            
+            let scaleStepCount = Int(ceil(unitMax/CGFloat(spacing)))
+            let scaleMax = CGFloat(scaleStepCount*spacing)
+            let steps = Array(0...scaleStepCount).map { $0*spacing }
+            
+            scrollView.bounds.origin = CGPoint()
+            forecastView = ForecastView(frame: scrollView.bounds, data: data, steps: steps)
+            
+            legendView = ForecastLegendView(frame: sidebar.bounds, steps: steps, barFrame: forecastView.barFrame, hourY: forecastView.hourY)
+            
+            sidebar.addSubview(legendView)
+            
+            scrollView.scrollEnabled = true
+            scrollView.contentSize = forecastView.bounds.size
+            scrollView.contentInset.left = sidebarWidth.constant
+            scrollView.contentOffset.x = -scrollView.contentInset.left
+            scrollView.addSubview(forecastView)
         }
-        else {
-            let calculateSteps = { (space: Int) in Int(ceil(unitMax/CGFloat(space))) }
-            var space = forecastScaleSpacing
-            while calculateSteps(space) > forecastMaxSteps { space *= 2 }
-            spacing = space
-        }
-        
-        let scaleStepCount = Int(ceil(unitMax/CGFloat(spacing)))
-        let scaleMax = CGFloat(scaleStepCount*spacing)
-        let steps = Array(0...scaleStepCount).map { $0*spacing }
-        
-        scrollView.bounds.origin = CGPoint()
-        forecastView = ForecastView(frame: scrollView.bounds, data: data, steps: steps)
-        
-        legendView = ForecastLegendView(frame: sidebar.bounds, steps: steps, barFrame: forecastView.barFrame, hourY: forecastView.hourY)
-        
-        sidebar.addSubview(legendView)
-        
-        scrollView.scrollEnabled = true
-        scrollView.contentSize = forecastView.bounds.size
-        scrollView.contentInset.left = sidebarWidth.constant
-        scrollView.contentOffset.x = -scrollView.contentInset.left
-        scrollView.addSubview(forecastView)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -458,7 +603,7 @@ class ForecastLineView: ShapeView {
 }
 
 class ForecastHourView: UIView {
-    private let fontColor = UIColor.lightGrayColor()
+    private let fontColor = UIColor.darkGrayColor()
 
     private let temperatureLabel = UILabel()
     private let stateView = UIImageView()

@@ -94,6 +94,7 @@ NSString * const KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN = @"mapGuideMeasurePopupShow
 
 NSString * const KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY = @"mapGuideMeasurePopupShownToday";
 
+NSString * const KEY_MAP_FORECAST_HOURS = @"mapForecastHours";
 
 @implementation Property (Util)
 
