@@ -352,7 +352,7 @@
 
 - (void)geocodeLocation:(CLLocation *)location forCell:(HistoryTableViewCell *)cell session:(MeasurementSession *)session {
     if (LOG_HISTORY) NSLog(@"[HistoryTableViewController] LOCATION requesting for %.2f", session.windSpeedAvg.floatValue);
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self.geocoder reverseGeocodeLocation:location completionHandler: ^(NSArray *placemarks, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (LOG_HISTORY) NSLog(@"[HistoryTableViewController] LOCATION received for %.2f", session.windSpeedAvg.floatValue);

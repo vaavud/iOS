@@ -91,6 +91,8 @@ extern NSString * const KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY;
 
 extern NSString * const KEY_MAP_FORECAST_HOURS;
 
+extern NSString * const KEY_MAP_GUIDE_FORECAST_SHOWN;
+
 
 @interface Property (Util)
 

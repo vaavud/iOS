@@ -118,11 +118,11 @@
 "BUTTON_NO" = "No";
 
 "MAP_GUIDE_MARKER_TITLE" = "Measurement Details";
-"MAP_GUIDE_MARKER_EXPLANATION" = "Tap on a measurement to see further details.";
+"MAP_GUIDE_MARKER_EXPLANATION" = "Tap on a measurement to see further details";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "Change Time Interval";
-"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Change time interval and unit of measure by tapping on the text.";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Change time interval by tapping on the text";
 "MAP_GUIDE_ZOOM_TITLE" = "Quick Zoom";
-"MAP_GUIDE_ZOOM_EXPLANATION" = "Tap on the map thumbnail to zoom to the exact location.";
+"MAP_GUIDE_ZOOM_EXPLANATION" = "Tap on the map thumbnail to zoom to the exact location";
 
 "HEADING_WIND_SPEED" = "Wind Speed";
 "HEADING_TEMPERATURE" = "Temperature";
@@ -235,5 +235,16 @@
 "SLEIPNIR_PROBLEM_TITLE" = "Sleipnir not available";
 "SLEIPNIR_PROBLEM_MESSAGE" = "Please insert your Sleipnir wind meter before starting taking a measurement.";
 "SLEIPNIR_PROBLEM_SWITCH" = "Use Mjolnir";
+
+// September 2015
+
+"MAP_GUIDE_FORECAST" = "Press and hold anywhere on the map to see the forecast for that point";
+"TIME" = "Time";
+"FORECAST_WIND_RISING" = "Rising wind";
+"FORECAST_WIND_FALLING" = "Falling wind";
+"FORECAST_WIND_STABLE" = "Stable wind";
+"LOADING" = "Loading...";
+"MAP_NEXT_X_HOURS" = "Next %d hours";
+"MAP_NEXT_HOUR" = "Next hour";
 
 

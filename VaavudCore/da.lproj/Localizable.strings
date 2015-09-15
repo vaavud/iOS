@@ -96,11 +96,11 @@
 "BUTTON_YES" = "Ja";
 "BUTTON_NO" = "Nej";
 "MAP_GUIDE_MARKER_TITLE" = "Vindmålingsdetaljer";
-"MAP_GUIDE_MARKER_EXPLANATION" = "Tryk på en vindmåling for at se flere detaljer.";
+"MAP_GUIDE_MARKER_EXPLANATION" = "Tryk på en vindmåling for at se flere detaljer";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "Ændre tidsinterval";
-"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Du kan ændre tidsinterval og enhed ved at trykke på teksten.";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Du kan ændre tidsinterval ved at trykke på teksten";
 "MAP_GUIDE_ZOOM_TITLE" = "Hurtig-zoom";
-"MAP_GUIDE_ZOOM_EXPLANATION" = "Tryk på det lille kort for at zoome ind til det sted målingen er taget.";
+"MAP_GUIDE_ZOOM_EXPLANATION" = "Tryk på det lille kort for at zoome ind til det sted målingen er taget";
 "HEADING_WIND_SPEED" = "Vindhastighed";
 "HEADING_TEMPERATURE" = "Temperatur";
 "HEADING_WIND_DIRECTION" = "Retning";
@@ -210,6 +210,14 @@
 "SLEIPNIR_PROBLEM_MESSAGE" = "Indsæt din Sleipnir vindmåler før du starter en måling.";
 "SLEIPNIR_PROBLEM_SWITCH" = "Brug Mjølner";
 
+"MAP_GUIDE_FORECAST" = "Tryk et sted på kortet og hold inde for at se vejrudsigten for det sted";
+"TIME" = "Tid";
+"FORECAST_WIND_RISING" = "Tiltagende vind";
+"FORECAST_WIND_FALLING" = "Aftagende vind";
+"FORECAST_WIND_STABLE" = "Jævn vind";
+"LOADING" = "Indlæser...";
+"MAP_NEXT_X_HOURS" = "Næste %d timer";
+"MAP_NEXT_HOUR" = "Næste time";
 
 
 

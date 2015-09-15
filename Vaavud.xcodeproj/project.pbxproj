@@ -22,6 +22,7 @@
 		22787C3B1B5D8C8200AB6150 /* MeasureScreens.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22787C3A1B5D8C8200AB6150 /* MeasureScreens.xcassets */; };
 		228124F91B945CC80037B8CB /* Forecast.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 228124F81B945CC80037B8CB /* Forecast.xcassets */; };
 		228500881AEA8E0200E1E7C2 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228500871AEA8E0200E1E7C2 /* FacebookSDK.framework */; };
+		228904BC1BA815D3006259AB /* Overlays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228904BB1BA815D3006259AB /* Overlays.swift */; };
 		22900BB31AEE7616009D9C8F /* MjolnirSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22900BB21AEE7616009D9C8F /* MjolnirSpinner.swift */; };
 		22900BB71AEE77C1009D9C8F /* MjolnirSpinner.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22900BB61AEE77C1009D9C8F /* MjolnirSpinner.xcassets */; };
 		229124981B81E87100DC6867 /* MjolnirMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* MjolnirMeasurementController.m */; };
@@ -201,6 +202,7 @@
 		22787C3A1B5D8C8200AB6150 /* MeasureScreens.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = MeasureScreens.xcassets; path = ImageAssets/MeasureScreens.xcassets; sourceTree = "<group>"; };
 		228124F81B945CC80037B8CB /* Forecast.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Forecast.xcassets; path = ImageAssets/Forecast.xcassets; sourceTree = "<group>"; };
 		228500871AEA8E0200E1E7C2 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		228904BB1BA815D3006259AB /* Overlays.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Overlays.swift; sourceTree = "<group>"; };
 		228A7BB01ADD190E00EB72CC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		228A7BB31ADD190E00EB72CC /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		228A7BB41ADD190F00EB72CC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -549,6 +551,7 @@
 		D7A4F1D0173A8DDB00D1ACEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				228904BB1BA815D3006259AB /* Overlays.swift */,
 				22C8AB3D1B8F33340064DB8B /* ForecastViewController.swift */,
 				223DA7B31B0B696E00298A6E /* MapMeasurementViewController.swift */,
 				22728BEC1B6BA30200AFE634 /* UIImage+Vaavud.h */,
@@ -1099,6 +1102,7 @@
 				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,
 				E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */,
 				E9FABFEA1896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m in Sources */,
+				228904BC1BA815D3006259AB /* Overlays.swift in Sources */,
 				22C8AB3E1B8F33340064DB8B /* ForecastViewController.swift in Sources */,
 				221285B21B04A6F500D4C008 /* FlatMeasurementController.swift in Sources */,
 				229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */,

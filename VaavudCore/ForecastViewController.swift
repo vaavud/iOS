@@ -22,9 +22,106 @@ let forecastBorder: CGFloat = 20
 let forecastFontSizeSmall: CGFloat = 12
 let forecastFontSizeLarge: CGFloat = 15
 
+class RadialOverlay: UIView {
+    let position: CGPoint
+    var didTap = false
+    
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    init(frame: CGRect, position: CGPoint, header: String, text: String, icon: UIImage?) {
+        self.position = CGPoint(x: frame.width*position.x, y: frame.height*position.y)
+        
+        super.init(frame: frame)
+        
+        let headerLabel = UILabel()
+        headerLabel.textColor = UIColor.whiteColor()
+        headerLabel.font = UIFont(name: "Roboto-Bold", size: 24)
+        headerLabel.text = header
+        headerLabel.textAlignment = .Center
+        headerLabel.sizeToFit()
+        headerLabel.frame.size.width = frame.width - 40
+        headerLabel.center = bounds.center
+        addSubview(headerLabel)
+        
+        let textLabel = UILabel()
+        textLabel.textColor = UIColor.whiteColor()
+        textLabel.font = UIFont(name: "Roboto-Light", size: 24)
+        textLabel.text = text
+        textLabel.numberOfLines = 0
+        textLabel.textAlignment = .Center
+        textLabel.frame.size.width = frame.width - 40
+        textLabel.sizeToFit()
+        textLabel.center.x = bounds.midX
+        textLabel.frame.origin.y = headerLabel.frame.maxY + 5
+        addSubview(textLabel)
+
+        if let icon = icon {
+            let iv = UIImageView(image: icon)
+            iv.center.x = bounds.midX
+            iv.frame.origin.y = headerLabel.frame.minY - 30 - iv.frame.height
+            addSubview(iv)
+        }
+        
+        if position.y > 0 {
+            backgroundColor = UIColor.clearColor()
+        }
+        else {
+            backgroundColor = UIColor.vaavudDarkGreyColor().colorWithAlpha(0.85)
+        }
+        
+        alpha = 0
+    }
+    
+    override func didMoveToWindow() {
+        UIView.animateWithDuration(0.2) { self.alpha = 1 }
+    }
+    
+    override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+        let inFocus = dist(position, point) < 25
+
+        if inFocus {
+            removeFromSuperview()
+        }
+        else {
+            didTap = true
+        }
+        
+        return !inFocus
+    }
+    
+    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+        if didTap {
+            UIView.animateWithDuration(0.25, animations: { self.alpha = 0 }, completion: { _ in self.removeFromSuperview() })
+        }
+    }
+    
+    override func drawRect(rect: CGRect) {
+        if position.y > 0 {
+            let context = UIGraphicsGetCurrentContext()
+            let innerColor = UIColor.vaavudDarkGreyColor().colorWithAlpha(0)
+            let outerColor = UIColor.vaavudDarkGreyColor().colorWithAlpha(0.85)
+            
+            let gradient1 = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), [innerColor.CGColor, outerColor.CGColor], [0, 0.9])!
+            let gradient2 = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), [outerColor.CGColor, outerColor.CGColor], [0, 1])!
+        
+            CGContextSaveGState(context)
+            
+            UIBezierPath(rect: bounds).addClip()
+            
+            CGContextDrawRadialGradient(context, gradient1, position, 25, position, 75, 0)
+            CGContextDrawRadialGradient(context, gradient2, position, 75, position, 1200, 0)
+            
+            CGContextRestoreGState(context)
+        }
+    }
+}
+
 class ForecastAnnotation: NSObject, MKAnnotation {
     let coordinate: CLLocationCoordinate2D
     var data: [ForecastDataPoint]?
+    var geocode: String?
     
     var hasData: Bool { return data != nil }
 
@@ -46,17 +143,17 @@ class ForecastAnnotation: NSObject, MKAnnotation {
             let current = data[0].windSpeed
             
             if future > current*(1 + CGFloat(ahead)*hourDelta) {
-                return "Rising wind" // lokalisera
+                return NSLocalizedString("FORECAST_WIND_RISING", comment: "") // lokalisera
             }
             else if future < current*(1 - CGFloat(ahead)*hourDelta) {
-                return "Falling wind" // lokalisera
+                return NSLocalizedString("FORECAST_WIND_FALLING", comment: "") // lokalisera
             }
             else {
-                return "Stable wind" // lokalisera
+                return NSLocalizedString("FORECAST_WIND_STABLE", comment: "") // lokalisera
             }
         }
         
-        return "Loading..."
+        return NSLocalizedString("LOADING", comment: "") // lokalisera
     }
 
     var subtitle: String {
@@ -65,7 +162,11 @@ class ForecastAnnotation: NSObject, MKAnnotation {
         }
         
         let ahead = Property.getAsInteger(KEY_MAP_FORECAST_HOURS, defaultValue: 2).integerValue
-        return "Next " + (ahead == 1 ? "hour" : String(ahead) + " hours") // lokalisera
+        
+        let localHour = NSLocalizedString("MAP_NEXT_HOUR", comment: "") // lokalisera
+        let localHours = NSLocalizedString("MAP_NEXT_X_HOURS", comment: "") // lokalisera
+        
+        return (ahead == 1) ? localHour : String(format: localHours, ahead)
     }
 }
 
@@ -141,12 +242,14 @@ class ForecastCalloutView: UIView {
 class ForecastLoader: NSObject {
     static let shared = ForecastLoader()
     
+    private let geocoder = CLGeocoder()
+    
     private let apiKey = "cb4bab2c67a85ffb3ffcd90abfaaba7f"
     private var baseURL: NSURL { return NSURL(string: "https://api.forecast.io/forecast/\(apiKey)/")! }
     private override init() { super.init() }
     
     func setup(annotation: ForecastAnnotation, mapView: MKMapView) {
-        makeRequest(annotation.coordinate) {
+        requestForecast(annotation.coordinate) {
             annotation.setup($0)
             if let pv = mapView.viewForAnnotation(annotation) as? MKPinAnnotationView,
                 callout = pv.leftCalloutAccessoryView as? ForecastCalloutView,
@@ -164,9 +267,29 @@ class ForecastLoader: NSObject {
                     pv.animatesDrop = true
             }
         }
+        
+        requestGeocode(annotation.coordinate) {
+            annotation.geocode = $0
+        }
     }
     
-    func makeRequest(location: CLLocationCoordinate2D, callback: [ForecastDataPoint] -> ()) {
+    func requestGeocode(location: CLLocationCoordinate2D, callback: String -> ()) {
+        geocoder.reverseGeocodeLocation(CLLocation(latitude: location.latitude, longitude: location.longitude)) { placemarks, error in
+            dispatch_async(dispatch_get_main_queue()) {
+                if let error = error {
+                    println("Geocode failed with error: \(error)")
+                    return
+                }
+                
+                if let first = placemarks.first as? CLPlacemark,
+                    let geocode = first.thoroughfare ?? first.locality ?? first.country {
+                        callback(geocode)
+                }
+            }
+        }
+    }
+    
+    func requestForecast(location: CLLocationCoordinate2D, callback: [ForecastDataPoint] -> ()) {
         let forecastUrl = NSURL(string: "\(location.latitude),\(location.longitude)", relativeToURL:baseURL)!
         let sharedSession = NSURLSession.sharedSession()
         
@@ -249,7 +372,8 @@ struct ForecastDataPoint {
 }
 
 class ForecastViewController: UIViewController, UIScrollViewDelegate {
-    var location = CLLocationCoordinate2D()
+    var location: CLLocationCoordinate2D?
+    var geocode: String?
     var data: [ForecastDataPoint]?
     
     @IBOutlet weak var mapView: MKMapView!
@@ -265,11 +389,19 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        Mixpanel.sharedInstance().track("Forecast Screen")
+
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
     }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    @IBAction func tappedAttribution(sender: UIButton) {
+        if let url = NSURL(string: "http://forecast.io") {
+            UIApplication.sharedApplication().openURL(url)
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -279,6 +411,13 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
         didSetup = true
         setupMap()
         setupForecast()
+        
+        if let geocode = geocode {
+            title = geocode
+        }
+        else if let location = location {
+            ForecastLoader.shared.requestGeocode(location) { self.title = $0 }
+        }
     }
     
     func unitsChanged(note: NSNotification) {
@@ -293,8 +432,10 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setupMap() {
-        mapView.centerCoordinate = location
-        mapView.region = MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+        if let location = location {
+            mapView.centerCoordinate = location
+            mapView.region = MKCoordinateRegion(center: location, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+        }
     }
     
     func setupForecast() {
@@ -327,6 +468,9 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
             forecastView = ForecastView(frame: scrollView.bounds, data: data, steps: steps)
             
             legendView = ForecastLegendView(frame: sidebar.bounds, steps: steps, barFrame: forecastView.barFrame, hourY: forecastView.hourY)
+            
+//            forecastView.backgroundColor = UIColor.greenColor().colorWithAlpha(0.1)
+//            legendView.backgroundColor = UIColor.redColor().colorWithAlpha(0.1)
             
             sidebar.addSubview(legendView)
             
@@ -438,7 +582,7 @@ class ForecastLegendView: UIView {
         
         unitLabel.frame.origin.y = scaleLabels.last!.frame.minY - unitLabel.frame.height - 3
         
-        hourLabel.text = NSLocalizedString("HOUR", comment: "hour as in watch time") // LOKALT
+        hourLabel.text = NSLocalizedString("TIME", comment: "") // lokalisera
         hourLabel.textAlignment = .Right
         hourLabel.font = font
         hourLabel.textColor = fontColor

@@ -137,7 +137,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
-
+    
     BOOL forceReload = NO;
 
     // note: grid degree might have been updated by a device register call
@@ -180,32 +180,6 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-//    // note: hack for content view underlapping tab view when clicking on another tab and back
-//    if (self.hoursBottomLayoutGuideConstraint != nil) {
-//        [self.view removeConstraint:self.hoursBottomLayoutGuideConstraint];
-//        self.hoursBottomLayoutGuideConstraint = nil;
-//        NSLayoutConstraint *bottomSpaceConstraint = [NSLayoutConstraint constraintWithItem:self.view
-//                                                                                 attribute:NSLayoutAttributeBottom
-//                                                                                 relatedBy:NSLayoutRelationEqual
-//                                                                                    toItem:self.hoursButton
-//                                                                                 attribute:NSLayoutAttributeBottom
-//                                                                                multiplier:1.0
-//                                                                                  constant:5.0];
-//        [self.view addConstraint:bottomSpaceConstraint];
-//    }
-//    if (self.unitBottomLayoutGuideConstraint != nil) {
-//        [self.view removeConstraint:self.unitBottomLayoutGuideConstraint];
-//        self.unitBottomLayoutGuideConstraint = nil;
-//        NSLayoutConstraint *bottomSpaceConstraint = [NSLayoutConstraint constraintWithItem:self.view
-//                                                                                 attribute:NSLayoutAttributeBottom
-//                                                                                 relatedBy:NSLayoutRelationEqual
-//                                                                                    toItem:self.unitButton
-//                                                                                 attribute:NSLayoutAttributeBottom
-//                                                                                multiplier:1.0
-//                                                                                  constant:5.0];
-//        [self.view addConstraint:bottomSpaceConstraint];
-//    }
-
     self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:graceTimeBetweenMeasurementsRead
                                                          target:self
                                                        selector:@selector(refreshMap)
@@ -242,36 +216,45 @@
 }
 
 - (void)showGuideIfNeeded {
-    TabBarController *tabBarController = (TabBarController *)self.tabBarController;
+    CGRect bounds = self.tabBarController.view.bounds;
+    
+    NSString *textKey;
+    UIImage *icon = nil;
+    CGPoint position = CGPointMake(-1, -1);
     
     BOOL hasDevice = [Property getAsBoolean:KEY_USER_HAS_WIND_METER];
-    
+
     if (hasDevice && ![Property getAsBoolean:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY defaultValue:NO]) {
         [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY];
-        [tabBarController showCalloutGuideView:NSLocalizedString(@"KEY_MAP_GUIDE_MEASURE_BUTTON_TITLE", nil)
-                               explanationText:NSLocalizedString(@"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION", nil)
-                                customPosition:CGRectMake(self.view.bounds.size.width / 2.0F, self.view.bounds.size.height - 10.0F, 1.0F, 1.0F)
-                                     withArrow:YES
-                                        inView:nil];
+        textKey = @"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION";
+        position = CGPointMake(0.5, 0.97);
     }
     else if (![Property getAsBoolean:KEY_MAP_GUIDE_MARKER_SHOWN defaultValue:NO]) {
         [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MARKER_SHOWN];
-        [tabBarController showCalloutGuideView:NSLocalizedString(@"MAP_GUIDE_MARKER_TITLE", nil)
-                               explanationText:NSLocalizedString(@"MAP_GUIDE_MARKER_EXPLANATION", nil)
-                                customPosition:CGRectMake(self.view.bounds.size.width / 2.0F, self.view.bounds.size.height / 2.0F, 1.0F, 1.0F)
-                                     withArrow:NO
-                                        inView:nil];
+        textKey = @"MAP_GUIDE_MARKER_EXPLANATION";
+        icon = [UIImage imageNamed:@"ForecastOverlayMeasurement"];
     }
     else if (![Property getAsBoolean:KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN defaultValue:NO]) {
         [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN];
         
-        CGRect rect = CGRectMake(self.hoursButton.frame.origin.x, self.tabBarController.view.bounds.size.height - self.tabBarController.tabBar.frame.size.height - self.hoursButton.frame.size.height,  self.hoursButton.frame.size.width, self.hoursButton.frame.size.height);
+        CGFloat x = self.hoursButton.center.x/bounds.size.width;
+        CGFloat y = self.hoursButton.center.y/bounds.size.height;
         
-        [tabBarController showCalloutGuideView:NSLocalizedString(@"MAP_GUIDE_TIME_INTERVAL_TITLE", nil)
-                               explanationText:NSLocalizedString(@"MAP_GUIDE_TIME_INTERVAL_EXPLANATION", nil)
-                                customPosition:rect
-                                     withArrow:YES
-                                        inView:nil];
+        textKey = @"MAP_GUIDE_TIME_INTERVAL_EXPLANATION";
+        position = CGPointMake(x, y);
+    }
+    else if (![Property getAsBoolean:KEY_MAP_GUIDE_FORECAST_SHOWN defaultValue:NO]) {
+        [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_FORECAST_SHOWN];
+        textKey = @"MAP_GUIDE_FORECAST";
+        icon = [UIImage imageNamed:@"ForecastPressFinger"];
+    }
+    
+    if (textKey != nil) {
+        [self.tabBarController.view addSubview:[[RadialOverlay alloc] initWithFrame:bounds
+                                                                           position:position
+                                                                             header:@""
+                                                                               text:NSLocalizedString(textKey, nil)
+                                                                               icon:icon]];
     }
 }
 
@@ -290,6 +273,8 @@
     ForecastAnnotation *annotation = [[ForecastAnnotation alloc] initWithLocation:loc];
     [[ForecastLoader shared] setup:annotation mapView:self.mapView];
  
+    [[Mixpanel sharedInstance] track:@"Forecast added pin"];
+    
     [self.mapView addAnnotation:annotation];
 }
 
