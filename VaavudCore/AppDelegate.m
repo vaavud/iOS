@@ -77,22 +77,11 @@
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     UIViewController *viewController = nil;
     
+    if (![Property getAsBoolean:KEY_HAS_SEEN_TRISCREEN_FLOW defaultValue:NO]) {
+    }
+    
     // CORE VAAVUD APP
     NSString *vcName;
-    
-//    if (![Property getAsBoolean:KEY_HAS_SEEN_TRISCREEN_FLOW defaultValue:NO]) {
-//        if (LOG_INTRO) NSLog(@"not KEY_HAS_SEEN_UPGRADE_FLOW");
-//        vcName = @"UpgradingUserViewController";
-//    }
-//    else if (![Property getAsBoolean:KEY_HAS_SEEN_INTRO_FLOW defaultValue:NO]) {
-//        if (LOG_INTRO) NSLog(@"not KEY_HAS_SEEN_INTRO_FLOW");
-//        [Property setAsBoolean:YES forKey:KEY_HAS_SEEN_UPGRADE_FLOW];
-//        vcName = @"FirstTimeFlowController";
-//    }
-//    else {
-//        if (LOG_INTRO) NSLog(@"APPD Has seen intro and upgrade");
-//        vcName = @"TabBarController";
-//    }
     
     if ([Property getAsBoolean:KEY_HAS_SEEN_INTRO_FLOW defaultValue:NO]) {
         // Not a new user

@@ -98,7 +98,7 @@
 "MAP_GUIDE_MARKER_TITLE" = "Messdetails";
 "MAP_GUIDE_MARKER_EXPLANATION" = "Auf eine Messung drücken, um weitere Details einzublenden.";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "Zeitintervall ändern";
-"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Wechseln Sie den Zeitintervall und die Maßeinheit, indem Sie den Text antippen.";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Wechseln Sie den Zeitintervall indem Sie den Text antippen.";
 "MAP_GUIDE_ZOOM_TITLE" = "Schnell-Zoom";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "Tippen Sie die Kartenminiatur an, um exakt auf den Ort hinein zu zoomen.";
 "HEADING_WIND_SPEED" = "Windgeschwindigkeit";

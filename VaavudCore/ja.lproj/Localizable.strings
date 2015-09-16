@@ -98,7 +98,7 @@
 "MAP_GUIDE_MARKER_TITLE" = "測定値の詳細";
 "MAP_GUIDE_MARKER_EXPLANATION" = "詳細を見るには測定値をタップしてください。";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "時間間隔を変更";
-"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "時間間隔や測定単位を変更するにはテキストをタップしてください。";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "時間間隔を変更するにはテキストをタップしてください。";
 "MAP_GUIDE_ZOOM_TITLE" = "クイックズーム";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "的確な場所にズームするには地図のサムネイルをタップしてください。";
 "HEADING_WIND_SPEED" = "Wind Speed";

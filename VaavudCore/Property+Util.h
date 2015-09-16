@@ -93,6 +93,7 @@ extern NSString * const KEY_MAP_FORECAST_HOURS;
 
 extern NSString * const KEY_MAP_GUIDE_FORECAST_SHOWN;
 
+extern NSString * const KEY_DENMARK;
 
 @interface Property (Util)
 

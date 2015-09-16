@@ -98,6 +98,7 @@ NSString * const KEY_MAP_FORECAST_HOURS = @"mapForecastHours";
 
 NSString * const KEY_MAP_GUIDE_FORECAST_SHOWN = @"mapGuideForecastShown";
 
+NSString * const KEY_DENMARK = @"denmarkRegion";
 
 @implementation Property (Util)
 

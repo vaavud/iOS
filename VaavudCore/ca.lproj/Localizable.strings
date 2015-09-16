@@ -102,7 +102,7 @@
 "MAP_GUIDE_MARKER_TITLE" = "Detalls del mesurament";
 "MAP_GUIDE_MARKER_EXPLANATION" = "Prem en un mesurament per veure més detalls.";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "Canvia l'interval de temps";
-"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Pots canviar l'interval de temps i la unitat de mesura prement sobre el text.";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Pots canviar l'interval de temps prement sobre el text.";
 "MAP_GUIDE_ZOOM_TITLE" = "Zoom ràpid";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "Prem al mapa en miniatura per ampliar la ubicació exacta.";
 "HEADING_WIND_SPEED" = "Direcció del vent";

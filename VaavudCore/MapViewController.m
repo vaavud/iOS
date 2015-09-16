@@ -121,7 +121,9 @@
     self.view.autoresizesSubviews = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    [self addLongPress];
+    if ([[[NSLocale preferredLanguages] firstObject] isEqualToString:@"da"]) {
+        [self addLongPress];
+    }
 }
 
 - (void)appDidBecomeActive:(NSNotification *)notification {
@@ -224,6 +226,10 @@
     
     BOOL hasDevice = [Property getAsBoolean:KEY_USER_HAS_WIND_METER];
 
+    BOOL isDanish = [[[NSLocale preferredLanguages] firstObject] isEqualToString:@"da"];
+    
+    NSLog(@"Preferred: %@", [NSLocale preferredLanguages]);
+    
     if (hasDevice && ![Property getAsBoolean:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY defaultValue:NO]) {
         [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY];
         textKey = @"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION";
@@ -243,7 +249,7 @@
         textKey = @"MAP_GUIDE_TIME_INTERVAL_EXPLANATION";
         position = CGPointMake(x, y);
     }
-    else if (![Property getAsBoolean:KEY_MAP_GUIDE_FORECAST_SHOWN defaultValue:NO]) {
+    else if (isDanish && ![Property getAsBoolean:KEY_MAP_GUIDE_FORECAST_SHOWN defaultValue:NO]) {
         [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_FORECAST_SHOWN];
         textKey = @"MAP_GUIDE_FORECAST";
         icon = [UIImage imageNamed:@"ForecastPressFinger"];
