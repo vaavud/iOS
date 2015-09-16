@@ -36,7 +36,7 @@
             [FirstTimeFlowController createInstructionFlowOn:self];
         }
         else {
-            self.pageImages = @[@"001_basejumper.jpg", @"002_map.jpg", @"003_sign_up.jpg"];
+            self.pageImages = @[@"001_basejumper-small.jpg", @"002_map-small.jpg", @"003_sign_up-small.jpg"];
             self.pageTexts = @[NSLocalizedString(@"INTRO_FLOW_SCREEN_1", nil), NSLocalizedString(@"INTRO_FLOW_SCREEN_2", nil), @""]; // LOKALISERA_BORT senare
             self.pageMixpanelScreens = @[@"Intro Flow Screen 1", @"Intro Flow Screen 2", @"Intro Flow Register Screen"];
             self.pageIds = @[@0, @1, @2];
@@ -133,7 +133,7 @@
         }
     }
     
-    if (explanationViewController.pageId == 8) {
+    if (explanationViewController.pageId == 7) {
         explanationViewController.tinyButtonText = NSLocalizedString(@"INTRO_FLOW_BUTTON_GOT_IT", nil); // LOKALISERA_BORT sedan
         explanationViewController.tinyButtonIsSolid = YES;
     }
@@ -235,7 +235,7 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
         
         FirstTimeExplanationViewController *explanationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTimeExplanationViewController"];
         explanationViewController.delegate = self;
-        explanationViewController.imageName = @"004_wind_meter.jpg";
+        explanationViewController.imageName = @"004_wind_meter-small.jpg";
         explanationViewController.pageIndex = 0;
         explanationViewController.pageId = 4;
         explanationViewController.mixpanelScreen = @"Intro Flow Buy Screen";
@@ -258,6 +258,9 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
         else {
             [self gotoMainScreenFromController:controller];
         }
+//        [self dismissViewControllerAnimated:YES completion:^{
+//            NSLog(@"DISMISSED");
+//        }];
     }
 }
 
@@ -269,7 +272,7 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
 
         [self gotoNewFlowScreenFrom:controller];
     }
-    else if (controller.pageId == 8) {
+    else if (controller.pageId == 7) {
         if (self.returnViaDismiss) {
             [self dismissViewControllerAnimated:YES completion:nil];
         }
@@ -334,7 +337,7 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
 - (FirstTimeExplanationViewController *)createHaveWindMeterController {
     FirstTimeExplanationViewController *explanationViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"FirstTimeExplanationViewController"];
     explanationViewController.delegate = self;
-    explanationViewController.imageName = @"004_wind_meter.jpg";
+    explanationViewController.imageName = @"004_wind_meter-small.jpg";
     explanationViewController.pageIndex = 0;
     explanationViewController.pageId = 3;
     explanationViewController.mixpanelScreen = @"Intro Flow Have Wind Meter Screen";
@@ -357,10 +360,10 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
 }
 
 + (void)createInstructionFlowOn:(FirstTimeFlowController *)controller {
-    controller.pageImages = @[@"005_paraglider.jpg", @"006_hold_top.jpg", @"006_open_space.jpg", @"007_reading.jpg"];
-    controller.pageTexts = @[NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_1", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_2", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_3", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_4", nil)]; // LOKALISERA_BORT sedan
-    controller.pageIds = @[@5, @6, @7, @8];
-    controller.pageMixpanelScreens = @[@"Instruction Flow Screen 1", @"Instruction Flow Screen 2", @"Instruction Flow Screen 3", @"Instruction Flow Screen 4"];
+    controller.pageImages = @[@"005_hold_top-small.jpg", @"006_open_space-small.jpg"];
+    controller.pageTexts = @[NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_2", nil), NSLocalizedString(@"INSTRUCTION_FLOW_SCREEN_3", nil)]; // LOKALISERA_BORT sedan
+    controller.pageIds = @[@6, @7];
+    controller.pageMixpanelScreens = @[@"Instruction Flow Screen 2", @"Instruction Flow Screen 3"];
 }
 
 -(NSUInteger)supportedInterfaceOrientations {

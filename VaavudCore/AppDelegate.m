@@ -76,10 +76,7 @@
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     UIViewController *viewController = nil;
-    
-    if (![Property getAsBoolean:KEY_HAS_SEEN_TRISCREEN_FLOW defaultValue:NO]) {
-    }
-    
+        
     // CORE VAAVUD APP
     NSString *vcName;
     

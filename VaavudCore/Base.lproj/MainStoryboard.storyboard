@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="uRK-QG-tAM">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -575,17 +576,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gd9-4s-5FW">
-                                <rect key="frame" x="0.0" y="64" width="320" height="188"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="192"/>
                             </mapView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iao-NE-mvF">
-                                <rect key="frame" x="0.0" y="262" width="320" height="257"/>
+                                <rect key="frame" x="0.0" y="266" width="320" height="253"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
                                     <outlet property="delegate" destination="hdO-SU-WTz" id="HZ8-O8-703"/>
                                 </connections>
                             </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MkT-mq-tkD">
+                                <rect key="frame" x="285" y="241" width="24" height="30"/>
+                                <state key="normal" image="ForecastProBadge">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="tappedProBadge:" destination="hdO-SU-WTz" eventType="touchUpInside" id="SSq-Ip-JFf"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBu-J4-fDi" customClass="GradientView" customModule="Vaavud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="262" width="45" height="257"/>
+                                <rect key="frame" x="0.0" y="266" width="45" height="253"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="45" id="QFS-JQ-4ei"/>
@@ -607,7 +617,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5lu-Uy-ddc">
-                                <rect key="frame" x="105" y="252" width="111" height="27"/>
+                                <rect key="frame" x="105" y="256" width="111" height="27"/>
                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="12"/>
                                 <state key="normal" title="Powered by Forecast">
                                     <color key="titleColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -626,18 +636,21 @@
                             <constraint firstItem="Iao-NE-mvF" firstAttribute="top" secondItem="Gd9-4s-5FW" secondAttribute="bottom" constant="10" id="DI5-9Q-Uvp"/>
                             <constraint firstItem="LBu-J4-fDi" firstAttribute="leading" secondItem="zzJ-DL-blw" secondAttribute="leading" id="DXL-Ob-ouD"/>
                             <constraint firstItem="cVX-ts-sGn" firstAttribute="top" secondItem="Iao-NE-mvF" secondAttribute="bottom" id="O9n-gq-IBe"/>
+                            <constraint firstItem="MkT-mq-tkD" firstAttribute="centerY" secondItem="Gd9-4s-5FW" secondAttribute="bottom" id="TBt-Yk-9yk"/>
                             <constraint firstItem="Iao-NE-mvF" firstAttribute="top" secondItem="LBu-J4-fDi" secondAttribute="top" id="Zci-jn-kma"/>
                             <constraint firstItem="cVX-ts-sGn" firstAttribute="top" secondItem="LBu-J4-fDi" secondAttribute="bottom" id="eDy-Pw-2e5"/>
                             <constraint firstAttribute="trailing" secondItem="Gd9-4s-5FW" secondAttribute="trailing" id="g48-Ns-6hx"/>
                             <constraint firstAttribute="trailing" secondItem="Iao-NE-mvF" secondAttribute="trailing" id="ox5-JZ-gGg"/>
                             <constraint firstAttribute="centerX" secondItem="5lu-Uy-ddc" secondAttribute="centerX" id="rBk-vF-kNy"/>
                             <constraint firstItem="5lu-Uy-ddc" firstAttribute="top" secondItem="Gd9-4s-5FW" secondAttribute="bottom" id="t2G-mi-IPz"/>
-                            <constraint firstItem="Gd9-4s-5FW" firstAttribute="height" secondItem="zzJ-DL-blw" secondAttribute="height" multiplier="0.4" constant="-20" id="tqg-bm-6Ek"/>
+                            <constraint firstItem="Gd9-4s-5FW" firstAttribute="height" secondItem="zzJ-DL-blw" secondAttribute="height" multiplier="0.37" id="tqg-bm-6Ek"/>
+                            <constraint firstAttribute="trailing" secondItem="MkT-mq-tkD" secondAttribute="trailing" constant="11" id="vxb-os-Ntp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="SyG-iz-VMF"/>
                     <connections>
                         <outlet property="mapView" destination="Gd9-4s-5FW" id="zr3-WV-1gV"/>
+                        <outlet property="proBadge" destination="MkT-mq-tkD" id="9Xf-Dr-K2Q"/>
                         <outlet property="scrollView" destination="Iao-NE-mvF" id="qbV-vV-Bso"/>
                         <outlet property="sidebar" destination="LBu-J4-fDi" id="jmo-jQ-fPZ"/>
                         <outlet property="sidebarWidth" destination="QFS-JQ-4ei" id="Chg-9Q-3jF"/>
@@ -2530,6 +2543,7 @@
         <image name="ActivityFlow" width="414" height="852"/>
         <image name="ActivityTab" width="23" height="15"/>
         <image name="CompassArrowGrey" width="20" height="20"/>
+        <image name="ForecastProBadge" width="24" height="30"/>
         <image name="HistoryDirectionArrow" width="27" height="27"/>
         <image name="HistoryTab" width="23" height="23"/>
         <image name="MapTab" width="23" height="23"/>

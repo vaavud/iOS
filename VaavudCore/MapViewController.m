@@ -225,10 +225,7 @@
     CGPoint position = CGPointMake(-1, -1);
     
     BOOL hasDevice = [Property getAsBoolean:KEY_USER_HAS_WIND_METER];
-
     BOOL isDanish = [[[NSLocale preferredLanguages] firstObject] isEqualToString:@"da"];
-    
-    NSLog(@"Preferred: %@", [NSLocale preferredLanguages]);
     
     if (hasDevice && ![Property getAsBoolean:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY defaultValue:NO]) {
         [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY];
@@ -257,10 +254,9 @@
     
     if (textKey != nil) {
         [self.tabBarController.view addSubview:[[RadialOverlay alloc] initWithFrame:bounds
-                                                                           position:position
-                                                                             header:@""
-                                                                               text:NSLocalizedString(textKey, nil)
-                                                                               icon:icon]];
+                                                                           position:position                                                                               text:NSLocalizedString(textKey, nil)
+                                                                               icon:icon
+                                                                             radius:70]];
     }
 }
 
@@ -417,6 +413,7 @@
             UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
             [rightButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
             [rightButton setImage:[UIImage imageNamed:@"Map-disclosure"] forState:UIControlStateNormal];
+            rightButton.tintColor = [UIColor vaavudBlueColor];
             rightButton.enabled = NO;
             pinView.rightCalloutAccessoryView = rightButton;
             pinView.leftCalloutAccessoryView = [[ForecastCalloutView alloc] initWithFrame:CGRectMake(0, 0, 100, 70)];

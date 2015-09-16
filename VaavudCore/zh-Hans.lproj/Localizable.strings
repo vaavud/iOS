@@ -98,7 +98,7 @@
 "MAP_GUIDE_MARKER_TITLE" = "测量详情";
 "MAP_GUIDE_MARKER_EXPLANATION" = "点击测量结果查看更多详情。";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "更改时间间隔";
-"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "点击文字更改时间间隔和测量单位。";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "点击文本改变时间间隔。";
 "MAP_GUIDE_ZOOM_TITLE" = "快速缩放";
 "MAP_GUIDE_ZOOM_EXPLANATION" = "点击地图缩略图缩放至准确的位置。";
 "HEADING_WIND_SPEED" = "Wind Speed";
