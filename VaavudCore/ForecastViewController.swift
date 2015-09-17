@@ -37,7 +37,7 @@ class ForecastAnnotation: NSObject, MKAnnotation {
         self.data = data
     }
     
-    var title: String {
+    var title: String? {
         let ahead = Property.getAsInteger(KEY_MAP_FORECAST_HOURS, defaultValue: 2).integerValue
 
         let hourDelta: CGFloat = 0.07
@@ -60,7 +60,7 @@ class ForecastAnnotation: NSObject, MKAnnotation {
         return NSLocalizedString("LOADING", comment: "") // lokalisera
     }
 
-    var subtitle: String {
+    var subtitle: String? {
         if data == nil {
             return ""
         }
@@ -128,7 +128,7 @@ class ForecastCalloutView: UIView {
             label.text = String(Int(round(unit.fromBase(dataPoint.windSpeed)))) + " " + unit.localizedString
             arrowView.transform = Affine.rotation(dataPoint.windSpeed.radians)
             arrowView.alpha = 1
-            icon.image = asset(dataPoint.state, "Map-")
+            icon.image = asset(dataPoint.state, prefix: "Map-")
             icon.alpha = 1
         }
         else {
@@ -181,11 +181,11 @@ class ForecastLoader: NSObject {
         geocoder.reverseGeocodeLocation(CLLocation(latitude: location.latitude, longitude: location.longitude)) { placemarks, error in
             dispatch_async(dispatch_get_main_queue()) {
                 if let error = error {
-                    println("Geocode failed with error: \(error)")
+                    print("Geocode failed with error: \(error)")
                     return
                 }
                 
-                if let first = placemarks.first as? CLPlacemark,
+                if let first = placemarks?.first,
                     let geocode = first.thoroughfare ?? first.locality ?? first.country {
                         callback(geocode)
                 }
@@ -332,7 +332,7 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
             Property.setAsBoolean(true, forKey: KEY_FORECAST_OVERLAY_SHOWN)
             let p = tbc.view.convertPoint(proBadge.center, fromView: nil)
             let pos = CGPoint(x: p.x/tbc.view.frame.width, y: p.y/tbc.view.frame.height)
-            let text = "This is so pro you can't even handle it"
+            let text = "Forecasts is a Pro feature, but it's free for now! Tap the badge to find out more." // lokalisera
             let icon = UIImage(named: "ForecastProOverlay")
             tbc.view.addSubview(RadialOverlay(frame: tbc.view.bounds, position: pos, text: text, icon: icon, radius: 50))
         }
@@ -387,9 +387,6 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
             
             legendView = ForecastLegendView(frame: sidebar.bounds, steps: steps, barFrame: forecastView.barFrame, hourY: forecastView.hourY)
             
-//            forecastView.backgroundColor = UIColor.greenColor().colorWithAlpha(0.1)
-//            legendView.backgroundColor = UIColor.redColor().colorWithAlpha(0.1)
-            
             sidebar.addSubview(legendView)
             
             scrollView.scrollEnabled = true
@@ -413,6 +410,15 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
             if n > 0 {
                 dv.revealLines()
                 dv.revealGraph()
+            }
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let webViewController = segue.destinationViewController as? WebViewController {
+            if segue.identifier == "ProBadgeSeque" {
+                webViewController.title = "Pro features"
+                webViewController.html = "We will be adding a bunch of exciting new features to the Vaavud app, and some of these features will only be available to Pro subscribers. For a limited period though, all our users will be able to try them out!".html()
             }
         }
     }

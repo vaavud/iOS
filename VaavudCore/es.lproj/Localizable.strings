@@ -202,6 +202,26 @@
 "UPGRADE_GET_IT_LATER" = "Lo compraré más tarde";
 "NSLocationWhenInUseUsageDescription" = "Utilizamos su posición para poder mostrarte donde la medición fue tomada.";
 "NSMicrophoneUsageDescription" = "El anemómetro Sleipnir utiliza el conector de los auriculares para comunicarse con el teléfono";
+"VAAVUD_NAME" = "Vaavud";
+"SETTINGS_ADVANCED" = "Avanzado";
+"SETTINGS_DROPBOX" = "Exportar a Dropbox";
+"SETTINGS_SLEIPNIR_CLIP" = "Colocación de Sleipnir";
+"ACTIVITY_COMING_SOON" = "Próximamente";
+"ACTIVITY_ACTIVITY_FLOW" = "Pantalla de actividad";
+"ACTIVITY_DESCRIPTION" = "Descubre quién está en ese lugar, lo que piensan de las condiciones y mucho más";
+"UPGRADE_1_HEADING" = "¡Nueva y mejorada!";
+"UPGRADE_1_TEXT" = "Hemos mejorado nuestra pantalla de medición, y hemos creado dos nuevas maneras de mostrarla. ¡Desliza para aprender más!";
+"UPGRADE_2_HEADING" = "¡Direcciones!";
+"UPGRADE_2_TEXT" = "Encuentra fácilmente la dirección del viento con esta elegante y minimalista pantalla.";
+"UPGRADE_3_HEADING" = "¡Radar!";
+"UPGRADE_3_TEXT" = "¡Visualiza la velocidad y dirección del viento con nuestra innovativa pantalla radar!";
+"UPGRADE_CTA" = "OK, ¡genial!";
+"MY_MEASUREMENTS_TITLE" = "Mis mediciones";
+"SETTINGS_MEASUREMENT" = "Medir";
+"SETTINGS_TIME_PERIOD" = "Periodo";
+"SETTINGS_TIME_30_SEC" = "30 segundos";
+"SETTINGS_TIME_UNLIMITED" = "Sin límite";
+"SETTINGS_MODEL" = "Modelo de anemómetro";
 "MICROPHONE_PERMISSION_REASON_TITLE" = "Permisos";
 "MICROPHONE_PERMISSION_REASON_TEXT" = "Tienes que dar a la aplicación Vaavud permiso para utilizar el micrófono. Ve a las opciones de la aplicación.";
 "KEY_MAP_GUIDE_MEASURE_BUTTON_TITLE" = "¡Toma una medición!";
@@ -209,5 +229,11 @@
 "SLEIPNIR_PROBLEM_TITLE" = "Sleipnir no disponible";
 "SLEIPNIR_PROBLEM_MESSAGE" = "Por favor, inserta tu anemómetro Sleipnir antes de empezar.";
 "SLEIPNIR_PROBLEM_SWITCH" = "Uso Mjolnir";
-
-
+"MAP_GUIDE_FORECAST" = "Mantenga pulsado en cualquier lugar en el mapa para ver la previsión en ese punto";
+"TIME" = "Hora";
+"FORECAST_WIND_RISING" = "Viento aumentando";
+"FORECAST_WIND_FALLING" = "Viento descendiendo";
+"FORECAST_WIND_STABLE" = "Viento estable";
+"LOADING" = "Cargando...";
+"MAP_NEXT_X_HOURS" = "Siguientes %d horas";
+"MAP_NEXT_HOUR" = "Siguiente hora";

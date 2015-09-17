@@ -96,11 +96,11 @@
 "BUTTON_YES" = "Ja";
 "BUTTON_NO" = "Nej";
 "MAP_GUIDE_MARKER_TITLE" = "Vindmålingsdetaljer";
-"MAP_GUIDE_MARKER_EXPLANATION" = "Tryk på en vindmåling for at se flere detaljer";
+"MAP_GUIDE_MARKER_EXPLANATION" = "Tryk på en vindmåling for at se flere detaljer.";
 "MAP_GUIDE_TIME_INTERVAL_TITLE" = "Ændre tidsinterval";
-"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Du kan ændre tidsinterval ved at trykke på teksten";
+"MAP_GUIDE_TIME_INTERVAL_EXPLANATION" = "Du kan ændre tidsinterval ved at trykke på teksten.";
 "MAP_GUIDE_ZOOM_TITLE" = "Hurtig-zoom";
-"MAP_GUIDE_ZOOM_EXPLANATION" = "Tryk på det lille kort for at zoome ind til det sted målingen er taget";
+"MAP_GUIDE_ZOOM_EXPLANATION" = "Tryk på det lille kort for at zoome ind til det sted målingen er taget.";
 "HEADING_WIND_SPEED" = "Vindhastighed";
 "HEADING_TEMPERATURE" = "Temperatur";
 "HEADING_WIND_DIRECTION" = "Retning";
@@ -169,10 +169,10 @@
 "AGRI_REGISTER_NO_SUBSCRIPTION_TITLE" = "Intet Abonnement";
 "AGRI_REGISTER_NO_SUBSCRIPTION_MESSAGE" = "Du har ikke et aktivt abonnement. Kontakt venligst Vaavud.";
 "AGRI_WORD_LIST" = "Ordliste";
-"INTRO_UPGRADE_WHATS_NEW" = "*Hvad er nyt";
-"INTRO_UPGRADE_TEXT0" = "*Historien viser geolocation og med Sleipnir vindmåleren, vindretning!";
-"INTRO_UPGRADE_TEXT1" = "*Opsummeringsskærm der viser dine nøgle målepunkter inklusiv temperature og tryk osv.";
-"INTRO_UPGRADE_CTA_BUY" = "*Køb den nye Sleipnir nu!";
+"INTRO_UPGRADE_WHATS_NEW" = "Hvad er nyt";
+"INTRO_UPGRADE_TEXT0" = "Historien viser geolocation og med Sleipnir vindmåleren, vindretning!";
+"INTRO_UPGRADE_TEXT1" = "Opsummeringsskærm der viser dine nøgle målepunkter inklusiv temperature og tryk osv.";
+"INTRO_UPGRADE_CTA_BUY" = "Køb den nye Sleipnir nu!";
 "MEASURE_AVG" = "Gns.";
 "SUMMARY_PRESSURE" = "Tryk";
 "SUMMARY_TEMPERATURE" = "Temperatur";
@@ -202,6 +202,26 @@
 "UPGRADE_GET_IT_LATER" = "Jeg vil købe den senere";
 "NSLocationWhenInUseUsageDescription" = "Vi vil benytte din position for at vise dig hvor din måling var taget.";
 "NSMicrophoneUsageDescription" = "Sleipnir vindmåleren bruger hovedtelefonsstikket til at kommunikerer med telefonen.";
+"VAAVUD_NAME" = "Vaavud";
+"SETTINGS_ADVANCED" = "Avanceret";
+"SETTINGS_DROPBOX" = "Eksporter til Dropbox";
+"SETTINGS_SLEIPNIR_CLIP" = "Sleipnirs placering";
+"ACTIVITY_COMING_SOON" = "Kommer snart";
+"ACTIVITY_ACTIVITY_FLOW" = "Aktivitets flow";
+"ACTIVITY_DESCRIPTION" = "Se hvem der er på spottet, hvad de synes om forholdene og meget mere. ";
+"UPGRADE_1_HEADING" = "Ny og forbedret!";
+"UPGRADE_1_TEXT" = "Vi har lavet vores eksisterende måleskærm bedre og lavet to nye måder at se vejret på. Swipe for at se mere!";
+"UPGRADE_2_HEADING" = "Retning!";
+"UPGRADE_2_TEXT" = "Hurtigt find vind retningen med denne elegante minimalistiske skærm.";
+"UPGRADE_3_HEADING" = "Radar!";
+"UPGRADE_3_TEXT" = "Visualiser vindhastigheden og retningen med denne nye innovative radar skærm!";
+"UPGRADE_CTA" = "OK, sejt!";
+"MY_MEASUREMENTS_TITLE" = "Mine målinger";
+"SETTINGS_MEASUREMENT" = "Måling";
+"SETTINGS_TIME_PERIOD" = "Periode";
+"SETTINGS_TIME_30_SEC" = "30 sekunder";
+"SETTINGS_TIME_UNLIMITED" = "Ingen grænse";
+"SETTINGS_MODEL" = "Vind måler model";
 "MICROPHONE_PERMISSION_REASON_TITLE" = "Tilladelse";
 "MICROPHONE_PERMISSION_REASON_TEXT" = "Du skal give Vaavud appen tilladelse til at bruge mikrofonen. Ændre i indstillinger appen.";
 "KEY_MAP_GUIDE_MEASURE_BUTTON_TITLE" = "Tag en måling!";
@@ -209,8 +229,7 @@
 "SLEIPNIR_PROBLEM_TITLE" = "Sleipnir ikke tilgængelig";
 "SLEIPNIR_PROBLEM_MESSAGE" = "Indsæt din Sleipnir vindmåler før du starter en måling.";
 "SLEIPNIR_PROBLEM_SWITCH" = "Brug Mjølner";
-
-"MAP_GUIDE_FORECAST" = "Tryk et sted på kortet og hold inde for at se vejrudsigten for det sted";
+"MAP_GUIDE_FORECAST" = "Tryk et sted på kortet og hold inde for at vejrudsigten for det sted";
 "TIME" = "Tid";
 "FORECAST_WIND_RISING" = "Tiltagende vind";
 "FORECAST_WIND_FALLING" = "Aftagende vind";
@@ -218,6 +237,3 @@
 "LOADING" = "Indlæser...";
 "MAP_NEXT_X_HOURS" = "Næste %d timer";
 "MAP_NEXT_HOUR" = "Næste time";
-
-
-

@@ -591,7 +591,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="tappedProBadge:" destination="hdO-SU-WTz" eventType="touchUpInside" id="SSq-Ip-JFf"/>
+                                    <segue destination="loh-fB-1sF" kind="push" identifier="ProBadgeSeque" id="0wR-ss-6g3"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBu-J4-fDi" customClass="GradientView" customModule="Vaavud" customModuleProvider="target">
@@ -1154,7 +1154,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PCy-mP-AgH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-178" y="2336"/>
+            <point key="canvasLocation" x="-138" y="1648"/>
         </scene>
         <!--Terms View Controller-->
         <scene sceneID="96f-Ql-xhN">
@@ -1188,7 +1188,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nt3-0L-LC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="263" y="2336"/>
+            <point key="canvasLocation" x="295" y="1636"/>
         </scene>
         <!--First Time Flow Controller-->
         <scene sceneID="iog-Qb-A03">
@@ -1229,7 +1229,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5D-Mo-pgi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-547" y="3539"/>
+            <point key="canvasLocation" x="59" y="2759"/>
         </scene>
         <!--First Time Explanation View Controller-->
         <scene sceneID="TZU-KX-npU">
@@ -1469,7 +1469,7 @@
                     </constraints>
                 </view>
             </objects>
-            <point key="canvasLocation" x="-178" y="1337"/>
+            <point key="canvasLocation" x="-1584" y="1615"/>
         </scene>
         <!--Summary-->
         <scene sceneID="Y1a-Mc-SzL">
@@ -2066,7 +2066,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="263" y="1337"/>
+            <point key="canvasLocation" x="-1143" y="1615"/>
         </scene>
         <!--Upgrading User View Controller-->
         <scene sceneID="E9Z-A7-ELX">
@@ -2247,7 +2247,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4BN-rM-CAw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-914" y="3495"/>
+            <point key="canvasLocation" x="-308" y="2715"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="qyy-p2-q3w">
@@ -2271,7 +2271,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fnM-Yc-OwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-674" y="1337"/>
+            <point key="canvasLocation" x="-2080" y="1615"/>
         </scene>
         <!--Old Measure View Controller-->
         <scene sceneID="tqf-oE-szR">
@@ -2517,7 +2517,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YEC-YC-7pi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-674" y="2020"/>
+            <point key="canvasLocation" x="-634" y="1332"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7V6-QP-RYV">
@@ -2537,6 +2537,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jzX-iN-1wa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-674" y="-93"/>
+        </scene>
+        <!--Terms View Controller-->
+        <scene sceneID="EYt-Bx-gxm">
+            <objects>
+                <viewController storyboardIdentifier="ForecastWebViewController" hidesBottomBarWhenPushed="YES" id="loh-fB-1sF" userLabel="Terms View Controller" customClass="WebViewController" customModule="Vaavud" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0tu-2x-0JN"/>
+                        <viewControllerLayoutGuide type="bottom" id="cga-fa-dGx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5Bc-pO-sGH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wco-e5-bEm">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="wco-e5-bEm" firstAttribute="top" secondItem="5Bc-pO-sGH" secondAttribute="top" id="9Rf-ah-ikl"/>
+                            <constraint firstItem="wco-e5-bEm" firstAttribute="leading" secondItem="5Bc-pO-sGH" secondAttribute="leading" id="Qiw-UV-qpI"/>
+                            <constraint firstAttribute="bottom" secondItem="wco-e5-bEm" secondAttribute="bottom" id="lHA-lP-V4y"/>
+                            <constraint firstAttribute="trailing" secondItem="wco-e5-bEm" secondAttribute="trailing" id="uDT-Xx-VVb"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="About" id="Rmb-dm-t3b"/>
+                    <connections>
+                        <outlet property="webView" destination="wco-e5-bEm" id="Wbg-ic-CYr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n2e-Ba-70J" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="549" y="-98"/>
         </scene>
     </scenes>
     <resources>
@@ -2562,7 +2596,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="rHX-aP-7gX"/>
+        <segue reference="s0f-qj-ZNz"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
 </document>

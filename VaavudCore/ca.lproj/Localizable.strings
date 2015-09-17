@@ -1,7 +1,3 @@
-/*
- Localizable.strings
- Vaavud
- */
 "TAB_MEASURE" = "Mesurar";
 "TAB_MAP" = "Mapa";
 "TAB_HISTORY" = "Historial";
@@ -206,6 +202,26 @@
 "UPGRADE_GET_IT_LATER" = "El compraré més endavant";
 "NSLocationWhenInUseUsageDescription" = "Utilitzem la seva posició per poder mostrar on el mesurament va ser realitzat.";
 "NSMicrophoneUsageDescription" = "L'anemòmetre Sleipnir utilitza el connector dels auriculars per comunicar-se amb el telèfon";
+"VAAVUD_NAME" = "Vaavud";
+"SETTINGS_ADVANCED" = "Avançat";
+"SETTINGS_DROPBOX" = "Exportar a Dropbox";
+"SETTINGS_SLEIPNIR_CLIP" = "Col·locació de Sleipnir";
+"ACTIVITY_COMING_SOON" = "Properament";
+"ACTIVITY_ACTIVITY_FLOW" = "Pantalla d'activitat";
+"ACTIVITY_DESCRIPTION" = "Descobreix qui està en aquest lloc, el que pensen de les condicions i molt més";
+"UPGRADE_1_HEADING" = "Nova i millorada!";
+"UPGRADE_1_TEXT" = "Hem millorat la nostra pantalla de mesurament, i hem creat dues noves maneres de mostrar-la. ¡Fes-la lliscar per aprendre més!";
+"UPGRADE_2_HEADING" = "Direccions!";
+"UPGRADE_2_TEXT" = "Troba fàcilment la direcció del vent amb aquesta elegant i minimalista pantalla.";
+"UPGRADE_3_HEADING" = "Radar!";
+"UPGRADE_3_TEXT" = "Visualitza la velocitat i direcció del vent amb la nostra innovadora pantalla radar!";
+"UPGRADE_CTA" = "Perfecte!";
+"MY_MEASUREMENTS_TITLE" = "Els meus mesuraments";
+"SETTINGS_MEASUREMENT" = "Mesurar";
+"SETTINGS_TIME_PERIOD" = "Període";
+"SETTINGS_TIME_30_SEC" = "30 segons";
+"SETTINGS_TIME_UNLIMITED" = "Sense límit";
+"SETTINGS_MODEL" = "Model d'anemòmetre";
 "MICROPHONE_PERMISSION_REASON_TITLE" = "Permisos";
 "MICROPHONE_PERMISSION_REASON_TEXT" = "Has de donar a l'aplicació Vaavud permís per utilitzar el micròfon. Vés a les opcions de l'aplicació.";
 "KEY_MAP_GUIDE_MEASURE_BUTTON_TITLE" = "Pren un mesurament!";
@@ -213,3 +229,11 @@
 "SLEIPNIR_PROBLEM_TITLE" = "Sleipnir no disponible";
 "SLEIPNIR_PROBLEM_MESSAGE" = "Si us plau, insereix el teu anemòmetre Sleipnir abans de començar.";
 "SLEIPNIR_PROBLEM_SWITCH" = "Ùs Mjolnir";
+"MAP_GUIDE_FORECAST" = "Premeu en qualsevol lloc en el mapa per veure la previsió en aquest punt";
+"TIME" = "Hora";
+"FORECAST_WIND_RISING" = "vent augmentant";
+"FORECAST_WIND_FALLING" = "vent descendint";
+"FORECAST_WIND_STABLE" = "Vent estable";
+"LOADING" = "Carregant ...";
+"MAP_NEXT_X_HOURS" = "Següents %d hores";
+"MAP_NEXT_HOUR" = "Següent hora";
