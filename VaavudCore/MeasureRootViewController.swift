@@ -387,7 +387,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
     }
     
-    func save(cancelled: Bool) {
+    func save(userCancelled: Bool) {
+        let cancel = userCancelled || avgSpeed == 0
+        
         if let session = currentSession where session.measuring.boolValue {
             session.measuring = false
             session.endTime = NSDate()
@@ -398,7 +400,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             let windspeeds = speeds(session)
             if windspeeds.count > 5 { session.gustiness = gustiness(windspeeds) }
             
-            if cancelled { session.MR_deleteEntity() }
+            if cancel { session.MR_deleteEntity() }
         
             updateWithLocation(session)
             updateWithGeocode(session)
@@ -418,12 +420,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                     print("ROOT: save - Failed to save session after measuring with no error message")
                 }
                 
-                if !cancelled {
+                if !cancel {
                     NSNotificationCenter.defaultCenter().postNotificationName(KEY_OPEN_LATEST_SUMMARY, object: self, userInfo: ["uuid" : session.uuid])
                 }
             }
         
-            if !cancelled && DBSession.sharedSession().isLinked(), let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+            if !cancel && DBSession.sharedSession().isLinked(), let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
                 print("ROOT: save - dropbox was linked, uploading")
                 appDelegate.uploadToDropbox(session)
             }
