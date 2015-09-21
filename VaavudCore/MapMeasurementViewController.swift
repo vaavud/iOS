@@ -36,7 +36,7 @@ class MapMeasurementViewController: UIViewController, VaavudElectronicWindDelega
         LocationManager.sharedInstance().start()
         let latestLocation = LocationManager.sharedInstance().latestLocation
         
-        println(latestLocation.latitude)
+        print(latestLocation.latitude)
         
         if LocationManager.isCoordinateValid(latestLocation) {
             let region = MKCoordinateRegionMakeWithDistance(latestLocation, 200000, 200000)
@@ -57,7 +57,7 @@ class MapMeasurementViewController: UIViewController, VaavudElectronicWindDelega
     
     func changeOffset(sender: UIPanGestureRecognizer) {
         let y = sender.locationInView(view).y
-        let x = view.bounds.midX - sender.locationInView(view).x
+//        let x = view.bounds.midX - sender.locationInView(view).x
         let dx = sender.translationInView(view).x/3
         let dy = sender.translationInView(view).y/2
         

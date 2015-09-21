@@ -15,7 +15,7 @@
     if (timeAgoSeconds > 0) {
         return NSLocalizedString(@"REL_TIME_FUTURE", nil);
     }
-    timeAgoSeconds = abs(timeAgoSeconds);
+    timeAgoSeconds = fabs(timeAgoSeconds);
     int minsAgo = round(timeAgoSeconds/60.0);
     int hoursAgo = round(timeAgoSeconds/3600.0);
     int daysAgo = round(timeAgoSeconds/(3600.0*24.0));

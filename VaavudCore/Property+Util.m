@@ -100,6 +100,8 @@ NSString * const KEY_MAP_GUIDE_FORECAST_SHOWN = @"mapGuideForecastShown";
 
 NSString * const KEY_FORECAST_OVERLAY_SHOWN = @"forecastOverlayShown";
 
+NSString * const KEY_SHARE_OVERLAY_SHOWN = @"shareOverlayShown";
+
 @implementation Property (Util)
 
 + (NSString *)getAsString:(NSString *)name {

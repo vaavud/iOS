@@ -40,7 +40,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet private weak var mapView: MKMapView!
     var locationOnMap: CLLocationCoordinate2D!
-    
+
     @IBOutlet private weak var pressureView: PressureView!
     private var pressureItem: DynamicReadingItem!
     @IBOutlet private weak var temperatureView: TemperatureView!
@@ -50,7 +50,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet private weak var gustinessView: GustinessView!
     private var gustinessItem: DynamicReadingItem!
     
-    private var hasSomeDirection: Float? = nil
+    private var hasSomeDirection: Float?
     private var hasActualDirection = false
     private var isShowingDirection = false
     private var hasWindSpeed = false
@@ -66,8 +66,10 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         hideVolumeHUD()
         
-        Mixpanel.sharedInstance().track("Summary Screen")
-        
+        if Property.isMixpanelEnabled() {
+            Mixpanel.sharedInstance().track("Summary Screen")
+        }
+
         animator = UIDynamicAnimator(referenceView: view)
         pressureItem = DynamicReadingItem(readingView: pressureView)
         temperatureItem = DynamicReadingItem(readingView: temperatureView)
@@ -88,17 +90,30 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didLoginOut:", name: KEY_DID_LOGINOUT, object: nil)
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if !Property.getAsBoolean(KEY_SHARE_OVERLAY_SHOWN, defaultValue: false), let tbc = tabBarController {
+            Property.setAsBoolean(true, forKey: KEY_SHARE_OVERLAY_SHOWN)
+            let p = Interface.choose((0.915, 0.09), (0.915, 0.075), (0.925, 0.065), (0.925, 0.06), (0.957, 0.043), (0.97, 0.053))
+            let pos = CGPoint(x: p.0, y: p.1)
+            let text = NSLocalizedString("SUMMARY_SHARE_OVERLAY", comment: "")
+            let icon = UIImage(named: "SummaryShareOverlay")
+            tbc.view.addSubview(RadialOverlay(frame: tbc.view.bounds, position: pos, text: text, icon: icon, radius: 75))
+        }
+    }
+    
     func sessionUpdated(note: NSNotification) {
         if let objectId = note.userInfo?["objectID"] as? NSManagedObjectID where objectId == session.objectID {
             updateUI()
-            println("SUMMARY: Updated \(note.userInfo)")
+            print("SUMMARY: Updated \(note.userInfo)")
         }
         
         if let objectId = note.userInfo?["objectID"] as? NSManagedObjectID {
-            println("session.objectID: \(session.objectID) - objectId: \(objectId)")
+            print("session.objectID: \(session.objectID) - objectId: \(objectId)")
         }
         else {
-            println("sessionUpdated ???")
+            print("sessionUpdated ???")
         }
     }
 
@@ -118,15 +133,20 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     override func viewDidDisappear(animated: Bool) {
-        Mixpanel.sharedInstance().track("Summary Screen - Disappear")
+        if Property.isMixpanelEnabled() {
+            Mixpanel.sharedInstance().track("Summary Screen - Disappear")
+        }
     }
     
-    func mapView(mapView: MKMapView!, viewForAnnotation annotation: MKAnnotation!) -> MKAnnotationView! {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if let annotation = annotation as? MeasurementAnnotation {
             let identifier = "MeasureAnnotationIdentifier"
             
-            var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
-            if annotationView == nil {
+            let annotationView: MKAnnotationView
+            if let newAnnotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier) {
+                annotationView = newAnnotationView
+            }
+            else {
                 annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: identifier)
                 annotationView.canShowCallout = false
                 annotationView.opaque = false
@@ -134,14 +154,14 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
                 let imageView = UIImageView()
                 imageView.tag = 101
                 annotationView.addSubview(imageView)
-
+                
                 let label = UILabel(frame: CGRect(x: 0, y: 0, width: 48, height: 48))
                 label.backgroundColor = UIColor.clearColor()
                 label.font = UIFont(name: "HelveticaNeue", size: 12)
                 label.textColor = UIColor.whiteColor()
                 label.textAlignment = .Center
                 label.tag = 42
-            
+                
                 annotationView.addSubview(label)
                 annotationView.frame = label.frame
             }
@@ -189,8 +209,8 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func updateMapView(ms: MeasurementSession) {
-        if let annotation = mapView.annotations.first as? MeasurementAnnotation {
-            updateMapAnnotationLabel(mapView.viewForAnnotation(annotation))
+        if let annotation = mapView.annotations.first as? MeasurementAnnotation, view = mapView.viewForAnnotation(annotation) {
+            updateMapAnnotationLabel(view)
         }
     }
     
@@ -267,7 +287,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     private func showAndHideSleipnir(delay: Double = 4) {
         isShowingDirection = false
         UIView.animateWithDuration(0.2)  { self.showSleipnir() }
-        UIView.animateWithDuration(0.2, delay: 2, options: nil, animations: { self.showDirection() }, completion: { (Bool) -> Void in
+        UIView.animateWithDuration(0.2, delay: 2, options: [], animations: { self.showDirection() }, completion: { (Bool) -> Void in
             self.isShowingDirection = true
         })
     }
@@ -286,7 +306,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         UIGraphicsBeginImageContextWithOptions( view.bounds.size.expandY(-topLayoutGuide.length), true, 0)
         
         view.drawViewHierarchyInRect(frame, afterScreenUpdates: true)
-        let snap = UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext())
+        guard let snap = UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext()) else { return }
         UIGraphicsEndImageContext()
         
         if let windSpeed = formatter.localizedWindspeed(session.windSpeedAvg?.floatValue) {
@@ -307,10 +327,14 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
                 if let type = type { properties["Activity"] = type }
                 if let error = error { properties["Error"] = error }
                 
-                Mixpanel.sharedInstance().track("User shared", properties: properties)
+                if Property.isMixpanelEnabled() {
+                    Mixpanel.sharedInstance().track("User shared", properties: properties)
+                }
             }
             presentViewController(activityVC, animated: true) {
-                Mixpanel.sharedInstance().track("Showed share sheet")
+                if Property.isMixpanelEnabled() {
+                    Mixpanel.sharedInstance().track("Showed share sheet")
+                }
             }
         }
     }
@@ -390,26 +414,10 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         hasSomeDirection = session.windDirection?.floatValue // FIXME: Temporary, will remove when we start sourcing directions
         
         if let rotation = hasSomeDirection {
-//            switch UIDevice.currentDevice().systemVersion.compare("8.0.0", options: NSStringCompareOptions.NumericSearch) {
-//            case .OrderedSame, .OrderedDescending:
-                let t = CGAffineTransformMakeRotation(π*CGFloat(1 + rotation/180))
-                UIView.animateWithDuration(0.3, delay: 0.2, options: nil, animations: { self.directionView.transform = t }, completion: { (done) -> Void in
-                    self.animateAll()
-                })
-//            case .OrderedAscending:
-//                let tt = CATransform3DMakeRotation(π*CGFloat(1 + rotation/180), 0, 0, 1)
-//                
-//                let anim = CABasicAnimation(keyPath: "transform")
-//                anim.duration = 0.5
-//                anim.removedOnCompletion = false
-//                anim.fillMode = kCAFillModeForwards
-//                CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut))
-//                
-//                CATransaction.setCompletionBlock{ self.animateAll() }
-//                anim.fromValue = NSValue(CATransform3D:CATransform3DIdentity)
-//                anim.toValue = NSValue(CATransform3D:tt)
-//                directionView.layer.addAnimation(anim, forKey: "")
-//            }
+            let t = CGAffineTransformMakeRotation(π*CGFloat(1 + rotation/180))
+            UIView.animateWithDuration(0.3, delay: 0.2, options: [], animations: { self.directionView.transform = t }, completion: { (done) -> Void in
+                self.animateAll()
+            })
             
             updateWindDirection(rotation)
             
@@ -417,7 +425,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
             isShowingDirection = true
 
             if !hasActualDirection {
-                showAndHideSleipnir(delay: 5)
+                showAndHideSleipnir(5)
             }
         }
         else {

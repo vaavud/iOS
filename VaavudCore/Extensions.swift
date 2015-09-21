@@ -23,7 +23,7 @@ class Plot: UIView {
         backgroundColor = UIColor.lightGrayColor()
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -43,18 +43,18 @@ class Plot: UIView {
 }
 
 extension Array {
-    func divide(n: Int) -> [[T]] {
-        var out = [[T]]()
+    func divide(n: Int) -> [[Element]] {
+        var out = [[Element]]()
         let days = count/n + (count % n > 0 ? 1 : 0)
         for i in 0..<days { out.append(Array(self[i*n..<min((i + 1)*n, count)])) }
         
         return out
     }
     
-    func divide(n: Int, first: Int) -> [[T]] {
+    func divide(n: Int, first: Int) -> [[Element]] {
         precondition(first < n, "First must be smaller than n")
         
-        var out = [[T]]()
+        var out = [[Element]]()
         let offset = min(first, count)
         if offset > 0 {
             out.append(Array(self[0..<offset]))
@@ -297,11 +297,11 @@ extension CGSize {
     }
 }
 
-func mod(i: Int, n: Int) -> Int {
+func mod(i: Int, _ n: Int) -> Int {
     return ((i % n) + n) % n
 }
 
-func mod(i: CGFloat, n: CGFloat) -> CGFloat {
+func mod(i: CGFloat, _ n: CGFloat) -> CGFloat {
     return ((i % n) + n) % n
 }
 

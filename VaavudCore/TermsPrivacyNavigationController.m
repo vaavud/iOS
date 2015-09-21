@@ -10,7 +10,7 @@
 
 @implementation TermsPrivacyNavigationController
 
--(NSUInteger)supportedInterfaceOrientations {
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 

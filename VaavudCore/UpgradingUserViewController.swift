@@ -29,8 +29,10 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
         }
 
         scrollView.contentSize = CGSize(width: CGFloat(pager.numberOfPages)*scrollView.bounds.width, height: scrollView.bounds.height)
-        
-        Mixpanel.sharedInstance().track("Upgade Sleipnir Flow")
+
+        if Property.isMixpanelEnabled() {
+            Mixpanel.sharedInstance().track("Upgade Sleipnir Flow")
+        }
         
         let nibName = "UpgradingUserPagesView"
         if let content = NSBundle.mainBundle().loadNibNamed(nibName, owner: self, options: nil).first as? UIView {
@@ -48,15 +50,17 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.Portrait.rawValue) | Int(UIInterfaceOrientationMask.PortraitUpsideDown.rawValue)
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return [.Portrait, .PortraitUpsideDown]
     }
     
     @IBAction func openBuyDevice() { // Close
         Property.setAsBoolean(true, forKey: KEY_HAS_SEEN_TRISCREEN_FLOW);
         
-        Mixpanel.sharedInstance().track("Triscreen Flow - Dismiss")
-        
+        if Property.isMixpanelEnabled() {
+            Mixpanel.sharedInstance().track("Triscreen Flow - Dismiss")
+        }
+            
         if let tabBarController = storyboard?.instantiateViewControllerWithIdentifier("TabBarController") as? TabBarController {
             if let window = UIApplication.sharedApplication().delegate?.window {
                 window?.rootViewController = tabBarController

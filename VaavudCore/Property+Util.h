@@ -95,6 +95,8 @@ extern NSString * const KEY_MAP_GUIDE_FORECAST_SHOWN;
 
 extern NSString * const KEY_FORECAST_OVERLAY_SHOWN;
 
+extern NSString * const KEY_SHARE_OVERLAY_SHOWN;
+
 @interface Property (Util)
 
 + (NSString *)getAsString:(NSString *)name;

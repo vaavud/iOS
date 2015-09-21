@@ -237,3 +237,7 @@
 "LOADING" = "Caricamento…";
 "MAP_NEXT_X_HOURS" = "Prossime %d ore";
 "MAP_NEXT_HOUR" = "Prossima ora";
+"SUMMARY_SHARE_OVERLAY" = "Condividi le tue misurazioni sui social media!";
+"YESTERDAY" = "Ieri";
+"TODAY" = "Oggi";
+"TOMORROW" = "Domani";

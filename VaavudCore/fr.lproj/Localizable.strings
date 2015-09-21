@@ -237,3 +237,7 @@
 "LOADING" = "Chargement...";
 "MAP_NEXT_X_HOURS" = "Dans les prochaines %d heures ";
 "MAP_NEXT_HOUR" = "Dans l'heure qui suit ";
+"SUMMARY_SHARE_OVERLAY" = "Partagez vos mesures sur les réseaux sociaux!";
+"YESTERDAY" = "Hier";
+"TODAY" = "Aujourd’hui";
+"TOMORROW" = "Demain";

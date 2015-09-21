@@ -164,7 +164,7 @@ BOOL didShowFeedback;
                               message:(NSString *)message
                       displayFeedback:(BOOL)displayFeedback {
 
-    if (LOG_OTHER) NSLog(@"[LogInViewController] error registering user, response=%d, message=%@, displayFeedback=%@", response, message, (displayFeedback ? @"YES" : @"NO"));
+    if (LOG_OTHER) NSLog(@"[LogInViewController] error registering user, response=%ld, message=%@, displayFeedback=%@", (long)response, message, (displayFeedback ? @"YES" : @"NO"));
     
     [self.activityIndicator stopAnimating];
     self.facebookButton.titleLabel.hidden = NO;
@@ -301,7 +301,7 @@ BOOL didShowFeedback;
     self.alertView = nil;
 }
 
--(NSUInteger)supportedInterfaceOrientations {
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 

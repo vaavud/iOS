@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="uRK-QG-tAM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="uRK-QG-tAM">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -617,9 +618,9 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5lu-Uy-ddc">
-                                <rect key="frame" x="105" y="256" width="111" height="27"/>
+                                <rect key="frame" x="101" y="256" width="119" height="27"/>
                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="12"/>
-                                <state key="normal" title="Powered by Forecast">
+                                <state key="normal" title="Vejrudsigt fra Forecast">
                                     <color key="titleColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -684,7 +685,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="N9T-TE-aJF">
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="N9T-TE-aJF">
                                                     <rect key="frame" x="136" y="10" width="169" height="29"/>
                                                     <segments>
                                                         <segment title="30 seconds"/>
@@ -758,7 +759,7 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="ji9-uF-jwg">
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="ji9-uF-jwg">
                                                     <rect key="frame" x="176" y="10" width="129" height="29"/>
                                                     <segments>
                                                         <segment title="Cardinal"/>
@@ -785,7 +786,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Pressure" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Hy-cZ-JPv">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" misplaced="YES" text="Pressure" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Hy-cZ-JPv">
                                                     <rect key="frame" x="15" y="14" width="67" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -819,7 +820,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Temperature" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7f-Ql-CgB">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" misplaced="YES" text="Temperature" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V7f-Ql-CgB">
                                                     <rect key="frame" x="15" y="14" width="96" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1018,7 +1019,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Upload to Dropbox" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2kF-DA-YJJ">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" misplaced="YES" text="Upload to Dropbox" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2kF-DA-YJJ">
                                                     <rect key="frame" x="15" y="11" width="147" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -1798,7 +1799,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="8LZ-L7-QT4" appends="YES" id="R2F-fU-CHm"/>
+                                    <outletCollection property="gestureRecognizers" destination="LMo-dr-cwc" appends="YES" id="WVS-rl-jW5"/>
                                 </connections>
                             </view>
                             <view alpha="0.49999999999999961" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="C2h-JO-28H" customClass="ArrowView" customModule="Vaavud" customModuleProvider="target">
@@ -1904,15 +1905,15 @@
                                 <color key="textColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n84-8x-atu" userLabel="Windspeed Tap Area">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n84-8x-atu" userLabel="Avg Windspeed Tap Area">
                                 <rect key="frame" x="31" y="141" width="111" height="65"/>
                                 <color key="backgroundColor" red="0.1843137255" green="0.28235294119999998" blue="0.3803921569" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="gR9-bd-xkO" appends="YES" id="EUh-Lz-K6p"/>
+                                    <outletCollection property="gestureRecognizers" destination="mwy-9k-dGV" appends="YES" id="qol-Zi-dhd"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Adf-ox-ljT" userLabel="Windspeed Tap Area">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Adf-ox-ljT" userLabel="Max Windspeed Tap Area">
                                 <rect key="frame" x="51" y="231" width="76" height="40"/>
                                 <color key="backgroundColor" red="0.1843137255" green="0.28235294119999998" blue="0.3803921569" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <gestureRecognizers/>
@@ -2050,9 +2051,14 @@
                         <action selector="tappedGustiness:" destination="8a4-bz-n0M" id="i5D-wl-tsa"/>
                     </connections>
                 </tapGestureRecognizer>
-                <tapGestureRecognizer id="gR9-bd-xkO" userLabel="Speed Tap Gesture Recognizer">
+                <tapGestureRecognizer id="gR9-bd-xkO" userLabel="Max Speed Tap Gesture Recognizer">
                     <connections>
                         <action selector="tappedWindSpeed:" destination="8a4-bz-n0M" id="Avu-Hj-AGt"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="mwy-9k-dGV" userLabel="Avg Speed Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="tappedWindSpeed:" destination="8a4-bz-n0M" id="Ijb-mw-aKM"/>
                     </connections>
                 </tapGestureRecognizer>
                 <tapGestureRecognizer id="6mu-4s-aS0" userLabel="Compass Tap Gesture Recognizer">
@@ -2060,9 +2066,14 @@
                         <action selector="tappedCompass:" destination="8a4-bz-n0M" id="z0u-U5-qRW"/>
                     </connections>
                 </tapGestureRecognizer>
-                <tapGestureRecognizer id="8LZ-L7-QT4" userLabel="Sleipnir Tap Gesture Recognizer">
+                <tapGestureRecognizer id="8LZ-L7-QT4" userLabel="Upsell Sleipnir Tap Gesture Recognizer">
                     <connections>
                         <action selector="tappedSleipnir:" destination="8a4-bz-n0M" id="t34-qj-ehs"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="LMo-dr-cwc" userLabel="Sleipnir Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="tappedSleipnir:" destination="8a4-bz-n0M" id="efv-EE-W6U"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -2590,11 +2601,6 @@
         <image name="WindArrow" width="100" height="100"/>
         <image name="iPhone6Black" width="217" height="444"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="s0f-qj-ZNz"/>
     </inferredMetricsTieBreakers>

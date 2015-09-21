@@ -229,7 +229,7 @@
 "SLEIPNIR_PROBLEM_TITLE" = "Sleipnir ikke tilgængelig";
 "SLEIPNIR_PROBLEM_MESSAGE" = "Indsæt din Sleipnir vindmåler før du starter en måling.";
 "SLEIPNIR_PROBLEM_SWITCH" = "Brug Mjølner";
-"MAP_GUIDE_FORECAST" = "Tryk et sted på kortet og hold inde for at vejrudsigten for det sted";
+"MAP_GUIDE_FORECAST" = "Tryk et sted på kortet og hold inde for at se vejrudsigten for det sted";
 "TIME" = "Tid";
 "FORECAST_WIND_RISING" = "Tiltagende vind";
 "FORECAST_WIND_FALLING" = "Aftagende vind";
@@ -237,3 +237,7 @@
 "LOADING" = "Indlæser...";
 "MAP_NEXT_X_HOURS" = "Næste %d timer";
 "MAP_NEXT_HOUR" = "Næste time";
+"SUMMARY_SHARE_OVERLAY" = "Del dine målinger på sociale media!";
+"YESTERDAY" = "I går";
+"TODAY" = "I dag";
+"TOMORROW" = "I morgen";

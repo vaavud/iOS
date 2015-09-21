@@ -205,11 +205,11 @@ class RoundBackground : UIView {
         banded1.frame = frame
         banded2.frame = frame
         
-        let diagonal = dist(frame.center, frame.upperRight)
+        let diagonal = dist(frame.center, q: frame.upperRight)
         banded1.n = Int(ceil(diagonal/banded1.bandWidth))
         banded2.n = Int(ceil(diagonal/banded2.bandWidth))
         
-        for i in 2..<banded1.n {
+        for _ in 2..<banded1.n {
             let label = UILabel()
             label.font = UIFont(name: "Roboto", size: 14)
             label.textAlignment = .Center
@@ -233,7 +233,7 @@ class RoundBackground : UIView {
         
         let diagonal = (bounds.upperRight - bounds.center).unit
 
-        for (i, label) in enumerate(labels) {
+        for (i, label) in labels.enumerate() {
             label.center = bounds.center + (CGFloat(i + 2)*scale*bandWidth - 10)*diagonal
             label.alpha = ((i + 2) % 2 == 0 && i != 0) ? 1 : 1 - modScale
         }
@@ -243,7 +243,7 @@ class RoundBackground : UIView {
         if labelLogScale != intScale {
             labelLogScale = intScale
             
-            for (i, label) in enumerate(labels) {
+            for (i, label) in labels.enumerate() {
                 let j = (i + 2)*Int(pow(2, Float(labelLogScale)))
                 label.text = String(j)
             }
@@ -290,7 +290,7 @@ class RoundRuler : UIView {
     private let font = UIFont(name: "Roboto-Bold", size: 21)!
     private let smallFont = UIFont(name: "Roboto-Bold", size: 12)!
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         backgroundColor = UIColor.clearColor()
         
@@ -355,16 +355,16 @@ class RoundRuler : UIView {
         
         CATransaction.setDisableActions(true)
         
-        let easing = ease(1.2*scale, 3.0*scale)
-        
-        for (dot, p) in Zip2(dots, dotPositions) {
+        let easing = ease(1.2*scale, to: 3.0*scale)
+
+        for (dot, p) in zip(dots, dotPositions) {
             dot.position = (p*Polar(r: scale, phi: -compassDirection.radians - π/2)).cartesian(bounds.center)
-            dot.opacity = Float(easing(x: dist(dot.position, bounds.center)))
+            dot.opacity = Float(easing(x: dist(dot.position, q: bounds.center)))
         }
         
         dots[dots.count - 1].opacity = 0.7*dots[dots.count - 1].opacity + 0.3
 
-        for (label, p) in Zip2(cardinalLabels, cardinalPositions) {
+        for (label, p) in zip(cardinalLabels, cardinalPositions) {
             label.center = p.rotated(-compassDirection.radians).cartesian(bounds.center)
         }
     }

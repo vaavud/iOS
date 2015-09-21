@@ -237,3 +237,7 @@
 "LOADING" = "Carregant ...";
 "MAP_NEXT_X_HOURS" = "Següents %d hores";
 "MAP_NEXT_HOUR" = "Següent hora";
+"SUMMARY_SHARE_OVERLAY" = "Comparteix els teus mesuraments a les xarxes socials!";
+"YESTERDAY" = "Ahir";
+"TODAY" = "Avui";
+"TOMORROW" = "Demà";

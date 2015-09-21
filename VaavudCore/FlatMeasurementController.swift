@@ -86,7 +86,7 @@ class FlatRuler : UIView {
     
     let rate: CGFloat = 0.25
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
@@ -137,7 +137,7 @@ class FlatDirectionArrow : UIView {
 
     var shape: CAShapeLayer { return layer as! CAShapeLayer }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
@@ -175,7 +175,7 @@ class FlatDirectionArrow : UIView {
 }
 
 class FlatDirectionArrowMorph: UIView {
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
@@ -226,7 +226,7 @@ class FlatDirectionArrowMorph: UIView {
         let anim = CABasicAnimation(keyPath: "path")
         anim.toValue = path
         
-        println(path.currentPoint)
+        print(path.currentPoint)
         
         shape.addAnimation(anim, forKey: "PathAnim")
         
@@ -250,7 +250,7 @@ class FlatGraph : UIView {
     let graphColor = UIColor.vaavudGreyColor()
     let shape = CAShapeLayer()
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
         shape.strokeColor = nil

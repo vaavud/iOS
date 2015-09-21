@@ -366,7 +366,7 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
     controller.pageMixpanelScreens = @[@"Instruction Flow Screen 2", @"Instruction Flow Screen 3"];
 }
 
--(NSUInteger)supportedInterfaceOrientations {
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations {
     return UIInterfaceOrientationMaskAll;
 }
 

@@ -11,9 +11,52 @@ import UIKit
 
 let π = CGFloat(M_PI)
 
+enum Interface {
+    case IPhone4
+    case IPhone5
+    case IPhone6
+    case IPhone6Plus
+    case IPad
+    case IPadLandscape
+    
+    init() {
+        let h = UIScreen.mainScreen().bounds.height
+        
+        if h == 480 {
+            self = .IPhone4
+        }
+        else if h == 568 {
+            self = .IPhone5
+        }
+        else if h == 667 {
+            self = .IPhone6
+        }
+        else if h == 736 {
+            self = .IPhone6Plus
+        }
+        else if h == 1024 {
+            self = .IPad
+        }
+        else {
+            self = .IPadLandscape
+        }
+    }
+    
+    static func choose<T>(iPhone4: T, _ iPhone5: T, _ iPhone6: T, _ iPhone6Plus: T, _ iPad: T, _ iPadLandscape: T) -> T {
+        switch Interface() {
+        case .IPhone4: return iPhone4
+        case .IPhone5: return iPhone5
+        case .IPhone6: return iPhone6
+        case .IPhone6Plus: return iPhone6Plus
+        case .IPad: return iPad
+        case .IPadLandscape: return iPadLandscape
+        }
+    }
+}
+
 protocol FloatUnit: Unit {
-    func fromBase(Float) -> Float
-    func fromBase(CGFloat) -> CGFloat
+    func fromBase(_: Float) -> Float
+    func fromBase(_: CGFloat) -> CGFloat
     var decimals: Int { get }
 }
 
@@ -95,7 +138,7 @@ enum SpeedUnit: Int, FloatUnit {
     private static func msToBft(msValue: Float) -> Float {
         let bftLimits: [Float] = [0.3, 1.6, 3.5, 5.5, 8.0, 10.8, 13.9, 17.2, 20.8, 24.5, 28.5, 32.7]
         
-        for (index, limit) in enumerate(bftLimits) {
+        for (index, limit) in bftLimits.enumerate() {
             if msValue < limit {
                 return Float(index)
             }
@@ -144,12 +187,25 @@ class VaavudFormatter: NSObject {
     // MARK - Public
     
     func hourValue(date: NSDate) -> Int {
-        return calendar.components(.CalendarUnitHour, fromDate: date).hour
+        return calendar.components(.Hour, fromDate: date).hour
+    }
+    
+    func dayValue(date: NSDate) -> Int {
+        return calendar.components(.Day, fromDate: date).day
     }
     
     func shortDate(date: NSDate) -> String {
         dateFormatter.dateFormat = shortDateFormat
         return dateFormatter.stringFromDate(date)
+    }
+    
+    func localizedRelativeDate(date: NSDate) -> String {
+        switch dayValue(date) - dayValue(NSDate()) {
+        case -1: return NSLocalizedString("YESTERDAY", comment: "")
+        case 0: return NSLocalizedString("TODAY", comment: "")
+        case 1: return NSLocalizedString("TOMORROW", comment: "")
+        default: return shortDate(date)
+        }
     }
     
     func localizedTitleDate(date: NSDate?) -> String? {
@@ -368,7 +424,7 @@ class VaavudFormatter: NSObject {
         return String(format: formatString, locale: NSLocale.currentLocale(), value)
     }
     
-    private func failure(# valueLabel: UILabel, unitLabel: UILabel) -> Bool {
+    private func failure(valueLabel  valueLabel: UILabel, unitLabel: UILabel) -> Bool {
         valueLabel.text = missingValue
         unitLabel.text = ""
         return false

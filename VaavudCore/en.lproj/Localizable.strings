@@ -231,7 +231,7 @@
 "MICROPHONE_PERMISSION_REASON_TITLE" = "Permission";
 "MICROPHONE_PERMISSION_REASON_TEXT" = "You have to give the Vaavud app permission to use the microphone. Go to the settings app.";
 "KEY_MAP_GUIDE_MEASURE_BUTTON_TITLE" = "Make a measurement!";
-"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION" = "Press here to take a measurement wind your Mjolnir or Sleipnir wind meter!";
+"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION" = "Press here to take a measurement with your Mjolnir or Sleipnir wind meter!";
 "SLEIPNIR_PROBLEM_TITLE" = "Sleipnir not available";
 "SLEIPNIR_PROBLEM_MESSAGE" = "Please insert your Sleipnir wind meter before starting taking a measurement.";
 "SLEIPNIR_PROBLEM_SWITCH" = "Use Mjolnir";
@@ -247,4 +247,8 @@
 "MAP_NEXT_X_HOURS" = "Next %d hours";
 "MAP_NEXT_HOUR" = "Next hour";
 
+"SUMMARY_SHARE_OVERLAY" = "Share your measurements on social media!";
+"YESTERDAY" = "Yesterday";
+"TODAY" = "Today";
+"TOMORROW" = "Tomorrow";
 

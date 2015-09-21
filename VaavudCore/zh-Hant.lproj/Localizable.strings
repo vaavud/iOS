@@ -237,3 +237,7 @@
 "LOADING" = "加載中…";
 "MAP_NEXT_X_HOURS" = "下面 %d 個小時";
 "MAP_NEXT_HOUR" = "下個小時";
+"SUMMARY_SHARE_OVERLAY" = "在社交媒體上共用您的測量值！";
+"YESTERDAY" = "昨天";
+"TODAY" = "今天";
+"TOMORROW" = "明天";

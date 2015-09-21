@@ -11,7 +11,7 @@ import UIKit
 class MjolnirSpinner: UIView {
     let imageView = UIImageView()
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }

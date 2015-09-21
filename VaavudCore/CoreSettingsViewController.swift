@@ -88,7 +88,9 @@ class CoreSettingsTableViewController: UITableViewController {
         if let isDropboxLinked = note.object as? NSNumber.BooleanLiteralType {
             dropboxControl.on = isDropboxLinked
             let value = isDropboxLinked ? "Linking succeeded" : "Linking failed"
-            Mixpanel.sharedInstance().track("Dropbox", properties: ["Action" : value])
+            if Property.isMixpanelEnabled() {
+                Mixpanel.sharedInstance().track("Dropbox", properties: ["Action" : value])
+            }
         }
     }
     
@@ -141,7 +143,7 @@ class CoreSettingsTableViewController: UITableViewController {
             ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: true, success: { }, failure: { _ in })
 
             self.dismissViewControllerAnimated(true, completion: {
-                println("========settings did dismiss") // tabort
+                print("========settings did dismiss") // tabort
             })
         };
         
@@ -217,7 +219,7 @@ class CoreSettingsTableViewController: UITableViewController {
                 webViewController.title = NSLocalizedString("LINK_PRIVACY_POLICY", comment: "")
             }
             else if segue.identifier == "BuyWindmeterSegue" {
-                webViewController.url = VaavudInteractions.buySleipnirUrl(source: "settings")
+                webViewController.url = VaavudInteractions.buySleipnirUrl("settings")
                 webViewController.title = NSLocalizedString("SETTINGS_SHOP_LINK", comment: "")
             }
         }
@@ -235,6 +237,7 @@ class WebViewController: UIViewController {
     var url: NSURL?
     
     override func viewDidLoad() {
+        webView.backgroundColor = .whiteColor()
         load()
     }
     
@@ -253,6 +256,6 @@ extension String {
         return "<html><head><style type='text/css'>a {color:#00aeef;text-decoration:none}\n" +
             "body {background-color:#f8f8f8;}</style></head><body>" +
             "<center style='padding-top:20px;font-family:helvetica,arial'>" +
-            stringByReplacingOccurrencesOfString("\n" , withString: "<br/><br/>", options: nil) + "</center></body></html>"
+            stringByReplacingOccurrencesOfString("\n" , withString: "<br/><br/>", options: []) + "</center></body></html>"
     }
 }

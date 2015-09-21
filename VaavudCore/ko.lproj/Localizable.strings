@@ -237,3 +237,7 @@
 "LOADING" = "로드 중 ...";
 "MAP_NEXT_X_HOURS" = "다음 %d시간";
 "MAP_NEXT_HOUR" = "다음 시간";
+"SUMMARY_SHARE_OVERLAY" = "소셜 미디어에서 당신의 측정을 공유하세요!";
+"YESTERDAY" = "어제";
+"TODAY" = "오늘";
+"TOMORROW" = "내일";

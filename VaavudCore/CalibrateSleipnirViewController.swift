@@ -29,7 +29,7 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
     
     let manager = CMMotionManager()
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         sdk.addListener(self)
     }
@@ -68,7 +68,7 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
         let text = NSLocalizedString(key, comment: "")
         upperLabel.text = text
         
-        UIView.animateWithDuration(0.7, delay: delay, options: nil, animations: {
+        UIView.animateWithDuration(0.7, delay: delay, options: [], animations: {
             self.upperLabel.alpha = 0
             self.upperLabel.textColor = color
             self.upperLabel.text = text
@@ -87,8 +87,8 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.All.rawValue)
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .All
     }
     
     // MARK: VaavudElectronicWindDelegate
@@ -145,7 +145,7 @@ class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDel
                 self.cancelButton.alpha = 0
             }
             
-            var timer = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "dismiss", userInfo: nil, repeats: false)
+            NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "dismiss", userInfo: nil, repeats: false)
         }
     }
 }
@@ -180,7 +180,7 @@ class CalibrationCircle: UIView {
         strengthLayer.fillColor = UIColor.vaavudLightGreyColor().CGColor
         layer.addSublayer(strengthLayer)
         
-        var progressPath = UIBezierPath(ovalInRect: CGRectInset(bounds, lineWidth/2, lineWidth/2))
+        let progressPath = UIBezierPath(ovalInRect: CGRectInset(bounds, lineWidth/2, lineWidth/2))
         var t = CGAffineTransformIdentity
         t = CGAffineTransformTranslate(t, bounds.midX, bounds.midY)
         t = CGAffineTransformRotate(t, -π/2)
@@ -195,7 +195,7 @@ class CalibrationCircle: UIView {
         progressLayer.fillColor = nil
         layer.addSublayer(progressLayer)
         
-        var checkPath = UIBezierPath()
+        let checkPath = UIBezierPath()
         checkPath.moveToPoint(CGPoint(x: 0.279, y: 0.495))
         checkPath.addLineToPoint(CGPoint(x: 0.422, y: 0.638))
         checkPath.addLineToPoint(CGPoint(x: 0.719, y: 0.341))

@@ -237,3 +237,7 @@
 "LOADING" = "ロード中...";
 "MAP_NEXT_X_HOURS" = "続く%d時間";
 "MAP_NEXT_HOUR" = "続く時間";
+"SUMMARY_SHARE_OVERLAY" = "測定結果をソーシャルメディアでシェア！";
+"YESTERDAY" = "昨日";
+"TODAY" = "今日";
+"TOMORROW" = "明日";

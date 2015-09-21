@@ -189,7 +189,7 @@ class OldGraph : UIView {
     
     private var factor: CGFloat = 1
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         graphShape.strokeColor = graphColor.CGColor
@@ -203,7 +203,7 @@ class OldGraph : UIView {
         
         layer.addSublayer(avgShape)
         
-        for i in 0...10 {
+        for _ in 0...10 {
             let label = UILabel()
             label.font = UIFont(name: "Roboto", size: 14)
             label.textAlignment = .Center
@@ -226,9 +226,9 @@ class OldGraph : UIView {
 
         let modScale = logScale % 1
         let scale = 2/((1 + modScale)*CGFloat(labels.count - 1))
-        let outside = ease(0, -20)
+        let outside = ease(0, to: -20)
         
-        for (i, label) in enumerate(labels) {
+        for (i, label) in labels.enumerate() {
             label.center.y = bounds.height*(1 - CGFloat(i)*scale)
             label.alpha = min(i % 2 == 0 ? 1 : 1 - modScale, 1 - outside(x: label.center.y))
         }
@@ -238,7 +238,7 @@ class OldGraph : UIView {
         if labelLogScale != intScale {
             labelLogScale = intScale
             
-            for (i, label) in enumerate(labels) {
+            for (i, label) in labels.enumerate() {
                 let j = 2*i*Int(pow(2, Float(labelLogScale)))
                 label.text = String(j)
             }

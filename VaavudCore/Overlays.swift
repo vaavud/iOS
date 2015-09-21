@@ -13,7 +13,7 @@ class RadialOverlay: UIView {
     var didTap = false
     let radius: CGFloat
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -51,13 +51,13 @@ class RadialOverlay: UIView {
         
         alpha = 0
     }
-    
+        
     override func didMoveToWindow() {
         UIView.animateWithDuration(0.2) { self.alpha = 1 }
     }
     
     override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
-        let inFocus = dist(position, point) < 25
+        let inFocus = dist(position, q: point) < 25
         
         if inFocus {
             removeFromSuperview()
@@ -69,7 +69,7 @@ class RadialOverlay: UIView {
         return !inFocus
     }
     
-    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         if didTap {
             UIView.animateWithDuration(0.25, animations: { self.alpha = 0 }, completion: { _ in self.removeFromSuperview() })
         }
@@ -88,8 +88,8 @@ class RadialOverlay: UIView {
             
             UIBezierPath(rect: bounds).addClip()
             
-            CGContextDrawRadialGradient(context, gradient1, position, 25, position, radius, 0)
-            CGContextDrawRadialGradient(context, gradient2, position, radius, position, 1200, 0)
+            CGContextDrawRadialGradient(context, gradient1, position, 25, position, radius, [])
+            CGContextDrawRadialGradient(context, gradient2, position, radius, position, 1200, [])
             
             CGContextRestoreGState(context)
         }

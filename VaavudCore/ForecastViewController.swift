@@ -83,6 +83,8 @@ class ForecastCalloutView: UIView {
     let label = UILabel()
     var data: [ForecastDataPoint]?
     
+    var isSetup = false
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -120,16 +122,20 @@ class ForecastCalloutView: UIView {
     }
     
     func setup(annotation: ForecastAnnotation) {
+        if isSetup { return }
+        
         let ahead = Property.getAsInteger(KEY_MAP_FORECAST_HOURS, defaultValue: 2).integerValue
 
         if let data = annotation.data where data.count > ahead {
             let unit = VaavudFormatter.shared.windSpeedUnit
             let dataPoint = data[ahead]
+            
             label.text = String(Int(round(unit.fromBase(dataPoint.windSpeed)))) + " " + unit.localizedString
-            arrowView.transform = Affine.rotation(dataPoint.windSpeed.radians)
+            arrowView.transform = Affine.rotation(dataPoint.windDirection.radians + π)
             arrowView.alpha = 1
             icon.image = asset(dataPoint.state, prefix: "Map-")
             icon.alpha = 1
+            isSetup = true
         }
         else {
             arrowView.alpha = 0
@@ -138,7 +144,7 @@ class ForecastCalloutView: UIView {
         }
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
@@ -157,8 +163,7 @@ class ForecastLoader: NSObject {
             annotation.setup($0)
             if let pv = mapView.viewForAnnotation(annotation) as? MKPinAnnotationView,
                 callout = pv.leftCalloutAccessoryView as? ForecastCalloutView,
-                button = pv.rightCalloutAccessoryView as? UIButton,
-                data = annotation.data {
+                button = pv.rightCalloutAccessoryView as? UIButton {
                     mapView.removeAnnotation(annotation)
                     pv.animatesDrop = false
                     mapView.addAnnotation(annotation)
@@ -198,12 +203,12 @@ class ForecastLoader: NSObject {
         let sharedSession = NSURLSession.sharedSession()
         
         let downloadTask: NSURLSessionDownloadTask = sharedSession.downloadTaskWithURL(forecastUrl) {
-            (location: NSURL!, response: NSURLResponse!, error: NSError!) in
+            (location: NSURL?, response: NSURLResponse?, error: NSError?) in
             
             if error != nil { return }
-            
-            if let dataObject = NSData(contentsOfURL: location),
-                let dict = NSJSONSerialization.JSONObjectWithData(dataObject, options: nil, error: nil) as? NSDictionary,
+            // fixme
+            if let location = location, dataObject = NSData(contentsOfURL: location),
+                let dict = (try? NSJSONSerialization.JSONObjectWithData(dataObject, options: [])) as? NSDictionary,
                 let hourly = dict["hourly"] as? [String : AnyObject],
                 let data = self.parseHourly(hourly) {
                     dispatch_async(dispatch_get_main_queue()) {
@@ -293,10 +298,12 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
 
     private var didSetup = false
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        Mixpanel.sharedInstance().track("Forecast Screen")
-
+        if Property.isMixpanelEnabled() {
+            Mixpanel.sharedInstance().track("Forecast Screen")
+        }
+            
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
     }
     
@@ -330,9 +337,13 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
         
         if !Property.getAsBoolean(KEY_FORECAST_OVERLAY_SHOWN, defaultValue: false), let tbc = tabBarController {
             Property.setAsBoolean(true, forKey: KEY_FORECAST_OVERLAY_SHOWN)
+            if Property.isMixpanelEnabled() {
+                Mixpanel.sharedInstance().track("Forecast Pro Badge Overlay")
+            }
+
             let p = tbc.view.convertPoint(proBadge.center, fromView: nil)
             let pos = CGPoint(x: p.x/tbc.view.frame.width, y: p.y/tbc.view.frame.height)
-            let text = "Forecasts is a Pro feature, but it's free for now! Tap the badge to find out more." // lokalisera
+            let text = "Vejrudsigter er en pro funktion, som er gratis ind til videre! Tryk på emblemet for mere information." // lokalisera
             let icon = UIImage(named: "ForecastProOverlay")
             tbc.view.addSubview(RadialOverlay(frame: tbc.view.bounds, position: pos, text: text, icon: icon, radius: 50))
         }
@@ -379,7 +390,6 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
             }
             
             let scaleStepCount = Int(ceil(unitMax/CGFloat(spacing)))
-            let scaleMax = CGFloat(scaleStepCount*spacing)
             let steps = Array(0...scaleStepCount).map { $0*spacing }
             
             scrollView.bounds.origin = CGPoint()
@@ -399,7 +409,6 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let offset = scrollView.contentInset.left + scrollView.contentOffset.x
-        let adjustment = scrollView.frame.width - scrollView.contentInset.left
         
         for dv in forecastView.dayViews {
             dv.dayLegend.frame.origin.x = min(max(0, offset - dv.frame.origin.x), dv.frame.width - dv.dayLegend.frame.width + 5)
@@ -417,8 +426,19 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let webViewController = segue.destinationViewController as? WebViewController {
             if segue.identifier == "ProBadgeSeque" {
+                if Property.isMixpanelEnabled() {
+                    Mixpanel.sharedInstance().track("Pro Badge Screen")
+                }
+
                 webViewController.title = "Pro features"
-                webViewController.html = "We will be adding a bunch of exciting new features to the Vaavud app, and some of these features will only be available to Pro subscribers. For a limited period though, all our users will be able to try them out!".html()
+
+                if let file = NSBundle.mainBundle().pathForResource("ProBadge", ofType: "html") {
+                    webViewController.baseUrl = NSURL(fileURLWithPath: NSBundle.mainBundle().bundlePath)
+                    webViewController.html = try? String(contentsOfFile: file, encoding: NSUTF8StringEncoding)
+                }
+                else {
+                    webViewController.html = "Vi vil tilføje flere nye spænde funktioner til Vaavud appen. Nogle af disse funktioner vil kun være tilgængelig for Pro medlemmer. For en begrænset periode, så kan alle vores brugere prøve dem!".html()
+                }
             }
         }
     }
@@ -429,7 +449,7 @@ class ForecastView: UIView {
     let hourY: CGFloat
     let dayViews: [ForecastDayView]
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -441,12 +461,12 @@ class ForecastView: UIView {
         barFrame = dayViews[0].barFrame
         hourY = dayViews[0].hourY
         
-        dayViews.map { $0.reveal(0, animated: false) }
+        _ = dayViews.map { $0.reveal(0, animated: false) }
         
         super.init(frame: frame)
         
-        dayViews.map(addSubview)
-        self.frame.size.width = stackHorizontally(left: 0, margin: 25, dayViews) + forecastBorder
+        _ = dayViews.map(addSubview)
+        self.frame.size.width = stackHorizontally(0, margin: 25, views: dayViews) + forecastBorder
     }
 }
 
@@ -463,7 +483,7 @@ class ForecastLegendView: UIView {
     let scaleLabels: [UILabel]
     let hourLabel = UILabel()
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -518,7 +538,7 @@ class ForecastLegendView: UIView {
         
         addSubview(temperatureUnitLabel)
         addSubview(unitLabel)
-        scaleLabels.map(addSubview)
+        _ = scaleLabels.map(addSubview)
         addSubview(hourLabel)
     }
 }
@@ -548,7 +568,7 @@ class ForecastDayView: UIView {
             return
         }
         
-        let newPath = curveUntil(hours, ys, barFrame).CGPath
+        let newPath = curveUntil(hours, ys: ys, barFrame: barFrame).CGPath
         
         if animated {
             let anim = CABasicAnimation(keyPath: "path")
@@ -567,7 +587,7 @@ class ForecastDayView: UIView {
         showing = hours
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -576,7 +596,7 @@ class ForecastDayView: UIView {
         
         dayLegend.font = UIFont(name: "Roboto-Bold", size: forecastFontSizeSmall)
         dayLegend.textColor = UIColor.lightGrayColor()
-        dayLegend.text = VaavudFormatter.shared.shortDate(data[0].date)
+        dayLegend.text = VaavudFormatter.shared.localizedRelativeDate(data[0].date)
         dayLegend.sizeToFit()
         dayLegend.textAlignment = .Center
         dayLegend.frame.size.width += 10
@@ -584,12 +604,12 @@ class ForecastDayView: UIView {
         
         let size = CGSize(width: 27, height: frame.height - dayLegend.frame.height - adjustedBorder - 5)
         hourViews = data.map { ForecastHourView(frame: CGRect(origin: CGPoint(), size: size), dataPoint: $0, steps: steps) }
-        let width = stackHorizontally(margin: forecastHorizontalPadding, hourViews)
+        let width = stackHorizontally(margin: forecastHorizontalPadding, views: hourViews)
         barFrame = hourViews[0].barFrame
         hourY = hourViews[0].hourLabel.center.y
         
         let lineFrame = barFrame.width(width)
-        lineView = ForecastLineView(frame: lineFrame, steps: steps)
+        lineView = ForecastLineView(frame: lineFrame, steps: steps, hours: hourViews.count)
 
         let height = barFrame.height
         let unit = VaavudFormatter.shared.windSpeedUnit
@@ -606,7 +626,7 @@ class ForecastDayView: UIView {
         
         addSubview(lineView)
         addSubview(dayLegend)
-        hourViews.map(addSubview)
+        _ = hourViews.map(addSubview)
         addSubview(graphView)
         
         self.frame.size.width = width
@@ -615,7 +635,7 @@ class ForecastDayView: UIView {
 
 func curveUntil(n: Int, ys: [CGFloat], barFrame: CGRect) -> UIBezierPath {
     let path = UIBezierPath()
-    for (i, y) in enumerate(ys) {
+    for (i, y) in ys.enumerate() {
         let x = barFrame.width/2 + CGFloat(i)*(barFrame.width + forecastHorizontalPadding)
         let p  = CGPoint(x: x, y: i < n ? y : barFrame.height)
         
@@ -630,26 +650,34 @@ func curveUntil(n: Int, ys: [CGFloat], barFrame: CGRect) -> UIBezierPath {
 class ForecastLineView: ShapeView {
     var revealed = false
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(frame: CGRect, steps: [Int]) {
+    init(frame: CGRect, steps: [Int], hours: Int) {
         super.init(frame: frame)
      
         shapeLayer.lineWidth = 1
         shapeLayer.lineCap = kCALineCapRound
         shapeLayer.strokeColor = UIColor.lightGrayColor().CGColor
         shapeLayer.fillColor = nil
-        shapeLayer.lineDashPattern = [10, 7]
         shapeLayer.strokeEnd = 0
         
         let path = UIBezierPath()
         
+        let hourWidth = (frame.width + forecastHorizontalPadding)/CGFloat(hours)
+        let dashWidth = (hourWidth - 2*forecastHorizontalPadding)/2
+        
         for i in steps {
             let y = frame.height*(1 - CGFloat(i)/CGFloat(steps.last!))
-            path.moveToPoint(CGPoint(x: 0, y: y))
-            path.addLineToPoint(CGPoint(x: frame.width, y: y))
+            for j in 0..<hours {
+                let start = CGPoint(x: CGFloat(j)*hourWidth, y: y)
+                path.moveToPoint(start)
+                path.addLineToPoint(start + CGPoint(x: dashWidth, y: 0))
+                
+                path.moveToPoint(start + CGPoint(x: dashWidth + forecastHorizontalPadding, y: 0))
+                path.addLineToPoint(start + CGPoint(x: 2*dashWidth + forecastHorizontalPadding, y: 0))
+            }
         }
 
         shapeLayer.path = path.CGPath
@@ -683,7 +711,7 @@ class ForecastHourView: UIView {
     
     var barFrame: CGRect { return barView.frame.insetY(barMargin) }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -740,13 +768,15 @@ class ForecastHourView: UIView {
         path.addLineToPoint(start + (unitValue/CGFloat(steps.last!))*(end - start))
         barView.shapeLayer.path = path.CGPath
 
-        stackVertically(top: forecastBorder, margin: forecastVerticalPadding, views) + forecastBorder
+        stackVertically(forecastBorder, margin: forecastVerticalPadding, views: views) + forecastBorder
         
-        directionView.transform = Affine.rotation(dataPoint.windDirection.radians)
+        directionView.transform = Affine.rotation(dataPoint.windDirection.radians + π)
 
         super.init(frame: frame.width(width))
 
-        views.map(addSubview)
+//        backgroundColor = UIColor.redColor().colorWithAlpha(0.2)
+        
+        _ = views.map(addSubview)
     }
     
     override func didMoveToWindow() {

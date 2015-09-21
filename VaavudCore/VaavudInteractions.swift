@@ -33,8 +33,10 @@ class VaavudInteractions: NSObject, UIAlertViewDelegate {
     }
     
     class func openBuySleipnir(source: String) {
-        Mixpanel.sharedInstance().track(source + " Clicked Buy")
-        UIApplication.sharedApplication().openURL(buySleipnirUrl(source: source))
+        if Property.isMixpanelEnabled() {
+            Mixpanel.sharedInstance().track(source + " Clicked Buy")
+        }
+        UIApplication.sharedApplication().openURL(buySleipnirUrl(source))
     }
 
     func showLocalAlert(titleKey: String, messageKey: String, otherKey: String, action: () -> (), on source: UIViewController) {

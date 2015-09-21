@@ -193,6 +193,9 @@
                     TabBarController *tabBarController = (TabBarController *)self.window.rootViewController;
                     if (tabBarController != nil && tabBarController.isViewLoaded) {
                         [tabBarController takeMeasurementFromUrlScheme];
+                        if ([Property isMixpanelEnabled]) {
+                            [[Mixpanel sharedInstance] track:@"Opened with url scheme" properties:@{ @"From App" : sourceApplication }];
+                        }
                     }
                 }
             }

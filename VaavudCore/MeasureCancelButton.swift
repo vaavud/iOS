@@ -65,7 +65,7 @@ class MeasureCancelButton: UIButton {
         let showSquare: CGFloat
         
         switch state {
-        case let .CountingDown(period, _):
+        case .CountingDown:
             pieView.start = (1 + cos(π*(timeLeft % 1)))/2
             pieView.end = pieView.start + (1 + cos(2*π*(timeLeft/2 % 1)))/2
             showCross = 0
@@ -106,7 +106,7 @@ class MeasureCancelButton: UIButton {
     
     // MARK: Pure
     func isInsideCircle(point: CGPoint, rect: CGRect) -> Bool {
-        return dist(point, rect.center) < rect.width/2
+        return dist(point, q: rect.center) < rect.width/2
     }
 }
 
@@ -135,14 +135,14 @@ class PieView: UIView {
         let endAngle = 2*π*end - π/2
         let arcPath = UIBezierPath(arcCenter: bounds.center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
         arcPath.lineWidth = lineWidth
-        arcPath.lineCapStyle = kCGLineCapRound
-        arcPath.lineJoinStyle = kCGLineJoinRound
+        arcPath.lineCapStyle = .Round
+        arcPath.lineJoinStyle = .Round
         arcPath.stroke()
         
         let path = UIBezierPath()
         path.lineWidth = lineWidth
-        path.lineCapStyle = kCGLineCapRound
-        path.lineJoinStyle = kCGLineJoinRound
+        path.lineCapStyle = .Round
+        path.lineJoinStyle = .Round
 
         let buttonBounds = CGRect(center: bounds.center, size: CGSize(width: 32, height: 32))
 

@@ -106,7 +106,7 @@ SHARED_INSTANCE
     
     if (self.lastDidBecomeActive && self.lastDidBecomeActive != nil) {
         NSTimeInterval howRecent = [self.lastDidBecomeActive timeIntervalSinceNow];
-        if (abs(howRecent) < graceTimeBetweenDidBecomeActiveTasks) {
+        if (fabs(howRecent) < graceTimeBetweenDidBecomeActiveTasks) {
             if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] ignoring did-become-active due to grace period");
 
             self.justDidBecomeActive = NO;
@@ -160,7 +160,7 @@ SHARED_INSTANCE
 
     if (unuploadedMeasurementSessions && [unuploadedMeasurementSessions count] > 0) {
         
-        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Found %d un-uploaded MeasurementSessions", [unuploadedMeasurementSessions count]);
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Found %lu un-uploaded MeasurementSessions", (unsigned long)[unuploadedMeasurementSessions count]);
         
         for (MeasurementSession *measurementSession in unuploadedMeasurementSessions) {
             NSNumber *pointCount = [NSNumber numberWithUnsignedInteger:[measurementSession.points count]];
@@ -170,7 +170,7 @@ SHARED_INSTANCE
             if (measurementSession.measuring.boolValue) {
                 // if an unuploaded 
                 NSTimeInterval howRecent = [measurementSession.endTime timeIntervalSinceNow];
-                if (abs(howRecent) > 60.0 * 10.0) {
+                if (fabs(howRecent) > 60.0 * 10.0) {
                     if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Found old MeasurementSession (%@) that is still measuring - setting it to not measuring", measurementSession.uuid);
                     // TODO: we ought to force the controller to stop if it is still in started mode. Or should we remove this altogether?
                     measurementSession.measuring = @NO;
@@ -571,7 +571,7 @@ SHARED_INSTANCE
     
     if (!ignoreGracePeriod && self.lastHistorySync && self.lastHistorySync != nil) {
         NSTimeInterval howRecent = [self.lastHistorySync timeIntervalSinceNow];
-        if (abs(howRecent) < GRACE_TIME_BETWEEN_HISTORY_SYNC) {
+        if (fabs(howRecent) < GRACE_TIME_BETWEEN_HISTORY_SYNC) {
             return;
         }
     }
@@ -737,7 +737,7 @@ SHARED_INSTANCE
                         if ([measurementSession.uploaded boolValue] == YES) {
                             if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Measurement deleted: %@, endTime: %@", measurementSession.uuid, [formatter stringFromDate:measurementSession.endTime]);
                             measurementsDeleted++;
-                            [measurementSession MR_deleteInContext:localContext];
+                            [measurementSession MR_deleteEntityInContext:localContext];
                         }
                     }
                 }
@@ -834,7 +834,7 @@ SHARED_INSTANCE
                     if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] Measurement created: %@, endTime=%@ (%@)", uuid, endTime, (NSString*)[measurementDictionary objectForKey:@"endTime"]);
                     measurementsCreated++;
                     
-                    MeasurementSession *measurementSession = [MeasurementSession MR_createInContext:localContext];
+                    MeasurementSession *measurementSession = [MeasurementSession MR_createEntityInContext:localContext];
                     measurementSession.uuid = uuid;
                     measurementSession.device = deviceUuid;
                     measurementSession.startTime = startTime;
@@ -1109,7 +1109,7 @@ SHARED_INSTANCE
         NSDate *time = [NSDate dateWithTimeIntervalSince1970:([((NSString *)[dictionary objectForKey:@"time"]) doubleValue] / 1000.0)];
         NSNumber *speed = [self numberValueFrom:dictionary forKey:@"speed"];
     
-        MeasurementPoint *measurementPoint = [MeasurementPoint MR_createInContext:context];
+        MeasurementPoint *measurementPoint = [MeasurementPoint MR_createEntityInContext:context];
         measurementPoint.session = session;
         measurementPoint.time = time;
         measurementPoint.windSpeed = speed;

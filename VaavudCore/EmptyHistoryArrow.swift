@@ -47,7 +47,7 @@ class EmptyHistoryArrow: UIView {
 //            let arrowEndPoint = CGPoint(x: 16, y: 100)
             let arrowEndPoint = CGPoint(x: 50, y: 100)
             
-            var bezierPath = UIBezierPath()
+            let bezierPath = UIBezierPath()
             bezierPath.moveToPoint(CGPointMake(50, 3.5))
             bezierPath.addCurveToPoint(arrowEndPoint, controlPoint1: CGPointMake(50, 5.86), controlPoint2: arrowEndPoint + CGPoint(x: 0, y: -50))
 

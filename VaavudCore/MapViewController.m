@@ -121,7 +121,7 @@
     self.view.autoresizesSubviews = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    if ([[[NSLocale preferredLanguages] firstObject] isEqualToString:@"da"]) {
+    if ([[[[NSLocale preferredLanguages] firstObject] substringToIndex:2] isEqualToString:@"da"]) {
         [self addLongPress];
     }
 }
@@ -225,12 +225,18 @@
     CGPoint position = CGPointMake(-1, -1);
     
     BOOL hasDevice = [Property getAsBoolean:KEY_USER_HAS_WIND_METER];
-    BOOL isDanish = [[[NSLocale preferredLanguages] firstObject] isEqualToString:@"da"];
+    BOOL isDanish = [[[[NSLocale preferredLanguages] firstObject] substringToIndex:2] isEqualToString:@"da"];
     
     if (hasDevice && ![Property getAsBoolean:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY defaultValue:NO]) {
         [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY];
         textKey = @"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION";
         position = CGPointMake(0.5, 0.97);
+        icon = [UIImage imageNamed:@"MapMeasureOverlay"];
+    }
+    else if (isDanish && ![Property getAsBoolean:KEY_MAP_GUIDE_FORECAST_SHOWN defaultValue:NO]) {
+        [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_FORECAST_SHOWN];
+        textKey = @"MAP_GUIDE_FORECAST";
+        icon = [UIImage imageNamed:@"ForecastPressFinger"];
     }
     else if (![Property getAsBoolean:KEY_MAP_GUIDE_MARKER_SHOWN defaultValue:NO]) {
         [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MARKER_SHOWN];
@@ -245,11 +251,6 @@
         
         textKey = @"MAP_GUIDE_TIME_INTERVAL_EXPLANATION";
         position = CGPointMake(x, y);
-    }
-    else if (isDanish && ![Property getAsBoolean:KEY_MAP_GUIDE_FORECAST_SHOWN defaultValue:NO]) {
-        [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_FORECAST_SHOWN];
-        textKey = @"MAP_GUIDE_FORECAST";
-        icon = [UIImage imageNamed:@"ForecastPressFinger"];
     }
     
     if (textKey != nil) {
@@ -274,8 +275,9 @@
     
     ForecastAnnotation *annotation = [[ForecastAnnotation alloc] initWithLocation:loc];
     [[ForecastLoader shared] setup:annotation mapView:self.mapView];
- 
-    [[Mixpanel sharedInstance] track:@"Forecast added pin"];
+    if ([Property isMixpanelEnabled]) {
+        [[Mixpanel sharedInstance] track:@"Forecast added pin"];
+    }
     
     [self.mapView addAnnotation:annotation];
 }
@@ -287,7 +289,7 @@
 - (void)loadMeasurements:(BOOL)ignoreGracePeriod showActivityIndicator:(BOOL)showActivityIndicator {
     if (!ignoreGracePeriod && self.lastMeasurementsRead && self.lastMeasurementsRead != nil) {
         NSTimeInterval howRecent = [self.lastMeasurementsRead timeIntervalSinceNow];
-        if (abs(howRecent) < (graceTimeBetweenMeasurementsRead - 2.0)) {
+        if (fabs(howRecent) < (graceTimeBetweenMeasurementsRead - 2.0)) {
             //NSLog(@"[MapViewController] ignoring loadMeasurements due to grace period");
             return;
         }

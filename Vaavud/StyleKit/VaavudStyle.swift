@@ -22,7 +22,7 @@ public class VaavudStyle : NSObject {
         static var vaavudDarkGrey: UIColor = UIColor(red: 0.188, green: 0.243, blue: 0.282, alpha: 1.000)
         static var vaavudLightGrey: UIColor = UIColor(red: 0.478, green: 0.525, blue: 0.549, alpha: 1.000)
         static var vaavudClear: UIColor = VaavudStyle.vaavudLightGrey.colorWithAlpha(0)
-        static var gradient: CGGradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), [VaavudStyle.vaavudClear.CGColor, VaavudStyle.vaavudLightGrey.CGColor], [0, 1])
+        static var gradient: CGGradient = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), [VaavudStyle.vaavudClear.CGColor, VaavudStyle.vaavudLightGrey.CGColor], [0, 1])!
         static var image: UIImage?
 
     }
@@ -50,7 +50,7 @@ public class VaavudStyle : NSObject {
 
     //// Drawing Methods
 
-    public class func drawVaavudTemperature(#height: CGFloat, reading: CGFloat) {
+    public class func drawVaavudTemperature(height height: CGFloat, reading: CGFloat) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -63,7 +63,7 @@ public class VaavudStyle : NSObject {
         CGContextSaveGState(context)
         CGContextScaleCTM(context, scale, scale)
 
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(29.97, 64.86))
         bezier2Path.addLineToPoint(CGPointMake(29.97, 13.08))
         bezier2Path.addCurveToPoint(CGPointMake(21.9, 5.45), controlPoint1: CGPointMake(29.97, 8.84), controlPoint2: CGPointMake(26.34, 5.45))
@@ -98,7 +98,7 @@ public class VaavudStyle : NSObject {
         CGContextSaveGState(context)
         CGContextScaleCTM(context, scale, scale)
 
-        var bezierPath = UIBezierPath()
+        let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(26.13, (tempGaugeYOffset - 0.002)))
         bezierPath.addCurveToPoint(CGPointMake(26.13, 68.13), controlPoint1: CGPointMake(26.13, (tempGaugeYOffset - 0.002) - 0), controlPoint2: CGPointMake(26.13, 62.98))
         bezierPath.addLineToPoint(CGPointMake(29.01, 69.94))
@@ -117,7 +117,7 @@ public class VaavudStyle : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawVaavudPressure(#height: CGFloat, reading: CGFloat) {
+    public class func drawVaavudPressure(height height: CGFloat, reading: CGFloat) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -132,7 +132,7 @@ public class VaavudStyle : NSObject {
         CGContextSaveGState(context)
         CGContextScaleCTM(context, scale, scale)
 
-        var oval4Path = UIBezierPath(ovalInRect: CGRectMake(36.1, 36.1, 28.2, 28.2))
+        let oval4Path = UIBezierPath(ovalInRect: CGRectMake(36.1, 36.1, 28.2, 28.2))
         VaavudStyle.vaavudDarkGrey.setFill()
         oval4Path.fill()
 
@@ -145,7 +145,7 @@ public class VaavudStyle : NSObject {
         CGContextRotateCTM(context, -pressureGaugeRotation * CGFloat(M_PI) / 180)
         CGContextScaleCTM(context, scale, scale)
 
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(27.86, -27.75))
         bezier2Path.addLineToPoint(CGPointMake(-21.72, 11.81))
         bezier2Path.addLineToPoint(CGPointMake(-11.5, 22.03))
@@ -163,7 +163,7 @@ public class VaavudStyle : NSObject {
         CGContextSaveGState(context)
         CGContextScaleCTM(context, scale, scale)
 
-        var oval3Path = UIBezierPath()
+        let oval3Path = UIBezierPath()
         oval3Path.moveToPoint(CGPointMake(94.58, 50))
         oval3Path.addCurveToPoint(CGPointMake(50, 5.42), controlPoint1: CGPointMake(94.58, 25.38), controlPoint2: CGPointMake(74.62, 5.42))
         oval3Path.addCurveToPoint(CGPointMake(5.42, 50), controlPoint1: CGPointMake(25.38, 5.42), controlPoint2: CGPointMake(5.42, 25.38))
@@ -182,7 +182,7 @@ public class VaavudStyle : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawVaavudGustiness(#height: CGFloat, reading: CGFloat) {
+    public class func drawVaavudGustiness(height height: CGFloat, reading: CGFloat) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -196,7 +196,7 @@ public class VaavudStyle : NSObject {
         CGContextTranslateCTM(context, pos.x, pos.y)
         CGContextScaleCTM(context, scale, scale)
 
-        var bezier2Path = UIBezierPath()
+        let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(10.27, 81.5))
         bezier2Path.addCurveToPoint(CGPointMake(37.14, 14.4), controlPoint1: CGPointMake(-0.81, 55.67), controlPoint2: CGPointMake(11.11, 25.64))
         bezier2Path.addCurveToPoint(CGPointMake(90.86, 36.04), controlPoint1: CGPointMake(57.96, 5.68), controlPoint2: CGPointMake(81.96, 15.24))
@@ -208,9 +208,9 @@ public class VaavudStyle : NSObject {
         bezier2Path.addCurveToPoint(CGPointMake(51.24, 58.35), controlPoint1: CGPointMake(59.97, 66.4), controlPoint2: CGPointMake(53.59, 63.89))
         bezier2Path.addCurveToPoint(CGPointMake(55.77, 47.11), controlPoint1: CGPointMake(49.39, 53.99), controlPoint2: CGPointMake(51.41, 48.96))
         bezier2Path.addCurveToPoint(CGPointMake(64.84, 50.63), controlPoint1: CGPointMake(59.3, 45.6), controlPoint2: CGPointMake(63.33, 47.28))
-        bezier2Path.lineCapStyle = kCGLineCapRound;
+        bezier2Path.lineCapStyle = .Round;
 
-        bezier2Path.lineJoinStyle = kCGLineJoinRound;
+        bezier2Path.lineJoinStyle = .Round;
 
         VaavudStyle.vaavudDarkGrey.setStroke()
         bezier2Path.lineWidth = 5
@@ -219,7 +219,7 @@ public class VaavudStyle : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawVaavudWindchill(#height: CGFloat, reading: CGFloat) {
+    public class func drawVaavudWindchill(height height: CGFloat, reading: CGFloat) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()
 
@@ -236,7 +236,7 @@ public class VaavudStyle : NSObject {
         CGContextRotateCTM(context, -windchillRotation * CGFloat(M_PI) / 180)
         CGContextScaleCTM(context, scale, scale)
 
-        var bezierPath = UIBezierPath()
+        let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(-47.29, -2.71))
         bezierPath.addLineToPoint(CGPointMake(47.29, -2.71))
         bezierPath.addCurveToPoint(CGPointMake(50, 0), controlPoint1: CGPointMake(48.79, -2.71), controlPoint2: CGPointMake(50, -1.5))
@@ -403,17 +403,17 @@ public class VaavudStyle : NSObject {
         CGContextRestoreGState(context)
     }
 
-    public class func drawCompassArrow(#frame: CGRect, strokeColor: UIColor, strokeWidth: CGFloat) {
+    public class func drawCompassArrow(frame frame: CGRect, strokeColor: UIColor, strokeWidth: CGFloat) {
 
         //// Circle Drawing
-        var circlePath = UIBezierPath(ovalInRect: CGRectMake(frame.minX + 4, frame.minY + 4, frame.width - 8, frame.height - 8))
+        let circlePath = UIBezierPath(ovalInRect: CGRectMake(frame.minX + 4, frame.minY + 4, frame.width - 8, frame.height - 8))
         strokeColor.setStroke()
         circlePath.lineWidth = strokeWidth
         circlePath.stroke()
 
 
         //// Body Drawing
-        var bodyPath = UIBezierPath()
+        let bodyPath = UIBezierPath()
         bodyPath.moveToPoint(CGPointMake(frame.minX + 0.50000 * frame.width, frame.minY + 0.30000 * frame.height))
         bodyPath.addLineToPoint(CGPointMake(frame.minX + 0.50000 * frame.width, frame.minY + 0.85000 * frame.height))
         strokeColor.setStroke()
@@ -422,13 +422,13 @@ public class VaavudStyle : NSObject {
 
 
         //// Bezier Drawing
-        var bezierPath = UIBezierPath()
+        let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(frame.minX + 0.50000 * frame.width, frame.minY + 0.15000 * frame.height))
         bezierPath.addLineToPoint(CGPointMake(frame.minX + 0.41000 * frame.width, frame.minY + 0.35000 * frame.height))
         bezierPath.addLineToPoint(CGPointMake(frame.minX + 0.59000 * frame.width, frame.minY + 0.35000 * frame.height))
         bezierPath.addLineToPoint(CGPointMake(frame.minX + 0.50000 * frame.width, frame.minY + 0.15000 * frame.height))
         bezierPath.closePath()
-        bezierPath.lineCapStyle = kCGLineCapSquare;
+        bezierPath.lineCapStyle = CGLineCap.Square;
 
         strokeColor.setFill()
         bezierPath.fill()
@@ -437,10 +437,10 @@ public class VaavudStyle : NSObject {
         bezierPath.stroke()
     }
 
-    public class func drawSleipnirCompass(#frame: CGRect, strokeColor: UIColor, strokeWidth: CGFloat, detailStrokeWidth: CGFloat) {
+    public class func drawSleipnirCompass(frame frame: CGRect, strokeColor: UIColor, strokeWidth: CGFloat, detailStrokeWidth: CGFloat) {
 
         //// Bezier Drawing
-        var bezierPath = UIBezierPath()
+        let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(frame.minX + 0.40913 * frame.width, frame.minY + 0.49910 * frame.height))
         bezierPath.addLineToPoint(CGPointMake(frame.minX + 0.40913 * frame.width, frame.minY + 0.49910 * frame.height))
         bezierPath.addLineToPoint(CGPointMake(frame.minX + 0.40913 * frame.width, frame.minY + 0.49910 * frame.height))
@@ -730,7 +730,7 @@ public class VaavudStyle : NSObject {
 
 
         //// Circle Drawing
-        var circlePath = UIBezierPath(ovalInRect: CGRectMake(frame.minX + 4, frame.minY + 4, frame.width - 8, frame.height - 8))
+        let circlePath = UIBezierPath(ovalInRect: CGRectMake(frame.minX + 4, frame.minY + 4, frame.width - 8, frame.height - 8))
         strokeColor.setStroke()
         circlePath.lineWidth = strokeWidth
         circlePath.stroke()
@@ -738,7 +738,7 @@ public class VaavudStyle : NSObject {
 
     //// Generated Images
 
-    public class func imageOfSleipnirCompass(#frame: CGRect, strokeColor: UIColor, strokeWidth: CGFloat, detailStrokeWidth: CGFloat) -> UIImage {
+    public class func imageOfSleipnirCompass(frame frame: CGRect, strokeColor: UIColor, strokeWidth: CGFloat, detailStrokeWidth: CGFloat) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, false, 0)
             VaavudStyle.drawSleipnirCompass(frame: frame, strokeColor: strokeColor, strokeWidth: strokeWidth, detailStrokeWidth: detailStrokeWidth)
 

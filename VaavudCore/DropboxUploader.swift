@@ -36,31 +36,39 @@ class DropboxUploader: NSObject, DBRestClientDelegate {
         let timeZone = NSTimeZone(forSecondsFromGMT: session.timezoneOffset.integerValue)
         let dbFolder = uploadFolder(session.startTime, timezone:timeZone )
         
-        func uploadFile(string:String, fileNameEnding:String) {
+        func uploadFile(string: String, fileNameEnding: String) {
             if let fileLocation = save(string) {
                 let dbFilename = uploadFileName(session.startTime, timezone: timeZone, ending:fileNameEnding)
                 restClient.uploadFile(dbFilename, toPath:dbFolder, withParentRev:nil, fromPath:fileLocation.path)
             }
         }
         
-        uploadFile(session.asCSV(), " session.csv")
-        uploadFile(session.pointsAsCSV(), " points.csv")
+        uploadFile(session.asCSV(), fileNameEnding: " session.csv")
+        uploadFile(session.pointsAsCSV(), fileNameEnding: " points.csv")
     }
     
+    // Fixme
+    
     func save(string:String) -> NSURL? {
-        if let tempBase = NSURL.fileURLWithPath(NSTemporaryDirectory(), isDirectory: true) {
-            var fileURL = tempBase.URLByAppendingPathComponent(NSProcessInfo.processInfo().globallyUniqueString)
-            let success = string.writeToURL(fileURL, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
-            if (success) {
-                println("success writing file %@", fileURL.path)
-                return fileURL
-            }
-            else {
-                println("not so successfull writing file %@", fileURL.path)
-            }
+        let tempBase = NSURL.fileURLWithPath(NSTemporaryDirectory(), isDirectory: true)
+        
+        let fileURL = tempBase.URLByAppendingPathComponent(NSProcessInfo.processInfo().globallyUniqueString)
+
+        let success: Bool
+        do {
+            try string.writeToURL(fileURL, atomically: true, encoding: NSUTF8StringEncoding)
+            success = true
+        } catch _ {
+            success = false
         }
-        println("Could not get tmp directory")
-        return nil
+        if (success) {
+            print("success writing file %@", fileURL.path)
+            return fileURL
+        }
+        else {
+            print("not so successful writing file %@", fileURL.path)
+            return nil
+        }
     }
 }
 
@@ -73,12 +81,12 @@ extension MeasurementSession {
         let notAvailable = "-"
         let timeZone = NSTimeZone(forSecondsFromGMT: timezoneOffset.integerValue)
         
-        func addDate(headerCell: String, data: NSDate) {
+        func addDate(headerCell: String, _ data: NSDate) {
             headerRow.append(headerCell)
-            dataRow.append(formattedDate(data, timeZone))
+            dataRow.append(formattedDate(data, timezone: timeZone))
         }
         
-        func addObject(headerCell: String, data: NSObject?) {
+        func addObject(headerCell: String, _ data: NSObject?) {
             headerRow.append(headerCell)
             dataRow.append(data != nil ? data!.description : notAvailable)
         }
@@ -109,28 +117,25 @@ extension MeasurementSession {
         addObject("startTime Unix", startTime.timeIntervalSince1970)
         addObject("endTime Unix", endTime.timeIntervalSince1970)
         
-        var csv = ",".join(headerRow)
+        var csv = headerRow.joinWithSeparator(",")
         csv += "\n"
-        csv += ",".join(dataRow)
+        csv += dataRow.joinWithSeparator(",")
         
         return csv
     }
     
     func pointsAsCSV() -> String {
-        
         var headerRow = [String]()
-        var dataRow = [String]()
         
         let notAvailable = "-"
         
         headerRow.append("time (s)")
         headerRow.append("windspeed (m/s)")
         headerRow.append("winddirection (deg)")
-        var csv = ",".join(headerRow)
+        var csv = headerRow.joinWithSeparator(",")
         csv += "\n"
         
-        
-        points.enumerateObjectsUsingBlock { (elem, idx, stop) -> Void in
+        _ = points.map { elem in
             if let point = elem as? MeasurementPoint {
                 csv += point.time.timeIntervalSinceDate(self.startTime).description
                 csv += ","

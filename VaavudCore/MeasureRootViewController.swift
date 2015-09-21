@@ -82,7 +82,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     var state = MeasureState.Done
     var timeLeft = CGFloat(countdownInterval)
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         isSleipnirSession = sdk.sleipnirAvailable()
         
         super.init(coder: aDecoder)
@@ -107,7 +107,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
         
         if let sessions = MeasurementSession.MR_findByAttribute("measuring", withValue: true) as? [MeasurementSession] {
-            sessions.map { $0.measuring = false }
+            _ = sessions.map { $0.measuring = false }
         }
         
 //        if let sessions = MeasurementSession.MR_findAll() as? [MeasurementSession] {
@@ -130,10 +130,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         let (old, flat, round) = ("OldMeasureViewController", "FlatMeasureViewController", "RoundMeasureViewController")
         let vcsNames = isSleipnirSession ? [old, flat, round] : [old, flat]
-        viewControllers = vcsNames.map { self.storyboard!.instantiateViewControllerWithIdentifier($0) as! UIViewController }
+        viewControllers = vcsNames.map { self.storyboard!.instantiateViewControllerWithIdentifier($0) }
         currentConsumer = (viewControllers.first as! MeasurementConsumer)
 
-        if !isSleipnirSession { viewControllers.map { ($0 as! MeasurementConsumer).useMjolnir() } }
+        if !isSleipnirSession { _ = viewControllers.map { ($0 as! MeasurementConsumer).useMjolnir() } }
         
         pager.numberOfPages = viewControllers.count
         
@@ -162,7 +162,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         LocationManager.sharedInstance().start()
         
-        Mixpanel.sharedInstance().track("Measure Screen")
+        if Property.isMixpanelEnabled() {
+            Mixpanel.sharedInstance().track("Measure Screen")
+        }
         
         if let mjolnir = mjolnir {
             mjolnir.delegate = self
@@ -260,13 +262,15 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
     }
 
+    
+    // Fixme
     func updateWithGeocode(session: MeasurementSession) {
         if let lat = session.latitude?.doubleValue, long = session.longitude?.doubleValue {
             geocoder.reverseGeocodeLocation(CLLocation(latitude: lat, longitude: long)) { placemarks, error in
                 dispatch_async(dispatch_get_main_queue()) {
                     if error == nil {
-                        if let first = placemarks.first as? CLPlacemark,
-                            let s = NSManagedObjectContext.MR_defaultContext().existingObjectWithID(session.objectID, error: nil) as? MeasurementSession {
+                        if let first = placemarks?.first,
+                            let s = (try? NSManagedObjectContext.MR_defaultContext().existingObjectWithID(session.objectID)) as? MeasurementSession {
                                 s.geoLocationNameLocalized = first.thoroughfare ?? first.locality ?? first.country
                                 let userInfo = ["objectID" : s.objectID, "geoLocationNameLocalized" : true]
                                 NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
@@ -275,7 +279,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                         }
                     }
                     else {
-                        println("Geocode failed with error: \(error)")
+                        print("Geocode failed with error: \(error)")
                     }
                 }
             }
@@ -291,15 +295,15 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
         }
         else {
-            println("WINDCHILL ERROR: \(session.sourcedTemperature, session.windSpeedAvg, session.sourcedWindSpeedAvg)")
+            print("WINDCHILL ERROR: \(session.sourcedTemperature, session.windSpeedAvg, session.sourcedWindSpeedAvg)")
         }
     }
-    
+    // fixme
     func updateWithSourcedData(session: MeasurementSession) {
         let objectId = session.objectID
         let loc = hasValidLocation(session) ?? LocationManager.sharedInstance().latestLocation
         ServerUploadManager.sharedInstance().lookupForLat(loc.latitude, long: loc.longitude, success: { t, d, p in
-            if let session = NSManagedObjectContext.MR_defaultContext().existingObjectWithID(objectId, error: nil) as? MeasurementSession {
+            if let session = (try? NSManagedObjectContext.MR_defaultContext().existingObjectWithID(objectId)) as? MeasurementSession {
                 session.sourcedTemperature = t ?? nil
                 session.sourcedPressureGroundLevel = p ?? nil
                 session.sourcedWindDirection = d ?? nil
@@ -310,7 +314,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                     NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
                 }
             }
-            }, failure: { error in println("<<<<SOURCED LOOKUP>>>> FAILED \(error)") })
+            }, failure: { error in print("<<<<SOURCED LOOKUP>>>> FAILED \(error)") })
     }
     
     func updateWithPressure(uuid: String) {
@@ -380,7 +384,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             if isSleipnirSession { point.windDirection = mod(latestWindDirection, 360) }
         }
         else {
-            println("ROOT: updateSession - ERROR: No current session")
+            print("ROOT: updateSession - ERROR: No current session")
             // Stopped by model, stop?
         }
     }
@@ -407,13 +411,13 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 ServerUploadManager.sharedInstance().triggerUpload()
                 
                 if success {
-                    println("ROOT: save - Saved and uploaded after measuring ============================")
+                    print("ROOT: save - Saved and uploaded after measuring ============================")
                 }
                 else if error != nil {
-                    println("ROOT: save - Failed to save session after measuring with error: \(error.localizedDescription)")
+                    print("ROOT: save - Failed to save session after measuring with error: \(error.localizedDescription)")
                 }
                 else {
-                    println("ROOT: save - Failed to save session after measuring with no error message")
+                    print("ROOT: save - Failed to save session after measuring with no error message")
                 }
                 
                 if !cancelled {
@@ -422,7 +426,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
         
             if !cancelled && DBSession.sharedSession().isLinked(), let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-                println("ROOT: save - dropbox was linked, uploading")
+                print("ROOT: save - dropbox was linked, uploading")
                 appDelegate.uploadToDropbox(session)
             }
         }
@@ -472,8 +476,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         dismissViewControllerAnimated(true) {
             self.pageController.view.removeFromSuperview()
             self.pageController.removeFromParentViewController()
-            self.viewControllers.map { $0.view.removeFromSuperview() }
-            self.viewControllers.map { $0.removeFromParentViewController() }
+            _ = self.viewControllers.map { $0.view.removeFromSuperview() }
+            _ = self.viewControllers.map { $0.removeFromParentViewController() }
             self.viewControllers = []
             self.currentConsumer = nil
             self.displayLink.invalidate()
@@ -483,9 +487,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     func reportToUrlSchemeCaller(cancelled: Bool) {
         if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate,
             x = appDelegate.xCallbackSuccess,
-            encoded = x.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding) {
+            encoded = x.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet()) {
                 appDelegate.xCallbackSuccess = nil
-
+                
                 if cancelled, let url = NSURL(string:encoded + "?x-source=Vaavud&x-cancelled=cancel") {
                     UIApplication.sharedApplication().openURL(url)
                 }
@@ -521,8 +525,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         return true
     }
 
-    override func supportedInterfaceOrientations() -> Int {
-        return Int(UIInterfaceOrientationMask.Portrait.rawValue) | Int(UIInterfaceOrientationMask.PortraitUpsideDown.rawValue)
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+       return [.Portrait, .PortraitUpsideDown]
     }
     
     func changeConsumer(mc: MeasurementConsumer) {
@@ -535,21 +539,21 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         currentConsumer = mc
     }
     
-    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [AnyObject]) {
-        if let vc = pendingViewControllers.last as? UIViewController, mc = vc as? MeasurementConsumer {
+    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
+        if let mc = pendingViewControllers.last as? MeasurementConsumer {
             changeConsumer(mc)
         }
     }
     
-    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [AnyObject], transitionCompleted completed: Bool) {
+    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
-        if let vc = pageViewController.viewControllers.last as? UIViewController, mc = vc as? MeasurementConsumer {
-            if let current = find(viewControllers, vc) {
+        if let vc = pageViewController.viewControllers?.last, mc = vc as? MeasurementConsumer {
+            if let current = viewControllers.indexOf(vc) {
                 pager.currentPage = current
             }
             changeConsumer(mc)
             
-            let alpha: CGFloat = vc is MapMeasurementViewController ? 0 : 1
+            let alpha: CGFloat = mc is MapMeasurementViewController ? 0 : 1
             UIView.animateWithDuration(0.3) {
                 self.readingTypeButton.alpha = alpha
                 self.unitButton.alpha = alpha
@@ -558,8 +562,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        
-        if let current = find(viewControllers, viewController) {
+        if let current = viewControllers.indexOf(viewController) {
             let next = mod(current + 1, viewControllers.count)
             return viewControllers[next]
         }
@@ -569,7 +572,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
 
-        if let current = find(viewControllers, viewController) {
+        if let current = viewControllers.indexOf(viewController) {
             let previous = mod(current - 1, viewControllers.count)
             return viewControllers[previous]
         }
@@ -580,8 +583,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     // MARK: Debug
     
     @IBAction func debugPanned(sender: UIPanGestureRecognizer) {
-        let y = sender.locationInView(view).y
-        let x = view.bounds.midX - sender.locationInView(view).x
+//        let y = sender.locationInView(view).y
+//        let x = view.bounds.midX - sender.locationInView(view).x
         let dx = sender.translationInView(view).x/2
         let dy = sender.translationInView(view).y/20
         
@@ -606,7 +609,7 @@ func speeds(session: MeasurementSession) -> [Float] {
     return speeds
 }
 
-func windchill(temp: Float, windspeed: Float) -> Float? {
+func windchill(temp: Float, _ windspeed: Float) -> Float? {
     let celsius = temp - 273.15
     let kmh = windspeed*3.6
     
