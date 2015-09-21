@@ -47,8 +47,6 @@ class DropboxUploader: NSObject, DBRestClientDelegate {
         uploadFile(session.pointsAsCSV(), fileNameEnding: " points.csv")
     }
     
-    // Fixme
-    
     func save(string:String) -> NSURL? {
         let tempBase = NSURL.fileURLWithPath(NSTemporaryDirectory(), isDirectory: true)
         

@@ -206,7 +206,6 @@ class ForecastLoader: NSObject {
             (location: NSURL?, response: NSURLResponse?, error: NSError?) in
             
             if error != nil { return }
-            // fixme
             if let location = location, dataObject = NSData(contentsOfURL: location),
                 let dict = (try? NSJSONSerialization.JSONObjectWithData(dataObject, options: [])) as? NSDictionary,
                 let hourly = dict["hourly"] as? [String : AnyObject],

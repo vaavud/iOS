@@ -261,9 +261,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             (session.latitude, session.longitude) = (loc.latitude, loc.longitude)
         }
     }
-
     
-    // Fixme
     func updateWithGeocode(session: MeasurementSession) {
         if let lat = session.latitude?.doubleValue, long = session.longitude?.doubleValue {
             geocoder.reverseGeocodeLocation(CLLocation(latitude: lat, longitude: long)) { placemarks, error in
@@ -298,7 +296,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             print("WINDCHILL ERROR: \(session.sourcedTemperature, session.windSpeedAvg, session.sourcedWindSpeedAvg)")
         }
     }
-    // fixme
+
     func updateWithSourcedData(session: MeasurementSession) {
         let objectId = session.objectID
         let loc = hasValidLocation(session) ?? LocationManager.sharedInstance().latestLocation
