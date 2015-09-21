@@ -53,14 +53,8 @@
 		22EAE5CF1AB1EA5C0037654E /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D21AB1EA5C0037654E /* Register.storyboard */; };
 		22EAE5D61AB1EBEA0037654E /* UpgradingUserPagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D81AB1EBEA0037654E /* UpgradingUserPagesView.xib */; };
 		22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
-		9FC1AC2C1BA23567002A5AB7 /* AudioSampleProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC1AC241BA23567002A5AB7 /* AudioSampleProcessor.swift */; };
-		9FC1AC2D1BA23567002A5AB7 /* AudioVolume.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC1AC251BA23567002A5AB7 /* AudioVolume.swift */; };
-		9FC1AC2E1BA23567002A5AB7 /* Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC1AC261BA23567002A5AB7 /* Events.swift */; };
-		9FC1AC2F1BA23567002A5AB7 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC1AC271BA23567002A5AB7 /* LocationController.swift */; };
-		9FC1AC301BA23567002A5AB7 /* RotationProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC1AC281BA23567002A5AB7 /* RotationProcessor.swift */; };
-		9FC1AC311BA23567002A5AB7 /* TickTimeProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC1AC291BA23567002A5AB7 /* TickTimeProcessor.swift */; };
-		9FC1AC321BA23567002A5AB7 /* Vaavud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC1AC2A1BA23567002A5AB7 /* Vaavud.swift */; };
-		9FC1AC331BA23567002A5AB7 /* WindController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9FC1AC2B1BA23567002A5AB7 /* WindController.swift */; };
+		9FA23AA61BA6C62900F6171D /* VaavudSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FA23AA31BA6C5E800F6171D /* VaavudSDK.framework */; };
+		9FA23AA71BA6C62900F6171D /* VaavudSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9FA23AA31BA6C5E800F6171D /* VaavudSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A086025EA7704C458175CADF /* libPods.a */; };
 		D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
 		D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* VaavudFFT.m */; };
@@ -143,6 +137,44 @@
 		E9FABFEA1896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FABFE91896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m */; };
 		E9FD000B17FD6A06001A8491 /* FormatUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FD000A17FD6A06001A8491 /* FormatUtil.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9FA23AA21BA6C5E800F6171D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FA23A9D1BA6C5E800F6171D /* VaavudSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9F0409B11BA5DC22009FFBD4;
+			remoteInfo = VaavudSDK;
+		};
+		9FA23AA41BA6C5E800F6171D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FA23A9D1BA6C5E800F6171D /* VaavudSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9F0409BC1BA5DC22009FFBD4;
+			remoteInfo = VaavudSDKTests;
+		};
+		9FA23AA81BA6C62900F6171D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9FA23A9D1BA6C5E800F6171D /* VaavudSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9F0409B01BA5DC22009FFBD4;
+			remoteInfo = VaavudSDK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9FA23AAA1BA6C62900F6171D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9FA23AA71BA6C62900F6171D /* VaavudSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		220A30EB1B6F77250011DDA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -235,14 +267,7 @@
 		22EAE5DC1AB1ECD90037654E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Bridging-Header.h"; sourceTree = "<group>"; };
 		22FA6C501A727171004DD868 /* VaavudStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VaavudStyle.swift; path = Vaavud/StyleKit/VaavudStyle.swift; sourceTree = SOURCE_ROOT; };
-		9FC1AC241BA23567002A5AB7 /* AudioSampleProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSampleProcessor.swift; sourceTree = "<group>"; };
-		9FC1AC251BA23567002A5AB7 /* AudioVolume.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioVolume.swift; sourceTree = "<group>"; };
-		9FC1AC261BA23567002A5AB7 /* Events.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Events.swift; sourceTree = "<group>"; };
-		9FC1AC271BA23567002A5AB7 /* LocationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
-		9FC1AC281BA23567002A5AB7 /* RotationProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotationProcessor.swift; sourceTree = "<group>"; };
-		9FC1AC291BA23567002A5AB7 /* TickTimeProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TickTimeProcessor.swift; sourceTree = "<group>"; };
-		9FC1AC2A1BA23567002A5AB7 /* Vaavud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vaavud.swift; sourceTree = "<group>"; };
-		9FC1AC2B1BA23567002A5AB7 /* WindController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WindController.swift; sourceTree = "<group>"; };
+		9FA23A9D1BA6C5E800F6171D /* VaavudSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VaavudSDK.xcodeproj; path = ../VaavudSDK/VaavudSDK.xcodeproj; sourceTree = "<group>"; };
 		A086025EA7704C458175CADF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDE6761506C86D4075981625 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D7092E881748FE9C00993235 /* VaavudDynamicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudDynamicsController.h; sourceTree = "<group>"; };
@@ -431,6 +456,7 @@
 				D7B5BD531757A23C0069F739 /* CoreLocation.framework in Frameworks */,
 				2256C19B1AA7450E00782314 /* Crashlytics.framework in Frameworks */,
 				228500881AEA8E0200E1E7C2 /* FacebookSDK.framework in Frameworks */,
+				9FA23AA61BA6C62900F6171D /* VaavudSDK.framework in Frameworks */,
 				D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */,
 				D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */,
 				D7A4F1F4173A9FC200D1ACEE /* CoreMotion.framework in Frameworks */,
@@ -453,22 +479,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		2291249B1B81E8E700DC6867 /* NewSDK */ = {
-			isa = PBXGroup;
-			children = (
-				9FC1AC241BA23567002A5AB7 /* AudioSampleProcessor.swift */,
-				9FC1AC251BA23567002A5AB7 /* AudioVolume.swift */,
-				9FC1AC261BA23567002A5AB7 /* Events.swift */,
-				9FC1AC271BA23567002A5AB7 /* LocationController.swift */,
-				9FC1AC281BA23567002A5AB7 /* RotationProcessor.swift */,
-				9FC1AC291BA23567002A5AB7 /* TickTimeProcessor.swift */,
-				9FC1AC2A1BA23567002A5AB7 /* Vaavud.swift */,
-				9FC1AC2B1BA23567002A5AB7 /* WindController.swift */,
-			);
-			name = NewSDK;
-			path = VaavudCore;
-			sourceTree = "<group>";
-		};
 		22AB2E681A70FC00008CAE46 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -481,11 +491,19 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
+		9FA23A9E1BA6C5E800F6171D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9FA23AA31BA6C5E800F6171D /* VaavudSDK.framework */,
+				9FA23AA51BA6C5E800F6171D /* VaavudSDKTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D7A4F1BE173A8DDB00D1ACEE = {
 			isa = PBXGroup;
 			children = (
 				E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */,
-				2291249B1B81E8E700DC6867 /* NewSDK */,
 				D7A4F1D0173A8DDB00D1ACEE /* Classes */,
 				D7A4F1C9173A8DDB00D1ACEE /* Frameworks */,
 				E98853C7176868BE00F78128 /* Images */,
@@ -506,6 +524,7 @@
 		D7A4F1C9173A8DDB00D1ACEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9FA23A9D1BA6C5E800F6171D /* VaavudSDK.xcodeproj */,
 				228500871AEA8E0200E1E7C2 /* FacebookSDK.framework */,
 				2256C19A1AA7450E00782314 /* Crashlytics.framework */,
 				E982DF2D18181152004DAB3E /* AdSupport.framework */,
@@ -860,10 +879,12 @@
 				D7A4F1C5173A8DDB00D1ACEE /* Resources */,
 				B53D863A9E054A47A41840FD /* Copy Pods Resources */,
 				2235B0C41AA742520003C20B /* ShellScript */,
+				9FA23AAA1BA6C62900F6171D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9FA23AA91BA6C62900F6171D /* PBXTargetDependency */,
 			);
 			name = Vaavud;
 			productName = VaavudCore;
@@ -908,12 +929,35 @@
 			mainGroup = D7A4F1BE173A8DDB00D1ACEE;
 			productRefGroup = D7A4F1C8173A8DDB00D1ACEE /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9FA23A9E1BA6C5E800F6171D /* Products */;
+					ProjectRef = 9FA23A9D1BA6C5E800F6171D /* VaavudSDK.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				D7A4F1C6173A8DDB00D1ACEE /* Vaavud */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9FA23AA31BA6C5E800F6171D /* VaavudSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = VaavudSDK.framework;
+			remoteRef = 9FA23AA21BA6C5E800F6171D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9FA23AA51BA6C5E800F6171D /* VaavudSDKTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = VaavudSDKTests.xctest;
+			remoteRef = 9FA23AA41BA6C5E800F6171D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		D7A4F1C5173A8DDB00D1ACEE /* Resources */ = {
@@ -1009,18 +1053,14 @@
 				D7A4F1DB173A8DDB00D1ACEE /* AppDelegate.m in Sources */,
 				22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */,
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
-				9FC1AC2E1BA23567002A5AB7 /* Events.swift in Sources */,
-				9FC1AC311BA23567002A5AB7 /* TickTimeProcessor.swift in Sources */,
 				E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */,
 				22DCCED41B02399800D65265 /* RoundMeasurementScreen.swift in Sources */,
 				D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */,
 				E9B950CC195B1DCE00E9EF02 /* ImageUtil.m in Sources */,
 				E91D421B198F7E4900106E15 /* DismissOnTouchUIView.m in Sources */,
-				9FC1AC301BA23567002A5AB7 /* RotationProcessor.swift in Sources */,
 				D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */,
 				E9A4099F18AA75C6004F1C12 /* RegisterNavigationController.m in Sources */,
 				E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */,
-				9FC1AC331BA23567002A5AB7 /* WindController.swift in Sources */,
 				E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */,
 				229533511B1F3F8A00DAEA62 /* MeasureCancelButton.swift in Sources */,
 				E9A4097818994000004F1C12 /* TMCache.m in Sources */,
@@ -1034,7 +1074,6 @@
 				E9159CA51A03E09100742188 /* MeasurementSession.m in Sources */,
 				E9B627C517708E63004678D5 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */,
-				9FC1AC2C1BA23567002A5AB7 /* AudioSampleProcessor.swift in Sources */,
 				2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */,
 				E9A4097D18994570004F1C12 /* UIImageView+TMCache.m in Sources */,
 				E9B627C617708E63004678D5 /* AFPropertyListRequestOperation.m in Sources */,
@@ -1042,7 +1081,6 @@
 				E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */,
 				E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */,
 				E9B627C817708E63004678D5 /* AFXMLRequestOperation.m in Sources */,
-				9FC1AC2F1BA23567002A5AB7 /* LocationController.swift in Sources */,
 				E9B627C917708E63004678D5 /* UIImageView+AFNetworking.m in Sources */,
 				E9B627D1177096D6004678D5 /* VaavudAPIHTTPClient.m in Sources */,
 				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,
@@ -1064,11 +1102,9 @@
 				229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */,
 				22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */,
 				22ADAA941A9C911400C298E6 /* EmptyHistoryArrow.swift in Sources */,
-				9FC1AC321BA23567002A5AB7 /* Vaavud.swift in Sources */,
 				E9F33CCE18B4B3CB0033EDC7 /* AccountManager.m in Sources */,
 				E9A4099318A52E40004F1C12 /* RegisterViewController.m in Sources */,
 				E9A4097918994000004F1C12 /* TMDiskCache.m in Sources */,
-				9FC1AC2D1BA23567002A5AB7 /* AudioVolume.swift in Sources */,
 				22E602471B6F67C600B706E0 /* ActivityFlowViewController.swift in Sources */,
 				E9B950E4195C587800E9EF02 /* FirstTimeFlowController.m in Sources */,
 				229124991B81E8B100DC6867 /* WindMeasurementController.m in Sources */,
@@ -1100,6 +1136,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9FA23AA91BA6C62900F6171D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = VaavudSDK;
+			targetProxy = 9FA23AA81BA6C62900F6171D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		22EAE5D21AB1EA5C0037654E /* Register.storyboard */ = {
@@ -1280,6 +1324,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../FacebookSDK",
 					"$(inherited)",
@@ -1320,6 +1365,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../FacebookSDK",
 					"$(inherited)",

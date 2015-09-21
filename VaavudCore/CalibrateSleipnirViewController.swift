@@ -10,10 +10,11 @@ import UIKit
 import AudioToolbox
 import SceneKit
 import CoreMotion
+import VaavudSDK
 
 class CalibrateSleipnirViewController: UIViewController {
     var done = false
-
+    
     var timer: NSTimer!
     
     var speed: CGFloat = 0
@@ -25,7 +26,7 @@ class CalibrateSleipnirViewController: UIViewController {
     
     @IBOutlet weak var calibrationCircle: CalibrationCircle!
     
-    let sdk = VaavudSDK()
+    let sdk = VaavudSDK.sharedInstance
     
     let manager = CMMotionManager()
     
@@ -36,7 +37,7 @@ class CalibrateSleipnirViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         hideVolumeHUD()
-        
+                
         timer = NSTimer.scheduledTimerWithTimeInterval(3, target: self, selector: "showFirstText", userInfo: nil, repeats: false)
 
         sdk.windSpeedCallback = newWindSpeed

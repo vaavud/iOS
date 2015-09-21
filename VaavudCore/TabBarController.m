@@ -18,6 +18,7 @@
 #import "RegisterNavigationController.h"
 #import "UIImage+Vaavud.h"
 #import "Property+Util.h"
+#import <VaavudSDK/VaavudSDK-Swift.h>
 
 
 @interface TabBarController ()<UITabBarControllerDelegate>

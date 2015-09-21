@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreMotion
+import VaavudSDK
 
 let updatePeriod = 1.0
 let countdownInterval = 3
@@ -41,7 +42,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     private var altimeter: CMAltimeter?
     
-    private let sdk = VaavudSDK()
+    private let sdk = VaavudSDK.sharedInstance
     
     private var mjolnir: MjolnirMeasurementController?
     
