@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreMotion
+import VaavudSDK
 
 let updatePeriod = 1.0
 let countdownInterval = 3
@@ -50,6 +51,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var currentSession: MeasurementSession? {
         return MeasurementSession.MR_findFirstByAttribute("uuid", withValue: currentSessionUuid)
     }
+    
+    let newSdk = VaavudSDK.sharedInstance
     
     let isSleipnirSession: Bool
     

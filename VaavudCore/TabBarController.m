@@ -19,7 +19,7 @@
 #import "UIImage+Vaavud.h"
 #import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
 #import "Property+Util.h"
-
+#import <VaavudSDK/VaavudSDK-Swift.h>
 
 @interface TabBarController ()<UITabBarControllerDelegate>
 
@@ -122,6 +122,9 @@
 
 - (void)takeMeasurement:(BOOL)fromUrlScheme {
     VEVaavudElectronicSDK *sdk = [VEVaavudElectronicSDK sharedVaavudElectronic];
+    
+    BOOL newAvailable = [VaavudSleipnirAvailability available];
+    NSLog(@"Available: %d", newAvailable);
     
     if ([Property getAsBoolean:KEY_USES_SLEIPNIR] && !sdk.sleipnirAvailable) {
         if (fromUrlScheme && self.sleipnirFromCallbackAttempts < 10) {

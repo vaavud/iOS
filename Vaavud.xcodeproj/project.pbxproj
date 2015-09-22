@@ -39,6 +39,8 @@
 		22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */; };
 		22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408B61A8A0E2E0062A2DD /* Extensions.swift */; };
 		22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */; };
+		22B74D871BB1408F00D39999 /* VaavudSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EE9B801BB13E5800F3C331 /* VaavudSDK.framework */; };
+		22B74D881BB1408F00D39999 /* VaavudSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 22EE9B801BB13E5800F3C331 /* VaavudSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		22BBC29B1BAB064E005E0A95 /* ForecastData.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BBC2971BAB064E005E0A95 /* ForecastData.png */; settings = {ASSET_TAGS = (); }; };
 		22BBC29C1BAB064E005E0A95 /* ForecastMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BBC2981BAB064E005E0A95 /* ForecastMap.png */; settings = {ASSET_TAGS = (); }; };
 		22BBC29D1BAB064E005E0A95 /* ProBadge.html in Resources */ = {isa = PBXBuildFile; fileRef = 22BBC2991BAB064E005E0A95 /* ProBadge.html */; settings = {ASSET_TAGS = (); }; };
@@ -168,7 +170,42 @@
 			remoteGlobalIDString = D7D9996819B3AD3B0099FB8F;
 			remoteInfo = VaavudElectronicSDK;
 		};
+		22B74D891BB1408F00D39999 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9F0409B01BA5DC22009FFBD4;
+			remoteInfo = VaavudSDK;
+		};
+		22EE9B7F1BB13E5800F3C331 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9F0409B11BA5DC22009FFBD4;
+			remoteInfo = VaavudSDK;
+		};
+		22EE9B811BB13E5800F3C331 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9F0409BC1BA5DC22009FFBD4;
+			remoteInfo = VaavudSDKTests;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		22B74D8B1BB1408F00D39999 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				22B74D881BB1408F00D39999 /* VaavudSDK.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		220A30EB1B6F77250011DDA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -267,6 +304,7 @@
 		22E602461B6F67C600B706E0 /* ActivityFlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityFlowViewController.swift; sourceTree = "<group>"; };
 		22EAE5D71AB1EBEA0037654E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/UpgradingUserPagesView.xib; sourceTree = "<group>"; };
 		22EAE5DC1AB1ECD90037654E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
+		22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VaavudSDK.xcodeproj; path = "../vaavud-ios-sdk/VaavudSDK.xcodeproj"; sourceTree = "<group>"; };
 		22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Bridging-Header.h"; sourceTree = "<group>"; };
 		22FA6C501A727171004DD868 /* VaavudStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VaavudStyle.swift; path = Vaavud/StyleKit/VaavudStyle.swift; sourceTree = SOURCE_ROOT; };
 		A086025EA7704C458175CADF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -462,6 +500,7 @@
 				2256C19B1AA7450E00782314 /* Crashlytics.framework in Frameworks */,
 				D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */,
 				D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */,
+				22B74D871BB1408F00D39999 /* VaavudSDK.framework in Frameworks */,
 				D7A4F1F4173A9FC200D1ACEE /* CoreMotion.framework in Frameworks */,
 				D7A4F1CB173A8DDB00D1ACEE /* UIKit.framework in Frameworks */,
 				D7A4F1CD173A8DDB00D1ACEE /* Foundation.framework in Frameworks */,
@@ -523,6 +562,15 @@
 			path = ProBadgeHtml;
 			sourceTree = "<group>";
 		};
+		22EE9B7B1BB13E5800F3C331 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				22EE9B801BB13E5800F3C331 /* VaavudSDK.framework */,
+				22EE9B821BB13E5800F3C331 /* VaavudSDKTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D7A4F1BE173A8DDB00D1ACEE = {
 			isa = PBXGroup;
 			children = (
@@ -548,6 +596,7 @@
 		D7A4F1C9173A8DDB00D1ACEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */,
 				22BBC2A11BAC067D005E0A95 /* FacebookSDK.framework */,
 				2256C19A1AA7450E00782314 /* Crashlytics.framework */,
 				E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */,
@@ -918,11 +967,13 @@
 				D7A4F1C5173A8DDB00D1ACEE /* Resources */,
 				B53D863A9E054A47A41840FD /* Copy Pods Resources */,
 				2235B0C41AA742520003C20B /* ShellScript */,
+				22B74D8B1BB1408F00D39999 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				22A340591A5ADC12006CE401 /* PBXTargetDependency */,
+				22B74D8A1BB1408F00D39999 /* PBXTargetDependency */,
 			);
 			name = Vaavud;
 			productName = VaavudCore;
@@ -973,6 +1024,10 @@
 					ProductGroup = 22A3404D1A5ADB1D006CE401 /* Products */;
 					ProjectRef = E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */;
 				},
+				{
+					ProductGroup = 22EE9B7B1BB13E5800F3C331 /* Products */;
+					ProjectRef = 22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -994,6 +1049,20 @@
 			fileType = wrapper.cfbundle;
 			path = VaavudElectronicSDKTests.xctest;
 			remoteRef = 22A340541A5ADB1D006CE401 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		22EE9B801BB13E5800F3C331 /* VaavudSDK.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = VaavudSDK.framework;
+			remoteRef = 22EE9B7F1BB13E5800F3C331 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		22EE9B821BB13E5800F3C331 /* VaavudSDKTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = VaavudSDKTests.xctest;
+			remoteRef = 22EE9B811BB13E5800F3C331 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -1191,6 +1260,11 @@
 			name = VaavudElectronicSDK;
 			targetProxy = 22A340581A5ADC12006CE401 /* PBXContainerItemProxy */;
 		};
+		22B74D8A1BB1408F00D39999 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = VaavudSDK;
+			targetProxy = 22B74D891BB1408F00D39999 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -1373,6 +1447,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../FacebookSDK",
@@ -1415,6 +1490,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/../FacebookSDK",
