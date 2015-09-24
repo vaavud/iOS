@@ -17,7 +17,6 @@
 #import "AccountManager.h"
 #import "RegisterNavigationController.h"
 #import "UIImage+Vaavud.h"
-#import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
 #import "Property+Util.h"
 #import <VaavudSDK/VaavudSDK-Swift.h>
 
@@ -121,12 +120,9 @@
 }
 
 - (void)takeMeasurement:(BOOL)fromUrlScheme {
-    VEVaavudElectronicSDK *sdk = [VEVaavudElectronicSDK sharedVaavudElectronic];
+    NSLog(@"Available: %d", VaavudSleipnirAvailability.available); // fixme: remove
     
-    BOOL newAvailable = [VaavudSleipnirAvailability available];
-    NSLog(@"Available: %d", newAvailable);
-    
-    if ([Property getAsBoolean:KEY_USES_SLEIPNIR] && !sdk.sleipnirAvailable) {
+    if ([Property getAsBoolean:KEY_USES_SLEIPNIR] && !VaavudSleipnirAvailability.available) {
         if (fromUrlScheme && self.sleipnirFromCallbackAttempts < 10) {
             self.sleipnirFromCallbackAttempts++;
             [self performSelector:@selector(takeMeasurementFromUrlScheme) withObject:nil afterDelay:0.1];

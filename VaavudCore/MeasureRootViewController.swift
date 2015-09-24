@@ -33,7 +33,7 @@ protocol MeasurementConsumer {
     var name: String { get }
 }
 
-class MeasureRootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WindMeasurementControllerDelegate, VaavudElectronicWindDelegate, DBRestClientDelegate {
+class MeasureRootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WindMeasurementControllerDelegate, DBRestClientDelegate {
     private var pageController: UIPageViewController!
     private var viewControllers: [UIViewController]!
     private var displayLink: CADisplayLink!
@@ -42,7 +42,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     private var altimeter: CMAltimeter?
     
-    private let sdk = VEVaavudElectronicSDK.sharedVaavudElectronic()
+    private let sdk = VaavudSDK.sharedInstance
     
     private var mjolnir: MjolnirMeasurementController?
     
@@ -51,8 +51,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var currentSession: MeasurementSession? {
         return MeasurementSession.MR_findFirstByAttribute("uuid", withValue: currentSessionUuid)
     }
-    
-    let newSdk = VaavudSDK.sharedInstance
     
     let isSleipnirSession: Bool
     
@@ -90,7 +88,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         super.init(coder: aDecoder)
         
-        state = MeasureState.CountingDown(countdownInterval, Property.getAsBoolean(KEY_MEASUREMENT_TIME_UNLIMITED))
+        state = .CountingDown(countdownInterval, Property.getAsBoolean(KEY_MEASUREMENT_TIME_UNLIMITED))
         
         let wantsSleipnir = Property.getAsBoolean(KEY_USES_SLEIPNIR)
         
@@ -100,8 +98,19 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
         if isSleipnirSession {
             Property.setAsBoolean(true, forKey: KEY_USES_SLEIPNIR)
-            sdk.addListener(self)
-            sdk.start()
+            sdk.windSpeedCallback = newWindSpeed
+            sdk.windDirectionCallback = newWindDirection
+            sdk.headingCallback = newHeading
+            // fixme: handle
+            do {
+                try sdk.start()
+            }
+            catch {
+                dismissViewControllerAnimated(true) {
+                    print("Failed to start SDK and dismissed Measure screen")
+                }
+                return
+            }
         }
         else {
             let mjolnirController = MjolnirMeasurementController()
@@ -465,7 +474,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     func stop(cancelled: Bool) {
         if isSleipnirSession {
-            sdk.removeListener(self)
             sdk.stop()
         }
         else if let mjolnir = mjolnir {
@@ -504,26 +512,32 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
     // MARK: Mjolnir Callback
     func addSpeedMeasurement(currentSpeed: NSNumber!, avgSpeed: NSNumber!, maxSpeed: NSNumber!) {
-        newSpeed(currentSpeed)
+        newWindSpeed(WindSpeedEvent(time: NSDate(), speed: currentSpeed.doubleValue))
     }
     
     // MARK: SDK Callbacks
+    
     func newWindDirection(windDirection: NSNumber!) {
         latestWindDirection = CGFloat(windDirection.floatValue)
         currentConsumer?.newWindDirection(latestWindDirection)
     }
     
-    func newSpeed(speed: NSNumber!) {
-        latestSpeed = CGFloat(speed.floatValue)
+    func newWindDirection(event: WindDirectionEvent) {
+        latestWindDirection = CGFloat(event.globalDirection)
+        currentConsumer?.newWindDirection(latestWindDirection)
+    }
+    
+    func newWindSpeed(event: WindSpeedEvent) {
+        latestSpeed = CGFloat(event.speed)
         currentConsumer?.newSpeed(latestSpeed)
         if latestSpeed > maxSpeed { maxSpeed = latestSpeed }
     }
     
-    func newHeading(heading: NSNumber!) {
-        latestHeading = CGFloat(heading.floatValue)
+    func newHeading(event: HeadingEvent) {
+        latestHeading = CGFloat(event.heading)
         currentConsumer?.newHeading(latestHeading)
     }
-        
+    
     override func prefersStatusBarHidden() -> Bool {
         return true
     }
@@ -588,13 +602,13 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     @IBAction func debugPanned(sender: UIPanGestureRecognizer) {
 //        let y = sender.locationInView(view).y
 //        let x = view.bounds.midX - sender.locationInView(view).x
-        let dx = sender.translationInView(view).x/2
-        let dy = sender.translationInView(view).y/20
-        
-        newWindDirection(latestWindDirection + dx)
-        newSpeed(max(0, latestSpeed - dy))
-        
-        sender.setTranslation(CGPoint(), inView: view)
+//        let dx = sender.translationInView(view).x/2
+//        let dy = sender.translationInView(view).y/20
+//        
+//        newWindDirection(latestWindDirection + dx)
+//        newSpeed(max(0, latestSpeed - dy))
+//        
+//        sender.setTranslation(CGPoint(), inView: view)
     }
 }
 
