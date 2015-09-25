@@ -140,10 +140,12 @@ class CoreSettingsTableViewController: UITableViewController {
         let registration = storyboard.instantiateViewControllerWithIdentifier("RegisterViewController") as! RegisterViewController
         registration.teaserLabelText = NSLocalizedString("HISTORY_REGISTER_TEASER", comment: "")
         registration.completion = {
+            print("========Login done, will try to sync") // fixme
+
             ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: true, success: { }, failure: { _ in })
 
             self.dismissViewControllerAnimated(true, completion: {
-                print("========settings did dismiss") // tabort
+                print("========settings did dismiss") // fixme
             })
         };
         

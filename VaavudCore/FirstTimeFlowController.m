@@ -196,6 +196,12 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
         RegisterNavigationController *newController = [loginStoryBoard instantiateInitialViewController];
         if ([newController isKindOfClass:[RegisterNavigationController class]]) {
             newController.registerDelegate = self;
+            newController.completion = ^{
+                [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:YES success:nil failure:nil];
+                [self dismissViewControllerAnimated:YES completion:^{
+                    [self gotoNewFlowScreenFrom:controller];
+                }];
+            };
             newController.startScreen = RegisterScreenTypeSignUp;
             [self presentViewController:newController animated:YES completion:nil];
         }
@@ -226,6 +232,12 @@ willTransitionToViewControllers:(NSArray *)pendingViewControllers {
         RegisterNavigationController *newController = (RegisterNavigationController *)[loginStoryBoard instantiateInitialViewController];
         if ([newController isKindOfClass:[RegisterNavigationController class]]) {
             newController.registerDelegate = self;
+            newController.completion = ^{
+                [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:YES success:nil failure:nil];
+                [self dismissViewControllerAnimated:YES completion:^{
+                    [self gotoNewFlowScreenFrom:controller];
+                }];
+            };
             newController.startScreen = RegisterScreenTypeLogIn;
             [self presentViewController:newController animated:YES completion:nil];
         }

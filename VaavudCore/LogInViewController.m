@@ -71,7 +71,7 @@ BOOL didShowFeedback;
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     self.alertView.delegate = nil;
-    [AccountManager sharedInstance].delegate = nil;
+//    [AccountManager sharedInstance].delegate = nil;
 }
 
 
@@ -89,7 +89,7 @@ BOOL didShowFeedback;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
     [activityIndicator startAnimating];
 
-    [[AccountManager sharedInstance] registerWithPassword:self.passwordTextField.text email:self.emailTextField.text firstName:nil lastName:nil action:AuthenticationActionLogin success:^(AuthenticationResponseType response) {
+    [[AccountManager sharedInstance] registerWithPassword:self.passwordTextField.text from:self email:self.emailTextField.text firstName:nil lastName:nil action:AuthenticationActionLogin success:^(AuthenticationResponseType response) {
 
         [self.passwordTextField resignFirstResponder];
         [self.emailTextField resignFirstResponder];
@@ -142,7 +142,8 @@ BOOL didShowFeedback;
     didShowFeedback = NO;
     AccountManager *accountManager = [AccountManager sharedInstance];
     accountManager.delegate = self;
-    [accountManager registerWithFacebook:password action:AuthenticationActionLogin];
+
+    [accountManager registerWithFacebook:password from:self action:AuthenticationActionLogin];
 }
 
 - (void)facebookAuthenticationSuccess:(AuthenticationResponseType)response {
@@ -158,6 +159,8 @@ BOOL didShowFeedback;
     if (self.completion) {
         self.completion();
     }
+    
+    [AccountManager sharedInstance].delegate = nil;
 }
 
 - (void)facebookAuthenticationFailure:(AuthenticationResponseType)response
