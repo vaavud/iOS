@@ -86,6 +86,8 @@ BOOL didShowFeedback;
 - (IBAction)doneButtonPushed:(UIBarButtonItem *)sender {
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+
+    UIBarButtonItem *oldBarButtonItem = self.navigationItem.rightBarButtonItem;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
     [activityIndicator startAnimating];
 
@@ -95,6 +97,8 @@ BOOL didShowFeedback;
         [self.emailTextField resignFirstResponder];
         self.passwordTextField.delegate = nil;
         self.emailTextField.delegate = nil;
+        
+        [activityIndicator stopAnimating];
         
         if ([self.navigationController isKindOfClass:[RegisterNavigationController class]]) {
             RegisterNavigationController *registerNavigationController = (RegisterNavigationController *)self.navigationController;
@@ -110,6 +114,9 @@ BOOL didShowFeedback;
         if ([Property isMixpanelEnabled]) {
             [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": [NSNumber numberWithInt:response], @"Screen": @"Login", @"Method": @"Password"}];
         }
+        
+        [activityIndicator stopAnimating];
+        self.navigationItem.rightBarButtonItem = oldBarButtonItem;
         
         [self refreshLoginButton];
 

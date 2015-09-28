@@ -160,6 +160,7 @@ BOOL didShowFeedback;
 
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    UIBarButtonItem *oldBarButtonItem = self.navigationItem.rightBarButtonItem;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
     [activityIndicator startAnimating];
 
@@ -185,6 +186,8 @@ BOOL didShowFeedback;
             [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": @(response), @"Screen": @"Signup", @"Method": @"Password"}];
         }
         
+        [activityIndicator stopAnimating];
+        self.navigationItem.rightBarButtonItem = oldBarButtonItem;
         [self refreshSignupButton];
 
         if (response == AuthenticationResponseInvalidCredentials) {
