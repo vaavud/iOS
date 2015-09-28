@@ -177,6 +177,7 @@
     }
 
     [self loadMeasurements:forceReload showActivityIndicator:NO];
+    [self removeOldForecasts];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -280,6 +281,17 @@
     }
     
     [self.mapView addAnnotation:annotation];
+}
+
+- (void)removeOldForecasts {
+    for (id annotation in self.mapView.annotations) {
+        if ([annotation isKindOfClass:[ForecastAnnotation class]]) {
+            ForecastAnnotation *fcAnnotation = (ForecastAnnotation *)annotation;
+            if ([[NSDate date] timeIntervalSinceDate:fcAnnotation.date] > 10) {
+                [self.mapView removeAnnotation:annotation];
+            }
+        }
+    }
 }
 
 - (void)refreshMap {
@@ -413,7 +425,6 @@
             [pinView setSelected:YES animated:YES];
             
             UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
-            [rightButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
             [rightButton setImage:[UIImage imageNamed:@"Map-disclosure"] forState:UIControlStateNormal];
             rightButton.tintColor = [UIColor vaavudBlueColor];
             rightButton.enabled = NO;
