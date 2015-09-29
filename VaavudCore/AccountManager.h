@@ -56,14 +56,15 @@ typedef NS_ENUM(NSInteger, AuthenticationResponseType) {
 + (AccountManager *)sharedInstance;
 
 - (void)registerWithPassword:(NSString *)password
-                      email:(NSString *)email
-                  firstName:(NSString *)firstName
-                   lastName:(NSString *)lastName
-                     action:(AuthenticationActionType)action
-                    success:(void(^)(AuthenticationResponseType response))success
-                    failure:(void(^)(AuthenticationResponseType response))failure;
+                        from:(UIViewController *)vc
+                       email:(NSString *)email
+                   firstName:(NSString *)firstName
+                    lastName:(NSString *)lastName
+                      action:(AuthenticationActionType)action
+                     success:(void(^)(AuthenticationResponseType response))success
+                     failure:(void(^)(AuthenticationResponseType response))failure;
 
-- (void)registerWithFacebook:(NSString *)password action:(AuthenticationActionType)action;
+- (void)registerWithFacebook:(NSString *)password from:(UIViewController *)vc action:(AuthenticationActionType)action;
 
 - (AuthenticationStateType)getAuthenticationState;
 
@@ -71,6 +72,6 @@ typedef NS_ENUM(NSInteger, AuthenticationResponseType) {
 
 - (BOOL)isLoggedIn;
 
-- (void)ensureSharingPermissions:(void(^)())success failure:(void(^)())failure;
+//- (void)ensureSharingPermissions:(void(^)())success failure:(void(^)())failure;
 
 @end

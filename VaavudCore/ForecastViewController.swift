@@ -23,6 +23,7 @@ let forecastFontSizeSmall: CGFloat = 12
 let forecastFontSizeLarge: CGFloat = 15
 
 class ForecastAnnotation: NSObject, MKAnnotation {
+    let date = NSDate()
     let coordinate: CLLocationCoordinate2D
     var data: [ForecastDataPoint]?
     var geocode: String?
@@ -83,8 +84,6 @@ class ForecastCalloutView: UIView {
     let label = UILabel()
     var data: [ForecastDataPoint]?
     
-    var isSetup = false
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -122,20 +121,23 @@ class ForecastCalloutView: UIView {
     }
     
     func setup(annotation: ForecastAnnotation) {
-        if isSetup { return }
+        if let newData = annotation.data, data = data where newData == data {
+            return
+        }
+        
+        data = annotation.data
         
         let ahead = Property.getAsInteger(KEY_MAP_FORECAST_HOURS, defaultValue: 2).integerValue
 
-        if let data = annotation.data where data.count > ahead {
+        if let newData = annotation.data where newData.count > ahead {
             let unit = VaavudFormatter.shared.windSpeedUnit
-            let dataPoint = data[ahead]
+            let dataPoint = newData[ahead]
             
             label.text = String(Int(round(unit.fromBase(dataPoint.windSpeed)))) + " " + unit.localizedString
             arrowView.transform = Affine.rotation(dataPoint.windDirection.radians + π)
             arrowView.alpha = 1
             icon.image = asset(dataPoint.state, prefix: "Map-")
             icon.alpha = 1
-            isSetup = true
         }
         else {
             arrowView.alpha = 0
@@ -167,7 +169,6 @@ class ForecastLoader: NSObject {
                     mapView.removeAnnotation(annotation)
                     pv.animatesDrop = false
                     mapView.addAnnotation(annotation)
-                    
                     callout.setup(annotation)
                     
                     mapView.selectAnnotation(annotation, animated: true)
@@ -271,12 +272,20 @@ enum WeatherState: String, AssetState {
     var prefix: String { return "Forecast-" }
 }
 
-struct ForecastDataPoint {
+struct ForecastDataPoint: Equatable {
     let temp: CGFloat
     let state: WeatherState
     let windDirection: CGFloat
     let windSpeed: CGFloat
     let date: NSDate
+}
+
+func ==(lhs: ForecastDataPoint, rhs: ForecastDataPoint) -> Bool {
+    return lhs.temp == rhs.temp &&
+        lhs.state == rhs.state &&
+        lhs.windDirection == rhs.windDirection &&
+        lhs.windSpeed == rhs.windSpeed &&
+        lhs.date == rhs.date
 }
 
 class ForecastViewController: UIViewController, UIScrollViewDelegate {

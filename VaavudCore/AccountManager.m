@@ -26,6 +26,7 @@ BOOL hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
 BOOL isDoingLogout = NO;
 
 - (void)registerWithPassword:(NSString *)password
+                        from:(UIViewController *)vc
                        email:(NSString *)email
                    firstName:(NSString *)firstName
                     lastName:(NSString *)lastName
@@ -66,11 +67,11 @@ BOOL isDoingLogout = NO;
     [self doLogout];
 }
 
-- (void)registerWithFacebook:(NSString *)password action:(AuthenticationActionType)action {
-    [self registerWithFacebook:password action:action isRecursive:NO];
+- (void)registerWithFacebook:(NSString *)password from:(UIViewController *)vc action:(AuthenticationActionType)action {
+    [self registerWithFacebook:password from:vc action:action isRecursive:NO];
 }
 
-- (void)registerWithFacebook:(NSString*)password action:(AuthenticationActionType)action isRecursive:(BOOL)isRecursive {
+- (void)registerWithFacebook:(NSString*)password from:(UIViewController *)vc action:(AuthenticationActionType)action isRecursive:(BOOL)isRecursive {
     int fbRegId = facebookRegisterIdentifier++;
     hasCalledDelegateForCurrentFacebookRegisterIdentifier = NO;
     isDoingLogout = NO;
@@ -81,22 +82,23 @@ BOOL isDoingLogout = NO;
         if (FBSession.activeSession.state == FBSessionStateCreatedTokenLoaded) {
             if (LOG_ACCOUNT) NSLog(@"[AccountManager] Found a cached Facebook session");
             
-            // If there's one, just open the session silently, without showing the user the login UI
+//            // If there's one, just open the session silently, without showing the user the login UI            
             [FBSession openActiveSessionWithReadPermissions:[self facebookSignupPermissions]
                                                allowLoginUI:NO
-                                          completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+                                         fromViewController:vc
+                                          completionHandler: ^(FBSession *session, FBSessionState state, NSError *error) {
                                               [self facebookSessionStateChanged:session
                                                                           state:state error:error
                                                                        password:password action:action
                                                                         success:nil
                                                                         failure:^(AuthenticationResponseType response, NSString *message, BOOL displayFeedback) {
-                                                  
-                                                  if (LOG_ACCOUNT) NSLog(@"[AccountManager] Failure refreshing Facebook session");
-                                                  
-                                                  if (facebookRegisterIdentifier == (fbRegId + 1) && (response == AuthenticationResponseFacebookReopenSession)) {
-                                                      [self logout];
-                                                  }
-                                              }];
+                                                                            
+                                                                            if (LOG_ACCOUNT) NSLog(@"[AccountManager] Failure refreshing Facebook session");
+                                                                            
+                                                                            if (facebookRegisterIdentifier == (fbRegId + 1) && (response == AuthenticationResponseFacebookReopenSession)) {
+                                                                                [self logout];
+                                                                            }
+                                                                        }];
                                           }];
         }
     }
@@ -111,8 +113,12 @@ BOOL isDoingLogout = NO;
         void(^success)(AuthenticationResponseType response) = ^(AuthenticationResponseType response) {
             if (LOG_ACCOUNT) NSLog(@"[AccountManager] Delegate success, fbRegId=%u", fbRegId);
             hasCalledDelegateForCurrentFacebookRegisterIdentifier = YES;
+            NSLog(@"ACCOUNTMANAGER SELF:%@", self);
             if (self.delegate) {
                 [self.delegate facebookAuthenticationSuccess:response];
+            }
+            else {
+                [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:YES success:nil failure:nil];
             }
         };
         
@@ -136,7 +142,7 @@ BOOL isDoingLogout = NO;
                     // user information (this triggers the reopen-session response).
                     
                     if (response == AuthenticationResponseFacebookReopenSession && !isRecursive) {
-                        [self registerWithFacebook:password action:action isRecursive:YES];
+                        [self registerWithFacebook:password from:vc action:action isRecursive:YES];
                     }
                     else if (self.delegate) {
                         [self.delegate facebookAuthenticationFailure:response message:message displayFeedback:displayFeedback];
@@ -154,12 +160,14 @@ BOOL isDoingLogout = NO;
             [self facebookUserLoggedIn:action password:password isRecursive:NO success:success failure:failure];
         }
         else {
+            if (LOG_ACCOUNT) NSLog(@"[AccountManager] Calling FBSession openActiveSession");
+
             [FBSession openActiveSessionWithReadPermissions:[self facebookSignupPermissions]
                                                allowLoginUI:YES
-                                          completionHandler:
-             ^(FBSession *session, FBSessionState state, NSError *error) {
-                 [self facebookSessionStateChanged:session state:state error:error password:password action:action success:success failure:failure];
-             }];
+                                         fromViewController:vc
+                                          completionHandler:^(FBSession *session, FBSessionState state, NSError *error) {
+                                              [self facebookSessionStateChanged:session state:state error:error password:password action:action success:success failure:failure];
+                                          }];
         }
     }
 }
@@ -561,65 +569,69 @@ BOOL isDoingLogout = NO;
     }
 }
 
-- (void)ensureSharingPermissions:(void(^)())success failure:(void(^)())failure {
-    NSArray *permissionsNeeded = @[@"publish_actions"];
-    
-    if ([FBSession activeSession].isOpen) {
-        // Request the permissions the user currently has
-        [FBRequestConnection startWithGraphPath:@"/me/permissions"
-                              completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
-                                  if (!error) {
-                                      // These are the current permissions the user has:
-                                      NSArray *currentPermissionsArray = (NSArray *)[result data];
-                                      NSMutableSet *grantedPermissions = [NSMutableSet setWithCapacity:currentPermissionsArray.count];
-                                      for (NSDictionary *dictionary in currentPermissionsArray) {
-                                          NSString *permission = [dictionary objectForKey:@"permission"];
-                                          NSString *status = [dictionary objectForKey:@"status"];
-                                          if ([@"granted" isEqualToString:status]) {
-                                              [grantedPermissions addObject:permission];
-                                          }
-                                      }
-                                      
-                                      // We will store the missing permissions we will have to request
-                                      NSMutableArray *requestPermissions = [NSMutableArray array];
-                                      
-                                      // Check if all the permissions we need are present in the user's current permissions
-                                      // If they are not present add them to the permissions to be requested
-                                      for (NSString *permission in permissionsNeeded) {
-                                          if (![grantedPermissions containsObject:permission]) {
-                                              [requestPermissions addObject:permission];
-                                          }
-                                      }
-                                      
-                                      // If we have permissions to request
-                                      if ([requestPermissions count] > 0) {
-                                          [self promptForSharingPermissions:requestPermissions success:success failure:failure];
-                                      } else {
-                                          success();
-                                      }
-                                      
-                                  } else {
-                                      if (LOG_ACCOUNT) NSLog(@"[AccountManager] Failure calling /me/permissions: %@", error);
-                                      failure();
-                                  }
-                              }];
-    }
-    else {
-        //[self promptForSharingPermissions:permissionsNeeded success:success failure:failure];
-        [FBSession openActiveSessionWithPublishPermissions:permissionsNeeded defaultAudience:FBSessionDefaultAudienceEveryone allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
-
-            if (!error) {
-                // Permission granted
-                if (LOG_ACCOUNT) NSLog(@"[AccountManager] New permissions granted %@", [FBSession.activeSession permissions]);
-                // We can request the user information
-                success();
-            } else {
-                if (LOG_ACCOUNT) NSLog(@"[AccountManager] Failure requesting permissions");
-                failure();
-            }
-        }];
-    }
-}
+//- (void)ensureSharingPermissions:(void(^)())success failure:(void(^)())failure {
+//    NSArray *permissionsNeeded = @[@"publish_actions"];
+//    
+//    if ([FBSession activeSession].isOpen) {
+//        // Request the permissions the user currently has
+//        [FBRequestConnection startWithGraphPath:@"/me/permissions"
+//                              completionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+//                                  if (!error) {
+//                                      // These are the current permissions the user has:
+//                                      NSArray *currentPermissionsArray = (NSArray *)[result data];
+//                                      NSMutableSet *grantedPermissions = [NSMutableSet setWithCapacity:currentPermissionsArray.count];
+//                                      for (NSDictionary *dictionary in currentPermissionsArray) {
+//                                          NSString *permission = [dictionary objectForKey:@"permission"];
+//                                          NSString *status = [dictionary objectForKey:@"status"];
+//                                          if ([@"granted" isEqualToString:status]) {
+//                                              [grantedPermissions addObject:permission];
+//                                          }
+//                                      }
+//                                      
+//                                      // We will store the missing permissions we will have to request
+//                                      NSMutableArray *requestPermissions = [NSMutableArray array];
+//                                      
+//                                      // Check if all the permissions we need are present in the user's current permissions
+//                                      // If they are not present add them to the permissions to be requested
+//                                      for (NSString *permission in permissionsNeeded) {
+//                                          if (![grantedPermissions containsObject:permission]) {
+//                                              [requestPermissions addObject:permission];
+//                                          }
+//                                      }
+//                                      
+//                                      // If we have permissions to request
+//                                      if ([requestPermissions count] > 0) {
+//                                          [self promptForSharingPermissions:requestPermissions success:success failure:failure];
+//                                      } else {
+//                                          success();
+//                                      }
+//                                      
+//                                  } else {
+//                                      if (LOG_ACCOUNT) NSLog(@"[AccountManager] Failure calling /me/permissions: %@", error);
+//                                      failure();
+//                                  }
+//                              }];
+//    }
+//    else {
+//        //[self promptForSharingPermissions:permissionsNeeded success:success failure:failure];
+//        [FBSession openActiveSessionWithPublishPermissions:permissionsNeeded
+//                                           defaultAudience:FBSessionDefaultAudienceEveryone
+//                                              allowLoginUI:YES
+//                                        fromViewController:vc
+//                                         completionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
+//                                             
+//            if (!error) {
+//                // Permission granted
+//                if (LOG_ACCOUNT) NSLog(@"[AccountManager] New permissions granted %@", [FBSession.activeSession permissions]);
+//                // We can request the user information
+//                success();
+//            } else {
+//                if (LOG_ACCOUNT) NSLog(@"[AccountManager] Failure requesting permissions");
+//                failure();
+//            }
+//        }];
+//    }
+//}
 
 - (void)promptForSharingPermissions:(NSArray *)permissions success:(void(^)())success failure:(void(^)())failure {    
     // Ask for the missing permissions

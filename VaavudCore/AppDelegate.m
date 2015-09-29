@@ -59,15 +59,15 @@
     
     [Crashlytics startWithAPIKey:@"767b68b0d4b5e7c052c4de75ae8859beee5d9901"];
     
-    //dropbox
+    // Dropbox
     [DBSession setSharedSession:[[DBSession alloc] initWithAppKey:@"zszsy52n0svxcv7" appSecret:@"t39k1uzaxs7a0zj" root:kDBRootAppFolder]];
     
     // Whenever a person opens the app, check for a cached session and refresh token
     if ([[AccountManager sharedInstance] isLoggedIn]) {
-        [[AccountManager sharedInstance] registerWithFacebook:nil action:AuthenticationActionRefresh];
+        [[AccountManager sharedInstance] registerWithFacebook:nil from:nil action:AuthenticationActionRefresh];
     }
     
-    // set has wind meter property if not set
+    // Set has wind meter property if not set
     if (![Property getAsString:KEY_USER_HAS_WIND_METER]) {
         [Property refreshHasWindMeter];
     }
@@ -178,7 +178,6 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
     if ([url.scheme isEqualToString:@"vaavud"]) {
         NSDictionary *dict = [QueryStringUtil parseQueryString:url.query];
         
