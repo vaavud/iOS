@@ -87,8 +87,6 @@
         item.imageInsets = UIEdgeInsetsMake(6.0, 0.0, -6.0, 0.0);
     }
     
-    [VEVaavudElectronicSDK sharedVaavudElectronic];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openLatestSummary:) name:KEY_OPEN_LATEST_SUMMARY object:nil];
 }
 

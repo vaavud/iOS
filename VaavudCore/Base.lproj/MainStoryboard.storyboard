@@ -27,7 +27,6 @@
             <string>BebasNeueBold</string>
             <string>BebasNeueBold</string>
             <string>BebasNeueBold</string>
-            <string>BebasNeueBold</string>
         </mutableArray>
         <mutableArray key="HelveticaNeueLights.ttc">
             <string>HelveticaNeue-Light</string>
@@ -234,61 +233,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fbC-OC-vuu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-234" y="625"/>
-        </scene>
-        <!--Map Measurement View Controller-->
-        <scene sceneID="yI8-W4-IRh">
-            <objects>
-                <viewController storyboardIdentifier="MapMeasurementViewController" id="5Ui-Xb-VGz" customClass="MapMeasurementViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="mCu-4A-9zi"/>
-                        <viewControllerLayoutGuide type="bottom" id="D8D-HM-3gE"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Zh2-0Z-yjF">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" mapType="standard" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M2A-0X-mwX">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                            </mapView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o6K-B4-b7x">
-                                <rect key="frame" x="50" y="31" width="220" height="160"/>
-                                <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="160"/>
-                                <color key="textColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Y8-mi-WRO">
-                                <rect key="frame" x="16" y="531" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="detailDisclosure" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z9A-km-LPI">
-                                <rect key="frame" x="251" y="506" width="22" height="22"/>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="D8D-HM-3gE" firstAttribute="top" secondItem="8Y8-mi-WRO" secondAttribute="bottom" constant="16" id="T9f-wX-7kS"/>
-                            <constraint firstItem="D8D-HM-3gE" firstAttribute="top" secondItem="M2A-0X-mwX" secondAttribute="bottom" id="djR-HY-4zm"/>
-                            <constraint firstAttribute="centerX" secondItem="o6K-B4-b7x" secondAttribute="centerX" id="eii-Th-YdV"/>
-                            <constraint firstItem="M2A-0X-mwX" firstAttribute="top" secondItem="mCu-4A-9zi" secondAttribute="bottom" id="fjb-he-q19"/>
-                            <constraint firstItem="8Y8-mi-WRO" firstAttribute="leading" secondItem="Zh2-0Z-yjF" secondAttribute="leadingMargin" id="g8e-bS-PQw"/>
-                            <constraint firstItem="M2A-0X-mwX" firstAttribute="leading" secondItem="Zh2-0Z-yjF" secondAttribute="leading" id="gde-9f-tEX"/>
-                            <constraint firstItem="o6K-B4-b7x" firstAttribute="top" secondItem="mCu-4A-9zi" secondAttribute="bottom" constant="31" id="oud-Zc-6x8"/>
-                            <constraint firstAttribute="trailing" secondItem="M2A-0X-mwX" secondAttribute="trailing" id="xAv-uj-5LR"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="NxA-9a-aCa"/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <connections>
-                        <outlet property="label" destination="8Y8-mi-WRO" id="UpV-AY-ZGQ"/>
-                        <outlet property="mapView" destination="M2A-0X-mwX" id="vht-4b-OUj"/>
-                        <outlet property="speedLabel" destination="o6K-B4-b7x" id="Bo0-8w-ri9"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="utU-e1-N73" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1370" y="665"/>
         </scene>
         <!--Flat Measurement View Controller-->
         <scene sceneID="V5p-wX-8F8">

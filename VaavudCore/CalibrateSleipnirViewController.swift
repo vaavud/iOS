@@ -11,6 +11,10 @@ import AudioToolbox
 import SceneKit
 import CoreMotion
 
+// Fixme: remove
+
+/*
+
 class CalibrateSleipnirViewController: UIViewController, VaavudElectronicWindDelegate {
     var done = false
 
@@ -281,5 +285,5 @@ class CalibrationCircle: UIView {
     }
 
 }
-
+*/
 

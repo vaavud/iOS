@@ -24,7 +24,6 @@
 #import "MixpanelUtil.h"
 #import "RegisterViewController.h"
 
-#import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
 #import "MjolnirMeasurementController.h"
 
 #import <DropboxSDK/DropboxSDK.h>

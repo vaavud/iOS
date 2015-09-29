@@ -9,8 +9,10 @@
 #import "Property+Util.h"
 #import "UnitUtil.h"
 #import "MeasurementSession+Util.h"
-#import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
-#import <VaavudElectronicSDK/VEVaavudElectronicSDK+Analysis.h>
+#import "Vaavud-Swift.h"
+
+//#import <VaavudElectronicSDK/VEVaavudElectronicSDK.h> // Fixme: remove
+//#import <VaavudElectronicSDK/VEVaavudElectronicSDK+Analysis.h>
 
 NSString * const KEY_CREATION_TIME = @"creationTime";
 NSString * const KEY_DEVICE_UUID = @"deviceUuid";
@@ -266,22 +268,24 @@ NSString * const KEY_SHARE_OVERLAY_SHOWN = @"shareOverlayShown";
 }
 
 + (NSDictionary *)getDeviceDictionary {
+//    VaavudSDK.shared;
+    
     NSNumber *timezoneOffsetMillis = [NSNumber numberWithLong:([[NSTimeZone localTimeZone] secondsFromGMT] * 1000L)];
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                [Property getAsString:KEY_DEVICE_UUID], @"uuid",
-                                @"Apple", @"vendor",
-                                [Property getAsString:KEY_MODEL], @"model",
-                                [Property getAsString:KEY_OS], @"os",
-                                [Property getAsString:KEY_OS_VERSION], @"osVersion",
-                                [Property getAsString:KEY_APP], @"app",
-                                [Property getAsString:KEY_APP_VERSION], @"appVersion",
-                                [Property getAsString:KEY_COUNTRY], @"country",
-                                [Property getAsString:KEY_LANGUAGE], @"language",
-                                timezoneOffsetMillis, @"timezoneOffset",
-                                [UnitUtil jsonNameForWindSpeedUnit:[[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue]], @"windSpeedUnit",
-                                @([[VEVaavudElectronicSDK sharedVaavudElectronic] getVolume]), @"sleipnirVolume",
-                                [[VEVaavudElectronicSDK sharedVaavudElectronic] getEncoderCoefficients], @"sleipnirEncoderCoefficients",
-                                nil];
+    NSDictionary *dictionary = @{
+                                 [Property getAsString:KEY_DEVICE_UUID] : @"uuid",
+                                 @"Apple" : @"vendor",
+                                 [Property getAsString:KEY_MODEL] : @"model",
+                                 [Property getAsString:KEY_OS] : @"os",
+                                 [Property getAsString:KEY_OS_VERSION] : @"osVersion",
+                                 [Property getAsString:KEY_APP] : @"app",
+                                 [Property getAsString:KEY_APP_VERSION] : @"appVersion",
+                                 [Property getAsString:KEY_COUNTRY] : @"country",
+                                 [Property getAsString:KEY_LANGUAGE] : @"language",
+                                 timezoneOffsetMillis : @"timezoneOffset",
+                                 [UnitUtil jsonNameForWindSpeedUnit:[[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue]] : @"windSpeedUnit",
+//                                @([[VEVaavudElectronicSDK sharedVaavudElectronic] getVolume]), @"sleipnirVolume",
+//                                [[VEVaavudElectronicSDK sharedVaavudElectronic] getEncoderCoefficients], @"sleipnirEncoderCoefficients",
+                                 };
     
     return dictionary;
 }

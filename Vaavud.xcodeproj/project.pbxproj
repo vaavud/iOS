@@ -13,7 +13,6 @@
 		2231A0A41B19BECE003DADDB /* MeasureRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */; };
 		2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */; };
 		2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */; };
-		223DA7B41B0B696E00298A6E /* MapMeasurementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 223DA7B31B0B696E00298A6E /* MapMeasurementViewController.swift */; };
 		2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
 		2256C19B1AA7450E00782314 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2256C19A1AA7450E00782314 /* Crashlytics.framework */; };
 		225DB9FF1AFA5C3100B2E8D0 /* BebasNeue_Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 225DB9FD1AFA5C3100B2E8D0 /* BebasNeue_Bold.otf */; };
@@ -30,7 +29,6 @@
 		229533511B1F3F8A00DAEA62 /* MeasureCancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229533501B1F3F8A00DAEA62 /* MeasureCancelButton.swift */; };
 		229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
 		229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3171A7EE3A0008A3226 /* VaavudViews.swift */; };
-		22A3405E1A5AE022006CE401 /* libVaavudElectronicSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */; };
 		22AB2E6D1A70FC15008CAE46 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */; };
 		22AB2E6E1A70FC15008CAE46 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */; };
 		22AB2E701A70FD92008CAE46 /* CoreSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */; };
@@ -100,7 +98,6 @@
 		E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */; };
 		E97AC6D018BCDE19004DEC65 /* TermsPrivacyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */; };
 		E984F26319B878BD004024C6 /* MixpanelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E984F26219B878BD004024C6 /* MixpanelUtil.m */; };
-		E98C9A6019B9D9EE009428F3 /* SleipnirMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E98C9A5F19B9D9EE009428F3 /* SleipnirMeasurementController.m */; };
 		E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */; };
 		E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */; };
 		E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8917DF5BA600DED985 /* libz.dylib */; };
@@ -149,27 +146,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		22A340521A5ADB1D006CE401 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D7D9996919B3AD3B0099FB8F;
-			remoteInfo = VaavudElectronicSDK;
-		};
-		22A340541A5ADB1D006CE401 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D7D9997919B3AD3B0099FB8F;
-			remoteInfo = VaavudElectronicSDKTests;
-		};
-		22A340581A5ADC12006CE401 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D7D9996819B3AD3B0099FB8F;
-			remoteInfo = VaavudElectronicSDK;
-		};
 		22B74D891BB1408F00D39999 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */;
@@ -232,7 +208,6 @@
 		2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasureRootViewController.swift; sourceTree = "<group>"; };
 		2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradingUserViewController.swift; sourceTree = "<group>"; };
 		2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpgradingUserPhonePages.xib; sourceTree = "<group>"; };
-		223DA7B31B0B696E00298A6E /* MapMeasurementViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapMeasurementViewController.swift; sourceTree = "<group>"; };
 		224D260C1AE11AA3006F5C23 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Register.strings; sourceTree = "<group>"; };
 		225572CA1AE2851900153F03 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		2255A63A1A818535006589D5 /* VaavudInteractions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudInteractions.swift; sourceTree = "<group>"; };
@@ -376,14 +351,11 @@
 		E93C86701781D727005E4212 /* MeasurementPoint+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MeasurementPoint+Util.h"; sourceTree = "<group>"; };
 		E93C86711781D727005E4212 /* MeasurementPoint+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MeasurementPoint+Util.m"; sourceTree = "<group>"; };
 		E93EED3219DED9FA004D8759 /* Model 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 5.xcdatamodel"; sourceTree = "<group>"; };
-		E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VaavudElectronicSDK.xcodeproj; path = ../VaavudElectronicSDK/VaavudElectronicSDK.xcodeproj; sourceTree = "<group>"; };
 		E94CBB5C177DB3050089D440 /* UUIDUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUIDUtil.h; sourceTree = "<group>"; };
 		E94CBB5D177DB3050089D440 /* UUIDUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUIDUtil.m; sourceTree = "<group>"; };
 		E96025FB18574DC0009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E960260B18575461009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E960260D18575473009396B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E9793A83196C411C00E3823E /* ParentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentViewController.h; sourceTree = "<group>"; };
-		E9793A84196C411C00E3823E /* ParentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentViewController.m; sourceTree = "<group>"; };
 		E97AC6C818BCC66A004DEC65 /* TermsPrivacyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsPrivacyViewController.h; sourceTree = "<group>"; };
 		E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsPrivacyViewController.m; sourceTree = "<group>"; };
 		E97AC6CE18BCDE19004DEC65 /* TermsPrivacyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsPrivacyNavigationController.h; sourceTree = "<group>"; };
@@ -391,8 +363,6 @@
 		E982DF2D18181152004DAB3E /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		E984F26119B878BD004024C6 /* MixpanelUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixpanelUtil.h; sourceTree = "<group>"; };
 		E984F26219B878BD004024C6 /* MixpanelUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixpanelUtil.m; sourceTree = "<group>"; };
-		E98C9A5E19B9D9EE009428F3 /* SleipnirMeasurementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SleipnirMeasurementController.h; sourceTree = "<group>"; };
-		E98C9A5F19B9D9EE009428F3 /* SleipnirMeasurementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SleipnirMeasurementController.m; sourceTree = "<group>"; };
 		E995F0B0177C55A80011BF07 /* DictionarySerializationUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionarySerializationUtil.h; sourceTree = "<group>"; };
 		E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionarySerializationUtil.m; sourceTree = "<group>"; };
 		E995F0B6177C7A2A0011BF07 /* MeasurementPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementPoint.h; sourceTree = "<group>"; };
@@ -490,7 +460,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22A3405E1A5AE022006CE401 /* libVaavudElectronicSDK.a in Frameworks */,
 				E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */,
 				E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */,
 				E9B627CD1770930D004678D5 /* MobileCoreServices.framework in Frameworks */,
@@ -528,15 +497,6 @@
 			);
 			name = Removable;
 			path = VaavudCore;
-			sourceTree = "<group>";
-		};
-		22A3404D1A5ADB1D006CE401 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */,
-				22A340551A5ADB1D006CE401 /* VaavudElectronicSDKTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		22AB2E681A70FC00008CAE46 /* Fonts */ = {
@@ -599,7 +559,6 @@
 				22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */,
 				22BBC2A11BAC067D005E0A95 /* FacebookSDK.framework */,
 				2256C19A1AA7450E00782314 /* Crashlytics.framework */,
-				E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */,
 				E982DF2D18181152004DAB3E /* AdSupport.framework */,
 				E904AC9917F0911000171F7F /* MapKit.framework */,
 				D7DA72401743C1CD00DFE962 /* Accelerate.framework */,
@@ -623,7 +582,6 @@
 			children = (
 				228904BB1BA815D3006259AB /* Overlays.swift */,
 				22C8AB3D1B8F33340064DB8B /* ForecastViewController.swift */,
-				223DA7B31B0B696E00298A6E /* MapMeasurementViewController.swift */,
 				22728BEC1B6BA30200AFE634 /* UIImage+Vaavud.h */,
 				22728BED1B6BA30200AFE634 /* UIImage+Vaavud.m */,
 				22E602461B6F67C600B706E0 /* ActivityFlowViewController.swift */,
@@ -675,7 +633,6 @@
 			isa = PBXGroup;
 			children = (
 				E98C9A5C19B9D91F009428F3 /* Mjolnir */,
-				E98C9A5D19B9D936009428F3 /* Sleipnir */,
 				E9D9044B19C1971000ABA9F4 /* WindMeasurementController.h */,
 				E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */,
 			);
@@ -708,8 +665,6 @@
 				E91D4216198F7C8400106E15 /* GuideView.h */,
 				E91D4217198F7C8400106E15 /* GuideView.m */,
 				E91D4214198F7A9800106E15 /* GuideView.xib */,
-				E9793A83196C411C00E3823E /* ParentViewController.h */,
-				E9793A84196C411C00E3823E /* ParentViewController.m */,
 				E93C5C3517EC826800E84D3C /* TabBarController.h */,
 				E93C5C3617EC826800E84D3C /* TabBarController.m */,
 			);
@@ -783,15 +738,6 @@
 				D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */,
 			);
 			name = Mjolnir;
-			sourceTree = "<group>";
-		};
-		E98C9A5D19B9D936009428F3 /* Sleipnir */ = {
-			isa = PBXGroup;
-			children = (
-				E98C9A5E19B9D9EE009428F3 /* SleipnirMeasurementController.h */,
-				E98C9A5F19B9D9EE009428F3 /* SleipnirMeasurementController.m */,
-			);
-			name = Sleipnir;
 			sourceTree = "<group>";
 		};
 		E9A4097118994000004F1C12 /* TMCache */ = {
@@ -972,7 +918,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				22A340591A5ADC12006CE401 /* PBXTargetDependency */,
 				22B74D8A1BB1408F00D39999 /* PBXTargetDependency */,
 			);
 			name = Vaavud;
@@ -1021,10 +966,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 22A3404D1A5ADB1D006CE401 /* Products */;
-					ProjectRef = E94837F319B75066009595B0 /* VaavudElectronicSDK.xcodeproj */;
-				},
-				{
 					ProductGroup = 22EE9B7B1BB13E5800F3C331 /* Products */;
 					ProjectRef = 22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */;
 				},
@@ -1037,20 +978,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		22A340531A5ADB1D006CE401 /* libVaavudElectronicSDK.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libVaavudElectronicSDK.a;
-			remoteRef = 22A340521A5ADB1D006CE401 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		22A340551A5ADB1D006CE401 /* VaavudElectronicSDKTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = VaavudElectronicSDKTests.xctest;
-			remoteRef = 22A340541A5ADB1D006CE401 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		22EE9B801BB13E5800F3C331 /* VaavudSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1232,11 +1159,9 @@
 				E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */,
 				E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */,
 				E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */,
-				223DA7B41B0B696E00298A6E /* MapMeasurementViewController.swift in Sources */,
 				E93C865A1781BE56005E4212 /* LocationManager.m in Sources */,
 				E93C86631781C764005E4212 /* Property+Util.m in Sources */,
 				22AC73F61B3D93CC008631E8 /* OldMeasureViewController.swift in Sources */,
-				E98C9A6019B9D9EE009428F3 /* SleipnirMeasurementController.m in Sources */,
 				E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */,
 				E93C86691781C88B005E4212 /* Property.m in Sources */,
 				E93C866F1781D69A005E4212 /* MeasurementSession+Util.m in Sources */,
@@ -1255,11 +1180,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		22A340591A5ADC12006CE401 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = VaavudElectronicSDK;
-			targetProxy = 22A340581A5ADC12006CE401 /* PBXContainerItemProxy */;
-		};
 		22B74D8A1BB1408F00D39999 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = VaavudSDK;

@@ -41,9 +41,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private let geocoder = CLGeocoder()
     
     private var altimeter: CMAltimeter?
-    
-    private let sdk = VaavudSDK.sharedInstance
-    
+        
     private var mjolnir: MjolnirMeasurementController?
     
     private let currentSessionUuid = UUIDUtil.generateUUID()
@@ -84,7 +82,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     var timeLeft = CGFloat(countdownInterval)
     
     required init?(coder aDecoder: NSCoder) {
-        isSleipnirSession = sdk.sleipnirAvailable()
+        isSleipnirSession = VaavudSDK.shared.sleipnirAvailable()
         
         super.init(coder: aDecoder)
         
@@ -98,12 +96,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
         if isSleipnirSession {
             Property.setAsBoolean(true, forKey: KEY_USES_SLEIPNIR)
-            sdk.windSpeedCallback = newWindSpeed
-            sdk.windDirectionCallback = newWindDirection
-            sdk.headingCallback = newHeading
+            VaavudSDK.shared.windSpeedCallback = newWindSpeed
+            VaavudSDK.shared.windDirectionCallback = newWindDirection
+            VaavudSDK.shared.headingCallback = newHeading
             // fixme: handle
             do {
-                try sdk.start()
+                try VaavudSDK.shared.start()
             }
             catch {
                 dismissViewControllerAnimated(true) {
@@ -474,7 +472,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     func stop(cancelled: Bool) {
         if isSleipnirSession {
-            sdk.stop()
+            VaavudSDK.shared.stop()
         }
         else if let mjolnir = mjolnir {
             mjolnir.stop()
@@ -570,7 +568,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
             changeConsumer(mc)
             
-            let alpha: CGFloat = mc is MapMeasurementViewController ? 0 : 1
+//            let alpha: CGFloat = mc is MapMeasurementViewController ? 0 : 1
+            let alpha: CGFloat = 1
             UIView.animateWithDuration(0.3) {
                 self.readingTypeButton.alpha = alpha
                 self.unitButton.alpha = alpha
