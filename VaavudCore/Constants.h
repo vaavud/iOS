@@ -11,14 +11,14 @@
 
 #define LOG_INTRO NO
 #define LOG_NETWORK NO
-#define LOG_ACCOUNT YES
+#define LOG_ACCOUNT NO
 #define LOG_GRAPH NO
 #define LOG_LOCATION NO
 #define LOG_HISTORY NO
 #define LOG_MODEL NO
 #define LOG_UPLOAD NO
 #define LOG_SLEIPNIR NO
-#define LOG_OTHER YES
+#define LOG_OTHER NO
 
 #define APP "Vaavud"
 
