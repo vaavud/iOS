@@ -287,7 +287,7 @@
     for (id annotation in self.mapView.annotations) {
         if ([annotation isKindOfClass:[ForecastAnnotation class]]) {
             ForecastAnnotation *fcAnnotation = (ForecastAnnotation *)annotation;
-            if ([[NSDate date] timeIntervalSinceDate:fcAnnotation.date] > 10) {
+            if ([[NSDate date] timeIntervalSinceDate:fcAnnotation.date] > 3600) {
                 [self.mapView removeAnnotation:annotation];
             }
         }
