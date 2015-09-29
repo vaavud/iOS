@@ -9,10 +9,7 @@
 #import "Property+Util.h"
 #import "UnitUtil.h"
 #import "MeasurementSession+Util.h"
-#import "Vaavud-Swift.h"
-
-//#import <VaavudElectronicSDK/VEVaavudElectronicSDK.h> // Fixme: remove
-//#import <VaavudElectronicSDK/VEVaavudElectronicSDK+Analysis.h>
+#import <VaavudSDK/VaavudSDK-Swift.h>
 
 NSString * const KEY_CREATION_TIME = @"creationTime";
 NSString * const KEY_DEVICE_UUID = @"deviceUuid";
@@ -268,23 +265,22 @@ NSString * const KEY_SHARE_OVERLAY_SHOWN = @"shareOverlayShown";
 }
 
 + (NSDictionary *)getDeviceDictionary {
-//    VaavudSDK.shared;
-    
+    // Fixme: Get volume and encoder coefficients from SDK
     NSNumber *timezoneOffsetMillis = [NSNumber numberWithLong:([[NSTimeZone localTimeZone] secondsFromGMT] * 1000L)];
     NSDictionary *dictionary = @{
-                                 [Property getAsString:KEY_DEVICE_UUID] : @"uuid",
-                                 @"Apple" : @"vendor",
-                                 [Property getAsString:KEY_MODEL] : @"model",
-                                 [Property getAsString:KEY_OS] : @"os",
-                                 [Property getAsString:KEY_OS_VERSION] : @"osVersion",
-                                 [Property getAsString:KEY_APP] : @"app",
-                                 [Property getAsString:KEY_APP_VERSION] : @"appVersion",
-                                 [Property getAsString:KEY_COUNTRY] : @"country",
-                                 [Property getAsString:KEY_LANGUAGE] : @"language",
-                                 timezoneOffsetMillis : @"timezoneOffset",
-                                 [UnitUtil jsonNameForWindSpeedUnit:[[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue]] : @"windSpeedUnit",
-//                                @([[VEVaavudElectronicSDK sharedVaavudElectronic] getVolume]), @"sleipnirVolume",
-//                                [[VEVaavudElectronicSDK sharedVaavudElectronic] getEncoderCoefficients], @"sleipnirEncoderCoefficients",
+                                 @"uuid" : [Property getAsString:KEY_DEVICE_UUID],
+                                 @"vendor" : @"Apple",
+                                 @"model" : [Property getAsString:KEY_MODEL],
+                                 @"os" : [Property getAsString:KEY_OS],
+                                 @"osVersion" : [Property getAsString:KEY_OS_VERSION],
+                                 @"app" : [Property getAsString:KEY_APP],
+                                 @"appVersion" : [Property getAsString:KEY_APP_VERSION],
+                                 @"country" : [Property getAsString:KEY_COUNTRY],
+                                 @"language" : [Property getAsString:KEY_LANGUAGE],
+                                 @"timezoneOffset" : timezoneOffsetMillis,
+                                 @"windSpeedUnit" : [UnitUtil jsonNameForWindSpeedUnit:[[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue]],
+//                                @"sleipnirVolume" : @([[VEVaavudElectronicSDK sharedVaavudElectronic] getVolume]),
+//                                @"sleipnirEncoderCoefficients" : [[VEVaavudElectronicSDK sharedVaavudElectronic] getEncoderCoefficients]
                                  };
     
     return dictionary;
