@@ -267,8 +267,7 @@ NSString * const KEY_SHARE_OVERLAY_SHOWN = @"shareOverlayShown";
 + (NSDictionary *)getDeviceDictionary {
     // Fixme: Get volume and encoder coefficients from SDK
     NSNumber *timezoneOffsetMillis = [NSNumber numberWithLong:([[NSTimeZone localTimeZone] secondsFromGMT] * 1000L)];
-    NSDictionary *dictionary = @{
-                                 @"uuid" : [Property getAsString:KEY_DEVICE_UUID],
+    NSDictionary *dictionary = @{@"uuid" : [Property getAsString:KEY_DEVICE_UUID],
                                  @"vendor" : @"Apple",
                                  @"model" : [Property getAsString:KEY_MODEL],
                                  @"os" : [Property getAsString:KEY_OS],
@@ -278,10 +277,7 @@ NSString * const KEY_SHARE_OVERLAY_SHOWN = @"shareOverlayShown";
                                  @"country" : [Property getAsString:KEY_COUNTRY],
                                  @"language" : [Property getAsString:KEY_LANGUAGE],
                                  @"timezoneOffset" : timezoneOffsetMillis,
-                                 @"windSpeedUnit" : [UnitUtil jsonNameForWindSpeedUnit:[[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue]],
-//                                @"sleipnirVolume" : @([[VEVaavudElectronicSDK sharedVaavudElectronic] getVolume]),
-//                                @"sleipnirEncoderCoefficients" : [[VEVaavudElectronicSDK sharedVaavudElectronic] getEncoderCoefficients]
-                                 };
+                                 @"windSpeedUnit" : [UnitUtil jsonNameForWindSpeedUnit:[[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue]]};
     
     return dictionary;
 }

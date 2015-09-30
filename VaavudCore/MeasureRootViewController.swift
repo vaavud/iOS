@@ -303,7 +303,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
         }
         else {
-            print("WINDCHILL ERROR: \(session.sourcedTemperature, session.windSpeedAvg, session.sourcedWindSpeedAvg)")
+//            print("WINDCHILL ERROR: \(session.sourcedTemperature, session.windSpeedAvg, session.sourcedWindSpeedAvg)")
         }
     }
 
@@ -420,15 +420,15 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 success, error in
                 ServerUploadManager.sharedInstance().triggerUpload()
                 
-                if success {
-                    print("ROOT: save - Saved and uploaded after measuring ============================")
-                }
-                else if error != nil {
-                    print("ROOT: save - Failed to save session after measuring with error: \(error.localizedDescription)")
-                }
-                else {
-                    print("ROOT: save - Failed to save session after measuring with no error message")
-                }
+//                if success {
+//                    print("ROOT: save - Saved and uploaded after measuring ============================")
+//                }
+//                else if error != nil {
+//                    print("ROOT: save - Failed to save session after measuring with error: \(error.localizedDescription)")
+//                }
+//                else {
+//                    print("ROOT: save - Failed to save session after measuring with no error message")
+//                }
                 
                 if !cancel {
                     NSNotificationCenter.defaultCenter().postNotificationName(KEY_OPEN_LATEST_SUMMARY, object: self, userInfo: ["uuid" : session.uuid])

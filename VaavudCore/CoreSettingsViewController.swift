@@ -184,8 +184,6 @@ class CoreSettingsTableViewController: UITableViewController {
     @IBAction func changedMeterModel(sender: UISegmentedControl) {
         let usesSleipnir = sender.selectedSegmentIndex == 1
         Property.setAsBoolean(usesSleipnir, forKey: KEY_USES_SLEIPNIR)
-        sleipnirClipControl.enabled = usesSleipnir
-        
         refreshWindmeterModel()
     }
 
