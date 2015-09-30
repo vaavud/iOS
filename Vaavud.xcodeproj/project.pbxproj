@@ -27,6 +27,11 @@
 		229124991B81E8B100DC6867 /* WindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */; };
 		2291249A1B81E8DB00DC6867 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C5C3617EC826800E84D3C /* TabBarController.m */; };
 		229533511B1F3F8A00DAEA62 /* MeasureCancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229533501B1F3F8A00DAEA62 /* MeasureCancelButton.swift */; };
+		229DFAE61BBC2B510091F931 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 229DFAE51BBC2B510091F931 /* FacebookSDK.framework */; settings = {ASSET_TAGS = (); }; };
+		229DFAEC1BBC2C700091F931 /* ForecastData.png in Resources */ = {isa = PBXBuildFile; fileRef = 229DFAE81BBC2C700091F931 /* ForecastData.png */; settings = {ASSET_TAGS = (); }; };
+		229DFAED1BBC2C700091F931 /* ForecastMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 229DFAE91BBC2C700091F931 /* ForecastMap.png */; settings = {ASSET_TAGS = (); }; };
+		229DFAEE1BBC2C700091F931 /* ProBadge.html in Resources */ = {isa = PBXBuildFile; fileRef = 229DFAEA1BBC2C700091F931 /* ProBadge.html */; settings = {ASSET_TAGS = (); }; };
+		229DFAEF1BBC2C700091F931 /* ProBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 229DFAEB1BBC2C700091F931 /* ProBadge.png */; settings = {ASSET_TAGS = (); }; };
 		229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
 		229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3171A7EE3A0008A3226 /* VaavudViews.swift */; };
 		22AB2E6D1A70FC15008CAE46 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */; };
@@ -39,11 +44,6 @@
 		22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */; };
 		22B74D871BB1408F00D39999 /* VaavudSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EE9B801BB13E5800F3C331 /* VaavudSDK.framework */; };
 		22B74D881BB1408F00D39999 /* VaavudSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 22EE9B801BB13E5800F3C331 /* VaavudSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		22BBC29B1BAB064E005E0A95 /* ForecastData.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BBC2971BAB064E005E0A95 /* ForecastData.png */; settings = {ASSET_TAGS = (); }; };
-		22BBC29C1BAB064E005E0A95 /* ForecastMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BBC2981BAB064E005E0A95 /* ForecastMap.png */; settings = {ASSET_TAGS = (); }; };
-		22BBC29D1BAB064E005E0A95 /* ProBadge.html in Resources */ = {isa = PBXBuildFile; fileRef = 22BBC2991BAB064E005E0A95 /* ProBadge.html */; settings = {ASSET_TAGS = (); }; };
-		22BBC29E1BAB064E005E0A95 /* ProBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BBC29A1BAB064E005E0A95 /* ProBadge.png */; settings = {ASSET_TAGS = (); }; };
-		22BBC2A21BAC067D005E0A95 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22BBC2A11BAC067D005E0A95 /* FacebookSDK.framework */; settings = {ASSET_TAGS = (); }; };
 		22BBC2A41BAC3407005E0A95 /* Map.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22BBC2A31BAC3407005E0A95 /* Map.xcassets */; settings = {ASSET_TAGS = (); }; };
 		22C8AB3E1B8F33340064DB8B /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8AB3D1B8F33340064DB8B /* ForecastViewController.swift */; };
 		22CECB181AF22CE300148045 /* Settings.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22CECB171AF22CE300148045 /* Settings.xcassets */; };
@@ -240,6 +240,11 @@
 		2297D9151AB877BE00ED914A /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		2297D9171AB877C000ED914A /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UpgradingUserPagesView.strings"; sourceTree = "<group>"; };
 		2297D9191AB877C200ED914A /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/UpgradingUserPagesView.strings"; sourceTree = "<group>"; };
+		229DFAE51BBC2B510091F931 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		229DFAE81BBC2C700091F931 /* ForecastData.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ForecastData.png; sourceTree = "<group>"; };
+		229DFAE91BBC2C700091F931 /* ForecastMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ForecastMap.png; sourceTree = "<group>"; };
+		229DFAEA1BBC2C700091F931 /* ProBadge.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ProBadge.html; sourceTree = "<group>"; };
+		229DFAEB1BBC2C700091F931 /* ProBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProBadge.png; sourceTree = "<group>"; };
 		229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudFormatter.swift; sourceTree = "<group>"; };
 		229FF3171A7EE3A0008A3226 /* VaavudViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudViews.swift; sourceTree = "<group>"; };
 		22AA5EEB1AB0874200170341 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
@@ -253,11 +258,6 @@
 		22B408B61A8A0E2E0062A2DD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSettingsViewController.swift; sourceTree = "<group>"; };
 		22B99AC41ADFD8C600E1A27B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Register.strings; sourceTree = "<group>"; };
-		22BBC2971BAB064E005E0A95 /* ForecastData.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ForecastData.png; sourceTree = "<group>"; };
-		22BBC2981BAB064E005E0A95 /* ForecastMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ForecastMap.png; sourceTree = "<group>"; };
-		22BBC2991BAB064E005E0A95 /* ProBadge.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ProBadge.html; sourceTree = "<group>"; };
-		22BBC29A1BAB064E005E0A95 /* ProBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProBadge.png; sourceTree = "<group>"; };
-		22BBC2A11BAC067D005E0A95 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		22BBC2A31BAC3407005E0A95 /* Map.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Map.xcassets; path = ImageAssets/Map.xcassets; sourceTree = "<group>"; };
 		22C8AB3D1B8F33340064DB8B /* ForecastViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
 		22C9B0301B7CDF5E004A2902 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
@@ -473,7 +473,7 @@
 				D7A4F1F4173A9FC200D1ACEE /* CoreMotion.framework in Frameworks */,
 				D7A4F1CB173A8DDB00D1ACEE /* UIKit.framework in Frameworks */,
 				D7A4F1CD173A8DDB00D1ACEE /* Foundation.framework in Frameworks */,
-				22BBC2A21BAC067D005E0A95 /* FacebookSDK.framework in Frameworks */,
+				229DFAE61BBC2B510091F931 /* FacebookSDK.framework in Frameworks */,
 				D7A4F1CF173A8DDB00D1ACEE /* CoreGraphics.framework in Frameworks */,
 				A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */,
 			);
@@ -499,6 +499,17 @@
 			path = VaavudCore;
 			sourceTree = "<group>";
 		};
+		229DFAE71BBC2C700091F931 /* ProBadgeHtml */ = {
+			isa = PBXGroup;
+			children = (
+				229DFAE81BBC2C700091F931 /* ForecastData.png */,
+				229DFAE91BBC2C700091F931 /* ForecastMap.png */,
+				229DFAEA1BBC2C700091F931 /* ProBadge.html */,
+				229DFAEB1BBC2C700091F931 /* ProBadge.png */,
+			);
+			path = ProBadgeHtml;
+			sourceTree = "<group>";
+		};
 		22AB2E681A70FC00008CAE46 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -509,17 +520,6 @@
 				22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */,
 			);
 			name = Fonts;
-			sourceTree = "<group>";
-		};
-		22BBC2961BAB064E005E0A95 /* ProBadgeHtml */ = {
-			isa = PBXGroup;
-			children = (
-				22BBC2971BAB064E005E0A95 /* ForecastData.png */,
-				22BBC2981BAB064E005E0A95 /* ForecastMap.png */,
-				22BBC2991BAB064E005E0A95 /* ProBadge.html */,
-				22BBC29A1BAB064E005E0A95 /* ProBadge.png */,
-			);
-			path = ProBadgeHtml;
 			sourceTree = "<group>";
 		};
 		22EE9B7B1BB13E5800F3C331 /* Products */ = {
@@ -556,8 +556,8 @@
 		D7A4F1C9173A8DDB00D1ACEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				229DFAE51BBC2B510091F931 /* FacebookSDK.framework */,
 				22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */,
-				22BBC2A11BAC067D005E0A95 /* FacebookSDK.framework */,
 				2256C19A1AA7450E00782314 /* Crashlytics.framework */,
 				E982DF2D18181152004DAB3E /* AdSupport.framework */,
 				E904AC9917F0911000171F7F /* MapKit.framework */,
@@ -614,7 +614,7 @@
 		D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				22BBC2961BAB064E005E0A95 /* ProBadgeHtml */,
+				229DFAE71BBC2C700091F931 /* ProBadgeHtml */,
 				22FA6C501A727171004DD868 /* VaavudStyle.swift */,
 				22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */,
 				22AB2E681A70FC00008CAE46 /* Fonts */,
@@ -1005,6 +1005,7 @@
 				22E59A3A1ADD6F7000B1BC88 /* HistoryScreen.xcassets in Resources */,
 				225DBA001AFA5C3100B2E8D0 /* BebasNeue_Regular.otf in Resources */,
 				22E59A4C1ADD6F7000B1BC88 /* UpgradeFlow.xcassets in Resources */,
+				229DFAED1BBC2C700091F931 /* ForecastMap.png in Resources */,
 				22787C3B1B5D8C8200AB6150 /* MeasureScreens.xcassets in Resources */,
 				225DB9FF1AFA5C3100B2E8D0 /* BebasNeue_Bold.otf in Resources */,
 				228124F91B945CC80037B8CB /* Forecast.xcassets in Resources */,
@@ -1013,26 +1014,25 @@
 				22E59A421ADD6F7000B1BC88 /* Logo.xcassets in Resources */,
 				E91D4215198F7A9800106E15 /* GuideView.xib in Resources */,
 				22EAE5CF1AB1EA5C0037654E /* Register.storyboard in Resources */,
+				229DFAEF1BBC2C700091F931 /* ProBadge.png in Resources */,
 				22E59A3E1ADD6F7000B1BC88 /* InterfaceElements.xcassets in Resources */,
 				22E59A401ADD6F7000B1BC88 /* IntroFlow.xcassets in Resources */,
 				E9FABFE71896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib in Resources */,
 				22E59A3C1ADD6F7000B1BC88 /* Icons.xcassets in Resources */,
 				22AB2E6E1A70FC15008CAE46 /* Roboto-Light.ttf in Resources */,
 				220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */,
-				22BBC29E1BAB064E005E0A95 /* ProBadge.png in Resources */,
+				229DFAEC1BBC2C700091F931 /* ForecastData.png in Resources */,
 				22900BB71AEE77C1009D9C8F /* MjolnirSpinner.xcassets in Resources */,
 				22CECB181AF22CE300148045 /* Settings.xcassets in Resources */,
 				220A30EC1B6F77250011DDA9 /* Images.xcassets in Resources */,
 				E960260818575452009396B1 /* Localizable.strings in Resources */,
-				22BBC29C1BAB064E005E0A95 /* ForecastMap.png in Resources */,
+				229DFAEE1BBC2C700091F931 /* ProBadge.html in Resources */,
 				22E59A441ADD6F7000B1BC88 /* MapMarkers.xcassets in Resources */,
 				2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */,
 				22E59A4A1ADD6F7000B1BC88 /* TabBar.xcassets in Resources */,
-				22BBC29D1BAB064E005E0A95 /* ProBadge.html in Resources */,
 				E9AF2B9117F5B96500BDF6D9 /* MeasurementTableViewCell.xib in Resources */,
 				22E59A461ADD6F7000B1BC88 /* MapPlaceholder.xcassets in Resources */,
 				22AB2E6D1A70FC15008CAE46 /* Roboto-Bold.ttf in Resources */,
-				22BBC29B1BAB064E005E0A95 /* ForecastData.png in Resources */,
 				22EAE5D61AB1EBEA0037654E /* UpgradingUserPagesView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
