@@ -405,7 +405,7 @@ class VaavudFormatter: NSObject {
         return localizedDecimalString(value!, decimals: decimals)
     }
 
-    private func localizedConvertedString(value: Float?, unit: FloatUnit, min: Float = 0.0, decimals: Int? = nil, digits: Int? = nil) -> String? {
+    private func localizedConvertedString(value: Float?, unit: FloatUnit, min: Float = 0, decimals: Int? = nil, digits: Int? = nil) -> String? {
         if value == nil || value < min {
             return nil
         }

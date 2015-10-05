@@ -10,6 +10,7 @@
 		220A30EC1B6F77250011DDA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 220A30EB1B6F77250011DDA9 /* Images.xcassets */; };
 		220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */; };
 		221285B21B04A6F500D4C008 /* FlatMeasurementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221285B11B04A6F500D4C008 /* FlatMeasurementController.swift */; };
+		222F30631BC2944800CD607B /* NotificationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222F30621BC2944800CD607B /* NotificationDetailsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2231A0A41B19BECE003DADDB /* MeasureRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */; };
 		2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */; };
 		2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */; };
@@ -19,6 +20,7 @@
 		225DBA001AFA5C3100B2E8D0 /* BebasNeue_Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 225DB9FE1AFA5C3100B2E8D0 /* BebasNeue_Regular.otf */; };
 		22728BEE1B6BA30200AFE634 /* UIImage+Vaavud.m in Sources */ = {isa = PBXBuildFile; fileRef = 22728BED1B6BA30200AFE634 /* UIImage+Vaavud.m */; };
 		22787C3B1B5D8C8200AB6150 /* MeasureScreens.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22787C3A1B5D8C8200AB6150 /* MeasureScreens.xcassets */; };
+		227E29401BC281EF000DD2C7 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227E293F1BC281EF000DD2C7 /* NotificationsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		228124F91B945CC80037B8CB /* Forecast.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 228124F81B945CC80037B8CB /* Forecast.xcassets */; };
 		228904BC1BA815D3006259AB /* Overlays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228904BB1BA815D3006259AB /* Overlays.swift */; };
 		22900BB31AEE7616009D9C8F /* MjolnirSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22900BB21AEE7616009D9C8F /* MjolnirSpinner.swift */; };
@@ -32,6 +34,7 @@
 		229DFAED1BBC2C700091F931 /* ForecastMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 229DFAE91BBC2C700091F931 /* ForecastMap.png */; settings = {ASSET_TAGS = (); }; };
 		229DFAEE1BBC2C700091F931 /* ProBadge.html in Resources */ = {isa = PBXBuildFile; fileRef = 229DFAEA1BBC2C700091F931 /* ProBadge.html */; settings = {ASSET_TAGS = (); }; };
 		229DFAEF1BBC2C700091F931 /* ProBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 229DFAEB1BBC2C700091F931 /* ProBadge.png */; settings = {ASSET_TAGS = (); }; };
+		229DFAF21BBD4C240091F931 /* UserTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229DFAF11BBD4C240091F931 /* UserTab.swift */; settings = {ASSET_TAGS = (); }; };
 		229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
 		229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3171A7EE3A0008A3226 /* VaavudViews.swift */; };
 		22AB2E6D1A70FC15008CAE46 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */; };
@@ -205,6 +208,7 @@
 		221E30EA1AE2EF4C00503FE1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Register.strings; sourceTree = "<group>"; };
 		221E30EC1AE2EF5100503FE1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Register.strings"; sourceTree = "<group>"; };
 		221E30EE1AE2EF5600503FE1 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Register.strings"; sourceTree = "<group>"; };
+		222F30621BC2944800CD607B /* NotificationDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailsViewController.swift; sourceTree = "<group>"; };
 		2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasureRootViewController.swift; sourceTree = "<group>"; };
 		2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradingUserViewController.swift; sourceTree = "<group>"; };
 		2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpgradingUserPhonePages.xib; sourceTree = "<group>"; };
@@ -217,6 +221,7 @@
 		22728BEC1B6BA30200AFE634 /* UIImage+Vaavud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Vaavud.h"; sourceTree = "<group>"; };
 		22728BED1B6BA30200AFE634 /* UIImage+Vaavud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Vaavud.m"; sourceTree = "<group>"; };
 		22787C3A1B5D8C8200AB6150 /* MeasureScreens.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = MeasureScreens.xcassets; path = ImageAssets/MeasureScreens.xcassets; sourceTree = "<group>"; };
+		227E293F1BC281EF000DD2C7 /* NotificationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		228124F81B945CC80037B8CB /* Forecast.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Forecast.xcassets; path = ImageAssets/Forecast.xcassets; sourceTree = "<group>"; };
 		228904BB1BA815D3006259AB /* Overlays.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Overlays.swift; sourceTree = "<group>"; };
 		228A7BB01ADD190E00EB72CC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -245,6 +250,7 @@
 		229DFAE91BBC2C700091F931 /* ForecastMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ForecastMap.png; sourceTree = "<group>"; };
 		229DFAEA1BBC2C700091F931 /* ProBadge.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ProBadge.html; sourceTree = "<group>"; };
 		229DFAEB1BBC2C700091F931 /* ProBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProBadge.png; sourceTree = "<group>"; };
+		229DFAF11BBD4C240091F931 /* UserTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTab.swift; sourceTree = "<group>"; };
 		229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudFormatter.swift; sourceTree = "<group>"; };
 		229FF3171A7EE3A0008A3226 /* VaavudViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudViews.swift; sourceTree = "<group>"; };
 		22AA5EEB1AB0874200170341 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
@@ -580,6 +586,9 @@
 		D7A4F1D0173A8DDB00D1ACEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				229DFAF11BBD4C240091F931 /* UserTab.swift */,
+				222F30621BC2944800CD607B /* NotificationDetailsViewController.swift */,
+				227E293F1BC281EF000DD2C7 /* NotificationsViewController.swift */,
 				228904BB1BA815D3006259AB /* Overlays.swift */,
 				22C8AB3D1B8F33340064DB8B /* ForecastViewController.swift */,
 				22728BEC1B6BA30200AFE634 /* UIImage+Vaavud.h */,
@@ -1123,6 +1132,7 @@
 				E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */,
 				E9B627C817708E63004678D5 /* AFXMLRequestOperation.m in Sources */,
 				E9B627C917708E63004678D5 /* UIImageView+AFNetworking.m in Sources */,
+				227E29401BC281EF000DD2C7 /* NotificationsViewController.swift in Sources */,
 				E9B627D1177096D6004678D5 /* VaavudAPIHTTPClient.m in Sources */,
 				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,
 				E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */,
@@ -1159,6 +1169,7 @@
 				E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */,
 				E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */,
 				E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */,
+				229DFAF21BBD4C240091F931 /* UserTab.swift in Sources */,
 				E93C865A1781BE56005E4212 /* LocationManager.m in Sources */,
 				E93C86631781C764005E4212 /* Property+Util.m in Sources */,
 				22AC73F61B3D93CC008631E8 /* OldMeasureViewController.swift in Sources */,
@@ -1170,6 +1181,7 @@
 				22AB2E701A70FD92008CAE46 /* CoreSummaryViewController.swift in Sources */,
 				E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */,
 				E9A4097A18994000004F1C12 /* TMMemoryCache.m in Sources */,
+				222F30631BC2944800CD607B /* NotificationDetailsViewController.swift in Sources */,
 				E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */,
 				2291249A1B81E8DB00DC6867 /* TabBarController.m in Sources */,
 				E9A4099018A52151004F1C12 /* SignUpViewController.m in Sources */,
