@@ -33,11 +33,15 @@ struct Directions: OptionSetType, CustomStringConvertible {
     static let count = Directions.ordered.count
     static func number(i: Int) -> Directions { return ordered[mod(i, 8)] }
     
+    var angle: CGFloat { return CGFloat(index)*2*π/CGFloat(Directions.count) }
+    
     var index: Int { return Directions.ordered.indexOf(self)! }
     
-    var description: String {
-        return ["N", "NW", "W", "SW", "S", "SE", "E", "NE"][index]
-    }
+    var name: String { return ["N", "NW", "W", "SW", "S", "SE", "E", "NE"][index] }
+    
+    var description: String { return name }
+    
+    var local: String { return NSLocalizedString("DIRECTION_" + name, comment: "") }
 }
 
 func sectorBezierPath(total: Int)(direction: Directions) -> UIBezierPath {
@@ -121,15 +125,28 @@ class DirectionSelector: UIControl {
     }
     
     override func drawRect(rect: CGRect) {
-        UIColor.vaavudBlueColor().setStroke()
-        UIColor.vaavudBlueColor().setFill()
         
         for (i, direction) in Directions.ordered.enumerate() {
+            UIColor.vaavudBlueColor().setStroke()
+            UIColor.vaavudBlueColor().setFill()
+
             paths[i].stroke()
-        
-            if selection.contains(direction) {
+            
+            let selected = selection.contains(direction)
+            if selected {
                 paths[i].fill()
             }
+
+            drawlabel(direction, selected: selected)
         }
+    }
+    
+    func drawlabel(direction: Directions, selected: Bool) {
+        let color = selected ? UIColor.whiteColor() : UIColor.vaavudBlueColor()
+//        let color = UIColor.redColor()
+        let font = UIFont(name: "Helvetica Neue", size: 18)!
+        let attributes = [NSForegroundColorAttributeName : color, NSFontAttributeName : font]
+        
+        direction.local.drawAtPoint(bounds.center + CGPoint(r: 0.3*bounds.width, phi: direction.angle) - CGPoint(x: 10, y: 10), withAttributes: attributes)
     }
 }
