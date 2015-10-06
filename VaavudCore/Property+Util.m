@@ -101,6 +101,8 @@ NSString * const KEY_FORECAST_OVERLAY_SHOWN = @"forecastOverlayShown";
 
 NSString * const KEY_SHARE_OVERLAY_SHOWN = @"shareOverlayShown";
 
+NSString * const KEY_DEFAULT_SCREEN = @"defaultMeasurementScreen";
+
 @implementation Property (Util)
 
 + (NSString *)getAsString:(NSString *)name {

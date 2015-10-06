@@ -57,7 +57,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     @IBOutlet weak var pager: UIPageControl!
     
     @IBOutlet weak var unitButton: UIButton!
-    @IBOutlet weak var readingTypeButton: UIButton!
+    @IBOutlet weak var variantButton: UIButton!
     @IBOutlet weak var cancelButton: MeasureCancelButton!
     
     @IBOutlet weak var errorMessageLabel: UILabel!
@@ -93,7 +93,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         if isSleipnirSession && !wantsSleipnir {
             NSNotificationCenter.defaultCenter().postNotificationName(KEY_WINDMETERMODEL_CHANGED, object: self)
         }
-
+        
         if isSleipnirSession {
             Property.setAsBoolean(true, forKey: KEY_USES_SLEIPNIR)
             VaavudSDK.shared.windSpeedCallback = newWindSpeed
@@ -141,17 +141,26 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         let (old, flat, round) = ("OldMeasureViewController", "FlatMeasureViewController", "RoundMeasureViewController")
         let vcsNames = isSleipnirSession ? [old, flat, round] : [old, flat]
         viewControllers = vcsNames.map { self.storyboard!.instantiateViewControllerWithIdentifier($0) }
-        currentConsumer = (viewControllers.first as! MeasurementConsumer)
 
         if !isSleipnirSession { _ = viewControllers.map { ($0 as! MeasurementConsumer).useMjolnir() } }
         
         pager.numberOfPages = viewControllers.count
         
+        let desiredScreen = Property.getAsInteger(KEY_DEFAULT_SCREEN, defaultValue: 0).integerValue
+        let screenToShow = desiredScreen == 2 && !isSleipnirSession ? 0 : desiredScreen
+        
+        pager.currentPage = screenToShow
+
+        let mc = viewControllers[screenToShow] as! MeasurementConsumer
+
+        currentConsumer = mc
+        updateVariantButton(mc)
+        
         pageController = storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as? UIPageViewController
         pageController.dataSource = self
         pageController.delegate = self
         pageController.view.frame = view.bounds
-        pageController.setViewControllers([viewControllers[0]], direction: .Forward, animated: false, completion: nil)
+        pageController.setViewControllers([viewControllers[screenToShow]], direction: .Forward, animated: false, completion: nil)
         
         addChildViewController(pageController)
         view.addSubview(pageController.view)
@@ -159,7 +168,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         view.bringSubviewToFront(pager)
         view.bringSubviewToFront(unitButton)
-        view.bringSubviewToFront(readingTypeButton)
+        view.bringSubviewToFront(variantButton)
         view.bringSubviewToFront(errorOverlayBackground)
         view.bringSubviewToFront(cancelButton)
         
@@ -181,6 +190,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
     }
     
+    @IBAction func tappedVariant(sender: UIButton) {
+        print("change variant")
+    }
+
     @IBAction func tappedUnit(sender: UIButton) {
         formatter.windSpeedUnit = formatter.windSpeedUnit.next
         unitButton.setTitle(formatter.windSpeedUnit.localizedString, forState: .Normal)
@@ -188,6 +201,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     @IBAction func tappedCancel(sender: MeasureCancelButton) {
+        if let vc = pageController.viewControllers?.last, current = viewControllers.indexOf(vc) {
+            Property.setAsInteger(current, forKey: KEY_DEFAULT_SCREEN)
+        }
+        
         switch state {
         case .CountingDown:
             stop(true)
@@ -568,13 +585,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
             changeConsumer(mc)
             
-//            let alpha: CGFloat = mc is MapMeasurementViewController ? 0 : 1
-            let alpha: CGFloat = 1
-            UIView.animateWithDuration(0.3) {
-                self.readingTypeButton.alpha = alpha
-                self.unitButton.alpha = alpha
+            UIView.animateWithDuration(0.1) {
+                self.updateVariantButton(mc)
             }
         }
+    }
+    
+    func updateVariantButton(mc: MeasurementConsumer) {
+        self.variantButton.alpha = mc is FlatMeasurementViewController ? 1 : 0
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
