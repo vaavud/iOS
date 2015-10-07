@@ -25,8 +25,8 @@ class DynamicItem: NSObject, UIDynamicItem {
     }
 }
 
-class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
-    var name: String { return "Radar" }
+class RoundMeasureViewController : UIViewController, MeasurementConsumer {
+    var name: String { return "RoundMeasureViewController" }
 
     @IBOutlet weak var background: RoundBackground!
     @IBOutlet weak var ruler: RoundRuler!
@@ -103,6 +103,10 @@ class RoundMeasurementViewController : UIViewController, MeasurementConsumer {
         return formatter.windSpeedUnit.fromBase(latestSpeed)
     }
     
+    func toggleVariant() {}
+    
+    func newTemperature(temperature: CGFloat) {}
+
     func tick() {
         ruler.compassDirection = weight*latestHeading + (1 - weight)*ruler.compassDirection
         ruler.windDirection = weight*latestWindDirection + (1 - weight)*ruler.windDirection

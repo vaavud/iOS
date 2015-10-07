@@ -27,8 +27,12 @@ protocol MeasurementConsumer {
     func newSpeed(speed: CGFloat)
     func newHeading(heading: CGFloat)
 
+    func newTemperature(temperature: CGFloat)
+
     func changedSpeedUnit(unit: SpeedUnit)
     func useMjolnir()
+    
+    func toggleVariant()
     
     var name: String { get }
 }
@@ -146,9 +150,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         pager.numberOfPages = viewControllers.count
         
-        let desiredScreen = Property.getAsInteger(KEY_DEFAULT_SCREEN, defaultValue: 0).integerValue
-        let screenToShow = desiredScreen == 2 && !isSleipnirSession ? 0 : desiredScreen
-        
+        let desiredScreen = Property.getAsString(KEY_DEFAULT_SCREEN) ?? flat
+        let screenToShow = vcsNames.indexOf(desiredScreen) ?? 0
+
         pager.currentPage = screenToShow
 
         let mc = viewControllers[screenToShow] as! MeasurementConsumer
@@ -190,8 +194,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
     }
     
+    @IBAction func pressedVariant(sender: UILongPressGestureRecognizer) {
+        print("change LOGO")
+    }
+    
     @IBAction func tappedVariant(sender: UIButton) {
-        print("change variant")
+        currentConsumer?.toggleVariant()
     }
 
     @IBAction func tappedUnit(sender: UIButton) {
@@ -201,8 +209,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     @IBAction func tappedCancel(sender: MeasureCancelButton) {
-        if let vc = pageController.viewControllers?.last, current = viewControllers.indexOf(vc) {
-            Property.setAsInteger(current, forKey: KEY_DEFAULT_SCREEN)
+        if let vc = pageController.viewControllers?.last, mc = vc as? MeasurementConsumer {
+            Property.setAsString(mc.name, forKey: KEY_DEFAULT_SCREEN)
         }
         
         switch state {
@@ -328,6 +336,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         let objectId = session.objectID
         let loc = hasValidLocation(session) ?? LocationManager.sharedInstance().latestLocation
         ServerUploadManager.sharedInstance().lookupForLat(loc.latitude, long: loc.longitude, success: { t, d, p in
+            self.currentConsumer?.newTemperature(CGFloat(t.floatValue))
+            
             if let session = (try? NSManagedObjectContext.MR_defaultContext().existingObjectWithID(objectId)) as? MeasurementSession {
                 session.sourcedTemperature = t ?? nil
                 session.sourcedPressureGroundLevel = p ?? nil
@@ -574,6 +584,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
         if let mc = pendingViewControllers.last as? MeasurementConsumer {
             changeConsumer(mc)
+            UIView.animateWithDuration(0.2) {
+                self.updateVariantButton(mc)
+            }
         }
     }
     
@@ -585,14 +598,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
             changeConsumer(mc)
             
-            UIView.animateWithDuration(0.1) {
+            UIView.animateWithDuration(0.2) {
                 self.updateVariantButton(mc)
             }
         }
     }
     
     func updateVariantButton(mc: MeasurementConsumer) {
-        self.variantButton.alpha = mc is FlatMeasurementViewController ? 1 : 0
+        self.variantButton.alpha = mc is FlatMeasureViewController ? 1 : 0
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
@@ -619,13 +632,13 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     @IBAction func debugPanned(sender: UIPanGestureRecognizer) {
 //        let y = sender.locationInView(view).y
 //        let x = view.bounds.midX - sender.locationInView(view).x
-//        let dx = sender.translationInView(view).x/2
-//        let dy = sender.translationInView(view).y/20
-//        
-//        newWindDirection(latestWindDirection + dx)
-//        newSpeed(max(0, latestSpeed - dy))
-//        
-//        sender.setTranslation(CGPoint(), inView: view)
+        let dx = sender.translationInView(view).x/2
+        let dy = sender.translationInView(view).y/20
+        
+        newWindDirection(latestWindDirection + dx)
+        newWindSpeed(WindSpeedEvent(time: NSDate(), speed: max(0, Double(latestSpeed - dy))))
+        
+        sender.setTranslation(CGPoint(), inView: view)
     }
 }
 
@@ -643,8 +656,8 @@ func speeds(session: MeasurementSession) -> [Float] {
     return speeds
 }
 
-func windchill(temp: Float, _ windspeed: Float) -> Float? {
-    let celsius = temp - 273.15
+func windchill(kelvin: Float, _ windspeed: Float) -> Float? {
+    let celsius = kelvin - 273.15
     let kmh = windspeed*3.6
     
     if celsius > 10 || kmh < 4.8 {

@@ -27,6 +27,8 @@
             <string>BebasNeueBold</string>
             <string>BebasNeueBold</string>
             <string>BebasNeueBold</string>
+            <string>BebasNeueBold</string>
+            <string>BebasNeueBold</string>
         </mutableArray>
         <mutableArray key="HelveticaNeueLights.ttc">
             <string>HelveticaNeue-Light</string>
@@ -46,6 +48,10 @@
             <string>Roboto-Bold</string>
         </mutableArray>
         <mutableArray key="Roboto-Light.ttf">
+            <string>Roboto-Light</string>
+            <string>Roboto-Light</string>
+            <string>Roboto-Light</string>
+            <string>Roboto-Light</string>
             <string>Roboto-Light</string>
             <string>Roboto-Light</string>
             <string>Roboto-Light</string>
@@ -129,6 +135,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F5Q-er-dBB" userLabel="Overlay">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keep vertical and steady" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S99-91-YI5">
+                                        <rect key="frame" x="44" y="372" width="232" height="25"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="21"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="highlightedColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.18823529410000001" green="0.24313725489999999" blue="0.28235294119999998" alpha="0.70000000000000007" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="S99-91-YI5" secondAttribute="centerY" constant="-100" id="TNv-nh-9cD"/>
+                                    <constraint firstAttribute="centerX" secondItem="S99-91-YI5" secondAttribute="centerX" id="xfQ-Ja-JZL"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IoB-pv-cEi" customClass="MeasureCancelButton" customModule="Vaavud" customModuleProvider="target">
                                 <rect key="frame" x="115" y="453" width="90" height="90"/>
                                 <color key="backgroundColor" red="0.68291823308270672" green="0.81828594919999997" blue="0.90980392160000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -149,7 +171,7 @@
                                 <rect key="frame" x="205" y="483" width="115" height="30"/>
                                 <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
                                 <state key="normal" title="km/h">
-                                    <color key="titleColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -162,29 +184,18 @@
                                 <color key="currentPageIndicatorTintColor" red="0.18823529410000001" green="0.24313725489999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                             </pageControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DSq-7L-7me" userLabel="Variants">
-                                <rect key="frame" x="0.0" y="487" width="115" height="23"/>
+                                <rect key="frame" x="0.0" y="483" width="115" height="30"/>
+                                <gestureRecognizers/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" image="SettingsTab"/>
+                                <state key="normal" image="MeasureScreenVariantsButton">
+                                    <color key="titleColor" red="0.25098039220000001" green="0.25098039220000001" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <state key="highlighted" image="MeasureScreenVariantsButtonHL"/>
                                 <connections>
                                     <action selector="tappedVariant:" destination="lka-3y-5RY" eventType="touchUpInside" id="4SK-Tt-R6B"/>
+                                    <outletCollection property="gestureRecognizers" destination="UvQ-cZ-4hi" appends="YES" id="AaM-Z3-E0B"/>
                                 </connections>
                             </button>
-                            <view userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F5Q-er-dBB" userLabel="Overlay">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Keep vertical and steady" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S99-91-YI5">
-                                        <rect key="frame" x="44" y="372" width="232" height="25"/>
-                                        <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="21"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <color key="highlightedColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.18823529410000001" green="0.24313725489999999" blue="0.28235294119999998" alpha="0.70000000000000007" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="centerY" secondItem="S99-91-YI5" secondAttribute="centerY" constant="-100" id="TNv-nh-9cD"/>
-                                    <constraint firstAttribute="centerX" secondItem="S99-91-YI5" secondAttribute="centerX" id="xfQ-Ja-JZL"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <constraints>
                             <constraint firstItem="F5Q-er-dBB" firstAttribute="top" secondItem="lEB-t6-oDe" secondAttribute="bottom" id="9Rj-kC-OxJ"/>
@@ -220,6 +231,11 @@
                         <action selector="debugPanned:" destination="lka-3y-5RY" id="Q82-Xw-vQz"/>
                     </connections>
                 </panGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="2" id="UvQ-cZ-4hi">
+                    <connections>
+                        <action selector="pressedVariant:" destination="lka-3y-5RY" id="lgv-n9-xWh"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-659" y="625"/>
         </scene>
@@ -233,10 +249,10 @@
             </objects>
             <point key="canvasLocation" x="-234" y="625"/>
         </scene>
-        <!--Flat Measurement View Controller-->
+        <!--Flat Measure View Controller-->
         <scene sceneID="V5p-wX-8F8">
             <objects>
-                <viewController storyboardIdentifier="FlatMeasureViewController" id="0YQ-Yu-uqU" customClass="FlatMeasurementViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FlatMeasureViewController" id="0YQ-Yu-uqU" customClass="FlatMeasureViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="xf2-57-nuP"/>
                         <viewControllerLayoutGuide type="bottom" id="qej-FD-0Bf"/>
@@ -249,28 +265,102 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WIND" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uoy-Ss-MiU" userLabel="Speed Heading">
+                                <rect key="frame" x="123" y="78" width="76" height="36"/>
+                                <gestureRecognizers/>
+                                <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="30"/>
+                                <color key="textColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.3" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vj0-gw-b8b">
+                                <rect key="frame" x="23" y="114" width="275" height="200"/>
+                                <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="200"/>
+                                <color key="textColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ix7-vP-fDH" userLabel="Gusts">
+                                <rect key="frame" x="48" y="280" width="96" height="149"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GUSTS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A6Q-wO-cyA" userLabel="Heading">
+                                        <rect key="frame" x="10" y="0.0" width="75" height="29"/>
+                                        <gestureRecognizers/>
+                                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="24"/>
+                                        <color key="textColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wlN-Nb-kym" userLabel="Value">
+                                        <rect key="frame" x="0.0" y="29" width="96" height="120"/>
+                                        <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="120"/>
+                                        <color key="textColor" red="0.18823529410000001" green="0.24313725489999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="wlN-Nb-kym" firstAttribute="leading" secondItem="ix7-vP-fDH" secondAttribute="leading" id="3pk-td-5yj"/>
+                                    <constraint firstItem="wlN-Nb-kym" firstAttribute="top" secondItem="A6Q-wO-cyA" secondAttribute="bottom" id="4GZ-BX-Fhv"/>
+                                    <constraint firstItem="A6Q-wO-cyA" firstAttribute="centerX" secondItem="wlN-Nb-kym" secondAttribute="centerX" id="Gz6-bV-FGl"/>
+                                    <constraint firstItem="A6Q-wO-cyA" firstAttribute="top" secondItem="ix7-vP-fDH" secondAttribute="top" id="M5I-si-odM"/>
+                                    <constraint firstAttribute="trailing" secondItem="wlN-Nb-kym" secondAttribute="trailing" id="a2X-pi-V0P"/>
+                                    <constraint firstAttribute="bottom" secondItem="wlN-Nb-kym" secondAttribute="bottom" id="tKx-7l-8A4"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MDq-2o-4tj" userLabel="Windchill">
+                                <rect key="frame" x="176" y="280" width="122" height="149"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WINDCHILL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VUI-aq-dSI" userLabel="Heading">
+                                        <rect key="frame" x="-13" y="0.0" width="125" height="29"/>
+                                        <gestureRecognizers/>
+                                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="24"/>
+                                        <color key="textColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xC1-3F-yMy" userLabel="Value">
+                                        <rect key="frame" x="1" y="29" width="96" height="120"/>
+                                        <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="120"/>
+                                        <color key="textColor" red="0.18823529410000001" green="0.24313725489999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="°F" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fdo-Cx-ped" userLabel="Unit">
+                                        <rect key="frame" x="94" y="29" width="29" height="36"/>
+                                        <gestureRecognizers/>
+                                        <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="30"/>
+                                        <color key="textColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Fdo-Cx-ped" firstAttribute="leading" secondItem="xC1-3F-yMy" secondAttribute="trailing" constant="-3" id="2Ip-ga-vIH"/>
+                                    <constraint firstAttribute="bottom" secondItem="xC1-3F-yMy" secondAttribute="bottom" id="DKp-Vo-Xiv"/>
+                                    <constraint firstItem="xC1-3F-yMy" firstAttribute="leading" secondItem="MDq-2o-4tj" secondAttribute="leading" id="HyV-yh-ZzU"/>
+                                    <constraint firstItem="Fdo-Cx-ped" firstAttribute="top" secondItem="xC1-3F-yMy" secondAttribute="top" id="JlU-eE-wBf"/>
+                                    <constraint firstAttribute="trailing" secondItem="Fdo-Cx-ped" secondAttribute="trailing" id="cSP-H4-PVF"/>
+                                    <constraint firstItem="VUI-aq-dSI" firstAttribute="top" secondItem="MDq-2o-4tj" secondAttribute="top" id="rPk-fV-BDV"/>
+                                    <constraint firstItem="xC1-3F-yMy" firstAttribute="top" secondItem="VUI-aq-dSI" secondAttribute="bottom" id="sxd-He-ggv"/>
+                                    <constraint firstItem="VUI-aq-dSI" firstAttribute="centerX" secondItem="xC1-3F-yMy" secondAttribute="centerX" id="yCp-Gn-eOW"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u73-Bb-XqL" userLabel="Ruler" customClass="FlatRuler" customModule="Vaavud" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="30" width="320" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="1TN-4d-L4V"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12.3" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vj0-gw-b8b">
-                                <rect key="frame" x="23" y="184" width="275" height="200"/>
-                                <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="200"/>
-                                <color key="textColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Fnx-uI-M7p" firstAttribute="top" secondItem="xf2-57-nuP" secondAttribute="bottom" id="6XI-pk-1jl"/>
+                            <constraint firstItem="ix7-vP-fDH" firstAttribute="centerY" secondItem="Ae2-Zo-eEX" secondAttribute="centerY" constant="70" id="DSy-3s-RfI"/>
                             <constraint firstItem="Fnx-uI-M7p" firstAttribute="leading" secondItem="Ae2-Zo-eEX" secondAttribute="leading" id="GFf-9W-Aew"/>
+                            <constraint firstItem="vj0-gw-b8b" firstAttribute="top" secondItem="uoy-Ss-MiU" secondAttribute="bottom" id="I0J-cX-Hcp"/>
                             <constraint firstAttribute="trailing" secondItem="Fnx-uI-M7p" secondAttribute="trailing" id="PhE-b6-Zwf"/>
-                            <constraint firstAttribute="centerY" secondItem="vj0-gw-b8b" secondAttribute="centerY" id="XJW-cE-DiQ"/>
+                            <constraint firstAttribute="centerY" secondItem="vj0-gw-b8b" secondAttribute="centerY" constant="70" id="XJW-cE-DiQ"/>
+                            <constraint firstItem="MDq-2o-4tj" firstAttribute="top" secondItem="ix7-vP-fDH" secondAttribute="top" id="Zg0-Do-9ls"/>
+                            <constraint firstItem="ix7-vP-fDH" firstAttribute="centerX" secondItem="Ae2-Zo-eEX" secondAttribute="centerX" multiplier="0.6" id="apT-yq-D0P"/>
                             <constraint firstAttribute="trailing" secondItem="u73-Bb-XqL" secondAttribute="trailing" id="qja-1A-dDv"/>
                             <constraint firstItem="u73-Bb-XqL" firstAttribute="leading" secondItem="Ae2-Zo-eEX" secondAttribute="leading" id="qxU-dR-9Hb"/>
                             <constraint firstAttribute="centerX" secondItem="vj0-gw-b8b" secondAttribute="centerX" id="tEH-ak-6Zw"/>
+                            <constraint firstItem="VUI-aq-dSI" firstAttribute="centerX" secondItem="Ae2-Zo-eEX" secondAttribute="centerX" multiplier="1.4" id="uDP-kX-kVi"/>
+                            <constraint firstItem="uoy-Ss-MiU" firstAttribute="centerX" secondItem="vj0-gw-b8b" secondAttribute="centerX" id="xnF-WM-Tp7"/>
                             <constraint firstItem="qej-FD-0Bf" firstAttribute="top" secondItem="Fnx-uI-M7p" secondAttribute="bottom" id="yNf-HZ-fbK"/>
                             <constraint firstItem="u73-Bb-XqL" firstAttribute="top" secondItem="xf2-57-nuP" secondAttribute="bottom" constant="30" id="zUD-9t-MQa"/>
                         </constraints>
@@ -278,8 +368,16 @@
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="graph" destination="Fnx-uI-M7p" id="mWX-Z5-O8Y"/>
+                        <outlet property="gustLabel" destination="wlN-Nb-kym" id="9Ao-TA-pVJ"/>
+                        <outlet property="gustsOffsetX" destination="apT-yq-D0P" id="djf-cj-iuu"/>
+                        <outlet property="gustsOffsetY" destination="DSy-3s-RfI" id="qs1-0W-nx0"/>
                         <outlet property="ruler" destination="u73-Bb-XqL" id="8pm-GS-HgK"/>
+                        <outlet property="speedHeading" destination="uoy-Ss-MiU" id="ZNW-di-Z1o"/>
                         <outlet property="speedLabel" destination="vj0-gw-b8b" id="CAT-4o-1D2"/>
+                        <outlet property="speedLabelOffsetY" destination="XJW-cE-DiQ" id="T3j-4d-3py"/>
+                        <outlet property="windchillLabel" destination="xC1-3F-yMy" id="jMb-v6-Rej"/>
+                        <outlet property="windchillOffsetX" destination="uDP-kX-kVi" id="hkY-Qa-mH9"/>
+                        <outlet property="windchillUnitLabel" destination="Fdo-Cx-ped" id="oib-4I-nsz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cFu-lc-39i" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1838,7 +1936,7 @@
                                 <rect key="frame" x="51" y="231" width="55" height="40"/>
                                 <gestureRecognizers/>
                                 <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="40"/>
-                                <color key="textColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="textColor" red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="M/S" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RdQ-dE-OhZ">
@@ -2239,6 +2337,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BnD-h6-JGE" userLabel="Graph" customClass="OldGraph" customModule="Vaavud" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="209" width="320" height="219"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AOJ-3J-J6G">
                                 <rect key="frame" x="0.0" y="40" width="320" height="154"/>
                                 <subviews>
@@ -2351,10 +2453,6 @@
                                     <constraint firstItem="BFw-SM-4f3" firstAttribute="width" secondItem="AOJ-3J-J6G" secondAttribute="width" multiplier="0.4" id="xy9-Ng-j0q"/>
                                     <constraint firstItem="YFM-dB-XrL" firstAttribute="centerX" secondItem="L4z-KF-F00" secondAttribute="centerX" id="z4b-oI-zms"/>
                                 </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BnD-h6-JGE" userLabel="Graph" customClass="OldGraph" customModule="Vaavud" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="209" width="320" height="219"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2535,6 +2633,8 @@
         <image name="HistoryDirectionArrow" width="27" height="27"/>
         <image name="HistoryTab" width="23" height="23"/>
         <image name="MapTab" width="23" height="23"/>
+        <image name="MeasureScreenVariantsButton" width="30" height="30"/>
+        <image name="MeasureScreenVariantsButtonHL" width="30" height="30"/>
         <image name="MjolnirSettingsSelect" width="140" height="97"/>
         <image name="NewFeaturesBackground" width="213" height="378"/>
         <image name="SettingsTab" width="23" height="23"/>

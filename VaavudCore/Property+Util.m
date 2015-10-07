@@ -103,6 +103,8 @@ NSString * const KEY_SHARE_OVERLAY_SHOWN = @"shareOverlayShown";
 
 NSString * const KEY_DEFAULT_SCREEN = @"defaultMeasurementScreen";
 
+NSString * const KEY_DEFAULT_FLAT_VARIANT = @"defaultFlatVariant";
+
 @implementation Property (Util)
 
 + (NSString *)getAsString:(NSString *)name {

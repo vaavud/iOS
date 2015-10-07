@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		220A30EC1B6F77250011DDA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 220A30EB1B6F77250011DDA9 /* Images.xcassets */; };
 		220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */; };
-		221285B21B04A6F500D4C008 /* FlatMeasurementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221285B11B04A6F500D4C008 /* FlatMeasurementController.swift */; };
+		221285B21B04A6F500D4C008 /* FlatMeasureScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221285B11B04A6F500D4C008 /* FlatMeasureScreen.swift */; };
 		2231A0A41B19BECE003DADDB /* MeasureRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */; };
 		2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */; };
 		2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */; };
@@ -37,7 +37,7 @@
 		22AB2E6D1A70FC15008CAE46 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */; };
 		22AB2E6E1A70FC15008CAE46 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */; };
 		22AB2E701A70FD92008CAE46 /* CoreSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */; };
-		22AC73F61B3D93CC008631E8 /* OldMeasureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AC73F51B3D93CC008631E8 /* OldMeasureViewController.swift */; };
+		22AC73F61B3D93CC008631E8 /* OldMeasureScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AC73F51B3D93CC008631E8 /* OldMeasureScreen.swift */; };
 		22ADAA941A9C911400C298E6 /* EmptyHistoryArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA931A9C911400C298E6 /* EmptyHistoryArrow.swift */; };
 		22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */; };
 		22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408B61A8A0E2E0062A2DD /* Extensions.swift */; };
@@ -47,7 +47,7 @@
 		22BBC2A41BAC3407005E0A95 /* Map.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22BBC2A31BAC3407005E0A95 /* Map.xcassets */; settings = {ASSET_TAGS = (); }; };
 		22C8AB3E1B8F33340064DB8B /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8AB3D1B8F33340064DB8B /* ForecastViewController.swift */; };
 		22CECB181AF22CE300148045 /* Settings.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22CECB171AF22CE300148045 /* Settings.xcassets */; };
-		22DCCED41B02399800D65265 /* RoundMeasurementScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DCCED31B02399800D65265 /* RoundMeasurementScreen.swift */; };
+		22DCCED41B02399800D65265 /* RoundMeasureScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DCCED31B02399800D65265 /* RoundMeasureScreen.swift */; };
 		22E59A3A1ADD6F7000B1BC88 /* HistoryScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A301ADD6F7000B1BC88 /* HistoryScreen.xcassets */; };
 		22E59A3C1ADD6F7000B1BC88 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A311ADD6F7000B1BC88 /* Icons.xcassets */; };
 		22E59A3E1ADD6F7000B1BC88 /* InterfaceElements.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A321ADD6F7000B1BC88 /* InterfaceElements.xcassets */; };
@@ -186,7 +186,7 @@
 /* Begin PBXFileReference section */
 		220A30EB1B6F77250011DDA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Al Fresco Bold.otf"; sourceTree = "<group>"; };
-		221285B11B04A6F500D4C008 /* FlatMeasurementController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatMeasurementController.swift; sourceTree = "<group>"; };
+		221285B11B04A6F500D4C008 /* FlatMeasureScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatMeasureScreen.swift; sourceTree = "<group>"; };
 		221941811B7E3CE400F6175F /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		22199BF71AE286400008CADA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		22199BF91AE2864D0008CADA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
@@ -252,7 +252,7 @@
 		22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
 		22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSummaryViewController.swift; sourceTree = "<group>"; };
-		22AC73F51B3D93CC008631E8 /* OldMeasureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldMeasureViewController.swift; sourceTree = "<group>"; };
+		22AC73F51B3D93CC008631E8 /* OldMeasureScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldMeasureScreen.swift; sourceTree = "<group>"; };
 		22ADAA931A9C911400C298E6 /* EmptyHistoryArrow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyHistoryArrow.swift; sourceTree = "<group>"; };
 		22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalibrateSleipnirViewController.swift; sourceTree = "<group>"; };
 		22B408B61A8A0E2E0062A2DD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -263,7 +263,7 @@
 		22C9B0301B7CDF5E004A2902 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		22CECB171AF22CE300148045 /* Settings.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Settings.xcassets; path = ImageAssets/Settings.xcassets; sourceTree = "<group>"; };
 		22DB81A81A8389DF00DA67AC /* Model 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.xcdatamodel"; sourceTree = "<group>"; };
-		22DCCED31B02399800D65265 /* RoundMeasurementScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundMeasurementScreen.swift; sourceTree = "<group>"; };
+		22DCCED31B02399800D65265 /* RoundMeasureScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundMeasureScreen.swift; sourceTree = "<group>"; };
 		22E204FE1AB19BEB00FA7E1D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		22E59A301ADD6F7000B1BC88 /* HistoryScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = HistoryScreen.xcassets; path = ImageAssets/HistoryScreen.xcassets; sourceTree = "<group>"; };
 		22E59A311ADD6F7000B1BC88 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Icons.xcassets; path = ImageAssets/Icons.xcassets; sourceTree = "<group>"; };
@@ -585,11 +585,11 @@
 				22728BEC1B6BA30200AFE634 /* UIImage+Vaavud.h */,
 				22728BED1B6BA30200AFE634 /* UIImage+Vaavud.m */,
 				22E602461B6F67C600B706E0 /* ActivityFlowViewController.swift */,
-				22AC73F51B3D93CC008631E8 /* OldMeasureViewController.swift */,
 				229533501B1F3F8A00DAEA62 /* MeasureCancelButton.swift */,
 				2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */,
-				22DCCED31B02399800D65265 /* RoundMeasurementScreen.swift */,
-				221285B11B04A6F500D4C008 /* FlatMeasurementController.swift */,
+				22AC73F51B3D93CC008631E8 /* OldMeasureScreen.swift */,
+				221285B11B04A6F500D4C008 /* FlatMeasureScreen.swift */,
+				22DCCED31B02399800D65265 /* RoundMeasureScreen.swift */,
 				22900BB21AEE7616009D9C8F /* MjolnirSpinner.swift */,
 				22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */,
 				22ADAA931A9C911400C298E6 /* EmptyHistoryArrow.swift */,
@@ -1095,7 +1095,7 @@
 				22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */,
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
 				E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */,
-				22DCCED41B02399800D65265 /* RoundMeasurementScreen.swift in Sources */,
+				22DCCED41B02399800D65265 /* RoundMeasureScreen.swift in Sources */,
 				D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */,
 				E9B950CC195B1DCE00E9EF02 /* ImageUtil.m in Sources */,
 				E91D421B198F7E4900106E15 /* DismissOnTouchUIView.m in Sources */,
@@ -1129,7 +1129,7 @@
 				E9FABFEA1896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m in Sources */,
 				228904BC1BA815D3006259AB /* Overlays.swift in Sources */,
 				22C8AB3E1B8F33340064DB8B /* ForecastViewController.swift in Sources */,
-				221285B21B04A6F500D4C008 /* FlatMeasurementController.swift in Sources */,
+				221285B21B04A6F500D4C008 /* FlatMeasureScreen.swift in Sources */,
 				229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */,
 				E9F33CCB18B4AFBF0033EDC7 /* UIColor+VaavudColors.m in Sources */,
 				E984F26319B878BD004024C6 /* MixpanelUtil.m in Sources */,
@@ -1161,7 +1161,7 @@
 				E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */,
 				E93C865A1781BE56005E4212 /* LocationManager.m in Sources */,
 				E93C86631781C764005E4212 /* Property+Util.m in Sources */,
-				22AC73F61B3D93CC008631E8 /* OldMeasureViewController.swift in Sources */,
+				22AC73F61B3D93CC008631E8 /* OldMeasureScreen.swift in Sources */,
 				E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */,
 				E93C86691781C88B005E4212 /* Property.m in Sources */,
 				E93C866F1781D69A005E4212 /* MeasurementSession+Util.m in Sources */,
