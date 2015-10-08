@@ -97,6 +97,10 @@ extern NSString * const KEY_FORECAST_OVERLAY_SHOWN;
 
 extern NSString * const KEY_SHARE_OVERLAY_SHOWN;
 
+extern NSString * const KEY_DEFAULT_SCREEN;
+
+extern NSString * const KEY_DEFAULT_FLAT_VARIANT;
+
 @interface Property (Util)
 
 + (NSString *)getAsString:(NSString *)name;
