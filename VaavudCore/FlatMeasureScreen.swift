@@ -17,6 +17,9 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
     @IBOutlet weak var speedHeading: UILabel!
     @IBOutlet weak var speedLabel: UILabel!
     
+    @IBOutlet weak var gustsView: UIView!
+    @IBOutlet weak var windchillView: UIView!
+    
     @IBOutlet weak var gustLabel: UILabel!
     @IBOutlet weak var windchillLabel: UILabel!
     @IBOutlet weak var windchillUnitLabel: UILabel!
@@ -49,13 +52,13 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
         }
         
         speedLabel.font = UIFont(name: "BebasNeueBold", size: Interface.choose(200, 200, 240, 280, 400, 400))
-        let smallFont = UIFont(name: "BebasNeueBold", size: Interface.choose(120, 120, 140, 170, 220, 220))
+        let smallFont = UIFont(name: "BebasNeueBold", size: Interface.choose(105, 105, 125, 150, 220, 220))
         gustLabel.font = smallFont
         windchillLabel.font = smallFont
 
         windchillUnitLabel.text = VaavudFormatter.shared.temperatureUnit.localizedString
         
-        gustsOffsetY.constant = Interface.choose(70, 70, 100, 125, 160, 160)
+        gustsOffsetY.constant = Interface.choose(70, 80, 100, 125, 160, 160)
         
         updateVariant()
         newSpeed(0)
@@ -71,12 +74,16 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
             speedHeading.alpha = 0
             speedLabelOffsetY.constant = 0
             windchillOffsetX.constant = Interface.choose(200, 300)
+            windchillView.alpha = 0
+            gustsView.alpha = 0
         }
         else {
             ruler.alpha = Interface.choose(0, 1)
             speedHeading.alpha = 1
             speedLabelOffsetY.constant = gustsOffsetY.constant
-            windchillOffsetX.constant = Interface.choose(0, -30)
+            windchillOffsetX.constant = 0
+            windchillView.alpha = 1
+            gustsView.alpha = 1
         }
         gustsOffsetX.constant = -windchillOffsetX.constant
 
@@ -138,7 +145,6 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
     
     func newTemperature(temperature: CGFloat) {
         self.temperature = temperature
-        self.temperature = 250
     }
 }
 
@@ -245,71 +251,70 @@ class FlatDirectionArrow : UIView {
         }
     }
 }
-
-class FlatDirectionArrowMorph: UIView {
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
-    }
-    
-//    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+//
+//class FlatDirectionArrowMorph: UIView {
+//    required init?(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//        setup()
 //    }
-    
-    var shape: CAShapeLayer { return layer as! CAShapeLayer }
-    
-    func setup() {
-        shape.fillColor = UIColor.vaavudGreyColor().CGColor
-        shape.path = UIBezierPath(ovalInRect: bounds).CGPath
-    }
-    
-    func showLeftArrow() {
-        let path = UIBezierPath()
-        path.moveToPoint(CGPoint(x: bounds.maxX, y: bounds.midY))
-        path.addLineToPoint(CGPoint(x: bounds.maxX, y: bounds.maxY))
-        path.addLineToPoint(CGPoint(x: bounds.minX, y: bounds.midY))
-        path.addLineToPoint(CGPoint(x: bounds.maxX, y: bounds.minY))
-        path.closePath()
-        
-        let anim = CABasicAnimation(keyPath: "path")
-        anim.toValue = path
-        shape.addAnimation(anim, forKey: "PathAnim")
-        
-        shape.path = path.CGPath
-    }
-    
-    func showRightArrow() {
-        let path = UIBezierPath()
-        path.moveToPoint(CGPoint(x: bounds.maxX, y: bounds.midY))
-        path.addLineToPoint(CGPoint(x: bounds.minX, y: bounds.maxY))
-        path.addLineToPoint(CGPoint(x: bounds.minX, y: bounds.midY))
-        path.addLineToPoint(CGPoint(x: bounds.minX, y: bounds.minY))
-        path.closePath()
-        
-        let anim = CABasicAnimation(keyPath: "path")
-        anim.toValue = path
-        shape.addAnimation(anim, forKey: "PathAnim")
-        
-        shape.path = path.CGPath
-    }
-    
-    func showCentered() {
-        let path = UIBezierPath(ovalInRect: bounds)
-        
-        let anim = CABasicAnimation(keyPath: "path")
-        anim.toValue = path
-        
-        print(path.currentPoint)
-        
-        shape.addAnimation(anim, forKey: "PathAnim")
-        
-        shape.path = path.CGPath
-    }
-    
-    override class func layerClass() -> AnyClass {
-        return CAShapeLayer.self
-    }
-}
-
+//    
+////    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+////    }
+//    
+//    var shape: CAShapeLayer { return layer as! CAShapeLayer }
+//    
+//    func setup() {
+//        shape.fillColor = UIColor.vaavudGreyColor().CGColor
+//        shape.path = UIBezierPath(ovalInRect: bounds).CGPath
+//    }
+//    
+//    func showLeftArrow() {
+//        let path = UIBezierPath()
+//        path.moveToPoint(CGPoint(x: bounds.maxX, y: bounds.midY))
+//        path.addLineToPoint(CGPoint(x: bounds.maxX, y: bounds.maxY))
+//        path.addLineToPoint(CGPoint(x: bounds.minX, y: bounds.midY))
+//        path.addLineToPoint(CGPoint(x: bounds.maxX, y: bounds.minY))
+//        path.closePath()
+//        
+//        let anim = CABasicAnimation(keyPath: "path")
+//        anim.toValue = path
+//        shape.addAnimation(anim, forKey: "PathAnim")
+//        
+//        shape.path = path.CGPath
+//    }
+//    
+//    func showRightArrow() {
+//        let path = UIBezierPath()
+//        path.moveToPoint(CGPoint(x: bounds.maxX, y: bounds.midY))
+//        path.addLineToPoint(CGPoint(x: bounds.minX, y: bounds.maxY))
+//        path.addLineToPoint(CGPoint(x: bounds.minX, y: bounds.midY))
+//        path.addLineToPoint(CGPoint(x: bounds.minX, y: bounds.minY))
+//        path.closePath()
+//        
+//        let anim = CABasicAnimation(keyPath: "path")
+//        anim.toValue = path
+//        shape.addAnimation(anim, forKey: "PathAnim")
+//        
+//        shape.path = path.CGPath
+//    }
+//    
+//    func showCentered() {
+//        let path = UIBezierPath(ovalInRect: bounds)
+//        
+//        let anim = CABasicAnimation(keyPath: "path")
+//        anim.toValue = path
+//        
+//        print(path.currentPoint)
+//        
+//        shape.addAnimation(anim, forKey: "PathAnim")
+//        
+//        shape.path = path.CGPath
+//    }
+//    
+//    override class func layerClass() -> AnyClass {
+//        return CAShapeLayer.self
+//    }
+//}
 
 class FlatGraph : UIView {
     var lowY: CGFloat = 0

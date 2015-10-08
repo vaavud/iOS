@@ -183,8 +183,8 @@
                                 <color key="pageIndicatorTintColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
                                 <color key="currentPageIndicatorTintColor" red="0.18823529410000001" green="0.24313725489999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                             </pageControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DSq-7L-7me" userLabel="Variants">
-                                <rect key="frame" x="0.0" y="483" width="115" height="30"/>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DSq-7L-7me" userLabel="Variants">
+                                <rect key="frame" x="10" y="483" width="95" height="30"/>
                                 <gestureRecognizers/>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" image="MeasureScreenVariantsButton">
@@ -202,10 +202,10 @@
                             <constraint firstAttribute="trailing" secondItem="F5Q-er-dBB" secondAttribute="trailing" id="D3q-Kz-mpG"/>
                             <constraint firstAttribute="centerX" secondItem="9ff-Gx-kJm" secondAttribute="centerX" id="GOj-OK-2e0"/>
                             <constraint firstItem="i8l-OH-Jin" firstAttribute="top" secondItem="F5Q-er-dBB" secondAttribute="bottom" id="GZ6-JP-G72"/>
-                            <constraint firstItem="DSq-7L-7me" firstAttribute="leading" secondItem="mO8-Ug-8ai" secondAttribute="leading" id="UK0-m2-M7w"/>
+                            <constraint firstItem="DSq-7L-7me" firstAttribute="leading" secondItem="mO8-Ug-8ai" secondAttribute="leading" constant="10" id="UK0-m2-M7w"/>
                             <constraint firstItem="tNh-kF-1Td" firstAttribute="leading" secondItem="IoB-pv-cEi" secondAttribute="trailing" id="XIm-jo-nK3"/>
                             <constraint firstItem="F5Q-er-dBB" firstAttribute="leading" secondItem="mO8-Ug-8ai" secondAttribute="leading" id="cCL-a7-CJd"/>
-                            <constraint firstItem="IoB-pv-cEi" firstAttribute="leading" secondItem="DSq-7L-7me" secondAttribute="trailing" id="djn-gu-iBa"/>
+                            <constraint firstItem="IoB-pv-cEi" firstAttribute="leading" secondItem="DSq-7L-7me" secondAttribute="trailing" constant="10" id="djn-gu-iBa"/>
                             <constraint firstItem="i8l-OH-Jin" firstAttribute="top" secondItem="IoB-pv-cEi" secondAttribute="bottom" constant="25" id="pjF-iZ-F7m"/>
                             <constraint firstAttribute="trailing" secondItem="tNh-kF-1Td" secondAttribute="trailing" id="sNx-rW-eEs"/>
                             <constraint firstItem="9ff-Gx-kJm" firstAttribute="top" secondItem="lEB-t6-oDe" secondAttribute="bottom" id="t4e-gg-ogs"/>
@@ -231,7 +231,7 @@
                         <action selector="debugPanned:" destination="lka-3y-5RY" id="Q82-Xw-vQz"/>
                     </connections>
                 </panGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="2" id="UvQ-cZ-4hi">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="10" id="UvQ-cZ-4hi">
                     <connections>
                         <action selector="pressedVariant:" destination="lka-3y-5RY" id="lgv-n9-xWh"/>
                     </connections>
@@ -263,7 +263,6 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fnx-uI-M7p" userLabel="Graph" customClass="FlatGraph" customModule="Vaavud" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WIND" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uoy-Ss-MiU" userLabel="Speed Heading">
                                 <rect key="frame" x="123" y="78" width="76" height="36"/>
@@ -371,6 +370,7 @@
                         <outlet property="gustLabel" destination="wlN-Nb-kym" id="9Ao-TA-pVJ"/>
                         <outlet property="gustsOffsetX" destination="apT-yq-D0P" id="djf-cj-iuu"/>
                         <outlet property="gustsOffsetY" destination="DSy-3s-RfI" id="qs1-0W-nx0"/>
+                        <outlet property="gustsView" destination="ix7-vP-fDH" id="nMb-MC-4b4"/>
                         <outlet property="ruler" destination="u73-Bb-XqL" id="8pm-GS-HgK"/>
                         <outlet property="speedHeading" destination="uoy-Ss-MiU" id="ZNW-di-Z1o"/>
                         <outlet property="speedLabel" destination="vj0-gw-b8b" id="CAT-4o-1D2"/>
@@ -378,6 +378,7 @@
                         <outlet property="windchillLabel" destination="xC1-3F-yMy" id="jMb-v6-Rej"/>
                         <outlet property="windchillOffsetX" destination="uDP-kX-kVi" id="hkY-Qa-mH9"/>
                         <outlet property="windchillUnitLabel" destination="Fdo-Cx-ped" id="oib-4I-nsz"/>
+                        <outlet property="windchillView" destination="MDq-2o-4tj" id="zqi-S6-gNC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cFu-lc-39i" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2481,10 +2482,10 @@
             </objects>
             <point key="canvasLocation" x="142" y="665"/>
         </scene>
-        <!--Round Measurement View Controller-->
+        <!--Round Measure View Controller-->
         <scene sceneID="AIs-KZ-NK1">
             <objects>
-                <viewController storyboardIdentifier="RoundMeasureViewController" id="Rx8-eR-iwn" customClass="RoundMeasurementViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="RoundMeasureViewController" id="Rx8-eR-iwn" customClass="RoundMeasureViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9SH-hg-PPK"/>
                         <viewControllerLayoutGuide type="bottom" id="xei-Zj-RpI"/>

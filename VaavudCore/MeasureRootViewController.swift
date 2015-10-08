@@ -60,6 +60,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
     @IBOutlet weak var pager: UIPageControl!
     
+    @IBOutlet weak var logoView: UIImageView!
+    
     @IBOutlet weak var unitButton: UIButton!
     @IBOutlet weak var variantButton: UIButton!
     @IBOutlet weak var cancelButton: MeasureCancelButton!
@@ -176,6 +178,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         view.bringSubviewToFront(errorOverlayBackground)
         view.bringSubviewToFront(cancelButton)
         
+        variantButton.imageView?.contentMode = .ScaleAspectFit
+        
         cancelButton.setup()
         
         displayLink = CADisplayLink(target: self, selector: Selector("tick:"))
@@ -195,7 +199,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     @IBAction func pressedVariant(sender: UILongPressGestureRecognizer) {
-        print("change LOGO")
+        let image = UIImage(named: "News12Logo")
+        variantButton.setImage(image, forState: .Normal)
+        variantButton.setImage(image, forState: .Highlighted)
     }
     
     @IBAction func tappedVariant(sender: UIButton) {
@@ -639,6 +645,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         newWindSpeed(WindSpeedEvent(time: NSDate(), speed: max(0, Double(latestSpeed - dy))))
         
         sender.setTranslation(CGPoint(), inView: view)
+        
+        currentConsumer?.newTemperature(250)
+
     }
 }
 
