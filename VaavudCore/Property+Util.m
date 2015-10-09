@@ -105,6 +105,9 @@ NSString * const KEY_DEFAULT_SCREEN = @"defaultMeasurementScreen";
 
 NSString * const KEY_DEFAULT_FLAT_VARIANT = @"defaultFlatVariant";
 
+NSString * const KEY_NOTIFICATION_TYPE = @"notificationType";
+NSString * const KEY_NOTIFICATION_RADIUS = @"notificationRadius";
+
 @implementation Property (Util)
 
 + (NSString *)getAsString:(NSString *)name {

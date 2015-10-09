@@ -125,7 +125,6 @@ class DirectionSelector: UIControl {
     }
     
     override func drawRect(rect: CGRect) {
-        
         for (i, direction) in Directions.ordered.enumerate() {
             UIColor.vaavudBlueColor().setStroke()
             UIColor.vaavudBlueColor().setFill()
@@ -143,10 +142,10 @@ class DirectionSelector: UIControl {
     
     func drawlabel(direction: Directions, selected: Bool) {
         let color = selected ? UIColor.whiteColor() : UIColor.vaavudBlueColor()
-//        let color = UIColor.redColor()
-        let font = UIFont(name: "Helvetica Neue", size: 18)!
+        let font = UIFont(name: "Helvetica Neue", size: 12)!
         let attributes = [NSForegroundColorAttributeName : color, NSFontAttributeName : font]
         
-        direction.local.drawAtPoint(bounds.center + CGPoint(r: 0.3*bounds.width, phi: direction.angle) - CGPoint(x: 10, y: 10), withAttributes: attributes)
+        let size = direction.local.sizeWithAttributes(attributes)
+        direction.local.drawAtPoint(bounds.center + CGPoint(r: 0.35*bounds.width, phi: -π/2 - direction.angle) - 0.5*size.point, withAttributes: attributes)
     }
 }

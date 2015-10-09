@@ -8,7 +8,9 @@
 
 import UIKit
 
-class NotificationsViewController: UIViewController {
+class NotificationsViewController: UIViewController, MKMapViewDelegate {
+    @IBOutlet weak var mapView: MKMapView!
+    
     @IBOutlet weak var typeControl: UISegmentedControl!
     @IBOutlet weak var windspeedLabel: UILabel!
     @IBOutlet weak var windspeedSlider: UISlider!

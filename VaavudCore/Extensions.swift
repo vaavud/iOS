@@ -295,6 +295,8 @@ extension CGSize {
     func expandY(value: CGFloat) -> CGSize {
         return CGSize(width: width, height: height + value)
     }
+    
+    var point: CGPoint { return CGPoint(x: width, y: height) }
 }
 
 func mod(i: Int, _ n: Int) -> Int {
