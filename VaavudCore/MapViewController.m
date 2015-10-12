@@ -53,7 +53,7 @@
     [super viewDidLoad];
     [self hideVolumeHUD];
     
-    //NSLog(@"[MapViewController] viewDidLoad");
+    if (LOG_MAP) NSLog(@"[MapViewController] viewDidLoad");
 
     self.isLoading = NO;
     self.isSelectingFromTableView = NO;
@@ -127,12 +127,12 @@
 }
 
 - (void)appDidBecomeActive:(NSNotification *)notification {
-    //NSLog(@"[MapViewController] appDidBecomeActive");
+    if (LOG_MAP) NSLog(@"[MapViewController] appDidBecomeActive");
     [self loadMeasurements:NO showActivityIndicator:NO];
 }
 
 -(void)appWillTerminate:(NSNotification *) notification {
-    //NSLog(@"[MapViewController] appWillTerminate");
+    if (LOG_MAP) NSLog(@"[MapViewController] appWillTerminate");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
@@ -146,7 +146,7 @@
     self.analyticsGridDegree = [[Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] doubleValue];
 
     WindSpeedUnit newWindSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
-    //NSLog(@"[MapViewController] viewWillAppear: windSpeedUnit=%u", self.windSpeedUnit);
+    if (LOG_MAP) NSLog(@"[MapViewController] viewWillAppear: windSpeedUnit=%u", self.windSpeedUnit);
     if (newWindSpeedUnit != self.windSpeedUnit) {
         self.windSpeedUnit = newWindSpeedUnit;
         [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
@@ -164,7 +164,7 @@
     if (measurementSession && measurementSession != nil && [measurementSession.measuring boolValue] == NO) {
         NSDate *newLatestLocalStartTime = measurementSession.startTime;
         if (newLatestLocalStartTime != nil && (self.latestLocalStartTime == nil || [newLatestLocalStartTime compare:self.latestLocalStartTime] == NSOrderedDescending)) {
-            //NSLog(@"[MapViewController] force reload of map data");
+            if (LOG_MAP) NSLog(@"[MapViewController] force reload of map data");
             self.latestLocalStartTime = newLatestLocalStartTime;
             forceReload = YES;
         }
@@ -196,6 +196,10 @@
     self.viewAppearedTime = [NSDate date];
     
     [self showGuideIfNeeded];
+}
+
+-(void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered {
+    [self refreshMap];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -302,7 +306,7 @@
     if (!ignoreGracePeriod && self.lastMeasurementsRead && self.lastMeasurementsRead != nil) {
         NSTimeInterval howRecent = [self.lastMeasurementsRead timeIntervalSinceNow];
         if (fabs(howRecent) < (graceTimeBetweenMeasurementsRead - 2.0)) {
-            //NSLog(@"[MapViewController] ignoring loadMeasurements due to grace period");
+            if (LOG_MAP) NSLog(@"[MapViewController] ignoring loadMeasurements due to grace period");
             return;
         }
     }
@@ -318,7 +322,7 @@
     }
     
     [[ServerUploadManager sharedInstance] readMeasurements:self.hoursAgo retry:3 success:^(NSArray *measurements) {
-//        NSLog(@"[MapViewController] read measurements");
+        if (LOG_MAP) NSLog(@"[MapViewController] read measurements");
 
         self.lastMeasurementsRead = [NSDate date];
 
@@ -357,7 +361,7 @@
             }
         }
     } failure:^(NSError *error) {
-//        NSLog(@"[MapViewController] Error reading measurements: %@", error);
+        if (LOG_MAP) NSLog(@"[MapViewController] Error reading measurements: %@", error);
         [self clearActivityIndicator];
 //        [self showNoDataFeedbackMessage];
     }];
@@ -497,7 +501,7 @@
 	if ([view.annotation isKindOfClass:[MeasurementAnnotation class]]) {
         NSArray *nearbyAnnotations;
         
-        //NSLog(@"zoomLevel=%f", [self.mapView getZoomLevel]);
+        if (LOG_MAP) NSLog(@"[MapViewController] zoomLevel=%f", [self.mapView getZoomLevel]);
         
         if ([self.mapView getZoomLevel] <= 2) {
             nearbyAnnotations = [NSArray array];
@@ -514,7 +518,7 @@
             height -= (28.0 /* extra half cell to show you can scroll */ + (3 - nearbyAnnotations.count) * (ROW_HEIGHT));
         }
         
-        //NSLog(@"desired height=%f", height);
+        if (LOG_MAP) NSLog(@"[MapViewController] desired height=%f", height);
         
         UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 280, height)];
 
@@ -595,7 +599,7 @@
         CLLocationDegrees longitudinalShift = -(offset.width / pixelsPerDegreeLon);
         
         float calloutHeight = (self.measurementCalloutView ? self.measurementCalloutView.frame.size.height : 0.0) + CALLOUT_ADDITIONAL_HEIGHT;
-        //NSLog(@"calloutHeight=%f", calloutHeight);
+        if (LOG_MAP) NSLog(@"[MapViewController] calloutHeight=%f", calloutHeight);
         float ypixelShift = (self.mapView.frame.size.height / 2.0) - topLayoutGuide - calloutHeight;
         CLLocationDegrees latitudinalShift = ypixelShift / pixelsPerDegreeLat;
         CGFloat lat = annotation.coordinate.latitude - latitudinalShift;
@@ -603,7 +607,7 @@
         CGFloat lon = self.mapView.region.center.longitude + longitudinalShift;
         CLLocationCoordinate2D newCenterCoordinate = (CLLocationCoordinate2D){lat, lon};
         if (fabsf(newCenterCoordinate.latitude) <= 90 && fabsf(newCenterCoordinate.longitude <= 180)) {
-            //NSLog(@"[MapViewController] delayForRepositionWithSize - setCenterCoordinate");
+            if (LOG_MAP) NSLog(@"[MapViewController] delayForRepositionWithSize - setCenterCoordinate");
             [self.mapView setCenterCoordinate:newCenterCoordinate animated:YES];
         }
     }
@@ -622,7 +626,7 @@
     MKMapPoint westMapPoint = MKMapPointMake(MKMapRectGetMaxX(mRect), MKMapRectGetMidY(mRect));
     double mapWidthMeters = MKMetersBetweenMapPoints(eastMapPoint, westMapPoint);
 
-    //NSLog(@"zoom=%f, width=%f km", [self.mapView getZoomLevel], mapWidthMeters / 1000);
+    if (LOG_MAP) NSLog(@"[MapViewController] zoom=%f, width=%f km", [self.mapView getZoomLevel], mapWidthMeters / 1000);
     
     double nearbyFraction = 1.0/3.0;
     
@@ -631,7 +635,7 @@
     double nearbyPoints = pointsPerMeter * mapWidthMeters * nearbyFraction;
     MKMapRect mapRect = MKMapRectMake(center.x - (nearbyPoints/2.0), center.y - (nearbyPoints/2.0), nearbyPoints, nearbyPoints );
     
-    //NSLog(@"center.x=%f, center.y=%f, pointsPerMeter=%f, nearbyPoints=%f, mapRect.origin.x=%f, mapRect.origin.y=%f, mapRect.size.width=%f, mapRect.size.height=%f", center.x, center.y, pointsPerMeter, nearbyPoints, mapRect.origin.x, mapRect.origin.y, mapRect.size.width, mapRect.size.height);
+    if (LOG_MAP) NSLog(@"[MapViewController] center.x=%f, center.y=%f, pointsPerMeter=%f, nearbyPoints=%f, mapRect.origin.x=%f, mapRect.origin.y=%f, mapRect.size.width=%f, mapRect.size.height=%f", center.x, center.y, pointsPerMeter, nearbyPoints, mapRect.origin.x, mapRect.origin.y, mapRect.size.width, mapRect.size.height);
     
 //    NSSet *set = [self.mapView annotationsInMapRect:mapRect];
     
@@ -659,7 +663,7 @@
     [mutableArray addObjectsFromArray:sortedArray];
     [mutableArray removeObject:annotation];
     
-    //NSLog(@"[MeasurementCalloutView] nearbyAnnotations=%@", mutableArray);
+    if (LOG_MAP) NSLog(@"[MeasurementCalloutView] nearbyAnnotations=%@", mutableArray);
     
     return mutableArray;
 }

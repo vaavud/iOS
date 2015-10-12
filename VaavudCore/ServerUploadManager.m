@@ -136,7 +136,7 @@ SHARED_INSTANCE
 }
 
 - (void)checkForUnUploadedData {
-    if (LOG_UPLOAD) NSLog(@"[ServerUploadManager, %@] checkForUnUploadedData", [NSThread currentThread]);
+    if (LOG_UPLOAD) NSLog(@"[ServerUploadManager] checkForUnUploadedData");
 
     if (!self.hasReachability) {
         return;
@@ -496,6 +496,7 @@ SHARED_INSTANCE
         if (failure) {
             failure(nil);
         }
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager readMeasurements] No reachability");
         return;
     }
     
@@ -503,6 +504,7 @@ SHARED_INSTANCE
         if (failure) {
             failure(nil);
         }
+        if (LOG_UPLOAD) NSLog(@"[ServerUploadManager readMeasurements] retryCount <= 0");
         return;
     }
     

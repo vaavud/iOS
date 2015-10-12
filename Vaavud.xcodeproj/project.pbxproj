@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		22010D7F1BC9A5FC0049F110 /* ForecastData.png in Resources */ = {isa = PBXBuildFile; fileRef = 22010D7B1BC9A5FC0049F110 /* ForecastData.png */; settings = {ASSET_TAGS = (); }; };
+		22010D801BC9A5FC0049F110 /* ForecastMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 22010D7C1BC9A5FC0049F110 /* ForecastMap.png */; settings = {ASSET_TAGS = (); }; };
+		22010D811BC9A5FC0049F110 /* ProBadge.html in Resources */ = {isa = PBXBuildFile; fileRef = 22010D7D1BC9A5FC0049F110 /* ProBadge.html */; settings = {ASSET_TAGS = (); }; };
+		22010D821BC9A5FC0049F110 /* ProBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 22010D7E1BC9A5FC0049F110 /* ProBadge.png */; settings = {ASSET_TAGS = (); }; };
 		220A30EC1B6F77250011DDA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 220A30EB1B6F77250011DDA9 /* Images.xcassets */; };
 		220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */; };
 		221285B21B04A6F500D4C008 /* FlatMeasurementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221285B11B04A6F500D4C008 /* FlatMeasurementController.swift */; };
@@ -39,10 +43,6 @@
 		22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */; };
 		22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408B61A8A0E2E0062A2DD /* Extensions.swift */; };
 		22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */; };
-		22BBC29B1BAB064E005E0A95 /* ForecastData.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BBC2971BAB064E005E0A95 /* ForecastData.png */; settings = {ASSET_TAGS = (); }; };
-		22BBC29C1BAB064E005E0A95 /* ForecastMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BBC2981BAB064E005E0A95 /* ForecastMap.png */; settings = {ASSET_TAGS = (); }; };
-		22BBC29D1BAB064E005E0A95 /* ProBadge.html in Resources */ = {isa = PBXBuildFile; fileRef = 22BBC2991BAB064E005E0A95 /* ProBadge.html */; settings = {ASSET_TAGS = (); }; };
-		22BBC29E1BAB064E005E0A95 /* ProBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BBC29A1BAB064E005E0A95 /* ProBadge.png */; settings = {ASSET_TAGS = (); }; };
 		22BBC2A21BAC067D005E0A95 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22BBC2A11BAC067D005E0A95 /* FacebookSDK.framework */; settings = {ASSET_TAGS = (); }; };
 		22BBC2A41BAC3407005E0A95 /* Map.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22BBC2A31BAC3407005E0A95 /* Map.xcassets */; settings = {ASSET_TAGS = (); }; };
 		22C8AB3E1B8F33340064DB8B /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8AB3D1B8F33340064DB8B /* ForecastViewController.swift */; };
@@ -171,6 +171,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22010D7B1BC9A5FC0049F110 /* ForecastData.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ForecastData.png; sourceTree = "<group>"; };
+		22010D7C1BC9A5FC0049F110 /* ForecastMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ForecastMap.png; sourceTree = "<group>"; };
+		22010D7D1BC9A5FC0049F110 /* ProBadge.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ProBadge.html; sourceTree = "<group>"; };
+		22010D7E1BC9A5FC0049F110 /* ProBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProBadge.png; sourceTree = "<group>"; };
 		220A30EB1B6F77250011DDA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Al Fresco Bold.otf"; sourceTree = "<group>"; };
 		221285B11B04A6F500D4C008 /* FlatMeasurementController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatMeasurementController.swift; sourceTree = "<group>"; };
@@ -241,10 +245,6 @@
 		22B408B61A8A0E2E0062A2DD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSettingsViewController.swift; sourceTree = "<group>"; };
 		22B99AC41ADFD8C600E1A27B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Register.strings; sourceTree = "<group>"; };
-		22BBC2971BAB064E005E0A95 /* ForecastData.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ForecastData.png; sourceTree = "<group>"; };
-		22BBC2981BAB064E005E0A95 /* ForecastMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ForecastMap.png; sourceTree = "<group>"; };
-		22BBC2991BAB064E005E0A95 /* ProBadge.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ProBadge.html; sourceTree = "<group>"; };
-		22BBC29A1BAB064E005E0A95 /* ProBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProBadge.png; sourceTree = "<group>"; };
 		22BBC2A11BAC067D005E0A95 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 		22BBC2A31BAC3407005E0A95 /* Map.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Map.xcassets; path = ImageAssets/Map.xcassets; sourceTree = "<group>"; };
 		22C8AB3D1B8F33340064DB8B /* ForecastViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
@@ -483,6 +483,17 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		22010D7A1BC9A5FC0049F110 /* ProBadgeHtml */ = {
+			isa = PBXGroup;
+			children = (
+				22010D7B1BC9A5FC0049F110 /* ForecastData.png */,
+				22010D7C1BC9A5FC0049F110 /* ForecastMap.png */,
+				22010D7D1BC9A5FC0049F110 /* ProBadge.html */,
+				22010D7E1BC9A5FC0049F110 /* ProBadge.png */,
+			);
+			path = ProBadgeHtml;
+			sourceTree = "<group>";
+		};
 		2291249B1B81E8E700DC6867 /* Removable */ = {
 			isa = PBXGroup;
 			children = (
@@ -510,17 +521,6 @@
 				22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */,
 			);
 			name = Fonts;
-			sourceTree = "<group>";
-		};
-		22BBC2961BAB064E005E0A95 /* ProBadgeHtml */ = {
-			isa = PBXGroup;
-			children = (
-				22BBC2971BAB064E005E0A95 /* ForecastData.png */,
-				22BBC2981BAB064E005E0A95 /* ForecastMap.png */,
-				22BBC2991BAB064E005E0A95 /* ProBadge.html */,
-				22BBC29A1BAB064E005E0A95 /* ProBadge.png */,
-			);
-			path = ProBadgeHtml;
 			sourceTree = "<group>";
 		};
 		D7A4F1BE173A8DDB00D1ACEE = {
@@ -607,7 +607,7 @@
 		D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				22BBC2961BAB064E005E0A95 /* ProBadgeHtml */,
+				22010D7A1BC9A5FC0049F110 /* ProBadgeHtml */,
 				22FA6C501A727171004DD868 /* VaavudStyle.swift */,
 				22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */,
 				22AB2E681A70FC00008CAE46 /* Fonts */,
@@ -1009,6 +1009,7 @@
 				22E59A3A1ADD6F7000B1BC88 /* HistoryScreen.xcassets in Resources */,
 				225DBA001AFA5C3100B2E8D0 /* BebasNeue_Regular.otf in Resources */,
 				22E59A4C1ADD6F7000B1BC88 /* UpgradeFlow.xcassets in Resources */,
+				22010D801BC9A5FC0049F110 /* ForecastMap.png in Resources */,
 				22787C3B1B5D8C8200AB6150 /* MeasureScreens.xcassets in Resources */,
 				225DB9FF1AFA5C3100B2E8D0 /* BebasNeue_Bold.otf in Resources */,
 				228124F91B945CC80037B8CB /* Forecast.xcassets in Resources */,
@@ -1017,26 +1018,25 @@
 				22E59A421ADD6F7000B1BC88 /* Logo.xcassets in Resources */,
 				E91D4215198F7A9800106E15 /* GuideView.xib in Resources */,
 				22EAE5CF1AB1EA5C0037654E /* Register.storyboard in Resources */,
+				22010D821BC9A5FC0049F110 /* ProBadge.png in Resources */,
 				22E59A3E1ADD6F7000B1BC88 /* InterfaceElements.xcassets in Resources */,
 				22E59A401ADD6F7000B1BC88 /* IntroFlow.xcassets in Resources */,
 				E9FABFE71896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib in Resources */,
 				22E59A3C1ADD6F7000B1BC88 /* Icons.xcassets in Resources */,
 				22AB2E6E1A70FC15008CAE46 /* Roboto-Light.ttf in Resources */,
 				220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */,
-				22BBC29E1BAB064E005E0A95 /* ProBadge.png in Resources */,
+				22010D7F1BC9A5FC0049F110 /* ForecastData.png in Resources */,
 				22900BB71AEE77C1009D9C8F /* MjolnirSpinner.xcassets in Resources */,
 				22CECB181AF22CE300148045 /* Settings.xcassets in Resources */,
 				220A30EC1B6F77250011DDA9 /* Images.xcassets in Resources */,
 				E960260818575452009396B1 /* Localizable.strings in Resources */,
-				22BBC29C1BAB064E005E0A95 /* ForecastMap.png in Resources */,
+				22010D811BC9A5FC0049F110 /* ProBadge.html in Resources */,
 				22E59A441ADD6F7000B1BC88 /* MapMarkers.xcassets in Resources */,
 				2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */,
 				22E59A4A1ADD6F7000B1BC88 /* TabBar.xcassets in Resources */,
-				22BBC29D1BAB064E005E0A95 /* ProBadge.html in Resources */,
 				E9AF2B9117F5B96500BDF6D9 /* MeasurementTableViewCell.xib in Resources */,
 				22E59A461ADD6F7000B1BC88 /* MapPlaceholder.xcassets in Resources */,
 				22AB2E6D1A70FC15008CAE46 /* Roboto-Bold.ttf in Resources */,
-				22BBC29B1BAB064E005E0A95 /* ForecastData.png in Resources */,
 				22EAE5D61AB1EBEA0037654E /* UpgradingUserPagesView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
