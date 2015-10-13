@@ -198,6 +198,10 @@
     [self showGuideIfNeeded];
 }
 
+-(void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered {
+    [self refreshMap];
+}
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ForecastSegue"]) {
         if ([sender isKindOfClass:[ForecastAnnotation class]]) {
