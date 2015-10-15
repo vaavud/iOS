@@ -321,6 +321,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
             
             let activityVC = UIActivityViewController(activityItems: [snap, text, website], applicationActivities: nil)
             activityVC.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList]
+            activityVC.popoverPresentationController?.barButtonItem = sender
             activityVC.completionWithItemsHandler = { (type, completed, returnedItems, error) in
                 var properties: [NSObject : AnyObject] = ["Completed" : completed]
                 

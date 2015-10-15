@@ -52,6 +52,13 @@ enum Interface {
         case .IPadLandscape: return iPadLandscape
         }
     }
+    
+    static func choose<T>(iPhone: T, _ iPad: T) -> T {
+        switch Interface() {
+        case .IPhone4, .IPhone5, .IPhone6, .IPhone6Plus: return iPhone
+        case .IPad, .IPadLandscape: return iPad
+        }
+    }
 }
 
 protocol FloatUnit: Unit {
@@ -308,8 +315,8 @@ class VaavudFormatter: NSObject {
         return failure(valueLabel: valueLabel, unitLabel: unitLabel)
     }
 
-    func localizedTemperature(kelvinTemperature: Float?) -> String? {
-        return localizedConvertedString(kelvinTemperature, unit: temperatureUnit)
+    func localizedTemperature(kelvinTemperature: Float?, digits: Int? = nil) -> String? {
+        return localizedConvertedString(kelvinTemperature, unit: temperatureUnit, digits: digits)
     }
     
     // Windchill
@@ -405,7 +412,7 @@ class VaavudFormatter: NSObject {
         return localizedDecimalString(value!, decimals: decimals)
     }
 
-    private func localizedConvertedString(value: Float?, unit: FloatUnit, min: Float = 0.0, decimals: Int? = nil, digits: Int? = nil) -> String? {
+    private func localizedConvertedString(value: Float?, unit: FloatUnit, min: Float = 0, decimals: Int? = nil, digits: Int? = nil) -> String? {
         if value == nil || value < min {
             return nil
         }

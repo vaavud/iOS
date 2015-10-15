@@ -27,8 +27,12 @@ protocol MeasurementConsumer {
     func newSpeed(speed: CGFloat)
     func newHeading(heading: CGFloat)
 
+    func newTemperature(temperature: CGFloat)
+
     func changedSpeedUnit(unit: SpeedUnit)
     func useMjolnir()
+    
+    func toggleVariant()
     
     var name: String { get }
 }
@@ -56,8 +60,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
     @IBOutlet weak var pager: UIPageControl!
     
+    @IBOutlet weak var logoView: UIImageView!
+    
     @IBOutlet weak var unitButton: UIButton!
-    @IBOutlet weak var readingTypeButton: UIButton!
+    @IBOutlet weak var variantButton: UIButton!
     @IBOutlet weak var cancelButton: MeasureCancelButton!
     
     @IBOutlet weak var errorMessageLabel: UILabel!
@@ -93,7 +99,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         if isSleipnirSession && !wantsSleipnir {
             NSNotificationCenter.defaultCenter().postNotificationName(KEY_WINDMETERMODEL_CHANGED, object: self)
         }
-
+        
         if isSleipnirSession {
             Property.setAsBoolean(true, forKey: KEY_USES_SLEIPNIR)
             VaavudSDK.shared.windSpeedCallback = newWindSpeed
@@ -141,17 +147,26 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         let (old, flat, round) = ("OldMeasureViewController", "FlatMeasureViewController", "RoundMeasureViewController")
         let vcsNames = isSleipnirSession ? [old, flat, round] : [old, flat]
         viewControllers = vcsNames.map { self.storyboard!.instantiateViewControllerWithIdentifier($0) }
-        currentConsumer = (viewControllers.first as! MeasurementConsumer)
 
         if !isSleipnirSession { _ = viewControllers.map { ($0 as! MeasurementConsumer).useMjolnir() } }
         
         pager.numberOfPages = viewControllers.count
         
+        let desiredScreen = Property.getAsString(KEY_DEFAULT_SCREEN) ?? flat
+        let screenToShow = vcsNames.indexOf(desiredScreen) ?? 0
+
+        pager.currentPage = screenToShow
+
+        let mc = viewControllers[screenToShow] as! MeasurementConsumer
+
+        currentConsumer = mc
+        updateVariantButton(mc)
+        
         pageController = storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as? UIPageViewController
         pageController.dataSource = self
         pageController.delegate = self
         pageController.view.frame = view.bounds
-        pageController.setViewControllers([viewControllers[0]], direction: .Forward, animated: false, completion: nil)
+        pageController.setViewControllers([viewControllers[screenToShow]], direction: .Forward, animated: false, completion: nil)
         
         addChildViewController(pageController)
         view.addSubview(pageController.view)
@@ -159,9 +174,11 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         view.bringSubviewToFront(pager)
         view.bringSubviewToFront(unitButton)
-        view.bringSubviewToFront(readingTypeButton)
+        view.bringSubviewToFront(variantButton)
         view.bringSubviewToFront(errorOverlayBackground)
         view.bringSubviewToFront(cancelButton)
+        
+        variantButton.imageView?.contentMode = .ScaleAspectFit
         
         cancelButton.setup()
         
@@ -181,6 +198,16 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
     }
     
+    @IBAction func pressedVariant(sender: UILongPressGestureRecognizer) {
+        let image = UIImage(named: "News12Logo")
+        variantButton.setImage(image, forState: .Normal)
+        variantButton.setImage(image, forState: .Highlighted)
+    }
+    
+    @IBAction func tappedVariant(sender: UIButton) {
+        currentConsumer?.toggleVariant()
+    }
+
     @IBAction func tappedUnit(sender: UIButton) {
         formatter.windSpeedUnit = formatter.windSpeedUnit.next
         unitButton.setTitle(formatter.windSpeedUnit.localizedString, forState: .Normal)
@@ -188,6 +215,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     @IBAction func tappedCancel(sender: MeasureCancelButton) {
+        if let vc = pageController.viewControllers?.last, mc = vc as? MeasurementConsumer {
+            Property.setAsString(mc.name, forKey: KEY_DEFAULT_SCREEN)
+        }
+        
         switch state {
         case .CountingDown:
             stop(true)
@@ -311,6 +342,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         let objectId = session.objectID
         let loc = hasValidLocation(session) ?? LocationManager.sharedInstance().latestLocation
         ServerUploadManager.sharedInstance().lookupForLat(loc.latitude, long: loc.longitude, success: { t, d, p in
+            self.currentConsumer?.newTemperature(CGFloat(t.floatValue))
+            
             if let session = (try? NSManagedObjectContext.MR_defaultContext().existingObjectWithID(objectId)) as? MeasurementSession {
                 session.sourcedTemperature = t ?? nil
                 session.sourcedPressureGroundLevel = p ?? nil
@@ -557,6 +590,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
         if let mc = pendingViewControllers.last as? MeasurementConsumer {
             changeConsumer(mc)
+            UIView.animateWithDuration(0.2) {
+                self.updateVariantButton(mc)
+            }
         }
     }
     
@@ -568,13 +604,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
             changeConsumer(mc)
             
-//            let alpha: CGFloat = mc is MapMeasurementViewController ? 0 : 1
-            let alpha: CGFloat = 1
-            UIView.animateWithDuration(0.3) {
-                self.readingTypeButton.alpha = alpha
-                self.unitButton.alpha = alpha
+            UIView.animateWithDuration(0.2) {
+                self.updateVariantButton(mc)
             }
         }
+    }
+    
+    func updateVariantButton(mc: MeasurementConsumer) {
+        self.variantButton.alpha = mc is FlatMeasureViewController ? 1 : 0
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
@@ -601,13 +638,16 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     @IBAction func debugPanned(sender: UIPanGestureRecognizer) {
 //        let y = sender.locationInView(view).y
 //        let x = view.bounds.midX - sender.locationInView(view).x
-//        let dx = sender.translationInView(view).x/2
-//        let dy = sender.translationInView(view).y/20
-//        
-//        newWindDirection(latestWindDirection + dx)
-//        newSpeed(max(0, latestSpeed - dy))
-//        
-//        sender.setTranslation(CGPoint(), inView: view)
+        let dx = sender.translationInView(view).x/2
+        let dy = sender.translationInView(view).y/20
+        
+        newWindDirection(latestWindDirection + dx)
+        newWindSpeed(WindSpeedEvent(time: NSDate(), speed: max(0, Double(latestSpeed - dy))))
+        
+        sender.setTranslation(CGPoint(), inView: view)
+        
+        currentConsumer?.newTemperature(250)
+
     }
 }
 
@@ -625,8 +665,8 @@ func speeds(session: MeasurementSession) -> [Float] {
     return speeds
 }
 
-func windchill(temp: Float, _ windspeed: Float) -> Float? {
-    let celsius = temp - 273.15
+func windchill(kelvin: Float, _ windspeed: Float) -> Float? {
+    let celsius = kelvin - 273.15
     let kmh = windspeed*3.6
     
     if celsius > 10 || kmh < 4.8 {

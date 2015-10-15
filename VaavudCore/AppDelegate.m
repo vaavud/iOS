@@ -47,7 +47,7 @@
     //[FBSettings setLoggingBehavior:[NSSet setWithObjects:FBLoggingBehaviorFBRequests, FBLoggingBehaviorInformational, nil]];
             
     self.xCallbackSuccess = nil;
-
+    
     if ([Property isMixpanelEnabled]) {
         [Mixpanel sharedInstanceWithToken:@"757f6311d315f94cdfc8d16fb4d973c0"];
 
@@ -98,7 +98,6 @@
     else {
         // Has not seen intro flow so we will show it now
         if (LOG_INTRO) NSLog(@"not KEY_HAS_SEEN_INTRO_FLOW");
-
         vcName = @"FirstTimeFlowController";
     }
     

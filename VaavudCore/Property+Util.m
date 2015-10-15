@@ -101,6 +101,13 @@ NSString * const KEY_FORECAST_OVERLAY_SHOWN = @"forecastOverlayShown";
 
 NSString * const KEY_SHARE_OVERLAY_SHOWN = @"shareOverlayShown";
 
+NSString * const KEY_DEFAULT_SCREEN = @"defaultMeasurementScreen";
+
+NSString * const KEY_DEFAULT_FLAT_VARIANT = @"defaultFlatVariant";
+
+NSString * const KEY_NOTIFICATION_TYPE = @"notificationType";
+NSString * const KEY_NOTIFICATION_RADIUS = @"notificationRadius";
+
 @implementation Property (Util)
 
 + (NSString *)getAsString:(NSString *)name {
@@ -250,11 +257,19 @@ NSString * const KEY_SHARE_OVERLAY_SHOWN = @"shareOverlayShown";
 }
 
 + (BOOL)isMixpanelEnabled {
+#ifdef DEBUG
+    return false;
+#else
     return [Property getAsBoolean:KEY_ENABLE_MIXPANEL defaultValue:YES];
+#endif
 }
 
 + (BOOL)isMixpanelPeopleEnabled {
+#ifdef DEBUG
+    return false;
+#else
     return [Property getAsBoolean:KEY_ENABLE_MIXPANEL_PEOPLE defaultValue:YES];
+#endif
 }
 
 + (void)refreshHasWindMeter {

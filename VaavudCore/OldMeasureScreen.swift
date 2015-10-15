@@ -9,7 +9,7 @@
 import UIKit
 
 class OldMeasureViewController : UIViewController, MeasurementConsumer {
-    var name: String { return "Old" }
+    var name: String { return "OldMeasureViewController" }
     @IBOutlet weak var graph: OldGraph!
     
     @IBOutlet weak var arrowView: UIImageView!
@@ -107,6 +107,10 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         animatingScale = true
         animator.addBehavior(UISnapBehavior(item: scaleItem, snapToPoint: CGPoint(x: 0, y: newLogScale*10000)))
     }
+    
+    func toggleVariant() {}
+    
+    func newTemperature(temperature: CGFloat) {}
 
     // MARK: Callbacks
     func tick() {
