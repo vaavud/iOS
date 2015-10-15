@@ -257,11 +257,19 @@ NSString * const KEY_NOTIFICATION_RADIUS = @"notificationRadius";
 }
 
 + (BOOL)isMixpanelEnabled {
+#ifdef DEBUG
+    return false;
+#else
     return [Property getAsBoolean:KEY_ENABLE_MIXPANEL defaultValue:YES];
+#endif
 }
 
 + (BOOL)isMixpanelPeopleEnabled {
+#ifdef DEBUG
+    return false;
+#else
     return [Property getAsBoolean:KEY_ENABLE_MIXPANEL_PEOPLE defaultValue:YES];
+#endif
 }
 
 + (void)refreshHasWindMeter {

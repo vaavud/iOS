@@ -404,6 +404,10 @@
     return UIStatusBarStyleLightContent;
 }
 
+-(void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered {
+    [self refreshMap];
+}
+
 -(void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
     if (control.enabled) {
         [self performSegueWithIdentifier:@"ForecastSegue" sender:view.annotation];

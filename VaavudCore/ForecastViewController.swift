@@ -445,7 +445,7 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
                     webViewController.html = try? String(contentsOfFile: file, encoding: NSUTF8StringEncoding)
                 }
                 else {
-                    webViewController.html = "Vi vil tilføje flere nye spænde funktioner til Vaavud appen. Nogle af disse funktioner vil kun være tilgængelig for Pro medlemmer. For en begrænset periode, så kan alle vores brugere prøve dem!".html()
+                    webViewController.html = "Vi vil tilføje flere nye spændende funktioner til Vaavud appen. Nogle af disse funktioner vil kun være tilgængelig for Pro medlemmer. For en begrænset periode, så kan alle vores brugere prøve dem!".html()
                 }
             }
         }
