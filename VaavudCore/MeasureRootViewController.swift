@@ -88,7 +88,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     var timeLeft = CGFloat(countdownInterval)
     
     required init?(coder aDecoder: NSCoder) {
-        isSleipnirSession = VaavudSDK.shared.sleipnirAvailable()
+//        isSleipnirSession = VaavudSDK.shared.sleipnirAvailable() // fixme: remove
+        isSleipnirSession = true
         
         super.init(coder: aDecoder)
         

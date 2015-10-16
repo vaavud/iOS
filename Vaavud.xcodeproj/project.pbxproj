@@ -22,6 +22,7 @@
 		2269104B1BCFCB2C00116673 /* ForecastMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 226910471BCFCB2C00116673 /* ForecastMap.png */; settings = {ASSET_TAGS = (); }; };
 		2269104C1BCFCB2C00116673 /* ProBadge.html in Resources */ = {isa = PBXBuildFile; fileRef = 226910481BCFCB2C00116673 /* ProBadge.html */; settings = {ASSET_TAGS = (); }; };
 		2269104D1BCFCB2C00116673 /* ProBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 226910491BCFCB2C00116673 /* ProBadge.png */; settings = {ASSET_TAGS = (); }; };
+		226910501BCFCE6900116673 /* UserTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2269104F1BCFCE6900116673 /* UserTab.swift */; settings = {ASSET_TAGS = (); }; };
 		22728BEE1B6BA30200AFE634 /* UIImage+Vaavud.m in Sources */ = {isa = PBXBuildFile; fileRef = 22728BED1B6BA30200AFE634 /* UIImage+Vaavud.m */; };
 		22787C3B1B5D8C8200AB6150 /* MeasureScreens.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22787C3A1B5D8C8200AB6150 /* MeasureScreens.xcassets */; };
 		227E29401BC281EF000DD2C7 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227E293F1BC281EF000DD2C7 /* NotificationsViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -221,6 +222,7 @@
 		226910471BCFCB2C00116673 /* ForecastMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ForecastMap.png; sourceTree = "<group>"; };
 		226910481BCFCB2C00116673 /* ProBadge.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ProBadge.html; sourceTree = "<group>"; };
 		226910491BCFCB2C00116673 /* ProBadge.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ProBadge.png; sourceTree = "<group>"; };
+		2269104F1BCFCE6900116673 /* UserTab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserTab.swift; sourceTree = "<group>"; };
 		22728BEC1B6BA30200AFE634 /* UIImage+Vaavud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Vaavud.h"; sourceTree = "<group>"; };
 		22728BED1B6BA30200AFE634 /* UIImage+Vaavud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Vaavud.m"; sourceTree = "<group>"; };
 		22787C3A1B5D8C8200AB6150 /* MeasureScreens.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = MeasureScreens.xcassets; path = ImageAssets/MeasureScreens.xcassets; sourceTree = "<group>"; };
@@ -589,6 +591,7 @@
 				228904BB1BA815D3006259AB /* Overlays.swift */,
 				22C8AB3D1B8F33340064DB8B /* ForecastViewController.swift */,
 				22728BEC1B6BA30200AFE634 /* UIImage+Vaavud.h */,
+				2269104F1BCFCE6900116673 /* UserTab.swift */,
 				22728BED1B6BA30200AFE634 /* UIImage+Vaavud.m */,
 				22E602461B6F67C600B706E0 /* ActivityFlowViewController.swift */,
 				229533501B1F3F8A00DAEA62 /* MeasureCancelButton.swift */,
@@ -1157,6 +1160,7 @@
 				E9A4097918994000004F1C12 /* TMDiskCache.m in Sources */,
 				22E602471B6F67C600B706E0 /* ActivityFlowViewController.swift in Sources */,
 				E9B950E4195C587800E9EF02 /* FirstTimeFlowController.m in Sources */,
+				226910501BCFCE6900116673 /* UserTab.swift in Sources */,
 				229124991B81E8B100DC6867 /* WindMeasurementController.m in Sources */,
 				E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */,
 				22728BEE1B6BA30200AFE634 /* UIImage+Vaavud.m in Sources */,

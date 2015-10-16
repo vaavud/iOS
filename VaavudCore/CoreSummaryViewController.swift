@@ -215,14 +215,8 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func setupUI() {
-        if view.bounds.width > 375 {
-            averageLabel.font = averageLabel.font.fontWithSize(85)
-            maximumLabel.font = maximumLabel.font.fontWithSize(60)
-        }
-        else if view.bounds.width > 320 {
-            averageLabel.font = averageLabel.font.fontWithSize(72)
-            maximumLabel.font = maximumLabel.font.fontWithSize(50)
-        }
+        averageLabel.font = averageLabel.font.fontWithSize(Interface.choose(65, 70, 80, 100, 200, 200))
+        maximumLabel.font = maximumLabel.font.fontWithSize(Interface.choose(40, 50, 60, 75, 150, 150))
     }
     
     private func updateUI() {

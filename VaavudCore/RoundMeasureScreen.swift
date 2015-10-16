@@ -32,10 +32,14 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     @IBOutlet weak var ruler: RoundRuler!
     @IBOutlet weak var speedLabel: UILabel!
     
+    @IBOutlet weak var speedLabelOffset: NSLayoutConstraint!
+    let speedLabelFont = UIFont(name: "BebasNeueBold", size: Interface.choose(100, 200))
+    
     @IBOutlet weak var lockNorthDistance: NSLayoutConstraint!
     
     @IBOutlet weak var lockNorthButton: UIButton!
 
+    
     private var latestHeading: CGFloat = 0
     private var latestWindDirection: CGFloat = 0
     private var latestSpeed: CGFloat = 0
@@ -46,7 +50,7 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     
     var weight: CGFloat = 0.1
     
-    let bandWidth: CGFloat = 30
+    let bandWidth: CGFloat = Interface.choose(30, 60)
     var logScale: CGFloat = 0 { didSet { changedScale() } }
     var logScaleOffset: CGFloat = 0
     
@@ -60,6 +64,9 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        speedLabel.font = speedLabelFont
+        speedLabelOffset.constant = Interface.choose(-10, -20)
         
         animator = UIDynamicAnimator(referenceView: view)
         scaleItem = DynamicItem(centerCallback: { [unowned self] in
@@ -95,7 +102,7 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
         background.layout()
         background.changedScale()
         
-        ruler.setup(view.bounds.width > 500 ? 2*bandWidth : bandWidth)
+        ruler.setup(bandWidth)
         ruler.layout()
     }
     
@@ -215,7 +222,7 @@ class RoundBackground : UIView {
         
         for _ in 2..<banded1.n {
             let label = UILabel()
-            label.font = UIFont(name: "Roboto", size: 14)
+            label.font = UIFont(name: "Roboto", size: Interface.choose(16, 20))
             label.textAlignment = .Center
             label.text = "9999"
             label.textColor = textColor
@@ -283,6 +290,8 @@ class RoundRuler : UIView {
     var scale: CGFloat = 0
     var bandWidth: CGFloat = 0
     
+    private let blueDotSize: CGFloat = 20
+    private let dotSize: CGFloat = 15
     private let dotCount = 400
     private var dotPositions = [Polar]()
     private var dots = [CAShapeLayer]()
@@ -291,8 +300,8 @@ class RoundRuler : UIView {
     private var cardinalPositions = [Polar]()
     private var cardinalLabels = [UILabel]()
     
-    private let font = UIFont(name: "Roboto-Bold", size: 21)!
-    private let smallFont = UIFont(name: "Roboto-Bold", size: 12)!
+    private let font = UIFont(name: "Roboto-Bold", size: Interface.choose(25, 50))!
+    private let smallFont = UIFont(name: "Roboto-Bold", size: Interface.choose(15, 30))!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -303,10 +312,10 @@ class RoundRuler : UIView {
             dot.strokeColor = nil
             if i == dotCount - 1 {
                 dot.fillColor = UIColor.vaavudBlueColor().CGColor
-                dot.bounds.size = CGSize(width: 10, height: 10)
+                dot.bounds.size = CGSize(width: blueDotSize, height: blueDotSize)
             }
             else {
-                let size = 6*ease(CGFloat(i)/CGFloat(dotCount))
+                let size = dotSize*ease(CGFloat(i)/CGFloat(dotCount))
                 dot.bounds.size = CGSize(width: size, height: size)
                 dot.fillColor = UIColor.grayColor().CGColor
             }
