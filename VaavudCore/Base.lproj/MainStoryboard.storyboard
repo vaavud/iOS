@@ -1970,7 +1970,7 @@
                                     <outlet property="delegate" destination="8a4-bz-n0M" id="XPz-ZV-j7I"/>
                                 </connections>
                             </mapView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Measure direction with the new Sleipnir!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="crp-cu-8Rx">
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Measure direction with the new Sleipnir!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="crp-cu-8Rx">
                                 <rect key="frame" x="172" y="223" width="114" height="24"/>
                                 <gestureRecognizers/>
                                 <constraints>

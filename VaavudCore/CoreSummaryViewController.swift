@@ -290,7 +290,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         VaavudInteractions().showLocalAlert("SUMMARY_MEASURE_WINDDIRECTION",
             messageKey: "SUMMARY_WITH_SLEIPNIR_WINDDIRECTION",
             cancelKey: "BUTTON_CANCEL",
-            otherKey: "INTRO_UPGRADE_CTA_BUY",
+            otherKey: "READ_MORE",
             action: { VaavudInteractions.openBuySleipnir("Summary") },
             on: self)
     }
