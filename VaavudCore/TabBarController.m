@@ -118,7 +118,6 @@
 }
 
 - (void)takeMeasurement:(BOOL)fromUrlScheme {
-    NSLog(@"Tabbar check");
     if ([Property getAsBoolean:KEY_USES_SLEIPNIR] && !VaavudSleipnirAvailability.available) {
         if (fromUrlScheme && self.sleipnirFromCallbackAttempts < 10) {
             self.sleipnirFromCallbackAttempts++;

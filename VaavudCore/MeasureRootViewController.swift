@@ -88,8 +88,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     var timeLeft = CGFloat(countdownInterval)
     
     required init?(coder aDecoder: NSCoder) {
-//        isSleipnirSession = VaavudSDK.shared.sleipnirAvailable() // fixme: remove
-        isSleipnirSession = true
+        isSleipnirSession = VaavudSDK.shared.sleipnirAvailable()
         
         super.init(coder: aDecoder)
         
@@ -301,6 +300,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         if LocationManager.isCoordinateValid(loc) {
             (session.latitude, session.longitude) = (loc.latitude, loc.longitude)
+            print("Got location") // fixme: remove
         }
     }
     
@@ -335,37 +335,41 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
         }
         else {
-//            print("WINDCHILL ERROR: \(session.sourcedTemperature, session.windSpeedAvg, session.sourcedWindSpeedAvg)")
+            print("WINDCHILL ERROR: \(session.sourcedTemperature, session.windSpeedAvg, session.sourcedWindSpeedAvg)")
         }
     }
 
     func updateWithSourcedData(session: MeasurementSession) {
         let objectId = session.objectID
         let loc = hasValidLocation(session) ?? LocationManager.sharedInstance().latestLocation
-        ServerUploadManager.sharedInstance().lookupForLat(loc.latitude, long: loc.longitude, success: { t, d, p in
-            self.currentConsumer?.newTemperature(CGFloat(t.floatValue))
-            
+        
+        ForecastLoader.shared.requestCurrent(loc) { (t, p, d) in
+            self.currentConsumer?.newTemperature(CGFloat(t))
+
             if let session = (try? NSManagedObjectContext.MR_defaultContext().existingObjectWithID(objectId)) as? MeasurementSession {
-                session.sourcedTemperature = t ?? nil
-                session.sourcedPressureGroundLevel = p ?? nil
-                session.sourcedWindDirection = d ?? nil
+                session.sourcedTemperature = t
+                session.sourcedPressureGroundLevel = p
+                session.sourcedWindDirection = d
                 
-                let userInfo = ["objectID" : objectId, "sourcedTemperature" : t != nil, "sourcedPressureGroundLevel" : p != nil, "sourcedWindDirection" : d != nil]
+                let userInfo = ["objectID" : objectId, "sourcedTemperature" : true, "sourcedPressureGroundLevel" : true, "sourcedWindDirection" : d != nil]
                 
                 NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
                     NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
                 }
             }
-            }, failure: { error in print("<<<<SOURCED LOOKUP>>>> FAILED \(error)") })
+        }
     }
     
     func updateWithPressure(uuid: String) {
         altimeter?.startRelativeAltitudeUpdatesToQueue(NSOperationQueue.mainQueue()) {
             altitudeData, error in
-            if let session = MeasurementSession.MR_findFirstByAttribute("uuid", withValue: uuid) {
+            self.altimeter?.stopRelativeAltitudeUpdates()
+
+            if let session = MeasurementSession.MR_findFirstByAttribute("uuid", withValue: uuid), kpa = altitudeData?.pressure.doubleValue {
                 let userInfo = ["objectId" : session.objectID, "pressure" : true]
                 NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
                     NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
+                    session.pressure = 10*kpa
                 }
             }
         }
@@ -465,7 +469,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 //                }
                 
                 if !cancel {
-                    NSNotificationCenter.defaultCenter().postNotificationName(KEY_OPEN_LATEST_SUMMARY, object: self, userInfo: ["uuid" : session.uuid])
+//                    NSNotificationCenter.defaultCenter().postNotificationName(KEY_OPEN_LATEST_SUMMARY, object: self, userInfo: ["uuid" : session.uuid])
                 }
             }
         
@@ -516,14 +520,28 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         reportToUrlSchemeCaller(cancelled)
         
-        dismissViewControllerAnimated(true) {
-            self.pageController.view.removeFromSuperview()
-            self.pageController.removeFromParentViewController()
-            _ = self.viewControllers.map { $0.view.removeFromSuperview() }
-            _ = self.viewControllers.map { $0.removeFromParentViewController() }
-            self.viewControllers = []
-            self.currentConsumer = nil
-            self.displayLink.invalidate()
+        self.displayLink.invalidate()
+        self.currentConsumer = nil
+
+        if !cancelled, let session = currentSession where session.startTime != nil {
+            let summary = storyboard!.instantiateViewControllerWithIdentifier("SummaryViewController") as! CoreSummaryViewController
+            summary.session = session
+            pageController.setViewControllers([summary], direction: .Forward, animated: true) { _ in
+//                self.pageController.dataSource = nil
+            }
+            unitButton.alpha = 0
+            variantButton.alpha = 0
+            cancelButton.alpha = 0
+            pager.alpha = 0
+        }
+        else {
+            dismissViewControllerAnimated(true) {
+                self.pageController.view.removeFromSuperview()
+                self.pageController.removeFromParentViewController()
+                _ = self.viewControllers.map { $0.view.removeFromSuperview() }
+                _ = self.viewControllers.map { $0.removeFromParentViewController() }
+                self.viewControllers = []
+            }
         }
     }
     
@@ -647,7 +665,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         sender.setTranslation(CGPoint(), inView: view)
         
-        currentConsumer?.newTemperature(250)
+//        currentConsumer?.newTemperature(250)
 
     }
 }

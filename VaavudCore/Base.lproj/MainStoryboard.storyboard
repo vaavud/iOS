@@ -383,7 +383,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cFu-lc-39i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="524" y="665"/>
+            <point key="canvasLocation" x="561" y="625"/>
         </scene>
         <!--Activity navigation-->
         <scene sceneID="RnR-Kp-M0y">
@@ -2541,7 +2541,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hvb-sh-4vK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="142" y="665"/>
+            <point key="canvasLocation" x="155" y="625"/>
         </scene>
         <!--Round Measure View Controller-->
         <scene sceneID="AIs-KZ-NK1">
@@ -2615,7 +2615,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g2U-Ok-Gzk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="948" y="665"/>
+            <point key="canvasLocation" x="981" y="625"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ydh-tk-7P3">

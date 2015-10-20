@@ -210,7 +210,7 @@ class ForecastLoader: NSObject {
             if let location = location, dataObject = NSData(contentsOfURL: location),
                 let dict = (try? NSJSONSerialization.JSONObjectWithData(dataObject, options: [])) as? NSDictionary,
                 let hourly = dict["hourly"] as? [String : AnyObject],
-                let data = self.parseHourly(hourly) {
+                let data = parseHourly(hourly) {
                     dispatch_async(dispatch_get_main_queue()) {
                         callback(data)
                     }
@@ -220,24 +220,55 @@ class ForecastLoader: NSObject {
         downloadTask.resume()
     }
     
-    func parseHourly(dict: [String : AnyObject]) -> [ForecastDataPoint]? {
-        if let data = dict["data"] as? [[String : AnyObject]] {
-            let dataPoints = data.map { (dataHour: [String : AnyObject]) -> ForecastDataPoint in
-                let temp = (CGFloat(dataHour["temperature"] as! Double) + 459.67)*5/9
-                let state = WeatherState(icon: dataHour["icon"] as! String)
-                let windDirection = CGFloat(dataHour["windBearing"] as! Int)
-                let windSpeed = CGFloat(dataHour["windSpeed"] as! Double)*0.44704
-                let date = NSDate(timeIntervalSince1970: NSTimeInterval(dataHour["time"] as! Int))
-                
-                return ForecastDataPoint(temp: temp, state: state, windDirection: windDirection, windSpeed: windSpeed, date: date)
-            }
+    func requestCurrent(location: CLLocationCoordinate2D, callback: (Double, Double, Int?) -> ()) {
+        let forecastUrl = NSURL(string: "\(location.latitude),\(location.longitude)", relativeToURL:baseURL)!
+        let sharedSession = NSURLSession.sharedSession()
+        
+        let downloadTask: NSURLSessionDownloadTask = sharedSession.downloadTaskWithURL(forecastUrl) {
+            (location: NSURL?, response: NSURLResponse?, error: NSError?) in
             
-            return dataPoints
+            if error != nil { return }
+            if let location = location, dataObject = NSData(contentsOfURL: location),
+                let dict = (try? NSJSONSerialization.JSONObjectWithData(dataObject, options: [])) as? NSDictionary,
+                let currently = dict["currently"] as? [String : AnyObject],
+                let data = parseCurrently(currently) {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        callback(data)
+                    }
+            }
         }
         
-        return nil
+        downloadTask.resume()
     }
 }
+
+func parseHourly(dict: [String : AnyObject]) -> [ForecastDataPoint]? {
+    if let data = dict["data"] as? [[String : AnyObject]] {
+        let dataPoints = data.map { (dataHour: [String : AnyObject]) -> ForecastDataPoint in
+            let temp = (CGFloat(dataHour["temperature"] as! Double) + 459.67)*5/9
+            let state = WeatherState(icon: dataHour["icon"] as! String)
+            let windDirection = CGFloat(dataHour["windBearing"] as! Int)
+            let windSpeed = CGFloat(dataHour["windSpeed"] as! Double)*0.44704
+            let date = NSDate(timeIntervalSince1970: NSTimeInterval(dataHour["time"] as! Int))
+            
+            return ForecastDataPoint(temp: temp, state: state, windDirection: windDirection, windSpeed: windSpeed, date: date)
+        }
+        
+        return dataPoints
+    }
+    
+    return nil
+}
+
+func parseCurrently(dict: [String : AnyObject]) -> (Double, Double, Int?)? {
+    if let temperature = dict["temperature"] as? Double, pressure = dict["pressure"] as? Double {
+        print("temp: \(temperature) - press: \(pressure)")
+            return ((temperature + 459.67)*5/9, pressure, dict["windBearing"] as? Int)
+    }
+    
+    return nil
+}
+
 
 protocol AssetState {
     var prefix: String { get }
