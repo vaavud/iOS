@@ -58,7 +58,7 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
 
         windchillUnitLabel.text = VaavudFormatter.shared.temperatureUnit.localizedString
         
-        gustsOffsetY.constant = Interface.choose(70, 80, 100, 125, 160, 160)
+        gustsOffsetY.constant = Interface.choose(70, 80, 100, 125, 150, 150)
         
         updateVariant()
         newSpeed(0)

@@ -20,7 +20,6 @@ import Foundation
 //}
 
 class UserTabViewController : UIViewController, UINavigationControllerDelegate {
-    
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var historyContainer: UIView!
     @IBOutlet weak var notificationContainer: UIView!
@@ -41,7 +40,7 @@ class UserTabViewController : UIViewController, UINavigationControllerDelegate {
     }
     
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
-        if navigationController.childViewControllers.count > 1 {
+        if navigationController.childViewControllers.count > 1, let sv = navigationController.view.superview where !sv.hidden {
             UIView.animateWithDuration(0.1) {
                 self.segmentedControl.alpha = 0
             }
@@ -49,7 +48,8 @@ class UserTabViewController : UIViewController, UINavigationControllerDelegate {
     }
     
     func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
-        if navigationController.childViewControllers.count == 1 {
+
+        if navigationController.childViewControllers.count == 1, let sv = navigationController.view.superview where !sv.hidden {
             UIView.animateWithDuration(0.1) {
                 self.segmentedControl.alpha = 1
             }

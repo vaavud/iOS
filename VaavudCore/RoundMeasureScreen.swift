@@ -39,7 +39,6 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     
     @IBOutlet weak var lockNorthButton: UIButton!
 
-    
     private var latestHeading: CGFloat = 0
     private var latestWindDirection: CGFloat = 0
     private var latestSpeed: CGFloat = 0
@@ -49,7 +48,7 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     let formatter = VaavudFormatter()
     
     var weight: CGFloat = 0.1
-    
+
     let bandWidth: CGFloat = Interface.choose(30, 60)
     var logScale: CGFloat = 0 { didSet { changedScale() } }
     var logScaleOffset: CGFloat = 0
@@ -75,10 +74,6 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
         
         scaleItem.center = CGPoint(x: 0, y: logScale*20000)
         background.setup(bandWidth)
-        
-        let image = UIImage(named: "CompassArrow")
-        lockNorthButton.setImage(image, forState: .Highlighted)
-        lockNorthButton.setImage(image, forState: .Selected)
     }
     
     override func viewDidLayoutSubviews() {

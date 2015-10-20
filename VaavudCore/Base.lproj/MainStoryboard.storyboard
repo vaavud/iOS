@@ -2315,7 +2315,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vJy-Qf-W0c" userLabel="NotificationContainer">
+                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vJy-Qf-W0c" userLabel="NotificationContainer">
                                 <rect key="frame" x="0.0" y="20" width="320" height="547"/>
                                 <connections>
                                     <segue destination="qra-6c-5e3" kind="embed" id="p1d-8Z-jHT"/>
@@ -2563,11 +2563,13 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="csb-Id-zNX">
-                                        <rect key="frame" x="150" y="117" width="20" height="22"/>
+                                        <rect key="frame" x="145" y="113" width="30" height="30"/>
                                         <state key="normal" image="CompassArrowGrey">
                                             <color key="titleColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="selected" image="CompassArrow"/>
+                                        <state key="highlighted" image="CompassArrow"/>
                                         <connections>
                                             <action selector="lockNorthChanged:" destination="Rx8-eR-iwn" eventType="touchUpInside" id="nce-Tc-Sws"/>
                                         </connections>
@@ -2577,8 +2579,8 @@
                                     <constraint firstAttribute="centerX" secondItem="csb-Id-zNX" secondAttribute="centerX" id="dXw-lO-2di"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90g-5T-Ctv">
-                                <rect key="frame" x="0.0" y="244" width="320" height="100"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0.0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="90g-5T-Ctv">
+                                <rect key="frame" x="0.0" y="236" width="320" height="117"/>
                                 <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="100"/>
                                 <color key="textColor" red="0.80784313725490198" green="0.16470588235294117" blue="0.14901960784313725" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -2901,7 +2903,8 @@
     <resources>
         <image name="ActivityFlow" width="414" height="852"/>
         <image name="ActivityTab" width="23" height="15"/>
-        <image name="CompassArrowGrey" width="20" height="20"/>
+        <image name="CompassArrow" width="30" height="30"/>
+        <image name="CompassArrowGrey" width="30" height="30"/>
         <image name="ForecastProBadge" width="24" height="30"/>
         <image name="HistoryDirectionArrow" width="27" height="27"/>
         <image name="HistoryTab" width="24" height="18"/>
