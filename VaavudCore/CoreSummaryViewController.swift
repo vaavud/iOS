@@ -104,6 +104,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     func sessionUpdated(note: NSNotification) {
+        return
         if let objectId = note.userInfo?["objectID"] as? NSManagedObjectID where objectId == session.objectID {
             updateUI()
             print("SUMMARY: Updated \(note.userInfo)")

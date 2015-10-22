@@ -85,20 +85,13 @@ SHARED_INSTANCE
             self.locationManager.distanceFilter = kCLDistanceFilterNone;
         }
         
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-            if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
-                if (self.shouldPromptForPermission) {
-                  if (LOG_LOCATION) NSLog(@"[LocationManager] Request when-in-use location authorization");
-                    [self.locationManager requestWhenInUseAuthorization];
-                }
-            }
-            else if ([CLLocationManager locationServicesEnabled]) {
-                [self startUpdating];
+        if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
+            if (self.shouldPromptForPermission) {
+                if (LOG_LOCATION) NSLog(@"[LocationManager] Request when-in-use location authorization");
+                [self.locationManager requestWhenInUseAuthorization];
             }
         }
-        else if ([CLLocationManager locationServicesEnabled] &&
-                 (authorizationStatus != kCLAuthorizationStatusNotDetermined || self.shouldPromptForPermission)) {
-            
+        else if ([CLLocationManager locationServicesEnabled]) {
             [self startUpdating];
         }
     }

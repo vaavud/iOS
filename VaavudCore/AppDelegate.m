@@ -227,15 +227,15 @@
     NSError *error = nil;
     [[NSFileManager defaultManager] removeItemAtPath:srcPath error:&error];
     if (!error) {
-        NSLog(@"File uploaded and deleted successfully to path: %@", metadata.path);
+        if (LOG_OTHER) NSLog(@"File uploaded and deleted successfully to path: %@", metadata.path);
     }
     else {
-        NSLog(@"File uploaded successfully, but not deleted to path: %@, error: %@", metadata.path, error.localizedDescription);
+        if (LOG_OTHER) NSLog(@"File uploaded successfully, but not deleted to path: %@, error: %@", metadata.path, error.localizedDescription);
     }
 }
 
 - (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
-    NSLog(@"File upload failed with error: %@", error);
+    if (LOG_OTHER) NSLog(@"File upload failed with error: %@", error);
 }
 
 - (void)userAuthenticated:(BOOL)isSignup viewController:(UIViewController *)viewController {

@@ -223,15 +223,15 @@ class ForecastLoader: NSObject {
     func requestCurrent(location: CLLocationCoordinate2D, callback: (Double, Double, Int?) -> ()) {
         let forecastUrl = NSURL(string: "\(location.latitude),\(location.longitude)", relativeToURL:baseURL)!
         let sharedSession = NSURLSession.sharedSession()
-        
+                
         let downloadTask: NSURLSessionDownloadTask = sharedSession.downloadTaskWithURL(forecastUrl) {
             (location: NSURL?, response: NSURLResponse?, error: NSError?) in
-            
             if error != nil { return }
-            if let location = location, dataObject = NSData(contentsOfURL: location),
-                let dict = (try? NSJSONSerialization.JSONObjectWithData(dataObject, options: [])) as? NSDictionary,
-                let currently = dict["currently"] as? [String : AnyObject],
-                let data = parseCurrently(currently) {
+            if let location = location,
+                dataObject = NSData(contentsOfURL: location),
+                dict = (try? NSJSONSerialization.JSONObjectWithData(dataObject, options: [])) as? NSDictionary,
+                currently = dict["currently"] as? [String : AnyObject],
+                data = parseCurrently(currently) {
                     dispatch_async(dispatch_get_main_queue()) {
                         callback(data)
                     }
@@ -262,8 +262,7 @@ func parseHourly(dict: [String : AnyObject]) -> [ForecastDataPoint]? {
 
 func parseCurrently(dict: [String : AnyObject]) -> (Double, Double, Int?)? {
     if let temperature = dict["temperature"] as? Double, pressure = dict["pressure"] as? Double {
-        print("temp: \(temperature) - press: \(pressure)")
-            return ((temperature + 459.67)*5/9, pressure, dict["windBearing"] as? Int)
+        return ((temperature + 459.67)*5/9, pressure, dict["windBearing"] as? Int)
     }
     
     return nil
