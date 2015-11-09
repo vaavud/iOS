@@ -283,12 +283,14 @@
 
 - (void)addPin:(CLLocationCoordinate2D)loc {
     ForecastAnnotation *annotation = [[ForecastAnnotation alloc] initWithLocation:loc];
+
     [[ForecastLoader shared] setup:annotation mapView:self.mapView];
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"Forecast added pin"];
     }
     
     [self.mapView addAnnotation:annotation];
+    [self.mapView selectAnnotation:annotation animated:YES];
 }
 
 - (void)removeOldForecasts {
@@ -306,8 +308,27 @@
         }
     }
     
+    [self refreshEmptyState];
+}
+
+- (void)refreshEmptyState {
+    int forecastAnnotations = 0;
+    
+    for (id annotation in self.mapView.annotations) {
+        if ([annotation isKindOfClass:[ForecastAnnotation class]]) {
+            forecastAnnotations++;
+        }
+    }
+    
     if (forecastAnnotations == 0) {
-        [self addPin:[LocationManager sharedInstance].latestLocation];
+        CLLocationCoordinate2D loc = [LocationManager sharedInstance].latestLocation;
+        
+        if ([LocationManager isCoordinateValid:loc]) {
+            [self addPin:loc];
+        }
+        else {
+            [self performSelector:@selector(refreshEmptyState) withObject:nil afterDelay:10];
+        }
     }
 }
 

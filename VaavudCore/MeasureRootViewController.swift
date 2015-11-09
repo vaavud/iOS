@@ -78,7 +78,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
     private var maxSpeed: CGFloat = 0
     
-    private var avgSpeed: CGFloat { return speedsSum/CGFloat(speedsCount) }
+    private var avgSpeed: CGFloat { return 10 } // fixme: revert
+//    private var avgSpeed: CGFloat { return speedsSum/CGFloat(speedsCount) }
     private var speedsSum: CGFloat = 0
     private var speedsCount = 0
     
