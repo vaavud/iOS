@@ -278,6 +278,10 @@ class VaavudFormatter: NSObject {
         
         return failure(valueLabel: valueLabel, unitLabel: unitLabel)
     }
+    
+    func formattedWindspeedWithUnit(msSpeed: Float) -> String? {
+        return localizedDecimalString(msSpeed, decimals: 0) + " " + windSpeedUnit.localizedString
+    }
 
     func localizedWindspeed(msSpeed: Float?, digits: Int? = nil) -> String? {
         return localizedConvertedString(msSpeed, unit: windSpeedUnit, digits: digits)

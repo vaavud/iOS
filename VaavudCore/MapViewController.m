@@ -267,17 +267,21 @@
 }
 
 - (void)addLongPress {
-    [self.mapView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(addPinToMap:)]];
+    [self.mapView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)]];
 }
 
-- (void)addPinToMap:(UIGestureRecognizer *)gestureRecognizer {
+- (void)longPressed:(UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer.state != UIGestureRecognizerStateBegan) {
         return;
     }
     
     CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
     CLLocationCoordinate2D loc = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-    
+
+    [self addPin:loc];
+}
+
+- (void)addPin:(CLLocationCoordinate2D)loc {
     ForecastAnnotation *annotation = [[ForecastAnnotation alloc] initWithLocation:loc];
     [[ForecastLoader shared] setup:annotation mapView:self.mapView];
     if ([Property isMixpanelEnabled]) {
@@ -288,13 +292,22 @@
 }
 
 - (void)removeOldForecasts {
+    int forecastAnnotations = 0;
+    
     for (id annotation in self.mapView.annotations) {
         if ([annotation isKindOfClass:[ForecastAnnotation class]]) {
             ForecastAnnotation *fcAnnotation = (ForecastAnnotation *)annotation;
             if ([[NSDate date] timeIntervalSinceDate:fcAnnotation.date] > 3600) {
                 [self.mapView removeAnnotation:annotation];
             }
+            else {
+                forecastAnnotations++;
+            }
         }
+    }
+    
+    if (forecastAnnotations == 0) {
+        [self addPin:[LocationManager sharedInstance].latestLocation];
     }
 }
 

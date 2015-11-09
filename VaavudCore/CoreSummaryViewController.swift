@@ -50,6 +50,14 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet private weak var gustinessView: GustinessView!
     private var gustinessItem: DynamicReadingItem!
     
+    @IBOutlet weak var shareHolder: GradientView!
+    @IBOutlet weak var shareHolderHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var shareButton: UIButton!
+    
+    var historySummary = false
+    
     private var hasSomeDirection: Float?
     private var hasActualDirection = false
     private var isShowingDirection = false
@@ -90,6 +98,11 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didLoginOut:", name: KEY_DID_LOGINOUT, object: nil)
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        shareHolder.hidden = historySummary
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -104,17 +117,9 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     func sessionUpdated(note: NSNotification) {
-        return
         if let objectId = note.userInfo?["objectID"] as? NSManagedObjectID where objectId == session.objectID {
             updateUI()
             print("SUMMARY: Updated \(note.userInfo)")
-        }
-        
-        if let objectId = note.userInfo?["objectID"] as? NSManagedObjectID {
-            print("session.objectID: \(session.objectID) - objectId: \(objectId)")
-        }
-        else {
-            print("sessionUpdated ???")
         }
     }
 
@@ -291,32 +296,58 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         VaavudInteractions().showLocalAlert("SUMMARY_MEASURE_WINDDIRECTION",
             messageKey: "SUMMARY_WITH_SLEIPNIR_WINDDIRECTION",
             cancelKey: "BUTTON_CANCEL",
-            otherKey: "READ_MORE",
+            otherKey: "SUMMARY_READ_MORE",
             action: { VaavudInteractions.openBuySleipnir("Summary") },
             on: self)
     }
     
-    @IBAction func tappedShare(sender: UIBarButtonItem) {
-        let frame = view.bounds.moveY(-topLayoutGuide.length)
-        UIGraphicsBeginImageContextWithOptions( view.bounds.size.expandY(-topLayoutGuide.length), true, 0)
+    @IBAction func tappedDone(sender: AnyObject) {
+        dismissViewControllerAnimated(true) {
+        }
+    }
+    
+    @IBAction func tappedShare(sender: AnyObject) {
+        let frame: CGRect
+        let size: CGSize
+        
+        if historySummary {
+            frame = view.bounds.moveY(-topLayoutGuide.length)
+            size = view.bounds.size.expandY(-topLayoutGuide.length)
+        }
+        else {
+            frame = view.bounds
+            size = view.bounds.size
+            shareHolder.hidden = true
+        }
+        
+        defer { self.shareHolder.hidden = self.historySummary }
+        
+        UIGraphicsBeginImageContextWithOptions(size, true, 0)
         
         view.drawViewHierarchyInRect(frame, afterScreenUpdates: true)
         guard let snap = UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext()) else { return }
         UIGraphicsEndImageContext()
-        
+    
         if let windSpeed = formatter.localizedWindspeed(session.windSpeedAvg?.floatValue) {
             var text = NSLocalizedString("I just measured ", comment: "")
             text += windSpeed + " " + formatter.windSpeedUnit.localizedString
             if let place = session?.geoLocationNameLocalized {
-                text += NSLocalizedString(" at ", comment: "Location preposition") + place
+                text += " " + NSLocalizedString("at", comment: "Location preposition") + " " + place
             }
             text += NSLocalizedString(" with my Vaavud windmeter! #VaavudWeather\n", comment: "")
             
-            let website = NSURL(string: "http://www.vaavud.com/")!
-            
-            let activityVC = UIActivityViewController(activityItems: [snap, text, website], applicationActivities: nil)
+//            let website = NSURL(string: "http://www.vaavud.com/")!
+//            let activityVC = UIActivityViewController(activityItems: [snap, text, website], applicationActivities: nil)
+
+            let activityVC = UIActivityViewController(activityItems: [snap, text], applicationActivities: nil)
             activityVC.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList]
-            activityVC.popoverPresentationController?.barButtonItem = sender
+            if let senderItem = sender as? UIBarButtonItem {
+                activityVC.popoverPresentationController?.barButtonItem = senderItem
+            }
+            else if let senderButton = sender as? UIButton {
+                activityVC.popoverPresentationController?.sourceView = senderButton
+            }
+            
             activityVC.completionWithItemsHandler = { (type, completed, returnedItems, error) in
                 var properties: [NSObject : AnyObject] = ["Completed" : completed]
                 

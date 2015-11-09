@@ -8,17 +8,6 @@
 
 import Foundation
 
-//class NavigationControllerDelegate: NSObject, UINavigationControllerDelegate {
-//    
-//    func navigationController(navigationController: UINavigationController, animationControllerForOperation operation: UINavigationControllerOperation, fromViewController fromVC: UIViewController, toViewController toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        
-//        print("-------------")
-//        
-//        return nil
-//    }
-//    
-//}
-
 class UserTabViewController : UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var historyContainer: UIView!
@@ -26,7 +15,13 @@ class UserTabViewController : UIViewController, UINavigationControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
+        
+        let cs = storyboard!.instantiateViewControllerWithIdentifier("ComingSoonNavigationController")
+        addChildViewController(cs)
+        cs.view.frame = notificationContainer.bounds
+        notificationContainer.addSubview(cs.view)
+        cs.didMoveToParentViewController(self)
+        
         for child in childViewControllers {
             if let nav = child as? UINavigationController {
                 nav.delegate = self
@@ -48,7 +43,6 @@ class UserTabViewController : UIViewController, UINavigationControllerDelegate {
     }
     
     func navigationController(navigationController: UINavigationController, didShowViewController viewController: UIViewController, animated: Bool) {
-
         if navigationController.childViewControllers.count == 1, let sv = navigationController.view.superview where !sv.hidden {
             UIView.animateWithDuration(0.1) {
                 self.segmentedControl.alpha = 1

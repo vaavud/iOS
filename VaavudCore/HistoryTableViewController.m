@@ -532,6 +532,7 @@
     NSUUID *uuid = notification.userInfo[@"uuid"];
     CoreSummaryViewController *summary = [self.storyboard instantiateViewControllerWithIdentifier:@"SummaryViewController"];
     summary.session = [MeasurementSession MR_findFirstByAttribute:@"uuid" withValue:uuid];
+    summary.historySummary = YES;
     
     [self.navigationController pushViewController:summary animated:NO];
 }
@@ -542,8 +543,9 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"SummarySegue"]) {
-        CoreSummaryViewController *destination = segue.destinationViewController;
-        destination.session = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
+        CoreSummaryViewController *summary = segue.destinationViewController;
+        summary.session = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
+        summary.historySummary = YES;
     }
 }
 

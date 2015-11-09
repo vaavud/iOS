@@ -1,5 +1,5 @@
 //
-//  ActivityFlowViewController.swift
+//  ComingSoonViewController.swift
 //  Vaavud
 //
 //  Created by Gustaf Kugelberg on 03/08/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ActivityFlowViewController: UIViewController, UIScrollViewDelegate {
+class ComingSoonViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     
     func scrollViewDidScroll(scrollView: UIScrollView) {

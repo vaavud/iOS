@@ -10,6 +10,7 @@
 		220A30EC1B6F77250011DDA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 220A30EB1B6F77250011DDA9 /* Images.xcassets */; };
 		220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */; };
 		221285B21B04A6F500D4C008 /* FlatMeasureScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221285B11B04A6F500D4C008 /* FlatMeasureScreen.swift */; };
+		22146AA21BE79E68005D072A /* Notifications.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22146AA11BE79E68005D072A /* Notifications.xcassets */; settings = {ASSET_TAGS = (); }; };
 		222F30631BC2944800CD607B /* NotificationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222F30621BC2944800CD607B /* NotificationDetailsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		2231A0A41B19BECE003DADDB /* MeasureRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */; };
 		2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */; };
@@ -42,7 +43,6 @@
 		22AB2E701A70FD92008CAE46 /* CoreSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */; };
 		22AC73F61B3D93CC008631E8 /* OldMeasureScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AC73F51B3D93CC008631E8 /* OldMeasureScreen.swift */; };
 		22ADAA941A9C911400C298E6 /* EmptyHistoryArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA931A9C911400C298E6 /* EmptyHistoryArrow.swift */; };
-		22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */; };
 		22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408B61A8A0E2E0062A2DD /* Extensions.swift */; };
 		22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */; };
 		22B74D871BB1408F00D39999 /* VaavudSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EE9B801BB13E5800F3C331 /* VaavudSDK.framework */; };
@@ -190,7 +190,7 @@
 		220A30EB1B6F77250011DDA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Al Fresco Bold.otf"; sourceTree = "<group>"; };
 		221285B11B04A6F500D4C008 /* FlatMeasureScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatMeasureScreen.swift; sourceTree = "<group>"; };
-		221941811B7E3CE400F6175F /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
+		22146AA11BE79E68005D072A /* Notifications.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Notifications.xcassets; path = ImageAssets/Notifications.xcassets; sourceTree = "<group>"; };
 		22199BF71AE286400008CADA /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		22199BF91AE2864D0008CADA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		22199BFB1AE286570008CADA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/MainStoryboard.strings"; sourceTree = "<group>"; };
@@ -216,6 +216,7 @@
 		225572CA1AE2851900153F03 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		2255A63A1A818535006589D5 /* VaavudInteractions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudInteractions.swift; sourceTree = "<group>"; };
 		2256C19A1AA7450E00782314 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		2258C92B1BEB8924003B49EC /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		225DB9FD1AFA5C3100B2E8D0 /* BebasNeue_Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BebasNeue_Bold.otf; sourceTree = "<group>"; };
 		225DB9FE1AFA5C3100B2E8D0 /* BebasNeue_Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BebasNeue_Regular.otf; sourceTree = "<group>"; };
 		226910461BCFCB2C00116673 /* ForecastData.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ForecastData.png; sourceTree = "<group>"; };
@@ -260,7 +261,6 @@
 		22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSummaryViewController.swift; sourceTree = "<group>"; };
 		22AC73F51B3D93CC008631E8 /* OldMeasureScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldMeasureScreen.swift; sourceTree = "<group>"; };
 		22ADAA931A9C911400C298E6 /* EmptyHistoryArrow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyHistoryArrow.swift; sourceTree = "<group>"; };
-		22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalibrateSleipnirViewController.swift; sourceTree = "<group>"; };
 		22B408B61A8A0E2E0062A2DD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSettingsViewController.swift; sourceTree = "<group>"; };
 		22B99AC41ADFD8C600E1A27B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Register.strings; sourceTree = "<group>"; };
@@ -508,14 +508,6 @@
 			path = ProBadgeHtml;
 			sourceTree = "<group>";
 		};
-		2291249B1B81E8E700DC6867 /* Removable */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Removable;
-			path = VaavudCore;
-			sourceTree = "<group>";
-		};
 		22AB2E681A70FC00008CAE46 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
@@ -541,7 +533,6 @@
 			isa = PBXGroup;
 			children = (
 				E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */,
-				2291249B1B81E8E700DC6867 /* Removable */,
 				D7A4F1D0173A8DDB00D1ACEE /* Classes */,
 				D7A4F1C9173A8DDB00D1ACEE /* Frameworks */,
 				E98853C7176868BE00F78128 /* Images */,
@@ -600,7 +591,6 @@
 				221285B11B04A6F500D4C008 /* FlatMeasureScreen.swift */,
 				22DCCED31B02399800D65265 /* RoundMeasureScreen.swift */,
 				22900BB21AEE7616009D9C8F /* MjolnirSpinner.swift */,
-				22ADAA981A9E222600C298E6 /* CalibrateSleipnirViewController.swift */,
 				22ADAA931A9C911400C298E6 /* EmptyHistoryArrow.swift */,
 				22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */,
 				22B408B61A8A0E2E0062A2DD /* Extensions.swift */,
@@ -730,6 +720,7 @@
 				22787C3A1B5D8C8200AB6150 /* MeasureScreens.xcassets */,
 				228124F81B945CC80037B8CB /* Forecast.xcassets */,
 				22BBC2A31BAC3407005E0A95 /* Map.xcassets */,
+				22146AA11BE79E68005D072A /* Notifications.xcassets */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1008,6 +999,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22146AA21BE79E68005D072A /* Notifications.xcassets in Resources */,
 				22E59A481ADD6F7000B1BC88 /* SummaryScreen.xcassets in Resources */,
 				E960260E18575E41009396B1 /* MeasurementCalloutView.xib in Resources */,
 				D7A4F1D5173A8DDB00D1ACEE /* InfoPlist.strings in Resources */,
@@ -1101,7 +1093,6 @@
 			files = (
 				D7A4F1D7173A8DDB00D1ACEE /* main.m in Sources */,
 				D7A4F1DB173A8DDB00D1ACEE /* AppDelegate.m in Sources */,
-				22ADAA991A9E222600C298E6 /* CalibrateSleipnirViewController.swift in Sources */,
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
 				E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */,
 				22DCCED41B02399800D65265 /* RoundMeasureScreen.swift in Sources */,
@@ -1271,7 +1262,7 @@
 				22199C011AE286710008CADA /* ko */,
 				22199C031AE286760008CADA /* zh-Hans */,
 				22199C051AE2867D0008CADA /* pt-PT */,
-				221941811B7E3CE400F6175F /* da */,
+				2258C92B1BEB8924003B49EC /* da */,
 			);
 			name = MainStoryboard.storyboard;
 			sourceTree = "<group>";

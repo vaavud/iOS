@@ -128,9 +128,11 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
         
         if let temperature = temperature, chill = windchill(Float(temperature), Float(verySmoothWindSpeed)) {
             windchillLabel.text =  VaavudFormatter.shared.localizedWindchill(Float(chill))
+            windchillUnitLabel.alpha = 1
         }
         else {
             windchillLabel.text = "-"
+            windchillUnitLabel.alpha = 0
         }
         
     }
