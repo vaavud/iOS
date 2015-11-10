@@ -54,6 +54,8 @@
     [self hideVolumeHUD];
     
     //NSLog(@"[MapViewController] viewDidLoad");
+    
+    self.lastMeasurementsRead = [NSDate distantPast];
 
     self.isLoading = NO;
     self.isSelectingFromTableView = NO;
@@ -161,7 +163,7 @@
     }
     
     MeasurementSession *measurementSession = [MeasurementSession MR_findFirstOrderedByAttribute:@"startTime" ascending:NO];
-    if (measurementSession && measurementSession != nil && [measurementSession.measuring boolValue] == NO) {
+    if (measurementSession != nil && [measurementSession.measuring boolValue] == NO) {
         NSDate *newLatestLocalStartTime = measurementSession.startTime;
         if (newLatestLocalStartTime != nil && (self.latestLocalStartTime == nil || [newLatestLocalStartTime compare:self.latestLocalStartTime] == NSOrderedDescending)) {
             //NSLog(@"[MapViewController] force reload of map data");
@@ -188,7 +190,7 @@
                                                        selector:@selector(refreshMap)
                                                        userInfo:nil
                                                         repeats:YES];
-
+    
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"Map Screen"];
     }
@@ -196,10 +198,6 @@
     self.viewAppearedTime = [NSDate date];
     
     [self showGuideIfNeeded];
-}
-
--(void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered {
-    [self refreshMap];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -336,11 +334,44 @@
     [self loadMeasurements:YES showActivityIndicator:NO];
 }
 
+- (BOOL)annotationAlreadyExistsAtLatitude:(CLLocationDegrees)lat longitude:(CLLocationDegrees)lon {
+    for (id<MKAnnotation> annotation in self.mapView.annotations) {
+        if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
+            if (lat == [annotation coordinate].latitude && lon == [annotation coordinate].longitude ) {
+                return YES;
+            }
+        }
+    }
+
+    return NO;
+}
+
+-(void)removeOldAnnotations {
+    NSMutableArray *oldAnnotations = [NSMutableArray array];
+    
+    for (id annotation in self.mapView.annotations) {
+        if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
+            MeasurementAnnotation *measurementAnnotation = annotation;
+            if ([self.lastMeasurementsRead timeIntervalSinceDate:measurementAnnotation.startTime]) {
+                [oldAnnotations addObject:measurementAnnotation];
+                [self.mapView deselectAnnotation:annotation animated:NO];
+            }
+        }
+    }
+    
+    [self.mapView removeAnnotations:oldAnnotations];
+    if (oldAnnotations.count > 0) {
+        NSLog(@"Removed: %d old annotations", oldAnnotations.count);
+    }
+}
+
 - (void)loadMeasurements:(BOOL)ignoreGracePeriod showActivityIndicator:(BOOL)showActivityIndicator {
-    if (!ignoreGracePeriod && self.lastMeasurementsRead && self.lastMeasurementsRead != nil) {
+    NSLog(@"Load measurements");
+    
+    if (!ignoreGracePeriod && self.lastMeasurementsRead != nil) {
         NSTimeInterval howRecent = [self.lastMeasurementsRead timeIntervalSinceNow];
         if (fabs(howRecent) < (graceTimeBetweenMeasurementsRead - 2.0)) {
-            //NSLog(@"[MapViewController] ignoring loadMeasurements due to grace period");
+            NSLog(@"[MapViewController] ignoring loadMeasurements due to grace period");
             return;
         }
     }
@@ -355,29 +386,32 @@
         [self performSelector:@selector(showActivityIndicatorIfLoading) withObject:nil afterDelay:1.0];
     }
     
-    [[ServerUploadManager sharedInstance] readMeasurements:self.hoursAgo retry:3 success:^(NSArray *measurements) {
-//        NSLog(@"[MapViewController] read measurements");
-
+    //    [[ServerUploadManager sharedInstance] readMeasurements:self.hoursAgo retry:3 success:^(NSArray *measurements) {
+    [[ServerUploadManager sharedInstance] readMeasurements:24 retry:3 success:^(NSArray *measurements) {
+        //        NSLog(@"[MapViewController] read measurements");
+        
         self.lastMeasurementsRead = [NSDate date];
-
+        
         [self refreshHours];
         [self clearActivityIndicator];
-
-        NSMutableArray *measureAnnotations = [NSMutableArray array];
         
-        for (id annotation in self.mapView.annotations) {
-            if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
-                [measureAnnotations addObject:annotation];
-                [self.mapView deselectAnnotation:annotation animated:NO];
-            }
-        }
+        [self removeOldAnnotations];
         
-        [self.mapView removeAnnotations:measureAnnotations];
+        int alreadyAdded = 0;
         
         for (NSArray *measurement in measurements) {
             if (measurement.count >= 5) {
-                double latitude = ((NSString *)measurement[0]).doubleValue;
-                double longitude = ((NSString *)measurement[1]).doubleValue;
+                CLLocationDegrees latitude = ((NSString *)measurement[0]).doubleValue;
+                CLLocationDegrees longitude = ((NSString *)measurement[1]).doubleValue;
+                
+                if ([self annotationAlreadyExistsAtLatitude:latitude longitude:longitude]) {
+                    alreadyAdded++;
+                    continue;
+                }
+
+                NSDate *t = [NSDate dateWithTimeIntervalSince1970:((NSString *)measurement[2]).doubleValue/1000.0];
+                NSLog(@"Annotation added: (%@) %.02f:%.02f", t, latitude, longitude);
+                
                 NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:((NSString *)measurement[2]).doubleValue/1000.0];
                 float windSpeedAvg = measurement[3] == [NSNull null] ? 0.0 : ((NSString *)measurement[3]).floatValue;
                 float windSpeedMax = measurement[4] == [NSNull null] ? 0.0 : ((NSString *)measurement[4]).floatValue;
@@ -394,8 +428,13 @@
                 [self.mapView addAnnotation:measurementAnnotation];
             }
         }
+        NSLog(@"Already added: %d (%d) [%d]", alreadyAdded, measurements.count, self.mapView.annotations.count);
+        
     } failure:^(NSError *error) {
 //        NSLog(@"[MapViewController] Error reading measurements: %@", error);
+        
+        [self performSelector:@selector(refreshMap) withObject:nil afterDelay:10];
+
         [self clearActivityIndicator];
 //        [self showNoDataFeedbackMessage];
     }];
@@ -432,7 +471,7 @@
     [self showFeedbackMessage:NSLocalizedString(@"MAP_REFRESH_ERROR_TITLE", nil) message:NSLocalizedString(@"MAP_REFRESH_ERROR_MESSAGE", nil)];
 }
 
--(void)windSpeedUnitChanged {
+-(void)reloadAnnotations {
     NSArray *annotations = self.mapView.annotations;
     [self.mapView removeAnnotations:annotations];
     [self.mapView addAnnotations:annotations];
@@ -524,6 +563,8 @@
         
         UILabel *lbl = (UILabel *)[measureAnnotationView viewWithTag:42];
         lbl.text = [FormatUtil formatValueWithTwoDigits:[UnitUtil displayWindSpeedFromDouble:measurementAnnotation.avgWindSpeed unit:self.windSpeedUnit]];
+        
+        measureAnnotationView.hidden = [self.lastMeasurementsRead timeIntervalSinceDate:measurementAnnotation.startTime] > self.hoursAgo*3600;
         
         return measureAnnotationView;
     }
@@ -722,7 +763,7 @@
     }
     
     [self refreshHours];
-    [self loadMeasurements:YES showActivityIndicator:YES];
+    [self reloadAnnotations];
 }
 
 - (void)refreshHours {
@@ -735,7 +776,7 @@
 //    [Property setAsInteger:[NSNumber numberWithInt:self.windSpeedUnit] forKey:KEY_WIND_SPEED_UNIT];
 //    
 //    [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
-    [self windSpeedUnitChanged];
+    [self reloadAnnotations];
 }
 
 -(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation *)annotation
