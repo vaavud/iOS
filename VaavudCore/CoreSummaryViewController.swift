@@ -56,6 +56,8 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var historySummary = false
     
     private var hasSomeDirection: Float?
@@ -114,6 +116,10 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
             let icon = UIImage(named: "SummaryShareOverlay")
             tbc.view.addSubview(RadialOverlay(frame: tbc.view.bounds, position: pos, text: text, icon: icon, radius: 75))
         }
+    }
+    
+    func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
+        activityIndicator.stopAnimating()
     }
     
     func sessionUpdated(note: NSNotification) {
@@ -299,6 +305,10 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
             otherKey: "SUMMARY_READ_MORE",
             action: { VaavudInteractions.openBuySleipnir("Summary") },
             on: self)
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return true
     }
     
     @IBAction func tappedDone(sender: AnyObject) {

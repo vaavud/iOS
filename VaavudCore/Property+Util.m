@@ -108,6 +108,9 @@ NSString * const KEY_DEFAULT_FLAT_VARIANT = @"defaultFlatVariant";
 NSString * const KEY_NOTIFICATION_TYPE = @"notificationType";
 NSString * const KEY_NOTIFICATION_RADIUS = @"notificationRadius";
 
+NSString * const KEY_STORED_LOCATION_LAT = @"storedLocationLat";
+NSString * const KEY_STORED_LOCATION_LON = @"storedLocationLon";
+
 @implementation Property (Util)
 
 + (NSString *)getAsString:(NSString *)name {

@@ -157,10 +157,24 @@ SHARED_INSTANCE
     NSTimeInterval howRecent = [self.latestLocationTimestamp timeIntervalSinceNow];
     if (fabs(howRecent) < 60.0 /* seconds */) {
         //NSLog(@"[LocationManager] returning latest location: latitude %+.6f, longitude %+.6f\n", _latestLocation.latitude, _latestLocation.longitude);
+        if ([LocationManager isCoordinateValid:_latestLocation]) {
+            [Property setAsDouble:@(_latestLocation.latitude) forKey:KEY_STORED_LOCATION_LAT];
+            [Property setAsDouble:@(_latestLocation.longitude) forKey:KEY_STORED_LOCATION_LON];
+        }
+             
         return _latestLocation;
     }
     //NSLog(@"[LocationManager] latest location too old, returning invalid");
     return kCLLocationCoordinate2DInvalid;
+}
+
+- (CLLocationCoordinate2D)storedLocation {
+    CLLocationDegrees lat = [Property getAsDouble:KEY_STORED_LOCATION_LAT defaultValue:55.676111].doubleValue;
+    CLLocationDegrees lon = [Property getAsDouble:KEY_STORED_LOCATION_LON defaultValue:12.568333].doubleValue;
+
+    NSLog(@"Stored: %.02f:%.02f", lat, lon);
+    
+    return CLLocationCoordinate2DMake(lat, lon);
 }
 
 @end

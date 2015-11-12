@@ -101,6 +101,9 @@ extern NSString * const KEY_DEFAULT_SCREEN;
 
 extern NSString * const KEY_DEFAULT_FLAT_VARIANT;
 
+extern NSString * const KEY_STORED_LOCATION_LAT;
+extern NSString * const KEY_STORED_LOCATION_LON;
+
 @interface Property (Util)
 
 + (NSString *)getAsString:(NSString *)name;

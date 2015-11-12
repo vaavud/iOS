@@ -105,27 +105,30 @@
     
     self.activityIndicator.hidden = YES;
     
-    CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
+    CLLocationCoordinate2D location = [LocationManager sharedInstance].latestLocation;
     
-    if ([LocationManager isCoordinateValid:latestLocation]) {
-        [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(latestLocation, 200000, 200000) animated:YES];
+    if (![LocationManager isCoordinateValid:location]) {
+        location = [LocationManager sharedInstance].storedLocation;
     }
-    else {
-        // TODO: set default location if user's location is unknown
-    }
+    
+    [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(location, 200000, 200000) animated:YES];
 
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windSpeedUnitChanged) name:KEY_UNIT_CHANGED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windspeedUnitChanged) name:KEY_UNIT_CHANGED object:nil];
     
     self.view.autoresizesSubviews = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    if ([[[[NSLocale preferredLanguages] firstObject] substringToIndex:2] isEqualToString:@"da"]) {
+    if ([self isDanish]) {
         [self addLongPress];
     }
+}
+
+- (BOOL)isDanish {
+    return [[[[NSLocale preferredLanguages] firstObject] substringToIndex:2] isEqualToString:@"da"];
 }
 
 - (void)appDidBecomeActive:(NSNotification *)notification {
@@ -310,6 +313,11 @@
 }
 
 - (void)refreshEmptyState {
+    NSLog(@"Refresh empty state");
+    if (![self isDanish]) {
+        return;
+    }
+
     int forecastAnnotations = 0;
     
     for (id annotation in self.mapView.annotations) {
@@ -319,14 +327,7 @@
     }
     
     if (forecastAnnotations == 0) {
-        CLLocationCoordinate2D loc = [LocationManager sharedInstance].latestLocation;
-        
-        if ([LocationManager isCoordinateValid:loc]) {
-            [self addPin:loc];
-        }
-        else {
-            [self performSelector:@selector(refreshEmptyState) withObject:nil afterDelay:10];
-        }
+        [self addPin:[LocationManager sharedInstance].storedLocation];
     }
 }
 
@@ -360,6 +361,7 @@
     }
     
     [self.mapView removeAnnotations:oldAnnotations];
+    
     if (oldAnnotations.count > 0) {
         NSLog(@"Removed: %d old annotations", oldAnnotations.count);
     }
@@ -409,8 +411,8 @@
                     continue;
                 }
 
-                NSDate *t = [NSDate dateWithTimeIntervalSince1970:((NSString *)measurement[2]).doubleValue/1000.0];
-                NSLog(@"Annotation added: (%@) %.02f:%.02f", t, latitude, longitude);
+//                NSDate *t = [NSDate dateWithTimeIntervalSince1970:((NSString *)measurement[2]).doubleValue/1000.0];
+//                NSLog(@"Annotation added: (%@) %.02f:%.02f", t, latitude, longitude);
                 
                 NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:((NSString *)measurement[2]).doubleValue/1000.0];
                 float windSpeedAvg = measurement[3] == [NSNull null] ? 0.0 : ((NSString *)measurement[3]).floatValue;
@@ -433,7 +435,7 @@
     } failure:^(NSError *error) {
 //        NSLog(@"[MapViewController] Error reading measurements: %@", error);
         
-        [self performSelector:@selector(refreshMap) withObject:nil afterDelay:10];
+        [self performSelector:@selector(refreshMap) withObject:nil afterDelay:1];
 
         [self clearActivityIndicator];
 //        [self showNoDataFeedbackMessage];
@@ -471,8 +473,24 @@
     [self showFeedbackMessage:NSLocalizedString(@"MAP_REFRESH_ERROR_TITLE", nil) message:NSLocalizedString(@"MAP_REFRESH_ERROR_MESSAGE", nil)];
 }
 
--(void)reloadAnnotations {
-    NSArray *annotations = self.mapView.annotations;
+-(void)windspeedUnitChanged {
+    [self reloadAnnotationsIncludingForecast:YES];
+}
+
+-(void)reloadAnnotationsIncludingForecast:(BOOL)includeForecast {
+    NSMutableArray *annotations = [NSMutableArray array];
+
+    if (includeForecast) {
+        [annotations addObjectsFromArray:self.mapView.annotations];
+    }
+    else {
+        for (id annotation in self.mapView.annotations) {
+            if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
+                [annotations addObject:annotation];
+            }
+        }
+    }
+    
     [self.mapView removeAnnotations:annotations];
     [self.mapView addAnnotations:annotations];
 }
@@ -763,7 +781,7 @@
     }
     
     [self refreshHours];
-    [self reloadAnnotations];
+    [self reloadAnnotationsIncludingForecast:NO];
 }
 
 - (void)refreshHours {
@@ -776,7 +794,7 @@
 //    [Property setAsInteger:[NSNumber numberWithInt:self.windSpeedUnit] forKey:KEY_WIND_SPEED_UNIT];
 //    
 //    [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
-    [self reloadAnnotations];
+    [self windspeedUnitChanged];
 }
 
 -(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation *)annotation

@@ -502,11 +502,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="1nG-yb-qca">
-                                <rect key="frame" x="142" y="241" width="37" height="37"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </activityIndicatorView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MKZ-Ce-DqL">
                                 <rect key="frame" x="40" y="227" width="240" height="65"/>
                                 <subviews>
@@ -540,6 +535,11 @@
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" rotateEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbg-Zl-YRw" customClass="CustomMapView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                             </mapView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="1nG-yb-qca">
+                                <rect key="frame" x="142" y="241" width="37" height="37"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aHi-Yt-n6U">
                                 <rect key="frame" x="15" y="470" width="30" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -2038,6 +2038,9 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="sIl-hA-G4y">
+                                <rect key="frame" x="142" y="388" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -2053,6 +2056,7 @@
                             <constraint firstItem="wnc-wX-Vvf" firstAttribute="top" secondItem="nXH-Q4-ODo" secondAttribute="bottom" id="DU0-YR-c50"/>
                             <constraint firstItem="C2h-JO-28H" firstAttribute="top" secondItem="S4V-DO-Sud" secondAttribute="bottom" constant="-8" id="DcR-xF-bGp"/>
                             <constraint firstItem="C2h-JO-28H" firstAttribute="centerY" secondItem="MuP-rr-uMT" secondAttribute="centerY" id="GUj-Uz-F23"/>
+                            <constraint firstItem="sIl-hA-G4y" firstAttribute="centerX" secondItem="tvr-It-KCF" secondAttribute="centerX" id="GbY-UV-y6m"/>
                             <constraint firstItem="BNx-Ty-Ux8" firstAttribute="centerX" secondItem="QYA-qT-P4j" secondAttribute="centerX" id="Hnb-LC-82I"/>
                             <constraint firstAttribute="trailing" secondItem="auT-ia-kVW" secondAttribute="trailing" id="IKL-I2-fXi"/>
                             <constraint firstItem="wnc-wX-Vvf" firstAttribute="top" secondItem="tvr-It-KCF" secondAttribute="bottom" id="IRS-19-h2l"/>
@@ -2089,6 +2093,7 @@
                             <constraint firstItem="KWl-Zw-lzc" firstAttribute="top" secondItem="C2h-JO-28H" secondAttribute="bottom" constant="7" id="uvX-9w-ce3"/>
                             <constraint firstItem="Ha6-Kc-3pj" firstAttribute="centerX" secondItem="bRf-Uc-kZC" secondAttribute="centerX" multiplier="0.6" constant="-20" id="vG3-hY-cYA"/>
                             <constraint firstAttribute="centerX" secondItem="C2h-JO-28H" secondAttribute="centerX" multiplier="0.7" id="vlG-Ef-EIe"/>
+                            <constraint firstItem="sIl-hA-G4y" firstAttribute="centerY" secondItem="tvr-It-KCF" secondAttribute="centerY" id="voe-f2-98U"/>
                             <constraint firstItem="crp-cu-8Rx" firstAttribute="centerX" secondItem="KWl-Zw-lzc" secondAttribute="centerX" id="xQX-A4-lAE"/>
                             <constraint firstItem="OfN-lw-f2W" firstAttribute="leading" secondItem="Ha6-Kc-3pj" secondAttribute="trailing" constant="2" id="y0x-5R-eil"/>
                             <constraint firstItem="BNx-Ty-Ux8" firstAttribute="top" secondItem="RdQ-dE-OhZ" secondAttribute="top" id="y9x-09-Cnr"/>
@@ -2106,6 +2111,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="sIl-hA-G4y" id="S19-NM-k67"/>
                         <outlet property="averageLabel" destination="Ha6-Kc-3pj" id="kci-1N-CU0"/>
                         <outlet property="averageUnitLabel" destination="OfN-lw-f2W" id="6MD-cb-fo2"/>
                         <outlet property="dateLabel" destination="3FB-IL-Zna" id="BXo-yI-SUa"/>
