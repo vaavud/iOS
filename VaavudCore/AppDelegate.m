@@ -21,6 +21,7 @@
 #import "UIColor+VaavudColors.h"
 #import "MixpanelUtil.h"
 #import "Vaavud-Swift.h"
+#import "Amplitude.h"
 
 @interface AppDelegate() <DBRestClientDelegate>
 
@@ -106,6 +107,8 @@
     
     self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];
+    
+    [[Amplitude instance] initializeApiKey:@"043371ecbefba51ec63a992d0cc57491"];
 
     return YES;
 }

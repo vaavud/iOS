@@ -400,7 +400,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         let model: WindMeterModel = isSleipnirSession ? .Sleipnir : .Mjolnir
         
-        let session = MeasurementSession.MR_createEntity()
+        let session = MeasurementSession.MR_createEntity()!
         session.uuid = currentSessionUuid
         session.device = Property.getAsString(KEY_DEVICE_UUID)
         session.windMeter = model.rawValue
@@ -432,7 +432,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             session.windSpeedAvg = avgSpeed
             if isSleipnirSession { session.windDirection = mod(latestWindDirection, 360) }
             
-            let point = MeasurementPoint.MR_createEntity()
+            let point = MeasurementPoint.MR_createEntity()!
             point.session = session
             point.time = now
             point.windSpeed = latestSpeed

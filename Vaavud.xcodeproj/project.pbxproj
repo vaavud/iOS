@@ -10,23 +10,24 @@
 		220A30EC1B6F77250011DDA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 220A30EB1B6F77250011DDA9 /* Images.xcassets */; };
 		220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */; };
 		221285B21B04A6F500D4C008 /* FlatMeasureScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221285B11B04A6F500D4C008 /* FlatMeasureScreen.swift */; };
-		22146AA21BE79E68005D072A /* Notifications.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22146AA11BE79E68005D072A /* Notifications.xcassets */; settings = {ASSET_TAGS = (); }; };
-		222F30631BC2944800CD607B /* NotificationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222F30621BC2944800CD607B /* NotificationDetailsViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		22146AA21BE79E68005D072A /* Notifications.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22146AA11BE79E68005D072A /* Notifications.xcassets */; };
+		222F30631BC2944800CD607B /* NotificationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222F30621BC2944800CD607B /* NotificationDetailsViewController.swift */; };
 		2231A0A41B19BECE003DADDB /* MeasureRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */; };
 		2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */; };
 		2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */; };
+		2237A1D31BFB22F300A9A603 /* MagicalRecord.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */; };
 		2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
 		2256C19B1AA7450E00782314 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2256C19A1AA7450E00782314 /* Crashlytics.framework */; };
 		225DB9FF1AFA5C3100B2E8D0 /* BebasNeue_Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 225DB9FD1AFA5C3100B2E8D0 /* BebasNeue_Bold.otf */; };
 		225DBA001AFA5C3100B2E8D0 /* BebasNeue_Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 225DB9FE1AFA5C3100B2E8D0 /* BebasNeue_Regular.otf */; };
-		2269104A1BCFCB2C00116673 /* ForecastData.png in Resources */ = {isa = PBXBuildFile; fileRef = 226910461BCFCB2C00116673 /* ForecastData.png */; settings = {ASSET_TAGS = (); }; };
-		2269104B1BCFCB2C00116673 /* ForecastMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 226910471BCFCB2C00116673 /* ForecastMap.png */; settings = {ASSET_TAGS = (); }; };
-		2269104C1BCFCB2C00116673 /* ProBadge.html in Resources */ = {isa = PBXBuildFile; fileRef = 226910481BCFCB2C00116673 /* ProBadge.html */; settings = {ASSET_TAGS = (); }; };
-		2269104D1BCFCB2C00116673 /* ProBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 226910491BCFCB2C00116673 /* ProBadge.png */; settings = {ASSET_TAGS = (); }; };
-		226910501BCFCE6900116673 /* UserTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2269104F1BCFCE6900116673 /* UserTab.swift */; settings = {ASSET_TAGS = (); }; };
+		2269104A1BCFCB2C00116673 /* ForecastData.png in Resources */ = {isa = PBXBuildFile; fileRef = 226910461BCFCB2C00116673 /* ForecastData.png */; };
+		2269104B1BCFCB2C00116673 /* ForecastMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 226910471BCFCB2C00116673 /* ForecastMap.png */; };
+		2269104C1BCFCB2C00116673 /* ProBadge.html in Resources */ = {isa = PBXBuildFile; fileRef = 226910481BCFCB2C00116673 /* ProBadge.html */; };
+		2269104D1BCFCB2C00116673 /* ProBadge.png in Resources */ = {isa = PBXBuildFile; fileRef = 226910491BCFCB2C00116673 /* ProBadge.png */; };
+		226910501BCFCE6900116673 /* UserTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2269104F1BCFCE6900116673 /* UserTab.swift */; };
 		22728BEE1B6BA30200AFE634 /* UIImage+Vaavud.m in Sources */ = {isa = PBXBuildFile; fileRef = 22728BED1B6BA30200AFE634 /* UIImage+Vaavud.m */; };
 		22787C3B1B5D8C8200AB6150 /* MeasureScreens.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22787C3A1B5D8C8200AB6150 /* MeasureScreens.xcassets */; };
-		227E29401BC281EF000DD2C7 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227E293F1BC281EF000DD2C7 /* NotificationsViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		227E29401BC281EF000DD2C7 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227E293F1BC281EF000DD2C7 /* NotificationsViewController.swift */; };
 		228124F91B945CC80037B8CB /* Forecast.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 228124F81B945CC80037B8CB /* Forecast.xcassets */; };
 		228904BC1BA815D3006259AB /* Overlays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228904BB1BA815D3006259AB /* Overlays.swift */; };
 		22900BB31AEE7616009D9C8F /* MjolnirSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22900BB21AEE7616009D9C8F /* MjolnirSpinner.swift */; };
@@ -35,7 +36,7 @@
 		229124991B81E8B100DC6867 /* WindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */; };
 		2291249A1B81E8DB00DC6867 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C5C3617EC826800E84D3C /* TabBarController.m */; };
 		229533511B1F3F8A00DAEA62 /* MeasureCancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229533501B1F3F8A00DAEA62 /* MeasureCancelButton.swift */; };
-		229DFAE61BBC2B510091F931 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 229DFAE51BBC2B510091F931 /* FacebookSDK.framework */; settings = {ASSET_TAGS = (); }; };
+		229DFAE61BBC2B510091F931 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 229DFAE51BBC2B510091F931 /* FacebookSDK.framework */; };
 		229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
 		229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3171A7EE3A0008A3226 /* VaavudViews.swift */; };
 		22AB2E6D1A70FC15008CAE46 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */; };
@@ -47,7 +48,7 @@
 		22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */; };
 		22B74D871BB1408F00D39999 /* VaavudSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22EE9B801BB13E5800F3C331 /* VaavudSDK.framework */; };
 		22B74D881BB1408F00D39999 /* VaavudSDK.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 22EE9B801BB13E5800F3C331 /* VaavudSDK.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		22BBC2A41BAC3407005E0A95 /* Map.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22BBC2A31BAC3407005E0A95 /* Map.xcassets */; settings = {ASSET_TAGS = (); }; };
+		22BBC2A41BAC3407005E0A95 /* Map.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22BBC2A31BAC3407005E0A95 /* Map.xcassets */; };
 		22C8AB3E1B8F33340064DB8B /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8AB3D1B8F33340064DB8B /* ForecastViewController.swift */; };
 		22CECB181AF22CE300148045 /* Settings.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22CECB171AF22CE300148045 /* Settings.xcassets */; };
 		22DCCED41B02399800D65265 /* RoundMeasureScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DCCED31B02399800D65265 /* RoundMeasureScreen.swift */; };
@@ -149,6 +150,62 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2237A1C21BFB22A000A9A603 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 905D07181A63DE190076B54E;
+			remoteInfo = "MagicalRecord for iOS";
+		};
+		2237A1C41BFB22A000A9A603 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9004F5211A94CBCF00A61312;
+			remoteInfo = "MagicalRecord for iOS Tests";
+		};
+		2237A1C61BFB22A000A9A603 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 905D073B1A63DE690076B54E;
+			remoteInfo = "MagicalRecord for OS X";
+		};
+		2237A1C81BFB22A000A9A603 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9004F5661A94CBF900A61312;
+			remoteInfo = "MagicalRecord for OS X Tests";
+		};
+		2237A1CA1BFB22A000A9A603 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C7CF97AB17498414008D9D13;
+			remoteInfo = "libMagicalRecord for iOS";
+		};
+		2237A1CC1BFB22A000A9A603 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C7CF97FF174984CA008D9D13;
+			remoteInfo = "libMagicalRecord for iOS Tests";
+		};
+		2237A1CE1BFB22A000A9A603 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C7CF97BB1749843F008D9D13;
+			remoteInfo = "libMagicalRecord for OS X";
+		};
+		2237A1D01BFB22A000A9A603 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C7CF9816174984E4008D9D13;
+			remoteInfo = "libMagicalRecord for OS X Tests";
+		};
 		22B74D891BB1408F00D39999 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */;
@@ -212,6 +269,7 @@
 		2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasureRootViewController.swift; sourceTree = "<group>"; };
 		2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradingUserViewController.swift; sourceTree = "<group>"; };
 		2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpgradingUserPhonePages.xib; sourceTree = "<group>"; };
+		2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MagicalRecord.xcodeproj; path = Vendor/MagicalRecord/MagicalRecord.xcodeproj; sourceTree = SOURCE_ROOT; };
 		224D260C1AE11AA3006F5C23 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Register.strings; sourceTree = "<group>"; };
 		225572CA1AE2851900153F03 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		2255A63A1A818535006589D5 /* VaavudInteractions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudInteractions.swift; sourceTree = "<group>"; };
@@ -466,6 +524,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2237A1D31BFB22F300A9A603 /* MagicalRecord.framework in Frameworks */,
 				E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */,
 				E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */,
 				E9B627CD1770930D004678D5 /* MobileCoreServices.framework in Frameworks */,
@@ -495,6 +554,21 @@
 				CDE6761506C86D4075981625 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		2237A1B71BFB229F00A9A603 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */,
+				2237A1C51BFB22A000A9A603 /* MagicalRecord for iOS Tests.xctest */,
+				2237A1C71BFB22A000A9A603 /* MagicalRecord.framework */,
+				2237A1C91BFB22A000A9A603 /* MagicalRecord for OS X Tests.xctest */,
+				2237A1CB1BFB22A000A9A603 /* libMagicalRecord.a */,
+				2237A1CD1BFB22A000A9A603 /* libMagicalRecord for iOS Tests.xctest */,
+				2237A1CF1BFB22A000A9A603 /* libMagicalRecord.dylib */,
+				2237A1D11BFB22A000A9A603 /* libMagicalRecord for OS X Tests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		226910451BCFCB2C00116673 /* ProBadgeHtml */ = {
@@ -613,6 +687,7 @@
 		D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */,
 				226910451BCFCB2C00116673 /* ProBadgeHtml */,
 				22FA6C501A727171004DD868 /* VaavudStyle.swift */,
 				22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */,
@@ -914,6 +989,7 @@
 				B53D863A9E054A47A41840FD /* Copy Pods Resources */,
 				2235B0C41AA742520003C20B /* ShellScript */,
 				22B74D8B1BB1408F00D39999 /* Embed Frameworks */,
+				DD685B04B1ECB5BE51BB5A4A /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -966,6 +1042,10 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
+					ProductGroup = 2237A1B71BFB229F00A9A603 /* Products */;
+					ProjectRef = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
+				},
+				{
 					ProductGroup = 22EE9B7B1BB13E5800F3C331 /* Products */;
 					ProjectRef = 22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */;
 				},
@@ -978,6 +1058,62 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MagicalRecord.framework;
+			remoteRef = 2237A1C21BFB22A000A9A603 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2237A1C51BFB22A000A9A603 /* MagicalRecord for iOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "MagicalRecord for iOS Tests.xctest";
+			remoteRef = 2237A1C41BFB22A000A9A603 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2237A1C71BFB22A000A9A603 /* MagicalRecord.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MagicalRecord.framework;
+			remoteRef = 2237A1C61BFB22A000A9A603 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2237A1C91BFB22A000A9A603 /* MagicalRecord for OS X Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "MagicalRecord for OS X Tests.xctest";
+			remoteRef = 2237A1C81BFB22A000A9A603 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2237A1CB1BFB22A000A9A603 /* libMagicalRecord.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libMagicalRecord.a;
+			remoteRef = 2237A1CA1BFB22A000A9A603 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2237A1CD1BFB22A000A9A603 /* libMagicalRecord for iOS Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "libMagicalRecord for iOS Tests.xctest";
+			remoteRef = 2237A1CC1BFB22A000A9A603 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2237A1CF1BFB22A000A9A603 /* libMagicalRecord.dylib */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.dylib";
+			path = libMagicalRecord.dylib;
+			remoteRef = 2237A1CE1BFB22A000A9A603 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		2237A1D11BFB22A000A9A603 /* libMagicalRecord for OS X Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "libMagicalRecord for OS X Tests.xctest";
+			remoteRef = 2237A1D01BFB22A000A9A603 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		22EE9B801BB13E5800F3C331 /* VaavudSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1082,6 +1218,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DD685B04B1ECB5BE51BB5A4A /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
