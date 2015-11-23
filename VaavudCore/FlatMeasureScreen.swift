@@ -134,7 +134,6 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
             windchillLabel.text = "-"
             windchillUnitLabel.alpha = 0
         }
-        
     }
     
     func newHeading(heading: CGFloat) {

@@ -45,9 +45,15 @@
 @property (nonatomic) NSDate *viewAppearedTime;
 @property (nonatomic) NSTimer *showGuideViewTimer;
 
+@property (nonatomic) NSDictionary *logProperties;
+
 @end
 
 @implementation MapViewController
+
+-(void)resetLogProperties {
+//    self.logProperties = @{  }
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -183,6 +189,8 @@
 
     [self loadMeasurements:forceReload showActivityIndicator:NO];
     [self removeOldForecasts];
+    
+    [[Amplitude instance] logEvent:@"Map::Began"];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -278,6 +286,8 @@
     
     CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
     CLLocationCoordinate2D loc = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
+
+    [[Amplitude instance] logEvent:@"Map::Added-Forecast-Pin"];
 
     [self addPin:loc];
 }
@@ -637,9 +647,12 @@
         
         if (self.isSelectingFromTableView) {
             [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"nearby measurement touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Nearby Measurements"];
+            [[Amplitude instance] logEvent:@"Map::Tapped-Nearby"];
         }
         else {
             [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"measurement marker touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Map"];
+            [[Amplitude instance] logEvent:@"Map::Tapped-Marker"];
+
         }
         
         [MixpanelUtil addMapInteractionToProfile];
@@ -771,6 +784,7 @@
                 self.hoursAgo = hourOptionInt;
                 [Property setAsInteger:[NSNumber numberWithInt:self.hoursAgo] forKey:KEY_MAP_HOURS];
                 isOptionChanged = YES;
+                [[Amplitude instance] logEvent:@"Map::Changed-Timeframe"];
                 break;
             }
         }

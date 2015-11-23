@@ -20,7 +20,7 @@ class CoreSettingsTableViewController: UITableViewController {
     @IBOutlet weak var directionUnitControl: UISegmentedControl!
     @IBOutlet weak var pressureUnitControl: UISegmentedControl!
     @IBOutlet weak var temperatureUnitControl: UISegmentedControl!
-    //    @IBOutlet weak var facebookControl: UISwitch!
+
     @IBOutlet weak var dropboxControl: UISwitch!
     @IBOutlet weak var sleipnirClipControl: UISegmentedControl!
     
@@ -36,8 +36,7 @@ class CoreSettingsTableViewController: UITableViewController {
         limitControl.selectedSegmentIndex = Property.getAsBoolean(KEY_MEASUREMENT_TIME_UNLIMITED) ? 1 : 0
         
         versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
-//        facebookControl.on = Property.getAsBoolean("enableFacebookShareDialog", defaultValue: false)
-                
+        
         dropboxControl.on = DBSession.sharedSession().isLinked()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
@@ -94,8 +93,9 @@ class CoreSettingsTableViewController: UITableViewController {
         }
     }
     
-    func postUnitChange() {
+    func postUnitChange(unitType: String) {
         NSNotificationCenter.defaultCenter().postNotificationName(KEY_UNIT_CHANGED, object: self)
+        LogHelper.log(event: "Changed-Unit", properties: ["place" : "settings", "type" : unitType])
     }
     
     deinit {
@@ -133,6 +133,7 @@ class CoreSettingsTableViewController: UITableViewController {
     
     func logoutConfirmed() {
         AccountManager.sharedInstance().logout()
+        LogHelper.log(event: "Logged-Out", properties: ["place" : "settings"])
     }
     
     func registerUser() {
@@ -159,27 +160,23 @@ class CoreSettingsTableViewController: UITableViewController {
 
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {
         Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_WIND_SPEED_UNIT)
-        postUnitChange()
+        postUnitChange("speed")
     }
     
     @IBAction func changedDirectionUnit(sender: UISegmentedControl) {
         Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_DIRECTION_UNIT)
-        postUnitChange()
+        postUnitChange("direction")
     }
     
     @IBAction func changedPressureUnit(sender: UISegmentedControl) {
         Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_PRESSURE_UNIT)
-        postUnitChange()
+        postUnitChange("pressure")
     }
     
     @IBAction func changedTemperatureUnit(sender: UISegmentedControl) {
         Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_TEMPERATURE_UNIT)
-        postUnitChange()
+        postUnitChange("temperature")
     }
-    
-//    @IBAction func changedFacebookSetting(sender: UISwitch) {
-//        Property.setAsBoolean(sender.on, forKey: "enableFacebookShareDialog")
-//    }
     
     @IBAction func changedMeterModel(sender: UISegmentedControl) {
         let usesSleipnir = sender.selectedSegmentIndex == 1
@@ -221,6 +218,7 @@ class CoreSettingsTableViewController: UITableViewController {
             else if segue.identifier == "BuyWindmeterSegue" {
                 webViewController.url = VaavudInteractions.buySleipnirUrl("settings")
                 webViewController.title = NSLocalizedString("SETTINGS_SHOP_LINK", comment: "")
+                LogHelper.log(event: "Pressed-Buy", properties: ["place" : "settings"])
             }
         }
         else if let firstTimeViewController = segue.destinationViewController as? FirstTimeFlowController {

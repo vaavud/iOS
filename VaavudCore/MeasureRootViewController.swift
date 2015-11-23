@@ -55,8 +55,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     let isSleipnirSession: Bool
-    
-    private var formatter = VaavudFormatter()
 
     @IBOutlet weak var pager: UIPageControl!
     
@@ -182,7 +180,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         displayLink = CADisplayLink(target: self, selector: Selector("tick:"))
         displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
         
-        unitButton.setTitle(formatter.windSpeedUnit.localizedString, forState: .Normal)
+        unitButton.setTitle(VaavudFormatter.shared.windSpeedUnit.localizedString, forState: .Normal)
         
         if Property.isMixpanelEnabled() {
             Mixpanel.sharedInstance().track("Measure Screen")
@@ -191,6 +189,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         if let mjolnir = mjolnir {
             mjolnir.delegate = self
         }
+    }
+    
+    func postUnitChange(unitType: String) {
+        LogHelper.log(event: "Changed-Unit", properties: ["place" : "measure", "type" : unitType])
     }
     
     @IBAction func pressedVariant(sender: UILongPressGestureRecognizer) {
@@ -204,9 +206,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
 
     @IBAction func tappedUnit(sender: UIButton) {
-        formatter.windSpeedUnit = formatter.windSpeedUnit.next
-        unitButton.setTitle(formatter.windSpeedUnit.localizedString, forState: .Normal)
-        currentConsumer?.changedSpeedUnit(formatter.windSpeedUnit)
+        VaavudFormatter.shared.windSpeedUnit = VaavudFormatter.shared.windSpeedUnit.next
+        unitButton.setTitle(VaavudFormatter.shared.windSpeedUnit.localizedString, forState: .Normal)
+        currentConsumer?.changedSpeedUnit(VaavudFormatter.shared.windSpeedUnit)
+        postUnitChange("speed")
     }
     
     @IBAction func tappedCancel(sender: MeasureCancelButton) {
@@ -623,7 +626,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     func changeConsumer(mc: MeasurementConsumer) {
         mc.newSpeed(latestSpeed)
-        mc.changedSpeedUnit(formatter.windSpeedUnit)
+        mc.changedSpeedUnit(VaavudFormatter.shared.windSpeedUnit)
         if isSleipnirSession {
             mc.newWindDirection(latestWindDirection)
             mc.newHeading(latestHeading)

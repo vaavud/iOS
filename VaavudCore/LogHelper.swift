@@ -1,0 +1,101 @@
+//
+//  LogHelper.swift
+//  Vaavud
+//
+//  Created by Gustaf Kugelberg on 23/11/15.
+//  Copyright © 2015 Andreas Okholm. All rights reserved.
+//
+
+import Foundation
+
+
+class LogHelper: NSObject {
+    private var dict: [String : AnyObject]
+    private let counters: [String]
+    private let group: LogGroup
+    private var beganDate = NSDate()
+    private var used = 0
+    
+    init(_ group: LogGroup, dict: [String : AnyObject] = [:], counters: String...) {
+        self.group = group
+        self.dict = dict
+        self.counters = counters
+        super.init()
+        resetCounters()
+    }
+    
+    func addProperty(key: String, value: AnyObject) {
+        dict[key] = value
+    }
+    
+    func log(event: String, properties: [String : AnyObject] = [:]) {
+        LogHelper.log(group, event: event, properties: properties)
+    }
+    
+    func increase(counter: String? = nil) {
+        if let counter = counter {
+            if let oldValue = dict[counter] as? Int {
+                dict[counter] = oldValue + 1
+            }
+            else {
+                fatalError("LogHelper: Counter doesn't exist'")
+            }
+        }
+        
+        used++
+    }
+    
+    func began(properties: [String : AnyObject] = [:]) {
+        beganDate = NSDate()
+        resetCounters()
+        
+        for (key, value) in properties {
+            dict[key] = value
+        }
+        
+        LogHelper.log(group, event: "Began", properties: properties)
+    }
+    
+    func ended(properties: [String : AnyObject] = [:]) {
+        for (key, value) in properties {
+            dict[key] = value
+        }
+        
+        dict["duration"] = NSDate().timeIntervalSinceDate(beganDate)
+
+        if counters.count > 0 || used > 0 {
+            dict["used"] = used
+        }
+        
+        LogHelper.log(group, event: "Ended", properties: dict)
+    }
+    
+    private func resetCounters() {
+        for key in counters {
+            dict[key] = 0
+        }
+    }
+    
+    private func sumCounters() -> Int {
+        return counters.reduce(0) { sum, key in sum + (self.dict[key]! as! Int) }
+    }
+    
+    class func log(group: LogGroup = .Free, event: String, properties: [String : AnyObject] = [:]) {
+        Amplitude.instance().logEvent(group.rawValue + "::" + event, withEventProperties: properties)
+        print("\(group.rawValue)::\(event) - \(properties)")
+    }
+}
+
+enum LogGroup: String {
+    case Free = "Free"
+    case Activities = "Activities"
+    case Map = "Map"
+    case Forecast = "Forecast"
+    case History = "History"
+    case Summary = "Summary"
+    case Measure = "Measure"
+    case Result = "Result"
+    case Notifications = "Notifications"
+    case NotificationDetails = "Notification-Details"
+    case URLScheme = "URL-Scheme"
+}

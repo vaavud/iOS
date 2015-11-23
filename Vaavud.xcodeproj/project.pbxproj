@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2205C28D1C03781400105F45 /* MagicalRecord.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */; };
+		2205C28E1C03781400105F45 /* MagicalRecord.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		220A30EC1B6F77250011DDA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 220A30EB1B6F77250011DDA9 /* Images.xcassets */; };
 		220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */; };
 		221285B21B04A6F500D4C008 /* FlatMeasureScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221285B11B04A6F500D4C008 /* FlatMeasureScreen.swift */; };
@@ -65,6 +67,8 @@
 		22E602471B6F67C600B706E0 /* ActivityFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E602461B6F67C600B706E0 /* ActivityFlowViewController.swift */; };
 		22EAE5CF1AB1EA5C0037654E /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D21AB1EA5C0037654E /* Register.storyboard */; };
 		22EAE5D61AB1EBEA0037654E /* UpgradingUserPagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D81AB1EBEA0037654E /* UpgradingUserPagesView.xib */; };
+		22F1BDF11BFF507700B18B68 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F1BDF01BFF507700B18B68 /* Fabric.framework */; };
+		22F2B3671C032A8E001D7AD7 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F2B3661C032A8E001D7AD7 /* LogHelper.swift */; };
 		22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
 		A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A086025EA7704C458175CADF /* libPods.a */; };
 		D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
@@ -150,6 +154,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		2205C28F1C03781400105F45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 905D07171A63DE190076B54E;
+			remoteInfo = "MagicalRecord for iOS";
+		};
 		2237A1C21BFB22A000A9A603 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
@@ -236,6 +247,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				2205C28E1C03781400105F45 /* MagicalRecord.framework in Embed Frameworks */,
 				22B74D881BB1408F00D39999 /* VaavudSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -344,6 +356,8 @@
 		22EAE5D71AB1EBEA0037654E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/UpgradingUserPagesView.xib; sourceTree = "<group>"; };
 		22EAE5DC1AB1ECD90037654E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VaavudSDK.xcodeproj; path = "../vaavud-ios-sdk/VaavudSDK.xcodeproj"; sourceTree = "<group>"; };
+		22F1BDF01BFF507700B18B68 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		22F2B3661C032A8E001D7AD7 /* LogHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogHelper.swift; sourceTree = "<group>"; };
 		22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Bridging-Header.h"; sourceTree = "<group>"; };
 		22FA6C501A727171004DD868 /* VaavudStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VaavudStyle.swift; path = Vaavud/StyleKit/VaavudStyle.swift; sourceTree = SOURCE_ROOT; };
 		A086025EA7704C458175CADF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -529,8 +543,10 @@
 				E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */,
 				E9B627CD1770930D004678D5 /* MobileCoreServices.framework in Frameworks */,
 				E9B627CB177092EF004678D5 /* SystemConfiguration.framework in Frameworks */,
+				22F1BDF11BFF507700B18B68 /* Fabric.framework in Frameworks */,
 				E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */,
 				D7B5BD531757A23C0069F739 /* CoreLocation.framework in Frameworks */,
+				2205C28D1C03781400105F45 /* MagicalRecord.framework in Frameworks */,
 				2256C19B1AA7450E00782314 /* Crashlytics.framework in Frameworks */,
 				D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */,
 				D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */,
@@ -627,6 +643,7 @@
 		D7A4F1C9173A8DDB00D1ACEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				22F1BDF01BFF507700B18B68 /* Fabric.framework */,
 				229DFAE51BBC2B510091F931 /* FacebookSDK.framework */,
 				22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */,
 				2256C19A1AA7450E00782314 /* Crashlytics.framework */,
@@ -651,6 +668,7 @@
 		D7A4F1D0173A8DDB00D1ACEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				22F2B3661C032A8E001D7AD7 /* LogHelper.swift */,
 				222F30621BC2944800CD607B /* NotificationDetailsViewController.swift */,
 				227E293F1BC281EF000DD2C7 /* NotificationsViewController.swift */,
 				228904BB1BA815D3006259AB /* Overlays.swift */,
@@ -995,6 +1013,7 @@
 			);
 			dependencies = (
 				22B74D8A1BB1408F00D39999 /* PBXTargetDependency */,
+				2205C2901C03781400105F45 /* PBXTargetDependency */,
 			);
 			name = Vaavud;
 			productName = VaavudCore;
@@ -1303,6 +1322,7 @@
 				22E602471B6F67C600B706E0 /* ActivityFlowViewController.swift in Sources */,
 				E9B950E4195C587800E9EF02 /* FirstTimeFlowController.m in Sources */,
 				226910501BCFCE6900116673 /* UserTab.swift in Sources */,
+				22F2B3671C032A8E001D7AD7 /* LogHelper.swift in Sources */,
 				229124991B81E8B100DC6867 /* WindMeasurementController.m in Sources */,
 				E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */,
 				22728BEE1B6BA30200AFE634 /* UIImage+Vaavud.m in Sources */,
@@ -1334,6 +1354,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2205C2901C03781400105F45 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "MagicalRecord for iOS";
+			targetProxy = 2205C28F1C03781400105F45 /* PBXContainerItemProxy */;
+		};
 		22B74D8A1BB1408F00D39999 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = VaavudSDK;

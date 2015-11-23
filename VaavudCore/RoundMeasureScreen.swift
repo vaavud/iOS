@@ -44,8 +44,6 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     private var latestSpeed: CGFloat = 0
     
     private var lockNorth = false
-
-    let formatter = VaavudFormatter()
     
     var weight: CGFloat = 0.1
 
@@ -86,7 +84,7 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     func changedSpeedUnit(unit: SpeedUnit) {
         newSpeed(latestSpeed)
         
-        if formatter.windSpeedUnit == .Bft {
+        if VaavudFormatter.shared.windSpeedUnit == .Bft {
             animateLogScale(0)
         }
     }
@@ -102,7 +100,7 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     }
     
     var scaledSpeed: CGFloat {
-        return formatter.windSpeedUnit.fromBase(latestSpeed)
+        return VaavudFormatter.shared.windSpeedUnit.fromBase(latestSpeed)
     }
     
     func toggleVariant() {}
@@ -122,7 +120,7 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
         
         let inside = ruler.insideFactor
         
-        if !animatingScale && formatter.windSpeedUnit != .Bft {
+        if !animatingScale && VaavudFormatter.shared.windSpeedUnit != .Bft {
             if inside > 0.95 {
                 animateLogScale(logScale + 1)
             }
@@ -160,7 +158,7 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     
     func newSpeed(speed: CGFloat) {
         latestSpeed = speed
-        speedLabel.text = formatter.localizedWindspeed(Float(speed), digits: 3)
+        speedLabel.text = VaavudFormatter.shared.localizedWindspeed(Float(speed), digits: 3)
     }
     
     func newHeading(heading: CGFloat) {

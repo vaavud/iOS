@@ -23,8 +23,6 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     
     var arrowScale: CGFloat = 1
     
-    let formatter = VaavudFormatter()
-    
     private var latestHeading: CGFloat = 0
     private var latestDirection: CGFloat = 0
     private var smoothDirection: CGFloat = 0
@@ -48,7 +46,7 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        speedUnitLabel.text = formatter.windSpeedUnit.localizedString
+        speedUnitLabel.text = VaavudFormatter.shared.windSpeedUnit.localizedString
         
         animator = UIDynamicAnimator(referenceView: view)
         scaleItem = DynamicItem(centerCallback: { [unowned self] in
@@ -115,22 +113,22 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     // MARK: Callbacks
     func tick() {
         smoothSpeed = weight*latestSpeed + (1 - weight)*smoothSpeed
-        graph.reading = formatter.windSpeedUnit.fromBase(smoothSpeed)
+        graph.reading = VaavudFormatter.shared.windSpeedUnit.fromBase(smoothSpeed)
         
         maxSpeed = max(smoothSpeed, maxSpeed)
-        maxSpeedLabel.text = formatter.localizedWindspeed(Float(maxSpeed), digits: 3)
+        maxSpeedLabel.text = VaavudFormatter.shared.localizedWindspeed(Float(maxSpeed), digits: 3)
 
         smoothDirection = weight*latestDirection + (1 - weight)*smoothDirection
         arrowView.transform = Affine.rotation(smoothDirection.radians).scale(arrowScale)
 
         if !usesMjolnir {
-            directionLabel.text = formatter.localizedDirection(Float(mod(smoothDirection, 360)))
+            directionLabel.text = VaavudFormatter.shared.localizedDirection(Float(mod(smoothDirection, 360)))
         }
         
         avgSpeed = avgWeight*latestSpeed + (1 - avgWeight)*avgSpeed
         
-        graph.average = formatter.windSpeedUnit.fromBase(avgSpeed)
-        avgSpeedLabel.text = formatter.localizedWindspeed(Float(avgSpeed), digits: 3)
+        graph.average = VaavudFormatter.shared.windSpeedUnit.fromBase(avgSpeed)
+        avgSpeedLabel.text = VaavudFormatter.shared.localizedWindspeed(Float(avgSpeed), digits: 3)
         
         if abs(targetLogScale - graph.logScale) < 0.01 {
             animatingScale = false
@@ -158,7 +156,7 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     
     func newSpeed(speed: CGFloat) {
         latestSpeed = speed
-        speedLabel.text = formatter.localizedWindspeed(Float(speed), digits: 3)
+        speedLabel.text = VaavudFormatter.shared.localizedWindspeed(Float(speed), digits: 3)
     }
     
     func newHeading(heading: CGFloat) {
@@ -166,7 +164,7 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     }
     
     func changedSpeedUnit(unit: SpeedUnit) {
-        speedUnitLabel.text = formatter.windSpeedUnit.localizedString
+        speedUnitLabel.text = VaavudFormatter.shared.windSpeedUnit.localizedString
         newSpeed(latestSpeed)
     }
 }

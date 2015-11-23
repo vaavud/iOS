@@ -108,8 +108,12 @@
     self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];
     
+#ifdef DEBUG
     [[Amplitude instance] initializeApiKey:@"043371ecbefba51ec63a992d0cc57491"];
-
+#else
+    [[Amplitude instance] initializeApiKey:@"7a5147502033e658f1357bc04b793a2b"];
+#endif
+    [[Amplitude instance] enableLocationListening];
     return YES;
 }
 							

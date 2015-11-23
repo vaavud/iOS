@@ -36,6 +36,7 @@ class VaavudInteractions: NSObject, UIAlertViewDelegate {
         if Property.isMixpanelEnabled() {
             Mixpanel.sharedInstance().track(source + " Clicked Buy")
         }
+        LogHelper.log(event: "Pressed-Buy", properties: ["place" : source])
         UIApplication.sharedApplication().openURL(buySleipnirUrl(source))
     }
 

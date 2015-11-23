@@ -336,6 +336,8 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
 
     private var didSetup = false
     
+    private let logHelper = LogHelper(.Forecast, counters: "scrolled")
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         if Property.isMixpanelEnabled() {
@@ -349,13 +351,12 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    @IBAction func tappedAttribution(sender: UIButton) {
-        if let url = NSURL(string: "http://forecast.io") {
-            UIApplication.sharedApplication().openURL(url)
-        }
+    override func viewDidAppear(animated: Bool) {
+        logHelper.began()
     }
     
-    @IBAction func tappedProBadge(sender: UIButton) {
+    override func viewDidDisappear(animated: Bool) {
+        logHelper.ended()
     }
     
     override func viewDidLayoutSubviews() {
@@ -445,6 +446,17 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    @IBAction func tappedAttribution(sender: UIButton) {
+        if let url = NSURL(string: "http://forecast.io") {
+            LogHelper.log(event: "Tapped-Forecast-Attribution", properties: ["place" : "forecast"])
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    
+    @IBAction func tappedProBadge(sender: UIButton) {
+        LogHelper.log(event: "Tapped-Pro-Badge", properties: ["place" : "forecast"])
+    }
+
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let offset = scrollView.contentInset.left + scrollView.contentOffset.x
         
@@ -459,6 +471,10 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
                 dv.revealGraph()
             }
         }
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        logHelper.increase("scrolled")
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
