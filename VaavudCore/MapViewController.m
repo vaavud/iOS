@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
-#import "Vaavud-Swift.h"
 #import "MapViewController.h"
 #import "MeasurementAnnotation.h"
 #import "UnitUtil.h"
@@ -20,6 +19,7 @@
 #import "TabBarController.h"
 #import "MixpanelUtil.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "Vaavud-Swift.h"
 
 #include <math.h>
 
@@ -44,15 +44,20 @@
 @property (nonatomic) UIImage *placeholderImage;
 @property (nonatomic) NSDate *viewAppearedTime;
 @property (nonatomic) NSTimer *showGuideViewTimer;
-
-@property (nonatomic) NSDictionary *logProperties;
+@property (nonatomic) LogHelper *logHelper;
 
 @end
 
 @implementation MapViewController
 
--(void)resetLogProperties {
-//    self.logProperties = @{  }
+-(instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    
+    if (self) {
+        self.logHelper = [[LogHelper alloc] initWithGroupName:@"Map" counters:@[@"scrolled", @"tapped-marker"]];
+    }
+    
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -62,7 +67,7 @@
     //NSLog(@"[MapViewController] viewDidLoad");
     
     self.lastMeasurementsRead = [NSDate distantPast];
-
+    
     self.isLoading = NO;
     self.isSelectingFromTableView = NO;
     self.analyticsGridDegree = [[Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] doubleValue];
@@ -189,8 +194,6 @@
 
     [self loadMeasurements:forceReload showActivityIndicator:NO];
     [self removeOldForecasts];
-    
-    [[Amplitude instance] logEvent:@"Map::Began"];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -209,6 +212,8 @@
     self.viewAppearedTime = [NSDate date];
     
     [self showGuideIfNeeded];
+    
+    [self.logHelper began:@{}];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -229,6 +234,11 @@
     if (self.refreshTimer && self.refreshTimer != nil) {
         [self.refreshTimer invalidate];
     }
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.logHelper ended:@{}];
 }
 
 - (void)showGuideIfNeeded {
@@ -277,6 +287,7 @@
 
 - (void)addLongPress {
     [self.mapView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)]];
+    [self.logHelper log:@"Can-Add-Forecast-Pin" properties:@{}];
 }
 
 - (void)longPressed:(UIGestureRecognizer *)gestureRecognizer {
@@ -287,7 +298,7 @@
     CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
     CLLocationCoordinate2D loc = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
 
-    [[Amplitude instance] logEvent:@"Map::Added-Forecast-Pin"];
+    [self.logHelper log:@"Added-Forecast-Pin" properties:@{}];
 
     [self addPin:loc];
 }
@@ -600,6 +611,10 @@
     return nil;
 }
 
+-(void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered {
+    [self.logHelper increase:@"scrolled"];
+}
+
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
 	if ([view.annotation isKindOfClass:[MeasurementAnnotation class]]) {
         NSArray *nearbyAnnotations;
@@ -647,12 +662,12 @@
         
         if (self.isSelectingFromTableView) {
             [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"nearby measurement touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Nearby Measurements"];
-            [[Amplitude instance] logEvent:@"Map::Tapped-Nearby"];
+            [self.logHelper log:@"Tapped-Nearby" properties:@{}];
         }
         else {
             [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"measurement marker touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Map"];
-            [[Amplitude instance] logEvent:@"Map::Tapped-Marker"];
-
+            [self.logHelper log:@"Tapped-Marker" properties:@{}];
+            [self.logHelper increase:@"tapped-marker"];
         }
         
         [MixpanelUtil addMapInteractionToProfile];
@@ -784,7 +799,8 @@
                 self.hoursAgo = hourOptionInt;
                 [Property setAsInteger:[NSNumber numberWithInt:self.hoursAgo] forKey:KEY_MAP_HOURS];
                 isOptionChanged = YES;
-                [[Amplitude instance] logEvent:@"Map::Changed-Timeframe"];
+                [self.logHelper log:@"Changed-Timeframe" properties:@{}];
+
                 break;
             }
         }

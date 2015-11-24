@@ -30,6 +30,8 @@ class CoreSettingsTableViewController: UITableViewController {
     
     @IBOutlet weak var versionLabel: UILabel!
     
+    private let logHelper = LogHelper(.Settings, counters: "scrolled")
+    
     override func viewDidLoad() {
         hideVolumeHUD()
         
@@ -53,6 +55,16 @@ class CoreSettingsTableViewController: UITableViewController {
         refreshWindmeterModel()
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        logHelper.began()
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        logHelper.ended()
+    }
+    
     func modelChanged(note: NSNotification) {
         refreshWindmeterModel()
     }

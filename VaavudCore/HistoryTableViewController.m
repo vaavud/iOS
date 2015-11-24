@@ -46,6 +46,7 @@
 @property (nonatomic) NSUUID *uuidToOpen;
 
 @property (nonatomic) CGRect previousFrame;
+@property (nonatomic) LogHelper *logHelper;
 
 @end
 
@@ -57,7 +58,6 @@
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historySynced) name:KEY_HISTORY_SYNCED object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUnits) name:KEY_UNIT_CHANGED object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openSummary:) name:KEY_OPEN_LATEST_SUMMARY object:nil];
         
         self.geocoder = [[CLGeocoder alloc] init];
         self.dateFormatter = [[NSDateFormatter alloc] init];
@@ -65,6 +65,7 @@
         
         self.spinner = [[MjolnirSpinner alloc] initWithFrame:CGRectMake(100, 100, 100, 100)];
         self.spinner.alpha = 0.4;
+        self.logHelper = [[LogHelper alloc] initWithGroupName:@"History" counters:@[@"scrolled", @"tapped-measurement"]];
     }
     
     return self;
@@ -526,18 +527,9 @@
     [self refreshEmptyState];
 }
 
--(void)openSummary:(NSNotification *)notification {
-    [self.navigationController popToRootViewControllerAnimated:NO];
-
-    NSUUID *uuid = notification.userInfo[@"uuid"];
-    CoreSummaryViewController *summary = [self.storyboard instantiateViewControllerWithIdentifier:@"SummaryViewController"];
-    summary.session = [MeasurementSession MR_findFirstByAttribute:@"uuid" withValue:uuid];
-    summary.historySummary = YES;
-    
-    [self.navigationController pushViewController:summary animated:NO];
-}
-
 -(BOOL)shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender {
+    [self.logHelper log:@"Tapped-Measurement" properties:@{}];
+
     return [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow] != nil || self.uuidToOpen != nil;
 }
 

@@ -122,8 +122,6 @@
 }
 
 -(void)getFirebaseId:(NSString *)tomcatId {
-    NSLog(@"getFirebaseId tomcat: %@", tomcatId);
-
     if (tomcatId == nil) {
         return;
     }
@@ -134,9 +132,9 @@
     
     [[[NSURLSession sharedSession] downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
         if (location) {
-            NSString *string = [NSString stringWithContentsOfURL:location usedEncoding:nil error:nil];
-            if (string) {
-                [[Amplitude instance] setUserId:string];
+            NSString *firebaseId = [NSString stringWithContentsOfURL:location usedEncoding:nil error:nil];
+            if (firebaseId) {
+                [[Amplitude instance] setUserId:firebaseId];
             }
         }
     }] resume];
@@ -225,6 +223,7 @@
                         if ([Property isMixpanelEnabled]) {
                             [[Mixpanel sharedInstance] track:@"Opened with url scheme" properties:@{ @"From App" : sourceApplication }];
                         }
+                        [LogHelper logWithGroupName:@"URL-Scheme" event:@"Opened" properties:@{ @"source" : sourceApplication }];
                     }
                 }
             }

@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class LogHelper: NSObject {
     private var dict: [String : AnyObject]
     private let counters: [String]
@@ -19,6 +18,14 @@ class LogHelper: NSObject {
     init(_ group: LogGroup, dict: [String : AnyObject] = [:], counters: String...) {
         self.group = group
         self.dict = dict
+        self.counters = counters
+        super.init()
+        resetCounters()
+    }
+    
+    init(groupName: String, counters: [String]) {
+        self.group = LogGroup(rawValue: groupName) ?? .Free
+        self.dict = [:]
         self.counters = counters
         super.init()
         resetCounters()
@@ -68,6 +75,7 @@ class LogHelper: NSObject {
         }
         
         LogHelper.log(group, event: "Ended", properties: dict)
+        resetCounters()
     }
     
     private func resetCounters() {
@@ -80,6 +88,10 @@ class LogHelper: NSObject {
         return counters.reduce(0) { sum, key in sum + (self.dict[key]! as! Int) }
     }
     
+    class func logWithGroupName(groupName: String, event: String, properties: [String : AnyObject] = [:]) {
+        self.log(LogGroup(rawValue: groupName) ?? .Free, event: event, properties: properties)
+    }
+
     class func log(group: LogGroup = .Free, event: String, properties: [String : AnyObject] = [:]) {
         Amplitude.instance().logEvent(group.rawValue + "::" + event, withEventProperties: properties)
         print("\(group.rawValue)::\(event) - \(properties)")
@@ -95,6 +107,7 @@ enum LogGroup: String {
     case Summary = "Summary"
     case Measure = "Measure"
     case Result = "Result"
+    case Settings = "Settings"
     case Notifications = "Notifications"
     case NotificationDetails = "Notification-Details"
     case URLScheme = "URL-Scheme"
