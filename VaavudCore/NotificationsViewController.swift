@@ -24,7 +24,7 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var windspeedSlider: UISlider!
     
     private var windspeed: Float = 15
-    private var notificationType = NotificationType.Measurements
+    private var notificationType: NotificationType = .Measurements
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)

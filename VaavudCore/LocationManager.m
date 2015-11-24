@@ -171,8 +171,6 @@ SHARED_INSTANCE
 - (CLLocationCoordinate2D)storedLocation {
     CLLocationDegrees lat = [Property getAsDouble:KEY_STORED_LOCATION_LAT defaultValue:55.676111].doubleValue;
     CLLocationDegrees lon = [Property getAsDouble:KEY_STORED_LOCATION_LON defaultValue:12.568333].doubleValue;
-
-    NSLog(@"Stored: %.02f:%.02f", lat, lon);
     
     return CLLocationCoordinate2DMake(lat, lon);
 }

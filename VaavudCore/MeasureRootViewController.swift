@@ -42,6 +42,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var viewControllers: [UIViewController]!
     private var displayLink: CADisplayLink!
 
+    private var vcsNames: [String]!
     private let geocoder = CLGeocoder()
     
     private var altimeter: CMAltimeter?
@@ -69,6 +70,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     @IBOutlet weak var errorOverlayBackground: UIView!
     
     var currentConsumer: MeasurementConsumer?
+    var screenUsage = [Double]()
     
     private var latestHeading: CGFloat = 0
     private var latestWindDirection: CGFloat = 0
@@ -83,7 +85,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     private var elapsedSinceUpdate = 0.0
     
-    var state = MeasureState.Done
+    private var logHelper = LogHelper(.Measure, dict: ["used-old" : 0, "used-flat" : 0, "used-retro" : 0])
+    
+    var state: MeasureState = .Done
     var timeLeft = CGFloat(countdownInterval)
     
     required init?(coder aDecoder: NSCoder) {
@@ -140,8 +144,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         hideVolumeHUD()
         
         let (old, flat, round) = ("OldMeasureViewController", "FlatMeasureViewController", "RoundMeasureViewController")
-        let vcsNames = isSleipnirSession ? [old, flat, round] : [old, flat]
+        vcsNames = isSleipnirSession ? [old, flat, round] : [old, flat]
         viewControllers = vcsNames.map { self.storyboard!.instantiateViewControllerWithIdentifier($0) }
+        screenUsage = Array(count: vcsNames.count, repeatedValue: 0)
 
         if !isSleipnirSession { _ = viewControllers.map { ($0 as! MeasurementConsumer).useMjolnir() } }
         
@@ -224,10 +229,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             save(true)
             stop(true)
             mixpanelSend("Cancelled")
+            logStop("cancelled")
         case .Unlimited:
             save(false)
             stop(false)
             mixpanelSend("Stopped")
+            logStop("stopped")
         case .Done:
             break
         }
@@ -240,6 +247,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             speedsCount++
             speedsSum += latestSpeed
             elapsedSinceUpdate += link.duration
+            screenUsage[pager.currentPage] += link.duration
         
             if elapsedSinceUpdate > updatePeriod {
                 elapsedSinceUpdate = 0
@@ -269,6 +277,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 save(false)
                 stop(false)
                 mixpanelSend("Ended")
+                logStop("ended")
             }
             else {
                 timeLeft -= CGFloat(link.duration)
@@ -420,6 +429,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         updateWithSourcedData(session)
         updateWithPressure(session)
         
+        logHelper.began(["time-limit" : state.timed ?? 0, "device" : isSleipnirSession ? "Sleipnir" : "Mjolnir"])
+        
         mixpanelSend("Started")
     }
     
@@ -503,8 +514,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         reportToUrlSchemeCaller(cancel)
         
-        self.displayLink.invalidate()
-        self.currentConsumer = nil
+        displayLink.invalidate()
+        currentConsumer = nil
         
         if cancel {
             if let session = currentSession {
@@ -543,6 +554,15 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 self.errorOverlayBackground.alpha = 0
             }
         }
+    }
+    
+    func logStop(manner: String) {
+        var props: [String : AnyObject] = ["manner" : manner]
+        
+        for (index, key) in vcsNames.enumerate() {
+            props[key] = screenUsage[index]
+        }
+        logHelper.ended(props)
     }
     
     func mixpanelSend(action: String) {
@@ -585,6 +605,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 else if let url = NSURL(string:encoded + "?x-source=Vaavud&windSpeedAvg=\(avgSpeed)&windSpeedMax=\(maxSpeed)") {
                     UIApplication.sharedApplication().openURL(url)
                 }
+                LogHelper.log(.URLScheme, event: "Returned", properties: ["success" : !cancelled])
         }
     }
 
@@ -637,6 +658,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
         if let mc = pendingViewControllers.last as? MeasurementConsumer {
             changeConsumer(mc)
+            
             UIView.animateWithDuration(0.2) {
                 self.updateVariantButton(mc)
             }
@@ -648,6 +670,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         if let vc = pageViewController.viewControllers?.last, mc = vc as? MeasurementConsumer {
             if let current = viewControllers.indexOf(vc) {
                 pager.currentPage = current
+                logHelper.log("Swiped", properties: ["destination" : vcsNames[current]])
             }
             changeConsumer(mc)
             

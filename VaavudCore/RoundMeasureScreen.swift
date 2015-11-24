@@ -171,6 +171,8 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
         lockNorth = !lockNorth
         sender.selected = lockNorth
         
+        LogHelper.log(.Measure, event: "Radar-Toggled-North-Lock", properties: ["on" : lockNorth])
+        
         if lockNorth {
             ruler.compassDirection = distanceOnCircle(from: 0, to: latestHeading)
             latestHeading = 0

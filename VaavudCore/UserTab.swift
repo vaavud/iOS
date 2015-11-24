@@ -29,9 +29,25 @@ class UserTabViewController : UIViewController, UINavigationControllerDelegate {
         }
     }
     
+    override func viewDidAppear(animated: Bool) {
+        if segmentedControl.selectedSegmentIndex == 1 {
+            LogHelper.log(.Notifications, event: "Began")
+        }
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        if segmentedControl.selectedSegmentIndex == 1 {
+            LogHelper.log(.Notifications, event: "Ended")
+        }
+    }
+    
     @IBAction func changedSelection(sender: UISegmentedControl) {
-        historyContainer.hidden = sender.selectedSegmentIndex != 0
-        notificationContainer.hidden = sender.selectedSegmentIndex != 1
+        let showNotifications = sender.selectedSegmentIndex == 1
+        
+        LogHelper.log(.Notifications, event: showNotifications ? "Began" : "Ended")
+        
+        historyContainer.hidden = showNotifications
+        notificationContainer.hidden = !historyContainer.hidden
     }
     
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {

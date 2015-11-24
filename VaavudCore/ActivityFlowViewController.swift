@@ -11,23 +11,30 @@ import UIKit
 class ComingSoonViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
 
+    var suppressLogging = false
     var groupName = ""
-    private var logHelper: LogHelper!
+    private var logHelper: LogHelper?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        logHelper = LogHelper(LogGroup(rawValue: groupName) ?? .Activities)
+        if !suppressLogging {
+            logHelper = LogHelper(LogGroup(rawValue: groupName) ?? .Activities, counters: "scrolled")
+        }
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
         topConstraint.constant = -scrollView.contentOffset.y/3
     }
     
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        logHelper?.increase("scrolled")
+    }
+    
     override func viewDidAppear(animated: Bool) {
-        logHelper.began()
+        logHelper?.began()
     }
     
     override func viewDidDisappear(animated: Bool) {
-        logHelper.ended()
+        logHelper?.ended()
     }
 }

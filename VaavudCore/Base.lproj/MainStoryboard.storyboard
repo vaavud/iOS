@@ -3271,6 +3271,7 @@
                     <navigationItem key="navigationItem" id="819-R2-lcr"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="groupName" value="Notifications"/>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="suppressLogging" value="YES"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="topConstraint" destination="b63-fI-Sjb" id="3vS-wp-fxw"/>

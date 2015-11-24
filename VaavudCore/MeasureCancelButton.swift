@@ -28,10 +28,10 @@ enum MeasureState {
         }
     }
     
-    var timed: Bool {
+    var timed: Int? {
         switch self {
-        case .Limited: return true
-        default: return false
+        case .Limited(let period): return period
+        default: return nil
         }
     }
 }
