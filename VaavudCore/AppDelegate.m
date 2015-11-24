@@ -22,6 +22,7 @@
 #import "MixpanelUtil.h"
 #import "Vaavud-Swift.h"
 #import "Amplitude.h"
+#import "VaavudAPIHTTPClient.h"
 
 @interface AppDelegate() <DBRestClientDelegate>
 
@@ -114,9 +115,33 @@
     [[Amplitude instance] initializeApiKey:@"7a5147502033e658f1357bc04b793a2b"];
 #endif
     [[Amplitude instance] enableLocationListening];
+    
+    [self getFirebaseId:[Property getAsString:KEY_USER_ID]];
+    
     return YES;
 }
-							
+
+-(void)getFirebaseId:(NSString *)tomcatId {
+    NSLog(@"getFirebaseId tomcat: %@", tomcatId);
+
+    if (tomcatId == nil) {
+        return;
+    }
+    
+    NSString *base = @"https://vaavud-core.firebaseio.com/tomcat/userId/success/";
+    NSString *key = @"38bIXjxo8U5TFNYsPU44brfzwg40BBfV2ii1xv8v";
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.json?auth=%@", base, tomcatId, key]];
+    
+    [[[NSURLSession sharedSession] downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+        if (location) {
+            NSString *string = [NSString stringWithContentsOfURL:location usedEncoding:nil error:nil];
+            if (string) {
+                [[Amplitude instance] setUserId:string];
+            }
+        }
+    }] resume];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application {
 }
 
