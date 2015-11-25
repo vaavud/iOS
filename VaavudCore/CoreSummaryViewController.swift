@@ -380,6 +380,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
                 if let error = error { properties["error"] = error }
                 
                 LogHelper.log(group, event: "Shared", properties: properties)
+                LogHelper.increaseUserProperty("Shared")
                 
                 if Property.isMixpanelEnabled() {
                     Mixpanel.sharedInstance().track("User shared", properties: properties)

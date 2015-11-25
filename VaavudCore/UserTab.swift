@@ -43,6 +43,10 @@ class UserTabViewController : UIViewController, UINavigationControllerDelegate {
         LogHelper.log(.Notifications, event: showNotifications ? "Began" : "Ended")
         LogHelper.log(.History, event: !showNotifications ? "Began" : "Ended")
         
+        if !showNotifications {
+            LogHelper.increaseUserProperty("Use-History-Count")
+        }
+        
         historyContainer.hidden = showNotifications
         notificationContainer.hidden = !historyContainer.hidden
     }

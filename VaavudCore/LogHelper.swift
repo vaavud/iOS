@@ -96,6 +96,14 @@ class LogHelper: NSObject {
         Amplitude.instance().logEvent(group.rawValue + "::" + event, withEventProperties: properties)
         print("\(group.rawValue)::\(event) - \(properties)")
     }
+    
+    class func setUserProperty(key: String, value: NSObject) {
+        Amplitude.instance().identify(AMPIdentify().set(key, value: value))
+    }
+    
+    class func increaseUserProperty(key: String) {
+        Amplitude.instance().identify(AMPIdentify().add(key, value: 1))
+    }
 }
 
 enum LogGroup: String {

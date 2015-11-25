@@ -546,6 +546,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             pageController.dataSource = nil
             pageController.setViewControllers([summary], direction: .Forward, animated: true, completion: nil)
             
+            LogHelper.increaseUserProperty("Measurement-Count")
+            
             UIView.animateWithDuration(0.2) {
                 self.unitButton.alpha = 0
                 self.variantButton.alpha = 0
@@ -666,11 +668,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        
         if let vc = pageViewController.viewControllers?.last, mc = vc as? MeasurementConsumer {
             if let current = viewControllers.indexOf(vc) {
                 pager.currentPage = current
-                logHelper.log("Swiped", properties: ["destination" : vcsNames[current]])
+                let currentName = vcsNames[current]
+                logHelper.log("Swiped", properties: ["destination" : currentName])
+                LogHelper.increaseUserProperty("Use-" + currentName)
             }
             changeConsumer(mc)
             

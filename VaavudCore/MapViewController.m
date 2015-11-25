@@ -214,6 +214,7 @@
     [self showGuideIfNeeded];
     
     [self.logHelper began:@{}];
+    [LogHelper increaseUserProperty:@"Use-Map-Count"];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -223,6 +224,7 @@
             
             ForecastViewController *fvc = segue.destinationViewController;
             [fvc setup:annotation];
+            [LogHelper increaseUserProperty:@"Use-Forecast-Count"];
         }
     }
 }
@@ -334,7 +336,6 @@
 }
 
 - (void)refreshEmptyState {
-    NSLog(@"Refresh empty state");
     if (![self isDanish]) {
         return;
     }

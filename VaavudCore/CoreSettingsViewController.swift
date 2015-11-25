@@ -35,8 +35,6 @@ class CoreSettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         hideVolumeHUD()
         
-        limitControl.selectedSegmentIndex = Property.getAsBoolean(KEY_MEASUREMENT_TIME_UNLIMITED) ? 1 : 0
-        
         versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
         
         dropboxControl.on = DBSession.sharedSession().isLinked()
@@ -53,6 +51,7 @@ class CoreSettingsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         refreshLogoutButton()
         refreshWindmeterModel()
+        refreshTimeLimit()
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -87,6 +86,15 @@ class CoreSettingsTableViewController: UITableViewController {
         UIView.animateWithDuration(0.2) {
             self.sleipnirClipView.alpha = usesSleipnir ? 1 : 0
         }
+        
+        LogHelper.setUserProperty("Device", value: usesSleipnir ? "Sleipnir" : "Mjolnir")
+        LogHelper.setUserProperty("Sleipnir-Clip-Frontside", value: sleipnirOnFront)
+    }
+    
+    func refreshTimeLimit() {
+        let unlimited = Property.getAsBoolean(KEY_MEASUREMENT_TIME_UNLIMITED)
+        LogHelper.setUserProperty("Measurement-Limit", value: unlimited ? 0 : limitedInterval)
+        limitControl.selectedSegmentIndex = unlimited ? 1 : 0
     }
     
     func unitsChanged(note: NSNotification) {
@@ -168,6 +176,7 @@ class CoreSettingsTableViewController: UITableViewController {
     
     @IBAction func changedLimitToggle(sender: UISegmentedControl) {
         Property.setAsBoolean(sender.selectedSegmentIndex == 1, forKey: KEY_MEASUREMENT_TIME_UNLIMITED)
+        refreshTimeLimit()
     }
 
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {
@@ -212,6 +221,7 @@ class CoreSettingsTableViewController: UITableViewController {
     @IBAction func changedSleipnirPlacement(sender: UISegmentedControl) {
         let frontPlaced = sender.selectedSegmentIndex == 1
         Property.setAsBoolean(frontPlaced, forKey: KEY_SLEIPNIR_ON_FRONT)
+        refreshWindmeterModel()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
