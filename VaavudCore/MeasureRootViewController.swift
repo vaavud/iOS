@@ -85,7 +85,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     private var elapsedSinceUpdate = 0.0
     
-    private var logHelper = LogHelper(.Measure, dict: ["used-old" : 0, "used-flat" : 0, "used-retro" : 0])
+    private var logHelper = LogHelper(.Measure)
     
     var state: MeasureState = .Done
     var timeLeft = CGFloat(countdownInterval)

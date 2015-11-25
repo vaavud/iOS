@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2205C28D1C03781400105F45 /* MagicalRecord.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */; };
 		2205C28E1C03781400105F45 /* MagicalRecord.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		2205C29F1C060EA700105F45 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2205C29D1C060EA600105F45 /* Fabric.framework */; };
+		2205C2A01C060EA700105F45 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2205C29E1C060EA600105F45 /* Crashlytics.framework */; };
 		220A30EC1B6F77250011DDA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 220A30EB1B6F77250011DDA9 /* Images.xcassets */; };
 		220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */; };
 		221285B21B04A6F500D4C008 /* FlatMeasureScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221285B11B04A6F500D4C008 /* FlatMeasureScreen.swift */; };
@@ -19,7 +21,6 @@
 		2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */; };
 		2237A1D31BFB22F300A9A603 /* MagicalRecord.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */; };
 		2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
-		2256C19B1AA7450E00782314 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2256C19A1AA7450E00782314 /* Crashlytics.framework */; };
 		225DB9FF1AFA5C3100B2E8D0 /* BebasNeue_Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 225DB9FD1AFA5C3100B2E8D0 /* BebasNeue_Bold.otf */; };
 		225DBA001AFA5C3100B2E8D0 /* BebasNeue_Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 225DB9FE1AFA5C3100B2E8D0 /* BebasNeue_Regular.otf */; };
 		2269104A1BCFCB2C00116673 /* ForecastData.png in Resources */ = {isa = PBXBuildFile; fileRef = 226910461BCFCB2C00116673 /* ForecastData.png */; };
@@ -67,7 +68,6 @@
 		22E602471B6F67C600B706E0 /* ActivityFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E602461B6F67C600B706E0 /* ActivityFlowViewController.swift */; };
 		22EAE5CF1AB1EA5C0037654E /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D21AB1EA5C0037654E /* Register.storyboard */; };
 		22EAE5D61AB1EBEA0037654E /* UpgradingUserPagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D81AB1EBEA0037654E /* UpgradingUserPagesView.xib */; };
-		22F1BDF11BFF507700B18B68 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22F1BDF01BFF507700B18B68 /* Fabric.framework */; };
 		22F2B3671C032A8E001D7AD7 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F2B3661C032A8E001D7AD7 /* LogHelper.swift */; };
 		22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
 		A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A086025EA7704C458175CADF /* libPods.a */; };
@@ -256,6 +256,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2205C29D1C060EA600105F45 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		2205C29E1C060EA600105F45 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		220A30EB1B6F77250011DDA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Al Fresco Bold.otf"; sourceTree = "<group>"; };
 		221285B11B04A6F500D4C008 /* FlatMeasureScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatMeasureScreen.swift; sourceTree = "<group>"; };
@@ -285,7 +287,6 @@
 		224D260C1AE11AA3006F5C23 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Register.strings; sourceTree = "<group>"; };
 		225572CA1AE2851900153F03 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		2255A63A1A818535006589D5 /* VaavudInteractions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudInteractions.swift; sourceTree = "<group>"; };
-		2256C19A1AA7450E00782314 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		2258C92B1BEB8924003B49EC /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		225DB9FD1AFA5C3100B2E8D0 /* BebasNeue_Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BebasNeue_Bold.otf; sourceTree = "<group>"; };
 		225DB9FE1AFA5C3100B2E8D0 /* BebasNeue_Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = BebasNeue_Regular.otf; sourceTree = "<group>"; };
@@ -356,7 +357,6 @@
 		22EAE5D71AB1EBEA0037654E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/UpgradingUserPagesView.xib; sourceTree = "<group>"; };
 		22EAE5DC1AB1ECD90037654E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = VaavudSDK.xcodeproj; path = "../vaavud-ios-sdk/VaavudSDK.xcodeproj"; sourceTree = "<group>"; };
-		22F1BDF01BFF507700B18B68 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		22F2B3661C032A8E001D7AD7 /* LogHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogHelper.swift; sourceTree = "<group>"; };
 		22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Bridging-Header.h"; sourceTree = "<group>"; };
 		22FA6C501A727171004DD868 /* VaavudStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VaavudStyle.swift; path = Vaavud/StyleKit/VaavudStyle.swift; sourceTree = SOURCE_ROOT; };
@@ -540,14 +540,14 @@
 			files = (
 				2237A1D31BFB22F300A9A603 /* MagicalRecord.framework in Frameworks */,
 				E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */,
+				2205C2A01C060EA700105F45 /* Crashlytics.framework in Frameworks */,
 				E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */,
 				E9B627CD1770930D004678D5 /* MobileCoreServices.framework in Frameworks */,
 				E9B627CB177092EF004678D5 /* SystemConfiguration.framework in Frameworks */,
-				22F1BDF11BFF507700B18B68 /* Fabric.framework in Frameworks */,
+				2205C29F1C060EA700105F45 /* Fabric.framework in Frameworks */,
 				E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */,
 				D7B5BD531757A23C0069F739 /* CoreLocation.framework in Frameworks */,
 				2205C28D1C03781400105F45 /* MagicalRecord.framework in Frameworks */,
-				2256C19B1AA7450E00782314 /* Crashlytics.framework in Frameworks */,
 				D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */,
 				D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */,
 				22B74D871BB1408F00D39999 /* VaavudSDK.framework in Frameworks */,
@@ -643,10 +643,10 @@
 		D7A4F1C9173A8DDB00D1ACEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				22F1BDF01BFF507700B18B68 /* Fabric.framework */,
+				2205C29D1C060EA600105F45 /* Fabric.framework */,
+				2205C29E1C060EA600105F45 /* Crashlytics.framework */,
 				229DFAE51BBC2B510091F931 /* FacebookSDK.framework */,
 				22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */,
-				2256C19A1AA7450E00782314 /* Crashlytics.framework */,
 				E982DF2D18181152004DAB3E /* AdSupport.framework */,
 				E904AC9917F0911000171F7F /* MapKit.framework */,
 				D7DA72401743C1CD00DFE962 /* Accelerate.framework */,
@@ -1207,7 +1207,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run 767b68b0d4b5e7c052c4de75ae8859beee5d9901 3aa3f790ccf0a071979a8907fd36db225eccd47a12a29a0b8bb191890d91175e";
+			shellScript = "./Fabric.framework/run 767b68b0d4b5e7c052c4de75ae8859beee5d9901 3aa3f790ccf0a071979a8907fd36db225eccd47a12a29a0b8bb191890d91175e";
 		};
 		261A82FADCA44D85B16D87F8 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

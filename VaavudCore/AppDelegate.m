@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import "ModelManager.h"
 #import "ServerUploadManager.h"
@@ -58,8 +59,8 @@
             [[Mixpanel sharedInstance] identify:[Property getAsString:KEY_USER_ID]];
         }
     }
-    
-    [Crashlytics startWithAPIKey:@"767b68b0d4b5e7c052c4de75ae8859beee5d9901"];
+        
+    [Fabric with:@[[Crashlytics class]]];
     
     // Dropbox
     [DBSession setSharedSession:[[DBSession alloc] initWithAppKey:@"zszsy52n0svxcv7" appSecret:@"t39k1uzaxs7a0zj" root:kDBRootAppFolder]];
@@ -127,7 +128,7 @@
     }
     
     NSString *base = @"https://vaavud-core.firebaseio.com/tomcat/userId/success/";
-    NSString *key = @"38bIXjxo8U5TFNYsPU44brfzwg40BBfV2ii1xv8v";
+    NSString *key = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NjQwNzU5NjEuNzMxLCJ2IjowLCJkIjp7InVpZCI6ImFwcCJ9LCJpYXQiOjE0NDg0NTY3NjF9.2BZbzJh4B_RJoSwzXvvfIkRu4CUBCK33fBCyTSUqU_Q";
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.json?auth=%@", base, tomcatId, key]];
     
     [[[NSURLSession sharedSession] downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {

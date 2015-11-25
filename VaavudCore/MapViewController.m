@@ -224,7 +224,6 @@
             
             ForecastViewController *fvc = segue.destinationViewController;
             [fvc setup:annotation];
-            [LogHelper increaseUserProperty:@"Use-Forecast-Count"];
         }
     }
 }
@@ -290,6 +289,7 @@
 - (void)addLongPress {
     [self.mapView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)]];
     [self.logHelper log:@"Can-Add-Forecast-Pin" properties:@{}];
+    [LogHelper increaseUserProperty:@"Use-Forecast-Count"];
 }
 
 - (void)longPressed:(UIGestureRecognizer *)gestureRecognizer {
@@ -383,19 +383,13 @@
     }
     
     [self.mapView removeAnnotations:oldAnnotations];
-    
-    if (oldAnnotations.count > 0) {
-        NSLog(@"Removed: %d old annotations", oldAnnotations.count);
-    }
 }
 
 - (void)loadMeasurements:(BOOL)ignoreGracePeriod showActivityIndicator:(BOOL)showActivityIndicator {
-    NSLog(@"Load measurements");
-    
     if (!ignoreGracePeriod && self.lastMeasurementsRead != nil) {
         NSTimeInterval howRecent = [self.lastMeasurementsRead timeIntervalSinceNow];
         if (fabs(howRecent) < (graceTimeBetweenMeasurementsRead - 2.0)) {
-            NSLog(@"[MapViewController] ignoring loadMeasurements due to grace period");
+//            NSLog(@"[MapViewController] ignoring loadMeasurements due to grace period");
             return;
         }
     }
@@ -452,8 +446,6 @@
                 [self.mapView addAnnotation:measurementAnnotation];
             }
         }
-        NSLog(@"Already added: %d (%d) [%d]", alreadyAdded, measurements.count, self.mapView.annotations.count);
-        
     } failure:^(NSError *error) {
 //        NSLog(@"[MapViewController] Error reading measurements: %@", error);
         
@@ -800,7 +792,6 @@
                 self.hoursAgo = hourOptionInt;
                 [Property setAsInteger:[NSNumber numberWithInt:self.hoursAgo] forKey:KEY_MAP_HOURS];
                 isOptionChanged = YES;
-                [self.logHelper log:@"Changed-Timeframe" properties:@{}];
 
                 break;
             }
@@ -809,6 +800,8 @@
             self.hoursAgo = round([hourOptions[0] floatValue]);
             [Property setAsInteger:[NSNumber numberWithInt:self.hoursAgo] forKey:KEY_MAP_HOURS];
         }
+        
+        [self.logHelper log:@"Changed-Timeframe" properties:@{}];
     }
     
     [self refreshHours];

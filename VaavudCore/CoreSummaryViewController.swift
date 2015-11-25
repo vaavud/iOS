@@ -78,6 +78,9 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         hideVolumeHUD()
         
+        logGroup = historySummary ? .Summary : .Result
+        logHelper = LogHelper(logGroup)
+
         if Property.isMixpanelEnabled() {
             Mixpanel.sharedInstance().track("Summary Screen")
         }
@@ -100,15 +103,15 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "sessionUpdated:", name: KEY_SESSION_UPDATED, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didLoginOut:", name: KEY_DID_LOGINOUT, object: nil)
-        
-        logGroup = historySummary ? .Summary : .Result
-        logHelper = LogHelper(logGroup)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         shareHolder.hidden = historySummary
         logHelper.began()
+        if !isShowingDirection {
+            logHelper.log("Showed-Sleipnir-CTA")
+        }
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -380,7 +383,9 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
                 if let error = error { properties["error"] = error }
                 
                 LogHelper.log(group, event: "Shared", properties: properties)
-                LogHelper.increaseUserProperty("Shared")
+                if completed {
+                    LogHelper.increaseUserProperty("Share-Count")
+                }
                 
                 if Property.isMixpanelEnabled() {
                     Mixpanel.sharedInstance().track("User shared", properties: properties)
@@ -490,7 +495,6 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
 
             if !hasActualDirection {
                 showAndHideSleipnir(5)
-                logHelper.log("Showed-Sleipnir-CTA")
             }
         }
         else {

@@ -538,6 +538,7 @@
         CoreSummaryViewController *summary = segue.destinationViewController;
         summary.session = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
         summary.historySummary = YES;
+        [LogHelper increaseUserProperty:@"Use-History-Count"];
     }
 }
 

@@ -149,6 +149,7 @@ class CoreSettingsTableViewController: UITableViewController {
         else {
             registerUser()
         }
+        logHelper.increase()
     }
     
     func logoutConfirmed() {
@@ -177,32 +178,38 @@ class CoreSettingsTableViewController: UITableViewController {
     @IBAction func changedLimitToggle(sender: UISegmentedControl) {
         Property.setAsBoolean(sender.selectedSegmentIndex == 1, forKey: KEY_MEASUREMENT_TIME_UNLIMITED)
         refreshTimeLimit()
+        logHelper.increase()
     }
 
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {
         Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_WIND_SPEED_UNIT)
         postUnitChange("speed")
+        logHelper.increase()
     }
     
     @IBAction func changedDirectionUnit(sender: UISegmentedControl) {
         Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_DIRECTION_UNIT)
         postUnitChange("direction")
+        logHelper.increase()
     }
     
     @IBAction func changedPressureUnit(sender: UISegmentedControl) {
         Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_PRESSURE_UNIT)
         postUnitChange("pressure")
+        logHelper.increase()
     }
     
     @IBAction func changedTemperatureUnit(sender: UISegmentedControl) {
         Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_TEMPERATURE_UNIT)
         postUnitChange("temperature")
+        logHelper.increase()
     }
     
     @IBAction func changedMeterModel(sender: UISegmentedControl) {
         let usesSleipnir = sender.selectedSegmentIndex == 1
         Property.setAsBoolean(usesSleipnir, forKey: KEY_USES_SLEIPNIR)
         refreshWindmeterModel()
+        logHelper.increase()
     }
 
     @IBAction func changedDropboxSetting(sender: UISwitch) {
@@ -216,12 +223,14 @@ class CoreSettingsTableViewController: UITableViewController {
             value = "Unlinked"
         }
         Mixpanel.sharedInstance().track("Dropbox", properties: ["Action" : value])
+        logHelper.increase()
     }
 
     @IBAction func changedSleipnirPlacement(sender: UISegmentedControl) {
         let frontPlaced = sender.selectedSegmentIndex == 1
         Property.setAsBoolean(frontPlaced, forKey: KEY_SLEIPNIR_ON_FRONT)
         refreshWindmeterModel()
+        logHelper.increase()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -247,6 +256,7 @@ class CoreSettingsTableViewController: UITableViewController {
             FirstTimeFlowController.createInstructionFlowOn(firstTimeViewController)
             firstTimeViewController.returnViaDismiss = true
         }
+        logHelper.increase()
     }
 }
 
