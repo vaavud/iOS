@@ -291,8 +291,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ix7-vP-fDH" userLabel="Gusts">
                                 <rect key="frame" x="48" y="280" width="96" height="149"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GUSTS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A6Q-wO-cyA" userLabel="Heading">
-                                        <rect key="frame" x="10" y="0.0" width="75" height="29"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GUSTS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="A6Q-wO-cyA" userLabel="Heading">
+                                        <rect key="frame" x="-16" y="0.0" width="128" height="29"/>
                                         <animations/>
                                         <gestureRecognizers/>
                                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="24"/>
@@ -320,8 +320,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MDq-2o-4tj" userLabel="Windchill">
                                 <rect key="frame" x="176" y="280" width="122" height="149"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WINDCHILL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VUI-aq-dSI" userLabel="Heading">
-                                        <rect key="frame" x="-13" y="0.0" width="125" height="29"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WINDCHILL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="VUI-aq-dSI" userLabel="Heading">
+                                        <rect key="frame" x="-16" y="0.0" width="128" height="29"/>
                                         <animations/>
                                         <gestureRecognizers/>
                                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="24"/>
@@ -329,14 +329,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xC1-3F-yMy" userLabel="Value">
-                                        <rect key="frame" x="1" y="29" width="96" height="120"/>
+                                        <rect key="frame" x="0.0" y="29" width="96" height="120"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" name="BebasNeueBold" family="Bebas Neue" pointSize="120"/>
                                         <color key="textColor" red="0.18823529410000001" green="0.24313725489999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="°F" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fdo-Cx-ped" userLabel="Unit">
-                                        <rect key="frame" x="94" y="29" width="29" height="36"/>
+                                        <rect key="frame" x="93" y="29" width="29" height="36"/>
                                         <animations/>
                                         <gestureRecognizers/>
                                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="30"/>
@@ -368,10 +368,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Fnx-uI-M7p" firstAttribute="top" secondItem="xf2-57-nuP" secondAttribute="bottom" id="6XI-pk-1jl"/>
+                            <constraint firstItem="VUI-aq-dSI" firstAttribute="width" secondItem="Fnx-uI-M7p" secondAttribute="width" multiplier="0.4" id="BLf-FN-8rZ"/>
                             <constraint firstItem="ix7-vP-fDH" firstAttribute="centerY" secondItem="Ae2-Zo-eEX" secondAttribute="centerY" constant="70" id="DSy-3s-RfI"/>
                             <constraint firstItem="Fnx-uI-M7p" firstAttribute="leading" secondItem="Ae2-Zo-eEX" secondAttribute="leading" id="GFf-9W-Aew"/>
                             <constraint firstItem="vj0-gw-b8b" firstAttribute="top" secondItem="uoy-Ss-MiU" secondAttribute="bottom" id="I0J-cX-Hcp"/>
                             <constraint firstAttribute="trailing" secondItem="Fnx-uI-M7p" secondAttribute="trailing" id="PhE-b6-Zwf"/>
+                            <constraint firstItem="A6Q-wO-cyA" firstAttribute="width" secondItem="Fnx-uI-M7p" secondAttribute="width" multiplier="0.4" id="W3g-gn-Dv0"/>
                             <constraint firstAttribute="centerY" secondItem="vj0-gw-b8b" secondAttribute="centerY" constant="70" id="XJW-cE-DiQ"/>
                             <constraint firstItem="MDq-2o-4tj" firstAttribute="top" secondItem="ix7-vP-fDH" secondAttribute="top" id="Zg0-Do-9ls"/>
                             <constraint firstItem="ix7-vP-fDH" firstAttribute="centerX" secondItem="Ae2-Zo-eEX" secondAttribute="centerX" multiplier="0.6" id="apT-yq-D0P"/>
