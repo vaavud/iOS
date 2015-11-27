@@ -71,5 +71,5 @@ static double const FFT_PEAK_MAG_MIN_IPHONE6 = 2.5;
 static NSString * const GOOGLE_STATIC_MAPS_API_KEY = @"AIzaSyDrrZsMKRBkCw214SbJA6q2lO-cXbu7m0Y";
 static NSString * const OPEN_WEATHERMAP_APIID = @"ee85fc6e4832549dee0f2004453fb478";
 
-//static NSString * const vaavudAPIBaseURLString = @"http://54.78.158.177/";
+//static NSString * const vaavudAPIBaseURLString = @"http://10.0.5.70:8080";
 static NSString * const vaavudAPIBaseURLString = @"https://mobile-api.vaavud.com/";

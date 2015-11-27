@@ -23,6 +23,7 @@ let forecastFontSizeSmall: CGFloat = 12
 let forecastFontSizeLarge: CGFloat = 15
 
 class ForecastAnnotation: NSObject, MKAnnotation {
+    let date = NSDate()
     let coordinate: CLLocationCoordinate2D
     var data: [ForecastDataPoint]?
     var geocode: String?
@@ -83,8 +84,6 @@ class ForecastCalloutView: UIView {
     let label = UILabel()
     var data: [ForecastDataPoint]?
     
-    var isSetup = false
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -122,20 +121,23 @@ class ForecastCalloutView: UIView {
     }
     
     func setup(annotation: ForecastAnnotation) {
-        if isSetup { return }
+        if let newData = annotation.data, data = data where newData == data {
+            return
+        }
+        
+        data = annotation.data
         
         let ahead = Property.getAsInteger(KEY_MAP_FORECAST_HOURS, defaultValue: 2).integerValue
 
-        if let data = annotation.data where data.count > ahead {
+        if let newData = annotation.data where newData.count > ahead {
             let unit = VaavudFormatter.shared.windSpeedUnit
-            let dataPoint = data[ahead]
+            let dataPoint = newData[ahead]
             
             label.text = String(Int(round(unit.fromBase(dataPoint.windSpeed)))) + " " + unit.localizedString
             arrowView.transform = Affine.rotation(dataPoint.windDirection.radians + π)
             arrowView.alpha = 1
             icon.image = asset(dataPoint.state, prefix: "Map-")
             icon.alpha = 1
-            isSetup = true
         }
         else {
             arrowView.alpha = 0
@@ -167,7 +169,6 @@ class ForecastLoader: NSObject {
                     mapView.removeAnnotation(annotation)
                     pv.animatesDrop = false
                     mapView.addAnnotation(annotation)
-                    
                     callout.setup(annotation)
                     
                     mapView.selectAnnotation(annotation, animated: true)
@@ -209,7 +210,7 @@ class ForecastLoader: NSObject {
             if let location = location, dataObject = NSData(contentsOfURL: location),
                 let dict = (try? NSJSONSerialization.JSONObjectWithData(dataObject, options: [])) as? NSDictionary,
                 let hourly = dict["hourly"] as? [String : AnyObject],
-                let data = self.parseHourly(hourly) {
+                let data = parseHourly(hourly) {
                     dispatch_async(dispatch_get_main_queue()) {
                         callback(data)
                     }
@@ -219,24 +220,54 @@ class ForecastLoader: NSObject {
         downloadTask.resume()
     }
     
-    func parseHourly(dict: [String : AnyObject]) -> [ForecastDataPoint]? {
-        if let data = dict["data"] as? [[String : AnyObject]] {
-            let dataPoints = data.map { (dataHour: [String : AnyObject]) -> ForecastDataPoint in
-                let temp = (CGFloat(dataHour["temperature"] as! Double) + 459.67)*5/9
-                let state = WeatherState(icon: dataHour["icon"] as! String)
-                let windDirection = CGFloat(dataHour["windBearing"] as! Int)
-                let windSpeed = CGFloat(dataHour["windSpeed"] as! Double)*0.44704
-                let date = NSDate(timeIntervalSince1970: NSTimeInterval(dataHour["time"] as! Int))
+    func requestCurrent(location: CLLocationCoordinate2D, callback: (Double, Double, Int?) -> ()) {
+        let forecastUrl = NSURL(string: "\(location.latitude),\(location.longitude)", relativeToURL:baseURL)!
+        let sharedSession = NSURLSession.sharedSession()
                 
-                return ForecastDataPoint(temp: temp, state: state, windDirection: windDirection, windSpeed: windSpeed, date: date)
+        let downloadTask: NSURLSessionDownloadTask = sharedSession.downloadTaskWithURL(forecastUrl) {
+            (location: NSURL?, response: NSURLResponse?, error: NSError?) in
+            if error != nil { return }
+            if let location = location,
+                dataObject = NSData(contentsOfURL: location),
+                dict = (try? NSJSONSerialization.JSONObjectWithData(dataObject, options: [])) as? NSDictionary,
+                currently = dict["currently"] as? [String : AnyObject],
+                data = parseCurrently(currently) {
+                    dispatch_async(dispatch_get_main_queue()) {
+                        callback(data)
+                    }
             }
-            
-            return dataPoints
         }
         
-        return nil
+        downloadTask.resume()
     }
 }
+
+func parseHourly(dict: [String : AnyObject]) -> [ForecastDataPoint]? {
+    if let data = dict["data"] as? [[String : AnyObject]] {
+        let dataPoints = data.map { (dataHour: [String : AnyObject]) -> ForecastDataPoint in
+            let temp = (CGFloat(dataHour["temperature"] as! Double) + 459.67)*5/9
+            let state = WeatherState(icon: dataHour["icon"] as! String)
+            let windDirection = CGFloat(dataHour["windBearing"] as! Int)
+            let windSpeed = CGFloat(dataHour["windSpeed"] as! Double)*0.44704
+            let date = NSDate(timeIntervalSince1970: NSTimeInterval(dataHour["time"] as! Int))
+            
+            return ForecastDataPoint(temp: temp, state: state, windDirection: windDirection, windSpeed: windSpeed, date: date)
+        }
+        
+        return dataPoints
+    }
+    
+    return nil
+}
+
+func parseCurrently(dict: [String : AnyObject]) -> (Double, Double, Int?)? {
+    if let temperature = dict["temperature"] as? Double, pressure = dict["pressure"] as? Double {
+        return ((temperature + 459.67)*5/9, pressure, dict["windBearing"] as? Int)
+    }
+    
+    return nil
+}
+
 
 protocol AssetState {
     var prefix: String { get }
@@ -271,12 +302,20 @@ enum WeatherState: String, AssetState {
     var prefix: String { return "Forecast-" }
 }
 
-struct ForecastDataPoint {
+struct ForecastDataPoint: Equatable {
     let temp: CGFloat
     let state: WeatherState
     let windDirection: CGFloat
     let windSpeed: CGFloat
     let date: NSDate
+}
+
+func ==(lhs: ForecastDataPoint, rhs: ForecastDataPoint) -> Bool {
+    return lhs.temp == rhs.temp &&
+        lhs.state == rhs.state &&
+        lhs.windDirection == rhs.windDirection &&
+        lhs.windSpeed == rhs.windSpeed &&
+        lhs.date == rhs.date
 }
 
 class ForecastViewController: UIViewController, UIScrollViewDelegate {
@@ -297,6 +336,8 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
 
     private var didSetup = false
     
+    private let logHelper = LogHelper(.Forecast, counters: "scrolled")
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         if Property.isMixpanelEnabled() {
@@ -310,13 +351,12 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    @IBAction func tappedAttribution(sender: UIButton) {
-        if let url = NSURL(string: "http://forecast.io") {
-            UIApplication.sharedApplication().openURL(url)
-        }
+    override func viewDidAppear(animated: Bool) {
+        logHelper.began()
     }
     
-    @IBAction func tappedProBadge(sender: UIButton) {
+    override func viewDidDisappear(animated: Bool) {
+        logHelper.ended()
     }
     
     override func viewDidLayoutSubviews() {
@@ -406,6 +446,17 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    @IBAction func tappedAttribution(sender: UIButton) {
+        if let url = NSURL(string: "http://forecast.io") {
+            LogHelper.log(event: "Tapped-Forecast-Attribution", properties: ["place" : "forecast"])
+            UIApplication.sharedApplication().openURL(url)
+        }
+    }
+    
+    @IBAction func tappedProBadge(sender: UIButton) {
+        LogHelper.log(event: "Tapped-Pro-Badge", properties: ["place" : "forecast"])
+    }
+
     func scrollViewDidScroll(scrollView: UIScrollView) {
         let offset = scrollView.contentInset.left + scrollView.contentOffset.x
         
@@ -422,6 +473,10 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        logHelper.increase("scrolled")
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let webViewController = segue.destinationViewController as? WebViewController {
             if segue.identifier == "ProBadgeSeque" {
@@ -436,7 +491,7 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
                     webViewController.html = try? String(contentsOfFile: file, encoding: NSUTF8StringEncoding)
                 }
                 else {
-                    webViewController.html = "Vi vil tilføje flere nye spænde funktioner til Vaavud appen. Nogle af disse funktioner vil kun være tilgængelig for Pro medlemmer. For en begrænset periode, så kan alle vores brugere prøve dem!".html()
+                    webViewController.html = "Vi vil tilføje flere nye spændende funktioner til Vaavud appen. Nogle af disse funktioner vil kun være tilgængelig for Pro medlemmer. For en begrænset periode, så kan alle vores brugere prøve dem!".html()
                 }
             }
         }

@@ -52,6 +52,13 @@ enum Interface {
         case .IPadLandscape: return iPadLandscape
         }
     }
+    
+    static func choose<T>(iPhone: T, _ iPad: T) -> T {
+        switch Interface() {
+        case .IPhone4, .IPhone5, .IPhone6, .IPhone6Plus: return iPhone
+        case .IPad, .IPadLandscape: return iPad
+        }
+    }
 }
 
 protocol FloatUnit: Unit {
@@ -109,7 +116,6 @@ enum DirectionUnit: Int, Unit {
     }
     
     private var key: String { return ["DIRECTION_CARDINAL", "DIRECTION_DEGREES"][rawValue] }
-    
 }
 
 enum SpeedUnit: Int, FloatUnit {
@@ -149,8 +155,6 @@ enum SpeedUnit: Int, FloatUnit {
 
 class VaavudFormatter: NSObject {
     static let shared = VaavudFormatter()
-//    private init() {} //This prevents others from using the default '()' initializer for this class.
-
     var windSpeedUnit: SpeedUnit = .Knots { didSet { writeWindSpeedUnit() } }
     var directionUnit: DirectionUnit = .Cardinal { didSet { writeDirectionUnit() } }
     var pressureUnit: PressureUnit = .Mbar { didSet { writePressureUnit() } }
@@ -164,7 +168,7 @@ class VaavudFormatter: NSObject {
     
     //    let standardWindspeedUnits: [String : SpeedUnit] = ["US" : .Knots, "UM" : .Knots, "GB" : .Knots, "CA" : .Knots, "VG" : .Knots, "VI" : .Knots]
     
-    override init() {
+    private override init() {
         dateFormatter.locale = NSLocale.currentLocale()
         shortDateFormat = NSDateFormatter.dateFormatFromTemplate("MMMMd", options: 0, locale: dateFormatter.locale)!
             
@@ -271,6 +275,10 @@ class VaavudFormatter: NSObject {
         
         return failure(valueLabel: valueLabel, unitLabel: unitLabel)
     }
+    
+    func formattedWindspeedWithUnit(msSpeed: Float) -> String? {
+        return localizedDecimalString(msSpeed, decimals: 0) + " " + windSpeedUnit.localizedString
+    }
 
     func localizedWindspeed(msSpeed: Float?, digits: Int? = nil) -> String? {
         return localizedConvertedString(msSpeed, unit: windSpeedUnit, digits: digits)
@@ -308,8 +316,8 @@ class VaavudFormatter: NSObject {
         return failure(valueLabel: valueLabel, unitLabel: unitLabel)
     }
 
-    func localizedTemperature(kelvinTemperature: Float?) -> String? {
-        return localizedConvertedString(kelvinTemperature, unit: temperatureUnit)
+    func localizedTemperature(kelvinTemperature: Float?, digits: Int? = nil) -> String? {
+        return localizedConvertedString(kelvinTemperature, unit: temperatureUnit, digits: digits)
     }
     
     // Windchill
@@ -405,7 +413,7 @@ class VaavudFormatter: NSObject {
         return localizedDecimalString(value!, decimals: decimals)
     }
 
-    private func localizedConvertedString(value: Float?, unit: FloatUnit, min: Float = 0.0, decimals: Int? = nil, digits: Int? = nil) -> String? {
+    private func localizedConvertedString(value: Float?, unit: FloatUnit, min: Float = 0, decimals: Int? = nil, digits: Int? = nil) -> String? {
         if value == nil || value < min {
             return nil
         }

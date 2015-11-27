@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import "ModelManager.h"
 #import "ServerUploadManager.h"
@@ -21,6 +22,8 @@
 #import "UIColor+VaavudColors.h"
 #import "MixpanelUtil.h"
 #import "Vaavud-Swift.h"
+#import "Amplitude.h"
+#import "VaavudAPIHTTPClient.h"
 
 @interface AppDelegate() <DBRestClientDelegate>
 
@@ -47,7 +50,7 @@
     //[FBSettings setLoggingBehavior:[NSSet setWithObjects:FBLoggingBehaviorFBRequests, FBLoggingBehaviorInformational, nil]];
             
     self.xCallbackSuccess = nil;
-
+    
     if ([Property isMixpanelEnabled]) {
         [Mixpanel sharedInstanceWithToken:@"757f6311d315f94cdfc8d16fb4d973c0"];
 
@@ -56,18 +59,18 @@
             [[Mixpanel sharedInstance] identify:[Property getAsString:KEY_USER_ID]];
         }
     }
+        
+    [Fabric with:@[[Crashlytics class]]];
     
-    [Crashlytics startWithAPIKey:@"767b68b0d4b5e7c052c4de75ae8859beee5d9901"];
-    
-    //dropbox
+    // Dropbox
     [DBSession setSharedSession:[[DBSession alloc] initWithAppKey:@"zszsy52n0svxcv7" appSecret:@"t39k1uzaxs7a0zj" root:kDBRootAppFolder]];
     
     // Whenever a person opens the app, check for a cached session and refresh token
     if ([[AccountManager sharedInstance] isLoggedIn]) {
-        [[AccountManager sharedInstance] registerWithFacebook:nil action:AuthenticationActionRefresh];
+        [[AccountManager sharedInstance] registerWithFacebook:nil from:nil action:AuthenticationActionRefresh];
     }
     
-    // set has wind meter property if not set
+    // Set has wind meter property if not set
     if (![Property getAsString:KEY_USER_HAS_WIND_METER]) {
         [Property refreshHasWindMeter];
     }
@@ -98,7 +101,6 @@
     else {
         // Has not seen intro flow so we will show it now
         if (LOG_INTRO) NSLog(@"not KEY_HAS_SEEN_INTRO_FLOW");
-
         vcName = @"FirstTimeFlowController";
     }
     
@@ -107,10 +109,38 @@
     
     self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];
-
+    
+#ifdef DEBUG
+    [[Amplitude instance] initializeApiKey:@"043371ecbefba51ec63a992d0cc57491"];
+#else
+    [[Amplitude instance] initializeApiKey:@"7a5147502033e658f1357bc04b793a2b"];
+#endif
+    [[Amplitude instance] enableLocationListening];
+    
+    [self getFirebaseId:[Property getAsString:KEY_USER_ID]];
+    
     return YES;
 }
-							
+
+-(void)getFirebaseId:(NSString *)tomcatId {
+    if (tomcatId == nil) {
+        return;
+    }
+    
+    NSString *base = @"https://vaavud-core.firebaseio.com/tomcat/userId/success/";
+    NSString *key = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NjQwNzU5NjEuNzMxLCJ2IjowLCJkIjp7InVpZCI6ImFwcCJ9LCJpYXQiOjE0NDg0NTY3NjF9.2BZbzJh4B_RJoSwzXvvfIkRu4CUBCK33fBCyTSUqU_Q";
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.json?auth=%@", base, tomcatId, key]];
+    
+    [[[NSURLSession sharedSession] downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+        if (location) {
+            NSString *firebaseId = [NSString stringWithContentsOfURL:location usedEncoding:nil error:nil];
+            if (firebaseId) {
+                [[Amplitude instance] setUserId:firebaseId];
+            }
+        }
+    }] resume];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application {
 }
 
@@ -178,7 +208,6 @@
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
     if ([url.scheme isEqualToString:@"vaavud"]) {
         NSDictionary *dict = [QueryStringUtil parseQueryString:url.query];
         
@@ -186,7 +215,6 @@
         
         if ([url.host isEqualToString:@"x-callback-url"]) {
             if ([url.path isEqualToString:@"/measure"]) {
-                [VEVaavudElectronicSDK sharedVaavudElectronic];
                 self.xCallbackSuccess = [dict objectForKey:@"x-success"];
                 
                 if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
@@ -196,6 +224,7 @@
                         if ([Property isMixpanelEnabled]) {
                             [[Mixpanel sharedInstance] track:@"Opened with url scheme" properties:@{ @"From App" : sourceApplication }];
                         }
+                        [LogHelper logWithGroupName:@"URL-Scheme" event:@"Opened" properties:@{ @"source" : sourceApplication }];
                     }
                 }
             }
@@ -230,15 +259,15 @@
     NSError *error = nil;
     [[NSFileManager defaultManager] removeItemAtPath:srcPath error:&error];
     if (!error) {
-        NSLog(@"File uploaded and deleted successfully to path: %@", metadata.path);
+        if (LOG_OTHER) NSLog(@"File uploaded and deleted successfully to path: %@", metadata.path);
     }
     else {
-        NSLog(@"File uploaded successfully, but not deleted to path: %@, error: %@", metadata.path, error.localizedDescription);
+        if (LOG_OTHER) NSLog(@"File uploaded successfully, but not deleted to path: %@, error: %@", metadata.path, error.localizedDescription);
     }
 }
 
 - (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
-    NSLog(@"File upload failed with error: %@", error);
+    if (LOG_OTHER) NSLog(@"File upload failed with error: %@", error);
 }
 
 - (void)userAuthenticated:(BOOL)isSignup viewController:(UIViewController *)viewController {

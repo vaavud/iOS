@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
-#import "Vaavud-Swift.h"
 #import "MapViewController.h"
 #import "MeasurementAnnotation.h"
 #import "UnitUtil.h"
@@ -20,6 +19,7 @@
 #import "TabBarController.h"
 #import "MixpanelUtil.h"
 #import <MediaPlayer/MediaPlayer.h>
+#import "Vaavud-Swift.h"
 
 #include <math.h>
 
@@ -44,17 +44,30 @@
 @property (nonatomic) UIImage *placeholderImage;
 @property (nonatomic) NSDate *viewAppearedTime;
 @property (nonatomic) NSTimer *showGuideViewTimer;
+@property (nonatomic) LogHelper *logHelper;
 
 @end
 
 @implementation MapViewController
+
+-(instancetype)initWithCoder:(NSCoder *)aDecoder {
+    self = [super initWithCoder:aDecoder];
+    
+    if (self) {
+        self.logHelper = [[LogHelper alloc] initWithGroupName:@"Map" counters:@[@"scrolled", @"tapped-marker"]];
+    }
+    
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self hideVolumeHUD];
     
     //NSLog(@"[MapViewController] viewDidLoad");
-
+    
+    self.lastMeasurementsRead = [NSDate distantPast];
+    
     self.isLoading = NO;
     self.isSelectingFromTableView = NO;
     self.analyticsGridDegree = [[Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] doubleValue];
@@ -103,27 +116,30 @@
     
     self.activityIndicator.hidden = YES;
     
-    CLLocationCoordinate2D latestLocation = [LocationManager sharedInstance].latestLocation;
+    CLLocationCoordinate2D location = [LocationManager sharedInstance].latestLocation;
     
-    if ([LocationManager isCoordinateValid:latestLocation]) {
-        [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(latestLocation, 200000, 200000) animated:YES];
+    if (![LocationManager isCoordinateValid:location]) {
+        location = [LocationManager sharedInstance].storedLocation;
     }
-    else {
-        // TODO: set default location if user's location is unknown
-    }
+    
+    [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(location, 200000, 200000) animated:YES];
 
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windSpeedUnitChanged) name:KEY_UNIT_CHANGED object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windspeedUnitChanged) name:KEY_UNIT_CHANGED object:nil];
     
     self.view.autoresizesSubviews = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    if ([[[[NSLocale preferredLanguages] firstObject] substringToIndex:2] isEqualToString:@"da"]) {
+    if ([self isDanish]) {
         [self addLongPress];
     }
+}
+
+- (BOOL)isDanish {
+    return [[[[NSLocale preferredLanguages] firstObject] substringToIndex:2] isEqualToString:@"da"];
 }
 
 - (void)appDidBecomeActive:(NSNotification *)notification {
@@ -161,7 +177,7 @@
     }
     
     MeasurementSession *measurementSession = [MeasurementSession MR_findFirstOrderedByAttribute:@"startTime" ascending:NO];
-    if (measurementSession && measurementSession != nil && [measurementSession.measuring boolValue] == NO) {
+    if (measurementSession != nil && [measurementSession.measuring boolValue] == NO) {
         NSDate *newLatestLocalStartTime = measurementSession.startTime;
         if (newLatestLocalStartTime != nil && (self.latestLocalStartTime == nil || [newLatestLocalStartTime compare:self.latestLocalStartTime] == NSOrderedDescending)) {
             //NSLog(@"[MapViewController] force reload of map data");
@@ -177,6 +193,7 @@
     }
 
     [self loadMeasurements:forceReload showActivityIndicator:NO];
+    [self removeOldForecasts];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -187,7 +204,7 @@
                                                        selector:@selector(refreshMap)
                                                        userInfo:nil
                                                         repeats:YES];
-
+    
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"Map Screen"];
     }
@@ -195,6 +212,9 @@
     self.viewAppearedTime = [NSDate date];
     
     [self showGuideIfNeeded];
+    
+    [self.logHelper began:@{}];
+    [LogHelper increaseUserProperty:@"Use-Map-Count"];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -215,6 +235,11 @@
     if (self.refreshTimer && self.refreshTimer != nil) {
         [self.refreshTimer invalidate];
     }
+}
+
+-(void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [self.logHelper ended:@{}];
 }
 
 - (void)showGuideIfNeeded {
@@ -262,35 +287,109 @@
 }
 
 - (void)addLongPress {
-    [self.mapView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(addPinToMap:)]];
+    [self.mapView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)]];
+    [self.logHelper log:@"Can-Add-Forecast-Pin" properties:@{}];
+    [LogHelper increaseUserProperty:@"Use-Forecast-Count"];
 }
 
-- (void)addPinToMap:(UIGestureRecognizer *)gestureRecognizer {
+- (void)longPressed:(UIGestureRecognizer *)gestureRecognizer {
     if (gestureRecognizer.state != UIGestureRecognizerStateBegan) {
         return;
     }
     
     CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
     CLLocationCoordinate2D loc = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-    
+
+    [self.logHelper log:@"Added-Forecast-Pin" properties:@{}];
+
+    [self addPin:loc];
+}
+
+- (void)addPin:(CLLocationCoordinate2D)loc {
     ForecastAnnotation *annotation = [[ForecastAnnotation alloc] initWithLocation:loc];
+
     [[ForecastLoader shared] setup:annotation mapView:self.mapView];
     if ([Property isMixpanelEnabled]) {
         [[Mixpanel sharedInstance] track:@"Forecast added pin"];
     }
     
     [self.mapView addAnnotation:annotation];
+    [self.mapView selectAnnotation:annotation animated:YES];
+}
+
+- (void)removeOldForecasts {
+    int forecastAnnotations = 0;
+    
+    for (id annotation in self.mapView.annotations) {
+        if ([annotation isKindOfClass:[ForecastAnnotation class]]) {
+            ForecastAnnotation *fcAnnotation = (ForecastAnnotation *)annotation;
+            if ([[NSDate date] timeIntervalSinceDate:fcAnnotation.date] > 3600) {
+                [self.mapView removeAnnotation:annotation];
+            }
+            else {
+                forecastAnnotations++;
+            }
+        }
+    }
+    
+    [self refreshEmptyState];
+}
+
+- (void)refreshEmptyState {
+    if (![self isDanish]) {
+        return;
+    }
+
+    int forecastAnnotations = 0;
+    
+    for (id annotation in self.mapView.annotations) {
+        if ([annotation isKindOfClass:[ForecastAnnotation class]]) {
+            forecastAnnotations++;
+        }
+    }
+    
+    if (forecastAnnotations == 0) {
+        [self addPin:[LocationManager sharedInstance].storedLocation];
+    }
 }
 
 - (void)refreshMap {
     [self loadMeasurements:YES showActivityIndicator:NO];
 }
 
+- (BOOL)annotationAlreadyExistsAtLatitude:(CLLocationDegrees)lat longitude:(CLLocationDegrees)lon {
+    for (id<MKAnnotation> annotation in self.mapView.annotations) {
+        if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
+            if (lat == [annotation coordinate].latitude && lon == [annotation coordinate].longitude ) {
+                return YES;
+            }
+        }
+    }
+
+    return NO;
+}
+
+-(void)removeOldAnnotations {
+    NSMutableArray *oldAnnotations = [NSMutableArray array];
+    
+    for (id annotation in self.mapView.annotations) {
+        if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
+            MeasurementAnnotation *measurementAnnotation = annotation;
+            if ([self.lastMeasurementsRead timeIntervalSinceDate:measurementAnnotation.startTime]) {
+                [oldAnnotations addObject:measurementAnnotation];
+                [self.mapView deselectAnnotation:annotation animated:NO];
+            }
+        }
+    }
+    
+    [self.mapView removeAnnotations:oldAnnotations];
+}
+
 - (void)loadMeasurements:(BOOL)ignoreGracePeriod showActivityIndicator:(BOOL)showActivityIndicator {
-    if (!ignoreGracePeriod && self.lastMeasurementsRead && self.lastMeasurementsRead != nil) {
+    if (!ignoreGracePeriod && self.lastMeasurementsRead != nil) {
         NSTimeInterval howRecent = [self.lastMeasurementsRead timeIntervalSinceNow];
         if (fabs(howRecent) < (graceTimeBetweenMeasurementsRead - 2.0)) {
-            //NSLog(@"[MapViewController] ignoring loadMeasurements due to grace period");
+//            NSLog(@"[MapViewController] ignoring loadMeasurements due to grace period");
             return;
         }
     }
@@ -305,29 +404,32 @@
         [self performSelector:@selector(showActivityIndicatorIfLoading) withObject:nil afterDelay:1.0];
     }
     
-    [[ServerUploadManager sharedInstance] readMeasurements:self.hoursAgo retry:3 success:^(NSArray *measurements) {
-//        NSLog(@"[MapViewController] read measurements");
-
+    //    [[ServerUploadManager sharedInstance] readMeasurements:self.hoursAgo retry:3 success:^(NSArray *measurements) {
+    [[ServerUploadManager sharedInstance] readMeasurements:24 retry:3 success:^(NSArray *measurements) {
+        //        NSLog(@"[MapViewController] read measurements");
+        
         self.lastMeasurementsRead = [NSDate date];
-
+        
         [self refreshHours];
         [self clearActivityIndicator];
-
-        NSMutableArray *measureAnnotations = [NSMutableArray array];
         
-        for (id annotation in self.mapView.annotations) {
-            if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
-                [measureAnnotations addObject:annotation];
-                [self.mapView deselectAnnotation:annotation animated:NO];
-            }
-        }
+        [self removeOldAnnotations];
         
-        [self.mapView removeAnnotations:measureAnnotations];
+        int alreadyAdded = 0;
         
         for (NSArray *measurement in measurements) {
             if (measurement.count >= 5) {
-                double latitude = ((NSString *)measurement[0]).doubleValue;
-                double longitude = ((NSString *)measurement[1]).doubleValue;
+                CLLocationDegrees latitude = ((NSString *)measurement[0]).doubleValue;
+                CLLocationDegrees longitude = ((NSString *)measurement[1]).doubleValue;
+                
+                if ([self annotationAlreadyExistsAtLatitude:latitude longitude:longitude]) {
+                    alreadyAdded++;
+                    continue;
+                }
+
+//                NSDate *t = [NSDate dateWithTimeIntervalSince1970:((NSString *)measurement[2]).doubleValue/1000.0];
+//                NSLog(@"Annotation added: (%@) %.02f:%.02f", t, latitude, longitude);
+                
                 NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:((NSString *)measurement[2]).doubleValue/1000.0];
                 float windSpeedAvg = measurement[3] == [NSNull null] ? 0.0 : ((NSString *)measurement[3]).floatValue;
                 float windSpeedMax = measurement[4] == [NSNull null] ? 0.0 : ((NSString *)measurement[4]).floatValue;
@@ -346,6 +448,9 @@
         }
     } failure:^(NSError *error) {
 //        NSLog(@"[MapViewController] Error reading measurements: %@", error);
+        
+        [self performSelector:@selector(refreshMap) withObject:nil afterDelay:1];
+
         [self clearActivityIndicator];
 //        [self showNoDataFeedbackMessage];
     }];
@@ -382,8 +487,24 @@
     [self showFeedbackMessage:NSLocalizedString(@"MAP_REFRESH_ERROR_TITLE", nil) message:NSLocalizedString(@"MAP_REFRESH_ERROR_MESSAGE", nil)];
 }
 
--(void)windSpeedUnitChanged {
-    NSArray *annotations = self.mapView.annotations;
+-(void)windspeedUnitChanged {
+    [self reloadAnnotationsIncludingForecast:YES];
+}
+
+-(void)reloadAnnotationsIncludingForecast:(BOOL)includeForecast {
+    NSMutableArray *annotations = [NSMutableArray array];
+
+    if (includeForecast) {
+        [annotations addObjectsFromArray:self.mapView.annotations];
+    }
+    else {
+        for (id annotation in self.mapView.annotations) {
+            if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
+                [annotations addObject:annotation];
+            }
+        }
+    }
+    
     [self.mapView removeAnnotations:annotations];
     [self.mapView addAnnotations:annotations];
 }
@@ -413,7 +534,6 @@
             [pinView setSelected:YES animated:YES];
             
             UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
-            [rightButton addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
             [rightButton setImage:[UIImage imageNamed:@"Map-disclosure"] forState:UIControlStateNormal];
             rightButton.tintColor = [UIColor vaavudBlueColor];
             rightButton.enabled = NO;
@@ -476,10 +596,16 @@
         UILabel *lbl = (UILabel *)[measureAnnotationView viewWithTag:42];
         lbl.text = [FormatUtil formatValueWithTwoDigits:[UnitUtil displayWindSpeedFromDouble:measurementAnnotation.avgWindSpeed unit:self.windSpeedUnit]];
         
+        measureAnnotationView.hidden = [self.lastMeasurementsRead timeIntervalSinceDate:measurementAnnotation.startTime] > self.hoursAgo*3600;
+        
         return measureAnnotationView;
     }
     
     return nil;
+}
+
+-(void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered {
+    [self.logHelper increase:@"scrolled"];
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
@@ -529,9 +655,12 @@
         
         if (self.isSelectingFromTableView) {
             [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"nearby measurement touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Nearby Measurements"];
+            [self.logHelper log:@"Tapped-Nearby" properties:@{}];
         }
         else {
             [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"measurement marker touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Map"];
+            [self.logHelper log:@"Tapped-Marker" properties:@{}];
+            [self.logHelper increase:@"tapped-marker"];
         }
         
         [MixpanelUtil addMapInteractionToProfile];
@@ -663,6 +792,7 @@
                 self.hoursAgo = hourOptionInt;
                 [Property setAsInteger:[NSNumber numberWithInt:self.hoursAgo] forKey:KEY_MAP_HOURS];
                 isOptionChanged = YES;
+
                 break;
             }
         }
@@ -670,10 +800,12 @@
             self.hoursAgo = round([hourOptions[0] floatValue]);
             [Property setAsInteger:[NSNumber numberWithInt:self.hoursAgo] forKey:KEY_MAP_HOURS];
         }
+        
+        [self.logHelper log:@"Changed-Timeframe" properties:@{}];
     }
     
     [self refreshHours];
-    [self loadMeasurements:YES showActivityIndicator:YES];
+    [self reloadAnnotationsIncludingForecast:NO];
 }
 
 - (void)refreshHours {
@@ -686,7 +818,7 @@
 //    [Property setAsInteger:[NSNumber numberWithInt:self.windSpeedUnit] forKey:KEY_WIND_SPEED_UNIT];
 //    
 //    [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
-    [self windSpeedUnitChanged];
+    [self windspeedUnitChanged];
 }
 
 -(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation *)annotation

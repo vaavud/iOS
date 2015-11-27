@@ -24,17 +24,19 @@
 #import "MixpanelUtil.h"
 #import "RegisterViewController.h"
 
-#import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
+#import "Amplitude.h"
+
 #import "MjolnirMeasurementController.h"
 
 #import <DropboxSDK/DropboxSDK.h>
 
-#import "MagicalRecord.h"
-#import "MagicalRecord+Actions.h"
-#import "NSManagedObject+MagicalRecord.h"
-#import "NSManagedObject+MagicalFinders.h"
-#import "NSManagedObjectContext+MagicalRecord.h"
-#import "NSManagedObjectContext+MagicalSaves.h"
+#import <MagicalRecord/MagicalRecord.h>
+#import <MagicalRecord/MagicalRecord+Actions.h>
+#import <MagicalRecord/NSManagedObject+MagicalRecord.h>
+#import <MagicalRecord/NSManagedObject+MagicalFinders.h>
+#import <MagicalRecord/NSManagedObjectContext+MagicalRecord.h>
+#import <MagicalRecord/NSManagedObjectContext+MagicalSaves.h>
+
 #import "UUIDUtil.h"
 
 #import "FirstTimeFlowController.h" // FIXME: This class needs to be refactored

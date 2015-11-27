@@ -9,8 +9,7 @@
 #import "Property+Util.h"
 #import "UnitUtil.h"
 #import "MeasurementSession+Util.h"
-#import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
-#import <VaavudElectronicSDK/VEVaavudElectronicSDK+Analysis.h>
+#import <VaavudSDK/VaavudSDK-Swift.h>
 
 NSString * const KEY_CREATION_TIME = @"creationTime";
 NSString * const KEY_DEVICE_UUID = @"deviceUuid";
@@ -82,7 +81,6 @@ NSString * const KEY_DID_LOGINOUT = @"DidLogInOut";
 NSString * const KEY_IS_DROPBOXLINKED = @"isDropboxLinked";
 NSString * const KEY_WINDMETERMODEL_CHANGED = @"WindmeterModelChange";
 NSString * const KEY_HISTORY_SYNCED = @"HistorySynced";
-NSString * const KEY_OPEN_LATEST_SUMMARY = @"OpenLatestSummary";
 
 NSString * const KEY_MEASUREMENT_TIME_UNLIMITED = @"TimeUnlimited";
 
@@ -101,6 +99,16 @@ NSString * const KEY_MAP_GUIDE_FORECAST_SHOWN = @"mapGuideForecastShown";
 NSString * const KEY_FORECAST_OVERLAY_SHOWN = @"forecastOverlayShown";
 
 NSString * const KEY_SHARE_OVERLAY_SHOWN = @"shareOverlayShown";
+
+NSString * const KEY_DEFAULT_SCREEN = @"defaultMeasurementScreen";
+
+NSString * const KEY_DEFAULT_FLAT_VARIANT = @"defaultFlatVariant";
+
+NSString * const KEY_NOTIFICATION_TYPE = @"notificationType";
+NSString * const KEY_NOTIFICATION_RADIUS = @"notificationRadius";
+
+NSString * const KEY_STORED_LOCATION_LAT = @"storedLocationLat";
+NSString * const KEY_STORED_LOCATION_LON = @"storedLocationLon";
 
 @implementation Property (Util)
 
@@ -251,11 +259,19 @@ NSString * const KEY_SHARE_OVERLAY_SHOWN = @"shareOverlayShown";
 }
 
 + (BOOL)isMixpanelEnabled {
+#ifdef DEBUG
+    return false;
+#else
     return [Property getAsBoolean:KEY_ENABLE_MIXPANEL defaultValue:YES];
+#endif
 }
 
 + (BOOL)isMixpanelPeopleEnabled {
+#ifdef DEBUG
+    return false;
+#else
     return [Property getAsBoolean:KEY_ENABLE_MIXPANEL_PEOPLE defaultValue:YES];
+#endif
 }
 
 + (void)refreshHasWindMeter {
@@ -266,22 +282,19 @@ NSString * const KEY_SHARE_OVERLAY_SHOWN = @"shareOverlayShown";
 }
 
 + (NSDictionary *)getDeviceDictionary {
+    // Fixme: Get volume and encoder coefficients from SDK
     NSNumber *timezoneOffsetMillis = [NSNumber numberWithLong:([[NSTimeZone localTimeZone] secondsFromGMT] * 1000L)];
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:
-                                [Property getAsString:KEY_DEVICE_UUID], @"uuid",
-                                @"Apple", @"vendor",
-                                [Property getAsString:KEY_MODEL], @"model",
-                                [Property getAsString:KEY_OS], @"os",
-                                [Property getAsString:KEY_OS_VERSION], @"osVersion",
-                                [Property getAsString:KEY_APP], @"app",
-                                [Property getAsString:KEY_APP_VERSION], @"appVersion",
-                                [Property getAsString:KEY_COUNTRY], @"country",
-                                [Property getAsString:KEY_LANGUAGE], @"language",
-                                timezoneOffsetMillis, @"timezoneOffset",
-                                [UnitUtil jsonNameForWindSpeedUnit:[[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue]], @"windSpeedUnit",
-                                @([[VEVaavudElectronicSDK sharedVaavudElectronic] getVolume]), @"sleipnirVolume",
-                                [[VEVaavudElectronicSDK sharedVaavudElectronic] getEncoderCoefficients], @"sleipnirEncoderCoefficients",
-                                nil];
+    NSDictionary *dictionary = @{@"uuid" : [Property getAsString:KEY_DEVICE_UUID],
+                                 @"vendor" : @"Apple",
+                                 @"model" : [Property getAsString:KEY_MODEL],
+                                 @"os" : [Property getAsString:KEY_OS],
+                                 @"osVersion" : [Property getAsString:KEY_OS_VERSION],
+                                 @"app" : [Property getAsString:KEY_APP],
+                                 @"appVersion" : [Property getAsString:KEY_APP_VERSION],
+                                 @"country" : [Property getAsString:KEY_COUNTRY],
+                                 @"language" : [Property getAsString:KEY_LANGUAGE],
+                                 @"timezoneOffset" : timezoneOffsetMillis,
+                                 @"windSpeedUnit" : [UnitUtil jsonNameForWindSpeedUnit:[[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue]]};
     
     return dictionary;
 }

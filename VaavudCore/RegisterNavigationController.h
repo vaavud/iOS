@@ -24,6 +24,7 @@ enum RegisterScreenType : NSUInteger {
 
 @property (nonatomic, weak) id<RegisterNavigationControllerDelegate> registerDelegate;
 @property (nonatomic) NSUInteger startScreen;
+@property (nonatomic, copy) void (^completion)(void);
 
 @end
 

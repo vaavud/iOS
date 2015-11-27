@@ -124,7 +124,7 @@ BOOL didShowFeedback;
                                                   object:nil];
 
     self.alertView.delegate = nil;
-    [AccountManager sharedInstance].delegate = nil;
+//    [AccountManager sharedInstance].delegate = nil;
 }
 
 - (IBAction)textFieldDidChange:(UITextField *)sender {
@@ -160,10 +160,11 @@ BOOL didShowFeedback;
 
     UIActivityIndicatorView *activityIndicator = [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    UIBarButtonItem *oldBarButtonItem = self.navigationItem.rightBarButtonItem;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:activityIndicator];
     [activityIndicator startAnimating];
 
-    [[AccountManager sharedInstance] registerWithPassword:self.passwordTextField.text email:self.emailTextField.text firstName:self.firstNameTextField.text lastName:self.lastNameTextField.text action:AuthenticationActionSignup success:^(AuthenticationResponseType response) {
+    [[AccountManager sharedInstance] registerWithPassword:self.passwordTextField.text from:self email:self.emailTextField.text firstName:self.firstNameTextField.text lastName:self.lastNameTextField.text action:AuthenticationActionSignup success:^(AuthenticationResponseType response) {
         
         [self.passwordTextField resignFirstResponder];
         [self.emailTextField resignFirstResponder];
@@ -185,6 +186,8 @@ BOOL didShowFeedback;
             [[Mixpanel sharedInstance] track:@"Register Error" properties:@{@"Response": @(response), @"Screen": @"Signup", @"Method": @"Password"}];
         }
         
+        [activityIndicator stopAnimating];
+        self.navigationItem.rightBarButtonItem = oldBarButtonItem;
         [self refreshSignupButton];
 
         if (response == AuthenticationResponseInvalidCredentials) {
@@ -218,7 +221,8 @@ BOOL didShowFeedback;
     didShowFeedback = NO;
     AccountManager *accountManager = [AccountManager sharedInstance];
     accountManager.delegate = self;
-    [accountManager registerWithFacebook:password action:AuthenticationActionSignup];
+
+    [accountManager registerWithFacebook:password from:self action:AuthenticationActionSignup];
 }
 
 - (void)facebookAuthenticationSuccess:(AuthenticationResponseType)response {
@@ -235,6 +239,8 @@ BOOL didShowFeedback;
     if (self.completion) {
         self.completion();
     }
+    
+    [AccountManager sharedInstance].delegate = nil;
 }
 
 - (void)facebookAuthenticationFailure:(AuthenticationResponseType)response
