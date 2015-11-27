@@ -30,6 +30,8 @@
 		22787C3B1B5D8C8200AB6150 /* MeasureScreens.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22787C3A1B5D8C8200AB6150 /* MeasureScreens.xcassets */; };
 		227E29401BC281EF000DD2C7 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227E293F1BC281EF000DD2C7 /* NotificationsViewController.swift */; };
 		228124F91B945CC80037B8CB /* Forecast.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 228124F81B945CC80037B8CB /* Forecast.xcassets */; };
+		2284FB761C08998000FC9101 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2284FB741C08998000FC9101 /* Fabric.framework */; };
+		2284FB771C08998000FC9101 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2284FB751C08998000FC9101 /* Crashlytics.framework */; };
 		228904BC1BA815D3006259AB /* Overlays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228904BB1BA815D3006259AB /* Overlays.swift */; };
 		22900BB31AEE7616009D9C8F /* MjolnirSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22900BB21AEE7616009D9C8F /* MjolnirSpinner.swift */; };
 		22900BB71AEE77C1009D9C8F /* MjolnirSpinner.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22900BB61AEE77C1009D9C8F /* MjolnirSpinner.xcassets */; };
@@ -296,6 +298,8 @@
 		22787C3A1B5D8C8200AB6150 /* MeasureScreens.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = MeasureScreens.xcassets; path = ImageAssets/MeasureScreens.xcassets; sourceTree = "<group>"; };
 		227E293F1BC281EF000DD2C7 /* NotificationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		228124F81B945CC80037B8CB /* Forecast.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Forecast.xcassets; path = ImageAssets/Forecast.xcassets; sourceTree = "<group>"; };
+		2284FB741C08998000FC9101 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		2284FB751C08998000FC9101 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		228904BB1BA815D3006259AB /* Overlays.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Overlays.swift; sourceTree = "<group>"; };
 		228A7BB01ADD190E00EB72CC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		228A7BB31ADD190E00EB72CC /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -535,9 +539,11 @@
 			files = (
 				2237A1D31BFB22F300A9A603 /* MagicalRecord.framework in Frameworks */,
 				E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */,
+				2284FB771C08998000FC9101 /* Crashlytics.framework in Frameworks */,
 				E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */,
 				E9B627CD1770930D004678D5 /* MobileCoreServices.framework in Frameworks */,
 				E9B627CB177092EF004678D5 /* SystemConfiguration.framework in Frameworks */,
+				2284FB761C08998000FC9101 /* Fabric.framework in Frameworks */,
 				E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */,
 				D7B5BD531757A23C0069F739 /* CoreLocation.framework in Frameworks */,
 				2205C28D1C03781400105F45 /* MagicalRecord.framework in Frameworks */,
@@ -636,6 +642,8 @@
 		D7A4F1C9173A8DDB00D1ACEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2284FB741C08998000FC9101 /* Fabric.framework */,
+				2284FB751C08998000FC9101 /* Crashlytics.framework */,
 				229DFAE51BBC2B510091F931 /* FacebookSDK.framework */,
 				22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */,
 				E904AC9917F0911000171F7F /* MapKit.framework */,
@@ -1197,7 +1205,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "./Fabric.framework/run 767b68b0d4b5e7c052c4de75ae8859beee5d9901 3aa3f790ccf0a071979a8907fd36db225eccd47a12a29a0b8bb191890d91175e";
 		};
 		261A82FADCA44D85B16D87F8 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
