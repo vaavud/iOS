@@ -12,6 +12,7 @@
 @interface LocationManager : NSObject <CLLocationManagerDelegate>
 
 @property (nonatomic) CLLocationCoordinate2D latestLocation;
+@property (nonatomic) CLLocationCoordinate2D storedLocation;
 @property (nonatomic, strong) NSNumber *latestHeading;
 
 + (LocationManager *)sharedInstance;

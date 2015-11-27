@@ -32,6 +32,9 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     @IBOutlet weak var ruler: RoundRuler!
     @IBOutlet weak var speedLabel: UILabel!
     
+    @IBOutlet weak var speedLabelOffset: NSLayoutConstraint!
+    let speedLabelFont = UIFont(name: "BebasNeueBold", size: Interface.choose(100, 200))
+    
     @IBOutlet weak var lockNorthDistance: NSLayoutConstraint!
     
     @IBOutlet weak var lockNorthButton: UIButton!
@@ -41,12 +44,10 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     private var latestSpeed: CGFloat = 0
     
     private var lockNorth = false
-
-    let formatter = VaavudFormatter()
     
     var weight: CGFloat = 0.1
-    
-    let bandWidth: CGFloat = 30
+
+    let bandWidth: CGFloat = Interface.choose(30, 60)
     var logScale: CGFloat = 0 { didSet { changedScale() } }
     var logScaleOffset: CGFloat = 0
     
@@ -61,6 +62,9 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        speedLabel.font = speedLabelFont
+        speedLabelOffset.constant = Interface.choose(-10, -20)
+        
         animator = UIDynamicAnimator(referenceView: view)
         scaleItem = DynamicItem(centerCallback: { [unowned self] in
             self.logScale = $0.y/20000
@@ -68,10 +72,6 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
         
         scaleItem.center = CGPoint(x: 0, y: logScale*20000)
         background.setup(bandWidth)
-        
-        let image = UIImage(named: "CompassArrow")
-        lockNorthButton.setImage(image, forState: .Highlighted)
-        lockNorthButton.setImage(image, forState: .Selected)
     }
     
     override func viewDidLayoutSubviews() {
@@ -84,7 +84,7 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     func changedSpeedUnit(unit: SpeedUnit) {
         newSpeed(latestSpeed)
         
-        if formatter.windSpeedUnit == .Bft {
+        if VaavudFormatter.shared.windSpeedUnit == .Bft {
             animateLogScale(0)
         }
     }
@@ -95,12 +95,12 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
         background.layout()
         background.changedScale()
         
-        ruler.setup(view.bounds.width > 500 ? 2*bandWidth : bandWidth)
+        ruler.setup(bandWidth)
         ruler.layout()
     }
     
     var scaledSpeed: CGFloat {
-        return formatter.windSpeedUnit.fromBase(latestSpeed)
+        return VaavudFormatter.shared.windSpeedUnit.fromBase(latestSpeed)
     }
     
     func toggleVariant() {}
@@ -120,7 +120,7 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
         
         let inside = ruler.insideFactor
         
-        if !animatingScale && formatter.windSpeedUnit != .Bft {
+        if !animatingScale && VaavudFormatter.shared.windSpeedUnit != .Bft {
             if inside > 0.95 {
                 animateLogScale(logScale + 1)
             }
@@ -158,7 +158,7 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     
     func newSpeed(speed: CGFloat) {
         latestSpeed = speed
-        speedLabel.text = formatter.localizedWindspeed(Float(speed), digits: 3)
+        speedLabel.text = VaavudFormatter.shared.localizedWindspeed(Float(speed), digits: 3)
     }
     
     func newHeading(heading: CGFloat) {
@@ -170,6 +170,8 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     @IBAction func lockNorthChanged(sender: UIButton) {
         lockNorth = !lockNorth
         sender.selected = lockNorth
+        
+        LogHelper.log(.Measure, event: "Radar-Toggled-North-Lock", properties: ["on" : lockNorth])
         
         if lockNorth {
             ruler.compassDirection = distanceOnCircle(from: 0, to: latestHeading)
@@ -215,7 +217,7 @@ class RoundBackground : UIView {
         
         for _ in 2..<banded1.n {
             let label = UILabel()
-            label.font = UIFont(name: "Roboto", size: 14)
+            label.font = UIFont(name: "Roboto", size: Interface.choose(16, 20))
             label.textAlignment = .Center
             label.text = "9999"
             label.textColor = textColor
@@ -283,6 +285,8 @@ class RoundRuler : UIView {
     var scale: CGFloat = 0
     var bandWidth: CGFloat = 0
     
+    private let blueDotSize: CGFloat = 20
+    private let dotSize: CGFloat = 15
     private let dotCount = 400
     private var dotPositions = [Polar]()
     private var dots = [CAShapeLayer]()
@@ -291,8 +295,8 @@ class RoundRuler : UIView {
     private var cardinalPositions = [Polar]()
     private var cardinalLabels = [UILabel]()
     
-    private let font = UIFont(name: "Roboto-Bold", size: 21)!
-    private let smallFont = UIFont(name: "Roboto-Bold", size: 12)!
+    private let font = UIFont(name: "Roboto-Bold", size: Interface.choose(25, 50))!
+    private let smallFont = UIFont(name: "Roboto-Bold", size: Interface.choose(15, 30))!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -303,10 +307,10 @@ class RoundRuler : UIView {
             dot.strokeColor = nil
             if i == dotCount - 1 {
                 dot.fillColor = UIColor.vaavudBlueColor().CGColor
-                dot.bounds.size = CGSize(width: 10, height: 10)
+                dot.bounds.size = CGSize(width: blueDotSize, height: blueDotSize)
             }
             else {
-                let size = 6*ease(CGFloat(i)/CGFloat(dotCount))
+                let size = dotSize*ease(CGFloat(i)/CGFloat(dotCount))
                 dot.bounds.size = CGSize(width: size, height: size)
                 dot.fillColor = UIColor.grayColor().CGColor
             }

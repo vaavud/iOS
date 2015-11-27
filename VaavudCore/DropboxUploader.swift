@@ -60,11 +60,11 @@ class DropboxUploader: NSObject, DBRestClientDelegate {
             success = false
         }
         if (success) {
-            print("success writing file %@", fileURL.path)
+//            print("Success writing file %@", fileURL.path)
             return fileURL
         }
         else {
-            print("not so successful writing file %@", fileURL.path)
+//            print("Failure writing file %@", fileURL.path)
             return nil
         }
     }

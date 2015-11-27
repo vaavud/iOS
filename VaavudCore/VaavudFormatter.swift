@@ -116,7 +116,6 @@ enum DirectionUnit: Int, Unit {
     }
     
     private var key: String { return ["DIRECTION_CARDINAL", "DIRECTION_DEGREES"][rawValue] }
-    
 }
 
 enum SpeedUnit: Int, FloatUnit {
@@ -156,8 +155,6 @@ enum SpeedUnit: Int, FloatUnit {
 
 class VaavudFormatter: NSObject {
     static let shared = VaavudFormatter()
-//    private init() {} //This prevents others from using the default '()' initializer for this class.
-
     var windSpeedUnit: SpeedUnit = .Knots { didSet { writeWindSpeedUnit() } }
     var directionUnit: DirectionUnit = .Cardinal { didSet { writeDirectionUnit() } }
     var pressureUnit: PressureUnit = .Mbar { didSet { writePressureUnit() } }
@@ -171,7 +168,7 @@ class VaavudFormatter: NSObject {
     
     //    let standardWindspeedUnits: [String : SpeedUnit] = ["US" : .Knots, "UM" : .Knots, "GB" : .Knots, "CA" : .Knots, "VG" : .Knots, "VI" : .Knots]
     
-    override init() {
+    private override init() {
         dateFormatter.locale = NSLocale.currentLocale()
         shortDateFormat = NSDateFormatter.dateFormatFromTemplate("MMMMd", options: 0, locale: dateFormatter.locale)!
             
@@ -277,6 +274,10 @@ class VaavudFormatter: NSObject {
         }
         
         return failure(valueLabel: valueLabel, unitLabel: unitLabel)
+    }
+    
+    func formattedWindspeedWithUnit(msSpeed: Float) -> String? {
+        return localizedDecimalString(msSpeed, decimals: 0) + " " + windSpeedUnit.localizedString
     }
 
     func localizedWindspeed(msSpeed: Float?, digits: Int? = nil) -> String? {

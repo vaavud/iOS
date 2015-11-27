@@ -58,7 +58,7 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
 
         windchillUnitLabel.text = VaavudFormatter.shared.temperatureUnit.localizedString
         
-        gustsOffsetY.constant = Interface.choose(70, 80, 100, 125, 160, 160)
+        gustsOffsetY.constant = Interface.choose(70, 80, 100, 125, 150, 150)
         
         updateVariant()
         newSpeed(0)
@@ -128,11 +128,12 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
         
         if let temperature = temperature, chill = windchill(Float(temperature), Float(verySmoothWindSpeed)) {
             windchillLabel.text =  VaavudFormatter.shared.localizedWindchill(Float(chill))
+            windchillUnitLabel.alpha = 1
         }
         else {
             windchillLabel.text = "-"
+            windchillUnitLabel.alpha = 0
         }
-        
     }
     
     func newHeading(heading: CGFloat) {

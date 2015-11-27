@@ -19,6 +19,7 @@
 #import "UIImage+Vaavud.h"
 #import "Property+Util.h"
 #import <VaavudSDK/VaavudSDK-Swift.h>
+#import "MapViewController.h"
 
 @interface TabBarController ()<UITabBarControllerDelegate>
 
@@ -52,7 +53,6 @@
     [self.tabBar addSubview:button];
     
     self.interactions = [VaavudInteractions new];
-
     self.measureButton = button;
     
     self.delegate = self;
@@ -86,16 +86,10 @@
     for (UITabBarItem *item in self.tabBar.items) {
         item.imageInsets = UIEdgeInsetsMake(6.0, 0.0, -6.0, 0.0);
     }
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(openLatestSummary:) name:KEY_OPEN_LATEST_SUMMARY object:nil];
 }
 
 -(void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
--(void)openLatestSummary:(NSNotification *)notification {
-    self.selectedIndex = 3;
 }
 
 -(void)viewWillLayoutSubviews {
@@ -118,7 +112,6 @@
 }
 
 - (void)takeMeasurement:(BOOL)fromUrlScheme {
-    NSLog(@"Tabbar check");
     if ([Property getAsBoolean:KEY_USES_SLEIPNIR] && !VaavudSleipnirAvailability.available) {
         if (fromUrlScheme && self.sleipnirFromCallbackAttempts < 10) {
             self.sleipnirFromCallbackAttempts++;
@@ -140,6 +133,7 @@
 }
 
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    // Measure button
     if (viewController == self.childViewControllers[2]) {
         [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN];
         [self takeMeasurement:NO];

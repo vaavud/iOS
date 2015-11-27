@@ -20,7 +20,7 @@ class CoreSettingsTableViewController: UITableViewController {
     @IBOutlet weak var directionUnitControl: UISegmentedControl!
     @IBOutlet weak var pressureUnitControl: UISegmentedControl!
     @IBOutlet weak var temperatureUnitControl: UISegmentedControl!
-    //    @IBOutlet weak var facebookControl: UISwitch!
+
     @IBOutlet weak var dropboxControl: UISwitch!
     @IBOutlet weak var sleipnirClipControl: UISegmentedControl!
     
@@ -30,14 +30,13 @@ class CoreSettingsTableViewController: UITableViewController {
     
     @IBOutlet weak var versionLabel: UILabel!
     
+    private let logHelper = LogHelper(.Settings, counters: "scrolled")
+    
     override func viewDidLoad() {
         hideVolumeHUD()
         
-        limitControl.selectedSegmentIndex = Property.getAsBoolean(KEY_MEASUREMENT_TIME_UNLIMITED) ? 1 : 0
-        
         versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
-//        facebookControl.on = Property.getAsBoolean("enableFacebookShareDialog", defaultValue: false)
-                
+        
         dropboxControl.on = DBSession.sharedSession().isLinked()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
@@ -52,8 +51,19 @@ class CoreSettingsTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         refreshLogoutButton()
         refreshWindmeterModel()
+        refreshTimeLimit()
     }
 
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        logHelper.began()
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        logHelper.ended()
+    }
+    
     func modelChanged(note: NSNotification) {
         refreshWindmeterModel()
     }
@@ -76,6 +86,15 @@ class CoreSettingsTableViewController: UITableViewController {
         UIView.animateWithDuration(0.2) {
             self.sleipnirClipView.alpha = usesSleipnir ? 1 : 0
         }
+        
+        LogHelper.setUserProperty("Device", value: usesSleipnir ? "Sleipnir" : "Mjolnir")
+        LogHelper.setUserProperty("Sleipnir-Clip-Frontside", value: sleipnirOnFront)
+    }
+    
+    func refreshTimeLimit() {
+        let unlimited = Property.getAsBoolean(KEY_MEASUREMENT_TIME_UNLIMITED)
+        LogHelper.setUserProperty("Measurement-Limit", value: unlimited ? 0 : limitedInterval)
+        limitControl.selectedSegmentIndex = unlimited ? 1 : 0
     }
     
     func unitsChanged(note: NSNotification) {
@@ -94,8 +113,9 @@ class CoreSettingsTableViewController: UITableViewController {
         }
     }
     
-    func postUnitChange() {
+    func postUnitChange(unitType: String) {
         NSNotificationCenter.defaultCenter().postNotificationName(KEY_UNIT_CHANGED, object: self)
+        LogHelper.log(event: "Changed-Unit", properties: ["place" : "settings", "type" : unitType])
     }
     
     deinit {
@@ -129,10 +149,12 @@ class CoreSettingsTableViewController: UITableViewController {
         else {
             registerUser()
         }
+        logHelper.increase()
     }
     
     func logoutConfirmed() {
         AccountManager.sharedInstance().logout()
+        LogHelper.log(event: "Logged-Out", properties: ["place" : "settings"])
     }
     
     func registerUser() {
@@ -155,36 +177,39 @@ class CoreSettingsTableViewController: UITableViewController {
     
     @IBAction func changedLimitToggle(sender: UISegmentedControl) {
         Property.setAsBoolean(sender.selectedSegmentIndex == 1, forKey: KEY_MEASUREMENT_TIME_UNLIMITED)
+        refreshTimeLimit()
+        logHelper.increase()
     }
 
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {
         Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_WIND_SPEED_UNIT)
-        postUnitChange()
+        postUnitChange("speed")
+        logHelper.increase()
     }
     
     @IBAction func changedDirectionUnit(sender: UISegmentedControl) {
         Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_DIRECTION_UNIT)
-        postUnitChange()
+        postUnitChange("direction")
+        logHelper.increase()
     }
     
     @IBAction func changedPressureUnit(sender: UISegmentedControl) {
         Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_PRESSURE_UNIT)
-        postUnitChange()
+        postUnitChange("pressure")
+        logHelper.increase()
     }
     
     @IBAction func changedTemperatureUnit(sender: UISegmentedControl) {
         Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_TEMPERATURE_UNIT)
-        postUnitChange()
+        postUnitChange("temperature")
+        logHelper.increase()
     }
-    
-//    @IBAction func changedFacebookSetting(sender: UISwitch) {
-//        Property.setAsBoolean(sender.on, forKey: "enableFacebookShareDialog")
-//    }
     
     @IBAction func changedMeterModel(sender: UISegmentedControl) {
         let usesSleipnir = sender.selectedSegmentIndex == 1
         Property.setAsBoolean(usesSleipnir, forKey: KEY_USES_SLEIPNIR)
         refreshWindmeterModel()
+        logHelper.increase()
     }
 
     @IBAction func changedDropboxSetting(sender: UISwitch) {
@@ -198,11 +223,14 @@ class CoreSettingsTableViewController: UITableViewController {
             value = "Unlinked"
         }
         Mixpanel.sharedInstance().track("Dropbox", properties: ["Action" : value])
+        logHelper.increase()
     }
 
     @IBAction func changedSleipnirPlacement(sender: UISegmentedControl) {
         let frontPlaced = sender.selectedSegmentIndex == 1
         Property.setAsBoolean(frontPlaced, forKey: KEY_SLEIPNIR_ON_FRONT)
+        refreshWindmeterModel()
+        logHelper.increase()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -221,12 +249,14 @@ class CoreSettingsTableViewController: UITableViewController {
             else if segue.identifier == "BuyWindmeterSegue" {
                 webViewController.url = VaavudInteractions.buySleipnirUrl("settings")
                 webViewController.title = NSLocalizedString("SETTINGS_SHOP_LINK", comment: "")
+                LogHelper.log(event: "Pressed-Buy", properties: ["place" : "settings"])
             }
         }
         else if let firstTimeViewController = segue.destinationViewController as? FirstTimeFlowController {
             FirstTimeFlowController.createInstructionFlowOn(firstTimeViewController)
             firstTimeViewController.returnViaDismiss = true
         }
+        logHelper.increase()
     }
 }
 

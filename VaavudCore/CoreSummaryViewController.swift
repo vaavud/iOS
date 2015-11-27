@@ -50,6 +50,19 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet private weak var gustinessView: GustinessView!
     private var gustinessItem: DynamicReadingItem!
     
+    @IBOutlet weak var shareHolder: GradientView!
+    @IBOutlet weak var shareHolderHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var shareButton: UIButton!
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    var historySummary = false
+    
+    private var logGroup: LogGroup!
+    private var logHelper: LogHelper!
+    
     private var hasSomeDirection: Float?
     private var hasActualDirection = false
     private var isShowingDirection = false
@@ -60,12 +73,14 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     private var hasWindChill = false
     
     private var animator: UIDynamicAnimator!
-    private var formatter = VaavudFormatter()
     var session: MeasurementSession!
         
     override func viewDidLoad() {
         hideVolumeHUD()
         
+        logGroup = historySummary ? .Summary : .Result
+        logHelper = LogHelper(logGroup)
+
         if Property.isMixpanelEnabled() {
             Mixpanel.sharedInstance().track("Summary Screen")
         }
@@ -76,7 +91,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         windchillItem = DynamicReadingItem(readingView: windchillView)
         gustinessItem = DynamicReadingItem(readingView: gustinessView)
         
-        title = formatter.localizedTitleDate(session.startTime)?.uppercaseStringWithLocale(NSLocale.currentLocale())
+        title = VaavudFormatter.shared.localizedTitleDate(session.startTime)?.uppercaseStringWithLocale(NSLocale.currentLocale())
         
         setupMapView()
         setupUI()
@@ -88,6 +103,19 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "sessionUpdated:", name: KEY_SESSION_UPDATED, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "didLoginOut:", name: KEY_DID_LOGINOUT, object: nil)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        shareHolder.hidden = historySummary
+        logHelper.began()
+        if !isShowingDirection {
+            logHelper.log("Showed-Sleipnir-CTA")
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        logHelper.ended()
     }
     
     override func viewDidLayoutSubviews() {
@@ -103,17 +131,13 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func mapViewDidFinishRenderingMap(mapView: MKMapView, fullyRendered: Bool) {
+        activityIndicator.stopAnimating()
+    }
+    
     func sessionUpdated(note: NSNotification) {
         if let objectId = note.userInfo?["objectID"] as? NSManagedObjectID where objectId == session.objectID {
             updateUI()
-            print("SUMMARY: Updated \(note.userInfo)")
-        }
-        
-        if let objectId = note.userInfo?["objectID"] as? NSManagedObjectID {
-            print("session.objectID: \(session.objectID) - objectId: \(objectId)")
-        }
-        else {
-            print("sessionUpdated ???")
         }
     }
 
@@ -177,7 +201,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     
     private func updateMapAnnotationLabel(annotationView: MKAnnotationView) {
         if let label = annotationView.viewWithTag(42) as? UILabel {
-            label.text = formatter.localizedWindspeed(session.windSpeedAvg?.floatValue, digits: 2)
+            label.text = VaavudFormatter.shared.localizedWindspeed(session.windSpeedAvg?.floatValue, digits: 2)
         }
     }
     
@@ -215,14 +239,8 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func setupUI() {
-        if view.bounds.width > 375 {
-            averageLabel.font = averageLabel.font.fontWithSize(85)
-            maximumLabel.font = maximumLabel.font.fontWithSize(60)
-        }
-        else if view.bounds.width > 320 {
-            averageLabel.font = averageLabel.font.fontWithSize(72)
-            maximumLabel.font = maximumLabel.font.fontWithSize(50)
-        }
+        averageLabel.font = averageLabel.font.fontWithSize(Interface.choose(65, 70, 80, 100, 200, 200))
+        maximumLabel.font = maximumLabel.font.fontWithSize(Interface.choose(40, 50, 60, 75, 150, 150))
     }
     
     private func updateUI() {
@@ -251,7 +269,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     }
 
     private func updateLocalUI() {
-        if let time = formatter.localizedTime(session.startTime) {
+        if let time = VaavudFormatter.shared.localizedTime(session.startTime) {
             dateLabel.text = time.uppercaseString
         }
     }
@@ -293,40 +311,81 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction private func tappedSleipnir(sender: AnyObject) {
+        logHelper.log("Tapped-Sleipnir-CTA")
+
+        let source = logGroup.rawValue
         VaavudInteractions().showLocalAlert("SUMMARY_MEASURE_WINDDIRECTION",
             messageKey: "SUMMARY_WITH_SLEIPNIR_WINDDIRECTION",
             cancelKey: "BUTTON_CANCEL",
-            otherKey: "INTRO_UPGRADE_CTA_BUY",
-            action: { VaavudInteractions.openBuySleipnir("Summary") },
+            otherKey: "SUMMARY_READ_MORE",
+            action: { VaavudInteractions.openBuySleipnir(source) },
             on: self)
     }
     
-    @IBAction func tappedShare(sender: UIBarButtonItem) {
-        let frame = view.bounds.moveY(-topLayoutGuide.length)
-        UIGraphicsBeginImageContextWithOptions( view.bounds.size.expandY(-topLayoutGuide.length), true, 0)
+    override func shouldAutorotate() -> Bool {
+        return true
+    }
+    
+    @IBAction func tappedDone(sender: AnyObject) {
+        dismissViewControllerAnimated(true) {
+        }
+    }
+    
+    @IBAction func tappedShare(sender: AnyObject) {
+        logHelper.log("Tapped-Share")
+        let group = logGroup
+        
+        let frame: CGRect
+        let size: CGSize
+        
+        if historySummary {
+            frame = view.bounds.moveY(-topLayoutGuide.length)
+            size = view.bounds.size.expandY(-topLayoutGuide.length)
+        }
+        else {
+            frame = view.bounds
+            size = view.bounds.size
+            shareHolder.hidden = true
+        }
+        
+        defer { self.shareHolder.hidden = self.historySummary }
+        
+        UIGraphicsBeginImageContextWithOptions(size, true, 0)
         
         view.drawViewHierarchyInRect(frame, afterScreenUpdates: true)
         guard let snap = UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext()) else { return }
         UIGraphicsEndImageContext()
-        
-        if let windSpeed = formatter.localizedWindspeed(session.windSpeedAvg?.floatValue) {
+    
+        if let windSpeed = VaavudFormatter.shared.localizedWindspeed(session.windSpeedAvg?.floatValue) {
             var text = NSLocalizedString("I just measured ", comment: "")
-            text += windSpeed + " " + formatter.windSpeedUnit.localizedString
+            text += windSpeed + " " + VaavudFormatter.shared.windSpeedUnit.localizedString
             if let place = session?.geoLocationNameLocalized {
-                text += NSLocalizedString(" at ", comment: "Location preposition") + place
+                text += " " + NSLocalizedString("at", comment: "Location preposition") + " " + place
             }
             text += NSLocalizedString(" with my Vaavud windmeter! #VaavudWeather\n", comment: "")
             
-            let website = NSURL(string: "http://www.vaavud.com/")!
-            
-            let activityVC = UIActivityViewController(activityItems: [snap, text, website], applicationActivities: nil)
+//            let website = NSURL(string: "http://www.vaavud.com/")!
+//            let activityVC = UIActivityViewController(activityItems: [snap, text, website], applicationActivities: nil)
+
+            let activityVC = UIActivityViewController(activityItems: [snap, text], applicationActivities: nil)
             activityVC.excludedActivityTypes = [UIActivityTypeAirDrop, UIActivityTypeAddToReadingList]
-            activityVC.popoverPresentationController?.barButtonItem = sender
+            if let senderItem = sender as? UIBarButtonItem {
+                activityVC.popoverPresentationController?.barButtonItem = senderItem
+            }
+            else if let senderButton = sender as? UIButton {
+                activityVC.popoverPresentationController?.sourceView = senderButton
+            }
+            
             activityVC.completionWithItemsHandler = { (type, completed, returnedItems, error) in
-                var properties: [NSObject : AnyObject] = ["Completed" : completed]
+                var properties: [String : AnyObject] = ["completed" : completed]
                 
-                if let type = type { properties["Activity"] = type }
-                if let error = error { properties["Error"] = error }
+                if let type = type { properties["activity"] = type }
+                if let error = error { properties["error"] = error }
+                
+                LogHelper.log(group, event: "Shared", properties: properties)
+                if completed {
+                    LogHelper.increaseUserProperty("Share-Count")
+                }
                 
                 if Property.isMixpanelEnabled() {
                     Mixpanel.sharedInstance().track("User shared", properties: properties)
@@ -340,10 +399,15 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    func logUnitChange(unitType: String) {
+        LogHelper.log(event: "Changed-Unit", properties: ["place" : "summary", "type" : unitType])
+    }
+    
     @IBAction func tappedWindDirection(sender: AnyObject) {
         if let rotation = hasSomeDirection {
-            formatter.directionUnit = formatter.directionUnit.next
+            VaavudFormatter.shared.directionUnit = VaavudFormatter.shared.directionUnit.next
             updateWindDirection(rotation)
+            logUnitChange("direction")
         }
     }
     
@@ -352,8 +416,9 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
             animator.removeAllBehaviors()
             snap(pressureItem, to: CGFloat(arc4random() % 100))
             
-            formatter.pressureUnit = formatter.pressureUnit.next
+            VaavudFormatter.shared.pressureUnit = VaavudFormatter.shared.pressureUnit.next
             updatePressure(session)
+            logUnitChange("pressure")
         }
     }
 
@@ -363,8 +428,9 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
             snap(windchillItem, to: CGFloat(arc4random() % 100))
             snap(temperatureItem, to: CGFloat(arc4random() % 100))
             
-            formatter.temperatureUnit = formatter.temperatureUnit.next
+            VaavudFormatter.shared.temperatureUnit = VaavudFormatter.shared.temperatureUnit.next
             updateTemperature(session)
+            logUnitChange("temperature")
         }
     }
     
@@ -374,16 +440,18 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
             snap(windchillItem, to: CGFloat(arc4random() % 100))
             snap(temperatureItem, to: CGFloat(arc4random() % 100))
 
-            formatter.temperatureUnit = formatter.temperatureUnit.next
+            VaavudFormatter.shared.temperatureUnit = VaavudFormatter.shared.temperatureUnit.next
             updateTemperature(session)
+            logUnitChange("temperature")
         }
     }
     
     @IBAction func tappedWindSpeed(sender: AnyObject) {
         if hasWindSpeed {
-            formatter.windSpeedUnit = formatter.windSpeedUnit.next
+            VaavudFormatter.shared.windSpeedUnit = VaavudFormatter.shared.windSpeedUnit.next
             updateWindSpeeds(session)
             updateMapView(session)
+            logUnitChange("speed")
         }
     }
     
@@ -405,7 +473,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func updateWindDirection(rotation: Float) {
-        directionButton.setTitle(formatter.localizedDirection(rotation), forState: .Normal)
+        directionButton.setTitle(VaavudFormatter.shared.localizedDirection(rotation), forState: .Normal)
     }
     
     private func setupWindDirection(ms: MeasurementSession) {
@@ -436,21 +504,21 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func updateWindSpeeds(ms: MeasurementSession) {
-        hasWindSpeed = formatter.updateAverageWindspeedLabels(ms, valueLabel: averageLabel, unitLabel: averageUnitLabel)
-        formatter.updateMaxWindspeedLabels(ms, valueLabel: maximumLabel, unitLabel: maximumUnitLabel)
+        hasWindSpeed = VaavudFormatter.shared.updateAverageWindspeedLabels(ms, valueLabel: averageLabel, unitLabel: averageUnitLabel)
+        VaavudFormatter.shared.updateMaxWindspeedLabels(ms, valueLabel: maximumLabel, unitLabel: maximumUnitLabel)
     }
 
     private func updatePressure(ms: MeasurementSession) {
-        hasPressure = formatter.updatePressureLabels(ms, valueLabel: pressureLabel, unitLabel: pressureUnitLabel)
+        hasPressure = VaavudFormatter.shared.updatePressureLabels(ms, valueLabel: pressureLabel, unitLabel: pressureUnitLabel)
     }
     
     private func updateTemperature(ms: MeasurementSession) {
-        hasTemperature = formatter.updateTemperatureLabels(ms, valueLabel: temperatureLabel, unitLabel: temperatureUnitLabel)
-        hasWindChill = formatter.updateWindchillLabels(ms, valueLabel: windchillLabel, unitLabel: windchillUnitLabel)
+        hasTemperature = VaavudFormatter.shared.updateTemperatureLabels(ms, valueLabel: temperatureLabel, unitLabel: temperatureUnitLabel)
+        hasWindChill = VaavudFormatter.shared.updateWindchillLabels(ms, valueLabel: windchillLabel, unitLabel: windchillUnitLabel)
     }
     
     private func updateGustiness(ms: MeasurementSession) {
-        hasGustiness = formatter.updateGustinessLabels(ms, valueLabel: gustinessLabel, unitLabel: gustinessUnitLabel)
+        hasGustiness = VaavudFormatter.shared.updateGustinessLabels(ms, valueLabel: gustinessLabel, unitLabel: gustinessUnitLabel)
     }
     
     private func snap(item: DynamicReadingItem, to x: CGFloat) {

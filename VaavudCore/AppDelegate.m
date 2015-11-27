@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
 #import "ModelManager.h"
 #import "ServerUploadManager.h"
@@ -21,6 +22,8 @@
 #import "UIColor+VaavudColors.h"
 #import "MixpanelUtil.h"
 #import "Vaavud-Swift.h"
+#import "Amplitude.h"
+#import "VaavudAPIHTTPClient.h"
 
 @interface AppDelegate() <DBRestClientDelegate>
 
@@ -56,8 +59,8 @@
             [[Mixpanel sharedInstance] identify:[Property getAsString:KEY_USER_ID]];
         }
     }
-    
-    [Crashlytics startWithAPIKey:@"767b68b0d4b5e7c052c4de75ae8859beee5d9901"];
+        
+    [Fabric with:@[[Crashlytics class]]];
     
     // Dropbox
     [DBSession setSharedSession:[[DBSession alloc] initWithAppKey:@"zszsy52n0svxcv7" appSecret:@"t39k1uzaxs7a0zj" root:kDBRootAppFolder]];
@@ -106,10 +109,38 @@
     
     self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];
-
+    
+#ifdef DEBUG
+    [[Amplitude instance] initializeApiKey:@"043371ecbefba51ec63a992d0cc57491"];
+#else
+    [[Amplitude instance] initializeApiKey:@"7a5147502033e658f1357bc04b793a2b"];
+#endif
+    [[Amplitude instance] enableLocationListening];
+    
+    [self getFirebaseId:[Property getAsString:KEY_USER_ID]];
+    
     return YES;
 }
-							
+
+-(void)getFirebaseId:(NSString *)tomcatId {
+    if (tomcatId == nil) {
+        return;
+    }
+    
+    NSString *base = @"https://vaavud-core.firebaseio.com/tomcat/userId/success/";
+    NSString *key = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NjQwNzU5NjEuNzMxLCJ2IjowLCJkIjp7InVpZCI6ImFwcCJ9LCJpYXQiOjE0NDg0NTY3NjF9.2BZbzJh4B_RJoSwzXvvfIkRu4CUBCK33fBCyTSUqU_Q";
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.json?auth=%@", base, tomcatId, key]];
+    
+    [[[NSURLSession sharedSession] downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+        if (location) {
+            NSString *firebaseId = [NSString stringWithContentsOfURL:location usedEncoding:nil error:nil];
+            if (firebaseId) {
+                [[Amplitude instance] setUserId:firebaseId];
+            }
+        }
+    }] resume];
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application {
 }
 
@@ -193,6 +224,7 @@
                         if ([Property isMixpanelEnabled]) {
                             [[Mixpanel sharedInstance] track:@"Opened with url scheme" properties:@{ @"From App" : sourceApplication }];
                         }
+                        [LogHelper logWithGroupName:@"URL-Scheme" event:@"Opened" properties:@{ @"source" : sourceApplication }];
                     }
                 }
             }
@@ -227,15 +259,15 @@
     NSError *error = nil;
     [[NSFileManager defaultManager] removeItemAtPath:srcPath error:&error];
     if (!error) {
-        NSLog(@"File uploaded and deleted successfully to path: %@", metadata.path);
+        if (LOG_OTHER) NSLog(@"File uploaded and deleted successfully to path: %@", metadata.path);
     }
     else {
-        NSLog(@"File uploaded successfully, but not deleted to path: %@, error: %@", metadata.path, error.localizedDescription);
+        if (LOG_OTHER) NSLog(@"File uploaded successfully, but not deleted to path: %@, error: %@", metadata.path, error.localizedDescription);
     }
 }
 
 - (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
-    NSLog(@"File upload failed with error: %@", error);
+    if (LOG_OTHER) NSLog(@"File upload failed with error: %@", error);
 }
 
 - (void)userAuthenticated:(BOOL)isSignup viewController:(UIViewController *)viewController {

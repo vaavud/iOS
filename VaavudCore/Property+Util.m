@@ -81,7 +81,6 @@ NSString * const KEY_DID_LOGINOUT = @"DidLogInOut";
 NSString * const KEY_IS_DROPBOXLINKED = @"isDropboxLinked";
 NSString * const KEY_WINDMETERMODEL_CHANGED = @"WindmeterModelChange";
 NSString * const KEY_HISTORY_SYNCED = @"HistorySynced";
-NSString * const KEY_OPEN_LATEST_SUMMARY = @"OpenLatestSummary";
 
 NSString * const KEY_MEASUREMENT_TIME_UNLIMITED = @"TimeUnlimited";
 
@@ -107,6 +106,9 @@ NSString * const KEY_DEFAULT_FLAT_VARIANT = @"defaultFlatVariant";
 
 NSString * const KEY_NOTIFICATION_TYPE = @"notificationType";
 NSString * const KEY_NOTIFICATION_RADIUS = @"notificationRadius";
+
+NSString * const KEY_STORED_LOCATION_LAT = @"storedLocationLat";
+NSString * const KEY_STORED_LOCATION_LON = @"storedLocationLon";
 
 @implementation Property (Util)
 

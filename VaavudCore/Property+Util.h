@@ -77,7 +77,6 @@ extern NSString * const KEY_DID_LOGINOUT;
 extern NSString * const KEY_IS_DROPBOXLINKED;
 extern NSString * const KEY_WINDMETERMODEL_CHANGED;
 extern NSString * const KEY_HISTORY_SYNCED;
-extern NSString * const KEY_OPEN_LATEST_SUMMARY;
 
 extern NSString * const KEY_MEASUREMENT_TIME_UNLIMITED;
 
@@ -100,6 +99,9 @@ extern NSString * const KEY_SHARE_OVERLAY_SHOWN;
 extern NSString * const KEY_DEFAULT_SCREEN;
 
 extern NSString * const KEY_DEFAULT_FLAT_VARIANT;
+
+extern NSString * const KEY_STORED_LOCATION_LAT;
+extern NSString * const KEY_STORED_LOCATION_LON;
 
 @interface Property (Util)
 

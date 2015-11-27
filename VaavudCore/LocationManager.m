@@ -85,20 +85,13 @@ SHARED_INSTANCE
             self.locationManager.distanceFilter = kCLDistanceFilterNone;
         }
         
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")) {
-            if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
-                if (self.shouldPromptForPermission) {
-                  if (LOG_LOCATION) NSLog(@"[LocationManager] Request when-in-use location authorization");
-                    [self.locationManager requestWhenInUseAuthorization];
-                }
-            }
-            else if ([CLLocationManager locationServicesEnabled]) {
-                [self startUpdating];
+        if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
+            if (self.shouldPromptForPermission) {
+                if (LOG_LOCATION) NSLog(@"[LocationManager] Request when-in-use location authorization");
+                [self.locationManager requestWhenInUseAuthorization];
             }
         }
-        else if ([CLLocationManager locationServicesEnabled] &&
-                 (authorizationStatus != kCLAuthorizationStatusNotDetermined || self.shouldPromptForPermission)) {
-            
+        else if ([CLLocationManager locationServicesEnabled]) {
             [self startUpdating];
         }
     }
@@ -164,10 +157,22 @@ SHARED_INSTANCE
     NSTimeInterval howRecent = [self.latestLocationTimestamp timeIntervalSinceNow];
     if (fabs(howRecent) < 60.0 /* seconds */) {
         //NSLog(@"[LocationManager] returning latest location: latitude %+.6f, longitude %+.6f\n", _latestLocation.latitude, _latestLocation.longitude);
+        if ([LocationManager isCoordinateValid:_latestLocation]) {
+            [Property setAsDouble:@(_latestLocation.latitude) forKey:KEY_STORED_LOCATION_LAT];
+            [Property setAsDouble:@(_latestLocation.longitude) forKey:KEY_STORED_LOCATION_LON];
+        }
+             
         return _latestLocation;
     }
     //NSLog(@"[LocationManager] latest location too old, returning invalid");
     return kCLLocationCoordinate2DInvalid;
+}
+
+- (CLLocationCoordinate2D)storedLocation {
+    CLLocationDegrees lat = [Property getAsDouble:KEY_STORED_LOCATION_LAT defaultValue:55.676111].doubleValue;
+    CLLocationDegrees lon = [Property getAsDouble:KEY_STORED_LOCATION_LON defaultValue:12.568333].doubleValue;
+    
+    return CLLocationCoordinate2DMake(lat, lon);
 }
 
 @end

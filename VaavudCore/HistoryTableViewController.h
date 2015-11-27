@@ -15,7 +15,4 @@
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
--(void)openSummary:(NSUUID *)uuid;
-
-
 @end
