@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		2205C28D1C03781400105F45 /* MagicalRecord.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */; };
 		2205C28E1C03781400105F45 /* MagicalRecord.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		2205C29F1C060EA700105F45 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2205C29D1C060EA600105F45 /* Fabric.framework */; };
-		2205C2A01C060EA700105F45 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2205C29E1C060EA600105F45 /* Crashlytics.framework */; };
 		220A30EC1B6F77250011DDA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 220A30EB1B6F77250011DDA9 /* Images.xcassets */; };
 		220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */; };
 		221285B21B04A6F500D4C008 /* FlatMeasureScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221285B11B04A6F500D4C008 /* FlatMeasureScreen.swift */; };
@@ -256,8 +254,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2205C29D1C060EA600105F45 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
-		2205C29E1C060EA600105F45 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		220A30EB1B6F77250011DDA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Al Fresco Bold.otf"; sourceTree = "<group>"; };
 		221285B11B04A6F500D4C008 /* FlatMeasureScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlatMeasureScreen.swift; sourceTree = "<group>"; };
@@ -539,11 +535,9 @@
 			files = (
 				2237A1D31BFB22F300A9A603 /* MagicalRecord.framework in Frameworks */,
 				E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */,
-				2205C2A01C060EA700105F45 /* Crashlytics.framework in Frameworks */,
 				E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */,
 				E9B627CD1770930D004678D5 /* MobileCoreServices.framework in Frameworks */,
 				E9B627CB177092EF004678D5 /* SystemConfiguration.framework in Frameworks */,
-				2205C29F1C060EA700105F45 /* Fabric.framework in Frameworks */,
 				E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */,
 				D7B5BD531757A23C0069F739 /* CoreLocation.framework in Frameworks */,
 				2205C28D1C03781400105F45 /* MagicalRecord.framework in Frameworks */,
@@ -642,8 +636,6 @@
 		D7A4F1C9173A8DDB00D1ACEE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2205C29D1C060EA600105F45 /* Fabric.framework */,
-				2205C29E1C060EA600105F45 /* Crashlytics.framework */,
 				229DFAE51BBC2B510091F931 /* FacebookSDK.framework */,
 				22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */,
 				E904AC9917F0911000171F7F /* MapKit.framework */,
@@ -1205,7 +1197,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Fabric.framework/run 767b68b0d4b5e7c052c4de75ae8859beee5d9901 3aa3f790ccf0a071979a8907fd36db225eccd47a12a29a0b8bb191890d91175e";
+			shellScript = "";
 		};
 		261A82FADCA44D85B16D87F8 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
