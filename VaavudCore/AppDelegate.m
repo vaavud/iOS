@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import <Crashlytics/Crashlytics.h>
 #import "ModelManager.h"
 #import "ServerUploadManager.h"
 #import "LocationManager.h"
@@ -58,7 +57,6 @@
         }
     }
     
-    [Crashlytics startWithAPIKey:@"767b68b0d4b5e7c052c4de75ae8859beee5d9901"];
     
     // Dropbox
     [DBSession setSharedSession:[[DBSession alloc] initWithAppKey:@"zszsy52n0svxcv7" appSecret:@"t39k1uzaxs7a0zj" root:kDBRootAppFolder]];
@@ -75,8 +73,8 @@
     
     [Property setAsBoolean:[Property getAsBoolean:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN] forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY];
     
-    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    UIViewController *viewController = nil;
+    //self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    //UIViewController *viewController = nil;
         
     // CORE VAAVUD APP
     NSString *vcName;
@@ -102,11 +100,14 @@
         vcName = @"FirstTimeFlowController";
     }
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    viewController = [storyboard instantiateViewControllerWithIdentifier:vcName];
     
-    self.window.rootViewController = viewController;
-    [self.window makeKeyAndVisible];
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
+    
+    
+    
+    //UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+    //viewController = [storyboard instantiateViewControllerWithIdentifier:vcName];
     
     [[Amplitude instance] initializeApiKey:@"043371ecbefba51ec63a992d0cc57491"];
 
@@ -207,9 +208,14 @@
          object:@([[DBSession sharedSession] isLinked])];
         return YES;
     }
-    else {
-        return [FBSession.activeSession handleOpenURL:url];
+    else{
+        return  [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                               openURL:url
+                                                     sourceApplication:sourceApplication
+                                                            annotation:annotation];
     }
+    
+    
     
     return YES;
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Mixpanel
 
 let forecastMaxSteps = 4
 let forecastScaleSpacing = 5

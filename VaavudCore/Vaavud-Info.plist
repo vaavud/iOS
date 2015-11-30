@@ -110,6 +110,8 @@
 		<string>Roboto-Light.ttf</string>
 		<string>Roboto-Bold.ttf</string>
 	</array>
+	<key>UIMainStoryboardFile</key>
+	<string>Login</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>

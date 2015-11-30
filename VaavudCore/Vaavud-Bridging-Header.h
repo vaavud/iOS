@@ -15,17 +15,20 @@
 #import "MeasurementSession.h"
 #import "MeasurementPoint.h"
 #import "UnitUtil.h"
+#import "PasswordUtil.h"
 #import "Property+Util.h"
 #import "MeasurementAnnotation.h"
 #import "TabBarController.h"
 #import "AccountManager.h"
 #import "ServerUploadManager.h"
-#import "Mixpanel.h"
+#import <Mixpanel/Mixpanel.h>
 #import "MixpanelUtil.h"
 #import "RegisterViewController.h"
+#import <Firebase/Firebase.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 #import "MjolnirMeasurementController.h"
-
 #import <DropboxSDK/DropboxSDK.h>
 
 //#import "MagicalRecord.h"

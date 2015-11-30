@@ -9,6 +9,7 @@
 import UIKit
 import CoreMotion
 import VaavudSDK
+import Mixpanel
 
 let updatePeriod = 1.0
 let countdownInterval = 3

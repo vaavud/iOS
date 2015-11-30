@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Mixpanel
 
 class CoreSettingsTableViewController: UITableViewController {
     let interactions = VaavudInteractions()

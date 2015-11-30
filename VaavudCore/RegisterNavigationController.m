@@ -7,7 +7,7 @@
 //
 
 #import "RegisterNavigationController.h"
-#import "LogInViewController.h"
+#import "RLogInViewController.h"
 #import "RegisterViewController.h"
 
 @implementation RegisterNavigationController
@@ -17,7 +17,7 @@
         
     if (self.startScreen && self.startScreen > 0) {
         if (self.startScreen == RegisterScreenTypeLogIn) {
-            LogInViewController *loginViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LogInViewController"];
+            RLogInViewController *loginViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"LogInViewController"];
             loginViewController.completion = self.completion;
             [self setViewControllers:@[loginViewController] animated:NO];
         }
