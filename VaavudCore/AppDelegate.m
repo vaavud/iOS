@@ -77,39 +77,6 @@
     
     [Property setAsBoolean:[Property getAsBoolean:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN] forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY];
     
-//    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-//    UIViewController *viewController = nil;
-//        
-//    // CORE VAAVUD APP
-//    NSString *vcName;
-//    
-//    if ([Property getAsBoolean:KEY_HAS_SEEN_INTRO_FLOW defaultValue:NO]) {
-//        // Not a new user
-//        if (LOG_INTRO) NSLog(@"KEY_HAS_SEEN_INTRO_FLOW");
-//
-//        if ([Property getAsBoolean:KEY_HAS_SEEN_TRISCREEN_FLOW defaultValue:NO]) {
-//            // Has seen upgrade flow
-//            if (LOG_INTRO) NSLog(@"KEY_HAS_SEEN_TRISCREEN_FLOW");
-//            vcName = @"TabBarController";
-//        }
-//        else {
-//            // Has not seen upgrade flow
-//            if (LOG_INTRO) NSLog(@"NOT KEY_HAS_SEEN_TRISCREEN_FLOW");
-//            vcName = @"UpgradingUserViewController";
-//        }
-//    }
-//    else {
-//        // Has not seen intro flow so we will show it now
-//        if (LOG_INTRO) NSLog(@"not KEY_HAS_SEEN_INTRO_FLOW");
-//        vcName = @"FirstTimeFlowController";
-//    }
-//    
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-//    viewController = [storyboard instantiateViewControllerWithIdentifier:vcName];
-//    
-//    self.window.rootViewController = viewController;
-//    [self.window makeKeyAndVisible];
-    
 #ifdef DEBUG
     [[Amplitude instance] initializeApiKey:@"043371ecbefba51ec63a992d0cc57491"];
 #else
@@ -117,12 +84,12 @@
 #endif
     [[Amplitude instance] enableLocationListening];
     
-    [self getFirebaseId:[Property getAsString:KEY_USER_ID]];
+    [self updateFirebaseId:[Property getAsString:KEY_USER_ID]];
     
     return YES;
 }
 
--(void)getFirebaseId:(NSString *)tomcatId {
+-(void)updateFirebaseId:(NSString *)tomcatId {
     if (tomcatId == nil) {
         return;
     }
