@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C79EA5EFC6296482BCEFB9C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525BDD08A4A6143BBBC49FE3 /* Pods.framework */; };
 		2205C28D1C03781400105F45 /* MagicalRecord.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */; };
 		2205C28E1C03781400105F45 /* MagicalRecord.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		220A30EC1B6F77250011DDA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 220A30EB1B6F77250011DDA9 /* Images.xcassets */; };
@@ -71,7 +72,6 @@
 		22EAE5D61AB1EBEA0037654E /* UpgradingUserPagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D81AB1EBEA0037654E /* UpgradingUserPagesView.xib */; };
 		22F2B3671C032A8E001D7AD7 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F2B3661C032A8E001D7AD7 /* LogHelper.swift */; };
 		22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
-		A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A086025EA7704C458175CADF /* libPods.a */; };
 		D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
 		D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* VaavudFFT.m */; };
 		D721B47E1AD1EBD10045DC99 /* DropboxUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D721B47D1AD1EBD10045DC99 /* DropboxUploader.swift */; };
@@ -359,7 +359,7 @@
 		22F2B3661C032A8E001D7AD7 /* LogHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogHelper.swift; sourceTree = "<group>"; };
 		22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Bridging-Header.h"; sourceTree = "<group>"; };
 		22FA6C501A727171004DD868 /* VaavudStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VaavudStyle.swift; path = Vaavud/StyleKit/VaavudStyle.swift; sourceTree = SOURCE_ROOT; };
-		A086025EA7704C458175CADF /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		525BDD08A4A6143BBBC49FE3 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDE6761506C86D4075981625 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D7092E881748FE9C00993235 /* VaavudDynamicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudDynamicsController.h; sourceTree = "<group>"; };
 		D7092E891748FE9C00993235 /* VaavudDynamicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudDynamicsController.m; sourceTree = "<group>"; };
@@ -548,7 +548,7 @@
 				D7A4F1CD173A8DDB00D1ACEE /* Foundation.framework in Frameworks */,
 				229DFAE61BBC2B510091F931 /* FacebookSDK.framework in Frameworks */,
 				D7A4F1CF173A8DDB00D1ACEE /* CoreGraphics.framework in Frameworks */,
-				A8B3E3512CEB4DE18BAAC107 /* libPods.a in Frameworks */,
+				0C79EA5EFC6296482BCEFB9C /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,7 +651,7 @@
 				D7C860ED173AD08F005E9946 /* QuartzCore.framework */,
 				E9B627CA177092EF004678D5 /* SystemConfiguration.framework */,
 				D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */,
-				A086025EA7704C458175CADF /* libPods.a */,
+				525BDD08A4A6143BBBC49FE3 /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
