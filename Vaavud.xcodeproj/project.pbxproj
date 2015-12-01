@@ -30,6 +30,7 @@
 		22787C3B1B5D8C8200AB6150 /* MeasureScreens.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22787C3A1B5D8C8200AB6150 /* MeasureScreens.xcassets */; };
 		227E29401BC281EF000DD2C7 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 227E293F1BC281EF000DD2C7 /* NotificationsViewController.swift */; };
 		228124F91B945CC80037B8CB /* Forecast.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 228124F81B945CC80037B8CB /* Forecast.xcassets */; };
+		2283D22A1C0DD2F9001D9248 /* Login.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2283D2291C0DD2F9001D9248 /* Login.xcassets */; };
 		2284FB761C08998000FC9101 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2284FB741C08998000FC9101 /* Fabric.framework */; };
 		2284FB771C08998000FC9101 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2284FB751C08998000FC9101 /* Crashlytics.framework */; };
 		228904BC1BA815D3006259AB /* Overlays.swift in Sources */ = {isa = PBXBuildFile; fileRef = 228904BB1BA815D3006259AB /* Overlays.swift */; };
@@ -295,6 +296,7 @@
 		22787C3A1B5D8C8200AB6150 /* MeasureScreens.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = MeasureScreens.xcassets; path = ImageAssets/MeasureScreens.xcassets; sourceTree = "<group>"; };
 		227E293F1BC281EF000DD2C7 /* NotificationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		228124F81B945CC80037B8CB /* Forecast.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Forecast.xcassets; path = ImageAssets/Forecast.xcassets; sourceTree = "<group>"; };
+		2283D2291C0DD2F9001D9248 /* Login.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Login.xcassets; path = ImageAssets/Login.xcassets; sourceTree = "<group>"; };
 		2284FB741C08998000FC9101 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		2284FB751C08998000FC9101 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		228904BB1BA815D3006259AB /* Overlays.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Overlays.swift; sourceTree = "<group>"; };
@@ -803,6 +805,7 @@
 				228124F81B945CC80037B8CB /* Forecast.xcassets */,
 				22BBC2A31BAC3407005E0A95 /* Map.xcassets */,
 				22146AA11BE79E68005D072A /* Notifications.xcassets */,
+				2283D2291C0DD2F9001D9248 /* Login.xcassets */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -1168,6 +1171,7 @@
 				2269104C1BCFCB2C00116673 /* ProBadge.html in Resources */,
 				22E59A441ADD6F7000B1BC88 /* MapMarkers.xcassets in Resources */,
 				2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */,
+				2283D22A1C0DD2F9001D9248 /* Login.xcassets in Resources */,
 				22E59A4A1ADD6F7000B1BC88 /* TabBar.xcassets in Resources */,
 				E9AF2B9117F5B96500BDF6D9 /* MeasurementTableViewCell.xib in Resources */,
 				22E59A461ADD6F7000B1BC88 /* MapPlaceholder.xcassets in Resources */,
