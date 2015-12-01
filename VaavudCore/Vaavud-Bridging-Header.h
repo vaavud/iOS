@@ -39,6 +39,6 @@
 
 #import "UUIDUtil.h"
 
-#import "FirstTimeFlowController.h" // FIXME: This class needs to be refactored
+#import <Firebase/Firebase.h>
 
 #endif

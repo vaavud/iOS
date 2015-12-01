@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import MapKit
 import Social
+//import Firebase
 
 class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet private weak var dateLabel: UILabel!

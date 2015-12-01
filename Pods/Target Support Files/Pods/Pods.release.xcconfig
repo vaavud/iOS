@@ -1,6 +1,7 @@
 FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Dropbox-iOS-SDK/dropbox-ios-sdk-1.3.13"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Amplitude-iOS" "${PODS_ROOT}/Headers/Public/Dropbox-iOS-SDK" "${PODS_ROOT}/Headers/Public/FMDB" "${PODS_ROOT}/Headers/Public/Mixpanel"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Amplitude-iOS" -isystem "${PODS_ROOT}/Headers/Public/Dropbox-iOS-SDK" -isystem "${PODS_ROOT}/Headers/Public/FMDB" -isystem "${PODS_ROOT}/Headers/Public/Mixpanel"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"Amplitude-iOS" -l"FMDB" -l"Mixpanel" -l"icucore" -l"sqlite3" -framework "Accelerate" -framework "CoreGraphics" -framework "CoreTelephony" -framework "DropboxSDK" -framework "Foundation" -framework "QuartzCore" -framework "Security" -framework "SystemConfiguration" -framework "UIKit"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Amplitude-iOS" "${PODS_ROOT}/Headers/Public/Dropbox-iOS-SDK" "${PODS_ROOT}/Headers/Public/FMDB" "${PODS_ROOT}/Headers/Public/Firebase" "${PODS_ROOT}/Headers/Public/Mixpanel"
+LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Firebase"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Amplitude-iOS" -isystem "${PODS_ROOT}/Headers/Public/Dropbox-iOS-SDK" -isystem "${PODS_ROOT}/Headers/Public/FMDB" -isystem "${PODS_ROOT}/Headers/Public/Firebase" -isystem "${PODS_ROOT}/Headers/Public/Mixpanel"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"Amplitude-iOS" -l"FMDB" -l"Firebase" -l"FirebaseStatic" -l"Mixpanel" -l"c++" -l"icucore" -l"sqlite3" -framework "Accelerate" -framework "CFNetwork" -framework "CoreGraphics" -framework "CoreTelephony" -framework "DropboxSDK" -framework "Foundation" -framework "QuartzCore" -framework "Security" -framework "SystemConfiguration" -framework "UIKit"
 PODS_ROOT = ${SRCROOT}/Pods

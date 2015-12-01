@@ -82,6 +82,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
+## Firebase
+
+https://www.firebase.com/terms/terms-of-service.html
+
 ## Mixpanel
 
 Copyright 2013 Mixpanel, Inc.

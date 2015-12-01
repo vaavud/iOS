@@ -1007,9 +1007,6 @@
                                         </tableViewCellContentView>
                                         <animations/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <segue destination="fPm-Au-CcP" kind="modal" identifier="ShowInstructions" modalTransitionStyle="flipHorizontal" id="RB0-en-9lw"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1312,50 +1309,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nt3-0L-LC6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="296" y="1648"/>
-        </scene>
-        <!--First Time Flow Controller-->
-        <scene sceneID="iog-Qb-A03">
-            <objects>
-                <viewController storyboardIdentifier="FirstTimeFlowController" id="fPm-Au-CcP" customClass="FirstTimeFlowController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="v6S-Z4-i4j"/>
-                        <viewControllerLayoutGuide type="bottom" id="CWp-Q1-PO0"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="jgy-kh-20U">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="GSL-E9-mNH">
-                                <rect key="frame" x="141" y="531" width="39" height="37"/>
-                                <animations/>
-                            </pageControl>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Og-NX-cD6">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <animations/>
-                                <items>
-                                    <navigationItem id="Hjh-EN-w2u"/>
-                                </items>
-                            </navigationBar>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="7Og-NX-cD6" secondAttribute="trailing" id="8MQ-W3-LiG"/>
-                            <constraint firstItem="CWp-Q1-PO0" firstAttribute="top" secondItem="GSL-E9-mNH" secondAttribute="bottom" id="JFr-7l-ANn"/>
-                            <constraint firstItem="7Og-NX-cD6" firstAttribute="leading" secondItem="jgy-kh-20U" secondAttribute="leading" id="WHJ-oe-8Xq"/>
-                            <constraint firstAttribute="centerX" secondItem="GSL-E9-mNH" secondAttribute="centerX" id="mPr-HN-AVz"/>
-                            <constraint firstItem="7Og-NX-cD6" firstAttribute="top" secondItem="v6S-Z4-i4j" secondAttribute="bottom" id="uDW-zK-Nnw"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="customNavigationBar" destination="7Og-NX-cD6" id="VrO-5C-eTK"/>
-                        <outlet property="customNavigationItem" destination="Hjh-EN-w2u" id="Q3k-bZ-8po"/>
-                        <outlet property="pageControl" destination="GSL-E9-mNH" id="UNr-vh-v3I"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="W5D-Mo-pgi" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="59" y="2759"/>
         </scene>
         <!--History Table View Controller-->
         <scene sceneID="ESh-LX-BZr">

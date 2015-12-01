@@ -107,6 +107,14 @@ THE SOFTWARE.</string>
 		</dict>
 		<dict>
 			<key>FooterText</key>
+			<string>https://www.firebase.com/terms/terms-of-service.html</string>
+			<key>Title</key>
+			<string>Firebase</string>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+		</dict>
+		<dict>
+			<key>FooterText</key>
 			<string>Copyright 2013 Mixpanel, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
