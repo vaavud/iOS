@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -16,17 +17,20 @@
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New and improved!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DYL-PV-xrH">
                             <rect key="frame" x="45" y="20" width="231" height="30"/>
+                            <animations/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
                             <color key="textColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We made our familiar wind view better, and created two new exciting ways to see the weather. Swipe to learn more!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QHy-ZF-8rZ">
                             <rect key="frame" x="28" y="60" width="265" height="95"/>
+                            <animations/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
                             <color key="textColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="centerX" secondItem="QHy-ZF-8rZ" secondAttribute="centerX" id="0qI-vu-3PF"/>
                         <constraint firstAttribute="centerX" secondItem="DYL-PV-xrH" secondAttribute="centerX" id="Cvi-8h-Ohj"/>
@@ -40,17 +44,20 @@
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quickly find the wind direction in this elegant minimalist view." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="74A-FE-VIW">
                             <rect key="frame" x="28" y="60" width="265" height="48"/>
+                            <animations/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
                             <color key="textColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Directions!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zoH-zr-gYm">
                             <rect key="frame" x="96" y="20" width="129" height="30"/>
+                            <animations/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
                             <color key="textColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="centerX" secondItem="74A-FE-VIW" secondAttribute="centerX" id="27p-lx-YEM"/>
                         <constraint firstAttribute="width" secondItem="74A-FE-VIW" secondAttribute="width" multiplier="640:530" id="k7h-fX-ShS"/>
@@ -64,18 +71,21 @@
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Visualise the wind speed and direction on our innovative radar like screen!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="454-5p-7vV">
                             <rect key="frame" x="28" y="60" width="265" height="71"/>
+                            <animations/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
                             <color key="textColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Radar" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfr-KI-mR5">
                             <rect key="frame" x="124" y="20" width="72" height="30"/>
+                            <animations/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="25"/>
                             <color key="textColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="By2-Wp-Ksm">
+                        <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="By2-Wp-Ksm">
                             <rect key="frame" x="115" y="146" width="91" height="44"/>
+                            <animations/>
                             <color key="backgroundColor" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="HIn-n7-Ybz"/>
@@ -94,6 +104,7 @@
                             </connections>
                         </button>
                     </subviews>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="centerX" secondItem="454-5p-7vV" secondAttribute="centerX" id="4Yd-m9-wv7"/>
                         <constraint firstItem="454-5p-7vV" firstAttribute="top" secondItem="kfr-KI-mR5" secondAttribute="bottom" constant="10" id="ZTf-Zs-QdD"/>
@@ -103,6 +114,7 @@
                     </constraints>
                 </view>
             </subviews>
+            <animations/>
             <constraints>
                 <constraint firstItem="yJk-ua-Thb" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="1kV-BK-f5p"/>
                 <constraint firstItem="jEF-aq-0dA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="2ib-tn-geH"/>

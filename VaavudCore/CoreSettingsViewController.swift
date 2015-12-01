@@ -252,10 +252,13 @@ class CoreSettingsTableViewController: UITableViewController {
                 LogHelper.log(event: "Pressed-Buy", properties: ["place" : "settings"])
             }
         }
-        else if let firstTimeViewController = segue.destinationViewController as? FirstTimeFlowController {
-            FirstTimeFlowController.createInstructionFlowOn(firstTimeViewController)
-            firstTimeViewController.returnViaDismiss = true
-        }
+        
+// Fixme : make tip screen available in settings
+        
+        //        else if let firstTimeViewController = segue.destinationViewController as? FirstTimeFlowController {
+//            FirstTimeFlowController.createInstructionFlowOn(firstTimeViewController)
+//            firstTimeViewController.returnViaDismiss = true
+//        }
         logHelper.increase()
     }
 }

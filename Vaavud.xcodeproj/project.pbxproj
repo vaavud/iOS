@@ -136,7 +136,6 @@
 		E9B627CB177092EF004678D5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B627CA177092EF004678D5 /* SystemConfiguration.framework */; };
 		E9B627CD1770930D004678D5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B627CC1770930D004678D5 /* MobileCoreServices.framework */; };
 		E9B627D1177096D6004678D5 /* VaavudAPIHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627D0177096D6004678D5 /* VaavudAPIHTTPClient.m */; };
-		E9B950CC195B1DCE00E9EF02 /* ImageUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950CB195B1DCE00E9EF02 /* ImageUtil.m */; };
 		E9B950E3195C587800E9EF02 /* FirstTimeExplanationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950E0195C587800E9EF02 /* FirstTimeExplanationViewController.m */; };
 		E9B950E4195C587800E9EF02 /* FirstTimeFlowController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B950E2195C587800E9EF02 /* FirstTimeFlowController.m */; };
 		E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */; };
@@ -497,8 +496,6 @@
 		E9B627CC1770930D004678D5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		E9B627CF177096D6004678D5 /* VaavudAPIHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudAPIHTTPClient.h; sourceTree = "<group>"; };
 		E9B627D0177096D6004678D5 /* VaavudAPIHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudAPIHTTPClient.m; sourceTree = "<group>"; };
-		E9B950CA195B1DCE00E9EF02 /* ImageUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageUtil.h; sourceTree = "<group>"; };
-		E9B950CB195B1DCE00E9EF02 /* ImageUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageUtil.m; sourceTree = "<group>"; };
 		E9B950DF195C587800E9EF02 /* FirstTimeExplanationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstTimeExplanationViewController.h; sourceTree = "<group>"; };
 		E9B950E0195C587800E9EF02 /* FirstTimeExplanationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTimeExplanationViewController.m; sourceTree = "<group>"; };
 		E9B950E1195C587800E9EF02 /* FirstTimeFlowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstTimeFlowController.h; sourceTree = "<group>"; };
@@ -983,8 +980,6 @@
 				E99F8F70178EC5AD0090402C /* UnitUtil.m */,
 				E94CBB5C177DB3050089D440 /* UUIDUtil.h */,
 				E94CBB5D177DB3050089D440 /* UUIDUtil.m */,
-				E9B950CA195B1DCE00E9EF02 /* ImageUtil.h */,
-				E9B950CB195B1DCE00E9EF02 /* ImageUtil.m */,
 				E984F26119B878BD004024C6 /* MixpanelUtil.h */,
 				E984F26219B878BD004024C6 /* MixpanelUtil.m */,
 			);
@@ -1265,7 +1260,6 @@
 				E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */,
 				22DCCED41B02399800D65265 /* RoundMeasureScreen.swift in Sources */,
 				D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */,
-				E9B950CC195B1DCE00E9EF02 /* ImageUtil.m in Sources */,
 				E91D421B198F7E4900106E15 /* DismissOnTouchUIView.m in Sources */,
 				D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */,
 				E9A4099F18AA75C6004F1C12 /* RegisterNavigationController.m in Sources */,
