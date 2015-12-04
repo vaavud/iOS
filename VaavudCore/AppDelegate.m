@@ -24,6 +24,7 @@
 #import "Vaavud-Swift.h"
 #import "Amplitude.h"
 #import "VaavudAPIHTTPClient.h"
+#import "FBSDKCoreKit.h"
 
 @interface AppDelegate() <DBRestClientDelegate>
 
@@ -86,6 +87,10 @@
     
     [self updateFirebaseId:[Property getAsString:KEY_USER_ID]];
     
+    
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+                             didFinishLaunchingWithOptions:launchOptions];
+    
     return YES;
 }
 
@@ -118,57 +123,57 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [FBAppCall handleDidBecomeActive];
-    
-    if ([Property isMixpanelEnabled]) {
-        [MixpanelUtil registerUserAsMixpanelProfile];
-        [MixpanelUtil updateMeasurementProperties:YES];
-
-        Mixpanel *mixpanel = [Mixpanel sharedInstance];
-        
-        // Mixpanel super properties
-        NSDate *creationTime = [Property getAsDate:KEY_CREATION_TIME];
-        if (creationTime) {
-            [mixpanel registerSuperPropertiesOnce:@{@"Creation Time": [MixpanelUtil toUTFDateString:creationTime]}];
-        }
-        
-        NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithCapacity:10];
-        
-        NSString *userId = [Property getAsString:KEY_USER_ID];
-        if (userId) {
-            [dictionary setObject:@"true" forKey:@"User"];
-        }
-
-        NSString *facebookUserId = [Property getAsString:KEY_FACEBOOK_USER_ID];
-        if (facebookUserId) {
-            [dictionary setObject:@"true" forKey:@"Facebook"];
-        }
-
-        NSString *language = [Property getAsString:KEY_LANGUAGE];
-        if (language) {
-            [dictionary setObject:language forKey:@"Language"];
-        }
-        
-        NSNumber *windSpeedUnit = [Property getAsInteger:KEY_WIND_SPEED_UNIT];
-        if (windSpeedUnit) {
-            NSString *unit = [UnitUtil jsonNameForWindSpeedUnit:[windSpeedUnit intValue]];
-            [dictionary setObject:unit forKey:@"Speed Unit"];
-        }
-        
-        BOOL enableShareDialog = [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:YES];
-        [dictionary setObject:(enableShareDialog ? @"true" : @"false") forKey:@"Enable Share Dialog"];
-        
-        if (dictionary.count > 0) {
-            [mixpanel registerSuperProperties:dictionary];
-        }
-    }
-    
-    if (self.lastAppActive == nil || fabs([self.lastAppActive timeIntervalSinceNow]) > 30.0*60.0 /* 30 mins */) {
-        if ([Property isMixpanelEnabled]) {
-            [[Mixpanel sharedInstance] track:@"Open App"];
-        }
-        self.lastAppActive = [NSDate date];
-    }
+//    [FBAppCall handleDidBecomeActive];
+//    
+//    if ([Property isMixpanelEnabled]) {
+//        [MixpanelUtil registerUserAsMixpanelProfile];
+//        [MixpanelUtil updateMeasurementProperties:YES];
+//
+//        Mixpanel *mixpanel = [Mixpanel sharedInstance];
+//        
+//        // Mixpanel super properties
+//        NSDate *creationTime = [Property getAsDate:KEY_CREATION_TIME];
+//        if (creationTime) {
+//            [mixpanel registerSuperPropertiesOnce:@{@"Creation Time": [MixpanelUtil toUTFDateString:creationTime]}];
+//        }
+//        
+//        NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithCapacity:10];
+//        
+//        NSString *userId = [Property getAsString:KEY_USER_ID];
+//        if (userId) {
+//            [dictionary setObject:@"true" forKey:@"User"];
+//        }
+//
+//        NSString *facebookUserId = [Property getAsString:KEY_FACEBOOK_USER_ID];
+//        if (facebookUserId) {
+//            [dictionary setObject:@"true" forKey:@"Facebook"];
+//        }
+//
+//        NSString *language = [Property getAsString:KEY_LANGUAGE];
+//        if (language) {
+//            [dictionary setObject:language forKey:@"Language"];
+//        }
+//        
+//        NSNumber *windSpeedUnit = [Property getAsInteger:KEY_WIND_SPEED_UNIT];
+//        if (windSpeedUnit) {
+//            NSString *unit = [UnitUtil jsonNameForWindSpeedUnit:[windSpeedUnit intValue]];
+//            [dictionary setObject:unit forKey:@"Speed Unit"];
+//        }
+//        
+//        BOOL enableShareDialog = [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:YES];
+//        [dictionary setObject:(enableShareDialog ? @"true" : @"false") forKey:@"Enable Share Dialog"];
+//        
+//        if (dictionary.count > 0) {
+//            [mixpanel registerSuperProperties:dictionary];
+//        }
+//    }
+//    
+//    if (self.lastAppActive == nil || fabs([self.lastAppActive timeIntervalSinceNow]) > 30.0*60.0 /* 30 mins */) {
+//        if ([Property isMixpanelEnabled]) {
+//            [[Mixpanel sharedInstance] track:@"Open App"];
+//        }
+//        self.lastAppActive = [NSDate date];
+//    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -203,9 +208,9 @@
          object:@([[DBSession sharedSession] isLinked])];
         return YES;
     }
-    else {
-        return [FBSession.activeSession handleOpenURL:url];
-    }
+//    else {
+//        return [FBSession.activeSession handleOpenURL:url];
+//    }
     
     return YES;
 }

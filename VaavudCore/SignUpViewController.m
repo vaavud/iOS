@@ -15,7 +15,6 @@
 #import "UUIDUtil.h"
 #import "TermsPrivacyViewController.h"
 #import "Mixpanel.h"
-#import <FacebookSDK/FacebookSDK.h>
 
 #define TAB_BAR_HEIGHT 49
 

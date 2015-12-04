@@ -40,7 +40,6 @@
 		229124991B81E8B100DC6867 /* WindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */; };
 		2291249A1B81E8DB00DC6867 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C5C3617EC826800E84D3C /* TabBarController.m */; };
 		229533511B1F3F8A00DAEA62 /* MeasureCancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229533501B1F3F8A00DAEA62 /* MeasureCancelButton.swift */; };
-		229DFAE61BBC2B510091F931 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 229DFAE51BBC2B510091F931 /* FacebookSDK.framework */; };
 		229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
 		229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3171A7EE3A0008A3226 /* VaavudViews.swift */; };
 		22AB2E6D1A70FC15008CAE46 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */; };
@@ -71,6 +70,15 @@
 		22EAE5D61AB1EBEA0037654E /* UpgradingUserPagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D81AB1EBEA0037654E /* UpgradingUserPagesView.xib */; };
 		22F2B3671C032A8E001D7AD7 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F2B3661C032A8E001D7AD7 /* LogHelper.swift */; };
 		22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
+		2B347F601C11A4970095E95A /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B347F5A1C11A4960095E95A /* Login.storyboard */; };
+		2B347F611C11A4970095E95A /* SelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F5B1C11A4970095E95A /* SelectorViewController.swift */; };
+		2B347F621C11A4970095E95A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F5C1C11A4970095E95A /* LoginViewController.swift */; };
+		2B347F631C11A4970095E95A /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F5D1C11A4970095E95A /* SignupViewController.swift */; };
+		2B347F641C11A4970095E95A /* AuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F5E1C11A4970095E95A /* AuthorizationController.swift */; };
+		2B347F651C11A4970095E95A /* LoginTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F5F1C11A4970095E95A /* LoginTutorialViewController.swift */; };
+		2B347F671C11A6990095E95A /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F661C11A6990095E95A /* ActivityViewController.swift */; };
+		2B347F6A1C11A7130095E95A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F681C11A7130095E95A /* User.swift */; };
+		2B347F6B1C11A7130095E95A /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F691C11A7130095E95A /* Device.swift */; };
 		D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
 		D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* VaavudFFT.m */; };
 		D721B47E1AD1EBD10045DC99 /* DropboxUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D721B47D1AD1EBD10045DC99 /* DropboxUploader.swift */; };
@@ -358,6 +366,15 @@
 		22F2B3661C032A8E001D7AD7 /* LogHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogHelper.swift; sourceTree = "<group>"; };
 		22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Bridging-Header.h"; sourceTree = "<group>"; };
 		22FA6C501A727171004DD868 /* VaavudStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VaavudStyle.swift; path = Vaavud/StyleKit/VaavudStyle.swift; sourceTree = SOURCE_ROOT; };
+		2B347F5A1C11A4960095E95A /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
+		2B347F5B1C11A4970095E95A /* SelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectorViewController.swift; sourceTree = "<group>"; };
+		2B347F5C1C11A4970095E95A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		2B347F5D1C11A4970095E95A /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		2B347F5E1C11A4970095E95A /* AuthorizationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationController.swift; sourceTree = "<group>"; };
+		2B347F5F1C11A4970095E95A /* LoginTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTutorialViewController.swift; sourceTree = "<group>"; };
+		2B347F661C11A6990095E95A /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		2B347F681C11A7130095E95A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		2B347F691C11A7130095E95A /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		525BDD08A4A6143BBBC49FE3 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDE6761506C86D4075981625 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D7092E881748FE9C00993235 /* VaavudDynamicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudDynamicsController.h; sourceTree = "<group>"; };
@@ -544,7 +561,6 @@
 				D7A4F1F4173A9FC200D1ACEE /* CoreMotion.framework in Frameworks */,
 				D7A4F1CB173A8DDB00D1ACEE /* UIKit.framework in Frameworks */,
 				D7A4F1CD173A8DDB00D1ACEE /* Foundation.framework in Frameworks */,
-				229DFAE61BBC2B510091F931 /* FacebookSDK.framework in Frameworks */,
 				D7A4F1CF173A8DDB00D1ACEE /* CoreGraphics.framework in Frameworks */,
 				0C79EA5EFC6296482BCEFB9C /* Pods.framework in Frameworks */,
 			);
@@ -609,6 +625,22 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		2B347F511C11A4870095E95A /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				2B347F681C11A7130095E95A /* User.swift */,
+				2B347F691C11A7130095E95A /* Device.swift */,
+				2B347F5A1C11A4960095E95A /* Login.storyboard */,
+				2B347F5B1C11A4970095E95A /* SelectorViewController.swift */,
+				2B347F661C11A6990095E95A /* ActivityViewController.swift */,
+				2B347F5C1C11A4970095E95A /* LoginViewController.swift */,
+				2B347F5D1C11A4970095E95A /* SignupViewController.swift */,
+				2B347F5E1C11A4970095E95A /* AuthorizationController.swift */,
+				2B347F5F1C11A4970095E95A /* LoginTutorialViewController.swift */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 		D7A4F1BE173A8DDB00D1ACEE = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +689,7 @@
 		D7A4F1D0173A8DDB00D1ACEE /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				2B347F511C11A4870095E95A /* Login */,
 				22F2B3661C032A8E001D7AD7 /* LogHelper.swift */,
 				222F30621BC2944800CD607B /* NotificationDetailsViewController.swift */,
 				227E293F1BC281EF000DD2C7 /* NotificationsViewController.swift */,
@@ -1158,6 +1191,7 @@
 				22E59A3E1ADD6F7000B1BC88 /* InterfaceElements.xcassets in Resources */,
 				22E59A401ADD6F7000B1BC88 /* IntroFlow.xcassets in Resources */,
 				E9FABFE71896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib in Resources */,
+				2B347F601C11A4970095E95A /* Login.storyboard in Resources */,
 				22E59A3C1ADD6F7000B1BC88 /* Icons.xcassets in Resources */,
 				22AB2E6E1A70FC15008CAE46 /* Roboto-Light.ttf in Resources */,
 				220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */,
@@ -1247,6 +1281,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7A4F1D7173A8DDB00D1ACEE /* main.m in Sources */,
+				2B347F651C11A4970095E95A /* LoginTutorialViewController.swift in Sources */,
 				D7A4F1DB173A8DDB00D1ACEE /* AppDelegate.m in Sources */,
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
 				E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */,
@@ -1258,6 +1293,8 @@
 				E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */,
 				E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */,
 				229533511B1F3F8A00DAEA62 /* MeasureCancelButton.swift in Sources */,
+				2B347F6A1C11A7130095E95A /* User.swift in Sources */,
+				2B347F671C11A6990095E95A /* ActivityViewController.swift in Sources */,
 				E9A4097818994000004F1C12 /* TMCache.m in Sources */,
 				E9A4099C18AA501D004F1C12 /* PasswordUtil.m in Sources */,
 				E9B627C217708E63004678D5 /* AFHTTPRequestOperation.m in Sources */,
@@ -1267,12 +1304,14 @@
 				E91D4218198F7C8400106E15 /* GuideView.m in Sources */,
 				229124981B81E87100DC6867 /* MjolnirMeasurementController.m in Sources */,
 				E9159CA51A03E09100742188 /* MeasurementSession.m in Sources */,
+				2B347F641C11A4970095E95A /* AuthorizationController.swift in Sources */,
 				E9B627C517708E63004678D5 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */,
 				2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */,
 				E9A4097D18994570004F1C12 /* UIImageView+TMCache.m in Sources */,
 				E9B627C617708E63004678D5 /* AFPropertyListRequestOperation.m in Sources */,
 				E9B627C717708E63004678D5 /* AFURLConnectionOperation.m in Sources */,
+				2B347F631C11A4970095E95A /* SignupViewController.swift in Sources */,
 				E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */,
 				E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */,
 				E9B627C817708E63004678D5 /* AFXMLRequestOperation.m in Sources */,
@@ -1280,6 +1319,7 @@
 				227E29401BC281EF000DD2C7 /* NotificationsViewController.swift in Sources */,
 				E9B627D1177096D6004678D5 /* VaavudAPIHTTPClient.m in Sources */,
 				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,
+				2B347F621C11A4970095E95A /* LoginViewController.swift in Sources */,
 				E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */,
 				E9FABFEA1896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m in Sources */,
 				228904BC1BA815D3006259AB /* Overlays.swift in Sources */,
@@ -1300,12 +1340,14 @@
 				229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */,
 				22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */,
 				22ADAA941A9C911400C298E6 /* EmptyHistoryArrow.swift in Sources */,
+				2B347F611C11A4970095E95A /* SelectorViewController.swift in Sources */,
 				E9F33CCE18B4B3CB0033EDC7 /* AccountManager.m in Sources */,
 				E9A4099318A52E40004F1C12 /* RegisterViewController.m in Sources */,
 				E9A4097918994000004F1C12 /* TMDiskCache.m in Sources */,
 				22E602471B6F67C600B706E0 /* ActivityFlowViewController.swift in Sources */,
 				226910501BCFCE6900116673 /* UserTab.swift in Sources */,
 				22F2B3671C032A8E001D7AD7 /* LogHelper.swift in Sources */,
+				2B347F6B1C11A7130095E95A /* Device.swift in Sources */,
 				229124991B81E8B100DC6867 /* WindMeasurementController.m in Sources */,
 				E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */,
 				22728BEE1B6BA30200AFE634 /* UIImage+Vaavud.m in Sources */,

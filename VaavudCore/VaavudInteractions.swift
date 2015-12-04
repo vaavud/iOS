@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Mixpanel
 
 class VaavudInteractions: NSObject, UIAlertViewDelegate {
     var alertAction: () -> () = { }

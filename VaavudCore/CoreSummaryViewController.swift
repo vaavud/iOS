@@ -11,6 +11,7 @@ import UIKit
 import MapKit
 import Social
 //import Firebase
+import Mixpanel
 
 class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet private weak var dateLabel: UILabel!

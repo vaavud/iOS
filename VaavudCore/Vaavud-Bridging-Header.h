@@ -22,12 +22,14 @@
 #import "ServerUploadManager.h"
 #import "MixpanelUtil.h"
 #import "RegisterViewController.h"
-
+#import "PasswordUtil.h" // Delete this file
 #import "Amplitude.h"
 
 #import "MjolnirMeasurementController.h"
 
 #import <DropboxSDK/DropboxSDK.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 
 #import <MagicalRecord/MagicalRecord.h>
 #import <MagicalRecord/MagicalRecord+Actions.h>
