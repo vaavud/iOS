@@ -1545,6 +1545,12 @@
 					"COCOAPODS=1",
 					"CORE=1",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"/**",
+					"\"${PODS_ROOT}/Headers/Public/Dropbox-iOS-SDK\"",
+					"\"$(SRCROOT)/Pods/Headers/\"/**",
+				);
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1587,6 +1593,12 @@
 					"$(inherited)",
 					"COCOAPODS=1",
 					"CORE=1",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"/**",
+					"\"${PODS_ROOT}/Headers/Public/Dropbox-iOS-SDK\"",
+					"\"$(SRCROOT)/Pods/Headers/\"/**",
 				);
 				INFOPLIST_FILE = "VaavudCore/Vaavud-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
