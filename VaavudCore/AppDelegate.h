@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <FacebookSDK/FacebookSDK.h>
 #import "RegisterNavigationController.h"
 
 @class MeasurementSession;

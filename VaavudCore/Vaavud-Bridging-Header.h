@@ -20,7 +20,6 @@
 #import "TabBarController.h"
 #import "AccountManager.h"
 #import "ServerUploadManager.h"
-#import "Mixpanel.h"
 #import "MixpanelUtil.h"
 #import "RegisterViewController.h"
 
@@ -38,7 +37,5 @@
 #import <MagicalRecord/NSManagedObjectContext+MagicalSaves.h>
 
 #import "UUIDUtil.h"
-
-#import <Firebase/Firebase.h>
 
 #endif

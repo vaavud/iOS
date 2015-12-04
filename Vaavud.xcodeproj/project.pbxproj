@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0C79EA5EFC6296482BCEFB9C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525BDD08A4A6143BBBC49FE3 /* Pods.framework */; };
-		2205C28D1C03781400105F45 /* MagicalRecord.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */; };
 		2205C28E1C03781400105F45 /* MagicalRecord.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		220A30EC1B6F77250011DDA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 220A30EB1B6F77250011DDA9 /* Images.xcassets */; };
 		220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */; };
@@ -539,7 +538,6 @@
 				2284FB761C08998000FC9101 /* Fabric.framework in Frameworks */,
 				E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */,
 				D7B5BD531757A23C0069F739 /* CoreLocation.framework in Frameworks */,
-				2205C28D1C03781400105F45 /* MagicalRecord.framework in Frameworks */,
 				D7DA72411743C1CD00DFE962 /* Accelerate.framework in Frameworks */,
 				D7C860EE173AD08F005E9946 /* QuartzCore.framework in Frameworks */,
 				22B74D871BB1408F00D39999 /* VaavudSDK.framework in Frameworks */,
@@ -1015,7 +1013,7 @@
 				CLASSPREFIX = vaavud;
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Andreas Okholm";
 				TargetAttributes = {
 					D7A4F1C6173A8DDB00D1ACEE = {
