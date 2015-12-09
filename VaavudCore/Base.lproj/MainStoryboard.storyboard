@@ -255,7 +255,7 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fbC-OC-vuu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-234" y="625"/>
+            <point key="canvasLocation" x="-298" y="625"/>
         </scene>
         <!--Flat Measure View Controller-->
         <scene sceneID="V5p-wX-8F8">

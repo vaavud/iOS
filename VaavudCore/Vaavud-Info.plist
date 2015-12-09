@@ -125,7 +125,7 @@
 		<string>Roboto-Bold.ttf</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
-	<string>Login</string>
+	<string>MainStoryboard</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>

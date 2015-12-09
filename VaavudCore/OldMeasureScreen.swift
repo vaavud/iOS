@@ -23,7 +23,6 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     
     var arrowScale: CGFloat = 1
     
-    private var latestHeading: CGFloat = 0
     private var latestDirection: CGFloat = 0
     private var smoothDirection: CGFloat = 0
     
@@ -38,7 +37,7 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     private var targetLogScale: CGFloat = 0
     private var animatingScale = false
     
-    private var usesMjolnir = false
+    private var hasDirection = false
     
     var weight: CGFloat = 0.05 // todo: change
     var avgWeight: CGFloat = 0.01
@@ -59,10 +58,8 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         maxSpeedLabel.text = "-"
         avgSpeedLabel.text = "-"
         
-        if usesMjolnir {
-            arrowView.hidden = true
-            directionLabel.text = "-"
-        }
+        arrowView.hidden = true
+        directionLabel.text = "-"
     }
     
     override func viewDidLayoutSubviews() {
@@ -118,10 +115,9 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         maxSpeed = max(smoothSpeed, maxSpeed)
         maxSpeedLabel.text = VaavudFormatter.shared.localizedWindspeed(Float(maxSpeed), digits: 3)
 
-        smoothDirection = weight*latestDirection + (1 - weight)*smoothDirection
-        arrowView.transform = Affine.rotation(smoothDirection.radians).scale(arrowScale)
-
-        if !usesMjolnir {
+        if hasDirection {
+            smoothDirection = weight*latestDirection + (1 - weight)*smoothDirection
+            arrowView.transform = Affine.rotation(smoothDirection.radians).scale(arrowScale)
             directionLabel.text = VaavudFormatter.shared.localizedDirection(Float(mod(smoothDirection, 360)))
         }
         
@@ -146,11 +142,11 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         }
     }
 
-    func useMjolnir() {
-        usesMjolnir = true
-    }
+    func useMjolnir() { }
 
     func newWindDirection(windDirection: CGFloat) {
+        hasDirection = true
+        arrowView.hidden = false
         latestDirection += distanceOnCircle(from: latestDirection, to: windDirection)
     }
     
@@ -159,9 +155,7 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         speedLabel.text = VaavudFormatter.shared.localizedWindspeed(Float(speed), digits: 3)
     }
     
-    func newHeading(heading: CGFloat) {
-        latestHeading += distanceOnCircle(from: latestHeading, to: heading)
-    }
+    func newHeading(heading: CGFloat) {/* latestHeading += distanceOnCircle(from: latestHeading, to: heading) */ }
     
     func changedSpeedUnit(unit: SpeedUnit) {
         speedUnitLabel.text = VaavudFormatter.shared.windSpeedUnit.localizedString

@@ -43,6 +43,9 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     private var latestWindDirection: CGFloat = 0
     private var latestSpeed: CGFloat = 0
     
+    private var hasHeading = false
+    private var hasDirection = false
+    
     private var lockNorth = false
     
     var weight: CGFloat = 0.1
@@ -149,11 +152,12 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     }
     
     // MARK: New readings from root
-    func useMjolnir() {
-    }
+    func useMjolnir() { }
 
     func newWindDirection(windDirection: CGFloat) {
+        hasDirection = true
         latestWindDirection += distanceOnCircle(from: latestWindDirection, to: CGFloat(windDirection))
+        updateHeadingAndDirection()
     }
     
     func newSpeed(speed: CGFloat) {
@@ -162,8 +166,16 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     }
     
     func newHeading(heading: CGFloat) {
+        hasHeading = true
         if !lockNorth {
             latestHeading += distanceOnCircle(from: latestHeading, to: heading)
+        }
+        updateHeadingAndDirection()
+    }
+    
+    func updateHeadingAndDirection() {
+        if hasHeading && hasDirection {
+            ruler.hasDirectionAndCompass = true
         }
     }
     
@@ -282,6 +294,8 @@ class RoundRuler : UIView {
     var windDirection: CGFloat = 0
     var windSpeed: CGFloat = 0
 
+    var hasDirectionAndCompass = false { didSet { updateLabelVisibility() } }
+    
     var scale: CGFloat = 0
     var bandWidth: CGFloat = 0
     
@@ -341,6 +355,7 @@ class RoundRuler : UIView {
             label.font = cardinal % 4 == 0 ? font : smallFont
             label.textColor = colorForCardinal(cardinal)
             label.sizeToFit()
+            label.hidden = true
             
             cardinalLabels.append(label)
             addSubview(label)
@@ -364,16 +379,26 @@ class RoundRuler : UIView {
         CATransaction.setDisableActions(true)
         
         let easing = ease(1.2*scale, to: 3.0*scale)
-
+        
+        let basePolar = Polar(r: scale, phi: -compassDirection.radians - π/2)
+        
         for (dot, p) in zip(dots, dotPositions) {
-            dot.position = (p*Polar(r: scale, phi: -compassDirection.radians - π/2)).cartesian(bounds.center)
+            dot.position = (p*basePolar).cartesian(bounds.center)
             dot.opacity = Float(easing(x: dist(dot.position, q: bounds.center)))
         }
         
         dots[dots.count - 1].opacity = 0.7*dots[dots.count - 1].opacity + 0.3
-
+        
         for (label, p) in zip(cardinalLabels, cardinalPositions) {
             label.center = p.rotated(-compassDirection.radians).cartesian(bounds.center)
+        }
+    }
+    
+    func updateLabelVisibility() {
+        UIView.animateWithDuration(0.3) {
+            for label in self.cardinalLabels {
+                label.hidden = !self.hasDirectionAndCompass
+            }
         }
     }
     
