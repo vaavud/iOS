@@ -358,6 +358,10 @@
 }
 
 - (BOOL)annotationAlreadyExistsAtLatitude:(CLLocationDegrees)lat longitude:(CLLocationDegrees)lon {
+    if (self.view == nil) {
+        return NO;
+    }
+    
     for (id<MKAnnotation> annotation in self.mapView.annotations) {
         if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
             if (lat == [annotation coordinate].latitude && lon == [annotation coordinate].longitude ) {
@@ -720,7 +724,7 @@
         
         CGFloat lon = self.mapView.region.center.longitude + longitudinalShift;
         CLLocationCoordinate2D newCenterCoordinate = (CLLocationCoordinate2D){lat, lon};
-        if (fabsf(newCenterCoordinate.latitude) <= 90 && fabsf(newCenterCoordinate.longitude <= 180)) {
+        if (fabsf(newCenterCoordinate.latitude) <= 90 && fabsf(newCenterCoordinate.longitude) <= 180) {
             //NSLog(@"[MapViewController] delayForRepositionWithSize - setCenterCoordinate");
             [self.mapView setCenterCoordinate:newCenterCoordinate animated:YES];
         }

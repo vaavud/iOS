@@ -73,8 +73,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     var currentConsumer: MeasurementConsumer?
     var screenUsage = [Double]()
     
-    private var latestHeading: CGFloat = 0
-    private var latestWindDirection: CGFloat = 0
+    private var latestHeading: CGFloat?
+    private var latestWindDirection: CGFloat?
     private var latestSpeed: CGFloat = 0
 
     private var maxSpeed: CGFloat = 0
@@ -445,14 +445,17 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             session.endTime = now
             session.windSpeedMax = maxSpeed
             session.windSpeedAvg = avgSpeed
-            if isSleipnirSession { session.windDirection = mod(latestWindDirection, 360) }
             
             let point = MeasurementPoint.MR_createEntity()!
             point.session = session
             point.time = now
             point.windSpeed = latestSpeed
 
-            if isSleipnirSession { point.windDirection = mod(latestWindDirection, 360) }
+            if isSleipnirSession, let dir = latestWindDirection {
+                let modDirection = mod(dir, 360)
+                point.windDirection = modDirection
+                session.windDirection = modDirection
+            }
         }
         else {
             print("ROOT: updateSession - ERROR: No current session")
@@ -473,7 +476,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         session.endTime = NSDate()
         session.windSpeedMax = maxSpeed
         session.windSpeedAvg = avgSpeed
-        if isSleipnirSession { session.windDirection = mod(latestWindDirection, 360) }
+        if isSleipnirSession, let dir = latestWindDirection {
+            session.windDirection = mod(dir, 360)
+        }
         
         let windspeeds = speeds(session)
         
@@ -613,20 +618,19 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
 
     // MARK: Mjolnir Callback
+    
     func addSpeedMeasurement(currentSpeed: NSNumber!, avgSpeed: NSNumber!, maxSpeed: NSNumber!) {
         newWindSpeed(WindSpeedEvent(time: NSDate(), speed: currentSpeed.doubleValue))
     }
     
     // MARK: SDK Callbacks
     
-    func newWindDirection(windDirection: NSNumber!) {
-        latestWindDirection = CGFloat(windDirection.floatValue)
-        currentConsumer?.newWindDirection(latestWindDirection)
-    }
-    
     func newWindDirection(event: WindDirectionEvent) {
-        latestWindDirection = CGFloat(event.globalDirection)
-        currentConsumer?.newWindDirection(latestWindDirection)
+        print("######## NEW DIRECTION: \(latestWindDirection == nil ? "FIRST" : "not first")")
+        
+        let direction = CGFloat(event.globalDirection)
+        latestWindDirection = direction
+        currentConsumer?.newWindDirection(direction)
     }
     
     func newWindSpeed(event: WindSpeedEvent) {
@@ -636,8 +640,17 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func newHeading(event: HeadingEvent) {
-        latestHeading = CGFloat(event.heading)
-        currentConsumer?.newHeading(latestHeading)
+        if timeLeft > 20 || timeLeft < 5 {
+            print("Heading NOT sent \(timeLeft)")
+
+            return
+        }
+
+        print("Heading sent \(timeLeft)")
+        
+        let heading = CGFloat(event.heading)
+        latestHeading = heading
+        currentConsumer?.newHeading(heading)
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -651,9 +664,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     func changeConsumer(mc: MeasurementConsumer) {
         mc.newSpeed(latestSpeed)
         mc.changedSpeedUnit(VaavudFormatter.shared.windSpeedUnit)
-        if isSleipnirSession {
-            mc.newWindDirection(latestWindDirection)
-            mc.newHeading(latestHeading)
+        if isSleipnirSession, let wd = latestWindDirection, h = latestHeading {
+            mc.newWindDirection(wd)
+            mc.newHeading(h)
         }
         currentConsumer = mc
     }
@@ -715,7 +728,11 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         let dx = sender.translationInView(view).x/2
         let dy = sender.translationInView(view).y/20
         
-        newWindDirection(latestWindDirection + dx)
+        if let direction = latestWindDirection {
+            let newDirection = direction + dx
+            latestWindDirection = newDirection
+            currentConsumer?.newWindDirection(newDirection)
+        }
         newWindSpeed(WindSpeedEvent(time: NSDate(), speed: max(0, Double(latestSpeed - dy))))
         
         sender.setTranslation(CGPoint(), inView: view)

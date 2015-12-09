@@ -34,22 +34,19 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
     private var smoothWindSpeed: CGFloat = 0
     private var verySmoothWindSpeed: CGFloat = 0
     
-    private var latestHeading: CGFloat = 0
-    private var latestWindDirection: CGFloat = 0
+    private var latestHeading: CGFloat?
+    private var latestWindDirection: CGFloat?
     private var latestSpeed: CGFloat = 0
     
     private var temperature: CGFloat?
     
-    private var usesMjolnir = false
     private var variant = Property.getAsInteger(KEY_DEFAULT_FLAT_VARIANT, defaultValue: 0).integerValue { didSet { updateVariant() } }
     
     var weight: CGFloat = 0.1 // fixme: change
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if usesMjolnir {
-            ruler.hidden = true
-        }
+        ruler.hidden = true
         
         speedLabel.font = UIFont(name: "BebasNeueBold", size: Interface.choose(200, 200, 240, 280, 400, 400))
         let smallFont = UIFont(name: "BebasNeueBold", size: Interface.choose(105, 105, 125, 150, 220, 220))
@@ -102,9 +99,12 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
     }
     
     func tick() {
-        ruler.compassDirection = weight*latestHeading + (1 - weight)*ruler.compassDirection
-        ruler.windDirection = weight*latestWindDirection + (1 - weight)*ruler.windDirection
-        ruler.tick()
+        if let heading = latestHeading, windDirection = latestWindDirection {
+            ruler.compassDirection = weight*heading + (1 - weight)*ruler.compassDirection
+            ruler.windDirection = weight*windDirection + (1 - weight)*ruler.windDirection
+            ruler.tick()
+        }
+
         smoothWindSpeed = weight*latestSpeed + (1 - weight)*smoothWindSpeed
         graph.reading = smoothWindSpeed
         
@@ -113,12 +113,16 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
     }
     
     // MARK: SDK Callbacks
-    func useMjolnir() {
-        usesMjolnir = true
-    }
+    func useMjolnir() { }
 
     func newWindDirection(windDirection: CGFloat) {
-        latestWindDirection += distanceOnCircle(from: latestWindDirection, to: windDirection)
+        let latest = latestWindDirection ?? 0
+        latestWindDirection = latest + distanceOnCircle(from: latest, to: windDirection)
+        refreshRuler()
+    }
+    
+    func refreshRuler() {
+        ruler.hidden = latestHeading == nil || latestWindDirection == nil
     }
     
     func newSpeed(speed: CGFloat) {
@@ -136,8 +140,11 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
         }
     }
     
-    func newHeading(heading: CGFloat) {
-        latestHeading += distanceOnCircle(from: latestHeading, to: heading)
+    func newHeading(newHeading: CGFloat) {
+        let heading = latestHeading ?? 0
+        latestHeading = heading + distanceOnCircle(from: heading, to: newHeading)
+        
+        refreshRuler()
     }
     
     func changedSpeedUnit(unit: SpeedUnit) {
