@@ -66,7 +66,7 @@ class AuthorizationController {
     
     func signup(firstName: String, lastName: String, email: String, password: String, delegate: LoginCoreDelegate){
         self.delegate = delegate
-        let newUserModel = User(dict: ["firstName": firstName, "lastName": lastName, "country": "DK", "language": "EN", "email": email, "created": 81273981273 ]) //TODO
+        let newUserModel = User(dict: ["firstName": firstName, "lastName": lastName, "country": "DK", "language": "EN", "email": email, "created": 812739 ]) //TODO
         
         vaavudRootFirebase.createUser(email, password: password, withValueCompletionBlock: { error, authData in
             if (authData != nil) {
