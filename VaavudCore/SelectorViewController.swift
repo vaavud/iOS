@@ -44,15 +44,14 @@ class SelectorViewController: UIViewController,FBSDKLoginButtonDelegate, LoginDe
         print("User Logged Out") //TODO
     }
     
-    
     func onSuccess(showActivitySelector: Bool) {
-        if showActivitySelector {
+        if !showActivitySelector {
             if let vc = storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
                 navigationController?.pushViewController(vc, animated: true)
             }
         }
         else {
-            print("next screen")
+            navigationController?.dismissViewControllerAnimated(true, completion: nil)
         }
     }
     
@@ -66,6 +65,4 @@ class SelectorViewController: UIViewController,FBSDKLoginButtonDelegate, LoginDe
         
         self.presentViewController(alertController, animated: true, completion: nil)
     }
-  
-    
 }

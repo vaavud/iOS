@@ -237,14 +237,18 @@ class HistoryViewController: UITableViewController,HistoryDelegate {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-        let currentSession = sessions[indexPath.section][indexPath.row]
+//        let currentSession = sessions[indexPath.section][indexPath.row]
+//        
+//        if let summary = self.storyboard?.instantiateViewControllerWithIdentifier("SummaryViewController") as? CoreSummaryViewController {
+//            summary.session = currentSession
+//            summary.historySummary = true
+//            
+//            navigationController?.pushViewController(summary, animated: true)
+//        }
         
-        if let summary = self.storyboard?.instantiateViewControllerWithIdentifier("SummaryViewController") as? CoreSummaryViewController {
-            summary.session = currentSession
-            summary.historySummary = true
-            
-            navigationController?.pushViewController(summary, animated: true)
-        }
+        
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
+        
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

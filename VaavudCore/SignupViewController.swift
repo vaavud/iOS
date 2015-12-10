@@ -37,8 +37,13 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
         return true
     }
     
-    @IBAction func fieldChanged(sender: UITextField) {
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         validateTextFields()
+        return true
+    }
+    
+    @IBAction func fieldChanged(sender: UITextField) {
+        
     }
     
     @IBAction func createPushed() {
@@ -57,7 +62,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     // MARK: Login Delegate
     
     func onSuccess(showActivitySelector: Bool) {
-        if showActivitySelector {
+        if !showActivitySelector {
             if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
                 navigationController?.pushViewController(vc, animated: true)
             }
@@ -66,9 +71,9 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     }
     
     func onError(error: LoginError) {
-        VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE",
-            messageKey: error.rawValue,
-            on: self)
+//        VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE",
+//            messageKey: error.rawValue,
+//            on: self)
     }
     
     // MARK: Convenience

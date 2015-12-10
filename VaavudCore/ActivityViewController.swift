@@ -40,9 +40,9 @@ class ActivityViewController: UIViewController,UIPickerViewDelegate {
     }
 
     @IBAction func savePushed() {
-        
         AuthorizationController.shared.updateActivity(pickerDataSource[rowSelected])
         print(AuthorizationController.shared.uid)
+        navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
 
 }

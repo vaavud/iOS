@@ -38,8 +38,23 @@
 
 @implementation TabBarController
 
+
+
+- (void) viewDidAppear:(BOOL)animated {
+    
+    [super viewDidAppear:animated];
+    
+    if(![[AuthorizationController shared] verifyAuth]){
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
+        UIViewController *registration = [storyboard instantiateViewControllerWithIdentifier:@"NavigationLogin"];
+        [self presentViewController:registration animated:YES completion:nil];
+    }
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     
     self.sleipnirFromCallbackAttempts = 0;
     

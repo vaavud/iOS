@@ -17,6 +17,8 @@ struct Device {
     let vendor: String
     let osVersion: String
     let uid: String
+    let created = [".sv": "timestamp"]
+    
     
     init? (dict: FirebaseDictionary){
         guard let appVersion = dict["appVersion"] as? String, model = dict["model"] as? String, vendor = dict["vendor"] as? String, osVersion = dict["osVersion"] as? String, uid = dict["uid"] as? String else {
@@ -31,7 +33,7 @@ struct Device {
     }
     
     var dict : FirebaseDictionary {
-        return ["appVersion": appVersion, "model": model, "vendor": vendor, "osVersion": osVersion, "uid": uid]
+        return ["appVersion": appVersion, "model": model, "vendor": vendor, "osVersion": osVersion, "uid": uid, "created" : created]
     }
 }
 

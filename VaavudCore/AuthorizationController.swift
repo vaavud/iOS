@@ -23,9 +23,9 @@ protocol LoginDelegate {
     func onError(error: LoginError)
 }
 
-class AuthorizationController {
+class AuthorizationController: NSObject {
     private let firebaseUrl = "https://vaavud-core-demo.firebaseio.com"
-    private let vaavudRootFirebase: Firebase
+    private var vaavudRootFirebase: Firebase
     var delegate: LoginDelegate?
     var uid: String?
     private var _deviceId: String?
@@ -33,7 +33,7 @@ class AuthorizationController {
     
    static let shared = AuthorizationController()
 
-    private init() {
+    private override init() {
         vaavudRootFirebase = Firebase(url: firebaseUrl)
     }
     
@@ -64,7 +64,7 @@ class AuthorizationController {
                 }
                 else {
                     print(error)
-                    self.delegate?.onError("Login error", message: "Your information is not correct")
+                    //self.delegate?.onError("Login error", message: "Your information is not correct")
                 }
                 return
             }
@@ -77,7 +77,7 @@ class AuthorizationController {
         let ref = vaavudRootFirebase.childByAppendingPath(child).childByAppendingPath(key)
         ref.observeSingleEventOfType(.Value, withBlock: { data in
             guard let firebaseData = data.value as? FirebaseDictionary else {
-                self.delegate?.onError("data error", message: "")
+                //self.delegate?.onError("data error", message: "")
                 return
             }
             
@@ -91,7 +91,7 @@ class AuthorizationController {
         
         vaavudRootFirebase.createUser(email, password: password, withValueCompletionBlock: { error, authData in
             guard let _ = authData else {
-                self.delegate?.onError("Signup error", message: "This email is already used")
+                //self.delegate?.onError("Signup error", message: "This email is already used")
                 return
             }
             
@@ -102,7 +102,7 @@ class AuthorizationController {
                     }
                     else {
                         print(error)
-                        self.delegate?.onError("", message: "Created user, but it couldnt loging")
+                        //self.delegate?.onError("", message: "Created user, but it couldnt loging")
                     }
                     return
                 }
@@ -124,7 +124,7 @@ class AuthorizationController {
         graphRequest.startWithCompletionHandler{ (connection, result, error) in
             
             if error != nil{
-                self.delegate?.onError("Facebook error", message: "There was an error with facebook")
+                //self.delegate?.onError("Facebook error", message: "There was an error with facebook")
                 return
             }
             
@@ -145,7 +145,7 @@ class AuthorizationController {
                     self.validateUserInformation(uid, userModel: model)
                 }
                 else {
-                    self.delegate?.onError("Login", message: "We couldnt get your information")
+                //.self.delegate?.onError("Login", message: "We couldnt get your information")
                 }
             }
             self.authWithFacebook(token, callback: callback)
@@ -176,7 +176,7 @@ class AuthorizationController {
         let ref = vaavudRootFirebase.childByAppendingPath(child).childByAppendingPath(key)
         ref.observeSingleEventOfType(.Value, withBlock: { data in
             guard let firebaseData = data.value as? FirebaseDictionary else {
-                self.delegate?.onError("data error", message: "")
+                //self.delegate?.onError("data error", message: "")
                 return
             }
             
@@ -196,12 +196,10 @@ class AuthorizationController {
         post.setValue(model)
         let deviceId = post.key
             
-//           let preferences = NSUserDefaults.standardUserDefaults()
-//            preferences.setValue(uid, forKey: "uid")
-//            preferences.setValue(data["email"], forKey: "email")
-//            preferences.setValue(deviceId, forKey: "device")
-//            preferences.synchronize()
-            
+        let preferences = NSUserDefaults.standardUserDefaults()
+        preferences.setValue(deviceId, forKey: "deviceId")
+        preferences.synchronize()
+        
         print(deviceId)
         print(data)
             
@@ -227,7 +225,7 @@ class AuthorizationController {
             data, response, error in
             
             if error != nil {
-                self.delegate?.onError("Network Error", message: "Verify your information.")
+                //self.delegate?.onError("Network Error", message: "Verify your information.")
                 return
             }
             
@@ -236,7 +234,7 @@ class AuthorizationController {
                 print(responseObject)
                 
                 guard let result = responseObject!["status"] as? String else {
-                    self.delegate?.onError("Network Error", message: "There was an error, try again.")
+                    //self.delegate?.onError("Network Error", message: "There was an error, try again.")
                     return
                 }
                    
@@ -251,12 +249,12 @@ class AuthorizationController {
                             return
                         }
                         
-                        self.delegate?.onError("Authentication Error", message: "Your password is incorrect, try forgot password.")
+                        //self.delegate?.onError("Authentication Error", message: "Your password is incorrect, try forgot password.")
                         print(error)
                     })
                 }
                 else {
-                    self.delegate?.onError("Authentication Error", message: "Your password is incorrect, try forgot password.")
+                    //self.delegate?.onError("Authentication Error", message: "Your password is incorrect, try forgot password.")
                 }
             }
             catch {

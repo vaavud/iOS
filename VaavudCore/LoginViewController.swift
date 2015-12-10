@@ -41,15 +41,17 @@ class LoginViewController: UIViewController, LoginDelegate {
     // MARK: Login Delegate
     
     func onSuccess(showActivitySelector: Bool) {
-        if showActivitySelector {
+        if !showActivitySelector {
             if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
                 navigationController?.pushViewController(vc, animated: true)
             }
         }
         else {
-            let storyboard = UIStoryboard(name: "MainStoryboard", bundle: nil)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("TabBarController")
-            presentViewController(vc, animated: true, completion: nil)
+//            let storyboard = UIStoryboard(name: "MainStoryboard", bundle: nil)
+//            let vc = storyboard.instantiateViewControllerWithIdentifier("TabBarController")
+//            presentViewController(vc, animated: true, completion: nil)
+            
+            navigationController?.dismissViewControllerAnimated(true, completion: nil)
         }
     }
 
