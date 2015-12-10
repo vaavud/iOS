@@ -44,7 +44,7 @@
     
     [super viewDidAppear:animated];
     
-    if(![[AuthorizationController shared] verifyAuth]){
+    if (![[AuthorizationController shared] verifyAuth]) {
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Login" bundle:nil];
         UIViewController *registration = [storyboard instantiateViewControllerWithIdentifier:@"NavigationLogin"];
         [self presentViewController:registration animated:YES completion:nil];
