@@ -56,8 +56,8 @@ class SelectorViewController: UIViewController,FBSDKLoginButtonDelegate, LoginDe
         }
     }
     
-    func onError(title: String, message: String) {
-        showAlert(title,message: message,callback: nil)
+    func onError(error: LoginError) {
+        //        showAlert(title,message: message, callback: nil)
     }
     
     private func showAlert(title: String, message: String , callback: ((UIAlertAction) -> Void)? ){

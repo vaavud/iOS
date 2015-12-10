@@ -65,8 +65,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
         
     }
     
-    func onError(title: String, message: String) {
-        showAlert(title, message: message, callback: nil)
+    func onError(error: LoginError) {
+        VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE",
+            messageKey: error.rawValue,
+            on: self)
     }
     
     // MARK: Convenience

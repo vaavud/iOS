@@ -9,9 +9,18 @@
 import UIKit
 import Firebase
 
+enum LoginError: String {
+    case Network = "LOGIN_ERROR_NETWORK"
+    case MalformedInformation = "1"
+    case WrongInformation = "2"
+    case Facebook = "3"
+    case EmailTaken = "4"
+    case Unknown = "5"
+}
+
 protocol LoginDelegate {
     func onSuccess(showActivitySelector: Bool)
-    func onError(titie: String, message: String)
+    func onError(error: LoginError)
 }
 
 class AuthorizationController {
@@ -48,16 +57,32 @@ class AuthorizationController {
     func login(email: String, password: String, delegate: LoginDelegate) {
         self.delegate = delegate
         
-        let callback = { (success: Bool, uid: String) in
-            if success {
-                self.obtainUserInformation("user", key: uid, callback: nil)
+        vaavudRootFirebase.authUser(email, password: password) { error, authData in
+            if let error = error {
+                if error.code == -6 {
+                    self.verifyMigration(email, password: password)
+                }
+                else {
+                    print(error)
+                    self.delegate?.onError("Login error", message: "Your information is not correct")
+                }
+                return
             }
-            else {
-                self.delegate?.onError("Login error", message: "Your information is not correct")
-            }
+            
+            self.obtainUserInformation("user", key: authData.uid)
         }
-        
-        authWithEmail(email, password: password, callback: callback)
+    }
+    
+    private func obtainUserInformation(child: String, key: String) {
+        let ref = vaavudRootFirebase.childByAppendingPath(child).childByAppendingPath(key)
+        ref.observeSingleEventOfType(.Value, withBlock: { data in
+            guard let firebaseData = data.value as? FirebaseDictionary else {
+                self.delegate?.onError("data error", message: "")
+                return
+            }
+            
+            self.updateUserInformation(data.key, data: firebaseData)
+        })
     }
     
     func signup(firstName: String, lastName: String, email: String, password: String, delegate: LoginDelegate){
@@ -70,21 +95,25 @@ class AuthorizationController {
                 return
             }
             
-            let callback = { (success: Bool, uid: String) in
-                if success {
-                    guard let model = newUserModel?.dict else {
-                        fatalError()
+            self.vaavudRootFirebase.authUser(email, password: password) { error, authData in
+                if let error = error {
+                    if error.code == -6 {
+                        self.verifyMigration(email, password: password)
                     }
-                    
-                    self.vaavudRootFirebase.childByAppendingPath("user").childByAppendingPath(uid).setValue(model)
-                    self.updateUserInformation(uid, data: model)
+                    else {
+                        print(error)
+                        self.delegate?.onError("", message: "Created user, but it couldnt loging")
+                    }
+                    return
                 }
-                else{
-                    fatalError("Created user, but it couldnt loging")
-                }
-            }
                 
-            self.authWithEmail(email, password: password, callback: callback)
+                guard let model = newUserModel?.dict else {
+                    fatalError()
+                }
+                
+                self.vaavudRootFirebase.childByAppendingPath("user").childByAppendingPath(authData.uid).setValue(model)
+                self.updateUserInformation(authData.uid, data: model)
+            }
         })
     }
     
@@ -107,16 +136,15 @@ class AuthorizationController {
                 
             let callback = { (success: Bool, uid: String) in
                 if success {
-                        
                     let userModel = User(dict: ["firstName": firstName, "lastName": lastName, "country": "DK", "language": "EN", "email": email, "created": created ])
                     
                     guard let model = userModel?.dict else {
                         fatalError()
                     }
                     
-                    self.validateUserInformation(uid,userModel: model)
+                    self.validateUserInformation(uid, userModel: model)
                 }
-                else{
+                else {
                     self.delegate?.onError("Login", message: "We couldnt get your information")
                 }
             }
@@ -130,9 +158,8 @@ class AuthorizationController {
         vaavudRootFirebase.childByAppendingPath("user").childByAppendingPath(uid).updateChildValues(param)
     }
     
-    private func validateUserInformation(uid: String, userModel: FirebaseDictionary){
+    private func validateUserInformation(uid: String, userModel: FirebaseDictionary) {
         let callback = { (data: FirebaseDictionary?) in
-            
             if let data = data {
                 self.updateUserInformation(uid, data: data)
             }
@@ -145,6 +172,18 @@ class AuthorizationController {
         obtainUserInformation("user", key: uid, callback: callback)
     }
     
+    private func obtainUserInformation(child: String, key: String, callback: FirebaseDictionary -> Void) {
+        let ref = vaavudRootFirebase.childByAppendingPath(child).childByAppendingPath(key)
+        ref.observeSingleEventOfType(.Value, withBlock: { data in
+            guard let firebaseData = data.value as? FirebaseDictionary else {
+                self.delegate?.onError("data error", message: "")
+                return
+            }
+            
+            callback(firebaseData)
+        })
+    }
+
     private func updateUserInformation(uid: String, data: FirebaseDictionary) {
         let deviceObj = Device(dict: ["appVersion": "0.0.0", "model": "Iphone 3gs", "vendor": "Apple", "osVersion": "9.0", "uid": uid])
         
@@ -172,28 +211,9 @@ class AuthorizationController {
         delegate?.onSuccess(data["activity"] is String)
     }
     
-    private func authWithEmail(user: String, password: String, callback: (Bool, String) -> Void) {
-        vaavudRootFirebase.authUser(user, password: password) {
-            error, authData in
-            
-            guard let error = error else {
-                callback(true, authData.uid)
-                return
-            }
-            
-            if error.code == -6 {
-                self.verifyMigration(user, password: password)
-            }
-            else {
-                print(error)
-                callback(false, "")
-            }
-        }
-    }
-    
     private func verifyMigration(email: String, password: String) {
         let hashPassword = PasswordUtil.createHash(password, salt: email)
-        let params = ["email":email, "clientPasswordHash":hashPassword, "action": "checkPassword"]
+        let params = ["email":email, "clientPasswordHash" : hashPassword, "action" : "checkPassword"]
         let request = NSMutableURLRequest(URL: NSURL(string: "https://mobile-api.vaavud.com/api/password")!)
         request.HTTPMethod = "POST"
         
@@ -227,7 +247,7 @@ class AuthorizationController {
                     self.vaavudRootFirebase.changePasswordForUser(email, fromOld: oldPassword, toNew: password, withCompletionBlock: {error in
                         guard let error = error else {
                             print("Login correct with new password")
-                            self.login(email,password: password,delegate: self.delegate!)
+                            self.login(email, password: password, delegate: self.delegate!)
                             return
                         }
                         
@@ -259,22 +279,5 @@ class AuthorizationController {
             print("Login failed. \(error)")
             callback(false, "")
         }
-    }
-    
-    private func obtainUserInformation(child: String, key: String, callback: (FirebaseDictionary -> Void)?) {
-        let ref = vaavudRootFirebase.childByAppendingPath(child).childByAppendingPath(key)
-        ref.observeSingleEventOfType(.Value, withBlock: { data in
-            guard let firebaseData = data.value as? FirebaseDictionary else {
-                self.delegate?.onError("data error", message: "")
-                return
-            }
-            
-            if let callback = callback {
-                callback(firebaseData)
-            }
-            else {
-                self.updateUserInformation(data.key, data: firebaseData)
-            }
-        })
     }
 }
