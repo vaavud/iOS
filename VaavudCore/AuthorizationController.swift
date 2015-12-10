@@ -69,28 +69,28 @@ class AuthorizationController {
         let newUserModel = User(dict: ["firstName": firstName, "lastName": lastName, "country": "DK", "language": "EN", "email": email, "created": 812739 ]) //TODO
         
         vaavudRootFirebase.createUser(email, password: password, withValueCompletionBlock: { error, authData in
-            if (authData != nil) {
-                
-                let callback = { (success: Bool, uid: String) in
-                    if success {
-                        if let model = newUserModel?.dict{
-                            self.vaavudRootFirebase.childByAppendingPath("user").childByAppendingPath(uid).setValue(model)
-                            self.userInformation(uid,data: model)
-                        }
-                        else{
-                            fatalError()
-                        }
-                    }
-                    else{
-                       fatalError("Created user, but it couldnt loging")
-                    }
-                }
-                
-                self.authWithEmail(email, password: password, callback: callback)
-            }
-            else{
+            
+            guard let _ = authData else {
                 self.delegate?.onError("Signup error", message: "This email is already used")
+                return
             }
+            
+            let callback = { (success: Bool, uid: String) in
+                if success {
+                    
+                    guard let model = newUserModel?.dict else {
+                        fatalError()
+                    }
+                    
+                    self.vaavudRootFirebase.childByAppendingPath("user").childByAppendingPath(uid).setValue(model)
+                    self.userInformation(uid,data: model)
+                }
+                else{
+                    fatalError("Created user, but it couldnt loging")
+                }
+            }
+                
+            self.authWithEmail(email, password: password, callback: callback)
         })
     }
     
@@ -103,31 +103,31 @@ class AuthorizationController {
             
             if error != nil{
                 self.delegate?.onError("Facebook error", message: "There was an error with facebook")
+                return
             }
-            else {
-                let token = FBSDKAccessToken.currentAccessToken().tokenString
-                let firstName = result.valueForKey("first_name") as! String
-                let lastName = result.valueForKey("last_name") as! String
-                let email = result.valueForKey("email") as! String
-                let created = NSDate().timeIntervalSince1970 * 1000
+            
+            let token = FBSDKAccessToken.currentAccessToken().tokenString
+            let firstName = result.valueForKey("first_name") as! String
+            let lastName = result.valueForKey("last_name") as! String
+            let email = result.valueForKey("email") as! String
+            let created = NSDate().timeIntervalSince1970 * 1000
                 
-                let callback = { (success: Bool, uid: String) in
-                    if success {
+            let callback = { (success: Bool, uid: String) in
+                if success {
                         
-                        let userModel = User(dict: ["firstName": firstName, "lastName": lastName, "country": "DK", "language": "EN", "email": email, "created": created ])
-                        if let model = userModel?.dict{
-                            self.validateUserInformation(uid,userModel: model)
-                        }
-                        else{
-                            fatalError()
-                        }
+                    let userModel = User(dict: ["firstName": firstName, "lastName": lastName, "country": "DK", "language": "EN", "email": email, "created": created ])
+                    
+                    guard let model = userModel?.dict else {
+                        fatalError()
                     }
-                    else{
-                        self.delegate?.onError("Login", message: "We couldnt get your information")
-                    }
+                    
+                    self.validateUserInformation(uid,userModel: model)
                 }
-                self.authWithFacebook(token, callback: callback)
+                else{
+                    self.delegate?.onError("Login", message: "We couldnt get your information")
+                }
             }
+            self.authWithFacebook(token, callback: callback)
         }
     }
     
@@ -135,7 +135,6 @@ class AuthorizationController {
     func updateActivity(activity: String){
         
         let param = ["activity":activity]
-        
         vaavudRootFirebase.childByAppendingPath("user").childByAppendingPath(uid).updateChildValues(param)
     }
     
@@ -159,53 +158,51 @@ class AuthorizationController {
     private func userInformation(uid: String, data: FirebaseDictionary ){
         let deviceObj = Device(dict: ["appVersion": "0.0.0", "model": "Iphone 3gs", "vendor": "Apple",  "osVersion": "9.0","uid": uid])
         
-        if let model = deviceObj?.dict{
-            
-            let ref = self.vaavudRootFirebase.childByAppendingPath("device")
-            let post = ref.childByAutoId()
-            post.setValue(model)
-            let deviceId = post.key
-            
-            
-            let preferences = NSUserDefaults.standardUserDefaults()
-            preferences.setValue(uid, forKey: "uid")
-            preferences.setValue(data["email"], forKey: "email")
-            preferences.setValue(deviceId, forKey: "device")
-            preferences.synchronize()
-            
-            print(deviceId)
-            print(data)
-            
-            self.uid = uid
-            self._deviceId = deviceId
-            
-            guard let _ = data["activity"] as? String else{
-                self.delegate?.missingActivity()
-                return
-            }
-            
-            self.delegate?.onSuccess()
-        }
-        else{
+        guard let model = deviceObj?.dict else {
             fatalError("Bad data from Firebase")
         }
+            
+        let ref = self.vaavudRootFirebase.childByAppendingPath("device")
+        let post = ref.childByAutoId()
+        post.setValue(model)
+        let deviceId = post.key
+            
+            
+//           let preferences = NSUserDefaults.standardUserDefaults()
+//            preferences.setValue(uid, forKey: "uid")
+//            preferences.setValue(data["email"], forKey: "email")
+//            preferences.setValue(deviceId, forKey: "device")
+//            preferences.synchronize()
+            
+        print(deviceId)
+        print(data)
+            
+        self.uid = uid
+        self._deviceId = deviceId
+            
+        guard let _ = data["activity"] as? String else{
+            self.delegate?.missingActivity()
+            return
+        }
+            
+        self.delegate?.onSuccess()
     }
     
     private func authWithEmail(user: String, password: String, callback: (Bool,String)->Void){
         vaavudRootFirebase.authUser(user, password: password) {
             error, authData in
-            if error != nil {
-                
-                if error.code == -6 {
-                    self.verifyMigration(user,password: password)
-                }
-                else{
-                    print(error)
-                    callback(false, "")
-                }
-            }
-            else {
+            
+            guard let error = error else {
                 callback(true, authData.uid)
+                return
+            }
+            
+            if error.code == -6 {
+                self.verifyMigration(user,password: password)
+            }
+            else{
+                print(error)
+                callback(false, "")
             }
         }
     }
@@ -234,34 +231,32 @@ class AuthorizationController {
             
             do{
                 let responseObject = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary
-                
                 print(responseObject)
                 
-                
-                if let result = responseObject!["status"] as? String {
-                   
-                    if result == "CORRECT_PASSWORD" {
-                        
-                        let oldPassword =  email + "\(responseObject!["user_id"] as! NSNumber)"
-                        print(oldPassword)
-                        
-                        self.vaavudRootFirebase.changePasswordForUser(email, fromOld: oldPassword, toNew: password, withCompletionBlock: {error in
-                            if error != nil{
-                                self.delegate?.onError("Authentication Error", message: "Your password is incorrect, try forgot password.")
-                                print(error)
-                            }
-                            else{
-                                print("Login correct with new password")
-                                self.login(email,password: password,delegate: self.delegate!)
-                            }
-                        })
-                    }
-                    else{
-                        self.delegate?.onError("Authentication Error", message: "Your password is incorrect, try forgot password.")
-                    }
-                }
-                else{
+                guard let result = responseObject!["status"] as? String else {
                     self.delegate?.onError("Network Error", message: "There was an error, try again.")
+                    return
+                }
+                   
+                if result == "CORRECT_PASSWORD" {
+                    
+                    let oldPassword =  email + "\(responseObject!["user_id"] as! NSNumber)"
+                    print(oldPassword)
+                        
+                    self.vaavudRootFirebase.changePasswordForUser(email, fromOld: oldPassword, toNew: password, withCompletionBlock: {error in
+                        
+                        guard let error = error else {
+                            print("Login correct with new password")
+                            self.login(email,password: password,delegate: self.delegate!)
+                            return
+                        }
+                        
+                        self.delegate?.onError("Authentication Error", message: "Your password is incorrect, try forgot password.")
+                        print(error)
+                    })
+                }
+                else {
+                    self.delegate?.onError("Authentication Error", message: "Your password is incorrect, try forgot password.")
                 }
             }
             catch{
@@ -274,13 +269,15 @@ class AuthorizationController {
     
     private func authWithFacebook(accessToken : String, callback: (Bool, String) -> Void){
         vaavudRootFirebase.authWithOAuthProvider("facebook", token: accessToken, withCompletionBlock: { error, authData in
-                if error != nil {
-                    print("Login failed. \(error)")
-                    callback(false,"")
-                } else {
-                    callback(true,authData.uid)
-                    print("Logged in! \(authData.uid)")
-                }
+            
+            guard let error = error else {
+                callback(true,authData.uid)
+                print("Logged in! \(authData.uid)")
+                return
+            }
+            
+            print("Login failed. \(error)")
+            callback(false,"")
         })
     }
     
