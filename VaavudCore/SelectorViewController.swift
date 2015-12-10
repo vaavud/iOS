@@ -8,8 +8,7 @@
 
 import UIKit
 
-class SelectorViewController: UIViewController,FBSDKLoginButtonDelegate, LoginCoreDelegate{
-
+class SelectorViewController: UIViewController,FBSDKLoginButtonDelegate, LoginDelegate {
     @IBOutlet weak var signupButton: UIButton!
     @IBOutlet weak var facebookView: FBSDKLoginButton!
     
@@ -45,17 +44,20 @@ class SelectorViewController: UIViewController,FBSDKLoginButtonDelegate, LoginCo
         print("User Logged Out") //TODO
     }
     
-    func onSuccess() {
-        print("next screen")
+    
+    func onSuccess(showActivitySelector: Bool) {
+        if showActivitySelector {
+            if let vc = storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+        else {
+            print("next screen")
+        }
     }
     
     func onError(title: String, message: String) {
         showAlert(title,message: message,callback: nil)
-    }
-    
-    func missingActivity(){
-        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("activityVC") as! ActivityViewController
-        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func showAlert(title: String, message: String , callback: ((UIAlertAction) -> Void)? ){
