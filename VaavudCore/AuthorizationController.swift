@@ -11,11 +11,12 @@ import Firebase
 
 enum LoginError: String {
     case Network = "LOGIN_ERROR_NETWORK"
-    case MalformedInformation = "1"
-    case WrongInformation = "2"
-    case Facebook = "3"
-    case EmailTaken = "4"
-    case Unknown = "5"
+    case MalformedInformation = "LOGIN_ERROR_MALFORMED"
+    case WrongInformation = "LOGIN_ERROR_WRONG"
+    case Facebook = "LOGIN_ERROR_FACEBOOK"
+    case EmailTaken = "LOGIN_ERROR_EMAIL"
+    case Firebase = "LOGIN_ERROR_FIREBASE"
+    case Unknown = "LOGIN_ERROR_UNKNOWN"
 }
 
 protocol LoginDelegate {
@@ -117,7 +118,7 @@ class AuthorizationController: NSObject {
         })
     }
     
-    func loginWithFacebook(delegate: LoginDelegate){
+    func loginWithFacebook(delegate: LoginDelegate) {
         self.delegate = delegate
     
         let graphRequest  = FBSDKGraphRequest(graphPath: "me", parameters:["fields" : "first_name, last_name, picture.type(large), email, name, id, gender"])
