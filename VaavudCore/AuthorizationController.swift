@@ -44,6 +44,7 @@ class AuthorizationController {
         
         self.uid = uidKey
         _deviceId = deviceId
+        
         return true
     }
     
