@@ -15,43 +15,22 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var createButton: UIBarButtonItem!
     
+    // MARK: Lifetime
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        validateTextFields()
+        refreshSignupButton()
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        if textField == firstNameField {
-            firstNameField.becomeFirstResponder()
+    // MARK: User Actions
+
+    @IBAction func tappedCreate() {
+        if let firstName = firstNameField.text, lastName = lastNameField.text, email = emailField.text, password = passwordField.text {
+            AuthorizationController.shared.signup(firstName, lastName: lastName, email: email, password: password, delegate: self)
         }
-        else if textField == lastNameField{
-            lastNameField.becomeFirstResponder()
+        else {
+            showError(.Unknown)
         }
-        else if textField == emailField {
-            emailField.becomeFirstResponder()
-        }
-        else{
-            passwordField.becomeFirstResponder()
-        }
-        
-        return true
-    }
-    
-    @IBAction func fieldChanged(sender: UITextField) {
-        validateTextFields()
-    }
-    
-    @IBAction func createPushed() {
-        let firstName = firstNameField.text!
-        let lastName = lastNameField.text!
-        let email = emailField.text!
-        let password = passwordField.text!
-        
-        AuthorizationController.shared.signup(firstName,lastName: lastName,email: email,password: password, delegate: self)
-    }
-    
-    private func validateTextFields() {
-        createButton.enabled = !firstNameField.text!.isEmpty && !lastNameField.text!.isEmpty && !emailField.text!.isEmpty && !passwordField.text!.isEmpty
     }
     
     // MARK: Login Delegate
@@ -62,23 +41,54 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
                 navigationController?.pushViewController(vc, animated: true)
             }
         }
-        
     }
     
     func onError(error: LoginError) {
-        VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE",
-            messageKey: error.rawValue,
-            on: self)
+        showError(error)
+    }
+
+    // MARK: Textfield Delegate
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == firstNameField {
+            lastNameField.becomeFirstResponder()
+        }
+        else if textField == lastNameField{
+            emailField.becomeFirstResponder()
+        }
+        else if textField == emailField {
+            passwordField.becomeFirstResponder()
+        }
+        else {
+            guard validInput() else {
+                return false
+            }
+
+            tappedCreate()
+        }
+        
+        return true
     }
     
-    // MARK: Convenience
+    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        refreshSignupButton()
+        return true
+    }
 
-    private func showAlert(title: String, message: String , callback: ((UIAlertAction) -> Void)? ){
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_OK", comment: ""), style: .Default, handler: callback))
-        
+    // MARK: Convenience
+    
+    private func showError(error: LoginError) {
         dispatch_async(dispatch_get_main_queue()) {
-            self.presentViewController(alertController, animated: true, completion: nil)
+            VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.rawValue, otherKey: "BUTTON_OK", action: {}, on: self)
         }
     }
+    
+    private func refreshSignupButton() {
+        createButton.enabled = validInput()
+    }
+    
+    private func validInput() -> Bool {
+        return !firstNameField.text!.isEmpty && !lastNameField.text!.isEmpty && (emailField.text?.containsString("@") ?? false) && !passwordField.text!.isEmpty
+    }
+
 }

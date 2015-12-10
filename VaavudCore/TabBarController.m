@@ -41,6 +41,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
     self.sleipnirFromCallbackAttempts = 0;
     
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
