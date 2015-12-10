@@ -256,8 +256,8 @@ class VaavudFormatter: NSObject {
     
     // Speed
     
-    func updateAverageWindspeedLabels(session: MeasurementSession, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
-        if let string = localizedWindspeed(session.windSpeedAvg?.floatValue) {
+    func updateAverageWindspeedLabels(windMean: Float, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
+        if let string = localizedWindspeed(windMean) {
             unitLabel.text = windSpeedUnit.localizedString
             valueLabel.text = string
             return true
@@ -266,8 +266,8 @@ class VaavudFormatter: NSObject {
         return failure(valueLabel: valueLabel, unitLabel: unitLabel)
     }
 
-    func updateMaxWindspeedLabels(session: MeasurementSession, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
-        if let string = localizedWindspeed(session.windSpeedMax?.floatValue) {
+    func updateMaxWindspeedLabels(sessionWindSpeed: Float, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
+        if let string = localizedWindspeed(sessionWindSpeed) {
             unitLabel.text = windSpeedUnit.localizedString
             valueLabel.text = string
             return true

@@ -79,6 +79,10 @@
 		2B347F671C11A6990095E95A /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F661C11A6990095E95A /* ActivityViewController.swift */; };
 		2B347F6A1C11A7130095E95A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F681C11A7130095E95A /* User.swift */; };
 		2B347F6B1C11A7130095E95A /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F691C11A7130095E95A /* Device.swift */; };
+		2BB813131C1874FE00D70E10 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB8130F1C1874FE00D70E10 /* HistoryViewController.swift */; };
+		2BB813141C1874FE00D70E10 /* HistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB813101C1874FE00D70E10 /* HistoryController.swift */; };
+		2BB813151C1874FE00D70E10 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB813111C1874FE00D70E10 /* HistoryCell.swift */; };
+		2BB813161C1874FE00D70E10 /* HistoryHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB813121C1874FE00D70E10 /* HistoryHeaderCell.swift */; };
 		D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
 		D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* VaavudFFT.m */; };
 		D721B47E1AD1EBD10045DC99 /* DropboxUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D721B47D1AD1EBD10045DC99 /* DropboxUploader.swift */; };
@@ -375,6 +379,10 @@
 		2B347F661C11A6990095E95A /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		2B347F681C11A7130095E95A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2B347F691C11A7130095E95A /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		2BB8130F1C1874FE00D70E10 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		2BB813101C1874FE00D70E10 /* HistoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryController.swift; sourceTree = "<group>"; };
+		2BB813111C1874FE00D70E10 /* HistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
+		2BB813121C1874FE00D70E10 /* HistoryHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryHeaderCell.swift; sourceTree = "<group>"; };
 		525BDD08A4A6143BBBC49FE3 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDE6761506C86D4075981625 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D7092E881748FE9C00993235 /* VaavudDynamicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudDynamicsController.h; sourceTree = "<group>"; };
@@ -788,6 +796,10 @@
 		E91E490F19AB5FA600616887 /* History */ = {
 			isa = PBXGroup;
 			children = (
+				2BB8130F1C1874FE00D70E10 /* HistoryViewController.swift */,
+				2BB813101C1874FE00D70E10 /* HistoryController.swift */,
+				2BB813111C1874FE00D70E10 /* HistoryCell.swift */,
+				2BB813121C1874FE00D70E10 /* HistoryHeaderCell.swift */,
 				E9FABFDF189294BD009C4C46 /* HistoryTableViewCell.h */,
 				E9FABFE0189294BD009C4C46 /* HistoryTableViewCell.m */,
 				E9FABFDC18929473009C4C46 /* HistoryTableViewController.h */,
@@ -1327,7 +1339,9 @@
 				221285B21B04A6F500D4C008 /* FlatMeasureScreen.swift in Sources */,
 				229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */,
 				E9F33CCB18B4AFBF0033EDC7 /* UIColor+VaavudColors.m in Sources */,
+				2BB813131C1874FE00D70E10 /* HistoryViewController.swift in Sources */,
 				E984F26319B878BD004024C6 /* MixpanelUtil.m in Sources */,
+				2BB813151C1874FE00D70E10 /* HistoryCell.swift in Sources */,
 				22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */,
 				E9FD000B17FD6A06001A8491 /* FormatUtil.m in Sources */,
 				2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */,
@@ -1355,6 +1369,7 @@
 				E904AC9817F08F6E00171F7F /* MapViewController.m in Sources */,
 				E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */,
 				E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */,
+				2BB813161C1874FE00D70E10 /* HistoryHeaderCell.swift in Sources */,
 				E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */,
 				E93C865A1781BE56005E4212 /* LocationManager.m in Sources */,
 				E93C86631781C764005E4212 /* Property+Util.m in Sources */,
@@ -1365,6 +1380,7 @@
 				E93C86721781D727005E4212 /* MeasurementPoint+Util.m in Sources */,
 				E93338F7178C561B006E2314 /* ModelManager.m in Sources */,
 				22AB2E701A70FD92008CAE46 /* CoreSummaryViewController.swift in Sources */,
+				2BB813141C1874FE00D70E10 /* HistoryController.swift in Sources */,
 				E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */,
 				E9A4097A18994000004F1C12 /* TMMemoryCache.m in Sources */,
 				222F30631BC2944800CD607B /* NotificationDetailsViewController.swift in Sources */,

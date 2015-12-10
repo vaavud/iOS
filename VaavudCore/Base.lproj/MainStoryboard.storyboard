@@ -44,6 +44,7 @@
             <string>Roboto-Bold</string>
             <string>Roboto-Bold</string>
             <string>Roboto-Bold</string>
+            <string>Roboto-Bold</string>
         </mutableArray>
         <mutableArray key="Roboto-Light.ttf">
             <string>Roboto-Light</string>
@@ -1310,10 +1311,10 @@
             </objects>
             <point key="canvasLocation" x="296" y="1648"/>
         </scene>
-        <!--History Table View Controller-->
+        <!--History View Controller-->
         <scene sceneID="ESh-LX-BZr">
             <objects>
-                <tableViewController storyboardIdentifier="HistoryTableViewController" id="dW6-mM-6nb" customClass="HistoryTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="HistoryTableViewController" id="dW6-mM-6nb" customClass="HistoryViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="6XY-Gm-7sX">
                         <rect key="frame" x="0.0" y="44" width="320" height="503"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1322,7 +1323,7 @@
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <color key="sectionIndexBackgroundColor" red="0.058823529409999999" green="1" blue="0.38431372549999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
-                            <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="azB-Nn-EOT" customClass="HistoryTableViewCell">
+                            <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HistoryCell" id="azB-Nn-EOT" customClass="HistoryCell" customModule="Vaavud" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="22" width="320" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="azB-Nn-EOT" id="EFv-Zf-cOp">
@@ -1411,16 +1412,61 @@
                                 <animations/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
-                                    <outlet property="avgLabel" destination="5L0-HK-mXZ" id="FT0-Xs-RYq"/>
-                                    <outlet property="directionImageView" destination="jst-8C-YL2" id="mZb-0g-4yi"/>
-                                    <outlet property="directionLabel" destination="pSz-Nf-UPz" id="g2a-pf-PhF"/>
-                                    <outlet property="locationLabel" destination="9Ik-6S-adR" id="jRR-wn-h73"/>
-                                    <outlet property="timeLabel" destination="jsX-3b-fbh" id="Sjk-sO-JvP"/>
-                                    <outlet property="unitLabel" destination="3tP-CV-yHq" id="y4h-yF-3QL"/>
+                                    <outlet property="directionArrow" destination="jst-8C-YL2" id="0oL-iX-Fjv"/>
+                                    <outlet property="directionUnit" destination="pSz-Nf-UPz" id="9w4-rW-Vqb"/>
+                                    <outlet property="location" destination="9Ik-6S-adR" id="Npi-DS-jQ2"/>
+                                    <outlet property="speed" destination="5L0-HK-mXZ" id="qDQ-ks-LCe"/>
+                                    <outlet property="speedUnit" destination="3tP-CV-yHq" id="Lt9-Kk-Vx0"/>
+                                    <outlet property="time" destination="jsX-3b-fbh" id="LLa-4J-hDn"/>
                                     <segue destination="8a4-bz-n0M" kind="push" identifier="SummarySegue" id="MnQ-EK-wGw"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HistoryHeaderCell" rowHeight="28" id="R2V-Hd-LgF" customClass="HistoryHeaderCell" customModule="Vaavud" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="82" width="320" height="28"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="R2V-Hd-LgF" id="bZX-xg-ZbZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="28"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pT9-6Z-XhF" userLabel="Divider">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                            <animations/>
+                                            <color key="backgroundColor" white="0.82705787909999995" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="ef8-BH-2lM"/>
+                                            </constraints>
+                                        </view>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TUESDAY, JAN 14" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tnz-K0-XsD">
+                                            <rect key="frame" x="8" y="8" width="304" height="15"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="12"/>
+                                            <color key="textColor" white="0.24944196430000001" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <animations/>
+                                    <color key="backgroundColor" red="0.89411764709999997" green="0.90588235289999997" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="tnz-K0-XsD" firstAttribute="leading" secondItem="bZX-xg-ZbZ" secondAttribute="leading" constant="8" id="3Of-bJ-6Mg"/>
+                                        <constraint firstItem="pT9-6Z-XhF" firstAttribute="leading" secondItem="bZX-xg-ZbZ" secondAttribute="leading" id="GQL-ua-tVL"/>
+                                        <constraint firstItem="pT9-6Z-XhF" firstAttribute="top" secondItem="bZX-xg-ZbZ" secondAttribute="top" id="Gle-uj-iDN"/>
+                                        <constraint firstAttribute="trailing" secondItem="tnz-K0-XsD" secondAttribute="trailing" constant="8" id="MrO-vs-aRb"/>
+                                        <constraint firstItem="tnz-K0-XsD" firstAttribute="top" secondItem="pT9-6Z-XhF" secondAttribute="bottom" constant="7" id="RvI-08-P5e"/>
+                                        <constraint firstAttribute="bottom" secondItem="tnz-K0-XsD" secondAttribute="bottom" constant="5" id="fOY-A1-1qm"/>
+                                        <constraint firstAttribute="trailing" secondItem="pT9-6Z-XhF" secondAttribute="trailing" id="nN9-ed-nGz"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <animations/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <outlet property="titleLabel" destination="tnz-K0-XsD" id="7DL-Nk-Hae"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="dW6-mM-6nb" id="ZcB-iU-Ert"/>
+                            <outlet property="delegate" destination="dW6-mM-6nb" id="U59-U3-AXC"/>
+                        </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="0yT-ND-9nv"/>
                 </tableViewController>

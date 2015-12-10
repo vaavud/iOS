@@ -42,7 +42,9 @@ class LoginViewController: UIViewController, LoginCoreDelegate {
     }
     
     func onSuccess() {
-        //TODO
+        let storyboard = UIStoryboard(name: "MainStoryboard", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("TabBarController")
+        self.presentViewController(vc, animated: true, completion: nil)
     }
     
     func onError(title: String, message: String) {
@@ -50,8 +52,9 @@ class LoginViewController: UIViewController, LoginCoreDelegate {
     }
     
     func missingActivity() {
-        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("activityVC") as! ActivityViewController
-        navigationController?.pushViewController(vc, animated: true)
+        if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("activityVC") as? ActivityViewController{
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     

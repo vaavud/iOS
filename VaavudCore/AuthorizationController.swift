@@ -273,8 +273,7 @@ class AuthorizationController {
     
     
     private func authWithFacebook(accessToken : String, callback: (Bool, String) -> Void){
-        vaavudRootFirebase.authWithOAuthProvider("facebook", token: accessToken,
-            withCompletionBlock: { error, authData in
+        vaavudRootFirebase.authWithOAuthProvider("facebook", token: accessToken, withCompletionBlock: { error, authData in
                 if error != nil {
                     print("Login failed. \(error)")
                     callback(false,"")
@@ -287,12 +286,14 @@ class AuthorizationController {
     
     private func getUserInformation(child : String, key : String, callback: ((FirebaseDictionary?)->Void)?) {
         let ref = vaavudRootFirebase.childByAppendingPath(child).childByAppendingPath(key)
-        ref.observeSingleEventOfType(.Value, withBlock: {data in
+        ref.observeSingleEventOfType(.Value, withBlock: { data in
             if let callback = callback {
                 callback(data.value as? FirebaseDictionary)
             }
             else{
-                self.userInformation(data.key, data: data.value as! FirebaseDictionary)
+                if let dataFirebase = data.value as? FirebaseDictionary{
+                    self.userInformation(data.key, data: dataFirebase)
+                }
             }
         })
     }

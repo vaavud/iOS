@@ -6,13 +6,13 @@
 //  Copyright (c) 2014 Andreas Okholm. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
-@class HistoryTableViewCell;
-@class MeasurementSession;
-
-@interface HistoryTableViewController : UITableViewController<NSFetchedResultsControllerDelegate>
-
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
-
-@end
+//#import <UIKit/UIKit.h>
+//
+//@class HistoryTableViewCell;
+//@class MeasurementSession;
+//
+//@interface HistoryTableViewController : UITableViewController<NSFetchedResultsControllerDelegate>
+//
+//@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+//
+//@end

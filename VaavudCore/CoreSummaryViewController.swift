@@ -75,7 +75,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     private var hasWindChill = false
     
     private var animator: UIDynamicAnimator!
-    var session: MeasurementSession!
+    var session: Session!
         
     override func viewDidLoad() {
         hideVolumeHUD()
@@ -93,14 +93,14 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         windchillItem = DynamicReadingItem(readingView: windchillView)
         gustinessItem = DynamicReadingItem(readingView: gustinessView)
         
-        title = VaavudFormatter.shared.localizedTitleDate(session.startTime)?.uppercaseStringWithLocale(NSLocale.currentLocale())
+        title = VaavudFormatter.shared.localizedTitleDate(session.timeStart)?.uppercaseStringWithLocale(NSLocale.currentLocale())
         
         setupMapView()
         setupUI()
         updateUI()
         updateLocalUI()
         
-        navigationItem.hidesBackButton = !AccountManager.sharedInstance().isLoggedIn()
+        //navigationItem.hidesBackButton = !AccountManager.sharedInstance().isLoggedIn()
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "sessionUpdated:", name: KEY_SESSION_UPDATED, object: nil)
@@ -138,7 +138,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     func sessionUpdated(note: NSNotification) {
-        if let objectId = note.userInfo?["objectID"] as? NSManagedObjectID where objectId == session.objectID {
+        if let objectId = note.userInfo?["objectID"] as? NSManagedObjectID where objectId == session.key {
             updateUI()
         }
     }
@@ -203,7 +203,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     
     private func updateMapAnnotationLabel(annotationView: MKAnnotationView) {
         if let label = annotationView.viewWithTag(42) as? UILabel {
-            label.text = VaavudFormatter.shared.localizedWindspeed(session.windSpeedAvg?.floatValue, digits: 2)
+            label.text = VaavudFormatter.shared.localizedWindspeed(session.windMean, digits: 2)
         }
     }
     
@@ -223,18 +223,19 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func setupMapView() {
-        if session.latitude == nil || session.longitude == nil {
+        
+        guard let location = session.location else{
             mapView.alpha = 0.5
             mapView.userInteractionEnabled = false
             return
         }
         
-        locationOnMap = CLLocationCoordinate2D(latitude: session.latitude.doubleValue, longitude: session.longitude.doubleValue)
+        locationOnMap = CLLocationCoordinate2D(latitude: Double((location.lat)), longitude: Double((location.lon)))
         mapView.setRegion(MKCoordinateRegionMakeWithDistance(locationOnMap, 500, 500), animated: false)
         mapView.addAnnotation(MeasurementAnnotation(location: locationOnMap, windDirection: session.windDirection))
     }
     
-    private func updateMapView(ms: MeasurementSession) {
+    private func updateMapView(ms: Session) {
         if let annotation = mapView.annotations.first as? MeasurementAnnotation, view = mapView.viewForAnnotation(annotation) {
             updateMapAnnotationLabel(view)
         }
@@ -255,12 +256,12 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         updateGustiness(session)
     }
     
-    private func setupGeoLocation(ms: MeasurementSession) {
-        if (ms.latitude == nil || ms.longitude == nil) {
+    private func setupGeoLocation(ms: Session) {
+        if (ms.location == nil) {
             locationLabel.alpha = 0.3
             locationLabel.text = NSLocalizedString("GEOLOCATION_UNKNOWN", comment: "")
         }
-        else if let geoName = ms.geoLocationNameLocalized {
+        else if let geoName = ms.location?.name {
             locationLabel.alpha = 1
             locationLabel.text = geoName
         }
@@ -271,7 +272,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     }
 
     private func updateLocalUI() {
-        if let time = VaavudFormatter.shared.localizedTime(session.startTime) {
+        if let time = VaavudFormatter.shared.localizedTime(session.timeStart) {
             dateLabel.text = time.uppercaseString
         }
     }
@@ -358,10 +359,10 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         guard let snap = UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext()) else { return }
         UIGraphicsEndImageContext()
     
-        if let windSpeed = VaavudFormatter.shared.localizedWindspeed(session.windSpeedAvg?.floatValue) {
+        if let windSpeed = VaavudFormatter.shared.localizedWindspeed(session.windMean) {
             var text = NSLocalizedString("I just measured ", comment: "")
             text += windSpeed + " " + VaavudFormatter.shared.windSpeedUnit.localizedString
-            if let place = session?.geoLocationNameLocalized {
+            if let place = session?.location?.name  {
                 text += " " + NSLocalizedString("at", comment: "Location preposition") + " " + place
             }
             text += NSLocalizedString(" with my Vaavud windmeter! #VaavudWeather\n", comment: "")
@@ -478,11 +479,11 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         directionButton.setTitle(VaavudFormatter.shared.localizedDirection(rotation), forState: .Normal)
     }
     
-    private func setupWindDirection(ms: MeasurementSession) {
+    private func setupWindDirection(ms: Session) {
         hasActualDirection = session.windDirection != nil
 
 //        hasSomeDirection = (session.windDirection ?? session.sourcedWindDirection)?.floatValue
-        hasSomeDirection = session.windDirection?.floatValue // FIXME: Temporary, will remove when we start sourcing directions
+        hasSomeDirection = session.windDirection // FIXME: Temporary, will remove when we start sourcing directions
         
         if let rotation = hasSomeDirection {
             let t = CGAffineTransformMakeRotation(π*CGFloat(1 + rotation/180))
@@ -505,22 +506,22 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    private func updateWindSpeeds(ms: MeasurementSession) {
-        hasWindSpeed = VaavudFormatter.shared.updateAverageWindspeedLabels(ms, valueLabel: averageLabel, unitLabel: averageUnitLabel)
-        VaavudFormatter.shared.updateMaxWindspeedLabels(ms, valueLabel: maximumLabel, unitLabel: maximumUnitLabel)
+    private func updateWindSpeeds(ms: Session) { //TOOD
+        hasWindSpeed = VaavudFormatter.shared.updateAverageWindspeedLabels(ms.windMean!, valueLabel: averageLabel, unitLabel: averageUnitLabel)
+        VaavudFormatter.shared.updateMaxWindspeedLabels(ms.windMax!, valueLabel: maximumLabel, unitLabel: maximumUnitLabel)
     }
 
-    private func updatePressure(ms: MeasurementSession) {
-        hasPressure = VaavudFormatter.shared.updatePressureLabels(ms, valueLabel: pressureLabel, unitLabel: pressureUnitLabel)
+    private func updatePressure(ms: Session) {
+        //hasPressure = VaavudFormatter.shared.updatePressureLabels(ms, valueLabel: pressureLabel, unitLabel: pressureUnitLabel)
     }
     
-    private func updateTemperature(ms: MeasurementSession) {
-        hasTemperature = VaavudFormatter.shared.updateTemperatureLabels(ms, valueLabel: temperatureLabel, unitLabel: temperatureUnitLabel)
-        hasWindChill = VaavudFormatter.shared.updateWindchillLabels(ms, valueLabel: windchillLabel, unitLabel: windchillUnitLabel)
+    private func updateTemperature(ms: Session) {
+        //hasTemperature = VaavudFormatter.shared.updateTemperatureLabels(ms, valueLabel: temperatureLabel, unitLabel: temperatureUnitLabel)
+        //hasWindChill = VaavudFormatter.shared.updateWindchillLabels(ms, valueLabel: windchillLabel, unitLabel: windchillUnitLabel)
     }
     
-    private func updateGustiness(ms: MeasurementSession) {
-        hasGustiness = VaavudFormatter.shared.updateGustinessLabels(ms, valueLabel: gustinessLabel, unitLabel: gustinessUnitLabel)
+    private func updateGustiness(ms: Session) {
+        //hasGustiness = VaavudFormatter.shared.updateGustinessLabels(ms, valueLabel: gustinessLabel, unitLabel: gustinessUnitLabel)
     }
     
     private func snap(item: DynamicReadingItem, to x: CGFloat) {

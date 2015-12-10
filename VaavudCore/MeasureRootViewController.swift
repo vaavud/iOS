@@ -547,7 +547,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
             
             let summary = storyboard!.instantiateViewControllerWithIdentifier("SummaryViewController") as! CoreSummaryViewController
-            summary.session = session
+            //summary.session = session
             
             pageController.dataSource = nil
             pageController.setViewControllers([summary], direction: .Forward, animated: true, completion: nil)
