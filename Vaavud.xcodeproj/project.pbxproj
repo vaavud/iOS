@@ -83,6 +83,7 @@
 		2BB813141C1874FE00D70E10 /* HistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB813101C1874FE00D70E10 /* HistoryController.swift */; };
 		2BB813151C1874FE00D70E10 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB813111C1874FE00D70E10 /* HistoryCell.swift */; };
 		2BB813161C1874FE00D70E10 /* HistoryHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB813121C1874FE00D70E10 /* HistoryHeaderCell.swift */; };
+		2BB813371C1AC41100D70E10 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB813361C1AC41100D70E10 /* TabBarController.swift */; };
 		D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
 		D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* VaavudFFT.m */; };
 		D721B47E1AD1EBD10045DC99 /* DropboxUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D721B47D1AD1EBD10045DC99 /* DropboxUploader.swift */; };
@@ -383,6 +384,7 @@
 		2BB813101C1874FE00D70E10 /* HistoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryController.swift; sourceTree = "<group>"; };
 		2BB813111C1874FE00D70E10 /* HistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		2BB813121C1874FE00D70E10 /* HistoryHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryHeaderCell.swift; sourceTree = "<group>"; };
+		2BB813361C1AC41100D70E10 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		525BDD08A4A6143BBBC49FE3 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDE6761506C86D4075981625 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D7092E881748FE9C00993235 /* VaavudDynamicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudDynamicsController.h; sourceTree = "<group>"; };
@@ -789,6 +791,7 @@
 				E91D4214198F7A9800106E15 /* GuideView.xib */,
 				E93C5C3517EC826800E84D3C /* TabBarController.h */,
 				E93C5C3617EC826800E84D3C /* TabBarController.m */,
+				2BB813361C1AC41100D70E10 /* TabBarController.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -1384,6 +1387,7 @@
 				E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */,
 				E9A4097A18994000004F1C12 /* TMMemoryCache.m in Sources */,
 				222F30631BC2944800CD607B /* NotificationDetailsViewController.swift in Sources */,
+				2BB813371C1AC41100D70E10 /* TabBarController.swift in Sources */,
 				E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */,
 				2291249A1B81E8DB00DC6867 /* TabBarController.m in Sources */,
 				E9A4099018A52151004F1C12 /* SignUpViewController.m in Sources */,

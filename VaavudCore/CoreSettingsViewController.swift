@@ -8,6 +8,7 @@
 
 import Foundation
 import Mixpanel
+import Firebase
 
 class CoreSettingsTableViewController: UITableViewController {
     let interactions = VaavudInteractions()
@@ -47,10 +48,19 @@ class CoreSettingsTableViewController: UITableViewController {
         
         readUnits()
     }
+    @IBAction func logoutTapped(sender: UIBarButtonItem) {
+        
+        interactions.showLocalAlert("REGISTER_BUTTON_LOGOUT",
+            messageKey: "DIALOG_CONFIRM",
+            cancelKey: "BUTTON_CANCEL",
+            otherKey: "BUTTON_OK",
+            action: { self.logoutConfirmed() },
+            on: self)
+    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        refreshLogoutButton()
+        //refreshLogoutButton()
         refreshWindmeterModel()
         refreshTimeLimit()
     }
@@ -70,10 +80,11 @@ class CoreSettingsTableViewController: UITableViewController {
     }
 
     func wasLoggedInOut(note: NSNotification) {
-        refreshLogoutButton()
+        //refreshLogoutButton()
     }
     
     func refreshLogoutButton() {
+        
         let titleKey = AccountManager.sharedInstance().isLoggedIn() ? "REGISTER_BUTTON_LOGOUT" : "REGISTER_BUTTON_LOGIN"
         logoutButton.title = NSLocalizedString(titleKey, comment: "")
     }
@@ -137,44 +148,35 @@ class CoreSettingsTableViewController: UITableViewController {
             temperatureUnitControl.selectedSegmentIndex = temperatureUnit
         }
     }
-        
-    @IBAction func logInOutTapped(sender: AnyObject) {
-        if AccountManager.sharedInstance().isLoggedIn() {
-            interactions.showLocalAlert("REGISTER_BUTTON_LOGOUT",
-                messageKey: "DIALOG_CONFIRM",
-                cancelKey: "BUTTON_CANCEL",
-                otherKey: "BUTTON_OK",
-                action: { self.logoutConfirmed() },
-                on: self)
-        }
-        else {
-            registerUser()
-        }
-        logHelper.increase()
-    }
     
     func logoutConfirmed() {
-        AccountManager.sharedInstance().logout()
         LogHelper.log(event: "Logged-Out", properties: ["place" : "settings"])
+        
+        AuthorizationController.shared.unauth()
+        
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        let controller = storyboard.instantiateViewControllerWithIdentifier("NavigationLogin")
+        presentViewController(controller, animated: false, completion: nil)
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func registerUser() {
-        let storyboard = UIStoryboard(name: "Register", bundle: nil)
-        let registration = storyboard.instantiateViewControllerWithIdentifier("RegisterViewController") as! RegisterViewController
-        registration.teaserLabelText = NSLocalizedString("HISTORY_REGISTER_TEASER", comment: "")
-        registration.completion = {
-            print("========Login done, will try to sync") // fixme
-
-            ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: true, success: { }, failure: { _ in })
-
-            self.dismissViewControllerAnimated(true, completion: {
-                print("========settings did dismiss") // fixme
-            })
-        };
-        
-        let navController = RotatableNavigationController(rootViewController: registration)
-        presentViewController(navController, animated: true, completion: nil)
-    }
+//    func registerUser() {
+//        let storyboard = UIStoryboard(name: "Register", bundle: nil)
+//        let registration = storyboard.instantiateViewControllerWithIdentifier("RegisterViewController") as! RegisterViewController
+//        registration.teaserLabelText = NSLocalizedString("HISTORY_REGISTER_TEASER", comment: "")
+//        registration.completion = {
+//            print("========Login done, will try to sync") // fixme
+//
+//            ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: true, success: { }, failure: { _ in })
+//
+//            self.dismissViewControllerAnimated(true, completion: {
+//                print("========settings did dismiss") // fixme
+//            })
+//        };
+//        
+//        let navController = RotatableNavigationController(rootViewController: registration)
+//        presentViewController(navController, animated: true, completion: nil)
+//    }
     
     @IBAction func changedLimitToggle(sender: UISegmentedControl) {
         Property.setAsBoolean(sender.selectedSegmentIndex == 1, forKey: KEY_MEASUREMENT_TIME_UNLIMITED)

@@ -686,12 +686,12 @@
 
         [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_ZOOM_SHOWN];
         
-        TabBarController *tabBarController = (TabBarController*) self.tabBarController;
-        [tabBarController showCalloutGuideView:NSLocalizedString(@"MAP_GUIDE_ZOOM_TITLE", nil)
-                               explanationText:NSLocalizedString(@"MAP_GUIDE_ZOOM_EXPLANATION", nil)
-                                customPosition:self.measurementCalloutView.imageView.bounds
-                                     withArrow:YES
-                                        inView:self.mapView.calloutView];
+//        TabBarController *tabBarController = (TabBarController*) self.tabBarController;
+//        [tabBarController showCalloutGuideView:NSLocalizedString(@"MAP_GUIDE_ZOOM_TITLE", nil)
+//                               explanationText:NSLocalizedString(@"MAP_GUIDE_ZOOM_EXPLANATION", nil)
+//                                customPosition:self.measurementCalloutView.imageView.bounds
+//                                     withArrow:YES
+//                                        inView:self.mapView.calloutView];
     
     }
 }
