@@ -5,9 +5,9 @@ PODS:
   - FMDB/common (2.5)
   - FMDB/standard (2.5):
     - FMDB/common
-  - Mixpanel (2.9.0):
-    - Mixpanel/Mixpanel (= 2.9.0)
-  - Mixpanel/Mixpanel (2.9.0)
+  - Mixpanel (2.9.1):
+    - Mixpanel/Mixpanel (= 2.9.1)
+  - Mixpanel/Mixpanel (2.9.1)
 
 DEPENDENCIES:
   - Amplitude-iOS (~> 3.2.1)
@@ -18,6 +18,6 @@ SPEC CHECKSUMS:
   Amplitude-iOS: d4217c0912e3ef7bddb8f5abeb4acffa57d8dfc5
   Dropbox-iOS-SDK: e0c9b08d1604b39cb78c1d0333251de0f6bdec60
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
-  Mixpanel: 42ae6168effc48481d957f7883dd8514a398738d
+  Mixpanel: 5ca24b2a05f4c77fe9bcfe7671d681d0f3f8d76f
 
 COCOAPODS: 0.39.0
