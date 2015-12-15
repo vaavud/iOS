@@ -92,7 +92,7 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
                 duration: 0.20,
                 options: .TransitionCrossDissolve,
                 completion: {
-                    finished in window.rootViewController = controller
+                    _ in window.rootViewController = controller
             })
         }
     }
@@ -123,7 +123,8 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
         
         if viewController == childViewControllers[2] {
-            performSegueWithIdentifier("ShowMeasureScreen", sender: self)
+            performSegueWithIdentifier("NewMap", sender: self)
+//            performSegueWithIdentifier("ShowMeasureScreen", sender: self)
             return false
         }
     

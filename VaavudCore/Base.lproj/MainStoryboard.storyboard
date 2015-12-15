@@ -119,6 +119,7 @@
                         <segue destination="Qec-7p-mYZ" kind="relationship" relationship="viewControllers" id="zZk-Yz-m9H"/>
                         <segue destination="Oqg-Yf-Zro" kind="relationship" relationship="viewControllers" id="MkI-IS-eGQ"/>
                         <segue destination="yAP-as-dFe" kind="relationship" relationship="viewControllers" id="3mf-g0-btB"/>
+                        <segue destination="4eX-ef-h5m" kind="modal" identifier="NewMap" id="ncB-cv-Ygg"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Grw-Gv-BfB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3016,7 +3017,7 @@
         <!--New Map View Controller-->
         <scene sceneID="4CX-6u-Fa7">
             <objects>
-                <viewController id="4eX-ef-h5m" customClass="NewMapViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewMapViewController" id="4eX-ef-h5m" customClass="NewMapViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Rxc-W1-ibV"/>
                         <viewControllerLayoutGuide type="bottom" id="myr-l3-sxK"/>
@@ -3030,7 +3031,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T0M-g5-ADl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1752" y="744"/>
+            <point key="canvasLocation" x="-1738" y="672"/>
         </scene>
         <!--Activity navigation-->
         <scene sceneID="Awx-qm-uP9">
