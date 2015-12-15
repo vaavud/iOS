@@ -46,18 +46,16 @@ class NewMapViewController: UIViewController, MKMapViewDelegate {
     // MARK: Setup Firebase
     
     func setupFirebase() {
-        let firebaseSession = Firebase(url: "https://vaavud-core-demo.firebaseio.com/")
-        
-        let time = NSDate(timeIntervalSinceNow: -24*60*60).timeIntervalSince1970*1000
+        let firebaseSession = Firebase(url: firebaseUrl)
         
         firebaseSession
             .childByAppendingPath("session")
             .queryOrderedByChild("timeStart")
-            .queryStartingAtValue(time)
+            .queryStartingAtValue(NSDate(timeIntervalSinceNow: -24*60*60).ms)
             .observeEventType(.ChildAdded, withBlock: { snapshot in
                 
-                if let t = snapshot.value["timeStart"] as? Double {
-                    print("Snapshot \( NSDate(timeIntervalSince1970: t/1000))")
+                if let t = snapshot.value["timeStart"] as? Int {
+                    print("Snapshot \( NSDate(ms: t))")
                 }
             })
     }

@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import VaavudSDK
 
 // Reflection with computed properties
 // Parse NSDate to Double using timeIntervalSince1970
@@ -109,19 +110,6 @@ struct Wind {
     }
 }
 
-
-extension NSDate {
-    
-    convenience init(ms: Int) {
-        self.init(timeIntervalSince1970: NSTimeInterval(ms)/1000)
-    }
-    
-    var ms: Int {
-        return Int(round(timeIntervalSince1970*1000))
-    }
-}
-
-
 struct Session {
     
     let deviceKey: String
@@ -142,7 +130,7 @@ struct Session {
         key = snapshot.key
         uid = snapshot.value["uid"] as! String
         deviceKey = snapshot.value["deviceKey"] as! String
-        timeStart = NSDate(ms: snapshot.value["timeStart"] as! Int)
+        timeStart = NSDate(ms: snapshot.value["timeStart"] as! NSNumber)
         timeEnd = snapshot.value["timeEnd"] as? Float
         windDirection = snapshot.value["windDirection"] as? Float
         windMax = snapshot.value["windMax"] as? Float

@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 
+let firebaseUrl = "https://vaavud-core-demo.firebaseio.com"
+
 enum LoginError: String {
     case Network = "LOGIN_ERROR_NETWORK"
     case MalformedInformation = "LOGIN_ERROR_MALFORMED"
@@ -25,7 +27,6 @@ protocol LoginDelegate {
 }
 
 class AuthorizationController: NSObject {
-    private let firebaseUrl = "https://vaavud-core-demo.firebaseio.com"
     private var vaavudRootFirebase: Firebase
     var delegate: LoginDelegate?
     var uid: String?

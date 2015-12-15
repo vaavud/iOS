@@ -123,11 +123,15 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
         
         if viewController == childViewControllers[2] {
-            performSegueWithIdentifier("NewMap", sender: self)
-//            performSegueWithIdentifier("ShowMeasureScreen", sender: self)
+            performSegueWithIdentifier("ShowMeasureScreen", sender: self)
             return false
         }
     
+        if viewController == childViewControllers[0] {
+            performSegueWithIdentifier("NewMap", sender: self)
+            return false
+        }
+        
         return true
     
     }
