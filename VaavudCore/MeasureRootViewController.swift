@@ -393,7 +393,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 .updateChildValues(sourced.dict())
         }
         
-        
+        //["humidity": 0.81, "icon": clear-night, "pressure": 1019.87, "temperature": 43.82, "windMean": 2.77, "windDirection": 351]
         //["humidity": 0.83, "icon": clear-day, "pressure": 1019.9, "temperature": 40.12, "windMean": 5.6, "windDirection": 348]
         
         
