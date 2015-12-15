@@ -11,6 +11,8 @@ import Firebase
 
 protocol HistoryDelegate{
     func updateTable(sessions: [[Session]], sessionDates: [String])
+    func hideSpinner()
+    func noMeasurements()
 }
 
 
@@ -20,6 +22,7 @@ class HistoryController: NSObject {
     let firebaseSession = Firebase(url: "https://vaavud-core-demo.firebaseio.com/")
     var sessions = [[Session]]()
     var sessionDate = [String]()
+    var count:UInt = 0
 
     init(delegate: HistoryDelegate){
         super.init()
@@ -33,16 +36,17 @@ class HistoryController: NSObject {
         
         ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeEventType(.ChildAdded, withBlock: { snapshot in
             
-            guard let _ = snapshot.value["timeEnd"] as? Double else{
+            self.count++
+            
+            guard snapshot.value["timeEnd"] is Double else {
                 return
             }
-            
             
             self.addSessionToStack(Session(snapshot: snapshot))
         })
         
         ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeEventType(.ChildChanged, withBlock: { snapshot in
-            guard snapshot.value["timeEnd"] is Double else{
+            guard snapshot.value["timeEnd"] is Double else {
                 return
             }
         
@@ -55,6 +59,15 @@ class HistoryController: NSObject {
             }
             
             self.addSessionToStack(Session(snapshot: snapshot))
+        })
+        
+        ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeEventType(.Value, withBlock: { snapshot in
+            if snapshot.childrenCount > 0 {
+                self.delegate?.hideSpinner()
+            }
+            else {
+                self.delegate?.noMeasurements()
+            }
         })
     }
     

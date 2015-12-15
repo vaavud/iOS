@@ -141,15 +141,22 @@ struct Session {
 }
 
 
-class HistoryViewController: UITableViewController,HistoryDelegate {
+class HistoryViewController: UITableViewController, HistoryDelegate {
     
     var sessions = [[Session]]()
     var sessionDates = [String]()
     var controller: HistoryController?
+    let spinner = MjolnirSpinner(frame: CGRectMake(100, 100, 100, 100))
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        spinner.alpha = 0.4
+        spinner.center = tableView.bounds.center
+        tableView.addSubview(spinner)
+        spinner.show()
+        
         controller = HistoryController(delegate: self)
     }
     
@@ -232,7 +239,14 @@ class HistoryViewController: UITableViewController,HistoryDelegate {
         return headerCell.contentView
     }
     
+    func hideSpinner() {
+        spinner.hide()
+        print("hide")
+    }
     
+    func noMeasurements() {
+        
+    }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)

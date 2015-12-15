@@ -101,7 +101,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="jS3-cD-ygh">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarController" definesPresentationContext="YES" id="uRK-QG-tAM" customClass="TabBarController" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" definesPresentationContext="YES" id="uRK-QG-tAM" customClass="TabBarController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Jnf-oh-4Lm"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" itemPositioning="fill" id="h0W-x4-9bm">
@@ -1250,7 +1250,7 @@
                     <navigationItem key="navigationItem" title="Settings" id="cSV-1z-9B0">
                         <barButtonItem key="rightBarButtonItem" title="Log out" id="kic-mv-NUN">
                             <connections>
-                                <action selector="logInOutTapped:" destination="AVc-0U-FEU" id="Wzw-2y-edt"/>
+                                <action selector="logoutTapped:" destination="AVc-0U-FEU" id="QbG-qY-sQR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
