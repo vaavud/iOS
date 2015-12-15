@@ -10,7 +10,7 @@ import Foundation
 import Firebase
 
 
-class NewMapViewController: UIViewController, MKMapViewDelegate, SMCalloutViewDelegate {
+class NewMapViewController: UIViewController, MKMapViewDelegate {
     private let logHelper = LogHelper.init(groupName: "Map", counters: ["scrolled", "tapped-marker"])
     
     private var lastMeasurementsRead = NSDate.distantPast()

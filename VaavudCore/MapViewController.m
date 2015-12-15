@@ -64,12 +64,6 @@
     [super viewDidLoad];
     [self hideVolumeHUD];
     
-    
-    UIViewController *nmv = [[NewMapViewController alloc] init];
-    [self presentViewController:nmv animated:NO completion:nil];
-
-    
-    
     //NSLog(@"[MapViewController] viewDidLoad");
     
     self.lastMeasurementsRead = [NSDate distantPast];
