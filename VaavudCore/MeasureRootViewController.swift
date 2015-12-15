@@ -318,7 +318,11 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 "lon" : loc.longitude
             ]
             
-            vaavudFirebase.childByAppendingPath("session").childByAppendingPath(session.key).childByAppendingPath("location").updateChildValues(l)
+            vaavudFirebase
+                .childByAppendingPath("session")
+                .childByAppendingPath(session.key)
+                .childByAppendingPath("location")
+                .updateChildValues(l)
             
             let latlong = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
             
@@ -393,9 +397,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 .updateChildValues(sourced.dict())
         }
         
-        //["humidity": 0.81, "icon": clear-night, "pressure": 1019.87, "temperature": 43.82, "windMean": 2.77, "windDirection": 351]
-        //["humidity": 0.83, "icon": clear-day, "pressure": 1019.9, "temperature": 40.12, "windMean": 5.6, "windDirection": 348]
-        
+        //["humidity": 0.8, "icon": clear-night, "pressure": 1020000, "temperature": 279.4333, "windMean": 1.86, "windDirection": 340]
         
         
         
@@ -454,7 +456,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         //let model: WindMeterModel = isSleipnirSession ? .Sleipnir : .Mjolnir
         let model = isSleipnirSession ? "sleipnir" : "mjolnir"
         
-        var session = Session(uid: vaavudFirebase.authData.uid, deviceId: AuthorizationController.shared.currentDeviceId(), timeStart: NSDate().timeIntervalSince1970, windMeter: model)
+        var session = Session(uid: vaavudFirebase.authData.uid, deviceId: AuthorizationController.shared.currentDeviceId(), timeStart: NSDate(), windMeter: model)
         print(session.initDict())
         
         let ref = vaavudFirebase.childByAppendingPath("session")

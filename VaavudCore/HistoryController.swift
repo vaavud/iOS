@@ -61,7 +61,7 @@ class HistoryController: NSObject {
             self.addSessionToStack(Session(snapshot: snapshot))
         })
         
-        ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeEventType(.Value, withBlock: { snapshot in
+        ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeSingleEventOfType(.Value, withBlock: { snapshot in
             if snapshot.childrenCount > 0 {
                 self.delegate.hideSpinner()
             }
