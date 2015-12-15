@@ -62,11 +62,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ucD-nD-tT2">
-                                <rect key="frame" x="12" y="393" width="296" height="35"/>
+                                <rect key="frame" x="16" y="378" width="288" height="50"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="xYC-ki-JR4"/>
+                                    <constraint firstAttribute="height" constant="50" id="xYC-ki-JR4"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="15"/>
                                 <size key="titleShadowOffset" width="14" height="0.0"/>
@@ -90,14 +90,14 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rsc-jT-kmp" customClass="FBSDKLoginButton">
-                                <rect key="frame" x="12" y="345" width="296" height="35"/>
+                                <rect key="frame" x="16" y="315" width="288" height="50"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="i6m-hD-ZV6"/>
+                                    <constraint firstAttribute="height" constant="50" id="i6m-hD-ZV6"/>
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qNf-T5-hC3">
-                                <rect key="frame" x="-4" y="143" width="328" height="194"/>
+                                <rect key="frame" x="-4" y="143" width="328" height="164"/>
                                 <animations/>
                                 <connections>
                                     <segue destination="Sn2-Tn-qNa" kind="embed" id="N17-zK-gxO"/>
@@ -114,7 +114,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ucD-nD-tT2" firstAttribute="trailing" secondItem="ODV-YM-meA" secondAttribute="trailingMargin" constant="4" id="0AK-iS-Dpb"/>
+                            <constraint firstItem="ucD-nD-tT2" firstAttribute="trailing" secondItem="ODV-YM-meA" secondAttribute="trailingMargin" id="0AK-iS-Dpb"/>
                             <constraint firstItem="qNf-T5-hC3" firstAttribute="leading" secondItem="ODV-YM-meA" secondAttribute="leadingMargin" constant="-20" id="1wW-oK-DKv"/>
                             <constraint firstItem="ucD-nD-tT2" firstAttribute="top" secondItem="Rsc-jT-kmp" secondAttribute="bottom" constant="13" id="5im-23-Rh6"/>
                             <constraint firstItem="z60-kr-AsJ" firstAttribute="leading" secondItem="ODV-YM-meA" secondAttribute="leadingMargin" constant="-4" id="8Ux-cJ-U8t"/>
@@ -122,14 +122,14 @@
                             <constraint firstItem="Rsc-jT-kmp" firstAttribute="trailing" secondItem="ucD-nD-tT2" secondAttribute="trailing" id="Kcc-Vw-cl9"/>
                             <constraint firstItem="z60-kr-AsJ" firstAttribute="trailing" secondItem="ODV-YM-meA" secondAttribute="trailingMargin" constant="4" id="NB4-K3-yda"/>
                             <constraint firstItem="qNf-T5-hC3" firstAttribute="trailing" secondItem="ODV-YM-meA" secondAttribute="trailingMargin" constant="20" id="Pfg-6i-gpT"/>
-                            <constraint firstItem="ucD-nD-tT2" firstAttribute="leading" secondItem="ODV-YM-meA" secondAttribute="leadingMargin" constant="-4" id="Qi7-Rr-A3K"/>
+                            <constraint firstItem="ucD-nD-tT2" firstAttribute="leading" secondItem="ODV-YM-meA" secondAttribute="leadingMargin" id="Qi7-Rr-A3K"/>
                             <constraint firstItem="mIN-KA-32B" firstAttribute="top" secondItem="Hmk-cX-GDU" secondAttribute="bottom" priority="997" constant="8" id="R4e-qa-jGc"/>
+                            <constraint firstItem="mIN-KA-32B" firstAttribute="centerX" secondItem="ODV-YM-meA" secondAttribute="centerX" id="XXj-N4-RIW"/>
                             <constraint firstItem="ucD-nD-tT2" firstAttribute="top" secondItem="Rsc-jT-kmp" secondAttribute="bottom" constant="13" id="az0-Ca-gRF"/>
                             <constraint firstItem="z60-kr-AsJ" firstAttribute="top" secondItem="ucD-nD-tT2" secondAttribute="bottom" constant="38" id="cB1-2W-cBm"/>
                             <constraint firstItem="QRe-O3-Iph" firstAttribute="top" secondItem="z60-kr-AsJ" secondAttribute="bottom" constant="8" id="f6y-D7-xhW"/>
                             <constraint firstItem="Rsc-jT-kmp" firstAttribute="top" secondItem="qNf-T5-hC3" secondAttribute="bottom" constant="8" id="hy3-YG-IlP"/>
                             <constraint firstItem="Rsc-jT-kmp" firstAttribute="leading" secondItem="ucD-nD-tT2" secondAttribute="leading" id="jvm-CB-xOe"/>
-                            <constraint firstItem="mIN-KA-32B" firstAttribute="centerX" secondItem="Rsc-jT-kmp" secondAttribute="centerX" id="x4E-4e-ciR"/>
                             <constraint firstItem="qNf-T5-hC3" firstAttribute="top" secondItem="mIN-KA-32B" secondAttribute="bottom" constant="8" id="xpg-4E-kwx"/>
                         </constraints>
                     </view>
@@ -176,14 +176,14 @@
                                         <animations/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
                                                 <color key="value" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="textChanged:" destination="yEp-MZ-HLn" eventType="editingChanged" id="UdD-6u-nCl"/>
+                                            <outlet property="delegate" destination="yEp-MZ-HLn" id="ZV7-cz-rxY"/>
                                         </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6rl-Xt-uYz" userLabel="Second Horizontal Separator">
@@ -194,20 +194,20 @@
                                             <constraint firstAttribute="height" constant="1" id="Z4D-vG-RQZ"/>
                                         </constraints>
                                     </view>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cft-yO-LrQ" userLabel="Email Text Field">
-                                        <rect key="frame" x="8" y="11" width="304" height="21"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Email" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cft-yO-LrQ" userLabel="Email Text Field">
+                                        <rect key="frame" x="8" y="10" width="304" height="21"/>
                                         <animations/>
                                         <color key="tintColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
                                                 <color key="value" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="textChanged:" destination="yEp-MZ-HLn" eventType="editingChanged" id="eSW-Sd-NiR"/>
+                                            <outlet property="delegate" destination="yEp-MZ-HLn" id="dec-TA-cJn"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -237,7 +237,7 @@
                                     <color key="titleColor" red="0.18823529410000001" green="0.24313725489999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="grQ-Vo-gVC" kind="push" id="M91-mQ-hNT"/>
+                                    <segue destination="grQ-Vo-gVC" kind="push" identifier="ForgotPassword" id="M91-mQ-hNT"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -259,7 +259,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Login" id="gRG-an-VGR">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
-                                <action selector="loginPushed" destination="yEp-MZ-HLn" id="Fck-UH-cKc"/>
+                                <action selector="tappedLogin" destination="yEp-MZ-HLn" id="su7-id-m2C"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -345,7 +345,7 @@
         <!--Forgot password-->
         <scene sceneID="Glk-pH-Fuy">
             <objects>
-                <viewController id="grQ-Vo-gVC" sceneMemberID="viewController">
+                <viewController id="grQ-Vo-gVC" customClass="PasswordViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KsZ-pV-Iz8"/>
                         <viewControllerLayoutGuide type="bottom" id="o6U-aD-OdZ"/>
@@ -362,7 +362,10 @@
                                         <animations/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="grQ-Vo-gVC" id="2OG-CK-ClB"/>
+                                        </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ey1-TR-3ad" userLabel="Second Horizontal Separator">
                                         <rect key="frame" x="16" y="52" width="296" height="1"/>
@@ -379,6 +382,9 @@
                                         <state key="normal" title="Send Email">
                                             <color key="titleColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="tappedSend:" destination="grQ-Vo-gVC" eventType="touchUpInside" id="qoZ-gI-Pfo"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <animations/>
@@ -405,10 +411,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Forgot password" id="qbp-Cu-VF1"/>
+                    <connections>
+                        <outlet property="emailField" destination="PN0-Nt-fF8" id="9Ln-eS-1xE"/>
+                        <outlet property="sendButton" destination="ot8-gt-ZcE" id="DaH-y8-WW6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T6f-EF-TFj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="956" y="1066"/>
+            <point key="canvasLocation" x="956" y="1106"/>
         </scene>
         <!--Signup-->
         <scene sceneID="4Pf-uY-ZSd">
@@ -435,14 +445,13 @@
                                         <animations/>
                                         <color key="textColor" red="0.47843137250000001" green="0.52549019610000003" blue="0.54901960780000003" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="next"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
                                                 <color key="value" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="fieldChanged:" destination="Z3Q-3h-mEQ" eventType="editingChanged" id="LVe-KI-WS5"/>
                                             <outlet property="delegate" destination="Z3Q-3h-mEQ" id="VUo-BM-OWG"/>
                                         </connections>
                                     </textField>
@@ -460,14 +469,13 @@
                                         <animations/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="next"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="no" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
                                                 <color key="value" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="fieldChanged:" destination="Z3Q-3h-mEQ" eventType="editingChanged" id="2us-YR-d6l"/>
                                             <outlet property="delegate" destination="Z3Q-3h-mEQ" id="RaH-Rv-Sc5"/>
                                         </connections>
                                     </textField>
@@ -523,7 +531,7 @@
                                         <animations/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" secureTextEntry="YES"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="join" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor">
                                                 <color key="value" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -583,7 +591,7 @@
                     <navigationItem key="navigationItem" title="Signup" id="zyF-57-0xn">
                         <barButtonItem key="rightBarButtonItem" title="Create" id="V1M-TL-hgS">
                             <connections>
-                                <action selector="createPushed" destination="Z3Q-3h-mEQ" id="DTO-Yd-pEh"/>
+                                <action selector="tappedCreate" destination="Z3Q-3h-mEQ" id="Oug-kz-tQT"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -608,20 +616,20 @@
                         <viewControllerLayoutGuide type="bottom" id="hKo-CB-woL"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dxe-Jd-BIp">
-                        <rect key="frame" x="0.0" y="0.0" width="328" height="194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="328" height="164"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Rm-Px-2Oh">
-                                <rect key="frame" x="0.0" y="0.0" width="328" height="194"/>
+                                <rect key="frame" x="0.0" y="0.0" width="328" height="164"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kAq-BU-Hjg" userLabel="Container View">
-                                        <rect key="frame" x="0.0" y="0.0" width="984" height="194"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="984" height="164"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cZu-gP-Bc8">
-                                                <rect key="frame" x="328" y="0.0" width="328" height="194"/>
+                                                <rect key="frame" x="328" y="0.0" width="328" height="164"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To provide better, more advanced features we now require sign in" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iTR-Ms-EDH">
-                                                        <rect key="frame" x="8" y="46" width="312" height="102"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="To provide better, more advanced features we now require sign in" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iTR-Ms-EDH">
+                                                        <rect key="frame" x="8" y="32" width="312" height="102"/>
                                                         <animations/>
                                                         <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="29"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -637,10 +645,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jl0-eN-ewf">
-                                                <rect key="frame" x="656" y="0.0" width="328" height="194"/>
+                                                <rect key="frame" x="656" y="0.0" width="328" height="164"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Join us! We'll work very hard to make it worth it!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQo-LL-olx">
-                                                        <rect key="frame" x="8" y="63" width="312" height="68"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Join us! We'll work very hard to make it worth it!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aQo-LL-olx">
+                                                        <rect key="frame" x="8" y="49" width="312" height="68"/>
                                                         <animations/>
                                                         <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="29"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -656,10 +664,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Huk-ez-ri6">
-                                                <rect key="frame" x="0.0" y="0.0" width="328" height="194"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="328" height="164"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Join the biggest crowdsourced wind community" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWX-cl-rA4">
-                                                        <rect key="frame" x="8" y="46" width="312" height="102"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Join the biggest crowdsourced wind community" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KWX-cl-rA4">
+                                                        <rect key="frame" x="8" y="32" width="312" height="102"/>
                                                         <animations/>
                                                         <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="29"/>
                                                         <color key="textColor" red="0.47843137254901957" green="0.52549019607843139" blue="0.5490196078431373" alpha="1" colorSpace="calibratedRGB"/>
@@ -705,7 +713,7 @@
                                 </constraints>
                             </scrollView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="zW4-4t-hfD">
-                                <rect key="frame" x="0.0" y="137" width="328" height="37"/>
+                                <rect key="frame" x="0.0" y="107" width="328" height="37"/>
                                 <animations/>
                                 <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="currentPageIndicatorTintColor" red="0.18823529410000001" green="0.24313725489999999" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>

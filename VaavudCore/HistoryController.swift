@@ -19,7 +19,7 @@ protocol HistoryDelegate {
 class HistoryController: NSObject {
 
     let delegate: HistoryDelegate
-    let firebaseSession = Firebase(url: "https://vaavud-core-demo.firebaseio.com/")
+    let firebaseSession = Firebase(url: firebaseUrl)
     var sessions = [[Session]]()
     var sessionDate = [String]()
     var count:UInt = 0

@@ -92,7 +92,7 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
                 duration: 0.20,
                 options: .TransitionCrossDissolve,
                 completion: {
-                    finished in window.rootViewController = controller
+                    _ in window.rootViewController = controller
             })
         }
     }
@@ -127,6 +127,11 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
             return false
         }
     
+        if viewController == childViewControllers[0] {
+            performSegueWithIdentifier("NewMap", sender: self)
+            return false
+        }
+        
         return true
     
     }

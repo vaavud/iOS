@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SelectorViewController: UIViewController,FBSDKLoginButtonDelegate, LoginDelegate {
+class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginDelegate {
     @IBOutlet weak var signupButton: UIButton!
     @IBOutlet weak var facebookView: FBSDKLoginButton!
     
@@ -33,7 +33,7 @@ class SelectorViewController: UIViewController,FBSDKLoginButtonDelegate, LoginDe
         print("User Logged In")
         
         if error != nil || result.isCancelled {
-            showAlert("Facebook error", message: "We couldn't reach your information.", callback: nil)
+            VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: LoginError.Facebook.rawValue, otherKey: "BUTTON_OK", action: {}, on: self)
         }
         else {
             AuthorizationController.shared.loginWithFacebook(self)
@@ -56,13 +56,8 @@ class SelectorViewController: UIViewController,FBSDKLoginButtonDelegate, LoginDe
     }
     
     func onError(error: LoginError) {
-        //        showAlert(title,message: message, callback: nil)
-    }
-    
-    private func showAlert(title: String, message: String , callback: ((UIAlertAction) -> Void)? ){
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("BUTTON_OK", comment: ""), style: .Default, handler: callback))
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
+        dispatch_async(dispatch_get_main_queue()) {
+            VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.rawValue, otherKey: "BUTTON_OK", action: {}, on: self)
+        }
     }
 }

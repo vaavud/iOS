@@ -92,7 +92,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     var state: MeasureState = .Done
     var timeLeft = CGFloat(countdownInterval)
     
-    let vaavudFirebase = Firebase(url: "https://vaavud-core-demo.firebaseio.com/")
+    let vaavudFirebase = Firebase(url: firebaseUrl)
     
     required init?(coder aDecoder: NSCoder) {
         isSleipnirSession = VaavudSDK.shared.sleipnirAvailable()
