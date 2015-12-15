@@ -65,7 +65,7 @@ class AuthorizationController: NSObject {
                 }
                 else {
                     print(error)
-                    //self.delegate?.onError("Login error", message: "Your information is not correct")
+                    self.delegate?.onError(.WrongInformation)
                 }
                 return
             }
@@ -78,7 +78,7 @@ class AuthorizationController: NSObject {
         let ref = vaavudRootFirebase.childByAppendingPath(child).childByAppendingPath(key)
         ref.observeSingleEventOfType(.Value, withBlock: { data in
             guard let firebaseData = data.value as? FirebaseDictionary else {
-                //self.delegate?.onError("data error", message: "")
+                self.delegate?.onError(.Unknown)
                 return
             }
             
@@ -92,7 +92,7 @@ class AuthorizationController: NSObject {
         
         vaavudRootFirebase.createUser(email, password: password, withValueCompletionBlock: { error, authData in
             guard let _ = authData else {
-                //self.delegate?.onError("Signup error", message: "This email is already used")
+                self.delegate?.onError(.EmailTaken)
                 return
             }
             
@@ -103,7 +103,7 @@ class AuthorizationController: NSObject {
                     }
                     else {
                         print(error)
-                        //self.delegate?.onError("", message: "Created user, but it couldnt loging")
+                        self.delegate?.onError(.Firebase)
                     }
                     return
                 }
@@ -125,7 +125,7 @@ class AuthorizationController: NSObject {
         graphRequest.startWithCompletionHandler{ (connection, result, error) in
             
             if error != nil{
-                //self.delegate?.onError("Facebook error", message: "There was an error with facebook")
+                self.delegate?.onError(.Facebook)
                 return
             }
             
@@ -146,7 +146,7 @@ class AuthorizationController: NSObject {
                     self.validateUserInformation(uid, userModel: model)
                 }
                 else {
-                //.self.delegate?.onError("Login", message: "We couldnt get your information")
+                    self.delegate?.onError(.Firebase)
                 }
             }
             self.authWithFacebook(token, callback: callback)
@@ -177,7 +177,7 @@ class AuthorizationController: NSObject {
         let ref = vaavudRootFirebase.childByAppendingPath(child).childByAppendingPath(key)
         ref.observeSingleEventOfType(.Value, withBlock: { data in
             guard let firebaseData = data.value as? FirebaseDictionary else {
-                //self.delegate?.onError("data error", message: "")
+                self.delegate?.onError(.Unknown)
                 return
             }
             
@@ -226,7 +226,7 @@ class AuthorizationController: NSObject {
             data, response, error in
             
             if error != nil {
-                //self.delegate?.onError("Network Error", message: "Verify your information.")
+                self.delegate?.onError(.Network)
                 return
             }
             
@@ -235,7 +235,7 @@ class AuthorizationController: NSObject {
                 print(responseObject)
                 
                 guard let result = responseObject!["status"] as? String else {
-                    //self.delegate?.onError("Network Error", message: "There was an error, try again.")
+                    self.delegate?.onError(.Network)
                     return
                 }
                    
@@ -250,12 +250,12 @@ class AuthorizationController: NSObject {
                             return
                         }
                         
-                        //self.delegate?.onError("Authentication Error", message: "Your password is incorrect, try forgot password.")
+                        self.delegate?.onError(.MalformedInformation)
                         print(error)
                     })
                 }
                 else {
-                    //self.delegate?.onError("Authentication Error", message: "Your password is incorrect, try forgot password.")
+                    self.delegate?.onError(.MalformedInformation)
                 }
             }
             catch {

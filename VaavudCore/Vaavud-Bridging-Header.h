@@ -39,5 +39,6 @@
 #import <MagicalRecord/NSManagedObjectContext+MagicalSaves.h>
 
 #import "UUIDUtil.h"
+#import <GeoFire/GeoFire.h>
 
 #endif

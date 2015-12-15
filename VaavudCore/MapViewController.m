@@ -64,6 +64,12 @@
     [super viewDidLoad];
     [self hideVolumeHUD];
     
+    
+    UIViewController *nmv = [[NewMapViewController alloc] init];
+    [self presentViewController:nmv animated:NO completion:nil];
+
+    
+    
     //NSLog(@"[MapViewController] viewDidLoad");
     
     self.lastMeasurementsRead = [NSDate distantPast];
@@ -133,13 +139,15 @@
     self.view.autoresizesSubviews = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    if ([self isDanish]) {
-        [self addLongPress];
-    }
+//    if ([self isDanish]) {
+//        [self addLongPress];
+//    }
 }
 
 - (BOOL)isDanish {
-    return [[[[NSLocale preferredLanguages] firstObject] substringToIndex:2] isEqualToString:@"da"];
+//    return [[[[NSLocale preferredLanguages] firstObject] substringToIndex:2] isEqualToString:@"da"];
+    
+    return YES;
 }
 
 - (void)appDidBecomeActive:(NSNotification *)notification {
@@ -149,7 +157,7 @@
 
 -(void)appWillTerminate:(NSNotification *) notification {
     //NSLog(@"[MapViewController] appWillTerminate");
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -287,9 +295,9 @@
 }
 
 - (void)addLongPress {
-    [self.mapView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)]];
-    [self.logHelper log:@"Can-Add-Forecast-Pin" properties:@{}];
-    [LogHelper increaseUserProperty:@"Use-Forecast-Count"];
+//    [self.mapView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)]];
+//    [self.logHelper log:@"Can-Add-Forecast-Pin" properties:@{}];
+//    [LogHelper increaseUserProperty:@"Use-Forecast-Count"];
 }
 
 - (void)longPressed:(UIGestureRecognizer *)gestureRecognizer {
@@ -609,7 +617,7 @@
 }
 
 -(void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered {
-    [self.logHelper increase:@"scrolled"];
+//    [self.logHelper increase:@"scrolled"];
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {

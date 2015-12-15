@@ -183,7 +183,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="textChanged:" destination="yEp-MZ-HLn" eventType="editingChanged" id="UdD-6u-nCl"/>
+                                            <outlet property="delegate" destination="yEp-MZ-HLn" id="ZV7-cz-rxY"/>
                                         </connections>
                                     </textField>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6rl-Xt-uYz" userLabel="Second Horizontal Separator">
@@ -207,7 +207,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="textChanged:" destination="yEp-MZ-HLn" eventType="editingChanged" id="eSW-Sd-NiR"/>
+                                            <outlet property="delegate" destination="yEp-MZ-HLn" id="dec-TA-cJn"/>
                                         </connections>
                                     </textField>
                                 </subviews>

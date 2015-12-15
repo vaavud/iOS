@@ -31,36 +31,12 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
         else {
             showError(.Unknown)
         }
-        
-        return true
-    }
-    
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        validateTextFields()
-        return true
-    }
-    
-    @IBAction func fieldChanged(sender: UITextField) {
-        
-    }
-    
-    @IBAction func createPushed() {
-        let firstName = firstNameField.text!
-        let lastName = lastNameField.text!
-        let email = emailField.text!
-        let password = passwordField.text!
-        
-        AuthorizationController.shared.signup(firstName,lastName: lastName,email: email,password: password, delegate: self)
-    }
-    
-    private func validateTextFields() {
-        createButton.enabled = !firstNameField.text!.isEmpty && !lastNameField.text!.isEmpty && !emailField.text!.isEmpty && !passwordField.text!.isEmpty
     }
     
     // MARK: Login Delegate
     
     func onSuccess(showActivitySelector: Bool) {
-        if !showActivitySelector {
+        if showActivitySelector {
             if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
                 navigationController?.pushViewController(vc, animated: true)
             }
@@ -68,9 +44,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     }
     
     func onError(error: LoginError) {
-//        VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE",
-//            messageKey: error.rawValue,
-//            on: self)
+        showError(error)
     }
 
     // MARK: Textfield Delegate
