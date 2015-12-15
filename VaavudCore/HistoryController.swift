@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-protocol HistoryDelegate{
+protocol HistoryDelegate {
     func updateTable(sessions: [[Session]], sessionDates: [String])
     func hideSpinner()
     func noMeasurements()
@@ -18,15 +18,15 @@ protocol HistoryDelegate{
 
 class HistoryController: NSObject {
 
-    var delegate: HistoryDelegate?
+    let delegate: HistoryDelegate
     let firebaseSession = Firebase(url: "https://vaavud-core-demo.firebaseio.com/")
     var sessions = [[Session]]()
     var sessionDate = [String]()
     var count:UInt = 0
 
-    init(delegate: HistoryDelegate){
-        super.init()
+    init(delegate: HistoryDelegate) {
         self.delegate = delegate
+        super.init()
         getData()
     }
     
@@ -63,10 +63,10 @@ class HistoryController: NSObject {
         
         ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeEventType(.Value, withBlock: { snapshot in
             if snapshot.childrenCount > 0 {
-                self.delegate?.hideSpinner()
+                self.delegate.hideSpinner()
             }
             else {
-                self.delegate?.noMeasurements()
+                self.delegate.noMeasurements()
             }
         })
     }
@@ -91,14 +91,14 @@ class HistoryController: NSObject {
             if sessions.isEmpty {
                 sessionDate.append(sessioniate)
                 sessions.append([session])
-                delegate!.updateTable(sessions,sessionDates: sessionDate)
+                delegate.updateTable(sessions,sessionDates: sessionDate)
                 return
             }
             
             for (index,date) in sessionDate.enumerate() {
                 if date == sessioniate {
                     sessions[index].insert(session, atIndex: 0)
-                    delegate!.updateTable(sessions,sessionDates: sessionDate)
+                    delegate.updateTable(sessions,sessionDates: sessionDate)
                     return
                 }
             }
@@ -106,8 +106,7 @@ class HistoryController: NSObject {
             sessionDate.insert(sessioniate, atIndex: 0)
             sessions.insert([session], atIndex: 0)
             
-            delegate!.updateTable(sessions,sessionDates: sessionDate)
-            
+            delegate.updateTable(sessions,sessionDates: sessionDate)
         }
     }
 }

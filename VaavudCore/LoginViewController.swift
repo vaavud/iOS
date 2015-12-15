@@ -51,11 +51,11 @@ class LoginViewController: UIViewController, LoginDelegate {
             }
         }
         else {
-//            let storyboard = UIStoryboard(name: "MainStoryboard", bundle: nil)
-//            let vc = storyboard.instantiateViewControllerWithIdentifier("TabBarController")
-//            presentViewController(vc, animated: true, completion: nil)
+            let storyboard = UIStoryboard(name: "MainStoryboard", bundle: nil)
+            let vc = storyboard.instantiateViewControllerWithIdentifier("TabBarController")
+            presentViewController(vc, animated: true, completion: nil)
             
-            navigationController?.dismissViewControllerAnimated(true, completion: nil)
+            //navigationController?.dismissViewControllerAnimated(true, completion: nil)
         }
     }
 

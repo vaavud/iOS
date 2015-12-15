@@ -85,7 +85,7 @@
 #endif
     [[Amplitude instance] enableLocationListening];
     
-    [self updateFirebaseId:[Property getAsString:KEY_USER_ID]];
+    //[self updateFirebaseId:[Property getAsString:KEY_USER_ID]];
     
     
     [[FBSDKApplicationDelegate sharedInstance] application:application
@@ -94,24 +94,24 @@
     return YES;
 }
 
--(void)updateFirebaseId:(NSString *)tomcatId {
-    if (tomcatId == nil) {
-        return;
-    }
-    
-    NSString *base = @"https://vaavud-core.firebaseio.com/tomcat/userId/success/";
-    NSString *key = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NjQwNzU5NjEuNzMxLCJ2IjowLCJkIjp7InVpZCI6ImFwcCJ9LCJpYXQiOjE0NDg0NTY3NjF9.2BZbzJh4B_RJoSwzXvvfIkRu4CUBCK33fBCyTSUqU_Q";
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.json?auth=%@", base, tomcatId, key]];
-    
-    [[[NSURLSession sharedSession] downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-        if (location) {
-            NSString *firebaseId = [NSString stringWithContentsOfURL:location usedEncoding:nil error:nil];
-            if (firebaseId) {
-                [[Amplitude instance] setUserId:firebaseId];
-            }
-        }
-    }] resume];
-}
+//-(void)updateFirebaseId:(NSString *)tomcatId {
+//    if (tomcatId == nil) {
+//        return;
+//    }
+//    
+//    NSString *base = @"https://vaavud-core.firebaseio.com/tomcat/userId/success/";
+//    NSString *key = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NjQwNzU5NjEuNzMxLCJ2IjowLCJkIjp7InVpZCI6ImFwcCJ9LCJpYXQiOjE0NDg0NTY3NjF9.2BZbzJh4B_RJoSwzXvvfIkRu4CUBCK33fBCyTSUqU_Q";
+//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.json?auth=%@", base, tomcatId, key]];
+//    
+//    [[[NSURLSession sharedSession] downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
+//        if (location) {
+//            NSString *firebaseId = [NSString stringWithContentsOfURL:location usedEncoding:nil error:nil];
+//            if (firebaseId) {
+//                [[Amplitude instance] setUserId:firebaseId];
+//            }
+//        }
+//    }] resume];
+//}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
 }
@@ -225,42 +225,42 @@
     [self.dropboxUploader uploadToDropbox:session];
 }
 
-- (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath
-              from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
-    
-    NSError *error = nil;
-    [[NSFileManager defaultManager] removeItemAtPath:srcPath error:&error];
-    if (!error) {
-        if (LOG_OTHER) NSLog(@"File uploaded and deleted successfully to path: %@", metadata.path);
-    }
-    else {
-        if (LOG_OTHER) NSLog(@"File uploaded successfully, but not deleted to path: %@, error: %@", metadata.path, error.localizedDescription);
-    }
-}
-
-- (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
-    if (LOG_OTHER) NSLog(@"File upload failed with error: %@", error);
-}
-
-- (void)userAuthenticated:(BOOL)isSignup viewController:(UIViewController *)viewController {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    UIViewController *nextViewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
-    //nextViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    //[viewController presentViewController:nextViewController animated:YES completion:nil];
-    self.window.rootViewController = nextViewController;
-    
-    [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:YES success:nil failure:nil];
-}
-
-- (void)cancelled:(UIViewController *)viewController {
-}
-
-- (NSString *)registerScreenTitle {
-    return nil;
-}
-
-- (NSString *)registerTeaserText {
-    return nil;
-}
+//- (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath
+//              from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
+//    
+//    NSError *error = nil;
+//    [[NSFileManager defaultManager] removeItemAtPath:srcPath error:&error];
+//    if (!error) {
+//        if (LOG_OTHER) NSLog(@"File uploaded and deleted successfully to path: %@", metadata.path);
+//    }
+//    else {
+//        if (LOG_OTHER) NSLog(@"File uploaded successfully, but not deleted to path: %@, error: %@", metadata.path, error.localizedDescription);
+//    }
+//}
+//
+//- (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
+//    if (LOG_OTHER) NSLog(@"File upload failed with error: %@", error);
+//}
+//
+//- (void)userAuthenticated:(BOOL)isSignup viewController:(UIViewController *)viewController {
+//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+//    UIViewController *nextViewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
+//    //nextViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//    //[viewController presentViewController:nextViewController animated:YES completion:nil];
+//    self.window.rootViewController = nextViewController;
+//    
+//    [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:YES success:nil failure:nil];
+//}
+//
+//- (void)cancelled:(UIViewController *)viewController {
+//}
+//
+//- (NSString *)registerScreenTitle {
+//    return nil;
+//}
+//
+//- (NSString *)registerTeaserText {
+//    return nil;
+//}
 
 @end

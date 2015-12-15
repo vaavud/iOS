@@ -230,9 +230,11 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
             return
         }
         
-        locationOnMap = CLLocationCoordinate2D(latitude: Double((location.lat)), longitude: Double((location.lon)))
+        locationOnMap = CLLocationCoordinate2D(latitude: location.lat, longitude: location.lon)
         mapView.setRegion(MKCoordinateRegionMakeWithDistance(locationOnMap, 500, 500), animated: false)
         mapView.addAnnotation(MeasurementAnnotation(location: locationOnMap, windDirection: session.windDirection))
+        
+        
     }
     
     private func updateMapView(ms: Session) {
