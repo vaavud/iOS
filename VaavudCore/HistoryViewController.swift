@@ -110,6 +110,17 @@ struct Wind {
 }
 
 
+extension NSDate {
+    
+    convenience init(ms: Int) {
+        self.init(timeIntervalSince1970: NSTimeInterval(ms)/1000)
+    }
+    
+    var ms: Int {
+        return Int(round(timeIntervalSince1970*1000))
+    }
+}
+
 
 struct Session {
     
@@ -131,7 +142,7 @@ struct Session {
         key = snapshot.key
         uid = snapshot.value["uid"] as! String
         deviceKey = snapshot.value["deviceKey"] as! String
-        timeStart = NSDate(timeIntervalSince1970: snapshot.value["timeStart"] as! Double / 1000)
+        timeStart = NSDate(ms: snapshot.value["timeStart"] as! Int)
         timeEnd = snapshot.value["timeEnd"] as? Float
         windDirection = snapshot.value["windDirection"] as? Float
         windMax = snapshot.value["windMax"] as? Float
@@ -149,10 +160,10 @@ struct Session {
         }
     }
     
-    init(uid:String, deviceId: String, timeStart: Double, windMeter: String){
+    init(uid:String, deviceId: String, timeStart: NSDate, windMeter: String){
         self.uid = uid
         self.deviceKey = deviceId
-        self.timeStart = NSDate(timeIntervalSince1970: timeStart)
+        self.timeStart = timeStart
         self.windMeter = windMeter
     }
     
@@ -161,7 +172,7 @@ struct Session {
         var dict = FirebaseDictionary()
         dict["deviceKey"] = deviceKey
         dict["uid"] = uid
-        dict["timeStart"] = timeStart.timeIntervalSince1970 * 1000
+        dict["timeStart"] = timeStart.ms
         dict["windMeter"] = windMeter
         
         return dict
@@ -171,7 +182,7 @@ struct Session {
         var dict = FirebaseDictionary()
         dict["uid"] = uid
         dict["deviceKey"] = deviceKey
-        dict["timeStart"] = timeStart.timeIntervalSince1970 * 1000
+        dict["timeStart"] = timeStart.ms
         dict["timeEnd"] = timeEnd
         dict["windMax"] = windMax
         dict["windDirection"] = windDirection
