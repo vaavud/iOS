@@ -20,12 +20,12 @@ import Firebase
 struct Location {
     
     var altitude: Float?
-    let lat: Float
-    let lon: Float
+    var lat: Double
+    var lon: Double
     var name: String?
     
     init?(location: [String:AnyObject]){
-        guard let lat = location["lat"] as? Float, let lon = location["lon"] as? Float else{
+        guard let lat = location["lat"] as? Double, let lon = location["lon"] as? Double else{
             return nil
         }
         
@@ -62,10 +62,10 @@ struct Sourced {
     let pressure: Float
     let temperature: Float
     let windDirection: Float
-    let windSpeed: Float
+    let windMean: Float
     
     init?(sourced: [String:AnyObject]){
-        guard let himidity = sourced["humidity"] as? Float, icon = sourced["icon"] as? String, pressure = sourced["pressure"] as? Float, temperature = sourced["temperature"] as? Float, windDirection = sourced["windDirection"] as? Float, windSpeed = sourced["windSpeed"] as? Float else{
+        guard let himidity = sourced["humidity"] as? Float, icon = sourced["icon"] as? String, pressure = sourced["pressure"] as? Float, temperature = sourced["temperature"] as? Float, windDirection = sourced["windBearing"] as? Float, windSpeed = sourced["windSpeed"] as? Float else{
             return nil
         }
         
@@ -74,11 +74,33 @@ struct Sourced {
         self.pressure = pressure
         self.temperature = temperature
         self.windDirection = windDirection
-        self.windSpeed = windSpeed
+        self.windMean = windSpeed
     }
     
     func dict() -> FirebaseDictionary {
-        return ["humidity":humidity, "icon":icon, "pressure":pressure, "temperature":temperature, "windDirection":windDirection, "windSpeed":windSpeed]
+        return ["humidity": humidity, "icon": icon, "pressure": pressure, "temperature": temperature, "windDirection": windDirection, "windMean": windMean]
+    }
+}
+
+
+struct Wind {
+    
+    var direction: Float?
+    let speed: Float
+    let time: Double
+    
+    init(speed: Float, time: Double){
+        self.speed = speed
+        self.time = time
+    }
+    
+    func fireDict() -> FirebaseDictionary {
+        var dict = FirebaseDictionary()
+        dict["direction"] = direction
+        dict["speed"] = speed
+        dict["time"] = time
+        
+        return dict
     }
 }
 
@@ -87,7 +109,7 @@ struct Sourced {
 struct Session {
     
     let deviceKey: String
-    let key: String
+    var key: String?
     let timeStart: NSDate
     var timeEnd: Float?
     var windDirection: Float?
@@ -97,6 +119,8 @@ struct Session {
     let windMeter: String
     var sourced: Sourced?
     var location: Location?
+    var turbulence: Float?
+    var wind = [Wind]()
     
     init(snapshot: FDataSnapshot) {
         key = snapshot.key
@@ -108,8 +132,7 @@ struct Session {
         windMax = snapshot.value["windMax"] as? Float
         windMean = snapshot.value["windMean"] as? Float
         windMeter = snapshot.value["windMeter"] as! String
-        
-        
+        turbulence = snapshot.value["turbulence"] as? Float
         
         if let sourced = snapshot.value["sourced"] as? [String:AnyObject] {
             self.sourced = Sourced(sourced: sourced)
@@ -119,12 +142,28 @@ struct Session {
         if let location = snapshot.value["location"] as? [String:AnyObject] {
             self.location = Location(location: location)
         }
+    }
+    
+    init(uid:String, deviceId: String, timeStart: Double, windMeter: String){
+        self.uid = uid
+        self.deviceKey = deviceId
+        self.timeStart = NSDate(timeIntervalSince1970: timeStart)
+        self.windMeter = windMeter
+    }
+    
+    
+    func initDict() -> FirebaseDictionary {
+        var dict = FirebaseDictionary()
+        dict["deviceKey"] = deviceKey
+        dict["uid"] = uid
+        dict["timeStart"] = timeStart.timeIntervalSince1970 * 1000
+        dict["windMeter"] = windMeter
         
+        return dict
     }
     
     func fireDict() -> FirebaseDictionary {
         var dict = FirebaseDictionary()
-        dict["deviceKey"] = deviceKey
         dict["uid"] = uid
         dict["deviceKey"] = deviceKey
         dict["timeStart"] = timeStart.timeIntervalSince1970 * 1000
@@ -135,6 +174,7 @@ struct Session {
         dict["windMeter"] = windMeter
         dict["sourced"] = sourced?.dict()
         dict["location"] = location?.dict()
+        dict["turbulence"] = turbulence
         
         return dict
     }
@@ -201,7 +241,13 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         cell.speed.text = VaavudFormatter.shared.localizedWindspeed(sessions[indexPath.section][indexPath.row].windMean)
         
         if let loc = sessions[indexPath.section][indexPath.row].location {
-            cell.location.text = loc.name
+            
+            if let name = loc.name {
+                cell.location.text = name
+            }
+            else{
+                cell.location.text = "Unknown"
+            }
         }
         else{
             cell.location.text = "Unknown"
@@ -214,7 +260,9 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             
-            let sessionKey = sessions[indexPath.section][indexPath.row].key
+            guard let sessionKey = sessions[indexPath.section][indexPath.row].key else {
+                fatalError("no session key")
+            }
             let sessionDeleted = sessions[indexPath.section][indexPath.row]
             
             sessions[indexPath.section].removeAtIndex(indexPath.row)
@@ -251,17 +299,17 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
-//        let currentSession = sessions[indexPath.section][indexPath.row]
-//        
-//        if let summary = self.storyboard?.instantiateViewControllerWithIdentifier("SummaryViewController") as? CoreSummaryViewController {
-//            summary.session = currentSession
-//            summary.historySummary = true
-//            
-//            navigationController?.pushViewController(summary, animated: true)
-//        }
+        let currentSession = sessions[indexPath.section][indexPath.row]
+        
+        if let summary = self.storyboard?.instantiateViewControllerWithIdentifier("SummaryViewController") as? CoreSummaryViewController {
+            summary.session = currentSession
+            summary.historySummary = true
+            
+            navigationController?.pushViewController(summary, animated: true)
+        }
         
         
-        NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
+        //NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
         
     }
     

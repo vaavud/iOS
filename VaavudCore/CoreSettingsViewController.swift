@@ -156,8 +156,22 @@ class CoreSettingsTableViewController: UITableViewController {
         
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
         let controller = storyboard.instantiateViewControllerWithIdentifier("NavigationLogin")
-        presentViewController(controller, animated: false, completion: nil)
-        dismissViewControllerAnimated(true, completion: nil)
+        //presentViewController(controller, animated: false, completion: nil)
+        
+        
+        if let view = tabBarController?.view {
+            let window = UIApplication.sharedApplication().windows[0] as UIWindow;
+            UIView.transitionFromView(
+                view ,
+                toView: controller.view,
+                duration: 0.20,
+                options: .TransitionCrossDissolve,
+                completion: {
+                    finished in window.rootViewController = controller
+            })
+        }
+        
+        
     }
     
 //    func registerUser() {

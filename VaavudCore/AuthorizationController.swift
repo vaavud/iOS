@@ -59,6 +59,17 @@ class AuthorizationController: NSObject {
         vaavudRootFirebase.unauth()
     }
     
+    func currentDeviceId() -> String {
+        
+        let preferences = NSUserDefaults.standardUserDefaults()
+        
+        guard let deviceId = preferences.objectForKey("deviceId") as? String else {
+            fatalError("no device Id")
+        }
+        
+        return deviceId
+    }
+    
     
     func login(email: String, password: String, delegate: LoginDelegate) {
         self.delegate = delegate

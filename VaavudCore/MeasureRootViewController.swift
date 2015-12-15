@@ -10,6 +10,7 @@ import UIKit
 import CoreMotion
 import VaavudSDK
 import Mixpanel
+import Firebase
 
 let updatePeriod = 1.0
 let countdownInterval = 3
@@ -90,6 +91,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     var state: MeasureState = .Done
     var timeLeft = CGFloat(countdownInterval)
+    
+    let vaavudFirebase = Firebase(url: "https://vaavud-core-demo.firebaseio.com/")
     
     required init?(coder aDecoder: NSCoder) {
         isSleipnirSession = VaavudSDK.shared.sleipnirAvailable()
@@ -292,9 +295,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         cancelButton.update(timeLeft, state: state)
     }
 
-    func hasValidLocation(session: MeasurementSession) -> CLLocationCoordinate2D? {
-        if let lat = session.latitude?.doubleValue, long = session.longitude?.doubleValue {
-            let loc = CLLocationCoordinate2D(latitude: lat, longitude: long)
+    func hasValidLocation(session: Session) -> CLLocationCoordinate2D? {
+        if let latlon = session.location {
+            let loc = CLLocationCoordinate2D(latitude: latlon.lat, longitude: latlon.lon)
             if LocationManager.isCoordinateValid(loc) {
                 return loc
             }
@@ -303,45 +306,65 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         return nil
     }
     
-    func updateWithLocation(session: MeasurementSession) {
-        if session.managedObjectContext == nil || session.deleted { return }
+    func updateWithLocation(session: Session) {
+        //if session.managedObjectContext == nil || session.deleted { return }
         
         let loc = LocationManager.sharedInstance().latestLocation
         
         if LocationManager.isCoordinateValid(loc) {
-            (session.latitude, session.longitude) = (loc.latitude, loc.longitude)
             
-            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
-                if s {
-                    let userInfo = ["objectID" : session.objectID, "latitude" : true, "longitude" : true]
-                    NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
-                }
-            }
+            let l = [
+                "lat" : loc.latitude,
+                "lon" : loc.longitude
+            ]
+            
+            vaavudFirebase.childByAppendingPath("session").childByAppendingPath(session.key).childByAppendingPath("location").updateChildValues(l)
+            
+            let latlong = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
+            
+            updateWithGeocode(latlong,sessionKey: session.key!)
+            updateWithSourcedData(latlong,sessionKey: session.key!)
+            
+//            (session.latitude, session.longitude) = (loc.latitude, loc.longitude)
+//            
+//            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
+//                if s {
+//                    let userInfo = ["objectID" : session.objectID, "latitude" : true, "longitude" : true]
+//                    NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
+//                }
+//            }
 
         }
     }
     
-    func updateWithGeocode(session: MeasurementSession) {
-        if let lat = session.latitude?.doubleValue, long = session.longitude?.doubleValue {
-            geocoder.reverseGeocodeLocation(CLLocation(latitude: lat, longitude: long)) { placemarks, error in
-                if session.managedObjectContext == nil || session.deleted { return }
+    func updateWithGeocode(latlon: CLLocation, sessionKey: String) {
+        geocoder.reverseGeocodeLocation(latlon) { placemarks, error in
+            //if session.managedObjectContext == nil || session.deleted { return }
 
-                if error == nil {
-                    if let first = placemarks?.first {
-                        session.geoLocationNameLocalized = first.thoroughfare ?? first.locality ?? first.country
-                        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
-                            if s {
-                                let userInfo = ["objectID" : session.objectID, "geoLocationNameLocalized" : true]
-                                NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
-                            }
-                        }
-                    }
-                }
-                else {
-                    print("Geocode failed with error: \(error)")
+            if error == nil {
+                if let first = placemarks?.first {
+                    
+                    let nameLocation = ["name" : first.thoroughfare ?? first.locality ?? first.country ?? "unknown"]
+                    self.vaavudFirebase
+                        .childByAppendingPath("session")
+                        .childByAppendingPath(sessionKey)
+                        .childByAppendingPath("location")
+                        .updateChildValues(nameLocation)
+                    
+//                    session.geoLocationNameLocalized = first.thoroughfare ?? first.locality ?? first.country
+//                    NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
+//                        if s {
+//                            let userInfo = ["objectID" : session.objectID, "geoLocationNameLocalized" : true]
+//                            NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
+//                        }
+//                    }
                 }
             }
+            else {
+                print("Geocode failed with error: \(error)")
+            }
         }
+        
     }
 
     func updateWithWindchill(session: MeasurementSession) {
@@ -358,25 +381,40 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
     }
     
-    func updateWithSourcedData(session: MeasurementSession) {
-        let loc = hasValidLocation(session) ?? LocationManager.sharedInstance().latestLocation
+    func updateWithSourcedData(latlon: CLLocation, sessionKey: String) {
+//        let loc = hasValidLocation(latlon) ?? LocationManager.sharedInstance().latestLocation
         
-        ForecastLoader.shared.requestCurrent(loc) { (t, p, d) in
-            self.currentConsumer?.newTemperature(CGFloat(t))
-            
-            if session.managedObjectContext == nil || session.deleted { return }
-            
-            session.sourcedTemperature = t
-            session.sourcedPressureGroundLevel = p
-            session.sourcedWindDirection = d
-            
-            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
-                if s {
-                    let userInfo = ["objectID" : session.objectID, "sourcedTemperature" : true, "sourcedPressureGroundLevel" : true, "sourcedWindDirection" : d != nil]
-                    NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
-                }
-            }
+        ForecastLoader.shared.requestFullForecast(latlon.coordinate) { sourced in
+            print(sourced.dict())
+            self.vaavudFirebase
+                .childByAppendingPath("session")
+                .childByAppendingPath(sessionKey)
+                .childByAppendingPath("sourced")
+                .updateChildValues(sourced.dict())
         }
+        
+        
+        //["humidity": 0.83, "icon": clear-day, "pressure": 1019.9, "temperature": 40.12, "windMean": 5.6, "windDirection": 348]
+        
+        
+        
+        
+        
+        
+            //self.currentConsumer?.newTemperature(CGFloat(t))
+            
+            
+//            session.sourcedTemperature = t
+//            session.sourcedPressureGroundLevel = p
+//            session.sourcedWindDirection = d
+//            
+//            NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
+//                if s {
+//                    let userInfo = ["objectID" : session.objectID, "sourcedTemperature" : true, "sourcedPressureGroundLevel" : true, "sourcedWindDirection" : d != nil]
+//                    NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
+//                }
+//            }
+        //}
     }
     
     func updateWithPressure(session: MeasurementSession) {
@@ -408,59 +446,112 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
     }
     
+    var mainSession : Session?
+    
     func start() {
         elapsedSinceUpdate = 0
         
-        let model: WindMeterModel = isSleipnirSession ? .Sleipnir : .Mjolnir
+        //let model: WindMeterModel = isSleipnirSession ? .Sleipnir : .Mjolnir
+        let model = isSleipnirSession ? "sleipnir" : "mjolnir"
         
-        let session = MeasurementSession.MR_createEntity()!
-        session.uuid = currentSessionUuid
-        session.device = Property.getAsString(KEY_DEVICE_UUID)
-        session.windMeter = model.rawValue
-        session.startTime = NSDate()
-        session.timezoneOffset = NSTimeZone.localTimeZone().secondsFromGMTForDate(session.startTime)
-        session.endTime = session.startTime
-        session.measuring = true
-        session.uploaded = false
-        session.startIndex = 0
-        session.privacy = 1
+        var session = Session(uid: vaavudFirebase.authData.uid, deviceId: AuthorizationController.shared.currentDeviceId(), timeStart: NSDate().timeIntervalSince1970, windMeter: model)
+        print(session.initDict())
         
+        let ref = vaavudFirebase.childByAppendingPath("session")
+        let post = ref.childByAutoId()
+        post.setValue(session.initDict())
+        let sessionKey = post.key
+        
+        session.key = sessionKey
+        print(sessionKey)
+        
+        mainSession = session
+        
+//        let session = MeasurementSession.MR_createEntity()!
+//        session.uuid = currentSessionUuid
+//        session.device = Property.getAsString(KEY_DEVICE_UUID)
+//        session.windMeter = model.rawValue
+//        session.startTime = NSDate()
+//        session.timezoneOffset = NSTimeZone.localTimeZone().secondsFromGMTForDate(session.startTime)
+//        session.endTime = session.startTime
+//        session.measuring = true
+//        session.uploaded = false
+//        session.startIndex = 0
+//        session.privacy = 1
+//        
         updateWithLocation(session)
-        updateWithGeocode(session)
-        updateWithSourcedData(session)
-        updateWithPressure(session)
-        
-        logHelper.began(["time-limit" : state.timed ?? 0, "device" : isSleipnirSession ? "Sleipnir" : "Mjolnir"])
-        
-        mixpanelSend("Started")
+//        updateWithGeocode(session)
+//        updateWithSourcedData(session)
+//        updateWithPressure(session)
+//        
+//        logHelper.began(["time-limit" : state.timed ?? 0, "device" : isSleipnirSession ? "Sleipnir" : "Mjolnir"])
+//        
+//        mixpanelSend("Started")
     }
     
     func updateSession() {
-        let now = NSDate()
-        if let mjolnir = mjolnir where !mjolnir.isValidCurrentStatus {
-            return // fixme: uncomment
+        
+        
+        let now = NSDate().timeIntervalSince1970 * 1000
+//        if let mjolnir = mjolnir where !mjolnir.isValidCurrentStatus {
+//            return // fixme: uncomment
+//        }
+        
+        
+        if let session = mainSession {
+            var wind = Wind(speed: Float(latestSpeed), time: now)
+            
+            var sessionNewInforamtion = [
+                "windMean" : Float(avgSpeed),
+                "windMax" :  Float(maxSpeed)
+            ]
+            
+            
+            if isSleipnirSession, let dir = latestWindDirection {
+                let modDirection = Float(mod(dir, 360))
+                wind.direction = modDirection
+                sessionNewInforamtion["windDirection"] = modDirection
+            }
+            
+            
+            mainSession?.wind.append(wind)
+            
+            vaavudFirebase.childByAppendingPath("wind").childByAppendingPath(session.key).childByAppendingPath(session.wind.count.description).setValue(wind.fireDict())
+            vaavudFirebase.childByAppendingPath("session").childByAppendingPath(session.key).updateChildValues(sessionNewInforamtion)
+            
+        }
+        else{
+            print("ROOT: updateSession - ERROR: No current session")
+
         }
         
-        if let session = currentSession where session.measuring.boolValue {
-            session.endTime = now
-            session.windSpeedMax = maxSpeed
-            session.windSpeedAvg = avgSpeed
-            
-            let point = MeasurementPoint.MR_createEntity()!
-            point.session = session
-            point.time = now
-            point.windSpeed = latestSpeed
-
-            if isSleipnirSession, let dir = latestWindDirection {
-                let modDirection = mod(dir, 360)
-                point.windDirection = modDirection
-                session.windDirection = modDirection
-            }
-        }
-        else {
-            print("ROOT: updateSession - ERROR: No current session")
-            // Stopped by model, stop?
-        }
+        
+        
+//        let now = NSDate()
+//        if let mjolnir = mjolnir where !mjolnir.isValidCurrentStatus {
+//            return // fixme: uncomment
+//        }
+//        
+//        if let session = currentSession where session.measuring.boolValue {
+//            session.endTime = now
+//            session.windSpeedMax = maxSpeed
+//            session.windSpeedAvg = avgSpeed
+//            
+//            let point = MeasurementPoint.MR_createEntity()!
+//            point.session = session
+//            point.time = now
+//            point.windSpeed = latestSpeed
+//
+//            if isSleipnirSession, let dir = latestWindDirection {
+//                let modDirection = mod(dir, 360)
+//                point.windDirection = modDirection
+//                session.windDirection = modDirection
+//            }
+//        }
+//        else {
+//            print("ROOT: updateSession - ERROR: No current session")
+//            // Stopped by model, stop?
+//        }
     }
     
     func save(userCancelled: Bool) {
@@ -468,42 +559,58 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             return
         }
 
-        guard let session = currentSession where session.measuring.boolValue else {
+        guard var session = mainSession else {
             return
         }
         
-        session.measuring = false
-        session.endTime = NSDate()
-        session.windSpeedMax = maxSpeed
-        session.windSpeedAvg = avgSpeed
+        session.timeEnd =  Float(NSDate().timeIntervalSince1970 * 1000)
+        session.windMax = Float(maxSpeed)
+        session.windMean = Float(avgSpeed)
+        
         if isSleipnirSession, let dir = latestWindDirection {
-            session.windDirection = mod(dir, 360)
+            session.windDirection = Float(mod(dir, 360))
         }
+        
         
         let windspeeds = speeds(session)
         
-        if windspeeds.count > 5 { session.gustiness = gustiness(windspeeds) }
+        if windspeeds.count > 5 { session.turbulence = gustiness(windspeeds) }
         
-        updateWithWindchill(session)
         
-        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion {
-            success, error in
-            ServerUploadManager.sharedInstance().triggerUpload()
-            
-            //                if success {
-            //                    print("ROOT: save - Saved and uploaded after measuring ============================")
-            //                }
-            //                else if error != nil {
-            //                    print("ROOT: save - Failed to save session after measuring with error: \(error.localizedDescription)")
-            //                }
-            //                else {
-            //                    print("ROOT: save - Failed to save session after measuring with no error message")
-            //                }
-        }
+        print(session)
         
-        if DBSession.sharedSession().isLinked(), let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-            appDelegate.uploadToDropbox(session)
-        }
+//        session.measuring = false
+//        session.endTime = NSDate()
+//        session.windSpeedMax = maxSpeed
+//        session.windSpeedAvg = avgSpeed
+//        if isSleipnirSession, let dir = latestWindDirection {
+//            session.windDirection = mod(dir, 360)
+//        }
+//        
+//        let windspeeds = speeds(session)
+//        
+//        if windspeeds.count > 5 { session.gustiness = gustiness(windspeeds) }
+//        
+//        updateWithWindchill(session)
+//        
+//        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion {
+//            success, error in
+//            ServerUploadManager.sharedInstance().triggerUpload()
+//            
+//            //                if success {
+//            //                    print("ROOT: save - Saved and uploaded after measuring ============================")
+//            //                }
+//            //                else if error != nil {
+//            //                    print("ROOT: save - Failed to save session after measuring with error: \(error.localizedDescription)")
+//            //                }
+//            //                else {
+//            //                    print("ROOT: save - Failed to save session after measuring with no error message")
+//            //                }
+//        }
+//        
+//        if DBSession.sharedSession().isLinked(), let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+//            appDelegate.uploadToDropbox(session)
+//        }
     }
     
     func stop(userCancelled: Bool) {
@@ -515,53 +622,53 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         else if let mjolnir = mjolnir {
             mjolnir.stop()
         }
-        
-        altimeter?.stopRelativeAltitudeUpdates()
-        
+//
+//        altimeter?.stopRelativeAltitudeUpdates()
+//        
         reportToUrlSchemeCaller(cancel)
-        
-        displayLink.invalidate()
-        currentConsumer = nil
-        
-        if cancel {
-            if let session = currentSession {
-                session.MR_deleteEntity()
-            }
-
-            dismissViewControllerAnimated(true) {
-                self.pageController.view.removeFromSuperview()
-                self.pageController.removeFromParentViewController()
-                _ = self.viewControllers.map { $0.view.removeFromSuperview() }
-                _ = self.viewControllers.map { $0.removeFromParentViewController() }
-                self.viewControllers = []
-            }
-        }
-        else {
-            let session = currentSession!
-            
-            if session.geoLocationNameLocalized == nil {
-                updateWithLocation(session)
-                if hasValidLocation(session) != nil {
-                    updateWithGeocode(session)
-                }
-            }
-            
-            let summary = storyboard!.instantiateViewControllerWithIdentifier("SummaryViewController") as! CoreSummaryViewController
-            //summary.session = session
-            
-            pageController.dataSource = nil
-            pageController.setViewControllers([summary], direction: .Forward, animated: true, completion: nil)
-            
-            LogHelper.increaseUserProperty("Measurement-Count")
-            
-            UIView.animateWithDuration(0.2) {
-                self.unitButton.alpha = 0
-                self.variantButton.alpha = 0
-                self.cancelButton.alpha = 0
-                self.pager.alpha = 0
-                self.errorOverlayBackground.alpha = 0
-            }
-        }
+//        
+//        displayLink.invalidate()
+//        currentConsumer = nil
+//        
+//        if cancel {
+//            if let session = currentSession {
+//                session.MR_deleteEntity()
+//            }
+//
+//            dismissViewControllerAnimated(true) {
+//                self.pageController.view.removeFromSuperview()
+//                self.pageController.removeFromParentViewController()
+//                _ = self.viewControllers.map { $0.view.removeFromSuperview() }
+//                _ = self.viewControllers.map { $0.removeFromParentViewController() }
+//                self.viewControllers = []
+//            }
+//        }
+//        else {
+//            let session = currentSession!
+//            
+//            if session.geoLocationNameLocalized == nil {
+//                updateWithLocation(session)
+//                if hasValidLocation(session) != nil {
+//                    updateWithGeocode(session)
+//                }
+//            }
+//            
+//            let summary = storyboard!.instantiateViewControllerWithIdentifier("SummaryViewController") as! CoreSummaryViewController
+//            //summary.session = session
+//            
+//            pageController.dataSource = nil
+//            pageController.setViewControllers([summary], direction: .Forward, animated: true, completion: nil)
+//            
+//            LogHelper.increaseUserProperty("Measurement-Count")
+//            
+//            UIView.animateWithDuration(0.2) {
+//                self.unitButton.alpha = 0
+//                self.variantButton.alpha = 0
+//                self.cancelButton.alpha = 0
+//                self.pager.alpha = 0
+//                self.errorOverlayBackground.alpha = 0
+//            }
+//        }
     }
     
     func logStop(manner: String) {
@@ -739,14 +846,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
 }
 
-func speeds(session: MeasurementSession) -> [Float] {
+func speeds(session: Session) -> [Float] {
     var speeds = [Float]()
     
-    if let points = session.points {
-        for p in points {
-            if let p = p as? MeasurementPoint, s = p.windSpeed?.floatValue {
-                speeds.append(s)
-            }
+    for p in session.wind {
+        if p.speed > 0 {
+            speeds.append(p.speed)
         }
     }
 
