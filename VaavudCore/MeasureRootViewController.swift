@@ -306,7 +306,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         return nil
     }
     
-    func updateWithLocation(session: Session) {
+    func updateWithLocation(sessionKey: String) {
         //if session.managedObjectContext == nil || session.deleted { return }
         
         let loc = LocationManager.sharedInstance().latestLocation
@@ -320,14 +320,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             
             vaavudFirebase
                 .childByAppendingPath("session")
-                .childByAppendingPath(session.key)
+                .childByAppendingPath(sessionKey)
                 .childByAppendingPath("location")
                 .updateChildValues(l)
             
             let latlong = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
             
-            updateWithGeocode(latlong,sessionKey: session.key!)
-            updateWithSourcedData(latlong,sessionKey: session.key!)
+            updateWithGeocode(latlong,sessionKey: sessionKey)
+            updateWithSourcedData(latlong,sessionKey: sessionKey)
             
 //            (session.latitude, session.longitude) = (loc.latitude, loc.longitude)
 //            
@@ -448,7 +448,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
     }
     
-    var mainSession : Session?
+    //var mainSession : Session?
+    var sessionKey: String?
     
     func start() {
         elapsedSinceUpdate = 0
@@ -462,12 +463,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         let ref = vaavudFirebase.childByAppendingPath("session")
         let post = ref.childByAutoId()
         post.setValue(session.initDict())
-        let sessionKey = post.key
+        sessionKey = post.key
         
-        session.key = sessionKey
         print(sessionKey)
-        
-        mainSession = session
         
 //        let session = MeasurementSession.MR_createEntity()!
 //        session.uuid = currentSessionUuid
@@ -481,7 +479,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 //        session.startIndex = 0
 //        session.privacy = 1
 //        
-        updateWithLocation(session)
+        updateWithLocation(post.key)
 //        updateWithGeocode(session)
 //        updateWithSourcedData(session)
 //        updateWithPressure(session)
@@ -500,7 +498,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 //        }
         
         
-        if let session = mainSession {
+        if let sessionKey = sessionKey {
             var wind = Wind(speed: Float(latestSpeed), time: now)
             
             var sessionNewInforamtion = [
@@ -516,10 +514,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
             
             
-            mainSession?.wind.append(wind)
+            //mainSession?.wind.append(wind)
             
-            vaavudFirebase.childByAppendingPath("wind").childByAppendingPath(session.key).childByAppendingPath(session.wind.count.description).setValue(wind.fireDict())
-            vaavudFirebase.childByAppendingPath("session").childByAppendingPath(session.key).updateChildValues(sessionNewInforamtion)
+            //vaavudFirebase.childByAppendingPath("wind").childByAppendingPath(sessionKey).childByAppendingPath(session.wind.count.description).setValue(wind.fireDict())
+            vaavudFirebase.childByAppendingPath("session").childByAppendingPath(sessionKey).updateChildValues(sessionNewInforamtion)
             
         }
         else{
@@ -561,25 +559,42 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             return
         }
 
-        guard var session = mainSession else {
+        guard let sessionKey = sessionKey else {
             return
         }
         
-        session.timeEnd =  Float(NSDate().timeIntervalSince1970 * 1000)
-        session.windMax = Float(maxSpeed)
-        session.windMean = Float(avgSpeed)
+        var finalDict : FirebaseDictionary = [
+            "timeEnd": NSDate().ms,
+            "windMax": Float(maxSpeed),
+            "windMean": Float(avgSpeed)
+        ]
+        
         
         if isSleipnirSession, let dir = latestWindDirection {
-            session.windDirection = Float(mod(dir, 360))
+            finalDict["windDirection"] = Float(mod(dir, 360))
         }
         
+        //let windspeeds = speeds(session)
         
-        let windspeeds = speeds(session)
+        //if windspeeds.count > 5 { session.turbulence = gustiness(windspeeds) }
+        finalDict["turbulence"] = 0.29
         
-        if windspeeds.count > 5 { session.turbulence = gustiness(windspeeds) }
+        vaavudFirebase
+            .childByAppendingPath("session")
+            .childByAppendingPath(sessionKey)
+            .updateChildValues(finalDict)
         
         
-        print(session)
+        let post = vaavudFirebase
+            .childByAppendingPath("sessionComplete")
+            .childByAppendingPath("queue")
+            .childByAppendingPath("tasks")
+            .childByAutoId()
+        
+        post.setValue(["sessionKey": sessionKey])
+        let queue = post.key
+        
+        print(queue)
         
 //        session.measuring = false
 //        session.endTime = NSDate()
