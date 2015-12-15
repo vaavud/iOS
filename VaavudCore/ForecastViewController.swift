@@ -292,7 +292,12 @@ func parseCurrently(dict: [String : AnyObject]) -> (Double, Double, Int?)? {
     return nil
 }
 
-func parseCurrentlyFull(dict: [String : AnyObject]) -> Sourced?{
+func parseCurrentlyFull(var dict: [String : AnyObject]) -> Sourced? {
+    
+    
+    if let pressure = dict["pressure"] as? Int {
+        dict["pressure"] = pressure * 1000
+    }
     
     if let source = Sourced(sourced: dict) {
         return source

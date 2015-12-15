@@ -64,8 +64,13 @@ struct Sourced {
     let windDirection: Float
     let windMean: Float
     
-    init?(sourced: [String:AnyObject]){
-        guard let himidity = sourced["humidity"] as? Float, icon = sourced["icon"] as? String, pressure = sourced["pressure"] as? Float, temperature = sourced["temperature"] as? Float, windDirection = sourced["windBearing"] as? Float, windSpeed = sourced["windSpeed"] as? Float else{
+    init?(sourced: [String:AnyObject]) {
+        guard let himidity = sourced["humidity"] as? Float,
+            icon = sourced["icon"] as? String,
+            pressure = sourced["pressure"] as? Float,
+            temperature = sourced["temperature"] as? Float,
+            windDirection = sourced["windBearing"] as? Float,
+            windSpeed = sourced["windSpeed"] as? Float else {
             return nil
         }
         
