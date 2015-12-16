@@ -17,14 +17,16 @@ import VaavudSDK
 // NSDataFormatter : use VaavudFormatter
 
 struct Location: Firebaseable {
-    var lat: Double
-    var lon: Double
+    let lat: Double
+    let lon: Double
     var name: String?
-    var altitude: Float?
+    let altitude: Float?
     
     init?(dict: [String : AnyObject]) {
-        guard let lat = dict["lat"] as? Double, lon = dict["lon"] as? Double else {
-            return nil
+        guard let lat = dict["lat"] as? Double,
+            lon = dict["lon"] as? Double
+            else {
+                return nil
         }
         
         self.lat = lat
@@ -53,8 +55,12 @@ struct Sourced {
     let windDirection: Float
     let windMean: Float
     
+    init(forecastDict: [String : AnyObject]) {
+        fatalError()
+    }
+    
     init?(dict: [String : AnyObject]) {
-        guard let himidity = dict["humidity"] as? Float,
+        guard let humidity = dict["humidity"] as? Float,
             icon = dict["icon"] as? String,
             pressure = dict["pressure"] as? Float,
             temperature = dict["temperature"] as? Float,
@@ -64,7 +70,7 @@ struct Sourced {
                 return nil
         }
         
-        self.humidity = himidity
+        self.humidity = humidity
         self.icon = icon
         self.pressure = pressure
         self.temperature = temperature
@@ -96,9 +102,17 @@ struct Session {
         uid = snapshot.value["uid"] as! String
         deviceKey = snapshot.value["deviceKey"] as! String
         timeStart = NSDate(ms: snapshot.value["timeStart"] as! NSNumber)
-        if let timeEnd = snapshot.value["timeEnd"] as? NSNumber {
-            self.timeEnd = NSDate(ms: timeEnd)
-        }
+
+//        if let timeEnd = snapshot.value["timeEnd"] as? NSNumber {
+//            self.timeEnd = NSDate(ms: timeEnd)
+//        }
+        
+        timeEnd = (snapshot.value["timeEnd"] as? NSNumber).map(NSDate.init)
+
+        // Should be equivalent to:
+        //        if let timeEnd = snapshot.value["timeEnd"] as? NSNumber {
+        //            self.timeEnd = NSDate(ms: timeEnd)
+        //        }
         
         windDirection = snapshot.value["windDirection"] as? Float
         windMax = snapshot.value["windMax"] as? Float
@@ -106,23 +120,27 @@ struct Session {
         windMeter = snapshot.value["windMeter"] as! String
         turbulence = snapshot.value["turbulence"] as? Float
         
-        if let sourced = snapshot.value["sourced"] as? FirebaseDictionary {
-            self.sourced = Sourced(dict: sourced)
-        }
-        
-        if let location = snapshot.value["location"] as? FirebaseDictionary {
-            self.location = Location(dict: location)
-        }
+        sourced = (snapshot.value["sourced"] as? FirebaseDictionary).flatMap(Sourced.init)
+        location = (snapshot.value["location"] as? FirebaseDictionary).flatMap(Location.init)
+
+        // Should be equivalent to:
+        //        if let sourced = snapshot.value["sourced"] as? FirebaseDictionary {
+        //            self.sourced = Sourced(dict: sourced)
+        //        }
+        //
+        //        if let location = snapshot.value["location"] as? FirebaseDictionary {
+        //            self.location = Location(dict: location)
+        //        }
     }
     
-    init(uid:String, deviceId: String, timeStart: NSDate, windMeter: String){
+    init(uid: String, deviceId: String, timeStart: NSDate, windMeter: String) {
         self.uid = uid
         self.deviceKey = deviceId
         self.timeStart = timeStart
         self.windMeter = windMeter
     }
     
-    func initDict() -> FirebaseDictionary {
+    func initDict() -> FirebaseDictionary { // Fixme: why is this necessary?
         var dict = FirebaseDictionary()
         dict["deviceKey"] = deviceKey
         dict["uid"] = uid
@@ -149,7 +167,6 @@ struct Session {
         return dict
     }
 }
-
 
 class HistoryViewController: UITableViewController, HistoryDelegate {
     var sessions = [[Session]]()
@@ -214,14 +231,14 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         else {
             cell.location.text = "Unknown" // Need to localize, should alredy exist
         }
-            
+        
         return cell
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             let deletedSession = sessions[indexPath.section][indexPath.row]
-
+            
             guard let sessionKey = deletedSession.key else {
                 fatalError("No session key")
             }
@@ -269,7 +286,6 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         
         
         //NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
-        
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

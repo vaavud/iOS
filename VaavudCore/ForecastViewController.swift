@@ -242,8 +242,6 @@ class ForecastLoader: NSObject {
         downloadTask.resume()
     }
     
-    
-    
     func requestFullForecast(location: CLLocationCoordinate2D, callback: (Sourced) -> Void) {
         let forecastUrl = NSURL(string: "\(location.latitude),\(location.longitude)", relativeToURL:baseURL)!
         let sharedSession = NSURLSession.sharedSession()
@@ -533,7 +531,7 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
                     webViewController.baseUrl = NSURL(fileURLWithPath: NSBundle.mainBundle().bundlePath)
                     webViewController.html = try? String(contentsOfFile: file, encoding: NSUTF8StringEncoding)
                 }
-                else {
+                else { // fixme: localise
                     webViewController.html = "Vi vil tilføje flere nye spændende funktioner til Vaavud appen. Nogle af disse funktioner vil kun være tilgængelig for Pro medlemmer. For en begrænset periode, så kan alle vores brugere prøve dem!".html()
                 }
             }
