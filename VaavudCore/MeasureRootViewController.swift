@@ -76,20 +76,19 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     private var latestHeading: CGFloat?
     private var latestWindDirection: CGFloat?
-    private var latestSpeed: CGFloat = 0
+//    private var latestSpeed: CGFloat = 0
 
     private var sessionKey: String?
-    private var lastWindSpeed: WindSpeedEvent?
-    private var windArray = [WindSpeedEvent]()
+    private var latestWindSpeed: WindSpeedEvent?
+    private var elapsedSinceUpdate = 0.0
+    private var windSpeedsSaved = 0
+
+//    private var windArray = [WindSpeedEvent]()
     
     private var maxSpeed: CGFloat = 0
-    
-//    private var avgSpeed: CGFloat { return 10 } // fixme: revert
     private var avgSpeed: CGFloat { return speedsSum/CGFloat(speedsCount) }
     private var speedsSum: CGFloat = 0
     private var speedsCount = 0
-    
-    private var elapsedSinceUpdate = 0.0
     
     private var logHelper = LogHelper(.Measure)
     
@@ -304,8 +303,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
 
     func hasValidLocation(session: Session) -> CLLocationCoordinate2D? {
-        if let latlon = session.location {
-            let loc = CLLocationCoordinate2D(latitude: latlon.lat, longitude: latlon.lon)
+        if let location = session.location {
+            let loc = CLLocationCoordinate2D(latitude: location.lat, longitude: location.lon)
             if LocationManager.isCoordinateValid(loc) {
                 return loc
             }
@@ -318,48 +317,48 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         let loc = LocationManager.sharedInstance().latestLocation
         
         if LocationManager.isCoordinateValid(loc) {
-            let l = ["lat" : loc.latitude, "lon" : loc.longitude]
+            let locationDictDelta = ["lat" : loc.latitude, "lon" : loc.longitude]
             
             firebase
                 .childByAppendingPath("session")
                 .childByAppendingPath(sessionKey)
                 .childByAppendingPath("location")
-                .updateChildValues(l)
+                .updateChildValues(locationDictDelta)
             
             let latlong = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
             
             updateWithGeocode(latlong, sessionKey: sessionKey)
             updateWithSourcedData(latlong, sessionKey: sessionKey)
-            
         }
     }
     
-    func updateWithGeocode(latlon: CLLocation, sessionKey: String) {
-        geocoder.reverseGeocodeLocation(latlon) { placemarks, error in
-            if error == nil {
-                if let first = placemarks?.first {
-                    let locationDict = ["name" : first.thoroughfare ?? first.locality ?? first.country ?? "unknown"]
-                    self.firebase
-                        .childByAppendingPath("session")
-                        .childByAppendingPath(sessionKey)
-                        .childByAppendingPath("location")
-                        .updateChildValues(locationDict)
-                    
-                    // fixme: summary may need to be updated
-                }
-            }
-            else {
+    func updateWithGeocode(location: CLLocation, sessionKey: String) {
+        geocoder.reverseGeocodeLocation(location) { placemarks, error in
+            if let error = error {
                 print("Geocode failed with error: \(error)")
+                return
             }
+            
+            guard let first = placemarks?.first, name = first.thoroughfare ?? first.locality ?? first.country else {
+                return
+            }
+            
+            self.firebase
+                .childByAppendingPath("session")
+                .childByAppendingPath(sessionKey)
+                .childByAppendingPath("location")
+                .childByAppendingPath("name")
+                .setValue(name)
+            
+            // fixme: summary may need to be updated
         }
-        
     }
     
     func saveWindchill(sessionKey: String) {
-//        if let kelvin = session.sourcedTemperature, ms = session.windSpeedAvg ?? session.sourcedWindSpeedAvg, chill = windchill(kelvin.floatValue, ms.floatValue) {
-//            session.windChill = chill
-//            // fixme: summary may need to be updated
-//        }
+        //        if let kelvin = session.sourcedTemperature, ms = session.windSpeedAvg ?? session.sourcedWindSpeedAvg, chill = windchill(kelvin.floatValue, ms.floatValue) {
+        //            session.windChill = chill
+        //            // fixme: summary may need to be updated
+        //        }
     }
     
     func updateWithSourcedData(location: CLLocation, sessionKey: String) {
@@ -390,12 +389,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 if session.managedObjectContext == nil || session.deleted { return }
                 session.pressure = 10*kpa
 
-                NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
-                    if s {
-                        let userInfo = ["objectId" : session.objectID, "pressure" : true]
-                        NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
-                    }
-                }
+                // fixme: summary may need to be updated
             }
         }
     }
@@ -449,20 +443,18 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func updateSession() {
-//        let now = NSDate().timeIntervalSince1970 * 1000
-
 //        if let mjolnir = mjolnir where !mjolnir.isValidCurrentStatus {
 //            return // fixme: uncomment
 //        }
         
-        
         if let sessionKey = sessionKey {
-            if let windSpeed = lastWindSpeed {
-                windArray.append(windSpeed)
-                firebase.childByAppendingPath("windSpeed").childByAppendingPath(sessionKey).childByAppendingPath(String(windArray.count)).setValue(windSpeed.fireDict)
-                lastWindSpeed = nil
+            if let windSpeed = latestWindSpeed {
+                firebase
+                    .childByAppendingPath("wind")
+                    .childByAppendingPath(sessionKey)
+                    .childByAppendingPath(String(windSpeedsSaved))
+                    .setValue(windSpeed.fireDict)
             }
-            
             
             var dictDelta = [
                 "windMean" : Float(avgSpeed),
@@ -477,7 +469,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             
             //mainSession?.wind.append(wind)
             
-            //
             firebase
                 .childByAppendingPath("session")
                 .childByAppendingPath(sessionKey)

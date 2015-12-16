@@ -85,13 +85,14 @@ struct Sourced {
 
 struct Session {
     let deviceKey: String
-    var key: String?
+    let uid: String
     let timeStart: NSDate
+    
+    var key: String?
     var timeEnd: NSDate?
     var windDirection: Float?
     var windMax: Float?
     var windMean: Float?
-    let uid: String
     let windMeter: String
     var turbulence: Float?
     var sourced: Sourced?
