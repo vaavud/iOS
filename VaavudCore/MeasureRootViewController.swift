@@ -112,6 +112,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             VaavudSDK.shared.windSpeedCallback = newWindSpeed
             VaavudSDK.shared.windDirectionCallback = newWindDirection
             VaavudSDK.shared.headingCallback = newHeading
+//            VaavudSDK.shared.locationCallback = newLocation
+//            VaavudSDK.shared.velo
+
             // fixme: handle
             do {
                 try VaavudSDK.shared.start()
