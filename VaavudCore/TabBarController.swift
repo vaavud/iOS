@@ -9,8 +9,6 @@
 import UIKit
 
 class TabBarController: UITabBarController,UITabBarControllerDelegate {
-    
-    
     let button = UIButton(type: .Custom)
     var laidOutWidth: CGFloat?
     

@@ -113,7 +113,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             VaavudSDK.shared.windDirectionCallback = newWindDirection
             VaavudSDK.shared.headingCallback = newHeading
 //            VaavudSDK.shared.locationCallback = newLocation
-//            VaavudSDK.shared.velo
+//            VaavudSDK.shared.velocityCallback = newVelocity
 
             // fixme: handle
             do {
@@ -392,12 +392,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 //        let loc = hasValidLocation(latlon) ?? LocationManager.sharedInstance().latestLocation
         
         ForecastLoader.shared.requestFullForecast(latlon.coordinate) { sourced in
-            print(sourced.dict())
+            print(sourced.fireDict)
             self.vaavudFirebase
                 .childByAppendingPath("session")
                 .childByAppendingPath(sessionKey)
                 .childByAppendingPath("sourced")
-                .updateChildValues(sourced.dict())
+                .updateChildValues(sourced.fireDict)
         }
         
         //["humidity": 0.8, "icon": clear-night, "pressure": 1020000, "temperature": 279.4333, "windMean": 1.86, "windDirection": 340]
@@ -504,11 +504,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         
         if let sessionKey = sessionKey {
-            
-            
             if let windSpeed = lastWindSpeed {
                 windArray.append(windSpeed)
-                vaavudFirebase.childByAppendingPath("wind").childByAppendingPath(sessionKey).childByAppendingPath(windArray.count.description).setValue(windSpeed.fireDict)
+                vaavudFirebase.childByAppendingPath("windSpeed").childByAppendingPath(sessionKey).childByAppendingPath(String(windArray.count)).setValue(windSpeed.fireDict)
                 lastWindSpeed = nil
             }
             
@@ -761,7 +759,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     func newWindDirection(event: WindDirectionEvent) {
         print("######## NEW DIRECTION: \(latestWindDirection == nil ? "FIRST" : "not first")")
         
-        let direction = CGFloat(event.globalDirection)
+        let direction = CGFloat(event.direction)
         latestWindDirection = direction
         currentConsumer?.newWindDirection(direction)
     }
@@ -873,17 +871,17 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
 }
 
-func speeds(session: Session) -> [Float] {
-    var speeds = [Float]()
-    
-    for p in session.wind {
-        if p.speed > 0 {
-            speeds.append(p.speed)
-        }
-    }
-
-    return speeds
-}
+//func speeds(session: Session) -> [Float] {
+//    var speeds = [Float]()
+//    
+//    for p in session.wind {
+//        if p.speed > 0 {
+//            speeds.append(p.speed)
+//        }
+//    }
+//
+//    return speeds
+//}
 
 func windchill(kelvin: Float, _ windspeed: Float) -> Float? {
     let celsius = kelvin - 273.15

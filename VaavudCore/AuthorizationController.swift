@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import VaavudSDK
 
 let firebaseUrl = "https://vaavud-core-demo.firebaseio.com"
 
@@ -33,8 +34,8 @@ class AuthorizationController: NSObject {
     private var _deviceId: String?
     var deviceId: String { if _deviceId != nil { return _deviceId! } else { fatalError("No device id") } }
     
-   static let shared = AuthorizationController()
-
+    static let shared = AuthorizationController()
+    
     private override init() {
         vaavudRootFirebase = Firebase(url: firebaseUrl)
     }
@@ -50,8 +51,6 @@ class AuthorizationController: NSObject {
             unauth()
             return false
         }
-        
-    
         
         uid = authData.uid
         _deviceId = deviceId
@@ -129,7 +128,7 @@ class AuthorizationController: NSObject {
                     return
                 }
                 
-                guard let model = newUserModel?.dict else {
+                guard let model = newUserModel?.fireDict else {
                     fatalError()
                 }
                 
@@ -160,7 +159,7 @@ class AuthorizationController: NSObject {
                 if success {
                     let userModel = User(dict: ["firstName": firstName, "lastName": lastName, "country": "DK", "language": "EN", "email": email, "created": created ])
                     
-                    guard let model = userModel?.dict else {
+                    guard let model = userModel?.fireDict else {
                         fatalError()
                     }
                     
@@ -209,7 +208,7 @@ class AuthorizationController: NSObject {
     private func updateUserInformation(uid: String, data: FirebaseDictionary) {
         let deviceObj = Device(dict: ["appVersion": "0.0.0", "model": "Iphone 3gs", "vendor": "Apple", "osVersion": "9.0", "uid": uid])
         
-        guard let model = deviceObj?.dict else {
+        guard let model = deviceObj?.fireDict else {
             fatalError("Bad data from Firebase")
         }
             

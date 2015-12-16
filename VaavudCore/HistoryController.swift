@@ -80,7 +80,7 @@ class HistoryController: NSObject {
         
         
         ref.childByAppendingPath(key).removeValue()
-        deletedRef.childByAppendingPath(key).setValue(sessionDeleted.fireDict())
+        deletedRef.childByAppendingPath(key).setValue(sessionDeleted.fireDict)
     }
     
     func addSessionToStack(session: Session) {

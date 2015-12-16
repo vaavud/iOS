@@ -60,7 +60,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    var historySummary = false
+    var isHistorySummary = false
     
     private var logGroup: LogGroup!
     private var logHelper: LogHelper!
@@ -80,7 +80,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         hideVolumeHUD()
         
-        logGroup = historySummary ? .Summary : .Result
+        logGroup = isHistorySummary ? .Summary : .Result
         logHelper = LogHelper(logGroup)
 
         if Property.isMixpanelEnabled() {
@@ -109,7 +109,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        shareHolder.hidden = historySummary
+        shareHolder.hidden = isHistorySummary
         logHelper.began()
         if !isShowingDirection {
             logHelper.log("Showed-Sleipnir-CTA")
@@ -343,7 +343,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         let frame: CGRect
         let size: CGSize
         
-        if historySummary {
+        if isHistorySummary {
             frame = view.bounds.moveY(-topLayoutGuide.length)
             size = view.bounds.size.expandY(-topLayoutGuide.length)
         }
@@ -353,7 +353,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
             shareHolder.hidden = true
         }
         
-        defer { self.shareHolder.hidden = self.historySummary }
+        defer { self.shareHolder.hidden = self.isHistorySummary }
         
         UIGraphicsBeginImageContextWithOptions(size, true, 0)
         

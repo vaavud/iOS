@@ -293,22 +293,18 @@ func parseCurrently(dict: [String : AnyObject]) -> (Double, Double, Int?)? {
 }
 
 func parseCurrentlyFull(var dict: [String : AnyObject]) -> Sourced? {
-    
-    
     if let pressure = dict["pressure"] as? Int {
         dict["pressure"] = pressure * 100
     }
     
     if let temperature = dict["temperature"] as? Float {
-        
         let celcius = (temperature - 32) / 1.8
         let kelvin = celcius + 273.15
         
         dict["temperature"] = kelvin
-    }
+    }    
     
-    
-    if let source = Sourced(sourced: dict) {
+    if let source = Sourced(dict: dict) {
         return source
     }
     
