@@ -242,8 +242,6 @@ class ForecastLoader: NSObject {
         downloadTask.resume()
     }
     
-    
-    
     func requestFullForecast(location: CLLocationCoordinate2D, callback: (Sourced) -> Void) {
         let forecastUrl = NSURL(string: "\(location.latitude),\(location.longitude)", relativeToURL:baseURL)!
         let sharedSession = NSURLSession.sharedSession()
@@ -293,22 +291,18 @@ func parseCurrently(dict: [String : AnyObject]) -> (Double, Double, Int?)? {
 }
 
 func parseCurrentlyFull(var dict: [String : AnyObject]) -> Sourced? {
-    
-    
     if let pressure = dict["pressure"] as? Int {
         dict["pressure"] = pressure * 100
     }
     
     if let temperature = dict["temperature"] as? Float {
-        
         let celcius = (temperature - 32) / 1.8
         let kelvin = celcius + 273.15
         
         dict["temperature"] = kelvin
-    }
+    }    
     
-    
-    if let source = Sourced(sourced: dict) {
+    if let source = Sourced(dict: dict) {
         return source
     }
     
@@ -537,7 +531,7 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
                     webViewController.baseUrl = NSURL(fileURLWithPath: NSBundle.mainBundle().bundlePath)
                     webViewController.html = try? String(contentsOfFile: file, encoding: NSUTF8StringEncoding)
                 }
-                else {
+                else { // fixme: localise
                     webViewController.html = "Vi vil tilføje flere nye spændende funktioner til Vaavud appen. Nogle af disse funktioner vil kun være tilgængelig for Pro medlemmer. For en begrænset periode, så kan alle vores brugere prøve dem!".html()
                 }
             }
