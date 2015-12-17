@@ -419,21 +419,30 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         //}
     }
     
-    func updateWithPressure(session: MeasurementSession) {
+    func updateWithPressure(sessionKey: String) {
         altimeter?.startRelativeAltitudeUpdatesToQueue(NSOperationQueue.mainQueue()) {
             altitudeData, error in
             if let kpa = altitudeData?.pressure.doubleValue {
                 self.altimeter?.stopRelativeAltitudeUpdates()
+                
+                
+                let pressureModel = ["temperature" : 10*kpa]
+                
+                self.vaavudFirebase
+                    .childByAppendingPath("session")
+                    .childByAppendingPath(sessionKey)
+                    .updateChildValues(pressureModel)
+                
 
-                if session.managedObjectContext == nil || session.deleted { return }
-                session.pressure = 10*kpa
-
-                NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
-                    if s {
-                        let userInfo = ["objectId" : session.objectID, "pressure" : true]
-                        NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
-                    }
-                }
+//                if session.managedObjectContext == nil || session.deleted { return }
+//                session.pressure = 10*kpa
+//
+//                NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
+//                    if s {
+//                        let userInfo = ["objectId" : session.objectID, "pressure" : true]
+//                        NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
+//                    }
+//                }
             }
         }
     }

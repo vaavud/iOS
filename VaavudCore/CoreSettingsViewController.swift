@@ -170,8 +170,6 @@ class CoreSettingsTableViewController: UITableViewController {
                     finished in window.rootViewController = controller
             })
         }
-        
-        
     }
     
 //    func registerUser() {
