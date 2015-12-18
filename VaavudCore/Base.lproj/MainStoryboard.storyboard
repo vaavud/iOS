@@ -78,10 +78,10 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--New Map View Controller-->
         <scene sceneID="VaU-am-cVV">
             <objects>
-                <viewController id="Qec-7p-mYZ" sceneMemberID="viewController">
+                <viewController id="Qec-7p-mYZ" customClass="NewMapViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bnm-sb-N8x"/>
                         <viewControllerLayoutGuide type="bottom" id="6A7-Z4-r0w"/>
@@ -89,10 +89,67 @@
                     <view key="view" contentMode="scaleToFill" id="nzA-Uy-E53">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="oDG-At-RrN">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                                <animations/>
+                            </mapView>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QE3-ky-iIB">
+                                <rect key="frame" x="270" y="455" width="30" height="44"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="3aE-le-IR5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="tappedUnit:" destination="Qec-7p-mYZ" eventType="touchUpInside" id="03v-f1-9oz"/>
+                                    <action selector="unitButtonPushed" destination="awR-2s-6gy" eventType="touchUpInside" id="cNB-ae-loo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5qO-KW-7f6">
+                                <rect key="frame" x="20" y="455" width="30" height="44"/>
+                                <animations/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="PgK-s0-9yd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="tappedHours:" destination="Qec-7p-mYZ" eventType="touchUpInside" id="7Uo-Gj-3QN"/>
+                                    <action selector="tappedUnit:" destination="Qec-7p-mYZ" eventType="touchUpInside" id="V5v-bF-6d9"/>
+                                    <action selector="unitButtonPushed" destination="awR-2s-6gy" eventType="touchUpInside" id="kjq-iZ-5va"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="oDG-At-RrN" firstAttribute="top" secondItem="nzA-Uy-E53" secondAttribute="top" id="1f3-Xk-Tdi"/>
+                            <constraint firstItem="oDG-At-RrN" firstAttribute="leading" secondItem="5qO-KW-7f6" secondAttribute="trailing" constant="-50" id="6h4-IW-9jC"/>
+                            <constraint firstItem="5qO-KW-7f6" firstAttribute="top" secondItem="oDG-At-RrN" secondAttribute="bottom" constant="-64" id="SQn-XR-hhE"/>
+                            <constraint firstItem="QE3-ky-iIB" firstAttribute="leading" secondItem="oDG-At-RrN" secondAttribute="trailing" constant="-50" id="TOW-St-YCq"/>
+                            <constraint firstAttribute="bottom" secondItem="oDG-At-RrN" secondAttribute="bottom" id="TV7-pR-QEs"/>
+                            <constraint firstAttribute="trailing" secondItem="oDG-At-RrN" secondAttribute="trailing" id="V0o-U9-PoG"/>
+                            <constraint firstItem="QE3-ky-iIB" firstAttribute="top" secondItem="oDG-At-RrN" secondAttribute="bottom" constant="-64" id="VRb-Gh-8hr"/>
+                            <constraint firstItem="oDG-At-RrN" firstAttribute="leading" secondItem="nzA-Uy-E53" secondAttribute="leading" id="e7q-NO-xAr"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="" id="7pU-4C-JSB"/>
+                    <connections>
+                        <outlet property="mapView" destination="oDG-At-RrN" id="Jx5-i4-96E"/>
+                        <outlet property="unitButton" destination="QE3-ky-iIB" id="ERJ-Ac-A03"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lyf-rp-Hcx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -247,7 +304,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-659" y="625"/>
+            <point key="canvasLocation" x="-731" y="692"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="M8A-pm-MAh">
@@ -257,7 +314,7 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fbC-OC-vuu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-298" y="625"/>
+            <point key="canvasLocation" x="-317" y="672"/>
         </scene>
         <!--Flat Measure View Controller-->
         <scene sceneID="V5p-wX-8F8">

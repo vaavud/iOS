@@ -84,7 +84,11 @@ class NewMapViewController: UIViewController, MKMapViewDelegate {
     
     // MARK: User Actions
 
-    @IBAction private func dd() {
+    @IBAction func tappedUnit(sender: UIButton) {
+
+    }
+    
+    @IBAction func tappedHours(sender: UIButton) {
         
     }
     

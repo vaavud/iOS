@@ -15,9 +15,7 @@ protocol HistoryDelegate {
     func noMeasurements()
 }
 
-
 class HistoryController: NSObject {
-
     let delegate: HistoryDelegate
     let firebaseSession = Firebase(url: firebaseUrl)
     var sessions = [[Session]]()
@@ -35,7 +33,7 @@ class HistoryController: NSObject {
         let ref = firebaseSession.childByAppendingPath("session")
         
         ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeEventType(.ChildAdded, withBlock: { snapshot in
-            
+            titleLabel.text = extractValue<String>(snapshot)
             self.count++
             
             guard snapshot.value["timeEnd"] is Double else {
@@ -75,12 +73,14 @@ class HistoryController: NSObject {
         
         sessions[section].removeAtIndex(row)
         
-        let ref = firebaseSession.childByAppendingPath("session")
-        let deletedRef = firebaseSession.childByAppendingPath("sessionDeleted")
+//        let ref = firebaseSession.childByAppendingPath("session")
+//        let deletedRef = firebaseSession.childByAppendingPath("sessionDeleted")
+//        
+//        ref.childByAppendingPath(key).removeValue()
+//        deletedRef.childByAppendingPath(key).setValue(sessionDeleted.fireDict)
         
-        
-        ref.childByAppendingPath(key).removeValue()
-        deletedRef.childByAppendingPath(key).setValue(sessionDeleted.fireDict)
+        firebaseSession.childByAppendingPaths("session", key).removeValue()
+        firebaseSession.childByAppendingPaths("sessionDeleted", key).setValue(sessionDeleted.fireDict)
     }
     
     func addSessionToStack(session: Session) {
@@ -91,7 +91,7 @@ class HistoryController: NSObject {
             if sessions.isEmpty {
                 sessionDate.append(sessioniate)
                 sessions.append([session])
-                delegate.updateTable(sessions,sessionDates: sessionDate)
+                delegate.updateTable(sessions, sessionDates: sessionDate)
                 return
             }
             

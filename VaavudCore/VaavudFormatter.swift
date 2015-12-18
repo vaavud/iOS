@@ -71,29 +71,48 @@ protocol Unit {
     var rawValue: Int { get }
 }
 
-enum TemperatureUnit: Int, FloatUnit {
+protocol Local {
+    var localKey: String { get }
+}
+
+extension Local {
+    var localizedString: String { return NSLocalizedString(localKey, comment: "") }
+}
+
+protocol LocalUnit: Unit {
+    var localKeys: [String] { get }
+}
+
+extension LocalUnit {
+    var localizedString: String { return NSLocalizedString(localKeys[rawValue], comment: "") }
+}
+
+enum TemperatureUnit: Int, FloatUnit, LocalUnit {
     case Celsius = 0
     case Fahrenheit = 1
     
-    var localizedString: String { return NSLocalizedString(key, comment: "") }
     var next: TemperatureUnit { return TemperatureUnit(rawValue: (rawValue + 1) % 2)! }
     var decimals: Int { return 1 }
+    
     func fromBase(kelvinValue: Float) -> Float { return kelvinValue*ratio + constant}
     func fromBase(kelvinValue: CGFloat) -> CGFloat { return CGFloat(fromBase(Float(kelvinValue))) }
     
-    private var key: String { return ["UNIT_CELSIUS", "UNIT_FAHRENHEIT"][rawValue] }
+//    init?(key: String) {
+//
+//    }
+    
+    var localKeys: [String] { return ["UNIT_CELSIUS", "UNIT_FAHRENHEIT"] }
     
     private var ratio: Float { return [1, 9/5][rawValue] }
     
     private var constant: Float { return [-273.15, -459.67][rawValue] }
 }
 
-enum PressureUnit: Int, FloatUnit {
+enum PressureUnit: Int, FloatUnit, LocalUnit {
     case Mbar = 0
     case Atm = 1
     case MmHg = 2
     
-    var localizedString: String { return NSLocalizedString(key, comment: "") }
     var next: PressureUnit { return PressureUnit(rawValue: (rawValue + 1) % 3)! }
     var decimals: Int { return [0, 3, 0][rawValue] }
     func fromBase(mbarValue: Float) -> Float { return mbarValue*ratio }
@@ -101,33 +120,32 @@ enum PressureUnit: Int, FloatUnit {
     
     private var ratio: Float { return [1, 0.000986923267, 0.75006375541921][rawValue] }
     
-    private var key: String { return ["UNIT_MBAR", "UNIT_ATM", "UNIT_MMHG"][rawValue] }
+    var localKeys: [String] { return ["UNIT_MBAR", "UNIT_ATM", "UNIT_MMHG"] }
 }
 
-enum DirectionUnit: Int, Unit {
+enum DirectionUnit: Int, Unit, LocalUnit {
     case Cardinal = 0
     case Degrees = 1
     
-    var localizedString: String { return NSLocalizedString(key, comment: "") }
     var next: DirectionUnit { return DirectionUnit(rawValue: (rawValue + 1) % 2)! }
     
     static func degreesToCardinal(degreesValue: Float) -> Int {
         return Int(round(16*degreesValue/360)) % 16
     }
     
-    private var key: String { return ["DIRECTION_CARDINAL", "DIRECTION_DEGREES"][rawValue] }
+    var localKeys: [String] { return ["DIRECTION_CARDINAL", "DIRECTION_DEGREES"] }
 }
 
-enum SpeedUnit: Int, FloatUnit {
+enum SpeedUnit: Int, FloatUnit, LocalUnit {
     case Kmh = 0
     case Ms = 1
     case Mph = 2
     case Knots = 3
     case Bft = 4
     
-    var localizedString: String { return NSLocalizedString(key, comment: "") }
     var next: SpeedUnit { return SpeedUnit(rawValue: (rawValue + 1) % 5)! }
     var decimals: Int { return [1, 1, 1, 1, 0][rawValue] }
+    
     func fromBase(msValue: Float) -> Float {
         if self == .Bft {
             return SpeedUnit.msToBft(msValue)
@@ -138,7 +156,7 @@ enum SpeedUnit: Int, FloatUnit {
     }
     func fromBase(msValue: CGFloat) -> CGFloat { return CGFloat(fromBase(Float(msValue))) }
     
-    private var key: String { return ["UNIT_KMH", "UNIT_MS", "UNIT_MPH", "UNIT_KN", "UNIT_BFT"][rawValue] }
+    var localKeys: [String] { return ["UNIT_KMH", "UNIT_MS", "UNIT_MPH", "UNIT_KN", "UNIT_BFT"] }
     private var ratio: Float { return [3.6, 1, 3600/1609.344, 3600/1852.0, 0][rawValue] }
     
     private static func msToBft(msValue: Float) -> Float {

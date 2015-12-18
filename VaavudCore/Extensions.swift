@@ -9,6 +9,7 @@
 import Foundation
 import MediaPlayer
 
+
 class Plot: UIView {
     let f: CGFloat -> CGFloat
     let n: Int
@@ -304,6 +305,10 @@ func mod(i: Int, _ n: Int) -> Int {
 }
 
 func mod(i: CGFloat, _ n: CGFloat) -> CGFloat {
+    return ((i % n) + n) % n
+}
+
+func mod(i: Double, _ n: Double) -> Double {
     return ((i % n) + n) % n
 }
 

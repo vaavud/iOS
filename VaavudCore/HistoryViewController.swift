@@ -120,7 +120,7 @@ struct Session {
         windMean = snapshot.value["windMean"] as? Float
         windMeter = snapshot.value["windMeter"] as! String
         turbulence = snapshot.value["turbulence"] as? Float
-        
+
         sourced = (snapshot.value["sourced"] as? FirebaseDictionary).flatMap(Sourced.init)
         location = (snapshot.value["location"] as? FirebaseDictionary).flatMap(Location.init)
 
