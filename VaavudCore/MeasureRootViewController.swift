@@ -395,15 +395,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                     .updateChildValues(pressureModel)
                 
 
-//                if session.managedObjectContext == nil || session.deleted { return }
-//                session.pressure = 10*kpa
-//
-//                NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion { s, e in
-//                    if s {
-//                        let userInfo = ["objectId" : session.objectID, "pressure" : true]
-//                        NSNotificationCenter.defaultCenter().postNotificationName(KEY_SESSION_UPDATED, object: self, userInfo: userInfo)
-//                    }
-//                }
+                if session.managedObjectContext == nil || session.deleted { return }
+                session.pressure = 10*kpa
+
+                // fixme: summary may need to be updated
             }
         }
     }

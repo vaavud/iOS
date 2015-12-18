@@ -221,6 +221,17 @@ class AuthorizationController: NSObject {
         preferences.setValue(deviceId, forKey: "deviceId")
         preferences.synchronize()
         
+//        vaavudRootFirebase
+//            .childByAppendingPath("user")
+//            .childByAppendingPath(uid)
+//            .childByAppendingPath("settings")
+//            .observeSingleEventOfType(.Value, withBlock: { snapshot in
+//                let settings = UserSettings(snapshot.value as? FirebaseDictionary) ?? UserSettings()
+//            })
+
+        
+        
+        
         print(deviceId)
         print(data)
             
