@@ -256,7 +256,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         if state.running {
             speedsCount++
-            speedsSum += latestSpeed
+//            speedsSum += latestSpeed
             elapsedSinceUpdate += link.duration
             screenUsage[pager.currentPage] += link.duration
         
@@ -389,14 +389,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 
                 let pressureModel = ["temperature" : 10*kpa]
                 
-                self.vaavudFirebase
-                    .childByAppendingPath("session")
-                    .childByAppendingPath(sessionKey)
-                    .updateChildValues(pressureModel)
-                
+//                self.vaavudFirebase
+//                    .childByAppendingPath("session")
+//                    .childByAppendingPath(sessionKey)
+//                    .updateChildValues(pressureModel)
+//                
 
-                if session.managedObjectContext == nil || session.deleted { return }
-                session.pressure = 10*kpa
+//                if session.managedObjectContext == nil || session.deleted { return }
+//                session.pressure = 10*kpa
 
                 // fixme: summary may need to be updated
             }
@@ -721,10 +721,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func newWindSpeed(event: WindSpeedEvent) {
-        lastWindSpeed = event
-        latestSpeed = CGFloat(event.speed)
-        currentConsumer?.newSpeed(latestSpeed)
-        if latestSpeed > maxSpeed { maxSpeed = latestSpeed }
+//        lastWindSpeed = event
+//        latestSpeed = CGFloat(event.speed)
+//        currentConsumer?.newSpeed(latestSpeed)
+//        if latestSpeed > maxSpeed { maxSpeed = latestSpeed }
     }
     
     func newHeading(event: HeadingEvent) {
@@ -756,7 +756,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func changeConsumer(mc: MeasurementConsumer) {
-        mc.newSpeed(latestSpeed)
+//        mc.newSpeed(latestSpeed)
         mc.changedSpeedUnit(VaavudFormatter.shared.windSpeedUnit)
         if isSleipnirSession, let wd = latestWindDirection, h = latestHeading {
             mc.newWindDirection(wd)
@@ -827,7 +827,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             latestWindDirection = newDirection
             currentConsumer?.newWindDirection(newDirection)
         }
-        newWindSpeed(WindSpeedEvent(time: NSDate(), speed: max(0, Double(latestSpeed - dy))))
+//        newWindSpeed(WindSpeedEvent(time: NSDate(), speed: max(0, Double(latestSpeed - dy))))
         
         sender.setTranslation(CGPoint(), inView: view)
     }

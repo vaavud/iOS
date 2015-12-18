@@ -7,18 +7,19 @@
 //
 
 import Firebase
+import VaavudSDK
 
 struct DeviceSettings: Firebaseable {
     
-    let mapHour: Int
-    let hasAskedForLocationAccess: Bool
-    let hasApprovedLocationAccess: Bool
-    let usesSleipnir: Bool
-    let sleipnirClipSideScreen: Bool
-    let isDropboxLinked: Bool
-    let timeUnlimited: Int
-    let defaultMeasurementScreen: String
-    let defaultFlatVariant: Int
+    var mapHour: Int
+    var hasAskedForLocationAccess: Bool
+    var hasApprovedLocationAccess: Bool
+    var usesSleipnir: Bool
+    var sleipnirClipSideScreen: Bool
+    var isDropboxLinked: Bool
+    var timeUnlimited: Int
+    var defaultMeasurementScreen: String
+    var defaultFlatVariant: Int
     
     
     init(mapHour: Int, hasAskedForLocationAccess: Bool, hasApprovedLocationAccess: Bool, usesSleipnir: Bool, sleipnirClipSideScreen: Bool, isDropboxLinked: Bool, timeUnlimited: Int, defaultMeasurementScreen: String, defaultFlatVariant: Int){
@@ -36,64 +37,93 @@ struct DeviceSettings: Firebaseable {
     
     init?(dict: FirebaseDictionary) {
         
-        self.mapHour = dict["mapHour"] as? Int ?? 3
-        self.hasAskedForLocationAccess = dict["hasAskedForLocationAccess"] as? Bool ?? false
-        self.hasApprovedLocationAccess = dict["hasApprovedLocationAccess"] as? Bool ?? false
-        self.usesSleipnir = dict["usesSleipnir"] as? Bool ?? false
-        self.sleipnirClipSideScreen = dict["sleipnirClipSideScreen"] as? Bool ?? false
-        self.isDropboxLinked = dict["isDropboxLinked"] as? Bool ?? false
-        self.timeUnlimited = dict["timeUnlimited"] as? Int ?? 3
-        self.defaultMeasurementScreen = dict["defaultMeasurementScreen"] as? String ?? "TODO"
-        self.defaultFlatVariant = dict["defaultFlatVariant"] as? Int ?? 3
+        self.mapHour = dict["mapHour"] as! Int
+        self.hasAskedForLocationAccess = dict["hasAskedForLocationAccess"] as! Bool
+        self.hasApprovedLocationAccess = dict["hasApprovedLocationAccess"] as! Bool
+        self.usesSleipnir = dict["usesSleipnir"] as! Bool
+        self.sleipnirClipSideScreen = dict["sleipnirClipSideScreen"] as! Bool
+        self.isDropboxLinked = dict["isDropboxLinked"] as! Bool
+        self.timeUnlimited = dict["timeUnlimited"] as! Int
+        self.defaultMeasurementScreen = dict["defaultMeasurementScreen"] as! String
+        self.defaultFlatVariant = dict["defaultFlatVariant"] as! Int
         
     }
     
     var fireDict: FirebaseDictionary {
-        let dic = FirebaseDictionary()
+        var dict = FirebaseDictionary()
+        dict["mapHour"] = mapHour
+        dict["hasAskedForLocationAccess"] = hasAskedForLocationAccess
+        dict["hasApprovedLocationAccess"] = hasApprovedLocationAccess
+        dict["usesSleipnir"] = usesSleipnir
+        dict["sleipnirClipSideScreen"] = sleipnirClipSideScreen
+        dict["isDropboxLinked"] = isDropboxLinked
+        dict["timeUnlimited"] = timeUnlimited
+        dict["defaultMeasurementScreen"] = defaultMeasurementScreen
+        dict["defaultFlatVariant"] = defaultFlatVariant
+        
+        return dict
+    }
+}
+
+
+struct UserSettings: Firebaseable {
+    
+    var windSpeedUnit: String
+    var windDirectionUnit: String
+    var temperatireUnit: String
+    var pressureUnit: String
+    var mapForecastHours: Int
+    
+    
+    init(windSpeedUnit: String, windDirectionUnit: String, temperatireUnit: String, pressureUnit: String, mapForecastHours: Int) {
+        self.windSpeedUnit = windSpeedUnit
+        self.windDirectionUnit = windDirectionUnit
+        self.temperatireUnit = temperatireUnit
+        self.pressureUnit = pressureUnit
+        self.mapForecastHours = mapForecastHours
+    }
+    
+    
+    init?(dict: FirebaseDictionary) {
+        
+        //self.windSpeedUnit = WindSpeedUnit(key: data["windSpeedUnit"] as? String)
+        self.windSpeedUnit =  dict["windSpeedUnit"] as? String ?? "TODO"
+        self.windDirectionUnit = dict["windDirectionUnit"] as? String ?? "TODO"
+        self.temperatireUnit = dict["temperatireUnit"] as? String ?? "TODO"
+        self.pressureUnit = dict["pressureUnit"] as? String ?? "TODO"
+        self.mapForecastHours = dict["mapForecastHours"] as? Int ?? 0
+    }
+    
+    var fireDict: FirebaseDictionary {
+        var dic = FirebaseDictionary()
+        dic["windSpeedUnit"] = windSpeedUnit
+        dic["windDirectionUnit"] = windDirectionUnit
+        dic["temperatireUnit"] = temperatireUnit
+        dic["pressureUnit"] = pressureUnit
+        dic["mapForecastHours"] = mapForecastHours
         return dic
     }
-}
-
-struct UserSettings {
-    
-    let windSpeedUnit: WindSpeedUnit
-    let windDirectionUnit: String
-    let temperatireUnit: String
-    let pressureUnit: String
-    let mapForecastHours: String
-    
-    init?(data: FirebaseDictionary) {
-        fatalError()
-//        self.windSpeedUnit = WindSpeedUnit(key: data["windSpeedUnit"] as? String)
-//        
-//        
-//        data["windSpeedUnit"] as? String ?? "TODO"
-//        self.windDirectionUnit = data["windDirectionUnit"] as? String ?? "TODO"
-//        self.temperatireUnit = data["temperatireUnit"] as? String ?? "TODO"
-//        self.pressureUnit = data["pressureUnit"] as? String ?? "TODO"
-//        self.mapForecastHours = data["mapForecastHours"] as? String ?? "TODO"
-    }
     
 }
 
-struct InstructionsShown {
+struct InstructionsShown: Firebaseable {
     
-    let mapGuideMarkerShown: Bool
-    let mapGuideTimeIntervalShown: Bool
-    let mapGuideZoomShown: Bool
-    let mapGuideMeasurePopupShown: Bool
-    let mapGuideMeasurePopupShownToday: Bool
-    let mapGuideForecastShown: Bool
-    let forecastOverlayShown: Bool
+    var mapGuideMarkerShown = false
+    var mapGuideTimeIntervalShown = false
+    var mapGuideZoomShown = false
+    var mapGuideMeasurePopupShown = false
+    var mapGuideMeasurePopupShownToday = false
+    var mapGuideForecastShown = false
+    var forecastOverlayShown = false
     
-    init(snapshot: FDataSnapshot) {
-        mapGuideMarkerShown = snapshot.value["mapGuideMarkerShown"] as? Bool ?? false
-        mapGuideTimeIntervalShown = snapshot.value["mapGuideTimeIntervalShown"] as? Bool ?? false
-        mapGuideZoomShown = snapshot.value["mapGuideZoomShown"] as? Bool ?? false
-        mapGuideMeasurePopupShown = snapshot.value["mapGuideMeasurePopupShown"] as? Bool ?? false
-        mapGuideMeasurePopupShownToday = snapshot.value["mapGuideMeasurePopupShownToday"] as? Bool ?? false
-        mapGuideForecastShown = snapshot.value["mapGuideForecastShown"] as? Bool ?? false
-        forecastOverlayShown = snapshot.value["forecastOverlayShown"] as? Bool ?? false
+    init?(dict data: FirebaseDictionary) {
+        mapGuideMarkerShown = data["mapGuideMarkerShown"] as? Bool ?? mapGuideMarkerShown
+        mapGuideTimeIntervalShown = data["mapGuideTimeIntervalShown"] as? Bool ?? mapGuideTimeIntervalShown
+        mapGuideZoomShown = data["mapGuideZoomShown"] as? Bool ?? mapGuideZoomShown
+        mapGuideMeasurePopupShown = data["mapGuideMeasurePopupShown"] as? Bool ?? mapGuideMeasurePopupShown
+        mapGuideMeasurePopupShownToday = data["mapGuideMeasurePopupShownToday"] as? Bool ?? mapGuideMeasurePopupShownToday
+        mapGuideForecastShown = data["mapGuideForecastShown"] as? Bool ?? mapGuideForecastShown
+        forecastOverlayShown = data["forecastOverlayShown"] as? Bool ?? forecastOverlayShown
     }
     
     

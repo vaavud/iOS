@@ -45,8 +45,18 @@ class AuthorizationController: NSObject {
             return true
         }
         
-        let preferences = NSUserDefaults.standardUserDefaults()
         
+        //        vaavudRootFirebase
+        //            .childByAppendingPath("user")
+        //            .childByAppendingPath(uid)
+        //            .childByAppendingPath("settings")
+        //            .observeSingleEventOfType(.Value, withBlock: { snapshot in
+        //                let settings = UserSettings(snapshot.value as? FirebaseDictionary) ?? UserSettings()
+        //            })
+
+        
+        
+        let preferences = NSUserDefaults.standardUserDefaults()
         guard let deviceId = preferences.objectForKey("deviceId") as? String, authData = vaavudRootFirebase.authData  else {
             unauth()
             return false
@@ -108,7 +118,9 @@ class AuthorizationController: NSObject {
     
     func signup(firstName: String, lastName: String, email: String, password: String, delegate: LoginDelegate){
         self.delegate = delegate
-        let newUserModel = User(dict: ["firstName": firstName, "lastName": lastName, "country": "DK", "language": "EN", "email": email, "created": 812739 ]) //TODO
+        //let newUserModel = User(dict: ["firstName": firstName, "lastName": lastName, "country": "DK", "language": "EN", "email": email, "created": 812739 ]) //TODO
+        let newUserModel = User(firstName: firstName, lastName: lastName, country: "DK", language: "EN", email: email)
+        
         
         vaavudRootFirebase.createUser(email, password: password, withValueCompletionBlock: { error, authData in
             guard let _ = authData else {
@@ -128,12 +140,8 @@ class AuthorizationController: NSObject {
                     return
                 }
                 
-                guard let model = newUserModel?.fireDict else {
-                    fatalError()
-                }
-                
-                self.vaavudRootFirebase.childByAppendingPath("user").childByAppendingPath(authData.uid).setValue(model)
-                self.updateUserInformation(authData.uid, data: model)
+                self.vaavudRootFirebase.childByAppendingPath("user").childByAppendingPath(authData.uid).setValue(newUserModel.fireDict)
+                self.updateUserInformation(authData.uid, data: newUserModel.fireDict)
             }
         })
     }
@@ -153,17 +161,12 @@ class AuthorizationController: NSObject {
             let firstName = result.valueForKey("first_name") as! String
             let lastName = result.valueForKey("last_name") as! String
             let email = result.valueForKey("email") as! String
-            let created = NSDate().timeIntervalSince1970 * 1000
                 
             let callback = { (success: Bool, uid: String) in
                 if success {
-                    let userModel = User(dict: ["firstName": firstName, "lastName": lastName, "country": "DK", "language": "EN", "email": email, "created": created ])
+                    let userModel = User(firstName: firstName, lastName: lastName, country: "DK", language: "EN", email: email)
                     
-                    guard let model = userModel?.fireDict else {
-                        fatalError()
-                    }
-                    
-                    self.validateUserInformation(uid, userModel: model)
+                    self.validateUserInformation(uid, userModel: userModel.fireDict)
                 }
                 else {
                     self.delegate?.onError(.Firebase)
@@ -206,31 +209,17 @@ class AuthorizationController: NSObject {
     }
 
     private func updateUserInformation(uid: String, data: FirebaseDictionary) {
-        let deviceObj = Device(dict: ["appVersion": "0.0.0", "model": "Iphone 3gs", "vendor": "Apple", "osVersion": "9.0", "uid": uid])
+        let deviceObj = Device(appVersion: "0.0.0", model: "Iphone 3gs", vendor: "Apple", osVersion: "9.0", uid: uid)
         
-        guard let model = deviceObj?.fireDict else {
-            fatalError("Bad data from Firebase")
-        }
             
         let ref = self.vaavudRootFirebase.childByAppendingPath("device")
         let post = ref.childByAutoId()
-        post.setValue(model)
+        post.setValue(deviceObj.fireDict)
         let deviceId = post.key
             
         let preferences = NSUserDefaults.standardUserDefaults()
         preferences.setValue(deviceId, forKey: "deviceId")
         preferences.synchronize()
-        
-//        vaavudRootFirebase
-//            .childByAppendingPath("user")
-//            .childByAppendingPath(uid)
-//            .childByAppendingPath("settings")
-//            .observeSingleEventOfType(.Value, withBlock: { snapshot in
-//                let settings = UserSettings(snapshot.value as? FirebaseDictionary) ?? UserSettings()
-//            })
-
-        
-        
         
         print(deviceId)
         print(data)
