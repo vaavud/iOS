@@ -33,7 +33,6 @@ class HistoryController: NSObject {
         let ref = firebaseSession.childByAppendingPath("session")
         
         ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeEventType(.ChildAdded, withBlock: { snapshot in
-            titleLabel.text = extractValue<String>(snapshot)
             self.count++
             
             guard snapshot.value["timeEnd"] is Double else {

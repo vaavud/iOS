@@ -18,6 +18,9 @@ extension Firebase {
     }
 }
 
+//extension Dictionary where Key 
+
+
 let updatePeriod = 1.0
 let countdownInterval = 3
 let limitedInterval = 30
@@ -779,15 +782,15 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     @IBAction func debugPanned(sender: UIPanGestureRecognizer) {
 //        let y = sender.locationInView(view).y
 //        let x = view.bounds.midX - sender.locationInView(view).x
-        let dx = sender.translationInView(view).x/2
-        let dy = sender.translationInView(view).y/20
+        let dx = Double(sender.translationInView(view).x/2)
+        let dy = Double(sender.translationInView(view).y/20)
         
-        if let direction = latestWindDirection?.direction {
-            let newDirection = CGFloat(direction) + dx
-            latestWindDirection = newDirection
-            currentConsumer?.newWindDirection(newDirection)
+        if let event = latestWindDirection {
+            let newDirection = event.direction + dx
+            latestWindDirection = WindDirectionEvent(time: event.time, direction: newDirection)
+            currentConsumer?.newWindDirection(CGFloat(newDirection))
         }
-        newWindSpeed(WindSpeedEvent(time: NSDate(), speed: max(0, Double(latestSpeed - dy))))
+        newWindSpeed(WindSpeedEvent(time: NSDate(), speed: max(0, latestWindSpeed.speed - dy)))
         
         sender.setTranslation(CGPoint(), inView: view)
     }
