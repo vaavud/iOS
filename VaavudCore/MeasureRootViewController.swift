@@ -18,9 +18,6 @@ extension Firebase {
     }
 }
 
-//extension Dictionary where Key 
-
-
 let updatePeriod = 1.0
 let countdownInterval = 3
 let limitedInterval = 30

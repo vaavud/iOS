@@ -93,7 +93,7 @@ class CoreSummaryViewController: UIViewController, MKMapViewDelegate {
         windchillItem = DynamicReadingItem(readingView: windchillView)
         gustinessItem = DynamicReadingItem(readingView: gustinessView)
         
-        title = VaavudFormatter.shared.localizedTitleDate(session.timeStart)?.uppercaseStringWithLocale(NSLocale.currentLocale())
+        title = VaavudFormatter.shared.localizedTitleDate(session.timeStart).uppercaseStringWithLocale(NSLocale.currentLocale())
         
         setupMapView()
         setupUI()

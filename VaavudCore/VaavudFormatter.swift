@@ -230,12 +230,9 @@ class VaavudFormatter: NSObject {
         }
     }
     
-    func localizedTitleDate(date: NSDate?) -> String? {
-        if let date = date {
-            dateFormatter.dateFormat = "EEEE, MMM d"
-            return dateFormatter.stringFromDate(date)
-        }
-        return nil
+    func localizedTitleDate(date: NSDate) -> String {
+        dateFormatter.dateFormat = "EEEE, MMM d"
+        return dateFormatter.stringFromDate(date)
     }
     
     func localizedTime(date: NSDate?) -> String? {

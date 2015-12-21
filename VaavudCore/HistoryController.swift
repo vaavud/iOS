@@ -10,25 +10,25 @@ import UIKit
 import Firebase
 
 protocol HistoryDelegate {
-    func updateTable(sessions: [[Session]], sessionDates: [String])
-    func hideSpinner()
+    func fetchedMeasurements(sessions: [[Session]], sessionDates: [String])
+    func gotMeasurements()
     func noMeasurements()
 }
 
 class HistoryController: NSObject {
     let delegate: HistoryDelegate
     let firebaseSession = Firebase(url: firebaseUrl)
-    var sessions = [[Session]]()
-    var sessionDate = [String]()
-    var count:UInt = 0
+    var sessionss = [[Session]]()
+    var sessionDates = [String]()
+    var count: UInt = 0
 
     init(delegate: HistoryDelegate) {
         self.delegate = delegate
         super.init()
-        getData()
+        setupFirebase()
     }
     
-    func getData() {
+    func setupFirebase() {
         let uid = firebaseSession.authData.uid
         let ref = firebaseSession.childByAppendingPath("session")
         
@@ -39,28 +39,28 @@ class HistoryController: NSObject {
                 return
             }
             
-            self.addSessionToStack(Session(snapshot: snapshot))
+            self.addToStack(Session(snapshot: snapshot))
         })
         
         ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeEventType(.ChildChanged, withBlock: { snapshot in
             guard snapshot.value["timeEnd"] is Double else {
                 return
             }
-        
-            for session in self.sessions {
-                for sess in session {
-                    if snapshot.key == sess.key {
+            
+            for sessions in self.sessionss {
+                for session in sessions {
+                    if snapshot.key == session.key {
                         return
                     }
                 }
             }
             
-            self.addSessionToStack(Session(snapshot: snapshot))
+            self.addToStack(Session(snapshot: snapshot))
         })
         
         ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeSingleEventOfType(.Value, withBlock: { snapshot in
             if snapshot.childrenCount > 0 {
-                self.delegate.hideSpinner()
+                self.delegate.gotMeasurements()
             }
             else {
                 self.delegate.noMeasurements()
@@ -68,9 +68,8 @@ class HistoryController: NSObject {
         })
     }
     
-    func removeItem(key: String, sessionDeleted: Session,section: Int, row: Int){
-        
-        sessions[section].removeAtIndex(row)
+    func removeItem(key: String, sessionDeleted: Session,section: Int, row: Int) {
+        sessionss[section].removeAtIndex(row)
         
 //        let ref = firebaseSession.childByAppendingPath("session")
 //        let deletedRef = firebaseSession.childByAppendingPath("sessionDeleted")
@@ -82,30 +81,27 @@ class HistoryController: NSObject {
         firebaseSession.childByAppendingPaths("sessionDeleted", key).setValue(sessionDeleted.fireDict)
     }
     
-    func addSessionToStack(session: Session) {
-        if let sessioniate = VaavudFormatter.shared.localizedTitleDate(session.timeStart) {
-            
-            print(session.key)
-            
-            if sessions.isEmpty {
-                sessionDate.append(sessioniate)
-                sessions.append([session])
-                delegate.updateTable(sessions, sessionDates: sessionDate)
+    func addToStack(session: Session) {
+        let sessionDate = VaavudFormatter.shared.localizedTitleDate(session.timeStart)
+        
+        if sessionss.isEmpty {
+            sessionDates.append(sessionDate)
+            sessionss.append([session])
+            delegate.fetchedMeasurements(sessionss, sessionDates: sessionDates)
+            return
+        }
+        
+        for (index, date) in sessionDates.enumerate() {
+            if date == sessionDate {
+                sessionss[index].insert(session, atIndex: 0)
+                delegate.fetchedMeasurements(sessionss, sessionDates: sessionDates)
                 return
             }
-            
-            for (index,date) in sessionDate.enumerate() {
-                if date == sessioniate {
-                    sessions[index].insert(session, atIndex: 0)
-                    delegate.updateTable(sessions,sessionDates: sessionDate)
-                    return
-                }
-            }
-            
-            sessionDate.insert(sessioniate, atIndex: 0)
-            sessions.insert([session], atIndex: 0)
-            
-            delegate.updateTable(sessions,sessionDates: sessionDate)
         }
+        
+        sessionDates.insert(sessionDate, atIndex: 0)
+        sessionss.insert([session], atIndex: 0)
+        
+        delegate.fetchedMeasurements(sessionss, sessionDates: sessionDates)
     }
 }
