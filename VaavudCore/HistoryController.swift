@@ -20,7 +20,6 @@ class HistoryController: NSObject {
     let firebaseSession = Firebase(url: firebaseUrl)
     var sessionss = [[Session]]()
     var sessionDates = [String]()
-    var count: UInt = 0
 
     init(delegate: HistoryDelegate) {
         self.delegate = delegate
@@ -33,8 +32,6 @@ class HistoryController: NSObject {
         let ref = firebaseSession.childByAppendingPath("session")
         
         ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeEventType(.ChildAdded, withBlock: { snapshot in
-            self.count++
-            
             guard snapshot.value["timeEnd"] is Double else {
                 return
             }
@@ -68,15 +65,8 @@ class HistoryController: NSObject {
         })
     }
     
-    func removeItem(key: String, sessionDeleted: Session,section: Int, row: Int) {
+    func removeItem(key: String, sessionDeleted: Session, section: Int, row: Int) {
         sessionss[section].removeAtIndex(row)
-        
-//        let ref = firebaseSession.childByAppendingPath("session")
-//        let deletedRef = firebaseSession.childByAppendingPath("sessionDeleted")
-//        
-//        ref.childByAppendingPath(key).removeValue()
-//        deletedRef.childByAppendingPath(key).setValue(sessionDeleted.fireDict)
-        
         firebaseSession.childByAppendingPaths("session", key).removeValue()
         firebaseSession.childByAppendingPaths("sessionDeleted", key).setValue(sessionDeleted.fireDict)
     }

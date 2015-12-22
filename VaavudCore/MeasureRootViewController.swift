@@ -12,6 +12,20 @@ import VaavudSDK
 import Mixpanel
 import Firebase
 
+//public class VaavudLegacySDK: NSObject {
+//    public static let shared = VaavudLegacySDK()
+//
+//    public var windSpeedCallback: (Double -> Void)?
+//    public var windDirectionCallback: (Double -> Void)?
+//
+//    private override init() {
+//        super.init()
+//
+//        VaavudSDK.shared.windSpeedCallback = { self.windSpeedCallback?($0.speed) }
+//        VaavudSDK.shared.windDirectionCallback = { self.windDirectionCallback?($0.direction) }
+//    }
+//}
+
 extension Firebase {
     func childByAppendingPaths(paths: String...) -> Firebase! {
         return paths.reduce(self) { f, p in f.childByAppendingPath(p) }

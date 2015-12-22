@@ -63,7 +63,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self hideVolumeHUD];
-    
+        
     //NSLog(@"[MapViewController] viewDidLoad");
     
     self.lastMeasurementsRead = [NSDate distantPast];
