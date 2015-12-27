@@ -10,6 +10,15 @@ import Foundation
 import Mixpanel
 import Firebase
 
+// fixme: move to common file
+func parseSnapshot(callback: [String : AnyObject] -> ()) -> FDataSnapshot! -> () {
+    return { snap in
+        if let dict = snap.value as? [String : AnyObject] {
+            callback(dict)
+        }
+    }
+}
+
 class CoreSettingsTableViewController: UITableViewController {
     let interactions = VaavudInteractions()
     
@@ -35,6 +44,7 @@ class CoreSettingsTableViewController: UITableViewController {
     private let logHelper = LogHelper(.Settings, counters: "scrolled")
     
     private let firebase = Firebase(url: firebaseUrl)
+    private var handles = [UInt]()
     
     override func viewDidLoad() {
         hideVolumeHUD()
@@ -43,46 +53,19 @@ class CoreSettingsTableViewController: UITableViewController {
         
         dropboxControl.on = DBSession.sharedSession().isLinked()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
+        let units = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
+        handles.append(units.observeEventType(.ChildChanged, withBlock: parseSnapshot(readUnits)))
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasLoggedInOut:", name: KEY_DID_LOGINOUT, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: KEY_IS_DROPBOXLINKED, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "modelChanged:", name: KEY_WINDMETERMODEL_CHANGED, object: nil)
-        
-        readUnits()
     }
     
-    func setupFirebase() {
-        firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared").observeEventType(.ChildChanged, withBlock: {
-            guard let shared = $0.value as? [String : AnyObject] else {
-                return
-            }
-            
-            if let speedUnitKey = shared["windspeedUnit"] as? String, speedUnit = WindSpeedUnit(key: speedUnitKey) {
-                
-            }
-            
-            
-            //
-//            if let speedUnit = Property.getAsInteger(KEY_WIND_SPEED_UNIT)?.integerValue {
-//                speedUnitControl.selectedSegmentIndex = speedUnit
-//            }
-//            if let directionUnit = Property.getAsInteger(KEY_DIRECTION_UNIT)?.integerValue {
-//                directionUnitControl.selectedSegmentIndex = directionUnit
-//            }
-//            if let pressureUnit = Property.getAsInteger(KEY_PRESSURE_UNIT)?.integerValue {
-//                pressureUnitControl.selectedSegmentIndex = pressureUnit
-//            }
-//            if let temperatureUnit = Property.getAsInteger(KEY_TEMPERATURE_UNIT)?.integerValue {
-//                temperatureUnitControl.selectedSegmentIndex = temperatureUnit
-//            }
-
-            
-            
-        })
+    deinit {
+        let _ = handles.map(firebase.removeObserverWithHandle)
     }
     
     @IBAction func logoutTapped(sender: UIBarButtonItem) {
-        
         interactions.showLocalAlert("REGISTER_BUTTON_LOGOUT",
             messageKey: "DIALOG_CONFIRM",
             cancelKey: "BUTTON_CANCEL",
@@ -116,11 +99,10 @@ class CoreSettingsTableViewController: UITableViewController {
         //refreshLogoutButton()
     }
     
-    func refreshLogoutButton() {
-        
-        let titleKey = AccountManager.sharedInstance().isLoggedIn() ? "REGISTER_BUTTON_LOGOUT" : "REGISTER_BUTTON_LOGIN"
-        logoutButton.title = NSLocalizedString(titleKey, comment: "")
-    }
+//    func refreshLogoutButton() {
+//        let titleKey = AccountManager.sharedInstance().isLoggedIn() ? "REGISTER_BUTTON_LOGOUT" : "REGISTER_BUTTON_LOGIN"
+//        logoutButton.title = NSLocalizedString(titleKey, comment: "")
+//    }
     
     func refreshWindmeterModel() {
         let usesSleipnir = Property.getAsBoolean(KEY_USES_SLEIPNIR, defaultValue: false)
@@ -142,70 +124,50 @@ class CoreSettingsTableViewController: UITableViewController {
         limitControl.selectedSegmentIndex = unlimited ? 1 : 0
     }
     
-    func unitsChanged(note: NSNotification) {
-        if note.object as? CoreSettingsTableViewController != self {
-            readUnits()
-        }
-    }
+//    func unitsChanged(note: NSNotification) {
+//        if note.object as? CoreSettingsTableViewController != self {
+//            readUnits()
+//        }
+//    }
     
     func dropboxLinkedStatus(note: NSNotification) {
         if let isDropboxLinked = note.object as? NSNumber.BooleanLiteralType {
             dropboxControl.on = isDropboxLinked
-            let value = isDropboxLinked ? "Linking succeeded" : "Linking failed"
-            if Property.isMixpanelEnabled() {
-                Mixpanel.sharedInstance().track("Dropbox", properties: ["Action" : value])
-            }
+//            let value = isDropboxLinked ? "Linking succeeded" : "Linking failed"
+//            if Property.isMixpanelEnabled() {
+//                Mixpanel.sharedInstance().track("Dropbox", properties: ["Action" : value])
+//            }
         }
     }
     
-    func postUnitChange(unitType: String) {
-        NSNotificationCenter.defaultCenter().postNotificationName(KEY_UNIT_CHANGED, object: self)
+    func logUnitChange(unitType: String) {
         LogHelper.log(event: "Changed-Unit", properties: ["place" : "settings", "type" : unitType])
+        logHelper.increase()
     }
     
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
+//    func postUnitChange(unitType: String) {
+//        NSNotificationCenter.defaultCenter().postNotificationName(KEY_UNIT_CHANGED, object: self)
+//        LogHelper.log(event: "Changed-Unit", properties: ["place" : "settings", "type" : unitType])
+//    }
     
-    func readUnits() {
-        if let speedUnit = Property.getAsInteger(KEY_WIND_SPEED_UNIT)?.integerValue {
-            speedUnitControl.selectedSegmentIndex = speedUnit
-        }
-        if let directionUnit = Property.getAsInteger(KEY_DIRECTION_UNIT)?.integerValue {
-            directionUnitControl.selectedSegmentIndex = directionUnit
-        }
-        if let pressureUnit = Property.getAsInteger(KEY_PRESSURE_UNIT)?.integerValue {
-            pressureUnitControl.selectedSegmentIndex = pressureUnit
-        }
-        if let temperatureUnit = Property.getAsInteger(KEY_TEMPERATURE_UNIT)?.integerValue {
-            temperatureUnitControl.selectedSegmentIndex = temperatureUnit
-        }
-    }
+//    deinit {
+//        NSNotificationCenter.defaultCenter().removeObserver(self)
+//    }
     
-    func logoutConfirmed() {
-        LogHelper.log(event: "Logged-Out", properties: ["place" : "settings"])
-        
-        AuthorizationController.shared.unauth()
-        
-        let storyboard = UIStoryboard(name: "Login", bundle: nil)
-        let controller = storyboard.instantiateViewControllerWithIdentifier("NavigationLogin")
-        //presentViewController(controller, animated: false, completion: nil)
-        
-        
-        if let view = tabBarController?.view {
-            let window = UIApplication.sharedApplication().windows[0] as UIWindow;
-            UIView.transitionFromView(
-                view ,
-                toView: controller.view,
-                duration: 0.20,
-                options: .TransitionCrossDissolve,
-                completion: {
-                    finished in window.rootViewController = controller
-            })
-        }
-        
-        
-    }
+//    func readUnits() {
+//        if let speedUnit = Property.getAsInteger(KEY_WIND_SPEED_UNIT)?.integerValue {
+//            speedUnitControl.selectedSegmentIndex = speedUnit
+//        }
+//        if let directionUnit = Property.getAsInteger(KEY_DIRECTION_UNIT)?.integerValue {
+//            directionUnitControl.selectedSegmentIndex = directionUnit
+//        }
+//        if let pressureUnit = Property.getAsInteger(KEY_PRESSURE_UNIT)?.integerValue {
+//            pressureUnitControl.selectedSegmentIndex = pressureUnit
+//        }
+//        if let temperatureUnit = Property.getAsInteger(KEY_TEMPERATURE_UNIT)?.integerValue {
+//            temperatureUnitControl.selectedSegmentIndex = temperatureUnit
+//        }
+//    }
     
 //    func registerUser() {
 //        let storyboard = UIStoryboard(name: "Register", bundle: nil)
@@ -225,6 +187,8 @@ class CoreSettingsTableViewController: UITableViewController {
 //        presentViewController(navController, animated: true, completion: nil)
 //    }
     
+    // MARK: User actions
+    
     @IBAction func changedLimitToggle(sender: UISegmentedControl) {
         Property.setAsBoolean(sender.selectedSegmentIndex == 1, forKey: KEY_MEASUREMENT_TIME_UNLIMITED)
         refreshTimeLimit()
@@ -232,27 +196,23 @@ class CoreSettingsTableViewController: UITableViewController {
     }
 
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {
-        Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_WIND_SPEED_UNIT)
-        postUnitChange("speed")
-        logHelper.increase()
+        writeUnit(SpeedUnit(index: sender.selectedSegmentIndex))
+        logUnitChange("speed")
     }
     
     @IBAction func changedDirectionUnit(sender: UISegmentedControl) {
-        Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_DIRECTION_UNIT)
-        postUnitChange("direction")
-        logHelper.increase()
+        writeUnit(DirectionUnit(index: sender.selectedSegmentIndex))
+        logUnitChange("direction")
     }
     
     @IBAction func changedPressureUnit(sender: UISegmentedControl) {
-        Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_PRESSURE_UNIT)
-        postUnitChange("pressure")
-        logHelper.increase()
+        writeUnit(PressureUnit(index: sender.selectedSegmentIndex))
+        logUnitChange("pressure")
     }
     
     @IBAction func changedTemperatureUnit(sender: UISegmentedControl) {
-        Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_TEMPERATURE_UNIT)
-        postUnitChange("temperature")
-        logHelper.increase()
+        writeUnit(TemperatureUnit(index: sender.selectedSegmentIndex))
+        logUnitChange("temperature")
     }
     
     @IBAction func changedMeterModel(sender: UISegmentedControl) {
@@ -303,6 +263,49 @@ class CoreSettingsTableViewController: UITableViewController {
             }
         }
         logHelper.increase()
+    }
+    
+    // MARK: Convenience
+    
+    func logoutConfirmed() {
+        LogHelper.log(event: "Logged-Out", properties: ["place" : "settings"])
+        
+        AuthorizationController.shared.unauth()
+        
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        let controller = storyboard.instantiateViewControllerWithIdentifier("NavigationLogin")
+        //presentViewController(controller, animated: false, completion: nil)
+        
+        if let view = tabBarController?.view {
+            UIView.transitionFromView(view, toView: controller.view, duration: 0.2, options: .TransitionCrossDissolve) {
+                _ in UIApplication.sharedApplication().windows[0].rootViewController = controller
+            }
+        }
+    }
+    
+    func readUnits(dict: [String : AnyObject]) {
+        if let key = dict[SpeedUnit.unitKey] as? String, unit = SpeedUnit(rawValue: key) {
+            speedUnitControl.selectedSegmentIndex = unit.index
+        }
+        
+        if let key = dict[DirectionUnit.unitKey] as? String, unit = DirectionUnit(rawValue: key) {
+            directionUnitControl.selectedSegmentIndex = unit.index
+        }
+        
+        if let key = dict[PressureUnit.unitKey] as? String, unit = PressureUnit(rawValue: key) {
+            pressureUnitControl.selectedSegmentIndex = unit.index
+        }
+        
+        if let key = dict[TemperatureUnit.unitKey] as? String, unit = TemperatureUnit(rawValue: key) {
+            temperatureUnitControl.selectedSegmentIndex = unit.index
+        }
+        
+        print("Read units \(dict)")
+    }
+    
+    func writeUnit<U: Unit>(unit: U) {
+        print("Write unit \(U.unitKey): \(unit.rawValue)")
+        firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared", U.unitKey).setValue(unit.rawValue)
     }
 }
 

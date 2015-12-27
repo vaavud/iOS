@@ -62,6 +62,22 @@ enum Interface {
     }
 }
 
+protocol Unit: Equatable {
+    init?(rawValue: String)
+    var rawValue: String { get }
+    static var allCases: [Self] { get }
+    static var unitKey: String { get }
+}
+
+extension Unit {
+    var localizedString: String { return NSLocalizedString(rawValue, comment: "") }
+    var next: Self { return Self.allCases.after(self) }
+    var index: Int { return Self.allCases.indexOf(self)! }
+    init(index: Int) {
+        self.init(rawValue: Self.allCases[index].rawValue)!
+    }
+}
+
 protocol FloatUnit: Unit {
     func fromBase(_: Float) -> Float
     var decimals: Int { get }
@@ -71,17 +87,6 @@ extension FloatUnit {
     func fromBase(cgValue: CGFloat) -> CGFloat {
         return CGFloat(fromBase(Float(cgValue)))
     }
-}
-
-protocol Unit: Equatable {
-    var rawValue: String { get }
-    var allCases: [Self] { get }
-}
-
-extension Unit {
-    var localizedString: String { return NSLocalizedString(rawValue, comment: "") }
-    var next: Self { return allCases.after(self) }
-    var index: Int { return allCases.indexOf(self)! }
 }
 
 extension Array where Element: Equatable {
@@ -119,13 +124,16 @@ enum TemperatureUnit: String, FloatUnit {
     case Celsius = "celsius"
     case Fahrenheit = "fahrenheit"
     
-    var allCases: [TemperatureUnit] { return [.Celsius, .Fahrenheit] }
+    // MARK: Unit protocol
+    static var unitKey: String { "temperatureUnit" }
+    static var allCases: [TemperatureUnit] { return [.Celsius, .Fahrenheit] }
+
+    // MARK: FloatUnit protocol
     var decimals: Int { return 1 }
-    
     func fromBase(kelvinValue: Float) -> Float { return kelvinValue*ratio + constant}
     
+    // MARK: Convenience
     private var ratio: Float { return [1, 9/5][index] }
-    
     private var constant: Float { return [-273.15, -459.67][index] }
 }
 
@@ -134,10 +142,15 @@ enum PressureUnit: String, FloatUnit {
     case Atm = "atm"
     case MmHg = "mmhg"
     
-    var allCases: [PressureUnit] { return [.Mbar, .Atm, .MmHg] }
+    // MARK: Unit protocol
+    static var unitKey: String { "pressureUnit" }
+    static var allCases: [PressureUnit] { return [.Mbar, .Atm, .MmHg] }
+
+    // MARK: FloatUnit protocol
     var decimals: Int { return [0, 3, 0][index] }
     func fromBase(mbarValue: Float) -> Float { return mbarValue*ratio }
     
+    // MARK: Convenience
     private var ratio: Float { return [1, 0.000986923267, 0.75006375541921][index] }
 }
 
@@ -145,8 +158,11 @@ enum DirectionUnit: String, Unit {
     case Cardinal = "cardinal"
     case Degrees = "degrees"
     
-    var allCases: [DirectionUnit] { return [.Cardinal, .Degrees] }
+    // MARK: Unit protocol
+    static var unitKey: String { "directionUnit" }
+    static var allCases: [DirectionUnit] { return [.Cardinal, .Degrees] }
 
+    // MARK: Static
     static func degreesToCardinal(degreesValue: Float) -> Int {
         return Int(round(16*degreesValue/360)) % 16
     }
@@ -159,21 +175,17 @@ enum SpeedUnit: String, FloatUnit {
     case Knots = "knots"
     case Bft = "beaufort"
     
-    var allCases: [SpeedUnit] { return [.Kmh, .Ms, .Mph, .Knots, .Bft ] }
+    // MARK: Unit protocol
+    static var unitKey: String { "speedUnit" }
+    static var allCases: [SpeedUnit] { return [.Kmh, .Ms, .Mph, .Knots, .Bft ] }
     
+    // MARK: FloatUnit protocol
     var decimals: Int { return [1, 1, 1, 1, 0][index] }
-    
     func fromBase(msValue: Float) -> Float {
-        if self == .Bft {
-            return SpeedUnit.msToBft(msValue)
-        }
-        else {
-            return msValue*ratio
-        }
+        return self == .Bft ? SpeedUnit.msToBft(msValue) : msValue*ratio
     }
-
-    func fromBase(msValue: CGFloat) -> CGFloat { return CGFloat(fromBase(Float(msValue))) }
     
+    // MARK: Convenience
     private var ratio: Float { return [3.6, 1, 3600/1609.344, 3600/1852.0, 0][index] }
     
     private static func msToBft(msValue: Float) -> Float {
@@ -190,17 +202,17 @@ enum SpeedUnit: String, FloatUnit {
 
 class VaavudFormatter: NSObject {
     static let shared = VaavudFormatter()
-    var windSpeedUnit: SpeedUnit = .Knots { didSet { writeWindSpeedUnit() } }
-    var directionUnit: DirectionUnit = .Cardinal { didSet { writeDirectionUnit() } }
-    var pressureUnit: PressureUnit = .Mbar { didSet { writePressureUnit() } }
-    var temperatureUnit: TemperatureUnit = .Celsius { didSet { writeTemperatureUnit() } }
+//    var windSpeedUnit: SpeedUnit = .Knots { didSet { writeWindSpeedUnit() } }
+//    var directionUnit: DirectionUnit = .Cardinal { didSet { writeDirectionUnit() } }
+//    var pressureUnit: PressureUnit = .Mbar { didSet { writePressureUnit() } }
+//    var temperatureUnit: TemperatureUnit = .Celsius { didSet { writeTemperatureUnit() } }
     
     private let dateFormatter = NSDateFormatter()
     private let shortDateFormat: String
     private let calendar = NSCalendar.currentCalendar()
     
-    private let firebase = Firebase(url: firebaseUrl)
-    private var handles = [UInt]()
+//    private let firebase = Firebase(url: firebaseUrl)
+//    private var handles = [UInt]()
     
     let missingValue = "-"
     
@@ -212,19 +224,19 @@ class VaavudFormatter: NSObject {
         
         super.init()
         
-        let handle = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared").observeEventType(.ChildChanged, withBlock: { snap in
-            guard let shared = snap.value as? [String : AnyObject] else {
-                return
-            }
-            
-            self.windSpeedUnit = (shared["windspeedUnit"] as? String).flatMap(SpeedUnit.init) ?? self.windSpeedUnit
-            self.directionUnit = (shared["directionUnit"] as? String).flatMap(DirectionUnit.init) ?? self.directionUnit
-            self.pressureUnit = (shared["pressureUnit"] as? String).flatMap(PressureUnit.init) ?? self.pressureUnit
-            self.temperatureUnit = (shared["temperatureUnit"] as? String).flatMap(TemperatureUnit.init) ?? self.temperatureUnit
-        })
+//        let handle = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared").observeEventType(.ChildChanged, withBlock: { snap in
+//            guard let shared = snap.value as? [String : AnyObject] else {
+//                return
+//            }
+//            
+//            self.windSpeedUnit = (shared["windspeedUnit"] as? String).flatMap(SpeedUnit.init) ?? self.windSpeedUnit
+//            self.directionUnit = (shared["directionUnit"] as? String).flatMap(DirectionUnit.init) ?? self.directionUnit
+//            self.pressureUnit = (shared["pressureUnit"] as? String).flatMap(PressureUnit.init) ?? self.pressureUnit
+//            self.temperatureUnit = (shared["temperatureUnit"] as? String).flatMap(TemperatureUnit.init) ?? self.temperatureUnit
+//        })
+//        
+//        handles.append(handle)
         
-        handles.append(handle)
-            
 //        readUnits()
 //        NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
     }
@@ -284,8 +296,17 @@ class VaavudFormatter: NSObject {
     static var localizedSouth: String { return NSLocalizedString(directionKey(8), comment: "") }
     static var localizedWest: String { return NSLocalizedString(directionKey(12), comment: "") }
     
-    func localizedDirection(degrees: Float) -> String {
-        switch directionUnit {
+//    func localizedDirection(degrees: Float) -> String {
+//        switch directionUnit {
+//        case .Cardinal:
+//            return VaavudFormatter.localizedCardinal(degrees)
+//        case .Degrees:
+//            return String(format: "%.0f°", degrees)
+//        }
+//    }
+    
+    func localizedDirection(degrees: Float, unit: DirectionUnit) -> String {
+        switch unit {
         case .Cardinal:
             return VaavudFormatter.localizedCardinal(degrees)
         case .Degrees:
