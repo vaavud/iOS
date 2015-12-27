@@ -343,9 +343,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             let locationDictDelta = ["lat" : loc.latitude, "lon" : loc.longitude]
             
             firebase
-                .childByAppendingPath("session")
-                .childByAppendingPath(sessionKey)
-                .childByAppendingPath("location")
+                .childByAppendingPaths("session", sessionKey, "location")
                 .updateChildValues(locationDictDelta)
             
             let latlong = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
@@ -367,10 +365,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
             
             self.firebase
-                .childByAppendingPath("session")
-                .childByAppendingPath(sessionKey)
-                .childByAppendingPath("location")
-                .childByAppendingPath("name")
+                .childByAppendingPaths("session", sessionKey, "location", "name")
                 .setValue(name)
             
             // fixme: summary may need to be updated
@@ -390,9 +385,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         ForecastLoader.shared.requestFullForecast(location.coordinate) { sourced in
             print(sourced.fireDict)
             self.firebase
-                .childByAppendingPath("session")
-                .childByAppendingPath(sessionKey)
-                .childByAppendingPath("sourced")
+                .childByAppendingPaths("session", sessionKey, "sourced")
                 .updateChildValues(sourced.fireDict)
         }
         
@@ -472,16 +465,13 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         if let sessionKey = sessionKey {
             firebase
-                .childByAppendingPath("wind")
-                .childByAppendingPath(sessionKey)
-                .childByAppendingPath(String(windSpeedsSaved))
+                .childByAppendingPaths("wind", sessionKey, String(windSpeedsSaved))
                 .setValue(latestWindSpeed.fireDict)
             
             windSpeedsSaved += 1
             
             let session = firebase
-                .childByAppendingPath("session")
-                .childByAppendingPath(sessionKey)
+                .childByAppendingPaths("session", sessionKey)
             
             session.childByAppendingPath("windMean").setValue(avgSpeed)
             session.childByAppendingPath("windMax").setValue(maxSpeed)
@@ -520,15 +510,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         finalDict["turbulence"] = 0.29
         
         firebase
-            .childByAppendingPath("session")
-            .childByAppendingPath(sessionKey)
+            .childByAppendingPaths("session", sessionKey)
             .updateChildValues(finalDict)
         
         
         let post = firebase
-            .childByAppendingPath("sessionComplete")
-            .childByAppendingPath("queue")
-            .childByAppendingPath("tasks")
+            .childByAppendingPaths("sessionComplete", "queue", "tasks")
             .childByAutoId()
         
         post.setValue(["sessionKey": sessionKey])

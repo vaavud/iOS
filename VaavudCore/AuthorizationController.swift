@@ -47,7 +47,7 @@ class AuthorizationController: NSObject {
         
         let preferences = NSUserDefaults.standardUserDefaults()
         
-        guard let deviceId = preferences.objectForKey("deviceId") as? String, authData = vaavudRootFirebase.authData  else {
+        guard let deviceId = preferences.objectForKey("deviceId") as? String, authData = vaavudRootFirebase.authData else {
             unauth()
             return false
         }

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 let π = CGFloat(M_PI)
 
@@ -63,88 +64,104 @@ enum Interface {
 
 protocol FloatUnit: Unit {
     func fromBase(_: Float) -> Float
-    func fromBase(_: CGFloat) -> CGFloat
     var decimals: Int { get }
 }
 
-protocol Unit {
-    var rawValue: Int { get }
+extension FloatUnit {
+    func fromBase(cgValue: CGFloat) -> CGFloat {
+        return CGFloat(fromBase(Float(cgValue)))
+    }
 }
 
-protocol Local {
-    var localKey: String { get }
+protocol Unit: Equatable {
+    var rawValue: String { get }
+    var allCases: [Self] { get }
 }
 
-extension Local {
-    var localizedString: String { return NSLocalizedString(localKey, comment: "") }
+extension Unit {
+    var localizedString: String { return NSLocalizedString(rawValue, comment: "") }
+    var next: Self { return allCases.after(self) }
+    var index: Int { return allCases.indexOf(self)! }
 }
 
-protocol LocalUnit: Unit {
-    var localKeys: [String] { get }
+extension Array where Element: Equatable {
+    func after(element: Element) -> Element {
+        return self[(indexOf(element)! + 1) % count]
+    }
 }
 
-extension LocalUnit {
-    var localizedString: String { return NSLocalizedString(localKeys[rawValue], comment: "") }
-}
+//protocol LocalUnit: Unit {
+//    var localKeys: [String] { get }
+//}
+//
+//extension LocalUnit {
+//    var localizedString: String { return NSLocalizedString(localKeys[rawValue], comment: "") }
+//}
 
-enum TemperatureUnit: Int, FloatUnit, LocalUnit {
-    case Celsius = 0
-    case Fahrenheit = 1
+//enum TemperatureUnit: Int, FloatUnit {
+//    case Celsius = 0
+//    case Fahrenheit = 1
+//    
+//    var next: TemperatureUnit { return TemperatureUnit(rawValue: (rawValue + 1) % 2)! }
+//    var decimals: Int { return 1 }
+//    
+//    func fromBase(kelvinValue: Float) -> Float { return kelvinValue*ratio + constant}
+//    func fromBase(kelvinValue: CGFloat) -> CGFloat { return CGFloat(fromBase(Float(kelvinValue))) }
+//    
+//    var keys: [String] { return ["UNIT_CELSIUS", "UNIT_FAHRENHEIT"] }
+//    
+//    private var ratio: Float { return [1, 9/5][rawValue] }
+//    
+//    private var constant: Float { return [-273.15, -459.67][rawValue] }
+//}
+
+enum TemperatureUnit: String, FloatUnit {
+    case Celsius = "celsius"
+    case Fahrenheit = "fahrenheit"
     
-    var next: TemperatureUnit { return TemperatureUnit(rawValue: (rawValue + 1) % 2)! }
+    var allCases: [TemperatureUnit] { return [.Celsius, .Fahrenheit] }
     var decimals: Int { return 1 }
     
     func fromBase(kelvinValue: Float) -> Float { return kelvinValue*ratio + constant}
-    func fromBase(kelvinValue: CGFloat) -> CGFloat { return CGFloat(fromBase(Float(kelvinValue))) }
     
-//    init?(key: String) {
-//
-//    }
+    private var ratio: Float { return [1, 9/5][index] }
     
-    var localKeys: [String] { return ["UNIT_CELSIUS", "UNIT_FAHRENHEIT"] }
-    
-    private var ratio: Float { return [1, 9/5][rawValue] }
-    
-    private var constant: Float { return [-273.15, -459.67][rawValue] }
+    private var constant: Float { return [-273.15, -459.67][index] }
 }
 
-enum PressureUnit: Int, FloatUnit, LocalUnit {
-    case Mbar = 0
-    case Atm = 1
-    case MmHg = 2
+enum PressureUnit: String, FloatUnit {
+    case Mbar = "mbar"
+    case Atm = "atm"
+    case MmHg = "mmhg"
     
-    var next: PressureUnit { return PressureUnit(rawValue: (rawValue + 1) % 3)! }
-    var decimals: Int { return [0, 3, 0][rawValue] }
+    var allCases: [PressureUnit] { return [.Mbar, .Atm, .MmHg] }
+    var decimals: Int { return [0, 3, 0][index] }
     func fromBase(mbarValue: Float) -> Float { return mbarValue*ratio }
-    func fromBase(mbarValue: CGFloat) -> CGFloat { return CGFloat(fromBase(Float(mbarValue))) }
     
-    private var ratio: Float { return [1, 0.000986923267, 0.75006375541921][rawValue] }
-    
-    var localKeys: [String] { return ["UNIT_MBAR", "UNIT_ATM", "UNIT_MMHG"] }
+    private var ratio: Float { return [1, 0.000986923267, 0.75006375541921][index] }
 }
 
-enum DirectionUnit: Int, Unit, LocalUnit {
-    case Cardinal = 0
-    case Degrees = 1
+enum DirectionUnit: String, Unit {
+    case Cardinal = "cardinal"
+    case Degrees = "degrees"
     
-    var next: DirectionUnit { return DirectionUnit(rawValue: (rawValue + 1) % 2)! }
-    
+    var allCases: [DirectionUnit] { return [.Cardinal, .Degrees] }
+
     static func degreesToCardinal(degreesValue: Float) -> Int {
         return Int(round(16*degreesValue/360)) % 16
     }
-    
-    var localKeys: [String] { return ["DIRECTION_CARDINAL", "DIRECTION_DEGREES"] }
 }
 
-enum SpeedUnit: Int, FloatUnit, LocalUnit {
-    case Kmh = 0
-    case Ms = 1
-    case Mph = 2
-    case Knots = 3
-    case Bft = 4
+enum SpeedUnit: String, FloatUnit {
+    case Kmh = "kmh"
+    case Ms = "ms"
+    case Mph = "mph"
+    case Knots = "knots"
+    case Bft = "beaufort"
     
-    var next: SpeedUnit { return SpeedUnit(rawValue: (rawValue + 1) % 5)! }
-    var decimals: Int { return [1, 1, 1, 1, 0][rawValue] }
+    var allCases: [SpeedUnit] { return [.Kmh, .Ms, .Mph, .Knots, .Bft ] }
+    
+    var decimals: Int { return [1, 1, 1, 1, 0][index] }
     
     func fromBase(msValue: Float) -> Float {
         if self == .Bft {
@@ -154,10 +171,10 @@ enum SpeedUnit: Int, FloatUnit, LocalUnit {
             return msValue*ratio
         }
     }
+
     func fromBase(msValue: CGFloat) -> CGFloat { return CGFloat(fromBase(Float(msValue))) }
     
-    var localKeys: [String] { return ["UNIT_KMH", "UNIT_MS", "UNIT_MPH", "UNIT_KN", "UNIT_BFT"] }
-    private var ratio: Float { return [3.6, 1, 3600/1609.344, 3600/1852.0, 0][rawValue] }
+    private var ratio: Float { return [3.6, 1, 3600/1609.344, 3600/1852.0, 0][index] }
     
     private static func msToBft(msValue: Float) -> Float {
         let bftLimits: [Float] = [0.3, 1.6, 3.5, 5.5, 8.0, 10.8, 13.9, 17.2, 20.8, 24.5, 28.5, 32.7]
@@ -182,6 +199,9 @@ class VaavudFormatter: NSObject {
     private let shortDateFormat: String
     private let calendar = NSCalendar.currentCalendar()
     
+    private let firebase = Firebase(url: firebaseUrl)
+    private var handles = [UInt]()
+    
     let missingValue = "-"
     
     //    let standardWindspeedUnits: [String : SpeedUnit] = ["US" : .Knots, "UM" : .Knots, "GB" : .Knots, "CA" : .Knots, "VG" : .Knots, "VI" : .Knots]
@@ -189,22 +209,35 @@ class VaavudFormatter: NSObject {
     private override init() {
         dateFormatter.locale = NSLocale.currentLocale()
         shortDateFormat = NSDateFormatter.dateFormatFromTemplate("MMMMd", options: 0, locale: dateFormatter.locale)!
-            
+        
         super.init()
         
-        readUnits()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
+        let handle = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared").observeEventType(.ChildChanged, withBlock: { snap in
+            guard let shared = snap.value as? [String : AnyObject] else {
+                return
+            }
+            
+            self.windSpeedUnit = (shared["windspeedUnit"] as? String).flatMap(SpeedUnit.init) ?? self.windSpeedUnit
+            self.directionUnit = (shared["directionUnit"] as? String).flatMap(DirectionUnit.init) ?? self.directionUnit
+            self.pressureUnit = (shared["pressureUnit"] as? String).flatMap(PressureUnit.init) ?? self.pressureUnit
+            self.temperatureUnit = (shared["temperatureUnit"] as? String).flatMap(TemperatureUnit.init) ?? self.temperatureUnit
+        })
+        
+        handles.append(handle)
+            
+//        readUnits()
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+//        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    func unitsChanged(note: NSNotification) {
-        if note.object as? VaavudFormatter != self {
-            readUnits()
-        }
-    }
+//    func unitsChanged(note: NSNotification) {
+//        if note.object as? VaavudFormatter != self {
+//            readUnits()
+//        }
+//    }
     
     // MARK - Public
     
@@ -428,13 +461,22 @@ class VaavudFormatter: NSObject {
         return localizedDecimalString(value!, decimals: decimals)
     }
 
-    private func localizedConvertedString(value: Float?, unit: FloatUnit, min: Float = 0, decimals: Int? = nil, digits: Int? = nil) -> String? {
+//    private func localizedConvertedString(value: Float?, unit: FloatUnit, min: Float = 0, decimals: Int? = nil, digits: Int? = nil) -> String? {
+//        if value == nil || value < min {
+//            return nil
+//        }
+//        
+//        return localizedDecimalString(unit.fromBase(value!), decimals: decimals ?? unit.decimals, digits: digits)
+//    }
+    
+    private func localizedConvertedString<U: FloatUnit>(value: Float?, unit: U, min: Float = 0, decimals: Int? = nil, digits: Int? = nil) -> String? {
         if value == nil || value < min {
             return nil
         }
         
         return localizedDecimalString(unit.fromBase(value!), decimals: decimals ?? unit.decimals, digits: digits)
     }
+
     
     private func localizedDecimalString(value: Float, decimals: Int, digits: Int? = nil) -> String {
         var actualDecimals = decimals

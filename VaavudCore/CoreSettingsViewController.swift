@@ -34,6 +34,8 @@ class CoreSettingsTableViewController: UITableViewController {
     
     private let logHelper = LogHelper(.Settings, counters: "scrolled")
     
+    private let firebase = Firebase(url: firebaseUrl)
+    
     override func viewDidLoad() {
         hideVolumeHUD()
         
@@ -48,6 +50,37 @@ class CoreSettingsTableViewController: UITableViewController {
         
         readUnits()
     }
+    
+    func setupFirebase() {
+        firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared").observeEventType(.ChildChanged, withBlock: {
+            guard let shared = $0.value as? [String : AnyObject] else {
+                return
+            }
+            
+            if let speedUnitKey = shared["windspeedUnit"] as? String, speedUnit = WindSpeedUnit(key: speedUnitKey) {
+                
+            }
+            
+            
+            //
+//            if let speedUnit = Property.getAsInteger(KEY_WIND_SPEED_UNIT)?.integerValue {
+//                speedUnitControl.selectedSegmentIndex = speedUnit
+//            }
+//            if let directionUnit = Property.getAsInteger(KEY_DIRECTION_UNIT)?.integerValue {
+//                directionUnitControl.selectedSegmentIndex = directionUnit
+//            }
+//            if let pressureUnit = Property.getAsInteger(KEY_PRESSURE_UNIT)?.integerValue {
+//                pressureUnitControl.selectedSegmentIndex = pressureUnit
+//            }
+//            if let temperatureUnit = Property.getAsInteger(KEY_TEMPERATURE_UNIT)?.integerValue {
+//                temperatureUnitControl.selectedSegmentIndex = temperatureUnit
+//            }
+
+            
+            
+        })
+    }
+    
     @IBAction func logoutTapped(sender: UIBarButtonItem) {
         
         interactions.showLocalAlert("REGISTER_BUTTON_LOGOUT",
