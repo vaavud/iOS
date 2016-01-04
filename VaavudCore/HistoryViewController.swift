@@ -184,7 +184,7 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         super.viewDidLoad()
         
         spinner.alpha = 0.4
-        spinner.center.x = tableView.contentSize.width/2
+        spinner.center = tableView.bounds.moveY(-64).center
         tableView.addSubview(spinner)
         spinner.show()
     }

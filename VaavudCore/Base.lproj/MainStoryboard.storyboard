@@ -1413,21 +1413,6 @@
                     <navigationItem key="navigationItem" id="0yT-ND-9nv"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Iy-mw-zb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="O7H-0o-ba5">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <subviews>
-                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="qeL-Ei-Qp7">
-                            <rect key="frame" x="142" y="266" width="37" height="37"/>
-                            <color key="color" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
-                        </activityIndicatorView>
-                    </subviews>
-                    <color key="backgroundColor" red="0.81960784310000001" green="0.1647058824" blue="0.1843137255" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="centerY" secondItem="qeL-Ei-Qp7" secondAttribute="centerY" id="19a-IF-Ggr"/>
-                        <constraint firstAttribute="centerX" secondItem="qeL-Ei-Qp7" secondAttribute="centerX" id="Go5-jO-qPf"/>
-                    </constraints>
-                </view>
             </objects>
             <point key="canvasLocation" x="-1570" y="1507.5"/>
         </scene>

@@ -238,7 +238,7 @@ class VaavudFormatter: NSObject {
         firebase.removeObserverWithHandle(handle)
     }
     
-    // MARK - Public
+    // MARK - Public: Callback handling
     
     func observeUnitChange(callback: Callback) -> String {
         let uid = NSUUID().UUIDString
@@ -249,6 +249,8 @@ class VaavudFormatter: NSObject {
     func stopObserving(uid: String) -> Bool {
         return callbacks.removeValueForKey(uid) != nil
     }
+
+    // MARK - Public
 
     func hourValue(date: NSDate) -> Int {
         return calendar.components(.Hour, fromDate: date).hour

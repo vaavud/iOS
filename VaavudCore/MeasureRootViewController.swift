@@ -143,9 +143,11 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             VaavudSDK.shared.locationCallback = newLocation
             VaavudSDK.shared.velocityCallback = newVelocity
 
+            let flipped = false // fixme: read
+            
             // fixme: handle
             do {
-                try VaavudSDK.shared.start()
+                try VaavudSDK.shared.start(flipped)
             }
             catch {
                 dismissViewControllerAnimated(true) {
