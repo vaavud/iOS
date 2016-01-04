@@ -44,7 +44,7 @@
 		229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3171A7EE3A0008A3226 /* VaavudViews.swift */; };
 		22AB2E6D1A70FC15008CAE46 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */; };
 		22AB2E6E1A70FC15008CAE46 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */; };
-		22AB2E701A70FD92008CAE46 /* CoreSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */; };
+		22AB2E701A70FD92008CAE46 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB2E6F1A70FD92008CAE46 /* SummaryViewController.swift */; };
 		22AC73F61B3D93CC008631E8 /* OldMeasureScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AC73F51B3D93CC008631E8 /* OldMeasureScreen.swift */; };
 		22ADAA941A9C911400C298E6 /* EmptyHistoryArrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22ADAA931A9C911400C298E6 /* EmptyHistoryArrow.swift */; };
 		22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22B408B61A8A0E2E0062A2DD /* Extensions.swift */; };
@@ -341,7 +341,7 @@
 		22AA5EF61AB0881100170341 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MeasurementCalloutView.xib; sourceTree = "<group>"; };
 		22AB2E6A1A70FC15008CAE46 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		22AB2E6B1A70FC15008CAE46 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
-		22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSummaryViewController.swift; sourceTree = "<group>"; };
+		22AB2E6F1A70FD92008CAE46 /* SummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		22AC73F51B3D93CC008631E8 /* OldMeasureScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OldMeasureScreen.swift; sourceTree = "<group>"; };
 		22ADAA931A9C911400C298E6 /* EmptyHistoryArrow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyHistoryArrow.swift; sourceTree = "<group>"; };
 		22B408B61A8A0E2E0062A2DD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -771,7 +771,7 @@
 			children = (
 				229FF3171A7EE3A0008A3226 /* VaavudViews.swift */,
 				22EAE5D81AB1EBEA0037654E /* UpgradingUserPagesView.xib */,
-				22AB2E6F1A70FD92008CAE46 /* CoreSummaryViewController.swift */,
+				22AB2E6F1A70FD92008CAE46 /* SummaryViewController.swift */,
 				E90709411940AFAC0087F80F /* Components */,
 				E9B950DE195C584200E9EF02 /* FirstTime */,
 				E91E490F19AB5FA600616887 /* History */,
@@ -1386,7 +1386,7 @@
 				E93C866F1781D69A005E4212 /* MeasurementSession+Util.m in Sources */,
 				E93C86721781D727005E4212 /* MeasurementPoint+Util.m in Sources */,
 				E93338F7178C561B006E2314 /* ModelManager.m in Sources */,
-				22AB2E701A70FD92008CAE46 /* CoreSummaryViewController.swift in Sources */,
+				22AB2E701A70FD92008CAE46 /* SummaryViewController.swift in Sources */,
 				2BB813141C1874FE00D70E10 /* HistoryController.swift in Sources */,
 				E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */,
 				E9A4097A18994000004F1C12 /* TMMemoryCache.m in Sources */,

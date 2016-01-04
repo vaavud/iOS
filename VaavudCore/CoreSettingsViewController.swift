@@ -46,6 +46,8 @@ class CoreSettingsTableViewController: UITableViewController {
     private let firebase = Firebase(url: firebaseUrl)
     private var handles = [UInt]()
     
+    private var formatterHandle: String!
+    
     override func viewDidLoad() {
         hideVolumeHUD()
         
@@ -53,8 +55,8 @@ class CoreSettingsTableViewController: UITableViewController {
         
         dropboxControl.on = DBSession.sharedSession().isLinked()
         
-        let units = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
-        handles.append(units.observeEventType(.ChildChanged, withBlock: parseSnapshot(readUnits)))
+//        let sharedSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
+////        handles.append(units.observeEventType(.ChildChanged, withBlock: parseSnapshot(readUnits)))
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasLoggedInOut:", name: KEY_DID_LOGINOUT, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: KEY_IS_DROPBOXLINKED, object: nil)
@@ -77,6 +79,12 @@ class CoreSettingsTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         //refreshLogoutButton()
+        
+        //        let sharedSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
+        //        handles.append(sharedSettings.observeEventType(.ChildChanged, withBlock: parseSnapshot(readUnits)))
+        
+        formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
+        
         refreshWindmeterModel()
         refreshTimeLimit()
     }
@@ -88,6 +96,7 @@ class CoreSettingsTableViewController: UITableViewController {
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
+        VaavudFormatter.shared.stopObserving(formatterHandle)
         logHelper.ended()
     }
     
@@ -103,6 +112,14 @@ class CoreSettingsTableViewController: UITableViewController {
 //        let titleKey = AccountManager.sharedInstance().isLoggedIn() ? "REGISTER_BUTTON_LOGOUT" : "REGISTER_BUTTON_LOGIN"
 //        logoutButton.title = NSLocalizedString(titleKey, comment: "")
 //    }
+    
+    func refreshUnits() {
+        print("Settings: Refresh units")
+        speedUnitControl.selectedSegmentIndex = VaavudFormatter.shared.speedUnit.index
+        directionUnitControl.selectedSegmentIndex = VaavudFormatter.shared.directionUnit.index
+        temperatureUnitControl.selectedSegmentIndex = VaavudFormatter.shared.temperatureUnit.index
+        pressureUnitControl.selectedSegmentIndex = VaavudFormatter.shared.pressureUnit.index
+    }
     
     func refreshWindmeterModel() {
         let usesSleipnir = Property.getAsBoolean(KEY_USES_SLEIPNIR, defaultValue: false)
@@ -196,22 +213,22 @@ class CoreSettingsTableViewController: UITableViewController {
     }
 
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {
-        writeUnit(SpeedUnit(index: sender.selectedSegmentIndex))
+        VaavudFormatter.shared.speedUnit = SpeedUnit(index: sender.selectedSegmentIndex)
         logUnitChange("speed")
     }
     
     @IBAction func changedDirectionUnit(sender: UISegmentedControl) {
-        writeUnit(DirectionUnit(index: sender.selectedSegmentIndex))
+        VaavudFormatter.shared.directionUnit = DirectionUnit(index: sender.selectedSegmentIndex)
         logUnitChange("direction")
     }
     
     @IBAction func changedPressureUnit(sender: UISegmentedControl) {
-        writeUnit(PressureUnit(index: sender.selectedSegmentIndex))
+        VaavudFormatter.shared.pressureUnit = PressureUnit(index: sender.selectedSegmentIndex)
         logUnitChange("pressure")
     }
     
     @IBAction func changedTemperatureUnit(sender: UISegmentedControl) {
-        writeUnit(TemperatureUnit(index: sender.selectedSegmentIndex))
+        VaavudFormatter.shared.temperatureUnit = TemperatureUnit(index: sender.selectedSegmentIndex)
         logUnitChange("temperature")
     }
     
@@ -281,31 +298,6 @@ class CoreSettingsTableViewController: UITableViewController {
                 _ in UIApplication.sharedApplication().windows[0].rootViewController = controller
             }
         }
-    }
-    
-    func readUnits(dict: [String : AnyObject]) {
-        if let key = dict[SpeedUnit.unitKey] as? String, unit = SpeedUnit(rawValue: key) {
-            speedUnitControl.selectedSegmentIndex = unit.index
-        }
-        
-        if let key = dict[DirectionUnit.unitKey] as? String, unit = DirectionUnit(rawValue: key) {
-            directionUnitControl.selectedSegmentIndex = unit.index
-        }
-        
-        if let key = dict[PressureUnit.unitKey] as? String, unit = PressureUnit(rawValue: key) {
-            pressureUnitControl.selectedSegmentIndex = unit.index
-        }
-        
-        if let key = dict[TemperatureUnit.unitKey] as? String, unit = TemperatureUnit(rawValue: key) {
-            temperatureUnitControl.selectedSegmentIndex = unit.index
-        }
-        
-        print("Read units \(dict)")
-    }
-    
-    func writeUnit<U: Unit>(unit: U) {
-        print("Write unit \(U.unitKey): \(unit.rawValue)")
-        firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared", U.unitKey).setValue(unit.rawValue)
     }
 }
 

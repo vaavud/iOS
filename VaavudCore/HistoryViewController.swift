@@ -220,8 +220,8 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
             cell.directionArrow.hidden = true
         }
         
-        cell.speedUnit.text = VaavudFormatter.shared.windSpeedUnit.localizedString
-        cell.speed.text = VaavudFormatter.shared.localizedWindspeed(session.windMean)
+        cell.speedUnit.text = VaavudFormatter.shared.speedUnit.localizedString
+        cell.speed.text = session.windMean.map(VaavudFormatter.shared.localizedSpeed)
         
         if let loc = session.location, name = loc.name {
             cell.location.text = name
@@ -264,7 +264,7 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         
         let selectedSession = controller.sessionss[indexPath.section][indexPath.row]
         
-        if let summary = storyboard?.instantiateViewControllerWithIdentifier("SummaryViewController") as? CoreSummaryViewController,
+        if let summary = storyboard?.instantiateViewControllerWithIdentifier("SummaryViewController") as? SummaryViewController,
             navigationController = navigationController {
                 summary.session = selectedSession
                 summary.isHistorySummary = true

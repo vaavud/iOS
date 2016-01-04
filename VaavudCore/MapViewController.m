@@ -133,15 +133,15 @@
     self.view.autoresizesSubviews = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-//    if ([self isDanish]) {
-//        [self addLongPress];
-//    }
+    if ([self isDanish]) {
+        [self addLongPress];
+    }
 }
 
 - (BOOL)isDanish {
-//    return [[[[NSLocale preferredLanguages] firstObject] substringToIndex:2] isEqualToString:@"da"];
+//    return [[[[NSLocale preferredLanguages] firstObject] substringToIndex:2] isEqualToString:@"da"]; // Fixme
     
-    return YES;
+    return NO;
 }
 
 - (void)appDidBecomeActive:(NSNotification *)notification {
@@ -289,9 +289,9 @@
 }
 
 - (void)addLongPress {
-//    [self.mapView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)]];
-//    [self.logHelper log:@"Can-Add-Forecast-Pin" properties:@{}];
-//    [LogHelper increaseUserProperty:@"Use-Forecast-Count"];
+    [self.mapView addGestureRecognizer:[[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressed:)]];
+    [self.logHelper log:@"Can-Add-Forecast-Pin" properties:@{}];
+    [LogHelper increaseUserProperty:@"Use-Forecast-Count"];
 }
 
 - (void)longPressed:(UIGestureRecognizer *)gestureRecognizer {

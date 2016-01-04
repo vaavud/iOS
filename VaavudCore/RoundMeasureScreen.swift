@@ -87,7 +87,7 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     func changedSpeedUnit(unit: SpeedUnit) {
         newSpeed(latestSpeed)
         
-        if VaavudFormatter.shared.windSpeedUnit == .Bft {
+        if VaavudFormatter.shared.speedUnit == .Bft {
             animateLogScale(0)
         }
     }
@@ -103,7 +103,7 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     }
     
     var scaledSpeed: CGFloat {
-        return VaavudFormatter.shared.windSpeedUnit.fromBase(latestSpeed)
+        return VaavudFormatter.shared.speedUnit.fromBase(latestSpeed)
     }
     
     func toggleVariant() {}
@@ -123,7 +123,7 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
         
         let inside = ruler.insideFactor
         
-        if !animatingScale && VaavudFormatter.shared.windSpeedUnit != .Bft {
+        if !animatingScale && VaavudFormatter.shared.speedUnit != .Bft {
             if inside > 0.95 {
                 animateLogScale(logScale + 1)
             }
@@ -162,7 +162,7 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     
     func newSpeed(speed: CGFloat) {
         latestSpeed = speed
-        speedLabel.text = VaavudFormatter.shared.localizedWindspeed(Float(speed), digits: 3)
+        speedLabel.text = VaavudFormatter.shared.localizedSpeed(Float(speed), digits: 3)
     }
     
     func newHeading(heading: CGFloat) {
@@ -351,7 +351,7 @@ class RoundRuler : UIView {
             cardinalPositions.append(Polar(r: r, phi: phi))
             
             let label = UILabel()
-            label.text = VaavudFormatter.localizedCardinalFromDirection(mod(cardinal, cardinalDirections))
+//            label.text = VaavudFormatter.localizedCardinalFromDirection(mod(cardinal, cardinalDirections)) // Fixme
             label.font = cardinal % 4 == 0 ? font : smallFont
             label.textColor = colorForCardinal(cardinal)
             label.sizeToFit()

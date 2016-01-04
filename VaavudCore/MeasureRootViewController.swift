@@ -220,7 +220,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         displayLink = CADisplayLink(target: self, selector: Selector("tick:"))
         displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
         
-        unitButton.setTitle(VaavudFormatter.shared.windSpeedUnit.localizedString, forState: .Normal)
+        // fixme
+//        unitButton.setTitle(VaavudFormatter.shared.windSpeedUnit.localizedString, forState: .Normal)
         
         if Property.isMixpanelEnabled() {
             Mixpanel.sharedInstance().track("Measure Screen")
@@ -246,9 +247,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
 
     @IBAction func tappedUnit(sender: UIButton) {
-        VaavudFormatter.shared.windSpeedUnit = VaavudFormatter.shared.windSpeedUnit.next
-        unitButton.setTitle(VaavudFormatter.shared.windSpeedUnit.localizedString, forState: .Normal)
-        currentConsumer?.changedSpeedUnit(VaavudFormatter.shared.windSpeedUnit)
+        // fixme
+//        VaavudFormatter.shared.windSpeedUnit = VaavudFormatter.shared.windSpeedUnit.next
+//        unitButton.setTitle(VaavudFormatter.shared.windSpeedUnit.localizedString, forState: .Normal)
+//        currentConsumer?.changedSpeedUnit(VaavudFormatter.shared.windSpeedUnit)
         postUnitChange("speed")
     }
     
@@ -597,7 +599,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 //                }
 //            }
 //            
-//            let summary = storyboard!.instantiateViewControllerWithIdentifier("SummaryViewController") as! CoreSummaryViewController
+//            let summary = storyboard!.instantiateViewControllerWithIdentifier("SummaryViewController") as! SummaryViewController
 //            //summary.session = session
 //            
 //            pageController.dataSource = nil
@@ -718,7 +720,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     func changeConsumer(mc: MeasurementConsumer) {
         mc.newSpeed(CGFloat(latestWindSpeed.speed))
-        mc.changedSpeedUnit(VaavudFormatter.shared.windSpeedUnit)
+//        mc.changedSpeedUnit(VaavudFormatter.shared.windSpeedUnit) // fixme
         if isSleipnirSession, let wd = latestWindDirection?.direction, h = latestHeading?.heading {
             mc.newWindDirection(CGFloat(wd))
             mc.newHeading(CGFloat(h))

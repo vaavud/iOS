@@ -95,42 +95,17 @@ extension Array where Element: Equatable {
     }
 }
 
-//protocol LocalUnit: Unit {
-//    var localKeys: [String] { get }
-//}
-//
-//extension LocalUnit {
-//    var localizedString: String { return NSLocalizedString(localKeys[rawValue], comment: "") }
-//}
-
-//enum TemperatureUnit: Int, FloatUnit {
-//    case Celsius = 0
-//    case Fahrenheit = 1
-//    
-//    var next: TemperatureUnit { return TemperatureUnit(rawValue: (rawValue + 1) % 2)! }
-//    var decimals: Int { return 1 }
-//    
-//    func fromBase(kelvinValue: Float) -> Float { return kelvinValue*ratio + constant}
-//    func fromBase(kelvinValue: CGFloat) -> CGFloat { return CGFloat(fromBase(Float(kelvinValue))) }
-//    
-//    var keys: [String] { return ["UNIT_CELSIUS", "UNIT_FAHRENHEIT"] }
-//    
-//    private var ratio: Float { return [1, 9/5][rawValue] }
-//    
-//    private var constant: Float { return [-273.15, -459.67][rawValue] }
-//}
-
 enum TemperatureUnit: String, FloatUnit {
     case Celsius = "celsius"
     case Fahrenheit = "fahrenheit"
     
     // MARK: Unit protocol
-    static var unitKey: String { "temperatureUnit" }
+    static var unitKey: String { return "temperatureUnit" }
     static var allCases: [TemperatureUnit] { return [.Celsius, .Fahrenheit] }
 
     // MARK: FloatUnit protocol
     var decimals: Int { return 1 }
-    func fromBase(kelvinValue: Float) -> Float { return kelvinValue*ratio + constant}
+    func fromBase(kelvinValue: Float) -> Float { return kelvinValue*ratio + constant }
     
     // MARK: Convenience
     private var ratio: Float { return [1, 9/5][index] }
@@ -143,7 +118,7 @@ enum PressureUnit: String, FloatUnit {
     case MmHg = "mmhg"
     
     // MARK: Unit protocol
-    static var unitKey: String { "pressureUnit" }
+    static var unitKey: String { return "pressureUnit" }
     static var allCases: [PressureUnit] { return [.Mbar, .Atm, .MmHg] }
 
     // MARK: FloatUnit protocol
@@ -159,7 +134,7 @@ enum DirectionUnit: String, Unit {
     case Degrees = "degrees"
     
     // MARK: Unit protocol
-    static var unitKey: String { "directionUnit" }
+    static var unitKey: String { return "directionUnit" }
     static var allCases: [DirectionUnit] { return [.Cardinal, .Degrees] }
 
     // MARK: Static
@@ -176,8 +151,8 @@ enum SpeedUnit: String, FloatUnit {
     case Bft = "beaufort"
     
     // MARK: Unit protocol
-    static var unitKey: String { "speedUnit" }
-    static var allCases: [SpeedUnit] { return [.Kmh, .Ms, .Mph, .Knots, .Bft ] }
+    static var unitKey: String { return "speedUnit" }
+    static var allCases: [SpeedUnit] { return [.Kmh, .Ms, .Mph, .Knots, .Bft] }
     
     // MARK: FloatUnit protocol
     var decimals: Int { return [1, 1, 1, 1, 0][index] }
@@ -200,21 +175,29 @@ enum SpeedUnit: String, FloatUnit {
     }
 }
 
+typealias Callback = () -> ()
+
 class VaavudFormatter: NSObject {
     static let shared = VaavudFormatter()
-//    var windSpeedUnit: SpeedUnit = .Knots { didSet { writeWindSpeedUnit() } }
-//    var directionUnit: DirectionUnit = .Cardinal { didSet { writeDirectionUnit() } }
-//    var pressureUnit: PressureUnit = .Mbar { didSet { writePressureUnit() } }
-//    var temperatureUnit: TemperatureUnit = .Celsius { didSet { writeTemperatureUnit() } }
+    
+    private var _speedUnit: SpeedUnit = .Knots
+    private var _directionUnit: DirectionUnit = .Cardinal
+    private var _pressureUnit: PressureUnit = .Mbar
+    private var _temperatureUnit: TemperatureUnit = .Celsius
+
+    var speedUnit: SpeedUnit { set { writeUnit(newValue, old: speedUnit) } get { return _speedUnit } }
+    var directionUnit: DirectionUnit { set { writeUnit(newValue, old: directionUnit) } get { return _directionUnit } }
+    var pressureUnit: PressureUnit { set { writeUnit(newValue, old: pressureUnit) } get { return _pressureUnit } }
+    var temperatureUnit: TemperatureUnit { set { writeUnit(newValue, old: temperatureUnit) } get { return _temperatureUnit } }
+    
+    private var callbacks = [String : Callback]()
     
     private let dateFormatter = NSDateFormatter()
     private let shortDateFormat: String
     private let calendar = NSCalendar.currentCalendar()
     
-//    private let firebase = Firebase(url: firebaseUrl)
-//    private var handles = [UInt]()
-    
-    let missingValue = "-"
+    private let firebase = Firebase(url: firebaseUrl)
+    private var handle: UInt!
     
     //    let standardWindspeedUnits: [String : SpeedUnit] = ["US" : .Knots, "UM" : .Knots, "GB" : .Knots, "CA" : .Knots, "VG" : .Knots, "VI" : .Knots]
     
@@ -224,35 +207,49 @@ class VaavudFormatter: NSObject {
         
         super.init()
         
-//        let handle = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared").observeEventType(.ChildChanged, withBlock: { snap in
-//            guard let shared = snap.value as? [String : AnyObject] else {
-//                return
-//            }
-//            
-//            self.windSpeedUnit = (shared["windspeedUnit"] as? String).flatMap(SpeedUnit.init) ?? self.windSpeedUnit
-//            self.directionUnit = (shared["directionUnit"] as? String).flatMap(DirectionUnit.init) ?? self.directionUnit
-//            self.pressureUnit = (shared["pressureUnit"] as? String).flatMap(PressureUnit.init) ?? self.pressureUnit
-//            self.temperatureUnit = (shared["temperatureUnit"] as? String).flatMap(TemperatureUnit.init) ?? self.temperatureUnit
-//        })
-//        
-//        handles.append(handle)
+        handle = firebase
+            .childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
+            .observeEventType(.ChildChanged, withBlock: parseSnapshot(updateUnits))
+    }
+    
+    private func updateUnits(dict: [String : AnyObject]) {
+        if let key = dict[SpeedUnit.unitKey] as? String, unit = SpeedUnit(rawValue: key) {
+            _speedUnit = unit
+        }
         
-//        readUnits()
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
+        if let key = dict[DirectionUnit.unitKey] as? String, unit = DirectionUnit(rawValue: key) {
+            _directionUnit = unit
+        }
+        
+        if let key = dict[PressureUnit.unitKey] as? String, unit = PressureUnit(rawValue: key) {
+            _pressureUnit = unit
+        }
+        
+        if let key = dict[TemperatureUnit.unitKey] as? String, unit = TemperatureUnit(rawValue: key) {
+            _temperatureUnit = unit
+        }
+        
+        print("Formatter updateUnits units \(dict)")
+        
+        for callback in callbacks.values { callback() }
     }
     
     deinit {
-//        NSNotificationCenter.defaultCenter().removeObserver(self)
+        firebase.removeObserverWithHandle(handle)
     }
-    
-//    func unitsChanged(note: NSNotification) {
-//        if note.object as? VaavudFormatter != self {
-//            readUnits()
-//        }
-//    }
     
     // MARK - Public
     
+    func observeUnitChange(callback: Callback) -> String {
+        let uid = NSUUID().UUIDString
+        callbacks[uid] = callback
+        return uid
+    }
+    
+    func stopObserving(uid: String) -> Bool {
+        return callbacks.removeValueForKey(uid) != nil
+    }
+
     func hourValue(date: NSDate) -> Int {
         return calendar.components(.Hour, fromDate: date).hour
     }
@@ -289,24 +286,29 @@ class VaavudFormatter: NSObject {
         return nil
     }
     
+    // Formatted
+
+    func formattedSpeed(msSpeed: Float, decimals: Int = 0) -> String {
+        return localizedDecimalString(msSpeed, decimals: decimals) + " " + speedUnit.localizedString
+    }
+    
+    func formattedGustiness(gustiness: Float?) -> String? {
+        if let gustiness = gustiness where gustiness > 0.001 {
+            return String(format: "%.0f", 100*gustiness)
+        }
+        
+        return nil
+    }
+
     // Direction
     
-    static var localizedNorth: String { return NSLocalizedString(directionKey(0), comment: "") }
-    static var localizedEast: String { return NSLocalizedString(directionKey(4), comment: "") }
-    static var localizedSouth: String { return NSLocalizedString(directionKey(8), comment: "") }
-    static var localizedWest: String { return NSLocalizedString(directionKey(12), comment: "") }
+//    static var localizedNorth: String { return NSLocalizedString(directionKey(0), comment: "") }
+//    static var localizedEast: String { return NSLocalizedString(directionKey(4), comment: "") }
+//    static var localizedSouth: String { return NSLocalizedString(directionKey(8), comment: "") }
+//    static var localizedWest: String { return NSLocalizedString(directionKey(12), comment: "") }
     
-//    func localizedDirection(degrees: Float) -> String {
-//        switch directionUnit {
-//        case .Cardinal:
-//            return VaavudFormatter.localizedCardinal(degrees)
-//        case .Degrees:
-//            return String(format: "%.0f°", degrees)
-//        }
-//    }
-    
-    func localizedDirection(degrees: Float, unit: DirectionUnit) -> String {
-        switch unit {
+    func localizedDirection(degrees: Float) -> String {
+        switch directionUnit {
         case .Cardinal:
             return VaavudFormatter.localizedCardinal(degrees)
         case .Degrees:
@@ -319,148 +321,48 @@ class VaavudFormatter: NSObject {
         return NSLocalizedString(directionKey(cardinalDirection), comment: "")
     }
     
-    static func localizedCardinalFromDirection(direction: Int) -> String {
-        return NSLocalizedString(directionKey(direction), comment: "")
+//    static func localizedCardinalFromDirection(direction: Int) -> String {
+//        return NSLocalizedString(directionKey(direction), comment: "")
+//    }
+    
+    func localizedSpeed(msSpeed: Float) -> String {
+        return localizedConvertedString(msSpeed, unit: speedUnit, digits: nil)
     }
     
-    // Speed
-    
-    func updateAverageWindspeedLabels(windMean: Float, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
-        if let string = localizedWindspeed(windMean) {
-            unitLabel.text = windSpeedUnit.localizedString
-            valueLabel.text = string
-            return true
-        }
-        
-        return failure(valueLabel: valueLabel, unitLabel: unitLabel)
-    }
-
-    func updateMaxWindspeedLabels(sessionWindSpeed: Float, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
-        if let string = localizedWindspeed(sessionWindSpeed) {
-            unitLabel.text = windSpeedUnit.localizedString
-            valueLabel.text = string
-            return true
-        }
-        
-        return failure(valueLabel: valueLabel, unitLabel: unitLabel)
+    func localizedSpeed(msSpeed: Float, digits: Int) -> String {
+        return localizedConvertedString(msSpeed, unit: speedUnit, digits: digits)
     }
     
-    func formattedWindspeedWithUnit(msSpeed: Float) -> String? {
-        return localizedDecimalString(msSpeed, decimals: 0) + " " + windSpeedUnit.localizedString
-    }
-
-    func localizedWindspeed(msSpeed: Float?, digits: Int? = nil) -> String? {
-        return localizedConvertedString(msSpeed, unit: windSpeedUnit, digits: digits)
-    }
-    
-    // Pressure
-    
-    func updatePressureLabels(session: MeasurementSession, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
-        let value = session.pressure?.floatValue ?? session.sourcedPressureGroundLevel?.floatValue
-        
-        if let string = localizedPressure(value) {
-            unitLabel.text = pressureUnit.localizedString
-            valueLabel.text = string
-            return true
-        }
-        
-        return failure(valueLabel: valueLabel, unitLabel: unitLabel)
-    }
-
-    func localizedPressure(mbarPressure: Float?) -> String? {
+    func localizedPressure(mbarPressure: Float) -> String {
         return localizedConvertedString(mbarPressure, unit: pressureUnit)
     }
     
-    // Temperature
-    
-    func updateTemperatureLabels(session: MeasurementSession, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
-        let value = session.temperature?.floatValue ?? session.sourcedTemperature?.floatValue
-        
-        if let string = localizedTemperature(value) {
-            unitLabel.text = temperatureUnit.localizedString
-            valueLabel.text = string
-            return true
-        }
-        
-        return failure(valueLabel: valueLabel, unitLabel: unitLabel)
-    }
-
-    func localizedTemperature(kelvinTemperature: Float?, digits: Int? = nil) -> String? {
-        return localizedConvertedString(kelvinTemperature, unit: temperatureUnit, digits: digits)
+    func localizedTemperature(kelvin: Float, digits: Int? = nil) -> String {
+        return localizedConvertedString(kelvin, unit: temperatureUnit, digits: digits)
     }
     
-    // Windchill
-
-    func updateWindchillLabels(session: MeasurementSession, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
-        let value = session.windChill?.floatValue
-        
-        if let string = localizedWindchill(value) {
-            unitLabel.text = temperatureUnit.localizedString
-            valueLabel.text = string
-            return true
-        }
-        
-        return failure(valueLabel: valueLabel, unitLabel: unitLabel)
+    func localizedWindchill(kelvin: Float) -> String {
+        return localizedConvertedString(kelvin, unit: temperatureUnit, decimals: 0)
     }
-
-    func localizedWindchill(kelvinTemperature: Float?) -> String? {
-        return localizedConvertedString(kelvinTemperature, unit: temperatureUnit, decimals: 0)
-    }
-
+    
     // Gustiness
     
-    func updateGustinessLabels(session: MeasurementSession, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
-        let value = session.gustiness?.floatValue
-        
-        if let string = formattedGustiness(value) {
-            unitLabel.text = "%"
-            valueLabel.text = string
-            return true
-        }
-        
-        return failure(valueLabel: valueLabel, unitLabel: unitLabel)
-    }
+//    func updateGustinessLabels(session: MeasurementSession, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
+//        let value = session.gustiness?.floatValue
+//        
+//        if let string = formattedGustiness(value) {
+//            unitLabel.text = "%"
+//            valueLabel.text = string
+//            return true
+//        }
+//        
+//        return failure(valueLabel: valueLabel, unitLabel: unitLabel)
+//    }
     
-    func formattedGustiness(gustiness: Float?) -> String? {
-        if let gustiness = gustiness where gustiness > 0.001 {
-            return String(format: "%.0f", 100*gustiness)
-        }
-        
-        return nil
-    }
-    
-    // Units
-    
-    func readUnits() {
-        if let storedWindspeedInt = Property.getAsInteger(KEY_WIND_SPEED_UNIT)?.integerValue {
-            windSpeedUnit = SpeedUnit(rawValue:storedWindspeedInt)!
-        }
-        
-        if let storedDirectionInt = Property.getAsInteger(KEY_DIRECTION_UNIT)?.integerValue {
-            directionUnit = DirectionUnit(rawValue:storedDirectionInt)!
-        }
-        
-        if let storedPressureInt = Property.getAsInteger(KEY_PRESSURE_UNIT)?.integerValue {
-            pressureUnit = PressureUnit(rawValue:storedPressureInt)!
-        }
-        
-        if let storedTemperatureInt = Property.getAsInteger(KEY_TEMPERATURE_UNIT)?.integerValue {
-            temperatureUnit = TemperatureUnit(rawValue:storedTemperatureInt)!
-        }
-    }
-    
-    // MARK - Private
-    
-    private func writeWindSpeedUnit() { writeIfChanged(windSpeedUnit, key: KEY_WIND_SPEED_UNIT) }
-    private func writeDirectionUnit() { writeIfChanged(directionUnit, key: KEY_DIRECTION_UNIT) }
-    private func writePressureUnit() { writeIfChanged(pressureUnit, key: KEY_PRESSURE_UNIT) }
-    private func writeTemperatureUnit() { writeIfChanged(temperatureUnit, key: KEY_TEMPERATURE_UNIT) }
-
-    private func writeIfChanged(unit: Unit, key: String) {
-        if unit.rawValue != Property.getAsInteger(key) {
-            Property.setAsInteger(unit.rawValue, forKey: key)
-            NSNotificationCenter.defaultCenter().postNotificationName(KEY_UNIT_CHANGED, object: self)
-        }
+    func writeUnit<U: Unit>(unit: U, old: U) {
+        print("Write unit \(U.unitKey): \(unit.rawValue)")
+        guard unit != old else { return }
+        firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared", U.unitKey).setValue(unit.rawValue)
     }
     
     // Direction
@@ -474,13 +376,13 @@ class VaavudFormatter: NSObject {
     
     // Convenience
     
-    private func decimalString(value: Float?, decimals: Int = 0, min: Float = 0.1) -> String? {
-        if value == nil || value < min {
-            return nil
-        }
-        
-        return localizedDecimalString(value!, decimals: decimals)
-    }
+//    private func decimalString(value: Float?, decimals: Int = 0, min: Float = 0.1) -> String? {
+//        if value == nil || value < min {
+//            return nil
+//        }
+//        
+//        return localizedDecimalString(value!, decimals: decimals)
+//    }
 
 //    private func localizedConvertedString(value: Float?, unit: FloatUnit, min: Float = 0, decimals: Int? = nil, digits: Int? = nil) -> String? {
 //        if value == nil || value < min {
@@ -490,14 +392,9 @@ class VaavudFormatter: NSObject {
 //        return localizedDecimalString(unit.fromBase(value!), decimals: decimals ?? unit.decimals, digits: digits)
 //    }
     
-    private func localizedConvertedString<U: FloatUnit>(value: Float?, unit: U, min: Float = 0, decimals: Int? = nil, digits: Int? = nil) -> String? {
-        if value == nil || value < min {
-            return nil
-        }
-        
-        return localizedDecimalString(unit.fromBase(value!), decimals: decimals ?? unit.decimals, digits: digits)
+    func localizedConvertedString<U: FloatUnit>(value: Float, unit: U, decimals: Int? = nil, digits: Int? = nil) -> String {
+        return localizedDecimalString(unit.fromBase(value), decimals: decimals ?? unit.decimals, digits: digits)
     }
-
     
     private func localizedDecimalString(value: Float, decimals: Int, digits: Int? = nil) -> String {
         var actualDecimals = decimals
@@ -508,12 +405,6 @@ class VaavudFormatter: NSObject {
         
         let formatString = String(format: "%%.%df", actualDecimals)
         return String(format: formatString, locale: NSLocale.currentLocale(), value)
-    }
-    
-    private func failure(valueLabel  valueLabel: UILabel, unitLabel: UILabel) -> Bool {
-        valueLabel.text = missingValue
-        unitLabel.text = ""
-        return false
     }
 }
 

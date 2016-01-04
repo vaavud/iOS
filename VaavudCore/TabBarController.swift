@@ -111,7 +111,7 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
         
         if width == laidOutWidth { return }
         
-        let size =  CGSize(width: width, height: height)
+        let size = CGSize(width: width, height: height)
         tabBar.selectionIndicatorImage = getImageWithColor(UIColor.vaavudTabbarSelectedColor(), size: size)
         
         button.center = tabBar.bounds.center
@@ -125,8 +125,8 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
             return false
         }
     
-        if viewController == childViewControllers[0] {
-            performSegueWithIdentifier("NewMap", sender: self)
+        if viewController == childViewControllers[0] { // Fixme: remove
+            selectedIndex = 2
             return false
         }
         

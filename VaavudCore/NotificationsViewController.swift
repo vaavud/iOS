@@ -37,7 +37,7 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate {
     }
     
     func updateUI() {
-        windspeedLabel.text = VaavudFormatter.shared.formattedWindspeedWithUnit(windspeed)
+        windspeedLabel.text = VaavudFormatter.shared.formattedSpeed(windspeed)
         windspeedSlider.value = windspeed/notificationsWindspeedCeiling
         typeControl.selectedSegmentIndex = notificationType.rawValue
     }

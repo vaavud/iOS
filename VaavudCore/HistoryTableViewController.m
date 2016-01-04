@@ -535,7 +535,7 @@
 //
 //-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 //    if ([segue.identifier isEqualToString:@"SummarySegue"]) {
-//        CoreSummaryViewController *summary = segue.destinationViewController;
+//        SummaryViewController *summary = segue.destinationViewController;
 //        summary.session = [self.fetchedResultsController objectAtIndexPath:self.tableView.indexPathForSelectedRow];
 //        summary.historySummary = YES;
 //        [LogHelper increaseUserProperty:@"Use-History-Count"];
