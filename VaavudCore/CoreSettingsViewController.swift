@@ -14,7 +14,12 @@ import Firebase
 func parseSnapshot(callback: [String : AnyObject] -> ()) -> FDataSnapshot! -> () {
     return { snap in
         if let dict = snap.value as? [String : AnyObject] {
+            print("parseSnapshot dict: \(dict)")
             callback(dict)
+        }
+        else {
+            print("parseSnapshot key/value: \([snap.key : snap.value])")
+            callback([snap.key : snap.value])
         }
     }
 }
@@ -58,12 +63,16 @@ class CoreSettingsTableViewController: UITableViewController {
 //        let sharedSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
 ////        handles.append(units.observeEventType(.ChildChanged, withBlock: parseSnapshot(readUnits)))
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasLoggedInOut:", name: KEY_DID_LOGINOUT, object: nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasLoggedInOut:", name: KEY_DID_LOGINOUT, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: KEY_IS_DROPBOXLINKED, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "modelChanged:", name: KEY_WINDMETERMODEL_CHANGED, object: nil)
+
+        formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
+        refreshUnits()
     }
     
     deinit {
+        VaavudFormatter.shared.stopObserving(formatterHandle)
         let _ = handles.map(firebase.removeObserverWithHandle)
     }
     
@@ -78,12 +87,9 @@ class CoreSettingsTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        //refreshLogoutButton()
         
-        //        let sharedSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
-        //        handles.append(sharedSettings.observeEventType(.ChildChanged, withBlock: parseSnapshot(readUnits)))
-        
-        formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
+//        let sharedSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
+//        handles.append(sharedSettings.observeEventType(.ChildChanged, withBlock: parseSnapshot(readUnits)))
         
         refreshWindmeterModel()
         refreshTimeLimit()
@@ -96,22 +102,12 @@ class CoreSettingsTableViewController: UITableViewController {
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        VaavudFormatter.shared.stopObserving(formatterHandle)
         logHelper.ended()
     }
     
     func modelChanged(note: NSNotification) {
         refreshWindmeterModel()
     }
-
-    func wasLoggedInOut(note: NSNotification) {
-        //refreshLogoutButton()
-    }
-    
-//    func refreshLogoutButton() {
-//        let titleKey = AccountManager.sharedInstance().isLoggedIn() ? "REGISTER_BUTTON_LOGOUT" : "REGISTER_BUTTON_LOGIN"
-//        logoutButton.title = NSLocalizedString(titleKey, comment: "")
-//    }
     
     func refreshUnits() {
         print("Settings: Refresh units")
@@ -213,6 +209,7 @@ class CoreSettingsTableViewController: UITableViewController {
     }
 
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {
+        print("Settings: changedSpeedUnit")
         VaavudFormatter.shared.speedUnit = SpeedUnit(index: sender.selectedSegmentIndex)
         logUnitChange("speed")
     }

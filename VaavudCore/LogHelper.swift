@@ -94,17 +94,17 @@ class LogHelper: NSObject {
 
     class func log(group: LogGroup = .Free, event: String, properties: [String : AnyObject] = [:]) {
         Amplitude.instance().logEvent(group.rawValue + "::" + event, withEventProperties: properties)
-        print("AMP:\(group.rawValue)::\(event) - \(properties)")
+//        print("AMP:\(group.rawValue)::\(event) - \(properties)")
     }
     
     class func setUserProperty(key: String, value: NSObject) {
         Amplitude.instance().identify(AMPIdentify().set(key, value: value))
-        print("AMP:\(key) - \(value)")
+//        print("AMP:\(key) - \(value)")
     }
     
     class func increaseUserProperty(key: String) {
         Amplitude.instance().identify(AMPIdentify().add(key, value: 1))
-        print("AMP:increase \(key)")
+//        print("AMP:increase \(key)")
     }
 }
 

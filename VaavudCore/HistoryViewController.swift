@@ -170,10 +170,9 @@ struct Session {
 }
 
 class HistoryViewController: UITableViewController, HistoryDelegate {
-//    var sessions = [[Session]]()
-//    var sessionDates = [String]()
-    var controller: HistoryController!
-    let spinner = MjolnirSpinner(frame: CGRectMake(0, 0, 100, 100))
+    private var controller: HistoryController!
+    private let spinner = MjolnirSpinner(frame: CGRectMake(0, 0, 100, 100))
+    private var formatterHandle: String!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -187,28 +186,44 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         spinner.center = tableView.bounds.moveY(-64).center
         tableView.addSubview(spinner)
         spinner.show()
+        
+        formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
+        refreshUnits()
+    }
+    
+    deinit {
+        VaavudFormatter.shared.stopObserving(formatterHandle)
+    }
+    
+//    override func viewWillAppear(animated: Bool) {
+//        super.viewWillAppear(animated)
+//    }
+    
+//    override func viewWillDisappear(animated: Bool) {
+//        super.viewWillDisappear(animated)
+//    }
+
+    func refreshUnits() {
+        print("TVC refreshUnits")
+        tableView.reloadData()
     }
     
     // MARK: Table View Controller
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        return sessions.count
         return controller.sessionss.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return sessions[section].count
         return controller.sessionss[section].count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCellWithIdentifier("HistoryCell", forIndexPath: indexPath) as? HistoryCell else {
-            fatalError("Unknown cell")
+            fatalError("Unknown cell identifier")
         }
         
-//        let session = sessions[indexPath.section][indexPath.row]
         let session = controller.sessionss[indexPath.section][indexPath.row]
-        
         cell.time.text = VaavudFormatter.shared.localizedTime(session.timeStart)
         
         if let windDirection = session.windDirection {
@@ -272,7 +287,6 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
                 navigationController.pushViewController(summary, animated: true)
         }
         
-        
         //NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
     }
     
@@ -293,7 +307,6 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     
     func gotMeasurements() {
         spinner.hide()
-        print("hide")
     }
     
     func noMeasurements() {
