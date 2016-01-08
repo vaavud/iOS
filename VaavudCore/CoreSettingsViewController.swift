@@ -24,6 +24,12 @@ func parseSnapshot(callback: [String : AnyObject] -> ()) -> FDataSnapshot! -> ()
     }
 }
 
+func parseSnapshot<T>(key: String, callback: T? -> ()) -> FDataSnapshot! -> () {
+    return parseSnapshot { dict in
+        callback(dict[key] as? T)
+    }
+}
+
 class CoreSettingsTableViewController: UITableViewController {
     let interactions = VaavudInteractions()
     
@@ -48,10 +54,17 @@ class CoreSettingsTableViewController: UITableViewController {
     
     private let logHelper = LogHelper(.Settings, counters: "scrolled")
     
-    private let firebase = Firebase(url: firebaseUrl)
+    private lazy var deviceSettings = { return Firebase(url: firebaseUrl).childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting") }()
+
     private var handles = [UInt]()
     
     private var formatterHandle: String!
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        print("init")
+    }
     
     override func viewDidLoad() {
         hideVolumeHUD()
@@ -60,20 +73,32 @@ class CoreSettingsTableViewController: UITableViewController {
         
         dropboxControl.on = DBSession.sharedSession().isLinked()
         
-//        let sharedSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
-////        handles.append(units.observeEventType(.ChildChanged, withBlock: parseSnapshot(readUnits)))
-        
 //        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasLoggedInOut:", name: KEY_DID_LOGINOUT, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: KEY_IS_DROPBOXLINKED, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "modelChanged:", name: KEY_WINDMETERMODEL_CHANGED, object: nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "modelChanged:", name: KEY_WINDMETERMODEL_CHANGED, object: nil)
 
         formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
         refreshUnits()
+
+        handles.append(deviceSettings.observeEventType(.Value, withBlock: parseSnapshot(refreshDeviceSettings)))
+        
+//        let deviceId = AuthorizationController.shared.deviceId
+//        let deviceSettings = firebase.childByAppendingPaths("device", deviceId, "setting")
+//        deviceSettings.observeEventType(.ChildChanged, withBlock: { print("---device changed: #\($0)") })
+        
+//        deviceSettings.observeEventType(.Value, withBlock: { print("snappp change: \($0)") })
+    }
+    
+    func refreshDeviceSettings(dict: [String : AnyObject]) {
+        print("refreshDeviceSettings: \(dict)")
+        
+        let _ = (dict["usesSleipnir"] as? Bool).map(refreshWindmeterModel)
+        let _ = (dict["sleipnirClipSideScreen"] as? Bool).map(refreshSleipnirClipSide)
     }
     
     deinit {
         VaavudFormatter.shared.stopObserving(formatterHandle)
-        let _ = handles.map(firebase.removeObserverWithHandle)
+        let _ = handles.map(deviceSettings.removeObserverWithHandle)
     }
     
     @IBAction func logoutTapped(sender: UIBarButtonItem) {
@@ -81,7 +106,7 @@ class CoreSettingsTableViewController: UITableViewController {
             messageKey: "DIALOG_CONFIRM",
             cancelKey: "BUTTON_CANCEL",
             otherKey: "BUTTON_OK",
-            action: { self.logoutConfirmed() },
+            action: { self.doLogout() },
             on: self)
     }
     
@@ -91,8 +116,15 @@ class CoreSettingsTableViewController: UITableViewController {
 //        let sharedSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
 //        handles.append(sharedSettings.observeEventType(.ChildChanged, withBlock: parseSnapshot(readUnits)))
         
-        refreshWindmeterModel()
-        refreshTimeLimit()
+//        refreshWindmeterModel()
+//        refreshTimeLimit()
+        
+//        let iosSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "ios", "mapGuideMarkerShown")
+//        iosSettings.setValue(Int(rand()))
+//
+//        let deviceId = AuthorizationController.shared.deviceId
+//        let deviceSettings = firebase.childByAppendingPaths("device", deviceId, "setting")
+//        deviceSettings.childByAppendingPath("usesSleipnir").setValue(Int(rand()))
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -105,9 +137,9 @@ class CoreSettingsTableViewController: UITableViewController {
         logHelper.ended()
     }
     
-    func modelChanged(note: NSNotification) {
-        refreshWindmeterModel()
-    }
+//    func modelChanged(note: NSNotification) {
+//        refreshWindmeterModel()
+//    }
     
     func refreshUnits() {
         print("Settings: Refresh units")
@@ -117,24 +149,24 @@ class CoreSettingsTableViewController: UITableViewController {
         pressureUnitControl.selectedSegmentIndex = VaavudFormatter.shared.pressureUnit.index
     }
     
-    func refreshWindmeterModel() {
-        let usesSleipnir = Property.getAsBoolean(KEY_USES_SLEIPNIR, defaultValue: false)
+    func refreshWindmeterModel(usesSleipnir: Bool) {
         meterTypeControl.selectedSegmentIndex = usesSleipnir ? 1 : 0
         
-        let sleipnirOnFront = Property.getAsBoolean(KEY_SLEIPNIR_ON_FRONT, defaultValue: false)
-        sleipnirClipControl.selectedSegmentIndex = sleipnirOnFront ? 1 : 0
         UIView.animateWithDuration(0.2) {
             self.sleipnirClipView.alpha = usesSleipnir ? 1 : 0
         }
         
         LogHelper.setUserProperty("Device", value: usesSleipnir ? "Sleipnir" : "Mjolnir")
-        LogHelper.setUserProperty("Sleipnir-Clip-Frontside", value: sleipnirOnFront)
+    }
+
+    func refreshSleipnirClipSide(front: Bool) {
+        sleipnirClipControl.selectedSegmentIndex = front ? 1 : 0
+        LogHelper.setUserProperty("Sleipnir-Clip-Frontside", value: front)
     }
     
-    func refreshTimeLimit() {
-        let unlimited = Property.getAsBoolean(KEY_MEASUREMENT_TIME_UNLIMITED)
-        LogHelper.setUserProperty("Measurement-Limit", value: unlimited ? 0 : limitedInterval)
-        limitControl.selectedSegmentIndex = unlimited ? 1 : 0
+    func refreshTimeLimit(timeLimit: Int) {
+        LogHelper.setUserProperty("Measurement-Limit", value: timeLimit)
+        limitControl.selectedSegmentIndex = timeLimit == 0 ? 1 : 0
     }
     
 //    func unitsChanged(note: NSNotification) {
@@ -158,58 +190,18 @@ class CoreSettingsTableViewController: UITableViewController {
         logHelper.increase()
     }
     
-//    func postUnitChange(unitType: String) {
-//        NSNotificationCenter.defaultCenter().postNotificationName(KEY_UNIT_CHANGED, object: self)
-//        LogHelper.log(event: "Changed-Unit", properties: ["place" : "settings", "type" : unitType])
-//    }
-    
 //    deinit {
 //        NSNotificationCenter.defaultCenter().removeObserver(self)
-//    }
-    
-//    func readUnits() {
-//        if let speedUnit = Property.getAsInteger(KEY_WIND_SPEED_UNIT)?.integerValue {
-//            speedUnitControl.selectedSegmentIndex = speedUnit
-//        }
-//        if let directionUnit = Property.getAsInteger(KEY_DIRECTION_UNIT)?.integerValue {
-//            directionUnitControl.selectedSegmentIndex = directionUnit
-//        }
-//        if let pressureUnit = Property.getAsInteger(KEY_PRESSURE_UNIT)?.integerValue {
-//            pressureUnitControl.selectedSegmentIndex = pressureUnit
-//        }
-//        if let temperatureUnit = Property.getAsInteger(KEY_TEMPERATURE_UNIT)?.integerValue {
-//            temperatureUnitControl.selectedSegmentIndex = temperatureUnit
-//        }
-//    }
-    
-//    func registerUser() {
-//        let storyboard = UIStoryboard(name: "Register", bundle: nil)
-//        let registration = storyboard.instantiateViewControllerWithIdentifier("RegisterViewController") as! RegisterViewController
-//        registration.teaserLabelText = NSLocalizedString("HISTORY_REGISTER_TEASER", comment: "")
-//        registration.completion = {
-//            print("========Login done, will try to sync") // fixme
-//
-//            ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: true, success: { }, failure: { _ in })
-//
-//            self.dismissViewControllerAnimated(true, completion: {
-//                print("========settings did dismiss") // fixme
-//            })
-//        };
-//        
-//        let navController = RotatableNavigationController(rootViewController: registration)
-//        presentViewController(navController, animated: true, completion: nil)
 //    }
     
     // MARK: User actions
     
     @IBAction func changedLimitToggle(sender: UISegmentedControl) {
-        Property.setAsBoolean(sender.selectedSegmentIndex == 1, forKey: KEY_MEASUREMENT_TIME_UNLIMITED)
-        refreshTimeLimit()
+        deviceSettings.childByAppendingPath("measuringTime").setValue(sender.selectedSegmentIndex == 1 ? 0 : limitedInterval)
         logHelper.increase()
     }
 
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {
-        print("Settings: changedSpeedUnit")
         VaavudFormatter.shared.speedUnit = SpeedUnit(index: sender.selectedSegmentIndex)
         logUnitChange("speed")
     }
@@ -229,14 +221,7 @@ class CoreSettingsTableViewController: UITableViewController {
         logUnitChange("temperature")
     }
     
-    @IBAction func changedMeterModel(sender: UISegmentedControl) {
-        let usesSleipnir = sender.selectedSegmentIndex == 1
-        Property.setAsBoolean(usesSleipnir, forKey: KEY_USES_SLEIPNIR)
-        refreshWindmeterModel()
-        logHelper.increase()
-    }
-
-    @IBAction func changedDropboxSetting(sender: UISwitch) {
+    @IBAction func changedDropboxSetting(sender: UISwitch) { // fixme
         let value: String
         if sender.on {
             DBSession.sharedSession().linkFromController(self)
@@ -250,10 +235,13 @@ class CoreSettingsTableViewController: UITableViewController {
         logHelper.increase()
     }
 
+    @IBAction func changedMeterModel(sender: UISegmentedControl) {
+        deviceSettings.childByAppendingPath("usesSleipnir").setValue(sender.selectedSegmentIndex == 1)
+        logHelper.increase()
+    }
+
     @IBAction func changedSleipnirPlacement(sender: UISegmentedControl) {
-        let frontPlaced = sender.selectedSegmentIndex == 1
-        Property.setAsBoolean(frontPlaced, forKey: KEY_SLEIPNIR_ON_FRONT)
-        refreshWindmeterModel()
+        deviceSettings.childByAppendingPath("sleipnirClipSideScreen").setValue(sender.selectedSegmentIndex == 1)
         logHelper.increase()
     }
     
@@ -281,20 +269,22 @@ class CoreSettingsTableViewController: UITableViewController {
     
     // MARK: Convenience
     
-    func logoutConfirmed() {
+    func doLogout() {
         LogHelper.log(event: "Logged-Out", properties: ["place" : "settings"])
         
         AuthorizationController.shared.unauth()
+
+        gotoLoginFrom(self.tabBarController!)
         
-        let storyboard = UIStoryboard(name: "Login", bundle: nil)
-        let controller = storyboard.instantiateViewControllerWithIdentifier("NavigationLogin")
-        //presentViewController(controller, animated: false, completion: nil)
-        
-        if let view = tabBarController?.view {
-            UIView.transitionFromView(view, toView: controller.view, duration: 0.2, options: .TransitionCrossDissolve) {
-                _ in UIApplication.sharedApplication().windows[0].rootViewController = controller
-            }
-        }
+//        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+//        let controller = storyboard.instantiateViewControllerWithIdentifier("NavigationLogin")
+//        //presentViewController(controller, animated: false, completion: nil)
+//        
+//        if let view = tabBarController?.view {
+//            UIView.transitionFromView(view, toView: controller.view, duration: 0.2, options: .TransitionCrossDissolve) {
+//                _ in UIApplication.sharedApplication().windows[0].rootViewController = controller
+//            }
+//        }
     }
 }
 

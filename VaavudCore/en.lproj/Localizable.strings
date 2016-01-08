@@ -255,3 +255,17 @@
 // October 2015
 
 "SUMMARY_READ_MORE" = "Read more...";
+
+// Jan 2016 // fixme: translate
+
+"mbar" = "mbar";
+"atm" = "atm";
+"mmhg" = "mmHg";
+
+"kmh" = "km/h";
+"ms" = "m/s";
+"mph" = "mph";
+"knots" = "kn";
+"beaufort" = "bft";
+
+

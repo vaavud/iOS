@@ -51,7 +51,8 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
             }
         }
         else {
-            navigationController?.dismissViewControllerAnimated(true, completion: nil)
+            gotoAppFrom(self)
+//            navigationController?.dismissViewControllerAnimated(true, completion: nil)
         }
     }
     

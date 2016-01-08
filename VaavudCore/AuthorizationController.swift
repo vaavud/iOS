@@ -11,6 +11,7 @@ import Firebase
 import VaavudSDK
 
 let firebaseUrl = "https://vaavud-core-demo.firebaseio.com"
+//let firebaseUrl = "https://vaavud-core-demo.firebaseio.com"
 
 enum LoginError: String {
     case Network = "LOGIN_ERROR_NETWORK"
@@ -64,7 +65,6 @@ class AuthorizationController: NSObject {
     }
     
     func currentDeviceId() -> String {
-        
         let preferences = NSUserDefaults.standardUserDefaults()
         
         guard let deviceId = preferences.objectForKey("deviceId") as? String else {
@@ -73,7 +73,6 @@ class AuthorizationController: NSObject {
         
         return deviceId
     }
-    
     
     func login(email: String, password: String, delegate: LoginDelegate) {
         self.delegate = delegate

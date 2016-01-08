@@ -94,6 +94,7 @@ struct Session {
     var windMax: Float?
     var windMean: Float?
     let windMeter: String
+    var temperature: Float?
     var turbulence: Float?
     var sourced: Sourced?
     var location: Location?
@@ -119,6 +120,7 @@ struct Session {
         windMax = snapshot.value["windMax"] as? Float
         windMean = snapshot.value["windMean"] as? Float
         windMeter = snapshot.value["windMeter"] as! String
+        temperature = snapshot.value["temperature"] as? Float
         turbulence = snapshot.value["turbulence"] as? Float
 
         sourced = (snapshot.value["sourced"] as? FirebaseDictionary).flatMap(Sourced.init)
@@ -195,9 +197,15 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         VaavudFormatter.shared.stopObserving(formatterHandle)
     }
     
-//    override func viewWillAppear(animated: Bool) {
-//        super.viewWillAppear(animated)
-//    }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let deviceId = AuthorizationController.shared.deviceId
+        let deviceSettings = Firebase(url: firebaseUrl).childByAppendingPaths("device", deviceId, "setting")
+        deviceSettings.childByAppendingPath("usesSleipnir").setValue(rand() % 2 == 0)
+        
+        print("deviceId: \(deviceId)")
+    }
     
 //    override func viewWillDisappear(animated: Bool) {
 //        super.viewWillDisappear(animated)

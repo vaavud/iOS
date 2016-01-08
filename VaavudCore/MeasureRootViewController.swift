@@ -128,33 +128,44 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         state = .CountingDown(countdownInterval, Property.getAsBoolean(KEY_MEASUREMENT_TIME_UNLIMITED))
         
-        let wantsSleipnir = Property.getAsBoolean(KEY_USES_SLEIPNIR)
+//        let wantsSleipnir = Property.getAsBoolean(KEY_USES_SLEIPNIR)
         
-        if isSleipnirSession && !wantsSleipnir {
-            // fixme: change windmeter in session, don't use notifiaction
-            NSNotificationCenter.defaultCenter().postNotificationName(KEY_WINDMETERMODEL_CHANGED, object: self)
-        }
+//        if isSleipnirSession && !wantsSleipnir {
+//            // fixme: change windmeter in session, don't use notifiaction
+//            NSNotificationCenter.defaultCenter().postNotificationName(KEY_WINDMETERMODEL_CHANGED, object: self)
+//        }
         
         if isSleipnirSession {
-            Property.setAsBoolean(true, forKey: KEY_USES_SLEIPNIR)
+//            Property.setAsBoolean(true, forKey: KEY_USES_SLEIPNIR)
+            let deviceSettings = firebase.childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting")
+            deviceSettings.childByAppendingPath("usesSleipnir").setValue(true)
+            
             VaavudSDK.shared.windSpeedCallback = newWindSpeed
             VaavudSDK.shared.windDirectionCallback = newWindDirection
             VaavudSDK.shared.headingCallback = newHeading
             VaavudSDK.shared.locationCallback = newLocation
             VaavudSDK.shared.velocityCallback = newVelocity
-
-            let flipped = false // fixme: read
             
-            // fixme: handle
-            do {
-                try VaavudSDK.shared.start(flipped)
-            }
-            catch {
-                dismissViewControllerAnimated(true) {
-                    print("Failed to start SDK and dismissed Measure screen")
+//            deviceSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot("sleipnirClipSideScreen") { (flipped: Bool?) in
+            
+            let start = NSDate()
+            
+            deviceSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot { dict in
+                let flipped = dict["sleipnirClipSideScreen"] as? Bool ?? false
+                
+                print("TIME: \(NSDate().timeIntervalSinceDate(start))")
+                
+                // fixme: handle
+                do {
+                    try VaavudSDK.shared.start(flipped)
                 }
-                return
-            }
+                catch {
+                    self.dismissViewControllerAnimated(true) {
+                        print("Failed to start SDK and dismissed Measure screen")
+                    }
+                    return
+                }
+            })
         }
         else {
             let mjolnirController = MjolnirMeasurementController()
@@ -162,17 +173,20 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             mjolnir = mjolnirController
         }
         
-        if let sessions = MeasurementSession.MR_findByAttribute("measuring", withValue: true) as? [MeasurementSession] {
-            _ = sessions.map { $0.measuring = false }
-        }
-        
-        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion(nil)
+//        if let sessions = MeasurementSession.MR_findByAttribute("measuring", withValue: true) as? [MeasurementSession] {
+//            _ = sessions.map { $0.measuring = false }
+//        }
         
         if CMAltimeter.isRelativeAltitudeAvailable() {
             altimeter = CMAltimeter()
         }
         
         LocationManager.sharedInstance().start()
+    }
+    
+    deinit {
+        print("Deinit Root")
+        altimeter?.stopRelativeAltitudeUpdates()
     }
     
     override func viewDidLoad() {

@@ -104,6 +104,8 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         
         title = VaavudFormatter.shared.localizedTitleDate(session.timeStart).uppercaseStringWithLocale(NSLocale.currentLocale())
         
+        formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.unitsChanged() }
+        
         setupMapView()
         setupUI()
         updateUI()
@@ -112,7 +114,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         //navigationItem.hidesBackButton = !AccountManager.sharedInstance().isLoggedIn() // fixme
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "sessionUpdated:", name: KEY_SESSION_UPDATED, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didLoginOut:", name: KEY_DID_LOGINOUT, object: nil)
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didLoginOut:", name: KEY_DID_LOGINOUT, object: nil)
     }
     
     override func viewDidLayoutSubviews() {
@@ -135,13 +137,10 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         if !isShowingDirection {
             logHelper.log("Showed-Sleipnir-CTA")
         }
-        
-        formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.unitsChanged() }
     }
     
     override func viewWillDisappear(animated: Bool) {
         logHelper.ended()
-        VaavudFormatter.shared.stopObserving(formatterHandle)
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -151,6 +150,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     }
 
     deinit {
+        VaavudFormatter.shared.stopObserving(formatterHandle)
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
@@ -218,10 +218,6 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         if let objectId = note.userInfo?["objectID"] as? NSManagedObjectID where objectId == session.key {
             updateUI()
         }
-    }
-
-    func didLoginOut(note: NSNotification) {
-        navigationItem.hidesBackButton = !AccountManager.sharedInstance().isLoggedIn()
     }
 
     func unitsChanged() {
@@ -462,10 +458,18 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     }
 
     private func updatePressure(ms: Session) {
+        let unit = VaavudFormatter.shared.pressureUnit
+//        (pressureUnitLabel.text, pressureLabel.text) = localisedLabelTexts(unit, value: ms.pressure)
+
         //hasPressure = VaavudFormatter.shared.updatePressureLabels(ms, valueLabel: pressureLabel, unitLabel: pressureUnitLabel)
     }
     
     private func updateTemperature(ms: Session) {
+        let unit = VaavudFormatter.shared.temperatureUnit
+        (temperatureUnitLabel.text, temperatureLabel.text) = localisedLabelTexts(unit, value: ms.temperature)
+//        (windchillUnitLabel.text, windchillLabel.text) = localisedLabelTexts(unit, value: ms.wind)
+
+        
         //hasTemperature = VaavudFormatter.shared.updateTemperatureLabels(ms, valueLabel: temperatureLabel, unitLabel: temperatureUnitLabel)
         //hasWindChill = VaavudFormatter.shared.updateWindchillLabels(ms, valueLabel: windchillLabel, unitLabel: windchillUnitLabel)
     }
