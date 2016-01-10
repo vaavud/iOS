@@ -84,16 +84,20 @@ struct Sourced {
 }
 
 struct Session {
-    let deviceKey: String
+    let key: String
+
     let uid: String
+
+    let deviceKey: String
     let timeStart: NSDate
     
-    var key: String?
+    var windMax: Float = 0
+    var windMean: Float = 0
+    let windMeter: WindMeterModel
+
     var timeEnd: NSDate?
     var windDirection: Float?
-    var windMax: Float?
-    var windMean: Float?
-    let windMeter: String
+    var pressure: Float?
     var temperature: Float?
     var turbulence: Float?
     var sourced: Sourced?
@@ -105,9 +109,9 @@ struct Session {
         deviceKey = snapshot.value["deviceKey"] as! String
         timeStart = NSDate(ms: snapshot.value["timeStart"] as! NSNumber)
 
-//        if let timeEnd = snapshot.value["timeEnd"] as? NSNumber {
-//            self.timeEnd = NSDate(ms: timeEnd)
-//        }
+        windMax = snapshot.value["windMax"] as! Float
+        windMean = snapshot.value["windMean"] as! Float
+        windMeter = snapshot.value["windMeter"] as! String
         
         timeEnd = (snapshot.value["timeEnd"] as? NSNumber).map(NSDate.init)
 
@@ -117,23 +121,12 @@ struct Session {
         //        }
         
         windDirection = snapshot.value["windDirection"] as? Float
-        windMax = snapshot.value["windMax"] as? Float
-        windMean = snapshot.value["windMean"] as? Float
-        windMeter = snapshot.value["windMeter"] as! String
+        pressure = snapshot.value["pressure"] as? Float
         temperature = snapshot.value["temperature"] as? Float
         turbulence = snapshot.value["turbulence"] as? Float
 
         sourced = (snapshot.value["sourced"] as? FirebaseDictionary).flatMap(Sourced.init)
         location = (snapshot.value["location"] as? FirebaseDictionary).flatMap(Location.init)
-
-        // Should be equivalent to:
-        //        if let sourced = snapshot.value["sourced"] as? FirebaseDictionary {
-        //            self.sourced = Sourced(dict: sourced)
-        //        }
-        //
-        //        if let location = snapshot.value["location"] as? FirebaseDictionary {
-        //            self.location = Location(dict: location)
-        //        }
     }
     
     init(uid: String, deviceId: String, timeStart: NSDate, windMeter: String) {
@@ -162,6 +155,8 @@ struct Session {
         dict["windMax"] = windMax
         dict["windDirection"] = windDirection
         dict["windMean"] = windMean
+        dict["pressure"] = pressure
+        dict["temperature"] = temperature
         dict["windMeter"] = windMeter
         dict["sourced"] = sourced?.fireDict
         dict["location"] = location?.fireDict

@@ -98,7 +98,7 @@
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
   
     UIViewController *parent = [[UIViewController alloc] init];
-    parent.view.backgroundColor = [UIColor redColor];
+    parent.view.backgroundColor = [UIColor vaavudRedColor];
     
     self.window.rootViewController = parent;
 

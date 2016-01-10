@@ -41,7 +41,7 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        print("User Logged Out") //TODO
+        print("User Logged Out") // fixme: TODO
     }
     
     func onSuccess(showActivitySelector: Bool) {
@@ -51,8 +51,7 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
             }
         }
         else {
-            gotoAppFrom(self)
-//            navigationController?.dismissViewControllerAnimated(true, completion: nil)
+            gotoAppFrom(self, inside: view.window!.rootViewController!)
         }
     }
     

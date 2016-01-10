@@ -196,6 +196,8 @@ class CoreSettingsTableViewController: UITableViewController {
     
     // MARK: User actions
     
+    let limitedInterval = 30 // fixme: where to put this?
+    
     @IBAction func changedLimitToggle(sender: UISegmentedControl) {
         deviceSettings.childByAppendingPath("measuringTime").setValue(sender.selectedSegmentIndex == 1 ? 0 : limitedInterval)
         logHelper.increase()
@@ -274,7 +276,7 @@ class CoreSettingsTableViewController: UITableViewController {
         
         AuthorizationController.shared.unauth()
 
-        gotoLoginFrom(self.tabBarController!)
+        gotoLoginFrom(self.tabBarController!, inside: view.window!.rootViewController!)
         
 //        let storyboard = UIStoryboard(name: "Login", bundle: nil)
 //        let controller = storyboard.instantiateViewControllerWithIdentifier("NavigationLogin")

@@ -8,50 +8,15 @@
 
 import UIKit
 
-//func gotoAppFrom(fromVc: UIViewController, under parentVc: UIViewController) {
-//    guard let toVc = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateInitialViewController() else {
-//        return
-//    }
-//
-//    gotoVc(toVc, fromVc: fromVc, parentVc: parentVc)
-//}
-//
-//func gotoLoginFrom(fromVc: UIViewController, under parentVc: UIViewController) {
-//    let storyboard = UIStoryboard(name: "Login", bundle: nil)
-//    
-//    guard let loginNav = storyboard.instantiateInitialViewController() as? UINavigationController else {
-//        return
-//    }
-//    
-//    let login = storyboard.instantiateViewControllerWithIdentifier("Selector")
-//    loginNav.pushViewController(login, animated: false)
-//    
-//    gotoVc(loginNav, fromVc: fromVc, parentVc: parentVc)
-//}
-//
-//private func gotoVc(toVc: UIViewController, fromVc: UIViewController, parentVc: UIViewController) {
-////    guard let parentVc = UIApplication.sharedApplication().windows.first?.rootViewController else {
-////        return
-////    }
-//    
-//    parentVc.addChildViewController(toVc)
-//    fromVc.willMoveToParentViewController(nil)
-//    
-//    parentVc.transitionFromViewController(fromVc, toViewController: toVc, duration: 0.5, options: .TransitionFlipFromLeft, animations: {}) { _ in
-//        fromVc.removeFromParentViewController()
-//        toVc.didMoveToParentViewController(parentVc)
-//    }
-//}
-
-func gotoAppFrom(fromVc: UIViewController) {
+func gotoAppFrom(fromVc: UIViewController, inside parentVc: UIViewController) {
     guard let toVc = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateInitialViewController() else {
         return
     }
     
-    gotoVc(toVc, fromVc: fromVc)
+    gotoVc(toVc, fromVc: fromVc, parentVc: parentVc)
 }
 
-func gotoLoginFrom(fromVc: UIViewController) {
+func gotoLoginFrom(fromVc: UIViewController, inside parentVc: UIViewController) {
     let storyboard = UIStoryboard(name: "Login", bundle: nil)
     
     guard let loginNav = storyboard.instantiateInitialViewController() as? UINavigationController else {
@@ -61,20 +26,20 @@ func gotoLoginFrom(fromVc: UIViewController) {
     let login = storyboard.instantiateViewControllerWithIdentifier("Selector")
     loginNav.pushViewController(login, animated: false)
     
-    gotoVc(loginNav, fromVc: fromVc)
+    gotoVc(loginNav, fromVc: fromVc, parentVc: parentVc)
 }
 
-private func gotoVc(toVc: UIViewController, fromVc: UIViewController) {
-        guard let parentVc = UIApplication.sharedApplication().windows.first?.rootViewController else {
-            return
-        }
-    
+private func gotoVc(toVc: UIViewController, fromVc: UIViewController, parentVc: UIViewController) {
     parentVc.addChildViewController(toVc)
     fromVc.willMoveToParentViewController(nil)
     
-    parentVc.transitionFromViewController(fromVc, toViewController: toVc, duration: 0.5, options: .TransitionFlipFromLeft, animations: {}) { _ in
-        fromVc.removeFromParentViewController()
-        toVc.didMoveToParentViewController(parentVc)
+    parentVc.transitionFromViewController(fromVc,
+        toViewController: toVc,
+        duration: 0.5,
+        options: .TransitionFlipFromLeft,
+        animations: {}) { _ in
+            fromVc.removeFromParentViewController()
+            toVc.didMoveToParentViewController(parentVc)
     }
 }
 
@@ -125,7 +90,7 @@ class LoginViewController: UIViewController, LoginDelegate {
             }
         }
         else {
-            gotoAppFrom(self.navigationController!)
+            gotoAppFrom(self.navigationController!, inside: view.window!.rootViewController!)
         }
     }
 
