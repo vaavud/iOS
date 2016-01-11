@@ -87,9 +87,9 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         logGroup = isHistorySummary ? .Summary : .Result
         logHelper = LogHelper(logGroup)
 
-        if Property.isMixpanelEnabled() {
-            Mixpanel.sharedInstance().track("Summary Screen")
-        }
+//        if Property.isMixpanelEnabled() {
+//            Mixpanel.sharedInstance().track("Summary Screen")
+//        }
 
         animator = UIDynamicAnimator(referenceView: view)
         pressureItem = DynamicReadingItem(readingView: pressureView)
@@ -97,6 +97,16 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         windchillItem = DynamicReadingItem(readingView: windchillView)
         gustinessItem = DynamicReadingItem(readingView: gustinessView)
         
+//        let f = session.timeStart
+//        print(f)
+//    
+//        let g = VaavudFormatter.shared.localizedTitleDate(f)
+//
+//        print(g)
+//        let h = g.uppercaseStringWithLocale(NSLocale.currentLocale())
+//
+//        print(h)
+//        
         title = VaavudFormatter.shared.localizedTitleDate(session.timeStart).uppercaseStringWithLocale(NSLocale.currentLocale())
         
         formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.unitsChanged() }
@@ -136,11 +146,11 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         logHelper.ended()
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        if Property.isMixpanelEnabled() {
-            Mixpanel.sharedInstance().track("Summary Screen - Disappear")
-        }
-    }
+//    override func viewDidDisappear(animated: Bool) {
+//        if Property.isMixpanelEnabled() {
+//            Mixpanel.sharedInstance().track("Summary Screen - Disappear")
+//        }
+//    }
 
     deinit {
         VaavudFormatter.shared.stopObserving(formatterHandle)
@@ -248,10 +258,11 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         view.drawViewHierarchyInRect(frame, afterScreenUpdates: true)
         guard let snap = UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext()) else { return }
         UIGraphicsEndImageContext()
-        
-        guard let windSpeed = session.windMean.map(VaavudFormatter.shared.localizedSpeed) else {
-            return
-        }
+
+        let windSpeed = VaavudFormatter.shared.localizedSpeed(session.windMean) // fixme: should it be optional?
+//        guard let windSpeed = session.windMean.map(VaavudFormatter.shared.localizedSpeed) else {
+//            return
+//        }
         
         var text = NSLocalizedString("I just measured ", comment: "")
         text += windSpeed + " " + VaavudFormatter.shared.speedUnit.localizedString
@@ -443,7 +454,8 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func updateWindSpeeds() {
-        hasWindSpeed = session.windMean != nil
+//        hasWindSpeed = session.windMean != nil // fixme: check
+        hasWindSpeed = true
         let unit = VaavudFormatter.shared.speedUnit
         (averageUnitLabel.text, averageLabel.text) = localisedLabelTexts(unit, value: session.windMean)
         (maximumUnitLabel.text, maximumLabel.text) = localisedLabelTexts(unit, value: session.windMax)
@@ -471,8 +483,15 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func updateGustiness() {
-        let unit = VaavudFormatter.shared.temperatureUnit
-        (gustinessUnitLabel.text, gustinessLabel.text) = localisedLabelTexts(unit, value: session.turbulence)
+        if let gustiness = session.turbulence {
+            gustinessUnitLabel.text = "%"
+            gustinessLabel.text = String(format: "%.0f", gustiness)
+        }
+        else {
+            gustinessUnitLabel.text = nil
+            gustinessLabel.text = "-"
+        }
+        
         hasGustiness = session.turbulence != nil
     }
     
@@ -527,7 +546,8 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     
     private func updateMapAnnotationLabel(annotationView: MKAnnotationView) {
         if let label = annotationView.viewWithTag(42) as? UILabel {
-            label.text = session.windMean.map { VaavudFormatter.shared.localizedSpeed($0, digits: 2) }
+//            label.text = session.windMean.map { VaavudFormatter.shared.localizedSpeed($0, digits: 2) }
+            label.text = VaavudFormatter.shared.localizedSpeed(session.windMean, digits: 2)
         }
     }
     

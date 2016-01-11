@@ -32,7 +32,8 @@ class HistoryController: NSObject {
         let ref = firebaseSession.childByAppendingPath("session")
         
         ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeEventType(.ChildAdded, withBlock: { snapshot in
-            print("HC: ChildAdded")
+            print("HC: ChildAdded: \(snapshot.value)")
+
             guard snapshot.value["timeEnd"] is Double else {
                 return
             }
@@ -41,7 +42,7 @@ class HistoryController: NSObject {
         })
         
         ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeEventType(.ChildChanged, withBlock: { snapshot in
-            print("HC: ChildChanged")
+            print("HC: ChildChanged: \(snapshot.value)")
             guard snapshot.value["timeEnd"] is Double else {
                 return
             }

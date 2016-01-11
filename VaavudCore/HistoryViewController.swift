@@ -84,16 +84,15 @@ struct Sourced {
 }
 
 struct Session {
-    let key: String
+    var key: String!
 
     let uid: String
-
     let deviceKey: String
     let timeStart: NSDate
-    
+    let windMeter: WindMeterModel
+
     var windMax: Float = 0
     var windMean: Float = 0
-    let windMeter: WindMeterModel
 
     var timeEnd: NSDate?
     var windDirection: Float?
@@ -105,20 +104,17 @@ struct Session {
     
     init(snapshot: FDataSnapshot) {
         key = snapshot.key
+        
         uid = snapshot.value["uid"] as! String
         deviceKey = snapshot.value["deviceKey"] as! String
         timeStart = NSDate(ms: snapshot.value["timeStart"] as! NSNumber)
+        
+        windMeter = WindMeterModel(rawValue: snapshot.value["windMeter"] as! String)!
 
         windMax = snapshot.value["windMax"] as! Float
         windMean = snapshot.value["windMean"] as! Float
-        windMeter = snapshot.value["windMeter"] as! String
         
         timeEnd = (snapshot.value["timeEnd"] as? NSNumber).map(NSDate.init)
-
-        // Should be equivalent to:
-        //        if let timeEnd = snapshot.value["timeEnd"] as? NSNumber {
-        //            self.timeEnd = NSDate(ms: timeEnd)
-        //        }
         
         windDirection = snapshot.value["windDirection"] as? Float
         pressure = snapshot.value["pressure"] as? Float
@@ -129,21 +125,12 @@ struct Session {
         location = (snapshot.value["location"] as? FirebaseDictionary).flatMap(Location.init)
     }
     
-    init(uid: String, deviceId: String, timeStart: NSDate, windMeter: String) {
+    init(uid: String, key: String, deviceId: String, timeStart: NSDate, windMeter: WindMeterModel) {
         self.uid = uid
+        self.key = key
         self.deviceKey = deviceId
         self.timeStart = timeStart
         self.windMeter = windMeter
-    }
-    
-    func initDict() -> FirebaseDictionary { // Fixme: why is this necessary?
-        var dict = FirebaseDictionary()
-        dict["deviceKey"] = deviceKey
-        dict["uid"] = uid
-        dict["timeStart"] = timeStart.ms
-        dict["windMeter"] = windMeter
-        
-        return dict
     }
     
     var fireDict: FirebaseDictionary {
@@ -151,13 +138,13 @@ struct Session {
         dict["uid"] = uid
         dict["deviceKey"] = deviceKey
         dict["timeStart"] = timeStart.ms
-        dict["timeEnd"] = timeEnd
+        dict["timeEnd"] = timeEnd?.ms
         dict["windMax"] = windMax
         dict["windDirection"] = windDirection
         dict["windMean"] = windMean
         dict["pressure"] = pressure
         dict["temperature"] = temperature
-        dict["windMeter"] = windMeter
+        dict["windMeter"] = windMeter.rawValue
         dict["sourced"] = sourced?.fireDict
         dict["location"] = location?.fireDict
         dict["turbulence"] = turbulence
@@ -239,7 +226,7 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         }
         
         cell.speedUnit.text = VaavudFormatter.shared.speedUnit.localizedString
-        cell.speed.text = session.windMean.map(VaavudFormatter.shared.localizedSpeed)
+        cell.speed.text = VaavudFormatter.shared.localizedSpeed(session.windMean)
         
         if let loc = session.location, name = loc.name {
             cell.location.text = name

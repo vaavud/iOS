@@ -36,8 +36,8 @@ let updatePeriod = 1.0
 let countdownInterval = 3
 
 enum WindMeterModel: String {
-    case Mjolnir = "Mjolnir"
-    case Sleipnir = "Sleipnir"
+    case Mjolnir = "mjolnir"
+    case Sleipnir = "sleipnir"
 }
 
 protocol MeasurementConsumer {
@@ -94,20 +94,23 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var elapsedSinceUpdate: Double = 0
     private var windSpeedsSaved = 0
     
-    private var maxSpeed: Double = 0
-    private var avgSpeed: Double { return speedsSum/Double(speedsCount) }
-    private var speedsSum: Double = 0
-    private var speedsCount = 0
+//    private var maxSpeed: Double = 0
+//    private var avgSpeed: Double { return speedsSum/Double(speedsCount) }
+//    private var speedsSum: Double = 0
+//    private var speedsCount = 0
     
     private var logHelper = LogHelper(.Measure)
 
-    private var sessionKey: String?
+    private var session: Session!
+//    private var sessionKey: String?
 
     private var state: MeasureState = .Done
     private var timeLeft = CGFloat(countdownInterval)
     
     let firebase = Firebase(url: firebaseUrl)
     var deviceSettings: Firebase { return firebase.childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting") }
+    
+    // MARK - Lifetime methods
     
     required init?(coder aDecoder: NSCoder) {
         isSleipnirSession = VaavudSDK.shared.sleipnirAvailable()
@@ -136,35 +139,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         altimeter?.stopRelativeAltitudeUpdates()
     }
     
-    func startSleipnir(flipped: Bool) {
-            // fixme: handle
-            do {
-                try VaavudSDK.shared.start(flipped ?? false)
-            }
-            catch {
-                self.dismissViewControllerAnimated(true) {
-                    print("Failed to start SDK and dismissed Measure screen")
-                }
-                return
-            }
-    }
-    
-    func startMjolnir() {
-        let mjolnirController = MjolnirMeasurementController()
-        mjolnirController.start()
-        mjolnirController.delegate = self
-
-        mjolnir = mjolnirController
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         hideVolumeHUD()
         cancelButton.setup()
 
-        // fixme
-        unitButton.setTitle(VaavudFormatter.shared.speedUnit.localizedString, forState: .Normal)
+        // fixme: check?
+        updateUnitButton()
 
         variantButton.imageView?.contentMode = .ScaleAspectFit
         
@@ -180,12 +162,28 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         pager.numberOfPages = viewControllers.count
         
+        // Move back?
+        pageController = storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as? UIPageViewController
+        pageController.dataSource = self
+        pageController.delegate = self
+        pageController.view.frame = view.bounds
+
+        addChildViewController(pageController)
+        view.addSubview(pageController.view)
+        pageController.didMoveToParentViewController(self)
+        
+        view.bringSubviewToFront(pager)
+        view.bringSubviewToFront(unitButton)
+        view.bringSubviewToFront(variantButton)
+        view.bringSubviewToFront(errorOverlayBackground)
+        view.bringSubviewToFront(cancelButton)
+
         let start = NSDate()
 
         deviceSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot { dict in
             let flipped = dict["sleipnirClipSideScreen"] as? Bool ?? false
             let measuringTime = dict["measuringTime"] as? Int ?? 0
-            let desiredScreen = dict["defaultMeasurementScreen"] as? String ?? "unknown"
+            let desiredScreen = dict["defaultMeasurementScreen"] as? String
             
             self.state = .CountingDown(countdownInterval, measuringTime)
             
@@ -199,94 +197,67 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
             
             self.showScreen(desiredScreen)
-            
-            }) 
+            })
         
 //        if Property.isMixpanelEnabled() {
 //            Mixpanel.sharedInstance().track("Measure Screen")
 //        }
     }
     
-    private func showScreen(name: String) {
-        let screenToShow = vcsNames.indexOf(name) ?? 0
-        
-        pager.currentPage = screenToShow
-        
-        let mc = viewControllers[screenToShow] as! MeasurementConsumer
-        
-        currentConsumer = mc
-        updateVariantButton(mc)
-        
-        pageController = storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as? UIPageViewController
-        pageController.dataSource = self
-        pageController.delegate = self
-        pageController.view.frame = view.bounds
-        pageController.setViewControllers([viewControllers[screenToShow]], direction: .Forward, animated: false, completion: nil)
-        
-        addChildViewController(pageController)
-        view.addSubview(pageController.view)
-        pageController.didMoveToParentViewController(self)
-        
-        view.bringSubviewToFront(pager)
-        view.bringSubviewToFront(unitButton)
-        view.bringSubviewToFront(variantButton)
-        view.bringSubviewToFront(errorOverlayBackground)
-        view.bringSubviewToFront(cancelButton)
+    // MARK - Overrides
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
     
-    @IBAction func pressedVariant(sender: UILongPressGestureRecognizer) {
-        let image = UIImage(named: "News12Logo")
-        variantButton.setImage(image, forState: .Normal)
-        variantButton.setImage(image, forState: .Highlighted)
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return [.Portrait, .PortraitUpsideDown]
     }
     
-    @IBAction func tappedVariant(sender: UIButton) {
-        currentConsumer?.toggleVariant()
+    // MARK - Main
+
+    func start() {
+        let model: WindMeterModel = isSleipnirSession ? .Sleipnir : .Mjolnir
+        let deviceId = AuthorizationController.shared.currentDeviceId()
+        
+        let post = firebase.childByAppendingPath("session").childByAutoId()
+
+        session = Session(uid: firebase.authData.uid, key: post.key, deviceId: deviceId, timeStart: NSDate(), windMeter: model)
+        post.setValue(session.fireDict)
+//        sessionKey = post.key
+        
+        
+//        print(sessionKey)
+        
+        //        session.timezoneOffset = NSTimeZone.localTimeZone().secondsFromGMTForDate(session.startTime)
+
+        //        session.endTime = session.startTime
+        //        session.measuring = true
+        //        session.uploaded = false
+        //        session.startIndex = 0
+        //        session.privacy = 1
+        //
+        //        updateWithLocation(post.key)
+        //        updateWithGeocode(session)
+        //        updateWithSourcedData(session)
+        //        updateWithPressure(session)
+        //
+        
+        logHelper.began(["time-limit" : state.timed ?? 0, "device" : isSleipnirSession ? "Sleipnir" : "Mjolnir"])
+        elapsedSinceUpdate = 0
+
+        //        mixpanelSend("Started")
     }
 
-    @IBAction func tappedUnit(sender: UIButton) {
-        // fixme
-        VaavudFormatter.shared.speedUnit = VaavudFormatter.shared.speedUnit.next
-        unitButton.setTitle(VaavudFormatter.shared.speedUnit.localizedString, forState: .Normal)
-        currentConsumer?.changedSpeedUnit(VaavudFormatter.shared.speedUnit)
-        LogHelper.log(event: "Changed-Unit", properties: ["place" : "measure", "type" : "speed"])
-    }
-    
-    @IBAction func tappedCancel(sender: MeasureCancelButton) {
-        if let vc = pageController.viewControllers?.last, mc = vc as? MeasurementConsumer {
-//            Property.setAsString(mc.name, forKey: KEY_DEFAULT_SCREEN)
-            
-            firebase
-                .childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting", "defaultMeasurementScreen")
-                .setValue(mc.name)
-        }
-        
-        switch state {
-        case .CountingDown:
-            stop(true)
-        case .Limited:
-            save(true)
-            stop(true)
-//            mixpanelSend("Cancelled")
-            logStop("cancelled")
-        case .Unlimited:
-            save(false)
-            stop(false)
-//            mixpanelSend("Stopped")
-            logStop("stopped")
-        case .Done:
-            break
-        }
-    }
-    
     func tick(link: CADisplayLink) {
         currentConsumer?.tick()
         
         if state.running {
-            speedsCount++
-            speedsSum += latestWindSpeed.speed
+//            speedsCount++
+//            speedsSum += latestWindSpeed.speed
             screenUsage[pager.currentPage] += link.duration
-        
+            elapsedSinceUpdate += link.duration
+
             if elapsedSinceUpdate > updatePeriod {
                 updateSession()
                 elapsedSinceUpdate = 0
@@ -328,17 +299,226 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         cancelButton.update(timeLeft, state: state)
     }
+    
+    func updateSession() {
+//        session.windMean = Float(VaavudSDK.shared.session.meanSpeed)
+        session.windMax = Float(VaavudSDK.shared.session.maxSpeed)
+        session.windDirection = VaavudSDK.shared.session.windDirections.last.map { Float(mod($0.direction, 360)) }
 
-    func hasValidLocation(session: Session) -> CLLocationCoordinate2D? {
-        if let location = session.location {
-            let loc = CLLocationCoordinate2D(latitude: location.lat, longitude: location.lon)
-            if LocationManager.isCoordinateValid(loc) {
-                return loc
-            }
+        session.windMean = Float(latestWindSpeed.speed)
+
+        
+        //        if let mjolnir = mjolnir where !mjolnir.isValidCurrentStatus {
+        //            return // fixme: uncomment
+        //        }
+        
+        print("Updating: [mean : \(session.windMean)] (\(session.key)) \(session.fireDict)")
+        
+        firebase
+            .childByAppendingPaths("wind", session.key, String(windSpeedsSaved))
+            .setValue(latestWindSpeed.fireDict)
+        windSpeedsSaved += 1
+        
+        firebase
+            .childByAppendingPaths("session", session.key)
+            .setValue(session.fireDict)
+
+//        if let sessionKey = sessionKey {
+//            firebase
+//                .childByAppendingPaths("wind", sessionKey, String(windSpeedsSaved))
+//                .setValue(latestWindSpeed.fireDict)
+//            windSpeedsSaved += 1
+//
+//            firebase
+//                .childByAppendingPaths("session", sessionKey)
+//                .setValue(session.fireDict)
+//            
+////            let session = firebase
+////                .childByAppendingPaths("session", sessionKey)
+////            
+////            //            session.childByAppendingPath("windMean").setValue(avgSpeed)
+////            //            session.childByAppendingPath("windMax").setValue(maxSpeed)
+////            
+////            if isSleipnirSession, let dir = latestWindDirection?.direction {
+////                session.childByAppendingPath("windDirection").setValue(mod(dir, 360))
+////            }
+//        }
+//        else {
+//            print("ROOT: updateSession - ERROR: No current session")
+//        }
+    }
+
+    func save(userCancelled: Bool) {
+        guard !userCancelled && session.windMean > 0 else {
+            return
         }
         
-        return nil
+//        guard let sessionKey = sessionKey else {
+//            return
+//        }
+        
+//        var finalDict : FirebaseDictionary = [
+//            "timeEnd": NSDate().ms,
+//            "windMax": Float(maxSpeed),
+//            "windMean": Float(avgSpeed)
+//        ]
+
+        session.timeEnd = NSDate()
+        session.turbulence = VaavudSDK.shared.session.turbulence.map(Float.init)
+        
+//        if isSleipnirSession, let dir = latestWindDirection?.direction {
+//            finalDict["windDirection"] = mod(dir, 360)
+//        }
+        
+        //        let windspeeds = speeds(session)
+        
+        //if windspeeds.count > 5 { session.turbulence = gustiness(windspeeds) }
+//        finalDict["turbulence"] = 0.29 // fixme: add gustiness
+        
+//        firebase
+//            .childByAppendingPaths("session", sessionKey)
+//            .updateChildValues(finalDict)
+
+        print("Saving: (\(session.key)) \(session.fireDict)")
+        
+        firebase
+            .childByAppendingPaths("session", session.key)
+            .setValue(session.fireDict)
+        
+        let post = firebase
+            .childByAppendingPaths("sessionComplete", "queue", "tasks")
+            .childByAutoId()
+        
+        post.setValue(["sessionKey" : session.key])
+        let queue = post.key
+
+        
+//        firebase
+//            .childByAppendingPaths("session", sessionKey)
+//            .setValue(session.fireDict)
+//        
+//        let post = firebase
+//            .childByAppendingPaths("sessionComplete", "queue", "tasks")
+//            .childByAutoId()
+//        
+//        post.setValue(["sessionKey" : sessionKey])
+//        let queue = post.key
+        
+        //        let turbulence = gustiness()
+        
+        print("Queue: \(queue)")
+        print("Session: \(session)")
+        
+        //        session.measuring = false
+        //        session.endTime = NSDate()
+        //        session.windSpeedMax = maxSpeed
+        //        session.windSpeedAvg = avgSpeed
+        //        if isSleipnirSession, let dir = latestWindDirection {
+        //            session.windDirection = mod(dir, 360)
+        //        }
+        //
+        //        let windspeeds = speeds(session)
+        //
+        //        if windspeeds.count > 5 { session.gustiness = gustiness(windspeeds) }
+        //
+        //        updateWithWindchill(session)
+        //
+        //        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion {
+        //            success, error in
+        //            ServerUploadManager.sharedInstance().triggerUpload()
+        //
+        //            //                if success {
+        //            //                    print("ROOT: save - Saved and uploaded after measuring ============================")
+        //            //                }
+        //            //                else if error != nil {
+        //            //                    print("ROOT: save - Failed to save session after measuring with error: \(error.localizedDescription)")
+        //            //                }
+        //            //                else {
+        //            //                    print("ROOT: save - Failed to save session after measuring with no error message")
+        //            //                }
+        //        }
+        //
+        //        if DBSession.sharedSession().isLinked(), let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+        //            appDelegate.uploadToDropbox(session)
+        //        }
     }
+    
+    func stop(userCancelled: Bool) {
+        let cancel = userCancelled || session.windMean == 0 || state.countingDown
+        
+        if isSleipnirSession {
+            VaavudSDK.shared.stop()
+        }
+        else if let mjolnir = mjolnir {
+            mjolnir.stop()
+        }
+        //
+        //        altimeter?.stopRelativeAltitudeUpdates()
+        //
+        reportToUrlSchemeCaller(cancel)
+        
+        displayLink.invalidate()
+        currentConsumer = nil
+        
+        if cancel {
+            //            if let session = currentSession {
+            //                session.MR_deleteEntity()
+            //            }
+            
+            dismissViewControllerAnimated(true) {
+                self.pageController.view.removeFromSuperview()
+                self.pageController.removeFromParentViewController()
+                _ = self.viewControllers.map { $0.view.removeFromSuperview() }
+                _ = self.viewControllers.map { $0.removeFromParentViewController() }
+                self.viewControllers = []
+            }
+        }
+        else {
+            //                    let session = currentSession!
+            
+            //                    if session.geoLocationNameLocalized == nil {
+            //                        updateWithLocation(session)
+            //                        if hasValidLocation(session) != nil {
+            //                            updateWithGeocode(session)
+            //                        }
+            //                    }
+            //
+            
+            let summary = storyboard!.instantiateViewControllerWithIdentifier("SummaryViewController") as! SummaryViewController
+            summary.session = session
+            
+            pageController.dataSource = nil
+            pageController.setViewControllers([summary], direction: .Forward, animated: true, completion: nil)
+            
+            LogHelper.increaseUserProperty("Measurement-Count")
+            
+            UIView.animateWithDuration(0.2) {
+                self.unitButton.alpha = 0
+                self.variantButton.alpha = 0
+                self.cancelButton.alpha = 0
+                self.pager.alpha = 0
+                self.errorOverlayBackground.alpha = 0
+            }
+        }
+    }
+    
+    func reportToUrlSchemeCaller(cancelled: Bool) {
+        if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate,
+            x = appDelegate.xCallbackSuccess,
+            encoded = x.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet()) {
+                appDelegate.xCallbackSuccess = nil
+                
+                if cancelled, let url = NSURL(string:encoded + "?x-source=Vaavud&x-cancelled=cancel") {
+                    UIApplication.sharedApplication().openURL(url)
+                }
+                else if let url = NSURL(string:encoded + "?x-source=Vaavud&windSpeedAvg=\(session.windMean)&windSpeedMax=\(session.windMax)") {
+                    UIApplication.sharedApplication().openURL(url)
+                }
+                LogHelper.log(.URLScheme, event: "Returned", properties: ["success" : !cancelled])
+        }
+    }
+
+    // MARK - Updating Session
     
     func saveLocation(sessionKey: String) {
         let loc = LocationManager.sharedInstance().latestLocation
@@ -415,6 +595,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
     }
     
+    // MARK: Mjolnir Delegate
+    
     func changedValidity(isValid: Bool, dynamicsIsValid: Bool) {
         if !isValid {
             currentConsumer?.newSpeed(0)
@@ -425,261 +607,11 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
     }
     
-    func start() {
-        elapsedSinceUpdate = 0
-        
-        //let model: WindMeterModel = isSleipnirSession ? .Sleipnir : .Mjolnir
-        let model = isSleipnirSession ? "sleipnir" : "mjolnir"
-        
-        let session = Session(uid: firebase.authData.uid, deviceId: AuthorizationController.shared.currentDeviceId(), timeStart: NSDate(), windMeter: model)
-//        print(session.initDict())
-        
-        let ref = firebase.childByAppendingPath("session")
-        let post = ref.childByAutoId()
-        post.setValue(session.initDict())
-        sessionKey = post.key
-        
-        print(sessionKey)
-        
-//        let session = MeasurementSession.MR_createEntity()!
-//        session.uuid = currentSessionUuid
-//        session.device = Property.getAsString(KEY_DEVICE_UUID)
-//        session.windMeter = model.rawValue
-//        session.startTime = NSDate()
-//        session.timezoneOffset = NSTimeZone.localTimeZone().secondsFromGMTForDate(session.startTime)
-//        session.endTime = session.startTime
-//        session.measuring = true
-//        session.uploaded = false
-//        session.startIndex = 0
-//        session.privacy = 1
-//        
-//        updateWithLocation(post.key)
-//        updateWithGeocode(session)
-//        updateWithSourcedData(session)
-//        updateWithPressure(session)
-//        
-//        logHelper.began(["time-limit" : state.timed ?? 0, "device" : isSleipnirSession ? "Sleipnir" : "Mjolnir"])
-//        
-//        mixpanelSend("Started")
-    }
-    
-    func updateSession() {
-//        if let mjolnir = mjolnir where !mjolnir.isValidCurrentStatus {
-//            return // fixme: uncomment
-        //        }
-        
-        if let sessionKey = sessionKey {
-            firebase
-                .childByAppendingPaths("wind", sessionKey, String(windSpeedsSaved))
-                .setValue(latestWindSpeed.fireDict)
-            
-            windSpeedsSaved += 1
-
-            let session = firebase
-                .childByAppendingPaths("session", sessionKey)
-            
-            session.childByAppendingPath("windMean").setValue(avgSpeed)
-            session.childByAppendingPath("windMax").setValue(maxSpeed)
-            
-            if isSleipnirSession, let dir = latestWindDirection?.direction {
-                session.childByAppendingPath("windDirection").setValue(mod(dir, 360))
-            }
-        }
-        else {
-            print("ROOT: updateSession - ERROR: No current session")
-        }
-    }
-    
-    func save(userCancelled: Bool) {
-        guard !userCancelled && avgSpeed > 0 else {
-            return
-        }
-        
-        guard let sessionKey = sessionKey else {
-            return
-        }
-        
-        var finalDict : FirebaseDictionary = [
-            "timeEnd": NSDate().ms,
-            "windMax": Float(maxSpeed),
-            "windMean": Float(avgSpeed)
-        ]
-        
-        if isSleipnirSession, let dir = latestWindDirection?.direction {
-            finalDict["windDirection"] = mod(dir, 360)
-        }
-        
-//        let windspeeds = speeds(session)
-        
-        //if windspeeds.count > 5 { session.turbulence = gustiness(windspeeds) }
-        finalDict["turbulence"] = 0.29
-        
-        firebase
-            .childByAppendingPaths("session", sessionKey)
-            .updateChildValues(finalDict)
-        
-        let post = firebase
-            .childByAppendingPaths("sessionComplete", "queue", "tasks")
-            .childByAutoId()
-        
-        post.setValue(["sessionKey" : sessionKey])
-        let queue = post.key
-        
-//        let turbulence = gustiness()
-        
-        print(queue)
-        
-//        session.measuring = false
-//        session.endTime = NSDate()
-//        session.windSpeedMax = maxSpeed
-//        session.windSpeedAvg = avgSpeed
-//        if isSleipnirSession, let dir = latestWindDirection {
-//            session.windDirection = mod(dir, 360)
-//        }
-//        
-//        let windspeeds = speeds(session)
-//        
-//        if windspeeds.count > 5 { session.gustiness = gustiness(windspeeds) }
-//        
-//        updateWithWindchill(session)
-//        
-//        NSManagedObjectContext.MR_defaultContext().MR_saveToPersistentStoreWithCompletion {
-//            success, error in
-//            ServerUploadManager.sharedInstance().triggerUpload()
-//            
-//            //                if success {
-//            //                    print("ROOT: save - Saved and uploaded after measuring ============================")
-//            //                }
-//            //                else if error != nil {
-//            //                    print("ROOT: save - Failed to save session after measuring with error: \(error.localizedDescription)")
-//            //                }
-//            //                else {
-//            //                    print("ROOT: save - Failed to save session after measuring with no error message")
-//            //                }
-//        }
-//        
-//        if DBSession.sharedSession().isLinked(), let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-//            appDelegate.uploadToDropbox(session)
-//        }
-    }
-    
-    func stop(userCancelled: Bool) {
-        let cancel = userCancelled || avgSpeed == 0 || state.countingDown
-        
-        if isSleipnirSession {
-            VaavudSDK.shared.stop()
-        }
-        else if let mjolnir = mjolnir {
-            mjolnir.stop()
-        }
-//
-//        altimeter?.stopRelativeAltitudeUpdates()
-//        
-        reportToUrlSchemeCaller(cancel)
-//        
-//        displayLink.invalidate()
-//        currentConsumer = nil
-//        
-//        if cancel {
-//            if let session = currentSession {
-//                session.MR_deleteEntity()
-//            }
-//
-//            dismissViewControllerAnimated(true) {
-//                self.pageController.view.removeFromSuperview()
-//                self.pageController.removeFromParentViewController()
-//                _ = self.viewControllers.map { $0.view.removeFromSuperview() }
-//                _ = self.viewControllers.map { $0.removeFromParentViewController() }
-//                self.viewControllers = []
-//            }
-//        }
-//        else {
-//            let session = currentSession!
-//            
-//            if session.geoLocationNameLocalized == nil {
-//                updateWithLocation(session)
-//                if hasValidLocation(session) != nil {
-//                    updateWithGeocode(session)
-//                }
-//            }
-//            
-//            let summary = storyboard!.instantiateViewControllerWithIdentifier("SummaryViewController") as! SummaryViewController
-//            //summary.session = session
-//            
-//            pageController.dataSource = nil
-//            pageController.setViewControllers([summary], direction: .Forward, animated: true, completion: nil)
-//            
-//            LogHelper.increaseUserProperty("Measurement-Count")
-//            
-//            UIView.animateWithDuration(0.2) {
-//                self.unitButton.alpha = 0
-//                self.variantButton.alpha = 0
-//                self.cancelButton.alpha = 0
-//                self.pager.alpha = 0
-//                self.errorOverlayBackground.alpha = 0
-//            }
-//        }
-    }
-    
-    func logStop(manner: String) {
-        var props: [String : AnyObject] = ["manner" : manner]
-        
-        for (index, key) in vcsNames.enumerate() {
-            props[key] = screenUsage[index]
-        }
-        logHelper.ended(props)
-    }
-    
-//    func mixpanelSend(action: String) {
-//        if !Property.isMixpanelEnabled() { return }
-//            MixpanelUtil.updateMeasurementProperties(false)
-//        
-//        let model = isSleipnirSession ? "Sleipnir" : "Mjolnir"
-//        var properties: [NSObject : AnyObject] = ["Action" : action, "Wind Meter" : model ]
-//        
-//        let event: String
-//        
-//        if action == "Started" {
-//            event = "Start Measurement"
-//        }
-//        else {
-//            event = "Stop Measurement"
-//            
-//            if let start = currentSession?.startTime, duration = currentSession?.endTime?.timeIntervalSinceDate(start) {
-//                properties["Duration"] = duration
-//            }
-//            
-//            properties["Avg Wind Speed"] = currentSession?.windSpeedAvg?.floatValue
-//            properties["Max Wind Speed"] = currentSession?.windSpeedMax?.floatValue
-//            properties["Measure Screen Type"] = currentConsumer?.name
-//        }
-//        
-//        Mixpanel.sharedInstance().track(event, properties: properties)
-//    }
-
-    func reportToUrlSchemeCaller(cancelled: Bool) {
-        if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate,
-            x = appDelegate.xCallbackSuccess,
-            encoded = x.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet()) {
-                appDelegate.xCallbackSuccess = nil
-                
-                if cancelled, let url = NSURL(string:encoded + "?x-source=Vaavud&x-cancelled=cancel") {
-                    UIApplication.sharedApplication().openURL(url)
-                }
-                else if let url = NSURL(string:encoded + "?x-source=Vaavud&windSpeedAvg=\(avgSpeed)&windSpeedMax=\(maxSpeed)") {
-                    UIApplication.sharedApplication().openURL(url)
-                }
-                LogHelper.log(.URLScheme, event: "Returned", properties: ["success" : !cancelled])
-        }
-    }
-
-    // MARK: Mjolnir Callback
-    
     func addSpeedMeasurement(currentSpeed: NSNumber!, avgSpeed: NSNumber!, maxSpeed: NSNumber!) {
         newWindSpeed(WindSpeedEvent(time: NSDate(), speed: currentSpeed.doubleValue))
     }
     
-    // MARK: SDK Callbacks
+    // MARK: SDK Delegate
     
     func newWindDirection(event: WindDirectionEvent) {
         // Save on session and Firebase
@@ -714,24 +646,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     func newVelocity(event: VelocityEvent) {
     }
     
-    override func prefersStatusBarHidden() -> Bool {
-        return true
-    }
+    // Mark - Page View Controller Delegate
 
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-       return [.Portrait, .PortraitUpsideDown]
-    }
-    
-    func changeConsumer(mc: MeasurementConsumer) {
-        mc.newSpeed(CGFloat(latestWindSpeed.speed))
-//        mc.changedSpeedUnit(VaavudFormatter.shared.windSpeedUnit) // fixme
-        if isSleipnirSession, let wd = latestWindDirection?.direction, h = latestHeading?.heading {
-            mc.newWindDirection(CGFloat(wd))
-            mc.newHeading(CGFloat(h))
-        }
-        currentConsumer = mc
-    }
-    
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
         if let mc = pendingViewControllers.last as? MeasurementConsumer {
             changeConsumer(mc)
@@ -758,10 +674,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
     }
     
-    func updateVariantButton(mc: MeasurementConsumer) {
-        self.variantButton.alpha = mc is FlatMeasureViewController ? 1 : 0
-    }
-    
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         if let current = viewControllers.indexOf(viewController) {
             let next = mod(current + 1, viewControllers.count)
@@ -781,6 +693,143 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         return nil
     }
     
+    // Mark - User action
+    
+    @IBAction func pressedVariant(sender: UILongPressGestureRecognizer) {
+        let image = UIImage(named: "News12Logo")
+        variantButton.setImage(image, forState: .Normal)
+        variantButton.setImage(image, forState: .Highlighted)
+    }
+    
+    @IBAction func tappedVariant(sender: UIButton) {
+        currentConsumer?.toggleVariant()
+    }
+    
+    @IBAction func tappedUnit(sender: UIButton) {
+        // fixme
+        VaavudFormatter.shared.speedUnit = VaavudFormatter.shared.speedUnit.next
+        updateUnitButton()
+        currentConsumer?.changedSpeedUnit(VaavudFormatter.shared.speedUnit)
+        LogHelper.log(event: "Changed-Unit", properties: ["place" : "measure", "type" : "speed"])
+    }
+    
+    @IBAction func tappedCancel(sender: MeasureCancelButton) {
+        if let vc = pageController.viewControllers?.last, mc = vc as? MeasurementConsumer {
+            firebase
+                .childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting", "defaultMeasurementScreen")
+                .setValue(mc.name)
+        }
+        
+        switch state {
+        case .CountingDown:
+            stop(true)
+        case .Limited:
+            save(true)
+            stop(true)
+            //            mixpanelSend("Cancelled")
+            logStop("cancelled")
+        case .Unlimited:
+            save(false)
+            stop(false)
+            //            mixpanelSend("Stopped")
+            logStop("stopped")
+        case .Done:
+            break
+        }
+    }
+    
+    // Mark - Updates
+    
+    private func updateVariantButton(mc: MeasurementConsumer) {
+        variantButton.alpha = mc is FlatMeasureViewController ? 1 : 0
+    }
+    
+    private func updateUnitButton() {
+        unitButton.setTitle(VaavudFormatter.shared.speedUnit.localizedString, forState: .Normal)
+    }
+    
+    // Mark - Convenience
+    
+    private func hasValidLocation(session: Session) -> CLLocationCoordinate2D? {
+        if let location = session.location {
+            let loc = CLLocationCoordinate2D(latitude: location.lat, longitude: location.lon)
+            if LocationManager.isCoordinateValid(loc) {
+                return loc
+            }
+        }
+        
+        return nil
+    }
+    
+    private func logStop(manner: String) {
+        var props: [String : AnyObject] = ["manner" : manner]
+        
+        for (index, key) in vcsNames.enumerate() {
+            props[key] = screenUsage[index]
+        }
+        logHelper.ended(props)
+    }
+
+    private func changeConsumer(mc: MeasurementConsumer) {
+        mc.newSpeed(CGFloat(latestWindSpeed.speed))
+        //        mc.changedSpeedUnit(VaavudFormatter.shared.windSpeedUnit) // fixme
+        if isSleipnirSession, let wd = latestWindDirection?.direction, h = latestHeading?.heading {
+            mc.newWindDirection(CGFloat(wd))
+            mc.newHeading(CGFloat(h))
+        }
+        currentConsumer = mc
+    }
+
+    private func startSleipnir(flipped: Bool) {
+        // fixme: handle error
+        do {
+            try VaavudSDK.shared.start(flipped ?? false)  // fixme: handle flipped in sdk
+        }
+        catch {
+            self.dismissViewControllerAnimated(true) {
+                print("Failed to start SDK and dismissed Measure screen")
+            }
+            return
+        }
+    }
+    
+    private func startMjolnir() {
+        let mjolnirController = MjolnirMeasurementController()
+        mjolnirController.start()
+        mjolnirController.delegate = self
+        
+        mjolnir = mjolnirController
+    }
+    
+    private func showScreen(name: String?) {
+        let screenToShow = name.flatMap(vcsNames.indexOf) ?? 0
+        
+        //        let screenToShow = vcsNames.indexOf(name) ?? 0
+        
+        pager.currentPage = screenToShow
+        
+        let mc = viewControllers[screenToShow] as! MeasurementConsumer
+        
+        currentConsumer = mc
+        updateVariantButton(mc)
+        
+        //        pageController = storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as? UIPageViewController
+        //        pageController.dataSource = self
+        //        pageController.delegate = self
+        //        pageController.view.frame = view.bounds
+        pageController.setViewControllers([viewControllers[screenToShow]], direction: .Forward, animated: false, completion: nil)
+        
+        //        addChildViewController(pageController)
+        //        view.addSubview(pageController.view)
+        //        pageController.didMoveToParentViewController(self)
+        //
+        //        view.bringSubviewToFront(pager)
+        //        view.bringSubviewToFront(unitButton)
+        //        view.bringSubviewToFront(variantButton)
+        //        view.bringSubviewToFront(errorOverlayBackground)
+        //        view.bringSubviewToFront(cancelButton)
+    }
+    
     // MARK: Debug
     
     @IBAction func debugPanned(sender: UIPanGestureRecognizer) {
@@ -798,19 +847,34 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         sender.setTranslation(CGPoint(), inView: view)
     }
+    
+    //    func mixpanelSend(action: String) {
+    //        if !Property.isMixpanelEnabled() { return }
+    //            MixpanelUtil.updateMeasurementProperties(false)
+    //
+    //        let model = isSleipnirSession ? "Sleipnir" : "Mjolnir"
+    //        var properties: [NSObject : AnyObject] = ["Action" : action, "Wind Meter" : model ]
+    //
+    //        let event: String
+    //
+    //        if action == "Started" {
+    //            event = "Start Measurement"
+    //        }
+    //        else {
+    //            event = "Stop Measurement"
+    //
+    //            if let start = currentSession?.startTime, duration = currentSession?.endTime?.timeIntervalSinceDate(start) {
+    //                properties["Duration"] = duration
+    //            }
+    //
+    //            properties["Avg Wind Speed"] = currentSession?.windSpeedAvg?.floatValue
+    //            properties["Max Wind Speed"] = currentSession?.windSpeedMax?.floatValue
+    //            properties["Measure Screen Type"] = currentConsumer?.name
+    //        }
+    //
+    //        Mixpanel.sharedInstance().track(event, properties: properties)
+    //    }
 }
-
-//func speeds(session: Session) -> [Float] {
-//    var speeds = [Float]()
-//    
-//    for p in session.wind {
-//        if p.speed > 0 {
-//            speeds.append(p.speed)
-//        }
-//    }
-//
-//    return speeds
-//}
 
 func windchill(kelvin: Float?, _ windspeed: Float?) -> Float? {
     guard let kelvin = kelvin, windspeed = windspeed else {
@@ -833,11 +897,4 @@ func windchill(kelvin: Float?, _ windspeed: Float?) -> Float? {
     return 273.15 + k + a*celsius + b*pow(kmh, d) + c*celsius*pow(kmh, d)
 }
 
-func gustiness(speeds: [Float]) -> Float {
-    let n = Float(speeds.count)
-    let mean = speeds.reduce(0, combine: +)/n
-    let variance = speeds.reduce(0) { $0 + ($1 - mean)*($1 - mean) }/(n - 1)
-    
-    return variance/mean
-}
 
