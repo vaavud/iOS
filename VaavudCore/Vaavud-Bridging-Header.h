@@ -24,6 +24,7 @@
 #import "RegisterViewController.h"
 #import "PasswordUtil.h" // Delete this file
 #import "Amplitude.h"
+#import "MeasurementCalloutView.h"
 
 #import "MjolnirMeasurementController.h"
 

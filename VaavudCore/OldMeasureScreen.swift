@@ -45,7 +45,7 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        speedUnitLabel.text = VaavudFormatter.shared.windSpeedUnit.localizedString
+        speedUnitLabel.text = VaavudFormatter.shared.speedUnit.localizedString
         
         animator = UIDynamicAnimator(referenceView: view)
         scaleItem = DynamicItem(centerCallback: { [unowned self] in
@@ -110,10 +110,10 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     // MARK: Callbacks
     func tick() {
         smoothSpeed = weight*latestSpeed + (1 - weight)*smoothSpeed
-        graph.reading = VaavudFormatter.shared.windSpeedUnit.fromBase(smoothSpeed)
+        graph.reading = VaavudFormatter.shared.speedUnit.fromBase(smoothSpeed)
         
         maxSpeed = max(smoothSpeed, maxSpeed)
-        maxSpeedLabel.text = VaavudFormatter.shared.localizedWindspeed(Float(maxSpeed), digits: 3)
+        maxSpeedLabel.text = VaavudFormatter.shared.localizedSpeed(Float(maxSpeed), digits: 3)
 
         if hasDirection {
             smoothDirection = weight*latestDirection + (1 - weight)*smoothDirection
@@ -123,8 +123,8 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         
         avgSpeed = avgWeight*latestSpeed + (1 - avgWeight)*avgSpeed
         
-        graph.average = VaavudFormatter.shared.windSpeedUnit.fromBase(avgSpeed)
-        avgSpeedLabel.text = VaavudFormatter.shared.localizedWindspeed(Float(avgSpeed), digits: 3)
+        graph.average = VaavudFormatter.shared.speedUnit.fromBase(avgSpeed)
+        avgSpeedLabel.text = VaavudFormatter.shared.localizedSpeed(Float(avgSpeed), digits: 3)
         
         if abs(targetLogScale - graph.logScale) < 0.01 {
             animatingScale = false
@@ -152,13 +152,13 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     
     func newSpeed(speed: CGFloat) {
         latestSpeed = speed
-        speedLabel.text = VaavudFormatter.shared.localizedWindspeed(Float(speed), digits: 3)
+        speedLabel.text = VaavudFormatter.shared.localizedSpeed(Float(speed), digits: 3)
     }
     
     func newHeading(heading: CGFloat) {/* latestHeading += distanceOnCircle(from: latestHeading, to: heading) */ }
     
     func changedSpeedUnit(unit: SpeedUnit) {
-        speedUnitLabel.text = VaavudFormatter.shared.windSpeedUnit.localizedString
+        speedUnitLabel.text = VaavudFormatter.shared.speedUnit.localizedString
         newSpeed(latestSpeed)
     }
 }

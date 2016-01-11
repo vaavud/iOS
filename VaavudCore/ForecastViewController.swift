@@ -131,7 +131,7 @@ class ForecastCalloutView: UIView {
         let ahead = Property.getAsInteger(KEY_MAP_FORECAST_HOURS, defaultValue: 2).integerValue
 
         if let newData = annotation.data where newData.count > ahead {
-            let unit = VaavudFormatter.shared.windSpeedUnit
+            let unit = VaavudFormatter.shared.speedUnit
             let dataPoint = newData[ahead]
             
             label.text = String(Int(round(unit.fromBase(dataPoint.windSpeed)))) + " " + unit.localizedString
@@ -454,7 +454,7 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
         if let data = data {
             let maxSpeed = data.reduce(0) { max($0, $1.windSpeed) }
             
-            let unit = VaavudFormatter.shared.windSpeedUnit
+            let unit = VaavudFormatter.shared.speedUnit
             let unitMax = unit.fromBase(maxSpeed)
             
             let spacing: Int
@@ -598,7 +598,7 @@ class ForecastLegendView: UIView {
         temperatureUnitLabel.frame.size.width = frame.width - forecastLegendPadding
         temperatureUnitLabel.frame.origin.y = forecastBorder
         
-        let unit = VaavudFormatter.shared.windSpeedUnit
+        let unit = VaavudFormatter.shared.speedUnit
         unitLabel.text = unit.localizedString
         unitLabel.textAlignment = .Right
         unitLabel.font = font
@@ -707,7 +707,7 @@ class ForecastDayView: UIView {
         lineView = ForecastLineView(frame: lineFrame, steps: steps, hours: hourViews.count)
 
         let height = barFrame.height
-        let unit = VaavudFormatter.shared.windSpeedUnit
+        let unit = VaavudFormatter.shared.speedUnit
         ys = data.map { height*(1 - unit.fromBase($0.windSpeed)/CGFloat(steps.last!)) }
 
         graphView = ShapeView(frame: lineFrame)
@@ -854,7 +854,7 @@ class ForecastHourView: UIView {
         let heightOfOthers = [temperatureLabel, stateView, directionView, hourLabel].reduce(0) { $0 + $1.frame.height }
         barView.frame.size.height = frame.height - heightOfOthers - 4*forecastVerticalPadding - forecastBorder
         
-        let unitValue = VaavudFormatter.shared.windSpeedUnit.fromBase(dataPoint.windSpeed)
+        let unitValue = VaavudFormatter.shared.speedUnit.fromBase(dataPoint.windSpeed)
         
         let path = UIBezierPath()
         let start = barView.bounds.lowerMid - CGPoint(x: 0, y: barMargin)

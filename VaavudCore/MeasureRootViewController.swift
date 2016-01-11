@@ -12,6 +12,26 @@ import VaavudSDK
 import Mixpanel
 import Firebase
 
+//public class VaavudLegacySDK: NSObject {
+//    public static let shared = VaavudLegacySDK()
+//
+//    public var windSpeedCallback: (Double -> Void)?
+//    public var windDirectionCallback: (Double -> Void)?
+//
+//    private override init() {
+//        super.init()
+//
+//        VaavudSDK.shared.windSpeedCallback = { self.windSpeedCallback?($0.speed) }
+//        VaavudSDK.shared.windDirectionCallback = { self.windDirectionCallback?($0.direction) }
+//    }
+//}
+
+extension Firebase {
+    func childByAppendingPaths(paths: String...) -> Firebase! {
+        return paths.reduce(self) { f, p in f.childByAppendingPath(p) }
+    }
+}
+
 let updatePeriod = 1.0
 let countdownInterval = 3
 let limitedInterval = 30
@@ -74,20 +94,24 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     var currentConsumer: MeasurementConsumer?
     var screenUsage = [Double]()
     
-    private var latestHeading: CGFloat?
-    private var latestWindDirection: CGFloat?
-//    private var latestSpeed: CGFloat = 0
+    //    private var latestHeading: CGFloat?
+    
+    private var latestHeading: HeadingEvent?
+
+    //    private var latestWindDirection: CGFloat?
+    
+    private var latestWindDirection: WindDirectionEvent?
+
+    //    private var latestSpeed: CGFloat = 0
 
     private var sessionKey: String?
-    private var latestWindSpeed: WindSpeedEvent?
-    private var elapsedSinceUpdate = 0.0
+    private var latestWindSpeed = WindSpeedEvent(speed: 0)
+    private var elapsedSinceUpdate: Double = 0
     private var windSpeedsSaved = 0
-
-//    private var windArray = [WindSpeedEvent]()
     
-    private var maxSpeed: CGFloat = 0
-    private var avgSpeed: CGFloat { return speedsSum/CGFloat(speedsCount) }
-    private var speedsSum: CGFloat = 0
+    private var maxSpeed: Double = 0
+    private var avgSpeed: Double { return speedsSum/Double(speedsCount) }
+    private var speedsSum: Double = 0
     private var speedsCount = 0
     
     private var logHelper = LogHelper(.Measure)
@@ -196,7 +220,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         displayLink = CADisplayLink(target: self, selector: Selector("tick:"))
         displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
         
-        unitButton.setTitle(VaavudFormatter.shared.windSpeedUnit.localizedString, forState: .Normal)
+        // fixme
+//        unitButton.setTitle(VaavudFormatter.shared.windSpeedUnit.localizedString, forState: .Normal)
         
         if Property.isMixpanelEnabled() {
             Mixpanel.sharedInstance().track("Measure Screen")
@@ -222,9 +247,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
 
     @IBAction func tappedUnit(sender: UIButton) {
-        VaavudFormatter.shared.windSpeedUnit = VaavudFormatter.shared.windSpeedUnit.next
-        unitButton.setTitle(VaavudFormatter.shared.windSpeedUnit.localizedString, forState: .Normal)
-        currentConsumer?.changedSpeedUnit(VaavudFormatter.shared.windSpeedUnit)
+        // fixme
+//        VaavudFormatter.shared.windSpeedUnit = VaavudFormatter.shared.windSpeedUnit.next
+//        unitButton.setTitle(VaavudFormatter.shared.windSpeedUnit.localizedString, forState: .Normal)
+//        currentConsumer?.changedSpeedUnit(VaavudFormatter.shared.windSpeedUnit)
         postUnitChange("speed")
     }
     
@@ -256,13 +282,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         if state.running {
             speedsCount++
-//            speedsSum += latestSpeed
-            elapsedSinceUpdate += link.duration
+            speedsSum += latestWindSpeed.speed
             screenUsage[pager.currentPage] += link.duration
         
             if elapsedSinceUpdate > updatePeriod {
-                elapsedSinceUpdate = 0
                 updateSession()
+                elapsedSinceUpdate = 0
             }
         }
         
@@ -320,9 +345,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             let locationDictDelta = ["lat" : loc.latitude, "lon" : loc.longitude]
             
             firebase
-                .childByAppendingPath("session")
-                .childByAppendingPath(sessionKey)
-                .childByAppendingPath("location")
+                .childByAppendingPaths("session", sessionKey, "location")
                 .updateChildValues(locationDictDelta)
             
             let latlong = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
@@ -344,10 +367,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
             
             self.firebase
-                .childByAppendingPath("session")
-                .childByAppendingPath(sessionKey)
-                .childByAppendingPath("location")
-                .childByAppendingPath("name")
+                .childByAppendingPaths("session", sessionKey, "location", "name")
                 .setValue(name)
             
             // fixme: summary may need to be updated
@@ -367,9 +387,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         ForecastLoader.shared.requestFullForecast(location.coordinate) { sourced in
             print(sourced.fireDict)
             self.firebase
-                .childByAppendingPath("session")
-                .childByAppendingPath(sessionKey)
-                .childByAppendingPath("sourced")
+                .childByAppendingPaths("session", sessionKey, "sourced")
                 .updateChildValues(sourced.fireDict)
         }
         
@@ -454,75 +472,35 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     func updateSession() {
 //        if let mjolnir = mjolnir where !mjolnir.isValidCurrentStatus {
 //            return // fixme: uncomment
-//        }
+        //        }
         
         if let sessionKey = sessionKey {
-            if let windSpeed = latestWindSpeed {
-                firebase
-                    .childByAppendingPath("wind")
-                    .childByAppendingPath(sessionKey)
-                    .childByAppendingPath(String(windSpeedsSaved))
-                    .setValue(windSpeed.fireDict)
-            }
-            
-            var dictDelta = [
-                "windMean" : Float(avgSpeed),
-                "windMax" :  Float(maxSpeed)
-            ]
-            
-            if isSleipnirSession, let dir = latestWindDirection {
-                let modDirection = Float(mod(dir, 360))
-                //wind.direction = modDirection
-                dictDelta["windDirection"] = modDirection
-            }
-            
-            //mainSession?.wind.append(wind)
-            
             firebase
-                .childByAppendingPath("session")
-                .childByAppendingPath(sessionKey)
-                .updateChildValues(dictDelta)
+                .childByAppendingPaths("wind", sessionKey, String(windSpeedsSaved))
+                .setValue(latestWindSpeed.fireDict)
             
+            windSpeedsSaved += 1
+            
+            let session = firebase
+                .childByAppendingPaths("session", sessionKey)
+            
+            session.childByAppendingPath("windMean").setValue(avgSpeed)
+            session.childByAppendingPath("windMax").setValue(maxSpeed)
+            
+            if isSleipnirSession, let dir = latestWindDirection?.direction {
+                session.childByAppendingPath("windDirection").setValue(mod(dir, 360))
+            }
         }
-        else{
+        else {
             print("ROOT: updateSession - ERROR: No current session")
-
         }
-        
-        
-        
-//        let now = NSDate()
-//        if let mjolnir = mjolnir where !mjolnir.isValidCurrentStatus {
-//            return // fixme: uncomment
-//        }
-//        
-//        if let session = currentSession where session.measuring.boolValue {
-//            session.endTime = now
-//            session.windSpeedMax = maxSpeed
-//            session.windSpeedAvg = avgSpeed
-//            
-//            let point = MeasurementPoint.MR_createEntity()!
-//            point.session = session
-//            point.time = now
-//            point.windSpeed = latestSpeed
-//
-//            if isSleipnirSession, let dir = latestWindDirection {
-//                let modDirection = mod(dir, 360)
-//                point.windDirection = modDirection
-//                session.windDirection = modDirection
-//            }
-//        }
-//        else {
-//            print("ROOT: updateSession - ERROR: No current session")
-//            // Stopped by model, stop?
-//        }
     }
     
     func save(userCancelled: Bool) {
         guard !userCancelled && avgSpeed > 0 else {
             return
         }
-
+        
         guard let sessionKey = sessionKey else {
             return
         }
@@ -533,9 +511,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             "windMean": Float(avgSpeed)
         ]
         
-        
-        if isSleipnirSession, let dir = latestWindDirection {
-            finalDict["windDirection"] = Float(mod(dir, 360))
+        if isSleipnirSession, let dir = latestWindDirection?.direction {
+            finalDict["windDirection"] = mod(dir, 360)
         }
         
         //let windspeeds = speeds(session)
@@ -544,15 +521,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         finalDict["turbulence"] = 0.29
         
         firebase
-            .childByAppendingPath("session")
-            .childByAppendingPath(sessionKey)
+            .childByAppendingPaths("session", sessionKey)
             .updateChildValues(finalDict)
         
         
         let post = firebase
-            .childByAppendingPath("sessionComplete")
-            .childByAppendingPath("queue")
-            .childByAppendingPath("tasks")
+            .childByAppendingPaths("sessionComplete", "queue", "tasks")
             .childByAutoId()
         
         post.setValue(["sessionKey": sessionKey])
@@ -634,7 +608,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 //                }
 //            }
 //            
-//            let summary = storyboard!.instantiateViewControllerWithIdentifier("SummaryViewController") as! CoreSummaryViewController
+//            let summary = storyboard!.instantiateViewControllerWithIdentifier("SummaryViewController") as! SummaryViewController
 //            //summary.session = session
 //            
 //            pageController.dataSource = nil
@@ -713,18 +687,16 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     // MARK: SDK Callbacks
     
     func newWindDirection(event: WindDirectionEvent) {
-        print("######## NEW DIRECTION: \(latestWindDirection == nil ? "FIRST" : "not first")")
-        
-        let direction = CGFloat(event.direction)
-        latestWindDirection = direction
-        currentConsumer?.newWindDirection(direction)
+        // Save on session and Firebase
+        latestWindDirection = event
+        currentConsumer?.newWindDirection(CGFloat(event.direction))
     }
     
     func newWindSpeed(event: WindSpeedEvent) {
-//        lastWindSpeed = event
-//        latestSpeed = CGFloat(event.speed)
+        latestWindSpeed = event
+        let latestSpeedValue = CGFloat(event.speed)
 //        currentConsumer?.newSpeed(latestSpeed)
-//        if latestSpeed > maxSpeed { maxSpeed = latestSpeed }
+        currentConsumer?.newSpeed(latestSpeedValue)
     }
     
     func newHeading(event: HeadingEvent) {
@@ -736,8 +708,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
         print("Heading sent \(timeLeft)")
         
+        latestHeading = event
         let heading = CGFloat(event.heading)
-        latestHeading = heading
         currentConsumer?.newHeading(heading)
     }
     
@@ -756,11 +728,11 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func changeConsumer(mc: MeasurementConsumer) {
-//        mc.newSpeed(latestSpeed)
-        mc.changedSpeedUnit(VaavudFormatter.shared.windSpeedUnit)
-        if isSleipnirSession, let wd = latestWindDirection, h = latestHeading {
-            mc.newWindDirection(wd)
-            mc.newHeading(h)
+        mc.newSpeed(CGFloat(latestWindSpeed.speed))
+//        mc.changedSpeedUnit(VaavudFormatter.shared.windSpeedUnit) // fixme
+        if isSleipnirSession, let wd = latestWindDirection?.direction, h = latestHeading?.heading {
+            mc.newWindDirection(CGFloat(wd))
+            mc.newHeading(CGFloat(h))
         }
         currentConsumer = mc
     }
@@ -819,15 +791,15 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     @IBAction func debugPanned(sender: UIPanGestureRecognizer) {
 //        let y = sender.locationInView(view).y
 //        let x = view.bounds.midX - sender.locationInView(view).x
-        let dx = sender.translationInView(view).x/2
-        let dy = sender.translationInView(view).y/20
+        let dx = Double(sender.translationInView(view).x/2)
+        let dy = Double(sender.translationInView(view).y/20)
         
-        if let direction = latestWindDirection {
-            let newDirection = direction + dx
-            latestWindDirection = newDirection
-            currentConsumer?.newWindDirection(newDirection)
+        if let event = latestWindDirection {
+            let newDirection = event.direction + dx
+            latestWindDirection = WindDirectionEvent(time: event.time, direction: newDirection)
+            currentConsumer?.newWindDirection(CGFloat(newDirection))
         }
-//        newWindSpeed(WindSpeedEvent(time: NSDate(), speed: max(0, Double(latestSpeed - dy))))
+        newWindSpeed(WindSpeedEvent(time: NSDate(), speed: max(0, latestWindSpeed.speed - dy)))
         
         sender.setTranslation(CGPoint(), inView: view)
     }

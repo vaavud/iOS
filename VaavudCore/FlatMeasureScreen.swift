@@ -62,7 +62,7 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
     }
     
     var scaledSpeed: CGFloat {
-        return VaavudFormatter.shared.windSpeedUnit.fromBase(latestSpeed)
+        return VaavudFormatter.shared.speedUnit.fromBase(latestSpeed)
     }
 
     func updateVariant() {
@@ -127,11 +127,11 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
     
     func newSpeed(speed: CGFloat) {
         latestSpeed = speed
-        speedLabel.text = VaavudFormatter.shared.localizedWindspeed(Float(speed), digits: 3)
-        gustLabel.text = VaavudFormatter.shared.localizedWindspeed(Float(gusts), digits: 2)
+        speedLabel.text = VaavudFormatter.shared.localizedSpeed(Float(speed), digits: 3)
+        gustLabel.text = VaavudFormatter.shared.localizedSpeed(Float(gusts), digits: 2)
         
         if let temperature = temperature, chill = windchill(Float(temperature), Float(verySmoothWindSpeed)) {
-            windchillLabel.text =  VaavudFormatter.shared.localizedWindchill(Float(chill))
+            windchillLabel.text =  VaavudFormatter.shared.localizedWindchill(chill)
             windchillUnitLabel.alpha = 1
         }
         else {

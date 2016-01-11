@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="uRK-QG-tAM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="uRK-QG-tAM">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -78,10 +78,10 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--New Map View Controller-->
         <scene sceneID="VaU-am-cVV">
             <objects>
-                <viewController id="Qec-7p-mYZ" sceneMemberID="viewController">
+                <viewController id="Qec-7p-mYZ" customClass="NewMapViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="bnm-sb-N8x"/>
                         <viewControllerLayoutGuide type="bottom" id="6A7-Z4-r0w"/>
@@ -89,13 +89,67 @@
                     <view key="view" contentMode="scaleToFill" id="nzA-Uy-E53">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="oDG-At-RrN">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                            </mapView>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QE3-ky-iIB">
+                                <rect key="frame" x="270" y="455" width="30" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="3aE-le-IR5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="tappedUnit:" destination="Qec-7p-mYZ" eventType="touchUpInside" id="03v-f1-9oz"/>
+                                    <action selector="unitButtonPushed" destination="awR-2s-6gy" eventType="touchUpInside" id="cNB-ae-loo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5qO-KW-7f6">
+                                <rect key="frame" x="20" y="455" width="30" height="44"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="PgK-s0-9yd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="15"/>
+                                <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <color key="titleColor" red="0.8980392157" green="0.8980392157" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="tappedHours:" destination="Qec-7p-mYZ" eventType="touchUpInside" id="7Uo-Gj-3QN"/>
+                                    <action selector="tappedUnit:" destination="Qec-7p-mYZ" eventType="touchUpInside" id="V5v-bF-6d9"/>
+                                    <action selector="unitButtonPushed" destination="awR-2s-6gy" eventType="touchUpInside" id="kjq-iZ-5va"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="oDG-At-RrN" firstAttribute="top" secondItem="nzA-Uy-E53" secondAttribute="top" id="1f3-Xk-Tdi"/>
+                            <constraint firstItem="oDG-At-RrN" firstAttribute="leading" secondItem="5qO-KW-7f6" secondAttribute="trailing" constant="-50" id="6h4-IW-9jC"/>
+                            <constraint firstItem="5qO-KW-7f6" firstAttribute="top" secondItem="oDG-At-RrN" secondAttribute="bottom" constant="-64" id="SQn-XR-hhE"/>
+                            <constraint firstItem="QE3-ky-iIB" firstAttribute="leading" secondItem="oDG-At-RrN" secondAttribute="trailing" constant="-50" id="TOW-St-YCq"/>
+                            <constraint firstAttribute="bottom" secondItem="oDG-At-RrN" secondAttribute="bottom" id="TV7-pR-QEs"/>
+                            <constraint firstAttribute="trailing" secondItem="oDG-At-RrN" secondAttribute="trailing" id="V0o-U9-PoG"/>
+                            <constraint firstItem="QE3-ky-iIB" firstAttribute="top" secondItem="oDG-At-RrN" secondAttribute="bottom" constant="-64" id="VRb-Gh-8hr"/>
+                            <constraint firstItem="oDG-At-RrN" firstAttribute="leading" secondItem="nzA-Uy-E53" secondAttribute="leading" id="e7q-NO-xAr"/>
+                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" id="7pU-4C-JSB"/>
+                    <navigationItem key="navigationItem" id="YRP-ak-ZPj"/>
+                    <connections>
+                        <outlet property="mapView" destination="oDG-At-RrN" id="Jx5-i4-96E"/>
+                        <outlet property="unitButton" destination="QE3-ky-iIB" id="ERJ-Ac-A03"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lyf-rp-Hcx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1163" y="27"/>
+            <point key="canvasLocation" x="-1163" y="-5"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="jS3-cD-ygh">
@@ -114,10 +168,9 @@
                         <segue destination="lka-3y-5RY" kind="modal" identifier="ShowMeasureScreen" id="m99-7f-kcZ"/>
                         <segue destination="fQa-n1-y1j" kind="relationship" relationship="viewControllers" id="cE2-i8-0r9"/>
                         <segue destination="c4u-wK-KC3" kind="relationship" relationship="viewControllers" id="VnN-b8-sLX"/>
-                        <segue destination="Qec-7p-mYZ" kind="relationship" relationship="viewControllers" id="zZk-Yz-m9H"/>
+                        <segue destination="Bn3-PA-jkV" kind="relationship" relationship="viewControllers" id="zZk-Yz-m9H"/>
                         <segue destination="Oqg-Yf-Zro" kind="relationship" relationship="viewControllers" id="MkI-IS-eGQ"/>
                         <segue destination="yAP-as-dFe" kind="relationship" relationship="viewControllers" id="3mf-g0-btB"/>
-                        <segue destination="4eX-ef-h5m" kind="modal" identifier="NewMap" id="ncB-cv-Ygg"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Grw-Gv-BfB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -238,7 +291,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-659" y="625"/>
+            <point key="canvasLocation" x="-731" y="692"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="M8A-pm-MAh">
@@ -248,7 +301,7 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fbC-OC-vuu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-298" y="625"/>
+            <point key="canvasLocation" x="-317" y="672"/>
         </scene>
         <!--Flat Measure View Controller-->
         <scene sceneID="V5p-wX-8F8">
@@ -609,7 +662,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="X7E-Jf-KyM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-282" y="-98"/>
+            <point key="canvasLocation" x="250" y="-98"/>
         </scene>
         <!--Forecast View Controller-->
         <scene sceneID="mbF-gQ-dmx">
@@ -707,7 +760,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OXa-hn-nCW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="142" y="-98"/>
+            <point key="canvasLocation" x="674" y="-98"/>
         </scene>
         <!--Settings-->
         <scene sceneID="4fo-7s-UWd">
@@ -1381,7 +1434,7 @@
         <!--Summary-->
         <scene sceneID="Y1a-Mc-SzL">
             <objects>
-                <viewController storyboardIdentifier="SummaryViewController" id="8a4-bz-n0M" userLabel="Summary" customClass="CoreSummaryViewController" customModule="Vaavud" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SummaryViewController" id="8a4-bz-n0M" userLabel="Summary" customClass="SummaryViewController" customModule="Vaavud" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="7wU-Bb-ZNs"/>
                         <viewControllerLayoutGuide type="bottom" id="wnc-wX-Vvf"/>
@@ -2543,7 +2596,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jzX-iN-1wa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-674" y="-93"/>
+            <point key="canvasLocation" x="-142" y="-93"/>
         </scene>
         <!--Terms View Controller-->
         <scene sceneID="EYt-Bx-gxm">
@@ -2577,7 +2630,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n2e-Ba-70J" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="549" y="-98"/>
+            <point key="canvasLocation" x="1081" y="-98"/>
         </scene>
         <!--Rotatable Navigation Controller-->
         <scene sceneID="GXK-uV-3Og">
@@ -2793,24 +2846,6 @@
             </objects>
             <point key="canvasLocation" x="-1163" y="2228.5"/>
         </scene>
-        <!--New Map View Controller-->
-        <scene sceneID="4CX-6u-Fa7">
-            <objects>
-                <viewController storyboardIdentifier="NewMapViewController" id="4eX-ef-h5m" customClass="NewMapViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Rxc-W1-ibV"/>
-                        <viewControllerLayoutGuide type="bottom" id="myr-l3-sxK"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="QNs-YJ-gIm">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="T0M-g5-ADl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1738" y="672"/>
-        </scene>
         <!--Activity navigation-->
         <scene sceneID="Awx-qm-uP9">
             <objects>
@@ -2944,6 +2979,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="asv-Y5-Dwb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1584" y="2870"/>
+        </scene>
+        <!--Rotatable Navigation Controller-->
+        <scene sceneID="ACO-dd-uOw">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Bn3-PA-jkV" customClass="RotatableNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" id="7pU-4C-JSB"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="j53-Rj-vGf">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Qec-7p-mYZ" kind="relationship" relationship="rootViewController" id="o2U-fe-DIf"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cEP-9H-lzL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1613" y="-5"/>
         </scene>
     </scenes>
     <resources>

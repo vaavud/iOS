@@ -46,18 +46,9 @@ class AuthorizationController: NSObject {
         }
         
         
-        //        vaavudRootFirebase
-        //            .childByAppendingPath("user")
-        //            .childByAppendingPath(uid)
-        //            .childByAppendingPath("settings")
-        //            .observeSingleEventOfType(.Value, withBlock: { snapshot in
-        //                let settings = UserSettings(snapshot.value as? FirebaseDictionary) ?? UserSettings()
-        //            })
-
-        
-        
         let preferences = NSUserDefaults.standardUserDefaults()
-        guard let deviceId = preferences.objectForKey("deviceId") as? String, authData = vaavudRootFirebase.authData  else {
+        
+        guard let deviceId = preferences.objectForKey("deviceId") as? String, authData = vaavudRootFirebase.authData else {
             unauth()
             return false
         }
