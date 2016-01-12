@@ -600,7 +600,7 @@
          //NSLog(@"adding pending  %@ session ", snapshot.value);
          [self workingWithIncompleteAnnotations: snapshot];
          //[self addAnnotation: snapshot];
-     }];
+    }];
 }
 
 

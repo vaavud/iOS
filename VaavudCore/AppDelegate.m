@@ -185,6 +185,9 @@
 //        }
 //        self.lastAppActive = [NSDate date];
 //    }
+    
+    [FBSDKAppEvents activateApp];
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -217,13 +220,13 @@
         [[NSNotificationCenter defaultCenter]
          postNotificationName:KEY_IS_DROPBOXLINKED
          object:@([[DBSession sharedSession] isLinked])];
-        return YES;
+        //return YES;
     }
-//    else {
-//        return [FBSession.activeSession handleOpenURL:url];
-//    }
     
-    return YES;
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                                 openURL:url
+                                                       sourceApplication:sourceApplication
+                                                              annotation:annotation];
 }
 
 #pragma mark - Dropbox
