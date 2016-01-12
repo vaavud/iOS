@@ -36,12 +36,24 @@ SHARED_INSTANCE
         [Property setAsString:deviceUuid forKey:KEY_DEVICE_UUID];
         [Property setAsDate:[NSDate date] forKey:KEY_CREATION_TIME];
     }
+    
+    
+    let mobileVersion =  UIDevice.currentDevice().systemVersion
+    let appVersion = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String
+    let model = UIDevice.currentDevice().name
+    let vendor = "Apple"
+    
+    let deviceObj = Device(appVersion: appVersion, model: model, vendor: vendor, osVersion: mobileVersion, uid: uid)
+    
+
+    
 
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString *app = [infoDictionary objectForKey:@"CFBundleDisplayName"];
     NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
     NSString *appBuild = [infoDictionary objectForKey:@"CFBundleVersion"];
     NSString *os = [[UIDevice currentDevice] systemName];
+
     NSString *osVersion = [[UIDevice currentDevice] systemVersion];
     NSString *model = [ModelManager getModel];
     NSString *country = [[NSLocale currentLocale] objectForKey: NSLocaleCountryCode];
@@ -51,21 +63,21 @@ SHARED_INSTANCE
 
     // detect changes and optionally save
     
-    if ([app compare:[Property getAsString:KEY_APP]] != NSOrderedSame) {
-        [Property setAsString:app forKey:KEY_APP];
-    }
-    if ([appVersion compare:[Property getAsString:KEY_APP_VERSION]] != NSOrderedSame) {
-        [Property setAsString:appVersion forKey:KEY_APP_VERSION];
-    }
-    if ([appBuild compare:[Property getAsString:KEY_APP_BUILD]] != NSOrderedSame) {
-        [Property setAsString:appBuild forKey:KEY_APP_BUILD];
-    }
-    if ([os compare:[Property getAsString:KEY_OS]] != NSOrderedSame) {
-        [Property setAsString:os forKey:KEY_OS];
-    }
-    if ([osVersion compare:[Property getAsString:KEY_OS_VERSION]] != NSOrderedSame) {
-        [Property setAsString:osVersion forKey:KEY_OS_VERSION];
-    }
+//    if ([app compare:[Property getAsString:KEY_APP]] != NSOrderedSame) {
+//        [Property setAsString:app forKey:KEY_APP];
+//    }
+//    if ([appVersion compare:[Property getAsString:KEY_APP_VERSION]] != NSOrderedSame) {
+//        [Property setAsString:appVersion forKey:KEY_APP_VERSION];
+//    }
+//    if ([appBuild compare:[Property getAsString:KEY_APP_BUILD]] != NSOrderedSame) {
+//        [Property setAsString:appBuild forKey:KEY_APP_BUILD];
+//    }
+//    if ([os compare:[Property getAsString:KEY_OS]] != NSOrderedSame) {
+//        [Property setAsString:os forKey:KEY_OS];
+//    }
+//    if ([osVersion compare:[Property getAsString:KEY_OS_VERSION]] != NSOrderedSame) {
+//        [Property setAsString:osVersion forKey:KEY_OS_VERSION];
+//    }
     if ([model compare:[Property getAsString:KEY_MODEL]] != NSOrderedSame) {
         [Property setAsString:model forKey:KEY_MODEL];
     }

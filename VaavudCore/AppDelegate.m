@@ -52,7 +52,7 @@
 //    [MagicalRecord setupAutoMigratingCoreDataStack];
 //    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelOff];
     
-    [[ModelManager sharedInstance] initializeModel];
+//    [[ModelManager sharedInstance] initializeModel];
 //    [[ServerUploadManager sharedInstance] start];
     [[LocationManager sharedInstance] startIfEnabled];
     //[FBSettings setLoggingBehavior:[NSSet setWithObjects:FBLoggingBehaviorFBRequests, FBLoggingBehaviorInformational, nil]];

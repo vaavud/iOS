@@ -128,7 +128,7 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windspeedUnitChanged) name:KEY_UNIT_CHANGED object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windspeedUnitChanged) name:KEY_UNIT_CHANGED object:nil];
     
     self.view.autoresizesSubviews = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
