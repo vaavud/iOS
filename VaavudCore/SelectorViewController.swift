@@ -45,13 +45,13 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
     }
     
     func onSuccess(showActivitySelector: Bool) {
-        if !showActivitySelector {
+        if showActivitySelector {
             if let vc = storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
                 navigationController?.pushViewController(vc, animated: true)
             }
         }
         else {
-            gotoAppFrom(self, inside: view.window!.rootViewController!)
+            gotoAppFrom(navigationController!, inside: view.window!.rootViewController!)
         }
     }
     
