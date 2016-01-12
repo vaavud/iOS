@@ -15,72 +15,24 @@ static int const IPHONE6 = 3;
 
 @implementation AlgorithmConstantsUtil
 
-+ (NSNumber *)getAlgorithm:(NSString *)model osVersion:(NSString *)version {
++ (double)getFrequencyFactor:(NSString *)model {
     switch ([AlgorithmConstantsUtil getGeneralModel:model]) {
         case IPHONE4:
-            return @(ALGORITHM_IPHONE4);
-        default:
-            return @(ALGORITHM_STANDARD);
-    }
-}
-
-+ (NSNumber *)getAlgorithmFromString:(NSString *)algorithm {
-    if ([algorithm isEqualToString:@"IPHONE4"]) {
-        return @(ALGORITHM_IPHONE4);
-    }
-    else {
-        return @(ALGORITHM_STANDARD);
-    }
-}
-
-+ (NSNumber *)getFrequencyStart:(NSString *)model osVersion:(NSString *)version {
-    switch ([AlgorithmConstantsUtil getGeneralModel:model]) {
-        case IPHONE4:
-            return @(I4_FREQUENCY_START);
+            return I4_FREQUENCY_FACTOR;
         case IPHONE5:
-            return @(I5_FREQUENCY_START);
+        case IPHONE6:
+            return I5_FREQUENCY_FACTOR;
         default:
-            return @(STANDARD_FREQUENCY_START);
+            return STANDARD_FREQUENCY_FACTOR;
     }
 }
 
-+ (NSNumber *)getFrequencyFactor:(NSString *)model osVersion:(NSString *)version {
-    switch ([AlgorithmConstantsUtil getGeneralModel:model]) {
-        case IPHONE4:
-            return @(I4_FREQUENCY_FACTOR);
-        case IPHONE5:
-            return @(I5_FREQUENCY_FACTOR);
-        default:
-            return @(STANDARD_FREQUENCY_FACTOR);
-    }
-}
-
-+ (NSNumber *)getFFTLength:(NSString *)model osVersion:(NSString *)version {
-    if ([AlgorithmConstantsUtil isOSVersionGreaterThan6_1_3:version]) {
-        // iOS version above 6.1.3 has a lower update frequency
-        return @(FQ40_FFT_LENGTH);
-    }
-    else {
-        return @(FQ60_FFT_LENGTH);
-    }
-}
-
-+ (NSNumber *)getFFTDataLength:(NSString *)model osVersion:(NSString *)version {
-    if ([AlgorithmConstantsUtil isOSVersionGreaterThan6_1_3:version]) {
-        // iOS version above 6.1.3 has a lower update frequency
-        return @(FQ40_FFT_DATA_LENGTH);
-    }
-    else {
-        return @(FQ60_FFT_DATA_LENGTH);
-    }
-}
-
-+ (NSNumber *)getFFTMagMin:(NSString *)model osVersion:(NSString *)version {
++ (double)getFFTMagMin:(NSString *)model {
     switch ([AlgorithmConstantsUtil getGeneralModel:model]) {
         case IPHONE6:
-            return @(FFT_PEAK_MAG_MIN_IPHONE6);
+            return FFT_PEAK_MAG_MIN_IPHONE6;
         default:
-            return @(FFT_PEAK_MAG_MIN_GENERAL);
+            return FFT_PEAK_MAG_MIN_GENERAL;
     }
 }
 
@@ -99,11 +51,6 @@ static int const IPHONE6 = 3;
     if ([model isEqual:@"iPhone7,2"]) return IPHONE6;       // iPhone 6+
     
     return OTHER;
-}
-
-+ (BOOL)isOSVersionGreaterThan6_1_3:(NSString *)osVersion {
-    // iOS version above 6.1.3 has a lower update frequency
-    return [@"6.1.3" compare:osVersion] == NSOrderedAscending;
 }
 
 @end

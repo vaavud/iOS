@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Mixpanel
 import Firebase
 
 // fixme: move to common file
@@ -74,8 +73,11 @@ class CoreSettingsTableViewController: UITableViewController {
         dropboxControl.on = DBSession.sharedSession().isLinked()
         
 //        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasLoggedInOut:", name: KEY_DID_LOGINOUT, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: KEY_IS_DROPBOXLINKED, object: nil)
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "modelChanged:", name: KEY_WINDMETERMODEL_CHANGED, object: nil)
+        
+        // fixme: actually use notifications
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: "dropboxIsLinked", object: nil)
+
+        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: "modelChanged:", name: KEY_WINDMETERMODEL_CHANGED, object: nil)
 
         formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
         refreshUnits()
@@ -230,8 +232,8 @@ class CoreSettingsTableViewController: UITableViewController {
             DBSession.sharedSession().unlinkAll()
             value = "Unlinked"
         }
-        Mixpanel.sharedInstance().track("Dropbox", properties: ["Action" : value])
         logHelper.increase()
+        // fixme: track
     }
 
     @IBAction func changedMeterModel(sender: UISegmentedControl) {

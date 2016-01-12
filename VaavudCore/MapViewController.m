@@ -307,9 +307,9 @@
     ForecastAnnotation *annotation = [[ForecastAnnotation alloc] initWithLocation:loc];
 
     [[ForecastLoader shared] setup:annotation mapView:self.mapView];
-    if ([Property isMixpanelEnabled]) {
-        [[Mixpanel sharedInstance] track:@"Forecast added pin"];
-    }
+//    if ([Property isMixpanelEnabled]) {
+//        [[Mixpanel sharedInstance] track:@"Forecast added pin"];
+//    }
     
     [self.mapView addAnnotation:annotation];
     [self.mapView selectAnnotation:annotation animated:YES];
@@ -656,16 +656,16 @@
                                        animated:!self.isSelectingFromTableView];
         
         if (self.isSelectingFromTableView) {
-            [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"nearby measurement touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Nearby Measurements"];
+//            [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"nearby measurement touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Nearby Measurements"];
             [self.logHelper log:@"Tapped-Nearby" properties:@{}];
         }
         else {
-            [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"measurement marker touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Map"];
+//            [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"measurement marker touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Map"];
             [self.logHelper log:@"Tapped-Marker" properties:@{}];
             [self.logHelper increase:@"tapped-marker"];
         }
         
-        [MixpanelUtil addMapInteractionToProfile];
+//        [MixpanelUtil addMapInteractionToProfile];
         
         self.isSelectingFromTableView = NO;
         
@@ -823,25 +823,25 @@
     [self windspeedUnitChanged];
 }
 
--(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation *)annotation
-                           withAction:(NSString *)action
-                        mixpanelTrack:(NSString *)track
-                       mixpanelSource:(NSString *)source {
-    
-    if ([Property isMixpanelEnabled]) {
-        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-        if (source) {
-            [dictionary setObject:source forKey:@"Source"];
-        }
-        
-        if (dictionary.count > 0) {
-            [[Mixpanel sharedInstance] track:track properties:dictionary];
-        }
-        else {
-            [[Mixpanel sharedInstance] track:track];
-        }
-    }
-}
+//-(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation *)annotation
+//                           withAction:(NSString *)action
+//                        mixpanelTrack:(NSString *)track
+//                       mixpanelSource:(NSString *)source {
+//    
+//    if ([Property isMixpanelEnabled]) {
+//        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+//        if (source) {
+//            [dictionary setObject:source forKey:@"Source"];
+//        }
+//        
+//        if (dictionary.count > 0) {
+//            [[Mixpanel sharedInstance] track:track properties:dictionary];
+//        }
+//        else {
+//            [[Mixpanel sharedInstance] track:track];
+//        }
+//    }
+//}
 
 @end
 

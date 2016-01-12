@@ -12,7 +12,8 @@
 #import <CoreData/CoreData.h>
 #import "VaavudMagneticFieldDataManager.h"
 #import "VaavudFFT.h"
-#import "Property+Util.h"
+#import "AlgorithmConstantsUtil.h"
+#import "ModelManager.h"
 
 @interface MjolnirMeasurementController () {}
 
@@ -57,12 +58,16 @@
     self = [super init];
     
     if (self) {
-        self.iPhone4Algo = ([[Property getAsInteger:KEY_ALGORITHM] intValue] == ALGORITHM_IPHONE4);
-        self.frequencyStart = [[Property getAsDouble:KEY_FREQUENCY_START] doubleValue];
-        self.frequencyFactor = [[Property getAsDouble:KEY_FREQUENCY_FACTOR] doubleValue];
-        self.fftLength = [[Property getAsInteger:KEY_FFT_LENGTH] intValue];
-        self.fftDataLength = [[Property getAsInteger:KEY_FFT_DATA_LENGTH] intValue];
-        self.fftPeakMagnitudeMinForValid = [[Property getAsDouble:KEY_FFT_MAG_MIN] doubleValue];
+        NSString *model = [ModelManager getModel];
+        
+        self.iPhone4Algo = [ModelManager isIPhone4];
+        
+        self.frequencyStart = STANDARD_FREQUENCY_START;
+        self.frequencyFactor = [AlgorithmConstantsUtil getFrequencyFactor:model];
+        self.fftLength = FQ40_FFT_LENGTH;
+        self.fftDataLength = FQ40_FFT_DATA_LENGTH;
+        self.fftPeakMagnitudeMinForValid = [AlgorithmConstantsUtil getFFTMagMin:model];
+
         self.FFTEngine = [[VaavudFFT alloc] initFFTLength: self.fftLength andFftDataLength: self.fftDataLength];
         
         if (LOG_OTHER) NSLog(@"[VaavudCoreController] Using algorithm parameters: iPhone4Algo=%d, frequencyStart=%f, frequencyFactor=%f, fftLength=%d, fftDataLength=%d, fft_MagnitudeMin=%f", self.iPhone4Algo, self.frequencyStart, self.frequencyFactor, self.fftLength, self.fftDataLength, self.fftPeakMagnitudeMinForValid);

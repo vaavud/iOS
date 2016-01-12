@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Mixpanel
 
 class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var scrollView: UIScrollView!

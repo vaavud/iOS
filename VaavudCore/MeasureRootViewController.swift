@@ -9,7 +9,6 @@
 import UIKit
 import CoreMotion
 import VaavudSDK
-import Mixpanel
 import Firebase
 
 //public class VaavudLegacySDK: NSObject {
@@ -724,7 +723,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     @IBAction func debugPanned(sender: UIPanGestureRecognizer) {
 //        let y = sender.locationInView(view).y
 //        let x = view.bounds.midX - sender.locationInView(view).x
-        let dx = Double(sender.translationInView(view).x/2)
+//        let dx = Double(sender.translationInView(view).x/2)
         let dy = Double(sender.translationInView(view).y/20)
         
 //        if let event = latestWindDirection {

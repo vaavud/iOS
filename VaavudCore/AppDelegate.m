@@ -13,11 +13,10 @@
 #import "ServerUploadManager.h"
 #import "LocationManager.h"
 #import "QueryStringUtil.h"
-#import "TabBarController.h"
+//#import "TabBarController.h"
 #import "TMCache.h"
-#import "AccountManager.h"
-#import "Mixpanel.h"
-#import "Property+Util.h"
+//#import "AccountManager.h"
+//#import "Property+Util.h"
 #import "UnitUtil.h"
 #import "UIColor+VaavudColors.h"
 #import "MixpanelUtil.h"
@@ -50,11 +49,11 @@
     TMCache *cache = [TMCache sharedCache];
     cache.diskCache.ageLimit = 24.0*3600.0;
     
-    [MagicalRecord setupAutoMigratingCoreDataStack];
-    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelOff];
+//    [MagicalRecord setupAutoMigratingCoreDataStack];
+//    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelOff];
     
     [[ModelManager sharedInstance] initializeModel];
-    [[ServerUploadManager sharedInstance] start];
+//    [[ServerUploadManager sharedInstance] start];
     [[LocationManager sharedInstance] startIfEnabled];
     //[FBSettings setLoggingBehavior:[NSSet setWithObjects:FBLoggingBehaviorFBRequests, FBLoggingBehaviorInformational, nil]];
             
@@ -66,16 +65,16 @@
     [DBSession setSharedSession:[[DBSession alloc] initWithAppKey:@"zszsy52n0svxcv7" appSecret:@"t39k1uzaxs7a0zj" root:kDBRootAppFolder]];
     
     // Whenever a person opens the app, check for a cached session and refresh token
-    if ([[AccountManager sharedInstance] isLoggedIn]) {
-        [[AccountManager sharedInstance] registerWithFacebook:nil from:nil action:AuthenticationActionRefresh];
-    }
-    
-    // Set has wind meter property if not set
-    if (![Property getAsString:KEY_USER_HAS_WIND_METER]) {
-        [Property refreshHasWindMeter];
-    }
-    
-    [Property setAsBoolean:[Property getAsBoolean:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN] forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY];
+//    if ([[AccountManager sharedInstance] isLoggedIn]) {
+//        [[AccountManager sharedInstance] registerWithFacebook:nil from:nil action:AuthenticationActionRefresh];
+//    }
+//    
+//    // Set has wind meter property if not set
+//    if (![Property getAsString:KEY_USER_HAS_WIND_METER]) {
+//        [Property refreshHasWindMeter];
+//    }
+//    
+//    [Property setAsBoolean:[Property getAsBoolean:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN] forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY];
     
 #ifdef DEBUG
     [[Amplitude instance] initializeApiKey:@"043371ecbefba51ec63a992d0cc57491"];
@@ -153,7 +152,7 @@
     }
     else if ([[DBSession sharedSession] handleOpenURL:url]) {
         [[NSNotificationCenter defaultCenter]
-         postNotificationName:KEY_IS_DROPBOXLINKED
+         postNotificationName:@"dropboxIsLinked"
          object:@([[DBSession sharedSession] isLinked])];
         return YES;
     }

@@ -11,7 +11,6 @@ import UIKit
 import MapKit
 import Social
 import Firebase
-import Mixpanel
 
 class SummaryViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet private weak var dateLabel: UILabel!
@@ -102,20 +101,21 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         updateUI()
         updateLocalUI()
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "sessionUpdated:", name: KEY_SESSION_UPDATED, object: nil)
+        // fixme: listen for session change
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        if !Property.getAsBoolean(KEY_SHARE_OVERLAY_SHOWN, defaultValue: false), let tbc = tabBarController {
-            Property.setAsBoolean(true, forKey: KEY_SHARE_OVERLAY_SHOWN)
-            let p = Interface.choose((0.915, 0.09), (0.915, 0.075), (0.925, 0.065), (0.925, 0.06), (0.957, 0.043), (0.97, 0.053))
-            let pos = CGPoint(x: p.0, y: p.1)
-            let text = NSLocalizedString("SUMMARY_SHARE_OVERLAY", comment: "")
-            let icon = UIImage(named: "SummaryShareOverlay")
-            tbc.view.addSubview(RadialOverlay(frame: tbc.view.bounds, position: pos, text: text, icon: icon, radius: 75))
-        }
+        // fixme: to firebase
+//        if !Property.getAsBoolean(KEY_SHARE_OVERLAY_SHOWN, defaultValue: false), let tbc = tabBarController {
+//            Property.setAsBoolean(true, forKey: KEY_SHARE_OVERLAY_SHOWN)
+//            let p = Interface.choose((0.915, 0.09), (0.915, 0.075), (0.925, 0.065), (0.925, 0.06), (0.957, 0.043), (0.97, 0.053))
+//            let pos = CGPoint(x: p.0, y: p.1)
+//            let text = NSLocalizedString("SUMMARY_SHARE_OVERLAY", comment: "")
+//            let icon = UIImage(named: "SummaryShareOverlay")
+//            tbc.view.addSubview(RadialOverlay(frame: tbc.view.bounds, position: pos, text: text, icon: icon, radius: 75))
+//        }
     }
 
     override func viewWillAppear(animated: Bool) {

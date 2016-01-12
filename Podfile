@@ -4,7 +4,7 @@ use_frameworks!
 xcodeproj 'Vaavud'
 link_with 'Vaavud'
 pod 'Dropbox-iOS-SDK'
-pod 'Amplitude-iOS', '~> 3.2.1'
+pod 'Amplitude-iOS'
 pod 'Firebase', '>= 2.4.2'
 pod 'GeoFire', '>= 1.1'
 pod 'FBSDKCoreKit'
