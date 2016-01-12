@@ -274,6 +274,7 @@ class CoreSettingsTableViewController: UITableViewController {
         LogHelper.log(event: "Logged-Out", properties: ["place" : "settings"])
         
         AuthorizationController.shared.unauth()
+        FBSDKLoginManager().logOut()
 
         gotoLoginFrom(tabBarController!, inside: view.window!.rootViewController!)
     }

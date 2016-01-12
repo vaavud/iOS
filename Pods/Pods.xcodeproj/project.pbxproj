@@ -1093,7 +1093,7 @@
 				B26F42936EA6B90B8E95B611046B034A /* Info.plist */,
 			);
 			name = "Support Files";
-			path = "../Target Support Files/FBSDKCoreKit";
+			path = "../Target Support Files/Bolts";
 			sourceTree = "<group>";
 		};
 		642130C58844A38F24EAACAE8E8656A9 /* iOS */ = {
@@ -1242,7 +1242,7 @@
 				F0FF29C8A53E40708CEBBB3F8098F570 /* NSURL+MPURLParameterAdditions.h */,
 				3BC6FB76437FF75752F811226D8B315A /* NSURLResponse+Encoding.h */,
 			);
-			path = "Dropbox-iOS-SDK";
+			path = FBSDKLoginKit;
 			sourceTree = "<group>";
 		};
 		942509B613C6A0858FB1EC936FC4182A /* FBSDKLoginKit */ = {
@@ -2953,26 +2953,26 @@
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A70CDAD61F90AC503C7D04CC22DA2923 /* Debug */,
-				FB45FFD90572718D82AB9092B750F0CA /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		45BC9152B89A6ED3378CDAFEC3FFB02A /* Build configuration list for PBXNativeTarget "FBSDKCoreKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				F0FA1453B13BC95E081118687C646BFF /* Debug */,
-				301EF5771910C9E7665DFA3EB4A38E4B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		49B346C14D532324DCD14D0FA1347BC6 /* Build configuration list for PBXNativeTarget "Firebase" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
 				6A12C1AE4F4CCA35BC0F38AE90629255 /* Debug */,
 				7224AD649174A88C25AF79BCC0C24B68 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		66D1256B3CE917E611426DB6B58097DE /* Build configuration list for PBXNativeTarget "Amplitude-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				23875276AFC54AF1383F54A5DFF47723 /* Debug */,
+				EB4B9B31CE66278157A31341F59C87CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6A1A08A808B6977C0D36ABC5867BCE98 /* Build configuration list for PBXNativeTarget "Bolts" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFDA749D00CC7AE458FC831251F27F79 /* Debug */,
+				69E33B232271D514358FE356285B6AE1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

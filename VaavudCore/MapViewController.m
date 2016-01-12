@@ -414,6 +414,12 @@
     
     if (data.value[@"timeEnd"] != nil) {
         MeasurementAnnotation *annotation = self.incompleteSessions[data.key];
+        MKAnnotationView *annotationView = [self.mapView viewForAnnotation: annotation];
+        annotation.isItFinished = YES;
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            [self updateAnnotationView: annotationView];
+        }];
         
         [self addAnnotationTOStack:annotation  sessionKey:data.key];
     }
@@ -476,6 +482,8 @@
                 return;
             }
             
+            annotation.isItFinished = NO;
+            
             [UIView animateWithDuration:0.3 animations:^{
                 
                 annotation.coordinate = CLLocationCoordinate2DMake(latitude,longitude);
@@ -524,6 +532,8 @@
     }
         
     MeasurementAnnotation *measurementAnnotation = [[MeasurementAnnotation alloc] initWithLocation:CLLocationCoordinate2DMake(latitude,longitude) sessionKey: data.key startTime:startTime avgWindSpeed:windSpeedAvg maxWindSpeed:windSpeedMax windDirection:windDirection];
+    
+    measurementAnnotation.isItFinished = YES;
     
     [self.mapView addAnnotation:measurementAnnotation];
     [self addAnnotationTOStack:measurementAnnotation sessionKey:data.key];
@@ -576,7 +586,7 @@
     
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
      observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
-         NSLog(@"adding new sessions  %@ session ", snapshot.key);
+         NSLog(@"adding new sessions  %@ session with time %@ ", snapshot.key, currentTime);
          [self addAnnotation: snapshot];
      }];
     
@@ -586,7 +596,7 @@
          //NSLog(@"adding pending  %@ session ", snapshot.value);
          [self workingWithIncompleteAnnotations: snapshot];
          //[self addAnnotation: snapshot];
-     }];
+    }];
 }
 
 
@@ -830,11 +840,19 @@
 -(MKAnnotationView *)updateAnnotationView: (MKAnnotationView *) annotationView {
     
     MeasurementAnnotation *measurementAnnotation = (MeasurementAnnotation *)annotationView.annotation;
+    BOOL isItFinished = measurementAnnotation.isItFinished;
     
     UIImageView *iv = (UIImageView *)[annotationView viewWithTag:101];
     if (iv) {
         if (measurementAnnotation.windDirection) {
-            iv.image = [UIImage imageNamed:@"MapMarkerDirection"];
+            
+            if (isItFinished) {
+                iv.image = [UIImage imageNamed:@"MapMarkerDirection"];
+            }
+            else{
+                iv.image = [UIImage imageNamed:@"MapMarkerDirectionBlue"];
+            }
+            
             [iv sizeToFit];
             iv.transform = [UnitUtil transformForDirection:measurementAnnotation.windDirection];
         }
@@ -970,7 +988,7 @@
         
         CGFloat lon = self.mapView.region.center.longitude + longitudinalShift;
         CLLocationCoordinate2D newCenterCoordinate = (CLLocationCoordinate2D){lat, lon};
-        if (fabsf(newCenterCoordinate.latitude) <= 90 && fabsf(newCenterCoordinate.longitude) <= 180) {
+        if (fabs(newCenterCoordinate.latitude) <= 90 && fabs(newCenterCoordinate.longitude) <= 180) {
             //NSLog(@"[MapViewController] delayForRepositionWithSize - setCenterCoordinate");
             [self.mapView setCenterCoordinate:newCenterCoordinate animated:YES];
         }

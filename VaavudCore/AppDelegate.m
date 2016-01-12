@@ -154,13 +154,13 @@
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"dropboxIsLinked"
          object:@([[DBSession sharedSession] isLinked])];
-        return YES;
+        //return YES;
     }
-//    else {
-//        return [FBSession.activeSession handleOpenURL:url];
-//    }
     
-    return YES;
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                                 openURL:url
+                                                       sourceApplication:sourceApplication
+                                                              annotation:annotation];
 }
 
 #pragma mark - Dropbox
