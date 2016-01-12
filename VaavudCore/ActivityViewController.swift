@@ -8,13 +8,11 @@
 
 import UIKit
 
-class ActivityViewController: UIViewController,UIPickerViewDelegate {
-    
-    
+class ActivityViewController: UIViewController, UIPickerViewDelegate {
     @IBOutlet weak var activityPicker: UIPickerView!
     
     var rowSelected = 0
-    let pickerDataSource = ["sailing", "kitesurfing", "windsurfing", "weather", "flying","other"]
+    let pickerDataSource = ["sailing", "kitesurfing", "windsurfing", "weather", "flying", "other"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +23,7 @@ class ActivityViewController: UIViewController,UIPickerViewDelegate {
         rowSelected = row
     }
     
-    
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
         return pickerDataSource[row]
     }
     
@@ -41,8 +37,6 @@ class ActivityViewController: UIViewController,UIPickerViewDelegate {
 
     @IBAction func savePushed() {
         AuthorizationController.shared.updateActivity(pickerDataSource[rowSelected])
-        print(AuthorizationController.shared.uid)
-        navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        gotoAppFrom(self, inside: view.window!.rootViewController!)
     }
-
 }

@@ -37,7 +37,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     
     func onSuccess(showActivitySelector: Bool) {
         if showActivitySelector {
-            if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
+            if let vc = storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
                 navigationController?.pushViewController(vc, animated: true)
             }
         }
@@ -77,9 +77,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
 
     // MARK: Convenience
     
-    private func showError(error: LoginError) {
+    private func showError(error: LoginError) { // fixme: no action??
         dispatch_async(dispatch_get_main_queue()) {
-            VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.rawValue, otherKey: "BUTTON_OK", action: {}, on: self)
+            VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.rawValue, otherKey: "BUTTON_OK", action: {
+                }, on: self)
         }
     }
     

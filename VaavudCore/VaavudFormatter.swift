@@ -134,7 +134,7 @@ enum DirectionUnit: String, Unit {
     case Degrees = "degrees"
     
     // MARK: Unit protocol
-    static var unitKey: String { return "directionUnit" }
+    static var unitKey: String { return "windDirectionUnit" }
     static var allCases: [DirectionUnit] { return [.Cardinal, .Degrees] }
 
     // MARK: Static
@@ -151,7 +151,7 @@ enum SpeedUnit: String, FloatUnit {
     case Bft = "beaufort"
     
     // MARK: Unit protocol
-    static var unitKey: String { return "speedUnit" }
+    static var unitKey: String { return "windSpeedUnit" }
     static var allCases: [SpeedUnit] { return [.Kmh, .Ms, .Mph, .Knots, .Bft] }
     
     // MARK: FloatUnit protocol
@@ -185,10 +185,10 @@ class VaavudFormatter: NSObject {
     private var _pressureUnit: PressureUnit = .Mbar
     private var _temperatureUnit: TemperatureUnit = .Celsius
 
-    var speedUnit: SpeedUnit { set { writeUnit(newValue, old: speedUnit) } get { return _speedUnit } }
-    var directionUnit: DirectionUnit { set { writeUnit(newValue, old: directionUnit) } get { return _directionUnit } }
-    var pressureUnit: PressureUnit { set { writeUnit(newValue, old: pressureUnit) } get { return _pressureUnit } }
-    var temperatureUnit: TemperatureUnit { set { writeUnit(newValue, old: temperatureUnit) } get { return _temperatureUnit } }
+    var speedUnit: SpeedUnit { set { writeUnit(newValue, old: _speedUnit); _speedUnit = newValue } get { return _speedUnit } }
+    var directionUnit: DirectionUnit { set { writeUnit(newValue, old: _directionUnit); _directionUnit = newValue } get { return _directionUnit } }
+    var pressureUnit: PressureUnit { set { writeUnit(newValue, old: _pressureUnit); _pressureUnit = newValue } get { return _pressureUnit } }
+    var temperatureUnit: TemperatureUnit { set { writeUnit(newValue, old: _temperatureUnit); _temperatureUnit = newValue } get { return _temperatureUnit } }
     
     private var callbacks = [String : Callback]()
     
@@ -207,12 +207,17 @@ class VaavudFormatter: NSObject {
         
         super.init()
         
-        handle = firebase
-            .childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
-            .observeEventType(.ChildChanged, withBlock: parseSnapshot(updateUnits))
+        print("Init formatter, adding firebase callback")
+        
+        let sharedSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
+        
+        handle = sharedSettings.observeEventType(.ChildChanged, withBlock: parseSnapshot(updateUnits))
+        sharedSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot(updateUnits) )
     }
     
     private func updateUnits(dict: [String : AnyObject]) {
+        print("Formatter updateUnits units \(dict)")
+
         if let key = dict[SpeedUnit.unitKey] as? String, unit = SpeedUnit(rawValue: key) {
             _speedUnit = unit
         }
@@ -229,8 +234,6 @@ class VaavudFormatter: NSObject {
             _temperatureUnit = unit
         }
         
-        print("Formatter updateUnits units \(dict)")
-        
         for callback in callbacks.values { callback() }
     }
     
@@ -238,7 +241,7 @@ class VaavudFormatter: NSObject {
         firebase.removeObserverWithHandle(handle)
     }
     
-    // MARK - Public
+    // MARK - Public: Callback handling
     
     func observeUnitChange(callback: Callback) -> String {
         let uid = NSUUID().UUIDString
@@ -249,6 +252,8 @@ class VaavudFormatter: NSObject {
     func stopObserving(uid: String) -> Bool {
         return callbacks.removeValueForKey(uid) != nil
     }
+
+    // MARK - Public
 
     func hourValue(date: NSDate) -> Int {
         return calendar.components(.Hour, fromDate: date).hour
@@ -360,7 +365,7 @@ class VaavudFormatter: NSObject {
 //    }
     
     func writeUnit<U: Unit>(unit: U, old: U) {
-        print("Write unit \(U.unitKey): \(unit.rawValue)")
+        print("Formatter: Write unit \(U.unitKey): \(old.rawValue) > \(unit.rawValue)")
         guard unit != old else { return }
         firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared", U.unitKey).setValue(unit.rawValue)
     }

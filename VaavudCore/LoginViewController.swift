@@ -8,12 +8,51 @@
 
 import UIKit
 
+func gotoAppFrom(fromVc: UIViewController, inside parentVc: UIViewController) {
+    guard let toVc = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateInitialViewController() else {
+        return
+    }
+    
+    gotoVc(toVc, fromVc: fromVc, parentVc: parentVc)
+}
+
+func gotoLoginFrom(fromVc: UIViewController, inside parentVc: UIViewController) {
+    let storyboard = UIStoryboard(name: "Login", bundle: nil)
+    
+    guard let loginNav = storyboard.instantiateInitialViewController() as? UINavigationController else {
+        return
+    }
+    
+    let login = storyboard.instantiateViewControllerWithIdentifier("Selector")
+    loginNav.pushViewController(login, animated: false)
+    
+    gotoVc(loginNav, fromVc: fromVc, parentVc: parentVc)
+}
+
+private func gotoVc(toVc: UIViewController, fromVc: UIViewController, parentVc: UIViewController) {
+    parentVc.addChildViewController(toVc)
+    fromVc.willMoveToParentViewController(nil)
+    
+    parentVc.transitionFromViewController(fromVc,
+        toViewController: toVc,
+        duration: 0.5,
+        options: .TransitionFlipFromLeft,
+        animations: {}) { _ in
+            fromVc.removeFromParentViewController()
+            toVc.didMoveToParentViewController(parentVc)
+    }
+}
+
 class LoginViewController: UIViewController, LoginDelegate {
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: UIBarButtonItem!
     
     // MARK: Lifetime
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,11 +90,7 @@ class LoginViewController: UIViewController, LoginDelegate {
             }
         }
         else {
-            let storyboard = UIStoryboard(name: "MainStoryboard", bundle: nil)
-            let vc = storyboard.instantiateViewControllerWithIdentifier("TabBarController")
-            presentViewController(vc, animated: true, completion: nil)
-            
-            //navigationController?.dismissViewControllerAnimated(true, completion: nil)
+            gotoAppFrom(self.navigationController!, inside: view.window!.rootViewController!)
         }
     }
 
@@ -123,7 +158,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
     // MARK: User Actions
 
     @IBAction func tappedSend() {
-        // fixme: add action
+        // fixme: add actual sending
         navigationController?.popViewControllerAnimated(true)
     }
     

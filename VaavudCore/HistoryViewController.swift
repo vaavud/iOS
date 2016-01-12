@@ -84,71 +84,53 @@ struct Sourced {
 }
 
 struct Session {
-    let deviceKey: String
+    var key: String!
+
     let uid: String
+    let deviceKey: String
     let timeStart: NSDate
-    
-    var key: String?
+    let windMeter: WindMeterModel
+
+    var windMax: Float = 0
+    var windMean: Float = 0
+
     var timeEnd: NSDate?
     var windDirection: Float?
-    var windMax: Float?
-    var windMean: Float?
-    let windMeter: String
+    var pressure: Float?
+    var temperature: Float?
     var turbulence: Float?
     var sourced: Sourced?
     var location: Location?
     
     init(snapshot: FDataSnapshot) {
         key = snapshot.key
+        
         uid = snapshot.value["uid"] as! String
         deviceKey = snapshot.value["deviceKey"] as! String
         timeStart = NSDate(ms: snapshot.value["timeStart"] as! NSNumber)
+        
+        windMeter = WindMeterModel(rawValue: snapshot.value["windMeter"] as! String)!
 
-//        if let timeEnd = snapshot.value["timeEnd"] as? NSNumber {
-//            self.timeEnd = NSDate(ms: timeEnd)
-//        }
+        windMax = snapshot.value["windMax"] as! Float
+        windMean = snapshot.value["windMean"] as! Float
         
         timeEnd = (snapshot.value["timeEnd"] as? NSNumber).map(NSDate.init)
-
-        // Should be equivalent to:
-        //        if let timeEnd = snapshot.value["timeEnd"] as? NSNumber {
-        //            self.timeEnd = NSDate(ms: timeEnd)
-        //        }
         
         windDirection = snapshot.value["windDirection"] as? Float
-        windMax = snapshot.value["windMax"] as? Float
-        windMean = snapshot.value["windMean"] as? Float
-        windMeter = snapshot.value["windMeter"] as! String
+        pressure = snapshot.value["pressure"] as? Float
+        temperature = snapshot.value["temperature"] as? Float
         turbulence = snapshot.value["turbulence"] as? Float
 
         sourced = (snapshot.value["sourced"] as? FirebaseDictionary).flatMap(Sourced.init)
         location = (snapshot.value["location"] as? FirebaseDictionary).flatMap(Location.init)
-
-        // Should be equivalent to:
-        //        if let sourced = snapshot.value["sourced"] as? FirebaseDictionary {
-        //            self.sourced = Sourced(dict: sourced)
-        //        }
-        //
-        //        if let location = snapshot.value["location"] as? FirebaseDictionary {
-        //            self.location = Location(dict: location)
-        //        }
     }
     
-    init(uid: String, deviceId: String, timeStart: NSDate, windMeter: String) {
+    init(uid: String, key: String, deviceId: String, timeStart: NSDate, windMeter: WindMeterModel) {
         self.uid = uid
+        self.key = key
         self.deviceKey = deviceId
         self.timeStart = timeStart
         self.windMeter = windMeter
-    }
-    
-    func initDict() -> FirebaseDictionary { // Fixme: why is this necessary?
-        var dict = FirebaseDictionary()
-        dict["deviceKey"] = deviceKey
-        dict["uid"] = uid
-        dict["timeStart"] = timeStart.ms
-        dict["windMeter"] = windMeter
-        
-        return dict
     }
     
     var fireDict: FirebaseDictionary {
@@ -156,11 +138,13 @@ struct Session {
         dict["uid"] = uid
         dict["deviceKey"] = deviceKey
         dict["timeStart"] = timeStart.ms
-        dict["timeEnd"] = timeEnd
+        dict["timeEnd"] = timeEnd?.ms
         dict["windMax"] = windMax
         dict["windDirection"] = windDirection
         dict["windMean"] = windMean
-        dict["windMeter"] = windMeter
+        dict["pressure"] = pressure
+        dict["temperature"] = temperature
+        dict["windMeter"] = windMeter.rawValue
         dict["sourced"] = sourced?.fireDict
         dict["location"] = location?.fireDict
         dict["turbulence"] = turbulence
@@ -170,10 +154,9 @@ struct Session {
 }
 
 class HistoryViewController: UITableViewController, HistoryDelegate {
-//    var sessions = [[Session]]()
-//    var sessionDates = [String]()
-    var controller: HistoryController!
-    let spinner = MjolnirSpinner(frame: CGRectMake(0, 0, 100, 100))
+    private var controller: HistoryController!
+    private let spinner = MjolnirSpinner(frame: CGRectMake(0, 0, 100, 100))
+    private var formatterHandle: String!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -184,31 +167,53 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         super.viewDidLoad()
         
         spinner.alpha = 0.4
-        spinner.center.x = tableView.contentSize.width/2
+        spinner.center = tableView.bounds.moveY(-64).center
         tableView.addSubview(spinner)
         spinner.show()
+        
+        formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
+        refreshUnits()
+    }
+    
+    deinit {
+        VaavudFormatter.shared.stopObserving(formatterHandle)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let deviceId = AuthorizationController.shared.deviceId
+        let deviceSettings = Firebase(url: firebaseUrl).childByAppendingPaths("device", deviceId, "setting")
+        deviceSettings.childByAppendingPath("usesSleipnir").setValue(rand() % 2 == 0)
+        
+        print("deviceId: \(deviceId)")
+    }
+    
+//    override func viewWillDisappear(animated: Bool) {
+//        super.viewWillDisappear(animated)
+//    }
+
+    func refreshUnits() {
+        print("TVC refreshUnits")
+        tableView.reloadData()
     }
     
     // MARK: Table View Controller
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        return sessions.count
         return controller.sessionss.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return sessions[section].count
         return controller.sessionss[section].count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCellWithIdentifier("HistoryCell", forIndexPath: indexPath) as? HistoryCell else {
-            fatalError("Unknown cell")
+            fatalError("Unknown cell identifier")
         }
         
-//        let session = sessions[indexPath.section][indexPath.row]
         let session = controller.sessionss[indexPath.section][indexPath.row]
-        
         cell.time.text = VaavudFormatter.shared.localizedTime(session.timeStart)
         
         if let windDirection = session.windDirection {
@@ -221,7 +226,7 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         }
         
         cell.speedUnit.text = VaavudFormatter.shared.speedUnit.localizedString
-        cell.speed.text = session.windMean.map(VaavudFormatter.shared.localizedSpeed)
+        cell.speed.text = VaavudFormatter.shared.localizedSpeed(session.windMean)
         
         if let loc = session.location, name = loc.name {
             cell.location.text = name
@@ -272,7 +277,6 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
                 navigationController.pushViewController(summary, animated: true)
         }
         
-        
         //NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
     }
     
@@ -293,7 +297,6 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     
     func gotMeasurements() {
         spinner.hide()
-        print("hide")
     }
     
     func noMeasurements() {

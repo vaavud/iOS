@@ -35,7 +35,15 @@
 
 @implementation AppDelegate
 
+-(BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    return YES;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [Firebase defaultConfig].persistenceEnabled = YES;
+//    [[AuthorizationController shared] verifyAuth];
+    
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
     
@@ -85,33 +93,36 @@
 #endif
     [[Amplitude instance] enableLocationListening];
     
-    //[self updateFirebaseId:[Property getAsString:KEY_USER_ID]];
+    [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+  
+    UIViewController *parent = [[UIViewController alloc] init];
+    parent.view.backgroundColor = [UIColor vaavudRedColor];
     
-    [[FBSDKApplicationDelegate sharedInstance] application:application
-                             didFinishLaunchingWithOptions:launchOptions];
+    self.window.rootViewController = parent;
+
+    UIViewController *vc;
     
+    if (![[AuthorizationController shared] verifyAuth]) {
+        UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateInitialViewController];
+        UIViewController *pushed = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateViewControllerWithIdentifier:@"Selector"];
+        [nav pushViewController:pushed animated:NO];
+
+        vc = nav;
+    }
+    else {
+        vc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateInitialViewController];
+    }
+
+    [parent addChildViewController:vc];
+    [parent.view addSubview:vc.view];
+    [vc didMoveToParentViewController:parent];
+
+    [self.window makeKeyAndVisible];
+
     return YES;
 }
-
-//-(void)updateFirebaseId:(NSString *)tomcatId {
-//    if (tomcatId == nil) {
-//        return;
-//    }
-//    
-//    NSString *base = @"https://vaavud-core.firebaseio.com/tomcat/userId/success/";
-//    NSString *key = @"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3NjQwNzU5NjEuNzMxLCJ2IjowLCJkIjp7InVpZCI6ImFwcCJ9LCJpYXQiOjE0NDg0NTY3NjF9.2BZbzJh4B_RJoSwzXvvfIkRu4CUBCK33fBCyTSUqU_Q";
-//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@.json?auth=%@", base, tomcatId, key]];
-//    
-//    [[[NSURLSession sharedSession] downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
-//        if (location) {
-//            NSString *firebaseId = [NSString stringWithContentsOfURL:location usedEncoding:nil error:nil];
-//            if (firebaseId) {
-//                [[Amplitude instance] setUserId:firebaseId];
-//            }
-//        }
-//    }] resume];
-//}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
 }
