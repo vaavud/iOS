@@ -163,9 +163,6 @@
 //        [self.tableView reloadData];
 //    };
 //    
-//    if ([Property isMixpanelEnabled]) {
-//        [[Mixpanel sharedInstance] track:@"History Screen"];
-//    }
 //}
 //
 //-(void)viewDidDisappear:(BOOL)animated {

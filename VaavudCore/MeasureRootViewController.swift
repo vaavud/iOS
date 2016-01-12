@@ -199,10 +199,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             
             self.showScreen(desiredScreen)
             })
-        
-//        if Property.isMixpanelEnabled() {
-//            Mixpanel.sharedInstance().track("Measure Screen")
-//        }
     }
     
     // MARK - Overrides
@@ -743,33 +739,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         sender.setTranslation(CGPoint(), inView: view)
     }
-    
-    //    func mixpanelSend(action: String) {
-    //        if !Property.isMixpanelEnabled() { return }
-    //            MixpanelUtil.updateMeasurementProperties(false)
-    //
-    //        let model = isSleipnirSession ? "Sleipnir" : "Mjolnir"
-    //        var properties: [NSObject : AnyObject] = ["Action" : action, "Wind Meter" : model ]
-    //
-    //        let event: String
-    //
-    //        if action == "Started" {
-    //            event = "Start Measurement"
-    //        }
-    //        else {
-    //            event = "Stop Measurement"
-    //
-    //            if let start = currentSession?.startTime, duration = currentSession?.endTime?.timeIntervalSinceDate(start) {
-    //                properties["Duration"] = duration
-    //            }
-    //
-    //            properties["Avg Wind Speed"] = currentSession?.windSpeedAvg?.floatValue
-    //            properties["Max Wind Speed"] = currentSession?.windSpeedMax?.floatValue
-    //            properties["Measure Screen Type"] = currentConsumer?.name
-    //        }
-    //
-    //        Mixpanel.sharedInstance().track(event, properties: properties)
-    //    }
 }
 
 func windchill(kelvin: Float?, _ windspeed: Float?) -> Float? {

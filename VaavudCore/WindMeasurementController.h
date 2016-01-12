@@ -38,6 +38,6 @@ typedef NS_ENUM(NSInteger, WindMeterDeviceType) {
 - (void)start;
 - (NSTimeInterval)stop;
 - (WindMeterDeviceType)windMeterDeviceType;
-- (NSString *)mixpanelWindMeterName;
+//- (NSString *)mixpanelWindMeterName;
 
 @end

@@ -40,7 +40,7 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
     
     private var temperature: CGFloat?
     
-    private var variant = Property.getAsInteger(KEY_DEFAULT_FLAT_VARIANT, defaultValue: 0).integerValue { didSet { updateVariant() } }
+    private var variant = 0 { didSet { updateVariant() } }
     
     var weight: CGFloat = 0.1 // fixme: change
     
@@ -83,8 +83,6 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
             gustsView.alpha = 1
         }
         gustsOffsetX.constant = -windchillOffsetX.constant
-
-        Property.setAsInteger(variant, forKey: KEY_DEFAULT_FLAT_VARIANT)
     }
     
     func toggleVariant() {

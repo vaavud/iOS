@@ -1,17 +1,17 @@
+////
+////  LoginRootViewController.h
+////  Vaavud
+////
+////  Created by Thomas Stilling Ambus on 07/02/2014.
+////  Copyright (c) 2014 Andreas Okholm. All rights reserved.
+////
 //
-//  LoginRootViewController.h
-//  Vaavud
+//#import <UIKit/UIKit.h>
 //
-//  Created by Thomas Stilling Ambus on 07/02/2014.
-//  Copyright (c) 2014 Andreas Okholm. All rights reserved.
+//@interface RegisterViewController : UIViewController
 //
-
-#import <UIKit/UIKit.h>
-
-@interface RegisterViewController : UIViewController
-
-@property (nonatomic) NSString *teaserLabelText;
-
-@property (nonatomic, copy) void (^completion)(void);
-
-@end
+//@property (nonatomic) NSString *teaserLabelText;
+//
+//@property (nonatomic, copy) void (^completion)(void);
+//
+//@end

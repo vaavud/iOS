@@ -25,18 +25,16 @@ class VaavudInteractions: NSObject, UIAlertViewDelegate {
     }
     
     class func buySleipnirUrl(source: String = "app") -> NSURL {
-        let url = "http://vaavud.com/mobile-shop-redirect/?country=" + Property.getAsString("country") +
-            "&language=" + Property.getAsString("language") +
-            "&ref=" + (Property.isMixpanelEnabled() ? Mixpanel.sharedInstance().distinctId : "N/A") +
-            "&source=" + source
+        // fixme: remove
+//        let url = "http://vaavud.com/mobile-shop-redirect/?country=" + Property.getAsString("country") +
+//            "&language=" + Property.getAsString("language") +
+//            "&ref=" + (Property.isMixpanelEnabled() ? Mixpanel.sharedInstance().distinctId : "N/A") +
+//            "&source=" + source
         
-        return NSURL(string: url)!
+        return NSURL(string: "https://vaavud.com/shop?source=iOS")!
     }
     
     class func openBuySleipnir(source: String) {
-        if Property.isMixpanelEnabled() {
-            Mixpanel.sharedInstance().track(source + " Clicked Buy")
-        }
         LogHelper.log(event: "Pressed-Buy", properties: ["place" : source])
         UIApplication.sharedApplication().openURL(buySleipnirUrl(source))
     }

@@ -126,7 +126,6 @@
 //+ (void)setAsDate:(NSDate *)value forKey:(NSString *)name;
 //+ (void)setAsFloatArray:(NSArray *)value forKey:(NSString *)name;
 //
-//+ (BOOL)isMixpanelEnabled;
 //+ (BOOL)isMixpanelPeopleEnabled;
 //+ (void)refreshHasWindMeter;
 //

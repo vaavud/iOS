@@ -178,10 +178,7 @@ class CoreSettingsTableViewController: UITableViewController {
     func dropboxLinkedStatus(note: NSNotification) {
         if let isDropboxLinked = note.object as? NSNumber.BooleanLiteralType {
             dropboxControl.on = isDropboxLinked
-//            let value = isDropboxLinked ? "Linking succeeded" : "Linking failed"
-//            if Property.isMixpanelEnabled() {
-//                Mixpanel.sharedInstance().track("Dropbox", properties: ["Action" : value])
-//            }
+            // fixme: do we track dropbox
         }
     }
     

@@ -87,10 +87,6 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         logGroup = isHistorySummary ? .Summary : .Result
         logHelper = LogHelper(logGroup)
 
-//        if Property.isMixpanelEnabled() {
-//            Mixpanel.sharedInstance().track("Summary Screen")
-//        }
-
         animator = UIDynamicAnimator(referenceView: view)
         pressureItem = DynamicReadingItem(readingView: pressureView)
         temperatureItem = DynamicReadingItem(readingView: temperatureView)
@@ -136,12 +132,6 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         logHelper.ended()
     }
     
-//    override func viewDidDisappear(animated: Bool) {
-//        if Property.isMixpanelEnabled() {
-//            Mixpanel.sharedInstance().track("Summary Screen - Disappear")
-//        }
-//    }
-
     deinit {
         VaavudFormatter.shared.stopObserving(formatterHandle)
     }
@@ -285,14 +275,9 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
                 LogHelper.increaseUserProperty("Share-Count")
             }
             
-            if Property.isMixpanelEnabled() {
-                Mixpanel.sharedInstance().track("User shared", properties: properties)
-            }
         }
         presentViewController(activityVC, animated: true) {
-            if Property.isMixpanelEnabled() {
-                Mixpanel.sharedInstance().track("Showed share sheet")
-            }
+            // fixme: track?
         }
     }
     

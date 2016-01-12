@@ -207,10 +207,6 @@
                                                        userInfo:nil
                                                         repeats:YES];
     
-    if ([Property isMixpanelEnabled]) {
-        [[Mixpanel sharedInstance] track:@"Map Screen"];
-    }
-    
     self.viewAppearedTime = [NSDate date];
     
     [self showGuideIfNeeded];

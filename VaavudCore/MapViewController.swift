@@ -26,11 +26,10 @@ class NewMapViewController: UIViewController, MKMapViewDelegate {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitChanged", name: KEY_UNIT_CHANGED, object: nil)
-        
         if (isDanish()) {
             addLongPress()
         }
+        // fixme: units
     }
     
     override func viewDidLoad() {
@@ -39,9 +38,7 @@ class NewMapViewController: UIViewController, MKMapViewDelegate {
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
-    
     
     // MARK: Setup Firebase
     

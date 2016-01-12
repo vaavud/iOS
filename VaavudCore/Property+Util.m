@@ -258,13 +258,6 @@
 //    [self setAsString:storedValue forKey:name];
 //}
 //
-//+ (BOOL)isMixpanelEnabled {
-//#ifdef DEBUG
-//    return false;
-//#else
-//    return [Property getAsBoolean:KEY_ENABLE_MIXPANEL defaultValue:YES];
-//#endif
-//}
 //
 //+ (BOOL)isMixpanelPeopleEnabled {
 //#ifdef DEBUG
