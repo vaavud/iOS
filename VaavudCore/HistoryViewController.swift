@@ -84,7 +84,7 @@ struct Sourced {
 }
 
 struct Session {
-    var key: String!
+    let key: String
 
     let uid: String
     let deviceKey: String
@@ -179,20 +179,10 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         VaavudFormatter.shared.stopObserving(formatterHandle)
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        let deviceId = AuthorizationController.shared.deviceId
-        let deviceSettings = Firebase(url: firebaseUrl).childByAppendingPaths("device", deviceId, "setting")
-        deviceSettings.childByAppendingPath("usesSleipnir").setValue(rand() % 2 == 0)
-        
-        print("deviceId: \(deviceId)")
-    }
-    
-//    override func viewWillDisappear(animated: Bool) {
-//        super.viewWillDisappear(animated)
+//    override func viewWillAppear(animated: Bool) {
+//        super.viewWillAppear(animated)
 //    }
-
+    
     func refreshUnits() {
         print("TVC refreshUnits")
         tableView.reloadData()
@@ -241,16 +231,11 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             let deletedSession = controller.sessionss[indexPath.section][indexPath.row]
-            
-            guard let sessionKey = deletedSession.key else {
-                fatalError("No session key")
-            }
-            
+                        
             controller.sessionss[indexPath.section].removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
             
-            controller.removeItem(sessionKey, sessionDeleted: deletedSession, section: indexPath.section, row: indexPath.row)
-            print(sessionKey)
+            controller.removeItem(deletedSession, section: indexPath.section, row: indexPath.row)
         }
     }
     
@@ -287,9 +272,6 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     // MARK: History Delegate
     
     func fetchedMeasurements(sessions: [[Session]], sessionDates: [String]) {
-//        self.sessions = sessions
-//        self.sessionDates = sessionDates
-        
         dispatch_async(dispatch_get_main_queue()) {
             self.tableView.reloadData()
         }

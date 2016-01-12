@@ -165,6 +165,9 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
         speedLabel.text = VaavudFormatter.shared.localizedSpeed(Float(speed), digits: 3)
     }
     
+    func newSpeedMax(max: CGFloat) {
+    }
+
     func newHeading(heading: CGFloat) {
         hasHeading = true
         if !lockNorth {

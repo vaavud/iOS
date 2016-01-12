@@ -38,8 +38,8 @@ class DropboxUploader: NSObject, DBRestClientDelegate {
         
         func uploadFile(string: String, fileNameEnding: String) {
             if let fileLocation = save(string) {
-                let dbFilename = uploadFileName(session.startTime, timezone: timeZone, ending:fileNameEnding)
-                restClient.uploadFile(dbFilename, toPath:dbFolder, withParentRev:nil, fromPath:fileLocation.path)
+                let dbFilename = uploadFileName(session.startTime, timezone: timeZone, ending: fileNameEnding)
+                restClient.uploadFile(dbFilename, toPath: dbFolder, withParentRev: nil, fromPath: fileLocation.path)
             }
         }
         
@@ -101,7 +101,9 @@ extension MeasurementSession {
         addObject("humidity", humidity)
         addObject("pressure", pressure)
         addObject("temperature", temperature)
-        var windmeterString:String;
+        
+        var windmeterString: String
+        
         if windMeter == 1 {
             windmeterString = "Mjolnir"
         }

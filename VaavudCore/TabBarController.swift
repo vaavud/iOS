@@ -73,30 +73,10 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-//        if !AuthorizationController.shared.verifyAuth() {
-//            let storyboard = UIStoryboard(name: "Login", bundle: nil)
-//            let controller = storyboard.instantiateViewControllerWithIdentifier("NavigationLogin")
-//            
-//            presentViewController(controller, animated: false, completion: nil)
-//            let window = UIApplication.sharedApplication().windows[0] as UIWindow
-//            window.rootViewController = controller
-        
-//            let window = UIApplication.sharedApplication().windows[0] as UIWindow
-//            UIView.transitionFromView(
-//                self.view,
-//                toView: controller.view,
-//                duration: 0.20,
-//                options: .TransitionCrossDissolve,
-//                completion: {
-//                    _ in window.rootViewController = controller
-//            })
-//        }
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .All
     }
-    
-    
+
     func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         color.setFill()
