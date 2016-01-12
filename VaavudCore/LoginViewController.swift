@@ -44,9 +44,12 @@ private func gotoVc(toVc: UIViewController, fromVc: UIViewController, parentVc: 
 }
 
 class LoginViewController: UIViewController, LoginDelegate {
+    
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: UIBarButtonItem!
+    var oldButtonBar: UIBarButtonItem!
+    
     
     // MARK: Lifetime
     
@@ -65,7 +68,18 @@ class LoginViewController: UIViewController, LoginDelegate {
     // MARK: User Actions
     
     @IBAction func tappedLogin() {
+        
         if let email = emailField.text, password = passwordField.text {
+            
+            let activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 20, 20))
+            activityIndicator.activityIndicatorViewStyle = .Gray
+            
+            oldButtonBar = navigationItem.rightBarButtonItem
+            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+            activityIndicator.startAnimating()
+
+            
+            
             AuthorizationController.shared.login(email, password: password, delegate: self)
         }
         else {
@@ -95,6 +109,7 @@ class LoginViewController: UIViewController, LoginDelegate {
     }
 
     func onError(error: LoginError) {
+        navigationItem.rightBarButtonItem = oldButtonBar
         showError(error)
     }
     

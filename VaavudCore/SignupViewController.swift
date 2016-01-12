@@ -14,18 +14,36 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var createButton: UIBarButtonItem!
+    var oldButtonBar: UIBarButtonItem!
     
     // MARK: Lifetime
     
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshSignupButton()
+        
+        setupField(firstNameField)
+        setupField(lastNameField)
+        setupField(emailField)
+        setupField(passwordField)
+        
+        
     }
     
     // MARK: User Actions
 
     @IBAction func tappedCreate() {
         if let firstName = firstNameField.text, lastName = lastNameField.text, email = emailField.text, password = passwordField.text {
+            
+            let activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 20, 20))
+            activityIndicator.activityIndicatorViewStyle = .Gray
+            
+            oldButtonBar = navigationItem.rightBarButtonItem
+            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+            activityIndicator.startAnimating()
+            
+            
+            
             AuthorizationController.shared.signup(firstName, lastName: lastName, email: email, password: password, delegate: self)
         }
         else {
@@ -34,7 +52,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     }
     
     // MARK: Login Delegate
-    
     func onSuccess(showActivitySelector: Bool) {
         if showActivitySelector {
             if let vc = storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
@@ -44,6 +61,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     }
     
     func onError(error: LoginError) {
+        navigationItem.rightBarButtonItem = oldButtonBar
         showError(error)
     }
 
@@ -82,6 +100,11 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
             VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.rawValue, otherKey: "BUTTON_OK", action: {
                 }, on: self)
         }
+    }
+    
+    private func setupField(field: UITextField) {
+        let attributes = [NSForegroundColorAttributeName : UIColor.vaavudRedColor().colorWithAlphaComponent(0.3)]
+        field.attributedPlaceholder = NSAttributedString(string: field.placeholder ?? "", attributes: attributes)
     }
     
     private func refreshSignupButton() {
