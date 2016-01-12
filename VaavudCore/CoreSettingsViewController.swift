@@ -276,7 +276,7 @@ class CoreSettingsTableViewController: UITableViewController {
         
         AuthorizationController.shared.unauth()
 
-        gotoLoginFrom(self.tabBarController!, inside: view.window!.rootViewController!)
+        gotoLoginFrom(tabBarController!, inside: view.window!.rootViewController!)
     }
 }
 

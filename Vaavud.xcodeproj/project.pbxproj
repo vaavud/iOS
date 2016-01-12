@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0C79EA5EFC6296482BCEFB9C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525BDD08A4A6143BBBC49FE3 /* Pods.framework */; };
-		2205C28E1C03781400105F45 /* MagicalRecord.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		220A30EC1B6F77250011DDA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 220A30EB1B6F77250011DDA9 /* Images.xcassets */; };
 		220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */; };
 		221285B21B04A6F500D4C008 /* FlatMeasureScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221285B11B04A6F500D4C008 /* FlatMeasureScreen.swift */; };
@@ -17,7 +16,6 @@
 		2231A0A41B19BECE003DADDB /* MeasureRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */; };
 		2234D3521A77BDAC00F325EB /* UpgradingUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */; };
 		2234D35A1A783C7E00F325EB /* UpgradingUserPhonePages.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */; };
-		2237A1D31BFB22F300A9A603 /* MagicalRecord.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */; };
 		2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2255A63A1A818535006589D5 /* VaavudInteractions.swift */; };
 		225DB9FF1AFA5C3100B2E8D0 /* BebasNeue_Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 225DB9FD1AFA5C3100B2E8D0 /* BebasNeue_Bold.otf */; };
 		225DBA001AFA5C3100B2E8D0 /* BebasNeue_Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 225DB9FE1AFA5C3100B2E8D0 /* BebasNeue_Regular.otf */; };
@@ -78,7 +76,6 @@
 		2B347F641C11A4970095E95A /* AuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F5E1C11A4970095E95A /* AuthorizationController.swift */; };
 		2B347F651C11A4970095E95A /* LoginTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F5F1C11A4970095E95A /* LoginTutorialViewController.swift */; };
 		2B347F671C11A6990095E95A /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F661C11A6990095E95A /* ActivityViewController.swift */; };
-		2B347F6A1C11A7130095E95A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F681C11A7130095E95A /* User.swift */; };
 		2B347F6B1C11A7130095E95A /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F691C11A7130095E95A /* Device.swift */; };
 		2BB813131C1874FE00D70E10 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB8130F1C1874FE00D70E10 /* HistoryViewController.swift */; };
 		2BB813141C1874FE00D70E10 /* HistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB813101C1874FE00D70E10 /* HistoryController.swift */; };
@@ -153,7 +150,6 @@
 		E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */; };
 		E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */; };
 		E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */; };
-		E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */; };
 		E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9EE1FB8176A024B00D1F006 /* CoreData.framework */; };
 		E9F33CCB18B4AFBF0033EDC7 /* UIColor+VaavudColors.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F33CCA18B4AFBF0033EDC7 /* UIColor+VaavudColors.m */; };
 		E9F33CCE18B4B3CB0033EDC7 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F33CCD18B4B3CB0033EDC7 /* AccountManager.m */; };
@@ -165,69 +161,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		2205C28F1C03781400105F45 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 905D07171A63DE190076B54E;
-			remoteInfo = "MagicalRecord for iOS";
-		};
-		2237A1C21BFB22A000A9A603 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 905D07181A63DE190076B54E;
-			remoteInfo = "MagicalRecord for iOS";
-		};
-		2237A1C41BFB22A000A9A603 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9004F5211A94CBCF00A61312;
-			remoteInfo = "MagicalRecord for iOS Tests";
-		};
-		2237A1C61BFB22A000A9A603 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 905D073B1A63DE690076B54E;
-			remoteInfo = "MagicalRecord for OS X";
-		};
-		2237A1C81BFB22A000A9A603 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 9004F5661A94CBF900A61312;
-			remoteInfo = "MagicalRecord for OS X Tests";
-		};
-		2237A1CA1BFB22A000A9A603 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C7CF97AB17498414008D9D13;
-			remoteInfo = "libMagicalRecord for iOS";
-		};
-		2237A1CC1BFB22A000A9A603 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C7CF97FF174984CA008D9D13;
-			remoteInfo = "libMagicalRecord for iOS Tests";
-		};
-		2237A1CE1BFB22A000A9A603 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C7CF97BB1749843F008D9D13;
-			remoteInfo = "libMagicalRecord for OS X";
-		};
-		2237A1D01BFB22A000A9A603 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C7CF9816174984E4008D9D13;
-			remoteInfo = "libMagicalRecord for OS X Tests";
-		};
 		22B74D891BB1408F00D39999 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */;
@@ -258,7 +191,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				2205C28E1C03781400105F45 /* MagicalRecord.framework in Embed Frameworks */,
 				22B74D881BB1408F00D39999 /* VaavudSDK.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -292,7 +224,6 @@
 		2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasureRootViewController.swift; sourceTree = "<group>"; };
 		2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradingUserViewController.swift; sourceTree = "<group>"; };
 		2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpgradingUserPhonePages.xib; sourceTree = "<group>"; };
-		2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MagicalRecord.xcodeproj; path = Vendor/MagicalRecord/MagicalRecord.xcodeproj; sourceTree = SOURCE_ROOT; };
 		224D260C1AE11AA3006F5C23 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Register.strings; sourceTree = "<group>"; };
 		225572CA1AE2851900153F03 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		2255A63A1A818535006589D5 /* VaavudInteractions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudInteractions.swift; sourceTree = "<group>"; };
@@ -351,7 +282,6 @@
 		22C8AB3D1B8F33340064DB8B /* ForecastViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
 		22C9B0301B7CDF5E004A2902 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		22CECB171AF22CE300148045 /* Settings.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Settings.xcassets; path = ImageAssets/Settings.xcassets; sourceTree = "<group>"; };
-		22DB81A81A8389DF00DA67AC /* Model 8.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 8.xcdatamodel"; sourceTree = "<group>"; };
 		22DCCED31B02399800D65265 /* RoundMeasureScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundMeasureScreen.swift; sourceTree = "<group>"; };
 		22E204FE1AB19BEB00FA7E1D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		22E59A301ADD6F7000B1BC88 /* HistoryScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = HistoryScreen.xcassets; path = ImageAssets/HistoryScreen.xcassets; sourceTree = "<group>"; };
@@ -380,7 +310,6 @@
 		2B347F5E1C11A4970095E95A /* AuthorizationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationController.swift; sourceTree = "<group>"; };
 		2B347F5F1C11A4970095E95A /* LoginTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTutorialViewController.swift; sourceTree = "<group>"; };
 		2B347F661C11A6990095E95A /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
-		2B347F681C11A7130095E95A /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		2B347F691C11A7130095E95A /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		2BB8130F1C1874FE00D70E10 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		2BB813101C1874FE00D70E10 /* HistoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryController.swift; sourceTree = "<group>"; };
@@ -432,8 +361,6 @@
 		E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementAnnotation.m; sourceTree = "<group>"; };
 		E90F76CC1771EB2A00F51A4F /* ServerUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerUploadManager.h; sourceTree = "<group>"; };
 		E90F76CD1771EB2B00F51A4F /* ServerUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerUploadManager.m; sourceTree = "<group>"; };
-		E9159C9B1A0127C200742188 /* Model 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 6.xcdatamodel"; sourceTree = "<group>"; };
-		E9159CA21A03E04A00742188 /* Model 7.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 7.xcdatamodel"; sourceTree = "<group>"; };
 		E9159CA31A03E09100742188 /* MeasurementSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSession.h; sourceTree = "<group>"; };
 		E9159CA41A03E09100742188 /* MeasurementSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSession.m; sourceTree = "<group>"; };
 		E91D4214198F7A9800106E15 /* GuideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuideView.xib; sourceTree = "<group>"; };
@@ -455,7 +382,6 @@
 		E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MeasurementSession+Util.m"; sourceTree = "<group>"; };
 		E93C86701781D727005E4212 /* MeasurementPoint+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MeasurementPoint+Util.h"; sourceTree = "<group>"; };
 		E93C86711781D727005E4212 /* MeasurementPoint+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MeasurementPoint+Util.m"; sourceTree = "<group>"; };
-		E93EED3219DED9FA004D8759 /* Model 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 5.xcdatamodel"; sourceTree = "<group>"; };
 		E94CBB5C177DB3050089D440 /* UUIDUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUIDUtil.h; sourceTree = "<group>"; };
 		E94CBB5D177DB3050089D440 /* UUIDUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUIDUtil.m; sourceTree = "<group>"; };
 		E96025FB18574DC0009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -526,16 +452,12 @@
 		E9B627D0177096D6004678D5 /* VaavudAPIHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudAPIHTTPClient.m; sourceTree = "<group>"; };
 		E9BB7A0B178DE2D9002E746F /* QueryStringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryStringUtil.h; sourceTree = "<group>"; };
 		E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryStringUtil.m; sourceTree = "<group>"; };
-		E9C7799519ACADB1000A6921 /* Model 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 3.xcdatamodel"; sourceTree = "<group>"; };
 		E9D0F4B317F9A59000C220B3 /* MeasurementCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementCalloutView.h; sourceTree = "<group>"; };
 		E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementCalloutView.m; sourceTree = "<group>"; };
 		E9D9044B19C1971000ABA9F4 /* WindMeasurementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindMeasurementController.h; sourceTree = "<group>"; };
 		E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindMeasurementController.m; sourceTree = "<group>"; };
-		E9D9045319C1D41D00ABA9F4 /* Model 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 4.xcdatamodel"; sourceTree = "<group>"; };
 		E9EB5E8F17E84E4D00B02CE1 /* AlgorithmConstantsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlgorithmConstantsUtil.h; sourceTree = "<group>"; };
 		E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlgorithmConstantsUtil.m; sourceTree = "<group>"; };
-		E9EBB98F17E33C660086BE01 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
-		E9EE1FA31769E54E00D1F006 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		E9EE1FAE1769F08400D1F006 /* SharedSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedSingleton.h; sourceTree = "<group>"; };
 		E9EE1FB8176A024B00D1F006 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		E9F33CC918B4AFBF0033EDC7 /* UIColor+VaavudColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+VaavudColors.h"; sourceTree = "<group>"; };
@@ -558,7 +480,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2237A1D31BFB22F300A9A603 /* MagicalRecord.framework in Frameworks */,
 				E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */,
 				2284FB771C08998000FC9101 /* Crashlytics.framework in Frameworks */,
 				E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */,
@@ -588,21 +509,6 @@
 				CDE6761506C86D4075981625 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		2237A1B71BFB229F00A9A603 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */,
-				2237A1C51BFB22A000A9A603 /* MagicalRecord for iOS Tests.xctest */,
-				2237A1C71BFB22A000A9A603 /* MagicalRecord.framework */,
-				2237A1C91BFB22A000A9A603 /* MagicalRecord for OS X Tests.xctest */,
-				2237A1CB1BFB22A000A9A603 /* libMagicalRecord.a */,
-				2237A1CD1BFB22A000A9A603 /* libMagicalRecord for iOS Tests.xctest */,
-				2237A1CF1BFB22A000A9A603 /* libMagicalRecord.dylib */,
-				2237A1D11BFB22A000A9A603 /* libMagicalRecord for OS X Tests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		226910451BCFCB2C00116673 /* ProBadgeHtml */ = {
@@ -640,7 +546,6 @@
 		2B347F511C11A4870095E95A /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				2B347F681C11A7130095E95A /* User.swift */,
 				2B347F691C11A7130095E95A /* Device.swift */,
 				2B347F5A1C11A4960095E95A /* Login.storyboard */,
 				2B347F5B1C11A4970095E95A /* SelectorViewController.swift */,
@@ -656,7 +561,6 @@
 		D7A4F1BE173A8DDB00D1ACEE = {
 			isa = PBXGroup;
 			children = (
-				E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */,
 				D7A4F1D0173A8DDB00D1ACEE /* Classes */,
 				D7A4F1C9173A8DDB00D1ACEE /* Frameworks */,
 				E98853C7176868BE00F78128 /* Images */,
@@ -740,7 +644,6 @@
 		D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */,
 				226910451BCFCB2C00116673 /* ProBadgeHtml */,
 				22FA6C501A727171004DD868 /* VaavudStyle.swift */,
 				22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */,
@@ -1048,7 +951,6 @@
 			);
 			dependencies = (
 				22B74D8A1BB1408F00D39999 /* PBXTargetDependency */,
-				2205C2901C03781400105F45 /* PBXTargetDependency */,
 			);
 			name = Vaavud;
 			productName = VaavudCore;
@@ -1096,10 +998,6 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 2237A1B71BFB229F00A9A603 /* Products */;
-					ProjectRef = 2237A1B61BFB229F00A9A603 /* MagicalRecord.xcodeproj */;
-				},
-				{
 					ProductGroup = 22EE9B7B1BB13E5800F3C331 /* Products */;
 					ProjectRef = 22EE9B7A1BB13E5800F3C331 /* VaavudSDK.xcodeproj */;
 				},
@@ -1112,62 +1010,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		2237A1C31BFB22A000A9A603 /* MagicalRecord.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = MagicalRecord.framework;
-			remoteRef = 2237A1C21BFB22A000A9A603 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2237A1C51BFB22A000A9A603 /* MagicalRecord for iOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "MagicalRecord for iOS Tests.xctest";
-			remoteRef = 2237A1C41BFB22A000A9A603 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2237A1C71BFB22A000A9A603 /* MagicalRecord.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = MagicalRecord.framework;
-			remoteRef = 2237A1C61BFB22A000A9A603 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2237A1C91BFB22A000A9A603 /* MagicalRecord for OS X Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "MagicalRecord for OS X Tests.xctest";
-			remoteRef = 2237A1C81BFB22A000A9A603 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2237A1CB1BFB22A000A9A603 /* libMagicalRecord.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libMagicalRecord.a;
-			remoteRef = 2237A1CA1BFB22A000A9A603 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2237A1CD1BFB22A000A9A603 /* libMagicalRecord for iOS Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "libMagicalRecord for iOS Tests.xctest";
-			remoteRef = 2237A1CC1BFB22A000A9A603 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2237A1CF1BFB22A000A9A603 /* libMagicalRecord.dylib */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.dylib";
-			path = libMagicalRecord.dylib;
-			remoteRef = 2237A1CE1BFB22A000A9A603 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		2237A1D11BFB22A000A9A603 /* libMagicalRecord for OS X Tests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "libMagicalRecord for OS X Tests.xctest";
-			remoteRef = 2237A1D01BFB22A000A9A603 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		22EE9B801BB13E5800F3C331 /* VaavudSDK.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -1308,10 +1150,8 @@
 				E91D421B198F7E4900106E15 /* DismissOnTouchUIView.m in Sources */,
 				D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */,
 				E9A4099F18AA75C6004F1C12 /* RegisterNavigationController.m in Sources */,
-				E9EE1FA41769E54E00D1F006 /* Model.xcdatamodeld in Sources */,
 				E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */,
 				229533511B1F3F8A00DAEA62 /* MeasureCancelButton.swift in Sources */,
-				2B347F6A1C11A7130095E95A /* User.swift in Sources */,
 				2B347F671C11A6990095E95A /* ActivityViewController.swift in Sources */,
 				E9A4097818994000004F1C12 /* TMCache.m in Sources */,
 				E9A4099C18AA501D004F1C12 /* PasswordUtil.m in Sources */,
@@ -1402,11 +1242,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		2205C2901C03781400105F45 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "MagicalRecord for iOS";
-			targetProxy = 2205C28F1C03781400105F45 /* PBXContainerItemProxy */;
-		};
 		22B74D8A1BB1408F00D39999 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = VaavudSDK;
@@ -1703,26 +1538,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		E9EE1FA21769E54E00D1F006 /* Model.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				22DB81A81A8389DF00DA67AC /* Model 8.xcdatamodel */,
-				E9159CA21A03E04A00742188 /* Model 7.xcdatamodel */,
-				E9159C9B1A0127C200742188 /* Model 6.xcdatamodel */,
-				E93EED3219DED9FA004D8759 /* Model 5.xcdatamodel */,
-				E9D9045319C1D41D00ABA9F4 /* Model 4.xcdatamodel */,
-				E9C7799519ACADB1000A6921 /* Model 3.xcdatamodel */,
-				E9EBB98F17E33C660086BE01 /* Model 2.xcdatamodel */,
-				E9EE1FA31769E54E00D1F006 /* Model.xcdatamodel */,
-			);
-			currentVersion = 22DB81A81A8389DF00DA67AC /* Model 8.xcdatamodel */;
-			path = Model.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = D7A4F1BF173A8DDB00D1ACEE /* Project object */;
 }
