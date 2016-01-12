@@ -586,6 +586,65 @@
     
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
      observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+         NSLog(@"adding new sessions  %@ session ", snapshot.key);
+         [self addAnnotation: snapshot];
+     }];
+    
+    
+    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
+     observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
+         //NSLog(@"adding pending  %@ session ", snapshot.value);
+         [self workingWithIncompleteAnnotations: snapshot];
+         //[self addAnnotation: snapshot];
+     }];
+}
+
+
+- (void) loadSessionsByTime {
+    
+    for (id annotation in self.mapView.annotations) {
+        [self.mapView removeAnnotation:annotation];
+    }
+    
+    if(self.hoursAgo == 24){
+        for (NSString* key in self.currentSessions) {
+            MeasurementAnnotation *MesAnnotation = (MeasurementAnnotation *) [self.currentSessions objectForKey:key];
+            [self.mapView addAnnotation:MesAnnotation];
+        }
+    }
+    else{
+        for (NSString* key in self.currentSessions) {
+            
+            MeasurementAnnotation *MesAnnotation = (MeasurementAnnotation *) [self.currentSessions objectForKey:key];
+            NSNumber* currentTime = [NSDate dateWithTimeIntervalSinceNow: -self.hoursAgo*60*60].ms;
+            
+            if(MesAnnotation.startTime.ms > currentTime){
+                [self.mapView addAnnotation:MesAnnotation];
+            }
+        }
+    }
+}
+
+- (void) setupFirebase {
+    Firebase *ref = [[Firebase alloc] initWithUrl: @"https://vaavud-core-demo.firebaseio.com/session/"];
+    
+    NSNumber* currentTime = [NSDate dateWithTimeIntervalSinceNow: -24*60*60].ms;
+    
+    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
+     observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snapshot) {
+         if ([self.currentSessions objectForKey:snapshot.key]) {
+             
+             MeasurementAnnotation *MesAnnotation = (MeasurementAnnotation *) [self.currentSessions valueForKey:snapshot.key];
+             
+             if(MesAnnotation != nil){
+                 [self.mapView removeAnnotation:MesAnnotation];
+                 [self.currentSessions removeObjectForKey:snapshot.key];
+             }
+         }
+     }];
+    
+    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
+     observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
          NSLog(@"adding new sessions  %@ session with time %@ ", snapshot.key, currentTime);
          [self addAnnotation: snapshot];
      }];
