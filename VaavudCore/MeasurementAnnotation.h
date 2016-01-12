@@ -15,6 +15,7 @@
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 @property (nonatomic, readonly) NSDate *startTime;
 @property (nonatomic) float avgWindSpeed;
+@property (nonatomic) BOOL isItFinished;
 @property (nonatomic) float maxWindSpeed;
 @property (nonatomic, readonly) NSString *sessionKey;
 @property (nonatomic) NSNumber *windDirection;
