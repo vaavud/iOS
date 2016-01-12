@@ -140,6 +140,9 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
         }
     }
     
+    func newSpeedMax(max: CGFloat) {
+    }
+    
     func newHeading(newHeading: CGFloat) {
         let heading = latestHeading ?? 0
         latestHeading = heading + distanceOnCircle(from: heading, to: newHeading)

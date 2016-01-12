@@ -2545,10 +2545,10 @@
             </objects>
             <point key="canvasLocation" x="981" y="625"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Rotatable Navigation Controller-->
         <scene sceneID="ydh-tk-7P3">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yAP-as-dFe" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yAP-as-dFe" customClass="RotatableNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="" image="SettingsTab" id="pXe-sE-Y2N"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="BAz-Jz-auJ">

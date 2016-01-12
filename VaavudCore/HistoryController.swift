@@ -17,7 +17,7 @@ protocol HistoryDelegate {
 
 class HistoryController: NSObject {
     let delegate: HistoryDelegate
-    let firebaseSession = Firebase(url: firebaseUrl)
+    let firebase = Firebase(url: firebaseUrl)
     var sessionss = [[Session]]()
     var sessionDates = [String]()
 
@@ -28,8 +28,8 @@ class HistoryController: NSObject {
     }
     
     func setupFirebase() {
-        let uid = firebaseSession.authData.uid
-        let ref = firebaseSession.childByAppendingPath("session")
+        let uid = firebase.authData.uid
+        let ref = firebase.childByAppendingPath("session")
         
         ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeEventType(.ChildAdded, withBlock: { snapshot in
             print("HC: ChildAdded: \(snapshot.value)")
@@ -68,10 +68,10 @@ class HistoryController: NSObject {
         })
     }
     
-    func removeItem(key: String, sessionDeleted: Session, section: Int, row: Int) {
+    func removeItem(session: Session, section: Int, row: Int) {
         sessionss[section].removeAtIndex(row)
-        firebaseSession.childByAppendingPaths("session", key).removeValue()
-        firebaseSession.childByAppendingPaths("sessionDeleted", key).setValue(sessionDeleted.fireDict)
+        firebase.childByAppendingPaths("session", session.key).removeValue()
+        firebase.childByAppendingPaths("sessionDeleted", session.key).setValue(session.fireDict)
     }
     
     func addToStack(session: Session) {

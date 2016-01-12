@@ -217,7 +217,7 @@ class AuthorizationController: NSObject {
         self.uid = uid
         self._deviceId = deviceId
         
-        delegate?.onSuccess(data["activity"] is String)
+        delegate?.onSuccess(!(data["activity"] is String))
     }
     
     private func verifyMigration(email: String, password: String) {

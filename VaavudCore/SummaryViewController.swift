@@ -97,16 +97,6 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         windchillItem = DynamicReadingItem(readingView: windchillView)
         gustinessItem = DynamicReadingItem(readingView: gustinessView)
         
-//        let f = session.timeStart
-//        print(f)
-//    
-//        let g = VaavudFormatter.shared.localizedTitleDate(f)
-//
-//        print(g)
-//        let h = g.uppercaseStringWithLocale(NSLocale.currentLocale())
-//
-//        print(h)
-//        
         title = VaavudFormatter.shared.localizedTitleDate(session.timeStart).uppercaseStringWithLocale(NSLocale.currentLocale())
         
         formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.unitsChanged() }
@@ -485,7 +475,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     private func updateGustiness() {
         if let gustiness = session.turbulence {
             gustinessUnitLabel.text = "%"
-            gustinessLabel.text = String(format: "%.0f", gustiness)
+            gustinessLabel.text = String(format: "%.0f", gustiness*100)
         }
         else {
             gustinessUnitLabel.text = nil

@@ -113,7 +113,7 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         graph.reading = VaavudFormatter.shared.speedUnit.fromBase(smoothSpeed)
         
         maxSpeed = max(smoothSpeed, maxSpeed)
-        maxSpeedLabel.text = VaavudFormatter.shared.localizedSpeed(Float(maxSpeed), digits: 3)
+//        maxSpeedLabel.text = VaavudFormatter.shared.localizedSpeed(Float(maxSpeed), digits: 3)
 
         if hasDirection {
             smoothDirection = weight*latestDirection + (1 - weight)*smoothDirection
@@ -155,6 +155,10 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         speedLabel.text = VaavudFormatter.shared.localizedSpeed(Float(speed), digits: 3)
     }
     
+    func newSpeedMax(max: CGFloat) {
+        maxSpeedLabel.text = VaavudFormatter.shared.localizedSpeed(Float(max), digits: 3)
+    }
+        
     func newHeading(heading: CGFloat) {/* latestHeading += distanceOnCircle(from: latestHeading, to: heading) */ }
     
     func changedSpeedUnit(unit: SpeedUnit) {

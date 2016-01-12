@@ -51,6 +51,10 @@ class UserTabViewController : UIViewController, UINavigationControllerDelegate {
         notificationContainer.hidden = !historyContainer.hidden
     }
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .All
+    }
+    
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
         if navigationController.childViewControllers.count > 1, let sv = navigationController.view.superview where !sv.hidden {
             UIView.animateWithDuration(0.1) {
