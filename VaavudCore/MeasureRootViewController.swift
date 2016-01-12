@@ -467,14 +467,23 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         //            // fixme: summary may need to be updated
     }
     
-    func updateWithPressure(session: MeasurementSession) {
+    func updateWithPressure(sessionKey: String) {
         altimeter?.startRelativeAltitudeUpdatesToQueue(NSOperationQueue.mainQueue()) {
             altitudeData, error in
             if let kpa = altitudeData?.pressure.doubleValue {
                 self.altimeter?.stopRelativeAltitudeUpdates()
+                
+                
+                let pressureModel = ["temperature" : 10*kpa]
+                
+//                self.vaavudFirebase
+//                    .childByAppendingPath("session")
+//                    .childByAppendingPath(sessionKey)
+//                    .updateChildValues(pressureModel)
+//                
 
-                if session.managedObjectContext == nil || session.deleted { return }
-                session.pressure = 10*kpa
+//                if session.managedObjectContext == nil || session.deleted { return }
+//                session.pressure = 10*kpa
 
                 // fixme: summary may need to be updated
                 // fixme: send to firebase

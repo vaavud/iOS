@@ -78,29 +78,29 @@ SHARED_INSTANCE
 //    if ([osVersion compare:[Property getAsString:KEY_OS_VERSION]] != NSOrderedSame) {
 //        [Property setAsString:osVersion forKey:KEY_OS_VERSION];
 //    }
-    if ([model compare:[Property getAsString:KEY_MODEL]] != NSOrderedSame) {
-        [Property setAsString:model forKey:KEY_MODEL];
-    }
-    if ([country compare:[Property getAsString:KEY_COUNTRY]] != NSOrderedSame) {
-        [Property setAsString:country forKey:KEY_COUNTRY];
-    }
-    if ([language compare:[Property getAsString:KEY_LANGUAGE]] != NSOrderedSame) {
-        [Property setAsString:language forKey:KEY_LANGUAGE];
-    }
-    
-    if ([Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] == nil) {
-        // this must be the first time, since there is no grid degree
-        NSNumber* analyticsGridDegree = [NSNumber numberWithDouble:0.125];
-        if (LOG_MODEL) NSLog(@"[ModelManager] No grid degree, defaulting to: %@", analyticsGridDegree);
-        [Property setAsDouble:analyticsGridDegree forKey:KEY_ANALYTICS_GRID_DEGREE];
-    }
+//    if ([model compare:[Property getAsString:KEY_MODEL]] != NSOrderedSame) {
+//        [Property setAsString:model forKey:KEY_MODEL];
+//    }
+//    if ([country compare:[Property getAsString:KEY_COUNTRY]] != NSOrderedSame) {
+//        [Property setAsString:country forKey:KEY_COUNTRY];
+//    }
+//    if ([language compare:[Property getAsString:KEY_LANGUAGE]] != NSOrderedSame) {
+//        [Property setAsString:language forKey:KEY_LANGUAGE];
+//    }
+//    
+//    if ([Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] == nil) {
+//        // this must be the first time, since there is no grid degree
+//        NSNumber* analyticsGridDegree = [NSNumber numberWithDouble:0.125];
+//        if (LOG_MODEL) NSLog(@"[ModelManager] No grid degree, defaulting to: %@", analyticsGridDegree);
+//        [Property setAsDouble:analyticsGridDegree forKey:KEY_ANALYTICS_GRID_DEGREE];
+//    }
 
-    NSArray *hourOptions = [Property getAsFloatArray:KEY_HOUR_OPTIONS];
-    if (hourOptions == nil || hourOptions.count == 0) {
-        hourOptions = [NSArray arrayWithObjects:[NSNumber numberWithFloat:3.0f], [NSNumber numberWithFloat:6.0f], [NSNumber numberWithFloat:12.0f], [NSNumber numberWithFloat:24.0f], nil];
-        if (LOG_MODEL) NSLog(@"[ModelManager] No hour options, defaulting to: (%@)", [hourOptions componentsJoinedByString:@","]);
-        [Property setAsFloatArray:hourOptions forKey:KEY_HOUR_OPTIONS];
-    }
+//    NSArray *hourOptions = [Property getAsFloatArray:KEY_HOUR_OPTIONS];
+//    if (hourOptions == nil || hourOptions.count == 0) {
+//        hourOptions = [NSArray arrayWithObjects:[NSNumber numberWithFloat:3.0f], [NSNumber numberWithFloat:6.0f], [NSNumber numberWithFloat:12.0f], [NSNumber numberWithFloat:24.0f], nil];
+//        if (LOG_MODEL) NSLog(@"[ModelManager] No hour options, defaulting to: (%@)", [hourOptions componentsJoinedByString:@","]);
+//        [Property setAsFloatArray:hourOptions forKey:KEY_HOUR_OPTIONS];
+//    }
 }
 
 + (NSString *)getModel {
