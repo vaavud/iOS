@@ -20,7 +20,7 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.8.0):
     - FBSDKCoreKit
-  - Firebase (2.5.0)
+  - Firebase (2.4.2)
 
 DEPENDENCIES:
   - Amplitude-iOS
@@ -29,7 +29,7 @@ DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
-  - Firebase
+  - Firebase (= 2.4.2)
 
 SPEC CHECKSUMS:
   Amplitude-iOS: aeec249c4143d67274c77edd6538aa177cda6c2e
@@ -38,6 +38,6 @@ SPEC CHECKSUMS:
   FBSDKCoreKit: 66a935d17b6e00b6b64e604f2eb9b72c9ab7deb8
   FBSDKLoginKit: d893fcbb98d854496925e9ff73c67b896982d3c4
   FBSDKShareKit: e7577ee3adf80fc04fb656dd133fbb522250672b
-  Firebase: 744617c0733b45198f9486ebd5cac64ec2d10d79
+  Firebase: 5e898ed5012c81d28ca5fae1113c6b61a172bc6d
 
 COCOAPODS: 0.39.0
