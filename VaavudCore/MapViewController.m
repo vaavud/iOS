@@ -178,41 +178,6 @@
     self.isItShowing  = YES;
     [self refreshPendingAnnotations];
 
-    // note: grid degree might have been updated by a device register call
-//    self.analyticsGridDegree = [[Property getAsDouble:KEY_ANALYTICS_GRID_DEGREE] doubleValue];
-
-//    WindSpeedUnit newWindSpeedUnit = [[Property getAsInteger:KEY_WIND_SPEED_UNIT] intValue];
-//    //NSLog(@"[MapViewController] viewWillAppear: windSpeedUnit=%u", self.windSpeedUnit);
-//    if (newWindSpeedUnit != self.windSpeedUnit) {
-//        self.windSpeedUnit = newWindSpeedUnit;
-//        [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
-//        forceReload = YES;
-//    }
-//
-//    NSNumber *directionUnitNumber = [Property getAsInteger:KEY_DIRECTION_UNIT];
-//    NSInteger directionUnit = (directionUnitNumber) ? [directionUnitNumber doubleValue] : 0;
-//    if (self.directionUnit != directionUnit) {
-//        self.directionUnit = directionUnit;
-//        forceReload = YES;
-//    }
-    
-//    MeasurementSession *measurementSession = [MeasurementSession MR_findFirstOrderedByAttribute:@"startTime" ascending:NO];
-//    if (measurementSession != nil && [measurementSession.measuring boolValue] == NO) {
-//        NSDate *newLatestLocalStartTime = measurementSession.startTime;
-//        if (newLatestLocalStartTime != nil && (self.latestLocalStartTime == nil || [newLatestLocalStartTime compare:self.latestLocalStartTime] == NSOrderedDescending)) {
-//            //NSLog(@"[MapViewController] force reload of map data");
-//            self.latestLocalStartTime = newLatestLocalStartTime;
-//            forceReload = YES;
-//        }
-//    }
-//    
-//    NSInteger currentLocalNumberOfMeasurements = [MeasurementSession MR_countOfEntities];
-//    if (currentLocalNumberOfMeasurements != self.latestLocalNumberOfMeasurements) {
-//        self.latestLocalNumberOfMeasurements = currentLocalNumberOfMeasurements;
-//        forceReload = YES;
-//    }
-
-    //[self loadMeasurements:forceReload showActivityIndicator:NO];
     [self removeOldForecasts];
 }
 
@@ -569,65 +534,6 @@
     }
 }
 
-//- (void) setupFirebase {
-//    Firebase *ref = [[Firebase alloc] initWithUrl: @"https://vaavud-core-demo.firebaseio.com/session/"];
-//    
-//    NSNumber* currentTime = [NSDate dateWithTimeIntervalSinceNow: -24*60*60].ms;
-//    
-//    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
-//     observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snapshot) {
-//         if ([self.currentSessions objectForKey:snapshot.key]) {
-//             
-//             MeasurementAnnotation *MesAnnotation = (MeasurementAnnotation *) [self.currentSessions valueForKey:snapshot.key];
-//             
-//             if(MesAnnotation != nil){
-//                 [self.mapView removeAnnotation:MesAnnotation];
-//                 [self.currentSessions removeObjectForKey:snapshot.key];
-//             }
-//         }
-//     }];
-//    
-//    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
-//     observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
-//         NSLog(@"adding new sessions  %@ session ", snapshot.key);
-//         [self addAnnotation: snapshot];
-//     }];
-//    
-//    
-//    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
-//     observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
-//         //NSLog(@"adding pending  %@ session ", snapshot.value);
-//         [self workingWithIncompleteAnnotations: snapshot];
-//         //[self addAnnotation: snapshot];
-//     }];
-//}
-
-
-//- (void) loadSessionsByTime {
-//    
-//    for (id annotation in self.mapView.annotations) {
-//        [self.mapView removeAnnotation:annotation];
-//    }
-//    
-//    if(self.hoursAgo == 24){
-//        for (NSString* key in self.currentSessions) {
-//            MeasurementAnnotation *MesAnnotation = (MeasurementAnnotation *) [self.currentSessions objectForKey:key];
-//            [self.mapView addAnnotation:MesAnnotation];
-//        }
-//    }
-//    else{
-//        for (NSString* key in self.currentSessions) {
-//            
-//            MeasurementAnnotation *MesAnnotation = (MeasurementAnnotation *) [self.currentSessions objectForKey:key];
-//            NSNumber* currentTime = [NSDate dateWithTimeIntervalSinceNow: -self.hoursAgo*60*60].ms;
-//            
-//            if(MesAnnotation.startTime.ms > currentTime){
-//                [self.mapView addAnnotation:MesAnnotation];
-//            }
-//        }
-//    }
-//}
-
 - (void) setupFirebase {
     Firebase *ref = [[Firebase alloc] initWithUrl: @"https://vaavud-core-demo.firebaseio.com/session/"];
     
@@ -905,22 +811,15 @@
                                        animated:!self.isSelectingFromTableView];
         
         if (self.isSelectingFromTableView) {
-//            [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"nearby measurement touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Nearby Measurements"];
             [self.logHelper log:@"Tapped-Nearby" properties:@{}];
         }
         else {
-//            [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"measurement marker touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Map"];
             [self.logHelper log:@"Tapped-Marker" properties:@{}];
             [self.logHelper increase:@"tapped-marker"];
         }
         
-//        [MixpanelUtil addMapInteractionToProfile];
-        
         self.isSelectingFromTableView = NO;
         
-//        if (![Property getAsBoolean:KEY_MAP_GUIDE_ZOOM_SHOWN defaultValue:NO]) {
-//            self.showGuideViewTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(showGuideViewForZoom) userInfo:nil repeats:NO];
-//        }
 	}
 }
 
@@ -930,16 +829,6 @@
             [self.showGuideViewTimer invalidate];
             self.showGuideViewTimer = nil;
         }
-
-//        [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_ZOOM_SHOWN];
-        
-//        TabBarController *tabBarController = (TabBarController*) self.tabBarController;
-//        [tabBarController showCalloutGuideView:NSLocalizedString(@"MAP_GUIDE_ZOOM_TITLE", nil)
-//                               explanationText:NSLocalizedString(@"MAP_GUIDE_ZOOM_EXPLANATION", nil)
-//                                customPosition:self.measurementCalloutView.imageView.bounds
-//                                     withArrow:YES
-//                                        inView:self.mapView.calloutView];
-    
     }
 }
 
@@ -1000,10 +889,6 @@
     double nearbyPoints = pointsPerMeter * mapWidthMeters * nearbyFraction;
     MKMapRect mapRect = MKMapRectMake(center.x - (nearbyPoints/2.0), center.y - (nearbyPoints/2.0), nearbyPoints, nearbyPoints );
     
-    //NSLog(@"center.x=%f, center.y=%f, pointsPerMeter=%f, nearbyPoints=%f, mapRect.origin.x=%f, mapRect.origin.y=%f, mapRect.size.width=%f, mapRect.size.height=%f", center.x, center.y, pointsPerMeter, nearbyPoints, mapRect.origin.x, mapRect.origin.y, mapRect.size.width, mapRect.size.height);
-    
-//    NSSet *set = [self.mapView annotationsInMapRect:mapRect];
-    
     NSMutableSet *set = [NSMutableSet set];
     
     for (id annotation in [self.mapView annotationsInMapRect:mapRect]) {
@@ -1051,28 +936,6 @@
         self.hoursAgo = (int)hourOptions[0];
     }
 
-    
-//    NSArray *hourOptions = [Property getAsFloatArray:KEY_HOUR_OPTIONS];
-//    if (hourOptions != nil && hourOptions.count > 0) {
-//        BOOL isOptionChanged = NO;
-//        for (int i = 0; i < hourOptions.count; i++) {
-//            int hourOptionInt = round([hourOptions[i] floatValue]);
-//            if (hourOptionInt > self.hoursAgo) {
-//                self.hoursAgo = hourOptionInt;
-//                [Property setAsInteger:[NSNumber numberWithInt:self.hoursAgo] forKey:KEY_MAP_HOURS];
-//                isOptionChanged = YES;
-//
-//                break;
-//            }
-//        }
-//        if (!isOptionChanged) {
-//            self.hoursAgo = round([hourOptions[0] floatValue]);
-//            [Property setAsInteger:[NSNumber numberWithInt:self.hoursAgo] forKey:KEY_MAP_HOURS];
-//        }
-//        
-//        [self.logHelper log:@"Changed-Timeframe" properties:@{}];
-//    }
-    
     [self refreshHours];
     [self loadSessionsByTime];
 }
@@ -1083,32 +946,8 @@
 }
 
 - (IBAction)unitButtonPushed {
-//    self.windSpeedUnit = [UnitUtil nextWindSpeedUnit:self.windSpeedUnit];
-//    [Property setAsInteger:[NSNumber numberWithInt:self.windSpeedUnit] forKey:KEY_WIND_SPEED_UNIT];
-//    
-//    [self.unitButton setTitle:[UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit] forState:UIControlStateNormal];
     [self windspeedUnitChanged];
 }
-
-//-(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation *)annotation
-//                           withAction:(NSString *)action
-//                        mixpanelTrack:(NSString *)track
-//                       mixpanelSource:(NSString *)source {
-//    
-//    if ([Property isMixpanelEnabled]) {
-//        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-//        if (source) {
-//            [dictionary setObject:source forKey:@"Source"];
-//        }
-//        
-//        if (dictionary.count > 0) {
-//            [[Mixpanel sharedInstance] track:track properties:dictionary];
-//        }
-//        else {
-//            [[Mixpanel sharedInstance] track:track];
-//        }
-//    }
-//}
 
 @end
 
