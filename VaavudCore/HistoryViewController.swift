@@ -111,8 +111,8 @@ struct Session {
         
         windMeter = WindMeterModel(rawValue: snapshot.value["windMeter"] as! String)!
 
-        windMax = snapshot.value["windMax"] as! Float
-        windMean = snapshot.value["windMean"] as! Float
+        windMax = snapshot.value["windMax"] as? Float ?? 0
+        windMean = snapshot.value["windMean"] as? Float ?? 0
         
         timeEnd = (snapshot.value["timeEnd"] as? NSNumber).map(NSDate.init)
         
@@ -231,11 +231,10 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             let deletedSession = controller.sessionss[indexPath.section][indexPath.row]
-                        
-            controller.sessionss[indexPath.section].removeAtIndex(indexPath.row)
+        
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            
             controller.removeItem(deletedSession, section: indexPath.section, row: indexPath.row)
+        
         }
     }
     

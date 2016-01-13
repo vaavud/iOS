@@ -56,7 +56,9 @@ struct User {
     let country: String
     let language: String
     let email: String
-    let created = [".sv": "timestamp"]
+    let created: NSDate? = nil
+    
+    //= [".sv": "timestamp"]
     
 //    init?(dict: FirebaseDictionary) {
 //        guard let firstName = dict["firstName"] as? String,
@@ -80,7 +82,7 @@ struct User {
 //    }
     
     var fireDict: FirebaseDictionary {
-        let dict: FirebaseDictionary = ["firstName" : firstName, "lastName" : lastName, "country" : country, "language" : language, "email" : email, "created" : created]
+        let dict: FirebaseDictionary = ["firstName" : firstName, "lastName" : lastName, "country" : country, "language" : language, "email" : email, "created" : created ?? [".sv": "timestamp"]]
         return dict
     }
 }

@@ -7,11 +7,78 @@
 //
 
 import UIKit
+import Firebase
 
-class NotificationDetailsViewController: UIViewController {
-    @IBOutlet weak var directionSelector: DirectionSelector!
-
+class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGestureRecognizerDelegate {
     
+    @IBOutlet weak var directionSelector: DirectionSelector!
+    @IBOutlet weak var mapView: MKMapView!
+    var overlays: MKOverlay?
+    var annotation: MKPointAnnotation?
+    let firebase = Firebase(url: firebaseUrl)
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
+        longPressRecognizer.minimumPressDuration = 0.3
+        longPressRecognizer.delaysTouchesBegan = true
+        longPressRecognizer.delegate = self
+        mapView.addGestureRecognizer(longPressRecognizer)
+        mapView.delegate = self
+        
+    }
+    
+    
+    @IBAction func buttonSave(sender: UIBarButtonItem) {
+        
+    }
+    
+    func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
+        
+        if gestureReconizer.state != .Ended {
+            return
+        }
+        
+        if let annotation = self.annotation, overlays = self.overlays {
+            mapView.removeOverlay(overlays)
+            mapView.removeAnnotation(annotation)
+        }
+        
+        
+        let touchPoint = gestureReconizer.locationInView(mapView)
+        let location = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
+        
+        
+        overlays = MKCircle(centerCoordinate: location, radius: 1000)
+        
+        mapView.addOverlay(overlays!)
+        
+        
+        annotation = MKPointAnnotation()
+        annotation!.coordinate = location
+        
+        mapView.addAnnotation(annotation!)
+        
+        var region = MKCoordinateRegion()
+        region.center = location
+        region.span.latitudeDelta = 0.1
+        region.span.longitudeDelta = 0.1
+        region = mapView.regionThatFits(region)
+        mapView.setRegion(region, animated: true)
+        
+        print(location)
+    }
+    
+    
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        let circleRenderer : MKCircleRenderer = MKCircleRenderer(overlay: overlay);
+        circleRenderer.strokeColor = UIColor.redColor()
+        circleRenderer.fillColor = UIColor(red: 0.0, green: 0.0, blue: 0.7, alpha: 0.5)
+        circleRenderer.lineWidth = 1.0
+        return circleRenderer
+    }
 }
 
 struct Directions: OptionSetType, CustomStringConvertible {
