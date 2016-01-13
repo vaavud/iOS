@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Mixpanel
 
 let forecastMaxSteps = 4
 let forecastScaleSpacing = 5
@@ -22,6 +21,8 @@ let forecastBorder: CGFloat = 20
 
 let forecastFontSizeSmall: CGFloat = 12
 let forecastFontSizeLarge: CGFloat = 15
+
+let mapForecastHours = 2
 
 class ForecastAnnotation: NSObject, MKAnnotation {
     let date = NSDate()
@@ -40,7 +41,7 @@ class ForecastAnnotation: NSObject, MKAnnotation {
     }
     
     var title: String? {
-        let ahead = Property.getAsInteger(KEY_MAP_FORECAST_HOURS, defaultValue: 2).integerValue
+        let ahead = mapForecastHours // fixme: store?
 
         let hourDelta: CGFloat = 0.07
         
@@ -67,8 +68,7 @@ class ForecastAnnotation: NSObject, MKAnnotation {
             return ""
         }
         
-        let ahead = Property.getAsInteger(KEY_MAP_FORECAST_HOURS, defaultValue: 2).integerValue
-        
+        let ahead = mapForecastHours // fixme: store?
         let localHour = NSLocalizedString("MAP_NEXT_HOUR", comment: "") // lokalisera
         let localHours = NSLocalizedString("MAP_NEXT_X_HOURS", comment: "") // lokalisera
         
@@ -128,8 +128,8 @@ class ForecastCalloutView: UIView {
         
         data = annotation.data
         
-        let ahead = Property.getAsInteger(KEY_MAP_FORECAST_HOURS, defaultValue: 2).integerValue
-
+        let ahead = mapForecastHours // fixme: store?
+        
         if let newData = annotation.data where newData.count > ahead {
             let unit = VaavudFormatter.shared.speedUnit
             let dataPoint = newData[ahead]
@@ -381,15 +381,10 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        if Property.isMixpanelEnabled() {
-            Mixpanel.sharedInstance().track("Forecast Screen")
-        }
-            
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
+        // fixme: units
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -415,18 +410,16 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
             ForecastLoader.shared.requestGeocode(location) { self.title = $0 }
         }
         
-        if !Property.getAsBoolean(KEY_FORECAST_OVERLAY_SHOWN, defaultValue: false), let tbc = tabBarController {
-            Property.setAsBoolean(true, forKey: KEY_FORECAST_OVERLAY_SHOWN)
-            if Property.isMixpanelEnabled() {
-                Mixpanel.sharedInstance().track("Forecast Pro Badge Overlay")
-            }
-
-            let p = tbc.view.convertPoint(proBadge.center, fromView: nil)
-            let pos = CGPoint(x: p.x/tbc.view.frame.width, y: p.y/tbc.view.frame.height)
-            let text = "Vejrudsigter er en pro funktion, som er gratis ind til videre! Tryk på emblemet for mere information." // lokalisera
-            let icon = UIImage(named: "ForecastProOverlay")
-            tbc.view.addSubview(RadialOverlay(frame: tbc.view.bounds, position: pos, text: text, icon: icon, radius: 50))
-        }
+        // fixme: firebase it
+//        if !Property.getAsBoolean(KEY_FORECAST_OVERLAY_SHOWN, defaultValue: false), let tbc = tabBarController {
+//            Property.setAsBoolean(true, forKey: KEY_FORECAST_OVERLAY_SHOWN)
+//
+//            let p = tbc.view.convertPoint(proBadge.center, fromView: nil)
+//            let pos = CGPoint(x: p.x/tbc.view.frame.width, y: p.y/tbc.view.frame.height)
+//            let text = "Vejrudsigter er en pro funktion, som er gratis ind til videre! Tryk på emblemet for mere information." // lokalisera
+//            let icon = UIImage(named: "ForecastProOverlay")
+//            tbc.view.addSubview(RadialOverlay(frame: tbc.view.bounds, position: pos, text: text, icon: icon, radius: 50))
+//        }
     }
     
     func unitsChanged(note: NSNotification) {
@@ -521,10 +514,6 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if let webViewController = segue.destinationViewController as? WebViewController {
             if segue.identifier == "ProBadgeSeque" {
-                if Property.isMixpanelEnabled() {
-                    Mixpanel.sharedInstance().track("Pro Badge Screen")
-                }
-
                 webViewController.title = "Pro features"
 
                 if let file = NSBundle.mainBundle().pathForResource("ProBadge", ofType: "html") {

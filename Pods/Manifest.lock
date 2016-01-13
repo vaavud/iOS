@@ -21,22 +21,15 @@ PODS:
   - FBSDKShareKit (4.8.0):
     - FBSDKCoreKit
   - Firebase (2.5.0)
-  - GeoFire (1.1.2):
-    - Firebase (~> 2.2)
-  - Mixpanel (2.9.1):
-    - Mixpanel/Mixpanel (= 2.9.1)
-  - Mixpanel/Mixpanel (2.9.1)
 
 DEPENDENCIES:
-  - Amplitude-iOS (~> 3.4.1)
+  - Amplitude-iOS
   - Bolts
   - Dropbox-iOS-SDK
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
-  - Firebase (>= 2.4.2)
-  - GeoFire (>= 1.1)
-  - Mixpanel
+  - Firebase
 
 SPEC CHECKSUMS:
   Amplitude-iOS: aeec249c4143d67274c77edd6538aa177cda6c2e
@@ -46,7 +39,5 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: d893fcbb98d854496925e9ff73c67b896982d3c4
   FBSDKShareKit: e7577ee3adf80fc04fb656dd133fbb522250672b
   Firebase: 744617c0733b45198f9486ebd5cac64ec2d10d79
-  GeoFire: 03db4e390a4cf3ff97422f19eb71ab1aa7d947dd
-  Mixpanel: 5ca24b2a05f4c77fe9bcfe7671d681d0f3f8d76f
 
 COCOAPODS: 0.39.0

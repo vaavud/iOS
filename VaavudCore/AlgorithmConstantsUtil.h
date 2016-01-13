@@ -10,12 +10,7 @@
 
 @interface AlgorithmConstantsUtil : NSObject
 
-+ (NSNumber *)getAlgorithm:(NSString *)model osVersion:(NSString *)version;
-+ (NSNumber *)getAlgorithmFromString:(NSString *)algorithm;
-+ (NSNumber *)getFrequencyStart:(NSString *)model osVersion:(NSString *)version;
-+ (NSNumber *)getFrequencyFactor:(NSString *)model osVersion:(NSString *)version;
-+ (NSNumber *)getFFTLength:(NSString *)model osVersion:(NSString *)version;
-+ (NSNumber *)getFFTDataLength:(NSString *)model osVersion:(NSString *)version;
-+ (NSNumber *)getFFTMagMin:(NSString *)model osVersion:(NSString *)version;
++ (double)getFrequencyFactor:(NSString *)model;
++ (double)getFFTMagMin:(NSString *)model;
 
 @end

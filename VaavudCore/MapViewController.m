@@ -138,7 +138,7 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appWillTerminate:) name:UIApplicationWillTerminateNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windspeedUnitChanged) name:KEY_UNIT_CHANGED object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windspeedUnitChanged) name:KEY_UNIT_CHANGED object:nil];
     
     self.view.autoresizesSubviews = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -221,10 +221,6 @@
                                                        selector:@selector(removeOldSessions)
                                                        userInfo:nil
                                                         repeats:YES];
-    
-    if ([Property isMixpanelEnabled]) {
-        [[Mixpanel sharedInstance] track:@"Map Screen"];
-    }
     
     self.viewAppearedTime = [NSDate date];
     
@@ -328,9 +324,9 @@
     ForecastAnnotation *annotation = [[ForecastAnnotation alloc] initWithLocation:loc];
 
     [[ForecastLoader shared] setup:annotation mapView:self.mapView];
-    if ([Property isMixpanelEnabled]) {
-        [[Mixpanel sharedInstance] track:@"Forecast added pin"];
-    }
+//    if ([Property isMixpanelEnabled]) {
+//        [[Mixpanel sharedInstance] track:@"Forecast added pin"];
+//    }
     
     [self.mapView addAnnotation:annotation];
     [self.mapView selectAnnotation:annotation animated:YES];
@@ -566,6 +562,65 @@
         if(MesAnnotation.startTime.ms < [NSDate dateWithTimeIntervalSinceNow: -24*60*60].ms) {
             [self.mapView removeAnnotation: MesAnnotation];
             [self.currentSessions removeObjectForKey:key];
+        }
+    }
+}
+
+- (void) setupFirebase {
+    Firebase *ref = [[Firebase alloc] initWithUrl: @"https://vaavud-core-demo.firebaseio.com/session/"];
+    
+    NSNumber* currentTime = [NSDate dateWithTimeIntervalSinceNow: -24*60*60].ms;
+    
+    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
+     observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snapshot) {
+         if ([self.currentSessions objectForKey:snapshot.key]) {
+             
+             MeasurementAnnotation *MesAnnotation = (MeasurementAnnotation *) [self.currentSessions valueForKey:snapshot.key];
+             
+             if(MesAnnotation != nil){
+                 [self.mapView removeAnnotation:MesAnnotation];
+                 [self.currentSessions removeObjectForKey:snapshot.key];
+             }
+         }
+     }];
+    
+    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
+     observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+         NSLog(@"adding new sessions  %@ session ", snapshot.key);
+         [self addAnnotation: snapshot];
+     }];
+    
+    
+    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
+     observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
+         //NSLog(@"adding pending  %@ session ", snapshot.value);
+         [self workingWithIncompleteAnnotations: snapshot];
+         //[self addAnnotation: snapshot];
+     }];
+}
+
+
+- (void) loadSessionsByTime {
+    
+    for (id annotation in self.mapView.annotations) {
+        [self.mapView removeAnnotation:annotation];
+    }
+    
+    if(self.hoursAgo == 24){
+        for (NSString* key in self.currentSessions) {
+            MeasurementAnnotation *MesAnnotation = (MeasurementAnnotation *) [self.currentSessions objectForKey:key];
+            [self.mapView addAnnotation:MesAnnotation];
+        }
+    }
+    else{
+        for (NSString* key in self.currentSessions) {
+            
+            MeasurementAnnotation *MesAnnotation = (MeasurementAnnotation *) [self.currentSessions objectForKey:key];
+            NSNumber* currentTime = [NSDate dateWithTimeIntervalSinceNow: -self.hoursAgo*60*60].ms;
+            
+            if(MesAnnotation.startTime.ms > currentTime){
+                [self.mapView addAnnotation:MesAnnotation];
+            }
         }
     }
 }
@@ -926,16 +981,16 @@
                                        animated:!self.isSelectingFromTableView];
         
         if (self.isSelectingFromTableView) {
-            [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"nearby measurement touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Nearby Measurements"];
+//            [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"nearby measurement touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Nearby Measurements"];
             [self.logHelper log:@"Tapped-Nearby" properties:@{}];
         }
         else {
-            [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"measurement marker touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Map"];
+//            [self googleAnalyticsAnnotationEvent:view.annotation withAction:@"measurement marker touch" mixpanelTrack:@"Map Marker Selected" mixpanelSource:@"Map"];
             [self.logHelper log:@"Tapped-Marker" properties:@{}];
             [self.logHelper increase:@"tapped-marker"];
         }
         
-        [MixpanelUtil addMapInteractionToProfile];
+//        [MixpanelUtil addMapInteractionToProfile];
         
         self.isSelectingFromTableView = NO;
         
@@ -1111,25 +1166,25 @@
     [self windspeedUnitChanged];
 }
 
--(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation *)annotation
-                           withAction:(NSString *)action
-                        mixpanelTrack:(NSString *)track
-                       mixpanelSource:(NSString *)source {
-    
-    if ([Property isMixpanelEnabled]) {
-        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-        if (source) {
-            [dictionary setObject:source forKey:@"Source"];
-        }
-        
-        if (dictionary.count > 0) {
-            [[Mixpanel sharedInstance] track:track properties:dictionary];
-        }
-        else {
-            [[Mixpanel sharedInstance] track:track];
-        }
-    }
-}
+//-(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation *)annotation
+//                           withAction:(NSString *)action
+//                        mixpanelTrack:(NSString *)track
+//                       mixpanelSource:(NSString *)source {
+//    
+//    if ([Property isMixpanelEnabled]) {
+//        NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+//        if (source) {
+//            [dictionary setObject:source forKey:@"Source"];
+//        }
+//        
+//        if (dictionary.count > 0) {
+//            [[Mixpanel sharedInstance] track:track properties:dictionary];
+//        }
+//        else {
+//            [[Mixpanel sharedInstance] track:track];
+//        }
+//    }
+//}
 
 @end
 

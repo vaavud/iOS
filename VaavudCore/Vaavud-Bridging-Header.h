@@ -32,13 +32,6 @@
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 
-#import <MagicalRecord/MagicalRecord.h>
-#import <MagicalRecord/MagicalRecord+Actions.h>
-#import <MagicalRecord/NSManagedObject+MagicalRecord.h>
-#import <MagicalRecord/NSManagedObject+MagicalFinders.h>
-#import <MagicalRecord/NSManagedObjectContext+MagicalRecord.h>
-#import <MagicalRecord/NSManagedObjectContext+MagicalSaves.h>
-
 #import "UUIDUtil.h"
 #import <GeoFire/GeoFire.h>
 

@@ -1,16 +1,16 @@
+////
+////  Property.m
+////  Vaavud
+////
+////  Created by Thomas Stilling Ambus on 26/08/2014.
+////  Copyright (c) 2014 Andreas Okholm. All rights reserved.
+////
 //
-//  Property.m
-//  Vaavud
+//#import "Property.h"
 //
-//  Created by Thomas Stilling Ambus on 26/08/2014.
-//  Copyright (c) 2014 Andreas Okholm. All rights reserved.
+//@implementation Property
 //
-
-#import "Property.h"
-
-@implementation Property
-
-@dynamic name;
-@dynamic value;
-
-@end
+//@dynamic name;
+//@dynamic value;
+//
+//@end

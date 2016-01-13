@@ -1,16 +1,16 @@
+////
+////  LogInViewController.h
+////  Vaavud
+////
+////  Created by Thomas Stilling Ambus on 12/02/2014.
+////  Copyright (c) 2014 Andreas Okholm. All rights reserved.
+////
 //
-//  LogInViewController.h
-//  Vaavud
+//#import <UIKit/UIKit.h>
+//#import "AccountManager.h"
 //
-//  Created by Thomas Stilling Ambus on 12/02/2014.
-//  Copyright (c) 2014 Andreas Okholm. All rights reserved.
+//@interface LogInViewController : UIViewController <AuthenticationDelegate>
 //
-
-#import <UIKit/UIKit.h>
-#import "AccountManager.h"
-
-@interface LogInViewController : UIViewController <AuthenticationDelegate>
-
-@property (nonatomic, copy) void (^completion)(void);
-
-@end
+//@property (nonatomic, copy) void (^completion)(void);
+//
+//@end
