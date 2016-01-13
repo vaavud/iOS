@@ -566,19 +566,22 @@
          }
      }];
     
-    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
-     observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
-         [self addAnnotation: snapshot];
-     }];
-    
-    
     NSLog(@"current time  %@ session ", currentTime);
     
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
      observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
          [self workingWithIncompleteAnnotations: snapshot];
          //[self addAnnotation: snapshot];
-    }];
+     }];
+    
+    
+    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
+     observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
+         [self addAnnotation: snapshot];
+     }];
+    
+    
+   
     
 }
 
