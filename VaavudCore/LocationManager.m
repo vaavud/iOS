@@ -7,8 +7,6 @@
 //
 
 #import "LocationManager.h"
-#import "SharedSingleton.h"
-#import "Property+Util.h"
 
 @interface LocationManager ()
 
