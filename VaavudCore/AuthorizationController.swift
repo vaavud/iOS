@@ -199,9 +199,16 @@ class AuthorizationController: NSObject {
     }
 
     private func updateUserInformation(uid: String, data: FirebaseDictionary) {
-        let deviceObj = Device(appVersion: "0.0.0", model: "Iphone 3gs", vendor: "Apple", osVersion: "9.0", uid: uid)
         
-            
+        
+        let mobileVersion =  UIDevice.currentDevice().systemVersion
+        let appVersion = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String
+        let model = UIDevice.currentDevice().name
+        let vendor = "Apple"
+        
+        let deviceObj = Device(appVersion: appVersion, model: model, vendor: vendor, osVersion: mobileVersion, uid: uid)
+        
+        
         let ref = self.vaavudRootFirebase.childByAppendingPath("device")
         let post = ref.childByAutoId()
         post.setValue(deviceObj.fireDict)

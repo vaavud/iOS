@@ -16,7 +16,7 @@ class UserTabViewController : UIViewController, UINavigationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let cs = storyboard!.instantiateViewControllerWithIdentifier("ComingSoonNavigationController")
+        let cs = storyboard!.instantiateViewControllerWithIdentifier("NotificationNavigationController")
         addChildViewController(cs)
         cs.view.frame = notificationContainer.bounds
         notificationContainer.addSubview(cs.view)
