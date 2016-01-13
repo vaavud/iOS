@@ -174,7 +174,6 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
     
-    BOOL forceReload = NO;
     self.isItShowing  = YES;
     [self refreshPendingAnnotations];
 
@@ -375,10 +374,15 @@
 
 - (void) workingWithIncompleteAnnotations: (FDataSnapshot*) data {
     
-    if (data.value[@"location"] == nil) {
+    if (data.value[@"location"] == nil || self.currentSessions[data.key] != nil ) {
         return;
     }
     
+    if ([NSDate dateWithTimeIntervalSinceNow: -1*10*60].ms > data.value[@"timeStart"]){
+        return;
+    }
+    
+    NSLog(@"changing  %@ session ", data.key);
     
     if (data.value[@"timeEnd"] != nil) {
         MeasurementAnnotation *annotation = self.incompleteSessions[data.key];
@@ -474,13 +478,23 @@
 
 - (void) addAnnotation: (FDataSnapshot*) data {
     
-    if (data.value[@"timeEnd"] == nil) {
+    if (data.value[@"location"] == nil ) {
         return;
+    }
+    
+    if(data.value[@"timeEnd"] == nil){
+        if ([NSDate dateWithTimeIntervalSinceNow: -1*10*60].ms > data.value[@"timeStart"]){
+            //NSLog(@"session too old %@  with no time end ", data.key);
+            return;
+        }
     }
     
     if ([self.currentSessions objectForKey:data.key] || [self.pendingSessions objectForKey:data.key]) {
         return;
     }
+    
+    NSLog(@"adding new sessions  %@  ", data.key);
+    
         
     NSDictionary *loctation = ((NSDictionary *)data.value[@"location"]);
         
@@ -554,17 +568,18 @@
     
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
      observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
-         NSLog(@"adding new sessions  %@ session with time %@ ", snapshot.key, currentTime);
          [self addAnnotation: snapshot];
      }];
     
     
+    NSLog(@"current time  %@ session ", currentTime);
+    
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
      observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
-         //NSLog(@"adding pending  %@ session ", snapshot.value);
          [self workingWithIncompleteAnnotations: snapshot];
          //[self addAnnotation: snapshot];
     }];
+    
 }
 
 
@@ -581,11 +596,12 @@
         }
     }
     else{
+        NSNumber* currentTime = [NSDate dateWithTimeIntervalSinceNow: -self.hoursAgo*60*60].ms;
         for (NSString* key in self.currentSessions) {
             
-            MeasurementAnnotation *MesAnnotation = (MeasurementAnnotation *) [self.currentSessions objectForKey:key];
-            NSNumber* currentTime = [NSDate dateWithTimeIntervalSinceNow: -self.hoursAgo*60*60].ms;
+            MeasurementAnnotation *MesAnnotation = (MeasurementAnnotation *) self.currentSessions[key];
             
+            //NSLog(@"change to time  %@ session ", currentTime);
             if(MesAnnotation.startTime.ms > currentTime){
                 [self.mapView addAnnotation:MesAnnotation];
             }

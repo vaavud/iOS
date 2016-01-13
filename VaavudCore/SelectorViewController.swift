@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginDelegate {
     @IBOutlet weak var signupButton: UIButton!
