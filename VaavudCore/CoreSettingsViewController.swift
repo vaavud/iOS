@@ -278,16 +278,6 @@ class CoreSettingsTableViewController: UITableViewController {
         FBSDKLoginManager().logOut()
 
         gotoLoginFrom(self.tabBarController!, inside: view.window!.rootViewController!)
-        
-//        let storyboard = UIStoryboard(name: "Login", bundle: nil)
-//        let controller = storyboard.instantiateViewControllerWithIdentifier("NavigationLogin")
-//        //presentViewController(controller, animated: false, completion: nil)
-//        
-//        if let view = tabBarController?.view {
-//            UIView.transitionFromView(view, toView: controller.view, duration: 0.2, options: .TransitionCrossDissolve) {
-//                _ in UIApplication.sharedApplication().windows[0].rootViewController = controller
-//            }
-//        }
     }
 }
 
