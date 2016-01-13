@@ -29,7 +29,7 @@ protocol LoginDelegate {
 }
 
 class AuthorizationController: NSObject {
-    private var vaavudRootFirebase: Firebase
+    private var firebase = Firebase(url: firebaseUrl)
     var delegate: LoginDelegate?
     var uid: String?
     private var _deviceId: String?
@@ -38,7 +38,6 @@ class AuthorizationController: NSObject {
     static let shared = AuthorizationController()
     
     private override init() {
-        vaavudRootFirebase = Firebase(url: firebaseUrl)
     }
     
     func verifyAuth() -> Bool {
@@ -46,10 +45,9 @@ class AuthorizationController: NSObject {
             return true
         }
         
-        
         let preferences = NSUserDefaults.standardUserDefaults()
         
-        guard let deviceId = preferences.objectForKey("deviceId") as? String, authData = vaavudRootFirebase.authData else {
+        guard let deviceId = preferences.objectForKey("deviceId") as? String, authData = firebase.authData else {
             unauth()
             return false
         }
@@ -62,7 +60,7 @@ class AuthorizationController: NSObject {
     
     func unauth(){
         NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
-        vaavudRootFirebase.unauth()
+        firebase.unauth()
     }
     
     func currentDeviceId() -> String {
@@ -78,7 +76,7 @@ class AuthorizationController: NSObject {
     func login(email: String, password: String, delegate: LoginDelegate) {
         self.delegate = delegate
         
-        vaavudRootFirebase.authUser(email, password: password) { error, authData in
+        firebase.authUser(email, password: password) { error, authData in
             if let error = error {
                 if error.code == -6 {
                     self.verifyMigration(email, password: password)
@@ -95,33 +93,33 @@ class AuthorizationController: NSObject {
     }
     
     private func obtainUserInformation(child: String, key: String) {
-        let ref = vaavudRootFirebase.childByAppendingPath(child).childByAppendingPath(key)
-        ref.observeSingleEventOfType(.Value, withBlock: { data in
-            guard let firebaseData = data.value as? FirebaseDictionary else {
-                self.delegate?.onError(.Unknown)
-                return
-            }
-            
-            self.updateUserInformation(data.key, data: firebaseData)
-        })
+        firebase
+            .childByAppendingPath(child).childByAppendingPath(key)
+            .observeSingleEventOfType(.Value, withBlock: { data in
+                guard let firebaseData = data.value as? FirebaseDictionary else {
+                    self.delegate?.onError(.Unknown)
+                    return
+                }
+                
+                self.updateUserInformation(data.key, data: firebaseData)
+            })
     }
     
-    func signup(firstName: String, lastName: String, email: String, password: String, delegate: LoginDelegate){
+    func signup(firstName: String, lastName: String, email: String, password: String, delegate: LoginDelegate) {
         self.delegate = delegate
-        //let newUserModel = User(dict: ["firstName": firstName, "lastName": lastName, "country": "DK", "language": "EN", "email": email, "created": 812739 ]) //TODO
         
+        let country = NSLocale.currentLocale().objectForKey(NSLocaleCountryCode) as! String
         let language = NSLocale.preferredLanguages()[0]
         
-        let newUserModel = User(firstName: firstName, lastName: lastName, country: "DK", language: language, email: email)
+        let newUserModel = User(firstName: firstName, lastName: lastName, country: country, language: language, email: email)
         
-        
-        vaavudRootFirebase.createUser(email, password: password, withValueCompletionBlock: { error, authData in
+        firebase.createUser(email, password: password, withValueCompletionBlock: { error, authData in
             guard let _ = authData else {
                 self.delegate?.onError(.EmailTaken)
                 return
             }
             
-            self.vaavudRootFirebase.authUser(email, password: password) { error, authData in
+            self.firebase.authUser(email, password: password) { error, authData in
                 if let error = error {
                     if error.code == -6 {
                         self.verifyMigration(email, password: password)
@@ -133,7 +131,7 @@ class AuthorizationController: NSObject {
                     return
                 }
                 
-                self.vaavudRootFirebase.childByAppendingPath("user").childByAppendingPath(authData.uid).setValue(newUserModel.fireDict)
+                self.firebase.childByAppendingPath("user").childByAppendingPath(authData.uid).setValue(newUserModel.fireDict)
                 self.updateUserInformation(authData.uid, data: newUserModel.fireDict)
             }
         })
@@ -142,7 +140,7 @@ class AuthorizationController: NSObject {
     func loginWithFacebook(delegate: LoginDelegate) {
         self.delegate = delegate
     
-        let graphRequest  = FBSDKGraphRequest(graphPath: "me", parameters:["fields" : "first_name, last_name, picture.type(large), email, name, id, gender"])
+        let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters:["fields" : "first_name, last_name, picture.type(large), email, name, id, gender"])
         graphRequest.startWithCompletionHandler{ (connection, result, error) in
             
             if error != nil{
@@ -150,28 +148,28 @@ class AuthorizationController: NSObject {
                 return
             }
             
-            let token = FBSDKAccessToken.currentAccessToken().tokenString
             let firstName = result.valueForKey("first_name") as! String
             let lastName = result.valueForKey("last_name") as! String
+            let country = NSLocale.currentLocale().objectForKey(NSLocaleCountryCode) as! String
+            let language = NSLocale.preferredLanguages()[0]
             let email = result.valueForKey("email") as! String
                 
             let callback = { (success: Bool, uid: String) in
                 if success {
-                    let userModel = User(firstName: firstName, lastName: lastName, country: "DK", language: "EN", email: email)
-                    
+                    let userModel = User(firstName: firstName, lastName: lastName, country: country, language: language, email: email)
                     self.validateUserInformation(uid, userModel: userModel.fireDict)
                 }
                 else {
                     self.delegate?.onError(.Firebase)
                 }
             }
+            let token = FBSDKAccessToken.currentAccessToken().tokenString
             self.authWithFacebook(token, callback: callback)
         }
     }
     
     func updateActivity(activity: String){
-        let param = ["activity" : activity]
-        vaavudRootFirebase.childByAppendingPath("user").childByAppendingPath(uid).updateChildValues(param)
+        firebase.childByAppendingPath("user").childByAppendingPath(uid).updateChildValues(["activity" : activity])
     }
     
     private func validateUserInformation(uid: String, userModel: FirebaseDictionary) {
@@ -180,7 +178,7 @@ class AuthorizationController: NSObject {
                 self.updateUserInformation(uid, data: data)
             }
             else{
-                self.vaavudRootFirebase.childByAppendingPath("user").childByAppendingPath(uid).setValue(userModel)
+                self.firebase.childByAppendingPath("user").childByAppendingPath(uid).setValue(userModel)
                 self.updateUserInformation(uid, data: userModel)
             }
         }
@@ -189,29 +187,29 @@ class AuthorizationController: NSObject {
     }
     
     private func obtainUserInformation(child: String, key: String, callback: FirebaseDictionary -> Void) {
-        let ref = vaavudRootFirebase.childByAppendingPath(child).childByAppendingPath(key)
-        ref.observeSingleEventOfType(.Value, withBlock: { data in
-            guard let firebaseData = data.value as? FirebaseDictionary else {
-                self.delegate?.onError(.Unknown)
-                return
-            }
-            
-            callback(firebaseData)
-        })
+        firebase
+            .childByAppendingPath(child).childByAppendingPath(key)
+            .observeSingleEventOfType(.Value, withBlock: { data in
+                guard let firebaseData = data.value as? FirebaseDictionary else {
+                    self.delegate?.onError(.Unknown)
+                    return
+                }
+                
+                callback(firebaseData)
+            })
     }
-
+    
     private func updateUserInformation(uid: String, data: FirebaseDictionary) {
-        
-        
         let mobileVersion =  UIDevice.currentDevice().systemVersion
         let appVersion = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String
-        let model = UIDevice.currentDevice().name
+        let model = AuthorizationController.deviceModel
         let vendor = "Apple"
         
         let deviceObj = Device(appVersion: appVersion, model: model, vendor: vendor, osVersion: mobileVersion, uid: uid)
         
+        print("device: \(deviceObj)")
         
-        let ref = self.vaavudRootFirebase.childByAppendingPath("device")
+        let ref = firebase.childByAppendingPath("device")
         let post = ref.childByAutoId()
         post.setValue(deviceObj.fireDict)
         let deviceId = post.key
@@ -262,7 +260,7 @@ class AuthorizationController: NSObject {
                     let oldPassword =  email + "\(responseObject!["user_id"] as! NSNumber)"
                     print(oldPassword)
                         
-                    self.vaavudRootFirebase.changePasswordForUser(email, fromOld: oldPassword, toNew: password, withCompletionBlock: {error in
+                    self.firebase.changePasswordForUser(email, fromOld: oldPassword, toNew: password, withCompletionBlock: {error in
                         guard let error = error else {
                             print("Login correct with new password")
                             self.login(email, password: password, delegate: self.delegate!)
@@ -284,9 +282,8 @@ class AuthorizationController: NSObject {
         task.resume()
     }
     
-    
     private func authWithFacebook(accessToken : String, callback: (Bool, String) -> Void){
-        vaavudRootFirebase.authWithOAuthProvider("facebook", token: accessToken) { error, authData in
+        firebase.authWithOAuthProvider("facebook", token: accessToken) { error, authData in
             
             guard let error = error else {
                 callback(true, authData.uid)
@@ -298,4 +295,17 @@ class AuthorizationController: NSObject {
             callback(false, "")
         }
     }
+    
+    // MARK - tatic convenience methods
+    
+    static var deviceModel: String {
+        var systemInfo = utsname()
+        uname(&systemInfo)
+        return NSString(bytes: &systemInfo.machine, length: Int(_SYS_NAMELEN), encoding: NSASCIIStringEncoding)! as String
+    }
+    
+    static var deviceIsIphone4: Bool {
+        return deviceModel.hasPrefix("iPhone3")
+    }
+
 }

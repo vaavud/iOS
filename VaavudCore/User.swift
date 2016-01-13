@@ -17,7 +17,6 @@
 import UIKit
 import VaavudSDK
 
-
 typealias FirebaseDictionary = [String:AnyObject]
 
 struct Device {
@@ -26,7 +25,7 @@ struct Device {
     let vendor: String
     let osVersion: String
     let uid: String
-    let created = [".sv": "timestamp"]
+    let created: NSDate? = nil
     
 //    init?(dict: FirebaseDictionary) {
 //        guard let appVersion = dict["appVersion"] as? String,
@@ -46,7 +45,9 @@ struct Device {
 //    }
     
     var fireDict : FirebaseDictionary {
-        return ["appVersion" : appVersion, "model" : model, "vendor" : vendor, "osVersion" : osVersion, "uid" : uid, "created" : created]
+        print(self)
+        
+        return ["appVersion" : appVersion, "model" : model, "vendor" : vendor, "osVersion" : osVersion, "uid" : uid, "created" : created ?? [".sv": "timestamp"]]
     }
 }
 
@@ -82,6 +83,8 @@ struct User {
 //    }
     
     var fireDict: FirebaseDictionary {
+        print(self)
+
         let dict: FirebaseDictionary = ["firstName" : firstName, "lastName" : lastName, "country" : country, "language" : language, "email" : email, "created" : created ?? [".sv": "timestamp"]]
         return dict
     }

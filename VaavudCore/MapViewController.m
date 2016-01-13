@@ -16,7 +16,7 @@
 #import "LocationManager.h"
 //#import "ServerUploadManager.h"
 //#import "Mixpanel.h"
-#import "TabBarController.h"
+//#import "TabBarController.h"
 //#import "MixpanelUtil.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "Vaavud-Swift.h"

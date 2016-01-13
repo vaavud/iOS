@@ -12,16 +12,8 @@
 #import "AppDelegate.h"
 #import "UIColor+VaavudColors.h"
 #import "LocationManager.h"
-#import "MeasurementSession.h"
-#import "MeasurementPoint.h"
 #import "UnitUtil.h"
-#import "Property+Util.h"
 #import "MeasurementAnnotation.h"
-#import "TabBarController.h"
-#import "AccountManager.h"
-#import "ServerUploadManager.h"
-#import "MixpanelUtil.h"
-#import "RegisterViewController.h"
 #import "PasswordUtil.h" // Delete this file
 #import "Amplitude.h"
 #import "MeasurementCalloutView.h"
@@ -31,8 +23,5 @@
 #import <DropboxSDK/DropboxSDK.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-
-#import "UUIDUtil.h"
-#import <GeoFire/GeoFire.h>
 
 #endif

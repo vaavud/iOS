@@ -6,14 +6,10 @@
 //  Copyright (c) 2013 Andreas Okholm. All rights reserved.
 //
 
-#import "AppDelegate.h"
 #import "MjolnirMeasurementController.h"
 #import <CoreMotion/CoreMotion.h>
-#import <CoreData/CoreData.h>
-#import "VaavudMagneticFieldDataManager.h"
 #import "VaavudFFT.h"
-#import "AlgorithmConstantsUtil.h"
-#import "ModelManager.h"
+#import "Vaavud-Swift.h"
 
 @interface MjolnirMeasurementController () {}
 
@@ -50,6 +46,7 @@
 
 @property (nonatomic, strong) NSTimer *measuringTimer;
 
+
 @end
 
 @implementation MjolnirMeasurementController
@@ -58,15 +55,14 @@
     self = [super init];
     
     if (self) {
-        NSString *model = [ModelManager getModel];
-        
-        self.iPhone4Algo = [ModelManager isIPhone4];
+        NSString *model = AuthorizationController.deviceModel;
+        self.iPhone4Algo = AuthorizationController.deviceIsIphone4;
         
         self.frequencyStart = STANDARD_FREQUENCY_START;
-        self.frequencyFactor = [AlgorithmConstantsUtil getFrequencyFactor:model];
+        self.frequencyFactor = [self getFrequencyFactor:model];
         self.fftLength = FQ40_FFT_LENGTH;
         self.fftDataLength = FQ40_FFT_DATA_LENGTH;
-        self.fftPeakMagnitudeMinForValid = [AlgorithmConstantsUtil getFFTMagMin:model];
+        self.fftPeakMagnitudeMinForValid = [self getFFTMagMin:model];
 
         self.FFTEngine = [[VaavudFFT alloc] initFFTLength: self.fftLength andFftDataLength: self.fftDataLength];
         
@@ -74,10 +70,6 @@
     }
     
     return self;
-}
-
-- (WindMeterDeviceType)windMeterDeviceType {
-    return MjolnirWindMeterDeviceType;
 }
 
 - (void)start {
@@ -105,9 +97,7 @@
     
     self.measuringTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(pushValuesToDelegate) userInfo:nil repeats:YES];
     
-    if ([self.delegate respondsToSelector:@selector(changedValidity:dynamicsIsValid:)]) {
-        [self.delegate changedValidity:self.isValidCurrentStatus dynamicsIsValid:self.dynamicsIsValid];
-    }
+    [self.delegate changedValidity:self.isValidCurrentStatus dynamicsIsValid:self.dynamicsIsValid];
 }
 
 - (NSTimeInterval)stop {
@@ -123,9 +113,7 @@
 }
 
 - (void)pushValuesToDelegate {
-    //    if (self.delegate && self.isValidCurrentStatus) {
-    
-    if (self.delegate && self.isValidCurrentStatus && self.windSpeed.count > 0) {
+    if (self.isValidCurrentStatus && self.windSpeed.count > 0) {
         NSNumber *currentSpeed = [self.windSpeed lastObject];
         NSNumber *avgSpeed = [self getAverage];
         NSNumber *maxSpeed = [self getMax];
@@ -162,26 +150,21 @@
     }
     
     [self.isValid addObject:@(self.isValidCurrentStatus)];
-
+    
     if (wasValid != self.isValidCurrentStatus) {
-        if (self.delegate && [self.delegate respondsToSelector:@selector(changedValidity:dynamicsIsValid:)]) {
-            [self.delegate changedValidity:self.isValidCurrentStatus dynamicsIsValid:self.dynamicsIsValid];
-        }
+        [self.delegate changedValidity:self.isValidCurrentStatus dynamicsIsValid:self.dynamicsIsValid];
     }
 }
 
 - (void)dynamicsIsValid:(BOOL)validity {
     if (self.dynamicsIsValid != validity) {
         self.dynamicsIsValid = validity;
-
-        if (self.delegate && [self.delegate respondsToSelector:@selector(changedValidity:dynamicsIsValid:)]) {
-            [self.delegate changedValidity:self.isValidCurrentStatus dynamicsIsValid:self.dynamicsIsValid];
-        }
+        [self.delegate changedValidity:self.isValidCurrentStatus dynamicsIsValid:self.dynamicsIsValid];
     }
 }
 
-- (void)newHeading:(NSNumber *)newHeading {
-}
+//- (void)newHeading:(NSNumber *)newHeading {
+//}
 
 - (void)magneticFieldValuesUpdated {
     self.magneticFieldUpdatesCounter += 1;
@@ -346,5 +329,49 @@
     
     return windspeed;
 }
+
+static int const OTHER = 0;
+static int const IPHONE4 = 1;
+static int const IPHONE5 = 2;
+static int const IPHONE6 = 3;
+
+- (double)getFrequencyFactor:(NSString *)model {
+    switch ([self getGeneralModel:model]) {
+        case IPHONE4:
+            return I4_FREQUENCY_FACTOR;
+        case IPHONE5:
+        case IPHONE6:
+            return I5_FREQUENCY_FACTOR;
+        default:
+            return STANDARD_FREQUENCY_FACTOR;
+    }
+}
+
+- (double)getFFTMagMin:(NSString *)model {
+    switch ([self getGeneralModel:model]) {
+        case IPHONE6:
+            return FFT_PEAK_MAG_MIN_IPHONE6;
+        default:
+            return FFT_PEAK_MAG_MIN_GENERAL;
+    }
+}
+
+- (int)getGeneralModel:(NSString *)model {
+    if ([model isEqual:@"iPhone3,1"]) return IPHONE4;       // iPhone 4 (GSM)
+    if ([model isEqual:@"iPhone3,2"]) return IPHONE4;       // iPhone 4 (GMS Rev A)
+    if ([model isEqual:@"iPhone3,3"]) return IPHONE4;       // iPhone 4 (GSM + CDMA)
+    if ([model isEqual:@"iPhone4,1"]) return IPHONE4;       // iPhone 4S
+    if ([model isEqual:@"iPhone5,1"]) return IPHONE5;       // iPhone 5 (GSM)
+    if ([model isEqual:@"iPhone5,2"]) return IPHONE5;       // iPhone 5 (GSM + CDMA)
+    if ([model isEqual:@"iPhone5,3"]) return IPHONE5;       // iPhone 5c
+    if ([model isEqual:@"iPhone5,4"]) return IPHONE5;       // iPhone 5c
+    if ([model isEqual:@"iPhone6,1"]) return IPHONE5;       // iPhone 5s
+    if ([model isEqual:@"iPhone6,2"]) return IPHONE5;       // iPhone 5s
+    if ([model isEqual:@"iPhone7,1"]) return IPHONE6;       // iPhone 6
+    if ([model isEqual:@"iPhone7,2"]) return IPHONE6;       // iPhone 6+
+    
+    return OTHER;
+}
+
 
 @end

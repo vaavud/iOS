@@ -35,8 +35,6 @@
 		22900BB31AEE7616009D9C8F /* MjolnirSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22900BB21AEE7616009D9C8F /* MjolnirSpinner.swift */; };
 		22900BB71AEE77C1009D9C8F /* MjolnirSpinner.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22900BB61AEE77C1009D9C8F /* MjolnirSpinner.xcassets */; };
 		229124981B81E87100DC6867 /* MjolnirMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A4F1F1173A8FAB00D1ACEE /* MjolnirMeasurementController.m */; };
-		229124991B81E8B100DC6867 /* WindMeasurementController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */; };
-		2291249A1B81E8DB00DC6867 /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C5C3617EC826800E84D3C /* TabBarController.m */; };
 		229533511B1F3F8A00DAEA62 /* MeasureCancelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229533501B1F3F8A00DAEA62 /* MeasureCancelButton.swift */; };
 		229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */; };
 		229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 229FF3171A7EE3A0008A3226 /* VaavudViews.swift */; };
@@ -65,7 +63,6 @@
 		22E59A4A1ADD6F7000B1BC88 /* TabBar.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A381ADD6F7000B1BC88 /* TabBar.xcassets */; };
 		22E59A4C1ADD6F7000B1BC88 /* UpgradeFlow.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A391ADD6F7000B1BC88 /* UpgradeFlow.xcassets */; };
 		22E602471B6F67C600B706E0 /* ActivityFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22E602461B6F67C600B706E0 /* ActivityFlowViewController.swift */; };
-		22EAE5CF1AB1EA5C0037654E /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D21AB1EA5C0037654E /* Register.storyboard */; };
 		22EAE5D61AB1EBEA0037654E /* UpgradingUserPagesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22EAE5D81AB1EBEA0037654E /* UpgradingUserPagesView.xib */; };
 		22F2B3671C032A8E001D7AD7 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F2B3661C032A8E001D7AD7 /* LogHelper.swift */; };
 		22F997911C1AFF3F00127F91 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F997901C1AFF3F00127F91 /* MapViewController.swift */; };
@@ -101,37 +98,18 @@
 		E904AC9817F08F6E00171F7F /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9717F08F6E00171F7F /* MapViewController.m */; };
 		E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E904AC9917F0911000171F7F /* MapKit.framework */; };
 		E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */; };
-		E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E90F76CD1771EB2B00F51A4F /* ServerUploadManager.m */; };
-		E9159CA51A03E09100742188 /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = E9159CA41A03E09100742188 /* MeasurementSession.m */; };
-		E91D4215198F7A9800106E15 /* GuideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E91D4214198F7A9800106E15 /* GuideView.xib */; };
-		E91D4218198F7C8400106E15 /* GuideView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91D4217198F7C8400106E15 /* GuideView.m */; };
-		E91D421B198F7E4900106E15 /* DismissOnTouchUIView.m in Sources */ = {isa = PBXBuildFile; fileRef = E91D421A198F7E4900106E15 /* DismissOnTouchUIView.m */; };
-		E93338F7178C561B006E2314 /* ModelManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E93338F6178C561B006E2314 /* ModelManager.m */; };
 		E93C865A1781BE56005E4212 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86591781BE56005E4212 /* LocationManager.m */; };
 		E93C86631781C764005E4212 /* Property+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86621781C764005E4212 /* Property+Util.m */; };
-		E93C86691781C88B005E4212 /* Property.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86681781C88B005E4212 /* Property.m */; };
-		E93C866F1781D69A005E4212 /* MeasurementSession+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */; };
-		E93C86721781D727005E4212 /* MeasurementPoint+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86711781D727005E4212 /* MeasurementPoint+Util.m */; };
 		E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E94CBB5D177DB3050089D440 /* UUIDUtil.m */; };
 		E960260818575452009396B1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E960260A18575452009396B1 /* Localizable.strings */; };
 		E960260E18575E41009396B1 /* MeasurementCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E960261018575E41009396B1 /* MeasurementCalloutView.xib */; };
-		E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */; };
-		E97AC6D018BCDE19004DEC65 /* TermsPrivacyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */; };
-		E984F26319B878BD004024C6 /* MixpanelUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E984F26219B878BD004024C6 /* MixpanelUtil.m */; };
-		E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */; };
-		E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */; };
 		E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8917DF5BA600DED985 /* libz.dylib */; };
 		E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E99F8F70178EC5AD0090402C /* UnitUtil.m */; };
 		E9A4097818994000004F1C12 /* TMCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097318994000004F1C12 /* TMCache.m */; };
 		E9A4097918994000004F1C12 /* TMDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097518994000004F1C12 /* TMDiskCache.m */; };
 		E9A4097A18994000004F1C12 /* TMMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097718994000004F1C12 /* TMMemoryCache.m */; };
 		E9A4097D18994570004F1C12 /* UIImageView+TMCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097C18994570004F1C12 /* UIImageView+TMCache.m */; };
-		E9A4098718A26FEB004F1C12 /* GuidedTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098618A26FEB004F1C12 /* GuidedTextField.m */; };
-		E9A4099018A52151004F1C12 /* SignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4098F18A52151004F1C12 /* SignUpViewController.m */; };
-		E9A4099318A52E40004F1C12 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099218A52E40004F1C12 /* RegisterViewController.m */; };
 		E9A4099C18AA501D004F1C12 /* PasswordUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099B18AA501D004F1C12 /* PasswordUtil.m */; };
-		E9A4099F18AA75C6004F1C12 /* RegisterNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */; };
-		E9A409A818AB9B80004F1C12 /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A409A718AB9B80004F1C12 /* LogInViewController.m */; };
 		E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */; };
 		E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */; };
 		E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9AF2B8E17F5B93800BDF6D9 /* MeasurementTableViewCell.m */; };
@@ -147,15 +125,9 @@
 		E9B627C917708E63004678D5 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627C017708E63004678D5 /* UIImageView+AFNetworking.m */; };
 		E9B627CB177092EF004678D5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B627CA177092EF004678D5 /* SystemConfiguration.framework */; };
 		E9B627CD1770930D004678D5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B627CC1770930D004678D5 /* MobileCoreServices.framework */; };
-		E9B627D1177096D6004678D5 /* VaavudAPIHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = E9B627D0177096D6004678D5 /* VaavudAPIHTTPClient.m */; };
-		E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */; };
 		E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */; };
-		E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */; };
 		E9EE1FB9176A024B00D1F006 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9EE1FB8176A024B00D1F006 /* CoreData.framework */; };
 		E9F33CCB18B4AFBF0033EDC7 /* UIColor+VaavudColors.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F33CCA18B4AFBF0033EDC7 /* UIColor+VaavudColors.m */; };
-		E9F33CCE18B4B3CB0033EDC7 /* AccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E9F33CCD18B4B3CB0033EDC7 /* AccountManager.m */; };
-		E9FABFDE18929473009C4C46 /* HistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FABFDD18929473009C4C46 /* HistoryTableViewController.m */; };
-		E9FABFE1189294BD009C4C46 /* HistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FABFE0189294BD009C4C46 /* HistoryTableViewCell.m */; };
 		E9FABFE71896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9FABFE61896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib */; };
 		E9FABFEA1896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FABFE91896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m */; };
 		E9FD000B17FD6A06001A8491 /* FormatUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E9FD000A17FD6A06001A8491 /* FormatUtil.m */; };
@@ -212,20 +184,10 @@
 		22199C011AE286710008CADA /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		22199C031AE286760008CADA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/MainStoryboard.strings"; sourceTree = "<group>"; };
 		22199C051AE2867D0008CADA /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/MainStoryboard.strings"; sourceTree = "<group>"; };
-		221E30DE1AE2EF2E00503FE1 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Register.strings; sourceTree = "<group>"; };
-		221E30E01AE2EF3400503FE1 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Register.strings; sourceTree = "<group>"; };
-		221E30E21AE2EF3900503FE1 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Register.strings; sourceTree = "<group>"; };
-		221E30E41AE2EF3D00503FE1 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Register.strings"; sourceTree = "<group>"; };
-		221E30E61AE2EF4300503FE1 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Register.strings; sourceTree = "<group>"; };
-		221E30E81AE2EF4700503FE1 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Register.strings; sourceTree = "<group>"; };
-		221E30EA1AE2EF4C00503FE1 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Register.strings; sourceTree = "<group>"; };
-		221E30EC1AE2EF5100503FE1 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Register.strings"; sourceTree = "<group>"; };
-		221E30EE1AE2EF5600503FE1 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Register.strings"; sourceTree = "<group>"; };
 		222F30621BC2944800CD607B /* NotificationDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailsViewController.swift; sourceTree = "<group>"; };
 		2231A0A31B19BECE003DADDB /* MeasureRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasureRootViewController.swift; sourceTree = "<group>"; };
 		2234D3511A77BDAC00F325EB /* UpgradingUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpgradingUserViewController.swift; sourceTree = "<group>"; };
 		2234D3591A783C7E00F325EB /* UpgradingUserPhonePages.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UpgradingUserPhonePages.xib; sourceTree = "<group>"; };
-		224D260C1AE11AA3006F5C23 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Register.strings; sourceTree = "<group>"; };
 		225572CA1AE2851900153F03 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		2255A63A1A818535006589D5 /* VaavudInteractions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VaavudInteractions.swift; sourceTree = "<group>"; };
 		2258C92B1BEB8924003B49EC /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
@@ -278,7 +240,6 @@
 		22ADAA931A9C911400C298E6 /* EmptyHistoryArrow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyHistoryArrow.swift; sourceTree = "<group>"; };
 		22B408B61A8A0E2E0062A2DD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		22B408C21A8B97ED0062A2DD /* CoreSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreSettingsViewController.swift; sourceTree = "<group>"; };
-		22B99AC41ADFD8C600E1A27B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Register.strings; sourceTree = "<group>"; };
 		22BBC2A31BAC3407005E0A95 /* Map.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Map.xcassets; path = ImageAssets/Map.xcassets; sourceTree = "<group>"; };
 		22C8AB3D1B8F33340064DB8B /* ForecastViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastViewController.swift; sourceTree = "<group>"; };
 		22C9B0301B7CDF5E004A2902 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
@@ -296,7 +257,6 @@
 		22E59A371ADD6F7000B1BC88 /* SummaryScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SummaryScreen.xcassets; path = ImageAssets/SummaryScreen.xcassets; sourceTree = "<group>"; };
 		22E59A381ADD6F7000B1BC88 /* TabBar.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = TabBar.xcassets; path = ImageAssets/TabBar.xcassets; sourceTree = "<group>"; };
 		22E59A391ADD6F7000B1BC88 /* UpgradeFlow.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = UpgradeFlow.xcassets; path = ImageAssets/UpgradeFlow.xcassets; sourceTree = "<group>"; };
-		22E59A4F1ADE917C00B1BC88 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Register.storyboard; sourceTree = "<group>"; };
 		22E602461B6F67C600B706E0 /* ActivityFlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityFlowViewController.swift; sourceTree = "<group>"; };
 		22EAE5D71AB1EBEA0037654E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/UpgradingUserPagesView.xib; sourceTree = "<group>"; };
 		22EAE5DC1AB1ECD90037654E /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
@@ -361,44 +321,14 @@
 		E904AC9917F0911000171F7F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E904AC9D17F193DF00171F7F /* MeasurementAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementAnnotation.h; sourceTree = "<group>"; };
 		E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementAnnotation.m; sourceTree = "<group>"; };
-		E90F76CC1771EB2A00F51A4F /* ServerUploadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerUploadManager.h; sourceTree = "<group>"; };
-		E90F76CD1771EB2B00F51A4F /* ServerUploadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerUploadManager.m; sourceTree = "<group>"; };
-		E9159CA31A03E09100742188 /* MeasurementSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSession.h; sourceTree = "<group>"; };
-		E9159CA41A03E09100742188 /* MeasurementSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSession.m; sourceTree = "<group>"; };
-		E91D4214198F7A9800106E15 /* GuideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuideView.xib; sourceTree = "<group>"; };
-		E91D4216198F7C8400106E15 /* GuideView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideView.h; sourceTree = "<group>"; };
-		E91D4217198F7C8400106E15 /* GuideView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideView.m; sourceTree = "<group>"; };
-		E91D4219198F7E4900106E15 /* DismissOnTouchUIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DismissOnTouchUIView.h; sourceTree = "<group>"; };
-		E91D421A198F7E4900106E15 /* DismissOnTouchUIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DismissOnTouchUIView.m; sourceTree = "<group>"; };
-		E93338F5178C561B006E2314 /* ModelManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModelManager.h; sourceTree = "<group>"; };
-		E93338F6178C561B006E2314 /* ModelManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModelManager.m; sourceTree = "<group>"; };
-		E93C5C3517EC826800E84D3C /* TabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
-		E93C5C3617EC826800E84D3C /* TabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		E93C86581781BE56005E4212 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		E93C86591781BE56005E4212 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
-		E93C86611781C764005E4212 /* Property+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Property+Util.h"; sourceTree = "<group>"; };
 		E93C86621781C764005E4212 /* Property+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Property+Util.m"; sourceTree = "<group>"; };
-		E93C86671781C88B005E4212 /* Property.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Property.h; sourceTree = "<group>"; };
-		E93C86681781C88B005E4212 /* Property.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Property.m; sourceTree = "<group>"; };
-		E93C866D1781D69A005E4212 /* MeasurementSession+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MeasurementSession+Util.h"; sourceTree = "<group>"; };
-		E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MeasurementSession+Util.m"; sourceTree = "<group>"; };
-		E93C86701781D727005E4212 /* MeasurementPoint+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MeasurementPoint+Util.h"; sourceTree = "<group>"; };
-		E93C86711781D727005E4212 /* MeasurementPoint+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MeasurementPoint+Util.m"; sourceTree = "<group>"; };
 		E94CBB5C177DB3050089D440 /* UUIDUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUIDUtil.h; sourceTree = "<group>"; };
 		E94CBB5D177DB3050089D440 /* UUIDUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUIDUtil.m; sourceTree = "<group>"; };
 		E96025FB18574DC0009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E960260B18575461009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E960260D18575473009396B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E97AC6C818BCC66A004DEC65 /* TermsPrivacyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsPrivacyViewController.h; sourceTree = "<group>"; };
-		E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsPrivacyViewController.m; sourceTree = "<group>"; };
-		E97AC6CE18BCDE19004DEC65 /* TermsPrivacyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TermsPrivacyNavigationController.h; sourceTree = "<group>"; };
-		E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TermsPrivacyNavigationController.m; sourceTree = "<group>"; };
-		E984F26119B878BD004024C6 /* MixpanelUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MixpanelUtil.h; sourceTree = "<group>"; };
-		E984F26219B878BD004024C6 /* MixpanelUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MixpanelUtil.m; sourceTree = "<group>"; };
-		E995F0B0177C55A80011BF07 /* DictionarySerializationUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DictionarySerializationUtil.h; sourceTree = "<group>"; };
-		E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DictionarySerializationUtil.m; sourceTree = "<group>"; };
-		E995F0B6177C7A2A0011BF07 /* MeasurementPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementPoint.h; sourceTree = "<group>"; };
-		E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementPoint.m; sourceTree = "<group>"; };
 		E99CFD8917DF5BA600DED985 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		E99F8F6F178EC5AD0090402C /* UnitUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitUtil.h; sourceTree = "<group>"; };
 		E99F8F70178EC5AD0090402C /* UnitUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitUtil.m; sourceTree = "<group>"; };
@@ -410,18 +340,8 @@
 		E9A4097718994000004F1C12 /* TMMemoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMMemoryCache.m; sourceTree = "<group>"; };
 		E9A4097B18994570004F1C12 /* UIImageView+TMCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+TMCache.h"; sourceTree = "<group>"; };
 		E9A4097C18994570004F1C12 /* UIImageView+TMCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+TMCache.m"; sourceTree = "<group>"; };
-		E9A4098518A26FEB004F1C12 /* GuidedTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuidedTextField.h; sourceTree = "<group>"; };
-		E9A4098618A26FEB004F1C12 /* GuidedTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuidedTextField.m; sourceTree = "<group>"; };
-		E9A4098E18A52151004F1C12 /* SignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpViewController.h; sourceTree = "<group>"; };
-		E9A4098F18A52151004F1C12 /* SignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpViewController.m; sourceTree = "<group>"; };
-		E9A4099118A52E40004F1C12 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
-		E9A4099218A52E40004F1C12 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		E9A4099A18AA501D004F1C12 /* PasswordUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordUtil.h; sourceTree = "<group>"; };
 		E9A4099B18AA501D004F1C12 /* PasswordUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordUtil.m; sourceTree = "<group>"; };
-		E9A4099D18AA75C6004F1C12 /* RegisterNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterNavigationController.h; sourceTree = "<group>"; };
-		E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterNavigationController.m; sourceTree = "<group>"; };
-		E9A409A618AB9B80004F1C12 /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
-		E9A409A718AB9B80004F1C12 /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
 		E9AF2B8017F32A9800BDF6D9 /* SMCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCalloutView.h; sourceTree = "<group>"; };
 		E9AF2B8117F32A9800BDF6D9 /* SMCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMCalloutView.m; sourceTree = "<group>"; };
 		E9AF2B8317F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSMCalloutDrawnBackgroundView.h; sourceTree = "<group>"; };
@@ -450,26 +370,12 @@
 		E9B627C017708E63004678D5 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
 		E9B627CA177092EF004678D5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		E9B627CC1770930D004678D5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
-		E9B627CF177096D6004678D5 /* VaavudAPIHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudAPIHTTPClient.h; sourceTree = "<group>"; };
-		E9B627D0177096D6004678D5 /* VaavudAPIHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudAPIHTTPClient.m; sourceTree = "<group>"; };
-		E9BB7A0B178DE2D9002E746F /* QueryStringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryStringUtil.h; sourceTree = "<group>"; };
-		E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryStringUtil.m; sourceTree = "<group>"; };
 		E9D0F4B317F9A59000C220B3 /* MeasurementCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementCalloutView.h; sourceTree = "<group>"; };
 		E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementCalloutView.m; sourceTree = "<group>"; };
-		E9D9044B19C1971000ABA9F4 /* WindMeasurementController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindMeasurementController.h; sourceTree = "<group>"; };
-		E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindMeasurementController.m; sourceTree = "<group>"; };
-		E9EB5E8F17E84E4D00B02CE1 /* AlgorithmConstantsUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlgorithmConstantsUtil.h; sourceTree = "<group>"; };
-		E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlgorithmConstantsUtil.m; sourceTree = "<group>"; };
 		E9EE1FAE1769F08400D1F006 /* SharedSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedSingleton.h; sourceTree = "<group>"; };
 		E9EE1FB8176A024B00D1F006 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		E9F33CC918B4AFBF0033EDC7 /* UIColor+VaavudColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+VaavudColors.h"; sourceTree = "<group>"; };
 		E9F33CCA18B4AFBF0033EDC7 /* UIColor+VaavudColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+VaavudColors.m"; sourceTree = "<group>"; };
-		E9F33CCC18B4B3CB0033EDC7 /* AccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountManager.h; sourceTree = "<group>"; };
-		E9F33CCD18B4B3CB0033EDC7 /* AccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccountManager.m; sourceTree = "<group>"; };
-		E9FABFDC18929473009C4C46 /* HistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableViewController.h; sourceTree = "<group>"; };
-		E9FABFDD18929473009C4C46 /* HistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableViewController.m; sourceTree = "<group>"; };
-		E9FABFDF189294BD009C4C46 /* HistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableViewCell.h; sourceTree = "<group>"; };
-		E9FABFE0189294BD009C4C46 /* HistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableViewCell.m; sourceTree = "<group>"; };
 		E9FABFE61896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HistoryTableViewSectionHeaderView.xib; sourceTree = "<group>"; };
 		E9FABFE81896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryTableViewSectionHeaderView.h; sourceTree = "<group>"; };
 		E9FABFE91896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryTableViewSectionHeaderView.m; sourceTree = "<group>"; };
@@ -635,7 +541,6 @@
 				D7A4F1DA173A8DDB00D1ACEE /* AppDelegate.m */,
 				D7A4F1EF173A8F4600D1ACEE /* Hardware */,
 				E9EE1FA51769EC7F00D1F006 /* Model */,
-				E9B627CE177096A4004678D5 /* Network */,
 				E9DBD3BA17688E9C00CCDA57 /* ThirdParty */,
 				E9EE1FAD1769F01800D1F006 /* Util */,
 				D7B5BD4E175775BA0069F739 /* View */,
@@ -666,8 +571,6 @@
 			isa = PBXGroup;
 			children = (
 				E98C9A5C19B9D91F009428F3 /* Mjolnir */,
-				E9D9044B19C1971000ABA9F4 /* WindMeasurementController.h */,
-				E9D9044C19C1971000ABA9F4 /* WindMeasurementController.m */,
 			);
 			name = Hardware;
 			sourceTree = "<group>";
@@ -681,7 +584,6 @@
 				E90709411940AFAC0087F80F /* Components */,
 				E9B950DE195C584200E9EF02 /* FirstTime */,
 				E91E490F19AB5FA600616887 /* History */,
-				E9A4098818A4DA9E004F1C12 /* Login */,
 				D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */,
 				E91E491019AB641F00616887 /* Map */,
 			);
@@ -693,13 +595,6 @@
 			children = (
 				E9AF2B8317F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.h */,
 				E9AF2B8417F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m */,
-				E91D4219198F7E4900106E15 /* DismissOnTouchUIView.h */,
-				E91D421A198F7E4900106E15 /* DismissOnTouchUIView.m */,
-				E91D4216198F7C8400106E15 /* GuideView.h */,
-				E91D4217198F7C8400106E15 /* GuideView.m */,
-				E91D4214198F7A9800106E15 /* GuideView.xib */,
-				E93C5C3517EC826800E84D3C /* TabBarController.h */,
-				E93C5C3617EC826800E84D3C /* TabBarController.m */,
 				2BB813361C1AC41100D70E10 /* TabBarController.swift */,
 			);
 			name = Components;
@@ -712,10 +607,6 @@
 				2BB813101C1874FE00D70E10 /* HistoryController.swift */,
 				2BB813111C1874FE00D70E10 /* HistoryCell.swift */,
 				2BB813121C1874FE00D70E10 /* HistoryHeaderCell.swift */,
-				E9FABFDF189294BD009C4C46 /* HistoryTableViewCell.h */,
-				E9FABFE0189294BD009C4C46 /* HistoryTableViewCell.m */,
-				E9FABFDC18929473009C4C46 /* HistoryTableViewController.h */,
-				E9FABFDD18929473009C4C46 /* HistoryTableViewController.m */,
 				E9FABFE81896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.h */,
 				E9FABFE91896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m */,
 				E9FABFE61896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib */,
@@ -793,28 +684,6 @@
 			path = TMCache;
 			sourceTree = "<group>";
 		};
-		E9A4098818A4DA9E004F1C12 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				E9A4098518A26FEB004F1C12 /* GuidedTextField.h */,
-				E9A4098618A26FEB004F1C12 /* GuidedTextField.m */,
-				E9A409A618AB9B80004F1C12 /* LogInViewController.h */,
-				E9A409A718AB9B80004F1C12 /* LogInViewController.m */,
-				22EAE5D21AB1EA5C0037654E /* Register.storyboard */,
-				E9A4099D18AA75C6004F1C12 /* RegisterNavigationController.h */,
-				E9A4099E18AA75C6004F1C12 /* RegisterNavigationController.m */,
-				E9A4099118A52E40004F1C12 /* RegisterViewController.h */,
-				E9A4099218A52E40004F1C12 /* RegisterViewController.m */,
-				E9A4098E18A52151004F1C12 /* SignUpViewController.h */,
-				E9A4098F18A52151004F1C12 /* SignUpViewController.m */,
-				E97AC6C818BCC66A004DEC65 /* TermsPrivacyViewController.h */,
-				E97AC6C918BCC66A004DEC65 /* TermsPrivacyViewController.m */,
-				E97AC6CE18BCDE19004DEC65 /* TermsPrivacyNavigationController.h */,
-				E97AC6CF18BCDE19004DEC65 /* TermsPrivacyNavigationController.m */,
-			);
-			name = Login;
-			sourceTree = "<group>";
-		};
 		E9AF2B7F17F32A5900BDF6D9 /* NFarinaCalloutView */ = {
 			isa = PBXGroup;
 			children = (
@@ -851,17 +720,6 @@
 			path = ../AFNetworking;
 			sourceTree = "<group>";
 		};
-		E9B627CE177096A4004678D5 /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				E90F76CC1771EB2A00F51A4F /* ServerUploadManager.h */,
-				E90F76CD1771EB2B00F51A4F /* ServerUploadManager.m */,
-				E9B627CF177096D6004678D5 /* VaavudAPIHTTPClient.h */,
-				E9B627D0177096D6004678D5 /* VaavudAPIHTTPClient.m */,
-			);
-			name = Network;
-			sourceTree = "<group>";
-		};
 		E9B950DE195C584200E9EF02 /* FirstTime */ = {
 			isa = PBXGroup;
 			children = (
@@ -884,19 +742,6 @@
 		E9EE1FA51769EC7F00D1F006 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E995F0B6177C7A2A0011BF07 /* MeasurementPoint.h */,
-				E995F0B7177C7A2A0011BF07 /* MeasurementPoint.m */,
-				E93C86701781D727005E4212 /* MeasurementPoint+Util.h */,
-				E93C86711781D727005E4212 /* MeasurementPoint+Util.m */,
-				E9159CA31A03E09100742188 /* MeasurementSession.h */,
-				E9159CA41A03E09100742188 /* MeasurementSession.m */,
-				E93C866D1781D69A005E4212 /* MeasurementSession+Util.h */,
-				E93C866E1781D69A005E4212 /* MeasurementSession+Util.m */,
-				E93338F5178C561B006E2314 /* ModelManager.h */,
-				E93338F6178C561B006E2314 /* ModelManager.m */,
-				E93C86671781C88B005E4212 /* Property.h */,
-				E93C86681781C88B005E4212 /* Property.m */,
-				E93C86611781C764005E4212 /* Property+Util.h */,
 				E93C86621781C764005E4212 /* Property+Util.m */,
 			);
 			name = Model;
@@ -905,20 +750,12 @@
 		E9EE1FAD1769F01800D1F006 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				E9F33CCC18B4B3CB0033EDC7 /* AccountManager.h */,
-				E9F33CCD18B4B3CB0033EDC7 /* AccountManager.m */,
-				E9EB5E8F17E84E4D00B02CE1 /* AlgorithmConstantsUtil.h */,
-				E9EB5E9017E84E4D00B02CE1 /* AlgorithmConstantsUtil.m */,
-				E995F0B0177C55A80011BF07 /* DictionarySerializationUtil.h */,
-				E995F0B1177C55A80011BF07 /* DictionarySerializationUtil.m */,
 				E9FD000917FD6A06001A8491 /* FormatUtil.h */,
 				E9FD000A17FD6A06001A8491 /* FormatUtil.m */,
 				E93C86581781BE56005E4212 /* LocationManager.h */,
 				E93C86591781BE56005E4212 /* LocationManager.m */,
 				E9A4099A18AA501D004F1C12 /* PasswordUtil.h */,
 				E9A4099B18AA501D004F1C12 /* PasswordUtil.m */,
-				E9BB7A0B178DE2D9002E746F /* QueryStringUtil.h */,
-				E9BB7A0C178DE2D9002E746F /* QueryStringUtil.m */,
 				E9EE1FAE1769F08400D1F006 /* SharedSingleton.h */,
 				E9F33CC918B4AFBF0033EDC7 /* UIColor+VaavudColors.h */,
 				E9F33CCA18B4AFBF0033EDC7 /* UIColor+VaavudColors.m */,
@@ -928,8 +765,6 @@
 				E99F8F70178EC5AD0090402C /* UnitUtil.m */,
 				E94CBB5C177DB3050089D440 /* UUIDUtil.h */,
 				E94CBB5D177DB3050089D440 /* UUIDUtil.m */,
-				E984F26119B878BD004024C6 /* MixpanelUtil.h */,
-				E984F26219B878BD004024C6 /* MixpanelUtil.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -1048,8 +883,6 @@
 				22BBC2A41BAC3407005E0A95 /* Map.xcassets in Resources */,
 				D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */,
 				22E59A421ADD6F7000B1BC88 /* Logo.xcassets in Resources */,
-				E91D4215198F7A9800106E15 /* GuideView.xib in Resources */,
-				22EAE5CF1AB1EA5C0037654E /* Register.storyboard in Resources */,
 				2269104D1BCFCB2C00116673 /* ProBadge.png in Resources */,
 				22E59A3E1ADD6F7000B1BC88 /* InterfaceElements.xcassets in Resources */,
 				22E59A401ADD6F7000B1BC88 /* IntroFlow.xcassets in Resources */,
@@ -1150,9 +983,7 @@
 				E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */,
 				22DCCED41B02399800D65265 /* RoundMeasureScreen.swift in Sources */,
 				D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */,
-				E91D421B198F7E4900106E15 /* DismissOnTouchUIView.m in Sources */,
 				D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */,
-				E9A4099F18AA75C6004F1C12 /* RegisterNavigationController.m in Sources */,
 				E9B627C117708E63004678D5 /* AFHTTPClient.m in Sources */,
 				229533511B1F3F8A00DAEA62 /* MeasureCancelButton.swift in Sources */,
 				2B347F671C11A6990095E95A /* ActivityViewController.swift in Sources */,
@@ -1162,9 +993,7 @@
 				E9B627C317708E63004678D5 /* AFImageRequestOperation.m in Sources */,
 				E9B627C417708E63004678D5 /* AFJSONRequestOperation.m in Sources */,
 				2231A0A41B19BECE003DADDB /* MeasureRootViewController.swift in Sources */,
-				E91D4218198F7C8400106E15 /* GuideView.m in Sources */,
 				229124981B81E87100DC6867 /* MjolnirMeasurementController.m in Sources */,
-				E9159CA51A03E09100742188 /* MeasurementSession.m in Sources */,
 				2B347F641C11A4970095E95A /* AuthorizationController.swift in Sources */,
 				E9B627C517708E63004678D5 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				E9AF2B8517F574CE00BDF6D9 /* CustomSMCalloutDrawnBackgroundView.m in Sources */,
@@ -1173,16 +1002,13 @@
 				E9B627C617708E63004678D5 /* AFPropertyListRequestOperation.m in Sources */,
 				E9B627C717708E63004678D5 /* AFURLConnectionOperation.m in Sources */,
 				2B347F631C11A4970095E95A /* SignupViewController.swift in Sources */,
-				E97AC6CA18BCC66A004DEC65 /* TermsPrivacyViewController.m in Sources */,
 				E9AF2B8F17F5B93800BDF6D9 /* MeasurementTableViewCell.m in Sources */,
 				E9B627C817708E63004678D5 /* AFXMLRequestOperation.m in Sources */,
 				E9B627C917708E63004678D5 /* UIImageView+AFNetworking.m in Sources */,
 				22F997911C1AFF3F00127F91 /* MapViewController.swift in Sources */,
 				227E29401BC281EF000DD2C7 /* NotificationsViewController.swift in Sources */,
-				E9B627D1177096D6004678D5 /* VaavudAPIHTTPClient.m in Sources */,
 				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,
 				2B347F621C11A4970095E95A /* LoginViewController.swift in Sources */,
-				E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */,
 				22DFCD681C45A84F004D018E /* User.swift in Sources */,
 				E9FABFEA1896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m in Sources */,
 				228904BC1BA815D3006259AB /* Overlays.swift in Sources */,
@@ -1191,54 +1017,35 @@
 				229FF3181A7EE3A0008A3226 /* VaavudViews.swift in Sources */,
 				E9F33CCB18B4AFBF0033EDC7 /* UIColor+VaavudColors.m in Sources */,
 				2BB813131C1874FE00D70E10 /* HistoryViewController.swift in Sources */,
-				E984F26319B878BD004024C6 /* MixpanelUtil.m in Sources */,
 				2BB813151C1874FE00D70E10 /* HistoryCell.swift in Sources */,
 				22B408C31A8B97ED0062A2DD /* CoreSettingsViewController.swift in Sources */,
 				E9FD000B17FD6A06001A8491 /* FormatUtil.m in Sources */,
 				2255A63B1A818535006589D5 /* VaavudInteractions.swift in Sources */,
-				E9FABFDE18929473009C4C46 /* HistoryTableViewController.m in Sources */,
 				22900BB31AEE7616009D9C8F /* MjolnirSpinner.swift in Sources */,
-				E97AC6D018BCDE19004DEC65 /* TermsPrivacyNavigationController.m in Sources */,
-				E9A409A818AB9B80004F1C12 /* LogInViewController.m in Sources */,
-				E9A4098718A26FEB004F1C12 /* GuidedTextField.m in Sources */,
-				E9FABFE1189294BD009C4C46 /* HistoryTableViewCell.m in Sources */,
 				229FF3131A7EE0A1008A3226 /* VaavudFormatter.swift in Sources */,
 				22B408B71A8A0E2E0062A2DD /* Extensions.swift in Sources */,
 				22ADAA941A9C911400C298E6 /* EmptyHistoryArrow.swift in Sources */,
 				2B347F611C11A4970095E95A /* SelectorViewController.swift in Sources */,
-				E9F33CCE18B4B3CB0033EDC7 /* AccountManager.m in Sources */,
-				E9A4099318A52E40004F1C12 /* RegisterViewController.m in Sources */,
 				E9A4097918994000004F1C12 /* TMDiskCache.m in Sources */,
 				22E602471B6F67C600B706E0 /* ActivityFlowViewController.swift in Sources */,
 				226910501BCFCE6900116673 /* UserTab.swift in Sources */,
 				22F2B3671C032A8E001D7AD7 /* LogHelper.swift in Sources */,
 				2B347F6B1C11A7130095E95A /* Device.swift in Sources */,
-				229124991B81E8B100DC6867 /* WindMeasurementController.m in Sources */,
 				E9D0F4B517F9A59000C220B3 /* MeasurementCalloutView.m in Sources */,
 				22728BEE1B6BA30200AFE634 /* UIImage+Vaavud.m in Sources */,
 				D721B47E1AD1EBD10045DC99 /* DropboxUploader.swift in Sources */,
 				E904AC9817F08F6E00171F7F /* MapViewController.m in Sources */,
-				E995F0B2177C55A80011BF07 /* DictionarySerializationUtil.m in Sources */,
-				E995F0B8177C7A2A0011BF07 /* MeasurementPoint.m in Sources */,
 				2BB813161C1874FE00D70E10 /* HistoryHeaderCell.swift in Sources */,
 				E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */,
 				E93C865A1781BE56005E4212 /* LocationManager.m in Sources */,
 				E93C86631781C764005E4212 /* Property+Util.m in Sources */,
 				22AC73F61B3D93CC008631E8 /* OldMeasureScreen.swift in Sources */,
-				E9EB5E9117E84E4D00B02CE1 /* AlgorithmConstantsUtil.m in Sources */,
-				E93C86691781C88B005E4212 /* Property.m in Sources */,
-				E93C866F1781D69A005E4212 /* MeasurementSession+Util.m in Sources */,
-				E93C86721781D727005E4212 /* MeasurementPoint+Util.m in Sources */,
-				E93338F7178C561B006E2314 /* ModelManager.m in Sources */,
 				22AB2E701A70FD92008CAE46 /* SummaryViewController.swift in Sources */,
 				2BB813141C1874FE00D70E10 /* HistoryController.swift in Sources */,
-				E9BB7A0D178DE2D9002E746F /* QueryStringUtil.m in Sources */,
 				E9A4097A18994000004F1C12 /* TMMemoryCache.m in Sources */,
 				222F30631BC2944800CD607B /* NotificationDetailsViewController.swift in Sources */,
 				2BB813371C1AC41100D70E10 /* TabBarController.swift in Sources */,
 				E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */,
-				2291249A1B81E8DB00DC6867 /* TabBarController.m in Sources */,
-				E9A4099018A52151004F1C12 /* SignUpViewController.m in Sources */,
 				22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1254,25 +1061,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		22EAE5D21AB1EA5C0037654E /* Register.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				22E59A4F1ADE917C00B1BC88 /* Base */,
-				22B99AC41ADFD8C600E1A27B /* de */,
-				224D260C1AE11AA3006F5C23 /* da */,
-				221E30DE1AE2EF2E00503FE1 /* es */,
-				221E30E01AE2EF3400503FE1 /* ca */,
-				221E30E21AE2EF3900503FE1 /* fr */,
-				221E30E41AE2EF3D00503FE1 /* zh-Hant */,
-				221E30E61AE2EF4300503FE1 /* ja */,
-				221E30E81AE2EF4700503FE1 /* it */,
-				221E30EA1AE2EF4C00503FE1 /* ko */,
-				221E30EC1AE2EF5100503FE1 /* zh-Hans */,
-				221E30EE1AE2EF5600503FE1 /* pt-PT */,
-			);
-			name = Register.storyboard;
-			sourceTree = "<group>";
-		};
 		22EAE5D81AB1EBEA0037654E /* UpgradingUserPagesView.xib */ = {
 			isa = PBXVariantGroup;
 			children = (

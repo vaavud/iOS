@@ -10,7 +10,6 @@ import Firebase
 import VaavudSDK
 
 struct DeviceSettings: Firebaseable {
-    
     var mapHour: Int
     var hasAskedForLocationAccess: Bool
     var hasApprovedLocationAccess: Bool
@@ -20,7 +19,6 @@ struct DeviceSettings: Firebaseable {
     var timeUnlimited: Int
     var defaultMeasurementScreen: String
     var defaultFlatVariant: Int
-    
     
     init(mapHour: Int, hasAskedForLocationAccess: Bool, hasApprovedLocationAccess: Bool, usesSleipnir: Bool, sleipnirClipSideScreen: Bool, isDropboxLinked: Bool, timeUnlimited: Int, defaultMeasurementScreen: String, defaultFlatVariant: Int){
         self.mapHour = mapHour
@@ -36,7 +34,6 @@ struct DeviceSettings: Firebaseable {
     
     
     init?(dict: FirebaseDictionary) {
-        
         self.mapHour = dict["mapHour"] as! Int
         self.hasAskedForLocationAccess = dict["hasAskedForLocationAccess"] as! Bool
         self.hasApprovedLocationAccess = dict["hasApprovedLocationAccess"] as! Bool
@@ -46,7 +43,6 @@ struct DeviceSettings: Firebaseable {
         self.timeUnlimited = dict["timeUnlimited"] as! Int
         self.defaultMeasurementScreen = dict["defaultMeasurementScreen"] as! String
         self.defaultFlatVariant = dict["defaultFlatVariant"] as! Int
-        
     }
     
     var fireDict: FirebaseDictionary {
@@ -64,7 +60,6 @@ struct DeviceSettings: Firebaseable {
         return dict
     }
 }
-
 
 struct UserSettings: Firebaseable {
     var windSpeedUnit: String

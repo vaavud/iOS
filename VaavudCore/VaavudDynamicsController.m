@@ -120,7 +120,7 @@
 // Heading
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
-    [self.vaavudCoreController newHeading: [NSNumber numberWithDouble: newHeading.trueHeading]];
+//    [self.vaavudCoreController newHeading: [NSNumber numberWithDouble: newHeading.trueHeading]];
 //    NSLog(@"heading accuracy: %f", newHeading.headingAccuracy);
 }
 
