@@ -1,17 +1,17 @@
+////
+////  DictionarySerialization.h
+////  Vaavud
+////
+////  Created by Thomas Stilling Ambus on 27/06/2013.
+////  Copyright (c) 2013 Andreas Okholm. All rights reserved.
+////
 //
-//  DictionarySerialization.h
-//  Vaavud
+//#import <Foundation/Foundation.h>
+//#import "MeasurementPoint.h"
+//#import "MeasurementSession.h"
 //
-//  Created by Thomas Stilling Ambus on 27/06/2013.
-//  Copyright (c) 2013 Andreas Okholm. All rights reserved.
+//@interface DictionarySerializationUtil : NSObject
 //
-
-#import <Foundation/Foundation.h>
-#import "MeasurementPoint.h"
-#import "MeasurementSession.h"
-
-@interface DictionarySerializationUtil : NSObject
-
-+ (NSMutableDictionary *)convertValuesToBasicTypes:(NSDictionary *)dictionary;
-
-@end
+//+ (NSMutableDictionary *)convertValuesToBasicTypes:(NSDictionary *)dictionary;
+//
+//@end

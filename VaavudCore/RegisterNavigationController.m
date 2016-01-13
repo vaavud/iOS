@@ -6,7 +6,7 @@
 ////  Copyright (c) 2014 Andreas Okholm. All rights reserved.
 ////
 //
-//#import "RegisterNavigationController.h"
+#import "RegisterNavigationController.h"
 //#import "LogInViewController.h"
 //#import "RegisterViewController.h"
 //
@@ -35,10 +35,10 @@
 //
 //@end
 //
-//@implementation RotatableNavigationController
-//
-//-(UIInterfaceOrientationMask)supportedInterfaceOrientations {
-//    return UIInterfaceOrientationMaskAll;
-//}
-//
-//@end
+@implementation RotatableNavigationController
+
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskAll;
+}
+
+@end

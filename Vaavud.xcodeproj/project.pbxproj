@@ -53,6 +53,7 @@
 		22C8AB3E1B8F33340064DB8B /* ForecastViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C8AB3D1B8F33340064DB8B /* ForecastViewController.swift */; };
 		22CECB181AF22CE300148045 /* Settings.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22CECB171AF22CE300148045 /* Settings.xcassets */; };
 		22DCCED41B02399800D65265 /* RoundMeasureScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DCCED31B02399800D65265 /* RoundMeasureScreen.swift */; };
+		22DFCD681C45A84F004D018E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DFCD671C45A84F004D018E /* User.swift */; };
 		22E59A3A1ADD6F7000B1BC88 /* HistoryScreen.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A301ADD6F7000B1BC88 /* HistoryScreen.xcassets */; };
 		22E59A3C1ADD6F7000B1BC88 /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A311ADD6F7000B1BC88 /* Icons.xcassets */; };
 		22E59A3E1ADD6F7000B1BC88 /* InterfaceElements.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22E59A321ADD6F7000B1BC88 /* InterfaceElements.xcassets */; };
@@ -283,6 +284,7 @@
 		22C9B0301B7CDF5E004A2902 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/UpgradingUserPagesView.strings; sourceTree = "<group>"; };
 		22CECB171AF22CE300148045 /* Settings.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Settings.xcassets; path = ImageAssets/Settings.xcassets; sourceTree = "<group>"; };
 		22DCCED31B02399800D65265 /* RoundMeasureScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundMeasureScreen.swift; sourceTree = "<group>"; };
+		22DFCD671C45A84F004D018E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		22E204FE1AB19BEB00FA7E1D /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/MainStoryboard.strings; sourceTree = "<group>"; };
 		22E59A301ADD6F7000B1BC88 /* HistoryScreen.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = HistoryScreen.xcassets; path = ImageAssets/HistoryScreen.xcassets; sourceTree = "<group>"; };
 		22E59A311ADD6F7000B1BC88 /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Icons.xcassets; path = ImageAssets/Icons.xcassets; sourceTree = "<group>"; };
@@ -546,6 +548,7 @@
 		2B347F511C11A4870095E95A /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				22DFCD671C45A84F004D018E /* User.swift */,
 				2B347F691C11A7130095E95A /* Device.swift */,
 				2B347F5A1C11A4960095E95A /* Login.storyboard */,
 				2B347F5B1C11A4970095E95A /* SelectorViewController.swift */,
@@ -1180,6 +1183,7 @@
 				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,
 				2B347F621C11A4970095E95A /* LoginViewController.swift in Sources */,
 				E90F76CE1771EB2B00F51A4F /* ServerUploadManager.m in Sources */,
+				22DFCD681C45A84F004D018E /* User.swift in Sources */,
 				E9FABFEA1896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m in Sources */,
 				228904BC1BA815D3006259AB /* Overlays.swift in Sources */,
 				22C8AB3E1B8F33340064DB8B /* ForecastViewController.swift in Sources */,

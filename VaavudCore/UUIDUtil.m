@@ -9,7 +9,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import "UUIDUtil.h"
 
-@implementation UUIDUtil
+@implementation UUIDUtil // fixme: remove?
 
 + (NSString *)generateUUID {
     CFUUIDRef theUUID = CFUUIDCreate(NULL);

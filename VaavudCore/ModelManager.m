@@ -27,42 +27,32 @@
 
 SHARED_INSTANCE
 
-- (void)initializeModel {
-    NSString *deviceUuid = [Property getAsString:KEY_DEVICE_UUID];
-    if (!deviceUuid || deviceUuid == nil) {
-        if (LOG_MODEL) NSLog(@"[ModelManager] First run ever, initializing model");
-        
-        deviceUuid = [UUIDUtil generateUUID];
-        [Property setAsString:deviceUuid forKey:KEY_DEVICE_UUID];
-        [Property setAsDate:[NSDate date] forKey:KEY_CREATION_TIME];
-    }
-    
-    
-    let mobileVersion =  UIDevice.currentDevice().systemVersion
-    let appVersion = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String
-    let model = UIDevice.currentDevice().name
-    let vendor = "Apple"
-    
-    let deviceObj = Device(appVersion: appVersion, model: model, vendor: vendor, osVersion: mobileVersion, uid: uid)
-    
+//- (void)initializeModel {
+//    NSString *deviceUuid = [Property getAsString:KEY_DEVICE_UUID];
+//    if (!deviceUuid || deviceUuid == nil) {
+//        if (LOG_MODEL) NSLog(@"[ModelManager] First run ever, initializing model");
+//        
+//        deviceUuid = [UUIDUtil generateUUID];
+//        [Property setAsString:deviceUuid forKey:KEY_DEVICE_UUID];
+//        [Property setAsDate:[NSDate date] forKey:KEY_CREATION_TIME];
+//    }
+//    
+//    
+//    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+//    NSString *app = [infoDictionary objectForKey:@"CFBundleDisplayName"];
+//    NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+//    NSString *appBuild = [infoDictionary objectForKey:@"CFBundleVersion"];
+//    NSString *os = [[UIDevice currentDevice] systemName];
+//
+//    NSString *osVersion = [[UIDevice currentDevice] systemVersion];
+//    NSString *model = [ModelManager getModel];
+//    NSString *country = [[NSLocale currentLocale] objectForKey: NSLocaleCountryCode];
+//	NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
+//
+//    if (LOG_MODEL) NSLog(@"[ModelManager] app:%@, appVersion:%@, appBuild:%@, os:%@, osVersion:%@, model:%@, deviceUuid:%@, countryCode:%@, language:%@", app, appVersion, appBuild, os, osVersion, model, deviceUuid, country, language);
+//
+//    // detect changes and optionally save
 
-    
-
-    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    NSString *app = [infoDictionary objectForKey:@"CFBundleDisplayName"];
-    NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-    NSString *appBuild = [infoDictionary objectForKey:@"CFBundleVersion"];
-    NSString *os = [[UIDevice currentDevice] systemName];
-
-    NSString *osVersion = [[UIDevice currentDevice] systemVersion];
-    NSString *model = [ModelManager getModel];
-    NSString *country = [[NSLocale currentLocale] objectForKey: NSLocaleCountryCode];
-	NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
-
-    if (LOG_MODEL) NSLog(@"[ModelManager] app:%@, appVersion:%@, appBuild:%@, os:%@, osVersion:%@, model:%@, deviceUuid:%@, countryCode:%@, language:%@", app, appVersion, appBuild, os, osVersion, model, deviceUuid, country, language);
-
-    // detect changes and optionally save
-    
 //    if ([app compare:[Property getAsString:KEY_APP]] != NSOrderedSame) {
 //        [Property setAsString:app forKey:KEY_APP];
 //    }
@@ -101,7 +91,19 @@ SHARED_INSTANCE
 //        if (LOG_MODEL) NSLog(@"[ModelManager] No hour options, defaulting to: (%@)", [hourOptions componentsJoinedByString:@","]);
 //        [Property setAsFloatArray:hourOptions forKey:KEY_HOUR_OPTIONS];
 //    }
-}
+//}
+
+//NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+//NSString *app = [infoDictionary objectForKey:@"CFBundleDisplayName"];
+//NSString *appVersion = [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+//NSString *appBuild = [infoDictionary objectForKey:@"CFBundleVersion"];
+//NSString *os = [[UIDevice currentDevice] systemName];
+//
+//NSString *osVersion = [[UIDevice currentDevice] systemVersion];
+//NSString *model = [ModelManager getModel];
+//NSString *country = [[NSLocale currentLocale] objectForKey: NSLocaleCountryCode];
+//NSString *language = [[NSLocale preferredLanguages] objectAtIndex:0];
+
 
 + (NSString *)getModel {
     struct utsname systemInfo;

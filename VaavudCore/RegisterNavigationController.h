@@ -29,6 +29,6 @@
 //@end
 //
 //
-//@interface RotatableNavigationController : UINavigationController
-//
-//@end
+@interface RotatableNavigationController : UINavigationController
+
+@end

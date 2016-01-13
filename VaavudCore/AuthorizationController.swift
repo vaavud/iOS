@@ -166,7 +166,6 @@ class AuthorizationController: NSObject {
         }
     }
     
-    
     func updateActivity(activity: String){
         let param = ["activity" : activity]
         vaavudRootFirebase.childByAppendingPath("user").childByAppendingPath(uid).updateChildValues(param)

@@ -7,15 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RegisterNavigationController.h"
-
-@class MeasurementSession;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic) NSString *xCallbackSuccess;
 
--(void)uploadToDropbox:(MeasurementSession *)session;
+//-(void)uploadToDropbox:(MeasurementSession *)session; // fixme: fix
 
 @end

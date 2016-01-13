@@ -158,8 +158,10 @@ SHARED_INSTANCE
     if (fabs(howRecent) < 60.0 /* seconds */) {
         //NSLog(@"[LocationManager] returning latest location: latitude %+.6f, longitude %+.6f\n", _latestLocation.latitude, _latestLocation.longitude);
         if ([LocationManager isCoordinateValid:_latestLocation]) {
-            [Property setAsDouble:@(_latestLocation.latitude) forKey:KEY_STORED_LOCATION_LAT];
-            [Property setAsDouble:@(_latestLocation.longitude) forKey:KEY_STORED_LOCATION_LON];
+//            [Property setAsDouble:@(_latestLocation.latitude) forKey:KEY_STORED_LOCATION_LAT];
+//            [Property setAsDouble:@(_latestLocation.longitude) forKey:KEY_STORED_LOCATION_LON];
+
+        // fixme: save latestlocations
         }
              
         return _latestLocation;
@@ -169,10 +171,13 @@ SHARED_INSTANCE
 }
 
 - (CLLocationCoordinate2D)storedLocation {
-    CLLocationDegrees lat = [Property getAsDouble:KEY_STORED_LOCATION_LAT defaultValue:55.676111].doubleValue;
-    CLLocationDegrees lon = [Property getAsDouble:KEY_STORED_LOCATION_LON defaultValue:12.568333].doubleValue;
-    
-    return CLLocationCoordinate2DMake(lat, lon);
+    // fixme: return latestlocations
+    return CLLocationCoordinate2DMake(1, 2);
+    //
+//    CLLocationDegrees lat = [Property getAsDouble:KEY_STORED_LOCATION_LAT defaultValue:55.676111].doubleValue;
+//    CLLocationDegrees lon = [Property getAsDouble:KEY_STORED_LOCATION_LON defaultValue:12.568333].doubleValue;
+//    
+//    return CLLocationCoordinate2DMake(lat, lon);
 }
 
 @end
