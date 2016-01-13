@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FormatUtil : NSObject
+@interface FormatUtil : NSObject // fixme: refactor away, use formatter
 
 + (NSString *)formatRelativeDate:(NSDate *)date;
 + (NSString *)formatValueWithTwoDigits:(float)value;

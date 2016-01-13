@@ -1,18 +1,18 @@
+////
+////  VaavudAPIHTTPClient.h
+////  Vaavud
+////
+////  Created by Thomas Stilling Ambus on 18/06/2013.
+////  Copyright (c) 2013 Andreas Okholm. All rights reserved.
+////
 //
-//  VaavudAPIHTTPClient.h
-//  Vaavud
+//#import <Foundation/Foundation.h>
+//#import "AFHTTPClient.h"
 //
-//  Created by Thomas Stilling Ambus on 18/06/2013.
-//  Copyright (c) 2013 Andreas Okholm. All rights reserved.
+//@interface VaavudAPIHTTPClient : AFHTTPClient
 //
-
-#import <Foundation/Foundation.h>
-#import "AFHTTPClient.h"
-
-@interface VaavudAPIHTTPClient : AFHTTPClient
-
-+ (VaavudAPIHTTPClient *)sharedInstance;
-
-- (void)setAuthToken:(NSString *)authToken;
-
-@end
+//+ (VaavudAPIHTTPClient *)sharedInstance;
+//
+//- (void)setAuthToken:(NSString *)authToken;
+//
+//@end

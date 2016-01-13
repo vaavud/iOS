@@ -8,7 +8,7 @@
 
 #import "QueryStringUtil.h"
 
-@implementation QueryStringUtil
+@implementation QueryStringUtil // fixme: move
 
 + (NSDictionary *)parseQueryString:(NSString *)query {
     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:6];

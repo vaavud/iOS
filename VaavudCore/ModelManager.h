@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ModelManager : NSObject
+@interface ModelManager : NSObject // fixme: remove?
 
 //+ (ModelManager *)sharedInstance;
-- (void)initializeModel;
+//- (void)initializeModel;
 + (BOOL)isIPhone4;
 + (NSString *)getModel;
 

@@ -9,8 +9,8 @@
 #import "AppDelegate.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-#import "ModelManager.h"
-#import "ServerUploadManager.h"
+//#import "ModelManager.h"
+//#import "ServerUploadManager.h"
 #import "LocationManager.h"
 #import "QueryStringUtil.h"
 //#import "TabBarController.h"
@@ -18,11 +18,11 @@
 //#import "AccountManager.h"
 //#import "Property+Util.h"
 #import "UnitUtil.h"
-#import "UIColor+VaavudColors.h"
-#import "MixpanelUtil.h"
+//#import "UIColor+VaavudColors.h"
+//#import "MixpanelUtil.h"
 #import "Vaavud-Swift.h"
 #import "Amplitude.h"
-#import "VaavudAPIHTTPClient.h"
+//#import "VaavudAPIHTTPClient.h"
 #import "FBSDKCoreKit.h"
 
 @interface AppDelegate() <DBRestClientDelegate>
@@ -88,7 +88,6 @@
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
   
     UIViewController *parent = [[UIViewController alloc] init];
-    parent.view.backgroundColor = [UIColor vaavudRedColor];
     
     self.window.rootViewController = parent;
 
@@ -165,13 +164,13 @@
 
 #pragma mark - Dropbox
 
--(void)uploadToDropbox:(MeasurementSession *)session {
-    if (!self.dropboxUploader) {
-        self.dropboxUploader = [[DropboxUploader alloc] initWithDelegate:self];
-    }
-    
-    [self.dropboxUploader uploadToDropbox:session];
-}
+//-(void)uploadToDropbox:(MeasurementSession *)session {
+//    if (!self.dropboxUploader) {
+//        self.dropboxUploader = [[DropboxUploader alloc] initWithDelegate:self];
+//    }
+//    
+//    [self.dropboxUploader uploadToDropbox:session];
+//}
 
 //- (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath
 //              from:(NSString *)srcPath metadata:(DBMetadata *)metadata {

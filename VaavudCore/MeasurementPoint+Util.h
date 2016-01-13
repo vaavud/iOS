@@ -1,15 +1,15 @@
+////
+////  MeasurementPoint+Util.h
+////  Vaavud
+////
+////  Created by Thomas Stilling Ambus on 01/07/2013.
+////  Copyright (c) 2013 Andreas Okholm. All rights reserved.
+////
 //
-//  MeasurementPoint+Util.h
-//  Vaavud
+//#import "MeasurementPoint.h"
 //
-//  Created by Thomas Stilling Ambus on 01/07/2013.
-//  Copyright (c) 2013 Andreas Okholm. All rights reserved.
+//@interface MeasurementPoint (Util)
 //
-
-#import "MeasurementPoint.h"
-
-@interface MeasurementPoint (Util)
-
-- (NSDictionary *)toDictionary;
-
-@end
+//- (NSDictionary *)toDictionary;
+//
+//@end

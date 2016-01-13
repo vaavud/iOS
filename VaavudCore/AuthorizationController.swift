@@ -109,7 +109,10 @@ class AuthorizationController: NSObject {
     func signup(firstName: String, lastName: String, email: String, password: String, delegate: LoginDelegate){
         self.delegate = delegate
         //let newUserModel = User(dict: ["firstName": firstName, "lastName": lastName, "country": "DK", "language": "EN", "email": email, "created": 812739 ]) //TODO
-        let newUserModel = User(firstName: firstName, lastName: lastName, country: "DK", language: "EN", email: email)
+        
+        let language = NSLocale.preferredLanguages()[0]
+        
+        let newUserModel = User(firstName: firstName, lastName: lastName, country: "DK", language: language, email: email)
         
         
         vaavudRootFirebase.createUser(email, password: password, withValueCompletionBlock: { error, authData in
@@ -165,7 +168,6 @@ class AuthorizationController: NSObject {
             self.authWithFacebook(token, callback: callback)
         }
     }
-    
     
     func updateActivity(activity: String){
         let param = ["activity" : activity]

@@ -231,11 +231,10 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             let deletedSession = controller.sessionss[indexPath.section][indexPath.row]
-                        
-            controller.sessionss[indexPath.section].removeAtIndex(indexPath.row)
-            controller.removeItem(deletedSession, section: indexPath.section, row: indexPath.row)
         
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            controller.removeItem(deletedSession, section: indexPath.section, row: indexPath.row)
+        
         }
     }
     
