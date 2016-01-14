@@ -12,7 +12,7 @@
 @implementation MeasurementAnnotation
 
 - (id)initWithLocation:(CLLocationCoordinate2D)coord  windDirection:(NSNumber *)direction {
-    return [self initWithLocation:coord sessionKey:nil startTime:nil avgWindSpeed:0.0F maxWindSpeed:0.0F windDirection:direction];
+    return [self initWithLocation:coord sessionKey:nil startTime:nil avgWindSpeed:0.0f maxWindSpeed:0.0f windDirection:direction];
 }
 
 - (id)initWithLocation:(CLLocationCoordinate2D)coordinate
