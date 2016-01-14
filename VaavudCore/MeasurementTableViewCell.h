@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UnitUtil.h"
 
 @interface MeasurementTableViewCell : UITableViewCell
 
@@ -18,9 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *directionLabel;
 
 -(void)setValues:(double)avgWindSpeed
-            unit:(WindSpeedUnit)unit
             time:(NSDate *)time
-   windDirection:(NSNumber *)direction
-   directionUnit:(NSInteger)directionUnit;
+   windDirection:(NSNumber *)direction;
 
 @end

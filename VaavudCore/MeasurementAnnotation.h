@@ -8,18 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
-#import "UnitUtil.h"
 
 @interface MeasurementAnnotation : NSObject <MKAnnotation> {}
 
 @property (nonatomic) CLLocationCoordinate2D coordinate;
 @property (nonatomic, readonly) NSDate *startTime;
 @property (nonatomic) float avgWindSpeed;
-@property (nonatomic) BOOL isItFinished;
+@property (nonatomic) BOOL isFinished;
+@property (nonatomic) BOOL hidden;
 @property (nonatomic) float maxWindSpeed;
 @property (nonatomic, readonly) NSString *sessionKey;
 @property (nonatomic) NSNumber *windDirection;
-@property (nonatomic) WindSpeedUnit windSpeedUnit;
 
 - (id)initWithLocation:(CLLocationCoordinate2D)coord windDirection:(NSNumber *)direction;
 - (id)initWithLocation:(CLLocationCoordinate2D)coord
@@ -28,5 +27,4 @@
           avgWindSpeed:(float)avgWindSpeed
           maxWindSpeed:(float)maxWindSpeed
          windDirection:(NSNumber *)direction;
-
 @end

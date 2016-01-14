@@ -100,11 +100,9 @@
 		E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */; };
 		E93C865A1781BE56005E4212 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86591781BE56005E4212 /* LocationManager.m */; };
 		E93C86631781C764005E4212 /* Property+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86621781C764005E4212 /* Property+Util.m */; };
-		E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E94CBB5D177DB3050089D440 /* UUIDUtil.m */; };
 		E960260818575452009396B1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E960260A18575452009396B1 /* Localizable.strings */; };
 		E960260E18575E41009396B1 /* MeasurementCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E960261018575E41009396B1 /* MeasurementCalloutView.xib */; };
 		E99CFD8A17DF5BA600DED985 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E99CFD8917DF5BA600DED985 /* libz.dylib */; };
-		E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = E99F8F70178EC5AD0090402C /* UnitUtil.m */; };
 		E9A4097818994000004F1C12 /* TMCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097318994000004F1C12 /* TMCache.m */; };
 		E9A4097918994000004F1C12 /* TMDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097518994000004F1C12 /* TMDiskCache.m */; };
 		E9A4097A18994000004F1C12 /* TMMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = E9A4097718994000004F1C12 /* TMMemoryCache.m */; };
@@ -324,14 +322,10 @@
 		E93C86581781BE56005E4212 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
 		E93C86591781BE56005E4212 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		E93C86621781C764005E4212 /* Property+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Property+Util.m"; sourceTree = "<group>"; };
-		E94CBB5C177DB3050089D440 /* UUIDUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUIDUtil.h; sourceTree = "<group>"; };
-		E94CBB5D177DB3050089D440 /* UUIDUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUIDUtil.m; sourceTree = "<group>"; };
 		E96025FB18574DC0009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E960260B18575461009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E960260D18575473009396B1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E99CFD8917DF5BA600DED985 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		E99F8F6F178EC5AD0090402C /* UnitUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitUtil.h; sourceTree = "<group>"; };
-		E99F8F70178EC5AD0090402C /* UnitUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnitUtil.m; sourceTree = "<group>"; };
 		E9A4097218994000004F1C12 /* TMCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMCache.h; sourceTree = "<group>"; };
 		E9A4097318994000004F1C12 /* TMCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMCache.m; sourceTree = "<group>"; };
 		E9A4097418994000004F1C12 /* TMDiskCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMDiskCache.h; sourceTree = "<group>"; };
@@ -372,7 +366,6 @@
 		E9B627CC1770930D004678D5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		E9D0F4B317F9A59000C220B3 /* MeasurementCalloutView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementCalloutView.h; sourceTree = "<group>"; };
 		E9D0F4B417F9A59000C220B3 /* MeasurementCalloutView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementCalloutView.m; sourceTree = "<group>"; };
-		E9EE1FAE1769F08400D1F006 /* SharedSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedSingleton.h; sourceTree = "<group>"; };
 		E9EE1FB8176A024B00D1F006 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		E9F33CC918B4AFBF0033EDC7 /* UIColor+VaavudColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+VaavudColors.h"; sourceTree = "<group>"; };
 		E9F33CCA18B4AFBF0033EDC7 /* UIColor+VaavudColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+VaavudColors.m"; sourceTree = "<group>"; };
@@ -756,15 +749,10 @@
 				E93C86591781BE56005E4212 /* LocationManager.m */,
 				E9A4099A18AA501D004F1C12 /* PasswordUtil.h */,
 				E9A4099B18AA501D004F1C12 /* PasswordUtil.m */,
-				E9EE1FAE1769F08400D1F006 /* SharedSingleton.h */,
 				E9F33CC918B4AFBF0033EDC7 /* UIColor+VaavudColors.h */,
 				E9F33CCA18B4AFBF0033EDC7 /* UIColor+VaavudColors.m */,
 				E9A4097B18994570004F1C12 /* UIImageView+TMCache.h */,
 				E9A4097C18994570004F1C12 /* UIImageView+TMCache.m */,
-				E99F8F6F178EC5AD0090402C /* UnitUtil.h */,
-				E99F8F70178EC5AD0090402C /* UnitUtil.m */,
-				E94CBB5C177DB3050089D440 /* UUIDUtil.h */,
-				E94CBB5D177DB3050089D440 /* UUIDUtil.m */,
 			);
 			name = Util;
 			sourceTree = "<group>";
@@ -1036,7 +1024,6 @@
 				D721B47E1AD1EBD10045DC99 /* DropboxUploader.swift in Sources */,
 				E904AC9817F08F6E00171F7F /* MapViewController.m in Sources */,
 				2BB813161C1874FE00D70E10 /* HistoryHeaderCell.swift in Sources */,
-				E94CBB5E177DB3050089D440 /* UUIDUtil.m in Sources */,
 				E93C865A1781BE56005E4212 /* LocationManager.m in Sources */,
 				E93C86631781C764005E4212 /* Property+Util.m in Sources */,
 				22AC73F61B3D93CC008631E8 /* OldMeasureScreen.swift in Sources */,
@@ -1045,7 +1032,6 @@
 				E9A4097A18994000004F1C12 /* TMMemoryCache.m in Sources */,
 				222F30631BC2944800CD607B /* NotificationDetailsViewController.swift in Sources */,
 				2BB813371C1AC41100D70E10 /* TabBarController.swift in Sources */,
-				E99F8F71178EC5AD0090402C /* UnitUtil.m in Sources */,
 				22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

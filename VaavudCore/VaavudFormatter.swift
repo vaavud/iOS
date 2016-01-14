@@ -306,6 +306,10 @@ class VaavudFormatter: NSObject {
     }
 
     // Direction
+
+    class func transform(direction direction:CGFloat) -> CGAffineTransform {
+        return CGAffineTransform.rotation(π*direction/180)
+    }
     
 //    static var localizedNorth: String { return NSLocalizedString(directionKey(0), comment: "") }
 //    static var localizedEast: String { return NSLocalizedString(directionKey(4), comment: "") }
@@ -351,18 +355,6 @@ class VaavudFormatter: NSObject {
     }
     
     // Gustiness
-    
-//    func updateGustinessLabels(session: MeasurementSession, valueLabel: UILabel, unitLabel: UILabel) -> Bool {
-//        let value = session.gustiness?.floatValue
-//        
-//        if let string = formattedGustiness(value) {
-//            unitLabel.text = "%"
-//            valueLabel.text = string
-//            return true
-//        }
-//        
-//        return failure(valueLabel: valueLabel, unitLabel: unitLabel)
-//    }
     
     func writeUnit<U: Unit>(unit: U, old: U) {
         print("Formatter: Write unit \(U.unitKey): \(old.rawValue) > \(unit.rawValue)")
@@ -410,6 +402,14 @@ class VaavudFormatter: NSObject {
         
         let formatString = String(format: "%%.%df", actualDecimals)
         return String(format: formatString, locale: NSLocale.currentLocale(), value)
+    }
+    
+    func nextSpeedUnit() { // fixme: temporary while map is obj c
+        speedUnit = speedUnit.next
+    }
+    
+    func speedUnitLocalName() -> String { // fixme: temporary while map is obj c
+        return speedUnit.localizedString
     }
 }
 

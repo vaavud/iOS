@@ -10,8 +10,6 @@
 
 @interface FormatUtil : NSObject // fixme: refactor away, use formatter
 
-+ (NSString *)formatRelativeDate:(NSDate *)date;
-+ (NSString *)formatValueWithTwoDigits:(float)value;
-+ (NSString *)formatValueWithThreeDigits:(double)value;
++ (NSString *)formatRelativeDate:(NSDate *)date; // fixme: implement in swift
 
 @end

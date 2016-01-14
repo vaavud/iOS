@@ -521,7 +521,6 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     
     private func updateMapAnnotationLabel(annotationView: MKAnnotationView) {
         if let label = annotationView.viewWithTag(42) as? UILabel {
-//            label.text = session.windMean.map { VaavudFormatter.shared.localizedSpeed($0, digits: 2) }
             label.text = VaavudFormatter.shared.localizedSpeed(session.windMean, digits: 2)
         }
     }
@@ -531,7 +530,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
             if let direction = session.windDirection {
                 imageView.image = UIImage(named:"MapMarkerDirection")
                 imageView.sizeToFit()
-                imageView.transform = UnitUtil.transformForDirection(direction)
+                imageView.transform = VaavudFormatter.transform(direction: CGFloat(direction))
             }
             else {
                 imageView.image = UIImage(named:"MapMarker")
