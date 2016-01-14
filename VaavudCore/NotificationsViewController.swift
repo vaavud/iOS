@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 let notificationsWindspeedCeiling: Float = 30
 
@@ -23,11 +24,18 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var windspeedLabel: UILabel!
     @IBOutlet weak var windspeedSlider: UISlider!
     
+    private let firebase = Firebase(url: firebaseUrl)
     private var windspeed: Float = 15
     private var notificationType: NotificationType = .Measurements
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        let ref = firebase.childByAppendingPath("subscription")
+        ref.queryOrderedByChild("uid").queryEqualToValue(firebase.authData.uid).observeEventType(.ChildAdded, withBlock: { snapshot in
+            print("HC: ChildAdded: \(snapshot.value)")
+        })
+        
         updateUI()
     }
     

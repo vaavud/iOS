@@ -27,7 +27,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
         setupField(emailField)
         setupField(passwordField)
         
-        
     }
     
     // MARK: User Actions
@@ -42,7 +41,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
             activityIndicator.startAnimating()
             
-            
+            self.view.endEditing(true)
             
             AuthorizationController.shared.signup(firstName, lastName: lastName, email: email, password: password, delegate: self)
         }

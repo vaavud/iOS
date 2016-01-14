@@ -22,5 +22,6 @@
 #import <DropboxSDK/DropboxSDK.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <GeoFire/GeoFire.h>
 
 #endif

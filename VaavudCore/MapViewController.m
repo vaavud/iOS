@@ -483,6 +483,7 @@
          }
      }];
     
+
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
      observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
          [self addAnnotation: snapshot];

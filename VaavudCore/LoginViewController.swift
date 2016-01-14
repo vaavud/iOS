@@ -77,8 +77,9 @@ class LoginViewController: UIViewController, LoginDelegate {
             oldButtonBar = navigationItem.rightBarButtonItem
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
             activityIndicator.startAnimating()
-
             
+            
+            self.view.endEditing(true)
             
             AuthorizationController.shared.login(email, password: password, delegate: self)
         }
