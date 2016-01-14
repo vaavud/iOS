@@ -559,36 +559,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MKZ-Ce-DqL">
-                                <rect key="frame" x="40" y="227" width="240" height="65"/>
-                                <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTv-5v-GxF">
-                                        <rect key="frame" x="8" y="24" width="224" height="33"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5HR-by-QWH">
-                                        <rect key="frame" x="8" y="8" width="224" height="21"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="qKA-RL-Ti8"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="5HR-by-QWH" secondAttribute="trailing" constant="8" id="0lc-PW-Qv0"/>
-                                    <constraint firstAttribute="trailing" secondItem="FTv-5v-GxF" secondAttribute="trailing" constant="8" id="6Rb-ch-lry"/>
-                                    <constraint firstItem="5HR-by-QWH" firstAttribute="leading" secondItem="MKZ-Ce-DqL" secondAttribute="leading" constant="8" id="6x7-sc-qSp"/>
-                                    <constraint firstItem="FTv-5v-GxF" firstAttribute="top" secondItem="5HR-by-QWH" secondAttribute="bottom" constant="-5" id="XbD-im-HCW"/>
-                                    <constraint firstItem="5HR-by-QWH" firstAttribute="top" secondItem="MKZ-Ce-DqL" secondAttribute="top" constant="8" id="dIl-08-6lR"/>
-                                    <constraint firstAttribute="width" constant="240" id="eij-6F-UAk"/>
-                                    <constraint firstItem="FTv-5v-GxF" firstAttribute="leading" secondItem="MKZ-Ce-DqL" secondAttribute="leading" constant="8" id="lVe-UN-MFE"/>
-                                    <constraint firstAttribute="bottom" secondItem="FTv-5v-GxF" secondAttribute="bottom" constant="8" id="xVo-i3-vEY"/>
-                                </constraints>
-                            </view>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" rotateEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tbg-Zl-YRw" customClass="CustomMapView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                             </mapView>
@@ -613,7 +583,7 @@
                                     <action selector="hoursButtonPushed" destination="awR-2s-6gy" eventType="touchUpInside" id="EaM-b6-IlF"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QH2-zG-NA0">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QH2-zG-NA0">
                                 <rect key="frame" x="275" y="470" width="30" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -632,7 +602,6 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="MKZ-Ce-DqL" secondAttribute="centerY" id="015-5E-yiw"/>
                             <constraint firstItem="tbg-Zl-YRw" firstAttribute="top" secondItem="vqh-9G-hns" secondAttribute="top" id="2hP-p6-xWh"/>
                             <constraint firstAttribute="trailing" secondItem="QH2-zG-NA0" secondAttribute="trailing" constant="15" id="Hkv-Lr-onC"/>
                             <constraint firstItem="WL0-GO-6Vw" firstAttribute="top" secondItem="QH2-zG-NA0" secondAttribute="bottom" constant="5" id="LuP-vq-l8q"/>
@@ -642,20 +611,14 @@
                             <constraint firstAttribute="trailing" secondItem="tbg-Zl-YRw" secondAttribute="trailing" id="m84-zh-4zy"/>
                             <constraint firstAttribute="bottom" secondItem="tbg-Zl-YRw" secondAttribute="bottom" id="muC-sY-vH4"/>
                             <constraint firstItem="aHi-Yt-n6U" firstAttribute="leading" secondItem="vqh-9G-hns" secondAttribute="leading" constant="15" id="qWc-ta-avW"/>
-                            <constraint firstAttribute="centerX" secondItem="MKZ-Ce-DqL" secondAttribute="centerX" id="soG-xT-uyc"/>
                             <constraint firstItem="tbg-Zl-YRw" firstAttribute="leading" secondItem="vqh-9G-hns" secondAttribute="leading" id="wTd-9r-8bp"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="lKA-ea-t96"/>
                     <connections>
                         <outlet property="activityIndicator" destination="1nG-yb-qca" id="bu9-c8-J60"/>
-                        <outlet property="feedbackTextView" destination="FTv-5v-GxF" id="Dou-US-dcS"/>
-                        <outlet property="feedbackTitleLabel" destination="5HR-by-QWH" id="2qq-KM-pNa"/>
-                        <outlet property="feedbackView" destination="MKZ-Ce-DqL" id="kJj-su-72H"/>
-                        <outlet property="hoursBottomLayoutGuideConstraint" destination="beD-EN-MJc" id="fjc-hI-qbN"/>
                         <outlet property="hoursButton" destination="aHi-Yt-n6U" id="V2u-B5-fhi"/>
                         <outlet property="mapView" destination="tbg-Zl-YRw" id="OhK-hv-ypw"/>
-                        <outlet property="unitBottomLayoutGuideConstraint" destination="LuP-vq-l8q" id="hVd-C6-N6C"/>
                         <outlet property="unitButton" destination="QH2-zG-NA0" id="9Vi-ce-5Pw"/>
                         <segue destination="hdO-SU-WTz" kind="push" identifier="ForecastSegue" id="avU-tg-uh2"/>
                     </connections>

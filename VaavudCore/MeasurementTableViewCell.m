@@ -8,64 +8,35 @@
 
 #import "MeasurementTableViewCell.h"
 #import "FormatUtil.h"
+#import "Vaavud-Swift.h"
 
 @implementation MeasurementTableViewCell
 
-- (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
-
 -(void)setValues:(double)avgWindSpeed
-            unit:(WindSpeedUnit)unit
             time:(NSDate *)time
-   windDirection:(NSNumber *)direction
-   directionUnit:(NSInteger)directionUnit {
+   windDirection:(NSNumber *)direction {
     
     if (!isnan(avgWindSpeed)) {
-        self.avgWindSpeedLabel.text = [FormatUtil formatValueWithThreeDigits:[UnitUtil displayWindSpeedFromDouble:avgWindSpeed unit:unit]];
+        self.avgWindSpeedLabel.text = [[VaavudFormatter shared] localizedSpeed:avgWindSpeed digits:3];
     }
     else {
         self.avgWindSpeedLabel.text = @"-";
     }
-
-    NSString *unitName = [UnitUtil displayNameForWindSpeedUnit:unit];
-    self.avgWindSpeedUnitLabel.text = unitName;
     
+    self.avgWindSpeedUnitLabel.text = [[VaavudFormatter shared] speedUnitLocalName];
     self.timeLabel.text = [FormatUtil formatRelativeDate:time];
     
     if (direction) {
-        if (directionUnit == 0) {
-            self.directionLabel.text = [UnitUtil displayNameForDirection:direction];
-        }
-        else {
-            self.directionLabel.text = [NSString stringWithFormat:@"%@°", [NSNumber numberWithInt:(int)round([direction doubleValue])]];
-        }
+        self.directionLabel.text = [[VaavudFormatter shared] localizedDirection:direction.floatValue];
         self.directionLabel.hidden = NO;
-        
-
-        self.directionImageView.image = [UIImage imageNamed:@"wind_arrow.png"];;
-        if (self.directionImageView.image) {
-            self.directionImageView.transform = CGAffineTransformMakeRotation([direction doubleValue]/180 * M_PI);
-            self.directionImageView.hidden = NO;
-        }
-        else {
-            self.directionImageView.hidden = YES;
-        }
+        self.directionImageView.image = [UIImage imageNamed:@"WindArrow"];
+        self.directionImageView.transform = [VaavudFormatter transformWithDirection:direction.floatValue];
+        self.directionImageView.hidden = NO;
     }
     else {
         self.directionImageView.hidden = YES;
         self.directionLabel.hidden = YES;
     }
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
 }
 
 @end

@@ -23,8 +23,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *maxLabel;
 @property (nonatomic, weak) IBOutlet UILabel *timeLabel;
 @property (nonatomic, weak) IBOutlet UILabel *nearbyHeadingLabel;
-@property (nonatomic) WindSpeedUnit windSpeedUnit;
-@property (nonatomic) NSInteger directionUnit;
+
 @property (nonatomic) MeasurementAnnotation *measurementAnnotation;
 @property (nonatomic) MapViewController *mapViewController;
 @property (nonatomic) NSArray *nearbyAnnotations;

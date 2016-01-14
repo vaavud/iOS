@@ -7,6 +7,7 @@
 //
 
 #import "MeasurementAnnotation.h"
+#import "Vaavud-Swift.h"
 
 @implementation MeasurementAnnotation
 
@@ -34,17 +35,7 @@
 }
 
 - (NSString *)title {
-    return [self formatWindSpeed:self.avgWindSpeed];
-}
-
-- (NSString *)formatWindSpeed:(double)value {
-    double localizedValue = [UnitUtil displayWindSpeedFromDouble:value unit:self.windSpeedUnit];
-    if (localizedValue > 100.0) {
-        return [NSString stringWithFormat: @"%.0f %@", localizedValue, [UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit]];
-    }
-    else {
-        return [NSString stringWithFormat: @"%.1f %@", localizedValue, [UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit]];
-    }
+    return [[VaavudFormatter shared] localizedSpeed:self.avgWindSpeed digits:2];
 }
 
 - (NSString *)description {
