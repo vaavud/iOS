@@ -9,9 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "SMCalloutView.h"
-//#import "MeasurementSession+Util.h"
 #import "MeasurementAnnotation.h"
-#import "TabBarController.h"
+//#import "TabBarController.h"
 
 @interface CustomMapView : MKMapView
 
@@ -35,6 +34,6 @@
 @property (nonatomic) BOOL isSelectingFromTableView;
 
 -(void)zoomToAnnotation:(MeasurementAnnotation *)annotation;
--(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation *)annotation withAction:(NSString *)action mixpanelTrack:(NSString *)track mixpanelSource:(NSString *)source;
+//-(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation *)annotation withAction:(NSString *)action mixpanelTrack:(NSString *)track mixpanelSource:(NSString *)source;
 
 @end

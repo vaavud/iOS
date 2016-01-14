@@ -196,10 +196,10 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
 
     // MARK: Event handling
     
-    func sessionUpdated(note: NSNotification) {
-        if let objectId = note.userInfo?["objectID"] as? NSManagedObjectID where objectId == session.key {
-            updateUI()
-        }
+    func sessionUpdated(note: NSNotification) { // fixme: take care of this
+//        if let objectId = note.userInfo?["objectID"] as? NSManagedObjectID where objectId == session.key {
+//            updateUI()
+//        }
     }
 
     func unitsChanged() {

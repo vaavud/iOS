@@ -100,19 +100,16 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
     }
     
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
-        
         if viewController == childViewControllers[2] {
             performSegueWithIdentifier("ShowMeasureScreen", sender: self)
             return false
         }
     
-        if viewController == childViewControllers[0] { // Fixme: remove
-            selectedIndex = 2
-            return false
-        }
+//        if viewController == childViewControllers[0] { // Fixme: this is for testing
+//            selectedIndex = 2
+//            return false
+//        }
         
         return true
-    
     }
-    
 }

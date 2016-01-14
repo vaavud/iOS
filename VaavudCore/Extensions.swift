@@ -9,6 +9,11 @@
 import Foundation
 import MediaPlayer
 
+class RotatableNavigationController: UINavigationController {
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .All
+    }
+}
 
 class Plot: UIView {
     let f: CGFloat -> CGFloat

@@ -263,10 +263,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         case .Limited:
             if timeLeft < 0 {
                 timeLeft = 0
-                state = .Done
                 save(false)
                 stop(false)
-//                mixpanelSend("Ended")
+                state = .Done
                 logStop("ended")
             }
             else {
@@ -297,10 +296,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             .setValue(session.fireDict)
 
         firebase
-            .childByAppendingPaths("Wind", session.key, String(windSpeedsSaved))
+            .childByAppendingPaths("wind", session.key, String(windSpeedsSaved))
             .setValue(latestWindSpeed.fireDict)
         firebase
-            .childByAppendingPaths("WindDirection", session.key, String(windSpeedsSaved))
+            .childByAppendingPaths("windDirection", session.key, String(windSpeedsSaved))
             .setValue(latestWindDirection?.fireDict)
         windSpeedsSaved += 1
     }
@@ -337,23 +336,25 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func stop(userCancelled: Bool) {
-        let cancel = userCancelled || session.windMean == 0 || state.countingDown
-        
-        if model == .Sleipnir {
-            VaavudSDK.shared.stop()
-        }
-        else {
-            mjolnir?.stop()
-        }
-
-        reportToUrlSchemeCaller(cancel)
-        
-        displayLink.invalidate()
-        currentConsumer = nil
+            let cancel = userCancelled || session.windMean == 0 || state.countingDown
+            
+            if model == .Sleipnir {
+                VaavudSDK.shared.stop()
+            }
+            else {
+                mjolnir?.stop()
+            }
+            
+            reportToUrlSchemeCaller(cancel)
+            
+            displayLink.invalidate()
+            currentConsumer = nil
         
         if cancel {
-            firebase.childByAppendingPaths("session", session.key).removeValue()
-            firebase.childByAppendingPaths("sessionDeleted", session.key).setValue(session.fireDict)
+            if state.running {
+                firebase.childByAppendingPaths("session", session.key).removeValue()
+                firebase.childByAppendingPaths("sessionDeleted", session.key).setValue(session.fireDict)
+            }
             
             dismissViewControllerAnimated(true) {
                 self.pageController.view.removeFromSuperview()
@@ -504,7 +505,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func addSpeedMeasurement(currentSpeed: NSNumber!, avgSpeed: NSNumber!, maxSpeed: NSNumber!) {
-//        newWindSpeed(WindSpeedEvent(time: NSDate(), speed: currentSpeed.doubleValue))
         VaavudSDK.shared.newWindSpeed(WindSpeedEvent(time: NSDate(), speed: currentSpeed.doubleValue))
     }
     
@@ -623,16 +623,16 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         case .Limited:
             save(true)
             stop(true)
-            //            mixpanelSend("Cancelled")
             logStop("cancelled")
         case .Unlimited:
             save(false)
             stop(false)
-            //            mixpanelSend("Stopped")
             logStop("stopped")
         case .Done:
             break
         }
+        
+        state = .Done
     }
     
     // Mark - Updates

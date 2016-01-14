@@ -9,20 +9,12 @@
 #import "AppDelegate.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-//#import "ModelManager.h"
-//#import "ServerUploadManager.h"
 #import "LocationManager.h"
-#import "QueryStringUtil.h"
-//#import "TabBarController.h"
+//#import "QueryStringUtil.h"
 #import "TMCache.h"
-//#import "AccountManager.h"
-//#import "Property+Util.h"
 #import "UnitUtil.h"
-//#import "UIColor+VaavudColors.h"
-//#import "MixpanelUtil.h"
 #import "Vaavud-Swift.h"
 #import "Amplitude.h"
-//#import "VaavudAPIHTTPClient.h"
 #import "FBSDKCoreKit.h"
 
 @interface AppDelegate() <DBRestClientDelegate>
@@ -41,7 +33,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [Firebase defaultConfig].persistenceEnabled = YES;
-//    [[AuthorizationController shared] verifyAuth];
     
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
@@ -49,11 +40,6 @@
     TMCache *cache = [TMCache sharedCache];
     cache.diskCache.ageLimit = 24.0*3600.0;
     
-//    [MagicalRecord setupAutoMigratingCoreDataStack];
-//    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelOff];
-    
-//    [[ModelManager sharedInstance] initializeModel];
-//    [[ServerUploadManager sharedInstance] start];
     [[LocationManager sharedInstance] startIfEnabled];
     //[FBSettings setLoggingBehavior:[NSSet setWithObjects:FBLoggingBehaviorFBRequests, FBLoggingBehaviorInformational, nil]];
             
@@ -63,18 +49,6 @@
     
     // Dropbox
     [DBSession setSharedSession:[[DBSession alloc] initWithAppKey:@"zszsy52n0svxcv7" appSecret:@"t39k1uzaxs7a0zj" root:kDBRootAppFolder]];
-    
-    // Whenever a person opens the app, check for a cached session and refresh token
-//    if ([[AccountManager sharedInstance] isLoggedIn]) {
-//        [[AccountManager sharedInstance] registerWithFacebook:nil from:nil action:AuthenticationActionRefresh];
-//    }
-//    
-//    // Set has wind meter property if not set
-//    if (![Property getAsString:KEY_USER_HAS_WIND_METER]) {
-//        [Property refreshHasWindMeter];
-//    }
-//    
-//    [Property setAsBoolean:[Property getAsBoolean:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN] forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY];
     
 #ifdef DEBUG
     [[Amplitude instance] initializeApiKey:@"043371ecbefba51ec63a992d0cc57491"];
@@ -113,25 +87,13 @@
     return YES;
 }
 
-- (void)applicationWillResignActive:(UIApplication *)application {
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
-}
-
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 //    [FBAppCall handleDidBecomeActive];
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application {
-}
-
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     if ([url.scheme isEqualToString:@"vaavud"]) {
-        NSDictionary *dict = [QueryStringUtil parseQueryString:url.query];
+        NSDictionary *dict = [self parseQueryString:url.query];
         
         self.xCallbackSuccess = nil;
         
@@ -162,6 +124,21 @@
                                                               annotation:annotation];
 }
 
+- (NSDictionary *)parseQueryString:(NSString *)query {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:6];
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    
+    for (NSString *pair in pairs) {
+        NSArray *elements = [pair componentsSeparatedByString:@"="];
+        NSString *key = [[elements objectAtIndex:0] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *val = [[elements objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        [dict setObject:val forKey:key];
+    }
+    return dict;
+}
+
+
 #pragma mark - Dropbox
 
 //-(void)uploadToDropbox:(MeasurementSession *)session {
@@ -187,27 +164,6 @@
 //
 //- (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
 //    if (LOG_OTHER) NSLog(@"File upload failed with error: %@", error);
-//}
-//
-//- (void)userAuthenticated:(BOOL)isSignup viewController:(UIViewController *)viewController {
-//    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-//    UIViewController *nextViewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
-//    //nextViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-//    //[viewController presentViewController:nextViewController animated:YES completion:nil];
-//    self.window.rootViewController = nextViewController;
-//    
-//    [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:YES success:nil failure:nil];
-//}
-//
-//- (void)cancelled:(UIViewController *)viewController {
-//}
-//
-//- (NSString *)registerScreenTitle {
-//    return nil;
-//}
-//
-//- (NSString *)registerTeaserText {
-//    return nil;
 //}
 
 @end

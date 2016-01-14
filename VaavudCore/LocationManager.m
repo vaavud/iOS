@@ -7,8 +7,6 @@
 //
 
 #import "LocationManager.h"
-#import "SharedSingleton.h"
-#import "Property+Util.h"
 
 @interface LocationManager ()
 
@@ -21,7 +19,14 @@
 
 @implementation LocationManager
 
-SHARED_INSTANCE
++ (id)sharedInstance {
+    static dispatch_once_t once;
+    static id sharedInstance;
+    dispatch_once(&once, ^{
+        sharedInstance = [[self alloc] init];
+    });
+    return sharedInstance;
+}
 
 + (BOOL)isCoordinateValid:(CLLocationCoordinate2D)coordinate {
     return CLLocationCoordinate2DIsValid(coordinate) && !(coordinate.latitude == 0.0 && coordinate.longitude == 0.0);
