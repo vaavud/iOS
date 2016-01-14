@@ -29,7 +29,7 @@ DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
-  - Firebase (= 2.4.2)
+  - Firebase (~> 2.4.2)
 
 SPEC CHECKSUMS:
   Amplitude-iOS: aeec249c4143d67274c77edd6538aa177cda6c2e
