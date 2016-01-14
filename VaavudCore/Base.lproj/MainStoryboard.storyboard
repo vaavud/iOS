@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="uRK-QG-tAM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="uRK-QG-tAM">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -2774,6 +2774,9 @@
                                 <subviews>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="500" minValue="1" maxValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="wbf-jB-lOX">
                                         <rect key="frame" x="46" y="4" width="228" height="31"/>
+                                        <connections>
+                                            <action selector="sliderValueChanged:" destination="93S-QE-F07" eventType="valueChanged" id="I2J-X6-nYB"/>
+                                        </connections>
                                     </slider>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lm3-bv-dth" customClass="DirectionSelector" customModule="Vaavud" customModuleProvider="target">
                                         <rect key="frame" x="100" y="73" width="120" height="120"/>
@@ -2824,7 +2827,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="a2M-5U-B13">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="Z4W-l0-GMv">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="Z4W-l0-GMv">
                             <connections>
                                 <action selector="buttonSave:" destination="93S-QE-F07" id="oBM-xJ-HI2"/>
                             </connections>

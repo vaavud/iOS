@@ -27,7 +27,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
         setupField(emailField)
         setupField(passwordField)
         
-        
     }
     
     // MARK: User Actions

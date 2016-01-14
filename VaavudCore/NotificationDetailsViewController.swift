@@ -9,13 +9,30 @@
 import UIKit
 import Firebase
 
+struct Subscription {
+
+    let uid: String
+    let radius: Int
+    let windMin: Double
+    let location: [String: Double]
+    let directions: [String: Bool]
+    let lastFired = [".sv": "timestamp"]
+    
+    
+    var fireDict : FirebaseDictionary {
+        return ["directions" : directions, "location" : location, "radius" : radius, "uid" : uid, "windMin" :windMin, "lastFired" : lastFired]
+    }
+}
+
+
 class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGestureRecognizerDelegate {
     
     @IBOutlet weak var directionSelector: DirectionSelector!
     @IBOutlet weak var mapView: MKMapView!
-    var overlays: MKOverlay?
+    var overlays: MKCircle?
     var annotation: MKPointAnnotation?
     let firebase = Firebase(url: firebaseUrl)
+    var currentRadius = 500
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +49,40 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
     
     
     @IBAction func buttonSave(sender: UIBarButtonItem) {
+        guard let annotation = annotation else {
+            return
+        }
+        
+        let latlon = ["lat" :annotation.coordinate.latitude, "lon": annotation.coordinate.longitude]
+        let subscription = Subscription(uid: firebase.authData.uid, radius: currentRadius, windMin: 34.400001525878906, location: latlon, directions: directionSelector.areas)
+        
+        let ref = firebase.childByAppendingPath("subscription")
+        let post = ref.childByAutoId()
+        post.setValue(subscription.fireDict)
+        let subscriptionKey = post.key
+        
+        
+        let geoFireRef = firebase.childByAppendingPath("subscriptionGeo")
+        let geoFire = GeoFire(firebaseRef: geoFireRef)
+        geoFire.setLocation(CLLocation(latitude: annotation.coordinate.latitude , longitude: annotation.coordinate.longitude), forKey: subscriptionKey)
+
+        
+        print(subscriptionKey)
+        print(subscription.fireDict)
+    }
+    
+    @IBAction func sliderValueChanged(sender: UISlider) {
+        
+        guard let _ = overlays else{
+            return
+        }
+        
+        mapView.removeOverlay(self.overlays!)
+        
+        self.overlays = MKCircle(centerCoordinate: annotation!.coordinate, radius: CLLocationDistance(sender.value))
+        mapView.addOverlay(overlays!)
+        
+        currentRadius = Int(sender.value)
         
     }
     
@@ -51,7 +102,7 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
         let location = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
         
         
-        overlays = MKCircle(centerCoordinate: location, radius: 1000)
+        overlays = MKCircle(centerCoordinate: location, radius: CLLocationDistance(currentRadius))
         
         mapView.addOverlay(overlays!)
         
@@ -63,8 +114,8 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
         
         var region = MKCoordinateRegion()
         region.center = location
-        region.span.latitudeDelta = 0.1
-        region.span.longitudeDelta = 0.1
+        region.span.latitudeDelta = 0.05
+        region.span.longitudeDelta = 0.05
         region = mapView.regionThatFits(region)
         mapView.setRegion(region, animated: true)
         
@@ -73,8 +124,8 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
     
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-        let circleRenderer : MKCircleRenderer = MKCircleRenderer(overlay: overlay);
-        circleRenderer.strokeColor = UIColor.redColor()
+        let circleRenderer = MKCircleRenderer(overlay: overlay);
+        circleRenderer.strokeColor = .vaavudBlueColor()
         circleRenderer.fillColor = UIColor(red: 0.0, green: 0.0, blue: 0.7, alpha: 0.5)
         circleRenderer.lineWidth = 1.0
         return circleRenderer
@@ -131,10 +182,11 @@ class DirectionSelector: UIControl {
     
     let lineWidth: CGFloat = 1
     
-    var selection: Directions = [.N, .SW, .E]
+    var selection: Directions = []
     let paths = Directions.ordered.map(sectorBezierPath(Directions.count))
     var laidOut = false
     var touchState = State.Default
+    var areas : [String:Bool] = [:]
     
     override func layoutSubviews() {
         if laidOut { return }
@@ -151,11 +203,14 @@ class DirectionSelector: UIControl {
     }
     
     func updateSelection(direction: Directions) {
+        
         if touchState == .Adding {
             selection.insert(direction)
+            areas[direction.description] = true
         }
         else {
             selection.remove(direction)
+            areas[direction.description] = nil
         }
         
         setNeedsDisplay()
