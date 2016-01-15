@@ -149,8 +149,17 @@
     if (fabs(howRecent) < 15.0 /* seconds */) {
         //NSLog(@"[LocationManager] Got latitude %+.6f, longitude %+.6f\n", location.coordinate.latitude, location.coordinate.longitude);
         
+        if ([LocationManager isCoordinateValid:location.coordinate]) {
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            [defaults setDouble:location.coordinate.latitude forKey:@"LOCATION_LAT"];
+            [defaults setDouble:location.coordinate.longitude forKey:@"LOCATION_LON"];
+            [defaults synchronize];
+        }
+        
         self.latestLocation = location.coordinate;
         self.latestLocationTimestamp = eventDate;
+        
+        
     }    
 }
 
@@ -162,12 +171,7 @@
     NSTimeInterval howRecent = [self.latestLocationTimestamp timeIntervalSinceNow];
     if (fabs(howRecent) < 60.0 /* seconds */) {
         //NSLog(@"[LocationManager] returning latest location: latitude %+.6f, longitude %+.6f\n", _latestLocation.latitude, _latestLocation.longitude);
-        if ([LocationManager isCoordinateValid:_latestLocation]) {
-//            [Property setAsDouble:@(_latestLocation.latitude) forKey:KEY_STORED_LOCATION_LAT];
-//            [Property setAsDouble:@(_latestLocation.longitude) forKey:KEY_STORED_LOCATION_LON];
-
-        // fixme: save latestlocations
-        }
+        
              
         return _latestLocation;
     }
@@ -177,12 +181,12 @@
 
 - (CLLocationCoordinate2D)storedLocation {
     // fixme: return latestlocations
-    return CLLocationCoordinate2DMake(1, 2);
-    //
-//    CLLocationDegrees lat = [Property getAsDouble:KEY_STORED_LOCATION_LAT defaultValue:55.676111].doubleValue;
-//    CLLocationDegrees lon = [Property getAsDouble:KEY_STORED_LOCATION_LON defaultValue:12.568333].doubleValue;
-//    
-//    return CLLocationCoordinate2DMake(lat, lon);
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    CLLocationDegrees lat = [defaults doubleForKey:@"LOCATION_LAT"]; //[Property getAsDouble:KEY_STORED_LOCATION_LAT defaultValue:55.676111].doubleValue;
+    CLLocationDegrees lon = [defaults doubleForKey:@"LOCATION_LON"]; //[Property getAsDouble:KEY_STORED_LOCATION_LON defaultValue:12.568333].doubleValue;
+//
+    return CLLocationCoordinate2DMake(lat, lon);
 }
 
 @end
