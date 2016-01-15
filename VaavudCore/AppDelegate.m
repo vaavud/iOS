@@ -35,13 +35,9 @@
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
     
-    
-    
     UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
     [application registerUserNotificationSettings:notificationSettings];
     [application registerForRemoteNotifications];
-    
-    
     
     TMCache *cache = [TMCache sharedCache];
     cache.diskCache.ageLimit = 24.0*3600.0;
@@ -70,20 +66,18 @@
     UIViewController *parent = [[UIViewController alloc] init];
     
     self.window.rootViewController = parent;
-
+    
     UIViewController *vc;
     
     if (![[AuthorizationController shared] verifyAuth]) {
         UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateInitialViewController];
         UIViewController *pushed = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateViewControllerWithIdentifier:@"Selector"];
         [nav pushViewController:pushed animated:NO];
-
+        
         vc = nav;
     }
     else {
-//        vc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateInitialViewController];
-        UIStoryboard *sb  = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-        vc = [sb instantiateInitialViewController];
+        vc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateInitialViewController];
     }
 
     [parent addChildViewController:vc];

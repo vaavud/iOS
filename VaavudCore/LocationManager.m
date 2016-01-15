@@ -158,9 +158,7 @@
         
         self.latestLocation = location.coordinate;
         self.latestLocationTimestamp = eventDate;
-        
-        
-    }    
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {

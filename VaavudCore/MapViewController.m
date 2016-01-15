@@ -33,6 +33,7 @@
 @property (nonatomic) NSDate *now;
 @property (nonatomic) BOOL isLoading;
 @property (nonatomic) BOOL isShowing;
+@property (nonatomic) BOOL didScroll;
 @property (nonatomic) int hoursAgoOption;
 @property (nonatomic) NSArray<NSNumber *> *hoursAgoOptions;
 @property (nonatomic) double analyticsGridDegree;
@@ -46,6 +47,8 @@
 @property (nonatomic) NSMutableDictionary *pendingSessions;
 @property (nonatomic) NSMutableDictionary *incompleteSessions;
 @property (nonatomic) NSString *formatHandle;
+@property (nonatomic) CLLocationManager *locationManager;
+
 
 @end
 
@@ -78,6 +81,7 @@
     self.incompleteSessions = [[NSMutableDictionary alloc] init];
     
     self.isLoading = NO;
+    self.didScroll = NO;
     self.isSelectingFromTableView = NO;
     
     self.hoursAgoOption = 0;
@@ -94,13 +98,8 @@
     
     self.activityIndicator.hidden = YES;
     
-    CLLocationCoordinate2D location = [self getLatesLocation];
+    [self setupMapPosition];
     
-//    if (![LocationManager isCoordinateValid:location]) {
-//        location = [LocationManager sharedInstance].storedLocation;
-//    }
-    
-    [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(location, 200000, 200000) animated:YES];
 
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
     
@@ -116,13 +115,34 @@
     [self setupFirebase];
 }
 
-
-- (CLLocationCoordinate2D)getLatesLocation {
+-(void)gotFirstStoredLocation:(CLLocationCoordinate2D)location {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    CLLocationDegrees lat = [defaults doubleForKey:KEY_STORED_LOCATION_LAT];
-    CLLocationDegrees lon = [defaults doubleForKey:KEY_STORED_LOCATION_LON];
     
-    return CLLocationCoordinate2DMake(lat, lon);
+    [defaults setDouble:location.latitude forKey:KEY_STORED_LOCATION_LAT];
+    [defaults setDouble:location.longitude forKey:KEY_STORED_LOCATION_LON];
+    [defaults synchronize];
+    
+    if (!self.didScroll) {
+        [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(location, 200000, 200000) animated:YES];
+    }
+}
+
+-(void)setupMapPosition {
+    CLLocationCoordinate2D loc;
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults objectForKey:KEY_STORED_LOCATION_LAT] != nil) {
+        CLLocationDegrees lat = [defaults doubleForKey:KEY_STORED_LOCATION_LAT];
+        CLLocationDegrees lon = [defaults doubleForKey:KEY_STORED_LOCATION_LON];
+        
+        loc = CLLocationCoordinate2DMake(lat, lon);
+    }
+    else {
+        loc = CLLocationCoordinate2DMake(55.676111, 12.568333);
+        // request
+    }
+
+    [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(loc, 200000, 200000) animated:YES];
 }
 
 - (BOOL)isDanish {
@@ -183,6 +203,8 @@
 }
 
 - (void)showGuideIfNeeded {
+    return;
+    
     CGRect bounds = self.tabBarController.view.bounds;
     
     NSString *textKey;
@@ -280,38 +302,6 @@
     
     [self addPin:[LocationManager sharedInstance].storedLocation];
 }
-
-//- (BOOL)annotationAlreadyExistsAtLatitude:(CLLocationDegrees)lat longitude:(CLLocationDegrees)lon {
-//    if (self.view == nil) {
-//        return NO;
-//    }
-//    
-//    for (id<MKAnnotation> annotation in self.mapView.annotations) {
-//        if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
-//            if (lat == [annotation coordinate].latitude && lon == [annotation coordinate].longitude ) {
-//                return YES;
-//            }
-//        }
-//    }
-//
-//    return NO;
-//}
-
-//-(void)removeOldAnnotations {
-//    NSMutableArray *oldAnnotations = [NSMutableArray array];
-//    
-//    for (id annotation in self.mapView.annotations) {
-//        if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
-//            MeasurementAnnotation *measurementAnnotation = annotation;
-//            if ([self.lastMeasurementsRead timeIntervalSinceDate:measurementAnnotation.startTime]) {
-//                [oldAnnotations addObject:measurementAnnotation];
-//                [self.mapView deselectAnnotation:annotation animated:NO];
-//            }
-//        }
-//    }
-//    
-//    [self.mapView removeAnnotations:oldAnnotations];
-//}
 
 - (void)workingWithIncompleteAnnotations:(FDataSnapshot *)data {
     if (data.value[@"location"] == nil || self.currentSessions[data.key] != nil ) {
@@ -624,6 +614,7 @@
 
 -(void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered {
     [self.logHelper increase:@"scrolled"];
+    self.didScroll = YES;
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
