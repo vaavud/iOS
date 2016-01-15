@@ -159,6 +159,7 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     private var formatterHandle: String!
     let emptyHistoryArrow = EmptyHistoryArrow()
     lazy var emptyView : UIView = {UIView(frame: self.view.bounds)}()
+    lazy var emptyLabelView = UIView()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -177,13 +178,38 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         let height = CGRectGetHeight(view.bounds);
         let startY = 0.35*height;
         
+        
         emptyHistoryArrow.frame = CGRectMake(0, startY, width, height - 120 - startY)
-        emptyView.addSubview(emptyHistoryArrow)
-        emptyView.alpha = 0
+        emptyLabelView.center = CGPointMake(width/2, startY - 40);
+        
 
         emptyHistoryArrow.forceSetup()
         
+        let upper = UILabel()
+        upper.font = UIFont(name: "Helvetica", size: 20)
+        upper.textColor = .vaavudColor()
+        upper.text = NSLocalizedString("HISTORY_NO_MEASUREMENTS", comment: "")
+        upper.sizeToFit()
+        
+        let lower = UILabel()
+        lower.font = UIFont(name: "Helvetica", size: 15)
+        lower.textColor = .vaavudColor()
+        lower.text =  NSLocalizedString("HISTORY_GO_TO_MEASURE", comment: "")
+        lower.sizeToFit()
+        
+        //emptyLabelView.frame = CGRectMake(0, 0, max(CGRectGetWidth(upper.bounds), CGRectGetWidth(lower.bounds)), 60)
+        upper.center = CGPointMake(CGRectGetMidX(emptyLabelView.bounds), 10);
+        lower.center = CGPointMake(CGRectGetMidX(emptyLabelView.bounds), 45);
+        
+        
+        emptyLabelView.addSubview(upper)
+        emptyLabelView.addSubview(lower)
+        
         view.addSubview(emptyView)
+        emptyView.addSubview(emptyLabelView)
+        emptyView.addSubview(emptyHistoryArrow)
+        emptyView.alpha = 0
+        
         
         formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
         refreshUnits()
@@ -288,6 +314,8 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     
     func fetchedMeasurements(sessions: [[Session]], sessionDates: [String]) {
         dispatch_async(dispatch_get_main_queue()) {
+            self.spinner.hide()
+            self.emptyView.alpha = 0
             self.tableView.reloadData()
         }
     }
