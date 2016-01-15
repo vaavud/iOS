@@ -86,6 +86,4 @@
 //NSString * const KEY_NOTIFICATION_TYPE = @"notificationType";
 //NSString * const KEY_NOTIFICATION_RADIUS = @"notificationRadius";
 //
-//NSString * const KEY_STORED_LOCATION_LAT = @"storedLocationLat"; //TODO
-//NSString * const KEY_STORED_LOCATION_LON = @"storedLocationLon"; //TODO
 //

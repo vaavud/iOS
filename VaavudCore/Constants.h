@@ -57,5 +57,8 @@ static double const FFT_PEAK_MAG_MIN_IPHONE6 = 2.5;
 
 static NSString * const GOOGLE_STATIC_MAPS_API_KEY = @"AIzaSyDrrZsMKRBkCw214SbJA6q2lO-cXbu7m0Y";
 
+static NSString * const KEY_STORED_LOCATION_LAT = @"storedLocationLat";
+static NSString * const KEY_STORED_LOCATION_LON = @"storedLocationLon";
+
 //static NSString * const vaavudAPIBaseURLString = @"http://10.0.5.70:8080";
 static NSString * const vaavudAPIBaseURLString = @"https://mobile-api.vaavud.com/";
