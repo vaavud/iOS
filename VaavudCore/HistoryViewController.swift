@@ -214,6 +214,8 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         cell.time.text = VaavudFormatter.shared.localizedTime(session.timeStart)
         
         if let windDirection = session.windDirection {
+            cell.directionUnit.hidden = false
+            cell.directionArrow.hidden = false
             cell.directionUnit.text = VaavudFormatter.shared.localizedDirection(windDirection)
             cell.directionArrow.transform = CGAffineTransformMakeRotation(CGFloat(windDirection).radians)
         }
