@@ -12,7 +12,7 @@ import Firebase
 struct Subscription {
 
     let uid: String
-    let radius: Int
+    let radius: Float
     let windMin: Double
     let location: [String: Double]
     let directions: [String: Bool]
@@ -32,7 +32,7 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
     var overlays: MKCircle?
     var annotation: MKPointAnnotation?
     let firebase = Firebase(url: firebaseUrl)
-    var currentRadius = 500
+    var currentRadius : Float = 500.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +82,7 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
         self.overlays = MKCircle(centerCoordinate: annotation!.coordinate, radius: CLLocationDistance(sender.value))
         mapView.addOverlay(overlays!)
         
-        currentRadius = Int(sender.value)
+        currentRadius = sender.value
         
     }
     

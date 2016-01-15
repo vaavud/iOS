@@ -238,8 +238,8 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         if editingStyle == .Delete {
             let deletedSession = controller.sessionss[indexPath.section][indexPath.row]
         
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
             controller.removeItem(deletedSession, section: indexPath.section, row: indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         
         }
     }
