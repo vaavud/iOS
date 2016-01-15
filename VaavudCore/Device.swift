@@ -32,7 +32,6 @@ struct DeviceSettings: Firebaseable {
         self.defaultFlatVariant = defaultFlatVariant
     }
     
-    
     init?(dict: FirebaseDictionary) {
         self.mapHour = dict["mapHour"] as! Int
         self.hasAskedForLocationAccess = dict["hasAskedForLocationAccess"] as! Bool

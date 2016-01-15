@@ -113,7 +113,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         VaavudSDK.shared.windSpeedCallback = newWindSpeed
         VaavudSDK.shared.locationCallback = newLocation
-        VaavudSDK.shared.errorCallback = { err in print(err) }
+    
+        VaavudSDK.shared.velocityCallback = newVelocity // fixme: remove
+        VaavudSDK.shared.errorCallback = { err in print(err) } // fixme: remove
 
         if model == .Sleipnir {
             deviceSettings.childByAppendingPath("usesSleipnir").setValue(true)
@@ -188,6 +190,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
             else {
                 self.startMjolnir()
+                _ = try? VaavudSDK.shared.startLocationOnly()
             }
             
             self.showScreen(desiredScreen)
@@ -328,19 +331,18 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func stop(userCancelled: Bool) {
-            let cancel = userCancelled || session.windMean == 0 || state.countingDown
-            
-            if model == .Sleipnir {
-                VaavudSDK.shared.stop()
-            }
-            else {
-                mjolnir?.stop()
-            }
-            
-            reportToUrlSchemeCaller(cancel)
-            
-            displayLink.invalidate()
-            currentConsumer = nil
+        let cancel = userCancelled || session.windMean == 0 || state.countingDown
+        
+        VaavudSDK.shared.stop()
+
+        if model == .Mjolnir {
+            mjolnir?.stop()
+        }
+        
+        reportToUrlSchemeCaller(cancel)
+        
+        displayLink.invalidate()
+        currentConsumer = nil
         
         if cancel {
             if state.running {
@@ -465,7 +467,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             altitudeData, error in
             if let kpa = altitudeData?.pressure.doubleValue {
                 self.altimeter?.stopRelativeAltitudeUpdates()
-                
                 
                 let pressureModel = ["temperature" : 10*kpa]
                 
@@ -674,7 +675,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private func startSleipnir(flipped: Bool) {
         // fixme: handle error
         do {
-            try VaavudSDK.shared.start(flipped ?? false)  // fixme: handle flipped in sdk
+            try VaavudSDK.shared.start(flipped ?? false)
         }
         catch {
             self.dismissViewControllerAnimated(true) {

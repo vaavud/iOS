@@ -84,7 +84,7 @@
     self.didScroll = NO;
     self.isSelectingFromTableView = NO;
     
-    self.hoursAgoOption = 0;
+    self.hoursAgoOption = 3;
     self.hoursAgoOptions = @[@3, @6, @12, @24];
     
 	self.mapView.delegate = self;
@@ -115,6 +115,19 @@
     [self setupFirebase];
 }
 
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    self.locationManager = nil;
+}
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:KEY_STORED_LOCATION_LAT] == nil) {
+        [self gotFirstStoredLocation:locations[locations.count - 1] .coordinate];
+    }
+    [self.locationManager stopUpdatingLocation];
+    self.locationManager.delegate = nil;
+    self.locationManager = nil;
+}
+
 -(void)gotFirstStoredLocation:(CLLocationCoordinate2D)location {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     
@@ -139,13 +152,36 @@
     }
     else {
         loc = CLLocationCoordinate2DMake(55.676111, 12.568333);
-        // request
+        CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
+        
+        if (authorizationStatus == kCLAuthorizationStatusRestricted || authorizationStatus == kCLAuthorizationStatusDenied) {
+            return;
+        }
+        
+        self.locationManager = [[CLLocationManager alloc] init];
+        self.locationManager.delegate = self;
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        self.locationManager.distanceFilter = kCLDistanceFilterNone;
+        
+        if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
+            [self.locationManager requestWhenInUseAuthorization];
+        }
+        else if ([CLLocationManager locationServicesEnabled]) {
+            [self.locationManager startUpdatingLocation];
+        }
     }
-
+    
     [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(loc, 200000, 200000) animated:YES];
 }
 
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    if (status != kCLAuthorizationStatusRestricted && status != kCLAuthorizationStatusDenied && status != kCLAuthorizationStatusNotDetermined) {
+        [self.locationManager startUpdatingLocation];
+    }
+}
+
 - (BOOL)isDanish {
+    return YES;
     return [[[[NSLocale preferredLanguages] firstObject] substringToIndex:2] isEqualToString:@"da"];
 }
 
@@ -618,7 +654,7 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
-	if ([view.annotation isKindOfClass:[MeasurementAnnotation class]]) {
+    if ([view.annotation isKindOfClass:[MeasurementAnnotation class]]) {
         NSArray *nearbyAnnotations;
         
         //NSLog(@"zoomLevel=%f", [self.mapView getZoomLevel]);
@@ -638,12 +674,12 @@
             height -= (28.0 /* extra half cell to show you can scroll */ + (3 - nearbyAnnotations.count) * (ROW_HEIGHT));
         }
         
-        //NSLog(@"desired height=%f", height);
-        
         UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 280, height)];
+        
+        containerView.backgroundColor = [UIColor redColor];
 
         NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"MeasurementCalloutView" owner:self options:nil];
-        self.measurementCalloutView = (MeasurementCalloutView*) [topLevelObjects objectAtIndex:0];
+        self.measurementCalloutView = (MeasurementCalloutView *)[topLevelObjects objectAtIndex:0];
         self.measurementCalloutView.frame = CGRectMake(0, 0, 280, height);
         self.measurementCalloutView.mapViewController = self;
         self.measurementCalloutView.placeholderImage = self.placeholderImage;

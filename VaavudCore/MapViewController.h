@@ -19,7 +19,7 @@
 
 @end
 
-@interface MapViewController : UIViewController <MKMapViewDelegate, SMCalloutViewDelegate>
+@interface MapViewController : UIViewController <MKMapViewDelegate, SMCalloutViewDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, weak) IBOutlet CustomMapView *mapView;
 @property (nonatomic) BOOL isSelectingFromTableView;
