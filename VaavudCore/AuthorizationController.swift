@@ -186,6 +186,37 @@ class AuthorizationController: NSObject {
         obtainUserInformation("user", key: uid, callback: callback)
     }
     
+    
+    private func validateUserSettings(){
+        
+        guard let uid = uid else {
+            fatalError("no uid")
+        }
+        
+        firebase
+            .childByAppendingPaths("user",uid,"settins")
+            .observeSingleEventOfType(.Value, withBlock: { data in
+                guard let _ = data.value["ios"] as? [String:Bool] else {
+                    self.saveDefaultSettings()
+                    return
+                }
+            })
+    }
+    
+    
+    
+    private func saveDefaultSettings(){
+        
+        guard let uid = uid else {
+            fatalError("no uid")
+        }
+        
+        let defaultSettigns = InstructionsShown().fireDict
+        print(defaultSettigns)
+        
+        firebase.childByAppendingPaths("user",uid,"setting","ios").setValue(defaultSettigns)
+    }
+    
     private func obtainUserInformation(child: String, key: String, callback: FirebaseDictionary -> Void) {
         firebase
             .childByAppendingPath(child).childByAppendingPath(key)
@@ -213,13 +244,15 @@ class AuthorizationController: NSObject {
         let post = ref.childByAutoId()
         post.setValue(deviceObj.fireDict)
         let deviceId = post.key
-            
+        
         let preferences = NSUserDefaults.standardUserDefaults()
         preferences.setValue(deviceId, forKey: "deviceId")
         preferences.synchronize()
         
         self.uid = uid
         self._deviceId = deviceId
+        
+        validateUserSettings()
         
         delegate?.onSuccess(!(data["activity"] is String))
     }

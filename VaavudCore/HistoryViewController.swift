@@ -157,6 +157,9 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     private var controller: HistoryController!
     private let spinner = MjolnirSpinner(frame: CGRectMake(0, 0, 100, 100))
     private var formatterHandle: String!
+    let emptyHistoryArrow = EmptyHistoryArrow()
+    lazy var emptyView : UIView = {UIView(frame: self.view.bounds)}()
+    lazy var emptyLabelView = UIView()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -166,17 +169,47 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let ref = Firebase(url: firebaseUrl).childByAppendingPath("session")
-//        let time = 1452688484638
-//        ref.queryOrderedByChild("timeStart").queryEqualToValue(time).observeEventType(.ChildChanged, withBlock: { snapshot in
-//            print("my test \(snapshot.key)")
-//        })
-        
-        
         spinner.alpha = 0.4
         spinner.center = tableView.bounds.moveY(-64).center
         tableView.addSubview(spinner)
         spinner.show()
+        
+        let width = CGRectGetWidth(view.bounds);
+        let height = CGRectGetHeight(view.bounds);
+        let startY = 0.35*height;
+        
+        
+        emptyHistoryArrow.frame = CGRectMake(0, startY, width, height - 120 - startY)
+        emptyLabelView.center = CGPointMake(width/2, startY - 40);
+        
+
+        emptyHistoryArrow.forceSetup()
+        
+        let upper = UILabel()
+        upper.font = UIFont(name: "Helvetica", size: 20)
+        upper.textColor = .vaavudColor()
+        upper.text = NSLocalizedString("HISTORY_NO_MEASUREMENTS", comment: "")
+        upper.sizeToFit()
+        
+        let lower = UILabel()
+        lower.font = UIFont(name: "Helvetica", size: 15)
+        lower.textColor = .vaavudColor()
+        lower.text =  NSLocalizedString("HISTORY_GO_TO_MEASURE", comment: "")
+        lower.sizeToFit()
+        
+        //emptyLabelView.frame = CGRectMake(0, 0, max(CGRectGetWidth(upper.bounds), CGRectGetWidth(lower.bounds)), 60)
+        upper.center = CGPointMake(CGRectGetMidX(emptyLabelView.bounds), 10);
+        lower.center = CGPointMake(CGRectGetMidX(emptyLabelView.bounds), 45);
+        
+        
+        emptyLabelView.addSubview(upper)
+        emptyLabelView.addSubview(lower)
+        
+        view.addSubview(emptyView)
+        emptyView.addSubview(emptyLabelView)
+        emptyView.addSubview(emptyHistoryArrow)
+        emptyView.alpha = 0
+        
         
         formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
         refreshUnits()
@@ -281,15 +314,20 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     
     func fetchedMeasurements(sessions: [[Session]], sessionDates: [String]) {
         dispatch_async(dispatch_get_main_queue()) {
+            self.spinner.hide()
+            self.emptyView.alpha = 0
             self.tableView.reloadData()
         }
     }
     
     func gotMeasurements() {
         spinner.hide()
+        emptyView.alpha = 0
     }
     
     func noMeasurements() {
-        
+        emptyView.alpha = 1
+        spinner.hide()
+        emptyHistoryArrow.animate()
     }
 }

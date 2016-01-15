@@ -49,6 +49,7 @@ class LoginViewController: UIViewController, LoginDelegate {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: UIBarButtonItem!
     var oldButtonBar: UIBarButtonItem!
+    let activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 20, 20))
     
     
     // MARK: Lifetime
@@ -71,7 +72,7 @@ class LoginViewController: UIViewController, LoginDelegate {
         
         if let email = emailField.text, password = passwordField.text {
             
-            let activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 20, 20))
+            
             activityIndicator.activityIndicatorViewStyle = .Gray
             
             oldButtonBar = navigationItem.rightBarButtonItem
@@ -110,7 +111,12 @@ class LoginViewController: UIViewController, LoginDelegate {
     }
 
     func onError(error: LoginError) {
-        navigationItem.rightBarButtonItem = oldButtonBar
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.activityIndicator.stopAnimating()
+            self.navigationItem.rightBarButtonItem = self.oldButtonBar
+        })
+        
         showError(error)
     }
     
