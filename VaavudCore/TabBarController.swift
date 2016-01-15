@@ -77,7 +77,7 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
         return .All
     }
 
-    func getImageWithColor(color: UIColor, size: CGSize) -> UIImage {
+    func getImageWithColor(color: UIColor, size: CGSize) -> UIImage { // fixme: make swift extension for this
         UIGraphicsBeginImageContextWithOptions(size, false, 0)
         color.setFill()
         UIRectFill(CGRectMake(0, 0, 100, 100))
