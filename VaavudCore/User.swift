@@ -21,6 +21,7 @@ typealias FirebaseDictionary = [String:AnyObject]
 
 struct Device {
     let appVersion: String
+    let appBuild: String // fixme: add this to dictionary if needed
     let model: String
     let vendor: String
     let osVersion: String

@@ -14,7 +14,7 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         button.bounds.size.width = 70
         button.bounds.size.height = tabBar.bounds.height
         button.setImage(UIImage(named: "MeasureButton"), forState: .Normal)
