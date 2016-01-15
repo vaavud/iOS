@@ -16,20 +16,18 @@ struct DeviceSettings: Firebaseable {
     var usesSleipnir: Bool
     var sleipnirClipSideScreen: Bool
     var isDropboxLinked: Bool
-    var timeUnlimited: Int
+    var measuringTime: Int
     var defaultMeasurementScreen: String
-    var defaultFlatVariant: Int
     
-    init(mapHour: Int, hasAskedForLocationAccess: Bool, hasApprovedLocationAccess: Bool, usesSleipnir: Bool, sleipnirClipSideScreen: Bool, isDropboxLinked: Bool, timeUnlimited: Int, defaultMeasurementScreen: String, defaultFlatVariant: Int){
+    init(mapHour: Int, hasAskedForLocationAccess: Bool, hasApprovedLocationAccess: Bool, usesSleipnir: Bool, sleipnirClipSideScreen: Bool, isDropboxLinked: Bool, measuringTime: Int, defaultMeasurementScreen: String) {
         self.mapHour = mapHour
         self.hasAskedForLocationAccess = hasAskedForLocationAccess
         self.hasApprovedLocationAccess = hasApprovedLocationAccess
         self.usesSleipnir = usesSleipnir
         self.sleipnirClipSideScreen = sleipnirClipSideScreen
         self.isDropboxLinked = isDropboxLinked
-        self.timeUnlimited = timeUnlimited
+        self.measuringTime = measuringTime
         self.defaultMeasurementScreen = defaultMeasurementScreen
-        self.defaultFlatVariant = defaultFlatVariant
     }
     
     init?(dict: FirebaseDictionary) {
@@ -39,9 +37,8 @@ struct DeviceSettings: Firebaseable {
         self.usesSleipnir = dict["usesSleipnir"] as! Bool
         self.sleipnirClipSideScreen = dict["sleipnirClipSideScreen"] as! Bool
         self.isDropboxLinked = dict["isDropboxLinked"] as! Bool
-        self.timeUnlimited = dict["timeUnlimited"] as! Int
+        self.measuringTime = dict["measuringTime"] as! Int
         self.defaultMeasurementScreen = dict["defaultMeasurementScreen"] as! String
-        self.defaultFlatVariant = dict["defaultFlatVariant"] as! Int
     }
     
     var fireDict: FirebaseDictionary {
@@ -52,9 +49,8 @@ struct DeviceSettings: Firebaseable {
         dict["usesSleipnir"] = usesSleipnir
         dict["sleipnirClipSideScreen"] = sleipnirClipSideScreen
         dict["isDropboxLinked"] = isDropboxLinked
-        dict["timeUnlimited"] = timeUnlimited
+        dict["measuringTime"] = measuringTime
         dict["defaultMeasurementScreen"] = defaultMeasurementScreen
-        dict["defaultFlatVariant"] = defaultFlatVariant
         
         return dict
     }

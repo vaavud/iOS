@@ -58,7 +58,7 @@ class AuthorizationController: NSObject {
         return true
     }
     
-    func unauth(){
+    func unauth() {
         NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
         firebase.unauth()
     }
@@ -186,35 +186,16 @@ class AuthorizationController: NSObject {
         obtainUserInformation("user", key: uid, callback: callback)
     }
     
-    
-    private func validateUserSettings(){
+    func validateUserSettings() {
+        guard let uid = uid else { fatalError("no uid") }
         
-        guard let uid = uid else {
-            fatalError("no uid")
-        }
-        
-        firebase
-            .childByAppendingPaths("user",uid,"settins")
-            .observeSingleEventOfType(.Value, withBlock: { data in
-                guard let _ = data.value["ios"] as? [String:Bool] else {
-                    self.saveDefaultSettings()
-                    return
-                }
-            })
-    }
-    
-    
-    
-    private func saveDefaultSettings(){
-        
-        guard let uid = uid else {
-            fatalError("no uid")
-        }
-        
-        let defaultSettigns = InstructionsShown().fireDict
-        print(defaultSettigns)
-        
-        firebase.childByAppendingPaths("user",uid,"setting","ios").setValue(defaultSettigns)
+        let ref = firebase.childByAppendingPaths("user", uid, "setting", "ios")
+        ref.observeSingleEventOfType(.Value, withBlock: { data in
+            print(data.value)
+            if data.value is NSNull {
+                ref.setValue(InstructionsShown().fireDict)
+            }
+        })
     }
     
     private func obtainUserInformation(child: String, key: String, callback: FirebaseDictionary -> Void) {
@@ -244,6 +225,15 @@ class AuthorizationController: NSObject {
         let post = ref.childByAutoId()
         post.setValue(deviceObj.fireDict)
         let deviceId = post.key
+        
+        ref.childByAppendingPath("setting").setValue(DeviceSettings(mapHour: 24,
+            hasAskedForLocationAccess: false,
+            hasApprovedLocationAccess: false,
+            usesSleipnir: false,
+            sleipnirClipSideScreen: false,
+            isDropboxLinked: false,
+            measuringTime: 30,
+            defaultMeasurementScreen: "OldMeasureViewController").fireDict)
         
         let preferences = NSUserDefaults.standardUserDefaults()
         preferences.setValue(deviceId, forKey: "deviceId")

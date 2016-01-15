@@ -7,10 +7,8 @@
 //
 
 #import "MapViewController.h"
-#import "MeasurementAnnotation.h"
 #import "CustomSMCalloutDrawnBackgroundView.h"
 #import "MeasurementCalloutView.h"
-#import "LocationManager.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import "Vaavud-Swift.h"
 #import <VaavudSDK/VaavudSDK-Swift.h>
@@ -99,7 +97,6 @@
     self.activityIndicator.hidden = YES;
     
     [self setupMapPosition];
-    
 
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
     
@@ -116,62 +113,65 @@
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"locationManager didFailWithError:%@", error.description);
     self.locationManager = nil;
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:KEY_STORED_LOCATION_LAT] == nil) {
-        [self gotFirstStoredLocation:locations[locations.count - 1] .coordinate];
+    NSLog(@"didUpdateLocations");
+
+    CLLocationCoordinate2D location = locations[locations.count - 1].coordinate;
+    if (CLLocationCoordinate2DIsValid(location)) {
+        [self gotValidLocation:location];
     }
+}
+
+-(void)gotValidLocation:(CLLocationCoordinate2D)location {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setDouble:location.latitude forKey:KEY_STORED_LOCATION_LAT];
+    [defaults setDouble:location.longitude forKey:KEY_STORED_LOCATION_LON];
+    [defaults synchronize];
+
+    if (!self.didScroll) {
+        [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(location, 200000, 200000) animated:YES];
+    }
+    
     [self.locationManager stopUpdatingLocation];
     self.locationManager.delegate = nil;
     self.locationManager = nil;
 }
 
--(void)gotFirstStoredLocation:(CLLocationCoordinate2D)location {
+-(CLLocationCoordinate2D)storedLocation {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    CLLocationDegrees lat = [defaults doubleForKey:KEY_STORED_LOCATION_LAT];
+    CLLocationDegrees lon = [defaults doubleForKey:KEY_STORED_LOCATION_LON];
     
-    [defaults setDouble:location.latitude forKey:KEY_STORED_LOCATION_LAT];
-    [defaults setDouble:location.longitude forKey:KEY_STORED_LOCATION_LON];
-    [defaults synchronize];
-    
-    if (!self.didScroll) {
-        [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(location, 200000, 200000) animated:YES];
+    if (lat == 0.0 && lon == 0.0) {
+        return CLLocationCoordinate2DMake(55.676111, 12.568333);
     }
+    
+    return CLLocationCoordinate2DMake(lat, lon);
 }
 
 -(void)setupMapPosition {
-    CLLocationCoordinate2D loc;
+    [self.mapView setRegion:MKCoordinateRegionMakeWithDistance([self storedLocation], 200000, 200000) animated:YES];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults objectForKey:KEY_STORED_LOCATION_LAT] != nil) {
-        CLLocationDegrees lat = [defaults doubleForKey:KEY_STORED_LOCATION_LAT];
-        CLLocationDegrees lon = [defaults doubleForKey:KEY_STORED_LOCATION_LON];
-        
-        loc = CLLocationCoordinate2DMake(lat, lon);
-    }
-    else {
-        loc = CLLocationCoordinate2DMake(55.676111, 12.568333);
-        CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
-        
-        if (authorizationStatus == kCLAuthorizationStatusRestricted || authorizationStatus == kCLAuthorizationStatusDenied) {
-            return;
-        }
-        
-        self.locationManager = [[CLLocationManager alloc] init];
-        self.locationManager.delegate = self;
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        self.locationManager.distanceFilter = kCLDistanceFilterNone;
-        
-        if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
-            [self.locationManager requestWhenInUseAuthorization];
-        }
-        else if ([CLLocationManager locationServicesEnabled]) {
-            [self.locationManager startUpdatingLocation];
-        }
+    CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
+    if (authorizationStatus == kCLAuthorizationStatusRestricted || authorizationStatus == kCLAuthorizationStatusDenied) {
+        return;
     }
     
-    [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(loc, 200000, 200000) animated:YES];
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    
+    if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    else if ([CLLocationManager locationServicesEnabled]) {
+        [self.locationManager startUpdatingLocation];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
@@ -181,7 +181,7 @@
 }
 
 - (BOOL)isDanish {
-    return YES;
+    return YES; // fixme: remove
     return [[[[NSLocale preferredLanguages] firstObject] substringToIndex:2] isEqualToString:@"da"];
 }
 
@@ -336,7 +336,7 @@
         }
     }
     
-    [self addPin:[LocationManager sharedInstance].storedLocation];
+    [self addPin:[self storedLocation]];
 }
 
 - (void)workingWithIncompleteAnnotations:(FDataSnapshot *)data {
@@ -476,16 +476,11 @@
 }
 
 - (void)refreshPendingAnnotations {
-    for (NSString* key in self.pendingSessions) {
-        MeasurementAnnotation *mesAnnotation = (MeasurementAnnotation *)self.pendingSessions[key];
-        
-        if(mesAnnotation != nil){
-            [self.mapView addAnnotation:mesAnnotation];
-            self.currentSessions[key] = mesAnnotation;
-            self.pendingSessions[key] = nil;
-            
-            NSLog(@"adding pending  %@ session ", key);
-        }
+    for (NSString *key in self.pendingSessions.allKeys) {
+        MeasurementAnnotation *annotation = (MeasurementAnnotation *)self.pendingSessions[key];
+        [self.mapView addAnnotation:annotation];
+        self.currentSessions[key] = annotation;
+        self.pendingSessions[key] = nil;
     }
 }
 
@@ -522,8 +517,6 @@
      observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
          [self addAnnotation: snapshot];
      }];
-    
-    NSLog(@"current time %@ session ", currentTime);
     
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
      observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
@@ -676,8 +669,6 @@
         
         UIView *containerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 280, height)];
         
-        containerView.backgroundColor = [UIColor redColor];
-
         NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"MeasurementCalloutView" owner:self options:nil];
         self.measurementCalloutView = (MeasurementCalloutView *)[topLevelObjects objectAtIndex:0];
         self.measurementCalloutView.frame = CGRectMake(0, 0, 280, height);

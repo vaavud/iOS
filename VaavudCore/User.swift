@@ -46,8 +46,6 @@ struct Device {
 //    }
     
     var fireDict : FirebaseDictionary {
-        print(self)
-        
         return ["appVersion" : appVersion, "model" : model, "vendor" : vendor, "osVersion" : osVersion, "uid" : uid, "created" : created ?? [".sv": "timestamp"]]
     }
 }

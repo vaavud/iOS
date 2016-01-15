@@ -13,11 +13,9 @@ import Firebase
 func parseSnapshot(callback: [String : AnyObject] -> ()) -> FDataSnapshot! -> () {
     return { snap in
         if let dict = snap.value as? [String : AnyObject] {
-            print("parseSnapshot dict: \(dict)")
             callback(dict)
         }
         else {
-            print("parseSnapshot key/value: \([snap.key : snap.value])")
             callback([snap.key : snap.value])
         }
     }
@@ -55,7 +53,7 @@ class CoreSettingsTableViewController: UITableViewController {
     
     private lazy var deviceSettings = { return Firebase(url: firebaseUrl).childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting") }()
 
-    private var handles = [UInt]()
+    private var deviceHandle: UInt!
     
     private var formatterHandle: String!
     
@@ -72,35 +70,27 @@ class CoreSettingsTableViewController: UITableViewController {
         
         dropboxControl.on = DBSession.sharedSession().isLinked()
         
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasLoggedInOut:", name: KEY_DID_LOGINOUT, object: nil)
-        
         // fixme: actually use notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: "dropboxIsLinked", object: nil)
 
-        //        NSNotificationCenter.defaultCenter().addObserver(self, selector: "modelChanged:", name: KEY_WINDMETERMODEL_CHANGED, object: nil)
-
         formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
         refreshUnits()
-
-        handles.append(deviceSettings.observeEventType(.Value, withBlock: parseSnapshot(refreshDeviceSettings)))
         
-//        let deviceId = AuthorizationController.shared.deviceId
-//        let deviceSettings = firebase.childByAppendingPaths("device", deviceId, "setting")
-//        deviceSettings.observeEventType(.ChildChanged, withBlock: { print("---device changed: #\($0)") })
-        
-//        deviceSettings.observeEventType(.Value, withBlock: { print("snappp change: \($0)") })
+        deviceHandle = deviceSettings.observeEventType(.Value, withBlock: parseSnapshot(refreshDeviceSettings))
     }
     
     func refreshDeviceSettings(dict: [String : AnyObject]) {
         print("refreshDeviceSettings: \(dict)")
-        
-        let _ = (dict["usesSleipnir"] as? Bool).map(refreshWindmeterModel)
-        let _ = (dict["sleipnirClipSideScreen"] as? Bool).map(refreshSleipnirClipSide)
+
+        _ = (dict["usesSleipnir"] as? Bool).map(refreshWindmeterModel)
+        _ = (dict["sleipnirClipSideScreen"] as? Bool).map(refreshSleipnirClipSide)
+        _ = (dict["measuringTime"] as? Int).map(refreshTimeLimit)
     }
     
     deinit {
         VaavudFormatter.shared.stopObserving(formatterHandle)
-        let _ = handles.map(deviceSettings.removeObserverWithHandle)
+        deviceSettings.removeObserverWithHandle(deviceHandle)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     @IBAction func logoutTapped(sender: UIBarButtonItem) {
@@ -115,18 +105,8 @@ class CoreSettingsTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-//        let sharedSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
-//        handles.append(sharedSettings.observeEventType(.ChildChanged, withBlock: parseSnapshot(readUnits)))
-        
-//        refreshWindmeterModel()
-//        refreshTimeLimit()
-        
 //        let iosSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "ios", "mapGuideMarkerShown")
 //        iosSettings.setValue(Int(rand()))
-//
-//        let deviceId = AuthorizationController.shared.deviceId
-//        let deviceSettings = firebase.childByAppendingPaths("device", deviceId, "setting")
-//        deviceSettings.childByAppendingPath("usesSleipnir").setValue(Int(rand()))
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -139,12 +119,7 @@ class CoreSettingsTableViewController: UITableViewController {
         logHelper.ended()
     }
     
-//    func modelChanged(note: NSNotification) {
-//        refreshWindmeterModel()
-//    }
-    
     func refreshUnits() {
-        print("Settings: Refresh units")
         speedUnitControl.selectedSegmentIndex = VaavudFormatter.shared.speedUnit.index
         directionUnitControl.selectedSegmentIndex = VaavudFormatter.shared.directionUnit.index
         temperatureUnitControl.selectedSegmentIndex = VaavudFormatter.shared.temperatureUnit.index
@@ -171,12 +146,6 @@ class CoreSettingsTableViewController: UITableViewController {
         limitControl.selectedSegmentIndex = timeLimit == 0 ? 1 : 0
     }
     
-//    func unitsChanged(note: NSNotification) {
-//        if note.object as? CoreSettingsTableViewController != self {
-//            readUnits()
-//        }
-//    }
-    
     func dropboxLinkedStatus(note: NSNotification) {
         if let isDropboxLinked = note.object as? NSNumber.BooleanLiteralType {
             dropboxControl.on = isDropboxLinked
@@ -188,10 +157,6 @@ class CoreSettingsTableViewController: UITableViewController {
         LogHelper.log(event: "Changed-Unit", properties: ["place" : "settings", "type" : unitType])
         logHelper.increase()
     }
-    
-//    deinit {
-//        NSNotificationCenter.defaultCenter().removeObserver(self)
-//    }
     
     // MARK: User actions
     
