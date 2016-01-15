@@ -1,14 +1,3 @@
-//NSString * const KEY_CREATION_TIME = @"creationTime";
-//NSString * const KEY_DEVICE_UUID = @"deviceUuid";
-//NSString * const KEY_AUTH_TOKEN = @"authToken";
-//NSString * const KEY_APP = @"app";
-//NSString * const KEY_APP_VERSION = @"appVersion";
-//NSString * const KEY_APP_BUILD = @"appBuild"; //TODO
-//NSString * const KEY_OS = @"os";
-//NSString * const KEY_OS_VERSION = @"osVersion";
-//NSString * const KEY_MODEL = @"model";
-//NSString * const KEY_COUNTRY = @"country";
-//NSString * const KEY_LANGUAGE = @"language";
 //NSString * const KEY_WIND_SPEED_UNIT = @"windSpeedUnit"; //User
 //NSString * const KEY_DIRECTION_UNIT = @"directionUnit"; //User
 //NSString * const KEY_MAP_HOURS = @"mapHours"; //Device
@@ -41,30 +30,13 @@
 //NSString * const KEY_AUTHENTICATION_STATE = @"authenticationState";
 //NSString * const KEY_USER_HAS_WIND_METER = @"userHasWindMeter";
 //
-//// Agri-related properties
-//NSString * const KEY_AGRI_VALID_SUBSCRIPTION = @"agriValidSubscription";
-//NSString * const KEY_AGRI_DEFAULT_REDUCING_EQUIPMENT = @"agriDefaultReducingEquipment";
-//NSString * const KEY_AGRI_DEFAULT_DOSE = @"agriDefaultDose";
-//NSString * const KEY_AGRI_DEFAULT_BOOM_HEIGHT = @"agriDefaultBoomHeight";
-//NSString * const KEY_AGRI_DEFAULT_SPRAY_QUALITY = @"agriDefaultSprayQuality";
-//
-//// This is new
-//NSString * const KEY_AGRI_TEST_MODE = @"testMode";
+// This is new
 //NSString * const KEY_HAS_SEEN_UPGRADE_FLOW = @"hasSeenUpgradeFlow";
-//
-//NSString * const KEY_TEMPERATURE_UNIT = @"temperatureUnit"; //User
-//NSString * const KEY_PRESSURE_UNIT = @"pressureUnit"; //User
-//
-//NSString * const KEY_UNIT_CHANGED = @"unitChanged";
-//
+////
 //NSString * const KEY_LOCATION_HAS_ASKED = @"hasAskedForLocationAccess"; //Device
 //NSString * const KEY_LOCATION_HAS_APPROVED = @"hasApprovedLocationAccess"; //Device
 //NSString * const KEY_HAS_CALIBRATED = @"hasCalibrated";
 //
-//NSString * const KEY_USES_SLEIPNIR = @"usesSleipnir"; //Device
-//NSString * const KEY_SLEIPNIR_ON_FRONT = @"sleipnirClipSideScreen"; //Device
-//
-//NSString * const KEY_DID_LOGINOUT = @"DidLogInOut";
 //NSString * const KEY_IS_DROPBOXLINKED = @"isDropboxLinked"; //Device
 //NSString * const KEY_WINDMETERMODEL_CHANGED = @"WindmeterModelChange";
 //NSString * const KEY_HISTORY_SYNCED = @"HistorySynced";
@@ -83,6 +55,7 @@
 //NSString * const KEY_SHARE_OVERLAY_SHOWN = @"shareOverlayShown"; //User
 //NSString * const KEY_DEFAULT_SCREEN = @"defaultMeasurementScreen"; //Device
 //NSString * const KEY_DEFAULT_FLAT_VARIANT = @"defaultFlatVariant"; //Device
+
 //NSString * const KEY_NOTIFICATION_TYPE = @"notificationType";
 //NSString * const KEY_NOTIFICATION_RADIUS = @"notificationRadius";
 //
