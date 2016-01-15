@@ -57,12 +57,6 @@ class CoreSettingsTableViewController: UITableViewController {
     
     private var formatterHandle: String!
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        print("init")
-    }
-    
     override func viewDidLoad() {
         hideVolumeHUD()
         

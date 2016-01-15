@@ -48,6 +48,7 @@
 @property (nonatomic) CLLocationManager *locationManager;
 
 
+
 @end
 
 @implementation MapViewController
@@ -548,6 +549,23 @@
     }
 }
 
+-(void)reloadForecastCallouts {
+    for (id<MKAnnotation> annotation in self.mapView.annotations) {
+        if ([annotation isKindOfClass:[ForecastAnnotation class]]) {
+            MKAnnotationView *view = [self.mapView viewForAnnotation:annotation];
+            if (view) {
+                [self reloadAnnotationView:view];
+            }
+        }
+    }
+}
+
+-(void)reloadAnnotationView:(MKAnnotationView *)view {
+    if ([view.leftCalloutAccessoryView isKindOfClass:[ForecastCalloutView class]]) {
+        [(ForecastCalloutView *)view.leftCalloutAccessoryView reload];
+    }
+}
+
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     // If it's the user location, just return nil.
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
@@ -810,6 +828,8 @@
 - (void)unitChanged {
     [self refreshUnitButton];
     [self refreshMeasurementAnnotations];
+    
+    [self reloadForecastCallouts];
 }
 
 - (void)refreshUnitButton {

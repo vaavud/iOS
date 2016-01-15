@@ -114,11 +114,6 @@ class ForecastCalloutView: UIView {
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.8
         addSubview(label)
-
-//        icon.backgroundColor = UIColor.greenColor()
-//        empty.backgroundColor = UIColor.yellowColor()
-//        label.backgroundColor = UIColor.redColor().colorWithAlpha(0.2)
-//        arrowView.backgroundColor = UIColor.blackColor().colorWithAlpha(0.2)
     }
     
     func setup(annotation: ForecastAnnotation) {
@@ -127,10 +122,13 @@ class ForecastCalloutView: UIView {
         }
         
         data = annotation.data
-        
+        reload()
+    }
+
+    func reload() {
         let ahead = mapForecastHours // fixme: store?
         
-        if let newData = annotation.data where newData.count > ahead {
+        if let newData = data where newData.count > ahead {
             let unit = VaavudFormatter.shared.speedUnit
             let dataPoint = newData[ahead]
             
@@ -146,7 +144,7 @@ class ForecastCalloutView: UIView {
             icon.alpha = 0
         }
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
