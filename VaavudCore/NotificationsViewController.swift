@@ -32,27 +32,27 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocati
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.locationManager.delegate = self
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        //self.locationManager.distanceFilter = 10
-        self.locationManager.requestWhenInUseAuthorization()
-        self.locationManager.startUpdatingLocation()
-        
-        
-        let ref = firebase.childByAppendingPath("subscription")
-        ref.queryOrderedByChild("uid").queryEqualToValue(firebase.authData.uid).observeEventType(.ChildAdded, withBlock: { snapshot in
-            
-            guard let location = snapshot.value["location"] as? [String:Double] else {
-                return
-            }
-            
-            if let lat = location["lat"], lon = location["lon"] {
-                let annotation = MKPointAnnotation()
-                annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-                self.mapView.addAnnotation(annotation)
-            }
-        })
+//        
+//        self.locationManager.delegate = self
+//        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        //self.locationManager.distanceFilter = 10
+//        self.locationManager.requestWhenInUseAuthorization()
+//        self.locationManager.startUpdatingLocation()
+//        
+//        
+//        let ref = firebase.childByAppendingPath("subscription")
+//        ref.queryOrderedByChild("uid").queryEqualToValue(firebase.authData.uid).observeEventType(.ChildAdded, withBlock: { snapshot in
+//            
+//            guard let location = snapshot.value["location"] as? [String:Double] else {
+//                return
+//            }
+//            
+//            if let lat = location["lat"], lon = location["lon"] {
+//                let annotation = MKPointAnnotation()
+//                annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+//                self.mapView.addAnnotation(annotation)
+//            }
+//        })
 
         
     }

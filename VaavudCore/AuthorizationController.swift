@@ -296,12 +296,27 @@ class AuthorizationController: NSObject {
         }
     }
     
-    // MARK - tatic convenience methods
+    // MARK - Static convenience methods
     
     static var deviceModel: String {
         var systemInfo = utsname()
         uname(&systemInfo)
         return NSString(bytes: &systemInfo.machine, length: Int(_SYS_NAMELEN), encoding: NSASCIIStringEncoding)! as String
+    }
+    
+    class var platform: String {
+        var sysInfo: [CChar] = Array(count: sizeof(utsname), repeatedValue: 0)
+        
+        // We need to get to the underlying memory of the array:
+        let machine = sysInfo.withUnsafeMutableBufferPointer {
+            (inout ptr: UnsafeMutableBufferPointer<CChar>) -> String in
+            uname(UnsafeMutablePointer<utsname>(ptr.baseAddress))
+            let machinePtr = ptr.baseAddress.advancedBy(Int(_SYS_NAMELEN * 4))
+            
+            // Create a Swift string from the C string
+            return String.fromCString(machinePtr)!
+        }
+        return machine
     }
     
     static var deviceIsIphone4: Bool {

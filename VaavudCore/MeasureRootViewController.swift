@@ -94,11 +94,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var elapsedSinceUpdate: Double = 0
     private var windSpeedsSaved = 0
     
-//    private var maxSpeed: Double = 0
-//    private var avgSpeed: Double { return speedsSum/Double(speedsCount) }
-//    private var speedsSum: Double = 0
-//    private var speedsCount = 0
-    
     private var logHelper = LogHelper(.Measure)
 
     private var session: Session!
@@ -117,13 +112,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         super.init(coder: aDecoder)
         
         VaavudSDK.shared.windSpeedCallback = newWindSpeed
-        
+        VaavudSDK.shared.locationCallback = newLocation
+        VaavudSDK.shared.errorCallback = { err in print(err) }
+
         if model == .Sleipnir {
             deviceSettings.childByAppendingPath("usesSleipnir").setValue(true)
             
             VaavudSDK.shared.windDirectionCallback = newWindDirection
             VaavudSDK.shared.headingCallback = newHeading
-            VaavudSDK.shared.locationCallback = newLocation
             VaavudSDK.shared.velocityCallback = newVelocity
         }
         
@@ -144,8 +140,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         hideVolumeHUD()
         cancelButton.setup()
-
-        // fixme: check?
         updateUnitButton()
 
         variantButton.imageView?.contentMode = .ScaleAspectFit
@@ -178,7 +172,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         view.bringSubviewToFront(errorOverlayBackground)
         view.bringSubviewToFront(cancelButton)
 
-        let start = NSDate()
+        let start = NSDate() // fixme: remove
 
         deviceSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot { dict in
             let flipped = dict["sleipnirClipSideScreen"] as? Bool ?? false
@@ -226,8 +220,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         logHelper.began(["time-limit" : state.timed ?? 0, "device" : model.rawValue.capitalizedString])
         elapsedSinceUpdate = 0
-
-        //        mixpanelSend("Started")
     }
 
     func tick(link: CADisplayLink) {
@@ -538,9 +530,11 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func newLocation(event: LocationEvent) {
+        print("newLocation \(event)")
     }
 
     func newVelocity(event: VelocityEvent) {
+        print("newVelocity \(event)")
     }
     
     // Mark - Page View Controller Delegate

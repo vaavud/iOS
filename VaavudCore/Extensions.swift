@@ -140,6 +140,17 @@ func clamp(x: CGFloat) -> CGFloat {
     return x
 }
 
+extension UIImage {
+    class func image(color: UIColor, size: CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        color.setFill()
+        UIRectFill(CGRectMake(0, 0, 100, 100))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+}
+
 extension UIViewController {
     func hideVolumeHUD() {
         view.addSubview(MPVolumeView(frame: CGRect(x: -1000, y: -1000, width: 100, height: 100)))

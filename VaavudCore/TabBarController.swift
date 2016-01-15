@@ -15,6 +15,19 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(AuthorizationController.deviceModel)
+        print(AuthorizationController.platform)
+        
+        let mobileVersion =  UIDevice.currentDevice().systemVersion
+        let appVersion = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String
+        let model = AuthorizationController.deviceModel
+        let vendor = "Apple"
+        
+        let deviceObj = Device(appVersion: appVersion, model: model, vendor: vendor, osVersion: mobileVersion, uid: "ffff")
+        
+        print("device: \(deviceObj)")
+
+        
         button.bounds.size.width = 70
         button.bounds.size.height = tabBar.bounds.height
         button.setImage(UIImage(named: "MeasureButton"), forState: .Normal)
@@ -76,15 +89,6 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
         return .All
     }
-
-    func getImageWithColor(color: UIColor, size: CGSize) -> UIImage { // fixme: make swift extension for this
-        UIGraphicsBeginImageContextWithOptions(size, false, 0)
-        color.setFill()
-        UIRectFill(CGRectMake(0, 0, 100, 100))
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
-    }
     
     override func viewWillLayoutSubviews() {
         let width = tabBar.bounds.width / CGFloat(tabBar.items!.count)
@@ -92,8 +96,7 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
         
         if width == laidOutWidth { return }
         
-        let size = CGSize(width: width, height: height)
-        tabBar.selectionIndicatorImage = getImageWithColor(UIColor.vaavudTabbarSelectedColor(), size: size)
+        tabBar.selectionIndicatorImage = UIImage.image(UIColor.vaavudTabbarSelectedColor(), size: CGSize(width: width, height: height))
         
         button.center = tabBar.bounds.center
         laidOutWidth = width

@@ -71,14 +71,14 @@ class NewMapViewController: UIViewController, MKMapViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapView.delegate = self
-        mapView.mapType = .Hybrid
-        
-        if (isDanish()) {
-            addLongPress()
-        }
-
-        setupFirebase()
+//        mapView.delegate = self
+//        mapView.mapType = .Hybrid
+//        
+//        if (isDanish()) {
+//            addLongPress()
+//        }
+//
+//        setupFirebase()
     }
     
     deinit {

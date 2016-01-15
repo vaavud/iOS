@@ -172,6 +172,7 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
 //            print("my test \(snapshot.key)")
 //        })
         
+        
         spinner.alpha = 0.4
         spinner.center = tableView.bounds.moveY(-64).center
         tableView.addSubview(spinner)
