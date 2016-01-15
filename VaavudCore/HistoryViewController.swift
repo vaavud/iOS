@@ -167,11 +167,6 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         super.viewDidLoad()
         
         
-        let ref = Firebase(url: firebaseUrl).childByAppendingPath("session")
-        let time = 1452688484638
-        ref.queryOrderedByChild("timeStart").queryEqualToValue(time).observeEventType(.ChildChanged, withBlock: { snapshot in
-            print("my test \(snapshot.key)")
-        })
         
         spinner.alpha = 0.4
         spinner.center = tableView.bounds.moveY(-64).center
@@ -239,8 +234,8 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         if editingStyle == .Delete {
             let deletedSession = controller.sessionss[indexPath.section][indexPath.row]
         
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
             controller.removeItem(deletedSession, section: indexPath.section, row: indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         
         }
     }

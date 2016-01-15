@@ -35,6 +35,14 @@
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
     
+    
+    
+    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
+    [application registerUserNotificationSettings:notificationSettings];
+    [application registerForRemoteNotifications];
+    
+    
+    
     TMCache *cache = [TMCache sharedCache];
     cache.diskCache.ageLimit = 24.0*3600.0;
     
@@ -73,7 +81,9 @@
         vc = nav;
     }
     else {
-        vc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateInitialViewController];
+//        vc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateInitialViewController];
+        UIStoryboard *sb  = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+        vc = [sb instantiateInitialViewController];
     }
 
     [parent addChildViewController:vc];
@@ -81,6 +91,7 @@
     [vc didMoveToParentViewController:parent];
 
     [self.window makeKeyAndVisible];
+    
 
     return YES;
 }
@@ -134,6 +145,18 @@
         [dict setObject:val forKey:key];
     }
     return dict;
+}
+
+
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    NSLog(@"token---%@", token);
+}
+
+
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
+    NSLog(@"Error in registration. Error: %@", err);
 }
 
 
