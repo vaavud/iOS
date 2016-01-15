@@ -119,8 +119,8 @@
 
 - (CLLocationCoordinate2D)getLatesLocation {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    CLLocationDegrees lat = [defaults doubleForKey:@"LOCATION_LAT"];
-    CLLocationDegrees lon = [defaults doubleForKey:@"LOCATION_LON"];
+    CLLocationDegrees lat = [defaults doubleForKey:KEY_STORED_LOCATION_LAT];
+    CLLocationDegrees lon = [defaults doubleForKey:KEY_STORED_LOCATION_LON];
     
     return CLLocationCoordinate2DMake(lat, lon);
 }
@@ -632,7 +632,7 @@
         
         //NSLog(@"zoomLevel=%f", [self.mapView getZoomLevel]);
         
-        if ([self.mapView getZoomLevel] <= 5) {
+        if ([self.mapView getZoomLevel] <= 7) {
             nearbyAnnotations = [NSArray array];
         }
         else {
