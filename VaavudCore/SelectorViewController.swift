@@ -40,8 +40,9 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
         view.addSubview(bg)
         view.addSubview(spinner)
         
-        
+        FBSDKLoginManager().logOut()
         facebookView.delegate = self
+        
     }
     
     
@@ -49,6 +50,7 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
         print("User Logged In")
         
         if error != nil || result.isCancelled {
+            print(error)
             //VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: LoginError.Facebook.rawValue, otherKey: "BUTTON_OK", action: {}, on: self)
         }
         else {

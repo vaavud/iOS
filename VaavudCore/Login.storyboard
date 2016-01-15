@@ -97,7 +97,7 @@
                                     <segue destination="Sn2-Tn-qNa" kind="embed" id="N17-zK-gxO"/>
                                 </connections>
                             </containerView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo-login" translatesAutoresizingMaskIntoConstraints="NO" id="mIN-KA-32B">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="logo-login" translatesAutoresizingMaskIntoConstraints="NO" id="mIN-KA-32B">
                                 <rect key="frame" x="33" y="8" width="255" height="127"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="127" id="ubz-Kj-9hG"/>
