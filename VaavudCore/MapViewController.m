@@ -94,11 +94,11 @@
     
     self.activityIndicator.hidden = YES;
     
-    CLLocationCoordinate2D location = [LocationManager sharedInstance].latestLocation;
+    CLLocationCoordinate2D location = [self getLatesLocation];
     
-    if (![LocationManager isCoordinateValid:location]) {
-        location = [LocationManager sharedInstance].storedLocation;
-    }
+//    if (![LocationManager isCoordinateValid:location]) {
+//        location = [LocationManager sharedInstance].storedLocation;
+//    }
     
     [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(location, 200000, 200000) animated:YES];
 
@@ -114,6 +114,15 @@
     }
     
     [self setupFirebase];
+}
+
+
+- (CLLocationCoordinate2D)getLatesLocation {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    CLLocationDegrees lat = [defaults doubleForKey:@"LOCATION_LAT"];
+    CLLocationDegrees lon = [defaults doubleForKey:@"LOCATION_LON"];
+    
+    return CLLocationCoordinate2DMake(lat, lon);
 }
 
 - (BOOL)isDanish {
@@ -624,7 +633,7 @@
         
         //NSLog(@"zoomLevel=%f", [self.mapView getZoomLevel]);
         
-        if ([self.mapView getZoomLevel] <= 2) {
+        if ([self.mapView getZoomLevel] <= 5) {
             nearbyAnnotations = [NSArray array];
         }
         else {
