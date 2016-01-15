@@ -157,6 +157,8 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     private var controller: HistoryController!
     private let spinner = MjolnirSpinner(frame: CGRectMake(0, 0, 100, 100))
     private var formatterHandle: String!
+    let emptyHistoryArrow = EmptyHistoryArrow()
+    lazy var emptyView : UIView = {UIView(frame: self.view.bounds)}()
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -166,17 +168,22 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let ref = Firebase(url: firebaseUrl).childByAppendingPath("session")
-//        let time = 1452688484638
-//        ref.queryOrderedByChild("timeStart").queryEqualToValue(time).observeEventType(.ChildChanged, withBlock: { snapshot in
-//            print("my test \(snapshot.key)")
-//        })
-        
-        
         spinner.alpha = 0.4
         spinner.center = tableView.bounds.moveY(-64).center
         tableView.addSubview(spinner)
         spinner.show()
+        
+        let width = CGRectGetWidth(view.bounds);
+        let height = CGRectGetHeight(view.bounds);
+        let startY = 0.35*height;
+        
+        emptyHistoryArrow.frame = CGRectMake(0, startY, width, height - 120 - startY)
+        emptyView.addSubview(emptyHistoryArrow)
+        emptyView.alpha = 0
+
+        emptyHistoryArrow.forceSetup()
+        
+        view.addSubview(emptyView)
         
         formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
         refreshUnits()
@@ -287,9 +294,12 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     
     func gotMeasurements() {
         spinner.hide()
+        emptyView.alpha = 0
     }
     
     func noMeasurements() {
-        
+        emptyView.alpha = 1
+        spinner.hide()
+        emptyHistoryArrow.animate()
     }
 }
