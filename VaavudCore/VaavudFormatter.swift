@@ -204,20 +204,14 @@ class VaavudFormatter: NSObject {
     private override init() {
         dateFormatter.locale = NSLocale.currentLocale()
         shortDateFormat = NSDateFormatter.dateFormatFromTemplate("MMMMd", options: 0, locale: dateFormatter.locale)!
-        
         super.init()
         
-        print("Init formatter, adding firebase callback")
-        
         let sharedSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
-        
         handle = sharedSettings.observeEventType(.ChildChanged, withBlock: parseSnapshot(updateUnits))
         sharedSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot(updateUnits) )
     }
     
     private func updateUnits(dict: [String : AnyObject]) {
-        print("Formatter updateUnits units \(dict)")
-
         if let key = dict[SpeedUnit.unitKey] as? String, unit = SpeedUnit(rawValue: key) {
             _speedUnit = unit
         }

@@ -15,19 +15,6 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(AuthorizationController.deviceModel)
-        print(AuthorizationController.platform)
-        
-        let mobileVersion =  UIDevice.currentDevice().systemVersion
-        let appVersion = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as! String
-        let model = AuthorizationController.deviceModel
-        let vendor = "Apple"
-        
-        let deviceObj = Device(appVersion: appVersion, model: model, vendor: vendor, osVersion: mobileVersion, uid: "ffff")
-        
-        print("device: \(deviceObj)")
-
-        
         button.bounds.size.width = 70
         button.bounds.size.height = tabBar.bounds.height
         button.setImage(UIImage(named: "MeasureButton"), forState: .Normal)
