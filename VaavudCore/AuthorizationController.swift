@@ -207,8 +207,6 @@ class AuthorizationController: NSObject {
         
         let deviceObj = Device(appVersion: appVersion, model: model, vendor: vendor, osVersion: mobileVersion, uid: uid)
         
-        print("device: \(deviceObj)")
-        
         let ref = firebase.childByAppendingPath("device")
         let post = ref.childByAutoId()
         post.setValue(deviceObj.fireDict)
@@ -218,9 +216,6 @@ class AuthorizationController: NSObject {
         preferences.setValue(deviceId, forKey: "deviceId")
         preferences.synchronize()
         
-        print(deviceId)
-        print(data)
-            
         self.uid = uid
         self._deviceId = deviceId
         
@@ -298,13 +293,7 @@ class AuthorizationController: NSObject {
     
     // MARK - Static convenience methods
     
-    static var deviceModel: String {
-        var systemInfo = utsname()
-        uname(&systemInfo)
-        return NSString(bytes: &systemInfo.machine, length: Int(_SYS_NAMELEN), encoding: NSASCIIStringEncoding)! as String
-    }
-    
-    class var platform: String {
+    class var deviceModel: String {
         var sysInfo: [CChar] = Array(count: sizeof(utsname), repeatedValue: 0)
         
         // We need to get to the underlying memory of the array:
@@ -321,6 +310,10 @@ class AuthorizationController: NSObject {
     
     static var deviceIsIphone4: Bool {
         return deviceModel.hasPrefix("iPhone3")
+    }
+    
+    static var deviceIsIphone6: Bool {
+        return deviceModel.hasPrefix("iPhone7")
     }
 
 }
