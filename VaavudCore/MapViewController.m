@@ -720,6 +720,9 @@
         
         self.isSelectingFromTableView = NO;
 	}
+    else if ([view.annotation isKindOfClass:[ForecastAnnotation class]]) {
+        [self reloadAnnotationView:view];
+    }
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
