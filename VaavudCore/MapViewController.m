@@ -567,7 +567,7 @@
 
 -(void)reloadAnnotationView:(MKAnnotationView *)view {
     if ([view.leftCalloutAccessoryView isKindOfClass:[ForecastCalloutView class]]) {
-        [(ForecastCalloutView *)view.leftCalloutAccessoryView reload];
+        //[(ForecastCalloutView *)view.leftCalloutAccessoryView reload];
     }
 }
 
