@@ -56,40 +56,40 @@ struct DeviceSettings: Firebaseable {
     }
 }
 
-struct UserSettings: Firebaseable {
-    var windSpeedUnit: String
-    var windDirectionUnit: String
-    var temperatireUnit: String
-    var pressureUnit: String
-    var mapForecastHours: Int
-    
-    init(windSpeedUnit: String, windDirectionUnit: String, temperatireUnit: String, pressureUnit: String, mapForecastHours: Int) {
-        self.windSpeedUnit = windSpeedUnit
-        self.windDirectionUnit = windDirectionUnit
-        self.temperatireUnit = temperatireUnit
-        self.pressureUnit = pressureUnit
-        self.mapForecastHours = mapForecastHours
-    }
-    
-    init?(dict: FirebaseDictionary) {
-        //self.windSpeedUnit = WindSpeedUnit(key: data["windSpeedUnit"] as? String)
-        self.windSpeedUnit =  dict["windSpeedUnit"] as? String ?? "TODO"
-        self.windDirectionUnit = dict["windDirectionUnit"] as? String ?? "TODO"
-        self.temperatireUnit = dict["temperatireUnit"] as? String ?? "TODO"
-        self.pressureUnit = dict["pressureUnit"] as? String ?? "TODO"
-        self.mapForecastHours = dict["mapForecastHours"] as? Int ?? 0
-    }
-    
-    var fireDict: FirebaseDictionary {
-        var dict = FirebaseDictionary()
-        dict["windSpeedUnit"] = windSpeedUnit
-        dict["windDirectionUnit"] = windDirectionUnit
-        dict["temperatireUnit"] = temperatireUnit
-        dict["pressureUnit"] = pressureUnit
-        dict["mapForecastHours"] = mapForecastHours
-        return dict
-    }
-}
+//struct UserSettings: Firebaseable {
+//    var windSpeedUnit: String
+//    var windDirectionUnit: String
+//    var temperatireUnit: String
+//    var pressureUnit: String
+//    var mapForecastHours: Int
+//    
+//    init(windSpeedUnit: String, windDirectionUnit: String, temperatireUnit: String, pressureUnit: String, mapForecastHours: Int) {
+//        self.windSpeedUnit = windSpeedUnit
+//        self.windDirectionUnit = windDirectionUnit
+//        self.temperatireUnit = temperatireUnit
+//        self.pressureUnit = pressureUnit
+//        self.mapForecastHours = mapForecastHours
+//    }
+//    
+//    init?(dict: FirebaseDictionary) {
+//        //self.windSpeedUnit = WindSpeedUnit(key: data["windSpeedUnit"] as? String)
+//        self.windSpeedUnit =  dict["windSpeedUnit"] as? String ?? "TODO"
+//        self.windDirectionUnit = dict["windDirectionUnit"] as? String ?? "TODO"
+//        self.temperatireUnit = dict["temperatireUnit"] as? String ?? "TODO"
+//        self.pressureUnit = dict["pressureUnit"] as? String ?? "TODO"
+//        self.mapForecastHours = dict["mapForecastHours"] as? Int ?? 0
+//    }
+//    
+//    var fireDict: FirebaseDictionary {
+//        var dict = FirebaseDictionary()
+//        dict["windSpeedUnit"] = windSpeedUnit
+//        dict["windDirectionUnit"] = windDirectionUnit
+//        dict["temperatireUnit"] = temperatireUnit
+//        dict["pressureUnit"] = pressureUnit
+//        dict["mapForecastHours"] = mapForecastHours
+//        return dict
+//    }
+//}
 
 struct InstructionsShown: Firebaseable {
     var mapGuideMarkerShown = false
@@ -100,8 +100,7 @@ struct InstructionsShown: Firebaseable {
     var mapGuideForecastShown = false
     var forecastOverlayShown = false
     
-    init() {
-    }
+    init() {}
     
     init?(dict: FirebaseDictionary) {
         mapGuideMarkerShown = dict["mapGuideMarkerShown"] as? Bool ?? mapGuideMarkerShown

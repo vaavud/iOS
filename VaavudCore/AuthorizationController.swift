@@ -215,7 +215,6 @@ class AuthorizationController: NSObject {
         let osVersion =  UIDevice.currentDevice().systemVersion
         let appVersion = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String
         let appBuild = NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as! String
-        
         let model = AuthorizationController.deviceModel
         let vendor = "Apple"
         
@@ -226,7 +225,7 @@ class AuthorizationController: NSObject {
         post.setValue(deviceObj.fireDict)
         let deviceId = post.key
         
-        ref.childByAppendingPath("setting").setValue(DeviceSettings(mapHour: 24,
+        post.childByAppendingPath("setting").setValue(DeviceSettings(mapHour: 24,
             hasAskedForLocationAccess: false,
             hasApprovedLocationAccess: false,
             usesSleipnir: false,

@@ -1,12 +1,4 @@
 //
-//  User.swift
-//  samplePush
-//
-//  Created by Diego R on 11/13/15.
-//  Copyright © 2015 Diego R Galindo. All rights reserved.
-//
-
-//
 //  Device.swift
 //  Vaavud
 //
@@ -57,8 +49,6 @@ struct User {
     let language: String
     let email: String
     let created: NSDate? = nil
-    
-    //= [".sv": "timestamp"]
     
 //    init?(dict: FirebaseDictionary) {
 //        guard let firstName = dict["firstName"] as? String,

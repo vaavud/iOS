@@ -207,8 +207,6 @@
     
     self.viewAppearedTime = [NSDate date];
     
-    [self showGuideIfNeeded];
-    
     [self.logHelper began:@{}];
     [LogHelper increaseUserProperty:@"Use-Map-Count"];
 }
@@ -237,52 +235,6 @@
     [super viewDidDisappear:animated];
     self.isShowing  = NO;
     [self.logHelper ended:@{}];
-}
-
-- (void)showGuideIfNeeded {
-    return;
-    
-    CGRect bounds = self.tabBarController.view.bounds;
-    
-    NSString *textKey;
-    UIImage *icon = nil;
-    CGPoint position = CGPointMake(-1, -1);
-    
-//    BOOL hasDevice = [Property getAsBoolean:KEY_USER_HAS_WIND_METER];
-    
-//    if (hasDevice && ![Property getAsBoolean:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY defaultValue:NO]) {
-//        [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY];
-        textKey = @"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION";
-        position = CGPointMake(0.5, 0.97);
-        icon = [UIImage imageNamed:@"MapMeasureOverlay"];
-//    }
-//    else if ([self isDanish] && ![Property getAsBoolean:KEY_MAP_GUIDE_FORECAST_SHOWN defaultValue:NO]) {
-//        [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_FORECAST_SHOWN];
-//        textKey = @"MAP_GUIDE_FORECAST";
-//        icon = [UIImage imageNamed:@"ForecastPressFinger"];
-//    }
-//    else if (![Property getAsBoolean:KEY_MAP_GUIDE_MARKER_SHOWN defaultValue:NO]) {
-//        [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_MARKER_SHOWN];
-//        textKey = @"MAP_GUIDE_MARKER_EXPLANATION";
-//        icon = [UIImage imageNamed:@"ForecastOverlayMeasurement"];
-//    }
-//    else if (![Property getAsBoolean:KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN defaultValue:NO]) {
-//        [Property setAsBoolean:YES forKey:KEY_MAP_GUIDE_TIME_INTERVAL_SHOWN];
-//        
-//        CGFloat x = self.hoursButton.center.x/bounds.size.width;
-//        CGFloat y = self.hoursButton.center.y/bounds.size.height;
-//        
-//        textKey = @"MAP_GUIDE_TIME_INTERVAL_EXPLANATION";
-//        position = CGPointMake(x, y);
-//    }
-    
-    if (textKey != nil) {
-        [self.tabBarController.view addSubview:[[RadialOverlay alloc] initWithFrame:bounds
-                                                                           position:position
-                                                                               text:NSLocalizedString(textKey, nil)
-                                                                               icon:icon
-                                                                             radius:70]];
-    }
 }
 
 - (void)addLongPress {
@@ -497,7 +449,8 @@
 }
 
 - (void)setupFirebase {
-    Firebase *ref = [[Firebase alloc] initWithUrl:@"https://vaavud-core-demo.firebaseio.com/session/"];
+    Firebase *firebase =  [[Firebase alloc] initWithUrl:@"https://vaavud-core-demo.firebaseio.com/"]; // fixme: change
+    Firebase *ref = [firebase childByAppendingPath:@"session"];
     
     NSNumber *currentTime = [NSDate dateWithTimeIntervalSinceNow:-24*60*60].ms;
     
@@ -512,7 +465,6 @@
              }
          }
      }];
-    
 
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
      observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
@@ -523,6 +475,59 @@
      observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
          [self workingWithIncompleteAnnotations: snapshot];
          //[self addAnnotation: snapshot];
+    }];
+    
+    Firebase *setting = [[[[firebase childByAppendingPath:@"user"] childByAppendingPath:[AuthorizationController shared].uid] childByAppendingPath:@"setting"] childByAppendingPath:@"ios"];
+    
+    [self setupSettingFirebase:setting];
+}
+
+-(void)setupSettingFirebase:(Firebase *)setting {
+    [setting observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        if (![snapshot.value isKindOfClass:[NSDictionary class]]) {
+            return;
+        }
+        
+        NSDictionary *dict = (NSDictionary *)snapshot.value;
+        
+        CGRect bounds = self.tabBarController.view.bounds;
+        NSString *textKey;
+        UIImage *icon = nil;
+        CGPoint position = CGPointMake(-1, -1);
+        
+        if (![dict[@"mapGuideMeasurePopupShown"] boolValue]) {
+            [[setting childByAppendingPath:@"mapGuideMeasurePopupShown"] setValue:@YES];
+            textKey = @"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION";
+            position = CGPointMake(0.5, 0.97);
+            icon = [UIImage imageNamed:@"MapMeasureOverlay"];
+        }
+        else if ([self isDanish] && ![dict[@"mapGuideForecastShown"] boolValue]) {
+            [[setting childByAppendingPath:@"mapGuideForecastShown"] setValue:@YES];
+            textKey = @"MAP_GUIDE_FORECAST";
+            icon = [UIImage imageNamed:@"ForecastPressFinger"];
+        }
+        
+        else if (![dict[@"mapGuideMarkerShown"] boolValue]) {
+            [[setting childByAppendingPath:@"mapGuideMarkerShown"] setValue:@YES];
+            textKey = @"MAP_GUIDE_MARKER_EXPLANATION";
+            icon = [UIImage imageNamed:@"ForecastOverlayMeasurement"];
+        }
+        else if (![dict[@"mapGuideTimeIntervalShown"] boolValue]) {
+            [[setting childByAppendingPath:@"mapGuideTimeIntervalShown"] setValue:@YES];
+            CGFloat x = self.hoursButton.center.x/bounds.size.width;
+            CGFloat y = self.hoursButton.center.y/bounds.size.height;
+            
+            textKey = @"MAP_GUIDE_TIME_INTERVAL_EXPLANATION";
+            position = CGPointMake(x, y);
+        }
+        
+        if (textKey != nil) {
+            [self.tabBarController.view addSubview:[[RadialOverlay alloc] initWithFrame:bounds
+                                                                               position:position
+                                                                                   text:NSLocalizedString(textKey, nil)
+                                                                                   icon:icon
+                                                                                 radius:70]];
+        }
     }];
 }
 
