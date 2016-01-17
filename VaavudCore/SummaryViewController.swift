@@ -64,7 +64,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     private var logGroup: LogGroup!
     private var logHelper: LogHelper!
     
-    private var hasSomeDirection: Float?
+    private var hasSomeDirection: Double?
     private var hasActualDirection = false
     private var isShowingDirection = false
     private var hasWindSpeed = false
@@ -239,7 +239,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         guard let snap = UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext()) else { return }
         UIGraphicsEndImageContext()
 
-        let windSpeed = VaavudFormatter.shared.localizedSpeed(session.windMean) // fixme: should it be optional?
+        let windSpeed = VaavudFormatter.shared.localizedSpeed(Float(session.windMean)) // fixme: should it be optional?
 //        guard let windSpeed = session.windMean.map(VaavudFormatter.shared.localizedSpeed) else {
 //            return
 //        }
@@ -412,17 +412,19 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    private func localisedLabelTexts<U: Unit>(unit: U, value: Float?) -> (String?, String?) {
+    private func localisedLabelTexts<U: Unit>(unit: U, value: Double?) -> (String?, String?) {
         guard let value = value else {
             return (nil, "-")
         }
         
+        let val = Float(value)
+        
         let text: String
         switch unit {
-        case is SpeedUnit: text = VaavudFormatter.shared.localizedSpeed(value, digits: 1)
-        case is DirectionUnit: text = VaavudFormatter.shared.localizedDirection(value)
-        case is PressureUnit: text = VaavudFormatter.shared.localizedPressure(value)
-        case is TemperatureUnit: text = VaavudFormatter.shared.localizedTemperature(value, digits: 1)
+        case is SpeedUnit: text = VaavudFormatter.shared.localizedSpeed(val, digits: 1)
+        case is DirectionUnit: text = VaavudFormatter.shared.localizedDirection(val)
+        case is PressureUnit: text = VaavudFormatter.shared.localizedPressure(val)
+        case is TemperatureUnit: text = VaavudFormatter.shared.localizedTemperature(val, digits: 1)
         default: fatalError("Unknown unit")
         }
         return (unit.localizedString, text)

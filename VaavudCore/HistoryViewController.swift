@@ -20,19 +20,24 @@ struct Location: Firebaseable {
     let lat: Double
     let lon: Double
     var name: String?
-    let altitude: Float?
+    let altitude: Double?
+    
+    init(lat: Double, lon: Double, name: String?, altitude: Double?) {
+        self.lat = lat
+        self.lon = lon
+        self.name = name
+        self.altitude = altitude
+    }
     
     init?(dict: [String : AnyObject]) {
-        guard let lat = dict["lat"] as? Double,
-            lon = dict["lon"] as? Double
-            else {
+        guard let lat = dict["lat"] as? Double, lon = dict["lon"] as? Double else {
                 return nil
         }
         
         self.lat = lat
         self.lon = lon
         self.name = dict["name"] as? String
-        self.altitude = dict["altitude"] as? Float
+        self.altitude = dict["altitude"] as? Double
     }
     
     var fireDict: FirebaseDictionary {
@@ -91,14 +96,14 @@ struct Session {
     let timeStart: NSDate
     let windMeter: WindMeterModel
 
-    var windMax: Float = 0
-    var windMean: Float = 0
+    var windMax: Double = 0
+    var windMean: Double = 0
 
     var timeEnd: NSDate?
-    var windDirection: Float?
+    var windDirection: Double?
     var pressure: Float?
-    var temperature: Float?
-    var turbulence: Float?
+    var temperature: Double?
+    var turbulence: Double?
     var sourced: Sourced?
     var location: Location?
     
@@ -111,15 +116,15 @@ struct Session {
         
         windMeter = WindMeterModel(rawValue: snapshot.value["windMeter"] as! String)!
 
-        windMax = snapshot.value["windMax"] as? Float ?? 0
-        windMean = snapshot.value["windMean"] as? Float ?? 0
+        windMax = snapshot.value["windMax"] as? Double ?? 0
+        windMean = snapshot.value["windMean"] as? Double ?? 0
         
         timeEnd = (snapshot.value["timeEnd"] as? NSNumber).map(NSDate.init)
         
-        windDirection = snapshot.value["windDirection"] as? Float
+        windDirection = snapshot.value["windDirection"] as? Double
         pressure = snapshot.value["pressure"] as? Float
-        temperature = snapshot.value["temperature"] as? Float
-        turbulence = snapshot.value["turbulence"] as? Float
+        temperature = snapshot.value["temperature"] as? Double
+        turbulence = snapshot.value["turbulence"] as? Double
 
         sourced = (snapshot.value["sourced"] as? FirebaseDictionary).flatMap(Sourced.init)
         location = (snapshot.value["location"] as? FirebaseDictionary).flatMap(Location.init)
@@ -249,7 +254,7 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         if let windDirection = session.windDirection {
             cell.directionUnit.hidden = false
             cell.directionArrow.hidden = false
-            cell.directionUnit.text = VaavudFormatter.shared.localizedDirection(windDirection)
+            cell.directionUnit.text = VaavudFormatter.shared.localizedDirection(Float(windDirection))
             cell.directionArrow.transform = CGAffineTransformMakeRotation(CGFloat(windDirection).radians)
         }
         else{
@@ -258,7 +263,7 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         }
         
         cell.speedUnit.text = VaavudFormatter.shared.speedUnit.localizedString
-        cell.speed.text = VaavudFormatter.shared.localizedSpeed(session.windMean)
+        cell.speed.text = VaavudFormatter.shared.localizedSpeed(Float(session.windMean))
         
         if let loc = session.location, name = loc.name {
             cell.location.text = name
