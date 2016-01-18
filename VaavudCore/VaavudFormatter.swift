@@ -107,6 +107,9 @@ enum TemperatureUnit: String, FloatUnit {
     var decimals: Int { return 1 }
     func fromBase(kelvinValue: Double) -> Double { return kelvinValue*ratio + constant }
     
+    // MARK: Public convenience
+    func toKelvin(value: Double) -> Double { return (value - constant)/ratio }
+    
     // MARK: Convenience
     private var ratio: Double { return [1, 9/5][index] }
     private var constant: Double { return [-273.15, -459.67][index] }

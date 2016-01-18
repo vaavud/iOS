@@ -67,7 +67,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var displayLink: CADisplayLink!
 
     private var vcsNames: [String]!
-    private let geocoder = CLGeocoder()
     
     private var altimeter: CMAltimeter?
         
@@ -90,15 +89,15 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var currentConsumer: MeasurementConsumer?
     private var screenUsage = [Double]()
     
-    private var geoname: String?
-    
     private var elapsedSinceUpdate: Double = 0
     private var windSpeedsSaved = 0
     
     private var logHelper = LogHelper(.Measure)
 
     private var session: Session!
-
+    private var geoname: String?
+    private var sourced: Sourced?
+    
     private var state: MeasureState = .Done
     private var timeLeft = CGFloat(countdownInterval)
     
@@ -272,6 +271,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         session.windMax = VaavudSDK.shared.session.maxSpeed
         session.windDirection = VaavudSDK.shared.session.meanDirection
         session.location = VaavudSDK.shared.session.locations.last.map { makeNamedLocation(geoname, event: $0) }
+        session.sourced = sourced
         
         firebase
             .childByAppendingPaths("session", session.key)
@@ -280,6 +280,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         firebase
             .childByAppendingPaths("wind", session.key, String(windSpeedsSaved))
             .setValue((VaavudSDK.shared.session.windSpeeds.last ?? WindSpeedEvent(speed: 0)).fireDict)
+        
         firebase
             .childByAppendingPaths("windDirection", session.key, String(windSpeedsSaved))
             .setValue(VaavudSDK.shared.session.windDirections.last?.fireDict)
@@ -407,18 +408,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 //        }
     }
     
-    func requestGeocode(location: CLLocation) {
-        geocoder.reverseGeocodeLocation(location) { placemarks, error in
-            if let error = error {
-                print("Geocode failed with error: \(error)")
-                return
-            }
-            
-            guard let first = placemarks?.first, name = first.thoroughfare ?? first.locality ?? first.country else {
-                return
-            }
-            
+    func requestGeocode(location: CLLocationCoordinate2D) {
+        ForecastLoader.shared.requestGeocode(location) { name in
+            guard let name = name else { return }
             self.geoname = name
+
+            guard self.session != nil else { return }
             self.updateSession()
         }
     }
@@ -430,21 +425,13 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         //        }
 //    }
     
-    func updateWithSourcedData(location: CLLocation, sessionKey: String) {
-//        let loc = hasValidLocation(latlon) ?? LocationManager.sharedInstance().latestLocation
-        
-        ForecastLoader.shared.requestFullForecast(location.coordinate) { sourced in
-            print(sourced.fireDict)
-            self.firebase
-                .childByAppendingPaths("session", sessionKey, "sourced")
-                .updateChildValues(sourced.fireDict)
+    func requestSourcedData(location: CLLocationCoordinate2D) {
+        ForecastLoader.shared.requestFullForecast(location) { sourced in
+            self.sourced = sourced
+            self.currentConsumer?.newTemperature(sourced.temperature)
+            
+            print("Got sourced data: \(sourced)")
         }
-        
-        //["humidity": 0.8, "icon": clear-night, "pressure": 1020000, "temperature": 279.4333, "windMean": 1.86, "windDirection": 340]
-        
-            //self.currentConsumer?.newTemperature(CGFloat(t))
-        
-        //            // fixme: summary may need to be updated
     }
     
     func updateWithPressure(sessionKey: String) {
@@ -514,7 +501,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         print("CLLocation newLocation \(event)")
         
         if geoname == nil {
-            requestGeocode(event.location)
+            requestGeocode(event.location.coordinate)
+        }
+        if sourced == nil {
+            requestSourcedData(event.location.coordinate)
         }
     }
 
