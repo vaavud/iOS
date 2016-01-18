@@ -30,19 +30,19 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
 
     @IBOutlet weak var windchillOffsetX: NSLayoutConstraint!
     
-    private var gusts: CGFloat = 0
-    private var smoothWindSpeed: CGFloat = 0
-    private var verySmoothWindSpeed: CGFloat = 0
+    private var gusts: Double = 0
+    private var smoothWindSpeed: Double = 0
+    private var verySmoothWindSpeed: Double = 0
     
-    private var latestHeading: CGFloat?
-    private var latestWindDirection: CGFloat?
-    private var latestSpeed: CGFloat = 0
+    private var latestHeading: Double?
+    private var latestWindDirection: Double?
+    private var latestSpeed: Double = 0
     
-    private var temperature: CGFloat?
+    private var temperature: Double?
     
     private var variant = 0 { didSet { updateVariant() } }
     
-    var weight: CGFloat = 0.1 // fixme: change
+    var weight: Double = 0.1 // fixme: change
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +61,7 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
         newSpeed(0)
     }
     
-    var scaledSpeed: CGFloat {
+    var scaledSpeed: Double {
         return VaavudFormatter.shared.speedUnit.fromBase(latestSpeed)
     }
 
@@ -113,7 +113,7 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
     // MARK: SDK Callbacks
     func useMjolnir() { }
 
-    func newWindDirection(windDirection: CGFloat) {
+    func newWindDirection(windDirection: Double) {
         let latest = latestWindDirection ?? 0
         latestWindDirection = latest + distanceOnCircle(from: latest, to: windDirection)
         refreshRuler()
@@ -123,12 +123,12 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
         ruler.hidden = latestHeading == nil || latestWindDirection == nil
     }
     
-    func newSpeed(speed: CGFloat) {
+    func newSpeed(speed: Double) {
         latestSpeed = speed
-        speedLabel.text = VaavudFormatter.shared.localizedSpeed(Float(speed), digits: 3)
-        gustLabel.text = VaavudFormatter.shared.localizedSpeed(Float(gusts), digits: 2)
+        speedLabel.text = VaavudFormatter.shared.localizedSpeed(speed, digits: 3)
+        gustLabel.text = VaavudFormatter.shared.localizedSpeed(gusts, digits: 2)
         
-        if let temperature = temperature, chill = windchill(Float(temperature), Float(verySmoothWindSpeed)) {
+        if let temperature = temperature, chill = windchill(temperature, verySmoothWindSpeed) {
             windchillLabel.text =  VaavudFormatter.shared.localizedWindchill(chill)
             windchillUnitLabel.alpha = 1
         }
@@ -138,10 +138,10 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
         }
     }
     
-    func newSpeedMax(max: CGFloat) {
+    func newSpeedMax(max: Double) {
     }
     
-    func newHeading(newHeading: CGFloat) {
+    func newHeading(newHeading: Double) {
         let heading = latestHeading ?? 0
         latestHeading = heading + distanceOnCircle(from: heading, to: newHeading)
         
@@ -152,7 +152,7 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
         newSpeed(latestSpeed)
     }
     
-    func newTemperature(temperature: CGFloat) {
+    func newTemperature(temperature: Double) {
         self.temperature = temperature
     }
 }
@@ -164,14 +164,14 @@ enum ArrowPosition: Int {
 }
 
 class FlatRuler : UIView {
-    var compassDirection: CGFloat = 0
-    var windDirection: CGFloat = 0
+    var compassDirection: Double = 0
+    var windDirection: Double = 0
     let arrow = FlatDirectionArrow(frame: CGRect(x: 0, y: 0, width: 50, height: 80))
     let padding: CGFloat = 10
     
     var angleSpan: CGFloat = 30
     
-    let rate: CGFloat = 0.25
+    let rate = 0.25
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -179,7 +179,7 @@ class FlatRuler : UIView {
     }
     
     func tick() {
-        let angleDelta = moveArrow(distanceOnCircle(from: compassDirection, to: windDirection))
+        let angleDelta = moveArrow(CGFloat(distanceOnCircle(from: compassDirection, to: windDirection)))
         let targetAngle: CGFloat
         
         if angleDelta > 0 {
@@ -192,8 +192,8 @@ class FlatRuler : UIView {
             targetAngle = 0
         }
 
-        arrow.angle = (1 - rate)*arrow.angle + rate*targetAngle
-        arrow.blinkSpeed = 100/(99 + 3*abs(angleDelta))
+        arrow.angle = (1 - CGFloat(rate))*arrow.angle + CGFloat(rate)*targetAngle
+        arrow.blinkSpeed = 100/(99 + 3*abs(Double(angleDelta)))
         arrow.tick()
     }
     
@@ -215,7 +215,7 @@ class FlatRuler : UIView {
 
 class FlatDirectionArrow : UIView {
     var angle: CGFloat = 0 { didSet { transform = Affine.rotation(angle) } }
-    var blinkSpeed: CGFloat = 0
+    var blinkSpeed: Double = 0
     private var alphaIncreasing = false
     
     override class func layerClass() -> AnyClass {
@@ -248,7 +248,7 @@ class FlatDirectionArrow : UIView {
     
     func tick() {
         if alpha < 0.95 || blinkSpeed < 1 {
-            let rate = max(blinkSpeed/2, 0.2)
+            let rate = CGFloat(max(blinkSpeed/2, 0.2))
             alpha = (1 - rate)*alpha + rate*(alphaIncreasing ? 1 : 0)
             
             if alpha < 0.01 {
@@ -331,7 +331,7 @@ class FlatGraph : UIView {
     var n = 100
     
     var readings = [CGFloat()]
-    var reading: CGFloat = 0 { didSet { addReading(reading) } }
+    var reading: Double = 0 { didSet { addReading(reading) } }
     
     let graphColor = UIColor.vaavudGreyColor()
     let shape = CAShapeLayer()
@@ -346,8 +346,8 @@ class FlatGraph : UIView {
         layer.addSublayer(shape)
     }
     
-    func addReading(value: CGFloat) {
-        readings.append(value)
+    func addReading(value: Double) {
+        readings.append(CGFloat(value))
         
         func yValue(reading: CGFloat) -> CGFloat {
             return bounds.height*(highY - reading)/(highY - lowY)

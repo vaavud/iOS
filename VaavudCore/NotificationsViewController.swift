@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-let notificationsWindspeedCeiling: Float = 30
+let notificationsWindspeedCeiling: Double = 30
 
 enum NotificationType: Int {
     case None = 0
@@ -27,7 +27,7 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocati
 
     
     private let firebase = Firebase(url: firebaseUrl)
-    private var windspeed: Float = 15
+    private var windspeed: Double = 15
     private var notificationType: NotificationType = .Measurements
     
     override func viewDidLoad() {
@@ -91,13 +91,13 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocati
     }
     
     @IBAction func windspeedChanged(sender: UISlider) {
-        windspeed = sender.value*notificationsWindspeedCeiling
+        windspeed = Double(sender.value)*notificationsWindspeedCeiling
         updateUI()
     }
     
     func updateUI() {
         windspeedLabel.text = VaavudFormatter.shared.formattedSpeed(windspeed)
-        windspeedSlider.value = windspeed/notificationsWindspeedCeiling
+        windspeedSlider.value = Float(windspeed/notificationsWindspeedCeiling)
         typeControl.selectedSegmentIndex = notificationType.rawValue
     }
     

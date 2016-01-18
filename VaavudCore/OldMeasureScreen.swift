@@ -17,20 +17,20 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     @IBOutlet weak var speedLabel: UILabel!
     @IBOutlet weak var speedUnitLabel: UILabel!
     @IBOutlet weak var maxSpeedLabel: UILabel!
-
+    
     @IBOutlet weak var directionLabel: UILabel!
     @IBOutlet weak var avgSpeedLabel: UILabel!
     
     var arrowScale: CGFloat = 1
     
-    private var latestDirection: CGFloat = 0
-    private var smoothDirection: CGFloat = 0
+    private var latestDirection: Double = 0
+    private var smoothDirection: Double = 0
     
-    private var latestSpeed: CGFloat = 0
-    private var smoothSpeed: CGFloat = 0
+    private var latestSpeed: Double = 0
+    private var smoothSpeed: Double = 0
 
-    private var avgSpeed: CGFloat = 0
-    private var maxSpeed: CGFloat = 0
+    private var avgSpeed: Double = 0
+    private var maxSpeed: Double = 0
 
     private var animator: UIDynamicAnimator!
     private var scaleItem: DynamicItem!
@@ -39,8 +39,8 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     
     private var hasDirection = false
     
-    var weight: CGFloat = 0.05 // todo: change
-    var avgWeight: CGFloat = 0.01
+    var weight: Double = 0.05 // todo: change
+    var avgWeight: Double = 0.01
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,7 +105,7 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     
     func toggleVariant() {}
     
-    func newTemperature(temperature: CGFloat) {}
+    func newTemperature(temperature: Double) {}
 
     // MARK: Callbacks
     func tick() {
@@ -117,14 +117,14 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
 
         if hasDirection {
             smoothDirection = weight*latestDirection + (1 - weight)*smoothDirection
-            arrowView.transform = Affine.rotation(smoothDirection.radians).scale(arrowScale)
-            directionLabel.text = VaavudFormatter.shared.localizedDirection(Float(mod(smoothDirection, 360)))
+            arrowView.transform = Affine.rotation(CGFloat(smoothDirection.radians)).scale(arrowScale)
+            directionLabel.text = VaavudFormatter.shared.localizedDirection(mod(smoothDirection, 360))
         }
         
         avgSpeed = avgWeight*latestSpeed + (1 - avgWeight)*avgSpeed
         
         graph.average = VaavudFormatter.shared.speedUnit.fromBase(avgSpeed)
-        avgSpeedLabel.text = VaavudFormatter.shared.localizedSpeed(Float(avgSpeed), digits: 3)
+        avgSpeedLabel.text = VaavudFormatter.shared.localizedSpeed(avgSpeed, digits: 3)
         
         if abs(targetLogScale - graph.logScale) < 0.01 {
             animatingScale = false
@@ -144,22 +144,22 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
 
     func useMjolnir() { }
 
-    func newWindDirection(windDirection: CGFloat) {
+    func newWindDirection(windDirection: Double) {
         hasDirection = true
         arrowView.hidden = false
         latestDirection += distanceOnCircle(from: latestDirection, to: windDirection)
     }
     
-    func newSpeed(speed: CGFloat) {
+    func newSpeed(speed: Double) {
         latestSpeed = speed
-        speedLabel.text = VaavudFormatter.shared.localizedSpeed(Float(speed), digits: 3)
+        speedLabel.text = VaavudFormatter.shared.localizedSpeed(speed, digits: 3)
     }
     
-    func newSpeedMax(max: CGFloat) {
-        maxSpeedLabel.text = VaavudFormatter.shared.localizedSpeed(Float(max), digits: 3)
+    func newSpeedMax(max: Double) {
+        maxSpeedLabel.text = VaavudFormatter.shared.localizedSpeed(max, digits: 3)
     }
         
-    func newHeading(heading: CGFloat) {/* latestHeading += distanceOnCircle(from: latestHeading, to: heading) */ }
+    func newHeading(heading: Double) {/* latestHeading += distanceOnCircle(from: latestHeading, to: heading) */ }
     
     func changedSpeedUnit(unit: SpeedUnit) {
         speedUnitLabel.text = VaavudFormatter.shared.speedUnit.localizedString
@@ -173,8 +173,8 @@ class OldGraph : UIView {
     let n = 100
     
     var readings = [CGFloat()]
-    var reading: CGFloat = 0 { didSet { addReading(reading) } }
-    var average: CGFloat = 0 { didSet { newAverage(average) } }
+    var reading: Double = 0 { didSet { addReading(reading) } }
+    var average: Double = 0 { didSet { newAverage(average) } }
     var logScale: CGFloat = 0 { didSet { if logScale != oldValue { changedScale() } } }
 
     private var lineWidth: CGFloat = 3
@@ -218,7 +218,7 @@ class OldGraph : UIView {
     }
     
     var insideFactor: CGFloat {
-        return reading/(factor*highY)
+        return CGFloat(reading)/(factor*highY)
     }
 
     func changedScale() {
@@ -245,13 +245,13 @@ class OldGraph : UIView {
         }
     }
 
-    func newAverage(value: CGFloat) {
+    func newAverage(value: Double) {
         CATransaction.setDisableActions(true)
-        avgShape.position.y = yValue(value)
+        avgShape.position.y = yValue(CGFloat(value))
     }
     
-    func addReading(value: CGFloat) {
-        readings.append(value)
+    func addReading(value: Double) {
+        readings.append(CGFloat(value))
         
         let path = UIBezierPath()
         

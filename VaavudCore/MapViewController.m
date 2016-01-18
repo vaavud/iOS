@@ -122,6 +122,10 @@
     }
 }
 
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"Map view location manager failed");
+}
+
 -(void)gotValidLocation:(CLLocationCoordinate2D)location {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setDouble:location.latitude forKey:KEY_STORED_LOCATION_LAT];

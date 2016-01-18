@@ -53,24 +53,24 @@ struct Location: Firebaseable {
 }
 
 struct Sourced {
-    let humidity: Float
+    let humidity: Double
     let icon: String
-    let pressure: Float
-    let temperature: Float
-    let windDirection: Float
-    let windMean: Float
+    let pressure: Double
+    let temperature: Double
+    let windDirection: Double
+    let windMean: Double
     
     init(forecastDict: [String : AnyObject]) {
         fatalError()
     }
     
     init?(dict: [String : AnyObject]) {
-        guard let humidity = dict["humidity"] as? Float,
+        guard let humidity = dict["humidity"] as? Double,
             icon = dict["icon"] as? String,
-            pressure = dict["pressure"] as? Float,
-            temperature = dict["temperature"] as? Float,
-            windDirection = dict["windBearing"] as? Float,
-            windSpeed = dict["windSpeed"] as? Float
+            pressure = dict["pressure"] as? Double,
+            temperature = dict["temperature"] as? Double,
+            windDirection = dict["windBearing"] as? Double,
+            windSpeed = dict["windSpeed"] as? Double
             else {
                 return nil
         }
@@ -101,7 +101,7 @@ struct Session {
 
     var timeEnd: NSDate?
     var windDirection: Double?
-    var pressure: Float?
+    var pressure: Double?
     var temperature: Double?
     var turbulence: Double?
     var sourced: Sourced?
@@ -122,7 +122,7 @@ struct Session {
         timeEnd = (snapshot.value["timeEnd"] as? NSNumber).map(NSDate.init)
         
         windDirection = snapshot.value["windDirection"] as? Double
-        pressure = snapshot.value["pressure"] as? Float
+        pressure = snapshot.value["pressure"] as? Double
         temperature = snapshot.value["temperature"] as? Double
         turbulence = snapshot.value["turbulence"] as? Double
 
@@ -254,7 +254,7 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         if let windDirection = session.windDirection {
             cell.directionUnit.hidden = false
             cell.directionArrow.hidden = false
-            cell.directionUnit.text = VaavudFormatter.shared.localizedDirection(Float(windDirection))
+            cell.directionUnit.text = VaavudFormatter.shared.localizedDirection(windDirection)
             cell.directionArrow.transform = CGAffineTransformMakeRotation(CGFloat(windDirection).radians)
         }
         else{
@@ -263,7 +263,7 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         }
         
         cell.speedUnit.text = VaavudFormatter.shared.speedUnit.localizedString
-        cell.speed.text = VaavudFormatter.shared.localizedSpeed(Float(session.windMean))
+        cell.speed.text = VaavudFormatter.shared.localizedSpeed(session.windMean)
         
         if let loc = session.location, name = loc.name {
             cell.location.text = name

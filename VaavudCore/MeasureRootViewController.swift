@@ -42,12 +42,12 @@ enum WindMeterModel: String {
 protocol MeasurementConsumer {
     func tick()
     
-    func newWindDirection(windDirection: CGFloat)
-    func newSpeed(speed: CGFloat)
-    func newSpeedMax(max: CGFloat)
-    func newHeading(heading: CGFloat)
+    func newWindDirection(windDirection: Double)
+    func newSpeed(speed: Double)
+    func newSpeedMax(max: Double)
+    func newHeading(heading: Double)
     
-    func newTemperature(temperature: CGFloat)
+    func newTemperature(temperature: Double)
     
     func changedSpeedUnit(unit: SpeedUnit)
     func useMjolnir()
@@ -489,13 +489,13 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     // MARK: SDK Delegate
     
     func newWindDirection(event: WindDirectionEvent) {
-        currentConsumer?.newWindDirection(CGFloat(event.direction))
+        currentConsumer?.newWindDirection(event.direction)
     }
     
     func newWindSpeed(event: WindSpeedEvent) {
-        currentConsumer?.newSpeed(CGFloat(event.speed))
+        currentConsumer?.newSpeed(event.speed)
         guard let session = session else { return }
-        currentConsumer?.newSpeedMax(CGFloat(session.windMax))
+        currentConsumer?.newSpeedMax(session.windMax)
     }
     
     func newTrueWindDirection(event: WindDirectionEvent) {
@@ -507,7 +507,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func newHeading(event: HeadingEvent) {
-        currentConsumer?.newHeading(CGFloat(event.heading))
+        currentConsumer?.newHeading(event.heading)
     }
     
     func newLocation(event: LocationEvent) {
@@ -647,13 +647,13 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
 
     private func changeConsumer(mc: MeasurementConsumer) {
-        mc.newSpeed(CGFloat(VaavudSDK.shared.session.windSpeeds.last?.speed ?? 0))
+        mc.newSpeed(VaavudSDK.shared.session.windSpeeds.last?.speed ?? 0)
         mc.changedSpeedUnit(VaavudFormatter.shared.speedUnit)
         if model == .Sleipnir,
             let wd = VaavudSDK.shared.session.windDirections.last?.direction,
             h = VaavudSDK.shared.session.headings.last?.heading {
-            mc.newWindDirection(CGFloat(wd))
-            mc.newHeading(CGFloat(h))
+            mc.newWindDirection(wd)
+            mc.newHeading(h)
         }
         currentConsumer = mc
     }
@@ -716,7 +716,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
 }
 
-func windchill(kelvin: Float?, _ windspeed: Float?) -> Float? {
+func windchill(kelvin: Double?, _ windspeed: Double?) -> Double? {
     guard let kelvin = kelvin, windspeed = windspeed else {
         return nil
     }
@@ -728,11 +728,11 @@ func windchill(kelvin: Float?, _ windspeed: Float?) -> Float? {
         return nil
     }
 
-    let k: Float = 13.12
-    let a: Float = 0.6215
-    let b: Float = -11.37
-    let c: Float = 0.3965
-    let d: Float = 0.16
+    let k = 13.12
+    let a = 0.6215
+    let b = -11.37
+    let c = 0.3965
+    let d = 0.16
 
     return 273.15 + k + a*celsius + b*pow(kmh, d) + c*celsius*pow(kmh, d)
 }
