@@ -29,10 +29,14 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
     
     @IBOutlet weak var directionSelector: DirectionSelector!
     @IBOutlet weak var mapView: MKMapView!
-    var overlays: MKCircle?
-    var annotation: MKPointAnnotation?
+    @IBOutlet weak var radiusSlider: UISlider!
+    
+    
     let firebase = Firebase(url: firebaseUrl)
     var currentRadius : Float = 500.0
+    
+    let annotation = MKPointAnnotation()
+    var overlays =  MKCircle()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,16 +49,16 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
         mapView.addGestureRecognizer(longPressRecognizer)
         mapView.delegate = self
         
+        radiusSlider.enabled = false
+        
+        
     }
     
     
     @IBAction func buttonSave(sender: UIBarButtonItem) {
-        guard let annotation = annotation else {
-            return
-        }
         
         let latlon = ["lat" :annotation.coordinate.latitude, "lon": annotation.coordinate.longitude]
-        let subscription = Subscription(uid: firebase.authData.uid, radius: currentRadius, windMin: 34.400001525878906, location: latlon, directions: directionSelector.areas)
+        let subscription = Subscription(uid: firebase.authData.uid, radius: currentRadius, windMin: 1, location: latlon, directions: directionSelector.areas)
         
         let ref = firebase.childByAppendingPath("subscription")
         let post = ref.childByAutoId()
@@ -69,18 +73,17 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
         
         print(subscriptionKey)
         print(subscription.fireDict)
+        
+        navigationController?.popToRootViewControllerAnimated(true)
+        
     }
     
     @IBAction func sliderValueChanged(sender: UISlider) {
         
-        guard let _ = overlays else{
-            return
-        }
+        mapView.removeOverlay(overlays)
         
-        mapView.removeOverlay(self.overlays!)
-        
-        self.overlays = MKCircle(centerCoordinate: annotation!.coordinate, radius: CLLocationDistance(sender.value))
-        mapView.addOverlay(overlays!)
+        self.overlays = MKCircle(centerCoordinate: annotation.coordinate, radius: CLLocationDistance(sender.value))
+        mapView.addOverlay(overlays)
         
         currentRadius = sender.value
         
@@ -88,44 +91,122 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
     
     func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         
-        if gestureReconizer.state != .Ended {
-            return
+        
+        if gestureReconizer.state == .Began {
+            
+            radiusSlider.enabled = true
+            
+            let touchPoint = gestureReconizer.locationInView(mapView)
+            let location = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
+            
+            //let annotation = MKPointAnnotation()
+            annotation.coordinate = location
+            annotation.title = "someting"
+            annotation.subtitle = "something elee"
+            
+            overlays = MKCircle(centerCoordinate: location, radius: CLLocationDistance(currentRadius))
+            
+            
+            var region = MKCoordinateRegion()
+            region.center = location
+            region.span.latitudeDelta = 0.05
+            region.span.longitudeDelta = 0.05
+            region = mapView.regionThatFits(region)
+            
+            
+            
+            mapView.setRegion(region, animated: true)
+            mapView.addOverlay(overlays)
+            mapView.addAnnotation(annotation)
         }
-        
-        if let annotation = self.annotation, overlays = self.overlays {
-            mapView.removeOverlay(overlays)
-            mapView.removeAnnotation(annotation)
-        }
+
         
         
-        let touchPoint = gestureReconizer.locationInView(mapView)
-        let location = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
-        
-        
-        overlays = MKCircle(centerCoordinate: location, radius: CLLocationDistance(currentRadius))
-        
-        mapView.addOverlay(overlays!)
-        
-        
-        annotation = MKPointAnnotation()
-        annotation!.coordinate = location
-        
-        mapView.addAnnotation(annotation!)
-        
-        var region = MKCoordinateRegion()
-        region.center = location
-        region.span.latitudeDelta = 0.05
-        region.span.longitudeDelta = 0.05
-        region = mapView.regionThatFits(region)
-        mapView.setRegion(region, animated: true)
-        
-        print(location)
+//        if gestureReconizer.state != .Ended {
+//            return
+//        }
+//        
+//        if let annotation = self.annotation, overlays = self.overlays {
+//            mapView.removeOverlay(overlays)
+//            mapView.removeAnnotation(annotation)
+//        }
+//        
+//        
+//        let touchPoint = gestureReconizer.locationInView(mapView)
+//        let location = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
+//        
+//        
+//        overlays = MKCircle(centerCoordinate: location, radius: CLLocationDistance(currentRadius))
+//        
+//        mapView.addOverlay(overlays!)
+//        
+//        
+//        annotation = MKPointAnnotation()
+//        annotation!.coordinate = location
+//        
+//        mapView.addAnnotation(annotation!)
+//        
+//        var region = MKCoordinateRegion()
+//        region.center = location
+//        region.span.latitudeDelta = 0.05
+//        region.span.longitudeDelta = 0.05
+//        region = mapView.regionThatFits(region)
+//        mapView.setRegion(region, animated: true)
+//        
+//        print(location)
     }
+    
+    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKPointAnnotation {
+            let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "myNotificationPin")
+            
+            //pinAnnotationView.pinColor = UIColor.redColor()
+            pinAnnotationView.draggable = true
+            pinAnnotationView.canShowCallout = true
+            pinAnnotationView.animatesDrop = true
+            
+            
+//            let deleteButton = UIButton(type: .Custom)
+//            deleteButton.frame.size.width = 38
+//            deleteButton.frame.size.height = 38
+//            deleteButton.addTarget(self, action: "buttonAction:", forControlEvents: .TouchUpInside)
+//            deleteButton.setImage(UIImage(named: "trash"), forState: .Normal)
+//            
+//            
+//            pinAnnotationView.leftCalloutAccessoryView = deleteButton
+//            pinAnnotationView.leftCalloutAccessoryView?.sizeToFit()
+//            pinAnnotationView.leftCalloutAccessoryView?.backgroundColor = .redColor()
+            
+            
+            return pinAnnotationView
+        }
+        
+        return nil
+    }
+    
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+        
+        if (newState == .Starting){
+            mapView.removeOverlay(overlays)
+        }
+        
+        if (newState == .Ending){
+            overlays = MKCircle(centerCoordinate: view.annotation!.coordinate, radius: CLLocationDistance(currentRadius))
+            mapView.addOverlay(overlays)
+        }
+    }
+    
+    
+//    func buttonAction(sender:UIButton){
+//        print("Button tapped")
+//    }
     
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         let circleRenderer = MKCircleRenderer(overlay: overlay);
-        circleRenderer.strokeColor = .vaavudBlueColor()
+        circleRenderer.strokeColor = .blueColor()
         circleRenderer.fillColor = UIColor(red: 0.0, green: 0.0, blue: 0.7, alpha: 0.5)
         circleRenderer.lineWidth = 1.0
         return circleRenderer

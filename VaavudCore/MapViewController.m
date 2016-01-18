@@ -657,7 +657,10 @@
     lbl.text = measurementAnnotation.title;
     
     annotationView.hidden = [self isTooOld:measurementAnnotation.startTime];
-}
+    annotationView.userInteractionEnabled = !annotationView.hidden;
+    
+    
+ }
 
 -(BOOL)isTooOld:(NSDate *)time {
     NSTimeInterval secondsAgo = self.hoursAgoOptions[self.hoursAgoOption].intValue*3600;

@@ -40,39 +40,52 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocati
 //        self.locationManager.startUpdatingLocation()
 //        
 //        
-//        let ref = firebase.childByAppendingPath("subscription")
-//        ref.queryOrderedByChild("uid").queryEqualToValue(firebase.authData.uid).observeEventType(.ChildAdded, withBlock: { snapshot in
-//            
-//            guard let location = snapshot.value["location"] as? [String:Double] else {
-//                return
-//            }
-//            
-//            if let lat = location["lat"], lon = location["lon"] {
-//                let annotation = MKPointAnnotation()
-//                annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-//                self.mapView.addAnnotation(annotation)
-//            }
-//        })
+        let ref = firebase.childByAppendingPath("subscription")
+        ref.queryOrderedByChild("uid").queryEqualToValue(firebase.authData.uid).observeEventType(.ChildAdded, withBlock: { snapshot in
+            
+            guard let location = snapshot.value["location"] as? [String:Double] else {
+                return
+            }
+            
+            if let lat = location["lat"], lon = location["lon"] {
+                
+                let latlon = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                let radius = snapshot.value["radius"] as! Float
+                
+                let annotation = MKPointAnnotation()
+                annotation.coordinate = latlon
+                annotation.title = "text"
+                annotation.subtitle = "sub title"
+                
+                
+                let circule = MKCircle(centerCoordinate: latlon, radius: CLLocationDistance(radius))
+                
+                self.mapView.addOverlay(circule)
+                self.mapView.addAnnotation(annotation)
+            }
+        })
 
         
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKPointAnnotation {
-            let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "myPin")
+            let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "myNotificationPin")
             
             pinAnnotationView.pinColor = .Purple
-            pinAnnotationView.draggable = true
+            //pinAnnotationView.draggable = true
             pinAnnotationView.canShowCallout = true
             pinAnnotationView.animatesDrop = true
             
-            let deleteButton = UIButton(type: .Custom) as UIButton
+            let deleteButton = UIButton(type: .Custom)
             deleteButton.frame.size.width = 44
             deleteButton.frame.size.height = 44
             deleteButton.backgroundColor = UIColor.redColor()
+            deleteButton.addTarget(self, action: "buttonAction:", forControlEvents: .TouchUpInside)
             deleteButton.setImage(UIImage(named: "trash"), forState: .Normal)
             
             pinAnnotationView.leftCalloutAccessoryView = deleteButton
+            pinAnnotationView.sizeToFit()
             
             return pinAnnotationView
         }
@@ -81,11 +94,22 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocati
     }
     
     
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        let circleRenderer = MKCircleRenderer(overlay: overlay);
+        circleRenderer.strokeColor = .blueColor()
+        circleRenderer.fillColor = UIColor(red: 0.0, green: 0.0, blue: 0.7, alpha: 0.5)
+        circleRenderer.lineWidth = 1.0
+        return circleRenderer
+    }
+    
+    
+    func buttonAction(sender:UIButton){
+        print("Button tapped")
+    }
     
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
         
         updateUI()
     }
