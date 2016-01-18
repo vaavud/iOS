@@ -656,8 +656,8 @@
     UILabel *lbl = (UILabel *)[annotationView viewWithTag:42];
     lbl.text = measurementAnnotation.title;
     
-    annotationView.hidden = [self isTooOld:measurementAnnotation.startTime];
-    annotationView.userInteractionEnabled = !annotationView.hidden;
+//    annotationView.hidden = [self isTooOld:measurementAnnotation.startTime];
+//    annotationView.userInteractionEnabled = !annotationView.hidden;
     
     
  }
@@ -675,6 +675,10 @@
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     if ([view.annotation isKindOfClass:[MeasurementAnnotation class]]) {
         NSArray *nearbyAnnotations;
+        
+//        if(!view.userInteractionEnabled){
+//            return;
+//        }
         
         //NSLog(@"zoomLevel=%f", [self.mapView getZoomLevel]);
         
@@ -850,10 +854,17 @@
 
 - (void)refreshMeasurementAnnotations {
     self.now = [NSDate date];
-    for (id annotation in self.mapView.annotations) {
-        if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
-            [self updateAnnotationView:[self.mapView viewForAnnotation:annotation]];
+    for (MeasurementAnnotation *annotation in self.currentSessions.allValues) {
+        BOOL isOld = [self isTooOld:annotation.startTime];
+        
+        if (isOld && annotation.isShowing) {
+            [self.mapView removeAnnotation:annotation];
         }
+        else if (!isOld && !annotation.isShowing) {
+            [self.mapView addAnnotation:annotation];
+        }
+
+        annotation.isShowing = !isOld;
     }
 }
 

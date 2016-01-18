@@ -54,8 +54,8 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocati
                 
                 let annotation = MKPointAnnotation()
                 annotation.coordinate = latlon
-                annotation.title = "text"
-                annotation.subtitle = "sub title"
+                annotation.title = "Wind Directions"
+                annotation.subtitle = "N, E, W, NE, NW"
                 
                 
                 let circule = MKCircle(centerCoordinate: latlon, radius: CLLocationDistance(radius))
@@ -72,12 +72,13 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocati
         if annotation is MKPointAnnotation {
             let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "myNotificationPin")
             
-            pinAnnotationView.pinColor = .Purple
+            pinAnnotationView.pinColor = .Red
             //pinAnnotationView.draggable = true
             pinAnnotationView.canShowCallout = true
             pinAnnotationView.animatesDrop = true
             
             let deleteButton = UIButton(type: .Custom)
+            
             deleteButton.frame.size.width = 44
             deleteButton.frame.size.height = 44
             deleteButton.backgroundColor = UIColor.redColor()
@@ -85,7 +86,7 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocati
             deleteButton.setImage(UIImage(named: "trash"), forState: .Normal)
             
             pinAnnotationView.leftCalloutAccessoryView = deleteButton
-            pinAnnotationView.sizeToFit()
+            pinAnnotationView.leftCalloutAccessoryView?.sizeToFit()
             
             return pinAnnotationView
         }
