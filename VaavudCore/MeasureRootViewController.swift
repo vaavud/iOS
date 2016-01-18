@@ -57,6 +57,10 @@ protocol MeasurementConsumer {
     var name: String { get }
 }
 
+func makeNamedLocation(name: String?, event: LocationEvent) -> Location {
+    return Location(lat: event.lat, lon: event.lon, name: name, altitude: event.altitude)
+}
+
 class MeasureRootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WindMeasurementControllerDelegate, DBRestClientDelegate {
     private var pageController: UIPageViewController!
     private var viewControllers: [UIViewController]!
@@ -86,10 +90,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var currentConsumer: MeasurementConsumer?
     private var screenUsage = [Double]()
     
-    private var latestHeading: HeadingEvent?
-
-    private var latestWindDirection: WindDirectionEvent?
-    private var latestWindSpeed = WindSpeedEvent(speed: 0)
+    private var geoname: String?
     
     private var elapsedSinceUpdate: Double = 0
     private var windSpeedsSaved = 0
@@ -113,10 +114,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         VaavudSDK.shared.windSpeedCallback = newWindSpeed
         VaavudSDK.shared.locationCallback = newLocation
-    
-        VaavudSDK.shared.velocityCallback = newVelocity // fixme: remove
-        VaavudSDK.shared.errorCallback = { err in print(err) } // fixme: remove
-
+        
         if model == .Sleipnir {
             deviceSettings.childByAppendingPath("usesSleipnir").setValue(true)
             
@@ -128,8 +126,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         if CMAltimeter.isRelativeAltitudeAvailable() {
             self.altimeter = CMAltimeter()
         }
-        
-        LocationManager.sharedInstance().start()
     }
     
     deinit {
@@ -174,16 +170,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         view.bringSubviewToFront(errorOverlayBackground)
         view.bringSubviewToFront(cancelButton)
 
-        let start = NSDate() // fixme: remove
-
         deviceSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot { dict in
             let flipped = dict["sleipnirClipSideScreen"] as? Bool ?? false
             let measuringTime = dict["measuringTime"] as? Int ?? 0
             let desiredScreen = dict["defaultMeasurementScreen"] as? String
             
             self.state = .CountingDown(countdownInterval, measuringTime)
-            
-            print("Start: delay: \(NSDate().timeIntervalSinceDate(start)), flipped: \(flipped), time: \(measuringTime)")
             
             if self.model == .Sleipnir {
                 self.startSleipnir(flipped)
@@ -216,8 +208,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         session = Session(uid: firebase.authData.uid, key: post.key, deviceId: deviceId, timeStart: NSDate(), windMeter: model)
         post.setValue(session.fireDict)
         
-        //        updateWithLocation(post.key)
-        //        updateWithGeocode(session)
         //        updateWithSourcedData(session)
         //        updateWithPressure(session)
         
@@ -229,8 +219,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         currentConsumer?.tick()
         
         if state.running {
-//            speedsCount++
-//            speedsSum += latestWindSpeed.speed
             screenUsage[pager.currentPage] += link.duration
             elapsedSinceUpdate += link.duration
 
@@ -280,22 +268,22 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 //            return // fixme: uncomment
 //        }
 
-        session.windMean = Float(VaavudSDK.shared.session.meanSpeed)
-        session.windMax = Float(VaavudSDK.shared.session.maxSpeed)
-        session.windDirection = VaavudSDK.shared.session.windDirections.last.map { Float(mod($0.direction, 360)) }
-        
-        print("Updating: [mean : \(session.windMean)] (\(session.key))")
+        session.windMean = VaavudSDK.shared.session.meanSpeed
+        session.windMax = VaavudSDK.shared.session.maxSpeed
+        session.windDirection = VaavudSDK.shared.session.meanDirection
+        session.location = VaavudSDK.shared.session.locations.last.map { makeNamedLocation(geoname, event: $0) }
         
         firebase
             .childByAppendingPaths("session", session.key)
             .setValue(session.fireDict)
-
+        
         firebase
             .childByAppendingPaths("wind", session.key, String(windSpeedsSaved))
-            .setValue(latestWindSpeed.fireDict)
+            .setValue((VaavudSDK.shared.session.windSpeeds.last ?? WindSpeedEvent(speed: 0)).fireDict)
         firebase
             .childByAppendingPaths("windDirection", session.key, String(windSpeedsSaved))
-            .setValue(latestWindDirection?.fireDict)
+            .setValue(VaavudSDK.shared.session.windDirections.last?.fireDict)
+
         windSpeedsSaved += 1
     }
 
@@ -305,7 +293,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
         
         session.timeEnd = NSDate()
-        session.turbulence = VaavudSDK.shared.session.turbulence.map(Float.init)
+        session.turbulence = VaavudSDK.shared.session.turbulence
         
         print("Saving: (\(session.key)) \(session.fireDict)")
         
@@ -403,23 +391,23 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     // MARK - Updating Session
     
     func saveLocation(sessionKey: String) {
-        let loc = LocationManager.sharedInstance().latestLocation
-        
-        if LocationManager.isCoordinateValid(loc) {
-            let locationDictDelta = ["lat" : loc.latitude, "lon" : loc.longitude]
-            
-            firebase
-                .childByAppendingPaths("session", sessionKey, "location")
-                .updateChildValues(locationDictDelta)
-            
-            let latlong = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
-            
-            updateWithGeocode(latlong, sessionKey: sessionKey)
-            updateWithSourcedData(latlong, sessionKey: sessionKey)
-        }
+//        let loc = LocationManager.sharedInstance().latestLocation
+//        
+//        if LocationManager.isCoordinateValid(loc) {
+//            let locationDictDelta = ["lat" : loc.latitude, "lon" : loc.longitude]
+//            
+//            firebase
+//                .childByAppendingPaths("session", sessionKey, "location")
+//                .updateChildValues(locationDictDelta)
+//            
+//            let latlong = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
+//            
+//            updateWithGeocode(latlong, sessionKey: sessionKey)
+//            updateWithSourcedData(latlong, sessionKey: sessionKey)
+//        }
     }
     
-    func updateWithGeocode(location: CLLocation, sessionKey: String) {
+    func requestGeocode(location: CLLocation) {
         geocoder.reverseGeocodeLocation(location) { placemarks, error in
             if let error = error {
                 print("Geocode failed with error: \(error)")
@@ -430,11 +418,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 return
             }
             
-            self.firebase
-                .childByAppendingPaths("session", sessionKey, "location", "name")
-                .setValue(name)
-            
-            // fixme: summary may need to be updated
+            self.geoname = name
+            self.updateSession()
         }
     }
     
@@ -468,7 +453,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             if let kpa = altitudeData?.pressure.doubleValue {
                 self.altimeter?.stopRelativeAltitudeUpdates()
                 
-                let pressureModel = ["temperature" : 10*kpa]
+//                let pressureModel = ["temperature" : 10*kpa]
                 
 //                self.vaavudFirebase
 //                    .childByAppendingPath("session")
@@ -504,38 +489,37 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     // MARK: SDK Delegate
     
     func newWindDirection(event: WindDirectionEvent) {
-        // Save on session and Firebase
-        latestWindDirection = event
         currentConsumer?.newWindDirection(CGFloat(event.direction))
     }
     
     func newWindSpeed(event: WindSpeedEvent) {
-        latestWindSpeed = event
         currentConsumer?.newSpeed(CGFloat(event.speed))
         guard let session = session else { return }
         currentConsumer?.newSpeedMax(CGFloat(session.windMax))
     }
     
     func newTrueWindDirection(event: WindDirectionEvent) {
-        print("newTrueWindDirection \(event)")
+        print("CLLocation newTrueWindDirection \(event)")
     }
     
     func newTrueWindSpeed(event: WindSpeedEvent) {
-        print("newTrueWindSpeed \(event)")
+        print("CLLocation newTrueWindSpeed \(event)")
     }
     
     func newHeading(event: HeadingEvent) {
-        latestHeading = event
-        let heading = CGFloat(event.heading)
-        currentConsumer?.newHeading(heading)
+        currentConsumer?.newHeading(CGFloat(event.heading))
     }
     
     func newLocation(event: LocationEvent) {
-        print("newLocation \(event)")
+        print("CLLocation newLocation \(event)")
+        
+        if geoname == nil {
+            requestGeocode(event.location)
+        }
     }
 
     func newVelocity(event: VelocityEvent) {
-        print("newVelocity \(event)")
+        print("CLLocation newVelocity \(event)")
     }
     
     // Mark - Page View Controller Delegate
@@ -663,9 +647,11 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
 
     private func changeConsumer(mc: MeasurementConsumer) {
-        mc.newSpeed(CGFloat(latestWindSpeed.speed))
-        mc.changedSpeedUnit(VaavudFormatter.shared.speedUnit) // fixme: test
-        if model == .Sleipnir, let wd = latestWindDirection?.direction, h = latestHeading?.heading {
+        mc.newSpeed(CGFloat(VaavudSDK.shared.session.windSpeeds.last?.speed ?? 0))
+        mc.changedSpeedUnit(VaavudFormatter.shared.speedUnit)
+        if model == .Sleipnir,
+            let wd = VaavudSDK.shared.session.windDirections.last?.direction,
+            h = VaavudSDK.shared.session.headings.last?.heading {
             mc.newWindDirection(CGFloat(wd))
             mc.newHeading(CGFloat(h))
         }
@@ -705,21 +691,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         currentConsumer = mc
         updateVariantButton(mc)
         
-        //        pageController = storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as? UIPageViewController
-        //        pageController.dataSource = self
-        //        pageController.delegate = self
-        //        pageController.view.frame = view.bounds
         pageController.setViewControllers([viewControllers[screenToShow]], direction: .Forward, animated: false, completion: nil)
-        
-        //        addChildViewController(pageController)
-        //        view.addSubview(pageController.view)
-        //        pageController.didMoveToParentViewController(self)
-        //
-        //        view.bringSubviewToFront(pager)
-        //        view.bringSubviewToFront(unitButton)
-        //        view.bringSubviewToFront(variantButton)
-        //        view.bringSubviewToFront(errorOverlayBackground)
-        //        view.bringSubviewToFront(cancelButton)
     }
     
     // MARK: Debug
@@ -735,8 +707,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 //            latestWindDirection = WindDirectionEvent(time: event.time, direction: newDirection)
 //            currentConsumer?.newWindDirection(CGFloat(newDirection))
 //        }
-        
-        let event = WindSpeedEvent(time: NSDate(), speed: max(0, latestWindSpeed.speed - dy))
+        let speed = VaavudSDK.shared.session.windSpeeds.last?.speed ?? 0
+        let event = WindSpeedEvent(time: NSDate(), speed: max(0, speed - dy))
         
         VaavudSDK.shared.newWindSpeed(event)
         

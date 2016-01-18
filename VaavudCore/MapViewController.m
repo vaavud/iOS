@@ -113,11 +113,6 @@
     [self setupFirebase];
 }
 
--(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    NSLog(@"locationManager didFailWithError:%@", error.description);
-    self.locationManager = nil;
-}
-
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     NSLog(@"didUpdateLocations");
 
@@ -137,7 +132,6 @@
         [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(location, 200000, 200000) animated:YES];
     }
     
-    [self.locationManager stopUpdatingLocation];
     self.locationManager.delegate = nil;
     self.locationManager = nil;
 }
@@ -171,7 +165,7 @@
         [self.locationManager requestWhenInUseAuthorization];
     }
     else if ([CLLocationManager locationServicesEnabled]) {
-        [self.locationManager startUpdatingLocation];
+        [self.locationManager requestLocation];
     }
 }
 
