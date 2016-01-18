@@ -20,19 +20,24 @@ struct Location: Firebaseable {
     let lat: Double
     let lon: Double
     var name: String?
-    let altitude: Float?
+    let altitude: Double?
+    
+    init(lat: Double, lon: Double, name: String?, altitude: Double?) {
+        self.lat = lat
+        self.lon = lon
+        self.name = name
+        self.altitude = altitude
+    }
     
     init?(dict: [String : AnyObject]) {
-        guard let lat = dict["lat"] as? Double,
-            lon = dict["lon"] as? Double
-            else {
+        guard let lat = dict["lat"] as? Double, lon = dict["lon"] as? Double else {
                 return nil
         }
         
         self.lat = lat
         self.lon = lon
         self.name = dict["name"] as? String
-        self.altitude = dict["altitude"] as? Float
+        self.altitude = dict["altitude"] as? Double
     }
     
     var fireDict: FirebaseDictionary {
@@ -48,24 +53,24 @@ struct Location: Firebaseable {
 }
 
 struct Sourced {
-    let humidity: Float
+    let humidity: Double
     let icon: String
-    let pressure: Float
-    let temperature: Float
-    let windDirection: Float
-    let windMean: Float
+    let pressure: Double
+    let temperature: Double
+    let windDirection: Double
+    let windMean: Double
     
     init(forecastDict: [String : AnyObject]) {
         fatalError()
     }
     
     init?(dict: [String : AnyObject]) {
-        guard let humidity = dict["humidity"] as? Float,
+        guard let humidity = dict["humidity"] as? Double,
             icon = dict["icon"] as? String,
-            pressure = dict["pressure"] as? Float,
-            temperature = dict["temperature"] as? Float,
-            windDirection = dict["windBearing"] as? Float,
-            windSpeed = dict["windSpeed"] as? Float
+            pressure = dict["pressure"] as? Double,
+            temperature = dict["temperature"] as? Double,
+            windDirection = dict["windBearing"] as? Double,
+            windSpeed = dict["windSpeed"] as? Double
             else {
                 return nil
         }
@@ -91,14 +96,14 @@ struct Session {
     let timeStart: NSDate
     let windMeter: WindMeterModel
 
-    var windMax: Float = 0
-    var windMean: Float = 0
+    var windMax: Double = 0
+    var windMean: Double = 0
 
     var timeEnd: NSDate?
-    var windDirection: Float?
-    var pressure: Float?
-    var temperature: Float?
-    var turbulence: Float?
+    var windDirection: Double?
+    var pressure: Double?
+    var temperature: Double?
+    var turbulence: Double?
     var sourced: Sourced?
     var location: Location?
     
@@ -111,15 +116,15 @@ struct Session {
         
         windMeter = WindMeterModel(rawValue: snapshot.value["windMeter"] as! String)!
 
-        windMax = snapshot.value["windMax"] as? Float ?? 0
-        windMean = snapshot.value["windMean"] as? Float ?? 0
+        windMax = snapshot.value["windMax"] as? Double ?? 0
+        windMean = snapshot.value["windMean"] as? Double ?? 0
         
         timeEnd = (snapshot.value["timeEnd"] as? NSNumber).map(NSDate.init)
         
-        windDirection = snapshot.value["windDirection"] as? Float
-        pressure = snapshot.value["pressure"] as? Float
-        temperature = snapshot.value["temperature"] as? Float
-        turbulence = snapshot.value["turbulence"] as? Float
+        windDirection = snapshot.value["windDirection"] as? Double
+        pressure = snapshot.value["pressure"] as? Double
+        temperature = snapshot.value["temperature"] as? Double
+        turbulence = snapshot.value["turbulence"] as? Double
 
         sourced = (snapshot.value["sourced"] as? FirebaseDictionary).flatMap(Sourced.init)
         location = (snapshot.value["location"] as? FirebaseDictionary).flatMap(Location.init)

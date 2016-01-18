@@ -39,16 +39,16 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
     
     @IBOutlet weak var lockNorthButton: UIButton!
 
-    private var latestHeading: CGFloat = 0
-    private var latestWindDirection: CGFloat = 0
-    private var latestSpeed: CGFloat = 0
+    private var latestHeading: Double = 0
+    private var latestWindDirection: Double = 0
+    private var latestSpeed: Double = 0
     
     private var hasHeading = false
     private var hasDirection = false
     
     private var lockNorth = false
     
-    var weight: CGFloat = 0.1
+    var weight: Double = 0.1
 
     let bandWidth: CGFloat = Interface.choose(30, 60)
     var logScale: CGFloat = 0 { didSet { changedScale() } }
@@ -102,13 +102,13 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
         ruler.layout()
     }
     
-    var scaledSpeed: CGFloat {
+    var scaledSpeed: Double {
         return VaavudFormatter.shared.speedUnit.fromBase(latestSpeed)
     }
     
     func toggleVariant() {}
     
-    func newTemperature(temperature: CGFloat) {}
+    func newTemperature(temperature: Double) {}
 
     func tick() {
         ruler.compassDirection = weight*latestHeading + (1 - weight)*ruler.compassDirection
@@ -147,28 +147,28 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
             logScale = 0
         }
         
-        ruler.scale = bandWidth/pow(2, logScale)
+        ruler.scale = CGFloat(bandWidth/pow(2, logScale))
         background.logScale = logScale
     }
     
     // MARK: New readings from root
     func useMjolnir() { }
 
-    func newWindDirection(windDirection: CGFloat) {
+    func newWindDirection(windDirection: Double) {
         hasDirection = true
-        latestWindDirection += distanceOnCircle(from: latestWindDirection, to: CGFloat(windDirection))
+        latestWindDirection += distanceOnCircle(from: latestWindDirection, to: windDirection)
         updateHeadingAndDirection()
     }
     
-    func newSpeed(speed: CGFloat) {
+    func newSpeed(speed: Double) {
         latestSpeed = speed
-        speedLabel.text = VaavudFormatter.shared.localizedSpeed(Float(speed), digits: 3)
+        speedLabel.text = VaavudFormatter.shared.localizedSpeed(speed, digits: 3)
     }
     
-    func newSpeedMax(max: CGFloat) {
+    func newSpeedMax(max: Double) {
     }
 
-    func newHeading(heading: CGFloat) {
+    func newHeading(heading: Double) {
         hasHeading = true
         if !lockNorth {
             latestHeading += distanceOnCircle(from: latestHeading, to: heading)
@@ -245,7 +245,7 @@ class RoundBackground : UIView {
     func changedScale() {
         let modScale = logScale % 1
         
-        banded2.alpha = modScale
+        banded2.alpha = CGFloat(modScale)
         
         let scale = 1 - modScale/2
         let t = Affine.scaling(scale)
@@ -293,9 +293,9 @@ class BandedView: UIView {
 }
 
 class RoundRuler : UIView {
-    var compassDirection: CGFloat = 0
-    var windDirection: CGFloat = 0
-    var windSpeed: CGFloat = 0
+    var compassDirection: Double = 0
+    var windDirection: Double = 0
+    var windSpeed: Double = 0
 
     var hasDirectionAndCompass = false { didSet { updateLabelVisibility() } }
     
@@ -348,7 +348,6 @@ class RoundRuler : UIView {
             if cardinal % 2 != 0 {
                 continue
             }
-            
             let r = bandWidth*(floor(0.5*bounds.width/bandWidth) - 0.5)
             let phi = (360*CGFloat(cardinal)/CGFloat(cardinalDirections) - 90).radians
             cardinalPositions.append(Polar(r: r, phi: phi))
@@ -383,7 +382,7 @@ class RoundRuler : UIView {
         
         let easing = ease(1.2*scale, to: 3.0*scale)
         
-        let basePolar = Polar(r: scale, phi: -compassDirection.radians - π/2)
+        let basePolar = Polar(r: scale, phi: CGFloat(-compassDirection.radians) - π/2)
         
         for (dot, p) in zip(dots, dotPositions) {
             dot.position = (p*basePolar).cartesian(bounds.center)
@@ -413,8 +412,8 @@ class RoundRuler : UIView {
     }
     
     var insideFactor: CGFloat {
-        let radially = 2*windSpeed*scale/frame.height
-        let horizontally = abs(CGPoint(r: 2*windSpeed*scale/frame.width, phi: windDirection.radians - π/2).x)
+        let radially = 2*CGFloat(windSpeed)*scale/frame.height
+        let horizontally = abs(CGPoint(r: 2*CGFloat(windSpeed)*scale/frame.width, phi: CGFloat(windDirection.radians) - π/2).x)
         
         return radially > 0.5 ? max(radially, horizontally) : min(radially, horizontally)
     }

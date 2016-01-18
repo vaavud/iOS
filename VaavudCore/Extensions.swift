@@ -250,6 +250,16 @@ struct Polar {
     var r: CGFloat
     var phi: CGFloat
     
+    init(r: Double, phi: Double) {
+        self.r = CGFloat(r)
+        self.phi = CGFloat(phi)
+    }
+    
+    init(r: CGFloat, phi: CGFloat) {
+        self.r = r
+        self.phi = phi
+    }
+
     var cartesian: CGPoint {
         return CGPoint(x: r*cos(phi), y: r*sin(phi))
     }
@@ -259,6 +269,10 @@ struct Polar {
     }
 
     func rotated(phi: CGFloat) -> Polar {
+        return self*Polar(r: 1, phi: phi)
+    }
+    
+    func rotated(phi: Double) -> Polar {
         return self*Polar(r: 1, phi: phi)
     }
 }
@@ -274,6 +288,16 @@ extension CGFloat {
     
     var degrees: CGFloat {
         return self*180/π
+    }
+}
+
+extension Double {
+    var radians: Double {
+        return self*Double(π)/180
+    }
+    
+    var degrees: Double {
+        return self*180/Double(π)
     }
 }
 
@@ -388,6 +412,10 @@ extension CGRect {
 }
 
 func distanceOnCircle(from angle: CGFloat, to otherAngle: CGFloat) -> CGFloat {
+    return CGFloat(distanceOnCircle(from: Double(angle), to: Double(otherAngle)))
+}
+
+func distanceOnCircle(from angle: Double, to otherAngle: Double) -> Double {
     let dist = (otherAngle - angle) % 360
     
     if dist <= -180 {

@@ -64,7 +64,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     private var logGroup: LogGroup!
     private var logHelper: LogHelper!
     
-    private var hasSomeDirection: Float?
+    private var hasSomeDirection: Double?
     private var hasActualDirection = false
     private var isShowingDirection = false
     private var hasWindSpeed = false
@@ -383,7 +383,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         return true
     }
     
-    private func updateWindDirection(rotation: Float) {
+    private func updateWindDirection(rotation: Double) {
         directionButton.setTitle(VaavudFormatter.shared.localizedDirection(rotation), forState: .Normal)
     }
     
@@ -412,7 +412,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    private func localisedLabelTexts<U: Unit>(unit: U, value: Float?) -> (String?, String?) {
+    private func localisedLabelTexts<U: Unit>(unit: U, value: Double?) -> (String?, String?) {
         guard let value = value else {
             return (nil, "-")
         }

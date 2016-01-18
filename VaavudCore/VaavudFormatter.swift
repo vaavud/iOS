@@ -79,13 +79,13 @@ extension Unit {
 }
 
 protocol FloatUnit: Unit {
-    func fromBase(_: Float) -> Float
+    func fromBase(_: Double) -> Double
     var decimals: Int { get }
 }
 
 extension FloatUnit {
     func fromBase(cgValue: CGFloat) -> CGFloat {
-        return CGFloat(fromBase(Float(cgValue)))
+        return CGFloat(fromBase(Double(cgValue)))
     }
 }
 
@@ -105,11 +105,11 @@ enum TemperatureUnit: String, FloatUnit {
 
     // MARK: FloatUnit protocol
     var decimals: Int { return 1 }
-    func fromBase(kelvinValue: Float) -> Float { return kelvinValue*ratio + constant }
+    func fromBase(kelvinValue: Double) -> Double { return kelvinValue*ratio + constant }
     
     // MARK: Convenience
-    private var ratio: Float { return [1, 9/5][index] }
-    private var constant: Float { return [-273.15, -459.67][index] }
+    private var ratio: Double { return [1, 9/5][index] }
+    private var constant: Double { return [-273.15, -459.67][index] }
 }
 
 enum PressureUnit: String, FloatUnit {
@@ -123,10 +123,10 @@ enum PressureUnit: String, FloatUnit {
 
     // MARK: FloatUnit protocol
     var decimals: Int { return [0, 3, 0][index] }
-    func fromBase(mbarValue: Float) -> Float { return mbarValue*ratio }
+    func fromBase(mbarValue: Double) -> Double { return mbarValue*ratio }
     
     // MARK: Convenience
-    private var ratio: Float { return [1, 0.000986923267, 0.75006375541921][index] }
+    private var ratio: Double { return [1, 0.000986923267, 0.75006375541921][index] }
 }
 
 enum DirectionUnit: String, Unit {
@@ -138,7 +138,7 @@ enum DirectionUnit: String, Unit {
     static var allCases: [DirectionUnit] { return [.Cardinal, .Degrees] }
 
     // MARK: Static
-    static func degreesToCardinal(degreesValue: Float) -> Int {
+    static func degreesToCardinal(degreesValue: Double) -> Int {
         return Int(round(16*degreesValue/360)) % 16
     }
 }
@@ -156,19 +156,19 @@ enum SpeedUnit: String, FloatUnit {
     
     // MARK: FloatUnit protocol
     var decimals: Int { return [1, 1, 1, 1, 0][index] }
-    func fromBase(msValue: Float) -> Float {
+    func fromBase(msValue: Double) -> Double {
         return self == .Bft ? SpeedUnit.msToBft(msValue) : msValue*ratio
     }
     
     // MARK: Convenience
-    private var ratio: Float { return [3.6, 1, 3600/1609.344, 3600/1852.0, 0][index] }
+    private var ratio: Double { return [3.6, 1, 3600/1609.344, 3600/1852.0, 0][index] }
     
-    private static func msToBft(msValue: Float) -> Float {
-        let bftLimits: [Float] = [0.3, 1.6, 3.5, 5.5, 8.0, 10.8, 13.9, 17.2, 20.8, 24.5, 28.5, 32.7]
+    private static func msToBft(msValue: Double) -> Double {
+        let bftLimits: [Double] = [0.3, 1.6, 3.5, 5.5, 8.0, 10.8, 13.9, 17.2, 20.8, 24.5, 28.5, 32.7]
         
         for (index, limit) in bftLimits.enumerate() {
             if msValue < limit {
-                return Float(index)
+                return Double(index)
             }
         }
         return 12
@@ -287,11 +287,11 @@ class VaavudFormatter: NSObject {
     
     // Formatted
 
-    func formattedSpeed(msSpeed: Float, decimals: Int = 0) -> String {
+    func formattedSpeed(msSpeed: Double, decimals: Int = 0) -> String {
         return localizedDecimalString(msSpeed, decimals: decimals) + " " + speedUnit.localizedString
     }
     
-    func formattedGustiness(gustiness: Float?) -> String? {
+    func formattedGustiness(gustiness: Double?) -> String? {
         if let gustiness = gustiness where gustiness > 0.001 {
             return String(format: "%.0f", 100*gustiness)
         }
@@ -301,8 +301,8 @@ class VaavudFormatter: NSObject {
 
     // Direction
 
-    class func transform(direction direction:CGFloat) -> CGAffineTransform {
-        return CGAffineTransform.rotation(π*direction/180)
+    class func transform(direction direction: CGFloat) -> CGAffineTransform {
+        return CGAffineTransform.rotation(CGFloat(π)*direction/180)
     }
     
 //    static var localizedNorth: String { return NSLocalizedString(directionKey(0), comment: "") }
@@ -310,7 +310,7 @@ class VaavudFormatter: NSObject {
 //    static var localizedSouth: String { return NSLocalizedString(directionKey(8), comment: "") }
 //    static var localizedWest: String { return NSLocalizedString(directionKey(12), comment: "") }
     
-    func localizedDirection(degrees: Float) -> String {
+    func localizedDirection(degrees: Double) -> String {
         switch directionUnit {
         case .Cardinal:
             return VaavudFormatter.localizedCardinal(degrees)
@@ -319,7 +319,7 @@ class VaavudFormatter: NSObject {
         }
     }
     
-    static func localizedCardinal(degrees: Float) -> String {
+    static func localizedCardinal(degrees: Double) -> String {
         let cardinalDirection = DirectionUnit.degreesToCardinal(degrees)
         return NSLocalizedString(directionKey(cardinalDirection), comment: "")
     }
@@ -328,23 +328,23 @@ class VaavudFormatter: NSObject {
 //        return NSLocalizedString(directionKey(direction), comment: "")
 //    }
     
-    func localizedSpeed(msSpeed: Float) -> String {
+    func localizedSpeed(msSpeed: Double) -> String {
         return localizedConvertedString(msSpeed, unit: speedUnit, digits: nil)
     }
     
-    func localizedSpeed(msSpeed: Float, digits: Int) -> String {
+    func localizedSpeed(msSpeed: Double, digits: Int) -> String {
         return localizedConvertedString(msSpeed, unit: speedUnit, digits: digits)
     }
     
-    func localizedPressure(mbarPressure: Float) -> String {
+    func localizedPressure(mbarPressure: Double) -> String {
         return localizedConvertedString(mbarPressure, unit: pressureUnit)
     }
     
-    func localizedTemperature(kelvin: Float, digits: Int? = nil) -> String {
+    func localizedTemperature(kelvin: Double, digits: Int? = nil) -> String {
         return localizedConvertedString(kelvin, unit: temperatureUnit, digits: digits)
     }
     
-    func localizedWindchill(kelvin: Float) -> String {
+    func localizedWindchill(kelvin: Double) -> String {
         return localizedConvertedString(kelvin, unit: temperatureUnit, decimals: 0)
     }
     
@@ -367,7 +367,7 @@ class VaavudFormatter: NSObject {
     
     // Convenience
     
-//    private func decimalString(value: Float?, decimals: Int = 0, min: Float = 0.1) -> String? {
+//    private func decimalString(value: Double?, decimals: Int = 0, min: Double = 0.1) -> String? {
 //        if value == nil || value < min {
 //            return nil
 //        }
@@ -375,7 +375,7 @@ class VaavudFormatter: NSObject {
 //        return localizedDecimalString(value!, decimals: decimals)
 //    }
 
-//    private func localizedConvertedString(value: Float?, unit: FloatUnit, min: Float = 0, decimals: Int? = nil, digits: Int? = nil) -> String? {
+//    private func localizedConvertedString(value: Double?, unit: FloatUnit, min: Double = 0, decimals: Int? = nil, digits: Int? = nil) -> String? {
 //        if value == nil || value < min {
 //            return nil
 //        }
@@ -383,11 +383,11 @@ class VaavudFormatter: NSObject {
 //        return localizedDecimalString(unit.fromBase(value!), decimals: decimals ?? unit.decimals, digits: digits)
 //    }
     
-    func localizedConvertedString<U: FloatUnit>(value: Float, unit: U, decimals: Int? = nil, digits: Int? = nil) -> String {
+    func localizedConvertedString<U: FloatUnit>(value: Double, unit: U, decimals: Int? = nil, digits: Int? = nil) -> String {
         return localizedDecimalString(unit.fromBase(value), decimals: decimals ?? unit.decimals, digits: digits)
     }
     
-    private func localizedDecimalString(value: Float, decimals: Int, digits: Int? = nil) -> String {
+    private func localizedDecimalString(value: Double, decimals: Int, digits: Int? = nil) -> String {
         var actualDecimals = decimals
         if value > 0, let digits = digits {
             let digitsBeforePoint = max(Int(floor(log10(value)) + 1), 1)

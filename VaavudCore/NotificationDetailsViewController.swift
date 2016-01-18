@@ -216,7 +216,7 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
 struct Directions: OptionSetType, CustomStringConvertible {
     let rawValue: Int
     init(rawValue: Int) { self.rawValue = rawValue }
-    init(angle: CGFloat) { self = Directions.number(Int(round(CGFloat(Directions.count)*angle/(2*π)))) }
+    init(angle: CGFloat) { self = Directions.number(Int(round(CGFloat(Directions.count)*angle/(2*CGFloat(π))))) }
     
     static let None = Directions(rawValue: 0)
     static let N = Directions(rawValue: 1)
@@ -232,7 +232,7 @@ struct Directions: OptionSetType, CustomStringConvertible {
     static let count = Directions.ordered.count
     static func number(i: Int) -> Directions { return ordered[mod(i, 8)] }
     
-    var angle: CGFloat { return CGFloat(index)*2*π/CGFloat(Directions.count) }
+    var angle: CGFloat { return CGFloat(index)*2*CGFloat(π)/CGFloat(Directions.count) }
     
     var index: Int { return Directions.ordered.indexOf(self)! }
     
@@ -244,14 +244,14 @@ struct Directions: OptionSetType, CustomStringConvertible {
 }
 
 func sectorBezierPath(total: Int)(direction: Directions) -> UIBezierPath {
-    let phi = 2*π/CGFloat(total)
+    let phi = 2*CGFloat(π)/CGFloat(total)
     let path = UIBezierPath()
     path.moveToPoint(CGPoint())
     path.addLineToPoint(CGPoint(r: 0.5, phi: -phi/2))
     path.addArcWithCenter(CGPoint(), radius: 0.5, startAngle: -phi/2, endAngle: phi/2, clockwise: true)
     path.closePath()
     
-    path.applyTransform(Affine.rotation(-π/2 - CGFloat(direction.index)*phi))
+    path.applyTransform(Affine.rotation(-CGFloat(π)/2 - CGFloat(direction.index)*phi))
     path.applyTransform(Affine.translation(0.5, 0.5))
     return path
 }
@@ -324,7 +324,7 @@ class DirectionSelector: UIControl {
         if (point - bounds.center).polar.r > bounds.width/2 {
             return nil
         }
-        return Directions(angle: -π/2 - (point - bounds.center).polar.phi)
+        return Directions(angle: -CGFloat(π)/2 - (point - bounds.center).polar.phi)
     }
     
     override func drawRect(rect: CGRect) {
