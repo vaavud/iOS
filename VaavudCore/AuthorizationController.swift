@@ -42,6 +42,7 @@ class AuthorizationController: NSObject {
     
     func verifyAuth() -> Bool {
         if _deviceId != nil && uid != nil {
+            registerNotifications()
             return true
         }
         
@@ -55,7 +56,15 @@ class AuthorizationController: NSObject {
         uid = authData.uid
         _deviceId = deviceId
         
+        registerNotifications()
+        
         return true
+    }
+    
+    func registerNotifications(){
+        let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert , .Badge , .Sound] , categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
+        UIApplication.sharedApplication().registerForRemoteNotifications()
     }
     
     
@@ -259,6 +268,8 @@ class AuthorizationController: NSObject {
         
         self.uid = uid
         self._deviceId = deviceId
+        
+        verifyAuth()
         
         validateUserSettings()
         

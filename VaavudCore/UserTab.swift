@@ -16,11 +16,11 @@ class UserTabViewController : UIViewController, UINavigationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let cs = storyboard!.instantiateViewControllerWithIdentifier("ComingSoonNavigationController")
-        addChildViewController(cs)
-        cs.view.frame = notificationContainer.bounds
-        notificationContainer.addSubview(cs.view)
-        cs.didMoveToParentViewController(self)
+//        let cs = storyboard!.instantiateViewControllerWithIdentifier("ComingSoonNavigationController")
+//        addChildViewController(cs)
+//        cs.view.frame = notificationContainer.bounds
+//        notificationContainer.addSubview(cs.view)
+//        cs.didMoveToParentViewController(self)
         
         for child in childViewControllers {
             if let nav = child as? UINavigationController {

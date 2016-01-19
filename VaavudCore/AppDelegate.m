@@ -83,12 +83,6 @@
 
     [self.window makeKeyAndVisible];
     
-    
-    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
-    [application registerUserNotificationSettings:notificationSettings];
-    [application registerForRemoteNotifications];
-    
-
     return YES;
 }
 
@@ -153,12 +147,55 @@
 }
 
 
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
-     NSLog(@"Notification: %@", userInfo);
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    if (application.applicationState == UIApplicationStateBackground) {
+        
+        NSLog(@"Background");
+        
+        //Refresh the local model
+        
+        completionHandler(UIBackgroundFetchResultNewData);
+        
+    }
+    else if(application.applicationState == UIApplicationStateInactive) {
+        
+        NSLog(@"Inactive");
+        
+        //Show the view with the content of the push
+        
+        completionHandler(UIBackgroundFetchResultNewData);
+        
+    }
+    else {
+        
+        NSLog(@"Active");
+        
+        //Show an in-app banner
+        
+        completionHandler(UIBackgroundFetchResultNewData);
+        
+    }
+    
+    
+//    [[NSNotificationCenter defaultCenter]
+//     postNotificationName:@"PushNotification"
+//     object:self];
+    
+    
+    NSLog(@"Notification: %@", userInfo);
+
+
 }
+
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
     NSLog(@"Error in registration. Error: %@", err);
+}
+
+- (void) application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler {
+    
+    NSLog(@"Inf when app its open from notification: %@", userInfo);
 }
 
 

@@ -234,6 +234,8 @@ class CoreSettingsTableViewController: UITableViewController {
         
         AuthorizationController.shared.unauth()
         FBSDKLoginManager().logOut()
+        
+        UIApplication.sharedApplication().unregisterForRemoteNotifications()
 
         gotoLoginFrom(tabBarController!, inside: view.window!.rootViewController!)
     }

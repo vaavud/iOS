@@ -49,6 +49,10 @@
 
 
 
+@property (nonatomic) BOOL isFromNotification;
+
+
+
 @end
 
 @implementation MapViewController
@@ -59,6 +63,13 @@
     if (self) {
         self.logHelper = [[LogHelper alloc] initWithGroupName:@"Map" counters:@[@"scrolled", @"tapped-marker"]];
     }
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+        selector:@selector(receiveTestNotification:)
+        name:@"PushNotification"
+        object:nil];
+    
     
     return self;
 }
@@ -111,6 +122,26 @@
     }
     
     [self setupFirebase];
+    
+}
+
+
+- (void) receiveTestNotification:(NSNotification *) notification{
+    // [notification name] should always be @"TestNotification"
+    // unless you use this method for observation of other notifications
+    // as well.
+    
+    if ([[notification name] isEqualToString:@"PushNotification"]){
+        NSLog (@"Successfully received the test notification!");
+        //self.isFromNotification = YES;
+        
+        
+        UIAlertView* alert;
+        alert = [[UIAlertView alloc] initWithTitle:@"Info" message:@"Much more info" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+        [alert show];
+        
+    }
+    
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
@@ -198,6 +229,17 @@
                                                        selector:@selector(removeOldSessions)
                                                        userInfo:nil
                                                         repeats:YES];
+    
+    
+    if(self.isFromNotification){
+        NSLog(@"Notification viewDidLoad");
+        
+       
+        
+    }
+    else{
+        NSLog(@"Notig");
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {

@@ -11,6 +11,17 @@ import UIKit
 class TabBarController: UITabBarController,UITabBarControllerDelegate {
     let button = UIButton(type: .Custom)
     var laidOutWidth: CGFloat?
+    var tabToSelect = 1
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self,
+            selector: Selector("receiveNotification:"),
+            name: "PushNotification",
+            object: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,11 +30,19 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
         button.bounds.size.height = tabBar.bounds.height
         button.setImage(UIImage(named: "MeasureButton"), forState: .Normal)
         tabBar.addSubview(button)
-        selectedIndex = 1
+        selectedIndex = tabToSelect
         
         tabBar.tintColor = .vaavudBlueColor()
         delegate = self
         
+       
+        
+//        [[NSNotificationCenter defaultCenter] addObserver:self
+//            selector:@selector(receiveNotification:)
+//        name:@"PushNotification"
+//        object:nil];
+//    
+    
 //        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 //        CGRect frame = self.tabBar.bounds;
 //        frame.size.width = 70;
@@ -70,6 +89,13 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
         
         for item in tabBar.items! {
             item.imageInsets = UIEdgeInsetsMake(6.0, 0.0, -6.0, 0.0);
+        }
+    }
+    
+    func receiveNotification(notification: NSNotification){
+        if notification.name == "PushNotification" {
+            print("Push Notification in TabBar")
+            selectedIndex = 1
         }
     }
     
