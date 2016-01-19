@@ -54,8 +54,6 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
             //VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: LoginError.Facebook.rawValue, otherKey: "BUTTON_OK", action: {}, on: self)
         }
         else {
-            
-            
             bg.alpha = 1
             spinner.show()
             
