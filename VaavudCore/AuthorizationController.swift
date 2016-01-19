@@ -37,8 +37,7 @@ class AuthorizationController: NSObject {
     
     static let shared = AuthorizationController()
     
-    private override init() {
-    }
+    private override init() {}
     
     func verifyAuth() -> Bool {
         if _deviceId != nil && uid != nil {
@@ -335,9 +334,4 @@ class AuthorizationController: NSObject {
     static var deviceIsIphone4: Bool {
         return deviceModel.hasPrefix("iPhone3")
     }
-    
-    static var deviceIsIphone6: Bool {
-        return deviceModel.hasPrefix("iPhone7")
-    }
-
 }

@@ -305,7 +305,7 @@ class VaavudFormatter: NSObject {
     // Direction
 
     class func transform(direction direction: CGFloat) -> CGAffineTransform {
-        return CGAffineTransform.rotation(CGFloat(π)*direction/180)
+        return CGAffineTransform.rotation(π*direction/180)
     }
     
 //    static var localizedNorth: String { return NSLocalizedString(directionKey(0), comment: "") }
