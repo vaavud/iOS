@@ -289,13 +289,8 @@ func parseCurrently(dict: [String : AnyObject]) -> (Double, Double, Int?)? {
 }
 
 func parseCurrentlyFull(var dict: [String : AnyObject]) -> Sourced? {
-    if let pressure = dict["pressure"] as? Int {
-        dict["pressure"] = pressure*100
-    }
-    
-    if let temperature = dict["temperature"] as? Double {
-        dict["temperature"] = TemperatureUnit.Fahrenheit.toKelvin(temperature)
-    }    
+    dict["pressure"] = (dict["pressure"] as? Int).map { $0*100 }
+    dict["temperature"] = (dict["temperature"] as? Double).map(TemperatureUnit.Fahrenheit.toKelvin)
     
     return Sourced(dict: dict)
 }

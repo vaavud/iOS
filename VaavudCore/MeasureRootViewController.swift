@@ -61,6 +61,18 @@ func makeNamedLocation(name: String?, event: LocationEvent) -> Location {
     return Location(lat: event.lat, lon: event.lon, name: name, altitude: event.altitude)
 }
 
+struct StreamTracker {
+    var hasNewValue = false
+    private var valuesSaved = 0
+    mutating func newUploadIndex() -> String? {
+        guard hasNewValue else { return nil }
+        let result = String(valuesSaved)
+        valuesSaved += 1
+        hasNewValue = false
+        return result
+    }
+}
+
 class MeasureRootViewController: UIViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate, WindMeasurementControllerDelegate, DBRestClientDelegate {
     private var pageController: UIPageViewController!
     private var viewControllers: [UIViewController]!
@@ -68,8 +80,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
     private var vcsNames: [String]!
     
-    private var altimeter: CMAltimeter?
-        
     private var mjolnir: MjolnirMeasurementController?
     
     private let model: WindMeterModel!
@@ -90,7 +100,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var screenUsage = [Double]()
     
     private var elapsedSinceUpdate: Double = 0
-    private var windSpeedsSaved = 0
     
     private var logHelper = LogHelper(.Measure)
 
@@ -98,6 +107,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var geoname: String?
     private var sourced: Sourced?
     
+    var windTracker = StreamTracker()
+    var windDirectionTracker = StreamTracker()
+    var locationTracker = StreamTracker()
+    var pressureTracker = StreamTracker()
+    var velocityTracker = StreamTracker()
+
     private var state: MeasureState = .Done
     private var timeLeft = CGFloat(countdownInterval)
     
@@ -113,6 +128,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         VaavudSDK.shared.windSpeedCallback = newWindSpeed
         VaavudSDK.shared.locationCallback = newLocation
+        VaavudSDK.shared.pressureCallback = newPressure
         
         if model == .Sleipnir {
             deviceSettings.childByAppendingPath("usesSleipnir").setValue(true)
@@ -121,15 +137,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             VaavudSDK.shared.headingCallback = newHeading
             VaavudSDK.shared.velocityCallback = newVelocity
         }
-        
-        if CMAltimeter.isRelativeAltitudeAvailable() {
-            self.altimeter = CMAltimeter()
-        }
     }
     
     deinit {
         print("Deinit Root")
-        altimeter?.stopRelativeAltitudeUpdates()
     }
     
     override func viewDidLoad() {
@@ -207,9 +218,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         session = Session(uid: firebase.authData.uid, key: post.key, deviceId: deviceId, timeStart: NSDate(), windMeter: model)
         post.setValue(session.fireDict)
         
-        //        updateWithSourcedData(session)
-        //        updateWithPressure(session)
-        
         logHelper.began(["time-limit" : state.timed ?? 0, "device" : model.rawValue.capitalizedString])
         elapsedSinceUpdate = 0
     }
@@ -223,6 +231,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
             if elapsedSinceUpdate > updatePeriod {
                 updateSession()
+                updateStreams()
                 elapsedSinceUpdate = 0
             }
         }
@@ -272,20 +281,48 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         session.windDirection = VaavudSDK.shared.session.meanDirection
         session.location = VaavudSDK.shared.session.locations.last.map { makeNamedLocation(geoname, event: $0) }
         session.sourced = sourced
+        session.pressure = VaavudSDK.shared.session.pressures.last?.pressure
         
         firebase
             .childByAppendingPaths("session", session.key)
             .setValue(session.fireDict)
+    }
+    
+    func updateStreams() {
+        if let index = windTracker.newUploadIndex() {
+            print("Saving wind: \(index)")
+            firebase
+                .childByAppendingPaths("wind", session.key, index)
+                .setValue(VaavudSDK.shared.session.windSpeeds.last!.fireDict)
+        }
         
-        firebase
-            .childByAppendingPaths("wind", session.key, String(windSpeedsSaved))
-            .setValue((VaavudSDK.shared.session.windSpeeds.last ?? WindSpeedEvent(speed: 0)).fireDict)
+        if let index = windDirectionTracker.newUploadIndex() {
+            print("Saving direction: \(index)")
+            firebase
+                .childByAppendingPaths("windDirection", session.key, index)
+                .setValue(VaavudSDK.shared.session.windDirections.last!.fireDict)
+        }
         
-        firebase
-            .childByAppendingPaths("windDirection", session.key, String(windSpeedsSaved))
-            .setValue(VaavudSDK.shared.session.windDirections.last?.fireDict)
-
-        windSpeedsSaved += 1
+        if let index = locationTracker.newUploadIndex() {
+            print("Saving location: \(index)")
+            firebase
+                .childByAppendingPaths("location", session.key, index)
+                .setValue(VaavudSDK.shared.session.locations.last!.fireDict)
+        }
+        
+        if let index = pressureTracker.newUploadIndex() {
+            print("Saving pressure: \(index)")
+            firebase
+                .childByAppendingPaths("pressure", session.key, index)
+                .setValue(VaavudSDK.shared.session.pressures.last!.fireDict)
+        }
+        
+        if let index = velocityTracker.newUploadIndex() {
+            print("Saving velocity: \(index)")
+            firebase
+                .childByAppendingPaths("velocity", session.key, index)
+                .setValue(VaavudSDK.shared.session.velocities.last!.fireDict)
+        }
     }
 
     func save(userCancelled: Bool) {
@@ -348,13 +385,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
         }
         else {
-            //                    if session.geoLocationNameLocalized == nil {
-            //                        updateWithLocation(session)
-            //                        if hasValidLocation(session) != nil {
-            //                            updateWithGeocode(session)
-            //                        }
-            //                    }
-            
             let summary = storyboard!.instantiateViewControllerWithIdentifier("SummaryViewController") as! SummaryViewController
             summary.session = session
             
@@ -389,73 +419,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
     }
 
-    // MARK - Updating Session
-    
-    func saveLocation(sessionKey: String) {
-//        let loc = LocationManager.sharedInstance().latestLocation
-//        
-//        if LocationManager.isCoordinateValid(loc) {
-//            let locationDictDelta = ["lat" : loc.latitude, "lon" : loc.longitude]
-//            
-//            firebase
-//                .childByAppendingPaths("session", sessionKey, "location")
-//                .updateChildValues(locationDictDelta)
-//            
-//            let latlong = CLLocation(latitude: loc.latitude, longitude: loc.longitude)
-//            
-//            updateWithGeocode(latlong, sessionKey: sessionKey)
-//            updateWithSourcedData(latlong, sessionKey: sessionKey)
-//        }
-    }
-    
-    func requestGeocode(location: CLLocationCoordinate2D) {
-        ForecastLoader.shared.requestGeocode(location) { name in
-            guard let name = name else { return }
-            self.geoname = name
-
-            guard self.session != nil else { return }
-            self.updateSession()
-        }
-    }
-    
 //    func saveWindchill(sessionKey: String) {
         //        if let kelvin = session.sourcedTemperature, ms = session.windSpeedAvg ?? session.sourcedWindSpeedAvg, chill = windchill(kelvin.floatValue, ms.floatValue) {
         //            session.windChill = chill
         //            // fixme: summary may need to be updated
         //        }
 //    }
-    
-    func requestSourcedData(location: CLLocationCoordinate2D) {
-        ForecastLoader.shared.requestFullForecast(location) { sourced in
-            self.sourced = sourced
-            self.currentConsumer?.newTemperature(sourced.temperature)
-            
-            print("Got sourced data: \(sourced)")
-        }
-    }
-    
-    func updateWithPressure(sessionKey: String) {
-        altimeter?.startRelativeAltitudeUpdatesToQueue(NSOperationQueue.mainQueue()) {
-            altitudeData, error in
-            if let kpa = altitudeData?.pressure.doubleValue {
-                self.altimeter?.stopRelativeAltitudeUpdates()
-                
-//                let pressureModel = ["temperature" : 10*kpa]
-                
-//                self.vaavudFirebase
-//                    .childByAppendingPath("session")
-//                    .childByAppendingPath(sessionKey)
-//                    .updateChildValues(pressureModel)
-//                
-
-//                if session.managedObjectContext == nil || session.deleted { return }
-//                session.pressure = 10*kpa
-
-                // fixme: summary may need to be updated
-                // fixme: send to firebase
-            }
-        }
-    }
     
     // MARK: Mjolnir Delegate
     
@@ -475,16 +444,18 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     // MARK: SDK Delegate
     
-    func newWindDirection(event: WindDirectionEvent) {
-        currentConsumer?.newWindDirection(event.direction)
-    }
-    
     func newWindSpeed(event: WindSpeedEvent) {
+        windTracker.hasNewValue = true
         currentConsumer?.newSpeed(event.speed)
         guard let session = session else { return }
         currentConsumer?.newSpeedMax(session.windMax)
     }
     
+    func newWindDirection(event: WindDirectionEvent) {
+        windDirectionTracker.hasNewValue = true
+        currentConsumer?.newWindDirection(event.direction)
+    }
+
     func newTrueWindDirection(event: WindDirectionEvent) {
         print("CLLocation newTrueWindDirection \(event)")
     }
@@ -494,10 +465,13 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func newHeading(event: HeadingEvent) {
+        print("CLLocation newHeading \(event)")
         currentConsumer?.newHeading(event.heading)
     }
     
     func newLocation(event: LocationEvent) {
+        locationTracker.hasNewValue = true
+
         print("CLLocation newLocation \(event)")
         
         if geoname == nil {
@@ -507,11 +481,41 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             requestSourcedData(event.location.coordinate)
         }
     }
-
+    
     func newVelocity(event: VelocityEvent) {
+        velocityTracker.hasNewValue = true
         print("CLLocation newVelocity \(event)")
     }
     
+    func newPressure(event: PressureEvent) {
+        pressureTracker.hasNewValue = true
+        print("CMAltimeter newPressure \(event)")
+    }
+    
+    // MARK - Network requests
+    
+    func requestGeocode(location: CLLocationCoordinate2D) {
+        ForecastLoader.shared.requestGeocode(location) { name in
+            guard let name = name else { return }
+            self.geoname = name
+            
+            guard self.session != nil else { return }
+            self.updateSession()
+        }
+    }
+    
+    func requestSourcedData(location: CLLocationCoordinate2D) {
+        ForecastLoader.shared.requestFullForecast(location) { sourced in
+            self.sourced = sourced
+            self.currentConsumer?.newTemperature(sourced.temperature)
+            
+            guard self.session != nil else { return }
+            self.updateSession()
+            
+            print("Got sourced data: \(sourced)")
+        }
+    }
+
     // Mark - Page View Controller Delegate
 
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {

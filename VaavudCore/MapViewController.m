@@ -299,7 +299,7 @@
         return;
     }
     
-    NSLog(@"changing %@ session", data.key);
+//    NSLog(@"changing %@ session", data.key);
     
     if (data.value[@"timeEnd"] != nil) {
         MeasurementAnnotation *annotation = self.incompleteSessions[data.key];
@@ -313,7 +313,7 @@
         [self addAnnotationToStack:annotation  sessionKey:data.key];
     }
     else {
-        if (self.incompleteSessions[data.key] == nil){
+        if (self.incompleteSessions[data.key] == nil) {
             NSDictionary *loctation = ((NSDictionary *)data.value[@"location"]);
             
             CLLocationDegrees latitude = ((NSString *)loctation[@"lat"]).doubleValue;

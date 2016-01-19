@@ -354,7 +354,6 @@ class VaavudFormatter: NSObject {
     // Gustiness
     
     func writeUnit<U: Unit>(unit: U, old: U) {
-        print("Formatter: Write unit \(U.unitKey): \(old.rawValue) > \(unit.rawValue)")
         guard unit != old else { return }
         firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared", U.unitKey).setValue(unit.rawValue)
     }

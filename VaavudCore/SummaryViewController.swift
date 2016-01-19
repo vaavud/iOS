@@ -60,7 +60,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var isHistorySummary = false
-    
+
     private var logGroup: LogGroup!
     private var logHelper: LogHelper!
     
@@ -74,6 +74,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     private var hasWindChill = false
     
     private var formatterHandle: String!
+    private var sessionHandle: FirebaseHandle!
     
     private var animator: UIDynamicAnimator!
     var session: Session!
@@ -101,7 +102,16 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         updateUI()
         updateLocalUI()
         
-        // fixme: listen for session change
+        let firebase = Firebase(url: firebaseUrl)
+        
+        sessionHandle = firebase
+            .childByAppendingPaths("session", session.key)
+            .observeEventType(.Value, withBlock: { snapshot in
+//                self.session = Session(snapshot: snapshot)
+//                self.updateUI()
+                print("session changed: \(snapshot))")
+                print("session changed: \(snapshot) \n\n \(Session(snapshot: snapshot))")
+            })
     }
     
     override func viewDidLayoutSubviews() {
@@ -155,7 +165,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         maximumLabel.font = maximumLabel.font.fontWithSize(Interface.choose(40, 50, 60, 75, 150, 150))
     }
     
-    private func setupGeoLocation() {
+    private func updateGeoLocation() {
         if session.location == nil {
             locationLabel.alpha = 0.3
             locationLabel.text = NSLocalizedString("GEOLOCATION_UNKNOWN", comment: "")
@@ -173,8 +183,8 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     // MARK: Update methods
 
     private func updateUI() {
-        setupGeoLocation()
-        setupWindDirection()
+        updateGeoLocation()
+        updateWindDirection()
         
         updateWindSpeeds()
         updatePressure()
@@ -196,12 +206,6 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
 
     // MARK: Event handling
     
-    func sessionUpdated(note: NSNotification) { // fixme: take care of this
-//        if let objectId = note.userInfo?["objectID"] as? NSManagedObjectID where objectId == session.key {
-//            updateUI()
-//        }
-    }
-
     func unitsChanged() {
         updateUI()
         updateMapView()
@@ -383,11 +387,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         return true
     }
     
-    private func updateWindDirection(rotation: Double) {
-        directionButton.setTitle(VaavudFormatter.shared.localizedDirection(rotation), forState: .Normal)
-    }
-    
-    private func setupWindDirection() {
+    private func updateWindDirection() {
         hasActualDirection = session.windDirection != nil
         hasSomeDirection = session.windDirection // FIXME: Temporary, will remove when we start sourcing directions
         
@@ -410,6 +410,10 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
             showSleipnir()
             isShowingDirection = false
         }
+    }
+
+    private func updateWindDirection(rotation: Double) {
+        directionButton.setTitle(VaavudFormatter.shared.localizedDirection(rotation), forState: .Normal)
     }
     
     private func localisedLabelTexts<U: Unit>(unit: U, value: Double?) -> (String?, String?) {
