@@ -48,8 +48,7 @@
 @property (nonatomic) CLLocationManager *locationManager;
 
 
-
-@property (nonatomic) BOOL isFromNotification;
+@property (nonatomic) BOOL pendingNotification;
 
 
 
@@ -135,11 +134,17 @@
         NSLog (@"Successfully received the test notification!");
         //self.isFromNotification = YES;
         
+//        if let tabArray = tabBar.items {
+//            tabArray[1].badgeValue = "1"
+//        }
         
-        UIAlertView* alert;
-        alert = [[UIAlertView alloc] initWithTitle:@"Info" message:@"Much more info" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
         
+        if(self.isShowing){
+            NSLog(@"show Notification");
+        }
+        else{
+            self.pendingNotification = YES;
+        }
     }
     
 }
@@ -231,15 +236,14 @@
                                                         repeats:YES];
     
     
-    if(self.isFromNotification){
-        NSLog(@"Notification viewDidLoad");
-        
-       
+    if(self.pendingNotification){
+        self.pendingNotification = NO;
+        [[self.tabBarController tabBar] items][1].badgeValue = 0;
         
     }
-    else{
-        NSLog(@"Notig");
-    }
+    
+    
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {

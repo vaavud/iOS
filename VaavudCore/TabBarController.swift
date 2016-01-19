@@ -95,7 +95,14 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
     func receiveNotification(notification: NSNotification){
         if notification.name == "PushNotification" {
             print("Push Notification in TabBar")
-            selectedIndex = 1
+            
+            if selectedIndex == 1{
+                return
+            }
+            
+            if let tabArray = tabBar.items {
+                tabArray[1].badgeValue = "1"
+            }
         }
     }
     

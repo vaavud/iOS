@@ -150,42 +150,30 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
     if (application.applicationState == UIApplicationStateBackground) {
-        
         NSLog(@"Background");
-        
-        //Refresh the local model
-        
         completionHandler(UIBackgroundFetchResultNewData);
         
     }
     else if(application.applicationState == UIApplicationStateInactive) {
-        
         NSLog(@"Inactive");
-        
-        //Show the view with the content of the push
-        
         completionHandler(UIBackgroundFetchResultNewData);
         
     }
     else {
         
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"PushNotification"
+         object:self];
+        
         NSLog(@"Active");
-        
-        //Show an in-app banner
-        
         completionHandler(UIBackgroundFetchResultNewData);
-        
     }
     
     
-//    [[NSNotificationCenter defaultCenter]
-//     postNotificationName:@"PushNotification"
-//     object:self];
+
     
     
     NSLog(@"Notification: %@", userInfo);
-
-
 }
 
 
