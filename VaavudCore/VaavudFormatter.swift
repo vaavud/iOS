@@ -126,10 +126,10 @@ enum PressureUnit: String, FloatUnit {
 
     // MARK: FloatUnit protocol
     var decimals: Int { return [0, 3, 0][index] }
-    func fromBase(mbarValue: Double) -> Double { return mbarValue*ratio }
+    func fromBase(pascalValue: Double) -> Double { return pascalValue*ratio }
     
     // MARK: Convenience
-    private var ratio: Double { return [1, 0.000986923267, 0.75006375541921][index] }
+    private var ratio: Double { return [0.01, 0.00000986923267, 0.0075006375541921][index] }
 }
 
 enum DirectionUnit: String, Unit {
@@ -167,7 +167,7 @@ enum SpeedUnit: String, FloatUnit {
     private var ratio: Double { return [3.6, 1, 3600/1609.344, 3600/1852.0, 0][index] }
     
     private static func msToBft(msValue: Double) -> Double {
-        let bftLimits: [Double] = [0.3, 1.6, 3.5, 5.5, 8.0, 10.8, 13.9, 17.2, 20.8, 24.5, 28.5, 32.7]
+        let bftLimits = [0.3, 1.6, 3.5, 5.5, 8.0, 10.8, 13.9, 17.2, 20.8, 24.5, 28.5, 32.7]
         
         for (index, limit) in bftLimits.enumerate() {
             if msValue < limit {
@@ -368,22 +368,6 @@ class VaavudFormatter: NSObject {
     private static var directionNames: [String] { return ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"] }
     
     // Convenience
-    
-//    private func decimalString(value: Double?, decimals: Int = 0, min: Double = 0.1) -> String? {
-//        if value == nil || value < min {
-//            return nil
-//        }
-//        
-//        return localizedDecimalString(value!, decimals: decimals)
-//    }
-
-//    private func localizedConvertedString(value: Double?, unit: FloatUnit, min: Double = 0, decimals: Int? = nil, digits: Int? = nil) -> String? {
-//        if value == nil || value < min {
-//            return nil
-//        }
-//        
-//        return localizedDecimalString(unit.fromBase(value!), decimals: decimals ?? unit.decimals, digits: digits)
-//    }
     
     func localizedConvertedString<U: FloatUnit>(value: Double, unit: U, decimals: Int? = nil, digits: Int? = nil) -> String {
         return localizedDecimalString(unit.fromBase(value), decimals: decimals ?? unit.decimals, digits: digits)

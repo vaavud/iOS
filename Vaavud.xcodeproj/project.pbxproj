@@ -97,7 +97,6 @@
 		E904AC9817F08F6E00171F7F /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9717F08F6E00171F7F /* MapViewController.m */; };
 		E904AC9A17F0911000171F7F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E904AC9917F0911000171F7F /* MapKit.framework */; };
 		E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */; };
-		E93C865A1781BE56005E4212 /* LocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86591781BE56005E4212 /* LocationManager.m */; };
 		E93C86631781C764005E4212 /* Property+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = E93C86621781C764005E4212 /* Property+Util.m */; };
 		E960260818575452009396B1 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E960260A18575452009396B1 /* Localizable.strings */; };
 		E960260E18575E41009396B1 /* MeasurementCalloutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E960261018575E41009396B1 /* MeasurementCalloutView.xib */; };
@@ -317,8 +316,6 @@
 		E904AC9917F0911000171F7F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		E904AC9D17F193DF00171F7F /* MeasurementAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementAnnotation.h; sourceTree = "<group>"; };
 		E904AC9E17F193DF00171F7F /* MeasurementAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementAnnotation.m; sourceTree = "<group>"; };
-		E93C86581781BE56005E4212 /* LocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationManager.h; sourceTree = "<group>"; };
-		E93C86591781BE56005E4212 /* LocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationManager.m; sourceTree = "<group>"; };
 		E93C86621781C764005E4212 /* Property+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Property+Util.m"; sourceTree = "<group>"; };
 		E96025FB18574DC0009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E960260B18575461009396B1 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -742,8 +739,6 @@
 			children = (
 				E9FD000917FD6A06001A8491 /* FormatUtil.h */,
 				E9FD000A17FD6A06001A8491 /* FormatUtil.m */,
-				E93C86581781BE56005E4212 /* LocationManager.h */,
-				E93C86591781BE56005E4212 /* LocationManager.m */,
 				E9A4099A18AA501D004F1C12 /* PasswordUtil.h */,
 				E9A4099B18AA501D004F1C12 /* PasswordUtil.m */,
 				E9F33CC918B4AFBF0033EDC7 /* UIColor+VaavudColors.h */,
@@ -1020,7 +1015,6 @@
 				D721B47E1AD1EBD10045DC99 /* DropboxUploader.swift in Sources */,
 				E904AC9817F08F6E00171F7F /* MapViewController.m in Sources */,
 				2BB813161C1874FE00D70E10 /* HistoryHeaderCell.swift in Sources */,
-				E93C865A1781BE56005E4212 /* LocationManager.m in Sources */,
 				E93C86631781C764005E4212 /* Property+Util.m in Sources */,
 				22AC73F61B3D93CC008631E8 /* OldMeasureScreen.swift in Sources */,
 				22AB2E701A70FD92008CAE46 /* SummaryViewController.swift in Sources */,

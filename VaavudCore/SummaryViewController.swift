@@ -456,18 +456,18 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     }
 
     private func updatePressure() {
-        let unit = VaavudFormatter.shared.pressureUnit
         let pressure = session.pressure ?? session.sourced?.pressure
-        hasPressure = pressure != nil
-        
+        let unit = VaavudFormatter.shared.pressureUnit
         (pressureUnitLabel.text, pressureLabel.text) = localisedLabelTexts(unit, value: pressure)
+
+        hasPressure = pressure != nil
     }
     
     private func updateTemperature() {
-        let unit = VaavudFormatter.shared.temperatureUnit
         let temperature = session.temperature ?? session.sourced?.temperature
         hasTemperature = temperature != nil
         
+        let unit = VaavudFormatter.shared.temperatureUnit
         (temperatureUnitLabel.text, temperatureLabel.text) = localisedLabelTexts(unit, value: temperature)
         
         let chill = windchill(temperature, session.windMean)

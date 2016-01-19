@@ -11,7 +11,7 @@
 
 #import "AppDelegate.h"
 #import "UIColor+VaavudColors.h"
-#import "LocationManager.h"
+
 #import "MeasurementAnnotation.h"
 #import "PasswordUtil.h"
 #import "Amplitude.h"

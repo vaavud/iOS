@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 #import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-#import "LocationManager.h"
 #import "TMCache.h"
 #import "Vaavud-Swift.h"
 #import "Amplitude.h"
@@ -42,7 +41,6 @@
     TMCache *cache = [TMCache sharedCache];
     cache.diskCache.ageLimit = 24.0*3600.0;
     
-//    [[LocationManager sharedInstance] startIfEnabled];
     //[FBSettings setLoggingBehavior:[NSSet setWithObjects:FBLoggingBehaviorFBRequests, FBLoggingBehaviorInformational, nil]];
             
     self.xCallbackSuccess = nil;
@@ -85,7 +83,6 @@
     [vc didMoveToParentViewController:parent];
 
     [self.window makeKeyAndVisible];
-    
 
     return YES;
 }
