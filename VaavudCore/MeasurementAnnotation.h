@@ -19,6 +19,7 @@
 @property (nonatomic) float maxWindSpeed;
 @property (nonatomic, readonly) NSString *sessionKey;
 @property (nonatomic) NSNumber *windDirection;
+@property (nonatomic) BOOL isShowing;
 
 - (id)initWithLocation:(CLLocationCoordinate2D)coord windDirection:(NSNumber *)direction;
 - (id)initWithLocation:(CLLocationCoordinate2D)coord

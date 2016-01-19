@@ -70,7 +70,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self hideVolumeHUD];
-        
+    
     //NSLog(@"[MapViewController] viewDidLoad");
     
     self.now = [NSDate date];
@@ -86,7 +86,7 @@
     self.hoursAgoOption = 3;
     self.hoursAgoOptions = @[@3, @6, @12, @24];
     
-	self.mapView.delegate = self;
+    self.mapView.delegate = self;
     
     self.mapView.calloutView = [SMCalloutView new];
     self.mapView.calloutView.delegate = self;
@@ -98,7 +98,7 @@
     self.activityIndicator.hidden = YES;
     
     [self setupMapPosition];
-
+    
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
     
     self.formatHandle = [[VaavudFormatter shared] observeUnitChange:^{ [self unitChanged]; }];
@@ -115,11 +115,15 @@
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     NSLog(@"didUpdateLocations");
-
+    
     CLLocationCoordinate2D location = locations[locations.count - 1].coordinate;
     if (CLLocationCoordinate2DIsValid(location)) {
         [self gotValidLocation:location];
     }
+}
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"Map view location manager failed");
 }
 
 -(void)gotValidLocation:(CLLocationCoordinate2D)location {
@@ -127,7 +131,7 @@
     [defaults setDouble:location.latitude forKey:KEY_STORED_LOCATION_LAT];
     [defaults setDouble:location.longitude forKey:KEY_STORED_LOCATION_LON];
     [defaults synchronize];
-
+    
     if (!self.didScroll) {
         [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(location, 200000, 200000) animated:YES];
     }
@@ -186,7 +190,7 @@
     
     self.isShowing  = YES;
     [self refreshPendingAnnotations];
-
+    
     [self removeOldForecasts];
     
     self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:3600
@@ -218,9 +222,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:NO animated:animated];
-
+    
     [super viewWillDisappear:animated];
-
+    
     [self.refreshTimer invalidate];
     [self hideCallout];
 }
@@ -244,15 +248,15 @@
     
     CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
     CLLocationCoordinate2D loc = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-
+    
     [self.logHelper log:@"Added-Forecast-Pin" properties:@{}];
-
+    
     [self addPin:loc];
 }
 
 - (void)addPin:(CLLocationCoordinate2D)loc {
     ForecastAnnotation *annotation = [[ForecastAnnotation alloc] initWithLocation:loc];
-
+    
     [[ForecastLoader shared] setup:annotation mapView:self.mapView];
     
     [self.mapView addAnnotation:annotation];
@@ -276,7 +280,7 @@
     if (![self isDanish]) {
         return;
     }
-
+    
     for (id annotation in self.mapView.annotations) {
         if ([annotation isKindOfClass:[ForecastAnnotation class]]) {
             return;
@@ -357,7 +361,7 @@
             measurementAnnotation.maxWindSpeed = windSpeedMax;
             measurementAnnotation.avgWindSpeed = windSpeedAvg;
             annotationView.annotation = measurementAnnotation;
-
+            
             if (!self.isShowing){
                 return;
             }
@@ -398,22 +402,22 @@
     }
     
     NSLog(@"adding new sessions  %@  ", data.key);
-        
+    
     NSDictionary *loctation = ((NSDictionary *)data.value[@"location"]);
-        
+    
     CLLocationDegrees latitude = ((NSString *)loctation[@"lat"]).doubleValue;
     CLLocationDegrees longitude = ((NSString *)loctation[@"lon"]).doubleValue;
-        
+    
     NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:((NSString *)data.value[@"timeStart"]).doubleValue/1000.0];
     float windSpeedAvg = data.value[@"windMean"] == [NSNull null] ? 0.0 : ((NSString *)data.value[@"windMean"]).floatValue;
     float windSpeedMax = data.value[@"windMax"] == [NSNull null] ? 0.0 : ((NSString *)data.value[@"windMax"]).floatValue;
-        
+    
     NSNumber *windDirection = nil;
     NSNumber *value = data.value[@"windDirection"];
     if (value && value != (id)[NSNull null]) {
         windDirection = value;
     }
-        
+    
     MeasurementAnnotation *measurementAnnotation = [[MeasurementAnnotation alloc] initWithLocation:CLLocationCoordinate2DMake(latitude,longitude) sessionKey: data.key startTime:startTime avgWindSpeed:windSpeedAvg maxWindSpeed:windSpeedMax windDirection:windDirection];
     
     measurementAnnotation.isFinished = YES;
@@ -459,7 +463,7 @@
              }
          }
      }];
-
+    
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
      observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
          [self addAnnotation: snapshot];
@@ -469,7 +473,7 @@
      observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
          [self workingWithIncompleteAnnotations: snapshot];
          //[self addAnnotation: snapshot];
-    }];
+     }];
     
     Firebase *setting = [[[[firebase childByAppendingPath:@"user"] childByAppendingPath:[AuthorizationController shared].uid] childByAppendingPath:@"setting"] childByAppendingPath:@"ios"];
     
@@ -590,7 +594,7 @@
         ForecastAnnotation *fa = (ForecastAnnotation *)annotation;
         ForecastCalloutView *fc = (ForecastCalloutView *)pinView.leftCalloutAccessoryView;
         [fc setup:fa];
-
+        
         UIButton *rc = (UIButton *)pinView.rightCalloutAccessoryView;
         rc.enabled = [fa hasData];
         
@@ -650,7 +654,10 @@
     UILabel *lbl = (UILabel *)[annotationView viewWithTag:42];
     lbl.text = measurementAnnotation.title;
     
-    annotationView.hidden = [self isTooOld:measurementAnnotation.startTime];
+    //    annotationView.hidden = [self isTooOld:measurementAnnotation.startTime];
+    //    annotationView.userInteractionEnabled = !annotationView.hidden;
+    
+    
 }
 
 -(BOOL)isTooOld:(NSDate *)time {
@@ -666,6 +673,10 @@
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     if ([view.annotation isKindOfClass:[MeasurementAnnotation class]]) {
         NSArray *nearbyAnnotations;
+        
+        //        if(!view.userInteractionEnabled){
+        //            return;
+        //        }
         
         //NSLog(@"zoomLevel=%f", [self.mapView getZoomLevel]);
         
@@ -694,15 +705,15 @@
         self.measurementCalloutView.nearbyAnnotations = nearbyAnnotations;
         self.measurementCalloutView.measurementAnnotation = view.annotation;
         [containerView addSubview:self.measurementCalloutView];
-                        
+        
         self.mapView.calloutView.contentView = containerView;
         self.mapView.calloutView.backgroundView = [CustomSMCalloutDrawnBackgroundView view];
         
         [self.mapView.calloutView presentCalloutFromRect:view.bounds
-                                         inView:view
-                              constrainedToView:mapView
-                       permittedArrowDirections:SMCalloutArrowDirectionDown
-                                       animated:!self.isSelectingFromTableView];
+                                                  inView:view
+                                       constrainedToView:mapView
+                                permittedArrowDirections:SMCalloutArrowDirectionDown
+                                                animated:!self.isSelectingFromTableView];
         
         if (self.isSelectingFromTableView) {
             [self.logHelper log:@"Tapped-Nearby" properties:@{}];
@@ -713,14 +724,14 @@
         }
         
         self.isSelectingFromTableView = NO;
-	}
+    }
     else if ([view.annotation isKindOfClass:[ForecastAnnotation class]]) {
         [self reloadAnnotationView:view];
     }
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
-	if ([view.annotation isKindOfClass:[MeasurementAnnotation class]]) {
+    if ([view.annotation isKindOfClass:[MeasurementAnnotation class]]) {
         [self hideCallout];
     }
 }
@@ -735,7 +746,7 @@
 - (NSTimeInterval)calloutView:(SMCalloutView *)theCalloutView delayForRepositionWithSize:(CGSize)offset {
     if (self.mapView.selectedAnnotations.count > 0) {
         id<MKAnnotation> annotation = (id<MKAnnotation>)self.mapView.selectedAnnotations[0];
-
+        
         // TODO: this is an approximation that will not necessarily hold at target latitude
         CGFloat pixelsPerDegreeLat = self.mapView.frame.size.height / self.mapView.region.span.latitudeDelta;
         CGFloat pixelsPerDegreeLon = self.mapView.frame.size.width / self.mapView.region.span.longitudeDelta;
@@ -770,7 +781,7 @@
     MKMapPoint eastMapPoint = MKMapPointMake(MKMapRectGetMinX(mRect), MKMapRectGetMidY(mRect));
     MKMapPoint westMapPoint = MKMapPointMake(MKMapRectGetMaxX(mRect), MKMapRectGetMidY(mRect));
     double mapWidthMeters = MKMetersBetweenMapPoints(eastMapPoint, westMapPoint);
-
+    
     //NSLog(@"zoom=%f, width=%f km", [self.mapView getZoomLevel], mapWidthMeters / 1000);
     
     double nearbyFraction = 1.0/3.0;
@@ -785,7 +796,7 @@
     for (id annotation in [self.mapView annotationsInMapRect:mapRect]) {
         if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
             MeasurementAnnotation *ma = (MeasurementAnnotation *)annotation;
-
+            
             if (![self isTooOld:ma.startTime]) {
                 [set addObject:annotation];
             }
@@ -841,10 +852,17 @@
 
 - (void)refreshMeasurementAnnotations {
     self.now = [NSDate date];
-    for (id annotation in self.mapView.annotations) {
-        if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
-            [self updateAnnotationView:[self.mapView viewForAnnotation:annotation]];
+    for (MeasurementAnnotation *annotation in self.currentSessions.allValues) {
+        BOOL isOld = [self isTooOld:annotation.startTime];
+        
+        if (isOld && annotation.isShowing) {
+            [self.mapView removeAnnotation:annotation];
         }
+        else if (!isOld && !annotation.isShowing) {
+            [self.mapView addAnnotation:annotation];
+        }
+        
+        annotation.isShowing = !isOld;
     }
 }
 
