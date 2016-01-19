@@ -34,10 +34,7 @@
     
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
-    
-//    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
-//    [application registerUserNotificationSettings:notificationSettings];
-//    [application registerForRemoteNotifications];
+
     
     TMCache *cache = [TMCache sharedCache];
     cache.diskCache.ageLimit = 24.0*3600.0;
@@ -85,6 +82,11 @@
     [vc didMoveToParentViewController:parent];
 
     [self.window makeKeyAndVisible];
+    
+    
+    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
+    [application registerUserNotificationSettings:notificationSettings];
+    [application registerForRemoteNotifications];
     
 
     return YES;
@@ -145,9 +147,15 @@
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
     NSLog(@"token---%@", token);
+    [[AuthorizationController shared] saveAPNToken:token];
 }
 
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo{
+     NSLog(@"Notification: %@", userInfo);
+}
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
     NSLog(@"Error in registration. Error: %@", err);

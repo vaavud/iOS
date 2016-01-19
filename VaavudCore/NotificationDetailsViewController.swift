@@ -12,11 +12,12 @@ import Firebase
 struct Subscription {
 
     let uid: String
-    let radius: Float
-    let windMin: Double
-    let location: [String: Double]
-    let directions: [String: Bool]
+    var radius: Float
+    var windMin: Double
+    var location: [String: Double]
+    var directions: [String: Bool]
     let lastFired = [".sv": "timestamp"]
+    var subscriptionKey: String?
     
     
     var fireDict : FirebaseDictionary {
@@ -34,13 +35,16 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
     
     let firebase = Firebase(url: firebaseUrl)
     var currentRadius : Float = 500.0
+    var sessionKey: String?
+    var isItEditing = false
+    var currentSubscription: Subscription?
+    
     
     let annotation = MKPointAnnotation()
     var overlays =  MKCircle()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
         longPressRecognizer.minimumPressDuration = 0.3
@@ -52,40 +56,86 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
         radiusSlider.enabled = false
         
         
+        if let sessionKey = sessionKey {
+            firebase.childByAppendingPaths("subscription",sessionKey).observeSingleEventOfType(.Value, withBlock: { snapshot in
+                
+                if let location = snapshot.value["location"] as? [String:Double] ,
+                    radius = snapshot.value["radius"] as? Float,
+                    directions = snapshot.value["directions"] as? [String:Bool],
+                    windMean = snapshot.value["windMin"] as? Double {
+                    
+                    if let lat = location["lat"], lon = location["lon"] {
+                        
+                        
+                        self.currentSubscription = Subscription(uid: self.firebase.authData.uid, radius: radius, windMin: windMean, location: location, directions: directions, subscriptionKey: snapshot.key)
+                        
+                        print(Array(directions.keys))
+                        
+                        let latlon = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                        
+                        self.radiusSlider.value = radius
+                        self.radiusSlider.enabled = true
+                        self.currentRadius = radius
+                        
+                        self.addNewMarker(latlon)
+                        
+                    }
+                }
+            })
+        }
+
     }
-    
     
     @IBAction func buttonSave(sender: UIBarButtonItem) {
         
-        let latlon = ["lat" :annotation.coordinate.latitude, "lon": annotation.coordinate.longitude]
-        let subscription = Subscription(uid: firebase.authData.uid, radius: currentRadius, windMin: 1, location: latlon, directions: directionSelector.areas)
         
-        let ref = firebase.childByAppendingPath("subscription")
-        let post = ref.childByAutoId()
-        post.setValue(subscription.fireDict)
-        let subscriptionKey = post.key
+        guard var subscription = currentSubscription else {
+            return
+        }
         
-        
-        let geoFireRef = firebase.childByAppendingPath("subscriptionGeo")
-        let geoFire = GeoFire(firebaseRef: geoFireRef)
-        geoFire.setLocation(CLLocation(latitude: annotation.coordinate.latitude , longitude: annotation.coordinate.longitude), forKey: subscriptionKey)
-
-        
-        print(subscriptionKey)
         print(subscription.fireDict)
+
+        if let subscriptionKey = subscription.subscriptionKey {
+            
+            let ref = firebase.childByAppendingPaths("subscription",subscriptionKey)
+            ref.setValue(subscription.fireDict)
+        }
+        else{
+            
+            subscription.directions = directionSelector.areas
+            
+            let ref = firebase.childByAppendingPath("subscription")
+            let post = ref.childByAutoId()
+            post.setValue(subscription.fireDict)
+            let subscriptionKey = post.key
+            
+            
+            let geoFireRef = firebase.childByAppendingPath("subscriptionGeo")
+            let geoFire = GeoFire(firebaseRef: geoFireRef)
+            geoFire.setLocation(CLLocation(latitude: annotation.coordinate.latitude , longitude: annotation.coordinate.longitude), forKey: subscriptionKey)
+            
+                    
+            print(subscriptionKey)
+            print(subscription.fireDict)
+            
+        }
         
         navigationController?.popToRootViewControllerAnimated(true)
         
     }
     
     @IBAction func sliderValueChanged(sender: UISlider) {
+        guard var _ = currentSubscription else {
+            return
+        }
         
         mapView.removeOverlay(overlays)
         
-        self.overlays = MKCircle(centerCoordinate: annotation.coordinate, radius: CLLocationDistance(sender.value))
+        overlays = MKCircle(centerCoordinate: annotation.coordinate, radius: CLLocationDistance(sender.value))
         mapView.addOverlay(overlays)
         
         currentRadius = sender.value
+        currentSubscription?.radius = sender.value
         
     }
     
@@ -99,61 +149,35 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
             let touchPoint = gestureReconizer.locationInView(mapView)
             let location = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
             
-            //let annotation = MKPointAnnotation()
-            annotation.coordinate = location
-            annotation.title = "someting"
-            annotation.subtitle = "something elee"
+            let latlon = ["lat":location.latitude,"lon":location.longitude]
+            currentSubscription = Subscription(uid: firebase.authData.uid, radius: currentRadius, windMin: 1, location: latlon, directions: directionSelector.areas, subscriptionKey: nil)
             
-            overlays = MKCircle(centerCoordinate: location, radius: CLLocationDistance(currentRadius))
-            
-            
-            var region = MKCoordinateRegion()
-            region.center = location
-            region.span.latitudeDelta = 0.05
-            region.span.longitudeDelta = 0.05
-            region = mapView.regionThatFits(region)
-            
-            
-            
-            mapView.setRegion(region, animated: true)
-            mapView.addOverlay(overlays)
-            mapView.addAnnotation(annotation)
+            addNewMarker(location)
         }
+    }
+    
+    
+    func addNewMarker(location: CLLocationCoordinate2D){
+        //let annotation = MKPointAnnotation()
+        annotation.coordinate = location
+        annotation.title = "someting"
+        annotation.subtitle = "something elee"
+        
+        overlays = MKCircle(centerCoordinate: location, radius: CLLocationDistance(currentRadius))
+        
+        
+        var region = MKCoordinateRegion()
+        region.center = location
+        region.span.latitudeDelta = 0.05
+        region.span.longitudeDelta = 0.05
+        region = mapView.regionThatFits(region)
+        
+        
+        
+        mapView.setRegion(region, animated: true)
+        mapView.addOverlay(overlays)
+        mapView.addAnnotation(annotation)
 
-        
-        
-//        if gestureReconizer.state != .Ended {
-//            return
-//        }
-//        
-//        if let annotation = self.annotation, overlays = self.overlays {
-//            mapView.removeOverlay(overlays)
-//            mapView.removeAnnotation(annotation)
-//        }
-//        
-//        
-//        let touchPoint = gestureReconizer.locationInView(mapView)
-//        let location = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
-//        
-//        
-//        overlays = MKCircle(centerCoordinate: location, radius: CLLocationDistance(currentRadius))
-//        
-//        mapView.addOverlay(overlays!)
-//        
-//        
-//        annotation = MKPointAnnotation()
-//        annotation!.coordinate = location
-//        
-//        mapView.addAnnotation(annotation!)
-//        
-//        var region = MKCoordinateRegion()
-//        region.center = location
-//        region.span.latitudeDelta = 0.05
-//        region.span.longitudeDelta = 0.05
-//        region = mapView.regionThatFits(region)
-//        mapView.setRegion(region, animated: true)
-//        
-//        print(location)
     }
     
     
@@ -161,23 +185,10 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
         if annotation is MKPointAnnotation {
             let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "myNotificationPin")
             
-            //pinAnnotationView.pinColor = UIColor.redColor()
             pinAnnotationView.draggable = true
             pinAnnotationView.canShowCallout = true
             pinAnnotationView.animatesDrop = true
-            
-            
-//            let deleteButton = UIButton(type: .Custom)
-//            deleteButton.frame.size.width = 38
-//            deleteButton.frame.size.height = 38
-//            deleteButton.addTarget(self, action: "buttonAction:", forControlEvents: .TouchUpInside)
-//            deleteButton.setImage(UIImage(named: "trash"), forState: .Normal)
-//            
-//            
-//            pinAnnotationView.leftCalloutAccessoryView = deleteButton
-//            pinAnnotationView.leftCalloutAccessoryView?.sizeToFit()
-//            pinAnnotationView.leftCalloutAccessoryView?.backgroundColor = .redColor()
-            
+        
             
             return pinAnnotationView
         }
@@ -188,20 +199,25 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
         
+        guard var _ = currentSubscription else {
+            return
+        }
+        
         if (newState == .Starting){
             mapView.removeOverlay(overlays)
         }
         
         if (newState == .Ending){
-            overlays = MKCircle(centerCoordinate: view.annotation!.coordinate, radius: CLLocationDistance(currentRadius))
-            mapView.addOverlay(overlays)
+            
+            if let annotation = view.annotation {
+                let latlon = ["lat": annotation.coordinate.latitude,"lon": annotation.coordinate.longitude]
+                currentSubscription?.location = latlon
+                
+                overlays = MKCircle(centerCoordinate: annotation.coordinate, radius: CLLocationDistance(currentRadius))
+                mapView.addOverlay(overlays)
+            }
         }
     }
-    
-    
-//    func buttonAction(sender:UIButton){
-//        print("Button tapped")
-//    }
     
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {

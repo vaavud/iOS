@@ -58,6 +58,25 @@ class AuthorizationController: NSObject {
         return true
     }
     
+    
+    func saveAPNToken(token: String) {
+        if let uid = uid {
+            
+            let preferences = NSUserDefaults.standardUserDefaults()
+            let deviceId = preferences.objectForKey("APNToken") as? String ?? ""
+            
+            if(token != deviceId){
+                
+                preferences.setValue(token, forKey: "APNToken")
+                preferences.synchronize()
+                print("saving token " + "\(token)")
+                
+                firebase.childByAppendingPaths("user",uid,"notificationId","apn",token).setValue(NSDate().ms)
+            }
+        }
+    }
+    
+    
     func unauth() {
         NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
         firebase.unauth()

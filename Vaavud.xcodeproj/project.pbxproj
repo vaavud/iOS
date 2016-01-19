@@ -794,6 +794,14 @@
 				TargetAttributes = {
 					D7A4F1C6173A8DDB00D1ACEE = {
 						DevelopmentTeam = X5DMTGX3GW;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};

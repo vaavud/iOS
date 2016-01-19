@@ -17,6 +17,19 @@ enum NotificationType: Int {
     case Both = 2
 }
 
+
+class ButtonWithSessionKey: UIButton {
+    var sessionKey: String?
+}
+
+
+class NotificationAnnotation: MKPointAnnotation {
+    var sessionKey: String?
+}
+
+
+
+
 class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var mapView: MKMapView!
     
@@ -24,6 +37,8 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocati
     @IBOutlet weak var windspeedLabel: UILabel!
     @IBOutlet weak var windspeedSlider: UISlider!
     var locationManager = CLLocationManager()
+    var currentNotifications : [String:MKPointAnnotation] = [:]
+    var currentCircleNotifications : [String:MKCircle] = [:]
 
     
     private let firebase = Firebase(url: firebaseUrl)
@@ -38,38 +53,83 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocati
 //        //self.locationManager.distanceFilter = 10
 //        self.locationManager.requestWhenInUseAuthorization()
 //        self.locationManager.startUpdatingLocation()
-//        
-//        
+//
+        
+        
         let ref = firebase.childByAppendingPath("subscription")
-        ref.queryOrderedByChild("uid").queryEqualToValue(firebase.authData.uid).observeEventType(.ChildAdded, withBlock: { snapshot in
+        
+        ref.queryOrderedByChild("uid")
+            .queryEqualToValue(firebase.authData.uid)
+            .observeEventType(.ChildRemoved, withBlock: { snapshot in
+                
+                if let marker = self.currentNotifications[snapshot.key], area = self.currentCircleNotifications[snapshot.key]{
+                    self.mapView.removeOverlay(area)
+                    self.mapView.removeAnnotation(marker)
+                    self.currentNotifications[snapshot.key] = nil
+                    self.currentCircleNotifications[snapshot.key] = nil
+                    
+                    
+                }
+            })
+        
+        
+        
+        ref.queryOrderedByChild("uid")
+            .queryEqualToValue(firebase.authData.uid)
+            .observeEventType(.ChildChanged, withBlock: { snapshot in
+                
+                guard let location = snapshot.value["location"] as? [String:Double] else {
+                    return
+                }
+                
+                if let lat = location["lat"], lon = location["lon"], radius = snapshot.value["radius"] as? Float{
+                    let latlon = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                    
+                    let marker = self.currentNotifications[snapshot.key]
+                    let area = self.currentCircleNotifications[snapshot.key]
+                    marker?.coordinate = latlon
+                    area?.coordinate
+                    
+                }
+                
+                
+            })
+
+        
+        
+        ref.queryOrderedByChild("uid")
+            .queryEqualToValue(firebase.authData.uid)
+            .observeEventType(.ChildAdded, withBlock: { snapshot in
             
             guard let location = snapshot.value["location"] as? [String:Double] else {
                 return
             }
             
-            if let lat = location["lat"], lon = location["lon"] {
+            if let lat = location["lat"], lon = location["lon"], radius = snapshot.value["radius"] as? Float {
                 
                 let latlon = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-                let radius = snapshot.value["radius"] as! Float
+                let directions = snapshot.value["directions"] as? [String:Bool]
                 
-                let annotation = MKPointAnnotation()
+                let annotation = NotificationAnnotation()
                 annotation.coordinate = latlon
-                annotation.title = "Wind Directions"
-                annotation.subtitle = "N, E, W, NE, NW"
-                
+                annotation.title = "Wind Direction(s)"
+                annotation.subtitle = "\(Array(directions!.keys))"
+                annotation.sessionKey = snapshot.key
                 
                 let circule = MKCircle(centerCoordinate: latlon, radius: CLLocationDistance(radius))
+                
+                
+                self.currentNotifications[snapshot.key] = annotation
+                self.currentCircleNotifications[snapshot.key] = circule
                 
                 self.mapView.addOverlay(circule)
                 self.mapView.addAnnotation(annotation)
             }
         })
-
-        
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation is MKPointAnnotation {
+        if let annotation = annotation as? NotificationAnnotation {
             let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "myNotificationPin")
             
             pinAnnotationView.pinColor = .Red
@@ -77,16 +137,28 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocati
             pinAnnotationView.canShowCallout = true
             pinAnnotationView.animatesDrop = true
             
-            let deleteButton = UIButton(type: .Custom)
+            let deleteButton = ButtonWithSessionKey(type: .Custom)
             
+            deleteButton.sessionKey = annotation.sessionKey
             deleteButton.frame.size.width = 44
             deleteButton.frame.size.height = 44
             deleteButton.backgroundColor = UIColor.redColor()
-            deleteButton.addTarget(self, action: "buttonAction:", forControlEvents: .TouchUpInside)
+            deleteButton.addTarget(self, action: "btnDelete:", forControlEvents: .TouchUpInside)
             deleteButton.setImage(UIImage(named: "trash"), forState: .Normal)
             
             pinAnnotationView.leftCalloutAccessoryView = deleteButton
             pinAnnotationView.leftCalloutAccessoryView?.sizeToFit()
+            
+            
+            let forwardButton = ButtonWithSessionKey(type: .Custom)
+            forwardButton.frame.size.width = 44
+            forwardButton.frame.size.height = 44
+            forwardButton.addTarget(self, action: "btnEdit:", forControlEvents: .TouchUpInside)
+            forwardButton.setImage(UIImage(named: "arrow"), forState: .Normal)
+            forwardButton.sessionKey = annotation.sessionKey
+            
+            pinAnnotationView.rightCalloutAccessoryView = forwardButton
+            
             
             return pinAnnotationView
         }
@@ -104,8 +176,33 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocati
     }
     
     
-    func buttonAction(sender:UIButton){
-        print("Button tapped")
+    func btnEdit(sender:ButtonWithSessionKey) {
+        
+        if let notificationDetails = storyboard?.instantiateViewControllerWithIdentifier("NotificationDetailsViewController") as? NotificationDetailsViewController,
+            navigationController = navigationController {
+                
+                notificationDetails.sessionKey = sender.sessionKey
+                notificationDetails.isItEditing = true
+                navigationController.pushViewController(notificationDetails, animated: true)
+        }
+    }
+    
+    
+    
+    @IBAction func newNotification() {
+        
+        if let notificationDetails = storyboard?.instantiateViewControllerWithIdentifier("NotificationDetailsViewController") as? NotificationDetailsViewController,
+            navigationController = navigationController {
+                navigationController.pushViewController(notificationDetails, animated: true)
+        }
+    }
+    
+    
+    func btnDelete(sender:ButtonWithSessionKey){
+        
+        if let subscriptionKey = sender.sessionKey {
+            firebase.childByAppendingPaths("subscription",subscriptionKey).removeValue()
+        }
     }
     
     
