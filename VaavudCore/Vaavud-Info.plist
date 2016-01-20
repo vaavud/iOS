@@ -57,7 +57,6 @@
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>fb</string>
 		<string>fbapi</string>
 		<string>fbapi20130214</string>
 		<string>fbapi20130410</string>
@@ -70,7 +69,13 @@
 		<string>fbapi20150629</string>
 		<string>fbauth</string>
 		<string>fbauth2</string>
+		<string>fb</string>
 		<string>fb-messenger-api20140430</string>
+		<string>fb-messenger-platform-20150128</string>
+		<string>fb-messenger-platform-20150218</string>
+		<string>fb-messenger-platform-20150305</string>
+		<string>fb-messenger-api</string>
+		<string>fbshareextension</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -113,6 +118,11 @@
 		<string>BebasNeue_Regular.otf</string>
 		<string>Roboto-Light.ttf</string>
 		<string>Roboto-Bold.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
 	</array>
 	<key>UIPrerenderedIcon</key>
 	<true/>

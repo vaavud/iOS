@@ -33,10 +33,7 @@
     
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
-    
-//    UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
-//    [application registerUserNotificationSettings:notificationSettings];
-//    [application registerForRemoteNotifications];
+
     
     TMCache *cache = [TMCache sharedCache];
     cache.diskCache.ageLimit = 24.0*3600.0;
@@ -69,8 +66,8 @@
     
     if (![[AuthorizationController shared] verifyAuth]) {
         UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateInitialViewController];
-        UIViewController *pushed = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateViewControllerWithIdentifier:@"Selector"];
-        [nav pushViewController:pushed animated:NO];
+        //UIViewController *pushed = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateViewControllerWithIdentifier:@"Selector"];
+        //[nav pushViewController:pushed animated:NO];
         
         vc = nav;
     }
@@ -83,7 +80,6 @@
     [vc didMoveToParentViewController:parent];
 
     [self.window makeKeyAndVisible];
-
     return YES;
 }
 
@@ -143,12 +139,46 @@
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
     NSLog(@"token---%@", token);
+    [[AuthorizationController shared] saveAPNToken:token];
+}
+
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    if (application.applicationState == UIApplicationStateBackground) {
+        NSLog(@"Background");
+        completionHandler(UIBackgroundFetchResultNewData);
+        
+    }
+    else if(application.applicationState == UIApplicationStateInactive) {
+        NSLog(@"Inactive");
+        completionHandler(UIBackgroundFetchResultNewData);
+        
+    }
+    else {
+        
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"PushNotification"
+         object:userInfo];
+        
+        NSLog(@"Active");
+        completionHandler(UIBackgroundFetchResultNewData);
+    }
+    
+     NSLog(@"my notification: %@", userInfo);
+    
 }
 
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
     NSLog(@"Error in registration. Error: %@", err);
+}
+
+- (void) application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler {
+    
+    NSLog(@"Inf when app its open from notification: %@", userInfo[@"location"]);
 }
 
 

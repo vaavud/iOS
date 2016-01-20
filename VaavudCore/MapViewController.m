@@ -41,6 +41,7 @@
 @property (nonatomic) NSString *formatHandle;
 @property (nonatomic) CLLocationManager *locationManager;
 
+@property (nonatomic) BOOL pendingNotification;
 @property (nonatomic) Firebase *firebase;
 
 @end
@@ -53,6 +54,13 @@
     if (self) {
         self.logHelper = [[LogHelper alloc] initWithGroupName:@"Map" counters:@[@"scrolled", @"tapped-marker"]];
     }
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+        selector:@selector(receiveTestNotification:)
+        name:@"PushNotification"
+        object:nil];
+    
     
     return self;
 }
@@ -100,6 +108,50 @@
     }
     
     [self setupFirebase];
+    
+}
+
+
+- (void) receiveTestNotification:(NSNotification *) notification{
+    // [notification name] should always be @"TestNotification"
+    // unless you use this method for observation of other notifications
+    // as well.
+    
+    if ([[notification name] isEqualToString:@"PushNotification"]){
+        NSLog (@"Successfully received the test notification!");
+        //self.isFromNotification = YES;
+        
+//        if let tabArray = tabBar.items {
+//            tabArray[1].badgeValue = "1"
+//        }
+        
+        
+        if(self.isShowing){
+            NSLog(@"show Notification");
+            
+            NSDictionary *userInfo = notification.object;
+            NSString *sessionId = [userInfo objectForKey:@"sessionKey"];
+            
+            MeasurementAnnotation *sessionNotification = (MeasurementAnnotation *)self.currentSessions[sessionId];
+            
+            
+            [self.mapView viewForAnnotation:sessionNotification].alpha = 0;
+            
+            [UIView animateWithDuration:1.5 delay:0.2 options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse animations:^{
+                [self.mapView viewForAnnotation:sessionNotification].alpha = 1;
+            } completion:nil];
+            
+            
+//            [UIView animateWithDuration:1.3 animations:^{
+//                sessionNotification.coordinate = CLLocationCoordinate2DMake(55.676111, 12.568333);
+//            }];
+            
+        }
+        else{
+            self.pendingNotification = YES;
+        }
+    }
+    
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
@@ -184,6 +236,12 @@
                                                        selector:@selector(refresh)
                                                        userInfo:nil
                                                         repeats:YES];
+    
+    if (self.pendingNotification) {
+        self.pendingNotification = NO;
+        [[self.tabBarController tabBar] items][1].badgeValue = 0;
+    }
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {

@@ -11,7 +11,7 @@ import Firebase
 import VaavudSDK
 
 let firebaseUrl = "https://vaavud-core-demo.firebaseio.com"
-//let firebaseUrl = "https://vaavud-core-demo.firebaseio.com"
+//let firebaseUrl = "https://vaavud-app.firebaseio.com/"
 
 enum LoginError: String {
     case Network = "LOGIN_ERROR_NETWORK"
@@ -41,6 +41,7 @@ class AuthorizationController: NSObject {
     
     func verifyAuth() -> Bool {
         if _deviceId != nil && uid != nil {
+            registerNotifications()
             return true
         }
         
@@ -54,11 +55,40 @@ class AuthorizationController: NSObject {
         uid = authData.uid
         _deviceId = deviceId
         
+        registerNotifications()
+        
         return true
     }
     
+    func registerNotifications(){
+        let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert , .Badge , .Sound] , categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+    }
+    
+    
+    func saveAPNToken(token: String) {
+        if let uid = uid {
+            
+            let preferences = NSUserDefaults.standardUserDefaults()
+            let deviceId = preferences.objectForKey("APNToken") as? String ?? ""
+            
+            if(token != deviceId){
+                
+                preferences.setValue(token, forKey: "APNToken")
+                preferences.synchronize()
+                print("saving token " + "\(token)")
+                
+                firebase.childByAppendingPaths("user",uid,"notificationId","apn",token).setValue(NSDate().ms)
+            }
+        }
+    }
+    
+    
     func unauth() {
         NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("APNToken")
+        NSUserDefaults.standardUserDefaults().synchronize()
         firebase.unauth()
     }
     
@@ -239,6 +269,8 @@ class AuthorizationController: NSObject {
         
         self.uid = uid
         self._deviceId = deviceId
+        
+        verifyAuth()
         
         validateUserSettings()
         

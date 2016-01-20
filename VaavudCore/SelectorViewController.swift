@@ -45,14 +45,24 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
         
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        print("init Selector view")
+    }
+    
+    deinit {
+        print("deinit selector viewController")
+    }
+    
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         print("User Logged In")
         
-        if error != nil || result.isCancelled {
+        if error != nil {
             print(error)
             //VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: LoginError.Facebook.rawValue, otherKey: "BUTTON_OK", action: {}, on: self)
         }
+        else if result.isCancelled {}
         else {
             bg.alpha = 1
             spinner.show()
@@ -74,6 +84,10 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
         else {
             gotoAppFrom(navigationController!, inside: view.window!.rootViewController!)
         }
+    }
+    
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return [.Portrait, .PortraitUpsideDown]
     }
     
     func onError(error: LoginError) {

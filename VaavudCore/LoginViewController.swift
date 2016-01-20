@@ -23,8 +23,8 @@ func gotoLoginFrom(fromVc: UIViewController, inside parentVc: UIViewController) 
         return
     }
     
-    let login = storyboard.instantiateViewControllerWithIdentifier("Selector")
-    loginNav.pushViewController(login, animated: false)
+    //let login = storyboard.instantiateViewControllerWithIdentifier("Selector")
+    //loginNav.pushViewController(login, animated: false)
     
     gotoVc(loginNav, fromVc: fromVc, parentVc: parentVc)
 }
