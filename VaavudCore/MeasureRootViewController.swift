@@ -388,7 +388,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             summary.session = session
             
             pageController.dataSource = nil
-            pageController.setViewControllers([summary], direction: .Forward, animated: true, completion: nil)
+            pageController.setViewControllers([summary], direction: .Forward, animated: true) { _ in
+                self.viewControllers = []
+            }
             
             LogHelper.increaseUserProperty("Measurement-Count")
             
