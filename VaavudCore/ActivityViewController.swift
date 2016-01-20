@@ -12,7 +12,7 @@ class ActivityViewController: UIViewController, UIPickerViewDelegate {
     @IBOutlet weak var activityPicker: UIPickerView!
     
     var rowSelected = 0
-    let pickerDataSource = ["sailing", "kitesurfing", "windsurfing", "weather", "flying", "other"]
+    let dataSourceKeys = ["weather", "flying", "sailing", "kitesurfing", "windsurfing", "other"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +24,7 @@ class ActivityViewController: UIViewController, UIPickerViewDelegate {
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerDataSource[row]
+        return NSLocalizedString(dataSourceKeys[row], comment: "")
     }
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -36,7 +36,7 @@ class ActivityViewController: UIViewController, UIPickerViewDelegate {
     }
 
     @IBAction func savePushed() {
-        AuthorizationController.shared.updateActivity(pickerDataSource[rowSelected])
+        AuthorizationController.shared.updateActivity(dataSourceKeys[rowSelected])
         gotoAppFrom(navigationController!, inside: view.window!.rootViewController!)
     }
 }
