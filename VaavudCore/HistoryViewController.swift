@@ -88,10 +88,11 @@ struct Session {
     let uid: String
     let deviceKey: String
     let timeStart: NSDate
-    let windMeter: WindMeterModel
 
     var windMax: Double = 0
     var windMean: Double = 0
+
+    let windMeter: WindMeterModel
 
     var timeEnd: NSDate?
     var windDirection: Double?
