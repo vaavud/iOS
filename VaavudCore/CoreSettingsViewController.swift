@@ -58,19 +58,19 @@ class CoreSettingsTableViewController: UITableViewController {
     private var formatterHandle: String!
     
     override func viewDidLoad() {
-        hideVolumeHUD()
+//        hideVolumeHUD()
+//        
+//        versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
+//        
+//        dropboxControl.on = DBSession.sharedSession().isLinked()
+//        
+//        // fixme: actually use notifications
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: "dropboxIsLinked", object: nil)
+//
+//        formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
+//        refreshUnits()
         
-        versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
-        
-        dropboxControl.on = DBSession.sharedSession().isLinked()
-        
-        // fixme: actually use notifications
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: "dropboxIsLinked", object: nil)
-
-        formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
-        refreshUnits()
-        
-        deviceHandle = deviceSettings.observeEventType(.Value, withBlock: parseSnapshot(refreshDeviceSettings))
+//        deviceHandle = deviceSettings.observeEventType(.Value, withBlock: parseSnapshot(refreshDeviceSettings))
     }
     
     func refreshDeviceSettings(dict: [String : AnyObject]) {
@@ -82,6 +82,7 @@ class CoreSettingsTableViewController: UITableViewController {
     }
     
     deinit {
+        print("Destroy Settings")
         VaavudFormatter.shared.stopObserving(formatterHandle)
         deviceSettings.removeObserverWithHandle(deviceHandle)
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -225,8 +226,11 @@ class CoreSettingsTableViewController: UITableViewController {
     func doLogout() {
         LogHelper.log(event: "Logged-Out", properties: ["place" : "settings"])
         
+        
         AuthorizationController.shared.unauth()
         FBSDKLoginManager().logOut()
+        
+        
         
         UIApplication.sharedApplication().unregisterForRemoteNotifications()
 

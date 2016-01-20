@@ -22,6 +22,16 @@ class ComingSoonViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        print("Create ComingSoonViewController")
+    }
+    
+    
+    deinit {
+        print("Destroy ComingSoonViewController")
+    }
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         topConstraint.constant = -scrollView.contentOffset.y/3
     }

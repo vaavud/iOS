@@ -9,17 +9,20 @@
 import UIKit
 import Firebase
 
-protocol HistoryDelegate {
+protocol HistoryDelegate: class {
     func fetchedMeasurements()
     func gotMeasurements()
     func noMeasurements()
 }
 
 class HistoryController: NSObject {
-    let delegate: HistoryDelegate
+    unowned var delegate: HistoryDelegate
     let firebase = Firebase(url: firebaseUrl)
     var sessionss = [[Session]]()
     var sessionDates = [String]()
+    var addedSessionHandle: UInt!
+    var changedSessionHandle: UInt!
+    
 
     init(delegate: HistoryDelegate) {
         self.delegate = delegate
@@ -27,12 +30,19 @@ class HistoryController: NSObject {
         setupFirebase()
     }
     
+    
+    deinit{
+        print("deinit HistoryController")
+        firebase.childByAppendingPath("session").removeObserverWithHandle(addedSessionHandle)
+        firebase.childByAppendingPath("session").removeObserverWithHandle(changedSessionHandle)
+    }
+    
     func setupFirebase() {
         let uid = firebase.authData.uid
-        let ref = firebase.childByAppendingPath("session")
+        let ref = firebase.childByAppendingPath("session").queryOrderedByChild("uid").queryEqualToValue(uid)
         
-        ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeEventType(.ChildAdded, withBlock: { snapshot in
-            //print("HC: ChildAdded: \(snapshot.value)")
+        addedSessionHandle = ref.observeEventType(.ChildAdded, withBlock: { [unowned self] snapshot in
+            print("HC: ChildAdded: \(snapshot.value)")
             guard snapshot.value["timeEnd"] is Double else {
                 return
             }
@@ -40,7 +50,7 @@ class HistoryController: NSObject {
             self.addToStack(Session(snapshot: snapshot))
         })
         
-        ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeEventType(.ChildChanged, withBlock: { snapshot in
+        changedSessionHandle = ref.observeEventType(.ChildChanged, withBlock: {[unowned self] snapshot in
             //print("HC: ChildChanged: \(snapshot.value)")
 
             guard snapshot.value["timeEnd"] is Double else {
@@ -59,7 +69,7 @@ class HistoryController: NSObject {
             self.delegate.fetchedMeasurements()
         })
         
-        ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeSingleEventOfType(.Value, withBlock: { snapshot in
+        ref.observeSingleEventOfType(.Value, withBlock: {[unowned self] snapshot in
             print("All session loaded")
             if snapshot.childrenCount > 0 {
                 self.delegate.gotMeasurements()

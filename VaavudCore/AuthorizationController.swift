@@ -86,10 +86,11 @@ class AuthorizationController: NSObject {
     
     
     func unauth() {
+        //firebase.removeAllObservers()
         NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
         NSUserDefaults.standardUserDefaults().removeObjectForKey("APNToken")
         NSUserDefaults.standardUserDefaults().synchronize()
-        firebase.unauth()
+        //firebase.unauth()
     }
     
     func currentDeviceId() -> String {
