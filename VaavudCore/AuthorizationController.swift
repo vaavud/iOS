@@ -61,9 +61,9 @@ class AuthorizationController: NSObject {
     }
     
     func registerNotifications(){
-        let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert , .Badge , .Sound] , categories: nil)
-        UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
-        UIApplication.sharedApplication().registerForRemoteNotifications()
+//        let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert , .Badge , .Sound] , categories: nil)
+//        UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
+//        UIApplication.sharedApplication().registerForRemoteNotifications()
     }
     
     

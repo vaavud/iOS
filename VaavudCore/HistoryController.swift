@@ -73,8 +73,14 @@ class HistoryController: NSObject {
     
     func removeItem(session: Session, section: Int, row: Int) {
         sessionss[section].removeAtIndex(row)
+        print("Delete session: \(session.key)")
         firebase.childByAppendingPaths("session", session.key).removeValue()
         firebase.childByAppendingPaths("sessionDeleted", session.key).setValue(session.fireDict)
+    }
+    
+    func removeSection(section: Int) {
+        sessionss.removeAtIndex(section)
+        sessionDates.removeAtIndex(section)
     }
     
     func addToStack(session: Session) {

@@ -104,6 +104,7 @@ struct Session {
     
     init(snapshot: FDataSnapshot) {
         key = snapshot.key
+        print("snapshot.key: \(snapshot.key)")
         
         uid = snapshot.value["uid"] as! String
         deviceKey = snapshot.value["deviceKey"] as! String
@@ -166,7 +167,6 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         controller = HistoryController(delegate: self)
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -179,11 +179,8 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         let height = CGRectGetHeight(view.bounds);
         let startY = 0.35*height;
         
-        
         emptyHistoryArrow.frame = CGRectMake(0, startY, width, height - 120 - startY)
         emptyLabelView.center = CGPointMake(width/2, startY - 40);
-        
-
         emptyHistoryArrow.forceSetup()
         
         let upper = UILabel()
@@ -202,7 +199,6 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         upper.center = CGPointMake(CGRectGetMidX(emptyLabelView.bounds), 10);
         lower.center = CGPointMake(CGRectGetMidX(emptyLabelView.bounds), 45);
         
-        
         emptyLabelView.addSubview(upper)
         emptyLabelView.addSubview(lower)
         
@@ -210,7 +206,6 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         emptyView.addSubview(emptyLabelView)
         emptyView.addSubview(emptyHistoryArrow)
         emptyView.alpha = 0
-        
         
         formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
         refreshUnits()
@@ -268,7 +263,7 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
             cell.location.text = name
         }
         else {
-            cell.location.text = "Unknown" // Need to localize, should alredy exist
+            cell.location.text = NSLocalizedString("GEOLOCATION_UNKNOWN", comment: "")
         }
         
         return cell
@@ -280,7 +275,12 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         
             controller.removeItem(deletedSession, section: indexPath.section, row: indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        
+            
+            if controller.sessionss[indexPath.section].isEmpty {
+                controller.removeSection(indexPath.section)
+                tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Middle)
+            }
+            
         }
     }
     
@@ -306,8 +306,6 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
                 
                 navigationController.pushViewController(summary, animated: true)
         }
-        
-        //NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
     }
     
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

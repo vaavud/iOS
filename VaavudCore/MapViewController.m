@@ -28,16 +28,13 @@
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @property (nonatomic) MeasurementCalloutView *measurementCalloutView;
-@property (nonatomic) BOOL isLoading;
 @property (nonatomic) BOOL isShowing;
 @property (nonatomic) BOOL didScroll;
 @property (nonatomic) int hoursAgoOption;
 @property (nonatomic) NSArray<NSNumber *> *hoursAgoOptions;
 @property (nonatomic) double analyticsGridDegree;
-@property (nonatomic) NSDate *latestLocalStartTime;
 @property (nonatomic) NSTimer *refreshTimer;
 @property (nonatomic) UIImage *placeholderImage;
-@property (nonatomic) NSDate *viewAppearedTime;
 @property (nonatomic) NSTimer *showGuideViewTimer;
 @property (nonatomic) LogHelper *logHelper;
 @property (nonatomic) NSMutableDictionary *currentSessions;
@@ -58,12 +55,10 @@
         self.logHelper = [[LogHelper alloc] initWithGroupName:@"Map" counters:@[@"scrolled", @"tapped-marker"]];
     }
     
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
         selector:@selector(receiveTestNotification:)
         name:@"PushNotification"
         object:nil];
-    
     
     return self;
 }
@@ -80,7 +75,6 @@
     
     self.currentSessions = [[NSMutableDictionary alloc] init];
     
-    self.isLoading = NO;
     self.didScroll = NO;
     self.isSelectingFromTableView = NO;
     
@@ -112,11 +106,10 @@
     }
     
     [self setupFirebase];
-    
+    [self setupSettingFirebase];
 }
 
-
-- (void) receiveTestNotification:(NSNotification *) notification{
+- (void)receiveTestNotification:(NSNotification *) notification{
     // [notification name] should always be @"TestNotification"
     // unless you use this method for observation of other notifications
     // as well.
@@ -151,11 +144,10 @@
 //            }];
             
         }
-        else{
+        else {
             self.pendingNotification = YES;
         }
     }
-    
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
@@ -233,26 +225,22 @@
     
     self.isShowing  = YES;
     [self refreshAnnotations];
-
     [self removeOldForecasts];
     
-    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:3600
+    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:60
                                                          target:self
-                                                       selector:@selector(removeOldSessions)
+                                                       selector:@selector(refresh)
                                                        userInfo:nil
                                                         repeats:YES];
     
     if (self.pendingNotification) {
         self.pendingNotification = NO;
-        [[self.tabBarController tabBar] items][1].badgeValue = 0;
+        self.tabBarController.tabBar.items[1].badgeValue = 0;
     }
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    self.viewAppearedTime = [NSDate date];
     
     [self.logHelper began:@{}];
     [LogHelper increaseUserProperty:@"Use-Map-Count"];
@@ -269,9 +257,9 @@
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    self.isShowing  = NO;
+    self.isShowing = NO;
     [self refreshAnnotations];
-
+    
     [self.logHelper ended:@{}];
 }
 
@@ -281,28 +269,25 @@
     NSNumber *dayAgo = [NSDate dateWithTimeIntervalSinceNow:-24*60*60].ms;
     
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snap) {
-         MeasurementAnnotation *ma = (MeasurementAnnotation *)self.currentSessions[snap.key];
-         if (ma != nil) {
-             [self.mapView removeAnnotation:ma];
-             [self.currentSessions removeObjectForKey:snap.key];
-         }
-     }];
+        MeasurementAnnotation *ma = (MeasurementAnnotation *)self.currentSessions[snap.key];
+        if (ma != nil) {
+            [self.mapView removeAnnotation:ma];
+            [self.currentSessions removeObjectForKey:snap.key];
+        }
+    }];
     
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snap) {
         [self updateAnnotation:snap];
-     }];
+    }];
     
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snap) {
         [self updateAnnotation:snap];
-     }];
-    
-    
-    [self setupSettingFirebase];
+    }];
 }
 
 -(void)setupSettingFirebase {
     Firebase *setting = [[[[self.firebase childByAppendingPath:@"user"] childByAppendingPath:[AuthorizationController shared].uid] childByAppendingPath:@"setting"] childByAppendingPath:@"ios"];
-
+    
     [setting observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         if (![snapshot.value isKindOfClass:[NSDictionary class]]) {
             return;
@@ -374,11 +359,8 @@
     }
     
     CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
-    CLLocationCoordinate2D loc = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-    
+    [self addPin:[self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView]];
     [self.logHelper log:@"Added-Forecast-Pin" properties:@{}];
-    
-    [self addPin:loc];
 }
 
 - (void)addPin:(CLLocationCoordinate2D)loc {
@@ -472,7 +454,7 @@
 
 -(void)refreshAnnotation:(MeasurementAnnotation *)ma {
     NSDate *now = [NSDate date];
-    ma.isFinished = ma.isFinished || [now timeIntervalSinceDate:ma.startTime] > 3600;
+    ma.isFinished = ma.isFinished || [now timeIntervalSinceDate:ma.startTime] > 60;
     
     BOOL isOld = [self isTooOld:ma.startTime current:now];
     
@@ -507,6 +489,24 @@
     lbl.text = measurementAnnotation.title;
 }
 
+-(void)refresh {
+    [self removeOldSessions];
+    [self refreshAnnotations];
+    [self updateAnnotationViews];
+    [self removeOldForecasts];
+}
+
+-(void)updateAnnotationViews {
+    for (MeasurementAnnotation *ma in self.mapView.annotations) {
+        MKAnnotationView *view = [self.mapView viewForAnnotation:ma];
+        if (view != nil) {
+            [UIView animateWithDuration:0.3 animations:^{
+                [self updateAnnotationView:view];
+            }];
+        }
+    }
+}
+
 - (void)removeOldSessions {
     for (NSString* key in self.currentSessions) {
         MeasurementAnnotation *ma = (MeasurementAnnotation *)self.currentSessions[key];
@@ -522,7 +522,6 @@
     NSTimeInterval secondsAgo = self.hoursAgoOptions[self.hoursAgoOption].intValue*3600;
     return [current timeIntervalSinceDate:time] > secondsAgo;
 }
-
 
 -(UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
