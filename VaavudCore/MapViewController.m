@@ -28,7 +28,6 @@
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @property (nonatomic) MeasurementCalloutView *measurementCalloutView;
-@property (nonatomic) NSDate *now;
 @property (nonatomic) BOOL isLoading;
 @property (nonatomic) BOOL isShowing;
 @property (nonatomic) BOOL didScroll;
@@ -42,12 +41,10 @@
 @property (nonatomic) NSTimer *showGuideViewTimer;
 @property (nonatomic) LogHelper *logHelper;
 @property (nonatomic) NSMutableDictionary *currentSessions;
-@property (nonatomic) NSMutableDictionary *pendingSessions;
-@property (nonatomic) NSMutableDictionary *incompleteSessions;
 @property (nonatomic) NSString *formatHandle;
 @property (nonatomic) CLLocationManager *locationManager;
 
-
+@property (nonatomic) Firebase *firebase;
 
 @end
 
@@ -71,13 +68,9 @@
     [super viewDidLoad];
     [self hideVolumeHUD];
     
-    //NSLog(@"[MapViewController] viewDidLoad");
-    
-    self.now = [NSDate date];
+    self.firebase = [[Firebase alloc] initWithUrl:@"https://vaavud-core-demo.firebaseio.com/"]; // fixme: change;
     
     self.currentSessions = [[NSMutableDictionary alloc] init];
-    self.pendingSessions = [[NSMutableDictionary alloc] init];
-    self.incompleteSessions = [[NSMutableDictionary alloc] init];
     
     self.isLoading = NO;
     self.didScroll = NO;
@@ -114,8 +107,6 @@
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    NSLog(@"didUpdateLocations");
-    
     CLLocationCoordinate2D location = locations[locations.count - 1].coordinate;
     if (CLLocationCoordinate2DIsValid(location)) {
         [self gotValidLocation:location];
@@ -189,8 +180,8 @@
     [super viewWillAppear:animated];
     
     self.isShowing  = YES;
-    [self refreshPendingAnnotations];
-    
+    [self refreshAnnotations];
+
     [self removeOldForecasts];
     
     self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:3600
@@ -209,17 +200,6 @@
     [LogHelper increaseUserProperty:@"Use-Map-Count"];
 }
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"ForecastSegue"]) {
-        if ([sender isKindOfClass:[ForecastAnnotation class]]) {
-            ForecastAnnotation *annotation = sender;
-            
-            ForecastViewController *fvc = segue.destinationViewController;
-            [fvc setup:annotation];
-        }
-    }
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:NO animated:animated];
     
@@ -232,7 +212,96 @@
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     self.isShowing  = NO;
+    [self refreshAnnotations];
+
     [self.logHelper ended:@{}];
+}
+
+- (void)setupFirebase {
+    Firebase *ref = [self.firebase childByAppendingPath:@"session"];
+    
+    NSNumber *dayAgo = [NSDate dateWithTimeIntervalSinceNow:-24*60*60].ms;
+    
+    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snap) {
+         MeasurementAnnotation *ma = (MeasurementAnnotation *)self.currentSessions[snap.key];
+         if (ma != nil) {
+             [self.mapView removeAnnotation:ma];
+             [self.currentSessions removeObjectForKey:snap.key];
+         }
+     }];
+    
+    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snap) {
+        [self updateAnnotation:snap];
+     }];
+    
+    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snap) {
+        [self updateAnnotation:snap];
+     }];
+    
+    
+    [self setupSettingFirebase];
+}
+
+-(void)setupSettingFirebase {
+    Firebase *setting = [[[[self.firebase childByAppendingPath:@"user"] childByAppendingPath:[AuthorizationController shared].uid] childByAppendingPath:@"setting"] childByAppendingPath:@"ios"];
+
+    [setting observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        if (![snapshot.value isKindOfClass:[NSDictionary class]]) {
+            return;
+        }
+        
+        NSDictionary *dict = (NSDictionary *)snapshot.value;
+        
+        CGRect bounds = self.tabBarController.view.bounds;
+        NSString *textKey;
+        UIImage *icon = nil;
+        CGPoint position = CGPointMake(-1, -1);
+        
+        if (![dict[@"mapGuideMeasurePopupShown"] boolValue]) {
+            [[setting childByAppendingPath:@"mapGuideMeasurePopupShown"] setValue:@YES];
+            textKey = @"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION";
+            position = CGPointMake(0.5, 0.97);
+            icon = [UIImage imageNamed:@"MapMeasureOverlay"];
+        }
+        else if ([self isDanish] && ![dict[@"mapGuideForecastShown"] boolValue]) {
+            [[setting childByAppendingPath:@"mapGuideForecastShown"] setValue:@YES];
+            textKey = @"MAP_GUIDE_FORECAST";
+            icon = [UIImage imageNamed:@"ForecastPressFinger"];
+        }
+        
+        else if (![dict[@"mapGuideMarkerShown"] boolValue]) {
+            [[setting childByAppendingPath:@"mapGuideMarkerShown"] setValue:@YES];
+            textKey = @"MAP_GUIDE_MARKER_EXPLANATION";
+            icon = [UIImage imageNamed:@"ForecastOverlayMeasurement"];
+        }
+        else if (![dict[@"mapGuideTimeIntervalShown"] boolValue]) {
+            [[setting childByAppendingPath:@"mapGuideTimeIntervalShown"] setValue:@YES];
+            CGFloat x = self.hoursButton.center.x/bounds.size.width;
+            CGFloat y = self.hoursButton.center.y/bounds.size.height;
+            
+            textKey = @"MAP_GUIDE_TIME_INTERVAL_EXPLANATION";
+            position = CGPointMake(x, y);
+        }
+        
+        if (textKey != nil) {
+            [self.tabBarController.view addSubview:[[RadialOverlay alloc] initWithFrame:bounds
+                                                                               position:position
+                                                                                   text:NSLocalizedString(textKey, nil)
+                                                                                   icon:icon
+                                                                                 radius:70]];
+        }
+    }];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ForecastSegue"]) {
+        if ([sender isKindOfClass:[ForecastAnnotation class]]) {
+            ForecastAnnotation *annotation = sender;
+            
+            ForecastViewController *fvc = segue.destinationViewController;
+            [fvc setup:annotation];
+        }
+    }
 }
 
 - (void)addLongPress {
@@ -290,257 +359,112 @@
     [self addPin:[self storedLocation]];
 }
 
-- (void)workingWithIncompleteAnnotations:(FDataSnapshot *)data {
-    if (data.value[@"location"] == nil || self.currentSessions[data.key] != nil ) {
-        return;
-    }
-    
-    if ([NSDate dateWithTimeIntervalSinceNow:-3600].ms > data.value[@"timeStart"]){
-        return;
-    }
-    
-//    NSLog(@"changing %@ session", data.key);
-    
-    if (data.value[@"timeEnd"] != nil) {
-        MeasurementAnnotation *annotation = self.incompleteSessions[data.key];
-        MKAnnotationView *annotationView = [self.mapView viewForAnnotation: annotation];
-        annotation.isFinished = YES;
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            [self updateAnnotationView:annotationView];
-        }];
-        
-        [self addAnnotationToStack:annotation  sessionKey:data.key];
-    }
-    else {
-        if (self.incompleteSessions[data.key] == nil) {
-            NSDictionary *loctation = ((NSDictionary *)data.value[@"location"]);
-            
-            CLLocationDegrees latitude = ((NSString *)loctation[@"lat"]).doubleValue;
-            CLLocationDegrees longitude = ((NSString *)loctation[@"lon"]).doubleValue;
-            
-            NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:((NSString *) data.value[@"timeStart"]).doubleValue/1000.0];
-            float windSpeedAvg = data.value[@"windMean"] == [NSNull null] ? 0.0 : ((NSString *) data.value[@"windMean"]).floatValue;
-            float windSpeedMax = data.value[@"windMax"] == [NSNull null] ? 0.0 : ((NSString *) data.value[@"windMax"]).floatValue;
-            
-            NSNumber *windDirection = nil;
-            NSNumber *value = data.value[@"windDirection"];
-            if (value && value != (id)[NSNull null]) {
-                windDirection = value;
-            }
-            
-            MeasurementAnnotation *measurementAnnotation = [[MeasurementAnnotation alloc] initWithLocation:CLLocationCoordinate2DMake(latitude,longitude) sessionKey:data.key startTime:startTime avgWindSpeed:windSpeedAvg maxWindSpeed:windSpeedMax windDirection:windDirection];
-            
-            if (self.isShowing) {
-                [self.mapView addAnnotation:measurementAnnotation];
-            }
-            
-            self.incompleteSessions[data.key] = measurementAnnotation;
-        }
-        else {
-            MeasurementAnnotation *annotation = self.incompleteSessions[data.key];
-            
-            NSDictionary *loctation = ((NSDictionary *)data.value[@"location"]);
-            
-            CLLocationDegrees latitude = ((NSString *)loctation[@"lat"]).doubleValue;
-            CLLocationDegrees longitude = ((NSString *)loctation[@"lon"]).doubleValue;
-            
-            MKAnnotationView *annotationView = [self.mapView viewForAnnotation:annotation];
-            MeasurementAnnotation *measurementAnnotation = (MeasurementAnnotation *)annotationView.annotation;
-            
-            float windSpeedAvg = data.value[@"windMean"] == [NSNull null] ? 0.0 : ((NSString *) data.value[@"windMean"]).floatValue;
-            float windSpeedMax = data.value[@"windMax"] == [NSNull null] ? 0.0 : ((NSString *) data.value[@"windMax"]).floatValue;
-            
-            NSNumber *windDirection = nil;
-            NSNumber *value = data.value[@"windDirection"];
-            if (value && value != (id)[NSNull null]) {
-                windDirection = value;
-            }
-            
-            measurementAnnotation.windDirection = value;
-            measurementAnnotation.maxWindSpeed = windSpeedMax;
-            measurementAnnotation.avgWindSpeed = windSpeedAvg;
-            annotationView.annotation = measurementAnnotation;
-            
-            if (!self.isShowing){
-                return;
-            }
-            
-            annotation.isFinished = NO;
-            
-            [UIView animateWithDuration:0.3 animations:^{
-                annotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
-                [self updateAnnotationView: annotationView];
-            }];
-        }
-    }
-}
-
-- (void)addAnnotationToStack:(MeasurementAnnotation *)annotation sessionKey:(NSString *)key {
-    if (self.isShowing) {
-        self.currentSessions[key] = annotation;
-    }
-    else {
-        self.pendingSessions[key] = annotation;
-    }
-}
-
-- (void)addAnnotation:(FDataSnapshot *)data {
-    if (data.value[@"location"] == nil ) {
-        return;
-    }
-    
-    if (data.value[@"timeEnd"] == nil) {
-        if ([NSDate dateWithTimeIntervalSinceNow:-3600].ms > data.value[@"timeStart"]){
-            //NSLog(@"session too old %@ with no time end", data.key);
-            return;
-        }
-    }
-    
-    if (self.currentSessions[data.key] || self.pendingSessions[data.key]) {
-        return;
-    }
-    
-    NSLog(@"adding new sessions  %@  ", data.key);
+- (void)updateAnnotation:(FDataSnapshot *)data {
+    if (data.value[@"location"] == nil ) { return; }
     
     NSDictionary *loctation = ((NSDictionary *)data.value[@"location"]);
-    
     CLLocationDegrees latitude = ((NSString *)loctation[@"lat"]).doubleValue;
     CLLocationDegrees longitude = ((NSString *)loctation[@"lon"]).doubleValue;
     
+    if (latitude == 0 || longitude == 0) { return; }
+
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+    
+    if (!CLLocationCoordinate2DIsValid(coordinate)) { return; }
+
     NSDate *startTime = [NSDate dateWithTimeIntervalSince1970:((NSString *)data.value[@"timeStart"]).doubleValue/1000.0];
     float windSpeedAvg = data.value[@"windMean"] == [NSNull null] ? 0.0 : ((NSString *)data.value[@"windMean"]).floatValue;
     float windSpeedMax = data.value[@"windMax"] == [NSNull null] ? 0.0 : ((NSString *)data.value[@"windMax"]).floatValue;
-    
+
     NSNumber *windDirection = nil;
     NSNumber *value = data.value[@"windDirection"];
     if (value && value != (id)[NSNull null]) {
         windDirection = value;
     }
+
+    MeasurementAnnotation *ma = self.currentSessions[data.key];
     
-    MeasurementAnnotation *measurementAnnotation = [[MeasurementAnnotation alloc] initWithLocation:CLLocationCoordinate2DMake(latitude,longitude) sessionKey: data.key startTime:startTime avgWindSpeed:windSpeedAvg maxWindSpeed:windSpeedMax windDirection:windDirection];
+    if (ma == nil) {
+        ma = [[MeasurementAnnotation alloc] initWithStartTime:startTime];
+        ma.isOnMap = NO;
+        self.currentSessions[data.key] = ma;
+    }
     
-    measurementAnnotation.isFinished = YES;
+    ma.coordinate = coordinate;
+    ma.avgWindSpeed = windSpeedAvg;
+    ma.maxWindSpeed = windSpeedMax;
+    ma.windDirection = windDirection;
+    ma.isFinished = data.value[@"timeEnd"] != nil;
     
-    [self.mapView addAnnotation:measurementAnnotation];
-    [self addAnnotationToStack:measurementAnnotation sessionKey:data.key];
+    [self refreshAnnotation:ma];
+    
+    MKAnnotationView *view = [self.mapView viewForAnnotation:ma];
+    if (view != nil) {
+        [UIView animateWithDuration:0.3 animations:^{
+            [self updateAnnotationView:view];
+        }];
+    }
 }
 
-- (void)refreshPendingAnnotations {
-    for (NSString *key in self.pendingSessions.allKeys) {
-        MeasurementAnnotation *annotation = (MeasurementAnnotation *)self.pendingSessions[key];
-        [self.mapView addAnnotation:annotation];
-        self.currentSessions[key] = annotation;
-        self.pendingSessions[key] = nil;
+-(void)refreshAnnotations {
+    for (MeasurementAnnotation *ma in self.currentSessions.allValues) {
+        [self refreshAnnotation:ma];
     }
+}
+
+-(void)refreshAnnotation:(MeasurementAnnotation *)ma {
+    NSDate *now = [NSDate date];
+    ma.isFinished = ma.isFinished || [now timeIntervalSinceDate:ma.startTime] > 3600;
+    
+    BOOL isOld = [self isTooOld:ma.startTime current:now];
+    
+    if (ma.isOnMap && isOld) {
+        [self.mapView removeAnnotation:ma];
+        ma.isOnMap = NO;
+    }
+    else if (!ma.isOnMap && !isOld && self.isShowing) {
+        [self.mapView addAnnotation:ma];
+        ma.isOnMap = YES;
+    }
+}
+
+-(void)updateAnnotationView:(MKAnnotationView *)annotationView {
+    MeasurementAnnotation *measurementAnnotation = (MeasurementAnnotation *)annotationView.annotation;
+    
+    UIImageView *iv = (UIImageView *)[annotationView viewWithTag:101];
+    if (iv) {
+        if (measurementAnnotation.windDirection) {
+            iv.image = [UIImage imageNamed: measurementAnnotation.isFinished ? @"MapMarkerDirection" : @"MapMarkerDirectionBlue"];
+            [iv sizeToFit];
+            iv.transform = [VaavudFormatter transformWithDirection:measurementAnnotation.windDirection.floatValue];
+        }
+        else {
+            iv.image = [UIImage imageNamed: measurementAnnotation.isFinished ? @"MapMarker" : @"MapMarkerBlue"];
+            [iv sizeToFit];
+            iv.transform = CGAffineTransformIdentity;
+        }
+    }
+    
+    UILabel *lbl = (UILabel *)[annotationView viewWithTag:42];
+    lbl.text = measurementAnnotation.title;
 }
 
 - (void)removeOldSessions {
     for (NSString* key in self.currentSessions) {
-        MeasurementAnnotation *mesAnnotation = (MeasurementAnnotation *)self.currentSessions[key];
+        MeasurementAnnotation *ma = (MeasurementAnnotation *)self.currentSessions[key];
         
-        if (mesAnnotation.startTime.ms < [NSDate dateWithTimeIntervalSinceNow:-24*60*60].ms) {
-            [self.mapView removeAnnotation:mesAnnotation];
-            self.currentSessions[key] = nil;
+        if (ma.startTime.ms < [NSDate dateWithTimeIntervalSinceNow:-24*60*60].ms) {
+            [self.mapView removeAnnotation:ma];
+            [self.currentSessions removeObjectForKey:key];
         }
     }
 }
 
-- (void)setupFirebase {
-    Firebase *firebase =  [[Firebase alloc] initWithUrl:@"https://vaavud-core-demo.firebaseio.com/"]; // fixme: change
-    Firebase *ref = [firebase childByAppendingPath:@"session"];
-    
-    NSNumber *currentTime = [NSDate dateWithTimeIntervalSinceNow:-24*60*60].ms;
-    
-    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
-     observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snapshot) {
-         if (self.currentSessions[snapshot.key]) {
-             MeasurementAnnotation *mesAnnotation = (MeasurementAnnotation *)self.currentSessions[snapshot.key];
-             
-             if (mesAnnotation != nil){
-                 [self.mapView removeAnnotation:mesAnnotation];
-                 self.currentSessions[snapshot.key] = nil;
-             }
-         }
-     }];
-    
-    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
-     observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snapshot) {
-         [self addAnnotation: snapshot];
-     }];
-    
-    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue: currentTime]
-     observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snapshot) {
-         [self workingWithIncompleteAnnotations: snapshot];
-         //[self addAnnotation: snapshot];
-     }];
-    
-    Firebase *setting = [[[[firebase childByAppendingPath:@"user"] childByAppendingPath:[AuthorizationController shared].uid] childByAppendingPath:@"setting"] childByAppendingPath:@"ios"];
-    
-    [self setupSettingFirebase:setting];
+-(BOOL)isTooOld:(NSDate *)time current:(NSDate *)current {
+    NSTimeInterval secondsAgo = self.hoursAgoOptions[self.hoursAgoOption].intValue*3600;
+    return [current timeIntervalSinceDate:time] > secondsAgo;
 }
 
--(void)setupSettingFirebase:(Firebase *)setting {
-    [setting observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
-        if (![snapshot.value isKindOfClass:[NSDictionary class]]) {
-            return;
-        }
-        
-        NSDictionary *dict = (NSDictionary *)snapshot.value;
-        
-        CGRect bounds = self.tabBarController.view.bounds;
-        NSString *textKey;
-        UIImage *icon = nil;
-        CGPoint position = CGPointMake(-1, -1);
-        
-        if (![dict[@"mapGuideMeasurePopupShown"] boolValue]) {
-            [[setting childByAppendingPath:@"mapGuideMeasurePopupShown"] setValue:@YES];
-            textKey = @"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION";
-            position = CGPointMake(0.5, 0.97);
-            icon = [UIImage imageNamed:@"MapMeasureOverlay"];
-        }
-        else if ([self isDanish] && ![dict[@"mapGuideForecastShown"] boolValue]) {
-            [[setting childByAppendingPath:@"mapGuideForecastShown"] setValue:@YES];
-            textKey = @"MAP_GUIDE_FORECAST";
-            icon = [UIImage imageNamed:@"ForecastPressFinger"];
-        }
-        
-        else if (![dict[@"mapGuideMarkerShown"] boolValue]) {
-            [[setting childByAppendingPath:@"mapGuideMarkerShown"] setValue:@YES];
-            textKey = @"MAP_GUIDE_MARKER_EXPLANATION";
-            icon = [UIImage imageNamed:@"ForecastOverlayMeasurement"];
-        }
-        else if (![dict[@"mapGuideTimeIntervalShown"] boolValue]) {
-            [[setting childByAppendingPath:@"mapGuideTimeIntervalShown"] setValue:@YES];
-            CGFloat x = self.hoursButton.center.x/bounds.size.width;
-            CGFloat y = self.hoursButton.center.y/bounds.size.height;
-            
-            textKey = @"MAP_GUIDE_TIME_INTERVAL_EXPLANATION";
-            position = CGPointMake(x, y);
-        }
-        
-        if (textKey != nil) {
-            [self.tabBarController.view addSubview:[[RadialOverlay alloc] initWithFrame:bounds
-                                                                               position:position
-                                                                                   text:NSLocalizedString(textKey, nil)
-                                                                                   icon:icon
-                                                                                 radius:70]];
-        }
-    }];
-}
-
--(void)showActivityIndicatorIfLoading {
-    if (self.isLoading) {
-        self.activityIndicator.hidden = NO;
-    }
-}
-
--(void)clearActivityIndicator {
-    self.isLoading = NO;
-    if (self.activityIndicator.hidden == NO) {
-        self.activityIndicator.hidden = YES;
-    }
-}
 
 -(UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
@@ -565,12 +489,11 @@
 
 -(void)reloadAnnotationView:(MKAnnotationView *)view {
     if ([view.leftCalloutAccessoryView isKindOfClass:[ForecastCalloutView class]]) {
-        //[(ForecastCalloutView *)view.leftCalloutAccessoryView reload];
+        [(ForecastCalloutView *)view.leftCalloutAccessoryView reload];
     }
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
-    // If it's the user location, just return nil.
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
         return nil;
     }
@@ -634,37 +557,6 @@
     return nil;
 }
 
--(void)updateAnnotationView:(MKAnnotationView *)annotationView {
-    MeasurementAnnotation *measurementAnnotation = (MeasurementAnnotation *)annotationView.annotation;
-    
-    UIImageView *iv = (UIImageView *)[annotationView viewWithTag:101];
-    if (iv) {
-        if (measurementAnnotation.windDirection) {
-            iv.image = [UIImage imageNamed: measurementAnnotation.isFinished ? @"MapMarkerDirection" : @"MapMarkerDirectionBlue"];
-            [iv sizeToFit];
-            iv.transform = [VaavudFormatter transformWithDirection:measurementAnnotation.windDirection.floatValue];
-        }
-        else {
-            iv.image = [UIImage imageNamed: measurementAnnotation.isFinished ? @"MapMarker" : @"MapMarkerBlue"];
-            [iv sizeToFit];
-            iv.transform = CGAffineTransformIdentity;
-        }
-    }
-    
-    UILabel *lbl = (UILabel *)[annotationView viewWithTag:42];
-    lbl.text = measurementAnnotation.title;
-    
-    //    annotationView.hidden = [self isTooOld:measurementAnnotation.startTime];
-    //    annotationView.userInteractionEnabled = !annotationView.hidden;
-    
-    
-}
-
--(BOOL)isTooOld:(NSDate *)time {
-    NSTimeInterval secondsAgo = self.hoursAgoOptions[self.hoursAgoOption].intValue*3600;
-    return [self.now timeIntervalSinceDate:time] > secondsAgo;
-}
-
 -(void)mapViewDidFinishRenderingMap:(MKMapView *)mapView fullyRendered:(BOOL)fullyRendered {
     [self.logHelper increase:@"scrolled"];
     self.didScroll = YES;
@@ -673,10 +565,6 @@
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     if ([view.annotation isKindOfClass:[MeasurementAnnotation class]]) {
         NSArray *nearbyAnnotations;
-        
-        //        if(!view.userInteractionEnabled){
-        //            return;
-        //        }
         
         //NSLog(@"zoomLevel=%f", [self.mapView getZoomLevel]);
         
@@ -793,11 +681,13 @@
     
     NSMutableSet *set = [NSMutableSet set];
     
+    NSDate *current = [NSDate date];
+    
     for (id annotation in [self.mapView annotationsInMapRect:mapRect]) {
         if ([annotation isKindOfClass:[MeasurementAnnotation class]]) {
             MeasurementAnnotation *ma = (MeasurementAnnotation *)annotation;
             
-            if (![self isTooOld:ma.startTime]) {
+            if (![self isTooOld:ma.startTime current:current]) {
                 [set addObject:annotation];
             }
         }
@@ -829,7 +719,7 @@
     self.hoursAgoOption = (self.hoursAgoOption + 1) % self.hoursAgoOptions.count;
     
     [self refreshHoursButton];
-    [self refreshMeasurementAnnotations];
+    [self refreshAnnotations];
 }
 
 - (void)refreshHoursButton {
@@ -840,7 +730,7 @@
 
 - (void)unitChanged {
     [self refreshUnitButton];
-    [self refreshMeasurementAnnotations];
+    [self refreshAnnotations];
     
     [self reloadForecastCallouts];
 }
@@ -848,22 +738,6 @@
 - (void)refreshUnitButton {
     NSString *title = [[VaavudFormatter shared] speedUnitLocalName];
     [self.unitButton setTitle:title forState:UIControlStateNormal];
-}
-
-- (void)refreshMeasurementAnnotations {
-    self.now = [NSDate date];
-    for (MeasurementAnnotation *annotation in self.currentSessions.allValues) {
-        BOOL isOld = [self isTooOld:annotation.startTime];
-        
-        if (isOld && annotation.isShowing) {
-            [self.mapView removeAnnotation:annotation];
-        }
-        else if (!isOld && !annotation.isShowing) {
-            [self.mapView addAnnotation:annotation];
-        }
-        
-        annotation.isShowing = !isOld;
-    }
 }
 
 - (IBAction)unitButtonPushed {
