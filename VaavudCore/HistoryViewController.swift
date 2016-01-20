@@ -31,7 +31,7 @@ struct Location: Firebaseable {
     
     init?(dict: [String : AnyObject]) {
         guard let lat = dict["lat"] as? Double, lon = dict["lon"] as? Double else {
-                return nil
+            return nil
         }
         
         self.lat = lat
@@ -52,39 +52,33 @@ struct Location: Firebaseable {
     }
 }
 
-struct Sourced {
-    let humidity: Double
-    let icon: String
-    let pressure: Double
-    let temperature: Double
-    let windDirection: Double
-    let windMean: Double
-    
-    init(forecastDict: [String : AnyObject]) {
-        fatalError()
-    }
+struct Sourced: Firebaseable {
+    let humidity: Double?
+    let icon: WeatherState?
+    let pressure: Double?
+    let temperature: Double?
+    let windDirection: Double?
+    let windMean: Double?
     
     init?(dict: [String : AnyObject]) {
-        guard let humidity = dict["humidity"] as? Double,
-            icon = dict["icon"] as? String,
-            pressure = dict["pressure"] as? Double,
-            temperature = dict["temperature"] as? Double,
-            windDirection = dict["windBearing"] as? Double,
-            windSpeed = dict["windSpeed"] as? Double
-            else {
-                return nil
-        }
-        
-        self.humidity = humidity
-        self.icon = icon
-        self.pressure = pressure
-        self.temperature = temperature
-        self.windDirection = windDirection
-        self.windMean = windSpeed
+        humidity = dict["humidity"] as? Double
+        icon = (dict["icon"] as? String).flatMap { WeatherState(rawValue: $0) }
+        pressure = dict["pressure"] as? Double
+        temperature = dict["temperature"] as? Double
+        windDirection = dict["windDirection"] as? Double
+        windMean = dict["windMean"] as? Double
     }
     
     var fireDict: FirebaseDictionary {
-        return ["humidity": humidity, "icon": icon, "pressure": pressure, "temperature": temperature, "windDirection": windDirection, "windMean": windMean]
+        var dict = FirebaseDictionary()
+        dict["humidity"] = humidity
+        dict["icon"] = icon?.rawValue
+        dict["pressure"] = pressure
+        dict["temperature"] = temperature
+        dict["windDirection"] = windDirection
+        dict["windMean"] = windMean
+
+        return dict
     }
 }
 
@@ -94,10 +88,11 @@ struct Session {
     let uid: String
     let deviceKey: String
     let timeStart: NSDate
-    let windMeter: WindMeterModel
 
     var windMax: Double = 0
     var windMean: Double = 0
+
+    let windMeter: WindMeterModel
 
     var timeEnd: NSDate?
     var windDirection: Double?
@@ -125,7 +120,7 @@ struct Session {
         pressure = snapshot.value["pressure"] as? Double
         temperature = snapshot.value["temperature"] as? Double
         turbulence = snapshot.value["turbulence"] as? Double
-
+        
         sourced = (snapshot.value["sourced"] as? FirebaseDictionary).flatMap(Sourced.init)
         location = (snapshot.value["location"] as? FirebaseDictionary).flatMap(Location.init)
     }

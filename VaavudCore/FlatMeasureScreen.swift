@@ -30,7 +30,6 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
 
     @IBOutlet weak var windchillOffsetX: NSLayoutConstraint!
     
-    private var gusts: Double = 0
     private var smoothWindSpeed: Double = 0
     private var verySmoothWindSpeed: Double = 0
     
@@ -58,7 +57,7 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
         gustsOffsetY.constant = Interface.choose(70, 80, 100, 125, 150, 150)
         
         updateVariant()
-        newSpeed(0)
+        newWindSpeed(0)
     }
     
     var scaledSpeed: Double {
@@ -85,17 +84,8 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
         gustsOffsetX.constant = -windchillOffsetX.constant
     }
     
-    func toggleVariant() {
-        view.layoutIfNeeded()
-        
-        let animations = {
-            self.variant = mod(self.variant + 1, 2)
-            self.view.layoutIfNeeded()
-        }
-        
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: animations, completion: nil)
-    }
-    
+    // MARK - SDK Callbacks
+
     func tick() {
         if let heading = latestHeading, windDirection = latestWindDirection {
             ruler.compassDirection = weight*heading + (1 - weight)*ruler.compassDirection
@@ -107,27 +97,63 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
         graph.reading = smoothWindSpeed
         
         verySmoothWindSpeed = 0.3*weight*latestSpeed + (1 - 0.3*weight)*verySmoothWindSpeed
-        gusts = max(gusts, verySmoothWindSpeed)
     }
     
-    // MARK: SDK Callbacks
     func useMjolnir() { }
+    
+    func newWindSpeedMax(max: Double) {
+        gustLabel.text = VaavudFormatter.shared.localizedSpeed(max, digits: 2)
+    }
 
+    func newWindSpeed(speed: Double) {
+        latestSpeed = speed
+        speedLabel.text = VaavudFormatter.shared.localizedSpeed(speed, digits: 3)
+//        gustLabel.text = VaavudFormatter.shared.localizedSpeed(gusts, digits: 2) // fixme: check
+        updateWindChill()
+    }
+    
+    func newTrueWindSpeed(speed: Double) { }
+    
     func newWindDirection(windDirection: Double) {
         let latest = latestWindDirection ?? 0
         latestWindDirection = latest + distanceOnCircle(from: latest, to: windDirection)
         refreshRuler()
     }
     
-    func refreshRuler() {
-        ruler.hidden = latestHeading == nil || latestWindDirection == nil
+    func newTrueWindDirection(windDirection: Double) { }
+    
+    func newHeading(newHeading: Double) {
+        let heading = latestHeading ?? 0
+        latestHeading = heading + distanceOnCircle(from: heading, to: newHeading)
+        
+        refreshRuler()
     }
     
-    func newSpeed(speed: Double) {
-        latestSpeed = speed
-        speedLabel.text = VaavudFormatter.shared.localizedSpeed(speed, digits: 3)
-        gustLabel.text = VaavudFormatter.shared.localizedSpeed(gusts, digits: 2)
+    func newVelocity(course: Double, speed: Double) { }
+    
+    func newTemperature(temperature: Double) {
+        self.temperature = temperature
+        updateWindChill()
+    }
+
+    func changedSpeedUnit(unit: SpeedUnit) {
+        newWindSpeed(latestSpeed)
+    }
+
+    func toggleVariant() {
+        view.layoutIfNeeded()
         
+        let animations = {
+            self.variant = mod(self.variant + 1, 2)
+            self.view.layoutIfNeeded()
+        }
+        
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: animations, completion: nil)
+    }
+
+    // MARK - Convenience
+    
+    func updateWindChill() {        
         if let temperature = temperature, chill = windchill(temperature, verySmoothWindSpeed) {
             windchillLabel.text =  VaavudFormatter.shared.localizedWindchill(chill)
             windchillUnitLabel.alpha = 1
@@ -137,23 +163,9 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
             windchillUnitLabel.alpha = 0
         }
     }
-    
-    func newSpeedMax(max: Double) {
-    }
-    
-    func newHeading(newHeading: Double) {
-        let heading = latestHeading ?? 0
-        latestHeading = heading + distanceOnCircle(from: heading, to: newHeading)
-        
-        refreshRuler()
-    }
-    
-    func changedSpeedUnit(unit: SpeedUnit) {
-        newSpeed(latestSpeed)
-    }
-    
-    func newTemperature(temperature: Double) {
-        self.temperature = temperature
+
+    func refreshRuler() {
+        ruler.hidden = latestHeading == nil || latestWindDirection == nil
     }
 }
 

@@ -185,15 +185,11 @@ class ForecastLoader: NSObject {
     func requestGeocode(location: CLLocationCoordinate2D, callback: String? -> ()) {
         geocoder.reverseGeocodeLocation(CLLocation(latitude: location.latitude, longitude: location.longitude)) { placemarks, error in
             dispatch_async(dispatch_get_main_queue()) {
-                if let error = error {
-                    print("Geocode failed with error: \(error)")
+                guard let first = placemarks?.first else {
                     callback(nil)
                     return
                 }
-                
-                if let first = placemarks?.first {
-                    callback(first.thoroughfare ?? first.locality ?? first.country)
-                }
+                callback(first.thoroughfare ?? first.locality ?? first.country)
             }
         }
     }
@@ -288,9 +284,12 @@ func parseCurrently(dict: [String : AnyObject]) -> (Double, Double, Int?)? {
     return nil
 }
 
-func parseCurrentlyFull(var dict: [String : AnyObject]) -> Sourced? {
-    dict["pressure"] = (dict["pressure"] as? Int).map { $0*100 }
-    dict["temperature"] = (dict["temperature"] as? Double).map(TemperatureUnit.Fahrenheit.toKelvin)
+func parseCurrentlyFull(forecastDict: [String : AnyObject]) -> Sourced? {
+    var dict = forecastDict
+    dict["pressure"] = (forecastDict["pressure"] as? Int).map { $0*100 }
+    dict["temperature"] = (forecastDict["temperature"] as? Double).map(TemperatureUnit.Fahrenheit.toKelvin)
+    dict["windDirection"] = dict.removeValueForKey("windBearing")
+    dict["windMean"] = (dict.removeValueForKey("windSpeed") as? Double).map { $0*0.44704 }
     
     return Sourced(dict: dict)
 }

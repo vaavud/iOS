@@ -84,14 +84,6 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
         }
     }
     
-    func changedSpeedUnit(unit: SpeedUnit) {
-        newSpeed(latestSpeed)
-        
-        if VaavudFormatter.shared.speedUnit == .Bft {
-            animateLogScale(0)
-        }
-    }
-    
     func setupLayoutRelated() {
         lockNorthDistance.constant = view.bounds.width/2 + 20
         
@@ -106,10 +98,8 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
         return VaavudFormatter.shared.speedUnit.fromBase(latestSpeed)
     }
     
-    func toggleVariant() {}
+    // MARK - Measurement Consumer
     
-    func newTemperature(temperature: Double) {}
-
     func tick() {
         ruler.compassDirection = weight*latestHeading + (1 - weight)*ruler.compassDirection
         ruler.windDirection = weight*latestWindDirection + (1 - weight)*ruler.windDirection
@@ -135,6 +125,50 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
         ruler.update()
     }
     
+    func useMjolnir() { }
+
+    func newWindSpeedMax(max: Double) { }
+
+    func newWindSpeed(speed: Double) {
+        latestSpeed = speed
+        speedLabel.text = VaavudFormatter.shared.localizedSpeed(speed, digits: 3)
+    }
+
+    func newTrueWindSpeed(speed: Double) { }
+    
+    func newWindDirection(windDirection: Double) {
+        hasDirection = true
+        latestWindDirection += distanceOnCircle(from: latestWindDirection, to: windDirection)
+        updateHeadingAndDirection()
+    }
+
+    func newTrueWindDirection(windDirection: Double) { }
+    
+    func newHeading(heading: Double) {
+        hasHeading = true
+        if !lockNorth {
+            latestHeading += distanceOnCircle(from: latestHeading, to: heading)
+        }
+        updateHeadingAndDirection()
+    }
+
+    func newVelocity(course: Double, speed: Double) { }
+    
+    func newTemperature(temperature: Double) {}
+    
+    func changedSpeedUnit(unit: SpeedUnit) {
+        newWindSpeed(latestSpeed)
+        
+        if VaavudFormatter.shared.speedUnit == .Bft {
+            animateLogScale(0)
+        }
+    }
+    
+    func toggleVariant() {}
+    
+    
+    // MARK - Convenience
+
     func animateLogScale(newLogScale: CGFloat) {
         animator.removeAllBehaviors()
         targetLogScale = newLogScale
@@ -151,36 +185,13 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
         background.logScale = logScale
     }
     
-    // MARK: New readings from root
-    func useMjolnir() { }
-
-    func newWindDirection(windDirection: Double) {
-        hasDirection = true
-        latestWindDirection += distanceOnCircle(from: latestWindDirection, to: windDirection)
-        updateHeadingAndDirection()
-    }
-    
-    func newSpeed(speed: Double) {
-        latestSpeed = speed
-        speedLabel.text = VaavudFormatter.shared.localizedSpeed(speed, digits: 3)
-    }
-    
-    func newSpeedMax(max: Double) {
-    }
-
-    func newHeading(heading: Double) {
-        hasHeading = true
-        if !lockNorth {
-            latestHeading += distanceOnCircle(from: latestHeading, to: heading)
-        }
-        updateHeadingAndDirection()
-    }
-    
     func updateHeadingAndDirection() {
         if hasHeading && hasDirection {
             ruler.hasDirectionAndCompass = true
         }
     }
+    
+    // MARK - User Actions
     
     @IBAction func lockNorthChanged(sender: UIButton) {
         lockNorth = !lockNorth

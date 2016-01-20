@@ -103,18 +103,12 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         animator.addBehavior(UISnapBehavior(item: scaleItem, snapToPoint: CGPoint(x: 0, y: newLogScale*10000)))
     }
     
-    func toggleVariant() {}
+    // MARK - Measurement Consumer
     
-    func newTemperature(temperature: Double) {}
-
-    // MARK: Callbacks
     func tick() {
         smoothSpeed = weight*latestSpeed + (1 - weight)*smoothSpeed
         graph.reading = VaavudFormatter.shared.speedUnit.fromBase(smoothSpeed)
         
-        maxSpeed = max(smoothSpeed, maxSpeed)
-//        maxSpeedLabel.text = VaavudFormatter.shared.localizedSpeed(Float(maxSpeed), digits: 3)
-
         if hasDirection {
             smoothDirection = weight*latestDirection + (1 - weight)*smoothDirection
             arrowView.transform = Affine.rotation(CGFloat(smoothDirection.radians)).scale(arrowScale)
@@ -143,6 +137,17 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
     }
 
     func useMjolnir() { }
+    
+    func newWindSpeedMax(max: Double) {
+        maxSpeedLabel.text = VaavudFormatter.shared.localizedSpeed(max, digits: 3)
+    }
+    
+    func newWindSpeed(speed: Double) {
+        latestSpeed = speed
+        speedLabel.text = VaavudFormatter.shared.localizedSpeed(speed, digits: 3)
+    }
+    
+    func newTrueWindSpeed(speed: Double) { }
 
     func newWindDirection(windDirection: Double) {
         hasDirection = true
@@ -150,21 +155,20 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         latestDirection += distanceOnCircle(from: latestDirection, to: windDirection)
     }
     
-    func newSpeed(speed: Double) {
-        latestSpeed = speed
-        speedLabel.text = VaavudFormatter.shared.localizedSpeed(speed, digits: 3)
-    }
+    func newTrueWindDirection(windDirection: Double) { }
     
-    func newSpeedMax(max: Double) {
-        maxSpeedLabel.text = VaavudFormatter.shared.localizedSpeed(max, digits: 3)
-    }
-        
     func newHeading(heading: Double) {/* latestHeading += distanceOnCircle(from: latestHeading, to: heading) */ }
     
+    func newVelocity(course: Double, speed: Double) { }
+    
+    func newTemperature(temperature: Double) { }
+
     func changedSpeedUnit(unit: SpeedUnit) {
         speedUnitLabel.text = VaavudFormatter.shared.speedUnit.localizedString
-        newSpeed(latestSpeed)
+        newWindSpeed(latestSpeed)
     }
+    
+    func toggleVariant() { }
 }
 
 class OldGraph : UIView {
