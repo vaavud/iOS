@@ -32,8 +32,9 @@ class ActivityViewController: UIViewController, UIPickerViewDelegate {
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerDataSource.count
+        return dataSourceKeys.count
     }
+    
 
     @IBAction func savePushed() {
         AuthorizationController.shared.updateActivity(dataSourceKeys[rowSelected])

@@ -65,6 +65,8 @@
 
 - (void)dealloc {
     [[VaavudFormatter shared] stopObserving:self.formatHandle];
+    NSLog(@"Map destroy");
+    
 }
 
 - (void)viewDidLoad {
@@ -149,6 +151,9 @@
         }
     }
 }
+
+
+
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     CLLocationCoordinate2D location = locations[locations.count - 1].coordinate;
