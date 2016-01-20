@@ -461,7 +461,7 @@
         return;
     }
     
-    NSLog(@"adding new sessions  %@  ", data.key);
+    //NSLog(@"adding new sessions  %@  ", data.key);
     
     NSDictionary *loctation = ((NSDictionary *)data.value[@"location"]);
     

@@ -66,8 +66,8 @@
     
     if (![[AuthorizationController shared] verifyAuth]) {
         UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateInitialViewController];
-        UIViewController *pushed = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateViewControllerWithIdentifier:@"Selector"];
-        [nav pushViewController:pushed animated:NO];
+        //UIViewController *pushed = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateViewControllerWithIdentifier:@"Selector"];
+        //[nav pushViewController:pushed animated:NO];
         
         vc = nav;
     }

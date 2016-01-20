@@ -233,10 +233,12 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     // MARK: Table View Controller
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        //print(controller.sessionss.count)
         return controller.sessionss.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        //print(controller.sessionss[section].count)
         return controller.sessionss[section].count
     }
     
@@ -312,9 +314,13 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         return 25
     }
     
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return [.Portrait, .PortraitUpsideDown]
+    }
+    
     // MARK: History Delegate
     
-    func fetchedMeasurements(sessions: [[Session]], sessionDates: [String]) {
+    func fetchedMeasurements() {
         dispatch_async(dispatch_get_main_queue()) {
             self.spinner.hide()
             self.emptyView.alpha = 0

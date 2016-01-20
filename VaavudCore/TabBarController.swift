@@ -21,6 +21,8 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
             selector: Selector("receiveNotification:"),
             name: "PushNotification",
             object: nil)
+        
+        print("init TabBar")
     }
     
     deinit {
@@ -111,7 +113,7 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
     }
     
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return .All
+        return [.Portrait, .PortraitUpsideDown]
     }
     
     override func viewWillLayoutSubviews() {

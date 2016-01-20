@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 protocol HistoryDelegate {
-    func fetchedMeasurements(sessions: [[Session]], sessionDates: [String])
+    func fetchedMeasurements()
     func gotMeasurements()
     func noMeasurements()
 }
@@ -56,11 +56,14 @@ class HistoryController: NSObject {
             }
             
             self.addToStack(Session(snapshot: snapshot))
+            self.delegate.fetchedMeasurements()
         })
         
         ref.queryOrderedByChild("uid").queryEqualToValue(uid).observeSingleEventOfType(.Value, withBlock: { snapshot in
+            print("All session loaded")
             if snapshot.childrenCount > 0 {
                 self.delegate.gotMeasurements()
+                self.delegate.fetchedMeasurements()
             }
             else {
                 self.delegate.noMeasurements()
@@ -80,14 +83,13 @@ class HistoryController: NSObject {
         if sessionss.isEmpty {
             sessionDates.append(sessionDate)
             sessionss.append([session])
-            delegate.fetchedMeasurements(sessionss, sessionDates: sessionDates)
             return
         }
         
         for (index, date) in sessionDates.enumerate() {
             if date == sessionDate {
                 sessionss[index].insert(session, atIndex: 0)
-                delegate.fetchedMeasurements(sessionss, sessionDates: sessionDates)
+                //delegate.fetchedMeasurements(sessionss, sessionDates: sessionDates)
                 return
             }
         }
@@ -97,6 +99,6 @@ class HistoryController: NSObject {
         sessionDates.insert(sessionDate, atIndex: 0)
         sessionss.insert([session], atIndex: 0)
         
-        delegate.fetchedMeasurements(sessionss, sessionDates: sessionDates)
+        //delegate.fetchedMeasurements(sessionss, sessionDates: sessionDates)
     }
 }
