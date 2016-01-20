@@ -55,12 +55,10 @@
         self.logHelper = [[LogHelper alloc] initWithGroupName:@"Map" counters:@[@"scrolled", @"tapped-marker"]];
     }
     
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
         selector:@selector(receiveTestNotification:)
         name:@"PushNotification"
         object:nil];
-    
     
     return self;
 }
@@ -108,11 +106,10 @@
     }
     
     [self setupFirebase];
-    
+    [self setupSettingFirebase];
 }
 
-
-- (void) receiveTestNotification:(NSNotification *) notification{
+- (void)receiveTestNotification:(NSNotification *) notification{
     // [notification name] should always be @"TestNotification"
     // unless you use this method for observation of other notifications
     // as well.
@@ -147,11 +144,10 @@
 //            }];
             
         }
-        else{
+        else {
             self.pendingNotification = YES;
         }
     }
-    
 }
 
 -(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
@@ -239,9 +235,8 @@
     
     if (self.pendingNotification) {
         self.pendingNotification = NO;
-        [[self.tabBarController tabBar] items][1].badgeValue = 0;
+        self.tabBarController.tabBar.items[1].badgeValue = 0;
     }
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -262,9 +257,9 @@
 
 -(void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    self.isShowing  = NO;
+    self.isShowing = NO;
     [self refreshAnnotations];
-
+    
     [self.logHelper ended:@{}];
 }
 
@@ -274,28 +269,25 @@
     NSNumber *dayAgo = [NSDate dateWithTimeIntervalSinceNow:-24*60*60].ms;
     
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snap) {
-         MeasurementAnnotation *ma = (MeasurementAnnotation *)self.currentSessions[snap.key];
-         if (ma != nil) {
-             [self.mapView removeAnnotation:ma];
-             [self.currentSessions removeObjectForKey:snap.key];
-         }
-     }];
+        MeasurementAnnotation *ma = (MeasurementAnnotation *)self.currentSessions[snap.key];
+        if (ma != nil) {
+            [self.mapView removeAnnotation:ma];
+            [self.currentSessions removeObjectForKey:snap.key];
+        }
+    }];
     
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snap) {
         [self updateAnnotation:snap];
-     }];
+    }];
     
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snap) {
         [self updateAnnotation:snap];
-     }];
-    
-    
-    [self setupSettingFirebase];
+    }];
 }
 
 -(void)setupSettingFirebase {
     Firebase *setting = [[[[self.firebase childByAppendingPath:@"user"] childByAppendingPath:[AuthorizationController shared].uid] childByAppendingPath:@"setting"] childByAppendingPath:@"ios"];
-
+    
     [setting observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
         if (![snapshot.value isKindOfClass:[NSDictionary class]]) {
             return;

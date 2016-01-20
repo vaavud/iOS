@@ -72,7 +72,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     private var hasPressure = false
     private var hasGustiness = false
     private var hasWindChill = false
-    
+    private var firebase = Firebase(url: firebaseUrl)
     private var formatterHandle: String!
     private var sessionHandle: FirebaseHandle!
     
@@ -110,7 +110,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         updateUI()
         updateLocalUI()
         
-        sessionHandle = Firebase(url: firebaseUrl)
+        sessionHandle = firebase
             .childByAppendingPaths("session", session.key)
             .observeEventType(.Value, withBlock: { snapshot in
                 self.session = Session(snapshot: snapshot)
@@ -151,6 +151,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     
     override func viewWillDisappear(animated: Bool) {
         logHelper.ended()
+        firebase.childByAppendingPaths("session", session.key).removeObserverWithHandle(sessionHandle)
     }
     
     deinit {
@@ -202,7 +203,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         updateTemperature()
         updateGustiness()
     }
-
+    
     private func updateLocalUI() {
         if let time = VaavudFormatter.shared.localizedTime(session.timeStart) {
             dateLabel.text = time.uppercaseString
@@ -214,7 +215,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
             updateMapAnnotationLabel(view)
         }
     }
-
+    
     // MARK: Event handling
     
     func unitsChanged() {
