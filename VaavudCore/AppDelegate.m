@@ -163,17 +163,14 @@
         
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"PushNotification"
-         object:self];
+         object:userInfo];
         
         NSLog(@"Active");
         completionHandler(UIBackgroundFetchResultNewData);
     }
     
+     NSLog(@"my notification: %@", userInfo);
     
-
-    
-    
-    NSLog(@"Notification: %@", userInfo);
 }
 
 
@@ -183,7 +180,7 @@
 
 - (void) application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler {
     
-    NSLog(@"Inf when app its open from notification: %@", userInfo);
+    NSLog(@"Inf when app its open from notification: %@", userInfo[@"location"]);
 }
 
 

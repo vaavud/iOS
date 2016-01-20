@@ -182,17 +182,17 @@ class ForecastLoader: NSObject {
         }
     }
     
-    func requestGeocode(location: CLLocationCoordinate2D, callback: String -> ()) {
+    func requestGeocode(location: CLLocationCoordinate2D, callback: String? -> ()) {
         geocoder.reverseGeocodeLocation(CLLocation(latitude: location.latitude, longitude: location.longitude)) { placemarks, error in
             dispatch_async(dispatch_get_main_queue()) {
                 if let error = error {
                     print("Geocode failed with error: \(error)")
+                    callback(nil)
                     return
                 }
                 
-                if let first = placemarks?.first,
-                    let geocode = first.thoroughfare ?? first.locality ?? first.country {
-                        callback(geocode)
+                if let first = placemarks?.first {
+                    callback(first.thoroughfare ?? first.locality ?? first.country)
                 }
             }
         }
@@ -289,24 +289,11 @@ func parseCurrently(dict: [String : AnyObject]) -> (Double, Double, Int?)? {
 }
 
 func parseCurrentlyFull(var dict: [String : AnyObject]) -> Sourced? {
-    if let pressure = dict["pressure"] as? Int {
-        dict["pressure"] = pressure * 100
-    }
+    dict["pressure"] = (dict["pressure"] as? Int).map { $0*100 }
+    dict["temperature"] = (dict["temperature"] as? Double).map(TemperatureUnit.Fahrenheit.toKelvin)
     
-    if let temperature = dict["temperature"] as? Float {
-        let celcius = (temperature - 32) / 1.8
-        let kelvin = celcius + 273.15
-        
-        dict["temperature"] = kelvin
-    }    
-    
-    if let source = Sourced(dict: dict) {
-        return source
-    }
-    
-    return nil
+    return Sourced(dict: dict)
 }
-
 
 protocol AssetState {
     var prefix: String { get }

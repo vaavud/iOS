@@ -171,6 +171,7 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         controller = HistoryController(delegate: self)
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -222,6 +223,7 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     
     deinit {
         VaavudFormatter.shared.stopObserving(formatterHandle)
+        print("history destroy")
     }
     
 //    override func viewWillAppear(animated: Bool) {

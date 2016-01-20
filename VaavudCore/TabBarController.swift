@@ -23,6 +23,10 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
             object: nil)
     }
     
+    deinit {
+        print("deinit tabBarController")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
                 

@@ -99,6 +99,7 @@ struct InstructionsShown: Firebaseable {
     var mapGuideMeasurePopupShownToday = false
     var mapGuideForecastShown = false
     var forecastOverlayShown = false
+    var summaryShareOverlayShown = false
     
     init() {}
     
@@ -110,6 +111,7 @@ struct InstructionsShown: Firebaseable {
         mapGuideMeasurePopupShownToday = dict["mapGuideMeasurePopupShownToday"] as? Bool ?? mapGuideMeasurePopupShownToday
         mapGuideForecastShown = dict["mapGuideForecastShown"] as? Bool ?? mapGuideForecastShown
         forecastOverlayShown = dict["forecastOverlayShown"] as? Bool ?? forecastOverlayShown
+        summaryShareOverlayShown = dict["summaryShareOverlayShown"] as? Bool ?? summaryShareOverlayShown
     }
     
     var fireDict: FirebaseDictionary {
@@ -121,6 +123,7 @@ struct InstructionsShown: Firebaseable {
         dict["mapGuideMeasurePopupShownToday"] = mapGuideMeasurePopupShownToday
         dict["mapGuideForecastShown"] = mapGuideForecastShown
         dict["forecastOverlayShown"] = forecastOverlayShown
+        dict["summaryShareOverlayShown"] = summaryShareOverlayShown
         
         return dict
     }

@@ -96,13 +96,6 @@ class CoreSettingsTableViewController: UITableViewController {
             on: self)
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-//        let iosSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "ios", "mapGuideMarkerShown")
-//        iosSettings.setValue(Int(rand()))
-    }
-
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         logHelper.began()

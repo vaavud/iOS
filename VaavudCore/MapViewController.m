@@ -141,6 +141,24 @@
         
         if(self.isShowing){
             NSLog(@"show Notification");
+            
+            NSDictionary *userInfo = notification.object;
+            NSString *sessionId = [userInfo objectForKey:@"sessionKey"];
+            
+            MeasurementAnnotation *sessionNotification = (MeasurementAnnotation *)self.currentSessions[sessionId];
+            
+            
+            [self.mapView viewForAnnotation:sessionNotification].alpha = 0;
+            
+            [UIView animateWithDuration:1.5 delay:0.2 options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse animations:^{
+                [self.mapView viewForAnnotation:sessionNotification].alpha = 1;
+            } completion:nil];
+            
+            
+//            [UIView animateWithDuration:1.3 animations:^{
+//                sessionNotification.coordinate = CLLocationCoordinate2DMake(55.676111, 12.568333);
+//            }];
+            
         }
         else{
             self.pendingNotification = YES;
@@ -235,14 +253,10 @@
                                                        userInfo:nil
                                                         repeats:YES];
     
-    
-    if(self.pendingNotification){
+    if (self.pendingNotification) {
         self.pendingNotification = NO;
         [[self.tabBarController tabBar] items][1].badgeValue = 0;
-        
     }
-    
-    
     
 }
 
@@ -345,7 +359,7 @@
         return;
     }
     
-    NSLog(@"changing %@ session", data.key);
+//    NSLog(@"changing %@ session", data.key);
     
     if (data.value[@"timeEnd"] != nil) {
         MeasurementAnnotation *annotation = self.incompleteSessions[data.key];
@@ -359,7 +373,7 @@
         [self addAnnotationToStack:annotation  sessionKey:data.key];
     }
     else {
-        if (self.incompleteSessions[data.key] == nil){
+        if (self.incompleteSessions[data.key] == nil) {
             NSDictionary *loctation = ((NSDictionary *)data.value[@"location"]);
             
             CLLocationDegrees latitude = ((NSString *)loctation[@"lat"]).doubleValue;

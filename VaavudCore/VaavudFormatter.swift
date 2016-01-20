@@ -107,6 +107,9 @@ enum TemperatureUnit: String, FloatUnit {
     var decimals: Int { return 1 }
     func fromBase(kelvinValue: Double) -> Double { return kelvinValue*ratio + constant }
     
+    // MARK: Public convenience
+    func toKelvin(value: Double) -> Double { return (value - constant)/ratio }
+    
     // MARK: Convenience
     private var ratio: Double { return [1, 9/5][index] }
     private var constant: Double { return [-273.15, -459.67][index] }
@@ -302,7 +305,7 @@ class VaavudFormatter: NSObject {
     // Direction
 
     class func transform(direction direction: CGFloat) -> CGAffineTransform {
-        return CGAffineTransform.rotation(CGFloat(π)*direction/180)
+        return CGAffineTransform.rotation(π*direction/180)
     }
     
 //    static var localizedNorth: String { return NSLocalizedString(directionKey(0), comment: "") }
@@ -351,7 +354,6 @@ class VaavudFormatter: NSObject {
     // Gustiness
     
     func writeUnit<U: Unit>(unit: U, old: U) {
-        print("Formatter: Write unit \(U.unitKey): \(old.rawValue) > \(unit.rawValue)")
         guard unit != old else { return }
         firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared", U.unitKey).setValue(unit.rawValue)
     }

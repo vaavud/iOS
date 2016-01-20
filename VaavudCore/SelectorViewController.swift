@@ -48,8 +48,8 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         print("User Logged In")
-        
-        if error != nil || result.isCancelled {
+        if result.isCancelled {}
+        else if error != nil {
             print(error)
             //VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: LoginError.Facebook.rawValue, otherKey: "BUTTON_OK", action: {}, on: self)
         }
