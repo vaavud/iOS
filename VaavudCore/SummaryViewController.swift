@@ -112,7 +112,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         
         sessionHandle = firebase
             .childByAppendingPaths("session", session.key)
-            .observeEventType(.Value, withBlock: { snapshot in
+            .observeEventType(.Value, withBlock: { [unowned self] snapshot in
                 self.session = Session(snapshot: snapshot)
                 self.updateUI()
             })
@@ -151,11 +151,11 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     
     override func viewWillDisappear(animated: Bool) {
         logHelper.ended()
-        firebase.childByAppendingPaths("session", session.key).removeObserverWithHandle(sessionHandle)
     }
     
     deinit {
         VaavudFormatter.shared.stopObserving(formatterHandle)
+        firebase.childByAppendingPaths("session", session.key).removeObserverWithHandle(sessionHandle)
     }
     
     // MARK: Setup methods
@@ -442,7 +442,6 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func updateWindSpeeds() {
-//        hasWindSpeed = session.windMean != nil // fixme: check
         hasWindSpeed = true
         let unit = VaavudFormatter.shared.speedUnit
         (averageUnitLabel.text, averageLabel.text) = localisedLabelTexts(unit, value: session.windMean)
