@@ -110,21 +110,18 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         updateUI()
         updateLocalUI()
         
-        print("SUMMARY session key : \(session.key)")
-
         sessionHandle = Firebase(url: firebaseUrl)
             .childByAppendingPaths("session", session.key)
             .observeEventType(.Value, withBlock: { snapshot in
                 self.session = Session(snapshot: snapshot)
                 self.updateUI()
-                print("SUMMARY session changed")
             })
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        if laidOutOnce || isHistorySummary { return }
+        if laidOutOnce || !isHistorySummary { return }
         
         laidOutOnce = true
         shownFirebase.observeSingleEventOfType(.Value, withBlock: parseSnapshot(retrievedUserSettings))
@@ -132,7 +129,6 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     
     func retrievedUserSettings(dict: [String : AnyObject]) {
         if let shown = InstructionsShown(dict: dict), tbc = tabBarController where !shown.summaryShareOverlayShown {
-            print("retrievedUserSettings: \(shown)") // fixme: remove
             shownFirebase.updateChildValues(["summaryShareOverlayShown" : true])
             
             let p = Interface.choose((0.915, 0.09), (0.915, 0.075), (0.925, 0.065), (0.925, 0.06), (0.957, 0.043), (0.97, 0.053))
@@ -258,10 +254,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         guard let snap = UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext()) else { return }
         UIGraphicsEndImageContext()
 
-        let windSpeed = VaavudFormatter.shared.localizedSpeed(session.windMean) // fixme: should it be optional?
-//        guard let windSpeed = session.windMean.map(VaavudFormatter.shared.localizedSpeed) else {
-//            return
-//        }
+        let windSpeed = VaavudFormatter.shared.localizedSpeed(session.windMean)
         
         var text = NSLocalizedString("I just measured ", comment: "")
         text += windSpeed + " " + VaavudFormatter.shared.speedUnit.localizedString

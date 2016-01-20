@@ -28,16 +28,13 @@
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 
 @property (nonatomic) MeasurementCalloutView *measurementCalloutView;
-@property (nonatomic) BOOL isLoading;
 @property (nonatomic) BOOL isShowing;
 @property (nonatomic) BOOL didScroll;
 @property (nonatomic) int hoursAgoOption;
 @property (nonatomic) NSArray<NSNumber *> *hoursAgoOptions;
 @property (nonatomic) double analyticsGridDegree;
-@property (nonatomic) NSDate *latestLocalStartTime;
 @property (nonatomic) NSTimer *refreshTimer;
 @property (nonatomic) UIImage *placeholderImage;
-@property (nonatomic) NSDate *viewAppearedTime;
 @property (nonatomic) NSTimer *showGuideViewTimer;
 @property (nonatomic) LogHelper *logHelper;
 @property (nonatomic) NSMutableDictionary *currentSessions;
@@ -72,7 +69,6 @@
     
     self.currentSessions = [[NSMutableDictionary alloc] init];
     
-    self.isLoading = NO;
     self.didScroll = NO;
     self.isSelectingFromTableView = NO;
     
@@ -181,20 +177,17 @@
     
     self.isShowing  = YES;
     [self refreshAnnotations];
-
     [self removeOldForecasts];
     
-    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:3600
+    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:60
                                                          target:self
-                                                       selector:@selector(removeOldSessions)
+                                                       selector:@selector(refresh)
                                                        userInfo:nil
                                                         repeats:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
-    self.viewAppearedTime = [NSDate date];
     
     [self.logHelper began:@{}];
     [LogHelper increaseUserProperty:@"Use-Map-Count"];
@@ -316,11 +309,8 @@
     }
     
     CGPoint touchPoint = [gestureRecognizer locationInView:self.mapView];
-    CLLocationCoordinate2D loc = [self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView];
-    
+    [self addPin:[self.mapView convertPoint:touchPoint toCoordinateFromView:self.mapView]];
     [self.logHelper log:@"Added-Forecast-Pin" properties:@{}];
-    
-    [self addPin:loc];
 }
 
 - (void)addPin:(CLLocationCoordinate2D)loc {
@@ -414,7 +404,7 @@
 
 -(void)refreshAnnotation:(MeasurementAnnotation *)ma {
     NSDate *now = [NSDate date];
-    ma.isFinished = ma.isFinished || [now timeIntervalSinceDate:ma.startTime] > 3600;
+    ma.isFinished = ma.isFinished || [now timeIntervalSinceDate:ma.startTime] > 60;
     
     BOOL isOld = [self isTooOld:ma.startTime current:now];
     
@@ -449,6 +439,24 @@
     lbl.text = measurementAnnotation.title;
 }
 
+-(void)refresh {
+    [self removeOldSessions];
+    [self refreshAnnotations];
+    [self updateAnnotationViews];
+    [self removeOldForecasts];
+}
+
+-(void)updateAnnotationViews {
+    for (MeasurementAnnotation *ma in self.mapView.annotations) {
+        MKAnnotationView *view = [self.mapView viewForAnnotation:ma];
+        if (view != nil) {
+            [UIView animateWithDuration:0.3 animations:^{
+                [self updateAnnotationView:view];
+            }];
+        }
+    }
+}
+
 - (void)removeOldSessions {
     for (NSString* key in self.currentSessions) {
         MeasurementAnnotation *ma = (MeasurementAnnotation *)self.currentSessions[key];
@@ -464,7 +472,6 @@
     NSTimeInterval secondsAgo = self.hoursAgoOptions[self.hoursAgoOption].intValue*3600;
     return [current timeIntervalSinceDate:time] > secondsAgo;
 }
-
 
 -(UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
