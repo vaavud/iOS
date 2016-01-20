@@ -212,7 +212,6 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     
     deinit {
         VaavudFormatter.shared.stopObserving(formatterHandle)
-        print("history destroy")
     }
     
     func refreshUnits() {

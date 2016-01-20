@@ -80,7 +80,6 @@ class CoreSettingsTableViewController: UITableViewController {
     }
     
     deinit {
-        print("Destroy Settings")
         VaavudFormatter.shared.stopObserving(formatterHandle)
         deviceSettings.removeObserverWithHandle(deviceHandle)
         NSNotificationCenter.defaultCenter().removeObserver(self)

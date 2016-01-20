@@ -84,10 +84,6 @@ class RoundMeasureViewController : UIViewController, MeasurementConsumer {
         }
     }
     
-    deinit {
-        print("Round Measure Screen Destroyed")
-    }
-
     func setupLayoutRelated() {
         lockNorthDistance.constant = view.bounds.width/2 + 20
         
