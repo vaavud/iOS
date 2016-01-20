@@ -11,21 +11,17 @@
 
 @interface MeasurementAnnotation : NSObject <MKAnnotation> {}
 
-@property (nonatomic) CLLocationCoordinate2D coordinate;
 @property (nonatomic, readonly) NSDate *startTime;
-@property (nonatomic) float avgWindSpeed;
-@property (nonatomic) BOOL isFinished;
-@property (nonatomic) BOOL hidden;
-@property (nonatomic) float maxWindSpeed;
-@property (nonatomic, readonly) NSString *sessionKey;
-@property (nonatomic) NSNumber *windDirection;
-@property (nonatomic) BOOL isShowing;
 
+@property (nonatomic) CLLocationCoordinate2D coordinate;
+@property (nonatomic) float avgWindSpeed;
+@property (nonatomic) float maxWindSpeed;
+@property (nonatomic) NSNumber *windDirection;
+
+@property (nonatomic) BOOL isFinished;
+@property (nonatomic) BOOL isOnMap;
+
+- (id)initWithStartTime:(NSDate *)startTime;
 - (id)initWithLocation:(CLLocationCoordinate2D)coord windDirection:(NSNumber *)direction;
-- (id)initWithLocation:(CLLocationCoordinate2D)coord
-            sessionKey: (NSString *)sessionKey
-             startTime:(NSDate *)startTime
-          avgWindSpeed:(float)avgWindSpeed
-          maxWindSpeed:(float)maxWindSpeed
-         windDirection:(NSNumber *)direction;
+
 @end

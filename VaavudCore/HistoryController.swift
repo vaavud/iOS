@@ -94,8 +94,6 @@ class HistoryController: NSObject {
             }
         }
         
-        print(sessionss.count)
-        
         sessionDates.insert(sessionDate, atIndex: 0)
         sessionss.insert([session], atIndex: 0)
         

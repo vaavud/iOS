@@ -85,6 +85,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 //    [FBAppCall handleDidBecomeActive];
+//    [[[LogHelper alloc] initWithGroupName:@"App" counters:@[]] log:@"Open" properties:@[]];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {

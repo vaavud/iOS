@@ -66,7 +66,6 @@
 		22F2B3671C032A8E001D7AD7 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F2B3661C032A8E001D7AD7 /* LogHelper.swift */; };
 		22F997911C1AFF3F00127F91 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F997901C1AFF3F00127F91 /* MapViewController.swift */; };
 		22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
-		2B347F601C11A4970095E95A /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B347F5A1C11A4960095E95A /* Login.storyboard */; };
 		2B347F611C11A4970095E95A /* SelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F5B1C11A4970095E95A /* SelectorViewController.swift */; };
 		2B347F621C11A4970095E95A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F5C1C11A4970095E95A /* LoginViewController.swift */; };
 		2B347F631C11A4970095E95A /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F5D1C11A4970095E95A /* SignupViewController.swift */; };
@@ -74,6 +73,7 @@
 		2B347F651C11A4970095E95A /* LoginTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F5F1C11A4970095E95A /* LoginTutorialViewController.swift */; };
 		2B347F671C11A6990095E95A /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F661C11A6990095E95A /* ActivityViewController.swift */; };
 		2B347F6B1C11A7130095E95A /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F691C11A7130095E95A /* Device.swift */; };
+		2BAAB3221C4FC2AA001FD474 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BAAB3241C4FC2AA001FD474 /* Login.storyboard */; };
 		2BB813131C1874FE00D70E10 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB8130F1C1874FE00D70E10 /* HistoryViewController.swift */; };
 		2BB813141C1874FE00D70E10 /* HistoryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB813101C1874FE00D70E10 /* HistoryController.swift */; };
 		2BB813151C1874FE00D70E10 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB813111C1874FE00D70E10 /* HistoryCell.swift */; };
@@ -260,7 +260,6 @@
 		22F997901C1AFF3F00127F91 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Bridging-Header.h"; sourceTree = "<group>"; };
 		22FA6C501A727171004DD868 /* VaavudStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VaavudStyle.swift; path = Vaavud/StyleKit/VaavudStyle.swift; sourceTree = SOURCE_ROOT; };
-		2B347F5A1C11A4960095E95A /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Login.storyboard; sourceTree = "<group>"; };
 		2B347F5B1C11A4970095E95A /* SelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectorViewController.swift; sourceTree = "<group>"; };
 		2B347F5C1C11A4970095E95A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2B347F5D1C11A4970095E95A /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -268,6 +267,13 @@
 		2B347F5F1C11A4970095E95A /* LoginTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTutorialViewController.swift; sourceTree = "<group>"; };
 		2B347F661C11A6990095E95A /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		2B347F691C11A7130095E95A /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		2BAAB3231C4FC2AA001FD474 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Login.storyboard; sourceTree = "<group>"; };
+		2BAAB3271C4FC2B8001FD474 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Login.strings; sourceTree = "<group>"; };
+		2BAAB3291C4FC2C0001FD474 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Login.strings; sourceTree = "<group>"; };
+		2BAAB32B1C4FC2C2001FD474 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Login.strings; sourceTree = "<group>"; };
+		2BAAB32D1C4FC2CD001FD474 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Login.strings; sourceTree = "<group>"; };
+		2BAAB32F1C4FC2CF001FD474 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Login.strings; sourceTree = "<group>"; };
+		2BAAB3311C4FC4D4001FD474 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Login.strings; sourceTree = "<group>"; };
 		2BB8130F1C1874FE00D70E10 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		2BB813101C1874FE00D70E10 /* HistoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryController.swift; sourceTree = "<group>"; };
 		2BB813111C1874FE00D70E10 /* HistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
@@ -444,7 +450,7 @@
 			children = (
 				22DFCD671C45A84F004D018E /* User.swift */,
 				2B347F691C11A7130095E95A /* Device.swift */,
-				2B347F5A1C11A4960095E95A /* Login.storyboard */,
+				2BAAB3241C4FC2AA001FD474 /* Login.storyboard */,
 				2B347F5B1C11A4970095E95A /* SelectorViewController.swift */,
 				2B347F661C11A6990095E95A /* ActivityViewController.swift */,
 				2B347F5C1C11A4970095E95A /* LoginViewController.swift */,
@@ -875,7 +881,7 @@
 				22E59A3E1ADD6F7000B1BC88 /* InterfaceElements.xcassets in Resources */,
 				22E59A401ADD6F7000B1BC88 /* IntroFlow.xcassets in Resources */,
 				E9FABFE71896AB8D009C4C46 /* HistoryTableViewSectionHeaderView.xib in Resources */,
-				2B347F601C11A4970095E95A /* Login.storyboard in Resources */,
+				2BAAB3221C4FC2AA001FD474 /* Login.storyboard in Resources */,
 				22E59A3C1ADD6F7000B1BC88 /* Icons.xcassets in Resources */,
 				22AB2E6E1A70FC15008CAE46 /* Roboto-Light.ttf in Resources */,
 				220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */,
@@ -1062,6 +1068,20 @@
 				22C9B0301B7CDF5E004A2902 /* da */,
 			);
 			name = UpgradingUserPagesView.xib;
+			sourceTree = "<group>";
+		};
+		2BAAB3241C4FC2AA001FD474 /* Login.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2BAAB3231C4FC2AA001FD474 /* Base */,
+				2BAAB3271C4FC2B8001FD474 /* es */,
+				2BAAB3291C4FC2C0001FD474 /* de */,
+				2BAAB32B1C4FC2C2001FD474 /* fr */,
+				2BAAB32D1C4FC2CD001FD474 /* ca */,
+				2BAAB32F1C4FC2CF001FD474 /* da */,
+				2BAAB3311C4FC4D4001FD474 /* en */,
+			);
+			name = Login.storyboard;
 			sourceTree = "<group>";
 		};
 		D7A4F1D3173A8DDB00D1ACEE /* InfoPlist.strings */ = {

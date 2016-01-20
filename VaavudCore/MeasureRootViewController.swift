@@ -721,7 +721,7 @@ func windchill(kelvin: Double?, _ windspeed: Double?) -> Double? {
     
     let celsius = kelvin - 273.15
     let kmh = windspeed*3.6
-        
+    
     if celsius > 10 || kmh < 4.8 {
         return nil
     }

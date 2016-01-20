@@ -8,6 +8,18 @@
 
 import Foundation
 
+// Log App::Open
+// User prop: activity: sailing/kitesurfing/windsurfing/flying/weather/other
+// log login process
+
+// Login::Begin
+// Login::Facebook
+// Login::Signup
+// Login::Login
+// Login::Success
+// ActivitySelector::Begin
+// ActivitySelector::End
+
 class LogHelper: NSObject {
     private var dict: [String : AnyObject]
     private let counters: [String]

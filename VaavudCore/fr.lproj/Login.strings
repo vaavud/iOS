@@ -1,0 +1,63 @@
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "Dnb-ta-Rj7"; */
+"Dnb-ta-Rj7.placeholder" = "Password";
+
+/* Class = "UILabel"; text = "Let us know how you like to spend your time, help us to have better performance in our App. You only have to answer once"; ObjectID = "EOz-RV-GfT"; */
+"EOz-RV-GfT.text" = "Let us know how you like to spend your time, help us to have better performance in our App. You only have to answer once";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "EaP-jR-25d"; */
+"EaP-jR-25d.placeholder" = "Email";
+
+/* Class = "UILabel"; text = "Join the biggest crowdsourced wind community"; ObjectID = "KWX-cl-rA4"; */
+"KWX-cl-rA4.text" = "Join the biggest crowdsourced wind community";
+
+/* Class = "UILabel"; text = "Activity"; ObjectID = "PEl-j3-XvR"; */
+"PEl-j3-XvR.text" = "Activity";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "PN0-Nt-fF8"; */
+"PN0-Nt-fF8.placeholder" = "Email";
+
+/* Class = "UIBarButtonItem"; title = "Create"; ObjectID = "V1M-TL-hgS"; */
+"V1M-TL-hgS.title" = "Create";
+
+/* Class = "UITextField"; placeholder = "Last name"; ObjectID = "ZOp-e7-5hc"; */
+"ZOp-e7-5hc.placeholder" = "Last name";
+
+/* Class = "UILabel"; text = "Join us! We'll work very hard to make it worth it!"; ObjectID = "aQo-LL-olx"; */
+"aQo-LL-olx.text" = "Join us! We'll work very hard to make it worth it!";
+
+/* Class = "UIButton"; normalTitle = "Forgot your password?"; ObjectID = "b2J-dT-w05"; */
+"b2J-dT-w05.normalTitle" = "Forgot your password?";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "cft-yO-LrQ"; */
+"cft-yO-LrQ.placeholder" = "Email";
+
+/* Class = "UIButton"; normalTitle = "Save and continue"; ObjectID = "elr-R7-yH3"; */
+"elr-R7-yH3.normalTitle" = "Save and continue";
+
+/* Class = "UIBarButtonItem"; title = "Login"; ObjectID = "gRG-an-VGR"; */
+"gRG-an-VGR.title" = "Login";
+
+/* Class = "UILabel"; text = "To provide better, more advanced features we now require sign in"; ObjectID = "iTR-Ms-EDH"; */
+"iTR-Ms-EDH.text" = "To provide better, more advanced features we now require sign in";
+
+/* Class = "UITextField"; placeholder = "First name"; ObjectID = "kPr-7x-kxy"; */
+"kPr-7x-kxy.placeholder" = "First name";
+
+/* Class = "UIButton"; normalTitle = "Send Email"; ObjectID = "ot8-gt-ZcE"; */
+"ot8-gt-ZcE.normalTitle" = "Send Email";
+
+/* Class = "UINavigationItem"; title = "Forgot password"; ObjectID = "qbp-Cu-VF1"; */
+"qbp-Cu-VF1.title" = "Forgot password";
+
+/* Class = "UIButton"; normalTitle = "Sign up using email"; ObjectID = "ucD-nD-tT2"; */
+"ucD-nD-tT2.normalTitle" = "Sign up using email";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "yvA-me-lsq"; */
+"yvA-me-lsq.placeholder" = "Password";
+
+/* Class = "UIButton"; normalTitle = "Have an account? Login"; ObjectID = "z60-kr-AsJ"; */
+"z60-kr-AsJ.normalTitle" = "Have an account? Login";
+
+/* Class = "UINavigationItem"; title = "Signup"; ObjectID = "zyF-57-0xn"; */
+"zyF-57-0xn.title" = "Signup";
