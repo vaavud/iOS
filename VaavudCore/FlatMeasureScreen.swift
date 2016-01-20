@@ -60,6 +60,10 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
         newWindSpeed(0)
     }
     
+    deinit {
+        print("Flat Measure Screen Destroyed")
+    }
+    
     var scaledSpeed: Double {
         return VaavudFormatter.shared.speedUnit.fromBase(latestSpeed)
     }

@@ -210,7 +210,8 @@ class VaavudFormatter: NSObject {
         super.init()
         
         let sharedSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
-        handle = sharedSettings.observeEventType(.ChildChanged, withBlock: parseSnapshot(updateUnits))
+        handle = sharedSettings.observeEventType(.ChildChanged, withBlock: parseSnapshot { [unowned self] in self.updateUnits($0) })
+        
         sharedSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot(updateUnits) )
     }
     

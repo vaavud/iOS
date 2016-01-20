@@ -169,7 +169,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         pager.numberOfPages = viewControllers.count
         
-        // Move back?
         pageController = storyboard?.instantiateViewControllerWithIdentifier("PageViewController") as? UIPageViewController
         pageController.dataSource = self
         pageController.delegate = self
@@ -342,8 +341,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         session.timeEnd = NSDate()
         session.turbulence = VaavudSDK.shared.session.turbulence
         
-        print("Saving: (\(session.key)) \(session.fireDict)")
-        
         firebase
             .childByAppendingPaths("session", session.key)
             .setValue(session.fireDict)
@@ -353,10 +350,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             .childByAutoId()
         
         post.setValue(["sessionKey" : session.key])
-        let queue = post.key
-
-        print("Queue: \(queue)")
-        print("Session: \(session)")
         
         //        if DBSession.sharedSession().isLinked(), let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
         //            appDelegate.uploadToDropbox(session)
@@ -370,6 +363,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
         if model == .Mjolnir {
             mjolnir?.stop()
+            mjolnir?.delegate = nil
         }
         
         reportToUrlSchemeCaller(cancel)
@@ -377,6 +371,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         displayLink.invalidate()
         currentConsumer = nil
         
+        VaavudSDK.shared.removeAllCallbacks()
+
         if cancel {
             if state.running {
                 firebase.childByAppendingPaths("session", session.key).removeValue()
@@ -384,10 +380,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             }
             
             dismissViewControllerAnimated(true) {
-                self.pageController.view.removeFromSuperview()
-                self.pageController.removeFromParentViewController()
-                _ = self.viewControllers.map { $0.view.removeFromSuperview() }
-                _ = self.viewControllers.map { $0.removeFromParentViewController() }
                 self.viewControllers = []
             }
         }
@@ -474,7 +466,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     func newLocation(event: LocationEvent) {
         locationTracker.hasNewValue = true
 
-        print("CLLocation newLocation \(event)")
+//        print("CLLocation newLocation \(event)")
         
         if geoname == nil {
             requestGeocode(event.location.coordinate)
@@ -577,7 +569,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     @IBAction func tappedUnit(sender: UIButton) {
-        // fixme
         VaavudFormatter.shared.speedUnit = VaavudFormatter.shared.speedUnit.next
         updateUnitButton()
         currentConsumer?.changedSpeedUnit(VaavudFormatter.shared.speedUnit)
@@ -620,17 +611,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     // Mark - Convenience
-    
-//    private func hasValidLocation(session: Session) -> CLLocationCoordinate2D? {
-//        if let location = session.location {
-//            let loc = CLLocationCoordinate2D(latitude: location.lat, longitude: location.lon)
-//            if LocationManager.isCoordinateValid(loc) {
-//                return loc
-//            }
-//        }
-//        
-//        return nil
-//    }
     
     private func logStop(manner: String) {
         var props: [String : AnyObject] = ["manner" : manner]
@@ -679,8 +659,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     private func showScreen(name: String?) {
         let screenToShow = name.flatMap(vcsNames.indexOf) ?? 0
-        
-        //        let screenToShow = vcsNames.indexOf(name) ?? 0
         
         pager.currentPage = screenToShow
         

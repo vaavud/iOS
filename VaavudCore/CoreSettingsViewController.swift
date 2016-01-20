@@ -58,24 +58,22 @@ class CoreSettingsTableViewController: UITableViewController {
     private var formatterHandle: String!
     
     override func viewDidLoad() {
-//        hideVolumeHUD()
-//        
-//        versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
-//        
-//        dropboxControl.on = DBSession.sharedSession().isLinked()
-//        
-//        // fixme: actually use notifications
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: "dropboxIsLinked", object: nil)
-//
-//        formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
-//        refreshUnits()
+        hideVolumeHUD()
         
-//        deviceHandle = deviceSettings.observeEventType(.Value, withBlock: parseSnapshot(refreshDeviceSettings))
+        versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
+
+        dropboxControl.on = DBSession.sharedSession().isLinked()
+
+//        // fixme: actually use notifications
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: "dropboxIsLinked", object: nil)
+
+        formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
+        refreshUnits()
+        
+        deviceHandle = deviceSettings.observeEventType(.Value, withBlock: parseSnapshot { [unowned self] in self.refreshDeviceSettings($0) })
     }
     
     func refreshDeviceSettings(dict: [String : AnyObject]) {
-        print("refreshDeviceSettings: \(dict)")
-
         _ = (dict["usesSleipnir"] as? Bool).map(refreshWindmeterModel)
         _ = (dict["sleipnirClipSideScreen"] as? Bool).map(refreshSleipnirClipSide)
         _ = (dict["measuringTime"] as? Int).map(refreshTimeLimit)
@@ -93,7 +91,7 @@ class CoreSettingsTableViewController: UITableViewController {
             messageKey: "DIALOG_CONFIRM",
             cancelKey: "BUTTON_CANCEL",
             otherKey: "BUTTON_OK",
-            action: { self.doLogout() },
+            action: { [unowned self] in self.doLogout() },
             on: self)
     }
     
@@ -137,7 +135,7 @@ class CoreSettingsTableViewController: UITableViewController {
     func dropboxLinkedStatus(note: NSNotification) {
         if let isDropboxLinked = note.object as? NSNumber.BooleanLiteralType {
             dropboxControl.on = isDropboxLinked
-            // fixme: do we track dropbox
+            // fixme: do we track dropbox? Do we want to?
         }
     }
     
@@ -175,18 +173,19 @@ class CoreSettingsTableViewController: UITableViewController {
         logUnitChange("temperature")
     }
     
-    @IBAction func changedDropboxSetting(sender: UISwitch) { // fixme
-        let value: String
+    @IBAction func changedDropboxSetting(sender: UISwitch) {
+        let action: String
         if sender.on {
             DBSession.sharedSession().linkFromController(self)
-            value = "Try link"
+            action = "TryToLink"
         }
         else {
             DBSession.sharedSession().unlinkAll()
-            value = "Unlinked"
+            action = "Unlinked"
         }
         logHelper.increase()
-        // fixme: track
+        logHelper.log("Dropbox", properties: ["Action" : action])
+        // fixme: track ok?
     }
 
     @IBAction func changedMeterModel(sender: UISegmentedControl) {

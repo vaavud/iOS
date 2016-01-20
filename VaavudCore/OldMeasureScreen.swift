@@ -96,6 +96,10 @@ class OldMeasureViewController : UIViewController, MeasurementConsumer {
         maxSpeedLabel.font = smallFont
     }
     
+    deinit {
+        print("Old Measure Screen Destroyed")
+    }
+    
     func animateLogScale(newLogScale: CGFloat) {
         animator.removeAllBehaviors()
         targetLogScale = newLogScale

@@ -66,31 +66,27 @@ class AuthorizationController: NSObject {
 //        UIApplication.sharedApplication().registerForRemoteNotifications()
     }
     
-    
     func saveAPNToken(token: String) {
         if let uid = uid {
             
             let preferences = NSUserDefaults.standardUserDefaults()
             let deviceId = preferences.objectForKey("APNToken") as? String ?? ""
             
-            if(token != deviceId){
-                
+            if (token != deviceId) {
                 preferences.setValue(token, forKey: "APNToken")
                 preferences.synchronize()
                 print("saving token " + "\(token)")
                 
-                firebase.childByAppendingPaths("user",uid,"notificationId","apn",token).setValue(NSDate().ms)
+                firebase.childByAppendingPaths("user", uid, "notificationId", "apn",token).setValue(NSDate().ms)
             }
         }
     }
     
-    
     func unauth() {
-        //firebase.removeAllObservers()
         NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
         NSUserDefaults.standardUserDefaults().removeObjectForKey("APNToken")
         NSUserDefaults.standardUserDefaults().synchronize()
-        //firebase.unauth()
+        firebase.unauth()
     }
     
     func currentDeviceId() -> String {
@@ -221,7 +217,6 @@ class AuthorizationController: NSObject {
         
         let ref = firebase.childByAppendingPaths("user", uid, "setting", "ios")
         ref.observeSingleEventOfType(.Value, withBlock: { data in
-            print(data.value)
             if data.value is NSNull {
                 ref.setValue(InstructionsShown().fireDict)
             }

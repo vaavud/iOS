@@ -154,6 +154,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     deinit {
+        print("Summary Destroyed")
         VaavudFormatter.shared.stopObserving(formatterHandle)
         firebase.childByAppendingPaths("session", session.key).removeObserverWithHandle(sessionHandle)
     }
@@ -571,7 +572,6 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     // MARK: Animation convenience
     
     private func animateAll() {
-        print("Animate all")
         animator.removeAllBehaviors()
         gustinessItem.center = CGPoint()
         snap(pressureItem, to: CGFloat(arc4random() % 100))

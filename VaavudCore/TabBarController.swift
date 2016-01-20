@@ -13,7 +13,6 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
     var laidOutWidth: CGFloat?
     var tabToSelect = 1
     
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
@@ -21,12 +20,6 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
             selector: Selector("receiveNotification:"),
             name: "PushNotification",
             object: nil)
-        
-        print("init TabBar")
-    }
-    
-    deinit {
-        print("deinit tabBarController")
     }
     
     override func viewDidLoad() {
@@ -42,7 +35,6 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
         delegate = self
         
        
-        
 //        [[NSNotificationCenter defaultCenter] addObserver:self
 //            selector:@selector(receiveNotification:)
 //        name:@"PushNotification"

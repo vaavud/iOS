@@ -23,16 +23,13 @@ class HistoryController: NSObject {
     var addedSessionHandle: UInt!
     var changedSessionHandle: UInt!
     
-
     init(delegate: HistoryDelegate) {
         self.delegate = delegate
         super.init()
         setupFirebase()
     }
     
-    
-    deinit{
-        print("deinit HistoryController")
+    deinit {
         firebase.childByAppendingPath("session").removeObserverWithHandle(addedSessionHandle)
         firebase.childByAppendingPath("session").removeObserverWithHandle(changedSessionHandle)
     }
@@ -42,7 +39,6 @@ class HistoryController: NSObject {
         let ref = firebase.childByAppendingPath("session").queryOrderedByChild("uid").queryEqualToValue(uid)
         
         addedSessionHandle = ref.observeEventType(.ChildAdded, withBlock: { [unowned self] snapshot in
-            print("HC: ChildAdded: \(snapshot.value)")
             guard snapshot.value["timeEnd"] is Double else {
                 return
             }
@@ -50,9 +46,7 @@ class HistoryController: NSObject {
             self.addToStack(Session(snapshot: snapshot))
         })
         
-        changedSessionHandle = ref.observeEventType(.ChildChanged, withBlock: {[unowned self] snapshot in
-            //print("HC: ChildChanged: \(snapshot.value)")
-
+        changedSessionHandle = ref.observeEventType(.ChildChanged, withBlock: { [unowned self] snapshot in
             guard snapshot.value["timeEnd"] is Double else {
                 return
             }
@@ -69,8 +63,7 @@ class HistoryController: NSObject {
             self.delegate.fetchedMeasurements()
         })
         
-        ref.observeSingleEventOfType(.Value, withBlock: {[unowned self] snapshot in
-            print("All session loaded")
+        ref.observeSingleEventOfType(.Value, withBlock: { [unowned self] snapshot in
             if snapshot.childrenCount > 0 {
                 self.delegate.gotMeasurements()
                 self.delegate.fetchedMeasurements()
@@ -83,7 +76,6 @@ class HistoryController: NSObject {
     
     func removeItem(session: Session, section: Int, row: Int) {
         sessionss[section].removeAtIndex(row)
-        print("Delete session: \(session.key)")
         firebase.childByAppendingPaths("session", session.key).removeValue()
         firebase.childByAppendingPaths("sessionDeleted", session.key).setValue(session.fireDict)
     }
@@ -105,14 +97,11 @@ class HistoryController: NSObject {
         for (index, date) in sessionDates.enumerate() {
             if date == sessionDate {
                 sessionss[index].insert(session, atIndex: 0)
-                //delegate.fetchedMeasurements(sessionss, sessionDates: sessionDates)
                 return
             }
         }
         
         sessionDates.insert(sessionDate, atIndex: 0)
         sessionss.insert([session], atIndex: 0)
-        
-        //delegate.fetchedMeasurements(sessionss, sessionDates: sessionDates)
     }
 }

@@ -65,8 +65,6 @@
 
 - (void)dealloc {
     [[VaavudFormatter shared] stopObserving:self.formatHandle];
-    NSLog(@"Map destroy");
-    
 }
 
 - (void)viewDidLoad {
@@ -98,7 +96,8 @@
     
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
     
-    self.formatHandle = [[VaavudFormatter shared] observeUnitChange:^{ [self unitChanged]; }];
+    __weak typeof(self) weakSelf = self;
+    self.formatHandle = [[VaavudFormatter shared] observeUnitChange:^{ [weakSelf unitChanged]; }];
     
     self.view.autoresizesSubviews = YES;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -111,124 +110,11 @@
     [self setupSettingFirebase];
 }
 
-- (void)receiveTestNotification:(NSNotification *) notification{
-    // [notification name] should always be @"TestNotification"
-    // unless you use this method for observation of other notifications
-    // as well.
-    
-    if ([[notification name] isEqualToString:@"PushNotification"]){
-        NSLog (@"Successfully received the test notification!");
-        //self.isFromNotification = YES;
-        
-//        if let tabArray = tabBar.items {
-//            tabArray[1].badgeValue = "1"
-//        }
-        
-        
-        if(self.isShowing){
-            NSLog(@"show Notification");
-            
-            NSDictionary *userInfo = notification.object;
-            NSString *sessionId = [userInfo objectForKey:@"sessionKey"];
-            
-            MeasurementAnnotation *sessionNotification = (MeasurementAnnotation *)self.currentSessions[sessionId];
-            
-            
-            [self.mapView viewForAnnotation:sessionNotification].alpha = 0;
-            
-            [UIView animateWithDuration:1.5 delay:0.2 options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse animations:^{
-                [self.mapView viewForAnnotation:sessionNotification].alpha = 1;
-            } completion:nil];
-            
-            
-//            [UIView animateWithDuration:1.3 animations:^{
-//                sessionNotification.coordinate = CLLocationCoordinate2DMake(55.676111, 12.568333);
-//            }];
-            
-        }
-        else {
-            self.pendingNotification = YES;
-        }
-    }
-}
-
-
-
-
--(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
-    CLLocationCoordinate2D location = locations[locations.count - 1].coordinate;
-    if (CLLocationCoordinate2DIsValid(location)) {
-        [self gotValidLocation:location];
-    }
-}
-
--(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    NSLog(@"Map view location manager failed");
-}
-
--(void)gotValidLocation:(CLLocationCoordinate2D)location {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setDouble:location.latitude forKey:KEY_STORED_LOCATION_LAT];
-    [defaults setDouble:location.longitude forKey:KEY_STORED_LOCATION_LON];
-    [defaults synchronize];
-    
-    if (!self.didScroll) {
-        [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(location, 200000, 200000) animated:YES];
-    }
-    
-    self.locationManager.delegate = nil;
-    self.locationManager = nil;
-}
-
--(CLLocationCoordinate2D)storedLocation {
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    CLLocationDegrees lat = [defaults doubleForKey:KEY_STORED_LOCATION_LAT];
-    CLLocationDegrees lon = [defaults doubleForKey:KEY_STORED_LOCATION_LON];
-    
-    if (lat == 0.0 && lon == 0.0) {
-        return CLLocationCoordinate2DMake(55.676111, 12.568333);
-    }
-    
-    return CLLocationCoordinate2DMake(lat, lon);
-}
-
--(void)setupMapPosition {
-    [self.mapView setRegion:MKCoordinateRegionMakeWithDistance([self storedLocation], 200000, 200000) animated:YES];
-    
-    CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
-    if (authorizationStatus == kCLAuthorizationStatusRestricted || authorizationStatus == kCLAuthorizationStatusDenied) {
-        return;
-    }
-    
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate = self;
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationManager.distanceFilter = kCLDistanceFilterNone;
-    
-    if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
-        [self.locationManager requestWhenInUseAuthorization];
-    }
-    else if ([CLLocationManager locationServicesEnabled]) {
-        [self.locationManager requestLocation];
-    }
-}
-
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    if (status != kCLAuthorizationStatusRestricted && status != kCLAuthorizationStatusDenied && status != kCLAuthorizationStatusNotDetermined) {
-        [self.locationManager startUpdatingLocation];
-    }
-}
-
-- (BOOL)isDanish {
-    return YES; // fixme: remove
-    return [[[[NSLocale preferredLanguages] firstObject] substringToIndex:2] isEqualToString:@"da"];
-}
-
 - (void)viewWillAppear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     [super viewWillAppear:animated];
     
-    self.isShowing  = YES;
+    self.isShowing = YES;
     [self refreshAnnotations];
     [self removeOldForecasts];
     
@@ -268,26 +154,153 @@
     [self.logHelper ended:@{}];
 }
 
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ForecastSegue"]) {
+        if ([sender isKindOfClass:[ForecastAnnotation class]]) {
+            ForecastAnnotation *annotation = sender;
+            
+            ForecastViewController *fvc = segue.destinationViewController;
+            [fvc setup:annotation];
+        }
+    }
+}
+
+// Notifications
+
+- (void)receiveTestNotification:(NSNotification *) notification {
+    // [notification name] should always be @"TestNotification"
+    // unless you use this method for observation of other notifications
+    // as well.
+    
+    if ([[notification name] isEqualToString:@"PushNotification"]){
+        NSLog (@"Successfully received the test notification!");
+        //self.isFromNotification = YES;
+        
+//        if let tabArray = tabBar.items {
+//            tabArray[1].badgeValue = "1"
+//        }
+        
+        if (self.isShowing){
+            NSLog(@"show Notification");
+            
+            NSDictionary *userInfo = notification.object;
+            NSString *sessionId = [userInfo objectForKey:@"sessionKey"];
+            
+            MeasurementAnnotation *sessionNotification = (MeasurementAnnotation *)self.currentSessions[sessionId];
+            
+            
+            [self.mapView viewForAnnotation:sessionNotification].alpha = 0;
+            
+            [UIView animateWithDuration:1.5 delay:0.2 options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse animations:^{
+                [self.mapView viewForAnnotation:sessionNotification].alpha = 1;
+            } completion:nil];
+            
+//            [UIView animateWithDuration:1.3 animations:^{
+//                sessionNotification.coordinate = CLLocationCoordinate2DMake(55.676111, 12.568333);
+//            }];
+            
+        }
+        else {
+            self.pendingNotification = YES;
+        }
+    }
+}
+
+// Location Manager Delegate
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    CLLocationCoordinate2D location = locations[locations.count - 1].coordinate;
+    if (CLLocationCoordinate2DIsValid(location)) {
+        [self gotValidLocation:location];
+    }
+}
+
+-(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
+    NSLog(@"Map view location manager failed");
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+    if (status != kCLAuthorizationStatusRestricted && status != kCLAuthorizationStatusDenied && status != kCLAuthorizationStatusNotDetermined) {
+        [self.locationManager startUpdatingLocation];
+    }
+}
+
+// Private Methods
+
+-(CLLocationCoordinate2D)storedLocation {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    CLLocationDegrees lat = [defaults doubleForKey:KEY_STORED_LOCATION_LAT];
+    CLLocationDegrees lon = [defaults doubleForKey:KEY_STORED_LOCATION_LON];
+    
+    if (lat == 0.0 && lon == 0.0) {
+        return CLLocationCoordinate2DMake(55.676111, 12.568333);
+    }
+    
+    return CLLocationCoordinate2DMake(lat, lon);
+}
+
 - (void)setupFirebase {
     Firebase *ref = [self.firebase childByAppendingPath:@"session"];
     
     NSNumber *dayAgo = [NSDate dateWithTimeIntervalSinceNow:-24*60*60].ms;
     
+    __weak typeof(self) weakSelf = self;
+    
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snap) {
-        MeasurementAnnotation *ma = (MeasurementAnnotation *)self.currentSessions[snap.key];
+        MeasurementAnnotation *ma = (MeasurementAnnotation *)weakSelf.currentSessions[snap.key];
         if (ma != nil) {
-            [self.mapView removeAnnotation:ma];
-            [self.currentSessions removeObjectForKey:snap.key];
+            [weakSelf.mapView removeAnnotation:ma];
+            [weakSelf.currentSessions removeObjectForKey:snap.key];
         }
     }];
     
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snap) {
-        [self updateAnnotation:snap];
+        [weakSelf updateAnnotation:snap];
     }];
     
     [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snap) {
-        [self updateAnnotation:snap];
+        [weakSelf updateAnnotation:snap];
     }];
+}
+
+-(void)gotValidLocation:(CLLocationCoordinate2D)location {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setDouble:location.latitude forKey:KEY_STORED_LOCATION_LAT];
+    [defaults setDouble:location.longitude forKey:KEY_STORED_LOCATION_LON];
+    [defaults synchronize];
+    
+    if (!self.didScroll) {
+        [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(location, 200000, 200000) animated:YES];
+    }
+    
+    self.locationManager.delegate = nil;
+    self.locationManager = nil;
+}
+
+-(void)setupMapPosition {
+    [self.mapView setRegion:MKCoordinateRegionMakeWithDistance([self storedLocation], 200000, 200000) animated:YES];
+    
+    CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
+    if (authorizationStatus == kCLAuthorizationStatusRestricted || authorizationStatus == kCLAuthorizationStatusDenied) {
+        return;
+    }
+    
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    self.locationManager.distanceFilter = kCLDistanceFilterNone;
+    
+    if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    else if ([CLLocationManager locationServicesEnabled]) {
+        [self.locationManager requestLocation];
+    }
+}
+
+- (BOOL)isDanish {
+    return YES; // fixme: remove
+    return [[[[NSLocale preferredLanguages] firstObject] substringToIndex:2] isEqualToString:@"da"];
 }
 
 -(void)setupSettingFirebase {
@@ -339,17 +352,6 @@
                                                                                  radius:70]];
         }
     }];
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"ForecastSegue"]) {
-        if ([sender isKindOfClass:[ForecastAnnotation class]]) {
-            ForecastAnnotation *annotation = sender;
-            
-            ForecastViewController *fvc = segue.destinationViewController;
-            [fvc setup:annotation];
-        }
-    }
 }
 
 - (void)addLongPress {
@@ -473,6 +475,17 @@
     }
 }
 
+-(void)updateAnnotationViews {
+    for (MeasurementAnnotation *ma in self.mapView.annotations) {
+        MKAnnotationView *view = [self.mapView viewForAnnotation:ma];
+        if (view != nil) {
+            [UIView animateWithDuration:0.3 animations:^{
+                [self updateAnnotationView:view];
+            }];
+        }
+    }
+}
+
 -(void)updateAnnotationView:(MKAnnotationView *)annotationView {
     MeasurementAnnotation *measurementAnnotation = (MeasurementAnnotation *)annotationView.annotation;
     
@@ -501,17 +514,6 @@
     [self removeOldForecasts];
 }
 
--(void)updateAnnotationViews {
-    for (MeasurementAnnotation *ma in self.mapView.annotations) {
-        MKAnnotationView *view = [self.mapView viewForAnnotation:ma];
-        if (view != nil) {
-            [UIView animateWithDuration:0.3 animations:^{
-                [self updateAnnotationView:view];
-            }];
-        }
-    }
-}
-
 - (void)removeOldSessions {
     for (NSString* key in self.currentSessions) {
         MeasurementAnnotation *ma = (MeasurementAnnotation *)self.currentSessions[key];
@@ -538,22 +540,7 @@
     }
 }
 
--(void)reloadForecastCallouts {
-    for (id<MKAnnotation> annotation in self.mapView.annotations) {
-        if ([annotation isKindOfClass:[ForecastAnnotation class]]) {
-            MKAnnotationView *view = [self.mapView viewForAnnotation:annotation];
-            if (view) {
-                [self reloadAnnotationView:view];
-            }
-        }
-    }
-}
-
--(void)reloadAnnotationView:(MKAnnotationView *)view {
-    if ([view.leftCalloutAccessoryView isKindOfClass:[ForecastCalloutView class]]) {
-        [(ForecastCalloutView *)view.leftCalloutAccessoryView reload];
-    }
-}
+// Map View Delegate
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id<MKAnnotation>)annotation {
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
@@ -686,6 +673,23 @@
     }
 }
 
+-(void)reloadForecastCallouts {
+    for (id<MKAnnotation> annotation in self.mapView.annotations) {
+        if ([annotation isKindOfClass:[ForecastAnnotation class]]) {
+            MKAnnotationView *view = [self.mapView viewForAnnotation:annotation];
+            if (view) {
+                [self reloadAnnotationView:view];
+            }
+        }
+    }
+}
+
+-(void)reloadAnnotationView:(MKAnnotationView *)view {
+    if ([view.leftCalloutAccessoryView isKindOfClass:[ForecastCalloutView class]]) {
+        [(ForecastCalloutView *)view.leftCalloutAccessoryView reload];
+    }
+}
+
 -(void)hideCallout {
     if (self.mapView.calloutView.window) {
         [self.mapView.calloutView dismissCalloutAnimated:NO];
@@ -776,12 +780,19 @@
     return mutableArray;
 }
 
+// User Actions
+
 - (IBAction)hoursButtonPushed {
     [self hideCallout];
     self.hoursAgoOption = (self.hoursAgoOption + 1) % self.hoursAgoOptions.count;
     
     [self refreshHoursButton];
     [self refreshAnnotations];
+}
+
+- (IBAction)unitButtonPushed {
+    [self hideCallout];
+    [[VaavudFormatter shared] nextSpeedUnit];
 }
 
 - (void)refreshHoursButton {
@@ -792,7 +803,7 @@
 
 - (void)unitChanged {
     [self refreshUnitButton];
-    [self refreshAnnotations];
+    [self updateAnnotationViews];
     
     [self reloadForecastCallouts];
 }
@@ -802,10 +813,6 @@
     [self.unitButton setTitle:title forState:UIControlStateNormal];
 }
 
-- (IBAction)unitButtonPushed {
-    [self hideCallout];
-    [[VaavudFormatter shared] nextSpeedUnit];
-}
 
 @end
 

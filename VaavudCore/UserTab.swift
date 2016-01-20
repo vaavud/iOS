@@ -37,6 +37,10 @@ class UserTabViewController : UIViewController, UINavigationControllerDelegate {
         LogHelper.log(segmentedControl.selectedSegmentIndex == 1 ? .Notifications : .History, event: "Ended")
     }
     
+    deinit {
+        print("User tab destroyed")
+    }
+    
     @IBAction func changedSelection(sender: UISegmentedControl) {
         let showNotifications = sender.selectedSegmentIndex == 1
         

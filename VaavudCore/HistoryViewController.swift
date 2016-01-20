@@ -104,7 +104,6 @@ struct Session {
     
     init(snapshot: FDataSnapshot) {
         key = snapshot.key
-        print("snapshot.key: \(snapshot.key)")
         
         uid = snapshot.value["uid"] as! String
         deviceKey = snapshot.value["deviceKey"] as! String
@@ -216,24 +215,17 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         print("history destroy")
     }
     
-//    override func viewWillAppear(animated: Bool) {
-//        super.viewWillAppear(animated)
-//    }
-    
     func refreshUnits() {
-        print("TVC refreshUnits")
         tableView.reloadData()
     }
     
     // MARK: Table View Controller
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        //print(controller.sessionss.count)
         return controller.sessionss.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //print(controller.sessionss[section].count)
         return controller.sessionss[section].count
     }
     
@@ -319,11 +311,9 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     // MARK: History Delegate
     
     func fetchedMeasurements() {
-        dispatch_async(dispatch_get_main_queue()) {
-            self.spinner.hide()
-            self.emptyView.alpha = 0
-            self.tableView.reloadData()
-        }
+        self.spinner.hide()
+        self.emptyView.alpha = 0
+        self.tableView.reloadData()
     }
     
     func gotMeasurements() {
