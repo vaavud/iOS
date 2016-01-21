@@ -76,15 +76,16 @@
     [parent addChildViewController:vc];
     [parent.view addSubview:vc.view];
     [vc didMoveToParentViewController:parent];
-
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-//    [FBAppCall handleDidBecomeActive];
-    NSLog(@"App did become active");
-//    [[[LogHelper alloc] initWithGroupName:@"App" counters:@[]] log:@"Open" properties:@[]];
+    //    [FBAppCall handleDidBecomeActive];
+    if ([[AuthorizationController shared] verifyAuth]) {
+        [[[LogHelper alloc] initWithGroupName:@"App" counters:@[]] log:@"Open" properties:@{}];
+    }
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
@@ -97,11 +98,13 @@
             if ([url.path isEqualToString:@"/measure"]) {
                 self.xCallbackSuccess = [dict objectForKey:@"x-success"];
                 
-//                if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
-//                    TabBarController *tabBarController = (TabBarController *)self.window.rootViewController;
-//                    if (tabBarController != nil && tabBarController.isViewLoaded) {
-//                        [tabBarController takeMeasurementFromUrlScheme];
-//                        [LogHelper logWithGroupName:@"URL-Scheme" event:@"Opened" properties:@{ @"source" : sourceApplication }];
+                NSLog(@"self.window.rootViewController: %@", self.window.rootViewController.class);
+                
+                //                if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
+                //                    TabBarController *tabBarController = (TabBarController *)self.window.rootViewController;
+                //                    if (tabBarController != nil && tabBarController.isViewLoaded) {
+                //                        [tabBarController takeMeasurementFromUrlScheme];
+                //                        [LogHelper logWithGroupName:@"URL-Scheme" event:@"Opened" properties:@{ @"source" : sourceApplication }];
 //                    }
 //                }
             }
