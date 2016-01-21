@@ -90,7 +90,7 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
         }
     }
     
-    func receiveNotification(notification: NSNotification){
+    func receiveNotification(notification: NSNotification) {
         if notification.name == "PushNotification" {
             print("Push Notification in TabBar")
             

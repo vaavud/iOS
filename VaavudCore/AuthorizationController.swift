@@ -92,6 +92,17 @@ class AuthorizationController: NSObject {
         }
     }
     
+    func reseatPassword(email: String, delegate: LoginDelegate){
+        firebase.resetPasswordForUser(email, withCompletionBlock: { error in
+            if error != nil {
+                print(error)
+                delegate.onError(.MalformedInformation)
+            } else {
+                delegate.onSuccess(true)
+            }
+        })
+    }
+    
     func unauth() {
         NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
         NSUserDefaults.standardUserDefaults().removeObjectForKey("APNToken")

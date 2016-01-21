@@ -58,7 +58,7 @@
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
   
-    UIViewController *parent = [[UIViewController alloc] init];
+    UIViewController *parent = [[RotatableViewController alloc] init];
     
     self.window.rootViewController = parent;
     
@@ -66,8 +66,6 @@
     
     if (![[AuthorizationController shared] verifyAuth]) {
         UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateInitialViewController];
-        //UIViewController *pushed = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateViewControllerWithIdentifier:@"Selector"];
-        //[nav pushViewController:pushed animated:NO];
         
         vc = nav;
     }
@@ -85,6 +83,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 //    [FBAppCall handleDidBecomeActive];
+    NSLog(@"App did become active");
 //    [[[LogHelper alloc] initWithGroupName:@"App" counters:@[]] log:@"Open" properties:@[]];
 }
 

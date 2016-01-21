@@ -15,6 +15,12 @@ class RotatableNavigationController: UINavigationController {
     }
 }
 
+class RotatableViewController: UIViewController {
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return [.Portrait, .PortraitUpsideDown]
+    }
+}
+
 class Plot: UIView {
     let f: CGFloat -> CGFloat
     let n: Int
