@@ -187,8 +187,6 @@
             NSString *sessionId = [userInfo objectForKey:@"sessionKey"];
             
             MeasurementAnnotation *sessionNotification = (MeasurementAnnotation *)self.currentSessions[sessionId];
-            
-            
             [self.mapView viewForAnnotation:sessionNotification].alpha = 0;
             
             [UIView animateWithDuration:1.5 delay:0.2 options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse animations:^{
@@ -515,7 +513,7 @@
 }
 
 - (void)removeOldSessions {
-    for (NSString* key in self.currentSessions) {
+    for (NSString *key in self.currentSessions.allKeys) {
         MeasurementAnnotation *ma = (MeasurementAnnotation *)self.currentSessions[key];
         
         if (ma.startTime.ms < [NSDate dateWithTimeIntervalSinceNow:-24*60*60].ms) {

@@ -25,8 +25,10 @@ enum LoginError: String {
     // fixme: All error messages should exist
     var key: String {
         switch self {
-        case .Network, .MalformedInformation, .EmailTaken: return rawValue
-        default: return "REGISTER_FEEDBACK_ERROR_MESSAGE"
+        case .Network, .Firebase, .Facebook: return LoginError.Network.rawValue
+        case .MalformedInformation, .WrongInformation: return LoginError.MalformedInformation.rawValue
+        case .EmailTaken: return rawValue
+        case .Unknown: return "REGISTER_FEEDBACK_ERROR_MESSAGE"
         }
     }
 }

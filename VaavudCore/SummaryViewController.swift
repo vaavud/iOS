@@ -154,7 +154,6 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     deinit {
-        print("Summary Destroyed")
         VaavudFormatter.shared.stopObserving(formatterHandle)
         firebase.childByAppendingPaths("session", session.key).removeObserverWithHandle(sessionHandle)
     }
