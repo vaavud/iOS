@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 func gotoAppFrom(fromVc: UIViewController, inside parentVc: UIViewController) {
     guard let toVc = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateInitialViewController() else {
@@ -163,24 +164,27 @@ class LoginViewController: UIViewController, LoginDelegate {
     }
 }
 
-class PasswordViewController: UIViewController, UITextFieldDelegate {
+class PasswordViewController: UIViewController, UITextFieldDelegate,LoginDelegate {
     var email: String?
     
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
+    var firebase: Firebase?
+    
+    
     
     // MARK: Lifetime
 
     override func viewDidLoad() {
         emailField.text = email
         refreshSendButton()
+        firebase = Firebase(url: firebaseUrl)
     }
 
     // MARK: User Actions
 
     @IBAction func tappedSend() {
-        // fixme: add actual sending
-        navigationController?.popViewControllerAnimated(true)
+        AuthorizationController.shared.reseatPassword(emailField.text!, delegate: self)
     }
     
     // MARK: Textfield Delegate
@@ -194,6 +198,19 @@ class PasswordViewController: UIViewController, UITextFieldDelegate {
         
         return true
     }
+    
+    
+    func onSuccess(showActivitySelector: Bool){
+        //TODO add message
+        navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func onError(error: LoginError){
+        VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.key, otherKey: "BUTTON_OK", action: {
+            }, on: self)
+    }
+    
+    
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         refreshSendButton()

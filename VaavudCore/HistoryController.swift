@@ -60,11 +60,13 @@ class HistoryController: NSObject {
             }
             
             self.addToStack(Session(snapshot: snapshot))
+            print("added from chiledChanged")
             self.delegate.fetchedMeasurements()
         })
         
         ref.observeSingleEventOfType(.Value, withBlock: { [unowned self] snapshot in
             if snapshot.childrenCount > 0 {
+                print("added all of them")
                 self.delegate.gotMeasurements()
                 self.delegate.fetchedMeasurements()
             }

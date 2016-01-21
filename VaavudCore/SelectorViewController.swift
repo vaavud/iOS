@@ -48,7 +48,7 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
         
         if error != nil {
             print(error) // fixme: why is this commented out?
-            //VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: LoginError.Facebook.key, otherKey: "BUTTON_OK", action: {}, on: self)
+            VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: LoginError.Facebook.key, otherKey: "BUTTON_OK", action: {}, on: self)
         }
         else if result.isCancelled {}
         else {
