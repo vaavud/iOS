@@ -22,10 +22,37 @@
         </mutableArray>
     </customFonts>
     <scenes>
-        <!--Navigation Controller-->
+        <!--View Controller-->
+        <scene sceneID="6IY-QU-hsC">
+            <objects>
+                <viewController id="aho-bE-cDq" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mTI-X6-adP"/>
+                        <viewControllerLayoutGuide type="bottom" id="3Ft-78-Z0r"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="g6X-2o-VWI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Php-Qc-Iif">
+                                <rect key="frame" x="20" y="269" width="46" height="30"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.2156862745" green="0.69019607839999997" blue="0.3411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="hWk-0S-Wn8"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kFQ-1L-inI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="141" y="-470"/>
+        </scene>
+        <!--Login Navigation Controller-->
         <scene sceneID="Yow-Ee-xni">
             <objects>
-                <navigationController storyboardIdentifier="NavigationLogin" id="45m-Ka-4PX" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationLogin" id="45m-Ka-4PX" customClass="LoginNavigationController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="USU-YK-bGZ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -40,12 +67,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>
-                        <segue destination="Nmo-3Y-XLF" kind="relationship" relationship="rootViewController" id="Bgc-qE-8C0"/>
+                        <segue destination="Nmo-3Y-XLF" kind="relationship" relationship="rootViewController" id="27h-fR-D1L"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SuD-VS-IOk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="110" y="80"/>
+            <point key="canvasLocation" x="92" y="222"/>
         </scene>
         <!--Selector View Controller-->
         <scene sceneID="jAa-R8-joN">

@@ -9,6 +9,27 @@
 import UIKit
 import Firebase
 
+
+
+class LoginNavigationController : UINavigationController {
+
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return [.Portrait, .PortraitUpsideDown]
+    }
+    
+    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
+        return UIInterfaceOrientation.LandscapeLeft
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return true
+    }
+    
+}
+
+
+
+
 class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginDelegate {
     @IBOutlet weak var signupButton: UIButton!
     @IBOutlet weak var facebookView: FBSDKLoginButton!
@@ -74,9 +95,6 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
         }
     }
     
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return [.Portrait, .PortraitUpsideDown]
-    }
     
     func onError(error: LoginError) {
         bg.alpha = 0
