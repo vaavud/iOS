@@ -65,7 +65,7 @@
 "9Ik-6S-adR.text" = "Amager Strandpark";
 
 /* Class = "UILabel"; text = "Activity flow"; ObjectID = "9PM-0U-LBR"; */
-"9PM-0U-LBR.text" = "Aktivitets flow";
+"9PM-0U-LBR.text" = "Aktivitetsflow";
 
 /* Class = "UISegmentedControl"; 9Qc-zD-BHO.segmentTitles[0] = "None"; ObjectID = "9Qc-zD-BHO"; */
 "9Qc-zD-BHO.segmentTitles[0]" = "Ingen";
@@ -92,7 +92,7 @@
 "BNx-Ty-Ux8.text" = "25.3";
 
 /* Class = "UILabel"; text = "Good wind directions"; ObjectID = "DZB-yf-Kbh"; */
-"DZB-yf-Kbh.text" = "Gode vind retninger";
+"DZB-yf-Kbh.text" = "Gode vindretninger";
 
 /* Class = "UILabel"; text = "See who's at the spot, what they think about the conditions and much more!"; ObjectID = "E5P-mT-dE7"; */
 "E5P-mT-dE7.text" = "Se hvem der er på spottet, hvad de synes om forholdene og meget mere. ";
@@ -134,7 +134,7 @@
 "OfN-lw-f2W.text" = "M/S";
 
 /* Class = "UILabel"; text = "Wind meter model"; ObjectID = "Pai-Zh-agx"; */
-"Pai-Zh-agx.text" = "Vind måler model";
+"Pai-Zh-agx.text" = "Vindmålermodel";
 
 /* Class = "UIButton"; normalTitle = "E"; ObjectID = "Psy-tP-zmd"; */
 "Psy-tP-zmd.normalTitle" = "Ø";
@@ -209,7 +209,7 @@
 "YfA-P9-6FG.text" = "Retning";
 
 /* Class = "UILabel"; text = "We can send you notifications when the wind picks up at your favourite spots!"; ObjectID = "YmJ-Ig-lUe"; */
-"YmJ-Ig-lUe.text" = "Vi kan sende dig notifikationer når vinden er god på dit favorit spot!";
+"YmJ-Ig-lUe.text" = "Vi kan sende dig notifikationer, når vinden er god på dit favoritspot!";
 
 /* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "Z4W-l0-GMv"; */
 "Z4W-l0-GMv.title" = "Item";

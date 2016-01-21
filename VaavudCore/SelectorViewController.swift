@@ -36,7 +36,6 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
         spinner.alpha = 0.4
         spinner.center = view.bounds.moveY(-64).center
         
-        
         view.addSubview(bg)
         view.addSubview(spinner)
         
@@ -45,22 +44,11 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
         
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        print("init Selector view")
-    }
-    
-    deinit {
-        print("deinit selector viewController")
-    }
-    
-    
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        print("User Logged In")
         
         if error != nil {
-            print(error)
-            //VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: LoginError.Facebook.rawValue, otherKey: "BUTTON_OK", action: {}, on: self)
+            print(error) // fixme: why is this commented out?
+            //VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: LoginError.Facebook.key, otherKey: "BUTTON_OK", action: {}, on: self)
         }
         else if result.isCancelled {}
         else {
@@ -95,7 +83,7 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
         spinner.hide()
 
         dispatch_async(dispatch_get_main_queue()) {
-            VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.rawValue, otherKey: "BUTTON_OK", action: {}, on: self)
+            VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.key, otherKey: "BUTTON_OK", action: {}, on: self)
         }
     }
 }

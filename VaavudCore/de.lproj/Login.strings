@@ -1,63 +1,62 @@
-
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "Dnb-ta-Rj7"; */
-"Dnb-ta-Rj7.placeholder" = "Password";
+"Dnb-ta-Rj7.placeholder" = "Passwort";
 
-/* Class = "UILabel"; text = "Let us know how you like to spend your time, help us to have better performance in our App. You only have to answer once"; ObjectID = "EOz-RV-GfT"; */
-"EOz-RV-GfT.text" = "Let us know how you like to spend your time, help us to have better performance in our App. You only have to answer once";
+/* Class = "UILabel"; text = "Which activity will you PRIMARILY use Vaavud for?"; ObjectID = "EOz-RV-GfT"; */
+"EOz-RV-GfT.text" = "Für welche Aktivitäten möchten Sie Vaavud hauptsächlich verwenden?";
 
 /* Class = "UITextField"; placeholder = "Email"; ObjectID = "EaP-jR-25d"; */
-"EaP-jR-25d.placeholder" = "Email";
+"EaP-jR-25d.placeholder" = "E-Mail";
 
 /* Class = "UILabel"; text = "Join the biggest crowdsourced wind community"; ObjectID = "KWX-cl-rA4"; */
-"KWX-cl-rA4.text" = "Join the biggest crowdsourced wind community";
+"KWX-cl-rA4.text" = "Treten Sie der größten crowdsourced Wind-Gemeinschaft bei";
 
 /* Class = "UILabel"; text = "Activity"; ObjectID = "PEl-j3-XvR"; */
-"PEl-j3-XvR.text" = "Activity";
+"PEl-j3-XvR.text" = "Aktivität";
 
 /* Class = "UITextField"; placeholder = "Email"; ObjectID = "PN0-Nt-fF8"; */
-"PN0-Nt-fF8.placeholder" = "Email";
+"PN0-Nt-fF8.placeholder" = "E-Mail";
 
 /* Class = "UIBarButtonItem"; title = "Create"; ObjectID = "V1M-TL-hgS"; */
-"V1M-TL-hgS.title" = "Create";
+"V1M-TL-hgS.title" = "Erstellen";
 
 /* Class = "UITextField"; placeholder = "Last name"; ObjectID = "ZOp-e7-5hc"; */
-"ZOp-e7-5hc.placeholder" = "Last name";
+"ZOp-e7-5hc.placeholder" = "Nachname";
 
 /* Class = "UILabel"; text = "Join us! We'll work very hard to make it worth it!"; ObjectID = "aQo-LL-olx"; */
-"aQo-LL-olx.text" = "Join us! We'll work very hard to make it worth it!";
+"aQo-LL-olx.text" = "Machen Sie mit! Wir arbeiten hart, damit es sich für Sie lohnt.";
 
 /* Class = "UIButton"; normalTitle = "Forgot your password?"; ObjectID = "b2J-dT-w05"; */
-"b2J-dT-w05.normalTitle" = "Forgot your password?";
+"b2J-dT-w05.normalTitle" = "Haben Sie Ihr Passwort vergessen?";
 
 /* Class = "UITextField"; placeholder = "Email"; ObjectID = "cft-yO-LrQ"; */
-"cft-yO-LrQ.placeholder" = "Email";
+"cft-yO-LrQ.placeholder" = "E-Mail";
 
 /* Class = "UIButton"; normalTitle = "Save and continue"; ObjectID = "elr-R7-yH3"; */
-"elr-R7-yH3.normalTitle" = "Save and continue";
+"elr-R7-yH3.normalTitle" = "Speichern und fortfahren";
 
 /* Class = "UIBarButtonItem"; title = "Login"; ObjectID = "gRG-an-VGR"; */
-"gRG-an-VGR.title" = "Login";
+"gRG-an-VGR.title" = "Log-In";
 
 /* Class = "UILabel"; text = "To provide better, more advanced features we now require sign in"; ObjectID = "iTR-Ms-EDH"; */
-"iTR-Ms-EDH.text" = "To provide better, more advanced features we now require sign in";
+"iTR-Ms-EDH.text" = "Um bessere und erweiterte Funktionen bieten zu können, verlangen wir jetzt eine Anmeldung";
 
 /* Class = "UITextField"; placeholder = "First name"; ObjectID = "kPr-7x-kxy"; */
-"kPr-7x-kxy.placeholder" = "First name";
+"kPr-7x-kxy.placeholder" = "Vorname";
 
 /* Class = "UIButton"; normalTitle = "Send Email"; ObjectID = "ot8-gt-ZcE"; */
-"ot8-gt-ZcE.normalTitle" = "Send Email";
+"ot8-gt-ZcE.normalTitle" = "E-Mail senden";
 
 /* Class = "UINavigationItem"; title = "Forgot password"; ObjectID = "qbp-Cu-VF1"; */
-"qbp-Cu-VF1.title" = "Forgot password";
+"qbp-Cu-VF1.title" = "Passwort vergessen";
 
 /* Class = "UIButton"; normalTitle = "Sign up using email"; ObjectID = "ucD-nD-tT2"; */
-"ucD-nD-tT2.normalTitle" = "Sign up using email";
+"ucD-nD-tT2.normalTitle" = "Registrieren Sie sich per E-Mail";
 
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "yvA-me-lsq"; */
-"yvA-me-lsq.placeholder" = "Password";
+"yvA-me-lsq.placeholder" = "Passwort";
 
 /* Class = "UIButton"; normalTitle = "Have an account? Login"; ObjectID = "z60-kr-AsJ"; */
-"z60-kr-AsJ.normalTitle" = "Have an account? Login";
+"z60-kr-AsJ.normalTitle" = "Sie haben bereits ein Konto? Anmelden";
 
 /* Class = "UINavigationItem"; title = "Signup"; ObjectID = "zyF-57-0xn"; */
-"zyF-57-0xn.title" = "Signup";
+"zyF-57-0xn.title" = "Registrieren";

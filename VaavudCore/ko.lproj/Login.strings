@@ -1,62 +1,62 @@
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "Dnb-ta-Rj7"; */
-"Dnb-ta-Rj7.placeholder" = "Contraseña";
+"Dnb-ta-Rj7.placeholder" = "암호";
 
 /* Class = "UILabel"; text = "Which activity will you PRIMARILY use Vaavud for?"; ObjectID = "EOz-RV-GfT"; */
-"EOz-RV-GfT.text" = "¿Para qué actividad usarás principalmente Vaavud?";
+"EOz-RV-GfT.text" = "귀하는 어떤 활동에 Vaavud를 주로 사용하십니까?";
 
 /* Class = "UITextField"; placeholder = "Email"; ObjectID = "EaP-jR-25d"; */
-"EaP-jR-25d.placeholder" = "Email";
+"EaP-jR-25d.placeholder" = "이메일";
 
 /* Class = "UILabel"; text = "Join the biggest crowdsourced wind community"; ObjectID = "KWX-cl-rA4"; */
-"KWX-cl-rA4.text" = "Únete a la mayor comunidad del viento de crowdsourcing";
+"KWX-cl-rA4.text" = "가장 큰 대중수집방식의 윈드 커뮤니티에 참여하세요.";
 
 /* Class = "UILabel"; text = "Activity"; ObjectID = "PEl-j3-XvR"; */
-"PEl-j3-XvR.text" = "Actividad";
+"PEl-j3-XvR.text" = "활동";
 
 /* Class = "UITextField"; placeholder = "Email"; ObjectID = "PN0-Nt-fF8"; */
-"PN0-Nt-fF8.placeholder" = "Email";
+"PN0-Nt-fF8.placeholder" = "이메일";
 
 /* Class = "UIBarButtonItem"; title = "Create"; ObjectID = "V1M-TL-hgS"; */
-"V1M-TL-hgS.title" = "Crear";
+"V1M-TL-hgS.title" = "새로 만들기";
 
 /* Class = "UITextField"; placeholder = "Last name"; ObjectID = "ZOp-e7-5hc"; */
-"ZOp-e7-5hc.placeholder" = "Apellidos";
+"ZOp-e7-5hc.placeholder" = "성";
 
 /* Class = "UILabel"; text = "Join us! We'll work very hard to make it worth it!"; ObjectID = "aQo-LL-olx"; */
-"aQo-LL-olx.text" = "¡Únete a nosotros! Trabajaremos muy duro para hacer que valga la pena.";
+"aQo-LL-olx.text" = "참여하세요! 저희는 가치있는 일에 최선을 다할 것입니다.";
 
 /* Class = "UIButton"; normalTitle = "Forgot your password?"; ObjectID = "b2J-dT-w05"; */
-"b2J-dT-w05.normalTitle" = "¿Olvidaste tu contraseña?";
+"b2J-dT-w05.normalTitle" = "암호을 잊었나요?";
 
 /* Class = "UITextField"; placeholder = "Email"; ObjectID = "cft-yO-LrQ"; */
-"cft-yO-LrQ.placeholder" = "Email";
+"cft-yO-LrQ.placeholder" = "이메일";
 
 /* Class = "UIButton"; normalTitle = "Save and continue"; ObjectID = "elr-R7-yH3"; */
-"elr-R7-yH3.normalTitle" = "Guardar y continuar";
+"elr-R7-yH3.normalTitle" = "저장 및 계속";
 
 /* Class = "UIBarButtonItem"; title = "Login"; ObjectID = "gRG-an-VGR"; */
-"gRG-an-VGR.title" = "Iniciar sesión";
+"gRG-an-VGR.title" = "로그인";
 
 /* Class = "UILabel"; text = "To provide better, more advanced features we now require sign in"; ObjectID = "iTR-Ms-EDH"; */
-"iTR-Ms-EDH.text" = "Para ofrecer más y mejores características avanzadas, ahora pedimos que inicies sesión";
+"iTR-Ms-EDH.text" = "더 좋은 고급 기능을 제공하기 위해 지금 바로 가입을 권장합니다.";
 
 /* Class = "UITextField"; placeholder = "First name"; ObjectID = "kPr-7x-kxy"; */
-"kPr-7x-kxy.placeholder" = "Nombre";
+"kPr-7x-kxy.placeholder" = "이름";
 
 /* Class = "UIButton"; normalTitle = "Send Email"; ObjectID = "ot8-gt-ZcE"; */
-"ot8-gt-ZcE.normalTitle" = "Enviar correo electrónico";
+"ot8-gt-ZcE.normalTitle" = "이메일 전송";
 
 /* Class = "UINavigationItem"; title = "Forgot password"; ObjectID = "qbp-Cu-VF1"; */
-"qbp-Cu-VF1.title" = "Olvidé la contraseña";
+"qbp-Cu-VF1.title" = "암호 분실";
 
 /* Class = "UIButton"; normalTitle = "Sign up using email"; ObjectID = "ucD-nD-tT2"; */
-"ucD-nD-tT2.normalTitle" = "Inscríbete utilizando el correo electrónico";
+"ucD-nD-tT2.normalTitle" = "이메일을 통한 가입";
 
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "yvA-me-lsq"; */
-"yvA-me-lsq.placeholder" = "Contraseña";
+"yvA-me-lsq.placeholder" = "암호";
 
 /* Class = "UIButton"; normalTitle = "Have an account? Login"; ObjectID = "z60-kr-AsJ"; */
-"z60-kr-AsJ.normalTitle" = "¿Ya tienes una cuenta? Inicia sesión";
+"z60-kr-AsJ.normalTitle" = "이미 계정이 있나요? 로그인";
 
 /* Class = "UINavigationItem"; title = "Signup"; ObjectID = "zyF-57-0xn"; */
-"zyF-57-0xn.title" = "Registrate";
+"zyF-57-0xn.title" = "등록";

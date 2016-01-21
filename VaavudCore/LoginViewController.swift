@@ -111,7 +111,6 @@ class LoginViewController: UIViewController, LoginDelegate {
     }
 
     func onError(error: LoginError) {
-        
         dispatch_async(dispatch_get_main_queue(), {
             self.activityIndicator.stopAnimating()
             self.navigationItem.rightBarButtonItem = self.oldButtonBar
@@ -146,7 +145,7 @@ class LoginViewController: UIViewController, LoginDelegate {
     
     private func showError(error: LoginError) {
         dispatch_async(dispatch_get_main_queue()) {
-            VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.rawValue, otherKey: "BUTTON_OK", action: {}, on: self)
+            VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.key, otherKey: "BUTTON_OK", action: {}, on: self)
         }
     }
 

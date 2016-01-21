@@ -21,6 +21,14 @@ enum LoginError: String {
     case EmailTaken = "LOGIN_ERROR_EMAIL"
     case Firebase = "LOGIN_ERROR_FIREBASE"
     case Unknown = "LOGIN_ERROR_UNKNOWN"
+    
+    // fixme: All error messages should exist
+    var key: String {
+        switch self {
+        case .Network, .MalformedInformation, .EmailTaken: return rawValue
+        default: return "REGISTER_FEEDBACK_ERROR_MESSAGE"
+        }
+    }
 }
 
 protocol LoginDelegate {

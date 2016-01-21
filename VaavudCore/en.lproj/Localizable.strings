@@ -248,21 +248,36 @@
 "TODAY" = "Today";
 "TOMORROW" = "Tomorrow";
 
-// October 2015
-
-"SUMMARY_READ_MORE" = "Read more...";
-
-// Jan 2016 // fixme: translate
-
+"WIND" = "Wind";
+"GUSTS" = "Gusts";
 "mbar" = "mbar";
 "atm" = "atm";
 "mmhg" = "mmHg";
-
 "kmh" = "km/h";
 "ms" = "m/s";
 "mph" = "mph";
-"knots" = "kn";
+"knots" = "kt";
 "beaufort" = "bft";
-
 "celsius" = "°C";
 "fahrenheit" = "°F";
+"weather" = "General weather observations";
+"flying" = "RC/UAV flying";
+"sailing" = "Sailing";
+"kitesurfing" = "Kitesurfing";
+"windsurfing" = "Windsurfing";
+"other" = "Other";
+"ACTIVITY_QUESTION" = "Which activity will you primarily use Vaavud for?";
+"ACTIVITY_JOIN" = "Join the biggest crowdsourced wind community";
+"ACTIVITY_ACTIVITY" = "Activity";
+"ACTIVITY_JOIN_US" = "Join us! We'll work very hard to make it worth it.";
+"LOGIN_FORGOT_Q" = "Forgot your password?";
+"LOGIN_SAVE" = "Save and continue";
+"LOGIN_REASON" = "To provide better, more advanced features we now require sign in";
+"LOGIN_SEND_EMAIL" = "Send email";
+"LOGIN_FORGOT" = "Forgot password";
+"LOGIN_SIGNUP_EMAIL" = "Sign up using email";
+"LOGIN_HAVE_ACCOUNT" = "Already have an account? Login";
+"LOGIN_ERROR_TITLE" = "Error";
+"LOGIN_ERROR_NETWORK" = "Could't access the network, please try again";
+"LOGIN_ERROR_MALFORMED" = "The email and/or password is incorrect, please try again";
+"LOGIN_ERROR_EMAIL" = "The email is already in use, please try a different one";

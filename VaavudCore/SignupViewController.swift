@@ -96,7 +96,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     
     private func showError(error: LoginError) { // fixme: no action??
         dispatch_async(dispatch_get_main_queue()) {
-            VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.rawValue, otherKey: "BUTTON_OK", action: {
+            VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.key, otherKey: "BUTTON_OK", action: {
                 }, on: self)
         }
     }

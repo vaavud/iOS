@@ -1,9 +1,8 @@
-
 /* Class = "UITextField"; placeholder = "Password"; ObjectID = "Dnb-ta-Rj7"; */
 "Dnb-ta-Rj7.placeholder" = "Password";
 
 /* Class = "UILabel"; text = "Which activity will you PRIMARILY use Vaavud for?"; ObjectID = "EOz-RV-GfT"; */
-"EOz-RV-GfT.text" = "Which activity will you PRIMARILY use Vaavud for?";
+"EOz-RV-GfT.text" = "Which activity will you primarily use Vaavud for?";
 
 /* Class = "UITextField"; placeholder = "Email"; ObjectID = "EaP-jR-25d"; */
 "EaP-jR-25d.placeholder" = "Email";
@@ -24,7 +23,7 @@
 "ZOp-e7-5hc.placeholder" = "Last name";
 
 /* Class = "UILabel"; text = "Join us! We'll work very hard to make it worth it!"; ObjectID = "aQo-LL-olx"; */
-"aQo-LL-olx.text" = "Join us! We'll work very hard to make it worth it!";
+"aQo-LL-olx.text" = "Join us! We'll work very hard to make it worth it.";
 
 /* Class = "UIButton"; normalTitle = "Forgot your password?"; ObjectID = "b2J-dT-w05"; */
 "b2J-dT-w05.normalTitle" = "Forgot your password?";
@@ -36,7 +35,7 @@
 "elr-R7-yH3.normalTitle" = "Save and continue";
 
 /* Class = "UIBarButtonItem"; title = "Login"; ObjectID = "gRG-an-VGR"; */
-"gRG-an-VGR.title" = "Login";
+"gRG-an-VGR.title" = "Log In";
 
 /* Class = "UILabel"; text = "To provide better, more advanced features we now require sign in"; ObjectID = "iTR-Ms-EDH"; */
 "iTR-Ms-EDH.text" = "To provide better, more advanced features we now require sign in";
@@ -45,7 +44,7 @@
 "kPr-7x-kxy.placeholder" = "First name";
 
 /* Class = "UIButton"; normalTitle = "Send Email"; ObjectID = "ot8-gt-ZcE"; */
-"ot8-gt-ZcE.normalTitle" = "Send Email";
+"ot8-gt-ZcE.normalTitle" = "Send email";
 
 /* Class = "UINavigationItem"; title = "Forgot password"; ObjectID = "qbp-Cu-VF1"; */
 "qbp-Cu-VF1.title" = "Forgot password";
@@ -57,7 +56,7 @@
 "yvA-me-lsq.placeholder" = "Password";
 
 /* Class = "UIButton"; normalTitle = "Have an account? Login"; ObjectID = "z60-kr-AsJ"; */
-"z60-kr-AsJ.normalTitle" = "Have an account? Login";
+"z60-kr-AsJ.normalTitle" = "Already have an account? Login";
 
 /* Class = "UINavigationItem"; title = "Signup"; ObjectID = "zyF-57-0xn"; */
-"zyF-57-0xn.title" = "Signup";
+"zyF-57-0xn.title" = "Sign up";
