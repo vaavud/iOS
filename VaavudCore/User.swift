@@ -72,8 +72,6 @@ struct User {
 //    }
     
     var fireDict: FirebaseDictionary {
-        print(self)
-
         let dict: FirebaseDictionary = ["firstName" : firstName, "lastName" : lastName, "country" : country, "language" : language, "email" : email, "created" : created ?? [".sv": "timestamp"]]
         return dict
     }

@@ -34,12 +34,11 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
         if let firstName = firstNameField.text, lastName = lastNameField.text, email = emailField.text, password = passwordField.text {
             
             let activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 20, 20))
-            activityIndicator.activityIndicatorViewStyle = .Gray
+            activityIndicator.activityIndicatorViewStyle = .White
             
             oldButtonBar = navigationItem.rightBarButtonItem
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
             activityIndicator.startAnimating()
-            navigationItem.hidesBackButton = true
             navigationController?.view.userInteractionEnabled = false
             
             view.endEditing(true)
@@ -54,17 +53,18 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     // MARK: Login Delegate
     
     func onSuccess(showActivitySelector: Bool) {
-        if showActivitySelector {
-            if let vc = storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
-                navigationController?.interactivePopGestureRecognizer?.enabled = false
-                navigationController?.view.userInteractionEnabled = true
-                navigationController?.pushViewController(vc, animated: true)
+        if showActivitySelector, let vc = storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
+            navigationController?.interactivePopGestureRecognizer?.enabled = false
+            navigationController?.pushViewController(vc, animated: true) {
+                self.navigationController?.view.userInteractionEnabled = true
             }
+        }
+        else {
+            fatalError("Signup should always require to show activity selector")
         }
     }
     
     func onError(error: LoginError) {
-        navigationItem.hidesBackButton = false
         navigationItem.rightBarButtonItem = oldButtonBar
         navigationController?.view.userInteractionEnabled = true
         showError(error)

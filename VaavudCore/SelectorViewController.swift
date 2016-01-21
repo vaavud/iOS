@@ -9,27 +9,6 @@
 import UIKit
 import Firebase
 
-
-
-class LoginNavigationController : UINavigationController {
-
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return [.Portrait, .PortraitUpsideDown]
-    }
-    
-    override func preferredInterfaceOrientationForPresentation() -> UIInterfaceOrientation {
-        return UIInterfaceOrientation.LandscapeLeft
-    }
-    
-    override func shouldAutorotate() -> Bool {
-        return true
-    }
-    
-}
-
-
-
-
 class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginDelegate {
     @IBOutlet weak var signupButton: UIButton!
     @IBOutlet weak var facebookView: FBSDKLoginButton!
@@ -62,13 +41,11 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
         
         FBSDKLoginManager().logOut()
         facebookView.delegate = self
-        
     }
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         
         if error != nil {
-            print(error) // fixme: why is this commented out?
             VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: LoginError.Facebook.key, otherKey: "BUTTON_OK", action: {}, on: self)
         }
         else if result.isCancelled {}
@@ -85,21 +62,18 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
     }
     
     func onSuccess(showActivitySelector: Bool) {
-        if showActivitySelector {
-            if let vc = storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
-                navigationController?.pushViewController(vc, animated: true)
-            }
+        if showActivitySelector, let vc = storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
+            navigationController?.pushViewController(vc, animated: true)
         }
         else {
             gotoAppFrom(navigationController!, inside: view.window!.rootViewController!)
         }
     }
     
-    
     func onError(error: LoginError) {
         bg.alpha = 0
         spinner.hide()
-
+        
         dispatch_async(dispatch_get_main_queue()) {
             VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.key, otherKey: "BUTTON_OK", action: {}, on: self)
         }

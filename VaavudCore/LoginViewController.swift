@@ -157,7 +157,8 @@ class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelega
     var email: String?
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
-    
+    private var oldButtonBar: UIBarButtonItem!
+
     // MARK: Lifetime
     
     override func viewDidLoad() {
@@ -168,6 +169,12 @@ class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelega
     // MARK: User Actions
     
     @IBAction func tappedSend() {
+        let activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 20, 20))
+        activityIndicator.activityIndicatorViewStyle = .White
+        oldButtonBar = navigationItem.rightBarButtonItem
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+        activityIndicator.startAnimating()
+
         AuthorizationController.shared.resetPassword(emailField.text!, delegate: self)
         navigationController?.view.userInteractionEnabled = false
     }
@@ -185,6 +192,8 @@ class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelega
     }
     
     func onSuccess(showActivitySelector: Bool) {
+        navigationItem.rightBarButtonItem = oldButtonBar
+
         VaavudInteractions().showLocalAlert("Thank you", messageKey: "We have sent an email to you with instructions.", otherKey: "BUTTON_OK", action: { [unowned self] in self.goBack() }, on: self)
     }
     
@@ -196,7 +205,8 @@ class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelega
         }
     }
     
-    func onError(error: LoginError){
+    func onError(error: LoginError) {
+        navigationItem.rightBarButtonItem = oldButtonBar
         navigationController?.view.userInteractionEnabled = true
         VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.key, otherKey: "BUTTON_OK", action: {
             }, on: self)
