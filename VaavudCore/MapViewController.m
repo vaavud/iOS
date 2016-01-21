@@ -118,7 +118,7 @@
     [self refreshAnnotations];
     [self removeOldForecasts];
     
-    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:60
+    self.refreshTimer = [NSTimer scheduledTimerWithTimeInterval:600
                                                          target:self
                                                        selector:@selector(refresh)
                                                        userInfo:nil
@@ -187,8 +187,6 @@
             NSString *sessionId = [userInfo objectForKey:@"sessionKey"];
             
             MeasurementAnnotation *sessionNotification = (MeasurementAnnotation *)self.currentSessions[sessionId];
-            
-            
             [self.mapView viewForAnnotation:sessionNotification].alpha = 0;
             
             [UIView animateWithDuration:1.5 delay:0.2 options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse animations:^{
@@ -329,7 +327,6 @@
             textKey = @"MAP_GUIDE_FORECAST";
             icon = [UIImage imageNamed:@"ForecastPressFinger"];
         }
-        
         else if (![dict[@"mapGuideMarkerShown"] boolValue]) {
             [[setting childByAppendingPath:@"mapGuideMarkerShown"] setValue:@YES];
             textKey = @"MAP_GUIDE_MARKER_EXPLANATION";
@@ -461,7 +458,7 @@
 
 -(void)refreshAnnotation:(MeasurementAnnotation *)ma {
     NSDate *now = [NSDate date];
-    ma.isFinished = ma.isFinished || [now timeIntervalSinceDate:ma.startTime] > 60;
+    ma.isFinished = ma.isFinished || [now timeIntervalSinceDate:ma.startTime] > 600;
     
     BOOL isOld = [self isTooOld:ma.startTime current:now];
     
@@ -515,7 +512,7 @@
 }
 
 - (void)removeOldSessions {
-    for (NSString* key in self.currentSessions) {
+    for (NSString *key in self.currentSessions.allKeys) {
         MeasurementAnnotation *ma = (MeasurementAnnotation *)self.currentSessions[key];
         
         if (ma.startTime.ms < [NSDate dateWithTimeIntervalSinceNow:-24*60*60].ms) {

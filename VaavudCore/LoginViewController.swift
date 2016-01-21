@@ -201,7 +201,13 @@ class PasswordViewController: UIViewController, UITextFieldDelegate,LoginDelegat
     
     
     func onSuccess(showActivitySelector: Bool){
-        //TODO add message
+        VaavudInteractions().showLocalAlert("LOGIN_FORGOT_PASSWORD_TITLE", messageKey: "LOGIN_FORGOT_PASSWORD_MESSAGE", otherKey: "BUTTON_OK", action: {
+           [unowned self] in self.goBack()
+        }, on: self)
+        
+    }
+    
+    func goBack(){
         navigationController?.popViewControllerAnimated(true)
     }
     

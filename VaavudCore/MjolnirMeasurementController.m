@@ -46,7 +46,6 @@
 
 @property (nonatomic, strong) NSTimer *measuringTimer;
 
-
 @end
 
 @implementation MjolnirMeasurementController
