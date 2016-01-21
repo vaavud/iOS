@@ -24,6 +24,8 @@ func gotoLoginFrom(fromVc: UIViewController, inside parentVc: UIViewController) 
         return
     }
     
+    
+    
     //let login = storyboard.instantiateViewControllerWithIdentifier("Selector")
     //loginNav.pushViewController(login, animated: false)
     
@@ -67,20 +69,20 @@ class LoginViewController: UIViewController, LoginDelegate {
         refreshLoginButton()
     }
     
+    
+    
     // MARK: User Actions
     
     @IBAction func tappedLogin() {
         
         if let email = emailField.text, password = passwordField.text {
-            
-            
             activityIndicator.activityIndicatorViewStyle = .Gray
             
             oldButtonBar = navigationItem.rightBarButtonItem
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
             activityIndicator.startAnimating()
-            
-            
+            //navigationItem.hidesBackButton = true
+            navigationController?.view.userInteractionEnabled = false
             self.view.endEditing(true)
             
             AuthorizationController.shared.login(email, password: password, delegate: self)
@@ -101,6 +103,7 @@ class LoginViewController: UIViewController, LoginDelegate {
     // MARK: Login Delegate
     
     func onSuccess(showActivitySelector: Bool) {
+        
         if showActivitySelector {
             if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
                 navigationController?.pushViewController(vc, animated: true)
@@ -114,6 +117,7 @@ class LoginViewController: UIViewController, LoginDelegate {
     func onError(error: LoginError) {
         dispatch_async(dispatch_get_main_queue(), {
             self.activityIndicator.stopAnimating()
+            self.navigationController?.view.userInteractionEnabled = true
             self.navigationItem.rightBarButtonItem = self.oldButtonBar
         })
         
@@ -185,6 +189,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate,LoginDelegat
 
     @IBAction func tappedSend() {
         AuthorizationController.shared.reseatPassword(emailField.text!, delegate: self)
+        navigationController?.view.userInteractionEnabled = false
     }
     
     // MARK: Textfield Delegate
@@ -208,10 +213,12 @@ class PasswordViewController: UIViewController, UITextFieldDelegate,LoginDelegat
     }
     
     func goBack(){
+        navigationController?.view.userInteractionEnabled = true
         navigationController?.popViewControllerAnimated(true)
     }
     
     func onError(error: LoginError){
+        navigationController?.view.userInteractionEnabled = true
         VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.key, otherKey: "BUTTON_OK", action: {
             }, on: self)
     }

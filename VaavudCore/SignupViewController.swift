@@ -40,6 +40,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
             oldButtonBar = navigationItem.rightBarButtonItem
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
             activityIndicator.startAnimating()
+            navigationController?.view.userInteractionEnabled = false
             
             self.view.endEditing(true)
             
@@ -54,6 +55,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     func onSuccess(showActivitySelector: Bool) {
         if showActivitySelector {
             if let vc = storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
+                self.navigationController?.view.userInteractionEnabled = true
                 navigationController?.pushViewController(vc, animated: true)
             }
         }
@@ -61,6 +63,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     
     func onError(error: LoginError) {
         navigationItem.rightBarButtonItem = oldButtonBar
+        self.navigationController?.view.userInteractionEnabled = true
         showError(error)
     }
 
