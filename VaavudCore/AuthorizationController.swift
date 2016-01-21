@@ -92,7 +92,7 @@ class AuthorizationController: NSObject {
         }
     }
     
-    func reseatPassword(email: String, delegate: LoginDelegate){
+    func resetPassword(email: String, delegate: LoginDelegate){
         firebase.resetPasswordForUser(email, withCompletionBlock: { error in
             if error != nil {
                 print(error)

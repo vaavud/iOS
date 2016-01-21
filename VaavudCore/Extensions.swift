@@ -21,6 +21,22 @@ class RotatableViewController: UIViewController {
     }
 }
 
+extension UINavigationController {
+    func pushViewController(viewController: UIViewController, animated: Bool, completion: Void -> Void) {
+        CATransaction.begin()
+        CATransaction.setCompletionBlock(completion)
+        pushViewController(viewController, animated: animated)
+        CATransaction.commit()
+    }
+    
+    func popViewControllerAnimated(animated: Bool, completion: Void -> Void) {
+        CATransaction.begin()
+        CATransaction.setCompletionBlock(completion)
+        popViewControllerAnimated(animated)
+        CATransaction.commit()
+    }
+}
+
 class Plot: UIView {
     let f: CGFloat -> CGFloat
     let n: Int

@@ -24,9 +24,6 @@ func gotoLoginFrom(fromVc: UIViewController, inside parentVc: UIViewController) 
         return
     }
     
-    //let login = storyboard.instantiateViewControllerWithIdentifier("Selector")
-    //loginNav.pushViewController(login, animated: false)
-    
     gotoVc(loginNav, fromVc: fromVc, parentVc: parentVc)
 }
 
@@ -45,20 +42,14 @@ private func gotoVc(toVc: UIViewController, fromVc: UIViewController, parentVc: 
 }
 
 class LoginViewController: UIViewController, LoginDelegate {
-    
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var loginButton: UIBarButtonItem!
     var oldButtonBar: UIBarButtonItem!
     let activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 20, 20))
     
-    
     // MARK: Lifetime
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -70,18 +61,14 @@ class LoginViewController: UIViewController, LoginDelegate {
     // MARK: User Actions
     
     @IBAction func tappedLogin() {
-        
         if let email = emailField.text, password = passwordField.text {
-            
-            
-            activityIndicator.activityIndicatorViewStyle = .Gray
+            activityIndicator.activityIndicatorViewStyle = .White
             
             oldButtonBar = navigationItem.rightBarButtonItem
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
             activityIndicator.startAnimating()
-            
-            
-            self.view.endEditing(true)
+            navigationController?.view.userInteractionEnabled = false
+            view.endEditing(true)
             
             AuthorizationController.shared.login(email, password: password, delegate: self)
         }
@@ -91,7 +78,7 @@ class LoginViewController: UIViewController, LoginDelegate {
     }
     
     // MARK: Segues
-
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ForgotPassword", let vc = segue.destinationViewController as? PasswordViewController {
             vc.email = emailField.text
@@ -101,19 +88,21 @@ class LoginViewController: UIViewController, LoginDelegate {
     // MARK: Login Delegate
     
     func onSuccess(showActivitySelector: Bool) {
-        if showActivitySelector {
-            if let vc = self.storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
-                navigationController?.pushViewController(vc, animated: true)
+        if showActivitySelector, let vc = self.storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
+            navigationController?.interactivePopGestureRecognizer?.enabled = false
+            navigationController?.pushViewController(vc, animated: true) {
+                self.navigationController?.view.userInteractionEnabled = true
             }
         }
         else {
             gotoAppFrom(navigationController!, inside: view.window!.rootViewController!)
         }
     }
-
+    
     func onError(error: LoginError) {
         dispatch_async(dispatch_get_main_queue(), {
             self.activityIndicator.stopAnimating()
+            self.navigationController?.view.userInteractionEnabled = true
             self.navigationItem.rightBarButtonItem = self.oldButtonBar
         })
         
@@ -149,7 +138,7 @@ class LoginViewController: UIViewController, LoginDelegate {
             VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.key, otherKey: "BUTTON_OK", action: {}, on: self)
         }
     }
-
+    
     private func refreshLoginButton() {
         loginButton.enabled = validInput()
     }
@@ -164,27 +153,23 @@ class LoginViewController: UIViewController, LoginDelegate {
     }
 }
 
-class PasswordViewController: UIViewController, UITextFieldDelegate,LoginDelegate {
+class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelegate {
     var email: String?
-    
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
-    var firebase: Firebase?
-    
-    
     
     // MARK: Lifetime
-
+    
     override func viewDidLoad() {
         emailField.text = email
         refreshSendButton()
-        firebase = Firebase(url: firebaseUrl)
     }
-
+    
     // MARK: User Actions
-
+    
     @IBAction func tappedSend() {
-        AuthorizationController.shared.reseatPassword(emailField.text!, delegate: self)
+        AuthorizationController.shared.resetPassword(emailField.text!, delegate: self)
+        navigationController?.view.userInteractionEnabled = false
     }
     
     // MARK: Textfield Delegate
@@ -200,30 +185,30 @@ class PasswordViewController: UIViewController, UITextFieldDelegate,LoginDelegat
     }
     
     func onSuccess(showActivitySelector: Bool) {
-        VaavudInteractions().showLocalAlert("Thank you", messageKey: "Further information have been sent to your email", otherKey: "BUTTON_OK", action: {
-           [unowned self] in self.goBack()
-        }, on: self)
-        
+        VaavudInteractions().showLocalAlert("Thank you", messageKey: "We have sent an email to you with instructions.", otherKey: "BUTTON_OK", action: { [unowned self] in self.goBack() }, on: self)
     }
     
-    func goBack(){
-        navigationController?.popViewControllerAnimated(true)
+    func goBack() {
+        if let nav = navigationController {
+            navigationController?.popViewControllerAnimated(true) {
+                nav.view.userInteractionEnabled = true
+            }
+        }
     }
     
     func onError(error: LoginError){
+        navigationController?.view.userInteractionEnabled = true
         VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.key, otherKey: "BUTTON_OK", action: {
             }, on: self)
     }
-    
-    
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         refreshSendButton()
         return true
     }
-
+    
     // MARK: Convenience
-
+    
     private func refreshSendButton() {
         sendButton.enabled = validInput()
     }
@@ -232,9 +217,3 @@ class PasswordViewController: UIViewController, UITextFieldDelegate,LoginDelegat
         return emailField.text?.containsString("@") ?? false
     }
 }
-
-
-
-
-
-

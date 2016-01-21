@@ -26,11 +26,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
         setupField(lastNameField)
         setupField(emailField)
         setupField(passwordField)
-        
     }
     
     // MARK: User Actions
-
+    
     @IBAction func tappedCreate() {
         if let firstName = firstNameField.text, lastName = lastNameField.text, email = emailField.text, password = passwordField.text {
             
@@ -40,8 +39,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
             oldButtonBar = navigationItem.rightBarButtonItem
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
             activityIndicator.startAnimating()
+            navigationItem.hidesBackButton = true
+            navigationController?.view.userInteractionEnabled = false
             
-            self.view.endEditing(true)
+            view.endEditing(true)
             
             AuthorizationController.shared.signup(firstName, lastName: lastName, email: email, password: password, delegate: self)
         }
@@ -51,19 +52,24 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     }
     
     // MARK: Login Delegate
+    
     func onSuccess(showActivitySelector: Bool) {
         if showActivitySelector {
             if let vc = storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
+                navigationController?.interactivePopGestureRecognizer?.enabled = false
+                navigationController?.view.userInteractionEnabled = true
                 navigationController?.pushViewController(vc, animated: true)
             }
         }
     }
     
     func onError(error: LoginError) {
+        navigationItem.hidesBackButton = false
         navigationItem.rightBarButtonItem = oldButtonBar
+        navigationController?.view.userInteractionEnabled = true
         showError(error)
     }
-
+    
     // MARK: Textfield Delegate
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -80,7 +86,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
             guard validInput() else {
                 return false
             }
-
+            
             tappedCreate()
         }
         
@@ -91,10 +97,10 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
         refreshSignupButton()
         return true
     }
-
+    
     // MARK: Convenience
     
-    private func showError(error: LoginError) { // fixme: no action??
+    private func showError(error: LoginError) {
         dispatch_async(dispatch_get_main_queue()) {
             VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.key, otherKey: "BUTTON_OK", action: {
                 }, on: self)
@@ -113,5 +119,4 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     private func validInput() -> Bool {
         return !firstNameField.text!.isEmpty && !lastNameField.text!.isEmpty && (emailField.text?.containsString("@") ?? false) && !passwordField.text!.isEmpty
     }
-
 }
