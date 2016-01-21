@@ -224,14 +224,10 @@ class CoreSettingsTableViewController: UITableViewController {
     func doLogout() {
         LogHelper.log(event: "Logged-Out", properties: ["place" : "settings"])
         
-        
         AuthorizationController.shared.unauth()
         FBSDKLoginManager().logOut()
         
-        
-        
-        UIApplication.sharedApplication().unregisterForRemoteNotifications()
-
+//        UIApplication.sharedApplication().unregisterForRemoteNotifications()
         gotoLoginFrom(tabBarController!, inside: view.window!.rootViewController!)
     }
 }
