@@ -281,3 +281,5 @@
 "LOGIN_ERROR_NETWORK" = "Could't access the network, please try again";
 "LOGIN_ERROR_MALFORMED" = "The email and/or password is incorrect, please try again";
 "LOGIN_ERROR_EMAIL" = "The email is already in use, please try a different one";
+"LOGIN_FORGOT_PASSWORD_TITLE" = "Correct";
+"LOGIN_FORGOT_PASSWORD_MESSAGE" = "Further information have been sent to your email.";

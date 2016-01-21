@@ -287,3 +287,5 @@
 "LOGIN_ERROR_NETWORK" = "Kunne ikke forbinde til netværk, prøv igen.";
 "LOGIN_ERROR_MALFORMED" = "Email og/eller adgangskode er ikke korrekt, prøv venligst igen.";
 "LOGIN_ERROR_EMAIL" = "Denne email er allerede i brug, prøv venligst en anden.";
+"LOGIN_FORGOT_PASSWORD_TITLE" = "Correct";
+"LOGIN_FORGOT_PASSWORD_MESSAGE" = "Further information have been sent to your email.";
