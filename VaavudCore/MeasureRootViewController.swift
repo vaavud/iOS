@@ -307,7 +307,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
         
         if let index = pressureTracker.newUploadIndex() {
-            print("Saving pressure: \(index): \(VaavudSDK.shared.session.pressures.last!.fireDict)")
             firebase
                 .childByAppendingPaths("pressure", session.key, index)
                 .setValue(VaavudSDK.shared.session.pressures.last!.fireDict)
@@ -319,14 +318,11 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
                 .setValue(VaavudSDK.shared.session.velocities.last!.fireDict)
         }
         
-        print("save streams status: \(mjolnir?.dynamicsIsValid)")
-
-//        if mjolnir?.dynamicsIsValid == false {
-//            return
-//        }
+        if mjolnir?.dynamicsIsValid == false {
+            return
+        }
         
         if let index = windTracker.newUploadIndex() {
-            print("Saving wind: \(index)")
             firebase
                 .childByAppendingPaths("wind", session.key, index)
                 .setValue(VaavudSDK.shared.session.windSpeeds.last!.fireDict)
@@ -439,11 +435,9 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func addSpeedMeasurement(currentSpeed: NSNumber!, avgSpeed: NSNumber!, maxSpeed: NSNumber!) {
-        print("addSpeedMeasurement status: \(mjolnir?.dynamicsIsValid)")
-
-//        if mjolnir?.dynamicsIsValid == false {
-//            return
-//        }
+        if mjolnir?.dynamicsIsValid == false {
+            return
+        }
 
         VaavudSDK.shared.newWindSpeed(WindSpeedEvent(time: NSDate(), speed: currentSpeed.doubleValue))
     }
@@ -494,7 +488,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     func newPressure(event: PressureEvent) {
         pressureTracker.hasNewValue = true
-        print("CMAltimeter newPressure \(event)")
     }
     
     // MARK - Network requests
@@ -649,7 +642,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private func startSleipnir(flipped: Bool) {
         // fixme: handle error
         do {
-            try VaavudSDK.shared.start(flipped ?? false)
+            try VaavudSDK.shared.start(flipped)
         }
         catch {
             self.dismissViewControllerAnimated(true) {
