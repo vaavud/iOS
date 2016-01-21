@@ -199,9 +199,8 @@ class PasswordViewController: UIViewController, UITextFieldDelegate,LoginDelegat
         return true
     }
     
-    
-    func onSuccess(showActivitySelector: Bool){
-        VaavudInteractions().showLocalAlert("LOGIN_FORGOT_PASSWORD_TITLE", messageKey: "LOGIN_FORGOT_PASSWORD_MESSAGE", otherKey: "BUTTON_OK", action: {
+    func onSuccess(showActivitySelector: Bool) {
+        VaavudInteractions().showLocalAlert("Thank you", messageKey: "Further information have been sent to your email", otherKey: "BUTTON_OK", action: {
            [unowned self] in self.goBack()
         }, on: self)
         
