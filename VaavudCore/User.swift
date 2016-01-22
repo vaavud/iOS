@@ -50,6 +50,7 @@ struct User {
     let email: String
     let created: NSDate? = nil
     
+    
 //    init?(dict: FirebaseDictionary) {
 //        guard let firstName = dict["firstName"] as? String,
 //            lastName = dict["lastName"] as? String,

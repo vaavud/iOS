@@ -62,6 +62,8 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
             bg.alpha = 1
             spinner.show()
             
+            LogHelper.log(.App, event: "Open")
+            
             AuthorizationController.shared.loginWithFacebook(self)
         }
     }

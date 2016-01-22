@@ -45,6 +45,7 @@ class AuthorizationController: NSObject {
     private var _deviceId: String?
     var deviceId: String { if _deviceId != nil { return _deviceId! } else { fatalError("No device id") } }
     static let shared = AuthorizationController()
+    var isAuth: Bool { return NSUserDefaults.standardUserDefaults().objectForKey("deviceId") is String && firebase.authData != nil }
     
     
     
@@ -56,7 +57,6 @@ class AuthorizationController: NSObject {
         }
         
         let preferences = NSUserDefaults.standardUserDefaults()
-        
         guard let deviceId = preferences.objectForKey("deviceId") as? String, authData = firebase.authData else {
             unauth()
             return false
@@ -78,7 +78,6 @@ class AuthorizationController: NSObject {
     
     func saveAPNToken(token: String) {
         if let uid = uid {
-            
             let preferences = NSUserDefaults.standardUserDefaults()
             let deviceId = preferences.objectForKey("APNToken") as? String ?? ""
             
@@ -104,7 +103,6 @@ class AuthorizationController: NSObject {
     }
     
     func unauth() {
-        
         LogHelper.logWithGroupName("Login", event: "Logout")
         NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
         NSUserDefaults.standardUserDefaults().removeObjectForKey("APNToken")
@@ -353,9 +351,8 @@ class AuthorizationController: NSObject {
         task.resume()
     }
     
-    private func authWithFacebook(accessToken : String, callback: (Bool, String) -> Void){
+    private func authWithFacebook(accessToken : String, callback: (Bool, String) -> Void) {
         firebase.authWithOAuthProvider("facebook", token: accessToken) { error, authData in
-            
             guard let error = error else {
                 callback(true, authData.uid)
                 print("Logged in! \(authData.uid)")

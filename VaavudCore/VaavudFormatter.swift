@@ -213,6 +213,8 @@ class VaavudFormatter: NSObject {
         handle = sharedSettings.observeEventType(.ChildChanged, withBlock: parseSnapshot { [unowned self] in self.updateUnits($0) })
         
         sharedSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot(updateUnits) )
+        
+        print(callbacks.values.count)
     }
     
     private func updateUnits(dict: [String : AnyObject]) {
@@ -231,6 +233,8 @@ class VaavudFormatter: NSObject {
         if let key = dict[TemperatureUnit.unitKey] as? String, unit = TemperatureUnit(rawValue: key) {
             _temperatureUnit = unit
         }
+    
+        print(callbacks.values.count)
         
         for callback in callbacks.values { callback() }
     }

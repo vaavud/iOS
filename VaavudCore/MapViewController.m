@@ -70,6 +70,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self hideVolumeHUD];
+
     
     self.firebase = [[Firebase alloc] initWithUrl:@"https://vaavud-core-demo.firebaseio.com"]; // fixme: change;
     

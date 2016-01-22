@@ -80,14 +80,14 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    if ([[AuthorizationController shared] verifyAuth]) {
+    if ([AuthorizationController shared].isAuth) {
         [[[LogHelper alloc] initWithGroupName:@"App" counters:@[]] log:@"Open" properties:@{}];
     }
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     if ([url.scheme isEqualToString:@"vaavud"]) {
-        if (![[AuthorizationController shared] verifyAuth]) {
+        if (![AuthorizationController shared].isAuth) {
             return NO;
         }
         
