@@ -9,6 +9,7 @@
 import UIKit
 
 class ActivityViewController: UIViewController, UIPickerViewDelegate {
+    
     @IBOutlet weak var activityPicker: UIPickerView!
     
     var rowSelected = 0
@@ -43,4 +44,5 @@ class ActivityViewController: UIViewController, UIPickerViewDelegate {
         AuthorizationController.shared.updateActivity(dataSourceKeys[rowSelected])
         gotoAppFrom(navigationController!, inside: view.window!.rootViewController!)
     }
+    
 }

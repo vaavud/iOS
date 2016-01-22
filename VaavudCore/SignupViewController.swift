@@ -23,7 +23,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
         super.viewDidLoad()
         refreshSignupButton()
         
-        logHelper.log("Signup")
+        logHelper.log("SignUp")
         
         setupField(firstNameField)
         setupField(lastNameField)
@@ -57,7 +57,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     
     func onSuccess(showActivitySelector: Bool) {
         
-        logHelper.log("Success")
+        logHelper.log("signup",properties: ["type":"success"])
         
         if showActivitySelector, let vc = storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
             navigationController?.interactivePopGestureRecognizer?.enabled = false
@@ -71,7 +71,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     }
     
     func onError(error: LoginError) {
-        logHelper.log("Error")
+        logHelper.log("signup",properties: ["type":"error"])
         
         navigationItem.rightBarButtonItem = oldButtonBar
         navigationController?.view.userInteractionEnabled = true

@@ -175,7 +175,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelega
     // MARK: Lifetime
     
     override func viewDidLoad() {
-        logHelper.log("Password")
+        logHelper.log("ForgotPassword")
 
         emailField.text = email
         refreshSendButton()
@@ -207,7 +207,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelega
     }
     
     func onSuccess(showActivitySelector: Bool) {
-        logHelper.log("Success")
+        logHelper.log("ForgotPassword",properties: ["type":"Success"])
 
         navigationItem.rightBarButtonItem = oldButtonBar
 
@@ -223,7 +223,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelega
     }
     
     func onError(error: LoginError) {
-        logHelper.log("Error")
+        logHelper.log("ForgotPassword",properties: ["type":"Error"])
         navigationItem.rightBarButtonItem = oldButtonBar
         navigationController?.view.userInteractionEnabled = true
         VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.key, otherKey: "BUTTON_OK", action: {
