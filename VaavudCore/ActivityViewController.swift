@@ -39,7 +39,7 @@ class ActivityViewController: UIViewController, UIPickerViewDelegate {
     }
     
     @IBAction func savePushed() {
-        logHelper.log("Activity", properties: ["type:" : dataSourceKeys[rowSelected]] )
+        logHelper.log("Activity", properties: [ "activity" : dataSourceKeys[rowSelected]] )
         AuthorizationController.shared.updateActivity(dataSourceKeys[rowSelected])
         gotoAppFrom(navigationController!, inside: view.window!.rootViewController!)
     }
