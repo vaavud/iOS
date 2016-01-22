@@ -7,148 +7,7 @@
 //
 
 import UIKit
-
-class DropboxUploader: NSObject, DBRestClientDelegate {
-    let restClient = DBRestClient(session: DBSession.sharedSession())
-    let formatter = NSDateFormatter()
-    
-    let i = 0
-    
-    // delegate should take care of deleting uploaded files.
-    init(delegate: DBRestClientDelegate) {
-        super.init()
-        restClient.delegate = delegate
-    }
-    
-    func uploadFolder(date: NSDate, timezone: NSTimeZone) -> String {
-        formatter.dateFormat = "'/'yyyy'-'MM'-'dd"
-        formatter.timeZone = timezone
-        return formatter.stringFromDate(date)
-    }
-    
-    func uploadFileName(date: NSDate, timezone: NSTimeZone, ending:String) -> String {
-        formatter.dateFormat = "yyyy'-'MM'-'dd' 'HH'-'mm'-'ss"
-        formatter.timeZone = timezone
-        return formatter.stringFromDate(date) + ending
-    }
-    
-//    func uploadToDropbox(session: MeasurementSession) { // fixme
-//        let timeZone = NSTimeZone(forSecondsFromGMT: session.timezoneOffset.integerValue)
-//        let dbFolder = uploadFolder(session.startTime, timezone:timeZone )
-//        
-//        func uploadFile(string: String, fileNameEnding: String) {
-//            if let fileLocation = save(string) {
-//                let dbFilename = uploadFileName(session.startTime, timezone: timeZone, ending: fileNameEnding)
-//                restClient.uploadFile(dbFilename, toPath: dbFolder, withParentRev: nil, fromPath: fileLocation.path)
-//            }
-//        }
-//        
-//        uploadFile(session.asCSV(), fileNameEnding: " session.csv")
-//        uploadFile(session.pointsAsCSV(), fileNameEnding: " points.csv")
-//    }
-    
-    func save(string:String) -> NSURL? {
-        let tempBase = NSURL.fileURLWithPath(NSTemporaryDirectory(), isDirectory: true)
-        
-        let fileURL = tempBase.URLByAppendingPathComponent(NSProcessInfo.processInfo().globallyUniqueString)
-
-        let success: Bool
-        
-        do {
-            try string.writeToURL(fileURL, atomically: true, encoding: NSUTF8StringEncoding)
-            success = true
-        }
-        catch {
-            success = false
-        }
-        if (success) {
-//            print("Success writing file %@", fileURL.path)
-            return fileURL
-        }
-        else {
-//            print("Failure writing file %@", fileURL.path)
-            return nil
-        }
-    }
-}
-
-extension Session {
-//    func asCSV() -> String {
-//        var headerRow = [String]()
-//        var dataRow = [String]()
-//        
-//        let notAvailable = "-"
-//        let timeZone = NSTimeZone(forSecondsFromGMT: timezoneOffset.integerValue)
-//        
-//        func addDate(headerCell: String, _ data: NSDate) {
-//            headerRow.append(headerCell)
-//            dataRow.append(formattedDate(data, timezone: timeZone))
-//        }
-//        
-//        func addObject(headerCell: String, _ data: NSObject?) {
-//            headerRow.append(headerCell)
-//            dataRow.append(data != nil ? data!.description : notAvailable)
-//        }
-//        
-//        addDate("startTime", startTime)
-//        addDate("endTime", endTime)
-//        addObject("latitude", latitude)
-//        addObject("longitude", longitude)
-//        addObject("GeoLocationName", geoLocationNameLocalized)
-//        addObject("windspeed Avg", windSpeedAvg)
-//        addObject("windspeed Max", windSpeedMax)
-//        addObject("wind direction", windDirection)
-//        addObject("turbulence intensity", gustiness)
-//        addObject("humidity", humidity)
-//        addObject("pressure", pressure)
-//        addObject("temperature", temperature)
-//        
-//        var windmeterString: String
-//        
-//        if windMeter == 1 {
-//            windmeterString = "Mjolnir"
-//        }
-//        else if windMeter == 2 {
-//            windmeterString = "Sleipnir"
-//        }
-//        else {
-//            windmeterString = notAvailable
-//        }
-//        addObject("wind meter", windmeterString)
-//        addObject("startTime Unix", startTime.timeIntervalSince1970)
-//        addObject("endTime Unix", endTime.timeIntervalSince1970)
-//        
-//        var csv = headerRow.joinWithSeparator(",")
-//        csv += "\n"
-//        csv += dataRow.joinWithSeparator(",")
-//        
-//        return csv
-//    }
-//    
-//    func pointsAsCSV() -> String {
-//        var headerRow = [String]()
-//        
-//        let notAvailable = "-"
-//        
-//        headerRow.append("time (s)")
-//        headerRow.append("windspeed (m/s)")
-//        headerRow.append("winddirection (deg)")
-//        var csv = headerRow.joinWithSeparator(",")
-//        csv += "\n"
-//        
-//        _ = points.map { elem in
-//            if let point = elem as? MeasurementPoint {
-//                csv += point.time.timeIntervalSinceDate(self.startTime).description
-//                csv += ","
-//                csv += point.windSpeed != nil ? point.windSpeed.description : notAvailable
-//                csv += ","
-//                csv += point.windDirection != nil ? point.windDirection.description : notAvailable
-//                csv += "\n"
-//            }
-//        }
-//        return csv
-//    }
-}
+import VaavudSDK
 
 func formattedDate(date: NSDate, timezone: NSTimeZone) -> String {
     let formatter = NSDateFormatter()
@@ -156,3 +15,166 @@ func formattedDate(date: NSDate, timezone: NSTimeZone) -> String {
     formatter.timeZone = timezone
     return formatter.stringFromDate(date)
 }
+
+class DropboxUploader: NSObject, DBRestClientDelegate {
+    static let shared = DropboxUploader()
+    
+    private let restClient = DBRestClient(session: DBSession.sharedSession())
+    private let formatter = NSDateFormatter()
+    
+    private override init() {
+        super.init()
+        formatter.timeZone = NSTimeZone.localTimeZone()
+        restClient.delegate = self
+    }
+    
+    // MARK - Public
+    
+    func uploadToDropbox(session: VaavudSession, aggregate: Session) {
+        let dbFolder = uploadFolder(aggregate.timeStart)
+        
+        func uploadFile(string: String, suffix: String) {
+            if let path = save(string)?.path {
+                let name = uploadFileName(aggregate.timeStart, ending: suffix)
+                restClient.uploadFile(name, toPath: dbFolder, withParentRev: nil, fromPath: path)
+            }
+        }
+        
+        uploadFile(aggregate.csv(), suffix: " session.csv")
+        uploadFile(session.csv(), suffix: " points.csv")
+    }
+
+    // MARK - Drobbox Rest Client
+    
+    func restClient(client: DBRestClient!, uploadedFile destPath: String!, from srcPath: String!, metadata: DBMetadata!) {
+        
+        do {
+            try NSFileManager.defaultManager().removeItemAtPath(srcPath)
+            print("File uploaded and deleted successfully to path: \(metadata.path)")
+        }
+        catch {
+            print("File uploaded successfully, but not deleted to path: \(metadata.path), error: \( error)")
+        }
+    }
+
+    func restClient(client: DBRestClient!, uploadFileFailedWithError error: NSError!) {
+        print("File uploaded and deleted successfully to path: \(error)")
+    }
+    
+    // MARK - Private
+
+    private func uploadFolder(date: NSDate) -> String {
+        formatter.dateFormat = "'/'yyyy'-'MM'-'dd"
+        return formatter.stringFromDate(date)
+    }
+    
+    private func uploadFileName(date: NSDate, ending: String) -> String {
+        formatter.dateFormat = "yyyy'-'MM'-'dd' 'HH'-'mm'-'ss"
+        return formatter.stringFromDate(date) + ending
+    }
+    
+    private func save(string: String) -> NSURL? {
+        let fileURL = NSURL.fileURLWithPath(NSTemporaryDirectory(), isDirectory: true)
+            .URLByAppendingPathComponent(NSProcessInfo.processInfo().globallyUniqueString)
+        
+        do {
+            try string.writeToURL(fileURL, atomically: true, encoding: NSUTF8StringEncoding)
+
+            return fileURL
+        }
+        catch {
+            return nil
+        }
+    }
+}
+
+extension VaavudSession {
+    func csv() -> String {
+        guard let startTime = windSpeeds.first?.time else { return "No data" }
+        
+        let header = ["time (s)", "windspeed (m/s)", "time (s)", "winddirection (deg), time (s)", "lat", "lon", "time (s)", "speed", "course"].joinWithSeparator(",")
+
+        var rows = [[Double?]]()
+
+        for i in 0..<max(windSpeeds.count, windDirections.count, locations.count, velocities.count) {
+            let w: [Double?] = windSpeeds.count > i ? [windSpeeds[i].time.timeIntervalSinceDate(startTime), windSpeeds[i].speed] : [nil, nil]
+            let d: [Double?] = windDirections.count > i ? [windDirections[i].time.timeIntervalSinceDate(startTime), windDirections[i].direction] : [nil, nil]
+            let l: [Double?] = locations.count > i ? [locations[i].time.timeIntervalSinceDate(startTime), locations[i].lat, locations[i].lon] : [nil, nil, nil]
+            let v: [Double?] = velocities.count > i ? [velocities[i].time.timeIntervalSinceDate(startTime), velocities[i].speed, velocities[i].course] : [nil, nil, nil]
+            rows.append(w + d + l + v)
+        }
+        
+        func rowReducer(s: String, row: [Double?]) -> String {
+            return s + row.map({ $0.map(String.init) ?? "" }).joinWithSeparator(",")
+        }
+        
+        rows.reduce(header) { $0 + $1.map({ $0.map(String.init) ?? "" }).joinWithSeparator(",") }
+        
+        //        _ = points.map { elem in
+        //            if let point = elem as? MeasurementPoint {
+        //                csv += point.time.timeIntervalSinceDate(self.startTime).description
+        //                csv += ","
+        //                csv += point.windSpeed != nil ? point.windSpeed.description : notAvailable
+        //                csv += ","
+        //                csv += point.windDirection != nil ? point.windDirection.description : notAvailable
+        //                csv += "\n"
+        //            }
+        //        }
+        //        return csv
+        //    }
+        
+        return "VaavudSession.csv"
+        
+    }
+}
+
+extension Session {
+    func csv() -> String {
+        var headerRow = [String]()
+        var dataRow = [String]()
+        
+        let notAvailable = "-"
+        let timeZone = NSTimeZone.localTimeZone()
+        
+        func addDate(headerCell: String, _ data: NSDate) {
+            headerRow.append(headerCell)
+            dataRow.append(formattedDate(data, timezone: timeZone))
+        }
+        
+        func addObject(headerCell: String, _ data: AnyObject?) {
+            headerRow.append(headerCell)
+            dataRow.append(data?.description ?? notAvailable)
+        }
+        
+        addDate("startTime", timeStart)
+        addDate("endTime", timeEnd!)
+        
+        addObject("latitude", location?.lat)
+        addObject("longitude", location?.lon)
+        
+        addObject("GeoLocationName", location?.name)
+        
+        addObject("windspeed Avg", windMean)
+        addObject("windspeed Max", windMax)
+        
+        addObject("wind direction", windDirection)
+        addObject("turbulence intensity", turbulence)
+        
+        addObject("pressure", pressure)
+        
+        addObject("Sourced: humidity", sourced?.humidity)
+        addObject("Sourced: pressure", sourced?.temperature)
+        addObject("Sourced: temperature", sourced?.temperature)
+        addObject("Sourced: windDirection", sourced?.windDirection)
+        addObject("Sourced: windspeed Avg", sourced?.windMean)
+        
+        addObject("wind meter", windMeter.rawValue)
+        
+        addObject("startTime Unix", timeStart.timeIntervalSince1970)
+        addObject("endTime Unix", timeEnd!.timeIntervalSince1970)
+        
+        return headerRow.joinWithSeparator(",") + "\n" + dataRow.joinWithSeparator(",")
+    }
+}
+
+

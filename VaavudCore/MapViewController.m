@@ -298,7 +298,6 @@
 }
 
 - (BOOL)isDanish {
-    return YES; // fixme: remove
     return [[[[NSLocale preferredLanguages] firstObject] substringToIndex:2] isEqualToString:@"da"];
 }
 
