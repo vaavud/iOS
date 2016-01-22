@@ -334,9 +334,13 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         post.setValue(["sessionKey" : session.key])
         
-        //        if DBSession.sharedSession().isLinked(), let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-        //            appDelegate.uploadToDropbox(session)
-        //        }
+        if DBSession.sharedSession().isLinked() {
+            DropboxUploader.shared.uploadToDropbox(VaavudSDK.shared.session, aggregate: session)
+        }
+        
+//        if DBSession.sharedSession().isLinked(), let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
+//            DropboxUploader(delegate: appDelegate).uploadToDropbox(session)
+//        }
     }
     
     func stop(userCancelled: Bool) {

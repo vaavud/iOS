@@ -14,10 +14,9 @@
 #import "Amplitude.h"
 #import "FBSDKCoreKit.h"
 
-@interface AppDelegate() <DBRestClientDelegate>
+@interface AppDelegate()
 
 @property (nonatomic, strong) NSDate *lastAppActive;
-@property (nonatomic) DropboxUploader *dropboxUploader;
 
 @end
 
@@ -33,7 +32,6 @@
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
 
-    
     TMCache *cache = [TMCache sharedCache];
     cache.diskCache.ageLimit = 24.0*3600.0;
     
@@ -62,7 +60,7 @@
     self.window.rootViewController = parent;
     
     UIViewController *vc;
-    if (![AuthorizationController shared].isAuth) {
+    if (![[AuthorizationController shared] verifyAuth]) {
         UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateInitialViewController];
         
         vc = nav;
@@ -131,8 +129,11 @@
         
         [dict setObject:val forKey:key];
     }
+    
     return dict;
 }
+
+#pragma mark - Notifications
 
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
@@ -155,10 +156,7 @@
         
     }
     else {
-        
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"PushNotification"
-         object:userInfo];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"PushNotification" object:userInfo];
         
         NSLog(@"Active");
         completionHandler(UIBackgroundFetchResultNewData);
@@ -171,37 +169,9 @@
     NSLog(@"Error in registration. Error: %@", err);
 }
 
-- (void) application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler {
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler {
     
-    NSLog(@"Inf when app its open from notification: %@", userInfo[@"location"]);
-}
-
-
-#pragma mark - Dropbox
-
-//-(void)uploadToDropbox:(MeasurementSession *)session {
-//    if (!self.dropboxUploader) {
-//        self.dropboxUploader = [[DropboxUploader alloc] initWithDelegate:self];
-//    }
-//    
-//    [self.dropboxUploader uploadToDropbox:session];
-//}
-
-- (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath
-              from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
-    
-    NSError *error = nil;
-    [[NSFileManager defaultManager] removeItemAtPath:srcPath error:&error];
-    if (!error) {
-        if (LOG_OTHER) NSLog(@"File uploaded and deleted successfully to path: %@", metadata.path);
-    }
-    else {
-        if (LOG_OTHER) NSLog(@"File uploaded successfully, but not deleted to path: %@, error: %@", metadata.path, error.localizedDescription);
-    }
-}
-
-- (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
-    if (LOG_OTHER) NSLog(@"File upload failed with error: %@", error);
+    NSLog(@"Info when app its open from notification: %@", userInfo[@"location"]);
 }
 
 @end

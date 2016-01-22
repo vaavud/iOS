@@ -64,7 +64,6 @@ class CoreSettingsTableViewController: UITableViewController {
 
         dropboxControl.on = DBSession.sharedSession().isLinked()
 
-//        // fixme: actually use notifications
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: "dropboxIsLinked", object: nil)
 
         formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
@@ -136,7 +135,7 @@ class CoreSettingsTableViewController: UITableViewController {
     func dropboxLinkedStatus(note: NSNotification) {
         if let isDropboxLinked = note.object as? NSNumber.BooleanLiteralType {
             dropboxControl.on = isDropboxLinked
-            // fixme: do we track dropbox? Do we want to? Yes gustf we want :) we are artist
+            logHelper.log("Dropbox", properties: ["Action" : "Linked"])
         }
     }
     
@@ -192,7 +191,6 @@ class CoreSettingsTableViewController: UITableViewController {
         }
         logHelper.increase()
         logHelper.log("Dropbox", properties: ["Action" : action])
-        // fixme: track ok?
     }
 
     @IBAction func changedMeterModel(sender: UISegmentedControl) {
