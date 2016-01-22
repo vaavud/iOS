@@ -12,7 +12,7 @@ class ActivityViewController: UIViewController, UIPickerViewDelegate {
     @IBOutlet weak var activityPicker: UIPickerView!
     
     var rowSelected = 0
-    let dataSourceKeys = ["weather", "flying", "sailing", "kitesurfing", "windsurfing", "other"]
+    let dataSourceKeys = ["sailing", "kitesurfing", "windsurfing", "weather", "flying", "other"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +35,6 @@ class ActivityViewController: UIViewController, UIPickerViewDelegate {
         return dataSourceKeys.count
     }
     
-
     @IBAction func savePushed() {
         AuthorizationController.shared.updateActivity(dataSourceKeys[rowSelected])
         gotoAppFrom(navigationController!, inside: view.window!.rootViewController!)

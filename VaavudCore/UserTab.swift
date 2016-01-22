@@ -13,6 +13,11 @@ class UserTabViewController : UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var historyContainer: UIView!
     @IBOutlet weak var notificationContainer: UIView!
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        print("User tab created")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
