@@ -99,7 +99,7 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
         if notification.name == "PushNotification" {
             print("Push Notification in TabBar")
             
-            if selectedIndex == 1{
+            if selectedIndex == 1 {
                 return
             }
             
@@ -134,16 +134,25 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
         return true
     }
     
+    func takeMeasurementFromUrlScheme() {
+        takeMeasurement(true)
+    }
+    
     func takeMeasurement(fromUrlScheme: Bool) {
-        let deviceSettings = Firebase(url: firebaseUrl).childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting")
+        if let presented = presentedViewController {
+            presented.dismissViewControllerAnimated(false, completion: nil)
+        }
         
+        let deviceSettings = Firebase(url: firebaseUrl).childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting")
         deviceSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot { dict in
             if dict["usesSleipnir"] as? Bool == true && !VaavudSDK.shared.sleipnirAvailable() {
-                //                if fromUrlScheme && self.sleipnirFromCallbackAttemptsLeft > 0 {
-                //                    self.sleipnirFromCallbackAttemptsLeft -= 1
-                //                    // try again after delay
-                //                    return
-                //                }
+                if fromUrlScheme && self.sleipnirFromCallbackAttemptsLeft > 0 {
+                    self.sleipnirFromCallbackAttemptsLeft -= 1
+                    NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "takeMeasurementFromUrlScheme", userInfo: nil, repeats: false)
+                    print("Setting timer: \(self.sleipnirFromCallbackAttemptsLeft)")
+                    
+                    return
+                }
                 
                 VaavudInteractions().showLocalAlert("SLEIPNIR_PROBLEM_TITLE", messageKey: "SLEIPNIR_PROBLEM_MESSAGE", cancelKey: "BUTTON_OK", otherKey: "SLEIPNIR_PROBLEM_SWITCH", action: {
                     deviceSettings.childByAppendingPath("usesSleipnir").setValue(false)

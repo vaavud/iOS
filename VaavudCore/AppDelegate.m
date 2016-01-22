@@ -85,16 +85,9 @@
     if ([[AuthorizationController shared] verifyAuth]) {
         [[[LogHelper alloc] initWithGroupName:@"App" counters:@[]] log:@"Open" properties:@{}];
     }
-    
-    UIViewController *main = [[self.window.rootViewController childViewControllers] lastObject];
-    
-    
-    NSLog(@"main view controller: %@", [main class]);
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    NSLog(@"application:openURL");
-    
     if (![[AuthorizationController shared] verifyAuth]) {
         NSLog(@"application:openURL failed: not logged in");
 
