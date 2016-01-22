@@ -25,25 +25,30 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
-    <array>
-        <dict>
-            <key>CFBundleURLName</key>
-            <string>com.vaavud</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>fb624217360948538</string>
-                <string>vaavud</string>
-            </array>
-        </dict>
-        <dict>
-            <key>CFBundleTypeRole</key>
-            <string>Editor</string>
-            <key>CFBundleURLSchemes</key>
-            <array>
-                <string>db-zszsy52n0svxcv7</string>
-            </array>
-        </dict>
-    </array>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb624217360948538</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.vaavud</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>vaavud</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>db-zszsy52n0svxcv7</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>2018</string>
 	<key>Fabric</key>
