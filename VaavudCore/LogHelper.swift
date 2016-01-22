@@ -8,7 +8,6 @@
 
 import Foundation
 
-// Log App::Open
 // User prop: activity: sailing/kitesurfing/windsurfing/flying/weather/other
 // log login process
 

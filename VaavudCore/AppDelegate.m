@@ -63,7 +63,6 @@
     self.window.rootViewController = parent;
     
     UIViewController *vc;
-    
     if (![[AuthorizationController shared] verifyAuth]) {
         UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateInitialViewController];
         
@@ -86,9 +85,22 @@
     if ([[AuthorizationController shared] verifyAuth]) {
         [[[LogHelper alloc] initWithGroupName:@"App" counters:@[]] log:@"Open" properties:@{}];
     }
+    
+    UIViewController *main = [[self.window.rootViewController childViewControllers] lastObject];
+    
+    
+    NSLog(@"main view controller: %@", [main class]);
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    NSLog(@"application:openURL");
+    
+    if (![[AuthorizationController shared] verifyAuth]) {
+        NSLog(@"application:openURL failed: not logged in");
+
+        return NO;
+    }
+    
     if ([url.scheme isEqualToString:@"vaavud"]) {
         NSDictionary *dict = [self parseQueryString:url.query];
         
@@ -98,23 +110,19 @@
             if ([url.path isEqualToString:@"/measure"]) {
                 self.xCallbackSuccess = [dict objectForKey:@"x-success"];
                 
-                NSLog(@"self.window.rootViewController: %@", self.window.rootViewController.class);
+                UIViewController *main = [[self.window.rootViewController childViewControllers] lastObject];
+                if (![main isKindOfClass:[TabBarController class]] || !main.isViewLoaded) {
+                    return NO;
+                }
                 
-                //                if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
-                //                    TabBarController *tabBarController = (TabBarController *)self.window.rootViewController;
-                //                    if (tabBarController != nil && tabBarController.isViewLoaded) {
-                //                        [tabBarController takeMeasurementFromUrlScheme];
-                //                        [LogHelper logWithGroupName:@"URL-Scheme" event:@"Opened" properties:@{ @"source" : sourceApplication }];
-//                    }
-//                }
+                [(TabBarController *)main takeMeasurement:YES];
+                [LogHelper logWithGroupName:@"URL-Scheme" event:@"Opened" properties:@{ @"source" : sourceApplication }];
             }
         }
     }
     else if ([[DBSession sharedSession] handleOpenURL:url]) {
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"dropboxIsLinked"
-         object:@([[DBSession sharedSession] isLinked])];
-        //return YES;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"dropboxIsLinked" object:@([[DBSession sharedSession] isLinked])];
+        return YES;
     }
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application

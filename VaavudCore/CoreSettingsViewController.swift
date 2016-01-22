@@ -71,6 +71,8 @@ class CoreSettingsTableViewController: UITableViewController {
         refreshUnits()
         
         deviceHandle = deviceSettings.observeEventType(.Value, withBlock: parseSnapshot { [unowned self] in self.refreshDeviceSettings($0) })
+        
+        tableView.delegate = self
     }
     
     func refreshDeviceSettings(dict: [String : AnyObject]) {
@@ -141,6 +143,12 @@ class CoreSettingsTableViewController: UITableViewController {
     func logUnitChange(unitType: String) {
         LogHelper.log(event: "Changed-Unit", properties: ["place" : "settings", "type" : unitType])
         logHelper.increase()
+    }
+    
+    // MARK: Scroll View Delegate
+    
+    override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        logHelper.increase("scrolled")
     }
     
     // MARK: User actions
