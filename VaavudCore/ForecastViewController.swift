@@ -363,14 +363,6 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
     private var didSetup = false
     
     private let logHelper = LogHelper(.Forecast, counters: "scrolled")
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        // fixme: units
-    }
-    
-    deinit {
-    }
     
     override func viewDidAppear(animated: Bool) {
         logHelper.began()

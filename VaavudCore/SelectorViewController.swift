@@ -57,9 +57,7 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
         }
     }
     
-    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        print("User Logged Out") // fixme: TODO
-    }
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) { }
     
     func onSuccess(showActivitySelector: Bool) {
         if showActivitySelector, let vc = storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
