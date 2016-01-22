@@ -126,19 +126,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     // MARK - Lifetime methods
     
-//    required init?(coder aDecoder: NSCoder) {
-//        model = VaavudSDK.shared.sleipnirAvailable() ? .Sleipnir : .Mjolnir
-//        
-//        super.init(coder: aDecoder)
-//        
-////        if model == .Sleipnir {
-////            deviceSettings.childByAppendingPath("usesSleipnir").setValue(true)
-////            
-////            VaavudSDK.shared.windDirectionCallback = newWindDirection
-////            VaavudSDK.shared.headingCallback = newHeading
-////        }
-//    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
