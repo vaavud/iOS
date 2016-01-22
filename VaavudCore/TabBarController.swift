@@ -149,8 +149,6 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
                 if fromUrlScheme && self.sleipnirFromCallbackAttemptsLeft > 0 {
                     self.sleipnirFromCallbackAttemptsLeft -= 1
                     NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "takeMeasurementFromUrlScheme", userInfo: nil, repeats: false)
-                    print("Setting timer: \(self.sleipnirFromCallbackAttemptsLeft)")
-                    
                     return
                 }
                 
