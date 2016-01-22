@@ -197,11 +197,17 @@ class AuthorizationController: NSObject {
                 return
             }
             
-            let firstName = result.valueForKey("first_name") as! String
-            let lastName = result.valueForKey("last_name") as! String
+            
+            guard let email = result.valueForKey("email") as? String else {
+                self.delegate?.onError(.Facebook)
+                return
+            }
+            
+            
+            let firstName = result.valueForKey("first_name") as? String ?? ""
+            let lastName = result.valueForKey("last_name") as? String ?? ""
             let country = NSLocale.currentLocale().objectForKey(NSLocaleCountryCode) as! String
             let language = NSLocale.preferredLanguages()[0]
-            let email = result.valueForKey("email") as! String
                 
             let callback = { (success: Bool, uid: String) in
                 if success {
@@ -246,12 +252,12 @@ class AuthorizationController: NSObject {
         })
     }
     
-    private func obtainUserInformation(child: String, key: String, callback: FirebaseDictionary -> Void) {
+    private func obtainUserInformation(child: String, key: String, callback: FirebaseDictionary? -> Void) {
         firebase
             .childByAppendingPath(child).childByAppendingPath(key)
             .observeSingleEventOfType(.Value, withBlock: { data in
                 guard let firebaseData = data.value as? FirebaseDictionary else {
-                    self.delegate?.onError(.Unknown)
+                    callback(nil)
                     return
                 }
                 
