@@ -55,10 +55,10 @@
         self.logHelper = [[LogHelper alloc] initWithGroupName:@"Map" counters:@[@"scrolled", @"tapped-marker"]];
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-        selector:@selector(receiveTestNotification:)
-        name:@"PushNotification"
-        object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//        selector:@selector(receiveTestNotification:)
+//        name:@"PushNotification"
+//        object:nil];
     
     return self;
 }

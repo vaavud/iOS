@@ -12,12 +12,7 @@ class UserTabViewController : UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var historyContainer: UIView!
     @IBOutlet weak var notificationContainer: UIView!
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        print("User tab created")
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,10 +35,6 @@ class UserTabViewController : UIViewController, UINavigationControllerDelegate {
     
     override func viewDidDisappear(animated: Bool) {
         LogHelper.log(segmentedControl.selectedSegmentIndex == 1 ? .Notifications : .History, event: "Ended")
-    }
-    
-    deinit {
-        print("User tab destroyed")
     }
     
     @IBAction func changedSelection(sender: UISegmentedControl) {
