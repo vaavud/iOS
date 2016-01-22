@@ -287,7 +287,6 @@ class NewMapViewController: UIViewController, MKMapViewDelegate {
     }
     
     func refreshUnitButton() {
-//        unitButton.titleLabel?.text = VaavudFormatter.shared.windSpeedUnit.localizedString // Fixme
     }
     
     func refreshAnnotations() {

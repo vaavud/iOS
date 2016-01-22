@@ -41,7 +41,7 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
     
     private var variant = 0 { didSet { updateVariant() } }
     
-    var weight: Double = 0.1 // fixme: change
+    var weight: Double = 0.1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,7 +108,6 @@ class FlatMeasureViewController : UIViewController, MeasurementConsumer {
     func newWindSpeed(speed: Double) {
         latestSpeed = speed
         speedLabel.text = VaavudFormatter.shared.localizedSpeed(speed, digits: 3)
-//        gustLabel.text = VaavudFormatter.shared.localizedSpeed(gusts, digits: 2) // fixme: check
         updateWindChill()
     }
     

@@ -289,9 +289,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
             }
             
         }
-        presentViewController(activityVC, animated: true) {
-            // fixme: track?
-        }
+        presentViewController(activityVC, animated: true, completion: nil)
     }
     
     func logUnitChange(unitType: String) {
@@ -398,7 +396,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     
     private func updateWindDirection() {
         hasActualDirection = session.windDirection != nil
-        hasSomeDirection = session.windDirection // FIXME: Temporary, will remove when we start sourcing directions
+        hasSomeDirection = session.windDirection // fixme: could add ?? session.sourced?.windDirection
         
         if let rotation = hasSomeDirection {
             let t = CGAffineTransformMakeRotation(π*CGFloat(1 + rotation/180))

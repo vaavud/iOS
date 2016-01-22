@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface FormatUtil : NSObject // fixme: refactor away, use formatter
+@interface FormatUtil : NSObject
 
 + (NSString *)formatRelativeDate:(NSDate *)date; // fixme: implement in swift
 
