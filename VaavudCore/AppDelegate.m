@@ -24,7 +24,6 @@
 @implementation AppDelegate
 
 -(BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
     return YES;
 }
 
@@ -81,20 +80,17 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    //    [FBAppCall handleDidBecomeActive];
     if ([[AuthorizationController shared] verifyAuth]) {
         [[[LogHelper alloc] initWithGroupName:@"App" counters:@[]] log:@"Open" properties:@{}];
     }
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    if (![[AuthorizationController shared] verifyAuth]) {
-        NSLog(@"application:openURL failed: not logged in");
-
-        return NO;
-    }
-    
     if ([url.scheme isEqualToString:@"vaavud"]) {
+        if (![[AuthorizationController shared] verifyAuth]) {
+            return NO;
+        }
+        
         NSDictionary *dict = [self parseQueryString:url.query];
         
         self.xCallbackSuccess = nil;
@@ -119,9 +115,9 @@
     }
     
     return [[FBSDKApplicationDelegate sharedInstance] application:application
-                                                                 openURL:url
-                                                       sourceApplication:sourceApplication
-                                                              annotation:annotation];
+                                                          openURL:url
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation];
 }
 
 - (NSDictionary *)parseQueryString:(NSString *)query {
@@ -138,7 +134,6 @@
     return dict;
 }
 
-
 - (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
@@ -146,7 +141,6 @@
     NSLog(@"token---%@", token);
     [[AuthorizationController shared] saveAPNToken:token];
 }
-
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
@@ -171,9 +165,7 @@
     }
     
      NSLog(@"my notification: %@", userInfo);
-    
 }
-
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
     NSLog(@"Error in registration. Error: %@", err);
@@ -195,21 +187,21 @@
 //    [self.dropboxUploader uploadToDropbox:session];
 //}
 
-//- (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath
-//              from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
-//    
-//    NSError *error = nil;
-//    [[NSFileManager defaultManager] removeItemAtPath:srcPath error:&error];
-//    if (!error) {
-//        if (LOG_OTHER) NSLog(@"File uploaded and deleted successfully to path: %@", metadata.path);
-//    }
-//    else {
-//        if (LOG_OTHER) NSLog(@"File uploaded successfully, but not deleted to path: %@, error: %@", metadata.path, error.localizedDescription);
-//    }
-//}
-//
-//- (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
-//    if (LOG_OTHER) NSLog(@"File upload failed with error: %@", error);
-//}
+- (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath
+              from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
+    
+    NSError *error = nil;
+    [[NSFileManager defaultManager] removeItemAtPath:srcPath error:&error];
+    if (!error) {
+        if (LOG_OTHER) NSLog(@"File uploaded and deleted successfully to path: %@", metadata.path);
+    }
+    else {
+        if (LOG_OTHER) NSLog(@"File uploaded successfully, but not deleted to path: %@, error: %@", metadata.path, error.localizedDescription);
+    }
+}
+
+- (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
+    if (LOG_OTHER) NSLog(@"File upload failed with error: %@", error);
+}
 
 @end
