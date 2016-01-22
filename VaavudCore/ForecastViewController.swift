@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 let forecastMaxSteps = 4
 let forecastScaleSpacing = 5
@@ -394,16 +395,19 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
             ForecastLoader.shared.requestGeocode(location) { self.title = $0 }
         }
         
-        // fixme: firebase it
-//        if !Property.getAsBoolean(KEY_FORECAST_OVERLAY_SHOWN, defaultValue: false), let tbc = tabBarController {
-//            Property.setAsBoolean(true, forKey: KEY_FORECAST_OVERLAY_SHOWN)
-//
-//            let p = tbc.view.convertPoint(proBadge.center, fromView: nil)
-//            let pos = CGPoint(x: p.x/tbc.view.frame.width, y: p.y/tbc.view.frame.height)
-//            let text = "Vejrudsigter er en pro funktion, som er gratis ind til videre! Tryk på emblemet for mere information." // lokalisera
-//            let icon = UIImage(named: "ForecastProOverlay")
-//            tbc.view.addSubview(RadialOverlay(frame: tbc.view.bounds, position: pos, text: text, icon: icon, radius: 50))
-//        }
+        let firebase = Firebase(url: firebaseUrl)
+        let shown = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "ios")
+        shown.observeSingleEventOfType(.Value, withBlock: parseSnapshot { dict in
+            guard InstructionsShown(dict: dict)?.forecastOverlayShown == false, let tbc = self.tabBarController else { return }
+            
+            shown.updateChildValues(["forecastOverlayShown" : true])
+            
+            let p = tbc.view.convertPoint(self.proBadge.center, fromView: nil)
+            let pos = CGPoint(x: p.x/tbc.view.frame.width, y: p.y/tbc.view.frame.height)
+            let text = "Vejrudsigter er en pro funktion, som er gratis ind til videre! Tryk på emblemet for mere information." // lokalisera
+            let icon = UIImage(named: "ForecastProOverlay")
+            tbc.view.addSubview(RadialOverlay(frame: tbc.view.bounds, position: pos, text: text, icon: icon, radius: 50))
+            })
     }
     
     func unitsChanged(note: NSNotification) {

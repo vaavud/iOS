@@ -158,7 +158,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelega
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
     private var oldButtonBar: UIBarButtonItem!
-
+    
     // MARK: Lifetime
     
     override func viewDidLoad() {
@@ -174,7 +174,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelega
         oldButtonBar = navigationItem.rightBarButtonItem
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         activityIndicator.startAnimating()
-
+        
         AuthorizationController.shared.resetPassword(emailField.text!, delegate: self)
         navigationController?.view.userInteractionEnabled = false
     }
@@ -193,7 +193,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelega
     
     func onSuccess(showActivitySelector: Bool) {
         navigationItem.rightBarButtonItem = oldButtonBar
-
+        
         VaavudInteractions().showLocalAlert("Thank you", messageKey: "We have sent an email to you with instructions.", otherKey: "BUTTON_OK", action: { [unowned self] in self.goBack() }, on: self)
     }
     
