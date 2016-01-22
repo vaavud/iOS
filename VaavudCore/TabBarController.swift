@@ -27,6 +27,10 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
             object: nil)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        print("tabbar appeared")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
                 

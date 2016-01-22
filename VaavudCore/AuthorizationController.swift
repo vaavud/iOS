@@ -46,6 +46,9 @@ class AuthorizationController: NSObject {
     var deviceId: String { if _deviceId != nil { return _deviceId! } else { fatalError("No device id") } }
     static let shared = AuthorizationController()
     
+    
+    
+    
     func verifyAuth() -> Bool {
         if _deviceId != nil && uid != nil {
             registerNotifications()
