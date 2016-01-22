@@ -83,7 +83,7 @@ class AuthorizationController: NSObject {
                 preferences.synchronize()
                 print("saving token " + "\(token)")
                 
-                firebase.childByAppendingPaths("user", uid, "notificationId", "apn",token).setValue(NSDate().ms)
+                firebase.childByAppendingPaths("user", uid, "notificationId", "apn", token).setValue(NSDate().ms)
             }
         }
     }
@@ -238,7 +238,7 @@ class AuthorizationController: NSObject {
         let ref = firebase.childByAppendingPaths("user", uid, "setting", "ios")
         ref.observeSingleEventOfType(.Value, withBlock: { data in
             if data.value is NSNull {
-                ref.setValue(InstructionsShown().fireDict)
+                ref.setValue(UserSettingsIos().fireDict)
             }
         })
     }

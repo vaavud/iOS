@@ -390,7 +390,7 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
         let firebase = Firebase(url: firebaseUrl)
         let shown = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "ios")
         shown.observeSingleEventOfType(.Value, withBlock: parseSnapshot { dict in
-            guard InstructionsShown(dict: dict)?.forecastOverlayShown == false, let tbc = self.tabBarController else { return }
+            guard UserSettingsIos(dict: dict)?.forecastOverlayShown == false, let tbc = self.tabBarController else { return }
             
             shown.updateChildValues(["forecastOverlayShown" : true])
             
