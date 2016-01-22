@@ -45,6 +45,7 @@ class AuthorizationController: NSObject {
     private var _deviceId: String?
     var deviceId: String { if _deviceId != nil { return _deviceId! } else { fatalError("No device id") } }
     static let shared = AuthorizationController()
+    var isAuth: Bool { return NSUserDefaults.standardUserDefaults().objectForKey("deviceId") is String && firebase.authData != nil }
     
     func verifyAuth() -> Bool {
         if _deviceId != nil && uid != nil {
@@ -53,7 +54,6 @@ class AuthorizationController: NSObject {
         }
         
         let preferences = NSUserDefaults.standardUserDefaults()
-        
         guard let deviceId = preferences.objectForKey("deviceId") as? String, authData = firebase.authData else {
             unauth()
             return false
@@ -75,7 +75,6 @@ class AuthorizationController: NSObject {
     
     func saveAPNToken(token: String) {
         if let uid = uid {
-            
             let preferences = NSUserDefaults.standardUserDefaults()
             let deviceId = preferences.objectForKey("APNToken") as? String ?? ""
             
@@ -101,7 +100,6 @@ class AuthorizationController: NSObject {
     }
     
     func unauth() {
-        
         LogHelper.logWithGroupName("Login", event: "Logout")
         NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
         NSUserDefaults.standardUserDefaults().removeObjectForKey("APNToken")

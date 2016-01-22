@@ -8,17 +8,6 @@
 
 import Foundation
 
-// User prop: activity: sailing/kitesurfing/windsurfing/flying/weather/other
-// log login process
-
-// Login::Begin
-// Login::Facebook
-// Login::Signup
-// Login::Login
-// Login::Success
-// ActivitySelector::Begin
-// ActivitySelector::End
-
 class LogHelper: NSObject {
     private var dict: [String : AnyObject]
     private let counters: [String]
@@ -120,17 +109,18 @@ class LogHelper: NSObject {
 }
 
 enum LogGroup: String {
-    case Free = "Free"
-    case Activities = "Activities"
-    case Map = "Map"
-    case Forecast = "Forecast"
-    case History = "History"
-    case Summary = "Summary"
-    case Measure = "Measure"
-    case Result = "Result"
-    case Settings = "Settings"
-    case Notifications = "Notifications"
+    case Free
+    case Activities
+    case Map
+    case Forecast
+    case History
+    case Summary
+    case Measure
+    case Result
+    case Settings
+    case Notifications
     case NotificationDetails = "Notification-Details"
     case URLScheme = "URL-Scheme"
     case Login
+    case App
 }
