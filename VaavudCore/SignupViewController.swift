@@ -56,8 +56,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     // MARK: Login Delegate
     
     func onSuccess(showActivitySelector: Bool) {
-        
-        logHelper.log("signup",properties: ["type":"success"])
+        logHelper.log("Success", properties: ["type" : "signup"] )
         
         if showActivitySelector, let vc = storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
             navigationController?.interactivePopGestureRecognizer?.enabled = false
@@ -71,11 +70,12 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     }
     
     func onError(error: LoginError) {
-        logHelper.log("signup",properties: ["type":"error"])
-        
-        navigationItem.rightBarButtonItem = oldButtonBar
-        navigationController?.view.userInteractionEnabled = true
-        showError(error)
+        dispatch_async(dispatch_get_main_queue(), {
+            self.logHelper.log("Error", properties: ["type" : "signup"] )
+            self.navigationItem.rightBarButtonItem = self.oldButtonBar
+            self.navigationController?.view.userInteractionEnabled = true
+            self.showError(error)
+        })
     }
     
     // MARK: Textfield Delegate
@@ -109,7 +109,6 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     // MARK: Convenience
     
     private func showError(error: LoginError) {
-        logHelper.log("Login", properties: ["type":"Cancel"])
         dispatch_async(dispatch_get_main_queue()) {
             VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.key, otherKey: "BUTTON_OK", action: {
                 }, on: self)

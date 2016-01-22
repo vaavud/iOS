@@ -7,10 +7,15 @@
 //
 
 import UIKit
+import Firebase
+import VaavudSDK
+
+let sleipnirFromCallbackAttempts = 10
 
 class TabBarController: UITabBarController,UITabBarControllerDelegate {
-    let button = UIButton(type: .Custom)
-    var laidOutWidth: CGFloat?
+    private let button = UIButton(type: .Custom)
+    private var laidOutWidth: CGFloat?
+    private var sleipnirFromCallbackAttemptsLeft = sleipnirFromCallbackAttempts
     var tabToSelect = 1
     
     required init?(coder aDecoder: NSCoder) {
@@ -94,7 +99,7 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
         if notification.name == "PushNotification" {
             print("Push Notification in TabBar")
             
-            if selectedIndex == 1{
+            if selectedIndex == 1 {
                 return
             }
             
@@ -122,15 +127,40 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
     
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
         if viewController == childViewControllers[2] {
-            performSegueWithIdentifier("ShowMeasureScreen", sender: self)
+            takeMeasurement(false)
             return false
         }
-    
-//        if viewController == childViewControllers[0] { // Fixme: this is for testing
-//            selectedIndex = 2
-//            return false
-//        }
         
         return true
+    }
+    
+    func takeMeasurementFromUrlScheme() {
+        takeMeasurement(true)
+    }
+    
+    func takeMeasurement(fromUrlScheme: Bool) {
+        if let presented = presentedViewController {
+            presented.dismissViewControllerAnimated(false, completion: nil)
+        }
+        
+        let deviceSettings = Firebase(url: firebaseUrl).childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting")
+        deviceSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot { dict in
+            if dict["usesSleipnir"] as? Bool == true && !VaavudSDK.shared.sleipnirAvailable() {
+                if fromUrlScheme && self.sleipnirFromCallbackAttemptsLeft > 0 {
+                    self.sleipnirFromCallbackAttemptsLeft -= 1
+                    NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "takeMeasurementFromUrlScheme", userInfo: nil, repeats: false)
+                    return
+                }
+                
+                VaavudInteractions().showLocalAlert("SLEIPNIR_PROBLEM_TITLE", messageKey: "SLEIPNIR_PROBLEM_MESSAGE", cancelKey: "BUTTON_OK", otherKey: "SLEIPNIR_PROBLEM_SWITCH", action: {
+                    deviceSettings.childByAppendingPath("usesSleipnir").setValue(false)
+                    self.performSegueWithIdentifier("ShowMeasureScreen", sender: self)
+                    }, on: self)
+            }
+            else {
+                self.performSegueWithIdentifier("ShowMeasureScreen", sender: self)
+            }
+            self.sleipnirFromCallbackAttemptsLeft = sleipnirFromCallbackAttempts
+            })
     }
 }

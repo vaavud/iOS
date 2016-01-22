@@ -8,7 +8,6 @@
 
 import Foundation
 
-// Log App::Open
 // User prop: activity: sailing/kitesurfing/windsurfing/flying/weather/other
 // log login process
 
@@ -106,7 +105,7 @@ class LogHelper: NSObject {
 
     class func log(group: LogGroup = .Free, event: String, properties: [String : AnyObject] = [:]) {
         Amplitude.instance().logEvent(group.rawValue + "::" + event, withEventProperties: properties)
-//        print("AMP:\(group.rawValue)::\(event) - \(properties)")
+        print("AMP:\(group.rawValue)::\(event) - \(properties)")
     }
     
     class func setUserProperty(key: String, value: NSObject) {
@@ -133,5 +132,5 @@ enum LogGroup: String {
     case Notifications = "Notifications"
     case NotificationDetails = "Notification-Details"
     case URLScheme = "URL-Scheme"
-    case Login
+    case Login = "Login"
 }

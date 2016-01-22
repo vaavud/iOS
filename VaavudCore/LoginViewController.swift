@@ -50,21 +50,18 @@ class LoginViewController: UIViewController, LoginDelegate {
     var oldButtonBar: UIBarButtonItem!
     let activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 20, 20))
     private let logHelper = LogHelper(.Login)
-
     
     // MARK: Lifetime
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        logHelper.log("Email")
+        logHelper.log("Login")
         
         setupField(emailField)
         setupField(passwordField)
         refreshLoginButton()
     }
-    
-    
     
     // MARK: User Actions
     
@@ -95,7 +92,7 @@ class LoginViewController: UIViewController, LoginDelegate {
     // MARK: Login Delegate
     
     func onSuccess(showActivitySelector: Bool) {
-        logHelper.log("Login", properties: ["type":"Success"])
+        logHelper.log("Success", properties: ["type" : "login"])
 
         if showActivitySelector, let vc = self.storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
             navigationController?.interactivePopGestureRecognizer?.enabled = false
@@ -109,7 +106,7 @@ class LoginViewController: UIViewController, LoginDelegate {
     }
     
     func onError(error: LoginError) {
-        logHelper.log("Login", properties: ["type":"Error"])
+        logHelper.log("Error", properties: ["type" : "login"])
 
         dispatch_async(dispatch_get_main_queue(), {
             self.activityIndicator.stopAnimating()
@@ -165,7 +162,6 @@ class LoginViewController: UIViewController, LoginDelegate {
 }
 
 class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelegate {
-    
     var email: String?
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
@@ -207,11 +203,10 @@ class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelega
     }
     
     func onSuccess(showActivitySelector: Bool) {
-        logHelper.log("ForgotPassword",properties: ["type":"Success"])
+        logHelper.log("PasswordEmailSent")
 
         navigationItem.rightBarButtonItem = oldButtonBar
-
-        VaavudInteractions().showLocalAlert("Thank you", messageKey: "We have sent an email to you with instructions.", otherKey: "BUTTON_OK", action: { [unowned self] in self.goBack() }, on: self)
+        VaavudInteractions().showLocalAlert("Thank you", messageKey: "We have sent an email to you with instructions.", otherKey: "BUTTON_OK", action: { [unowned self] in self.goBack() }, on: self) // fixme: localize
     }
     
     func goBack() {
@@ -223,7 +218,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelega
     }
     
     func onError(error: LoginError) {
-        logHelper.log("ForgotPassword",properties: ["type":"Error"])
+        logHelper.log("PasswordEmailFailed")
         navigationItem.rightBarButtonItem = oldButtonBar
         navigationController?.view.userInteractionEnabled = true
         VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.key, otherKey: "BUTTON_OK", action: {
