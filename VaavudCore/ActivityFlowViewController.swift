@@ -12,7 +12,7 @@ class ComingSoonViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
 
     private let logHelper = LogHelper(.Activities, counters: "scrolled")
-        
+    
     func scrollViewDidScroll(scrollView: UIScrollView) {
         topConstraint.constant = -scrollView.contentOffset.y/3
     }
@@ -23,6 +23,11 @@ class ComingSoonViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         logHelper.began()
+        
+        let rows: [[Double?]] = [[0, nil], [1, 3]]
+        
+        print(rows.map { row in row.map({ d in d.map(String.init) ?? "" }).joinWithSeparator(",") })
+        
     }
     
     override func viewDidDisappear(animated: Bool) {

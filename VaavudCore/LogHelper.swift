@@ -89,12 +89,12 @@ class LogHelper: NSObject {
     }
     
     class func logWithGroupName(groupName: String, event: String, properties: [String : AnyObject] = [:]) {
-        self.log(LogGroup(rawValue: groupName) ?? .Free, event: event, properties: properties)
+        log(LogGroup(rawValue: groupName) ?? .Free, event: event, properties: properties)
     }
 
     class func log(group: LogGroup = .Free, event: String, properties: [String : AnyObject] = [:]) {
         Amplitude.instance().logEvent(group.rawValue + "::" + event, withEventProperties: properties)
-        print("AMP:\(group.rawValue)::\(event) - \(properties)")
+//        print("AMP:\(group.rawValue)::\(event) - \(properties)")
     }
     
     class func setUserProperty(key: String, value: NSObject) {

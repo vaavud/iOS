@@ -104,27 +104,7 @@ extension VaavudSession {
             rows.append(w + d + l + v)
         }
         
-        func rowReducer(s: String, row: [Double?]) -> String {
-            return s + row.map({ $0.map(String.init) ?? "" }).joinWithSeparator(",")
-        }
-        
-        rows.reduce(header) { $0 + $1.map({ $0.map(String.init) ?? "" }).joinWithSeparator(",") }
-        
-        //        _ = points.map { elem in
-        //            if let point = elem as? MeasurementPoint {
-        //                csv += point.time.timeIntervalSinceDate(self.startTime).description
-        //                csv += ","
-        //                csv += point.windSpeed != nil ? point.windSpeed.description : notAvailable
-        //                csv += ","
-        //                csv += point.windDirection != nil ? point.windDirection.description : notAvailable
-        //                csv += "\n"
-        //            }
-        //        }
-        //        return csv
-        //    }
-        
-        return "VaavudSession.csv"
-        
+        return header + "\n" + rows.map({ $0.map({ $0.map(String.init) ?? "" }).joinWithSeparator(",") }).joinWithSeparator("\n")
     }
 }
 
@@ -163,7 +143,7 @@ extension Session {
         addObject("pressure", pressure)
         
         addObject("Sourced: humidity", sourced?.humidity)
-        addObject("Sourced: pressure", sourced?.temperature)
+        addObject("Sourced: pressure", sourced?.pressure)
         addObject("Sourced: temperature", sourced?.temperature)
         addObject("Sourced: windDirection", sourced?.windDirection)
         addObject("Sourced: windspeed Avg", sourced?.windMean)

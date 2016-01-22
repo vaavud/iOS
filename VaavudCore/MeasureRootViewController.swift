@@ -281,7 +281,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     func updateStreams() {
         if let index = windDirectionTracker.newUploadIndex() {
-            print("Saving direction: \(index)")
             firebase
                 .childByAppendingPaths("windDirection", session.key, index)
                 .setValue(VaavudSDK.shared.session.windDirections.last!.fireDict)
@@ -337,10 +336,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         if DBSession.sharedSession().isLinked() {
             DropboxUploader.shared.uploadToDropbox(VaavudSDK.shared.session, aggregate: session)
         }
-        
-//        if DBSession.sharedSession().isLinked(), let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate {
-//            DropboxUploader(delegate: appDelegate).uploadToDropbox(session)
-//        }
     }
     
     func stop(userCancelled: Bool) {
