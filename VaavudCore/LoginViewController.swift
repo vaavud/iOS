@@ -206,7 +206,6 @@ class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelega
         logHelper.log("PasswordEmailSent")
 
         navigationItem.rightBarButtonItem = oldButtonBar
-
         VaavudInteractions().showLocalAlert("Thank you", messageKey: "We have sent an email to you with instructions.", otherKey: "BUTTON_OK", action: { [unowned self] in self.goBack() }, on: self) // fixme: localize
     }
     
