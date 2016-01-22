@@ -15,12 +15,15 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var createButton: UIBarButtonItem!
     var oldButtonBar: UIBarButtonItem!
+    private let logHelper = LogHelper(.Login)
     
     // MARK: Lifetime
     
     override func viewDidLoad() {
         super.viewDidLoad()
         refreshSignupButton()
+        
+        logHelper.log("Signup")
         
         setupField(firstNameField)
         setupField(lastNameField)
@@ -53,6 +56,9 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     // MARK: Login Delegate
     
     func onSuccess(showActivitySelector: Bool) {
+        
+        logHelper.log("Success")
+        
         if showActivitySelector, let vc = storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
             navigationController?.interactivePopGestureRecognizer?.enabled = false
             navigationController?.pushViewController(vc, animated: true) {
@@ -65,6 +71,8 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     }
     
     func onError(error: LoginError) {
+        logHelper.log("Error")
+        
         navigationItem.rightBarButtonItem = oldButtonBar
         navigationController?.view.userInteractionEnabled = true
         showError(error)
@@ -101,6 +109,7 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     // MARK: Convenience
     
     private func showError(error: LoginError) {
+        logHelper.log("Login", properties: ["type":"Cancel"])
         dispatch_async(dispatch_get_main_queue()) {
             VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.key, otherKey: "BUTTON_OK", action: {
                 }, on: self)

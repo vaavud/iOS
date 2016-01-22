@@ -71,7 +71,7 @@
     [super viewDidLoad];
     [self hideVolumeHUD];
     
-    self.firebase = [[Firebase alloc] initWithUrl:@"https://vaavud-core-demo.firebaseio.com/"]; // fixme: change;
+    self.firebase = [[Firebase alloc] initWithUrl:@"https://vaavud-core-demo.firebaseio.com"]; // fixme: change;
     
     self.currentSessions = [[NSMutableDictionary alloc] init];
     

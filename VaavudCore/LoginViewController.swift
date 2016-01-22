@@ -24,7 +24,9 @@ func gotoLoginFrom(fromVc: UIViewController, inside parentVc: UIViewController) 
         return
     }
     
+    
     gotoVc(loginNav, fromVc: fromVc, parentVc: parentVc)
+    
 }
 
 private func gotoVc(toVc: UIViewController, fromVc: UIViewController, parentVc: UIViewController) {
@@ -47,23 +49,28 @@ class LoginViewController: UIViewController, LoginDelegate {
     @IBOutlet weak var loginButton: UIBarButtonItem!
     var oldButtonBar: UIBarButtonItem!
     let activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 20, 20))
+    private let logHelper = LogHelper(.Login)
+
     
     // MARK: Lifetime
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        logHelper.log("Email")
+        
         setupField(emailField)
         setupField(passwordField)
         refreshLoginButton()
     }
+    
+    
     
     // MARK: User Actions
     
     @IBAction func tappedLogin() {
         if let email = emailField.text, password = passwordField.text {
             activityIndicator.activityIndicatorViewStyle = .White
-            
             oldButtonBar = navigationItem.rightBarButtonItem
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
             activityIndicator.startAnimating()
@@ -88,6 +95,8 @@ class LoginViewController: UIViewController, LoginDelegate {
     // MARK: Login Delegate
     
     func onSuccess(showActivitySelector: Bool) {
+        logHelper.log("Login", properties: ["type":"Success"])
+
         if showActivitySelector, let vc = self.storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
             navigationController?.interactivePopGestureRecognizer?.enabled = false
             navigationController?.pushViewController(vc, animated: true) {
@@ -100,6 +109,8 @@ class LoginViewController: UIViewController, LoginDelegate {
     }
     
     func onError(error: LoginError) {
+        logHelper.log("Login", properties: ["type":"Error"])
+
         dispatch_async(dispatch_get_main_queue(), {
             self.activityIndicator.stopAnimating()
             self.navigationController?.view.userInteractionEnabled = true
@@ -154,14 +165,18 @@ class LoginViewController: UIViewController, LoginDelegate {
 }
 
 class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelegate {
+    
     var email: String?
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var sendButton: UIButton!
     private var oldButtonBar: UIBarButtonItem!
+    private let logHelper = LogHelper(.Login)
     
     // MARK: Lifetime
     
     override func viewDidLoad() {
+        logHelper.log("Password")
+
         emailField.text = email
         refreshSendButton()
     }
@@ -174,7 +189,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelega
         oldButtonBar = navigationItem.rightBarButtonItem
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         activityIndicator.startAnimating()
-        
+
         AuthorizationController.shared.resetPassword(emailField.text!, delegate: self)
         navigationController?.view.userInteractionEnabled = false
     }
@@ -192,8 +207,10 @@ class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelega
     }
     
     func onSuccess(showActivitySelector: Bool) {
+        logHelper.log("Success")
+
         navigationItem.rightBarButtonItem = oldButtonBar
-        
+
         VaavudInteractions().showLocalAlert("Thank you", messageKey: "We have sent an email to you with instructions.", otherKey: "BUTTON_OK", action: { [unowned self] in self.goBack() }, on: self)
     }
     
@@ -206,6 +223,7 @@ class PasswordViewController: UIViewController, UITextFieldDelegate, LoginDelega
     }
     
     func onError(error: LoginError) {
+        logHelper.log("Error")
         navigationItem.rightBarButtonItem = oldButtonBar
         navigationController?.view.userInteractionEnabled = true
         VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: error.key, otherKey: "BUTTON_OK", action: {
