@@ -133,4 +133,5 @@ enum LogGroup: String {
     case Notifications = "Notifications"
     case NotificationDetails = "Notification-Details"
     case URLScheme = "URL-Scheme"
+    case Login
 }

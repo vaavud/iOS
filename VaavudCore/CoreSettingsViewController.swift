@@ -134,7 +134,7 @@ class CoreSettingsTableViewController: UITableViewController {
     func dropboxLinkedStatus(note: NSNotification) {
         if let isDropboxLinked = note.object as? NSNumber.BooleanLiteralType {
             dropboxControl.on = isDropboxLinked
-            // fixme: do we track dropbox? Do we want to?
+            // fixme: do we track dropbox? Do we want to? Yes gustf we want :) we are artist
         }
     }
     
@@ -145,7 +145,7 @@ class CoreSettingsTableViewController: UITableViewController {
     
     // MARK: User actions
     
-    let limitedInterval = 30 // fixme: where to put this?
+    let limitedInterval = 30 // fixme: where to put this? Follow your heart it will tell you.
     
     @IBAction func changedLimitToggle(sender: UISegmentedControl) {
         deviceSettings.childByAppendingPath("measuringTime").setValue(sender.selectedSegmentIndex == 1 ? 0 : limitedInterval)

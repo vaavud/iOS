@@ -44,10 +44,7 @@ class AuthorizationController: NSObject {
     var uid: String?
     private var _deviceId: String?
     var deviceId: String { if _deviceId != nil { return _deviceId! } else { fatalError("No device id") } }
-    
     static let shared = AuthorizationController()
-    
-    private override init() {}
     
     func verifyAuth() -> Bool {
         if _deviceId != nil && uid != nil {
@@ -104,6 +101,8 @@ class AuthorizationController: NSObject {
     }
     
     func unauth() {
+        
+        LogHelper.logWithGroupName("Login", event: "Logout")
         NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
         NSUserDefaults.standardUserDefaults().removeObjectForKey("APNToken")
         NSUserDefaults.standardUserDefaults().synchronize()

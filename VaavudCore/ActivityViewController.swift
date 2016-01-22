@@ -13,10 +13,13 @@ class ActivityViewController: UIViewController, UIPickerViewDelegate {
     
     var rowSelected = 0
     let dataSourceKeys = ["sailing", "kitesurfing", "windsurfing", "weather", "flying", "other"]
+    private let logHelper = LogHelper(.Login)
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         activityPicker.delegate = self
+        logHelper.log("Activity")
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -36,6 +39,7 @@ class ActivityViewController: UIViewController, UIPickerViewDelegate {
     }
     
     @IBAction func savePushed() {
+        logHelper.log("Activity", properties: ["type:" : dataSourceKeys[rowSelected]] )
         AuthorizationController.shared.updateActivity(dataSourceKeys[rowSelected])
         gotoAppFrom(navigationController!, inside: view.window!.rootViewController!)
     }

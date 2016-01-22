@@ -10,13 +10,18 @@ import UIKit
 import Firebase
 
 class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginDelegate {
+    
     @IBOutlet weak var signupButton: UIButton!
     @IBOutlet weak var facebookView: FBSDKLoginButton!
     private let spinner = MjolnirSpinner(frame: CGRectMake(0, 0, 100, 100))
     private let bg = UIView()
     
+    private let logHelper = LogHelper(.Login)
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        logHelper.log("Selector")
         
         if let nc = navigationController {
             nc.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
@@ -44,12 +49,16 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
     }
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-        
         if error != nil {
+            logHelper.log("Facebook", properties: ["type":"Error"])
             VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: LoginError.Facebook.key, otherKey: "BUTTON_OK", action: {}, on: self)
         }
-        else if result.isCancelled {}
+        else if result.isCancelled {
+            logHelper.log("Facebook", properties: ["type":"Cancel"])
+        }
         else {
+            logHelper.log("Facebook", properties: ["type":"Success"])
+            
             bg.alpha = 1
             spinner.show()
             
@@ -60,6 +69,7 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) { }
     
     func onSuccess(showActivitySelector: Bool) {
+        
         if showActivitySelector, let vc = storyboard?.instantiateViewControllerWithIdentifier("activityVC") {
             navigationController?.pushViewController(vc, animated: true)
         }
