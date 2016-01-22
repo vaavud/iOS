@@ -53,10 +53,12 @@ class DropboxUploader: NSObject, DBRestClientDelegate {
         let fileURL = tempBase.URLByAppendingPathComponent(NSProcessInfo.processInfo().globallyUniqueString)
 
         let success: Bool
+        
         do {
             try string.writeToURL(fileURL, atomically: true, encoding: NSUTF8StringEncoding)
             success = true
-        } catch _ {
+        }
+        catch {
             success = false
         }
         if (success) {
@@ -70,8 +72,7 @@ class DropboxUploader: NSObject, DBRestClientDelegate {
     }
 }
 
-
-//extension MeasurementSession {
+extension Session {
 //    func asCSV() -> String {
 //        var headerRow = [String]()
 //        var dataRow = [String]()
@@ -147,7 +148,7 @@ class DropboxUploader: NSObject, DBRestClientDelegate {
 //        }
 //        return csv
 //    }
-//}
+}
 
 func formattedDate(date: NSDate, timezone: NSTimeZone) -> String {
     let formatter = NSDateFormatter()
