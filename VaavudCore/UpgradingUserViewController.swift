@@ -51,16 +51,9 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func openBuyDevice() { // Close
-//        Property.setAsBoolean(true, forKey: KEY_HAS_SEEN_TRISCREEN_FLOW);
-        
         if let tabBarController = storyboard?.instantiateViewControllerWithIdentifier("TabBarController") as? TabBarController {
             if let window = UIApplication.sharedApplication().delegate?.window {
-                window?.rootViewController = tabBarController
-
-//                if AccountManager.sharedInstance().isLoggedIn() {
-//                    ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: true, success: nil, failure: nil)
-//                }
-                
+                window?.rootViewController = tabBarController                
                 tabBarController.selectedIndex = 1
             }
         }
