@@ -364,7 +364,7 @@ class RoundRuler : UIView {
             cardinalPositions.append(Polar(r: r, phi: phi))
             
             let label = UILabel()
-//            label.text = VaavudFormatter.localizedCardinalFromDirection(mod(cardinal, cardinalDirections)) // Fixme
+//            label.text = VaavudFormatter.localizedCardinalFromDirection(mod(cardinal, cardinalDirections)) // Fixme: what is this?
             label.font = cardinal % 4 == 0 ? font : smallFont
             label.textColor = colorForCardinal(cardinal)
             label.sizeToFit()
