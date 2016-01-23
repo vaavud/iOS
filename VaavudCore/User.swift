@@ -96,8 +96,18 @@ struct User {
     let language: String
     let email: String
     let created: NSDate? = nil
-    let settingIos: UserSettingsIos
-    let settingShared: UserSettingsShared
+    var settingIos: UserSettingsIos
+    var settingShared: UserSettingsShared
+    
+    init(firstName: String, lastName: String, country: String, language: String, email: String, settingIos: UserSettingsIos = UserSettingsIos(), settingShared: UserSettingsShared = UserSettingsShared()) {
+        self.firstName = firstName
+        self.lastName = lastName
+        self.country = country
+        self.language = language
+        self.email = email
+        self.settingIos = settingIos
+        self.settingShared = settingShared
+    }
     
 //    init?(dict: FirebaseDictionary) {
 //        guard let firstName = dict["firstName"] as? String,
@@ -167,35 +177,36 @@ struct UserSettingsIos: Firebaseable {
 }
 
 struct UserSettingsShared: Firebaseable {
-    var windSpeedUnit: String
-    var windDirectionUnit: String
-    var temperatireUnit: String
-    var pressureUnit: String
-    var mapForecastHours: Int
+    var windSpeedUnit: SpeedUnit = .Ms
+    var windDirectionUnit: DirectionUnit = .Cardinal
+    var temperatureUnit: TemperatureUnit = .Celsius
+    var pressureUnit: PressureUnit = .Mbar
+    var mapForecastHours: Int = 2
 
-    init(windSpeedUnit: String, windDirectionUnit: String, temperatireUnit: String, pressureUnit: String, mapForecastHours: Int) {
+    init() {}
+
+    init(windSpeedUnit: SpeedUnit, windDirectionUnit: DirectionUnit, temperatureUnit: TemperatureUnit, pressureUnit: PressureUnit, mapForecastHours: Int) {
         self.windSpeedUnit = windSpeedUnit
         self.windDirectionUnit = windDirectionUnit
-        self.temperatireUnit = temperatireUnit
+        self.temperatureUnit = temperatureUnit
         self.pressureUnit = pressureUnit
         self.mapForecastHours = mapForecastHours
     }
 
     init?(dict: FirebaseDictionary) {
-        //self.windSpeedUnit = WindSpeedUnit(key: data["windSpeedUnit"] as? String)
-        self.windSpeedUnit =  dict["windSpeedUnit"] as? String ?? "TODO"
-        self.windDirectionUnit = dict["windDirectionUnit"] as? String ?? "TODO"
-        self.temperatireUnit = dict["temperatireUnit"] as? String ?? "TODO"
-        self.pressureUnit = dict["pressureUnit"] as? String ?? "TODO"
-        self.mapForecastHours = dict["mapForecastHours"] as? Int ?? 0
+        windSpeedUnit = SpeedUnit(rawValue: dict["windSpeedUnit"] as! String)!
+        windDirectionUnit = DirectionUnit(rawValue: dict["windDirectionUnit"] as! String)!
+        temperatureUnit = TemperatureUnit(rawValue: dict["temperatireUnit"] as! String)!
+        pressureUnit = PressureUnit(rawValue: dict["pressureUnit"] as! String)!
+        mapForecastHours = dict["mapForecastHours"] as? Int ?? mapForecastHours
     }
 
     var fireDict: FirebaseDictionary {
         var dict = FirebaseDictionary()
-        dict["windSpeedUnit"] = windSpeedUnit
-        dict["windDirectionUnit"] = windDirectionUnit
-        dict["temperatireUnit"] = temperatireUnit
-        dict["pressureUnit"] = pressureUnit
+        dict["windSpeedUnit"] = windSpeedUnit.rawValue
+        dict["windDirectionUnit"] = windDirectionUnit.rawValue
+        dict["temperatireUnit"] = temperatureUnit.rawValue
+        dict["pressureUnit"] = pressureUnit.rawValue
         dict["mapForecastHours"] = mapForecastHours
         return dict
     }
