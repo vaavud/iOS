@@ -259,7 +259,7 @@ class VaavudFormatter: NSObject {
         return callbacks.removeValueForKey(uid) != nil
     }
 
-    // MARK - Public
+    // MARK - Public Methods
 
     func hourValue(date: NSDate) -> Int {
         return calendar.components(.Hour, fromDate: date).hour
