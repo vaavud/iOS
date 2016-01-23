@@ -66,7 +66,6 @@ class HistoryController: NSObject {
         
         ref.observeSingleEventOfType(.Value, withBlock: { [unowned self] snapshot in
             if snapshot.childrenCount > 0 {
-                print("added all of them")
                 self.delegate.gotMeasurements()
                 self.delegate.fetchedMeasurements()
             }

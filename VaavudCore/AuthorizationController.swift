@@ -47,6 +47,8 @@ class AuthorizationController: NSObject {
     static let shared = AuthorizationController()
     var isAuth: Bool { return NSUserDefaults.standardUserDefaults().objectForKey("deviceId") is String && firebase.authData != nil }
     
+    class func getFirebaseUrl() -> String { return firebaseUrl }
+    
     func verifyAuth() -> Bool {
         if _deviceId != nil && uid != nil {
             registerNotifications()
@@ -93,17 +95,19 @@ class AuthorizationController: NSObject {
             if error != nil {
                 print(error)
                 delegate.onError(.MalformedInformation)
-            } else {
+            }
+            else {
                 delegate.onSuccess(true)
             }
         })
     }
-    
+
     func unauth() {
         LogHelper.logWithGroupName("Login", event: "Logout")
         NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
         NSUserDefaults.standardUserDefaults().removeObjectForKey("APNToken")
         NSUserDefaults.standardUserDefaults().synchronize()
+        VaavudFormatter.shared.disconnectFirebase()
         firebase.unauth()
         uid = nil
         _deviceId = nil
@@ -202,8 +206,8 @@ class AuthorizationController: NSObject {
                 
             let callback = { (success: Bool, uid: String) in
                 if success {
-                    let userModel = User(firstName: firstName, lastName: lastName, country: country, language: language, email: email)
-                    self.validateUserInformation(uid, userModel: userModel.fireDict)
+                    let user = User(firstName: firstName, lastName: lastName, country: country, language: language, email: email)
+                    self.validateUserInformation(uid, user: user)
                 }
                 else {
                     self.delegate?.onError(.Firebase)
@@ -218,14 +222,14 @@ class AuthorizationController: NSObject {
         firebase.childByAppendingPath("user").childByAppendingPath(uid).updateChildValues(["activity" : activity])
     }
     
-    private func validateUserInformation(uid: String, userModel: FirebaseDictionary) {
+    private func validateUserInformation(uid: String, user: User) {
         let callback = { (data: FirebaseDictionary?) in
             if let data = data {
                 self.updateUserInformation(uid, data: data)
             }
             else{
-                self.firebase.childByAppendingPath("user").childByAppendingPath(uid).setValue(userModel)
-                self.updateUserInformation(uid, data: userModel)
+                self.firebase.childByAppendingPath("user").childByAppendingPath(uid).setValue(user.fireDict)
+                self.updateUserInformation(uid, data: user.fireDict)
             }
         }
         
@@ -263,6 +267,9 @@ class AuthorizationController: NSObject {
         let model = AuthorizationController.deviceModel
         let vendor = "Apple"
         
+        print("uis : \(uid)")
+        print("data : \(data)")
+        
         let deviceObj = Device(appVersion: appVersion, appBuild: appBuild, model: model, vendor: vendor, osVersion: osVersion, uid: uid)
         
         let ref = firebase.childByAppendingPath("device")
@@ -288,8 +295,9 @@ class AuthorizationController: NSObject {
         
         verifyAuth()
         
-        validateUserSettings()
+//        validateUserSettings()
         
+        VaavudFormatter.shared.renewFirebase()
         delegate?.onSuccess(!(data["activity"] is String))
     }
     

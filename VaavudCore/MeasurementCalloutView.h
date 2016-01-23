@@ -25,7 +25,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *nearbyHeadingLabel;
 
 @property (nonatomic) MeasurementAnnotation *measurementAnnotation;
-@property (nonatomic) MapViewController *mapViewController;
+@property (nonatomic, weak) MapViewController *mapViewController;
 @property (nonatomic) NSArray *nearbyAnnotations;
 @property (nonatomic) UIImage *placeholderImage;
 @property (weak, nonatomic) IBOutlet UIImageView *directionImageView;

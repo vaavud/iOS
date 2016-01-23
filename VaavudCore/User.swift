@@ -13,7 +13,7 @@ typealias FirebaseDictionary = [String:AnyObject]
 
 struct Device {
     let appVersion: String
-    let appBuild: String // fixme: add this to dictionary if needed
+    let appBuild: String
     let model: String
     let vendor: String
     let osVersion: String
@@ -38,7 +38,7 @@ struct Device {
 //    }
     
     var fireDict : FirebaseDictionary {
-        return ["appVersion" : appVersion, "model" : model, "vendor" : vendor, "osVersion" : osVersion, "uid" : uid, "created" : created ?? [".sv": "timestamp"]]
+        return ["appVersion" : appVersion, "model" : model, /* "appBuild" : appBuild,*/ "vendor" : vendor, "osVersion" : osVersion, "uid" : uid, "created" : created ?? [".sv": "timestamp"]]
     }
 }
 
@@ -131,9 +131,10 @@ struct User {
 //    }
     
     var fireDict: FirebaseDictionary {
-        let setting = ["iOS" : settingIos.fireDict, "shared" : ""]
+        let setting = ["ios" : settingIos.fireDict, "shared" : settingShared.fireDict]
         
         let dict: FirebaseDictionary = ["firstName" : firstName, "lastName" : lastName, "country" : country, "language" : language, "email" : email, "created" : created ?? [".sv": "timestamp"], "setting" : setting]
+        
         return dict
     }
 }
@@ -196,7 +197,7 @@ struct UserSettingsShared: Firebaseable {
     init?(dict: FirebaseDictionary) {
         windSpeedUnit = SpeedUnit(rawValue: dict["windSpeedUnit"] as! String)!
         windDirectionUnit = DirectionUnit(rawValue: dict["windDirectionUnit"] as! String)!
-        temperatureUnit = TemperatureUnit(rawValue: dict["temperatireUnit"] as! String)!
+        temperatureUnit = TemperatureUnit(rawValue: dict["temperatureUnit"] as! String)!
         pressureUnit = PressureUnit(rawValue: dict["pressureUnit"] as! String)!
         mapForecastHours = dict["mapForecastHours"] as? Int ?? mapForecastHours
     }
@@ -205,9 +206,9 @@ struct UserSettingsShared: Firebaseable {
         var dict = FirebaseDictionary()
         dict["windSpeedUnit"] = windSpeedUnit.rawValue
         dict["windDirectionUnit"] = windDirectionUnit.rawValue
-        dict["temperatireUnit"] = temperatureUnit.rawValue
+        dict["temperatureUnit"] = temperatureUnit.rawValue
         dict["pressureUnit"] = pressureUnit.rawValue
-        dict["mapForecastHours"] = mapForecastHours
+//        dict["mapForecastHours"] = mapForecastHours
         return dict
     }
 }

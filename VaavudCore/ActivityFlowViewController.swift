@@ -23,11 +23,6 @@ class ComingSoonViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         logHelper.began()
-        
-        let rows: [[Double?]] = [[0, nil], [1, 3]]
-        
-        print(rows.map { row in row.map({ d in d.map(String.init) ?? "" }).joinWithSeparator(",") })
-        
     }
     
     override func viewDidDisappear(animated: Bool) {

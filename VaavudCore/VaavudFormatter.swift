@@ -199,20 +199,32 @@ class VaavudFormatter: NSObject {
     private let shortDateFormat: String
     private let calendar = NSCalendar.currentCalendar()
     
-    private let firebase = Firebase(url: firebaseUrl)
-    private var handle: UInt!
-    
-    //    let standardWindspeedUnits: [String : SpeedUnit] = ["US" : .Knots, "UM" : .Knots, "GB" : .Knots, "CA" : .Knots, "VG" : .Knots, "VI" : .Knots]
+    private var firebase = Firebase(url: firebaseUrl)
+    private var handle: UInt?
     
     private override init() {
         dateFormatter.locale = NSLocale.currentLocale()
         shortDateFormat = NSDateFormatter.dateFormatFromTemplate("MMMMd", options: 0, locale: dateFormatter.locale)!
         super.init()
         
-        let sharedSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
-        handle = sharedSettings.observeEventType(.ChildChanged, withBlock: parseSnapshot { [unowned self] in self.updateUnits($0) })
-        
-        sharedSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot(updateUnits) )
+        renewFirebase()
+    }
+
+    func disconnectFirebase() {
+        if let handle = handle {
+            let sharedSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
+            sharedSettings.removeObserverWithHandle(handle)
+        }
+        handle = nil
+    }
+    
+    func renewFirebase() {
+        if handle == nil && AuthorizationController.shared.isAuth {
+            let sharedSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
+            handle = sharedSettings.observeEventType(.ChildChanged, withBlock: parseSnapshot { [unowned self] in self.updateUnits($0) })
+            
+            sharedSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot(updateUnits) )
+        }
     }
     
     private func updateUnits(dict: [String : AnyObject]) {
@@ -233,10 +245,6 @@ class VaavudFormatter: NSObject {
         }
         
         for callback in callbacks.values { callback() }
-    }
-    
-    deinit {
-        firebase.removeObserverWithHandle(handle)
     }
     
     // MARK - Public: Callback handling
@@ -356,6 +364,7 @@ class VaavudFormatter: NSObject {
     
     func writeUnit<U: Unit>(unit: U, old: U) {
         guard unit != old else { return }
+        let firebase = Firebase(url: firebaseUrl)
         firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared", U.unitKey).setValue(unit.rawValue)
     }
     

@@ -71,7 +71,7 @@
     [super viewDidLoad];
     [self hideVolumeHUD];
     
-    self.firebase = [[Firebase alloc] initWithUrl:@"https://vaavud-core-demo.firebaseio.com"]; // fixme: change;
+    self.firebase = [[Firebase alloc] initWithUrl:[AuthorizationController getFirebaseUrl]];
     
     self.currentSessions = [[NSMutableDictionary alloc] init];
     
@@ -97,6 +97,7 @@
     self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
     
     __weak typeof(self) weakSelf = self;
+
     self.formatHandle = [[VaavudFormatter shared] observeUnitChange:^{ [weakSelf unitChanged]; }];
     
     self.view.autoresizesSubviews = YES;
