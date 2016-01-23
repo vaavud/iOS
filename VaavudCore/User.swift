@@ -208,7 +208,7 @@ struct UserSettingsShared: Firebaseable {
         dict["windDirectionUnit"] = windDirectionUnit.rawValue
         dict["temperatureUnit"] = temperatureUnit.rawValue
         dict["pressureUnit"] = pressureUnit.rawValue
-//        dict["mapForecastHours"] = mapForecastHours
+//        dict["mapForecastHours"] = mapForecastHours // fixme: add back in when supported
         return dict
     }
 }

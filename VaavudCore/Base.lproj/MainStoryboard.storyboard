@@ -575,7 +575,7 @@
                                         <color key="value" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="endColor">
-                                        <color key="value" white="0.0" alpha="0.77209142736486491" colorSpace="calibratedWhite"/>
+                                        <color key="value" white="0.0" alpha="0.5" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="end">
                                         <real key="value" value="0.59999999999999998"/>

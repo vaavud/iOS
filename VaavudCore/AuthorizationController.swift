@@ -83,7 +83,7 @@ class AuthorizationController: NSObject {
             if (token != deviceId) {
                 preferences.setValue(token, forKey: "APNToken")
                 preferences.synchronize()
-                print("saving token " + "\(token)")
+//                print("saving token " + "\(token)")
                 
                 firebase.childByAppendingPaths("user", uid, "notificationId", "apn", token).setValue(NSDate().ms)
             }
@@ -93,7 +93,7 @@ class AuthorizationController: NSObject {
     func resetPassword(email: String, delegate: LoginDelegate){
         firebase.resetPasswordForUser(email, withCompletionBlock: { error in
             if error != nil {
-                print(error)
+//                print(error)
                 delegate.onError(.MalformedInformation)
             }
             else {
@@ -132,7 +132,7 @@ class AuthorizationController: NSObject {
                     self.verifyMigration(email, password: password)
                 }
                 else {
-                    print(error)
+//                    print(error)
                     self.delegate?.onError(.WrongInformation)
                 }
                 return
@@ -175,7 +175,7 @@ class AuthorizationController: NSObject {
                         self.verifyMigration(email, password: password)
                     }
                     else {
-                        print(error)
+//                        print(error)
                         self.delegate?.onError(.Firebase)
                     }
                     return
@@ -218,7 +218,7 @@ class AuthorizationController: NSObject {
         }
     }
     
-    func updateActivity(activity: String){
+    func updateActivity(activity: String) {
         firebase.childByAppendingPath("user").childByAppendingPath(uid).updateChildValues(["activity" : activity])
     }
     
@@ -234,17 +234,6 @@ class AuthorizationController: NSObject {
         }
         
         obtainUserInformation("user", key: uid, callback: callback)
-    }
-    
-    func validateUserSettings() {
-        guard let uid = uid else { fatalError("no uid") }
-        
-        let ref = firebase.childByAppendingPaths("user", uid, "setting", "ios")
-        ref.observeSingleEventOfType(.Value, withBlock: { data in
-            if data.value is NSNull {
-                ref.setValue(UserSettingsIos().fireDict)
-            }
-        })
     }
     
     private func obtainUserInformation(child: String, key: String, callback: FirebaseDictionary -> Void) {
@@ -266,10 +255,7 @@ class AuthorizationController: NSObject {
         let appBuild = NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as! String
         let model = AuthorizationController.deviceModel
         let vendor = "Apple"
-        
-        print("uis : \(uid)")
-        print("data : \(data)")
-        
+                
         let deviceObj = Device(appVersion: appVersion, appBuild: appBuild, model: model, vendor: vendor, osVersion: osVersion, uid: uid)
         
         let ref = firebase.childByAppendingPath("device")
@@ -295,12 +281,25 @@ class AuthorizationController: NSObject {
         
         verifyAuth()
         
-//        validateUserSettings()
+        validateUserSettings(uid)
         
         VaavudFormatter.shared.renewFirebase()
         delegate?.onSuccess(!(data["activity"] is String))
     }
     
+    func validateUserSettings(uid: String) {
+        let setting = firebase.childByAppendingPaths("user", uid, "setting")
+        
+        setting.observeSingleEventOfType(.Value, withBlock: parseSnapshot { data in
+            if data["ios"] == nil {
+                setting.updateChildValues(["ios" : UserSettingsIos().fireDict])
+            }
+            if data["shared"] == nil {
+                setting.updateChildValues(["shared" : UserSettingsShared().fireDict])
+            }
+            })
+    }
+
     private func verifyMigration(email: String, password: String) {
         let hashPassword = PasswordUtil.createHash(password, salt: email)
         let params = ["email":email, "clientPasswordHash" : hashPassword, "action" : "checkPassword"]
@@ -323,7 +322,7 @@ class AuthorizationController: NSObject {
             
             do {
                 let responseObject = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as? NSDictionary
-                print(responseObject)
+//                print(responseObject)
                 
                 guard let result = responseObject!["status"] as? String else {
                     self.delegate?.onError(.Network)
@@ -332,17 +331,17 @@ class AuthorizationController: NSObject {
                    
                 if result == "CORRECT_PASSWORD" {
                     let oldPassword =  email + "\(responseObject!["user_id"] as! NSNumber)"
-                    print(oldPassword)
-                        
+//                    print(oldPassword)
+                    
                     self.firebase.changePasswordForUser(email, fromOld: oldPassword, toNew: password, withCompletionBlock: {error in
                         guard let error = error else {
-                            print("Login correct with new password")
+//                            print("Login correct with new password")
                             self.login(email, password: password, delegate: self.delegate!)
                             return
                         }
                         
                         self.delegate?.onError(.MalformedInformation)
-                        print(error)
+//                        print(error)
                     })
                 }
                 else {
@@ -361,11 +360,11 @@ class AuthorizationController: NSObject {
             
             guard let error = error else {
                 callback(true, authData.uid)
-                print("Logged in! \(authData.uid)")
+//                print("Logged in! \(authData.uid)")
                 return
             }
             
-            print("Login failed. \(error)")
+//            print("Login failed. \(error)")
             callback(false, "")
         }
     }
