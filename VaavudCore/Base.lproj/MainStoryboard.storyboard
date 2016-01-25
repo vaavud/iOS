@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="uRK-QG-tAM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="uRK-QG-tAM">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -282,12 +282,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DyU-4L-8I5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="KcH-Dn-8qM">
+                <panGestureRecognizer enabled="NO" minimumNumberOfTouches="1" id="KcH-Dn-8qM">
                     <connections>
                         <action selector="debugPanned:" destination="lka-3y-5RY" id="Q82-Xw-vQz"/>
                     </connections>
                 </panGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="10" id="UvQ-cZ-4hi">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="7" id="UvQ-cZ-4hi">
                     <connections>
                         <action selector="pressedVariant:" destination="lka-3y-5RY" id="lgv-n9-xWh"/>
                     </connections>
