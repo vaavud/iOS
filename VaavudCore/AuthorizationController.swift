@@ -10,8 +10,8 @@ import UIKit
 import Firebase
 import VaavudSDK
 
-let firebaseUrl = "https://vaavud-core-demo.firebaseio.com"
-//let firebaseUrl = "https://vaavud-app.firebaseio.com/"
+//let firebaseUrl = "https://vaavud-core-demo.firebaseio.com"
+let firebaseUrl = "https://vaavud-app.firebaseio.com/"
 
 enum LoginError: String {
     case Network = "LOGIN_ERROR_NETWORK"
