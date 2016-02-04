@@ -10,8 +10,8 @@ import UIKit
 import Firebase
 import VaavudSDK
 
-//let firebaseUrl = "https://vaavud-core-demo.firebaseio.com"
-let firebaseUrl = "https://vaavud-app.firebaseio.com/"
+let firebaseUrl = "https://vaavud-core-demo.firebaseio.com"
+//let firebaseUrl = "https://vaavud-app.firebaseio.com/"
 
 enum LoginError: String {
     case Network = "LOGIN_ERROR_NETWORK"
@@ -70,9 +70,9 @@ class AuthorizationController: NSObject {
     }
     
     func registerNotifications(){
-//        let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert , .Badge , .Sound] , categories: nil)
-//        UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
-//        UIApplication.sharedApplication().registerForRemoteNotifications()
+        let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert , .Badge , .Sound] , categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
+        UIApplication.sharedApplication().registerForRemoteNotifications()
     }
     
     func saveAPNToken(token: String) {
