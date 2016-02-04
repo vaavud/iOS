@@ -42,6 +42,8 @@
 @property (nonatomic) CLLocationManager *locationManager;
 
 @property (nonatomic) BOOL pendingNotification;
+@property (nonatomic) NSString* pendingNotificationKey;
+
 @property (nonatomic) Firebase *firebase;
 
 @end
@@ -55,10 +57,10 @@
         self.logHelper = [[LogHelper alloc] initWithGroupName:@"Map" counters:@[@"scrolled", @"tapped-marker"]];
     }
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//        selector:@selector(receiveTestNotification:)
-//        name:@"PushNotification"
-//        object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+        selector:@selector(receiveTestNotification:)
+        name:@"PushNotification"
+        object:nil];
     
     return self;
 }
@@ -124,11 +126,6 @@
                                                        selector:@selector(refresh)
                                                        userInfo:nil
                                                         repeats:YES];
-    
-    if (self.pendingNotification) {
-        self.pendingNotification = NO;
-        self.tabBarController.tabBar.items[1].badgeValue = 0;
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -136,6 +133,29 @@
     
     [self.logHelper began:@{}];
     [LogHelper increaseUserProperty:@"Use-Map-Count"];
+    
+    
+    if (self.pendingNotification) {
+        self.pendingNotification = NO;
+        self.tabBarController.tabBar.items[1].badgeValue = 0;
+        
+        
+//        
+//        [NSTimer scheduledTimerWithTimeInterval:900
+//                                         target:self
+//                                       selector:@selector(showSessionFromNotification)
+//                                       userInfo:sessionId
+//                                        repeats:NO];
+        
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self showSessionFromNotification: self.pendingNotificationKey];
+        });
+        
+        
+        
+    }
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -181,29 +201,41 @@
 //            tabArray[1].badgeValue = "1"
 //        }
         
+        
+        NSDictionary *userInfo = notification.object;
+        NSString *sessionId = [userInfo objectForKey:@"sessionKey"];
+        
+        
         if (self.isShowing){
-            NSLog(@"show Notification");
-            
-            NSDictionary *userInfo = notification.object;
-            NSString *sessionId = [userInfo objectForKey:@"sessionKey"];
-            
-            MeasurementAnnotation *sessionNotification = (MeasurementAnnotation *)self.currentSessions[sessionId];
-            [self.mapView viewForAnnotation:sessionNotification].alpha = 0;
-            
-            [UIView animateWithDuration:1.5 delay:0.2 options:UIViewAnimationOptionRepeat | UIViewAnimationOptionAutoreverse animations:^{
-                [self.mapView viewForAnnotation:sessionNotification].alpha = 1;
-            } completion:nil];
-            
-//            [UIView animateWithDuration:1.3 animations:^{
-//                sessionNotification.coordinate = CLLocationCoordinate2DMake(55.676111, 12.568333);
-//            }];
-            
+            [self showSessionFromNotification: sessionId];
         }
         else {
             self.pendingNotification = YES;
+            self.pendingNotificationKey = sessionId;
         }
     }
 }
+
+
+
+
+-(void) showSessionFromNotification:(NSString *) sessionKey {
+    
+    NSLog(@"show Notification");
+    
+    MeasurementAnnotation *sessionNotification = (MeasurementAnnotation *)self.currentSessions[sessionKey];
+    [self.mapView viewForAnnotation:sessionNotification].alpha = 0;
+    
+    
+    [UIView animateWithDuration:0.9 delay:0.2 options: UIViewAnimationOptionAutoreverse animations:^{
+        [self.mapView viewForAnnotation:sessionNotification].alpha = 1;
+    } completion:nil];
+    
+}
+
+
+
+
 
 // Location Manager Delegate
 

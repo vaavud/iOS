@@ -33,9 +33,9 @@ class NotificationAnnotation: MKPointAnnotation {
 class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     @IBOutlet weak var mapView: MKMapView!
     
-    @IBOutlet weak var typeControl: UISegmentedControl!
-    @IBOutlet weak var windspeedLabel: UILabel!
-    @IBOutlet weak var windspeedSlider: UISlider!
+//    @IBOutlet weak var typeControl: UISegmentedControl!
+//    @IBOutlet weak var windspeedLabel: UILabel!
+//    @IBOutlet weak var windspeedSlider: UISlider!
     var locationManager = CLLocationManager()
     var currentNotifications : [String:MKPointAnnotation] = [:]
     var currentCircleNotifications : [String:MKCircle] = [:]
@@ -82,19 +82,22 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocati
                     return
                 }
                 
-                if let lat = location["lat"], lon = location["lon"], radius = snapshot.value["radius"] as? Float{
+                if let lat = location["lat"], lon = location["lon"], radius = snapshot.value["radius"] as? Float, directions = snapshot.value["directions"] as? [String:Bool]{
                     let latlon = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                     
-                    let marker = self.currentNotifications[snapshot.key]
-                    let area = self.currentCircleNotifications[snapshot.key]
-                    marker?.coordinate = latlon
-                    area?.coordinate
-                    
+                    if let marker = self.currentNotifications[snapshot.key], area = self.currentCircleNotifications[snapshot.key] {
+                        
+                        marker.coordinate = latlon
+                        marker.subtitle = "\(Array(directions.keys))"
+                        
+                        self.mapView.removeOverlay(area)
+                        let circule = MKCircle(centerCoordinate: latlon, radius: CLLocationDistance(radius))
+                        self.currentCircleNotifications[snapshot.key] = circule
+                        self.mapView.addOverlay(circule)
+                        
+                    }
                 }
-                
-                
             })
-
         
         
         ref.queryOrderedByChild("uid")
@@ -105,15 +108,15 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocati
                 return
             }
             
-            if let lat = location["lat"], lon = location["lon"], radius = snapshot.value["radius"] as? Float {
+            if let lat = location["lat"], lon = location["lon"], radius = snapshot.value["radius"] as? Float,  directions = snapshot.value["directions"] as? [String:Bool] {
                 
                 let latlon = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-                let directions = snapshot.value["directions"] as? [String:Bool]
+                
                 
                 let annotation = NotificationAnnotation()
                 annotation.coordinate = latlon
                 annotation.title = "Wind Direction(s)"
-                annotation.subtitle = "\(Array(directions!.keys))"
+                annotation.subtitle = "\(Array(directions.keys))"
                 annotation.sessionKey = snapshot.key
                 
                 let circule = MKCircle(centerCoordinate: latlon, radius: CLLocationDistance(radius))
@@ -202,6 +205,7 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocati
         
         if let subscriptionKey = sender.sessionKey {
             firebase.childByAppendingPaths("subscription",subscriptionKey).removeValue()
+            firebase.childByAppendingPaths("subscriptionGeo",subscriptionKey).removeValue()
         }
     }
     
@@ -218,9 +222,9 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocati
     }
     
     func updateUI() {
-        windspeedLabel.text = VaavudFormatter.shared.formattedSpeed(windspeed)
-        windspeedSlider.value = Float(windspeed/notificationsWindspeedCeiling)
-        typeControl.selectedSegmentIndex = notificationType.rawValue
+//        windspeedLabel.text = VaavudFormatter.shared.formattedSpeed(windspeed)
+//        windspeedSlider.value = Float(windspeed/notificationsWindspeedCeiling)
+//        typeControl.selectedSegmentIndex = notificationType.rawValue
     }
     
     @IBAction func typeChanged(sender: UISegmentedControl) {

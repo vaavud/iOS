@@ -10,8 +10,8 @@ import UIKit
 import Firebase
 import VaavudSDK
 
-//let firebaseUrl = "https://vaavud-core-demo.firebaseio.com"
-let firebaseUrl = "https://vaavud-app.firebaseio.com/"
+let firebaseUrl = "https://vaavud-core-demo.firebaseio.com"
+//let firebaseUrl = "https://vaavud-app.firebaseio.com/"
 
 enum LoginError: String {
     case Network = "LOGIN_ERROR_NETWORK"
@@ -78,12 +78,12 @@ class AuthorizationController: NSObject {
     func saveAPNToken(token: String) {
         if let uid = uid {
             let preferences = NSUserDefaults.standardUserDefaults()
-            let deviceId = preferences.objectForKey("APNToken") as? String ?? ""
+            let deviceToken = preferences.objectForKey("APNToken") as? String ?? ""
             
-            if (token != deviceId) {
+            if (token != deviceToken) {
                 preferences.setValue(token, forKey: "APNToken")
                 preferences.synchronize()
-//                print("saving token " + "\(token)")
+                print("saving token " + "\(token)")
                 
                 firebase.childByAppendingPaths("user", uid, "notificationId", "apn", token).setValue(NSDate().ms)
             }
@@ -198,12 +198,17 @@ class AuthorizationController: NSObject {
                 return
             }
             
-            let firstName = result.valueForKey("first_name") as! String
-            let lastName = result.valueForKey("last_name") as! String
+            guard let email = result.valueForKey("email") as? String else{
+                self.delegate?.onError(.Facebook)
+                return
+            }
+            
+            
+            let firstName = result.valueForKey("first_name") as? String ?? "Unknown"
+            let lastName = result.valueForKey("last_name") as? String ?? ""
             let country = NSLocale.currentLocale().objectForKey(NSLocaleCountryCode) as! String
             let language = NSLocale.preferredLanguages()[0]
-            let email = result.valueForKey("email") as! String
-                
+            
             let callback = { (success: Bool, uid: String) in
                 if success {
                     let user = User(firstName: firstName, lastName: lastName, country: country, language: language, email: email)
@@ -334,7 +339,7 @@ class AuthorizationController: NSObject {
 //                    print(oldPassword)
                     
                     self.firebase.changePasswordForUser(email, fromOld: oldPassword, toNew: password, withCompletionBlock: {error in
-                        guard let error = error else {
+                        guard let _ = error else {
 //                            print("Login correct with new password")
                             self.login(email, password: password, delegate: self.delegate!)
                             return
@@ -358,7 +363,7 @@ class AuthorizationController: NSObject {
     private func authWithFacebook(accessToken : String, callback: (Bool, String) -> Void){
         firebase.authWithOAuthProvider("facebook", token: accessToken) { error, authData in
             
-            guard let error = error else {
+            guard let _ = error else {
                 callback(true, authData.uid)
 //                print("Logged in! \(authData.uid)")
                 return

@@ -81,6 +81,8 @@
     if ([AuthorizationController shared].isAuth) {
         [[[LogHelper alloc] initWithGroupName:@"App" counters:@[]] log:@"Open" properties:@{}];
     }
+    
+    application.applicationIconBadgeNumber = 0;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
@@ -156,13 +158,16 @@
         
     }
     else {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"PushNotification" object:userInfo];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:@"PushNotification" object:userInfo];
         
         NSLog(@"Active");
         completionHandler(UIBackgroundFetchResultNewData);
     }
     
-     NSLog(@"my notification: %@", userInfo);
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PushNotification" object:userInfo];
+    
+    
+//     NSLog(@"my notification: %@", userInfo);
 }
 
 - (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {

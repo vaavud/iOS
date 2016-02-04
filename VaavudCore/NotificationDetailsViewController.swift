@@ -13,7 +13,7 @@ struct Subscription {
 
     let uid: String
     var radius: Float
-    var windMin: Double
+    var windMin: Float
     var location: [String: Double]
     var directions: [String: Bool]
     let lastFired = [".sv": "timestamp"]
@@ -31,30 +31,39 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
     @IBOutlet weak var directionSelector: DirectionSelector!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var radiusSlider: UISlider!
-    
+    @IBOutlet weak var speedSlider: UISlider!
+    @IBOutlet weak var lblSpeed: UILabel!
     
     let firebase = Firebase(url: firebaseUrl)
     var currentRadius : Float = 500.0
+    var currentSpeed : Float = 100.0
     var sessionKey: String?
     var isItEditing = false
     var currentSubscription: Subscription?
+    var longPressRecognizer: UILongPressGestureRecognizer!
     
     
     let annotation = MKPointAnnotation()
     var overlays =  MKCircle()
     
+    
+    
+    
+    deinit{
+        print("NotificationDetails Deleted")
+    }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
-        longPressRecognizer.minimumPressDuration = 0.3
-        longPressRecognizer.delaysTouchesBegan = true
-        longPressRecognizer.delegate = self
-        mapView.addGestureRecognizer(longPressRecognizer)
+        NSDate().ms
+        
         mapView.delegate = self
-        
         radiusSlider.enabled = false
-        
+        speedSlider.enabled = false
+        longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
         
         if let sessionKey = sessionKey {
             firebase.childByAppendingPaths("subscription",sessionKey).observeSingleEventOfType(.Value, withBlock: { snapshot in
@@ -62,28 +71,62 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
                 if let location = snapshot.value["location"] as? [String:Double] ,
                     radius = snapshot.value["radius"] as? Float,
                     directions = snapshot.value["directions"] as? [String:Bool],
-                    windMean = snapshot.value["windMin"] as? Double {
-                    
+                    windMean = snapshot.value["windMin"] as? Float {
+                        
                     if let lat = location["lat"], lon = location["lon"] {
                         
-                        
                         self.currentSubscription = Subscription(uid: self.firebase.authData.uid, radius: radius, windMin: windMean, location: location, directions: directions, subscriptionKey: snapshot.key)
+                            
                         
-                        print(Array(directions.keys))
-                        
+                            
                         let latlon = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-                        
+                            
                         self.radiusSlider.value = radius
+                        self.speedSlider.value = windMean
                         self.radiusSlider.enabled = true
+                        self.speedSlider.enabled = true
                         self.currentRadius = radius
                         
+                            
                         self.addNewMarker(latlon)
                         
+                        
+                        var actualDirections: Directions = []
+                        
+                        for dir in Array(directions.keys) {
+                            
+                            var direction: Directions
+                            switch dir {
+                            case "N": direction = .N; break
+                            case "NW": direction = .NW; break
+                            case "W": direction = .W; break
+                            case "SW": direction = .SW; break
+                            case "S": direction = .S; break
+                            case "SE": direction = .SE; break
+                            case "E": direction = .E; break
+                            case "NE": direction = .NE; break
+                            default: fatalError("Unknown Direction")
+                            }
+                            
+                            actualDirections.insert(direction)
+                        }
+                        
+                        self.directionSelector.areas = directions
+                        self.directionSelector.selection = actualDirections
+                        self.directionSelector.setNeedsDisplay()
+                        
                     }
+                        
                 }
             })
         }
-
+        else{
+            
+            longPressRecognizer.minimumPressDuration = 0.3
+            longPressRecognizer.delaysTouchesBegan = true
+            longPressRecognizer.delegate = self
+            mapView.addGestureRecognizer(longPressRecognizer)
+        }
     }
     
     @IBAction func buttonSave(sender: UIBarButtonItem) {
@@ -93,16 +136,16 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
             return
         }
         
-        print(subscription.fireDict)
+        print(directionSelector.areas)
 
+        subscription.directions = directionSelector.areas
+        
         if let subscriptionKey = subscription.subscriptionKey {
             
             let ref = firebase.childByAppendingPaths("subscription",subscriptionKey)
             ref.setValue(subscription.fireDict)
         }
         else{
-            
-            subscription.directions = directionSelector.areas
             
             let ref = firebase.childByAppendingPath("subscription")
             let post = ref.childByAutoId()
@@ -121,6 +164,18 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
         }
         
         navigationController?.popToRootViewControllerAnimated(true)
+        
+    }
+    
+    
+    @IBAction func sliderSpeedChanged(sender: UISlider) {
+        
+        guard let _ = currentSubscription else {
+            return
+        }
+        
+        currentSubscription!.windMin = sender.value
+        lblSpeed.text = "\(Int(sender.value)) m/s"
         
     }
     
@@ -145,14 +200,16 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
         if gestureReconizer.state == .Began {
             
             radiusSlider.enabled = true
+            speedSlider.enabled = true
             
             let touchPoint = gestureReconizer.locationInView(mapView)
             let location = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
             
             let latlon = ["lat":location.latitude,"lon":location.longitude]
-            currentSubscription = Subscription(uid: firebase.authData.uid, radius: currentRadius, windMin: 1, location: latlon, directions: directionSelector.areas, subscriptionKey: nil)
+            currentSubscription = Subscription(uid: firebase.authData.uid, radius: currentRadius, windMin: 100, location: latlon, directions: directionSelector.areas, subscriptionKey: nil)
             
             addNewMarker(location)
+            mapView.removeGestureRecognizer(longPressRecognizer)
         }
     }
     
@@ -160,8 +217,8 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
     func addNewMarker(location: CLLocationCoordinate2D){
         //let annotation = MKPointAnnotation()
         annotation.coordinate = location
-        annotation.title = "someting"
-        annotation.subtitle = "something elee"
+        annotation.title = "Drag and Drop"
+        annotation.subtitle = "in a new location"
         
         overlays = MKCircle(centerCoordinate: location, radius: CLLocationDistance(currentRadius))
         
@@ -172,12 +229,9 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
         region.span.longitudeDelta = 0.05
         region = mapView.regionThatFits(region)
         
-        
-        
         mapView.setRegion(region, animated: true)
         mapView.addOverlay(overlays)
         mapView.addAnnotation(annotation)
-
     }
     
     
@@ -222,8 +276,8 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         let circleRenderer = MKCircleRenderer(overlay: overlay);
-        circleRenderer.strokeColor = .blueColor()
-        circleRenderer.fillColor = UIColor(red: 0.0, green: 0.0, blue: 0.7, alpha: 0.5)
+        circleRenderer.strokeColor = .whiteColor()
+        circleRenderer.fillColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)
         circleRenderer.lineWidth = 1.0
         return circleRenderer
     }
@@ -272,6 +326,7 @@ func sectorBezierPath(total: Int)(direction: Directions) -> UIBezierPath {
     return path
 }
 
+
 class DirectionSelector: UIControl {
     enum State {
         case Adding, Removing, Default
@@ -279,11 +334,11 @@ class DirectionSelector: UIControl {
     
     let lineWidth: CGFloat = 1
     
-    var selection: Directions = []
+    var selection: Directions = [.N]
     let paths = Directions.ordered.map(sectorBezierPath(Directions.count))
     var laidOut = false
     var touchState = State.Default
-    var areas : [String:Bool] = [:]
+    var areas : [String:Bool] = ["N":true]
     
     override func layoutSubviews() {
         if laidOut { return }
