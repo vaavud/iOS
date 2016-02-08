@@ -10,8 +10,8 @@ import UIKit
 import Firebase
 import VaavudSDK
 
-let firebaseUrl = "https://vaavud-core-demo.firebaseio.com"
-//let firebaseUrl = "https://vaavud-app.firebaseio.com/"
+//let firebaseUrl = "https://vaavud-core-demo.firebaseio.com"
+let firebaseUrl = "https://vaavud-app.firebaseio.com/"
 
 enum LoginError: String {
     case Network = "LOGIN_ERROR_NETWORK"
@@ -241,12 +241,13 @@ class AuthorizationController: NSObject {
         obtainUserInformation("user", key: uid, callback: callback)
     }
     
-    private func obtainUserInformation(child: String, key: String, callback: FirebaseDictionary -> Void) {
+    private func obtainUserInformation(child: String, key: String, callback: FirebaseDictionary? -> Void) {
         firebase
             .childByAppendingPath(child).childByAppendingPath(key)
             .observeSingleEventOfType(.Value, withBlock: { data in
                 guard let firebaseData = data.value as? FirebaseDictionary else {
-                    self.delegate?.onError(.Unknown)
+                    callback(nil)
+                    //self.delegate?.onError(.Unknown)
                     return
                 }
                 

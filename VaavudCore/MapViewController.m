@@ -140,14 +140,6 @@
         self.tabBarController.tabBar.items[1].badgeValue = 0;
         
         
-//        
-//        [NSTimer scheduledTimerWithTimeInterval:900
-//                                         target:self
-//                                       selector:@selector(showSessionFromNotification)
-//                                       userInfo:sessionId
-//                                        repeats:NO];
-        
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self showSessionFromNotification: self.pendingNotificationKey];
         });
@@ -225,6 +217,14 @@
     
     MeasurementAnnotation *sessionNotification = (MeasurementAnnotation *)self.currentSessions[sessionKey];
     [self.mapView viewForAnnotation:sessionNotification].alpha = 0;
+    
+    MKCoordinateRegion mapRegion;
+    mapRegion.center = sessionNotification.coordinate;
+    mapRegion.span.latitudeDelta = 0.2;
+    mapRegion.span.longitudeDelta = 0.2;
+    
+    
+    [self.mapView setRegion:mapRegion animated: YES];
     
     
     [UIView animateWithDuration:0.9 delay:0.2 options: UIViewAnimationOptionAutoreverse animations:^{
