@@ -27,6 +27,23 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
             object: nil)
     }
     
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        let preferences = NSUserDefaults.standardUserDefaults()
+        let notificationViewShown = preferences.boolForKey("firstTimeNotifications")
+        
+        if !notificationViewShown {
+            preferences.setValue(true, forKey: "firstTimeNotifications")
+            preferences.synchronize()
+            
+            if let whatsNewViewController = storyboard?.instantiateViewControllerWithIdentifier("whatsNewViewController") {
+                presentViewController(whatsNewViewController, animated: true, completion: nil)
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
                 
@@ -39,7 +56,9 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
         tabBar.tintColor = .vaavudBlueColor()
         delegate = self
         
-       
+        
+        
+        
 //        [[NSNotificationCenter defaultCenter] addObserver:self
 //            selector:@selector(receiveNotification:)
 //        name:@"PushNotification"

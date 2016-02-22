@@ -263,7 +263,7 @@
     CLLocationDegrees lat = [defaults doubleForKey:KEY_STORED_LOCATION_LAT];
     CLLocationDegrees lon = [defaults doubleForKey:KEY_STORED_LOCATION_LON];
     
-    if (lat == 0.0 && lon == 0.0) {
+    if (lat == 0 && lon == 0) {
         return CLLocationCoordinate2DMake(55.676111, 12.568333);
     }
     
@@ -309,6 +309,12 @@
 }
 
 -(void)setupMapPosition {
+    
+//    NSOperatingSystemVersion ios9_0_0 = (NSOperatingSystemVersion){9, 0, 0};
+//    if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:ios9_0_0]) {
+//        
+//        
+//    }
     [self.mapView setRegion:MKCoordinateRegionMakeWithDistance([self storedLocation], 200000, 200000) animated:YES];
     
     CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
@@ -317,11 +323,16 @@
     }
     
     self.locationManager = [[CLLocationManager alloc] init];
+    
+    
     self.locationManager.delegate = self;
     self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
     self.locationManager.distanceFilter = kCLDistanceFilterNone;
     
-    if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    else if (authorizationStatus == kCLAuthorizationStatusNotDetermined) {
         [self.locationManager requestWhenInUseAuthorization];
     }
     else if ([CLLocationManager locationServicesEnabled]) {

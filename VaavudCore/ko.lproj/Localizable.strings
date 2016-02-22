@@ -287,3 +287,12 @@
 "LOGIN_ERROR_NETWORK" = "Non è stato possibile accedere alla rete, riprova";
 "LOGIN_ERROR_MALFORMED" = "L'email e/o la password non è corretta, ti preghiamo di riprovare";
 "LOGIN_ERROR_EMAIL" = "L'email è già in uso, provane una diversa";
+"EDIT" = "편집";
+
+"WIND" = "바람";
+"RADIUS" = "반경";
+"HOLDDRAG" = "위치를 이동하기";
+"HOLDDRAGDESCRIPT" = "위해 누른 채로 드래그 합니다";
+"PRESSLONG" = "알림 핀을 드롭하기 위해 지도를 길게 누릅니다";
+"FIRSTNOTIFICATIONFINISHED" = "당신은 첫 번째 Vaavud 통지를 추가했습니다. 축하합니다!";
+"FIRSTNOTIFICATION" = "새로운 알림을 추가하려면 여기를 클릭하세요";

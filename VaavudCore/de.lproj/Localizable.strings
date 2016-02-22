@@ -287,3 +287,12 @@
 "LOGIN_ERROR_NETWORK" = "Konnte nicht mit dem Netzwerk verbinden, versuchen Sie es bitte erneut";
 "LOGIN_ERROR_MALFORMED" = "Die E-Mail-Adresse und / oder das Passwort ist falsch, bitte erneut versuchen";
 "LOGIN_ERROR_EMAIL" = "Diese E-Mail-Adresse wird bereits benutzt, versuchen Sie es bitte mit einer anderen";
+"EDIT" = "Bearbeiten";
+
+"WIND" = "Wind";
+"RADIUS" = "Radius";
+"HOLDDRAG" = "Halten und ziehen";
+"HOLDDRAGDESCRIPT" = "um den Standort zu verschieben";
+"PRESSLONG" = "Auf der Karte lange gedrückt halten, um eine Benachrichtigungs-Nadel fallen zu lassen";
+"FIRSTNOTIFICATIONFINISHED" = "Sie haben gerade Ihr erstes Vaavud Benachrichtigung einrichten. Genial!";
+"FIRSTNOTIFICATION" = "Tippen Sie hier, um die Einrichtung einer neuen Benachrichtigung";

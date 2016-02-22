@@ -283,3 +283,12 @@
 "LOGIN_ERROR_EMAIL" = "The email is already in use, please try a different one";
 "LOGIN_FORGOT_PASSWORD_TITLE" = "Correct";
 "LOGIN_FORGOT_PASSWORD_MESSAGE" = "Further information have been sent to your email.";
+"EDIT" = "Edit";
+"WIND" = "Wind";
+"RADIUS" = "Radius";
+"HOLDDRAG" = "Hold and Drag";
+"HOLDDRAGDESCRIPT" = "to move location";
+"PRESSLONG" = "Long press on the map to drop a notification pin";
+"FIRSTNOTIFICATIONFINISHED" = "You have just set up your first Vaavud notification. Awesome!";
+"FIRSTNOTIFICATION" = "Tap here to set up a new notification";
+

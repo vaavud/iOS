@@ -51,7 +51,7 @@ class AuthorizationController: NSObject {
     
     func verifyAuth() -> Bool {
         if _deviceId != nil && uid != nil {
-            registerNotifications()
+            //registerNotifications()
             return true
         }
         
@@ -64,7 +64,7 @@ class AuthorizationController: NSObject {
         uid = authData.uid
         _deviceId = deviceId
         
-        registerNotifications()
+        //registerNotifications()
         
         return true
     }
@@ -106,6 +106,10 @@ class AuthorizationController: NSObject {
         LogHelper.logWithGroupName("Login", event: "Logout")
         NSUserDefaults.standardUserDefaults().removeObjectForKey("deviceId")
         NSUserDefaults.standardUserDefaults().removeObjectForKey("APNToken")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("NotificationFirstTimeMap")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("NotificationFirstTimeTable")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("firstTimeNotifications")
+        NSUserDefaults.standardUserDefaults().removeObjectForKey("FirstNotification")
         NSUserDefaults.standardUserDefaults().synchronize()
         VaavudFormatter.shared.disconnectFirebase()
         firebase.unauth()

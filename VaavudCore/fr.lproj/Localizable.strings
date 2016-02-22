@@ -287,3 +287,12 @@
 "LOGIN_ERROR_NETWORK" = "Accès au réseau impossible. Veuillez réessayer.";
 "LOGIN_ERROR_MALFORMED" = "L’e-mail et/ou le mot de passe sont erronés. Veuillez réessayer.";
 "LOGIN_ERROR_EMAIL" = "Cette adresse e-mail est déjà utilisée. Veuillez en utiliser une autre.";
+"EDIT" = "Modifier";
+
+"WIND" = "Vent";
+"RADIUS" = "Rayon";
+"HOLDDRAG" = "Maintenez et faites ";
+"HOLDDRAGDESCRIPT" = "glisser pour déplacer l'emplacement";
+"PRESSLONG" = "Appuyez longuement sur la carte pour placer un repère de notification";
+"FIRSTNOTIFICATIONFINISHED" = "Vous avez ajouté votre première Vaavud-notification. Félicitations!";
+"FIRSTNOTIFICATION" = "Cliquez ici pour ajouter une nouvelle notification";

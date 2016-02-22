@@ -289,3 +289,11 @@
 "LOGIN_ERROR_EMAIL" = "Denne email er allerede i brug, prøv venligst en anden.";
 "LOGIN_FORGOT_PASSWORD_TITLE" = "Correct";
 "LOGIN_FORGOT_PASSWORD_MESSAGE" = "Further information have been sent to your email.";
+"EDIT" = "Rediger";
+"WIND" = "Vind";
+"RADIUS" = "Radius";
+"HOLDDRAG" = "Marker og træk";
+"HOLDDRAGDESCRIPT" = "for at flytte lokationen";
+"PRESSLONG" = "Marker og hold på kortet for at sætte en notifikationsmarkør";
+"FIRSTNOTIFICATIONFINISHED" = "Du har tilføjet din første Vaavud-notifikation. Tillykke!";
+"FIRSTNOTIFICATION" = "Klik her for at tilføje en ny notifikation";

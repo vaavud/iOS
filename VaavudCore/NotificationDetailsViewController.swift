@@ -14,213 +14,272 @@ struct Subscription {
     let uid: String
     var radius: Float
     var windMin: Float
+    let name: String
     var location: [String: Double]
     var directions: [String: Bool]
     let lastFired = [".sv": "timestamp"]
     var subscriptionKey: String?
     
     
+    init(uid: String, name: String, radius: Float, windMin: Float, location: [String: Double], directions: [String: Bool]){
+        self.uid = uid
+        self.name = name
+        self.radius = radius
+        self.windMin = windMin
+        self.location = location
+        self.directions = directions 
+    }
+    
+    init?(dict: FirebaseDictionary){
+        
+        
+        guard let uid = dict["uid"] as? String, name = dict["name"] as? String, radius =  dict["radius"] as? Float, windMin =  dict["windMin"] as? Float, location =  dict["location"] as? [String: Double], directions =  dict["directions"] as? [String: Bool]  else {
+            return nil
+        }
+        
+        self.name = name
+        self.location = location
+        self.directions = directions
+        self.uid = uid
+        self.radius = radius
+        self.windMin = windMin
+        
+    }
+    
     var fireDict : FirebaseDictionary {
-        return ["directions" : directions, "location" : location, "radius" : radius, "uid" : uid, "windMin" :windMin, "lastFired" : lastFired]
+        return ["directions" : directions, "name": name, "location" : location, "radius" : radius, "uid" : uid, "windMin" :windMin, "lastFired" : lastFired]
     }
 }
 
 
-class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGestureRecognizerDelegate {
+class WhatsNewViewController: UIViewController{
     
-    @IBOutlet weak var directionSelector: DirectionSelector!
+    @IBAction func didcontinueTouch(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+
+
+
+class NotificationPopOver: UIViewController, UIPopoverPresentationControllerDelegate{
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "popoverSegue" {
+            let popoverViewController = segue.destinationViewController
+            popoverViewController.modalPresentationStyle = .Popover
+            popoverViewController.popoverPresentationController!.delegate = self
+        }
+    }
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
+    }
+
+}
+
+
+class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGestureRecognizerDelegate, UITextFieldDelegate,UIPopoverPresentationControllerDelegate {
+    
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var radiusSlider: UISlider!
-    @IBOutlet weak var speedSlider: UISlider!
-    @IBOutlet weak var lblSpeed: UILabel!
+    @IBOutlet weak var txtSubscriptionName: UITextField!
     
-    let firebase = Firebase(url: firebaseUrl)
-    var currentRadius : Float = 500.0
-    var currentSpeed : Float = 100.0
-    var sessionKey: String?
-    var isItEditing = false
-    var currentSubscription: Subscription?
-    var longPressRecognizer: UILongPressGestureRecognizer!
-    
-    
-    let annotation = MKPointAnnotation()
-    var overlays =  MKCircle()
+    private let firebase = Firebase(url: firebaseUrl)
+    private var longPressRecognizer: UILongPressGestureRecognizer!
+    private var annotation: MKPointAnnotation?
+    private let geocoder = CLGeocoder()
+    var subscriptionKey: String?
+    var coordinate: CLLocationCoordinate2D?
+    var locationName: String?
+    @IBOutlet weak var nameLocationView: UIView!
+    private let logHelper = LogHelper(.NotificationDetails)
     
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "popoverSegue" {
+            let popoverViewController = segue.destinationViewController
+            popoverViewController.modalPresentationStyle = .Popover
+            popoverViewController.popoverPresentationController!.delegate = self
+        }
+    }
     
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .None
+    }
     
     deinit{
         print("NotificationDetails Deleted")
     }
     
+    func presentHelpPopup(){
+        let storyboard : UIStoryboard = UIStoryboard(
+            name: "MainStoryboard",
+            bundle: nil)
+        if let menuViewController = storyboard.instantiateViewControllerWithIdentifier("NotificationPopOver") as? NotificationPopOver{
+            menuViewController.modalPresentationStyle = .Popover
+            menuViewController.preferredContentSize = CGSizeMake(250, 54)
+            
+            
+            let popoverMenuViewController = menuViewController.popoverPresentationController
+            popoverMenuViewController?.permittedArrowDirections = .Any
+            popoverMenuViewController?.delegate = self
+            popoverMenuViewController?.sourceView = nameLocationView
+            popoverMenuViewController?.sourceRect = CGRect(
+                x: 0,
+                y: 0,
+                width: 250,
+                height: 54)
+            presentViewController(
+                menuViewController,
+                animated: true,
+                completion: nil)
+        }
+    }
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        if textField == txtSubscriptionName {
+            guard !txtSubscriptionName.text!.isEmpty else {
+                return false
+            }
+            
+            nextDetails()
+            
+            return true
+        }
+        
+        return true
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NSDate().ms
+        logHelper.began()
+        logHelper.log("map")
         
-        mapView.delegate = self
-        radiusSlider.enabled = false
-        speedSlider.enabled = false
-        longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
+        if let _ = subscriptionKey, latlon = coordinate, locationName = locationName {
         
-        if let sessionKey = sessionKey {
-            firebase.childByAppendingPaths("subscription",sessionKey).observeSingleEventOfType(.Value, withBlock: { snapshot in
-                
-                if let location = snapshot.value["location"] as? [String:Double] ,
-                    radius = snapshot.value["radius"] as? Float,
-                    directions = snapshot.value["directions"] as? [String:Bool],
-                    windMean = snapshot.value["windMin"] as? Float {
-                        
-                    if let lat = location["lat"], lon = location["lon"] {
-                        
-                        self.currentSubscription = Subscription(uid: self.firebase.authData.uid, radius: radius, windMin: windMean, location: location, directions: directions, subscriptionKey: snapshot.key)
-                            
-                        
-                            
-                        let latlon = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-                            
-                        self.radiusSlider.value = radius
-                        self.speedSlider.value = windMean
-                        self.radiusSlider.enabled = true
-                        self.speedSlider.enabled = true
-                        self.currentRadius = radius
-                        
-                            
-                        self.addNewMarker(latlon)
-                        
-                        
-                        var actualDirections: Directions = []
-                        
-                        for dir in Array(directions.keys) {
-                            
-                            var direction: Directions
-                            switch dir {
-                            case "N": direction = .N; break
-                            case "NW": direction = .NW; break
-                            case "W": direction = .W; break
-                            case "SW": direction = .SW; break
-                            case "S": direction = .S; break
-                            case "SE": direction = .SE; break
-                            case "E": direction = .E; break
-                            case "NE": direction = .NE; break
-                            default: fatalError("Unknown Direction")
-                            }
-                            
-                            actualDirections.insert(direction)
-                        }
-                        
-                        self.directionSelector.areas = directions
-                        self.directionSelector.selection = actualDirections
-                        self.directionSelector.setNeedsDisplay()
-                        
-                    }
-                        
-                }
-            })
+            addNewMarker(latlon)
+            mapView.selectAnnotation(mapView.annotations[0], animated: true)
+            txtSubscriptionName.text = locationName
+            
+            nameLocationView.hidden = false
         }
         else{
-            
+            NSDate().ms
+            longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
             longPressRecognizer.minimumPressDuration = 0.3
             longPressRecognizer.delaysTouchesBegan = true
             longPressRecognizer.delegate = self
             mapView.addGestureRecognizer(longPressRecognizer)
         }
+        
+        
+        let preferences = NSUserDefaults.standardUserDefaults()
+        let firstTime = preferences.objectForKey("NotificationFirstTimeMap") is Bool
+        
+        if (!firstTime) {
+            
+            
+            let p = Interface.choose((0.5, 0.2), (0.5, 0.2), (0.5, 0.2), (0.5, 0.2), (0.857, 0.443), (0.87, 0.453))
+            let pos = CGPoint(x: p.0, y: p.1)
+            let text = NSLocalizedString("PRESSLONG", comment: "")
+            let icon = UIImage(named: "map_placeholder")
+            tabBarController?.view.addSubview(RadialOverlay(frame: self.view.bounds, position: pos, text: text, icon: icon, radius: 0))
+            
+            preferences.setValue(true, forKey: "NotificationFirstTimeMap")
+            preferences.synchronize()
+        }
     }
     
-    @IBAction func buttonSave(sender: UIBarButtonItem) {
+    func requestGeocode(location: CLLocationCoordinate2D, callback: String? -> ()) {
+        geocoder.reverseGeocodeLocation(CLLocation(latitude: location.latitude, longitude: location.longitude)) { placemarks, error in
+            dispatch_async(dispatch_get_main_queue()) {
+                guard let first = placemarks?.first else {
+                    callback("My new Area")
+                    return
+                }
+                callback(first.thoroughfare ?? first.locality ?? first.country ?? "My new Area")
+            }
+        }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        logHelper.ended()
+    }
+    
+    @IBAction func nextDetails() {
         
-        
-        guard var subscription = currentSubscription else {
+        if txtSubscriptionName.text!.isEmpty {
+            txtSubscriptionName.becomeFirstResponder()
             return
         }
         
-        print(directionSelector.areas)
-
-        subscription.directions = directionSelector.areas
+        view.endEditing(true)
         
-        if let subscriptionKey = subscription.subscriptionKey {
-            
-            let ref = firebase.childByAppendingPaths("subscription",subscriptionKey)
-            ref.setValue(subscription.fireDict)
-        }
-        else{
-            
-            let ref = firebase.childByAppendingPath("subscription")
-            let post = ref.childByAutoId()
-            post.setValue(subscription.fireDict)
-            let subscriptionKey = post.key
-            
-            
-            let geoFireRef = firebase.childByAppendingPath("subscriptionGeo")
-            let geoFire = GeoFire(firebaseRef: geoFireRef)
-            geoFire.setLocation(CLLocation(latitude: annotation.coordinate.latitude , longitude: annotation.coordinate.longitude), forKey: subscriptionKey)
-            
-                    
+        
+        if let subscriptionKey = subscriptionKey {
             print(subscriptionKey)
-            print(subscription.fireDict)
+            firebase.childByAppendingPaths("subscription",subscriptionKey,"name").setValue(txtSubscriptionName.text!)
+            firebase.childByAppendingPaths("subscription",subscriptionKey,"location").setValue(["lat": annotation!.coordinate.latitude, "lon":annotation!.coordinate.longitude])
+        }
+        
+        
+        
+        if let annotation = annotation {
             
+            if let notificationSettings = storyboard?.instantiateViewControllerWithIdentifier("notificationSettingsViewController") as? NotificationSettingsViewController, nc = navigationController {
+                
+                notificationSettings.txtLocation = txtSubscriptionName.text
+                notificationSettings.coordinate = annotation.coordinate
+                notificationSettings.subscriptionKey = subscriptionKey
+                
+                nc.pushViewController(notificationSettings, animated: true)
+            }
         }
-        
-        navigationController?.popToRootViewControllerAnimated(true)
-        
     }
     
-    
-    @IBAction func sliderSpeedChanged(sender: UISlider) {
-        
-        guard let _ = currentSubscription else {
-            return
-        }
-        
-        currentSubscription!.windMin = sender.value
-        lblSpeed.text = "\(Int(sender.value)) m/s"
-        
-    }
-    
-    @IBAction func sliderValueChanged(sender: UISlider) {
-        guard var _ = currentSubscription else {
-            return
-        }
-        
-        mapView.removeOverlay(overlays)
-        
-        overlays = MKCircle(centerCoordinate: annotation.coordinate, radius: CLLocationDistance(sender.value))
-        mapView.addOverlay(overlays)
-        
-        currentRadius = sender.value
-        currentSubscription?.radius = sender.value
-        
-    }
     
     func handleLongPress(gestureReconizer: UILongPressGestureRecognizer) {
         
         
         if gestureReconizer.state == .Began {
             
-            radiusSlider.enabled = true
-            speedSlider.enabled = true
-            
             let touchPoint = gestureReconizer.locationInView(mapView)
             let location = mapView.convertPoint(touchPoint, toCoordinateFromView: mapView)
             
-            let latlon = ["lat":location.latitude,"lon":location.longitude]
-            currentSubscription = Subscription(uid: firebase.authData.uid, radius: currentRadius, windMin: 100, location: latlon, directions: directionSelector.areas, subscriptionKey: nil)
-            
             addNewMarker(location)
             mapView.removeGestureRecognizer(longPressRecognizer)
+            mapView.selectAnnotation(mapView.annotations[0], animated: true)
+            
+            
+            requestGeocode(location) {
+                self.txtSubscriptionName.text = $0
+                self.presentHelpPopup()
+            }
+            
+            nameLocationView.hidden = false
+        }
+    }
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+        if newState == .Ending {
+            if let annotation = view.annotation{
+                requestGeocode(annotation.coordinate) {
+                    self.txtSubscriptionName.text = $0
+                    self.view.endEditing(true)
+                }
+            }
         }
     }
     
     
     func addNewMarker(location: CLLocationCoordinate2D){
-        //let annotation = MKPointAnnotation()
-        annotation.coordinate = location
-        annotation.title = "Drag and Drop"
-        annotation.subtitle = "in a new location"
+        annotation = MKPointAnnotation()
+        annotation!.coordinate = location
+        annotation!.title = NSLocalizedString("HOLDDRAG", comment: "")
+        annotation!.subtitle = NSLocalizedString("HOLDDRAGDESCRIPT", comment: "")
         
-        overlays = MKCircle(centerCoordinate: location, radius: CLLocationDistance(currentRadius))
         
         
         var region = MKCoordinateRegion()
@@ -230,8 +289,7 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
         region = mapView.regionThatFits(region)
         
         mapView.setRegion(region, animated: true)
-        mapView.addOverlay(overlays)
-        mapView.addAnnotation(annotation)
+        mapView.addAnnotation(annotation!)
     }
     
     
@@ -242,44 +300,13 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
             pinAnnotationView.draggable = true
             pinAnnotationView.canShowCallout = true
             pinAnnotationView.animatesDrop = true
+            
         
             
             return pinAnnotationView
         }
         
         return nil
-    }
-    
-    
-    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
-        
-        guard var _ = currentSubscription else {
-            return
-        }
-        
-        if (newState == .Starting){
-            mapView.removeOverlay(overlays)
-        }
-        
-        if (newState == .Ending){
-            
-            if let annotation = view.annotation {
-                let latlon = ["lat": annotation.coordinate.latitude,"lon": annotation.coordinate.longitude]
-                currentSubscription?.location = latlon
-                
-                overlays = MKCircle(centerCoordinate: annotation.coordinate, radius: CLLocationDistance(currentRadius))
-                mapView.addOverlay(overlays)
-            }
-        }
-    }
-    
-    
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-        let circleRenderer = MKCircleRenderer(overlay: overlay);
-        circleRenderer.strokeColor = .whiteColor()
-        circleRenderer.fillColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)
-        circleRenderer.lineWidth = 1.0
-        return circleRenderer
     }
 }
 
@@ -327,18 +354,22 @@ func sectorBezierPath(total: Int)(direction: Directions) -> UIBezierPath {
 }
 
 
-class DirectionSelector: UIControl {
+@IBDesignable class DirectionSelector: UIControl {
+    
+    @IBInspectable var fontSize: CGFloat = 15
+    
+    
     enum State {
         case Adding, Removing, Default
     }
     
     let lineWidth: CGFloat = 1
     
-    var selection: Directions = [.N]
+    var selection: Directions = []
     let paths = Directions.ordered.map(sectorBezierPath(Directions.count))
     var laidOut = false
     var touchState = State.Default
-    var areas : [String:Bool] = ["N":true]
+    var areas : [String:Bool] = [:]
     
     override func layoutSubviews() {
         if laidOut { return }
@@ -416,7 +447,7 @@ class DirectionSelector: UIControl {
     
     func drawlabel(direction: Directions, selected: Bool) {
         let color = selected ? UIColor.whiteColor() : UIColor.vaavudBlueColor()
-        let font = UIFont(name: "Helvetica Neue", size: 12)!
+        let font = UIFont(name: "Helvetica Neue", size: fontSize)!
         let attributes = [NSForegroundColorAttributeName : color, NSFontAttributeName : font]
         
         let size = direction.local.sizeWithAttributes(attributes)

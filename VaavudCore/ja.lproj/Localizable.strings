@@ -287,3 +287,12 @@
 "LOGIN_ERROR_NETWORK" = "ネットワークにアクセスできません。再試行してください。";
 "LOGIN_ERROR_MALFORMED" = "メールアドレスまたはパスワード、もしくはその両方が間違っています。再試行してください。";
 "LOGIN_ERROR_EMAIL" = "このメールアドレスはすでに使用されています。違うものを使用してください。";
+"EDIT" = "編輯";
+
+"WIND" = "風";
+"RADIUS" = "半径";
+"HOLDDRAG" = "場所をホールド・";
+"HOLDDRAGDESCRIPT" = "ドラッグして移動";
+"PRESSLONG" = "地図を長押しして通知ピンをドロップ";
+"FIRSTNOTIFICATIONFINISHED" = "あなたはあなたの最初のVaavud通知を追加しました。おめでとう！";
+"FIRSTNOTIFICATION" = "新しい通知を追加するにはここをクリックしてください";

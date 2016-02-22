@@ -287,3 +287,12 @@
 "LOGIN_ERROR_NETWORK" = "No hi ha conexió, intenta-ho de nou";
 "LOGIN_ERROR_MALFORMED" = "Paraula de pas incorrecta, intenta-ho de nou";
 "LOGIN_ERROR_EMAIL" = "Aquesta adreça de correu electrònic ja està registrada. Si us plau, proveu amb un altre.";
+"EDIT" = "Editar";
+
+"WIND" = "Vent";
+"RADIUS" = "Radi";
+"HOLDDRAG" = "Manté i arrossega";
+"HOLDDRAGDESCRIPT" = "per moure la ubicació";
+"PRESSLONG" = "Pressiona prolongadament per marcar una àrea de notificació";
+"FIRSTNOTIFICATIONFINISHED" = "Has configurat la teva primera notificació a Vaavud. Fantàstic!";
+"FIRSTNOTIFICATION" = "Clica aquí per afegir una nova notificació";

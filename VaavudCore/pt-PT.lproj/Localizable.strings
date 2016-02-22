@@ -287,3 +287,12 @@
 "LOGIN_ERROR_NETWORK" = "Não foi possível acessar a rede. Tente outra vez";
 "LOGIN_ERROR_MALFORMED" = "O e-mail e/ou a senha está incorreto. Tente outra vez";
 "LOGIN_ERROR_EMAIL" = "Este e-mail já está sendo usado. Tente outro";
+"EDIT" = "Bearbeiten";
+
+"WIND" = "Vento";
+"RADIUS" = "Raio";
+"HOLDDRAG" = "segure e solte ";
+"HOLDDRAGDESCRIPT" = "para mover a localização";
+"PRESSLONG" = "Pressione longamente o mapa para soltar um pino de nitificação";
+"FIRSTNOTIFICATIONFINISHED" = "Você acabou de configurar sua primeira notificação Vaavud . Impressionante!";
+"FIRSTNOTIFICATION" = "Toque aqui para criar uma nova notificação";

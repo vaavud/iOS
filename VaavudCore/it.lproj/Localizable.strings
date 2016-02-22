@@ -287,3 +287,12 @@
 "LOGIN_ERROR_NETWORK" = "Non è stato possibile accedere alla rete, riprova";
 "LOGIN_ERROR_MALFORMED" = "L'email e/o la password non è corretta, ti preghiamo di riprovare";
 "LOGIN_ERROR_EMAIL" = "L'email è già in uso, provane una diversa";
+"EDIT" = "Modifica";
+
+"WIND" = "Vento";
+"RADIUS" = "Raggio";
+"HOLDDRAG" = "Tieni premuto";
+"HOLDDRAGDESCRIPT" = "e trascina per spostare il luogo";
+"PRESSLONG" = "Premi a lungo sulla mappa per inserire una punta di notifica";
+"FIRSTNOTIFICATIONFINISHED" = "È aggiunto il tuo primo Vaavud-notifica. Complimenti!";
+"FIRSTNOTIFICATION" = "Clicca qui per aggiungere una nuova notifica";

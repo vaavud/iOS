@@ -289,3 +289,11 @@
 "LOGIN_ERROR_EMAIL" = "El correo electrónico ya está en uso, por favor intenta con otro diferente";
 "LOGIN_FORGOT_PASSWORD_TITLE" = "Correct";
 "LOGIN_FORGOT_PASSWORD_MESSAGE" = "Further information have been sent to your email.";
+"EDIT" = "Editar";
+"WIND" = "Viento";
+"RADIUS" = "Radio";
+"HOLDDRAG" = "Mantén y arrastre";
+"HOLDDRAGDESCRIPT" = "para mover la ubicación";
+"PRESSLONG" = "Presiona prolongadamente para marcar un area de notificación";
+"FIRSTNOTIFICATIONFINISHED" = "Has configurado tu primera notificación en Vaavud. Fantástico!";
+"FIRSTNOTIFICATION" = "Clica aquí para añadir una nueva notificación";

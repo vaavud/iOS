@@ -287,3 +287,12 @@
 "LOGIN_ERROR_NETWORK" = "無法訪問網路，請重試";
 "LOGIN_ERROR_MALFORMED" = "電子郵件和/或密碼不正確，請重試";
 "LOGIN_ERROR_EMAIL" = "電子郵件已在使用，請嘗試不同的電子郵件";
+"EDIT" = "編輯";
+
+"WIND" = "風";
+"RADIUS" = "半徑";
+"HOLDDRAG" = "按住拖曳，";
+"HOLDDRAGDESCRIPT" = "以移動位置";
+"PRESSLONG" = "長按地圖，刪除通知PIN碼";
+"FIRSTNOTIFICATIONFINISHED" = "你加上你的第Vaavud通知。恭喜！";
+"FIRSTNOTIFICATION" = "點擊此處添加新的通知";

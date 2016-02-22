@@ -112,9 +112,9 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         
         sessionHandle = firebase
             .childByAppendingPaths("session", session.key)
-            .observeEventType(.Value, withBlock: { [unowned self] snapshot in
-                self.session = Session(snapshot: snapshot)
-                self.updateUI()
+            .observeEventType(.Value, withBlock: { [weak self] snapshot in
+                self?.session = Session(snapshot: snapshot)
+                self?.updateUI()
             })
     }
     

@@ -28,220 +28,321 @@ class NotificationAnnotation: MKPointAnnotation {
 }
 
 
+class NotificationViewCell : UITableViewCell {
+    
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblRadius: UILabel!
+    @IBOutlet weak var lblWind: UILabel!
+    @IBOutlet weak var directionSelector: DirectionSelector!
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+    }
+    
+    override func setSelected(selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+    
+    
+    func setDirections(directions: [String:Bool]){
 
+        var actualDirections: Directions = []
+        
+       for dir in Array(directions.keys) {
+        
+            var direction: Directions
+            switch dir {
+            case "N": direction = .N; break
+            case "NW": direction = .NW; break
+            case "W": direction = .W; break
+            case "SW": direction = .SW; break
+            case "S": direction = .S; break
+            case "SE": direction = .SE; break
+            case "E": direction = .E; break
+            case "NE": direction = .NE; break
+            default: fatalError("Unknown Direction")
+        }
+        
+        actualDirections.insert(direction)
+        }
+        
+        self.directionSelector.areas = directions
+        self.directionSelector.selection = actualDirections
+        self.directionSelector.setNeedsDisplay()
+    }
+}
 
-class NotificationsViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class NotificationsViewController: UIViewController, MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource,UIGestureRecognizerDelegate  {
+    
+    private var locations : [Subscription] = []
+    private var subsKeys : [String] = []
+    private var circule: MKCircle?
+    
+    private let annotation = NotificationAnnotation()
+    
     @IBOutlet weak var mapView: MKMapView!
-    
-//    @IBOutlet weak var typeControl: UISegmentedControl!
-//    @IBOutlet weak var windspeedLabel: UILabel!
-//    @IBOutlet weak var windspeedSlider: UISlider!
-    var locationManager = CLLocationManager()
-    var currentNotifications : [String:MKPointAnnotation] = [:]
-    var currentCircleNotifications : [String:MKCircle] = [:]
-
-    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var btnNewSubscription: UIButton!
+    private let logHelper = LogHelper(.Notifications)
+    var firstNotificationView: UIView!
     private let firebase = Firebase(url: firebaseUrl)
-    private var windspeed: Double = 15
-    private var notificationType: NotificationType = .Measurements
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-//        
-//        self.locationManager.delegate = self
-//        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-//        //self.locationManager.distanceFilter = 10
-//        self.locationManager.requestWhenInUseAuthorization()
-//        self.locationManager.startUpdatingLocation()
-//
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
+        logHelper.began()
+        logHelper.log("notification")
         
-        let ref = firebase.childByAppendingPath("subscription")
-        
-        ref.queryOrderedByChild("uid")
-            .queryEqualToValue(firebase.authData.uid)
-            .observeEventType(.ChildRemoved, withBlock: { snapshot in
-                
-                if let marker = self.currentNotifications[snapshot.key], area = self.currentCircleNotifications[snapshot.key]{
-                    self.mapView.removeOverlay(area)
-                    self.mapView.removeAnnotation(marker)
-                    self.currentNotifications[snapshot.key] = nil
-                    self.currentCircleNotifications[snapshot.key] = nil
-                    
-                    
-                }
-            })
-        
-        
-        
-        ref.queryOrderedByChild("uid")
-            .queryEqualToValue(firebase.authData.uid)
-            .observeEventType(.ChildChanged, withBlock: { snapshot in
-                
-                guard let location = snapshot.value["location"] as? [String:Double] else {
-                    return
-                }
-                
-                if let lat = location["lat"], lon = location["lon"], radius = snapshot.value["radius"] as? Float, directions = snapshot.value["directions"] as? [String:Bool]{
-                    let latlon = CLLocationCoordinate2D(latitude: lat, longitude: lon)
-                    
-                    if let marker = self.currentNotifications[snapshot.key], area = self.currentCircleNotifications[snapshot.key] {
-                        
-                        marker.coordinate = latlon
-                        marker.subtitle = "\(Array(directions.keys))"
-                        
-                        self.mapView.removeOverlay(area)
-                        let circule = MKCircle(centerCoordinate: latlon, radius: CLLocationDistance(radius))
-                        self.currentCircleNotifications[snapshot.key] = circule
-                        self.mapView.addOverlay(circule)
-                        
-                    }
-                }
-            })
-        
-        
-        ref.queryOrderedByChild("uid")
-            .queryEqualToValue(firebase.authData.uid)
-            .observeEventType(.ChildAdded, withBlock: { snapshot in
+        let preferences = NSUserDefaults.standardUserDefaults()
+        let firstTime = preferences.boolForKey("showFirstNotification")
+        if firstTime {
             
-            guard let location = snapshot.value["location"] as? [String:Double] else {
-                return
-            }
+            let p = Interface.choose((0.865, 0.249), (0.865, 0.255), (0.905, 0.215), (0.905, 0.206), (0.857, 0.443), (0.87, 0.453))
+            let pos = CGPoint(x: p.0, y: p.1)
+            let text = NSLocalizedString("FIRSTNOTIFICATIONFINISHED", comment: "")
+            firstNotificationView = RadialOverlay(frame: self.view.bounds, position: pos, text: text, icon: nil, radius: 0)
             
-            if let lat = location["lat"], lon = location["lon"], radius = snapshot.value["radius"] as? Float,  directions = snapshot.value["directions"] as? [String:Bool] {
+            let tap = UITapGestureRecognizer(target: self, action: Selector("handleFirstNotificationTapView"))
+            tap.delegate = self
+            firstNotificationView.addGestureRecognizer(tap)
+            self.view.addSubview(firstNotificationView)
+            
+            preferences.setBool(false, forKey: "showFirstNotification")
+            preferences.synchronize()
+
+        }
+    }
+    
+    
+    func handleFirstNotificationTapView(){
+        firstNotificationView.removeFromSuperview()
+        AuthorizationController.shared.registerNotifications()
+    }
+    
+    func showLastAnnotation(){
+        if !self.locations.isEmpty {
+        
+            AuthorizationController.shared.registerNotifications()
+            
+            let preferences = NSUserDefaults.standardUserDefaults()
+            preferences.setValue(true, forKey: "FirstNotification")
+            preferences.synchronize()
+
+            let firstSub = self.locations.first!
+            
+            if let lat = firstSub.location["lat"], lon = firstSub.location["lon"]  {
                 
                 let latlon = CLLocationCoordinate2D(latitude: lat, longitude: lon)
                 
-                
-                let annotation = NotificationAnnotation()
-                annotation.coordinate = latlon
-                annotation.title = "Wind Direction(s)"
-                annotation.subtitle = "\(Array(directions.keys))"
-                annotation.sessionKey = snapshot.key
-                
-                let circule = MKCircle(centerCoordinate: latlon, radius: CLLocationDistance(radius))
-                
-                
-                self.currentNotifications[snapshot.key] = annotation
-                self.currentCircleNotifications[snapshot.key] = circule
-                
-                self.mapView.addOverlay(circule)
-                self.mapView.addAnnotation(annotation)
+                self.moveMarkerInMap(latlon, radius: firstSub.radius)
+                self.mapView.addAnnotation(self.annotation)
             }
-        })
+        }
     }
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        if let annotation = annotation as? NotificationAnnotation {
-            let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "myNotificationPin")
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        logHelper.ended()
+    }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let ref = firebase.childByAppendingPath("subscription")
+            .queryOrderedByChild("uid")
+            .queryEqualToValue(firebase.authData.uid)
+        
+        
+        ref.observeEventType(.ChildChanged, withBlock: { snapshot in
             
-            pinAnnotationView.pinColor = .Red
-            //pinAnnotationView.draggable = true
-            pinAnnotationView.canShowCallout = true
-            pinAnnotationView.animatesDrop = true
+            guard let subsDict = snapshot.value as? FirebaseDictionary else {
+                return
+            }
             
-            let deleteButton = ButtonWithSessionKey(type: .Custom)
+            if let index = self.subsKeys.indexOf(snapshot.key), var model = Subscription(dict: subsDict){
+                model.subscriptionKey = snapshot.key
+                self.locations[index] = model
+                self.tableView.reloadData()
+            }
+        })
+        
+        
+        ref.observeEventType(.ChildAdded, withBlock: { snapshot in
             
-            deleteButton.sessionKey = annotation.sessionKey
-            deleteButton.frame.size.width = 44
-            deleteButton.frame.size.height = 44
-            deleteButton.backgroundColor = UIColor.redColor()
-            deleteButton.addTarget(self, action: "btnDelete:", forControlEvents: .TouchUpInside)
-            deleteButton.setImage(UIImage(named: "trash"), forState: .Normal)
+                
+            guard let _ = snapshot.value["location"] as? [String:Double], subsDict = snapshot.value as? FirebaseDictionary else {
+                return
+            }
+                
+                
+            if var model = Subscription(dict: subsDict) {
+                model.subscriptionKey = snapshot.key
+                self.locations.insert(model, atIndex: 0)
+                self.subsKeys.insert(snapshot.key, atIndex: 0)
+            }
             
-            pinAnnotationView.leftCalloutAccessoryView = deleteButton
-            pinAnnotationView.leftCalloutAccessoryView?.sizeToFit()
+            self.tableView.reloadData()
+        })
+        
+        
+        ref.observeSingleEventOfType(.Value, withBlock: { [unowned self] snapshot in
+            self.showLastAnnotation()
+        })
+        
+        let preferences = NSUserDefaults.standardUserDefaults()
+        let firstTime = preferences.boolForKey("NotificationFirstTimeTable")
+        
+        if (!firstTime) {
             
             
-            let forwardButton = ButtonWithSessionKey(type: .Custom)
-            forwardButton.frame.size.width = 44
-            forwardButton.frame.size.height = 44
-            forwardButton.addTarget(self, action: "btnEdit:", forControlEvents: .TouchUpInside)
-            forwardButton.setImage(UIImage(named: "arrow"), forState: .Normal)
-            forwardButton.sessionKey = annotation.sessionKey
+            let p = Interface.choose((0.865, 0.249), (0.865, 0.255), (0.905, 0.215), (0.905, 0.206), (0.857, 0.443), (0.87, 0.453))
+            let pos = CGPoint(x: p.0, y: p.1)
+            let text = NSLocalizedString("FIRSTNOTIFICATION", comment: "")
+            //        let icon = UIImage(named: "map_placeholder")
+            self.view.addSubview(RadialOverlay(frame: self.view.bounds, position: pos, text: text, icon: nil, radius: 55))
             
-            pinAnnotationView.rightCalloutAccessoryView = forwardButton
-            
-            
-            return pinAnnotationView
+            preferences.setValue(true, forKey: "NotificationFirstTimeTable")
+            preferences.synchronize()
+        }
+    }
+    
+    
+    private func moveMarkerInMap(latlon: CLLocationCoordinate2D, radius: Float){
+        annotation.coordinate = latlon
+        
+        let mapCamera = MKMapCamera(lookingAtCenterCoordinate: latlon, fromEyeCoordinate: latlon, eyeAltitude: 8000)
+        mapView.setCamera(mapCamera, animated: true)
+        
+        
+        if let circule = circule {
+            self.mapView.removeOverlay(circule)
         }
         
-        return nil
+        self.circule = MKCircle(centerCoordinate: latlon, radius: CLLocationDistance(radius))
+        self.mapView.addOverlay(circule!)
+        
+    }
+    
+    
+    @IBAction func didProSelect() {
+        logHelper.log("Pro")
+        logHelper.increase()
+    }
+    
+    
+    
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return locations.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        guard let  cell = tableView.dequeueReusableCellWithIdentifier("notificationCell") as? NotificationViewCell  else {
+            fatalError("Unkonwn cell for notifications")
+        }
+        
+        let sub = locations[indexPath.row]
+        
+        cell.lblTitle.text = sub.name
+        cell.lblRadius.text = "\(NSLocalizedString("RADIUS", comment: "")): \(Int(sub.radius)) mts"
+        
+        let plus = Int(sub.windMin) == 15 ? "+" : ""
+        cell.lblWind.text = "\(NSLocalizedString("WIND", comment: "")): \(Int(sub.windMin))\(plus) m/s"
+        cell.setDirections(sub.directions)
+        
+        return cell
+    }
+    
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let sub = locations[indexPath.row]
+        
+        
+        if let lat = sub.location["lat"], lon = sub.location["lon"] {
+            let latlon = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+            self.moveMarkerInMap(latlon, radius:  sub.radius)
+            logHelper.increase()
+        }
+        
     }
     
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         let circleRenderer = MKCircleRenderer(overlay: overlay);
-        circleRenderer.strokeColor = .blueColor()
-        circleRenderer.fillColor = UIColor(red: 0.0, green: 0.0, blue: 0.7, alpha: 0.5)
+        circleRenderer.strokeColor = .whiteColor()
+        circleRenderer.fillColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)
         circleRenderer.lineWidth = 1.0
         return circleRenderer
     }
     
-    
-    func btnEdit(sender:ButtonWithSessionKey) {
-        
-        if let notificationDetails = storyboard?.instantiateViewControllerWithIdentifier("NotificationDetailsViewController") as? NotificationDetailsViewController,
-            navigationController = navigationController {
-                
-                notificationDetails.sessionKey = sender.sessionKey
-                notificationDetails.isItEditing = true
-                navigationController.pushViewController(notificationDetails, animated: true)
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .Normal, title: "Delete") { action, index in
+            self.deleteSession(self.locations[indexPath.row].subscriptionKey)
+            self.locations.removeAtIndex(indexPath.row)
+            self.tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
+        
+        let edit = UITableViewRowAction(style: .Normal, title: NSLocalizedString("EDIT", comment: "")) { action, index in
+            self.editSubscription(indexPath.row)
+        }
+        
+        delete.backgroundColor = .redColor()
+        edit.backgroundColor = .orangeColor()
+        
+        return [delete,edit]
     }
     
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return .Delete
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    }
     
     
     @IBAction func newNotification() {
-        
         if let notificationDetails = storyboard?.instantiateViewControllerWithIdentifier("NotificationDetailsViewController") as? NotificationDetailsViewController,
             navigationController = navigationController {
+                logHelper.log("added")
                 navigationController.pushViewController(notificationDetails, animated: true)
         }
     }
     
     
-    func btnDelete(sender:ButtonWithSessionKey){
+    func editSubscription(row: Int){
         
-        if let subscriptionKey = sender.sessionKey {
-            firebase.childByAppendingPaths("subscription",subscriptionKey).removeValue()
-            firebase.childByAppendingPaths("subscriptionGeo",subscriptionKey).removeValue()
+        if let notificationSettings = storyboard?.instantiateViewControllerWithIdentifier("NotificationDetailsViewController") as? NotificationDetailsViewController, nc = navigationController {
+            
+            let subscriptionKey = self.locations[row].subscriptionKey
+            
+            if let lat = locations[row].location["lat"], lon = locations[row].location["lon"] {
+                let latlon = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                
+                notificationSettings.subscriptionKey = subscriptionKey
+                notificationSettings.coordinate = latlon
+                notificationSettings.locationName = locations[row].name
+                nc.pushViewController(notificationSettings, animated: true)
+                logHelper.log("edited")
+                logHelper.increase()
+            }
+            
+            
         }
     }
     
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    func deleteSession(subscriptionKey: String?){
         
-        updateUI()
+        if let subscriptionKey = subscriptionKey {
+            firebase.childByAppendingPaths("subscription",subscriptionKey).removeValue()
+            firebase.childByAppendingPaths("subscriptionGeo",subscriptionKey).removeValue()
+            logHelper.log("deleted")
+            logHelper.increase()
+        }
     }
-    
-    @IBAction func windspeedChanged(sender: UISlider) {
-        windspeed = Double(sender.value)*notificationsWindspeedCeiling
-        updateUI()
-    }
-    
-    func updateUI() {
-//        windspeedLabel.text = VaavudFormatter.shared.formattedSpeed(windspeed)
-//        windspeedSlider.value = Float(windspeed/notificationsWindspeedCeiling)
-//        typeControl.selectedSegmentIndex = notificationType.rawValue
-    }
-    
-    @IBAction func typeChanged(sender: UISegmentedControl) {
-        notificationType = NotificationType(rawValue: sender.selectedSegmentIndex) ?? NotificationType.None
-    }
-    
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let locValue:CLLocationCoordinate2D = manager.location!.coordinate
-        
-        print("locations = \(locValue.latitude) \(locValue.longitude)")
-    }
-    
-    
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-        print("locations = \(error)")
-    }
-    
-    
 }
 
