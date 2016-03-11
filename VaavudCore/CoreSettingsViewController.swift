@@ -7,6 +7,25 @@
 //
 
 import Foundation
+import Firebase
+
+// fixme: move to common file
+func parseSnapshot(callback: [String : AnyObject] -> ()) -> FDataSnapshot! -> () {
+    return { snap in
+        if let dict = snap.value as? [String : AnyObject] {
+            callback(dict)
+        }
+        else {
+            callback([snap.key : snap.value])
+        }
+    }
+}
+
+func parseSnapshot<T>(key: String, callback: T? -> ()) -> FDataSnapshot! -> () {
+    return parseSnapshot { dict in
+        callback(dict[key] as? T)
+    }
+}
 
 class CoreSettingsTableViewController: UITableViewController {
     let interactions = VaavudInteractions()
@@ -20,7 +39,7 @@ class CoreSettingsTableViewController: UITableViewController {
     @IBOutlet weak var directionUnitControl: UISegmentedControl!
     @IBOutlet weak var pressureUnitControl: UISegmentedControl!
     @IBOutlet weak var temperatureUnitControl: UISegmentedControl!
-    //    @IBOutlet weak var facebookControl: UISwitch!
+
     @IBOutlet weak var dropboxControl: UISwitch!
     @IBOutlet weak var sleipnirClipControl: UISegmentedControl!
     
@@ -30,179 +49,158 @@ class CoreSettingsTableViewController: UITableViewController {
     
     @IBOutlet weak var versionLabel: UILabel!
     
+    private let logHelper = LogHelper(.Settings, counters: "scrolled")
+    
+    private lazy var deviceSettings = { return Firebase(url: firebaseUrl).childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting") }()
+
+    private var deviceHandle: UInt!
+    
+    private var formatterHandle: String!
+    
     override func viewDidLoad() {
         hideVolumeHUD()
         
-        limitControl.selectedSegmentIndex = Property.getAsBoolean(KEY_MEASUREMENT_TIME_UNLIMITED) ? 1 : 0
-        
         versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
-//        facebookControl.on = Property.getAsBoolean("enableFacebookShareDialog", defaultValue: false)
-                
+
         dropboxControl.on = DBSession.sharedSession().isLinked()
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "unitsChanged:", name: KEY_UNIT_CHANGED, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "wasLoggedInOut:", name: KEY_DID_LOGINOUT, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: KEY_IS_DROPBOXLINKED, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "modelChanged:", name: KEY_WINDMETERMODEL_CHANGED, object: nil)
-        
-        readUnits()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        refreshLogoutButton()
-        refreshWindmeterModel()
-    }
 
-    func modelChanged(note: NSNotification) {
-        refreshWindmeterModel()
-    }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: "dropboxIsLinked", object: nil)
 
-    func wasLoggedInOut(note: NSNotification) {
-        refreshLogoutButton()
+        formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
+        refreshUnits()
+        
+        deviceHandle = deviceSettings.observeEventType(.Value, withBlock: parseSnapshot { [unowned self] in self.refreshDeviceSettings($0) })
+        
+        tableView.delegate = self
     }
     
-    func refreshLogoutButton() {
-        let titleKey = AccountManager.sharedInstance().isLoggedIn() ? "REGISTER_BUTTON_LOGOUT" : "REGISTER_BUTTON_LOGIN"
-        logoutButton.title = NSLocalizedString(titleKey, comment: "")
+    func refreshDeviceSettings(dict: [String : AnyObject]) {
+        _ = (dict["usesSleipnir"] as? Bool).map(refreshWindmeterModel)
+        _ = (dict["sleipnirClipSideScreen"] as? Bool).map(refreshSleipnirClipSide)
+        _ = (dict["measuringTime"] as? Int).map(refreshTimeLimit)
     }
     
-    func refreshWindmeterModel() {
-        let usesSleipnir = Property.getAsBoolean(KEY_USES_SLEIPNIR, defaultValue: false)
+    deinit {
+        VaavudFormatter.shared.stopObserving(formatterHandle)
+        deviceSettings.removeObserverWithHandle(deviceHandle)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    @IBAction func logoutTapped(sender: UIBarButtonItem) {
+        interactions.showLocalAlert("REGISTER_BUTTON_LOGOUT",
+            messageKey: "DIALOG_CONFIRM",
+            cancelKey: "BUTTON_CANCEL",
+            otherKey: "BUTTON_OK",
+            action: { [unowned self] in self.doLogout() },
+            on: self)
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        logHelper.began()
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        logHelper.ended()
+    }
+    
+    func refreshUnits() {
+        speedUnitControl.selectedSegmentIndex = VaavudFormatter.shared.speedUnit.index
+        directionUnitControl.selectedSegmentIndex = VaavudFormatter.shared.directionUnit.index
+        temperatureUnitControl.selectedSegmentIndex = VaavudFormatter.shared.temperatureUnit.index
+        pressureUnitControl.selectedSegmentIndex = VaavudFormatter.shared.pressureUnit.index
+    }
+    
+    func refreshWindmeterModel(usesSleipnir: Bool) {
         meterTypeControl.selectedSegmentIndex = usesSleipnir ? 1 : 0
         
-        let sleipnirOnFront = Property.getAsBoolean(KEY_SLEIPNIR_ON_FRONT, defaultValue: false)
-        sleipnirClipControl.selectedSegmentIndex = sleipnirOnFront ? 1 : 0
         UIView.animateWithDuration(0.2) {
             self.sleipnirClipView.alpha = usesSleipnir ? 1 : 0
         }
+        
+        LogHelper.setUserProperty("Device", value: usesSleipnir ? "Sleipnir" : "Mjolnir")
+    }
+
+    func refreshSleipnirClipSide(front: Bool) {
+        sleipnirClipControl.selectedSegmentIndex = front ? 1 : 0
+        LogHelper.setUserProperty("Sleipnir-Clip-Frontside", value: front)
     }
     
-    func unitsChanged(note: NSNotification) {
-        if note.object as? CoreSettingsTableViewController != self {
-            readUnits()
-        }
+    func refreshTimeLimit(timeLimit: Int) {
+        LogHelper.setUserProperty("Measurement-Limit", value: timeLimit)
+        limitControl.selectedSegmentIndex = timeLimit == 0 ? 1 : 0
     }
     
     func dropboxLinkedStatus(note: NSNotification) {
         if let isDropboxLinked = note.object as? NSNumber.BooleanLiteralType {
             dropboxControl.on = isDropboxLinked
-            let value = isDropboxLinked ? "Linking succeeded" : "Linking failed"
-            if Property.isMixpanelEnabled() {
-                Mixpanel.sharedInstance().track("Dropbox", properties: ["Action" : value])
-            }
+            logHelper.log("Dropbox", properties: ["Action" : "Linked"])
         }
     }
     
-    func postUnitChange() {
-        NSNotificationCenter.defaultCenter().postNotificationName(KEY_UNIT_CHANGED, object: self)
+    func logUnitChange(unitType: String) {
+        LogHelper.log(event: "Changed-Unit", properties: ["place" : "settings", "type" : unitType])
+        logHelper.increase()
     }
     
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+    // MARK: Scroll View Delegate
+    
+    override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        logHelper.increase("scrolled")
     }
     
-    func readUnits() {
-        if let speedUnit = Property.getAsInteger(KEY_WIND_SPEED_UNIT)?.integerValue {
-            speedUnitControl.selectedSegmentIndex = speedUnit
-        }
-        if let directionUnit = Property.getAsInteger(KEY_DIRECTION_UNIT)?.integerValue {
-            directionUnitControl.selectedSegmentIndex = directionUnit
-        }
-        if let pressureUnit = Property.getAsInteger(KEY_PRESSURE_UNIT)?.integerValue {
-            pressureUnitControl.selectedSegmentIndex = pressureUnit
-        }
-        if let temperatureUnit = Property.getAsInteger(KEY_TEMPERATURE_UNIT)?.integerValue {
-            temperatureUnitControl.selectedSegmentIndex = temperatureUnit
-        }
-    }
-        
-    @IBAction func logInOutTapped(sender: AnyObject) {
-        if AccountManager.sharedInstance().isLoggedIn() {
-            interactions.showLocalAlert("REGISTER_BUTTON_LOGOUT",
-                messageKey: "DIALOG_CONFIRM",
-                cancelKey: "BUTTON_CANCEL",
-                otherKey: "BUTTON_OK",
-                action: { self.logoutConfirmed() },
-                on: self)
-        }
-        else {
-            registerUser()
-        }
-    }
+    // MARK: User actions
     
-    func logoutConfirmed() {
-        AccountManager.sharedInstance().logout()
-    }
-    
-    func registerUser() {
-        let storyboard = UIStoryboard(name: "Register", bundle: nil)
-        let registration = storyboard.instantiateViewControllerWithIdentifier("RegisterViewController") as! RegisterViewController
-        registration.teaserLabelText = NSLocalizedString("HISTORY_REGISTER_TEASER", comment: "")
-        registration.completion = {
-            ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: true, success: { }, failure: { _ in })
-
-            self.dismissViewControllerAnimated(true, completion: {
-                print("========settings did dismiss") // tabort
-            })
-        };
-        
-        let navController = RotatableNavigationController(rootViewController: registration)
-        presentViewController(navController, animated: true, completion: nil)
-    }
+    let limitedInterval = 30 // fixme: where to put this? Follow your heart it will tell you.
     
     @IBAction func changedLimitToggle(sender: UISegmentedControl) {
-        Property.setAsBoolean(sender.selectedSegmentIndex == 1, forKey: KEY_MEASUREMENT_TIME_UNLIMITED)
+        deviceSettings.childByAppendingPath("measuringTime").setValue(sender.selectedSegmentIndex == 1 ? 0 : limitedInterval)
+        logHelper.increase()
     }
 
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {
-        Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_WIND_SPEED_UNIT)
-        postUnitChange()
+        VaavudFormatter.shared.speedUnit = SpeedUnit(index: sender.selectedSegmentIndex)
+        logUnitChange("speed")
     }
     
     @IBAction func changedDirectionUnit(sender: UISegmentedControl) {
-        Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_DIRECTION_UNIT)
-        postUnitChange()
+        VaavudFormatter.shared.directionUnit = DirectionUnit(index: sender.selectedSegmentIndex)
+        logUnitChange("direction")
     }
     
     @IBAction func changedPressureUnit(sender: UISegmentedControl) {
-        Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_PRESSURE_UNIT)
-        postUnitChange()
+        VaavudFormatter.shared.pressureUnit = PressureUnit(index: sender.selectedSegmentIndex)
+        logUnitChange("pressure")
     }
     
     @IBAction func changedTemperatureUnit(sender: UISegmentedControl) {
-        Property.setAsInteger(sender.selectedSegmentIndex, forKey: KEY_TEMPERATURE_UNIT)
-        postUnitChange()
+        VaavudFormatter.shared.temperatureUnit = TemperatureUnit(index: sender.selectedSegmentIndex)
+        logUnitChange("temperature")
     }
     
-//    @IBAction func changedFacebookSetting(sender: UISwitch) {
-//        Property.setAsBoolean(sender.on, forKey: "enableFacebookShareDialog")
-//    }
-    
-    @IBAction func changedMeterModel(sender: UISegmentedControl) {
-        let usesSleipnir = sender.selectedSegmentIndex == 1
-        Property.setAsBoolean(usesSleipnir, forKey: KEY_USES_SLEIPNIR)
-        sleipnirClipControl.enabled = usesSleipnir
-        
-        refreshWindmeterModel()
-    }
-
     @IBAction func changedDropboxSetting(sender: UISwitch) {
-        let value: String
+        let action: String
         if sender.on {
             DBSession.sharedSession().linkFromController(self)
-            value = "Try link"
+            action = "TryToLink"
         }
         else {
             DBSession.sharedSession().unlinkAll()
-            value = "Unlinked"
+            action = "Unlinked"
         }
-        Mixpanel.sharedInstance().track("Dropbox", properties: ["Action" : value])
+        logHelper.increase()
+        logHelper.log("Dropbox", properties: ["Action" : action])
+    }
+
+    @IBAction func changedMeterModel(sender: UISegmentedControl) {
+        deviceSettings.childByAppendingPath("usesSleipnir").setValue(sender.selectedSegmentIndex == 1)
+        logHelper.increase()
     }
 
     @IBAction func changedSleipnirPlacement(sender: UISegmentedControl) {
-        let frontPlaced = sender.selectedSegmentIndex == 1
-        Property.setAsBoolean(frontPlaced, forKey: KEY_SLEIPNIR_ON_FRONT)
+        deviceSettings.childByAppendingPath("sleipnirClipSideScreen").setValue(sender.selectedSegmentIndex == 1)
+        logHelper.increase()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -221,12 +219,22 @@ class CoreSettingsTableViewController: UITableViewController {
             else if segue.identifier == "BuyWindmeterSegue" {
                 webViewController.url = VaavudInteractions.buySleipnirUrl("settings")
                 webViewController.title = NSLocalizedString("SETTINGS_SHOP_LINK", comment: "")
+                LogHelper.log(event: "Pressed-Buy", properties: ["place" : "settings"])
             }
         }
-        else if let firstTimeViewController = segue.destinationViewController as? FirstTimeFlowController {
-            FirstTimeFlowController.createInstructionFlowOn(firstTimeViewController)
-            firstTimeViewController.returnViaDismiss = true
-        }
+        logHelper.increase()
+    }
+    
+    // MARK: Convenience
+    
+    func doLogout() {
+        LogHelper.log(event: "Logged-Out", properties: ["place" : "settings"])
+        
+        AuthorizationController.shared.unauth()
+        FBSDKLoginManager().logOut()
+        
+        UIApplication.sharedApplication().unregisterForRemoteNotifications()
+        gotoLoginFrom(tabBarController!, inside: view.window!.rootViewController!)
     }
 }
 

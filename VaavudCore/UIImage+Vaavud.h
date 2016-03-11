@@ -10,7 +10,7 @@
 
 @interface UIImage (Vaavud)
 
-+ (UIImage *)imageWithColor:(UIColor *)color forSize:(CGSize)size withCornerRadius:(CGFloat)radius;
-+ (UIImage *)imageWithColor:(UIColor *)color forSize:(CGSize)size;
+//+ (UIImage *)imageWithColor:(UIColor *)color forSize:(CGSize)size withCornerRadius:(CGFloat)radius;
+//+ (UIImage *)imageWithColor:(UIColor *)color forSize:(CGSize)size;
 
 @end

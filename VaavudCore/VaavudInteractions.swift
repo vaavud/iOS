@@ -23,19 +23,12 @@ class VaavudInteractions: NSObject, UIAlertViewDelegate {
         return NSURL(string: url)!
     }
     
-    class func buySleipnirUrl(source: String = "app") -> NSURL {
-        let url = "http://vaavud.com/mobile-shop-redirect/?country=" + Property.getAsString("country") +
-            "&language=" + Property.getAsString("language") +
-            "&ref=" + Mixpanel.sharedInstance().distinctId +
-            "&source=" + source
-        
-        return NSURL(string: url)!
+    class func buySleipnirUrl(source: String = "app") -> NSURL { // testme
+        return NSURL(string: "https://vaavud.com/shop?source=iOS")!
     }
     
     class func openBuySleipnir(source: String) {
-        if Property.isMixpanelEnabled() {
-            Mixpanel.sharedInstance().track(source + " Clicked Buy")
-        }
+        LogHelper.log(event: "Pressed-Buy", properties: ["place" : source])
         UIApplication.sharedApplication().openURL(buySleipnirUrl(source))
     }
 

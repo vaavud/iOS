@@ -7,259 +7,176 @@
 //
 
 #import "AppDelegate.h"
+#import <Fabric/Fabric.h>
 #import <Crashlytics/Crashlytics.h>
-#import "ModelManager.h"
-#import "ServerUploadManager.h"
-#import "LocationManager.h"
-#import "QueryStringUtil.h"
-#import "TabBarController.h"
 #import "TMCache.h"
-#import "AccountManager.h"
-#import "Mixpanel.h"
-#import "Property+Util.h"
-#import "UnitUtil.h"
-#import "UIColor+VaavudColors.h"
-#import "MixpanelUtil.h"
 #import "Vaavud-Swift.h"
+#import "Amplitude.h"
+#import "FBSDKCoreKit.h"
 
-@interface AppDelegate() <DBRestClientDelegate>
+@interface AppDelegate()
 
 @property (nonatomic, strong) NSDate *lastAppActive;
-@property (nonatomic) DropboxUploader *dropboxUploader;
 
 @end
 
 @implementation AppDelegate
 
+-(BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    return YES;
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [Firebase defaultConfig].persistenceEnabled = YES;
+    
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
-    
+
     TMCache *cache = [TMCache sharedCache];
     cache.diskCache.ageLimit = 24.0*3600.0;
     
-    [MagicalRecord setupAutoMigratingCoreDataStack];
-    [MagicalRecord setLoggingLevel:MagicalRecordLoggingLevelOff];
-    
-    [[ModelManager sharedInstance] initializeModel];
-    [[ServerUploadManager sharedInstance] start];
-    [[LocationManager sharedInstance] startIfEnabled];
     //[FBSettings setLoggingBehavior:[NSSet setWithObjects:FBLoggingBehaviorFBRequests, FBLoggingBehaviorInformational, nil]];
             
     self.xCallbackSuccess = nil;
-
-    if ([Property isMixpanelEnabled]) {
-        [Mixpanel sharedInstanceWithToken:@"757f6311d315f94cdfc8d16fb4d973c0"];
-
-        // if logged in, make sure Mixpanel knows the Vaavud user ID
-        if ([[AccountManager sharedInstance] isLoggedIn] && [Property getAsString:KEY_USER_ID]) {
-            [[Mixpanel sharedInstance] identify:[Property getAsString:KEY_USER_ID]];
-        }
-    }
     
-    [Crashlytics startWithAPIKey:@"767b68b0d4b5e7c052c4de75ae8859beee5d9901"];
+    [Fabric with:@[[Crashlytics class]]];
     
-    //dropbox
+    // Dropbox
     [DBSession setSharedSession:[[DBSession alloc] initWithAppKey:@"zszsy52n0svxcv7" appSecret:@"t39k1uzaxs7a0zj" root:kDBRootAppFolder]];
     
-    // Whenever a person opens the app, check for a cached session and refresh token
-    if ([[AccountManager sharedInstance] isLoggedIn]) {
-        [[AccountManager sharedInstance] registerWithFacebook:nil action:AuthenticationActionRefresh];
-    }
+#ifdef DEBUG
+    [[Amplitude instance] initializeApiKey:@"043371ecbefba51ec63a992d0cc57491"];
+#else
+    [[Amplitude instance] initializeApiKey:@"7a5147502033e658f1357bc04b793a2b"];
+#endif
+    [[Amplitude instance] enableLocationListening];
     
-    // set has wind meter property if not set
-    if (![Property getAsString:KEY_USER_HAS_WIND_METER]) {
-        [Property refreshHasWindMeter];
-    }
-    
-    [Property setAsBoolean:[Property getAsBoolean:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN] forKey:KEY_MAP_GUIDE_MEASURE_BUTTON_SHOWN_TODAY];
+    [[FBSDKApplicationDelegate sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
     
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
-    UIViewController *viewController = nil;
-        
-    // CORE VAAVUD APP
-    NSString *vcName;
+  
+    UIViewController *parent = [[RotatableViewController alloc] init];
     
-    if ([Property getAsBoolean:KEY_HAS_SEEN_INTRO_FLOW defaultValue:NO]) {
-        // Not a new user
-        if (LOG_INTRO) NSLog(@"KEY_HAS_SEEN_INTRO_FLOW");
-
-        if ([Property getAsBoolean:KEY_HAS_SEEN_TRISCREEN_FLOW defaultValue:NO]) {
-            // Has seen upgrade flow
-            if (LOG_INTRO) NSLog(@"KEY_HAS_SEEN_TRISCREEN_FLOW");
-            vcName = @"TabBarController";
-        }
-        else {
-            // Has not seen upgrade flow
-            if (LOG_INTRO) NSLog(@"NOT KEY_HAS_SEEN_TRISCREEN_FLOW");
-            vcName = @"UpgradingUserViewController";
-        }
+    self.window.rootViewController = parent;
+    
+    UIViewController *vc;
+    if (![[AuthorizationController shared] verifyAuth]) {
+        UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateInitialViewController];
+        
+        vc = nav;
     }
     else {
-        // Has not seen intro flow so we will show it now
-        if (LOG_INTRO) NSLog(@"not KEY_HAS_SEEN_INTRO_FLOW");
-
-        vcName = @"FirstTimeFlowController";
+        vc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateInitialViewController];
     }
+
+    [parent addChildViewController:vc];
+    [parent.view addSubview:vc.view];
+    [vc didMoveToParentViewController:parent];
     
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    viewController = [storyboard instantiateViewControllerWithIdentifier:vcName];
-    
-    self.window.rootViewController = viewController;
     [self.window makeKeyAndVisible];
-
     return YES;
-}
-							
-- (void)applicationWillResignActive:(UIApplication *)application {
-}
-
-- (void)applicationDidEnterBackground:(UIApplication *)application {
-}
-
-- (void)applicationWillEnterForeground:(UIApplication *)application {
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    [FBAppCall handleDidBecomeActive];
-    
-    if ([Property isMixpanelEnabled]) {
-        [MixpanelUtil registerUserAsMixpanelProfile];
-        [MixpanelUtil updateMeasurementProperties:YES];
-
-        Mixpanel *mixpanel = [Mixpanel sharedInstance];
-        
-        // Mixpanel super properties
-        NSDate *creationTime = [Property getAsDate:KEY_CREATION_TIME];
-        if (creationTime) {
-            [mixpanel registerSuperPropertiesOnce:@{@"Creation Time": [MixpanelUtil toUTFDateString:creationTime]}];
-        }
-        
-        NSMutableDictionary *dictionary = [NSMutableDictionary dictionaryWithCapacity:10];
-        
-        NSString *userId = [Property getAsString:KEY_USER_ID];
-        if (userId) {
-            [dictionary setObject:@"true" forKey:@"User"];
-        }
-
-        NSString *facebookUserId = [Property getAsString:KEY_FACEBOOK_USER_ID];
-        if (facebookUserId) {
-            [dictionary setObject:@"true" forKey:@"Facebook"];
-        }
-
-        NSString *language = [Property getAsString:KEY_LANGUAGE];
-        if (language) {
-            [dictionary setObject:language forKey:@"Language"];
-        }
-        
-        NSNumber *windSpeedUnit = [Property getAsInteger:KEY_WIND_SPEED_UNIT];
-        if (windSpeedUnit) {
-            NSString *unit = [UnitUtil jsonNameForWindSpeedUnit:[windSpeedUnit intValue]];
-            [dictionary setObject:unit forKey:@"Speed Unit"];
-        }
-        
-        BOOL enableShareDialog = [Property getAsBoolean:KEY_ENABLE_SHARE_DIALOG defaultValue:YES];
-        [dictionary setObject:(enableShareDialog ? @"true" : @"false") forKey:@"Enable Share Dialog"];
-        
-        if (dictionary.count > 0) {
-            [mixpanel registerSuperProperties:dictionary];
-        }
+    if ([AuthorizationController shared].isAuth) {
+        [[[LogHelper alloc] initWithGroupName:@"App" counters:@[]] log:@"Open" properties:@{}];
     }
     
-    if (self.lastAppActive == nil || fabs([self.lastAppActive timeIntervalSinceNow]) > 30.0*60.0 /* 30 mins */) {
-        if ([Property isMixpanelEnabled]) {
-            [[Mixpanel sharedInstance] track:@"Open App"];
-        }
-        self.lastAppActive = [NSDate date];
-    }
-}
-
-- (void)applicationWillTerminate:(UIApplication *)application {
+    application.applicationIconBadgeNumber = 0;
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-    
     if ([url.scheme isEqualToString:@"vaavud"]) {
-        NSDictionary *dict = [QueryStringUtil parseQueryString:url.query];
+        if (![AuthorizationController shared].isAuth) {
+            return NO;
+        }
+        
+        NSDictionary *dict = [self parseQueryString:url.query];
         
         self.xCallbackSuccess = nil;
         
         if ([url.host isEqualToString:@"x-callback-url"]) {
             if ([url.path isEqualToString:@"/measure"]) {
-                [VEVaavudElectronicSDK sharedVaavudElectronic];
                 self.xCallbackSuccess = [dict objectForKey:@"x-success"];
                 
-                if ([self.window.rootViewController isKindOfClass:[TabBarController class]]) {
-                    TabBarController *tabBarController = (TabBarController *)self.window.rootViewController;
-                    if (tabBarController != nil && tabBarController.isViewLoaded) {
-                        [tabBarController takeMeasurementFromUrlScheme];
-                        if ([Property isMixpanelEnabled]) {
-                            [[Mixpanel sharedInstance] track:@"Opened with url scheme" properties:@{ @"From App" : sourceApplication }];
-                        }
-                    }
+                UIViewController *main = [[self.window.rootViewController childViewControllers] lastObject];
+                if (![main isKindOfClass:[TabBarController class]] || !main.isViewLoaded) {
+                    return NO;
                 }
+                
+                [(TabBarController *)main takeMeasurement:YES];
+                [LogHelper logWithGroupName:@"URL-Scheme" event:@"Opened" properties:@{ @"source" : sourceApplication }];
             }
         }
     }
     else if ([[DBSession sharedSession] handleOpenURL:url]) {
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:KEY_IS_DROPBOXLINKED
-         object:@([[DBSession sharedSession] isLinked])];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"dropboxIsLinked" object:@([[DBSession sharedSession] isLinked])];
         return YES;
     }
+    
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                          openURL:url
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation];
+}
+
+- (NSDictionary *)parseQueryString:(NSString *)query {
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:6];
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    
+    for (NSString *pair in pairs) {
+        NSArray *elements = [pair componentsSeparatedByString:@"="];
+        NSString *key = [[elements objectAtIndex:0] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSString *val = [[elements objectAtIndex:1] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        [dict setObject:val forKey:key];
+    }
+    
+    return dict;
+}
+
+#pragma mark - Notifications
+
+- (void)application:(UIApplication *)app didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSString *token = [[deviceToken description] stringByTrimmingCharactersInSet: [NSCharacterSet characterSetWithCharactersInString:@"<>"]];
+    token = [token stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    NSLog(@"token---%@", token);
+    [[AuthorizationController shared] saveAPNToken:token];
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    if (application.applicationState == UIApplicationStateBackground) {
+        NSLog(@"Background");
+        completionHandler(UIBackgroundFetchResultNewData);
+        
+    }
+    else if(application.applicationState == UIApplicationStateInactive) {
+        NSLog(@"Inactive");
+        completionHandler(UIBackgroundFetchResultNewData);
+        
+    }
     else {
-        return [FBSession.activeSession handleOpenURL:url];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:@"PushNotification" object:userInfo];
+        
+        NSLog(@"Active");
+        completionHandler(UIBackgroundFetchResultNewData);
     }
     
-    return YES;
-}
-
-#pragma mark - Dropbox
-
--(void)uploadToDropbox:(MeasurementSession *)session {
-    if (!self.dropboxUploader) {
-        self.dropboxUploader = [[DropboxUploader alloc] initWithDelegate:self];
-    }
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PushNotification" object:userInfo];
     
-    [self.dropboxUploader uploadToDropbox:session];
-}
-
-- (void)restClient:(DBRestClient *)client uploadedFile:(NSString *)destPath
-              from:(NSString *)srcPath metadata:(DBMetadata *)metadata {
     
-    NSError *error = nil;
-    [[NSFileManager defaultManager] removeItemAtPath:srcPath error:&error];
-    if (!error) {
-        NSLog(@"File uploaded and deleted successfully to path: %@", metadata.path);
-    }
-    else {
-        NSLog(@"File uploaded successfully, but not deleted to path: %@, error: %@", metadata.path, error.localizedDescription);
-    }
+//     NSLog(@"my notification: %@", userInfo);
 }
 
-- (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {
-    NSLog(@"File upload failed with error: %@", error);
+- (void)application:(UIApplication *)app didFailToRegisterForRemoteNotificationsWithError:(NSError *)err {
+    NSLog(@"Error in registration. Error: %@", err);
 }
 
-- (void)userAuthenticated:(BOOL)isSignup viewController:(UIViewController *)viewController {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
-    UIViewController *nextViewController = [storyboard instantiateViewControllerWithIdentifier:@"TabBarController"];
-    //nextViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    //[viewController presentViewController:nextViewController animated:YES completion:nil];
-    self.window.rootViewController = nextViewController;
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo withResponseInfo:(NSDictionary *)responseInfo completionHandler:(void (^)())completionHandler {
     
-    [[ServerUploadManager sharedInstance] syncHistory:2 ignoreGracePeriod:YES success:nil failure:nil];
-}
-
-- (void)cancelled:(UIViewController *)viewController {
-}
-
-- (NSString *)registerScreenTitle {
-    return nil;
-}
-
-- (NSString *)registerTeaserText {
-    return nil;
+    NSLog(@"Info when app its open from notification: %@", userInfo[@"location"]);
 }
 
 @end

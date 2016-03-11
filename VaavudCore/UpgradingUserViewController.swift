@@ -29,10 +29,6 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
         }
 
         scrollView.contentSize = CGSize(width: CGFloat(pager.numberOfPages)*scrollView.bounds.width, height: scrollView.bounds.height)
-
-        if Property.isMixpanelEnabled() {
-            Mixpanel.sharedInstance().track("Upgade Sleipnir Flow")
-        }
         
         let nibName = "UpgradingUserPagesView"
         if let content = NSBundle.mainBundle().loadNibNamed(nibName, owner: self, options: nil).first as? UIView {
@@ -55,23 +51,10 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func openBuyDevice() { // Close
-        Property.setAsBoolean(true, forKey: KEY_HAS_SEEN_TRISCREEN_FLOW);
-        
-        if Property.isMixpanelEnabled() {
-            Mixpanel.sharedInstance().track("Triscreen Flow - Dismiss")
-        }
-            
         if let tabBarController = storyboard?.instantiateViewControllerWithIdentifier("TabBarController") as? TabBarController {
             if let window = UIApplication.sharedApplication().delegate?.window {
-                window?.rootViewController = tabBarController
-
-                if AccountManager.sharedInstance().isLoggedIn() {
-                    ServerUploadManager.sharedInstance().syncHistory(2, ignoreGracePeriod: true, success: nil, failure: nil)
-                }
-                
-                if !Property.getAsBoolean(KEY_USER_HAS_WIND_METER, defaultValue: false) {
-                    tabBarController.selectedIndex = 1
-                }
+                window?.rootViewController = tabBarController                
+                tabBarController.selectedIndex = 1
             }
         }
     }

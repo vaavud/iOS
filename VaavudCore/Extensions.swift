@@ -9,6 +9,34 @@
 import Foundation
 import MediaPlayer
 
+class RotatableNavigationController: UINavigationController {
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return .All
+    }
+}
+
+class RotatableViewController: UIViewController {
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return [.Portrait, .PortraitUpsideDown]
+    }
+}
+
+extension UINavigationController {
+    func pushViewController(viewController: UIViewController, animated: Bool, completion: Void -> Void) {
+        CATransaction.begin()
+        CATransaction.setCompletionBlock(completion)
+        pushViewController(viewController, animated: animated)
+        CATransaction.commit()
+    }
+    
+    func popViewControllerAnimated(animated: Bool, completion: Void -> Void) {
+        CATransaction.begin()
+        CATransaction.setCompletionBlock(completion)
+        popViewControllerAnimated(animated)
+        CATransaction.commit()
+    }
+}
+
 class Plot: UIView {
     let f: CGFloat -> CGFloat
     let n: Int
@@ -134,6 +162,17 @@ func clamp(x: CGFloat) -> CGFloat {
     return x
 }
 
+extension UIImage {
+    class func image(color: UIColor, size: CGSize) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        color.setFill()
+        UIRectFill(CGRectMake(0, 0, 100, 100))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+}
+
 extension UIViewController {
     func hideVolumeHUD() {
         view.addSubview(MPVolumeView(frame: CGRect(x: -1000, y: -1000, width: 100, height: 100)))
@@ -233,6 +272,16 @@ struct Polar {
     var r: CGFloat
     var phi: CGFloat
     
+    init(r: Double, phi: Double) {
+        self.r = CGFloat(r)
+        self.phi = CGFloat(phi)
+    }
+    
+    init(r: CGFloat, phi: CGFloat) {
+        self.r = r
+        self.phi = phi
+    }
+
     var cartesian: CGPoint {
         return CGPoint(x: r*cos(phi), y: r*sin(phi))
     }
@@ -242,6 +291,10 @@ struct Polar {
     }
 
     func rotated(phi: CGFloat) -> Polar {
+        return self*Polar(r: 1, phi: phi)
+    }
+    
+    func rotated(phi: Double) -> Polar {
         return self*Polar(r: 1, phi: phi)
     }
 }
@@ -257,6 +310,16 @@ extension CGFloat {
     
     var degrees: CGFloat {
         return self*180/π
+    }
+}
+
+extension Double {
+    var radians: Double {
+        return self*Double(π)/180
+    }
+    
+    var degrees: Double {
+        return self*180/Double(π)
     }
 }
 
@@ -295,6 +358,8 @@ extension CGSize {
     func expandY(value: CGFloat) -> CGSize {
         return CGSize(width: width, height: height + value)
     }
+    
+    var point: CGPoint { return CGPoint(x: width, y: height) }
 }
 
 func mod(i: Int, _ n: Int) -> Int {
@@ -302,6 +367,10 @@ func mod(i: Int, _ n: Int) -> Int {
 }
 
 func mod(i: CGFloat, _ n: CGFloat) -> CGFloat {
+    return ((i % n) + n) % n
+}
+
+func mod(i: Double, _ n: Double) -> Double {
     return ((i % n) + n) % n
 }
 
@@ -365,6 +434,10 @@ extension CGRect {
 }
 
 func distanceOnCircle(from angle: CGFloat, to otherAngle: CGFloat) -> CGFloat {
+    return CGFloat(distanceOnCircle(from: Double(angle), to: Double(otherAngle)))
+}
+
+func distanceOnCircle(from angle: Double, to otherAngle: Double) -> Double {
     let dist = (otherAngle - angle) % 360
     
     if dist <= -180 {

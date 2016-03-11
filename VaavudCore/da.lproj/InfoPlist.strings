@@ -1,2 +1,2 @@
 NSLocationWhenInUseUsageDescription = "Vi vil benytte din position for at vise dig hvor din måling var taget.";
-NSMicrophoneUsageDescription = "Sleipnir vindmåleren bruger hovedtelefonsstikket til at kommunikerer med telefonen.";
+NSMicrophoneUsageDescription = "Sleipnir vindmåleren bruger hovedtelefonsstikket til at kommunikere med telefonen.";

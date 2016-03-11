@@ -11,32 +11,17 @@
 
 #import "AppDelegate.h"
 #import "UIColor+VaavudColors.h"
-#import "LocationManager.h"
-#import "MeasurementSession.h"
-#import "MeasurementPoint.h"
-#import "UnitUtil.h"
-#import "Property+Util.h"
-#import "MeasurementAnnotation.h"
-#import "TabBarController.h"
-#import "AccountManager.h"
-#import "ServerUploadManager.h"
-#import "Mixpanel.h"
-#import "MixpanelUtil.h"
-#import "RegisterViewController.h"
 
-#import <VaavudElectronicSDK/VEVaavudElectronicSDK.h>
+#import "MeasurementAnnotation.h"
+#import "PasswordUtil.h"
+#import "Amplitude.h"
+#import "MeasurementCalloutView.h"
+
 #import "MjolnirMeasurementController.h"
 
 #import <DropboxSDK/DropboxSDK.h>
-
-#import "MagicalRecord.h"
-#import "MagicalRecord+Actions.h"
-#import "NSManagedObject+MagicalRecord.h"
-#import "NSManagedObject+MagicalFinders.h"
-#import "NSManagedObjectContext+MagicalRecord.h"
-#import "NSManagedObjectContext+MagicalSaves.h"
-#import "UUIDUtil.h"
-
-#import "FirstTimeFlowController.h" // FIXME: This class needs to be refactored
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
+#import <GeoFire/GeoFire.h>
 
 #endif

@@ -12,7 +12,6 @@
 @protocol VaavudDynamicsControllerDelegate
 
 - (void)dynamicsIsValid:(BOOL)validity;
-- (void)newHeading:(NSNumber *)newHeading;
 
 @end
 

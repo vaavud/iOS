@@ -7,16 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <FacebookSDK/FacebookSDK.h>
-#import "RegisterNavigationController.h"
 
-@class MeasurementSession;
-
-@interface AppDelegate : UIResponder <UIApplicationDelegate, RegisterNavigationControllerDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic) NSString *xCallbackSuccess;
-
--(void)uploadToDropbox:(MeasurementSession *)session;
 
 @end

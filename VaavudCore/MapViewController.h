@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "SMCalloutView.h"
-#import "MeasurementSession+Util.h"
 #import "MeasurementAnnotation.h"
-#import "TabBarController.h"
 
 @interface CustomMapView : MKMapView
 
@@ -21,20 +19,11 @@
 
 @end
 
-@interface MapViewController : UIViewController <MKMapViewDelegate, SMCalloutViewDelegate>
+@interface MapViewController : UIViewController <MKMapViewDelegate, SMCalloutViewDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, weak) IBOutlet CustomMapView *mapView;
-@property (nonatomic, weak) IBOutlet UIButton *hoursButton;
-@property (nonatomic, weak) IBOutlet UIButton *unitButton;
-@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, weak) IBOutlet UIView *feedbackView;
-@property (nonatomic, weak) IBOutlet UILabel *feedbackTitleLabel;
-@property (nonatomic, weak) IBOutlet UITextView *feedbackTextView;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *hoursBottomLayoutGuideConstraint;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *unitBottomLayoutGuideConstraint;
 @property (nonatomic) BOOL isSelectingFromTableView;
 
 -(void)zoomToAnnotation:(MeasurementAnnotation *)annotation;
--(void)googleAnalyticsAnnotationEvent:(MeasurementAnnotation *)annotation withAction:(NSString *)action mixpanelTrack:(NSString *)track mixpanelSource:(NSString *)source;
 
 @end

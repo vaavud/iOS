@@ -1,18 +1,40 @@
 PODS:
+  - Amplitude-iOS (3.5.0)
+  - Bolts (1.6.0):
+    - Bolts/AppLinks (= 1.6.0)
+    - Bolts/Tasks (= 1.6.0)
+  - Bolts/AppLinks (1.6.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.6.0)
   - Dropbox-iOS-SDK (1.3.13)
-  - MagicalRecord (2.3.0)
-  - Mixpanel (2.8.3):
-    - Mixpanel/Mixpanel (= 2.8.3)
-  - Mixpanel/Mixpanel (2.8.3)
+  - FBSDKCoreKit (4.9.1):
+    - Bolts (~> 1.5)
+  - FBSDKLoginKit (4.9.1):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.9.1):
+    - FBSDKCoreKit
+  - Firebase (2.4.3)
+  - GeoFire (1.1.2):
+    - Firebase (~> 2.2)
 
 DEPENDENCIES:
+  - Amplitude-iOS
+  - Bolts
   - Dropbox-iOS-SDK
-  - MagicalRecord
-  - Mixpanel
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - FBSDKShareKit
+  - Firebase (~> 2.4.2)
+  - GeoFire
 
 SPEC CHECKSUMS:
+  Amplitude-iOS: 06d4f103728b15e95487b77a16749ae373f970a3
+  Bolts: f52a250053bb517ca874523c3913776359ab3def
   Dropbox-iOS-SDK: e0c9b08d1604b39cb78c1d0333251de0f6bdec60
-  MagicalRecord: 89eb7d7ead39fb37f01c3d010665ee94d17f8dba
-  Mixpanel: fd52e097ae0d27295d0595b2261c60b94d191fda
+  FBSDKCoreKit: aee20b6d9855f15b618d4fddd1a5ad45f5a4a59d
+  FBSDKLoginKit: ec22dc49bd372b064e93d6773df4ffefb3a552a2
+  FBSDKShareKit: b8c8ef0ed173f9fc1b3c8df384a0202ce53008d4
+  Firebase: 48179995b561e2262c5d4060ecdffca45fbbff8b
+  GeoFire: 03db4e390a4cf3ff97422f19eb71ab1aa7d947dd
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0

@@ -7,42 +7,32 @@
 //
 
 #import "MeasurementAnnotation.h"
+#import "Vaavud-Swift.h"
 
 @implementation MeasurementAnnotation
 
-- (id)initWithLocation:(CLLocationCoordinate2D)coord  windDirection:(NSNumber *)direction {
-    return [self initWithLocation:coord startTime:nil avgWindSpeed:0.0F maxWindSpeed:0.0F windDirection:direction];
+- (id)initWithStartTime:(NSDate *)startTime {
+    self = [super init];
+    if (self) {
+	        _startTime = startTime;
+    }
+    return self;
 }
 
 - (id)initWithLocation:(CLLocationCoordinate2D)coordinate
-             startTime:(NSDate*)startTime
-          avgWindSpeed:(float)avgWindSpeed
-          maxWindSpeed:(float)maxWindSpeed
          windDirection:(NSNumber *)direction {
     
     self = [super init];
     if (self) {
         _coordinate = coordinate;
-        _startTime = startTime;
-        _avgWindSpeed = avgWindSpeed;
-        _maxWindSpeed = maxWindSpeed;
         _windDirection = direction;
     }
     return self;
 }
 
-- (NSString *)title {
-    return [self formatWindSpeed:self.avgWindSpeed];
-}
 
-- (NSString *)formatWindSpeed:(double)value {
-    double localizedValue = [UnitUtil displayWindSpeedFromDouble:value unit:self.windSpeedUnit];
-    if (localizedValue > 100.0) {
-        return [NSString stringWithFormat: @"%.0f %@", localizedValue, [UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit]];
-    }
-    else {
-        return [NSString stringWithFormat: @"%.1f %@", localizedValue, [UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit]];
-    }
+- (NSString *)title {
+    return [[VaavudFormatter shared] localizedSpeed:self.avgWindSpeed digits:2];
 }
 
 - (NSString *)description {

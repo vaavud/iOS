@@ -7,12 +7,11 @@
 //
 
 #import "MeasurementCalloutView.h"
-#import "UnitUtil.h"
-#import "Property+Util.h"
 #import "UIImageView+TMCache.h"
 #import "FormatUtil.h"
 #import "MeasurementTableViewCell.h"
 #import "UIColor+VaavudColors.h"
+#import "Vaavud-Swift.h"
 
 static NSString *cellIdentifier = @"MeasurementCell";
 
@@ -44,22 +43,21 @@ BOOL isTableInitialized = NO;
     self.nearbyHeadingLabel.text = [NSLocalizedString(@"HEADING_NEARBY_MEASUREMENTS", nil) uppercaseStringWithLocale:[NSLocale currentLocale]]; // LOKALISERA_BORT sedan
     
     if (!isnan(self.measurementAnnotation.avgWindSpeed)) {
-        self.avgLabel.text = [FormatUtil formatValueWithThreeDigits:[UnitUtil displayWindSpeedFromDouble:self.measurementAnnotation.avgWindSpeed unit:self.windSpeedUnit]];
+        self.avgLabel.text = [[VaavudFormatter shared] localizedSpeed:self.measurementAnnotation.avgWindSpeed digits:3];
     }
     else {
         self.avgLabel.text = @"-";
     }
     
     if (!isnan(self.measurementAnnotation.maxWindSpeed)) {
-        self.maxLabel.text = [FormatUtil formatValueWithThreeDigits:[UnitUtil displayWindSpeedFromDouble:self.measurementAnnotation.maxWindSpeed unit:self.windSpeedUnit]];
+        self.maxLabel.text = [[VaavudFormatter shared] localizedSpeed:self.measurementAnnotation.maxWindSpeed digits:3];
+
     }
     else {
         self.maxLabel.text = @"-";
     }
     self.maxLabel.textColor = [UIColor vaavudColor];
-    
-    NSString *unitName = [UnitUtil displayNameForWindSpeedUnit:self.windSpeedUnit];
-    self.avgUnitLabel.text = unitName;
+    self.avgUnitLabel.text = [[VaavudFormatter shared] speedUnitLocalName];
     
     NSString *iconUrl = @"http://vaavud.com/appgfx/SmallWindMarker.png";
     NSString *markers = [NSString stringWithFormat:@"icon:%@|shadow:false|%f,%f", iconUrl, self.measurementAnnotation.coordinate.latitude, self.measurementAnnotation.coordinate.longitude];
@@ -70,23 +68,12 @@ BOOL isTableInitialized = NO;
     self.timeLabel.text = [FormatUtil formatRelativeDate:measurementAnnotation.startTime];
 
     if (self.measurementAnnotation.windDirection) {
-        
-        if (self.directionUnit == 0) {
-            self.directionLabel.text = [UnitUtil displayNameForDirection:self.measurementAnnotation.windDirection];
-        }
-        else {
-            self.directionLabel.text = [NSString stringWithFormat:@"%@°", [NSNumber numberWithInt:(int)round([self.measurementAnnotation.windDirection doubleValue])]];
-        }
+        self.directionLabel.text = [[VaavudFormatter shared] localizedDirection:self.measurementAnnotation.windDirection.floatValue];
         self.directionLabel.hidden = NO;
         
-        self.directionImageView.image = [UIImage imageNamed:@"wind_arrow.png"];;
-        if (self.directionImageView.image) {
-            self.directionImageView.transform = CGAffineTransformMakeRotation([self.measurementAnnotation.windDirection doubleValue]/180 * M_PI);
-            self.directionImageView.hidden = NO;
-        }
-        else {
-            self.directionImageView.hidden = YES;
-        }
+        self.directionImageView.image = [UIImage imageNamed:@"WindArrow"];
+        self.directionImageView.transform = [VaavudFormatter transformWithDirection:self.measurementAnnotation.windDirection.floatValue];
+        self.directionImageView.hidden = NO;
     }
     else {
         self.directionImageView.hidden = YES;
@@ -106,7 +93,6 @@ BOOL isTableInitialized = NO;
 
 - (IBAction)mapButtonTapped {
     [self.mapViewController zoomToAnnotation:self.measurementAnnotation];
-    [self.mapViewController googleAnalyticsAnnotationEvent:self.measurementAnnotation withAction:@"map thumbnail touch" mixpanelTrack:@"Map Marker Thumbnail Zoom" mixpanelSource:nil];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -114,19 +100,20 @@ BOOL isTableInitialized = NO;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.nearbyAnnotations count];
+    return self.nearbyAnnotations.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MeasurementTableViewCell *cell = (MeasurementTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    MeasurementAnnotation *measurementAnnotation = [self.nearbyAnnotations objectAtIndex:[indexPath item]];
-    [cell setValues:measurementAnnotation.avgWindSpeed unit:self.windSpeedUnit time:measurementAnnotation.startTime windDirection:measurementAnnotation.windDirection directionUnit:self.directionUnit];
+    MeasurementAnnotation *measurementAnnotation = self.nearbyAnnotations[indexPath.item];
+    [cell setValues:measurementAnnotation.avgWindSpeed time:measurementAnnotation.startTime windDirection:measurementAnnotation.windDirection];
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     self.mapViewController.isSelectingFromTableView = YES;
-    MeasurementAnnotation *measurementAnnotation = [self.nearbyAnnotations objectAtIndex:[indexPath item]];
+    MeasurementAnnotation *measurementAnnotation = self.nearbyAnnotations[indexPath.item];
     [self.mapViewController.mapView selectAnnotation:measurementAnnotation animated:NO];
 }
 

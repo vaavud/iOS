@@ -9,10 +9,17 @@
 import UIKit
 
 enum MeasureState {
-    case CountingDown(Int, Bool) // true = unlimited
+    case CountingDown(Int, Int) // countdown time, measuring time
     case Limited(Int)
     case Unlimited
     case Done
+    
+    var countingDown: Bool {
+        switch self {
+        case .CountingDown: return true
+        default: return false
+        }
+    }
     
     var running: Bool {
         switch self {
@@ -21,10 +28,10 @@ enum MeasureState {
         }
     }
     
-    var timed: Bool {
+    var timed: Int? {
         switch self {
-        case .Limited: return true
-        default: return false
+        case .Limited(let period): return period
+        default: return nil
         }
     }
 }

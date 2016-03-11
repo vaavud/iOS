@@ -1,0 +1,62 @@
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "Dnb-ta-Rj7"; */
+"Dnb-ta-Rj7.placeholder" = "密碼";
+
+/* Class = "UILabel"; text = "Which activity will you PRIMARILY use Vaavud for?"; ObjectID = "EOz-RV-GfT"; */
+"EOz-RV-GfT.text" = "您主要將Vaavud用於哪些活動？";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "EaP-jR-25d"; */
+"EaP-jR-25d.placeholder" = "電子郵件";
+
+/* Class = "UILabel"; text = "Join the biggest crowdsourced wind community"; ObjectID = "KWX-cl-rA4"; */
+"KWX-cl-rA4.text" = "加入最大的眾包風社區";
+
+/* Class = "UILabel"; text = "Activity"; ObjectID = "PEl-j3-XvR"; */
+"PEl-j3-XvR.text" = "活動";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "PN0-Nt-fF8"; */
+"PN0-Nt-fF8.placeholder" = "電子郵件";
+
+/* Class = "UIBarButtonItem"; title = "Create"; ObjectID = "V1M-TL-hgS"; */
+"V1M-TL-hgS.title" = "建立";
+
+/* Class = "UITextField"; placeholder = "Last name"; ObjectID = "ZOp-e7-5hc"; */
+"ZOp-e7-5hc.placeholder" = "姓";
+
+/* Class = "UILabel"; text = "Join us! We'll work very hard to make it worth it!"; ObjectID = "aQo-LL-olx"; */
+"aQo-LL-olx.text" = "加入我們！我們將盡心竭力，讓其有所值。";
+
+/* Class = "UIButton"; normalTitle = "Forgot your password?"; ObjectID = "b2J-dT-w05"; */
+"b2J-dT-w05.normalTitle" = "忘記密碼？";
+
+/* Class = "UITextField"; placeholder = "Email"; ObjectID = "cft-yO-LrQ"; */
+"cft-yO-LrQ.placeholder" = "電子郵件";
+
+/* Class = "UIButton"; normalTitle = "Save and continue"; ObjectID = "elr-R7-yH3"; */
+"elr-R7-yH3.normalTitle" = "保存並繼續";
+
+/* Class = "UIBarButtonItem"; title = "Login"; ObjectID = "gRG-an-VGR"; */
+"gRG-an-VGR.title" = "登入";
+
+/* Class = "UILabel"; text = "To provide better, more advanced features we now require sign in"; ObjectID = "iTR-Ms-EDH"; */
+"iTR-Ms-EDH.text" = "為了提供更好、更先進的功能，我們現在需要登錄";
+
+/* Class = "UITextField"; placeholder = "First name"; ObjectID = "kPr-7x-kxy"; */
+"kPr-7x-kxy.placeholder" = "名";
+
+/* Class = "UIButton"; normalTitle = "Send Email"; ObjectID = "ot8-gt-ZcE"; */
+"ot8-gt-ZcE.normalTitle" = "發送電子郵件";
+
+/* Class = "UINavigationItem"; title = "Forgot password"; ObjectID = "qbp-Cu-VF1"; */
+"qbp-Cu-VF1.title" = "忘了密碼";
+
+/* Class = "UIButton"; normalTitle = "Sign up using email"; ObjectID = "ucD-nD-tT2"; */
+"ucD-nD-tT2.normalTitle" = "使用電子郵件註冊";
+
+/* Class = "UITextField"; placeholder = "Password"; ObjectID = "yvA-me-lsq"; */
+"yvA-me-lsq.placeholder" = "密碼";
+
+/* Class = "UIButton"; normalTitle = "Have an account? Login"; ObjectID = "z60-kr-AsJ"; */
+"z60-kr-AsJ.normalTitle" = "已經有一個帳戶？ 登錄";
+
+/* Class = "UINavigationItem"; title = "Signup"; ObjectID = "zyF-57-0xn"; */
+"zyF-57-0xn.title" = "註冊";
