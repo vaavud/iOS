@@ -13,10 +13,16 @@ import VaavudSDK
 let sleipnirFromCallbackAttempts = 10
 
 class TabBarController: UITabBarController,UITabBarControllerDelegate {
+    
     private let button = UIButton(type: .Custom)
     private var laidOutWidth: CGFloat?
     private var sleipnirFromCallbackAttemptsLeft = sleipnirFromCallbackAttempts
     var tabToSelect = 1
+    let firebase = Firebase(url: firebaseUrl)
+    private let logHelper = LogHelper(.Free)
+
+    
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -42,6 +48,11 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
                 presentViewController(whatsNewViewController, animated: true, completion: nil)
             }
         }
+        
+        firebase.childByAppendingPaths("user", firebase.authData.uid,"activity").observeSingleEventOfType(.Value, withBlock: { snapshot in
+            LogHelper.setUserProperty("Activity",value: snapshot.value as? String ?? "unknown")
+        })
+        
     }
     
     override func viewDidLoad() {
@@ -123,7 +134,12 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
             }
             
             if let tabArray = tabBar.items {
-                tabArray[1].badgeValue = "1"
+                if let count = tabArray[1].badgeValue {
+                    tabArray[1].badgeValue = "\(Int(count)! + 1)"
+                }
+                else{
+                    tabArray[1].badgeValue = "1"
+                }
             }
         }
     }
@@ -162,7 +178,7 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
             presented.dismissViewControllerAnimated(false, completion: nil)
         }
         
-        let deviceSettings = Firebase(url: firebaseUrl).childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting")
+        let deviceSettings = firebase.childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting")
         deviceSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot { dict in
             if dict["usesSleipnir"] as? Bool == true && !VaavudSDK.shared.sleipnirAvailable() {
                 if fromUrlScheme && self.sleipnirFromCallbackAttemptsLeft > 0 {
