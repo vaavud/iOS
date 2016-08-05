@@ -166,7 +166,7 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
         }
         else{
             NSDate().ms
-            longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
+            longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(NotificationDetailsViewController.handleLongPress(_:)))
             longPressRecognizer.minimumPressDuration = 0.3
             longPressRecognizer.delaysTouchesBegan = true
             longPressRecognizer.delegate = self
@@ -340,7 +340,7 @@ struct Directions: OptionSetType, CustomStringConvertible {
     var local: String { return NSLocalizedString("DIRECTION_" + name, comment: "") }
 }
 
-func sectorBezierPath(total: Int)(direction: Directions) -> UIBezierPath {
+func sectorBezierPath(total: Int) (direction: Directions) -> UIBezierPath {
     let phi = 2*π/CGFloat(total)
     let path = UIBezierPath()
     path.moveToPoint(CGPoint())

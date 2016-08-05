@@ -135,7 +135,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
         variantButton.imageView?.contentMode = .ScaleAspectFit
         
-        displayLink = CADisplayLink(target: self, selector: Selector("tick:"))
+        displayLink = CADisplayLink(target: self, selector: #selector(MeasureRootViewController.tick(_:)))
         displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
         
         let (old, flat, round) = ("OldMeasureViewController", "FlatMeasureViewController", "RoundMeasureViewController")

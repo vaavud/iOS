@@ -60,14 +60,14 @@
     self.window.rootViewController = parent;
     
     UIViewController *vc;
-    if (![[AuthorizationController shared] verifyAuth]) {
-        UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateInitialViewController];
-        
-        vc = nav;
-    }
-    else {
+//    if (![[AuthorizationController shared] verifyAuth]) {
+//        UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateInitialViewController];
+//        
+//        vc = nav;
+//    }
+//    else {
         vc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateInitialViewController];
-    }
+//    }
 
     [parent addChildViewController:vc];
     [parent.view addSubview:vc.view];

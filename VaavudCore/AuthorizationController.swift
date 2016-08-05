@@ -43,7 +43,7 @@ class AuthorizationController: NSObject {
     var delegate: LoginDelegate?
     var uid: String?
     private var _deviceId: String?
-    var deviceId: String { if _deviceId != nil { return _deviceId! } else { fatalError("No device id") } }
+    var deviceId: String { if _deviceId != nil { return _deviceId! } else { return "Anonymous" } }
     static let shared = AuthorizationController()
     var isAuth: Bool { return NSUserDefaults.standardUserDefaults().objectForKey("deviceId") is String && firebase.authData != nil }
     

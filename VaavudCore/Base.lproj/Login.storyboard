@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="45m-Ka-4PX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="45m-Ka-4PX">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -125,7 +125,14 @@
                             <constraint firstItem="qNf-T5-hC3" firstAttribute="top" secondItem="mIN-KA-32B" secondAttribute="bottom" constant="8" id="xpg-4E-kwx"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="grS-NP-A2Z"/>
+                    <navigationItem key="navigationItem" id="grS-NP-A2Z">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="Mwp-SP-GhH">
+                            <color key="tintColor" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="onCancelLogin:" destination="Nmo-3Y-XLF" id="iQ8-rV-3W7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="facebookView" destination="Rsc-jT-kmp" id="X85-XL-jfj"/>
                         <outlet property="signupButton" destination="ucD-nD-tT2" id="sw3-b4-awt"/>

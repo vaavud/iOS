@@ -28,7 +28,7 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
         super.init(coder: aDecoder)
         
         NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: Selector("receiveNotification:"),
+            selector: #selector(TabBarController.receiveNotification(_:)),
             name: "PushNotification",
             object: nil)
     }
@@ -49,9 +49,12 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
             }
         }
         
-        firebase.childByAppendingPaths("user", firebase.authData.uid,"activity").observeSingleEventOfType(.Value, withBlock: { snapshot in
-            LogHelper.setUserProperty("Activity",value: snapshot.value as? String ?? "unknown")
-        })
+        
+        if AuthorizationController.shared.isAuth {
+            firebase.childByAppendingPaths("user", firebase.authData.uid,"activity").observeSingleEventOfType(.Value, withBlock: { snapshot in
+                LogHelper.setUserProperty("Activity",value: snapshot.value as? String ?? "unknown")
+            })
+        }
         
     }
     
@@ -62,63 +65,10 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
         button.bounds.size.height = tabBar.bounds.height
         button.setImage(UIImage(named: "MeasureButton"), forState: .Normal)
         tabBar.addSubview(button)
-        selectedIndex = tabToSelect
+        selectedIndex = 0
         
         tabBar.tintColor = .vaavudBlueColor()
         delegate = self
-        
-        
-        
-        
-//        [[NSNotificationCenter defaultCenter] addObserver:self
-//            selector:@selector(receiveNotification:)
-//        name:@"PushNotification"
-//        object:nil];
-//    
-    
-//        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//        CGRect frame = self.tabBar.bounds;
-//        frame.size.width = 70;
-//        button.frame = frame;
-//        button.layer.zPosition = 100;
-//        [button setImage:[UIImage imageNamed:@"MeasureButton"] forState:UIControlStateNormal];
-//        
-//        [self.tabBar addSubview:button];
-//        
-//        self.interactions = [VaavudInteractions new];
-//        self.measureButton = button;
-//        
-//        self.delegate = self;
-//        
-//        [self setSelectedIndex:1];
-//        
-//        self.tabBar.tintColor = [UIColor vaavudBlueColor];
-//        
-//        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:@"GuideView" owner:self options:nil];
-//        self.calloutGuideView = [topLevelObjects objectAtIndex:0];
-//        self.calloutGuideView.frame = CGRectMake(0, 0, CALLOUT_GUIDE_VIEW_WIDTH, [self.calloutGuideView preferredHeight]);
-//        self.calloutGuideView.backgroundColor = [UIColor clearColor];
-//        self.calloutGuideView.headingLabel.textColor = [UIColor darkGrayColor];
-//        self.calloutGuideView.explanationLabel.textColor = [UIColor darkGrayColor];
-//        self.calloutGuideView.topSpaceConstraint.constant = 10.0;
-//        self.calloutGuideView.headingLabelWidthConstraint.constant = CALLOUT_GUIDE_VIEW_WIDTH - 20.0;
-//        self.calloutGuideView.explanationLabelWidthConstraint.constant = CALLOUT_GUIDE_VIEW_WIDTH - 20.0;
-//        self.calloutGuideView.labelVerticalSpaceConstraint.constant = 5.0;
-//        
-//        UITapGestureRecognizer *calloutGuideViewTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(guideViewTap:)];
-//        [self.calloutGuideView addGestureRecognizer:calloutGuideViewTapRecognizer];
-//        
-//        self.isCalloutGuideViewShown = NO;
-//        
-//        self.calloutView = [SMCalloutView new];
-//        self.calloutView.delegate = self;
-//        self.calloutView.presentAnimation = SMCalloutAnimationStretch;
-//        self.calloutView.translatesAutoresizingMaskIntoConstraints = YES;
-//        self.calloutView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-//        
-//        for (UITabBarItem *item in self.tabBar.items) {
-//            item.imageInsets = UIEdgeInsetsMake(6.0, 0.0, -6.0, 0.0);
-//        }
         
         for item in tabBar.items! {
             item.imageInsets = UIEdgeInsetsMake(6.0, 0.0, -6.0, 0.0);
@@ -166,7 +116,15 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
             return false
         }
         
-        return true
+        else if !AuthorizationController.shared.isAuth && (viewController == childViewControllers[1] || viewController == childViewControllers[3]) {
+            if let PreLoginViewController = storyboard?.instantiateViewControllerWithIdentifier("PreLoginViewController") as?  PreLoginViewController  {
+                PreLoginViewController.parentView = self
+                presentViewController(PreLoginViewController, animated: true, completion: nil)
+            }
+        }
+        
+        return AuthorizationController.shared.isAuth || viewController == childViewControllers[0] || viewController == childViewControllers[4]
+        
     }
     
     func takeMeasurementFromUrlScheme() {
@@ -183,7 +141,7 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
             if dict["usesSleipnir"] as? Bool == true && !VaavudSDK.shared.sleipnirAvailable() {
                 if fromUrlScheme && self.sleipnirFromCallbackAttemptsLeft > 0 {
                     self.sleipnirFromCallbackAttemptsLeft -= 1
-                    NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "takeMeasurementFromUrlScheme", userInfo: nil, repeats: false)
+                    NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(TabBarController.takeMeasurementFromUrlScheme), userInfo: nil, repeats: false)
                     return
                 }
                 

@@ -66,6 +66,7 @@
 		22F2B3671C032A8E001D7AD7 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F2B3661C032A8E001D7AD7 /* LogHelper.swift */; };
 		22F997911C1AFF3F00127F91 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F997901C1AFF3F00127F91 /* MapViewController.swift */; };
 		22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
+		2B2BBB851D549A8400F698DC /* PreLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2BBB841D549A8400F698DC /* PreLoginViewController.swift */; };
 		2B347F611C11A4970095E95A /* SelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F5B1C11A4970095E95A /* SelectorViewController.swift */; };
 		2B347F621C11A4970095E95A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F5C1C11A4970095E95A /* LoginViewController.swift */; };
 		2B347F631C11A4970095E95A /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F5D1C11A4970095E95A /* SignupViewController.swift */; };
@@ -265,6 +266,7 @@
 		22F997901C1AFF3F00127F91 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Bridging-Header.h"; sourceTree = "<group>"; };
 		22FA6C501A727171004DD868 /* VaavudStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VaavudStyle.swift; path = Vaavud/StyleKit/VaavudStyle.swift; sourceTree = SOURCE_ROOT; };
+		2B2BBB841D549A8400F698DC /* PreLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreLoginViewController.swift; sourceTree = "<group>"; };
 		2B347F5B1C11A4970095E95A /* SelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectorViewController.swift; sourceTree = "<group>"; };
 		2B347F5C1C11A4970095E95A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2B347F5D1C11A4970095E95A /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -541,6 +543,7 @@
 				E9EE1FAD1769F01800D1F006 /* Util */,
 				D7B5BD4E175775BA0069F739 /* View */,
 				2BFDEED01C68EB1400673293 /* notificationSettingsViewController.swift */,
+				2B2BBB841D549A8400F698DC /* PreLoginViewController.swift */,
 			);
 			name = Classes;
 			path = VaavudCore;
@@ -978,6 +981,7 @@
 				2BFDEED11C68EB1400673293 /* notificationSettingsViewController.swift in Sources */,
 				D7A4F1DB173A8DDB00D1ACEE /* AppDelegate.m in Sources */,
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
+				2B2BBB851D549A8400F698DC /* PreLoginViewController.swift in Sources */,
 				E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */,
 				22DCCED41B02399800D65265 /* RoundMeasureScreen.swift in Sources */,
 				D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */,

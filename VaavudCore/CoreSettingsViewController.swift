@@ -64,7 +64,7 @@ class CoreSettingsTableViewController: UITableViewController {
 
         dropboxControl.on = DBSession.sharedSession().isLinked()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: "dropboxIsLinked", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CoreSettingsTableViewController.dropboxLinkedStatus(_:)), name: "dropboxIsLinked", object: nil)
 
         formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
         refreshUnits()
@@ -155,52 +155,90 @@ class CoreSettingsTableViewController: UITableViewController {
     let limitedInterval = 30 // fixme: where to put this? Follow your heart it will tell you.
     
     @IBAction func changedLimitToggle(sender: UISegmentedControl) {
-        deviceSettings.childByAppendingPath("measuringTime").setValue(sender.selectedSegmentIndex == 1 ? 0 : limitedInterval)
-        logHelper.increase()
+        if AuthorizationController.shared.isAuth {
+            deviceSettings.childByAppendingPath("measuringTime").setValue(sender.selectedSegmentIndex == 1 ? 0 : limitedInterval)
+            logHelper.increase()
+        }
+        else {
+            //TODO
+        }
+        
     }
 
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {
-        VaavudFormatter.shared.speedUnit = SpeedUnit(index: sender.selectedSegmentIndex)
-        logUnitChange("speed")
+        if AuthorizationController.shared.isAuth {
+            VaavudFormatter.shared.speedUnit = SpeedUnit(index: sender.selectedSegmentIndex)
+            logUnitChange("speed")
+        }
+        else{
+            //TODO
+        }
     }
     
     @IBAction func changedDirectionUnit(sender: UISegmentedControl) {
-        VaavudFormatter.shared.directionUnit = DirectionUnit(index: sender.selectedSegmentIndex)
-        logUnitChange("direction")
+        if AuthorizationController.shared.isAuth {
+            VaavudFormatter.shared.directionUnit = DirectionUnit(index: sender.selectedSegmentIndex)
+            logUnitChange("direction")
+        }
+        else{
+            //TODO
+        }
     }
     
     @IBAction func changedPressureUnit(sender: UISegmentedControl) {
-        VaavudFormatter.shared.pressureUnit = PressureUnit(index: sender.selectedSegmentIndex)
-        logUnitChange("pressure")
+        if AuthorizationController.shared.isAuth {
+            VaavudFormatter.shared.pressureUnit = PressureUnit(index: sender.selectedSegmentIndex)
+            logUnitChange("pressure")
+        }
+        else{
+        
+        }
     }
     
     @IBAction func changedTemperatureUnit(sender: UISegmentedControl) {
-        VaavudFormatter.shared.temperatureUnit = TemperatureUnit(index: sender.selectedSegmentIndex)
-        logUnitChange("temperature")
+        if AuthorizationController.shared.isAuth {
+            VaavudFormatter.shared.temperatureUnit = TemperatureUnit(index: sender.selectedSegmentIndex)
+            logUnitChange("temperature")
+        }
+        else{
+            //TODO
+        }
     }
     
     @IBAction func changedDropboxSetting(sender: UISwitch) {
-        let action: String
-        if sender.on {
-            DBSession.sharedSession().linkFromController(self)
-            action = "TryToLink"
+        if AuthorizationController.shared.isAuth {
+            let action: String
+            if sender.on {
+                DBSession.sharedSession().linkFromController(self)
+                action = "TryToLink"
+            }
+            else {
+                DBSession.sharedSession().unlinkAll()
+                action = "Unlinked"
+            }
+            logHelper.increase()
+            logHelper.log("Dropbox", properties: ["Action" : action])
         }
-        else {
-            DBSession.sharedSession().unlinkAll()
-            action = "Unlinked"
-        }
-        logHelper.increase()
-        logHelper.log("Dropbox", properties: ["Action" : action])
     }
 
     @IBAction func changedMeterModel(sender: UISegmentedControl) {
-        deviceSettings.childByAppendingPath("usesSleipnir").setValue(sender.selectedSegmentIndex == 1)
-        logHelper.increase()
+        if AuthorizationController.shared.isAuth {
+            deviceSettings.childByAppendingPath("usesSleipnir").setValue(sender.selectedSegmentIndex == 1)
+            logHelper.increase()
+        }
+        else{
+            //TODO
+        }
     }
 
     @IBAction func changedSleipnirPlacement(sender: UISegmentedControl) {
-        deviceSettings.childByAppendingPath("sleipnirClipSideScreen").setValue(sender.selectedSegmentIndex == 1)
-        logHelper.increase()
+        if AuthorizationController.shared.isAuth {
+            deviceSettings.childByAppendingPath("sleipnirClipSideScreen").setValue(sender.selectedSegmentIndex == 1)
+            logHelper.increase()
+        }
+        else{
+            //TODO
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -258,6 +296,7 @@ class WebViewController: UIViewController {
         }
     }
 }
+
 
 extension String {
     func html() -> String {

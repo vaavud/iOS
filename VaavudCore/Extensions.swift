@@ -299,7 +299,7 @@ struct Polar {
     }
 }
 
-func rotate(phi: CGFloat)(p: Polar) -> Polar {
+func rotate(phi: CGFloat, p: Polar) -> Polar {
     return p*Polar(r: 1, phi: phi)
 }
 

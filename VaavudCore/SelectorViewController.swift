@@ -46,6 +46,9 @@ class SelectorViewController: UIViewController, FBSDKLoginButtonDelegate, LoginD
         FBSDKLoginManager().logOut()
         facebookView.delegate = self
     }
+    @IBAction func onCancelLogin(sender: UIBarButtonItem) {
+        gotoAppFrom(navigationController!, inside: view.window!.rootViewController!)
+    }
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
         if error != nil {

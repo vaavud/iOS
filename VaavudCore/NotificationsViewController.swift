@@ -105,7 +105,7 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, UITableV
             let text = NSLocalizedString("FIRSTNOTIFICATIONFINISHED", comment: "")
             firstNotificationView = RadialOverlay(frame: self.view.bounds, position: pos, text: text, icon: nil, radius: 0)
             
-            let tap = UITapGestureRecognizer(target: self, action: Selector("handleFirstNotificationTapView"))
+            let tap = UITapGestureRecognizer(target: self, action: #selector(NotificationsViewController.handleFirstNotificationTapView))
             tap.delegate = self
             firstNotificationView.addGestureRecognizer(tap)
             self.view.addSubview(firstNotificationView)
