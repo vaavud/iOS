@@ -22,10 +22,15 @@ class HistoryController: NSObject {
     var sessionDates = [String]()
     var addedSessionHandle: UInt!
     var changedSessionHandle: UInt!
+    var sessionsLoaded = false
+    
+    
     
     init(delegate: HistoryDelegate) {
         self.delegate = delegate
         super.init()
+        
+        
         setupFirebase()
     }
     
@@ -35,16 +40,26 @@ class HistoryController: NSObject {
     }
     
     func setupFirebase() {
+        
+        
         let uid = firebase.authData.uid
         let ref = firebase.childByAppendingPath("session").queryOrderedByChild("uid").queryEqualToValue(uid)
         
+        
         addedSessionHandle = ref.observeEventType(.ChildAdded, withBlock: { [unowned self] snapshot in
+            
+            if !self.sessionsLoaded {
+                return
+            }
+            
             guard snapshot.value["timeEnd"] is Double else {
                 return
             }
             
+            print("no debes agregar nada")
+            
             self.addToStack(Session(snapshot: snapshot))
-        })
+            })
         
         changedSessionHandle = ref.observeEventType(.ChildChanged, withBlock: { [unowned self] snapshot in
             guard snapshot.value["timeEnd"] is Double else {
@@ -62,12 +77,24 @@ class HistoryController: NSObject {
             self.addToStack(Session(snapshot: snapshot))
             print("added from chiledChanged")
             self.delegate.fetchedMeasurements()
-        })
+            })
+        
         
         ref.observeSingleEventOfType(.Value, withBlock: { [unowned self] snapshot in
             if snapshot.childrenCount > 0 {
-                self.delegate.gotMeasurements()
-                self.delegate.fetchedMeasurements()
+                
+                if let values = snapshot.value as? FirebaseDictionary {
+                    for (key, val) in values {
+                        guard let fbDictionary  = val as? FirebaseDictionary else {
+                            fatalError("Wrong Firebase dictionary")
+                        }
+                        self.addToStack(Session(dict: fbDictionary, key: key))
+                    }
+                    
+                    self.delegate.gotMeasurements()
+                    self.delegate.fetchedMeasurements()
+                    self.sessionsLoaded = true
+                }
             }
             else {
                 self.delegate.noMeasurements()

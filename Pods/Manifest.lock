@@ -1,5 +1,5 @@
 PODS:
-  - Amplitude-iOS (3.5.0)
+  - Amplitude-iOS (3.6.0)
   - Bolts (1.6.0):
     - Bolts/AppLinks (= 1.6.0)
     - Bolts/Tasks (= 1.6.0)
@@ -7,15 +7,16 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.6.0)
   - Dropbox-iOS-SDK (1.3.13)
-  - FBSDKCoreKit (4.9.1):
+  - FBSDKCoreKit (4.10.1):
     - Bolts (~> 1.5)
-  - FBSDKLoginKit (4.9.1):
+  - FBSDKLoginKit (4.10.1):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.9.1):
+  - FBSDKShareKit (4.10.1):
     - FBSDKCoreKit
-  - Firebase (2.4.3)
-  - GeoFire (1.1.2):
+  - Firebase (2.5.1)
+  - GeoFire (1.1.3):
     - Firebase (~> 2.2)
+    - FirebaseOSX (~> 2.4)
 
 DEPENDENCIES:
   - Amplitude-iOS
@@ -24,17 +25,17 @@ DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
-  - Firebase (~> 2.4.2)
+  - Firebase
   - GeoFire
 
 SPEC CHECKSUMS:
-  Amplitude-iOS: 06d4f103728b15e95487b77a16749ae373f970a3
+  Amplitude-iOS: bc8163268d4107130364eaa674e111b41b073b78
   Bolts: f52a250053bb517ca874523c3913776359ab3def
   Dropbox-iOS-SDK: e0c9b08d1604b39cb78c1d0333251de0f6bdec60
-  FBSDKCoreKit: aee20b6d9855f15b618d4fddd1a5ad45f5a4a59d
-  FBSDKLoginKit: ec22dc49bd372b064e93d6773df4ffefb3a552a2
-  FBSDKShareKit: b8c8ef0ed173f9fc1b3c8df384a0202ce53008d4
-  Firebase: 48179995b561e2262c5d4060ecdffca45fbbff8b
-  GeoFire: 03db4e390a4cf3ff97422f19eb71ab1aa7d947dd
+  FBSDKCoreKit: d2aaed5e9ab7d8d6301c533376a1fbff1cf3deb5
+  FBSDKLoginKit: 699ff169080e3072de4b9b0faca90bf23dc36deb
+  FBSDKShareKit: 2fd887cce0056bdda91f99b2021d724a4fed8e88
+  Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
+  GeoFire: 88535ea6f82cb0555fcea87b36b7c263a2900ae8
 
 COCOAPODS: 0.39.0

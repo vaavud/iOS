@@ -102,6 +102,30 @@ struct Session {
     var sourced: Sourced?
     var location: Location?
     
+    
+    init(dict: FirebaseDictionary, key: String){
+        self.key = key
+        
+        uid = dict["uid"] as! String
+        deviceKey = dict["deviceKey"] as! String
+        timeStart = NSDate(ms: dict["timeStart"] as! NSNumber)
+        
+        windMeter = WindMeterModel(rawValue: dict["windMeter"] as! String)!
+        
+        windMax = dict["windMax"] as? Double ?? 0
+        windMean = dict["windMean"] as? Double ?? 0
+        
+        timeEnd = (dict["timeEnd"] as? NSNumber).map(NSDate.init)
+        
+        windDirection = dict["windDirection"] as? Double
+        pressure = dict["pressure"] as? Double
+        temperature = dict["temperature"] as? Double
+        turbulence = dict["turbulence"] as? Double
+        
+        sourced = (dict["sourced"] as? FirebaseDictionary).flatMap(Sourced.init)
+        location = (dict["location"] as? FirebaseDictionary).flatMap(Location.init)
+    }
+    
     init(snapshot: FDataSnapshot) {
         key = snapshot.key
         
