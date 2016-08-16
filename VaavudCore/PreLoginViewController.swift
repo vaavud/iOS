@@ -23,7 +23,7 @@ class PreLoginViewController: UIViewController {
     }
     
     @IBAction func onLogin() {
-        gotoLoginFrom(parentView, inside: view.window!.rootViewController!)
         dismissViewControllerAnimated(false, completion: nil)
+        gotoLoginFrom(parentView, inside: view.window!.rootViewController!)
     }
 }

@@ -110,12 +110,14 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         updateUI()
         updateLocalUI()
         
-        sessionHandle = firebase
-            .childByAppendingPaths("session", session.key)
-            .observeEventType(.Value, withBlock: { [weak self] snapshot in
-                self?.session = Session(snapshot: snapshot)
-                self?.updateUI()
-            })
+        if AuthorizationController.shared.isAuth {
+            sessionHandle = firebase
+                .childByAppendingPaths("session", session.key)
+                .observeEventType(.Value, withBlock: { [weak self] snapshot in
+                    self?.session = Session(snapshot: snapshot)
+                    self?.updateUI()
+                    })
+        }
     }
     
     override func viewDidLayoutSubviews() {
@@ -155,7 +157,9 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     
     deinit {
         VaavudFormatter.shared.stopObserving(formatterHandle)
-        firebase.childByAppendingPaths("session", session.key).removeObserverWithHandle(sessionHandle)
+        if AuthorizationController.shared.isAuth {
+            firebase.childByAppendingPaths("session", session.key).removeObserverWithHandle(sessionHandle)
+        }
     }
     
     // MARK: Setup methods

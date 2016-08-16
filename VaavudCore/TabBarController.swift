@@ -9,6 +9,52 @@
 import UIKit
 import Firebase
 import VaavudSDK
+import Palau
+
+
+extension PalauDefaults {
+    /// a NSUserDefaults Entry of Type String with the key "backingName"
+    public static var time: PalauDefaultsEntry<Int> {
+        get { return value("time") }
+        set { }
+    }
+    
+    public static var windSpeed: PalauDefaultsEntry<Int> {
+        get { return value("windSpeed") }
+        set { }
+    }
+    
+    public static var direction: PalauDefaultsEntry<Int> {
+        get { return value("direction") }
+        set { }
+    }
+    
+    public static var pressure: PalauDefaultsEntry<Int> {
+        get { return value("pressure") }
+        set { }
+    }
+    
+    public static var temperature: PalauDefaultsEntry<Int> {
+        get { return value("temperature") }
+        set { }
+    }
+    
+    public static var dropbox: PalauDefaultsEntry<Int> {
+        get { return value("dropbox") }
+        set { }
+    }
+    
+    public static var windMeterModel: PalauDefaultsEntry<Int> {
+        get { return value("windMeterModel") }
+        set { }
+    }
+    
+    public static var placement: PalauDefaultsEntry<Int> {
+        get { return value("placement") }
+        set { }
+    }
+}
+
 
 let sleipnirFromCallbackAttempts = 10
 
@@ -31,23 +77,35 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
             selector: #selector(TabBarController.receiveNotification(_:)),
             name: "PushNotification",
             object: nil)
+        
+        guard let _ = PalauDefaults.direction.value else {
+            PalauDefaults.time.value = 0
+            PalauDefaults.direction.value = 0
+            PalauDefaults.windSpeed.value = 0
+            PalauDefaults.pressure.value = 0
+            PalauDefaults.temperature.value = 0
+            PalauDefaults.dropbox.value = 0
+            PalauDefaults.windMeterModel.value = 0
+            PalauDefaults.placement.value = 0
+            return
+        }
     }
     
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        let preferences = NSUserDefaults.standardUserDefaults()
-        let notificationViewShown = preferences.boolForKey("firstTimeNotifications")
-        
-        if !notificationViewShown {
-            preferences.setValue(true, forKey: "firstTimeNotifications")
-            preferences.synchronize()
-            
-            if let whatsNewViewController = storyboard?.instantiateViewControllerWithIdentifier("whatsNewViewController") {
-                presentViewController(whatsNewViewController, animated: true, completion: nil)
-            }
-        }
+//        let preferences = NSUserDefaults.standardUserDefaults()
+//        let notificationViewShown = preferences.boolForKey("firstTimeNotifications")
+//        
+//        if !notificationViewShown {
+//            preferences.setValue(true, forKey: "firstTimeNotifications")
+//            preferences.synchronize()
+//            
+//            if let whatsNewViewController = storyboard?.instantiateViewControllerWithIdentifier("whatsNewViewController") {
+//                presentViewController(whatsNewViewController, animated: true, completion: nil)
+//            }
+//        }
         
         
         if AuthorizationController.shared.isAuth {
@@ -58,20 +116,27 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
         
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        button.bounds.size.width = 70
-        button.bounds.size.height = tabBar.bounds.height
-        button.setImage(UIImage(named: "MeasureButton"), forState: .Normal)
+        
+        tabBar.shadowImage = nil
+        tabBar.setValue(true, forKey: "_hidesShadow")
+        
+        
+        button.bounds.size.width = 90
+        button.bounds.size.height = 90
+        button.setImage(UIImage(named: "NewMeasureButton"), forState: .Normal)
+        
         tabBar.addSubview(button)
         selectedIndex = 0
         
         tabBar.tintColor = .vaavudBlueColor()
+        
         delegate = self
         
         for item in tabBar.items! {
-            item.imageInsets = UIEdgeInsetsMake(6.0, 0.0, -6.0, 0.0);
+            item.imageInsets = UIEdgeInsetsMake(6.0, 0.0, -6.0, 0.0)
         }
     }
     
@@ -116,14 +181,16 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
             return false
         }
         
-        else if !AuthorizationController.shared.isAuth && (viewController == childViewControllers[1] || viewController == childViewControllers[3]) {
-            if let PreLoginViewController = storyboard?.instantiateViewControllerWithIdentifier("PreLoginViewController") as?  PreLoginViewController  {
-                PreLoginViewController.parentView = self
-                presentViewController(PreLoginViewController, animated: true, completion: nil)
-            }
-        }
+//        else if !AuthorizationController.shared.isAuth && (viewController == childViewControllers[1] || viewController == childViewControllers[3]) {
+//            if let PreLoginViewController = storyboard?.instantiateViewControllerWithIdentifier("PreLoginViewController") as?  PreLoginViewController  {
+//                PreLoginViewController.parentView = self
+//                presentViewController(PreLoginViewController, animated: true, completion: nil)
+//            }
+//        }
         
-        return AuthorizationController.shared.isAuth || viewController == childViewControllers[0] || viewController == childViewControllers[4]
+//        return AuthorizationController.shared.isAuth || viewController == childViewControllers[0] || viewController == childViewControllers[4]
+        
+        return true
         
     }
     
@@ -136,24 +203,36 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
             presented.dismissViewControllerAnimated(false, completion: nil)
         }
         
-        let deviceSettings = firebase.childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting")
-        deviceSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot { dict in
-            if dict["usesSleipnir"] as? Bool == true && !VaavudSDK.shared.sleipnirAvailable() {
-                if fromUrlScheme && self.sleipnirFromCallbackAttemptsLeft > 0 {
-                    self.sleipnirFromCallbackAttemptsLeft -= 1
-                    NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(TabBarController.takeMeasurementFromUrlScheme), userInfo: nil, repeats: false)
-                    return
-                }
-                
-                VaavudInteractions().showLocalAlert("SLEIPNIR_PROBLEM_TITLE", messageKey: "SLEIPNIR_PROBLEM_MESSAGE", cancelKey: "BUTTON_OK", otherKey: "SLEIPNIR_PROBLEM_SWITCH", action: {
-                    deviceSettings.childByAppendingPath("usesSleipnir").setValue(false)
-                    self.performSegueWithIdentifier("ShowMeasureScreen", sender: self)
-                    }, on: self)
-            }
-            else {
+        
+        if !VaavudSDK.shared.sleipnirAvailable() {
+            VaavudInteractions().showLocalAlert("SLEIPNIR_PROBLEM_TITLE", messageKey: "SLEIPNIR_PROBLEM_MESSAGE", cancelKey: "BUTTON_OK", otherKey: "SLEIPNIR_PROBLEM_SWITCH", action: {
                 self.performSegueWithIdentifier("ShowMeasureScreen", sender: self)
-            }
-            self.sleipnirFromCallbackAttemptsLeft = sleipnirFromCallbackAttempts
-            })
+                }, on: self)
+        }
+        else{
+            self.performSegueWithIdentifier("ShowMeasureScreen", sender: self)
+
+        }
+
+        
+//        let deviceSettings = firebase.childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting")
+//        deviceSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot { dict in
+//            if dict["usesSleipnir"] as? Bool == true && !VaavudSDK.shared.sleipnirAvailable() {
+//                if fromUrlScheme && self.sleipnirFromCallbackAttemptsLeft > 0 {
+//                    self.sleipnirFromCallbackAttemptsLeft -= 1
+//                    NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(TabBarController.takeMeasurementFromUrlScheme), userInfo: nil, repeats: false)
+//                    return
+//                }
+//                
+//                VaavudInteractions().showLocalAlert("SLEIPNIR_PROBLEM_TITLE", messageKey: "SLEIPNIR_PROBLEM_MESSAGE", cancelKey: "BUTTON_OK", otherKey: "SLEIPNIR_PROBLEM_SWITCH", action: {
+//                    deviceSettings.childByAppendingPath("usesSleipnir").setValue(false)
+//                    self.performSegueWithIdentifier("ShowMeasureScreen", sender: self)
+//                    }, on: self)
+//            }
+//            else {
+//                self.performSegueWithIdentifier("ShowMeasureScreen", sender: self)
+//            }
+//            self.sleipnirFromCallbackAttemptsLeft = sleipnirFromCallbackAttempts
+//            })
     }
 }

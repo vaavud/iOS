@@ -159,10 +159,9 @@
                 <tabBarController storyboardIdentifier="TabBarController" definesPresentationContext="YES" id="uRK-QG-tAM" customClass="TabBarController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Jnf-oh-4Lm"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" itemPositioning="fill" id="h0W-x4-9bm">
+                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="h0W-x4-9bm">
                         <rect key="frame" x="129" y="330" width="163" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <color key="tintColor" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="selectedImageTintColor" red="0.83910430948518799" green="0.0" blue="0.98778529504887214" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
@@ -447,7 +446,7 @@
         <scene sceneID="RnR-Kp-M0y">
             <objects>
                 <navigationController definesPresentationContext="YES" navigationBarHidden="YES" id="fQa-n1-y1j" userLabel="Activity navigation" customClass="RotatableNavigationController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="ActivityTab" id="bEh-Uj-qCq"/>
+                    <tabBarItem key="tabBarItem" title="" image="NewsTab" id="bEh-Uj-qCq"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="hW7-ue-zqA">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1273,7 +1272,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ik-Wa-Cxf">
                                 <rect key="frame" x="139" y="245" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -1284,16 +1283,16 @@
             </objects>
             <point key="canvasLocation" x="770" y="1518"/>
         </scene>
-        <!--History View Controller-->
+        <!--History-->
         <scene sceneID="ESh-LX-BZr">
             <objects>
                 <tableViewController storyboardIdentifier="HistoryTableViewController" id="dW6-mM-6nb" customClass="HistoryViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="6XY-Gm-7sX">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <color key="sectionIndexBackgroundColor" red="0.058823529409999999" green="1" blue="0.38431372549999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="sectionIndexBackgroundColor" red="0.94509803920000002" green="0.34901960780000002" blue="0.1529411765" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell autoresizesSubviews="NO" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HistoryCell" id="azB-Nn-EOT" customClass="HistoryCell" customModule="Vaavud" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="22" width="320" height="60"/>
@@ -1426,11 +1425,11 @@
                             <outlet property="delegate" destination="dW6-mM-6nb" id="U59-U3-AXC"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="0yT-ND-9nv"/>
+                    <navigationItem key="navigationItem" title="History" id="0yT-ND-9nv"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Iy-mw-zb6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1549" y="1492.5"/>
+            <point key="canvasLocation" x="-2033" y="1460"/>
         </scene>
         <!--Summary-->
         <scene sceneID="Y1a-Mc-SzL">
@@ -2256,20 +2255,17 @@
                         <viewControllerLayoutGuide type="bottom" id="thg-af-0iQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="La2-jz-4VW">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vJy-Qf-W0c" userLabel="NotificationContainer">
+                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vJy-Qf-W0c" userLabel="NotificationContainer">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
                                 <connections>
                                     <segue destination="bbs-Qk-bbv" kind="embed" id="x3u-uo-bsZ"/>
                                 </connections>
                             </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hpG-hn-MWh" userLabel="HistoryContainer">
+                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hpG-hn-MWh" userLabel="HistoryContainer">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
-                                <connections>
-                                    <segue destination="dW6-mM-6nb" kind="embed" id="Q9A-bA-PAB"/>
-                                </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2307,27 +2303,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D4h-Qg-sFG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1963" y="1472"/>
+            <point key="canvasLocation" x="-2067" y="2126"/>
         </scene>
         <!--Rotatable Navigation Controller-->
         <scene sceneID="qyy-p2-q3w">
             <objects>
                 <navigationController storyboardIdentifier="HistoryNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="aQi-np-koW" customClass="RotatableNavigationController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="" image="HistoryTab" id="0ze-Wz-Saq"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="7to-4D-5a8">
+                    <navigationBar key="navigationBar" hidden="YES" alpha="0.34999999999999998" contentMode="scaleToFill" translucent="NO" id="7to-4D-5a8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                         <color key="tintColor" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
-                        <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Oqg-Yf-Zro" kind="relationship" relationship="rootViewController" id="Nhl-WB-zWF"/>
+                        <segue destination="dW6-mM-6nb" kind="relationship" relationship="rootViewController" id="H1s-Cm-AA7"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fnM-Yc-OwZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3234,13 +3228,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No more login ;) " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ff0-O8-rxj">
                                 <rect key="frame" x="95" y="47" width="126" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="But no more map and history unless you login :D" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJs-Nt-h7G">
                                 <rect key="frame" x="21" y="76" width="278" height="59"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -3414,6 +3408,7 @@
         <image name="MeasureScreenVariantsButtonHL" width="30" height="30"/>
         <image name="MjolnirSettingsSelect" width="140" height="97"/>
         <image name="NewFeaturesBackground" width="213" height="378"/>
+        <image name="NewsTab" width="19" height="17"/>
         <image name="NotificationsComingSoon" width="375" height="700"/>
         <image name="ProBadge.png" width="128" height="157"/>
         <image name="SettingsTab" width="23" height="23"/>

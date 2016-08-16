@@ -21,7 +21,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.2.1</string>
+	<string>2.3</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -45,7 +45,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2030</string>
+	<string>2034</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -64,6 +64,8 @@
 	<string>624217360948538</string>
 	<key>FacebookDisplayName</key>
 	<string>Vaavud</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
@@ -120,6 +122,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>We use your location to indicate where you have taken a wind measurement on a map.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We use your location to indicate where you have taken a wind measurement on a map.</string>
 	<key>NSMicrophoneUsageDescription</key>

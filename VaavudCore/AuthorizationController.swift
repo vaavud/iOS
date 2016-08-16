@@ -399,4 +399,16 @@ class AuthorizationController: NSObject {
     static var deviceIsIphone4: Bool {
         return deviceModel.hasPrefix("iPhone3")
     }
+    
+    
+    func gotoLoginFrom(fromVc: UIViewController, inside parentVc: UIViewController) {
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        
+        guard let loginNav = storyboard.instantiateInitialViewController() as? UINavigationController else {
+            return
+        }
+        
+        gotoVc(loginNav, fromVc: fromVc, parentVc: parentVc)
+    }
+    
 }

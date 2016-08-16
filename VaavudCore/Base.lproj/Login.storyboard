@@ -126,7 +126,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="grS-NP-A2Z">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="Mwp-SP-GhH">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="Mwp-SP-GhH">
                             <color key="tintColor" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="onCancelLogin:" destination="Nmo-3Y-XLF" id="iQ8-rV-3W7"/>

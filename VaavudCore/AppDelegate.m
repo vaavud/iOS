@@ -59,8 +59,9 @@
     
     self.window.rootViewController = parent;
     
+    
     UIViewController *vc;
-//    if (![[AuthorizationController shared] verifyAuth]) {
+    [[AuthorizationController shared] verifyAuth];
 //        UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateInitialViewController];
 //        
 //        vc = nav;
@@ -69,6 +70,8 @@
         vc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateInitialViewController];
 //    }
 
+    [[UITabBar appearance] setTintColor:[UIColor redColor]];
+    
     [parent addChildViewController:vc];
     [parent.view addSubview:vc.view];
     [vc didMoveToParentViewController:parent];

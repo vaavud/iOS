@@ -8,6 +8,9 @@
 
 import Foundation
 import Firebase
+import Palau
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 // fixme: move to common file
 func parseSnapshot(callback: [String : AnyObject] -> ()) -> FDataSnapshot! -> () {
@@ -60,16 +63,31 @@ class CoreSettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         hideVolumeHUD()
         
+        
+        
         versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
 
         dropboxControl.on = DBSession.sharedSession().isLinked()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CoreSettingsTableViewController.dropboxLinkedStatus(_:)), name: "dropboxIsLinked", object: nil)
 
-        formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
+        formatterHandle = VaavudFormatter.shared.observeUnitChange { self.refreshUnits() }
         refreshUnits()
         
-        deviceHandle = deviceSettings.observeEventType(.Value, withBlock: parseSnapshot { [unowned self] in self.refreshDeviceSettings($0) })
+        
+        speedUnitControl.selectedSegmentIndex = PalauDefaults.windSpeed.value!
+        directionUnitControl.selectedSegmentIndex = PalauDefaults.direction.value!
+        temperatureUnitControl.selectedSegmentIndex = PalauDefaults.temperature.value!
+        pressureUnitControl.selectedSegmentIndex = PalauDefaults.pressure.value!
+        limitControl.selectedSegmentIndex = PalauDefaults.time.value!
+
+        if AuthorizationController.shared.isAuth {
+            deviceHandle = deviceSettings.observeEventType(.Value, withBlock: parseSnapshot { [unowned self] in self.refreshDeviceSettings($0) })
+        }
+        else{
+            logoutButton.title = ""
+            logoutButton.enabled = false
+        }
         
         tableView.delegate = self
     }
@@ -81,6 +99,9 @@ class CoreSettingsTableViewController: UITableViewController {
     }
     
     deinit {
+        guard AuthorizationController.shared.isAuth else {
+            return
+        }
         VaavudFormatter.shared.stopObserving(formatterHandle)
         deviceSettings.removeObserverWithHandle(deviceHandle)
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -155,54 +176,37 @@ class CoreSettingsTableViewController: UITableViewController {
     let limitedInterval = 30 // fixme: where to put this? Follow your heart it will tell you.
     
     @IBAction func changedLimitToggle(sender: UISegmentedControl) {
-        if AuthorizationController.shared.isAuth {
-            deviceSettings.childByAppendingPath("measuringTime").setValue(sender.selectedSegmentIndex == 1 ? 0 : limitedInterval)
-            logHelper.increase()
-        }
-        else {
-            //TODO
-        }
-        
+        deviceSettings.childByAppendingPath("measuringTime").setValue(sender.selectedSegmentIndex == 1 ? 0 : limitedInterval)
+        logHelper.increase()
+        PalauDefaults.time.value = sender.selectedSegmentIndex
     }
 
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {
-        if AuthorizationController.shared.isAuth {
-            VaavudFormatter.shared.speedUnit = SpeedUnit(index: sender.selectedSegmentIndex)
-            logUnitChange("speed")
-        }
-        else{
-            //TODO
-        }
+        VaavudFormatter.shared.speedUnit = SpeedUnit(index: sender.selectedSegmentIndex)
+        logUnitChange("speed")
+        PalauDefaults.windSpeed.value = sender.selectedSegmentIndex
     }
     
     @IBAction func changedDirectionUnit(sender: UISegmentedControl) {
-        if AuthorizationController.shared.isAuth {
-            VaavudFormatter.shared.directionUnit = DirectionUnit(index: sender.selectedSegmentIndex)
-            logUnitChange("direction")
-        }
-        else{
-            //TODO
-        }
+        VaavudFormatter.shared.directionUnit = DirectionUnit(index: sender.selectedSegmentIndex)
+        logUnitChange("direction")
+        PalauDefaults.direction.value = sender.selectedSegmentIndex
+        
     }
     
     @IBAction func changedPressureUnit(sender: UISegmentedControl) {
-        if AuthorizationController.shared.isAuth {
-            VaavudFormatter.shared.pressureUnit = PressureUnit(index: sender.selectedSegmentIndex)
-            logUnitChange("pressure")
-        }
-        else{
         
-        }
+        VaavudFormatter.shared.pressureUnit = PressureUnit(index: sender.selectedSegmentIndex)
+        logUnitChange("pressure")
+        PalauDefaults.pressure.value = sender.selectedSegmentIndex
+        
     }
     
     @IBAction func changedTemperatureUnit(sender: UISegmentedControl) {
-        if AuthorizationController.shared.isAuth {
-            VaavudFormatter.shared.temperatureUnit = TemperatureUnit(index: sender.selectedSegmentIndex)
-            logUnitChange("temperature")
-        }
-        else{
-            //TODO
-        }
+        VaavudFormatter.shared.temperatureUnit = TemperatureUnit(index: sender.selectedSegmentIndex)
+        logUnitChange("temperature")
+        PalauDefaults.temperature.value = sender.selectedSegmentIndex
+        
     }
     
     @IBAction func changedDropboxSetting(sender: UISwitch) {
@@ -227,7 +231,7 @@ class CoreSettingsTableViewController: UITableViewController {
             logHelper.increase()
         }
         else{
-            //TODO
+            PalauDefaults.windMeterModel.value = sender.selectedSegmentIndex
         }
     }
 
@@ -237,7 +241,7 @@ class CoreSettingsTableViewController: UITableViewController {
             logHelper.increase()
         }
         else{
-            //TODO
+            PalauDefaults.placement.value = sender.selectedSegmentIndex
         }
     }
     

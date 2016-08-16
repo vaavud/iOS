@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import GeoFire
 
 class NotificationSettingsViewController: UIViewController {
 

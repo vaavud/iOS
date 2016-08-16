@@ -66,51 +66,77 @@
 }
 
 - (void)dealloc {
-    [[VaavudFormatter shared] stopObserving:self.formatHandle];
+    if ([[AuthorizationController shared] isAuth]) {
+        [[VaavudFormatter shared] stopObserving:self.formatHandle];
+    }
 }
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    [self hideVolumeHUD];
     
-    self.firebase = [[Firebase alloc] initWithUrl:[AuthorizationController getFirebaseUrl]];
-    
-    self.currentSessions = [[NSMutableDictionary alloc] init];
-    
-    self.didScroll = NO;
-    self.isSelectingFromTableView = NO;
-    
-    self.hoursAgoOption = 3;
-    self.hoursAgoOptions = @[@3, @6, @12, @24];
-    
-    self.mapView.delegate = self;
-    
-    self.mapView.calloutView = [SMCalloutView new];
-    self.mapView.calloutView.delegate = self;
-    self.mapView.calloutView.presentAnimation = SMCalloutAnimationStretch;
-    
-    [self refreshHoursButton];
-    [self refreshUnitButton];
-    
-    self.activityIndicator.hidden = YES;
-    
-    [self setupMapPosition];
-    
-    self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
-    
-    __weak typeof(self) weakSelf = self;
-
-    self.formatHandle = [[VaavudFormatter shared] observeUnitChange:^{ [weakSelf unitChanged]; }];
-    
-    self.view.autoresizesSubviews = YES;
-    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    
-    if ([self isDanish]) {
-        [self addLongPress];
+    if ([[AuthorizationController shared] isAuth]) {
+        
+        [self hideVolumeHUD];
+        
+        self.firebase = [[Firebase alloc] initWithUrl:[AuthorizationController getFirebaseUrl]];
+        
+        self.currentSessions = [[NSMutableDictionary alloc] init];
+        
+        self.didScroll = NO;
+        self.isSelectingFromTableView = NO;
+        
+        self.hoursAgoOption = 3;
+        self.hoursAgoOptions = @[@3, @6, @12, @24];
+        
+        self.mapView.delegate = self;
+        
+        self.mapView.calloutView = [SMCalloutView new];
+        self.mapView.calloutView.delegate = self;
+        self.mapView.calloutView.presentAnimation = SMCalloutAnimationStretch;
+        
+        [self refreshHoursButton];
+        [self refreshUnitButton];
+        
+        self.activityIndicator.hidden = YES;
+        
+        [self setupMapPosition];
+        
+        self.placeholderImage = [UIImage imageNamed:@"map_placeholder.png"];
+        
+        __weak typeof(self) weakSelf = self;
+        
+        self.formatHandle = [[VaavudFormatter shared] observeUnitChange:^{ [weakSelf unitChanged]; }];
+        
+        self.view.autoresizesSubviews = YES;
+        self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+        
+        //    if ([self isDanish]) {
+        //        [self addLongPress];
+        //    }
+        
+        [self setupFirebase];
+        [self setupSettingFirebase];
+        
     }
+    else{
+        
+        
+        void (^testBlock)(void) = ^{
+            [[AuthorizationController shared] gotoLoginFrom:self.tabBarController inside:[[self.view window] rootViewController]];
+        };
+
+        
+        LoginWallView *myCustomView = [LoginWallView fromNib:@"LoginWall"];
+        
+        myCustomView.isMap = true;
+        myCustomView.callback = testBlock;
+        myCustomView.frame = [[UIScreen mainScreen] bounds];
+        [myCustomView setUp];
+//
+        [self.view addSubview:myCustomView];
     
-    [self setupFirebase];
-    [self setupSettingFirebase];
+    };
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -131,40 +157,46 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self.logHelper began:@{}];
-    [LogHelper increaseUserProperty:@"Use-Map-Count"];
-    
-    
-    if (self.pendingNotification) {
-        self.pendingNotification = NO;
-        self.tabBarController.tabBar.items[1].badgeValue = 0;
+    if ([[AuthorizationController shared] isAuth]) {
+        
+        [self.logHelper began:@{}];
+        [LogHelper increaseUserProperty:@"Use-Map-Count"];
         
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self showSessionFromNotification: self.pendingNotificationKey];
-        });
-        
-        
-        
+        if (self.pendingNotification) {
+            self.pendingNotification = NO;
+            self.tabBarController.tabBar.items[1].badgeValue = 0;
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showSessionFromNotification: self.pendingNotificationKey];
+            });
+        }
     }
     
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
-    
     [super viewWillDisappear:animated];
+
+    if ([[AuthorizationController shared] isAuth]) {
+
+        [self.navigationController setNavigationBarHidden:NO animated:animated];
     
-    [self.refreshTimer invalidate];
-    [self hideCallout];
+    
+        [self.refreshTimer invalidate];
+        [self hideCallout];
+    }
 }
 
 -(void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-    self.isShowing = NO;
-    [self refreshAnnotations];
     
-    [self.logHelper ended:@{}];
+    [super viewDidDisappear:animated];
+    if ([[AuthorizationController shared] isAuth]) {
+        self.isShowing = NO;
+        [self refreshAnnotations];
+        [self.logHelper ended:@{}];
+    }
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -277,7 +309,7 @@
     
     __weak typeof(self) weakSelf = self;
     
-    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snap) {
+    [[[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] queryLimitedToLast: 1000] observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snap) {
         MeasurementAnnotation *ma = (MeasurementAnnotation *)weakSelf.currentSessions[snap.key];
         if (ma != nil) {
             [weakSelf.mapView removeAnnotation:ma];
@@ -285,11 +317,11 @@
         }
     }];
     
-    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snap) {
+    [[[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] queryLimitedToLast: 1000] observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snap) {
         [weakSelf updateAnnotation:snap];
     }];
     
-    [[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snap) {
+    [[[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] queryLimitedToLast: 1000] observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snap) {
         [weakSelf updateAnnotation:snap];
     }];
 }
@@ -365,11 +397,11 @@
             position = CGPointMake(0.5, 0.97);
             icon = [UIImage imageNamed:@"MapMeasureOverlay"];
         }
-        else if ([self isDanish] && ![dict[@"mapGuideForecastShown"] boolValue]) {
-            [[setting childByAppendingPath:@"mapGuideForecastShown"] setValue:@YES];
-            textKey = @"MAP_GUIDE_FORECAST";
-            icon = [UIImage imageNamed:@"ForecastPressFinger"];
-        }
+//        else if ([self isDanish] && ![dict[@"mapGuideForecastShown"] boolValue]) {
+//            [[setting childByAppendingPath:@"mapGuideForecastShown"] setValue:@YES];
+//            textKey = @"MAP_GUIDE_FORECAST";
+//            icon = [UIImage imageNamed:@"ForecastPressFinger"];
+//        }
         else if (![dict[@"mapGuideMarkerShown"] boolValue]) {
             [[setting childByAppendingPath:@"mapGuideMarkerShown"] setValue:@YES];
             textKey = @"MAP_GUIDE_MARKER_EXPLANATION";
@@ -411,12 +443,12 @@
 }
 
 - (void)addPin:(CLLocationCoordinate2D)loc {
-    ForecastAnnotation *annotation = [[ForecastAnnotation alloc] initWithLocation:loc];
-    
-    [[ForecastLoader shared] setup:annotation mapView:self.mapView];
-    
-    [self.mapView addAnnotation:annotation];
-    [self.mapView selectAnnotation:annotation animated:YES];
+//    ForecastAnnotation *annotation = [[ForecastAnnotation alloc] initWithLocation:loc];
+//    
+//    [[ForecastLoader shared] setup:annotation mapView:self.mapView];
+//    
+//    [self.mapView addAnnotation:annotation];
+//    [self.mapView selectAnnotation:annotation animated:YES];
 }
 
 - (void)removeOldForecasts {

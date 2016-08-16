@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Amplitude_iOS
 
 class LogHelper: NSObject {
     private var dict: [String : AnyObject]
