@@ -126,27 +126,31 @@ struct Session {
         location = (dict["location"] as? FirebaseDictionary).flatMap(Location.init)
     }
     
-    init(snapshot: FDataSnapshot) {
+    init(snapshot: FIRDataSnapshot) {
         key = snapshot.key
         
-        uid = snapshot.value["uid"] as! String
-        deviceKey = snapshot.value["deviceKey"] as! String
-        timeStart = NSDate(ms: snapshot.value["timeStart"] as! NSNumber)
+        guard let snapshot = snapshot.value else{
+            fatalError("Bad Json History")
+        }
         
-        windMeter = WindMeterModel(rawValue: snapshot.value["windMeter"] as! String)!
+        uid = snapshot["uid"] as! String
+        deviceKey = snapshot["deviceKey"] as! String
+        timeStart = NSDate(ms: snapshot["timeStart"] as! NSNumber)
+        
+        windMeter = WindMeterModel(rawValue: snapshot["windMeter"] as! String)!
 
-        windMax = snapshot.value["windMax"] as? Double ?? 0
-        windMean = snapshot.value["windMean"] as? Double ?? 0
+        windMax = snapshot["windMax"] as? Double ?? 0
+        windMean = snapshot["windMean"] as? Double ?? 0
         
-        timeEnd = (snapshot.value["timeEnd"] as? NSNumber).map(NSDate.init)
+        timeEnd = (snapshot["timeEnd"] as? NSNumber).map(NSDate.init)
         
-        windDirection = snapshot.value["windDirection"] as? Double
-        pressure = snapshot.value["pressure"] as? Double
-        temperature = snapshot.value["temperature"] as? Double
-        turbulence = snapshot.value["turbulence"] as? Double
+        windDirection = snapshot["windDirection"] as? Double
+        pressure = snapshot["pressure"] as? Double
+        temperature = snapshot["temperature"] as? Double
+        turbulence = snapshot["turbulence"] as? Double
         
-        sourced = (snapshot.value["sourced"] as? FirebaseDictionary).flatMap(Sourced.init)
-        location = (snapshot.value["location"] as? FirebaseDictionary).flatMap(Location.init)
+        sourced = (snapshot["sourced"] as? FirebaseDictionary).flatMap(Sourced.init)
+        location = (snapshot["location"] as? FirebaseDictionary).flatMap(Location.init)
     }
     
     init(uid: String, key: String, deviceId: String, timeStart: NSDate, windMeter: WindMeterModel) {
@@ -218,7 +222,6 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         else {
             
             navigationController?.navigationBar.hidden = true
-            
 
             let callback = { () in
                 gotoLoginFrom(self.tabBarController!, inside: self.view.window!.rootViewController!)
@@ -228,12 +231,19 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
             let myCustomView = LoginWallView.fromNib("LoginWall")
             myCustomView.isMap = false
             myCustomView.callback = callback
-            myCustomView.frame = UIScreen.mainScreen().bounds
+            
+            let rec = CGRect(x: 0, y: -21, width: UIScreen.mainScreen().bounds.width, height: UIScreen.mainScreen().bounds.height)
+            
+            myCustomView.frame = rec
             myCustomView.setUp()
             
             view.addSubview(myCustomView)
 
         }
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
     
     
@@ -256,7 +266,7 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     let lower = UILabel()
     lower.font = UIFont(name: "Helvetica", size: 15)
     lower.textColor = .vaavudColor()
-    lower.text =  NSLocalizedString("HISTORY_GO_TO_MEASURE", comment: "")
+    lower.text =  NSLocalizedString("", comment: "")
     lower.sizeToFit()
     
     //emptyLabelView.frame = CGRectMake(0, 0, max(CGRectGetWidth(upper.bounds), CGRectGetWidth(lower.bounds)), 60)

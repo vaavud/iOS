@@ -26,11 +26,11 @@ import Palau
 //    }
 //}
 
-extension Firebase {
-    func childByAppendingPaths(paths: String...) -> Firebase! {
-        return paths.reduce(self) { f, p in f.childByAppendingPath(p) }
-    }
-}
+//extension FIRDatabase {
+//    func childByAppendingPaths(paths: String...) -> FIRDatabaseReference! {
+//        return paths.reduce(self) { f, p in f.childByAppendingPath(p) }
+//    }
+//}
 
 let updatePeriod = 1.0
 let countdownInterval = 3
@@ -122,8 +122,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var state: MeasureState = .Done
     private var timeLeft = CGFloat(countdownInterval)
     
-    private let firebase = Firebase(url: firebaseUrl)
-    private var deviceSettings: Firebase { return firebase.childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting") }
+    private let firebase = FIRDatabase.database().reference()
+//    private var deviceSettings: Firebase { return firebase.childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting") }
     
     // MARK - Lifetime methods
     
@@ -238,9 +238,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         let deviceId = AuthorizationController.shared.deviceId
         
         if AuthorizationController.shared.isAuth {
-            let post = firebase.childByAppendingPath("session").childByAutoId()
+            let post = firebase.child("session").childByAutoId()
             
-            session = Session(uid: firebase.authData.uid, key: post.key, deviceId: deviceId, timeStart: NSDate(), windMeter: model)
+            
+            let uid = FIRAuth.auth()?.currentUser?.uid
+            
+            session = Session(uid: uid!, key: post.key, deviceId: deviceId, timeStart: NSDate(), windMeter: model)
             post.setValue(session.fireDict)
             
             logHelper.began(["time-limit" : state.timed ?? 0, "device" : model.rawValue.capitalizedString])
@@ -313,8 +316,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         session.windMax = VaavudSDK.shared.session.maxSpeed
         
         if AuthorizationController.shared.isAuth {
-            firebase
-                .childByAppendingPaths("session", session.key)
+            firebase.child("session").child(session.key)
                 .setValue(session.fireDict)
         }
     }
@@ -323,26 +325,22 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         if AuthorizationController.shared.isAuth {
             if let index = windDirectionTracker.newUploadIndex() {
-                firebase
-                    .childByAppendingPaths("windDirection", session.key, index)
+                firebase.child("windDirection").child(session.key).child(index)
                     .setValue(VaavudSDK.shared.session.windDirections.last!.fireDict)
             }
             
             if let index = locationTracker.newUploadIndex() {
-                firebase
-                    .childByAppendingPaths("location", session.key, index)
+                firebase.child("location").child(session.key).child(index)
                     .setValue(VaavudSDK.shared.session.locations.last!.fireDict)
             }
             
             if let index = pressureTracker.newUploadIndex() {
-                firebase
-                    .childByAppendingPaths("pressure", session.key, index)
+                firebase.child("pressure").child(session.key).child(index)
                     .setValue(VaavudSDK.shared.session.pressures.last!.fireDict)
             }
             
             if let index = velocityTracker.newUploadIndex() {
-                firebase
-                    .childByAppendingPaths("velocity", session.key, index)
+                firebase.child("velocity").child(session.key).child(index)
                     .setValue(VaavudSDK.shared.session.velocities.last!.fireDict)
             }
             
@@ -352,7 +350,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             
             if let index = windTracker.newUploadIndex() {
                 firebase
-                    .childByAppendingPaths("wind", session.key, index)
+                    .child("wind").child(session.key).child(index)
                     .setValue(VaavudSDK.shared.session.windSpeeds.last!.fireDict)
             }
         }
@@ -369,12 +367,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         if AuthorizationController.shared.isAuth {
             
-            firebase
-                .childByAppendingPaths("session", session.key)
+            firebase.child("session").child(session.key)
                 .setValue(session.fireDict)
             
-            let post = firebase
-                .childByAppendingPaths("sessionComplete", "queue", "tasks")
+            let post = firebase.child("sessionComplete").child("queue").child("tasks")
                 .childByAutoId()
             
             post.setValue(["sessionKey" : session.key])
@@ -405,8 +401,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
 
         if cancel {
             if state.running && AuthorizationController.shared.isAuth {
-                firebase.childByAppendingPaths("session", session.key).removeValue()
-                firebase.childByAppendingPaths("sessionDeleted", session.key).setValue(session.fireDict)
+                firebase.child("session").child(session.key).removeValue()
+                firebase.child("sessionDeleted").child(session.key).setValue(session.fireDict)
             }
             
             dismissViewControllerAnimated(true) {
@@ -617,8 +613,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         if AuthorizationController.shared.isAuth {
             if let vc = pageController.viewControllers?.last, mc = vc as? MeasurementConsumer {
-                firebase
-                    .childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting", "defaultMeasurementScreen")
+                firebase.child("device").child(AuthorizationController.shared.deviceId)
+                    .child("setting").child("defaultMeasurementScreen")
                     .setValue(mc.name)
             }
         }

@@ -17,7 +17,7 @@ protocol HistoryDelegate: class {
 
 class HistoryController: NSObject {
     unowned var delegate: HistoryDelegate
-    let firebase = Firebase(url: firebaseUrl)
+    let firebase = FIRDatabase.database().reference()
     var sessionss = [[Session]]()
     var sessionDates = [String]()
     var addedSessionHandle: UInt!
@@ -39,8 +39,8 @@ class HistoryController: NSObject {
             return
         }
         
-        firebase.childByAppendingPath("session").removeObserverWithHandle(addedSessionHandle)
-        firebase.childByAppendingPath("session").removeObserverWithHandle(changedSessionHandle)
+        firebase.child("session").removeObserverWithHandle(addedSessionHandle)
+        firebase.child("session").removeObserverWithHandle(changedSessionHandle)
     }
     
     func setupFirebase() {
@@ -50,10 +50,20 @@ class HistoryController: NSObject {
         }
         
         
-        let uid = firebase.authData.uid
-        let ref = firebase.childByAppendingPath("session")
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        let ref = firebase.child("session")
             .queryOrderedByChild("uid")
             .queryEqualToValue(uid)
+        
+        
+        
+//        let ref = FIRDatabase.database().reference().child("myCHild")
+//            .queryOrderedByChild("myField")
+//            .queryEqualToValue(myValue)
+//            .observeEventType(.Value, withBlock: { [unowned self] snapshot in
+//                snapshot.ref.removeValue()
+//            })
+        
         
         
         addedSessionHandle = ref.observeEventType(.ChildAdded, withBlock: { [unowned self] snapshot in
@@ -62,19 +72,19 @@ class HistoryController: NSObject {
                 return
             }
             
-            guard snapshot.value["timeEnd"] is Double else {
+            guard snapshot.value!["timeEnd"] is Double else {
                 return
             }
             
             self.addToStack(Session(snapshot: snapshot))
             })
         
-        changedSessionHandle = ref.observeEventType(.ChildChanged, withBlock: { [unowned self] snapshot in
-            guard snapshot.value["timeEnd"] is Double else {
+        changedSessionHandle = ref.observeEventType(.ChildChanged, withBlock: { [weak self] snapshot in
+            guard snapshot.value!["timeEnd"] is Double else {
                 return
             }
             
-            for sessions in self.sessionss {
+            for sessions in self!.sessionss {
                 for session in sessions {
                     if snapshot.key == session.key {
                         return
@@ -82,8 +92,8 @@ class HistoryController: NSObject {
                 }
             }
             
-            self.addToStack(Session(snapshot: snapshot))
-            self.delegate.fetchedMeasurements()
+            self?.addToStack(Session(snapshot: snapshot))
+            self?.delegate.fetchedMeasurements()
             })
         
         
@@ -119,8 +129,8 @@ class HistoryController: NSObject {
     
     func removeItem(session: Session, section: Int, row: Int) {
         sessionss[section].removeAtIndex(row)
-        firebase.childByAppendingPaths("session", session.key).removeValue()
-        firebase.childByAppendingPaths("sessionDeleted", session.key).setValue(session.fireDict)
+        firebase.child("session").child(session.key).removeValue()
+        firebase.child("sessionDeleted").child(session.key).setValue(session.fireDict)
     }
     
     func removeSection(section: Int) {

@@ -83,7 +83,7 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var txtSubscriptionName: UITextField!
     
-    private let firebase = Firebase(url: firebaseUrl)
+    private let firebase = FIRDatabase.database().reference()
     private var longPressRecognizer: UILongPressGestureRecognizer!
     private var annotation: MKPointAnnotation?
     private let geocoder = CLGeocoder()
@@ -220,8 +220,8 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
         
         if let subscriptionKey = subscriptionKey {
             print(subscriptionKey)
-            firebase.childByAppendingPaths("subscription",subscriptionKey,"name").setValue(txtSubscriptionName.text!)
-            firebase.childByAppendingPaths("subscription",subscriptionKey,"location").setValue(["lat": annotation!.coordinate.latitude, "lon":annotation!.coordinate.longitude])
+            firebase.child("subscription").child(subscriptionKey).child("name").setValue(txtSubscriptionName.text!)
+            firebase.child("subscription").child(subscriptionKey).child("location").setValue(["lat": annotation!.coordinate.latitude, "lon":annotation!.coordinate.longitude])
         }
         
         

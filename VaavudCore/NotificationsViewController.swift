@@ -87,7 +87,7 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, UITableV
     @IBOutlet weak var btnNewSubscription: UIButton!
     private let logHelper = LogHelper(.Notifications)
     var firstNotificationView: UIView!
-    private let firebase = Firebase(url: firebaseUrl)
+    private let firebase = FIRDatabase.database().reference()
     
     
     override func viewDidAppear(animated: Bool) {
@@ -153,9 +153,12 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let ref = firebase.childByAppendingPath("subscription")
+        let uid =  FIRAuth.auth()?.currentUser?.uid
+
+        
+        let ref = firebase.child("subscription")
             .queryOrderedByChild("uid")
-            .queryEqualToValue(firebase.authData.uid)
+            .queryEqualToValue(uid)
         
         
         ref.observeEventType(.ChildChanged, withBlock: { snapshot in
@@ -174,13 +177,17 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, UITableV
         
         ref.observeEventType(.ChildAdded, withBlock: { snapshot in
             
-                
-            guard let _ = snapshot.value["location"] as? [String:Double], subsDict = snapshot.value as? FirebaseDictionary else {
+            guard let snapshot = snapshot.value else {
                 return
             }
+            
                 
+            guard let _ = snapshot.value["location"] as? [String:Double] else {
+                return
+            }
+            
                 
-            if var model = Subscription(dict: subsDict) {
+            if var model = Subscription(dict: snapshot as! FirebaseDictionary) {
                 model.subscriptionKey = snapshot.key
                 self.locations.insert(model, atIndex: 0)
                 self.subsKeys.insert(snapshot.key, atIndex: 0)
@@ -338,8 +345,8 @@ class NotificationsViewController: UIViewController, MKMapViewDelegate, UITableV
     func deleteSession(subscriptionKey: String?){
         
         if let subscriptionKey = subscriptionKey {
-            firebase.childByAppendingPaths("subscription",subscriptionKey).removeValue()
-            firebase.childByAppendingPaths("subscriptionGeo",subscriptionKey).removeValue()
+            firebase.child("subscription").child(subscriptionKey).removeValue()
+            firebase.child("subscriptionGeo").child(subscriptionKey).removeValue()
             logHelper.log("deleted")
             logHelper.increase()
         }

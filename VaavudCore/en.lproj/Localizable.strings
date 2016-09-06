@@ -74,7 +74,7 @@
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Enter your email";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "We won't give your email to 3rd parties!";
 "REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "Password too short";
-"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4 characters or more.";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "6 characters or more.";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "Couldn't login";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "Email or password is not correct.";
 "REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "Account already exists";
@@ -291,4 +291,18 @@
 "PRESSLONG" = "Long press on the map to drop a notification pin";
 "FIRSTNOTIFICATIONFINISHED" = "You have just set up your first Vaavud notification. Awesome!";
 "FIRSTNOTIFICATION" = "Tap here to set up a new notification";
+
+
+
+"LOGIN_WALL_MAP_DESCRIPTION" = "To see wind readings from users around the world for the last 24 hours you need to log in.";
+"LOGIN_WALL_MAP_TITLE" = "Live Map";
+"LOGIN_WALL_HISTORY_DESCRIPTION" = "To save measurements to your personal measurement history you need to log in.";
+"LOGIN_WALL_HISTORY_TITLE" = "Measurement History";
+
+
+
+
+
+
+
 

@@ -59,7 +59,7 @@
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Inserisci la tua email";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "Non daremo la tua email a parti terze!";
 "REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "La password è troppo corta";
-"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4 caratteri o più.";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "6 caratteri o più.";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "Impossibile accedere";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "Email o password non corrette.";
 "REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "L'account esiste già";
@@ -296,3 +296,8 @@
 "PRESSLONG" = "알림 핀을 드롭하기 위해 지도를 길게 누릅니다";
 "FIRSTNOTIFICATIONFINISHED" = "당신은 첫 번째 Vaavud 통지를 추가했습니다. 축하합니다!";
 "FIRSTNOTIFICATION" = "새로운 알림을 추가하려면 여기를 클릭하세요";
+
+"LOGIN_WALL_MAP_DESCRIPTION" = "전 세계 사용자들의 지난 24시간 동안의 바람 측정을 보려면 로그인해야 합니다.";
+"LOGIN_WALL_MAP_TITLE" = "실시간 지도";
+"LOGIN_WALL_HISTORY_DESCRIPTION" = "개인 측정 기록에 측정을 저장하려면 로그인해야 합니다.";
+"LOGIN_WALL_HISTORY_TITLE" = "측정 기록";

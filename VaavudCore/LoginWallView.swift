@@ -33,15 +33,15 @@ class LoginWallView: UIView {
         btnLogin.layer.borderWidth = 1
         
         if isMap {
-            title.text = "Live Map"
-            descrip.text = "To see wind readings from users around the world for the last 24 hours you need to log in"
+            title.text = NSLocalizedString("LOGIN_WALL_MAP_TITLE", comment: "")
+            descrip.text = NSLocalizedString("LOGIN_WALL_MAP_DESCRIPTION", comment: "")
             icon.image =  UIImage(named: "MapWallIcon")
             background.image = UIImage(named: "mapWallBg")
             
         }
         else {
-            title.text = "Measurement History"
-            descrip.text = "To save measurements to your personal measurement history you need to log in"
+            title.text = NSLocalizedString("LOGIN_WALL_HISTORY_TITLE", comment: "")
+            descrip.text = NSLocalizedString("LOGIN_WALL_HISTORY_DESCRIPTION", comment: "")
             icon.image =  UIImage(named: "HistoryWallIcon")
             
             background.image = UIImage(named: "historyWallBg")

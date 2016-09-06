@@ -387,8 +387,10 @@ class ForecastViewController: UIViewController, UIScrollViewDelegate {
             ForecastLoader.shared.requestGeocode(location) { self.title = $0 }
         }
         
-        let firebase = Firebase(url: firebaseUrl)
-        let shown = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "ios")
+        let firebase = FIRDatabase.database().reference()
+        let uid =  FIRAuth.auth()?.currentUser?.uid
+
+        let shown = firebase.child("user").child(uid!).child("setting").child( "ios")
         shown.observeSingleEventOfType(.Value, withBlock: parseSnapshot { dict in
             guard UserSettingsIos(dict: dict)?.forecastOverlayShown == false, let tbc = self.tabBarController else { return }
             

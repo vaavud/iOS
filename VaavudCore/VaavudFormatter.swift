@@ -200,7 +200,7 @@ class VaavudFormatter: NSObject {
     private let shortDateFormat: String
     private let calendar = NSCalendar.currentCalendar()
     
-    private var firebase = Firebase(url: firebaseUrl)
+    private var firebase = FIRDatabase.database().reference()
     private var handle: UInt?
     
 //    case Kmh = "kmh"
@@ -251,7 +251,8 @@ class VaavudFormatter: NSObject {
 
     func disconnectFirebase() {
         if let handle = handle {
-            let sharedSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
+            let uid =  FIRAuth.auth()?.currentUser?.uid
+            let sharedSettings = firebase.child("user").child(uid!).child("setting").child("shared")
             sharedSettings.removeObserverWithHandle(handle)
         }
         handle = nil
@@ -259,7 +260,9 @@ class VaavudFormatter: NSObject {
     
     func renewFirebase() {
         if handle == nil && AuthorizationController.shared.isAuth {
-            let sharedSettings = firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared")
+            
+            let uid =  FIRAuth.auth()?.currentUser?.uid
+            let sharedSettings = firebase.child("user").child(uid!).child("setting").child("shared")
             handle = sharedSettings.observeEventType(.ChildChanged, withBlock: parseSnapshot { [unowned self] in self.updateUnits($0) })
             
             sharedSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot(updateUnits) )
@@ -404,8 +407,10 @@ class VaavudFormatter: NSObject {
     func writeUnit<U: Unit>(unit: U, old: U) {
         guard unit != old else { return }
         if AuthorizationController.shared.isAuth {
-            let firebase = Firebase(url: firebaseUrl)
-            firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "shared", U.unitKey).setValue(unit.rawValue)
+            let firebase = FIRDatabase.database().reference()
+            let uid =  FIRAuth.auth()?.currentUser?.uid
+
+            firebase.child("user").child(uid!).child("setting").child("shared").child(U.unitKey).setValue(unit.rawValue)
         }
     }
     

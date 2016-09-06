@@ -87,14 +87,17 @@ class NewMapViewController: UIViewController, MKMapViewDelegate {
     // MARK: Setup Firebase
     
     func setupFirebase() {
-        let firebaseSession = Firebase(url: firebaseUrl)
+        let firebaseSession = FIRDatabase.database().reference()
         
         firebaseSession
-            .childByAppendingPath("session")
-            .queryOrderedByChild("timeStart")
+            .child("session")
+            .child("timeStart")
             .queryStartingAtValue(NSDate(timeIntervalSinceNow: -24*60*60).ms)
             .observeEventType(.ChildAdded, withBlock: { snapshot in
                 
+                guard let snapshot = snapshot.value else {
+                    return
+                }
                 
                 guard let _ = snapshot.value["timeEnd"] as? Double, location = snapshot.value["location"] as? [String: AnyObject], speed = snapshot.value["windMean"] as? Double  else{
                     return

@@ -72,15 +72,16 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     private var hasPressure = false
     private var hasGustiness = false
     private var hasWindChill = false
-    private var firebase = Firebase(url: firebaseUrl)
+    private var firebase = FIRDatabase.database().reference()
     private var formatterHandle: String!
-    private var sessionHandle: FirebaseHandle!
+    private var sessionHandle: UInt!
     
     private var animator: UIDynamicAnimator!
     
-    lazy private var shownFirebase: Firebase = {
-        let firebase = Firebase(url: firebaseUrl)
-        return firebase.childByAppendingPaths("user", firebase.authData.uid, "setting", "ios")
+    lazy private var shownFirebase: FIRDatabaseReference = {
+        let firebase = FIRDatabase.database().reference()
+        let uid =  FIRAuth.auth()?.currentUser?.uid
+        return firebase.child("user").child(uid!).child("setting").child("ios")
     }()
     
     var session: Session!
@@ -112,7 +113,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         
         if AuthorizationController.shared.isAuth {
             sessionHandle = firebase
-                .childByAppendingPaths("session", session.key)
+                .child("session").child(session.key)
                 .observeEventType(.Value, withBlock: { [weak self] snapshot in
                     self?.session = Session(snapshot: snapshot)
                     self?.updateUI()
@@ -158,7 +159,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     deinit {
         VaavudFormatter.shared.stopObserving(formatterHandle)
         if AuthorizationController.shared.isAuth {
-            firebase.childByAppendingPaths("session", session.key).removeObserverWithHandle(sessionHandle)
+            firebase.child("session").child(session.key).removeObserverWithHandle(sessionHandle)
         }
     }
     

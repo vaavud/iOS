@@ -7,12 +7,16 @@ target 'Vaavud' do
 
 pod 'Dropbox-iOS-SDK'
 pod 'Amplitude-iOS'
-pod 'Firebase'
+
+pod 'Firebase/Core'
+pod 'Firebase/Database'
+pod 'Firebase/Auth'
+
 pod 'Bolts'
 pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
 pod 'FBSDKShareKit'
-pod 'GeoFire'
+#pod 'GeoFire'
 pod 'Palau', '~> 1.0'
 
 end

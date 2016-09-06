@@ -12,6 +12,7 @@
 #import <MediaPlayer/MediaPlayer.h>
 #import "Vaavud-Swift.h"
 #import <VaavudSDK/VaavudSDK-Swift.h>
+#import "Firebase.h"
 
 #include <math.h>
 
@@ -44,7 +45,7 @@
 @property (nonatomic) BOOL pendingNotification;
 @property (nonatomic) NSString* pendingNotificationKey;
 
-@property (nonatomic) Firebase *firebase;
+@property (nonatomic) FIRDatabaseReference *firebase;
 
 @end
 
@@ -79,7 +80,7 @@
         
         [self hideVolumeHUD];
         
-        self.firebase = [[Firebase alloc] initWithUrl:[AuthorizationController getFirebaseUrl]];
+        self.firebase = [[FIRDatabase database] reference];
         
         self.currentSessions = [[NSMutableDictionary alloc] init];
         
@@ -303,13 +304,13 @@
 }
 
 - (void)setupFirebase {
-    Firebase *ref = [self.firebase childByAppendingPath:@"session"];
+    FIRDatabaseReference *ref = [self.firebase child:@"session"];
     
     NSNumber *dayAgo = [NSDate dateWithTimeIntervalSinceNow:-24*60*60].ms;
     
     __weak typeof(self) weakSelf = self;
     
-    [[[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] queryLimitedToLast: 1000] observeEventType:FEventTypeChildRemoved withBlock:^(FDataSnapshot *snap) {
+    [[[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] queryLimitedToLast: 1000] observeEventType:FIRDataEventTypeChildRemoved withBlock:^(FIRDataSnapshot *snap) {
         MeasurementAnnotation *ma = (MeasurementAnnotation *)weakSelf.currentSessions[snap.key];
         if (ma != nil) {
             [weakSelf.mapView removeAnnotation:ma];
@@ -317,11 +318,11 @@
         }
     }];
     
-    [[[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] queryLimitedToLast: 1000] observeEventType:FEventTypeChildAdded withBlock:^(FDataSnapshot *snap) {
+    [[[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] queryLimitedToLast: 1000] observeEventType:FIRDataEventTypeChildAdded withBlock:^(FIRDataSnapshot *snap) {
         [weakSelf updateAnnotation:snap];
     }];
     
-    [[[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] queryLimitedToLast: 1000] observeEventType:FEventTypeChildChanged withBlock:^(FDataSnapshot *snap) {
+    [[[[ref queryOrderedByChild:@"timeStart"] queryStartingAtValue:dayAgo] queryLimitedToLast: 1000] observeEventType:FIRDataEventTypeChildChanged withBlock:^(FIRDataSnapshot *snap) {
         [weakSelf updateAnnotation:snap];
     }];
 }
@@ -377,9 +378,12 @@
 }
 
 -(void)setupSettingFirebase {
-    Firebase *setting = [[[[self.firebase childByAppendingPath:@"user"] childByAppendingPath:[AuthorizationController shared].uid] childByAppendingPath:@"setting"] childByAppendingPath:@"ios"];
     
-    [setting observeSingleEventOfType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+    FIRUser *user = [FIRAuth auth].currentUser;
+    
+    FIRDatabaseReference *setting = [[[[self.firebase child:@"user"] child: user.uid] child:@"setting"] child:@"ios"];
+    
+    [setting observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot *snapshot) {
         if (![snapshot.value isKindOfClass:[NSDictionary class]]) {
             return;
         }
@@ -392,7 +396,7 @@
         CGPoint position = CGPointMake(-1, -1);
         
         if (![dict[@"mapGuideMeasurePopupShown"] boolValue]) {
-            [[setting childByAppendingPath:@"mapGuideMeasurePopupShown"] setValue:@YES];
+            [[setting child:@"mapGuideMeasurePopupShown"] setValue:@YES];
             textKey = @"KEY_MAP_GUIDE_MEASURE_BUTTON_EXPLANATION";
             position = CGPointMake(0.5, 0.97);
             icon = [UIImage imageNamed:@"MapMeasureOverlay"];
@@ -403,12 +407,12 @@
 //            icon = [UIImage imageNamed:@"ForecastPressFinger"];
 //        }
         else if (![dict[@"mapGuideMarkerShown"] boolValue]) {
-            [[setting childByAppendingPath:@"mapGuideMarkerShown"] setValue:@YES];
+            [[setting child:@"mapGuideMarkerShown"] setValue:@YES];
             textKey = @"MAP_GUIDE_MARKER_EXPLANATION";
             icon = [UIImage imageNamed:@"ForecastOverlayMeasurement"];
         }
         else if (![dict[@"mapGuideTimeIntervalShown"] boolValue]) {
-            [[setting childByAppendingPath:@"mapGuideTimeIntervalShown"] setValue:@YES];
+            [[setting child:@"mapGuideTimeIntervalShown"] setValue:@YES];
             CGFloat x = self.hoursButton.center.x/bounds.size.width;
             CGFloat y = self.hoursButton.center.y/bounds.size.height;
             
@@ -478,7 +482,10 @@
     [self addPin:[self storedLocation]];
 }
 
-- (void)updateAnnotation:(FDataSnapshot *)data {
+- (void)updateAnnotation:(FIRDataSnapshot *)data {
+    
+    
+    
     if (data.value[@"location"] == nil ) { return; }
     
     NSDictionary *loctation = ((NSDictionary *)data.value[@"location"]);

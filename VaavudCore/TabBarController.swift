@@ -64,7 +64,7 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
     private var laidOutWidth: CGFloat?
     private var sleipnirFromCallbackAttemptsLeft = sleipnirFromCallbackAttempts
     var tabToSelect = 1
-    let firebase = Firebase(url: firebaseUrl)
+    let firebase = FIRDatabase.database().reference()
     private let logHelper = LogHelper(.Free)
 
     
@@ -109,7 +109,7 @@ class TabBarController: UITabBarController,UITabBarControllerDelegate {
         
         
         if AuthorizationController.shared.isAuth {
-            firebase.childByAppendingPaths("user", firebase.authData.uid,"activity").observeSingleEventOfType(.Value, withBlock: { snapshot in
+            firebase.child("user").child(FIRAuth.auth()!.currentUser!.uid).child("activity").observeSingleEventOfType(.Value, withBlock: { snapshot in
                 LogHelper.setUserProperty("Activity",value: snapshot.value as? String ?? "unknown")
             })
         }

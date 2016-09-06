@@ -13,18 +13,18 @@ import FBSDKCoreKit
 import FBSDKLoginKit
 
 // fixme: move to common file
-func parseSnapshot(callback: [String : AnyObject] -> ()) -> FDataSnapshot! -> () {
+func parseSnapshot(callback: [String : AnyObject] -> ()) -> FIRDataSnapshot! -> () {
     return { snap in
         if let dict = snap.value as? [String : AnyObject] {
             callback(dict)
         }
         else {
-            callback([snap.key : snap.value])
+            callback([snap.key : snap.value!])
         }
     }
 }
 
-func parseSnapshot<T>(key: String, callback: T? -> ()) -> FDataSnapshot! -> () {
+func parseSnapshot<T>(key: String, callback: T? -> ()) -> FIRDataSnapshot! -> () {
     return parseSnapshot { dict in
         callback(dict[key] as? T)
     }
@@ -54,7 +54,7 @@ class CoreSettingsTableViewController: UITableViewController {
     
     private let logHelper = LogHelper(.Settings, counters: "scrolled")
     
-    private lazy var deviceSettings = { return Firebase(url: firebaseUrl).childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting") }()
+    private lazy var deviceSettings = { return FIRDatabase.database().reference().child("device").child(AuthorizationController.shared.deviceId).child("setting") }()
 
     private var deviceHandle: UInt!
     
@@ -151,6 +151,7 @@ class CoreSettingsTableViewController: UITableViewController {
     func refreshTimeLimit(timeLimit: Int) {
         LogHelper.setUserProperty("Measurement-Limit", value: timeLimit)
         limitControl.selectedSegmentIndex = timeLimit == 0 ? 1 : 0
+        PalauDefaults.time.value = timeLimit == 0 ? 1 : 0
     }
     
     func dropboxLinkedStatus(note: NSNotification) {
@@ -176,7 +177,7 @@ class CoreSettingsTableViewController: UITableViewController {
     let limitedInterval = 30 // fixme: where to put this? Follow your heart it will tell you.
     
     @IBAction func changedLimitToggle(sender: UISegmentedControl) {
-        deviceSettings.childByAppendingPath("measuringTime").setValue(sender.selectedSegmentIndex == 1 ? 0 : limitedInterval)
+        deviceSettings.child("measuringTime").setValue(sender.selectedSegmentIndex == 1 ? 0 : limitedInterval)
         logHelper.increase()
         PalauDefaults.time.value = sender.selectedSegmentIndex
     }
@@ -227,7 +228,7 @@ class CoreSettingsTableViewController: UITableViewController {
 
     @IBAction func changedMeterModel(sender: UISegmentedControl) {
         if AuthorizationController.shared.isAuth {
-            deviceSettings.childByAppendingPath("usesSleipnir").setValue(sender.selectedSegmentIndex == 1)
+            deviceSettings.child("usesSleipnir").setValue(sender.selectedSegmentIndex == 1)
             logHelper.increase()
         }
         else{
@@ -237,7 +238,7 @@ class CoreSettingsTableViewController: UITableViewController {
 
     @IBAction func changedSleipnirPlacement(sender: UISegmentedControl) {
         if AuthorizationController.shared.isAuth {
-            deviceSettings.childByAppendingPath("sleipnirClipSideScreen").setValue(sender.selectedSegmentIndex == 1)
+            deviceSettings.child("sleipnirClipSideScreen").setValue(sender.selectedSegmentIndex == 1)
             logHelper.increase()
         }
         else{

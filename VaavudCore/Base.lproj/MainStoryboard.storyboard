@@ -451,7 +451,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="v2l-r1-Yy2" kind="relationship" relationship="rootViewController" id="T6N-A7-m5V"/>
+                        <segue destination="c7y-Hm-yJc" kind="relationship" relationship="rootViewController" id="Ipg-V8-Upg"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wim-9u-nEV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -467,7 +467,7 @@
                         <viewControllerLayoutGuide type="bottom" id="vfo-8t-XBM"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="vxS-dO-WxU">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ActivityFlow" translatesAutoresizingMaskIntoConstraints="NO" id="Svl-MI-gAG">
@@ -478,10 +478,10 @@
                                 </constraints>
                             </imageView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WVY-7e-7B9">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EUH-qA-fz7">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="See who's at the spot, what they think about the conditions and much more!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E5P-mT-dE7">
                                                 <rect key="frame" x="30" y="277" width="260" height="60"/>
@@ -547,6 +547,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j2t-jG-9Eg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-234" y="-832"/>
+        </scene>
+        <!--Web Marketing View Controller-->
+        <scene sceneID="iK4-ST-aDB">
+            <objects>
+                <viewController id="c7y-Hm-yJc" customClass="WebMarketingViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MOC-tt-lzW"/>
+                        <viewControllerLayoutGuide type="bottom" id="gsw-JA-yFm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RA7-ie-9W3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KEr-sB-9LH">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="KEr-sB-9LH" firstAttribute="leading" secondItem="RA7-ie-9W3" secondAttribute="leading" id="8KT-zg-LJR"/>
+                            <constraint firstItem="gsw-JA-yFm" firstAttribute="top" secondItem="KEr-sB-9LH" secondAttribute="bottom" id="DRy-4e-ggj"/>
+                            <constraint firstAttribute="trailing" secondItem="KEr-sB-9LH" secondAttribute="trailing" id="Pmp-ZZ-C9l"/>
+                            <constraint firstItem="KEr-sB-9LH" firstAttribute="top" secondItem="RA7-ie-9W3" secondAttribute="top" id="eaZ-yz-Esk"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="GeH-BX-MWz"/>
+                    <connections>
+                        <outlet property="webView" destination="KEr-sB-9LH" id="9Ee-hq-bYy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zm4-rW-4ju" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="156" y="-837"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="1B3-6E-RY6">
@@ -1288,7 +1322,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="HistoryTableViewController" id="dW6-mM-6nb" customClass="HistoryViewController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="6XY-Gm-7sX">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -2309,10 +2343,8 @@
         <scene sceneID="qyy-p2-q3w">
             <objects>
                 <navigationController storyboardIdentifier="HistoryNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="aQi-np-koW" customClass="RotatableNavigationController" customModule="Vaavud" customModuleProvider="target" sceneMemberID="viewController">
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="" image="HistoryTab" id="0ze-Wz-Saq"/>
                     <toolbarItems/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" hidden="YES" alpha="0.34999999999999998" contentMode="scaleToFill" translucent="NO" id="7to-4D-5a8">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -2320,6 +2352,11 @@
                         <color key="tintColor" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Jx2-lM-qee">
+                        <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.0" green="0.68235294120000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                    </toolbar>
                     <connections>
                         <segue destination="dW6-mM-6nb" kind="relationship" relationship="rootViewController" id="H1s-Cm-AA7"/>
                     </connections>

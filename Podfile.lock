@@ -1,22 +1,51 @@
 PODS:
-  - Amplitude-iOS (3.6.0)
-  - Bolts (1.6.0):
-    - Bolts/AppLinks (= 1.6.0)
-    - Bolts/Tasks (= 1.6.0)
-  - Bolts/AppLinks (1.6.0):
+  - Amplitude-iOS (3.8.3)
+  - Bolts (1.8.4):
+    - Bolts/AppLinks (= 1.8.4)
+    - Bolts/Tasks (= 1.8.4)
+  - Bolts/AppLinks (1.8.4):
     - Bolts/Tasks
-  - Bolts/Tasks (1.6.0)
+  - Bolts/Tasks (1.8.4)
   - Dropbox-iOS-SDK (1.3.13)
-  - FBSDKCoreKit (4.10.1):
-    - Bolts (~> 1.5)
-  - FBSDKLoginKit (4.10.1):
+  - FBSDKCoreKit (4.14.0):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.14.0):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.10.1):
+  - FBSDKShareKit (4.14.0):
     - FBSDKCoreKit
-  - Firebase (2.5.1)
-  - GeoFire (1.1.3):
-    - Firebase (~> 2.2)
-    - FirebaseOSX (~> 2.4)
+  - Firebase/Analytics (3.4.0):
+    - FirebaseAnalytics (~> 3.3)
+  - Firebase/Auth (3.4.0):
+    - Firebase/Analytics
+    - FirebaseAuth (= 3.0.4)
+  - Firebase/Core (3.4.0):
+    - Firebase/Analytics
+  - Firebase/Database (3.4.0):
+    - Firebase/Analytics
+    - FirebaseDatabase (= 3.0.2)
+  - FirebaseAnalytics (3.3.0):
+    - FirebaseInstanceID (~> 1.0)
+    - GoogleInterchangeUtilities (~> 1.2)
+    - GoogleSymbolUtilities (~> 1.1)
+    - GoogleUtilities (~> 1.2)
+  - FirebaseAuth (3.0.4):
+    - FirebaseAnalytics (~> 3.2)
+    - GoogleNetworkingUtilities (~> 1.2)
+    - GoogleParsingUtilities (~> 1.1)
+    - GoogleUtilities (~> 1.2)
+  - FirebaseDatabase (3.0.2):
+    - FirebaseAnalytics (~> 3.2)
+  - FirebaseInstanceID (1.0.8)
+  - GoogleInterchangeUtilities (1.2.1):
+    - GoogleSymbolUtilities (~> 1.0)
+  - GoogleNetworkingUtilities (1.2.1):
+    - GoogleSymbolUtilities (~> 1.0)
+  - GoogleParsingUtilities (1.1.1):
+    - GoogleNetworkingUtilities (~> 1.0)
+    - GoogleSymbolUtilities (~> 1.0)
+  - GoogleSymbolUtilities (1.1.1)
+  - GoogleUtilities (1.3.1):
+    - GoogleSymbolUtilities (~> 1.0)
   - Palau (1.0.3)
 
 DEPENDENCIES:
@@ -26,21 +55,30 @@ DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
-  - Firebase
-  - GeoFire
+  - Firebase/Auth
+  - Firebase/Core
+  - Firebase/Database
   - Palau (~> 1.0)
 
 SPEC CHECKSUMS:
-  Amplitude-iOS: bc8163268d4107130364eaa674e111b41b073b78
-  Bolts: f52a250053bb517ca874523c3913776359ab3def
+  Amplitude-iOS: e624e4506b911ab0975b8de49dd63b6d65386892
+  Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Dropbox-iOS-SDK: e0c9b08d1604b39cb78c1d0333251de0f6bdec60
-  FBSDKCoreKit: d2aaed5e9ab7d8d6301c533376a1fbff1cf3deb5
-  FBSDKLoginKit: 699ff169080e3072de4b9b0faca90bf23dc36deb
-  FBSDKShareKit: 2fd887cce0056bdda91f99b2021d724a4fed8e88
-  Firebase: 3565ea88b830f28f2c77ecc524622bc71a20d085
-  GeoFire: 88535ea6f82cb0555fcea87b36b7c263a2900ae8
+  FBSDKCoreKit: 6e020b5db0b5bd1e01f5fb0902131befd129a502
+  FBSDKLoginKit: da563567a108050ef83739c8c8c001ee9e25fa13
+  FBSDKShareKit: e8e5d4ccef69b41132fe33acda26db1e33143e33
+  Firebase: 754562547af419cc2f4b15247fee419081924bc2
+  FirebaseAnalytics: 228be2991cb28efb96cdafc4d62f64680e615c69
+  FirebaseAuth: 26fd291c3b552fc9658420b867520d5ae080421c
+  FirebaseDatabase: 59bea2e7dfd81b3b8b2f8e396caf1a52c2ced6f7
+  FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
+  GoogleInterchangeUtilities: def8415a862effc67d549d5b5b0b9c7a2f97d4de
+  GoogleNetworkingUtilities: 3e83269048cfb498dc7ec83ab36813360965c74f
+  GoogleParsingUtilities: 30b3896f9ee167dc78747f013d3de157ced1cadf
+  GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
+  GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
   Palau: 1a16ff9b456b08941cdac6e42f977ae5af5d78a7
 
-PODFILE CHECKSUM: a6ec1307bde1d079548d3ba6912374a63932edb6
+PODFILE CHECKSUM: 3dc44e325a382289f7663fe7045d61286bef3516
 
 COCOAPODS: 1.1.0.beta.1

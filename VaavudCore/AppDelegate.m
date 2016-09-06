@@ -13,6 +13,8 @@
 #import "Vaavud-Swift.h"
 #import "Amplitude.h"
 #import "FBSDKCoreKit.h"
+@import Firebase;
+
 
 @interface AppDelegate()
 
@@ -27,7 +29,11 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [Firebase defaultConfig].persistenceEnabled = YES;
+    
+    [FIRApp configure];
+    [FIRDatabase database].persistenceEnabled = YES;
+    
+    //[Firebase defaultConfig].persistenceEnabled = YES;
     
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
