@@ -16,8 +16,10 @@ pod 'Bolts'
 pod 'FBSDKCoreKit'
 pod 'FBSDKLoginKit'
 pod 'FBSDKShareKit'
-#pod 'GeoFire'
+pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
+
 pod 'Palau', '~> 1.0'
+
 
 end
 

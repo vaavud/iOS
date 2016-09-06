@@ -11,6 +11,7 @@ import CoreMotion
 import VaavudSDK
 import Firebase
 import Palau
+import GeoFire
 
 //public class VaavudLegacySDK: NSObject {
 //    public static let shared = VaavudLegacySDK()
@@ -243,6 +244,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             
             let uid = FIRAuth.auth()?.currentUser?.uid
             
+            print(post.key)
             session = Session(uid: uid!, key: post.key, deviceId: deviceId, timeStart: NSDate(), windMeter: model)
             post.setValue(session.fireDict)
             
@@ -413,6 +415,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
             let summary = storyboard!.instantiateViewControllerWithIdentifier("SummaryViewController") as! SummaryViewController
             summary.session = session
             
+            if let latlon = session.location {
+                let geofireRef = FIRDatabase.database().reference().child("sessionGeo")
+                let geoFire = GeoFire(firebaseRef: geofireRef)
+                geoFire.setLocation(CLLocation(latitude: latlon.lat, longitude:latlon.lon), forKey: session.key)
+            }
+            
             pageController.dataSource = nil
             pageController.setViewControllers([summary], direction: .Forward, animated: true) { _ in
                 self.viewControllers = []
@@ -475,7 +483,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     // MARK: SDK Delegate
     
     func newWindSpeed(event: WindSpeedEvent) {
-        print(event)
         windTracker.hasNewValue = true
         currentConsumer?.newWindSpeed(event.speed)
         guard let session = session else { return }
