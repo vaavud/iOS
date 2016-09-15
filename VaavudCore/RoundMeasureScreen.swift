@@ -297,8 +297,8 @@ class BandedView: UIView {
             
             let contextRef = UIGraphicsGetCurrentContext()
             let rect = CGRect(center: rect.center, size: CGSize(width: 2*r, height: 2*r))
-            CGContextSetRGBFillColor(contextRef, w, w, w, 1)
-            CGContextFillEllipseInRect(contextRef, rect)
+            CGContextSetRGBFillColor(contextRef!, w, w, w, 1)
+            CGContextFillEllipseInRect(contextRef!, rect)
         }
     }
 }
@@ -391,13 +391,13 @@ class RoundRuler : UIView {
         
         CATransaction.setDisableActions(true)
         
-        let easing = ease(1.2*scale, to: 3.0*scale)
+        let easing = ease(1.2*scale, to: 3.0*scale,x: 0)
         
         let basePolar = Polar(r: scale, phi: CGFloat(-compassDirection.radians) - π/2)
         
         for (dot, p) in zip(dots, dotPositions) {
             dot.position = (p*basePolar).cartesian(bounds.center)
-            dot.opacity = Float(easing(x: dist(dot.position, q: bounds.center)))
+            //dot.opacity = Float(easing(x: dist(dot.position, q: bounds.center)))
         }
         
         dots[dots.count - 1].opacity = 0.7*dots[dots.count - 1].opacity + 0.3

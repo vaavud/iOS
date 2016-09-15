@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C79EA5EFC6296482BCEFB9C /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 525BDD08A4A6143BBBC49FE3 /* Pods.framework */; };
 		220A30EC1B6F77250011DDA9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 220A30EB1B6F77250011DDA9 /* Images.xcassets */; };
 		220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 220D290E1B6937C8003E0393 /* Al Fresco Bold.otf */; };
 		221285B21B04A6F500D4C008 /* FlatMeasureScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 221285B11B04A6F500D4C008 /* FlatMeasureScreen.swift */; };
@@ -79,6 +78,7 @@
 		2BB813161C1874FE00D70E10 /* HistoryHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB813121C1874FE00D70E10 /* HistoryHeaderCell.swift */; };
 		2BB813371C1AC41100D70E10 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB813361C1AC41100D70E10 /* TabBarController.swift */; };
 		2BFDEED11C68EB1400673293 /* notificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFDEED01C68EB1400673293 /* notificationSettingsViewController.swift */; };
+		8D46EDCC71F76A66AC969BC2 /* Pods_Vaavud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E4E2CD6437574B90E6AD40B /* Pods_Vaavud.framework */; };
 		D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
 		D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */ = {isa = PBXBuildFile; fileRef = D71BE13617439AA000B38E34 /* VaavudFFT.m */; };
 		D721B47E1AD1EBD10045DC99 /* DropboxUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D721B47D1AD1EBD10045DC99 /* DropboxUploader.swift */; };
@@ -284,8 +284,10 @@
 		2BB813121C1874FE00D70E10 /* HistoryHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryHeaderCell.swift; sourceTree = "<group>"; };
 		2BB813361C1AC41100D70E10 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		2BFDEED01C68EB1400673293 /* notificationSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = notificationSettingsViewController.swift; sourceTree = "<group>"; };
+		2E4E2CD6437574B90E6AD40B /* Pods_Vaavud.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vaavud.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		397CA998C93AF7DEEC90452B /* Pods-Vaavud.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vaavud.release.xcconfig"; path = "Pods/Target Support Files/Pods-Vaavud/Pods-Vaavud.release.xcconfig"; sourceTree = "<group>"; };
 		525BDD08A4A6143BBBC49FE3 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CDE6761506C86D4075981625 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		85BB1BD4853733DDCC9FC1D3 /* Pods-Vaavud.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vaavud.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Vaavud/Pods-Vaavud.debug.xcconfig"; sourceTree = "<group>"; };
 		D7092E881748FE9C00993235 /* VaavudDynamicsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudDynamicsController.h; sourceTree = "<group>"; };
 		D7092E891748FE9C00993235 /* VaavudDynamicsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudDynamicsController.m; sourceTree = "<group>"; };
 		D71BE13517439AA000B38E34 /* VaavudFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudFFT.h; sourceTree = "<group>"; };
@@ -321,7 +323,6 @@
 		D7C860F8173B061E005E9946 /* VaavudMagneticFieldDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VaavudMagneticFieldDataManager.h; sourceTree = "<group>"; };
 		D7C860F9173B061E005E9946 /* VaavudMagneticFieldDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VaavudMagneticFieldDataManager.m; sourceTree = "<group>"; };
 		D7DA72401743C1CD00DFE962 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		D99B754D5D7EF24DCE1202B3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		E904AC9617F08F6E00171F7F /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		E904AC9717F08F6E00171F7F /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		E904AC9917F0911000171F7F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -401,22 +402,13 @@
 				D7A4F1CB173A8DDB00D1ACEE /* UIKit.framework in Frameworks */,
 				D7A4F1CD173A8DDB00D1ACEE /* Foundation.framework in Frameworks */,
 				D7A4F1CF173A8DDB00D1ACEE /* CoreGraphics.framework in Frameworks */,
-				0C79EA5EFC6296482BCEFB9C /* Pods.framework in Frameworks */,
+				8D46EDCC71F76A66AC969BC2 /* Pods_Vaavud.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1C5D3B125E8B2D533BB89200 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				D99B754D5D7EF24DCE1202B3 /* Pods.debug.xcconfig */,
-				CDE6761506C86D4075981625 /* Pods.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		226910451BCFCB2C00116673 /* ProBadgeHtml */ = {
 			isa = PBXGroup;
 			children = (
@@ -464,6 +456,15 @@
 			name = Login;
 			sourceTree = "<group>";
 		};
+		B7D2E3E9FFCD010B9EFEAC81 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				85BB1BD4853733DDCC9FC1D3 /* Pods-Vaavud.debug.xcconfig */,
+				397CA998C93AF7DEEC90452B /* Pods-Vaavud.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		D7A4F1BE173A8DDB00D1ACEE = {
 			isa = PBXGroup;
 			children = (
@@ -472,7 +473,7 @@
 				E98853C7176868BE00F78128 /* Images */,
 				D7A4F1C8173A8DDB00D1ACEE /* Products */,
 				D7A4F1D1173A8DDB00D1ACEE /* Supporting Files */,
-				1C5D3B125E8B2D533BB89200 /* Pods */,
+				B7D2E3E9FFCD010B9EFEAC81 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -504,6 +505,7 @@
 				E9B627CA177092EF004678D5 /* SystemConfiguration.framework */,
 				D7A4F1CA173A8DDB00D1ACEE /* UIKit.framework */,
 				525BDD08A4A6143BBBC49FE3 /* Pods.framework */,
+				2E4E2CD6437574B90E6AD40B /* Pods_Vaavud.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -765,14 +767,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D7A4F1EA173A8DDB00D1ACEE /* Build configuration list for PBXNativeTarget "Vaavud" */;
 			buildPhases = (
-				261A82FADCA44D85B16D87F8 /* Check Pods Manifest.lock */,
+				9310299DBF6357DE412C94C7 /* [CP] Check Pods Manifest.lock */,
 				D7A4F1C3173A8DDB00D1ACEE /* Sources */,
 				D7A4F1C4173A8DDB00D1ACEE /* Frameworks */,
 				D7A4F1C5173A8DDB00D1ACEE /* Resources */,
-				B53D863A9E054A47A41840FD /* Copy Pods Resources */,
 				2235B0C41AA742520003C20B /* ShellScript */,
 				22B74D8B1BB1408F00D39999 /* Embed Frameworks */,
-				DD685B04B1ECB5BE51BB5A4A /* Embed Pods Frameworks */,
+				0BA255C4BC2FE036EBCD3CBD /* [CP] Embed Pods Frameworks */,
+				2C365DD58C7D3CCEC6A51EA2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -908,6 +910,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0BA255C4BC2FE036EBCD3CBD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Vaavud/Pods-Vaavud-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2235B0C41AA742520003C20B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -921,49 +938,34 @@
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run 767b68b0d4b5e7c052c4de75ae8859beee5d9901 3aa3f790ccf0a071979a8907fd36db225eccd47a12a29a0b8bb191890d91175e";
 		};
-		261A82FADCA44D85B16D87F8 /* Check Pods Manifest.lock */ = {
+		2C365DD58C7D3CCEC6A51EA2 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Vaavud/Pods-Vaavud-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B53D863A9E054A47A41840FD /* Copy Pods Resources */ = {
+		9310299DBF6357DE412C94C7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DD685B04B1ECB5BE51BB5A4A /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1225,7 +1227,7 @@
 		};
 		D7A4F1EB173A8DDB00D1ACEE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D99B754D5D7EF24DCE1202B3 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = 85BB1BD4853733DDCC9FC1D3 /* Pods-Vaavud.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1267,6 +1269,7 @@
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "VaavudCore/Vaavud-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1274,7 +1277,7 @@
 		};
 		D7A4F1EC173A8DDB00D1ACEE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CDE6761506C86D4075981625 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 397CA998C93AF7DEEC90452B /* Pods-Vaavud.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1315,6 +1318,7 @@
 				PRODUCT_NAME = Vaavud;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "VaavudCore/Vaavud-Bridging-Header.h";
+				SWIFT_VERSION = 2.3;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};

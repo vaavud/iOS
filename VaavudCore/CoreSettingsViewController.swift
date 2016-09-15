@@ -8,6 +8,7 @@
 
 import Foundation
 import Firebase
+import FBSDKLoginKit
 
 // fixme: move to common file
 func parseSnapshot(callback: [String : AnyObject] -> ()) -> FDataSnapshot! -> () {
@@ -64,7 +65,7 @@ class CoreSettingsTableViewController: UITableViewController {
 
         dropboxControl.on = DBSession.sharedSession().isLinked()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "dropboxLinkedStatus:", name: "dropboxIsLinked", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CoreSettingsTableViewController.dropboxLinkedStatus(_:)), name: "dropboxIsLinked", object: nil)
 
         formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
         refreshUnits()

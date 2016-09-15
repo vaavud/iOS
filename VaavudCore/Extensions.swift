@@ -147,7 +147,7 @@ func ease(x: CGFloat) -> CGFloat {
     return x < 0.5 ? 4*pow(x, 3) : pow(2*x - 2, 3)/2 + 1
 }
 
-func ease(from: CGFloat, to: CGFloat)(x: CGFloat) -> CGFloat {
+func ease(from: CGFloat, to: CGFloat, x: CGFloat) -> CGFloat {
     return ease(clamp((x - from)/(to - from)))
 }
 
@@ -169,7 +169,7 @@ extension UIImage {
         UIRectFill(CGRectMake(0, 0, 100, 100))
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image
+        return image!
     }
 }
 
@@ -299,7 +299,7 @@ struct Polar {
     }
 }
 
-func rotate(phi: CGFloat)(p: Polar) -> Polar {
+func rotate(phi: CGFloat, p: Polar) -> Polar {
     return p*Polar(r: 1, phi: phi)
 }
 

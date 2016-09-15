@@ -128,7 +128,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     func retrievedUserSettings(dict: [String : AnyObject]) {
-        if let shown = UserSettingsIos(dict: dict), tbc = tabBarController where !shown.summaryShareOverlayShown {
+        if let shown = UserSettingsIos(dict: dict), let tbc = tabBarController  where !shown.summaryShareOverlayShown {
             shownFirebase.updateChildValues(["summaryShareOverlayShown" : true])
             
             let p = Interface.choose((0.915, 0.09), (0.915, 0.075), (0.925, 0.065), (0.925, 0.06), (0.957, 0.043), (0.97, 0.053))
@@ -211,7 +211,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func updateMapView() {
-        if let annotation = mapView.annotations.first as? MeasurementAnnotation, view = mapView.viewForAnnotation(annotation) {
+        if let annotation = mapView.annotations.first as? MeasurementAnnotation, let view = mapView.viewForAnnotation(annotation) {
             updateMapAnnotationLabel(view)
         }
     }
@@ -252,7 +252,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         UIGraphicsBeginImageContextWithOptions(size, true, 0)
         
         view.drawViewHierarchyInRect(frame, afterScreenUpdates: true)
-        guard let snap = UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext()) else { return }
+        guard let snap = UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext()!) else { return }
         UIGraphicsEndImageContext()
 
         let windSpeed = VaavudFormatter.shared.localizedSpeed(session.windMean)

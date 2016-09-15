@@ -230,7 +230,7 @@ class OldGraph : UIView {
 
         let modScale = logScale % 1
         let scale = 2/((1 + modScale)*CGFloat(labels.count - 1))
-        let outside = ease(0, to: -20)
+        let outside = ease(0, to: -20,x: 0)
         
         for (i, label) in labels.enumerate() {
             label.center.y = bounds.height*(1 - CGFloat(i)*scale)

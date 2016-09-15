@@ -274,45 +274,45 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         session.windMean = VaavudSDK.shared.session.meanSpeed
         session.windMax = VaavudSDK.shared.session.maxSpeed
         
-        firebase
-            .childByAppendingPaths("session", session.key)
-            .setValue(session.fireDict)
+//        firebase
+//            .childByAppendingPaths("session", session.key)
+//            .setValue(session.fireDict)
     }
     
     func updateStreams() {
-        if let index = windDirectionTracker.newUploadIndex() {
-            firebase
-                .childByAppendingPaths("windDirection", session.key, index)
-                .setValue(VaavudSDK.shared.session.windDirections.last!.fireDict)
-        }
-        
-        if let index = locationTracker.newUploadIndex() {
-            firebase
-                .childByAppendingPaths("location", session.key, index)
-                .setValue(VaavudSDK.shared.session.locations.last!.fireDict)
-        }
-        
-        if let index = pressureTracker.newUploadIndex() {
-            firebase
-                .childByAppendingPaths("pressure", session.key, index)
-                .setValue(VaavudSDK.shared.session.pressures.last!.fireDict)
-        }
-        
-        if let index = velocityTracker.newUploadIndex() {
-            firebase
-                .childByAppendingPaths("velocity", session.key, index)
-                .setValue(VaavudSDK.shared.session.velocities.last!.fireDict)
-        }
-        
-        if mjolnir?.dynamicsIsValid == false {
-            return
-        }
-        
-        if let index = windTracker.newUploadIndex() {
-            firebase
-                .childByAppendingPaths("wind", session.key, index)
-                .setValue(VaavudSDK.shared.session.windSpeeds.last!.fireDict)
-        }
+//        if let index = windDirectionTracker.newUploadIndex() {
+//            firebase
+//                .childByAppendingPaths("windDirection", session.key, index)
+//                .setValue(VaavudSDK.shared.session.windDirections.last!.fireDict)
+//        }
+//        
+//        if let index = locationTracker.newUploadIndex() {
+//            firebase
+//                .childByAppendingPaths("location", session.key, index)
+//                .setValue(VaavudSDK.shared.session.locations.last!.fireDict)
+//        }
+//        
+//        if let index = pressureTracker.newUploadIndex() {
+//            firebase
+//                .childByAppendingPaths("pressure", session.key, index)
+//                .setValue(VaavudSDK.shared.session.pressures.last!.fireDict)
+//        }
+//        
+//        if let index = velocityTracker.newUploadIndex() {
+//            firebase
+//                .childByAppendingPaths("velocity", session.key, index)
+//                .setValue(VaavudSDK.shared.session.velocities.last!.fireDict)
+//        }
+//        
+//        if mjolnir?.dynamicsIsValid == false {
+//            return
+//        }
+//        
+//        if let index = windTracker.newUploadIndex() {
+//            firebase
+//                .childByAppendingPaths("wind", session.key, index)
+//                .setValue(VaavudSDK.shared.session.windSpeeds.last!.fireDict)
+//        }
     }
 
     func save(userCancelled: Bool) {
