@@ -297,8 +297,8 @@ class BandedView: UIView {
             
             let contextRef = UIGraphicsGetCurrentContext()
             let rect = CGRect(center: rect.center, size: CGSize(width: 2*r, height: 2*r))
-            CGContextSetRGBFillColor(contextRef, w, w, w, 1)
-            CGContextFillEllipseInRect(contextRef, rect)
+            CGContextSetRGBFillColor(contextRef!, w, w, w, 1)
+            CGContextFillEllipseInRect(contextRef!, rect)
         }
     }
 }

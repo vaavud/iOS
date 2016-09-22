@@ -218,7 +218,7 @@
 "UPGRADE_CTA" = "OK, cool!";
 "MY_MEASUREMENTS_TITLE" = "Meine Messungen";
 "SETTINGS_MEASUREMENT" = "Messungen";
-"SETTINGS_TIME_PERIOD" = "Periode";
+"SETTINGS_TIME_PERIOD" = "Zeit";
 "SETTINGS_TIME_30_SEC" = "30 Sekunden";
 "SETTINGS_TIME_UNLIMITED" = "Unbegrenzt";
 "SETTINGS_MODEL" = "Windmesser-Modell ";
@@ -297,7 +297,7 @@
 "FIRSTNOTIFICATIONFINISHED" = "Sie haben gerade Ihr erstes Vaavud Benachrichtigung einrichten. Genial!";
 "FIRSTNOTIFICATION" = "Tippen Sie hier, um die Einrichtung einer neuen Benachrichtigung";
 
-"LOGIN_WALL_MAP_DESCRIPTION" = "Um die Wind-Messwerte von anderen Nutzern weltweit für die letzten 24 Stunden zu sehen, müssen Sie sich anmelden.";
+"LOGIN_WALL_MAP_DESCRIPTION" = "Melden Sie sich an, um Windmessewerte anderer Nutzer weltweit der letzten 24 Stunden zu sehen.";
 "LOGIN_WALL_MAP_TITLE" = "Live-Karte ";
 "LOGIN_WALL_HISTORY_DESCRIPTION" = "Um Messungen in Ihrem persönlichen Messungen-Verlauf zu speichern, müssen Sie sich anmelden.";
 "LOGIN_WALL_HISTORY_TITLE" = "Messungen-Verlauf";

@@ -257,7 +257,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
         UIGraphicsBeginImageContextWithOptions(size, true, 0)
         
         view.drawViewHierarchyInRect(frame, afterScreenUpdates: true)
-        guard let snap = UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext()) else { return }
+        guard let snap = UIImagePNGRepresentation(UIGraphicsGetImageFromCurrentImageContext()!) else { return }
         UIGraphicsEndImageContext()
 
         let windSpeed = VaavudFormatter.shared.localizedSpeed(session.windMean)

@@ -60,8 +60,8 @@ public class VaavudStyle : NSObject {
         let tempGaugeYOffset: CGFloat = 61 - 0.5 * reading * 100
 
         //// Bezier 2 Drawing
-        CGContextSaveGState(context)
-        CGContextScaleCTM(context, scale, scale)
+        CGContextSaveGState(context!)
+        CGContextScaleCTM(context!, scale, scale)
 
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(29.97, 64.86))
@@ -91,12 +91,12 @@ public class VaavudStyle : NSObject {
         VaavudStyle.vaavudDarkGrey.setFill()
         bezier2Path.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// Bezier Drawing
-        CGContextSaveGState(context)
-        CGContextScaleCTM(context, scale, scale)
+        CGContextSaveGState(context!)
+        CGContextScaleCTM(context!, scale, scale)
 
         let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(26.13, (tempGaugeYOffset - 0.002)))
@@ -114,7 +114,7 @@ public class VaavudStyle : NSObject {
         VaavudStyle.vaavudDarkGrey.setFill()
         bezierPath.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 
     public class func drawVaavudPressure(height height: CGFloat, reading: CGFloat) {
@@ -129,21 +129,21 @@ public class VaavudStyle : NSObject {
         let pressureGaugeRotation: CGFloat = -175 - 280 * reading
 
         //// Oval 4 Drawing
-        CGContextSaveGState(context)
-        CGContextScaleCTM(context, scale, scale)
+        CGContextSaveGState(context!)
+        CGContextScaleCTM(context!, scale, scale)
 
         let oval4Path = UIBezierPath(ovalInRect: CGRectMake(36.1, 36.1, 28.2, 28.2))
         VaavudStyle.vaavudDarkGrey.setFill()
         oval4Path.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// Bezier 2 Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, pressureGaugeCenterX, pressureGaugeCenterY)
-        CGContextRotateCTM(context, -pressureGaugeRotation * CGFloat(M_PI) / 180)
-        CGContextScaleCTM(context, scale, scale)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, pressureGaugeCenterX, pressureGaugeCenterY)
+        CGContextRotateCTM(context!, -pressureGaugeRotation * CGFloat(M_PI) / 180)
+        CGContextScaleCTM(context!, scale, scale)
 
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(27.86, -27.75))
@@ -156,12 +156,12 @@ public class VaavudStyle : NSObject {
         VaavudStyle.vaavudDarkGrey.setFill()
         bezier2Path.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
 
 
         //// Oval 3 Drawing
-        CGContextSaveGState(context)
-        CGContextScaleCTM(context, scale, scale)
+        CGContextSaveGState(context!)
+        CGContextScaleCTM(context!, scale, scale)
 
         let oval3Path = UIBezierPath()
         oval3Path.moveToPoint(CGPointMake(94.58, 50))
@@ -179,7 +179,7 @@ public class VaavudStyle : NSObject {
         VaavudStyle.vaavudDarkGrey.setFill()
         oval3Path.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 
     public class func drawVaavudGustiness(height height: CGFloat, reading: CGFloat) {
@@ -192,9 +192,9 @@ public class VaavudStyle : NSObject {
         let pos = CGPointMake(scale * 5 * sin(180 * reading * CGFloat(M_PI)/180) * sin(reading * 300 * CGFloat(M_PI)/180), scale * 10 * sin(180 * reading * CGFloat(M_PI)/180) * sin((reading * 500 + 3) * CGFloat(M_PI)/180))
 
         //// Bezier 2 Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, pos.x, pos.y)
-        CGContextScaleCTM(context, scale, scale)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, pos.x, pos.y)
+        CGContextScaleCTM(context!, scale, scale)
 
         let bezier2Path = UIBezierPath()
         bezier2Path.moveToPoint(CGPointMake(10.27, 81.5))
@@ -216,7 +216,7 @@ public class VaavudStyle : NSObject {
         bezier2Path.lineWidth = 5
         bezier2Path.stroke()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 
     public class func drawVaavudWindchill(height height: CGFloat, reading: CGFloat) {
@@ -231,10 +231,10 @@ public class VaavudStyle : NSObject {
         let windchillRotation: CGFloat = -reading * 360
 
         //// Bezier Drawing
-        CGContextSaveGState(context)
-        CGContextTranslateCTM(context, centerX, centerY)
-        CGContextRotateCTM(context, -windchillRotation * CGFloat(M_PI) / 180)
-        CGContextScaleCTM(context, scale, scale)
+        CGContextSaveGState(context!)
+        CGContextTranslateCTM(context!, centerX, centerY)
+        CGContextRotateCTM(context!, -windchillRotation * CGFloat(M_PI) / 180)
+        CGContextScaleCTM(context!, scale, scale)
 
         let bezierPath = UIBezierPath()
         bezierPath.moveToPoint(CGPointMake(-47.29, -2.71))
@@ -400,7 +400,7 @@ public class VaavudStyle : NSObject {
         VaavudStyle.vaavudDarkGrey.setFill()
         bezierPath.fill()
 
-        CGContextRestoreGState(context)
+        CGContextRestoreGState(context!)
     }
 
     public class func drawCompassArrow(frame frame: CGRect, strokeColor: UIColor, strokeWidth: CGFloat) {

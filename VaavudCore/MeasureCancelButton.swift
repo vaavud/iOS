@@ -65,7 +65,8 @@ class MeasureCancelButton: UIButton {
         return isInsideCircle(point, rect: bounds)
     }
     
-    func update(var timeLeft: CGFloat, state: MeasureState) {
+    func update(_timeLeft: CGFloat, state: MeasureState) {
+        var timeLeft = _timeLeft
         if timeLeft < 0 { timeLeft = 0 }
         
         let showCross: CGFloat

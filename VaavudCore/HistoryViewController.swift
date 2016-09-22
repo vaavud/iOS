@@ -30,7 +30,7 @@ struct Location: Firebaseable {
     }
     
     init?(dict: [String : AnyObject]) {
-        guard let lat = dict["lat"] as? Double, lon = dict["lon"] as? Double else {
+        guard let lat = dict["lat"] as? Double, let lon = dict["lon"] as? Double else {
             return nil
         }
         
@@ -137,7 +137,7 @@ struct Session {
         deviceKey = snapshot["deviceKey"] as! String
         timeStart = NSDate(ms: snapshot["timeStart"] as! NSNumber)
         
-        windMeter = WindMeterModel(rawValue: snapshot["windMeter"] as! String)!
+        windMeter = WindMeterModel(rawValue: snapshot["windMeter"] as? String ?? "sleipnir")!
 
         windMax = snapshot["windMax"] as? Double ?? 0
         windMean = snapshot["windMean"] as? Double ?? 0
@@ -327,7 +327,7 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         cell.speedUnit.text = VaavudFormatter.shared.speedUnit.localizedString
         cell.speed.text = VaavudFormatter.shared.localizedSpeed(session.windMean)
         
-        if let loc = session.location, name = loc.name {
+        if let loc = session.location, let name = loc.name {
             cell.location.text = name
         }
         else {

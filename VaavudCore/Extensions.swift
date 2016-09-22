@@ -169,7 +169,7 @@ extension UIImage {
         UIRectFill(CGRectMake(0, 0, 100, 100))
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image
+        return image!
     }
 }
 
@@ -473,7 +473,7 @@ public extension UIView {
             name = nibName
         }
         let nibViews = NSBundle.mainBundle().loadNibNamed(name, owner: nil, options: nil)
-        for v in nibViews {
+        for v in nibViews! {
             if let tog = v as? T {
                 view = tog
             }

@@ -31,7 +31,7 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
         scrollView.contentSize = CGSize(width: CGFloat(pager.numberOfPages)*scrollView.bounds.width, height: scrollView.bounds.height)
         
         let nibName = "UpgradingUserPagesView"
-        if let content = NSBundle.mainBundle().loadNibNamed(nibName, owner: self, options: nil).first as? UIView {
+        if let content = NSBundle.mainBundle().loadNibNamed(nibName, owner: self, options: nil)!.first as? UIView {
             content.frame.origin = CGPoint()
             content.frame.size = scrollView.contentSize
             scrollView.addSubview(content)
@@ -39,7 +39,7 @@ class UpgradingUserViewController: UIViewController, UIScrollViewDelegate {
         
         phoneScrollView.contentSize = CGSize(width: 3*phoneScrollView.bounds.width, height: phoneScrollView.bounds.height)
 
-        if let content = NSBundle.mainBundle().loadNibNamed("UpgradingUserPhonePages", owner: nil, options: nil).first as? UIView {
+        if let content = NSBundle.mainBundle().loadNibNamed("UpgradingUserPhonePages", owner: nil, options: nil)!.first as? UIView {
             content.frame.size = phoneScrollView.contentSize
             content.frame.origin = CGPoint()
             phoneScrollView.addSubview(content)

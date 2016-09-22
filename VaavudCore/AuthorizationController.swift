@@ -246,17 +246,17 @@ class AuthorizationController: NSObject {
     }
     
     private func obtainUserInformation(child: String, key: String, callback: FirebaseDictionary? -> Void) {
-        firebase
-            .child(child).child(key)
-            .observeSingleEventOfType(.Value, withBlock: { data in
-                guard let firebaseData = data.value as? FirebaseDictionary else {
-                    callback(nil)
-                    //self.delegate?.onError(.Unknown)
-                    return
-                }
+        
+        firebase.child(child).child(key).observeSingleEventOfType(.Value) { data, error in
+            
+            guard let firebaseData = data.value as? FirebaseDictionary else {
+                callback(nil)
+                //self.delegate?.onError(.Unknown)
+                return
+            }
                 
-                callback(firebaseData)
-            })
+            callback(firebaseData)
+        }
     }
     
     private func updateUserInformation(uid: String, data: FirebaseDictionary) {

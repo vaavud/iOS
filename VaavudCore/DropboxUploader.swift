@@ -78,7 +78,7 @@ class DropboxUploader: NSObject, DBRestClientDelegate {
             .URLByAppendingPathComponent(NSProcessInfo.processInfo().globallyUniqueString)
         
         do {
-            try string.writeToURL(fileURL, atomically: true, encoding: NSUTF8StringEncoding)
+            try string.writeToURL(fileURL!, atomically: true, encoding: NSUTF8StringEncoding)
 
             return fileURL
         }

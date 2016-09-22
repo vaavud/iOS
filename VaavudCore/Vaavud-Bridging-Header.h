@@ -16,6 +16,7 @@
 #import "PasswordUtil.h"
 //#import "Amplitude.h"
 #import "MeasurementCalloutView.h"
+#import "GeoFire/GeoFire.h"
 
 #import "MjolnirMeasurementController.h"
 

@@ -14,12 +14,12 @@ class VaavudInteractions: NSObject, UIAlertViewDelegate {
     var alertView: UIAlertView?
     
     class func termsUrl(source: String = "settings") -> NSURL {
-        let url = "http://vaavud.com/legal/terms.php?source=" + source
+        let url = "https://vaavud.com/terms/"
         return NSURL(string: url)!
     }
 
     class func privacyUrl(source: String = "settings") -> NSURL {
-        let url = "http://vaavud.com/legal/privacy.php?source=" + source
+        let url = "https://vaavud.com/privacy-policy/"
         return NSURL(string: url)!
     }
     
@@ -66,6 +66,8 @@ class VaavudInteractions: NSObject, UIAlertViewDelegate {
             if let cancel = cancel {
                 alert.addAction(UIAlertAction(title: cancel, style: .Cancel, handler: { (action) -> Void in }))
             }
+            alert.popoverPresentationController?.sourceView = source.view
+            alert.popoverPresentationController?.sourceRect = source.view.bounds
             alert.addAction(UIAlertAction(title: other, style: UIAlertActionStyle.Default, handler: { (action) -> Void in self.alertAction() }))
             source.presentViewController(alert, animated: true, completion: nil)
         }

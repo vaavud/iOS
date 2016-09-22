@@ -84,14 +84,14 @@ class RadialOverlay: UIView {
             let gradient1 = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), [innerColor.CGColor, outerColor.CGColor], [0, 0.9])!
             let gradient2 = CGGradientCreateWithColors(CGColorSpaceCreateDeviceRGB(), [outerColor.CGColor, outerColor.CGColor], [0, 1])!
             
-            CGContextSaveGState(context)
+            CGContextSaveGState(context!)
             
             UIBezierPath(rect: bounds).addClip()
             
-            CGContextDrawRadialGradient(context, gradient1, position, 25, position, radius, [])
-            CGContextDrawRadialGradient(context, gradient2, position, radius, position, 1200, [])
+            CGContextDrawRadialGradient(context!, gradient1, position, 25, position, radius, [])
+            CGContextDrawRadialGradient(context!, gradient2, position, radius, position, 1200, [])
             
-            CGContextRestoreGState(context)
+            CGContextRestoreGState(context!)
         }
     }
 }
