@@ -300,14 +300,14 @@ class AuthorizationController: NSObject {
     func validateUserSettings(uid: String) {
         let setting = firebase.child("user").child(uid).child("setting")
         
-        setting.observeSingleEventOfType(.Value, withBlock: parseSnapshot { data in
+        setting.observeSingleEventOfType(.Value) { data in
             if data["ios"] == nil {
                 setting.updateChildValues(["ios" : UserSettingsIos().fireDict])
             }
             if data["shared"] == nil {
                 setting.updateChildValues(["shared" : UserSettingsShared().fireDict])
             }
-            })
+        }
     }
 
     private func verifyMigration(email: String, password: String) {

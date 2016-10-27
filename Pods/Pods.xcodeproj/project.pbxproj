@@ -72,7 +72,8 @@
 		29731F92555225566D2388BB660A1AAB /* GeoFire+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C0031BE05D88B4F6306EB88C28950DEC /* GeoFire+Private.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		29D5072854A624ECD53A502670BE3498 /* FBSDKServerConfigurationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BEF6335FCA54C74CA44C81C191109EB /* FBSDKServerConfigurationManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2ABCD61FD7F427BD3806C92902AB042E /* GFQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 78D424FF923679747CD311F4C31824F0 /* GFQuery.m */; };
-		2BADE6A11D8AF64E00E1DCF6 /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 408B7C18B016AA04C9A5DD62EBBFE9D4 /* FirebaseDatabase.framework */; };
+		2B5F259C1D9426160000650A /* Firebase.h in Headers */ = {isa = PBXBuildFile; fileRef = 79134AA48FDA4F48F72213BD5754FFCC /* Firebase.h */; };
+		2B5F259D1D9426FF0000650A /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 408B7C18B016AA04C9A5DD62EBBFE9D4 /* FirebaseDatabase.framework */; };
 		2BD969D274F4CC68A4E73E74135AAAB6 /* FBSDKAccessTokenCacheV3_17.m in Sources */ = {isa = PBXBuildFile; fileRef = 0A1DCBEA86A7288F4B2CA151B0EC5FE9 /* FBSDKAccessTokenCacheV3_17.m */; };
 		2C1DCEEF93879DDE6AD0C2F2BC350C0A /* FBSDKLikeDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = C61E23469B9276C6392E245B7FC30B44 /* FBSDKLikeDialog.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2C737796AAD49FE609E7FB0CCF8A263C /* Bolts.m in Sources */ = {isa = PBXBuildFile; fileRef = E45B1C018CD564FE0F3F9F6300F17D3E /* Bolts.m */; };
@@ -958,7 +959,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2BADE6A11D8AF64E00E1DCF6 /* FirebaseDatabase.framework in Frameworks */,
+				2B5F259D1D9426FF0000650A /* FirebaseDatabase.framework in Frameworks */,
 				2166735050EC3CA9D824700B620B063E /* CoreLocation.framework in Frameworks */,
 				C0335D1F224EB7A3CBF79079BA17AF31 /* Foundation.framework in Frameworks */,
 			);
@@ -2033,6 +2034,7 @@
 				7D6ED8A7FE3F654EEC63F134E383BBA7 /* GFBase32Utils.h in Headers */,
 				9B8FEC707269B27CA0CD40A36B647186 /* GFCircleQuery.h in Headers */,
 				7440C9B87F0A2B9ADA528240D4EC2B69 /* GFGeoHash.h in Headers */,
+				2B5F259C1D9426160000650A /* Firebase.h in Headers */,
 				5B1DEC12EEB3CEAB8C2602E04007DD12 /* GFGeoHashQuery.h in Headers */,
 				CA5D63EFDBD5B43AC4BE3CC2D3DF2186 /* GFQuery+Private.h in Headers */,
 				FB96A79AA75E84306AE7C36318712D0D /* GFQuery.h in Headers */,
