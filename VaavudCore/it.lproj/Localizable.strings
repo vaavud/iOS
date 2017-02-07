@@ -59,7 +59,7 @@
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Inserisci la tua email";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "Non daremo la tua email a parti terze!";
 "REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "La password è troppo corta";
-"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4 caratteri o più.";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "6 caratteri o più.";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "Impossibile accedere";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "Email o password non corrette.";
 "REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "L'account esiste già";
@@ -296,3 +296,8 @@
 "PRESSLONG" = "Premi a lungo sulla mappa per inserire una punta di notifica";
 "FIRSTNOTIFICATIONFINISHED" = "È aggiunto il tuo primo Vaavud-notifica. Complimenti!";
 "FIRSTNOTIFICATION" = "Clicca qui per aggiungere una nuova notifica";
+
+"LOGIN_WALL_MAP_DESCRIPTION" = "Per vedere le letture del vento da utenti in tutto il mondo nelle ultime 24 ore, devi effettuare l'accesso.";
+"LOGIN_WALL_MAP_TITLE" = "Mappa dal vivo";
+"LOGIN_WALL_HISTORY_DESCRIPTION" = "Per salvare le misurazioni nella tua cronologia di misurazioni personali, devi effettuare l'accesso.";
+"LOGIN_WALL_HISTORY_TITLE" = "Cronologia misurazioni";

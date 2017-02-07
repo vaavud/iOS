@@ -59,7 +59,7 @@
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Introduza o seu e-mail";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "Nāo daremos o seu e-mail a terceiros!";
 "REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "Palavra-passe demasiado pequena";
-"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4 caracteres ou mais.";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "6 caracteres ou mais.";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "Impossível iniciar sessāo";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "E-mail ou palavra-passe nāo estāo corretos.";
 "REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "A conta já existe";

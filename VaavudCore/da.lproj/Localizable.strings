@@ -59,7 +59,7 @@
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Indtast din email";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "Vi giver ikke din email væk til andre!";
 "REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "Kodeord for kort";
-"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4 tegn eller mere.";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "6 tegn eller mere.";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "Kunne ikke logge ind";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "Email eller kodeord er forkert.";
 "REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "Profilen findes allerede";
@@ -297,3 +297,12 @@
 "PRESSLONG" = "Marker og hold på kortet for at sætte en notifikationsmarkør";
 "FIRSTNOTIFICATIONFINISHED" = "Du har tilføjet din første Vaavud-notifikation. Tillykke!";
 "FIRSTNOTIFICATION" = "Klik her for at tilføje en ny notifikation";
+
+"LOGIN_WALL_MAP_DESCRIPTION" = "For at se vindmålinger fra brugere over hele verden for de sidste 24 timer, skal du være logget ind.";
+"LOGIN_WALL_MAP_TITLE" = "Livekort";
+"LOGIN_WALL_HISTORY_DESCRIPTION" = "For at kunne gemme din egen personlige målings historik, skal du være logget ind.";
+"LOGIN_WALL_HISTORY_TITLE" = "Målingshistorik";
+
+
+
+

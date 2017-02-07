@@ -13,6 +13,8 @@
 #import "Vaavud-Swift.h"
 #import "Amplitude.h"
 #import "FBSDKCoreKit.h"
+@import Firebase;
+
 
 @interface AppDelegate()
 
@@ -27,7 +29,11 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [Firebase defaultConfig].persistenceEnabled = YES;
+    
+    [FIRApp configure];
+    [FIRDatabase database].persistenceEnabled = YES;
+    
+    //[Firebase defaultConfig].persistenceEnabled = YES;
     
     NSURLCache *URLCache = [[NSURLCache alloc] initWithMemoryCapacity:4*1024*1024 diskCapacity:20*1024*1024 diskPath:nil];
     [NSURLCache setSharedURLCache:URLCache];
@@ -59,16 +65,19 @@
     
     self.window.rootViewController = parent;
     
+    
     UIViewController *vc;
-    if (![[AuthorizationController shared] verifyAuth]) {
-        UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateInitialViewController];
-        
-        vc = nav;
-    }
-    else {
+    [[AuthorizationController shared] verifyAuth];
+//        UINavigationController *nav = [[UIStoryboard storyboardWithName:@"Login" bundle:nil] instantiateInitialViewController];
+//        
+//        vc = nav;
+//    }
+//    else {
         vc = [[UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil] instantiateInitialViewController];
-    }
+//    }
 
+    [[UITabBar appearance] setTintColor:[UIColor redColor]];
+    
     [parent addChildViewController:vc];
     [parent.view addSubview:vc.view];
     [vc didMoveToParentViewController:parent];

@@ -36,17 +36,33 @@ class SignupViewController: UIViewController, UITextFieldDelegate, LoginDelegate
     @IBAction func tappedCreate() {
         if let firstName = firstNameField.text, lastName = lastNameField.text, email = emailField.text, password = passwordField.text {
             
-            let activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 20, 20))
-            activityIndicator.activityIndicatorViewStyle = .White
             
-            oldButtonBar = navigationItem.rightBarButtonItem
-            navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
-            activityIndicator.startAnimating()
-            navigationController?.view.userInteractionEnabled = false
+            if passwordField.text!.characters.count >= 6 {
+                let activityIndicator = UIActivityIndicatorView(frame: CGRectMake(0, 0, 20, 20))
+                activityIndicator.activityIndicatorViewStyle = .White
+                
+                oldButtonBar = navigationItem.rightBarButtonItem
+                navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
+                activityIndicator.startAnimating()
+                navigationController?.view.userInteractionEnabled = false
+                
+                view.endEditing(true)
+                
+                AuthorizationController.shared.signup(firstName, lastName: lastName, email: email, password: password, delegate: self)
+            }
+            else{
+                
+                let wrongPass = NSLocalizedString("REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE", comment: "") + " " + NSLocalizedString("REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE", comment: "")
+
+
+                dispatch_async(dispatch_get_main_queue()) {
+                    VaavudInteractions().showLocalAlert("LOGIN_ERROR_TITLE", messageKey: wrongPass, otherKey: "BUTTON_OK", action: {
+                        }, on: self)
+                }
+                
+            }
             
-            view.endEditing(true)
             
-            AuthorizationController.shared.signup(firstName, lastName: lastName, email: email, password: password, delegate: self)
         }
         else {
             showError(.Unknown)

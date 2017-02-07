@@ -30,7 +30,7 @@ struct Location: Firebaseable {
     }
     
     init?(dict: [String : AnyObject]) {
-        guard let lat = dict["lat"] as? Double, lon = dict["lon"] as? Double else {
+        guard let lat = dict["lat"] as? Double, let lon = dict["lon"] as? Double else {
             return nil
         }
         
@@ -126,27 +126,31 @@ struct Session {
         location = (dict["location"] as? FirebaseDictionary).flatMap(Location.init)
     }
     
-    init(snapshot: FDataSnapshot) {
+    init(snapshot: FIRDataSnapshot) {
         key = snapshot.key
         
-        uid = snapshot.value["uid"] as! String
-        deviceKey = snapshot.value["deviceKey"] as! String
-        timeStart = NSDate(ms: snapshot.value["timeStart"] as! NSNumber)
+        guard let snapshot = snapshot.value else{
+            fatalError("Bad Json History")
+        }
         
-        windMeter = WindMeterModel(rawValue: snapshot.value["windMeter"] as! String)!
+        uid = snapshot["uid"] as! String
+        deviceKey = snapshot["deviceKey"] as! String
+        timeStart = NSDate(ms: snapshot["timeStart"] as! NSNumber)
+        
+        windMeter = WindMeterModel(rawValue: snapshot["windMeter"] as? String ?? "sleipnir")!
 
-        windMax = snapshot.value["windMax"] as? Double ?? 0
-        windMean = snapshot.value["windMean"] as? Double ?? 0
+        windMax = snapshot["windMax"] as? Double ?? 0
+        windMean = snapshot["windMean"] as? Double ?? 0
         
-        timeEnd = (snapshot.value["timeEnd"] as? NSNumber).map(NSDate.init)
+        timeEnd = (snapshot["timeEnd"] as? NSNumber).map(NSDate.init)
         
-        windDirection = snapshot.value["windDirection"] as? Double
-        pressure = snapshot.value["pressure"] as? Double
-        temperature = snapshot.value["temperature"] as? Double
-        turbulence = snapshot.value["turbulence"] as? Double
+        windDirection = snapshot["windDirection"] as? Double
+        pressure = snapshot["pressure"] as? Double
+        temperature = snapshot["temperature"] as? Double
+        turbulence = snapshot["turbulence"] as? Double
         
-        sourced = (snapshot.value["sourced"] as? FirebaseDictionary).flatMap(Sourced.init)
-        location = (snapshot.value["location"] as? FirebaseDictionary).flatMap(Location.init)
+        sourced = (snapshot["sourced"] as? FirebaseDictionary).flatMap(Sourced.init)
+        location = (snapshot["location"] as? FirebaseDictionary).flatMap(Location.init)
     }
     
     init(uid: String, key: String, deviceId: String, timeStart: NSDate, windMeter: WindMeterModel) {
@@ -178,6 +182,7 @@ struct Session {
 }
 
 class HistoryViewController: UITableViewController, HistoryDelegate {
+    
     private var controller: HistoryController!
     private let spinner = MjolnirSpinner(frame: CGRectMake(0, 0, 100, 100))
     private var formatterHandle: String!
@@ -187,54 +192,102 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        controller = HistoryController(delegate: self)
+        if AuthorizationController.shared.isAuth{
+            controller = HistoryController(delegate: self)
+        }
+        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        spinner.alpha = 0.4
-        spinner.center = tableView.bounds.moveY(-64).center
-        tableView.addSubview(spinner)
-        spinner.show()
         
-        let width = CGRectGetWidth(view.bounds);
-        let height = CGRectGetHeight(view.bounds);
-        let startY = 0.35*height;
+        if AuthorizationController.shared.isAuth {
+            
+            navigationController?.navigationBar.hidden = false
+
+            
+            spinner.alpha = 0.4
+            spinner.center = tableView.bounds.moveY(-64).center
+            tableView.addSubview(spinner)
+            spinner.show()
+            
+            
+            
+            formatterHandle = VaavudFormatter.shared.observeUnitChange { [weak self] in self?.refreshUnits() }
+            refreshUnits()
+
         
-        emptyHistoryArrow.frame = CGRectMake(0, startY, width, height - 120 - startY)
-        emptyLabelView.center = CGPointMake(width/2, startY - 40);
-        emptyHistoryArrow.forceSetup()
-        
-        let upper = UILabel()
-        upper.font = UIFont(name: "Helvetica", size: 20)
-        upper.textColor = .vaavudColor()
-        upper.text = NSLocalizedString("HISTORY_NO_MEASUREMENTS", comment: "")
-        upper.sizeToFit()
-        
-        let lower = UILabel()
-        lower.font = UIFont(name: "Helvetica", size: 15)
-        lower.textColor = .vaavudColor()
-        lower.text =  NSLocalizedString("HISTORY_GO_TO_MEASURE", comment: "")
-        lower.sizeToFit()
-        
-        //emptyLabelView.frame = CGRectMake(0, 0, max(CGRectGetWidth(upper.bounds), CGRectGetWidth(lower.bounds)), 60)
-        upper.center = CGPointMake(CGRectGetMidX(emptyLabelView.bounds), 10);
-        lower.center = CGPointMake(CGRectGetMidX(emptyLabelView.bounds), 45);
-        
-        emptyLabelView.addSubview(upper)
-        emptyLabelView.addSubview(lower)
-        
-        view.addSubview(emptyView)
-        emptyView.addSubview(emptyLabelView)
-        emptyView.addSubview(emptyHistoryArrow)
-        emptyView.alpha = 0
-        
-        formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
-        refreshUnits()
+        }
+        else {
+            
+            navigationController?.navigationBar.hidden = true
+
+            let callback = { () in
+                gotoLoginFrom(self.tabBarController!, inside: self.view.window!.rootViewController!)
+
+            }
+            
+            let myCustomView = LoginWallView.fromNib("LoginWall")
+            myCustomView.isMap = false
+            myCustomView.callback = callback
+            
+            let rec = CGRect(x: 0, y: -21, width: UIScreen.mainScreen().bounds.width, height: UIScreen.mainScreen().bounds.height)
+            
+            myCustomView.frame = rec
+            myCustomView.setUp()
+            
+            view.addSubview(myCustomView)
+
+        }
     }
     
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
+    
+    private func addEmpyView() {
+    
+    let width = CGRectGetWidth(view.bounds);
+    let height = CGRectGetHeight(view.bounds);
+    let startY = (0.35*height)
+    
+    emptyHistoryArrow.frame = CGRectMake(0, startY + 20, width, height - 150 - startY)
+    emptyLabelView.center = CGPointMake(width/2, startY - 40);
+    emptyHistoryArrow.forceSetup()
+    
+    let upper = UILabel()
+    upper.font = UIFont(name: "Helvetica", size: 20)
+    upper.textColor = .vaavudColor()
+    upper.text = NSLocalizedString("HISTORY_NO_MEASUREMENTS", comment: "")
+    upper.sizeToFit()
+    
+    let lower = UILabel()
+    lower.font = UIFont(name: "Helvetica", size: 15)
+    lower.textColor = .vaavudColor()
+    lower.text =  NSLocalizedString("", comment: "")
+    lower.sizeToFit()
+    
+    //emptyLabelView.frame = CGRectMake(0, 0, max(CGRectGetWidth(upper.bounds), CGRectGetWidth(lower.bounds)), 60)
+    upper.center = CGPointMake(CGRectGetMidX(emptyLabelView.bounds), 10)
+    lower.center = CGPointMake(CGRectGetMidX(emptyLabelView.bounds), 45)
+    
+    emptyLabelView.addSubview(upper)
+    emptyLabelView.addSubview(lower)
+    
+    view.addSubview(emptyView)
+    emptyView.addSubview(emptyLabelView)
+    emptyView.addSubview(emptyHistoryArrow)
+    emptyView.alpha = 0
+    
+    }
+    
+    
     deinit {
+        guard AuthorizationController.shared.isAuth else {
+            return
+        }
         VaavudFormatter.shared.stopObserving(formatterHandle)
     }
     
@@ -245,11 +298,11 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     // MARK: Table View Controller
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return controller.sessionss.count
+        return AuthorizationController.shared.isAuth ? controller.sessionss.count : 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return controller.sessionss[section].count
+        return AuthorizationController.shared.isAuth ? controller.sessionss[section].count : 0
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -274,7 +327,7 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
         cell.speedUnit.text = VaavudFormatter.shared.speedUnit.localizedString
         cell.speed.text = VaavudFormatter.shared.localizedSpeed(session.windMean)
         
-        if let loc = session.location, name = loc.name {
+        if let loc = session.location, let name = loc.name {
             cell.location.text = name
         }
         else {
@@ -345,6 +398,7 @@ class HistoryViewController: UITableViewController, HistoryDelegate {
     }
     
     func noMeasurements() {
+        addEmpyView()
         emptyView.alpha = 1
         spinner.hide()
         emptyHistoryArrow.animate()

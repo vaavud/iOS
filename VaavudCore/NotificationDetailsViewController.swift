@@ -33,7 +33,7 @@ struct Subscription {
     init?(dict: FirebaseDictionary){
         
         
-        guard let uid = dict["uid"] as? String, name = dict["name"] as? String, radius =  dict["radius"] as? Float, windMin =  dict["windMin"] as? Float, location =  dict["location"] as? [String: Double], directions =  dict["directions"] as? [String: Bool]  else {
+        guard let uid = dict["uid"] as? String, let name = dict["name"] as? String, let radius =  dict["radius"] as? Float, let windMin =  dict["windMin"] as? Float, let location =  dict["location"] as? [String: Double], let directions =  dict["directions"] as? [String: Bool]  else {
             return nil
         }
         
@@ -83,7 +83,7 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var txtSubscriptionName: UITextField!
     
-    private let firebase = Firebase(url: firebaseUrl)
+    private let firebase = FIRDatabase.database().reference()
     private var longPressRecognizer: UILongPressGestureRecognizer!
     private var annotation: MKPointAnnotation?
     private let geocoder = CLGeocoder()
@@ -156,7 +156,7 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
         logHelper.began()
         logHelper.log("map")
         
-        if let _ = subscriptionKey, latlon = coordinate, locationName = locationName {
+        if let _ = subscriptionKey, let latlon = coordinate, let locationName = locationName {
         
             addNewMarker(latlon)
             mapView.selectAnnotation(mapView.annotations[0], animated: true)
@@ -166,7 +166,7 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
         }
         else{
             NSDate().ms
-            longPressRecognizer = UILongPressGestureRecognizer(target: self, action: "handleLongPress:")
+            longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(NotificationDetailsViewController.handleLongPress(_:)))
             longPressRecognizer.minimumPressDuration = 0.3
             longPressRecognizer.delaysTouchesBegan = true
             longPressRecognizer.delegate = self
@@ -220,15 +220,15 @@ class NotificationDetailsViewController: UIViewController,MKMapViewDelegate,UIGe
         
         if let subscriptionKey = subscriptionKey {
             print(subscriptionKey)
-            firebase.childByAppendingPaths("subscription",subscriptionKey,"name").setValue(txtSubscriptionName.text!)
-            firebase.childByAppendingPaths("subscription",subscriptionKey,"location").setValue(["lat": annotation!.coordinate.latitude, "lon":annotation!.coordinate.longitude])
+            firebase.child("subscription").child(subscriptionKey).child("name").setValue(txtSubscriptionName.text!)
+            firebase.child("subscription").child(subscriptionKey).child("location").setValue(["lat": annotation!.coordinate.latitude, "lon":annotation!.coordinate.longitude])
         }
         
         
         
         if let annotation = annotation {
             
-            if let notificationSettings = storyboard?.instantiateViewControllerWithIdentifier("notificationSettingsViewController") as? NotificationSettingsViewController, nc = navigationController {
+            if let notificationSettings = storyboard?.instantiateViewControllerWithIdentifier("notificationSettingsViewController") as? NotificationSettingsViewController, let nc = navigationController {
                 
                 notificationSettings.txtLocation = txtSubscriptionName.text
                 notificationSettings.coordinate = annotation.coordinate
@@ -340,7 +340,7 @@ struct Directions: OptionSetType, CustomStringConvertible {
     var local: String { return NSLocalizedString("DIRECTION_" + name, comment: "") }
 }
 
-func sectorBezierPath(total: Int)(direction: Directions) -> UIBezierPath {
+func sectorBezierPath(total: Int) -> UIBezierPath {
     let phi = 2*π/CGFloat(total)
     let path = UIBezierPath()
     path.moveToPoint(CGPoint())
@@ -348,7 +348,7 @@ func sectorBezierPath(total: Int)(direction: Directions) -> UIBezierPath {
     path.addArcWithCenter(CGPoint(), radius: 0.5, startAngle: -phi/2, endAngle: phi/2, clockwise: true)
     path.closePath()
     
-    path.applyTransform(Affine.rotation(-π/2 - CGFloat(direction.index)*phi))
+//    path.applyTransform(Affine.rotation(-π/2 - CGFloat(direction.index)*phi))
     path.applyTransform(Affine.translation(0.5, 0.5))
     return path
 }
@@ -366,7 +366,7 @@ func sectorBezierPath(total: Int)(direction: Directions) -> UIBezierPath {
     let lineWidth: CGFloat = 1
     
     var selection: Directions = []
-    let paths = Directions.ordered.map(sectorBezierPath(Directions.count))
+//    let paths = Directions.ordered.map([])
     var laidOut = false
     var touchState = State.Default
     var areas : [String:Bool] = [:]
@@ -374,13 +374,13 @@ func sectorBezierPath(total: Int)(direction: Directions) -> UIBezierPath {
     override func layoutSubviews() {
         if laidOut { return }
 
-        let scaling = Affine.scaling(frame.width - lineWidth, frame.height - lineWidth)
-        let translation = Affine.translation(lineWidth/2, lineWidth/2)
-        for path in paths {
-            path.lineWidth = lineWidth
-            path.applyTransform(scaling)
-            path.applyTransform(translation)
-        }
+//        let scaling = Affine.scaling(frame.width - lineWidth, frame.height - lineWidth)
+//        let translation = Affine.translation(lineWidth/2, lineWidth/2)
+//        for path in paths {
+//            path.lineWidth = lineWidth
+//            path.applyTransform(scaling)
+//            path.applyTransform(translation)
+//        }
         
         laidOut = true
     }
@@ -434,12 +434,12 @@ func sectorBezierPath(total: Int)(direction: Directions) -> UIBezierPath {
             UIColor.vaavudBlueColor().setStroke()
             UIColor.vaavudBlueColor().setFill()
 
-            paths[i].stroke()
-            
-            let selected = selection.contains(direction)
-            if selected {
-                paths[i].fill()
-            }
+//            paths[i].stroke()
+//            
+//            let selected = selection.contains(direction)
+//            if selected {
+//                paths[i].fill()
+//            }
 
             drawlabel(direction, selected: selected)
         }

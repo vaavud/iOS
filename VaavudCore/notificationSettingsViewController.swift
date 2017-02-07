@@ -15,7 +15,7 @@ class NotificationSettingsViewController: UIViewController {
     var coordinate: CLLocationCoordinate2D?
     var txtLocation: String?
     var overlays: MKCircle!
-    let firebase = Firebase(url: firebaseUrl)
+    let firebase = FIRDatabase.database().reference()
     var subscriptionKey: String?
     
     @IBOutlet weak var lblSpeed: UILabel!
@@ -52,7 +52,12 @@ class NotificationSettingsViewController: UIViewController {
         lblLocation.text = txtLocation
         
         if let subscriptionKey = subscriptionKey {
-            firebase.childByAppendingPaths("subscription",subscriptionKey).observeSingleEventOfType(.Value, withBlock: {data in
+            
+            firebase.child("subscription").child(subscriptionKey).observeSingleEventOfType(.Value, withBlock: {data in
+                
+                guard let data = data.value else {
+                    fatalError("Wrong information firebase")
+                }
                 
                 guard let directions = data.value["directions"] as? [String:Bool], radius = data.value["radius"] as? Float, name = data.value["name"] as? String, windMin = data.value["windMin"] as? Float else {
                     fatalError("Wrong information firebase")
@@ -139,23 +144,26 @@ class NotificationSettingsViewController: UIViewController {
         
         if let key = self.subscriptionKey {
             let data: [String:AnyObject] = ["radius": radiusSlider.value, "windMin": speedSlider.value, "directions": direcitonSelector.areas]
-            firebase.childByAppendingPaths("subscription",key).updateChildValues(data)
+            firebase.child("subscription").child(key).updateChildValues(data)
         }
         else{
             
             let latlon = ["lat": coor.latitude, "lon": coor.longitude]
             
-            let subscription = Subscription(uid: firebase.authData.uid, name: txtLocation!, radius: radiusSlider.value, windMin: speedSlider.value, location: latlon, directions: direcitonSelector.areas)
+            let uid = FIRAuth.auth()?.currentUser?.uid
             
-            let ref = firebase.childByAppendingPath("subscription")
+            
+            let subscription = Subscription(uid: uid!, name: txtLocation!, radius: radiusSlider.value, windMin: speedSlider.value, location: latlon, directions: direcitonSelector.areas)
+            
+            let ref = firebase.child("subscription")
             let post = ref.childByAutoId()
             post.setValue(subscription.fireDict)
-            let subscriptionKey = post.key
+//            let subscriptionKey = post.key
             
             
-            let geoFireRef = firebase.childByAppendingPath("subscriptionGeo")
-            let geoFire = GeoFire(firebaseRef: geoFireRef)
-            geoFire.setLocation(CLLocation(latitude: coor.latitude , longitude: coor.longitude), forKey: subscriptionKey)
+//            let geoFireRef = firebase.childByAppendingPath("subscriptionGeo")
+//            let geoFire = GeoFire(firebaseRef: geoFireRef)
+//            geoFire.setLocation(CLLocation(latitude: coor.latitude , longitude: coor.longitude), forKey: subscriptionKey)
             logHelper.log("newNotification")
             
         }

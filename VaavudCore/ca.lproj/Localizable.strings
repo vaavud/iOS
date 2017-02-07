@@ -59,7 +59,7 @@
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Introdueix el teu email";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "No cedirem el teu email a terceres persones!";
 "REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "Paraula de pas massa curta";
-"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4 caràcters o més.";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "6 caràcters o més.";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "No s’ha pogut iniciar sessió";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "Email o paraula de pas incorrecta.";
 "REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "Aquest compte ja existeix";
@@ -296,3 +296,8 @@
 "PRESSLONG" = "Pressiona prolongadament per marcar una àrea de notificació";
 "FIRSTNOTIFICATIONFINISHED" = "Has configurat la teva primera notificació a Vaavud. Fantàstic!";
 "FIRSTNOTIFICATION" = "Clica aquí per afegir una nova notificació";
+
+"LOGIN_WALL_MAP_DESCRIPTION" = "Per veure els mesuraments d'usuaris a tot el món durant de les últimes 24 hores has de connectar-te.";
+"LOGIN_WALL_MAP_TITLE" = "Mapa";
+"LOGIN_WALL_HISTORY_DESCRIPTION" = "Per guardar els mesuraments al seu historial de mesurament personal has de connectar-te.";
+"LOGIN_WALL_HISTORY_TITLE" = "Històric de mesuraments";

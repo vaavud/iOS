@@ -8,21 +8,23 @@
 
 import Foundation
 import Firebase
+import Palau
+import FBSDKCoreKit
 import FBSDKLoginKit
 
 // fixme: move to common file
-func parseSnapshot(callback: [String : AnyObject] -> ()) -> FDataSnapshot! -> () {
+func parseSnapshot(callback: [String : AnyObject] -> ()) -> FIRDataSnapshot! -> () {
     return { snap in
         if let dict = snap.value as? [String : AnyObject] {
             callback(dict)
         }
         else {
-            callback([snap.key : snap.value])
+            callback([snap.key : snap.value!])
         }
     }
 }
 
-func parseSnapshot<T>(key: String, callback: T? -> ()) -> FDataSnapshot! -> () {
+func parseSnapshot<T>(key: String, callback: T? -> ()) -> FIRDataSnapshot! -> () {
     return parseSnapshot { dict in
         callback(dict[key] as? T)
     }
@@ -52,7 +54,7 @@ class CoreSettingsTableViewController: UITableViewController {
     
     private let logHelper = LogHelper(.Settings, counters: "scrolled")
     
-    private lazy var deviceSettings = { return Firebase(url: firebaseUrl).childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting") }()
+    private lazy var deviceSettings = { return FIRDatabase.database().reference().child("device").child(AuthorizationController.shared.deviceId).child("setting") }()
 
     private var deviceHandle: UInt!
     
@@ -61,16 +63,31 @@ class CoreSettingsTableViewController: UITableViewController {
     override func viewDidLoad() {
         hideVolumeHUD()
         
+        
+        
         versionLabel.text = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String
 
         dropboxControl.on = DBSession.sharedSession().isLinked()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(CoreSettingsTableViewController.dropboxLinkedStatus(_:)), name: "dropboxIsLinked", object: nil)
 
-        formatterHandle = VaavudFormatter.shared.observeUnitChange { [unowned self] in self.refreshUnits() }
+        formatterHandle = VaavudFormatter.shared.observeUnitChange { self.refreshUnits() }
         refreshUnits()
         
-        deviceHandle = deviceSettings.observeEventType(.Value, withBlock: parseSnapshot { [unowned self] in self.refreshDeviceSettings($0) })
+        
+        speedUnitControl.selectedSegmentIndex = PalauDefaults.windSpeed.value!
+        directionUnitControl.selectedSegmentIndex = PalauDefaults.direction.value!
+        temperatureUnitControl.selectedSegmentIndex = PalauDefaults.temperature.value!
+        pressureUnitControl.selectedSegmentIndex = PalauDefaults.pressure.value!
+        limitControl.selectedSegmentIndex = PalauDefaults.time.value!
+
+        if AuthorizationController.shared.isAuth {
+            deviceHandle = deviceSettings.observeEventType(.Value, withBlock: parseSnapshot { [unowned self] in self.refreshDeviceSettings($0) })
+        }
+        else{
+            logoutButton.title = ""
+            logoutButton.enabled = false
+        }
         
         tableView.delegate = self
     }
@@ -82,6 +99,9 @@ class CoreSettingsTableViewController: UITableViewController {
     }
     
     deinit {
+        guard AuthorizationController.shared.isAuth else {
+            return
+        }
         VaavudFormatter.shared.stopObserving(formatterHandle)
         deviceSettings.removeObserverWithHandle(deviceHandle)
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -131,6 +151,7 @@ class CoreSettingsTableViewController: UITableViewController {
     func refreshTimeLimit(timeLimit: Int) {
         LogHelper.setUserProperty("Measurement-Limit", value: timeLimit)
         limitControl.selectedSegmentIndex = timeLimit == 0 ? 1 : 0
+        PalauDefaults.time.value = timeLimit == 0 ? 1 : 0
     }
     
     func dropboxLinkedStatus(note: NSNotification) {
@@ -156,52 +177,73 @@ class CoreSettingsTableViewController: UITableViewController {
     let limitedInterval = 30 // fixme: where to put this? Follow your heart it will tell you.
     
     @IBAction func changedLimitToggle(sender: UISegmentedControl) {
-        deviceSettings.childByAppendingPath("measuringTime").setValue(sender.selectedSegmentIndex == 1 ? 0 : limitedInterval)
+        deviceSettings.child("measuringTime").setValue(sender.selectedSegmentIndex == 1 ? 0 : limitedInterval)
         logHelper.increase()
+        PalauDefaults.time.value = sender.selectedSegmentIndex
     }
 
     @IBAction func changedSpeedUnit(sender: UISegmentedControl) {
         VaavudFormatter.shared.speedUnit = SpeedUnit(index: sender.selectedSegmentIndex)
         logUnitChange("speed")
+        PalauDefaults.windSpeed.value = sender.selectedSegmentIndex
     }
     
     @IBAction func changedDirectionUnit(sender: UISegmentedControl) {
         VaavudFormatter.shared.directionUnit = DirectionUnit(index: sender.selectedSegmentIndex)
         logUnitChange("direction")
+        PalauDefaults.direction.value = sender.selectedSegmentIndex
+        
     }
     
     @IBAction func changedPressureUnit(sender: UISegmentedControl) {
+        
         VaavudFormatter.shared.pressureUnit = PressureUnit(index: sender.selectedSegmentIndex)
         logUnitChange("pressure")
+        PalauDefaults.pressure.value = sender.selectedSegmentIndex
+        
     }
     
     @IBAction func changedTemperatureUnit(sender: UISegmentedControl) {
         VaavudFormatter.shared.temperatureUnit = TemperatureUnit(index: sender.selectedSegmentIndex)
         logUnitChange("temperature")
+        PalauDefaults.temperature.value = sender.selectedSegmentIndex
+        
     }
     
     @IBAction func changedDropboxSetting(sender: UISwitch) {
-        let action: String
-        if sender.on {
-            DBSession.sharedSession().linkFromController(self)
-            action = "TryToLink"
+        if AuthorizationController.shared.isAuth {
+            let action: String
+            if sender.on {
+                DBSession.sharedSession().linkFromController(self)
+                action = "TryToLink"
+            }
+            else {
+                DBSession.sharedSession().unlinkAll()
+                action = "Unlinked"
+            }
+            logHelper.increase()
+            logHelper.log("Dropbox", properties: ["Action" : action])
         }
-        else {
-            DBSession.sharedSession().unlinkAll()
-            action = "Unlinked"
-        }
-        logHelper.increase()
-        logHelper.log("Dropbox", properties: ["Action" : action])
     }
 
     @IBAction func changedMeterModel(sender: UISegmentedControl) {
-        deviceSettings.childByAppendingPath("usesSleipnir").setValue(sender.selectedSegmentIndex == 1)
-        logHelper.increase()
+        if AuthorizationController.shared.isAuth {
+            deviceSettings.child("usesSleipnir").setValue(sender.selectedSegmentIndex == 1)
+            logHelper.increase()
+        }
+        else{
+            PalauDefaults.windMeterModel.value = sender.selectedSegmentIndex
+        }
     }
 
     @IBAction func changedSleipnirPlacement(sender: UISegmentedControl) {
-        deviceSettings.childByAppendingPath("sleipnirClipSideScreen").setValue(sender.selectedSegmentIndex == 1)
-        logHelper.increase()
+        if AuthorizationController.shared.isAuth {
+            deviceSettings.child("sleipnirClipSideScreen").setValue(sender.selectedSegmentIndex == 1)
+            logHelper.increase()
+        }
+        else{
+            PalauDefaults.placement.value = sender.selectedSegmentIndex
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -259,6 +301,7 @@ class WebViewController: UIViewController {
         }
     }
 }
+
 
 extension String {
     func html() -> String {

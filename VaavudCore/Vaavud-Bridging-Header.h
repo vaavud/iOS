@@ -14,13 +14,15 @@
 
 #import "MeasurementAnnotation.h"
 #import "PasswordUtil.h"
+//#import "Amplitude.h"
 #import "MeasurementCalloutView.h"
+#import "GeoFire/GeoFire.h"
 
 #import "MjolnirMeasurementController.h"
 
 #import <DropboxSDK/DropboxSDK.h>
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-#import <GeoFire/GeoFire.h>
+//#import <GeoFire/GeoFire.h>
 
 #endif

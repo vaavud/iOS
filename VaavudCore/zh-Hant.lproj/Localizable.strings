@@ -296,3 +296,8 @@
 "PRESSLONG" = "長按地圖，刪除通知PIN碼";
 "FIRSTNOTIFICATIONFINISHED" = "你加上你的第Vaavud通知。恭喜！";
 "FIRSTNOTIFICATION" = "點擊此處添加新的通知";
+
+"LOGIN_WALL_MAP_DESCRIPTION" = "要查看到過去的24個小時來自世界各地用戶的風力讀數，您需要登入。";
+"LOGIN_WALL_MAP_TITLE" = "實时地圖";
+"LOGIN_WALL_HISTORY_DESCRIPTION" = "您需要登入以保存量測到個人測量歷史。";
+"LOGIN_WALL_HISTORY_TITLE" = "測量歷史";

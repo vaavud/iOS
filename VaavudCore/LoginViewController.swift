@@ -29,7 +29,7 @@ func gotoLoginFrom(fromVc: UIViewController, inside parentVc: UIViewController) 
     
 }
 
-private func gotoVc(toVc: UIViewController, fromVc: UIViewController, parentVc: UIViewController) {
+public func gotoVc(toVc: UIViewController, fromVc: UIViewController, parentVc: UIViewController) {
     parentVc.addChildViewController(toVc)
     fromVc.willMoveToParentViewController(nil)
     

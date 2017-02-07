@@ -234,7 +234,7 @@ class OldGraph : UIView {
         
         for (i, label) in labels.enumerate() {
             label.center.y = bounds.height*(1 - CGFloat(i)*scale)
-            label.alpha = min(i % 2 == 0 ? 1 : 1 - modScale, 1 - outside(x: label.center.y))
+            label.alpha = min(i % 2 == 0 ? 1 : 1 - modScale, 1 - outside)
         }
         
         let intScale = Int(floor(logScale))

@@ -17,13 +17,13 @@ class LoginTutorialViewController: UIViewController,UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        scrollView.delegate = self
+//        scrollView.delegate = self
     }
     
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView){
-        let pageWidth: CGFloat = CGRectGetWidth(scrollView.frame)
-        let currentPage: CGFloat = floor((scrollView.contentOffset.x - pageWidth/2) / pageWidth) + 1
-        self.pageControl.currentPage = Int(currentPage)
-    }
+//    func scrollViewDidEndDecelerating(scrollView: UIScrollView){
+//        let pageWidth: CGFloat = CGRectGetWidth(scrollView.frame)
+//        let currentPage: CGFloat = floor((scrollView.contentOffset.x - pageWidth/2) / pageWidth) + 1
+//        self.pageControl.currentPage = Int(currentPage)
+//    }
 
 }

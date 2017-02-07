@@ -59,7 +59,7 @@
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Saisissez votre e-mail";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "Nous ne communiquerons pas votre e-mail à des parties tierces !";
 "REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "Mot de passe trop court";
-"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4 caractères ou plus.";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "6 caractères ou plus.";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "Connexion impossible";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "E-mail ou mot de passe non valide.";
 "REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "Ce compte existe déjà";
@@ -296,3 +296,8 @@
 "PRESSLONG" = "Appuyez longuement sur la carte pour placer un repère de notification";
 "FIRSTNOTIFICATIONFINISHED" = "Vous avez ajouté votre première Vaavud-notification. Félicitations!";
 "FIRSTNOTIFICATION" = "Cliquez ici pour ajouter une nouvelle notification";
+
+"LOGIN_WALL_MAP_DESCRIPTION" = "Pour voir les lectures des vents des autres utilisateurs à travers le monde au cours des 24 dernières heures, vous devez vous identifier.";
+"LOGIN_WALL_MAP_TITLE" = "Carte en direct";
+"LOGIN_WALL_HISTORY_DESCRIPTION" = "Pour sauvegarder vos mesures dans votre historique de mesures personnelles, vous devez vous identifier.";
+"LOGIN_WALL_HISTORY_TITLE" = "Historique des mesures.";

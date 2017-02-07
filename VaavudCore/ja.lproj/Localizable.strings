@@ -59,7 +59,7 @@
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "メールアドレスを入力してください";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "メールアドレスを第三者に提供することはありません！";
 "REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "パスワードが短すぎます";
-"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4文字以上。";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "6文字以上。";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "ログインできませんでした";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "メールアドレスまたはパスワードが正しくありません。";
 "REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "このアカウントは既に存在します";
@@ -296,3 +296,8 @@
 "PRESSLONG" = "地図を長押しして通知ピンをドロップ";
 "FIRSTNOTIFICATIONFINISHED" = "あなたはあなたの最初のVaavud通知を追加しました。おめでとう！";
 "FIRSTNOTIFICATION" = "新しい通知を追加するにはここをクリックしてください";
+
+"LOGIN_WALL_MAP_DESCRIPTION" = "世界中のユーザーからのここ24時間の風データを見るにはログインする必要があります。";
+"LOGIN_WALL_MAP_TITLE" = "ライブマップ";
+"LOGIN_WALL_HISTORY_DESCRIPTION" = "測定値をあなた個人の測定履歴に保存するにはログインする必要があります。";
+"LOGIN_WALL_HISTORY_TITLE" = "測定履歴";

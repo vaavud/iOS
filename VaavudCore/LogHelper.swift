@@ -50,7 +50,7 @@ class LogHelper: NSObject {
             }
         }
         
-        used++
+        used += 1
     }
     
     func began(properties: [String : AnyObject] = [:]) {

@@ -391,7 +391,7 @@ class RoundRuler : UIView {
         
         CATransaction.setDisableActions(true)
         
-        let easing = ease(1.2*scale, to: 3.0*scale,x: 0)
+        _ = ease(1.2*scale, to: 3.0*scale,x: 0)
         
         let basePolar = Polar(r: scale, phi: CGFloat(-compassDirection.radians) - π/2)
         

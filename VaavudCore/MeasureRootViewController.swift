@@ -10,6 +10,8 @@ import UIKit
 import CoreMotion
 import VaavudSDK
 import Firebase
+import Palau
+import GeoFire
 
 //public class VaavudLegacySDK: NSObject {
 //    public static let shared = VaavudLegacySDK()
@@ -25,11 +27,6 @@ import Firebase
 //    }
 //}
 
-extension Firebase {
-    func childByAppendingPaths(paths: String...) -> Firebase! {
-        return paths.reduce(self) { f, p in f.childByAppendingPath(p) }
-    }
-}
 
 let updatePeriod = 1.0
 let countdownInterval = 3
@@ -45,13 +42,13 @@ protocol MeasurementConsumer {
     func useMjolnir()
     
     func newWindSpeedMax(max: Double)
-
+    
     func newWindSpeed(speed: Double)
     func newTrueWindSpeed(speed: Double)
     
     func newWindDirection(windDirection: Double)
     func newTrueWindDirection(windDirection: Double)
-
+    
     func newHeading(heading: Double)
     func newVelocity(course: Double, speed: Double)
     
@@ -84,7 +81,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var pageController: UIPageViewController!
     private var viewControllers: [UIViewController]!
     private var displayLink: CADisplayLink!
-
+    
     private var vcsNames: [String]!
     
     private var mjolnir: MjolnirMeasurementController?
@@ -107,7 +104,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var elapsedSinceUpdate: Double = 0
     
     private var logHelper = LogHelper(.Measure)
-
+    
     private var session: Session!
     private var geoname: String?
     private var sourced: Sourced?
@@ -117,12 +114,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     private var locationTracker = StreamTracker()
     private var pressureTracker = StreamTracker()
     private var velocityTracker = StreamTracker()
-
+    
     private var state: MeasureState = .Done
     private var timeLeft = CGFloat(countdownInterval)
     
-    private let firebase = Firebase(url: firebaseUrl)
-    private var deviceSettings: Firebase { return firebase.childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting") }
+    private let firebase = FIRDatabase.database().reference()
+    let shared = VaavudSDK.shared
     
     // MARK - Lifetime methods
     
@@ -132,10 +129,10 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         hideVolumeHUD()
         cancelButton.setup()
         updateUnitButton()
-
+        
         variantButton.imageView?.contentMode = .ScaleAspectFit
         
-        displayLink = CADisplayLink(target: self, selector: Selector("tick:"))
+        displayLink = CADisplayLink(target: self, selector: #selector(MeasureRootViewController.tick(_:)))
         displayLink.addToRunLoop(NSRunLoop.mainRunLoop(), forMode: NSRunLoopCommonModes)
         
         let (old, flat, round) = ("OldMeasureViewController", "FlatMeasureViewController", "RoundMeasureViewController")
@@ -151,7 +148,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         pageController.dataSource = self
         pageController.delegate = self
         pageController.view.frame = view.bounds
-
+        
         addChildViewController(pageController)
         view.addSubview(pageController.view)
         pageController.didMoveToParentViewController(self)
@@ -161,33 +158,30 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         view.bringSubviewToFront(variantButton)
         view.bringSubviewToFront(errorOverlayBackground)
         view.bringSubviewToFront(cancelButton)
-
-        deviceSettings.observeSingleEventOfType(.Value, withBlock: parseSnapshot { dict in
-            let flipped = dict["sleipnirClipSideScreen"] as? Bool ?? false
-            let measuringTime = dict["measuringTime"] as? Int ?? 0
-            let desiredScreen = dict["defaultMeasurementScreen"] as? String
+        
+        self.state = .CountingDown(countdownInterval, PalauDefaults.time.value! == 1 ? 0 : 30)
+        
+        self.showScreen("")
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if self.model == .Sleipnir {
             
-            self.state = .CountingDown(countdownInterval, measuringTime)
+            startSleipnir(false)
             
-            VaavudSDK.shared.windSpeedCallback = self.newWindSpeed
-            VaavudSDK.shared.locationCallback = self.newLocation
-            VaavudSDK.shared.pressureCallback = self.newPressure
-            VaavudSDK.shared.velocityCallback = self.newVelocity
-
-            if self.model == .Sleipnir {
-                VaavudSDK.shared.windDirectionCallback = self.newWindDirection
-                VaavudSDK.shared.headingCallback = self.newHeading
-
-                self.deviceSettings.childByAppendingPath("usesSleipnir").setValue(true)
-                self.startSleipnir(flipped)
-            }
-            else {
-                self.startMjolnir()
-                _ = try? VaavudSDK.shared.startLocationAndPressureOnly()
-            }
-            
-            self.showScreen(desiredScreen)
-            })
+            shared.windDirectionCallback = self.newWindDirection
+            shared.headingCallback = self.newHeading
+        }
+        else {
+            self.startMjolnir()
+            _ = try? shared.startLocationAndPressureOnly()
+        }
+        
+        shared.windSpeedCallback = self.newWindSpeed
+        shared.locationCallback = self.newLocation
+        shared.pressureCallback = self.newPressure
+        shared.velocityCallback = self.newVelocity
     }
     
     // MARK - Overrides
@@ -201,25 +195,36 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     // MARK - Main
-
+    
     func start() {
-        let deviceId = AuthorizationController.shared.currentDeviceId()
-        let post = firebase.childByAppendingPath("session").childByAutoId()
-
-        session = Session(uid: firebase.authData.uid, key: post.key, deviceId: deviceId, timeStart: NSDate(), windMeter: model)
-        post.setValue(session.fireDict)
         
-        logHelper.began(["time-limit" : state.timed ?? 0, "device" : model.rawValue.capitalizedString])
-        elapsedSinceUpdate = 0
+        let deviceId = AuthorizationController.shared.deviceId
+        
+        if AuthorizationController.shared.isAuth {
+            let post = firebase.child("session").childByAutoId()
+            
+            
+            let uid = FIRAuth.auth()?.currentUser?.uid
+            
+            print(post.key)
+            session = Session(uid: uid!, key: post.key, deviceId: deviceId, timeStart: NSDate(), windMeter: model)
+            post.setValue(session.fireDict)
+            
+            logHelper.began(["time-limit" : state.timed ?? 0, "device" : model.rawValue.capitalizedString])
+            elapsedSinceUpdate = 0
+        }
+        else {
+            session = Session(uid: "Anonymous", key: "None", deviceId: deviceId, timeStart: NSDate(), windMeter: model)
+        }
     }
-
+    
     func tick(link: CADisplayLink) {
         currentConsumer?.tick()
         
         if state.running {
             screenUsage[pager.currentPage] += link.duration
             elapsedSinceUpdate += link.duration
-
+            
             if elapsedSinceUpdate > updatePeriod {
                 updateSession()
                 updateStreams()
@@ -267,82 +272,79 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func updateSession() {
-        session.windDirection = VaavudSDK.shared.session.meanDirection
-        session.location = VaavudSDK.shared.session.locations.last.map { makeNamedLocation(geoname, event: $0) }
+        session.windDirection = shared.session.meanDirection
+        session.location = shared.session.locations.last.map { makeNamedLocation(geoname, event: $0) }
         session.sourced = sourced
-        session.pressure = VaavudSDK.shared.session.pressures.last?.pressure
-        session.windMean = VaavudSDK.shared.session.meanSpeed
-        session.windMax = VaavudSDK.shared.session.maxSpeed
+        session.pressure = shared.session.pressures.last?.pressure
+        session.windMean = shared.session.meanSpeed
+        session.windMax = shared.session.maxSpeed
         
-//        firebase
-//            .childByAppendingPaths("session", session.key)
-//            .setValue(session.fireDict)
+        
+        if AuthorizationController.shared.isAuth {
+            firebase.child("session").child(session.key)
+                .setValue(session.fireDict)
+        }
     }
     
     func updateStreams() {
-//        if let index = windDirectionTracker.newUploadIndex() {
-//            firebase
-//                .childByAppendingPaths("windDirection", session.key, index)
-//                .setValue(VaavudSDK.shared.session.windDirections.last!.fireDict)
-//        }
-//        
-//        if let index = locationTracker.newUploadIndex() {
-//            firebase
-//                .childByAppendingPaths("location", session.key, index)
-//                .setValue(VaavudSDK.shared.session.locations.last!.fireDict)
-//        }
-//        
-//        if let index = pressureTracker.newUploadIndex() {
-//            firebase
-//                .childByAppendingPaths("pressure", session.key, index)
-//                .setValue(VaavudSDK.shared.session.pressures.last!.fireDict)
-//        }
-//        
-//        if let index = velocityTracker.newUploadIndex() {
-//            firebase
-//                .childByAppendingPaths("velocity", session.key, index)
-//                .setValue(VaavudSDK.shared.session.velocities.last!.fireDict)
-//        }
-//        
-//        if mjolnir?.dynamicsIsValid == false {
-//            return
-//        }
-//        
-//        if let index = windTracker.newUploadIndex() {
-//            firebase
-//                .childByAppendingPaths("wind", session.key, index)
-//                .setValue(VaavudSDK.shared.session.windSpeeds.last!.fireDict)
-//        }
+        
+        if AuthorizationController.shared.isAuth {
+            if let index = windDirectionTracker.newUploadIndex() {
+                firebase.child("windDirection").child(session.key).child(index)
+                    .setValue(shared.session.windDirections.last!.fireDict)
+            }
+            
+            if let index = locationTracker.newUploadIndex() {
+                firebase.child("location").child(session.key).child(index)
+                    .setValue(shared.session.locations.last!.fireDict)
+            }
+            
+            if let index = pressureTracker.newUploadIndex() {
+                firebase.child("pressure").child(session.key).child(index)
+                    .setValue(shared.session.pressures.last!.fireDict)
+            }
+            
+            if let index = velocityTracker.newUploadIndex() {
+                firebase.child("velocity").child(session.key).child(index).setValue(shared.session.velocities.last!.fireDict)
+            }
+            
+            if mjolnir?.dynamicsIsValid == false {
+                return
+            }
+            
+            if let index = windTracker.newUploadIndex() {
+                firebase
+                    .child("wind").child(session.key).child(index)
+                    .setValue(shared.session.windSpeeds.last!.fireDict)
+            }
+        }
+        
     }
-
+    
     func save(userCancelled: Bool) {
         guard !state.countingDown && !userCancelled && session.windMean > 0 else {
             return
         }
         
         session.timeEnd = NSDate()
-        session.turbulence = VaavudSDK.shared.session.turbulence
+        session.turbulence = shared.session.turbulence
         
-        firebase
-            .childByAppendingPaths("session", session.key)
-            .setValue(session.fireDict)
-        
-        let post = firebase
-            .childByAppendingPaths("sessionComplete", "queue", "tasks")
-            .childByAutoId()
-        
-        post.setValue(["sessionKey" : session.key])
-        
-        if DBSession.sharedSession().isLinked() {
-            DropboxUploader.shared.uploadToDropbox(VaavudSDK.shared.session, aggregate: session)
+        if AuthorizationController.shared.isAuth {
+            
+            firebase.child("session").child(session.key).setValue(session.fireDict)
+            
+            if DBSession.sharedSession().isLinked() {
+                DropboxUploader.shared.uploadToDropbox(shared.session, aggregate: session)
+            }
         }
+        
     }
     
     func stop(userCancelled: Bool) {
         let cancel = userCancelled || session.windMean == 0 || state.countingDown
         
-        VaavudSDK.shared.stop()
-
+        shared.stop()
+        
         if model == .Mjolnir {
             mjolnir?.stop()
             mjolnir?.delegate = nil
@@ -353,12 +355,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         displayLink.invalidate()
         currentConsumer = nil
         
-        VaavudSDK.shared.removeAllCallbacks()
-
+        shared.removeAllCallbacks()
+        
         if cancel {
-            if state.running {
-                firebase.childByAppendingPaths("session", session.key).removeValue()
-                firebase.childByAppendingPaths("sessionDeleted", session.key).setValue(session.fireDict)
+            if state.running && AuthorizationController.shared.isAuth {
+                firebase.child("session").child(session.key).removeValue()
+                firebase.child("sessionDeleted").child(session.key).setValue(session.fireDict)
             }
             
             dismissViewControllerAnimated(true) {
@@ -368,6 +370,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         else {
             let summary = storyboard!.instantiateViewControllerWithIdentifier("SummaryViewController") as! SummaryViewController
             summary.session = session
+            
+            if let latlon = session.location {
+                let geofireRef = FIRDatabase.database().reference().child("sessionGeo")
+                let geoFire = GeoFire(firebaseRef: geofireRef)
+                geoFire.setLocation(CLLocation(latitude: latlon.lat, longitude:latlon.lon), forKey: session.key)
+            }
             
             pageController.dataSource = nil
             pageController.setViewControllers([summary], direction: .Forward, animated: true) { _ in
@@ -390,15 +398,15 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         if let appDelegate = UIApplication.sharedApplication().delegate as? AppDelegate,
             x = appDelegate.xCallbackSuccess,
             encoded = x.stringByAddingPercentEncodingWithAllowedCharacters(.URLQueryAllowedCharacterSet()) {
-                appDelegate.xCallbackSuccess = nil
-                
-                if cancelled, let url = NSURL(string:encoded + "?x-source=Vaavud&x-cancelled=cancel") {
-                    UIApplication.sharedApplication().openURL(url)
-                }
-                else if let url = NSURL(string:encoded + "?x-source=Vaavud&windSpeedAvg=\(session.windMean)&windSpeedMax=\(session.windMax)") {
-                    UIApplication.sharedApplication().openURL(url)
-                }
-                LogHelper.log(.URLScheme, event: "Returned", properties: ["success" : !cancelled])
+            appDelegate.xCallbackSuccess = nil
+            
+            if cancelled, let url = NSURL(string:encoded + "?x-source=Vaavud&x-cancelled=cancel") {
+                UIApplication.sharedApplication().openURL(url)
+            }
+            else if let url = NSURL(string:encoded + "?x-source=Vaavud&windSpeedAvg=\(session.windMean)&windSpeedMax=\(session.windMax)") {
+                UIApplication.sharedApplication().openURL(url)
+            }
+            LogHelper.log(.URLScheme, event: "Returned", properties: ["success" : !cancelled])
         }
     }
     
@@ -408,7 +416,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         if !isValid {
             currentConsumer?.newWindSpeed(0)
         }
-
+        
         if !dynamicsIsValid {
             UIView.animateWithDuration(0.2, delay: 2, options: [], animations: { self.errorOverlayBackground.alpha = 1 }, completion: nil)
         }
@@ -424,8 +432,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         if mjolnir?.dynamicsIsValid == false {
             return
         }
-
-        VaavudSDK.shared.newWindSpeed(WindSpeedEvent(time: NSDate(), speed: currentSpeed.doubleValue))
+        
+        shared.newWindSpeed(WindSpeedEvent(time: NSDate(), speed: currentSpeed.doubleValue))
     }
     
     // MARK: SDK Delegate
@@ -441,14 +449,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         windDirectionTracker.hasNewValue = true
         currentConsumer?.newWindDirection(event.direction)
     }
-
+    
     func newTrueWindDirection(event: WindDirectionEvent) {
-//        print("CLLocation newTrueWindDirection \(event)")
+        //        print("CLLocation newTrueWindDirection \(event)")
         currentConsumer?.newTrueWindDirection(event.direction)
     }
     
     func newTrueWindSpeed(event: WindSpeedEvent) {
-//        print("CLLocation newTrueWindSpeed \(event)")
+        //        print("CLLocation newTrueWindSpeed \(event)")
         currentConsumer?.newTrueWindSpeed(event.speed)
     }
     
@@ -482,7 +490,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         ForecastLoader.shared.requestGeocode(location) { name in
             guard let name = name else { return }
             self.geoname = name
-
+            
             guard self.session != nil else { return }
             self.updateSession()
         }
@@ -492,14 +500,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         ForecastLoader.shared.requestFullForecast(location) { sourced in
             self.sourced = sourced
             if let mc = self.currentConsumer { self.updateConsumer(mc) }
-
+            
             guard self.session != nil else { return }
             self.updateSession()
         }
     }
-
+    
     // Mark - Page View Controller Delegate
-
+    
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
         if let mc = pendingViewControllers.last as? MeasurementConsumer {
             changeConsumer(mc)
@@ -536,7 +544,7 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-
+        
         if let current = viewControllers.indexOf(viewController) {
             let previous = mod(current - 1, viewControllers.count)
             return viewControllers[previous]
@@ -565,11 +573,6 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     @IBAction func tappedCancel(sender: MeasureCancelButton) {
-        if let vc = pageController.viewControllers?.last, mc = vc as? MeasurementConsumer {
-            firebase
-                .childByAppendingPaths("device", AuthorizationController.shared.deviceId, "setting", "defaultMeasurementScreen")
-                .setValue(mc.name)
-        }
         
         switch state {
         case .CountingDown:
@@ -609,14 +612,14 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         }
         logHelper.ended(props)
     }
-
+    
     private func changeConsumer(mc: MeasurementConsumer) {
-        mc.newWindSpeed(VaavudSDK.shared.session.windSpeeds.last?.speed ?? 0)
+        mc.newWindSpeed(shared.session.windSpeeds.last?.speed ?? 0)
         mc.changedSpeedUnit(VaavudFormatter.shared.speedUnit)
         
         if model == .Sleipnir,
-            let wd = VaavudSDK.shared.session.windDirections.last?.direction,
-            h = VaavudSDK.shared.session.headings.last?.heading {
+            let wd = shared.session.windDirections.last?.direction,
+            h = shared.session.headings.last?.heading {
             mc.newWindDirection(wd)
             mc.newHeading(h)
         }
@@ -624,11 +627,11 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         updateConsumer(mc)
     }
-
+    
     private func startSleipnir(flipped: Bool) {
         // fixme: handle error
         do {
-            try VaavudSDK.shared.start(flipped)
+            try shared.start(flipped)
         }
         catch {
             self.dismissViewControllerAnimated(true) {
@@ -662,20 +665,20 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     // MARK: Debug
     
     @IBAction func debugPanned(sender: UIPanGestureRecognizer) {
-//        let y = sender.locationInView(view).y
-//        let x = view.bounds.midX - sender.locationInView(view).x
-//        let dx = Double(sender.translationInView(view).x/2)
+        //        let y = sender.locationInView(view).y
+        //        let x = view.bounds.midX - sender.locationInView(view).x
+        //        let dx = Double(sender.translationInView(view).x/2)
         let dy = Double(sender.translationInView(view).y/20)
         
-//        if let event = latestWindDirection {
-//            let newDirection = event.direction + dx
-//            latestWindDirection = WindDirectionEvent(time: event.time, direction: newDirection)
-//            currentConsumer?.newWindDirection(CGFloat(newDirection))
-//        }
-        let speed = VaavudSDK.shared.session.windSpeeds.last?.speed ?? 0
+        //        if let event = latestWindDirection {
+        //            let newDirection = event.direction + dx
+        //            latestWindDirection = WindDirectionEvent(time: event.time, direction: newDirection)
+        //            currentConsumer?.newWindDirection(CGFloat(newDirection))
+        //        }
+        let speed = shared.session.windSpeeds.last?.speed ?? 0
         let event = WindSpeedEvent(time: NSDate(), speed: max(0, speed - dy))
         
-        VaavudSDK.shared.newWindSpeed(event)
+        shared.newWindSpeed(event)
         
         sender.setTranslation(CGPoint(), inView: view)
     }
@@ -692,13 +695,13 @@ func windchill(kelvin: Double?, _ windspeed: Double?) -> Double? {
     if celsius > 10 || kmh < 4.8 {
         return nil
     }
-
+    
     let k = 13.12
     let a = 0.6215
     let b = -11.37
     let c = 0.3965
     let d = 0.16
-
+    
     return 273.15 + k + a*celsius + b*pow(kmh, d) + c*celsius*pow(kmh, d)
 }
 

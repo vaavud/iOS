@@ -87,14 +87,17 @@ class NewMapViewController: UIViewController, MKMapViewDelegate {
     // MARK: Setup Firebase
     
     func setupFirebase() {
-        let firebaseSession = Firebase(url: firebaseUrl)
+        let firebaseSession = FIRDatabase.database().reference()
         
         firebaseSession
-            .childByAppendingPath("session")
-            .queryOrderedByChild("timeStart")
+            .child("session")
+            .child("timeStart")
             .queryStartingAtValue(NSDate(timeIntervalSinceNow: -24*60*60).ms)
             .observeEventType(.ChildAdded, withBlock: { snapshot in
                 
+                guard let snapshot = snapshot.value else {
+                    return
+                }
                 
                 guard let _ = snapshot.value["timeEnd"] as? Double, location = snapshot.value["location"] as? [String: AnyObject], speed = snapshot.value["windMean"] as? Double  else{
                     return
@@ -134,7 +137,7 @@ class NewMapViewController: UIViewController, MKMapViewDelegate {
         if annotation is MKUserLocation {
             return nil
         }
-        else if let annotation = annotation as? ForecastAnnotation {
+        else if annotation is ForecastAnnotation {
             
         }
         else if let annotation = annotation as? NewMeasurementAnnotation {
@@ -168,7 +171,7 @@ class NewMapViewController: UIViewController, MKMapViewDelegate {
     
     func fillMarker(marker: MeasurementAnnotationView, speed: Double, direction: Double?){
         
-        if let direction = direction{
+        if direction != nil{
             marker.imageView.image = UIImage(named: "MapMarkerDirection")
             marker.imageView.transform = CGAffineTransformIdentity
         }
@@ -300,7 +303,7 @@ class NewMapViewController: UIViewController, MKMapViewDelegate {
     // MARK: Convenience
     
     func addLongPress() {
-        mapView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: "longPressed:"))
+//        mapView.addGestureRecognizer(UILongPressGestureRecognizer(target: self, action: Selector("longPressed:")))
         logHelper.log("Can-Add-Forecast-Pin")
         LogHelper.increaseUserProperty("Use-Forecast-Count")
     }

@@ -65,6 +65,7 @@
 		22F2B3671C032A8E001D7AD7 /* LogHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F2B3661C032A8E001D7AD7 /* LogHelper.swift */; };
 		22F997911C1AFF3F00127F91 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F997901C1AFF3F00127F91 /* MapViewController.swift */; };
 		22FA6C511A727171004DD868 /* VaavudStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FA6C501A727171004DD868 /* VaavudStyle.swift */; };
+		2B2BBB851D549A8400F698DC /* PreLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2BBB841D549A8400F698DC /* PreLoginViewController.swift */; };
 		2B347F611C11A4970095E95A /* SelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F5B1C11A4970095E95A /* SelectorViewController.swift */; };
 		2B347F621C11A4970095E95A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F5C1C11A4970095E95A /* LoginViewController.swift */; };
 		2B347F631C11A4970095E95A /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B347F5D1C11A4970095E95A /* SignupViewController.swift */; };
@@ -77,6 +78,10 @@
 		2BB813151C1874FE00D70E10 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB813111C1874FE00D70E10 /* HistoryCell.swift */; };
 		2BB813161C1874FE00D70E10 /* HistoryHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB813121C1874FE00D70E10 /* HistoryHeaderCell.swift */; };
 		2BB813371C1AC41100D70E10 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BB813361C1AC41100D70E10 /* TabBarController.swift */; };
+		2BE5CAEE1D70650800F638A8 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BE5CAED1D70650800F638A8 /* WebViewController.swift */; };
+		2BE6EF8B1D6346410079EED8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2BE6EF8A1D6346410079EED8 /* GoogleService-Info.plist */; };
+		2BFCC6F31D61FC4B0049BDA9 /* LoginWall.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2BFCC6F11D61FC4B0049BDA9 /* LoginWall.xib */; };
+		2BFCC6F41D61FC4B0049BDA9 /* LoginWallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFCC6F21D61FC4B0049BDA9 /* LoginWallView.swift */; };
 		2BFDEED11C68EB1400673293 /* notificationSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFDEED01C68EB1400673293 /* notificationSettingsViewController.swift */; };
 		8D46EDCC71F76A66AC969BC2 /* Pods_Vaavud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E4E2CD6437574B90E6AD40B /* Pods_Vaavud.framework */; };
 		D7092E8A1748FE9C00993235 /* VaavudDynamicsController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7092E891748FE9C00993235 /* VaavudDynamicsController.m */; };
@@ -265,6 +270,7 @@
 		22F997901C1AFF3F00127F91 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		22FA6C1D1A71021C004DD868 /* Vaavud-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Vaavud-Bridging-Header.h"; sourceTree = "<group>"; };
 		22FA6C501A727171004DD868 /* VaavudStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VaavudStyle.swift; path = Vaavud/StyleKit/VaavudStyle.swift; sourceTree = SOURCE_ROOT; };
+		2B2BBB841D549A8400F698DC /* PreLoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreLoginViewController.swift; sourceTree = "<group>"; };
 		2B347F5B1C11A4970095E95A /* SelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectorViewController.swift; sourceTree = "<group>"; };
 		2B347F5C1C11A4970095E95A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2B347F5D1C11A4970095E95A /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -278,13 +284,18 @@
 		2BAAB32D1C4FC2CD001FD474 /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Login.strings; sourceTree = "<group>"; };
 		2BAAB32F1C4FC2CF001FD474 /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Login.strings; sourceTree = "<group>"; };
 		2BAAB3311C4FC4D4001FD474 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Login.strings; sourceTree = "<group>"; };
+		2BADE69F1D8AD7D700E1DCF6 /* Vaavud.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Vaavud.entitlements; path = Vaavud/Vaavud.entitlements; sourceTree = "<group>"; };
 		2BB8130F1C1874FE00D70E10 /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		2BB813101C1874FE00D70E10 /* HistoryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryController.swift; sourceTree = "<group>"; };
 		2BB813111C1874FE00D70E10 /* HistoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		2BB813121C1874FE00D70E10 /* HistoryHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryHeaderCell.swift; sourceTree = "<group>"; };
 		2BB813361C1AC41100D70E10 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		2BE5CAED1D70650800F638A8 /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		2BE6EF8A1D6346410079EED8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2BFCC6F11D61FC4B0049BDA9 /* LoginWall.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginWall.xib; sourceTree = "<group>"; };
+		2BFCC6F21D61FC4B0049BDA9 /* LoginWallView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginWallView.swift; sourceTree = "<group>"; };
 		2BFDEED01C68EB1400673293 /* notificationSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = notificationSettingsViewController.swift; sourceTree = "<group>"; };
-		2E4E2CD6437574B90E6AD40B /* Pods_Vaavud.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vaavud.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2E4E2CD6437574B90E6AD40B /* Pods_Vaavud.framework */ = {isa = PBXFileReference; explicitFileType = wronger.framework; includeInIndex = 0; lastKnownFileType = wrapper.framework; path = Pods_Vaavud.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		397CA998C93AF7DEEC90452B /* Pods-Vaavud.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vaavud.release.xcconfig"; path = "Pods/Target Support Files/Pods-Vaavud/Pods-Vaavud.release.xcconfig"; sourceTree = "<group>"; };
 		525BDD08A4A6143BBBC49FE3 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		85BB1BD4853733DDCC9FC1D3 /* Pods-Vaavud.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vaavud.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Vaavud/Pods-Vaavud.debug.xcconfig"; sourceTree = "<group>"; };
@@ -468,6 +479,7 @@
 		D7A4F1BE173A8DDB00D1ACEE = {
 			isa = PBXGroup;
 			children = (
+				2BADE69F1D8AD7D700E1DCF6 /* Vaavud.entitlements */,
 				D7A4F1D0173A8DDB00D1ACEE /* Classes */,
 				D7A4F1C9173A8DDB00D1ACEE /* Frameworks */,
 				E98853C7176868BE00F78128 /* Images */,
@@ -536,6 +548,7 @@
 				229FF3121A7EE0A1008A3226 /* VaavudFormatter.swift */,
 				D721B47D1AD1EBD10045DC99 /* DropboxUploader.swift */,
 				D7A4F1D9173A8DDB00D1ACEE /* AppDelegate.h */,
+				2BE6EF8A1D6346410079EED8 /* GoogleService-Info.plist */,
 				D7A4F1DA173A8DDB00D1ACEE /* AppDelegate.m */,
 				D7A4F1EF173A8F4600D1ACEE /* Hardware */,
 				E9EE1FA51769EC7F00D1F006 /* Model */,
@@ -543,6 +556,7 @@
 				E9EE1FAD1769F01800D1F006 /* Util */,
 				D7B5BD4E175775BA0069F739 /* View */,
 				2BFDEED01C68EB1400673293 /* notificationSettingsViewController.swift */,
+				2B2BBB841D549A8400F698DC /* PreLoginViewController.swift */,
 			);
 			name = Classes;
 			path = VaavudCore;
@@ -577,6 +591,8 @@
 		D7B5BD4E175775BA0069F739 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2BFCC6F11D61FC4B0049BDA9 /* LoginWall.xib */,
+				2BFCC6F21D61FC4B0049BDA9 /* LoginWallView.swift */,
 				229FF3171A7EE3A0008A3226 /* VaavudViews.swift */,
 				22EAE5D81AB1EBEA0037654E /* UpgradingUserPagesView.xib */,
 				22AB2E6F1A70FD92008CAE46 /* SummaryViewController.swift */,
@@ -585,6 +601,7 @@
 				E91E490F19AB5FA600616887 /* History */,
 				D7A4F1E2173A8DDB00D1ACEE /* MainStoryboard.storyboard */,
 				E91E491019AB641F00616887 /* Map */,
+				2BE5CAED1D70650800F638A8 /* WebViewController.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -804,8 +821,11 @@
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
-							com.apple.Push = {
+							com.apple.Keychain = {
 								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 0;
 							};
 						};
 					};
@@ -879,6 +899,7 @@
 				22787C3B1B5D8C8200AB6150 /* MeasureScreens.xcassets in Resources */,
 				225DB9FF1AFA5C3100B2E8D0 /* BebasNeue_Bold.otf in Resources */,
 				228124F91B945CC80037B8CB /* Forecast.xcassets in Resources */,
+				2BE6EF8B1D6346410079EED8 /* GoogleService-Info.plist in Resources */,
 				22BBC2A41BAC3407005E0A95 /* Map.xcassets in Resources */,
 				D7A4F1E4173A8DDB00D1ACEE /* MainStoryboard.storyboard in Resources */,
 				22E59A421ADD6F7000B1BC88 /* Logo.xcassets in Resources */,
@@ -890,6 +911,7 @@
 				22E59A3C1ADD6F7000B1BC88 /* Icons.xcassets in Resources */,
 				22AB2E6E1A70FC15008CAE46 /* Roboto-Light.ttf in Resources */,
 				220D290F1B6937C8003E0393 /* Al Fresco Bold.otf in Resources */,
+				2BFCC6F31D61FC4B0049BDA9 /* LoginWall.xib in Resources */,
 				2269104A1BCFCB2C00116673 /* ForecastData.png in Resources */,
 				22900BB71AEE77C1009D9C8F /* MjolnirSpinner.xcassets in Resources */,
 				22CECB181AF22CE300148045 /* Settings.xcassets in Resources */,
@@ -980,6 +1002,7 @@
 				2BFDEED11C68EB1400673293 /* notificationSettingsViewController.swift in Sources */,
 				D7A4F1DB173A8DDB00D1ACEE /* AppDelegate.m in Sources */,
 				D7C860FA173B061E005E9946 /* VaavudMagneticFieldDataManager.m in Sources */,
+				2B2BBB851D549A8400F698DC /* PreLoginViewController.swift in Sources */,
 				E9AF2B8217F32A9800BDF6D9 /* SMCalloutView.m in Sources */,
 				22DCCED41B02399800D65265 /* RoundMeasureScreen.swift in Sources */,
 				D71BE13717439AA000B38E34 /* VaavudFFT.m in Sources */,
@@ -1008,8 +1031,10 @@
 				22F997911C1AFF3F00127F91 /* MapViewController.swift in Sources */,
 				227E29401BC281EF000DD2C7 /* NotificationsViewController.swift in Sources */,
 				E904AC9F17F193DF00171F7F /* MeasurementAnnotation.m in Sources */,
+				2BFCC6F41D61FC4B0049BDA9 /* LoginWallView.swift in Sources */,
 				2B347F621C11A4970095E95A /* LoginViewController.swift in Sources */,
 				22DFCD681C45A84F004D018E /* User.swift in Sources */,
+				2BE5CAEE1D70650800F638A8 /* WebViewController.swift in Sources */,
 				E9FABFEA1896AE4D009C4C46 /* HistoryTableViewSectionHeaderView.m in Sources */,
 				228904BC1BA815D3006259AB /* Overlays.swift in Sources */,
 				22C8AB3E1B8F33340064DB8B /* ForecastViewController.swift in Sources */,
@@ -1233,6 +1258,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Vaavud/Vaavud.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
@@ -1283,6 +1309,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Vaavud/Vaavud.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;

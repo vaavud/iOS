@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="LoginWall" id="iN0-l3-epB" customClass="LoginWallView" customModule="Vaavud" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="historyWallBg" translatesAutoresizingMaskIntoConstraints="NO" id="snr-2q-3s3">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MapWallIcon" translatesAutoresizingMaskIntoConstraints="NO" id="S3A-hk-R3P">
+                    <rect key="frame" x="126" y="109" width="69" height="70"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Live Map" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQj-bJ-B9W">
+                    <rect key="frame" x="119" y="214" width="83" height="24"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To see wind readings from users around the world for the last 24 hours you need to log in" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="afT-0v-0wU">
+                    <rect key="frame" x="47" y="256" width="226" height="88"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="226" id="Ped-5V-JOD"/>
+                        <constraint firstAttribute="height" constant="88" id="myS-E3-JdJ"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ce-ne-u6i">
+                    <rect key="frame" x="35" y="385" width="250" height="40"/>
+                    <color key="backgroundColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.94509803920000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="250" id="66N-5C-D3d"/>
+                        <constraint firstAttribute="height" constant="40" id="iEC-UQ-X2d"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="LOG IN"/>
+                    <connections>
+                        <action selector="onLogin:" destination="iN0-l3-epB" eventType="touchUpInside" id="io3-1z-4Ir"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="snr-2q-3s3" secondAttribute="trailing" id="3b8-U4-jOS"/>
+                <constraint firstItem="S3A-hk-R3P" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="109" id="81A-AW-YRT"/>
+                <constraint firstItem="BQj-bJ-B9W" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="BrM-M4-4Yi"/>
+                <constraint firstItem="BQj-bJ-B9W" firstAttribute="top" secondItem="S3A-hk-R3P" secondAttribute="bottom" constant="35" id="FGe-y3-Pz7"/>
+                <constraint firstItem="3ce-ne-u6i" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Jd4-Gx-A9c"/>
+                <constraint firstItem="S3A-hk-R3P" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="KRe-3r-OrR"/>
+                <constraint firstItem="snr-2q-3s3" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="MGK-E4-u1q"/>
+                <constraint firstItem="3ce-ne-u6i" firstAttribute="top" secondItem="afT-0v-0wU" secondAttribute="bottom" constant="41" id="SZD-n8-YGT"/>
+                <constraint firstAttribute="bottom" secondItem="snr-2q-3s3" secondAttribute="bottom" id="X3P-Rw-NtA"/>
+                <constraint firstItem="afT-0v-0wU" firstAttribute="top" secondItem="BQj-bJ-B9W" secondAttribute="bottom" constant="18" id="eHG-o3-8ba"/>
+                <constraint firstItem="afT-0v-0wU" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="k2u-mc-SY1"/>
+                <constraint firstItem="snr-2q-3s3" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="s3Q-RW-1xO"/>
+            </constraints>
+            <connections>
+                <outlet property="background" destination="snr-2q-3s3" id="My8-ZK-HdB"/>
+                <outlet property="btnLogin" destination="3ce-ne-u6i" id="9VE-EX-DZT"/>
+                <outlet property="descrip" destination="afT-0v-0wU" id="gak-8T-k6H"/>
+                <outlet property="icon" destination="S3A-hk-R3P" id="o4K-nQ-Zmg"/>
+                <outlet property="title" destination="BQj-bJ-B9W" id="jPh-H8-0m3"/>
+            </connections>
+            <point key="canvasLocation" x="483" y="340"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="MapWallIcon" width="69" height="70"/>
+        <image name="historyWallBg" width="382" height="568"/>
+    </resources>
+</document>

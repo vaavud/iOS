@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="45m-Ka-4PX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="45m-Ka-4PX">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -125,7 +125,14 @@
                             <constraint firstItem="qNf-T5-hC3" firstAttribute="top" secondItem="mIN-KA-32B" secondAttribute="bottom" constant="8" id="xpg-4E-kwx"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="grS-NP-A2Z"/>
+                    <navigationItem key="navigationItem" id="grS-NP-A2Z">
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="Mwp-SP-GhH">
+                            <color key="tintColor" red="0.0" green="0.63137254899999995" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="onCancelLogin:" destination="Nmo-3Y-XLF" id="iQ8-rV-3W7"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="facebookView" destination="Rsc-jT-kmp" id="X85-XL-jfj"/>
                         <outlet property="signupButton" destination="ucD-nD-tT2" id="sw3-b4-awt"/>
@@ -150,7 +157,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dbW-qq-fZu">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2J-dT-w05">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b2J-dT-w05">
                                         <rect key="frame" x="85" y="99" width="151" height="30"/>
                                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
                                         <state key="normal" title="Forgot your password?">
@@ -358,7 +365,7 @@
                                             <constraint firstAttribute="height" constant="1" id="ib8-aW-lPZ"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ot8-gt-ZcE">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ot8-gt-ZcE">
                                         <rect key="frame" x="111" y="61" width="107" height="30"/>
                                         <fontDescription key="fontDescription" name="Roboto-Light" family="Roboto" pointSize="15"/>
                                         <state key="normal" title="Reset Password">
@@ -591,7 +598,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Rm-Px-2Oh">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Rm-Px-2Oh">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="164"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kAq-BU-Hjg" userLabel="Container View">
@@ -675,7 +682,7 @@
                                     <constraint firstItem="kAq-BU-Hjg" firstAttribute="leading" secondItem="4Rm-Px-2Oh" secondAttribute="leading" id="vff-u1-WOZ"/>
                                 </constraints>
                             </scrollView>
-                            <pageControl opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="zW4-4t-hfD">
+                            <pageControl hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="zW4-4t-hfD">
                                 <rect key="frame" x="141" y="134" width="39" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Lgg-Sn-I6T"/>

@@ -59,7 +59,7 @@
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_TITLE" = "Introduce tu email";
 "REGISTER_CREATE_FEEDBACK_EMAIL_EMPTY_MESSAGE" = "No vamos a ceder tu email a terceras personas!";
 "REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_TITLE" = "Password demasiado corto";
-"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "4 caracteres o más.";
+"REGISTER_CREATE_FEEDBACK_PASSWORD_SHORT_MESSAGE" = "6 caracteres o más.";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_TITLE" = "No se puede iniciar sesión";
 "REGISTER_FEEDBACK_INVALID_CREDENTIALS_MESSAGE" = "Email o password incorrecto.";
 "REGISTER_FEEDBACK_ACCOUNT_EXISTS_TITLE" = "Esta cuenta ya existe";
@@ -297,3 +297,8 @@
 "PRESSLONG" = "Presiona prolongadamente para marcar un area de notificación";
 "FIRSTNOTIFICATIONFINISHED" = "Has configurado tu primera notificación en Vaavud. Fantástico!";
 "FIRSTNOTIFICATION" = "Clica aquí para añadir una nueva notificación";
+
+"LOGIN_WALL_MAP_DESCRIPTION" = "Para poder ver lecturas de viento de otros usuarios alrededor del mundo de las ultimas 24 horas debes iniciar sesión.";
+"LOGIN_WALL_MAP_TITLE" = "Mapa En Tiempo Real";
+"LOGIN_WALL_HISTORY_DESCRIPTION" = "Para guardar tus sesiones en el hostoria debes iniciar sesión.";
+"LOGIN_WALL_HISTORY_TITLE" = "Historial de Mediciones";
