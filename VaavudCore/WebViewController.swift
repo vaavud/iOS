@@ -17,8 +17,8 @@ class WebMarketingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let url = NSURL (string: "https://vaavud.com/promotion/ios")
+        let language = NSLocale.preferredLanguages()[0]
+        let url = NSURL (string: "https://vaavud.com/promotion/ios/"+language)
         let requestObj = NSURLRequest(URL: url!)
         webView.loadRequest(requestObj)
 

@@ -1,5 +1,5 @@
 PODS:
-  - Amplitude-iOS (3.9.0)
+  - Amplitude-iOS (3.10.0)
   - Bolts (1.8.4):
     - Bolts/AppLinks (= 1.8.4)
     - Bolts/Tasks (= 1.8.4)
@@ -7,45 +7,53 @@ PODS:
     - Bolts/Tasks
   - Bolts/Tasks (1.8.4)
   - Dropbox-iOS-SDK (1.3.13)
-  - FBSDKCoreKit (4.16.0):
+  - FBSDKCoreKit (4.17.0):
     - Bolts (~> 1.7)
-  - FBSDKLoginKit (4.16.0):
+  - FBSDKLoginKit (4.17.0):
     - FBSDKCoreKit
-  - FBSDKShareKit (4.16.0):
+  - FBSDKShareKit (4.17.0):
     - FBSDKCoreKit
-  - Firebase/Auth (3.7.1):
+  - Firebase/Auth (3.8.0):
     - Firebase/Core
-    - FirebaseAuth (= 3.0.5)
-  - Firebase/Core (3.7.1):
-    - FirebaseAnalytics (= 3.4.4)
-    - FirebaseCore (= 3.4.3)
-  - Firebase/Database (3.7.1):
+    - FirebaseAuth (= 3.0.6)
+  - Firebase/Core (3.8.0):
+    - FirebaseAnalytics (= 3.5.1)
+    - FirebaseCore (= 3.4.4)
+  - Firebase/Database (3.8.0):
     - Firebase/Core
-    - FirebaseDatabase (= 3.0.3)
-  - FirebaseAnalytics (3.4.4):
+    - FirebaseDatabase (= 3.1.0)
+  - FirebaseAnalytics (3.5.1):
     - FirebaseCore (~> 3.4)
     - FirebaseInstanceID (~> 1.0)
     - GoogleInterchangeUtilities (~> 1.2)
     - GoogleSymbolUtilities (~> 1.1)
-  - FirebaseAuth (3.0.5):
-    - FirebaseAnalytics (~> 3.3)
-    - GoogleNetworkingUtilities (~> 1.2)
-    - GoogleUtilities (~> 1.2)
-  - FirebaseCore (3.4.3):
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseAuth (3.0.6):
+    - FirebaseAnalytics (~> 3.4)
+    - GoogleToolboxForMac/NSDictionary+URLArguments (~> 2.1)
+    - GTMSessionFetcher/Core (~> 1.1)
+  - FirebaseCore (3.4.4):
     - GoogleInterchangeUtilities (~> 1.2)
-    - GoogleUtilities (~> 1.2)
-  - FirebaseDatabase (3.0.3):
-    - FirebaseAnalytics (~> 3.3)
+    - GoogleToolboxForMac/NSData+zlib (~> 2.1)
+  - FirebaseDatabase (3.1.0):
+    - FirebaseAnalytics (~> 3.4)
   - FirebaseInstanceID (1.0.8)
   - GeoFire (2.0.0):
     - Firebase/Database (~> 3.2)
   - GoogleInterchangeUtilities (1.2.2):
     - GoogleSymbolUtilities (~> 1.1)
-  - GoogleNetworkingUtilities (1.2.2):
-    - GoogleSymbolUtilities (~> 1.1)
   - GoogleSymbolUtilities (1.1.2)
-  - GoogleUtilities (1.3.2):
-    - GoogleSymbolUtilities (~> 1.1)
+  - GoogleToolboxForMac/DebugUtils (2.1.0):
+    - GoogleToolboxForMac/Defines (= 2.1.0)
+  - GoogleToolboxForMac/Defines (2.1.0)
+  - GoogleToolboxForMac/NSData+zlib (2.1.0):
+    - GoogleToolboxForMac/Defines (= 2.1.0)
+  - GoogleToolboxForMac/NSDictionary+URLArguments (2.1.0):
+    - GoogleToolboxForMac/DebugUtils (= 2.1.0)
+    - GoogleToolboxForMac/Defines (= 2.1.0)
+    - GoogleToolboxForMac/NSString+URLArguments (= 2.1.0)
+  - GoogleToolboxForMac/NSString+URLArguments (2.1.0)
+  - GTMSessionFetcher/Core (1.1.7)
   - Palau (1.0.3)
 
 DEPENDENCIES:
@@ -71,25 +79,25 @@ CHECKOUT OPTIONS:
     :git: https://github.com/firebase/geofire-objc.git
 
 SPEC CHECKSUMS:
-  Amplitude-iOS: 05f8a7b426ba41de30fdad96c55b8c2ec15884db
+  Amplitude-iOS: 3b17bb611bfcde32238b89a50ef6a99eb2a565ba
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   Dropbox-iOS-SDK: e0c9b08d1604b39cb78c1d0333251de0f6bdec60
-  FBSDKCoreKit: 7a6baaed4a2b2a244ba253346713bdbc74df135b
-  FBSDKLoginKit: 9a514a55a7d05190f64d4ef09502737588b5b561
-  FBSDKShareKit: e81505de17fc0624cbaa87b83cccc9f2a786e6cb
-  Firebase: be473484f0d515e72ffd04acf22f981773c23e58
-  FirebaseAnalytics: 0533a00b681e08fd0b2cd0444b7ddf0ef9fd7a1a
-  FirebaseAuth: 75a062bbf2d3c97d1e6e55bbc110e13a6853e25d
-  FirebaseCore: 5a885548bbc5f0c410b04f8e9ac9d73ff1221907
-  FirebaseDatabase: 750a4a0fe18ef114318876fd654b2d9c671e0992
+  FBSDKCoreKit: 30a21d2d7b92984b3d80497113433c00824c35e9
+  FBSDKLoginKit: 42b7129ac0373ca99eaf4cbebf4d07bd42371f59
+  FBSDKShareKit: 9b573d03fbee36cbaf42d5bb1f2bc019e0d72347
+  Firebase: fdbecadb7b5cbef2774852d4fa659b9daf11f2af
+  FirebaseAnalytics: 6e58fc9b397664369ac7617fb0ba93fab6ba7b5b
+  FirebaseAuth: 96e9674ff31d6e1f826d53e26aa003a57cab0295
+  FirebaseCore: d0ed25f27b6f9158eccc439f1be6f92e81207e28
+  FirebaseDatabase: 3ebb2edb6007c3f0f87b248f3fa212bde56a1468
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
   GeoFire: ef73103b88eb026c27212c40ea16757d6ad362ea
   GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
-  GoogleNetworkingUtilities: 3edd3a8161347494f2da60ea0deddc8a472d94cb
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
-  GoogleUtilities: 8bbc733218aad26306f9d4a253823986110e3358
+  GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
+  GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
   Palau: 1a16ff9b456b08941cdac6e42f977ae5af5d78a7
 
-PODFILE CHECKSUM: 05014f851bc69561214332e583571ee8f75d83a4
+PODFILE CHECKSUM: c7f1e2640d8c0fd87ccfc3e1967b27fa669892ee
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.2.0
