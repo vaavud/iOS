@@ -545,6 +545,7 @@ class SummaryViewController: UIViewController, MKMapViewDelegate {
             if let direction = session.windDirection {
                 imageView.image = UIImage(named:"MapMarkerDirection")
                 imageView.sizeToFit()
+                print( )
                 imageView.transform = VaavudFormatter.transform(direction: CGFloat(direction))
             }
             else {

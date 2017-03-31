@@ -23,6 +23,7 @@
 		06577217F4423C33142FBFF301CC52ED /* FBSDKLoginButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C30518B720D10E16F89C377F992EA02 /* FBSDKLoginButton.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07340F15BACBA601736DBB2ABF1ABC35 /* GTMSessionFetcherLogging.m in Sources */ = {isa = PBXBuildFile; fileRef = 01BDC9CD641DCA9EAACD52FFD76D6E0F /* GTMSessionFetcherLogging.m */; };
 		075474E3DC38C236D328BDF5BF758884 /* FBSDKLiking.h in Headers */ = {isa = PBXBuildFile; fileRef = A7110D27069E978AC2DF5822F2997F6F /* FBSDKLiking.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		076A1D251E893A9600CC881A /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82DE626C2122CD9184A6E5D33345F0C6 /* FirebaseDatabase.framework */; };
 		076BFF5AE8F990F1118BD3B83E5C5978 /* FBSDKKeychainStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EAAD96E9FE3B946F9E66BA0FCE194CC /* FBSDKKeychainStore.m */; };
 		0790B89F7D927E8EA37EE8333C3E8F2D /* FBSDKLikeDialog.h in Headers */ = {isa = PBXBuildFile; fileRef = B6557B82C4CFDE821C94D5560CA61619 /* FBSDKLikeDialog.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		07BD9BB69340EC987E9BD500827372EC /* FBSDKAppEventsStateManager.h in Headers */ = {isa = PBXBuildFile; fileRef = AE053EB6433C6BD76F4ACC5C410F6D30 /* FBSDKAppEventsStateManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -32,7 +33,6 @@
 		0A8E0F173D8CE5CC422106C12D35FFE3 /* Palau-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C0B3909C8F01B09312CC98AAF487FEEA /* Palau-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0B5A20CFF219A8971C700691E59D2ED7 /* FBSDKLoginCompletion+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 2ACAB6BB907C2B8604CA6D618FFD1474 /* FBSDKLoginCompletion+Internal.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		0CC0EB95B6885B065161D63962F698B1 /* BFCancellationToken.h in Headers */ = {isa = PBXBuildFile; fileRef = D23BB728709A6169141D836D6DFBB13B /* BFCancellationToken.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0D75384F1E49FB14005DE160 /* FirebaseDatabase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82DE626C2122CD9184A6E5D33345F0C6 /* FirebaseDatabase.framework */; };
 		0D7CF91C8CD924F7C0535FEAB93C9DC2 /* FBSDKLikeActionControllerCache.h in Headers */ = {isa = PBXBuildFile; fileRef = F022573DFEA114C4D44AF9E776A4C988 /* FBSDKLikeActionControllerCache.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		0EC86AD4A19CEE78DA15BB13FD64D7B2 /* BFAppLinkTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 0ABA8336395BDACD3C95D9E4F6A8666E /* BFAppLinkTarget.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0EE37B4F65396E9B7E3FE2D7ACAF4EA6 /* FBSDKLoginTooltipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 99498373162C4B2627EBE19AEB3D5D85 /* FBSDKLoginTooltipView.m */; };
@@ -1092,7 +1092,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0D75384F1E49FB14005DE160 /* FirebaseDatabase.framework in Frameworks */,
+				076A1D251E893A9600CC881A /* FirebaseDatabase.framework in Frameworks */,
 				1FA375816005BD73DC57C12C9D40E516 /* CoreLocation.framework in Frameworks */,
 				A83EEEDEDD3140EE175D2C85B3689135 /* Foundation.framework in Frameworks */,
 				735B1005CF6967A0B2224C691D8DAB4F /* GoogleToolboxForMac.framework in Frameworks */,
@@ -2952,7 +2952,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_VERSION = 2.3;
 				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
@@ -3196,7 +3195,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_VERSION = 2.3;
 				SYMROOT = "${SRCROOT}/../build";
 				VALIDATE_PRODUCT = YES;
 			};

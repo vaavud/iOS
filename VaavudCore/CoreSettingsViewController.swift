@@ -241,9 +241,7 @@ class CoreSettingsTableViewController: UITableViewController {
             deviceSettings.child("sleipnirClipSideScreen").setValue(sender.selectedSegmentIndex == 1)
             logHelper.increase()
         }
-        else{
-            PalauDefaults.placement.value = sender.selectedSegmentIndex
-        }
+        PalauDefaults.placement.value = sender.selectedSegmentIndex
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

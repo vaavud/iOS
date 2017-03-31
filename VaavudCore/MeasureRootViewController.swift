@@ -272,7 +272,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     }
     
     func updateSession() {
-        session.windDirection = shared.session.meanDirection
+        
+        if let direction = shared.session.meanDirection {
+            let offset = PalauDefaults.placement.value! == 0 ? 0 : 180
+            session.windDirection = direction + Double(offset)
+        }
+        
         session.location = shared.session.locations.last.map { makeNamedLocation(geoname, event: $0) }
         session.sourced = sourced
         session.pressure = shared.session.pressures.last?.pressure
@@ -290,8 +295,15 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         
         if AuthorizationController.shared.isAuth {
             if let index = windDirectionTracker.newUploadIndex() {
+                let offset = PalauDefaults.placement.value! == 0 ? 0 : 180
+                
+                var _fireDictionary = shared.session.windDirections.last!.fireDict
+                let direction = _fireDictionary["direction"] as! Double
+                _fireDictionary["direction"] = (direction + Double(offset)) as Double
+
+                
                 firebase.child("windDirection").child(session.key).child(index)
-                    .setValue(shared.session.windDirections.last!.fireDict)
+                    .setValue(_fireDictionary)
             }
             
             if let index = locationTracker.newUploadIndex() {
@@ -330,6 +342,12 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
         session.turbulence = shared.session.turbulence
         
         if AuthorizationController.shared.isAuth {
+            
+            
+            if let direction = session.windDirection {
+                let offset = PalauDefaults.placement.value! == 0 ? 0 : 180
+                session.windDirection = direction + Double(offset)
+            }
             
             firebase.child("session").child(session.key).setValue(session.fireDict)
             
@@ -447,7 +465,8 @@ class MeasureRootViewController: UIViewController, UIPageViewControllerDataSourc
     
     func newWindDirection(event: WindDirectionEvent) {
         windDirectionTracker.hasNewValue = true
-        currentConsumer?.newWindDirection(event.direction)
+        let offset = PalauDefaults.placement.value! == 0 ? 0 : 180
+        currentConsumer?.newWindDirection(event.direction + Double(offset))
     }
     
     func newTrueWindDirection(event: WindDirectionEvent) {
